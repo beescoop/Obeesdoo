@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="beesdoo_project_task_view_form"> 
+        <field name="name">beesdoo.project.task.view.form</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id"  ref="project.view_task_form2" />
+        <field name="arch" type="xml" >
+            <field name="user_id" position="before">
+                <field name="author_id" />
+            </field>
+            <field name="user_id" position="after">
+                <field name="reviewer_id" />
+                <field name="tester_id" />
+            </field>
+            <notebook position="inside">
+                <page string="Linked Tasks" name="link_tasks">
+                    <field name="link_task_ids" />
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>
