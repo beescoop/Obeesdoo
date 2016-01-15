@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Keyboard support in Point Of Sale",
-    'author': "IT-Projects LLC, Ivan Yelizariev",
-    'license': 'LGPL-3',
+    'author': "Ivan Yelizariev",
     "website" : "https://yelizariev.github.io",
     'images': ['images/keyboard.png'],
     'category' : 'Point Of Sale',
@@ -11,6 +10,6 @@
     'data': [
          'data.xml',
     ],
-    'installable': False,
+    'installable': True,
     'auto_install': False,
 }
