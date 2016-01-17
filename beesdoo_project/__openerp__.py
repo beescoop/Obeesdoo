@@ -15,7 +15,7 @@
     'category': 'Project Management',
     'version': '0.1',
 
-    'depends': ['project'],
+    'depends': ['project', 'beesdoo_base'],
 
     'data': [
         'views/task.xml',
