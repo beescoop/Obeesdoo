@@ -1,0 +1,17 @@
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="beescoop_pos_inherit">
+			<field name="name">bees.pos.config.form.view</field>
+			<field name="model">pos.config</field>
+			<field name="inherit_id" ref="point_of_sale.view_pos_config_form" />
+			<field name="arch" type="xml">
+				<field name="iface_tax_included" position="after">
+
+					<field name="bill_value" />
+
+				</field>
+			</field>
+		</record>
+
+	</data>
+</openerp>
