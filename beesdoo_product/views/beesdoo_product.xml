@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record model="ir.ui.view" id="beesdoo_product_form">
+		<field name="name">bees.product.template</field>
+		<field name="model">product.template</field>
+		<field name="inherit_id" ref="product.product_template_only_form_view" />
+		<field name="arch" type="xml">
+			<field name="invoice_policy" position="after">
+				<field name="eco_label" />
+				<field name="local_label" />
+				<field name="fair_label" />
+				<field name="origin_label" />
+			</field>
+		</field>
+	</record>
+
+<!-- 	<record model="ir.ui.view" id="product_category_form_inherit">
+		<field name="name">bees.product.category</field>
+		<field name="model">product.category</field>
+		<field name="inherit_id" ref="product.product_category_form_view" />
+		<field name="arch" type="xml">
+			<xpath expr="//form" position="inside">
+				<group string="Label">
+					<field name="bio" options="{'no_create': True}" />
+					<field name="local" options="{'no_create': True}" />
+					<field name="fair_trade" options="{'no_create': True}" />
+
+				</group>
+			</xpath>
+		</field>
+	</record> -->
+
+
+</odoo>

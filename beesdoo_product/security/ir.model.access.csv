@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_beesdoo_label_beesdoo_label,beesdoo_label.beesdoo_label,model_beesdoo_label_beesdoo_label,,1,0,0,0
