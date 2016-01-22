@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record model="ir.ui.view" id="beesdoo_product_form">
+		<field name="name">bees.product.template.form</field>
+		<field name="model">product.template</field>
+		<field name="inherit_id" ref="product.product_template_only_form_view" />
+		<field name="arch" type="xml">
+			<field name="barcode" position="after">
+				<field name="eco_label" />
+				<field name="local_label" />
+				<field name="fair_label" />
+				<field name="origin_label" />
+			</field>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="beesdoo_product_label_form">
+		<field name="name">bees.product.label.form</field>
+		<field name="model">beesdoo.product.label</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="name" />
+					<field name="type" />
+					<field name="color_code" />
+				</group>
+			</form>
+		</field>
+	</record>
+</odoo>
