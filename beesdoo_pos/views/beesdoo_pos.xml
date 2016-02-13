@@ -15,5 +15,11 @@
                 </field>
             </field>
         </record>
+
+        <template id="assets" inherit_id="point_of_sale.assets">
+          <xpath expr="." position="inside">
+              <script type="text/javascript" src="/beescoop_pos/static/src/js/beescoop.js"></script>
+          </xpath>
+        </template>
     </data>
 </openerp>
