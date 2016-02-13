@@ -19,6 +19,7 @@
         <template id="assets" inherit_id="point_of_sale.assets">
           <xpath expr="." position="inside">
               <script type="text/javascript" src="/beescoop_pos/static/src/js/beescoop.js"></script>
+              <link rel='stylesheet' href="/beescoop_pos/static/src/css/beescoop.css"/>
           </xpath>
         </template>
     </data>

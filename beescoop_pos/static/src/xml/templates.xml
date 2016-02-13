@@ -5,6 +5,9 @@
             <div class="button send">
                 <i class='fa fa-envelope'></i> Send Receipt By Mail
             </div>
+            <div class="message-send">
+
+            </div>
         </t>
     </t>
 </templates>
