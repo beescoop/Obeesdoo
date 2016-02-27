@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-import models
+import beesdoo_product

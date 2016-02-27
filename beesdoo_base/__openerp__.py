@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Beescoop Project Management", 
+    'name': "Beescoop Base Module",
 
     'summary': """
-		Module that customize project management for Beescoop 
+		Module that customize the base module and contains some python tools
      """,
 
     'description': """
@@ -15,9 +15,9 @@
     'category': 'Project Management',
     'version': '0.1',
 
-    'depends': ['project', 'beesdoo_base'],
+    'depends': ['base'],
 
     'data': [
-        'views/task.xml',
+        'views/partner.xml',
     ],
 }
