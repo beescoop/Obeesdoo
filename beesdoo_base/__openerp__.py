@@ -15,9 +15,10 @@
     'category': 'Project Management',
     'version': '0.1',
 
-    'depends': ['base'],
+    'depends': ['point_of_sale'],
 
     'data': [
+        'security/ir.model.access.csv',
         'views/partner.xml',
     ],
 }
