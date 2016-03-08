@@ -49,19 +49,3 @@ class Partner(models.Model):
                 if command[0] == 2:
                     command[0] = 3
         return super(Partner, self).write(values)
-
-class MemberCard(models.Model):
-
-    def _get_current_user(self):
-        return self.env.user
-
-    _name = 'member.card'
-    _order = 'activation_date desc'
-
-    active = fields.Boolean(default=True)
-    barcode = fields.Char('Barcode', oldname='ean13')
-    partner_id = fields.Many2one('res.partner')
-    responsible_id = fields.Many2one('res.users', default=_get_current_user)
-    activation_date = fields.Date(default=fields.Date.today, readonly=True)
-    end_date = fields.Date()
-    comment = fields.Char("Reason")
