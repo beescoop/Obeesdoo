@@ -6,8 +6,32 @@
                 <i class='fa fa-envelope'></i> Send Receipt By Mail
             </div>
             <div class="message-send">
-
             </div>
+        </t>
+    </t>
+
+    <t t-extend="ActionpadWidget">
+        <t t-jquery="t[t-if='widget.pos.get_client()']" t-operation="after">
+            <t t-if="widget.pos.get_client()">
+                <div class='customer-information-pay'>
+                    Balance: <span class='customer-balance' /> €
+                    <br /><span class='customer-delegate1' />
+                    <br /><span class='customer-delegate2' />
+                </div>
+            </t>
+        </t>
+    </t>
+
+    <t t-extend="PaymentScreenWidget">
+        <t t-jquery=".paymentmethods-container" t-operation="inner">
+            <t t-if="widget.pos.get_client()">
+                <div class="customer-information">
+                    <span class='customer-name' /> <br />
+                    Balance: <span class='customer-balance' /> €<br />
+                    <span class='customer-delegate1' /> <br />
+                    <span class='customer-delegate2' />  <br />
+                </div>
+            </t>
         </t>
     </t>
 </templates>

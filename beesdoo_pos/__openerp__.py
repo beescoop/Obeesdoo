@@ -4,7 +4,7 @@
 
     'summary': """
         Module that extends the pos for the beescoop
-	""",
+    """,
 
     'description': """
         Long description of module's purpose
