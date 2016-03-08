@@ -26,6 +26,12 @@ class Partner(models.Model):
         self.name = concat_names(self.first_name, self.last_name)
 
     @api.one
+    @api.constrains('country_id')
+    def _check_country(self):
+        if len(self.country_id) == 0:
+            raise ValidationError(_('Country is mandatory'))
+
+    @api.one
     @api.depends('parent_eater_id', 'parent_eater_id.barcode', 'eater', 'member_card_ids')
     def _get_bar_code(self):
         if self.eater == 'eater':
