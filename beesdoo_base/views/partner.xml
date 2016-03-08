@@ -53,6 +53,7 @@
 							<field name="end_date" />
 							<field name="responsible_id" />
 							<field name="comment" />
+							<field name="valid" />
 						</tree>
 					</field>
 					<group>

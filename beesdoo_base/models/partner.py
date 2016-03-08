@@ -31,7 +31,9 @@ class Partner(models.Model):
         if self.eater == 'eater':
             self.parent_barcode = self.parent_eater_id.barcode
         elif self.member_card_ids:
-            self.barcode = self.member_card_ids[0].barcode
+            for c in self.member_card_ids:
+                if c.valid:
+                    self.barcode = c.barcode
 
     @api.one
     @api.constrains('child_eater_ids', 'parent_eater_id')
@@ -49,3 +51,15 @@ class Partner(models.Model):
                 if command[0] == 2:
                     command[0] = 3
         return super(Partner, self).write(values)
+    
+    @api.multi
+    def _deactivate_active_cards(self):
+        if len(self.member_card_ids) > 0:
+            for c in self.member_card_ids:
+                if c.valid:
+                    c.valid = False
+                    c.end_date = fields.Date.today()      
+    @api.multi            
+    def _new_card(self, txt):
+        self.env['member.card'].create({'partner_id' : self.env.context['active_id'],'comment' : txt})
+
