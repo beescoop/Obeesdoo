@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from openerp import models, fields, api
 from random import randint
+import uuid
 
 class MemberCard(models.Model):
     
@@ -15,7 +16,7 @@ class MemberCard(models.Model):
         rule = self.env['barcode.rule'].search([('name', '=', 'Customer Barcodes')])[0]
         nomenclature = self.env['barcode.nomenclature']
         size = 13-len(rule.pattern)
-        ean = rule.pattern + str(randint(10**(size-1), 10**size-1))
+        ean = rule.pattern + str(uuid.uuid4().fields[-1])[:size] #str(randint(10**(size-1), 10**size-1))
         code = ean[0:12] + str(nomenclature.ean_checksum(ean))
         nomenclature.check_encoding(code,'ean13')
         return code
