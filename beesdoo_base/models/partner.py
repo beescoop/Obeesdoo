@@ -10,15 +10,15 @@ class Partner(models.Model):
     first_name = fields.Char('First Name')
     last_name = fields.Char('Last Name', required=True)
 
-    eater = fields.Selection([('eater', 'Eater'), ('worker_eater', 'Worker and Eater')], string="Eater/Worker")
+    eater = fields.Selection([('eater', 'Mangeur'), ('worker_eater', 'Mangeur et Travailleur')], string="Mangeur/Travailleur")
 
     child_eater_ids = fields.One2many("res.partner", "parent_eater_id", domain=[('customer', '=', True),
                                                                                 ('eater', '=', 'eater')])
 
-    parent_eater_id = fields.Many2one("res.partner", string="Parent Worker", readonly=True)
+    parent_eater_id = fields.Many2one("res.partner", string="Parent Travailleur", readonly=True)
 
-    barcode = fields.Char(compute="_get_bar_code", string='Bar Code', store=True)
-    parent_barcode = fields.Char(compute="_get_bar_code", string='Parent Bar Code', store=True)
+    barcode = fields.Char(compute="_get_bar_code", string='Code Barre', store=True)
+    parent_barcode = fields.Char(compute="_get_bar_code", string='Code Barre du Parent', store=True)
     member_card_ids = fields.One2many('member.card', 'partner_id')
 
     @api.onchange('first_name', 'last_name')

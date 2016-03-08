@@ -25,11 +25,11 @@ class MemberCard(models.Model):
     _order = 'activation_date desc'
     
     valid = fields.Boolean(default=True, string="Active")
-    barcode = fields.Char('Barcode', oldname='ean13', default=_compute_bar_code)
+    barcode = fields.Char("Code barre", oldname='ean13', default=_compute_bar_code)
     partner_id = fields.Many2one('res.partner') #, default=_get_current_client)
-    responsible_id = fields.Many2one('res.users', default=_get_current_user)
-    activation_date = fields.Date(default=fields.Date.today, readonly=True)
-    end_date = fields.Date(readonly=True)
+    responsible_id = fields.Many2one('res.users', default=_get_current_user, string="Responsable")
+    activation_date = fields.Date(default=fields.Date.today, readonly=True, string="Date de création")
+    end_date = fields.Date(readonly=True, string="Date d'expiration")
     comment = fields.Char("Raison", required=True)
     
 # A transient model for the creation of a new card. The user can only define the raison why 
