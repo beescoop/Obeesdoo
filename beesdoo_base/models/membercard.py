@@ -33,8 +33,8 @@ class MemberCard(models.Model):
     
 # A transient model for the creation of a new card. The user can only define the raison why 
 # a new card is needed and the eater/worker that is concerned.
-class BeesMemberCardWizard(models.TransientModel):
-    _name = 'beesmembercard.wizard'
+class MemberCardWizard(models.TransientModel):
+    _name = 'membercard.wizard'
    
     new_comment = fields.Char('Raison', required=True)
     
