@@ -1,14 +1,14 @@
 <openerp>
 	<data>
-	<!-- 	<record model="ir.ui.view" id="beesdoo_purchase_order_form_view">
+		<record model="ir.ui.view" id="beesdoo_purchase_order_form_view">
 			<field name="name">beesdoo.purchase.order.form.view</field>
 			<field name="model">purchase.order</field>
 			<field name="inherit_id" ref="purchase.purchase_order_form" />
 			<field name="arch" type="xml">
-				
+				<field name="product_id" position="attributes">
+					<attributes domain="[('main_seller_id','=','parent.partner_id')]" />
+				</field>
 			</field>
-
 		</record>
- -->
 	</data>
 </openerp>
