@@ -16,7 +16,8 @@ class BeesdooProduct(models.Model):
     def _compute_main_seller_id(self):
         # Ce champs doit être champs calculé qui va chercher 
         # le vendeur associé qui a la date de début la plus récente et plus petite qu’aujourd’hui
-        self.main_seller_id = sorted(self.seller_ids, key=lambda seller: seller.date_start, reverse=True)[0].name
+        if self.seller_ids:
+            self.main_seller_id = sorted(self.seller_ids, key=lambda seller: seller.date_start, reverse=True)[0].name
         
     
         
