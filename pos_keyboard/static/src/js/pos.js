@@ -1,69 +1,62 @@
-odoo.define('pos_keyboard.pos', function (require) {
-    "use strict";
+function pos_keyboard_widgets(instance, module){
 
-    var core = require('web.core');
-    var models = require('point_of_sale.models');
-    var screens = require('point_of_sale.screens');
-
-    var _super_posmodel = models.PosModel.prototype;
-    models.PosModel = models.PosModel.extend({
-        initialize: function (session, attributes) {
-            this.keypad = new Keypad({'pos': this});
-            return _super_posmodel.initialize.call(this, session, attributes);
-        }
-    });
-
-    screens.NumpadWidget.include({
+    module.PosWidget.include({
         start: function() {
-            this._super();
-            var self = this;
-            this.pos.keypad.set_action_callback(function(data){
-                 self.keypad_action(data, self.pos.keypad.type);
+            self = this;
+            resSuper = this._super();
+            res = resSuper.done(function(e){
+                self.pos.keypad.connect();
+                self.pos.keypad.set_action_callback(function(data){
+                     self.keypad_action(data, self.pos.keypad.type);
+                });
             });
+            return res;
         },
-        keypad_action: function(data, type){
-             if (data.type === type.numchar){
-                 this.state.appendNewChar(data.val);
-             }
-             else if (data.type === type.bmode) {
-                 this.state.changeMode(data.val);
-             }
-             else if (data.type === type.sign){
-                 this.clickSwitchSign();
-             }
-             else if (data.type === type.backspace){
-                 this.clickDeleteLastChar();
-             }
-        }
-    });
-    
-    screens.PaymentScreenWidget.include({
-        show: function(){
+        close: function() {
             this._super();
             this.pos.keypad.disconnect();
         },
-        hide: function(){
-            this._super();
-            this.pos.keypad.connect();
-        }
+        keypad_action: function(data, type){
+             var numpad =  this.pos_widget.numpad;
+             if (data.type === type.numchar){
+                 numpad.state.appendNewChar(data.val);
+             }
+             else if (data.type === type.bmode) {
+                 numpad.state.changeMode(data.val);
+             }
+             else if (data.type === type.sign){
+                 numpad.clickSwitchSign();
+             }
+             else if (data.type === type.backspace){
+                 numpad.clickDeleteLastChar();
+             }
+        },
     });
-    
+
+    var PosModelSuper = module.PosModel;
+    module.PosModel = module.PosModel.extend({
+        initialize: function(session, attributes) {
+            this.keypad = new module.Keypad({'pos': this});
+            PosModelSuper.prototype.initialize.call(this, session, attributes);
+          },
+    });
+
     // this module mimics a keypad-only cash register. Use connect() and 
     // disconnect() to activate and deactivate it.
-    var Keypad = core.Class.extend({
+    module.Keypad = instance.web.Class.extend({
         init: function(attributes){
             this.pos = attributes.pos;
-            /*this.pos_widget = this.pos.pos_widget;*/
+            this.pos_widget = this.pos.pos_widget; 
             this.type = {
-                numchar: 'number, dot',
-                bmode: 'quantity, discount, price',
-                sign: '+, -',
-                backspace: 'backspace'
-            };
+                 numchar: 'number, dot',
+                 bmode: 'qty, disc, price', 
+                 sign: '+, -',
+                 backspace: 'backspace'
+            }
             this.data = {
                 type: undefined,
                 val: undefined
-            };
+            }
             this.action_callback = undefined;
         },
 
@@ -85,7 +78,7 @@ odoo.define('pos_keyboard.pos', function (require) {
         reset_action_callback: function(){
             this.action_callback = undefined;
         },
-
+        
         // starts catching keyboard events and tries to interpret keystrokes,
         // calling the callback when needed.
         connect: function(){
@@ -108,11 +101,20 @@ odoo.define('pos_keyboard.pos', function (require) {
                 80: 'p', 83: 's', 68: 'd', 190: '.', 81: 'q',
                 96: '0', 97: '1', 98: '2',  99: '3', 100: '4',
                 101: '5', 102: '6', 103: '7', 104: '8', 105: '9',
-                106: '*', 107: '+', 109: '-', 110: '.', 111: '/'
+                106: '*', 107: '+', 109: '-', 110: '.', 111: '/',
             };
 
-            //usb keyboard keyup event
+            //cancel return to the previous page when press backspace
             var rx = /INPUT|SELECT|TEXTAREA/i;
+            $(document).on("keydown keypress", function(e){
+                if( e.which == 8 ){ // 8 == backspace
+                    if(!rx.test(e.target.tagName) || e.target.disabled || e.target.readOnly ){
+                        e.preventDefault();
+                    }
+                }
+            });
+
+            //usb keyboard keyup event
             var ok = false;
             var timeStamp = 0;
             $('body').on('keyup', '', function (e){
@@ -129,30 +131,30 @@ odoo.define('pos_keyboard.pos', function (require) {
                     var token = e.keyCode;
                     if ((token >= 96 && token <= 105 || token == 110) ||
                         (token >= 48 && token <= 57 || token == 190)) {
-                        self.data.type = type.numchar;
-                        self.data.val = kc_lookup[token];
-                        is_number = true;
-                        ok = true;
-                    }
+                            self.data.type = type.numchar;
+                            self.data.val = kc_lookup[token];
+                            is_number = true;
+                            ok = true;
+                    } 
                     else if (token == KC_PLU || token == KC_PLU_1) {
                         self.data.type = type.sign;
                         ok = true;
-                    }
+                    } 
                     else if (token == KC_QTY || token == KC_QTY_1) {
                         self.data.type = type.bmode;
                         self.data.val = buttonMode.qty;
                         ok = true;
-                    }
+                    } 
                     else if (token == KC_AMT || token == KC_AMT_1) {
                         self.data.type = type.bmode;
                         self.data.val = buttonMode.price;
                         ok = true;
-                    }
+                    } 
                     else if (token == KC_DISC || token == KC_DISC_1) {
                         self.data.type = type.bmode;
                         self.data.val = buttonMode.disc;
                         ok = true;
-                    }
+                    } 
                     else if (token == KC_BACKSPACE) {
                         self.data.type = type.backspace;
                         ok = true;
@@ -183,8 +185,13 @@ odoo.define('pos_keyboard.pos', function (require) {
             $('body').off('keyup', '')
         }
     });
-    
-    return {
-        Keypad: Keypad
-    };
-});
+}
+
+(function(){
+    var _super = window.openerp.point_of_sale;
+    window.openerp.point_of_sale = function(instance){
+        _super(instance);
+        var module = instance.point_of_sale;
+        pos_keyboard_widgets(instance, module);
+    }
+})();
