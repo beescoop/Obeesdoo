@@ -52,16 +52,16 @@
             <xpath expr="//group[@name='inventory']/.." position="after">
                 <page string="Étiquette">
                     <group name="label">
-                        <field name="default_reference_unit"/>
                         <field name="total"/>
                         <field name="total_with_vat"/>
+                        <field name="default_reference_unit"/>
+                    </group>
+                    <group>
+                        <field name="display_weight"/>
                         <field name="eco_label"/>
                         <field name="local_label"/>
                         <field name="fair_label"/>
                         <field name="origin_label"/>
-                    </group>
-                    <group>
-                        <field name="display_weight"/>
                     </group>
                 </page>
             </xpath>
