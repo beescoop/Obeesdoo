@@ -9,14 +9,10 @@ class Partner(models.Model):
 
     first_name = fields.Char('First Name')
     last_name = fields.Char('Last Name', required=True)
-
     eater = fields.Selection([('eater', 'Eater'), ('worker_eater', 'Worker and Eater')], string="Eater/Worker")
-
     child_eater_ids = fields.One2many("res.partner", "parent_eater_id", domain=[('customer', '=', True),
                                                                                 ('eater', '=', 'eater')])
-
     parent_eater_id = fields.Many2one("res.partner", string="Parent Worker", readonly=True)
-
     barcode = fields.Char(compute="_get_bar_code", string='Bar Code', store=True)
     parent_barcode = fields.Char(compute="_get_bar_code", string='Parent Bar Code', store=True)
     member_card_ids = fields.One2many('member.card', 'partner_id')
@@ -31,7 +27,9 @@ class Partner(models.Model):
         if self.eater == 'eater':
             self.parent_barcode = self.parent_eater_id.barcode
         elif self.member_card_ids:
-            self.barcode = self.member_card_ids[0].barcode
+            for c in self.member_card_ids:
+                if c.valid:
+                    self.barcode = c.barcode
 
     @api.one
     @api.constrains('child_eater_ids', 'parent_eater_id')
@@ -50,18 +48,13 @@ class Partner(models.Model):
                     command[0] = 3
         return super(Partner, self).write(values)
 
-class MemberCard(models.Model):
+    @api.one
+    def _deactivate_active_cards(self):
+        for card in self.member_card_ids.filtered('valid'):
+            card.valid = False
+            card.end_date = fields.Date.today()
 
-    def _get_current_user(self):
-        return self.env.user
+    @api.multi
+    def _new_card(self, reason, user_id):
+        self.env['member.card'].create({'partner_id' : self.id,'responsible_id' : user_id, 'comment' : reason})
 
-    _name = 'member.card'
-    _order = 'activation_date desc'
-
-    active = fields.Boolean(default=True)
-    barcode = fields.Char('Barcode', oldname='ean13')
-    partner_id = fields.Many2one('res.partner')
-    responsible_id = fields.Many2one('res.users', default=_get_current_user)
-    activation_date = fields.Date(default=fields.Date.today, readonly=True)
-    end_date = fields.Date()
-    comment = fields.Char("Reason")

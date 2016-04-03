@@ -1,1 +1,1 @@
-import partner
+import partner, membercard

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Beescoop Project Management", 
+    'name': "Beescoop Project Management",
 
     'summary': """
-		Module that customize project management for Beescoop 
+		Module that customize project management for Beescoop
      """,
 
     'description': """

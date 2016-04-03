@@ -39,7 +39,7 @@ class BeescoopPosOrder(models.Model):
         mail_template = self.env.ref("beescoop_pos.email_send_ticket")
         mail_template.send_mail(order.id)
         return _("Ticket sent")
-    
+
 class BeescoopPosPartner(models.Model):
     _inherit = 'res.partner'
 
