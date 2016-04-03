@@ -16,6 +16,17 @@
             </field>
         </record>
 
+         <record id="view_account_bnk_stmt_cashbox" model="ir.ui.view">
+            <field name="name">account.bnk_stmt_cashbox.form</field>
+            <field name="model">account.bank.statement.cashbox</field>
+             <field name="inherit_id" ref="account.view_account_bnk_stmt_cashbox" />
+            <field name="arch" type="xml">
+               <field name="coin_value" position="replace">
+                   <field name="coin_value" readonly="1"/>
+               </field>
+            </field>
+        </record>
+
         <template id="assets" inherit_id="point_of_sale.assets">
           <xpath expr="." position="inside">
               <script type="text/javascript" src="/beesdoo_pos/static/src/js/beesdoo.js"></script>
