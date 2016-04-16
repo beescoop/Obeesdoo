@@ -18,6 +18,7 @@
     'depends': ['point_of_sale'],
 
     'data': [
+        'data/default_contact.xml',
         'security/ir.model.access.csv',
         'views/partner.xml',
         'wizard/views/new_member_card.xml',

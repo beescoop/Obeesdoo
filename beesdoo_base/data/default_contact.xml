@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+		<record model="res.partner" id="commande_beescoop">
+			<field name="name">commande@bees-coop.be</field>
+			<field name="email">commande@bees-coop.be</field>
+		</record>
+	</data>
+</odoo>
