@@ -17,7 +17,6 @@ class BeesdooProduct(models.Model):
     def _compute_main_seller_id(self):
         # Calcule le vendeur associé qui a la date de début la plus récente et plus petite qu’aujourd’hui
         sellers_ids = self.seller_ids.sorted(key=lambda seller: seller.date_start, reverse=True)
-        print sellers_ids
         self.main_seller_id = sellers_ids and sellers_ids[0].name or False
 
 
