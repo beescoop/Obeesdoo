@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="import_odoo_tree">
+            <field name="name">import.odoo.connection.tree</field>
+            <field name="model">import.odoo.connection</field>
+            <field name="arch" type="xml">
+                <tree string="Odoo Connector">
+                    <field name="name"/>
+                    <field name="host"/>
+                    <field name="database" />
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="import_odoo_form">
+            <field name="name">import.odoo.connection.form</field>
+            <field name="model">import.odoo.connection</field>
+            <field name="arch" type="xml">
+               <form string="Account" version="7.0">
+                   <header>
+						<button type="object" name="test_connection" string="Test Connection" />                   
+                   </header>
+                    <sheet>
+	                    <div class="oe_title">
+	                        <div class="oe_edit_only">
+	                            <label for="name"/>
+	                        </div>
+	                        <h1>
+	                            <field name="name" default_focus="1" placeholder="Name" />
+	                        </h1>
+	                    </div>
+                        <group>
+                        	<group>
+	                        	<field name="host" />
+	                        	<field name="port" />
+	                        	<field name="database" />
+	                        	<field name="protocol" />
+                        	</group>
+                        	<group>
+	                        	<field name="user" />
+	                        	<field name="password" />
+	                        	<field name="active" />
+                        	</group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+		
+    
+    <record model="ir.actions.act_window" id="odoo_import_form">
+            <field name="name">Odoo Connector</field>
+            <field name="res_model">import.odoo.connection</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+   </record>
+   
+   <menuitem id="import_odoo" name="Import from odoo" parent="base.menu_custom" />
+   <menuitem id="odoo_import_form_menu" parent="import_odoo" name="Odoo Connector" action="odoo_import_form"/>
+            
+    
+    
+    
+    </data>
+</openerp>
