@@ -155,7 +155,9 @@ class migration_framework(import_framework):
                     'vat' : 'website',
                     'website' : 'website',
                     'zip' : 'zip',  
-                    'supplier' : 'supplier',          
+                    'supplier' : 'supplier',
+                    'customer' : 'customer',
+                    'vat' : 'vat',
                 }
             },
             'beesdoo.product.label' : {
