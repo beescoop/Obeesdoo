@@ -32,6 +32,9 @@ class mapper(object):
     """
     def __call__(self, external_values):
         raise NotImplementedError()
+    
+    def get_fields(self):
+        return []
 
 class dbmapper(mapper):
     """
@@ -58,7 +61,10 @@ class concat(mapper):
     def __call__(self, external_values):
         return self.delimiter.join(map(lambda x : tools.ustr(external_values.get(x,'')), self.arg))
     
-class ppconcat(mapper):
+    def get_fields(self):
+        return self.arg
+    
+class ppconcat(concat):
     """
         Use : contact('field_name1', 'field_name2', delimiter='_')
         concat external field name and value of fields using the delimiter, 
@@ -104,6 +110,9 @@ class value(mapper):
             val = external_values.get(self.fallback, self.default)
         return val 
     
+    def get_fields(self):
+        return [self.val]
+    
     
 class map_val(mapper):
     """
@@ -122,6 +131,31 @@ class map_val(mapper):
     def __call__(self, external_values):
         return self.map.get(self.val(external_values), self.default)
     
+    def get_fields(self):
+        return self.val.get_fields()
+    
+class map_val_default(mapper):
+    """
+        Use : map_val(external_field, val_mapping)
+        where val_mapping is a dictionary 
+        with external_val : openerp_val
+        
+        usefull for selection field like state
+        to map value 
+    """
+    def __init__(self, val, map):
+        self.val = value(val)
+        self.map = map
+        
+    def __call__(self, external_values):
+        print self.val(external_values)
+        value = self.map.get(self.val(external_values), self.val(external_values))
+        print value
+        return value
+    
+    def get_fields(self):
+        return self.val.get_fields()
+
 class ref(dbmapper):
     """
         Use : ref(table_name, external_id)
@@ -135,6 +169,9 @@ class ref(dbmapper):
         
     def __call__(self, external_values):
         return self.parent.xml_id_exist(self.table, external_values.get(self.field_name))
+    
+    def get_fields(self):
+        return self.field_name
   
 class refbyname(dbmapper):  
     """
@@ -149,7 +186,10 @@ class refbyname(dbmapper):
     def __call__(self, external_values):
         v = external_values.get(self.field_name, '')
         return self.parent.name_exist(self.table, v , self.model)
-        
+
+    def get_fields(self):
+        return self.field_name
+
 class call(mapper):
     """
         Use : call(function, arg1, arg2)

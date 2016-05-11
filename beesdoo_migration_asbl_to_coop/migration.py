@@ -22,13 +22,14 @@ class migration_framework(import_framework):
                     
     }
     
-    tables =  ['product.category', 
-               'product.uom', 
-               'product.uom.categ', 
+    tables =  ['product.category',
+               'product.uom',
+               'product.uom.categ',
                'pos.category',
                'res.partner',
                'product.template',
-               'product.supplierinfo']
+               'product.supplierinfo',
+    ]
                
     table_domain = {
         'res.partner' : [('supplier', '=', True), '|', ('active', '=', True), ('active', '=', False)],
@@ -42,18 +43,14 @@ class migration_framework(import_framework):
         print self.connection.name
         
     def _get_field(self, model):
-        fields_info = model.fields_get()
         fields = ['id']
-        for f_name, f_info in fields_info.items():
-            if f_info['type'] in ('many2one', 'many2many'):
-                fields.append(f_name + '/id')
-            elif f_info['type'] != 'one2many':
-                fields.append(f_name)
-            #if not 'function' in f_info.keys():
-            #    elif f_info['type'] in ('float', 'integer', 'char', 'text', 'date', 'datetime', 'boolean', 'selection'): 
-            #        fields.append(f_name)
-            #if f_name in self.black_list_field.get(model.model_name, []):
-            #    print f_info
+        
+        for mapper_object in self.get_mapping()[model.model_name]['map'].values():
+            if isinstance(mapper_object, basestring):
+                fields.append(mapper_object)
+            else:
+                fields.extend(mapper_object.get_fields())
+        print "read field", fields
         return fields
     
     def res_to_dict(self, fields, datas):
@@ -82,6 +79,12 @@ class migration_framework(import_framework):
                      To be used to avoid duplication of data that don't have ids
         """
         return name
+    
+    taxes_mapping = {
+        '5.5% Marchandise' : '6% Marchandises',
+        '6% Marchandise' : '6% Marchandises',
+        '21% Services incluse' : '21% Services',
+    }
  
 
     def get_mapping(self):
@@ -152,7 +155,6 @@ class migration_framework(import_framework):
                     'street' : 'street',
                     'street2' : 'street2',
                     'supplier' : 'supplier',
-                    'vat' : 'website',
                     'website' : 'website',
                     'zip' : 'zip',  
                     'supplier' : 'supplier',
@@ -181,7 +183,7 @@ class migration_framework(import_framework):
                                'description' : 'description',
                                'description_picking' : 'description_picking',
                                'description_purchase' : 'description_purchase',
-                               'description_sale' : 'descritpion_sale',
+                               'description_sale' : 'description_sale',
                                'eco_label/id' : 'eco_label/id',
                                'fair_label/id' : 'fair_label/id',
                                'invoice_policy' : 'invoice_policy',
@@ -193,8 +195,8 @@ class migration_framework(import_framework):
                                'sale_delay' : 'sale_delay',
                                'sale_ok' : 'sale_ok',
                                'standard_price' : 'standard_price',
-                               'supplier_taxes_id' : 'supplier_taxes_id',  #Taxes problème
-                               'taxes_id' : 'taxes_id',
+                               'supplier_taxes_id' : map_val_default('supplier_taxes_id', self.taxes_mapping),  #Taxes problème
+                               'taxes_id' : map_val_default('taxes_id', self.taxes_mapping),
                                'to_weight' : 'to_weight',
                                'type' : 'type',
                                'uom_id/id' : 'uom_id/id',
