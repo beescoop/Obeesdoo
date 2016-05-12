@@ -79,13 +79,6 @@ class migration_framework(import_framework):
                      To be used to avoid duplication of data that don't have ids
         """
         return name
-    
-    taxes_mapping = {
-        '5.5% Marchandise' : '6% Marchandises',
-        '6% Marchandise' : '6% Marchandises',
-        '21% Services incluse' : '21% Services',
-    }
- 
 
     def get_mapping(self):
         return {
@@ -195,8 +188,8 @@ class migration_framework(import_framework):
                                'sale_delay' : 'sale_delay',
                                'sale_ok' : 'sale_ok',
                                'standard_price' : 'standard_price',
-                               'supplier_taxes_id' : map_val_default('supplier_taxes_id', self.taxes_mapping),  #Taxes problème
-                               'taxes_id' : map_val_default('taxes_id', self.taxes_mapping),
+                               'supplier_taxes_id/id' : 'supplier_taxes_id/id',  #Taxes problème
+                               'taxes_id/id' : 'taxes_id/id',
                                'to_weight' : 'to_weight',
                                'type' : 'type',
                                'uom_id/id' : 'uom_id/id',
