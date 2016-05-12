@@ -9,9 +9,9 @@
                 <page string="Price tag">
                     <group name="label">
                         <field name="total_with_vat"/>
+                        <field name="total_with_vat_by_unit"/>
                         <field name="default_reference_unit"/>
                         <field name="display_weight"/>
-                        <field name="total_with_vat_by_unit"/>
                     </group>
                     <group>
                         <field name="eco_label"/>

@@ -15,7 +15,6 @@ class BeesdooProduct(models.Model):
 
     display_weight = fields.Float(compute='get_display_weight')
 
-    total = fields.Float(compute='get_total')
     total_with_vat = fields.Float(compute='get_total_with_vat')
 
     total_with_vat_by_unit = fields.Float(compute='get_total_with_vat_by_unit')
@@ -27,17 +26,12 @@ class BeesdooProduct(models.Model):
             self.display_weight = self.weight / self.display_unit.factor
 
     @api.one
-    def get_total(self):
-        price_ht = self.env['product.pricelist'].search([])[0].price_get(self.id, 1)[1]
-        self.total = price_ht
-
-    @api.one
     def get_total_with_vat(self):
         tax_amount_sum = 0.0
         if hasattr(self, 'taxes_id'):
             for tax in self.taxes_id:
                 tax_amount_sum = tax_amount_sum + tax.amount
-        self.total_with_vat = self.total * (100.0 + tax_amount_sum) / 100
+        self.total_with_vat = self.list_price * (100.0 + tax_amount_sum) / 100
 
     @api.one
     def get_total_with_vat_by_unit(self):
