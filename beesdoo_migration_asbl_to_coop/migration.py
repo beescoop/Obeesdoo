@@ -202,6 +202,7 @@ class migration_framework(import_framework):
                                'uom_id/id' : 'uom_id/id',
                                'uom_po_id/id' : 'uom_po_id/id',
                                'weight' : 'weight',
+                               'list_price' : 'list_price',
                 }
             },
             'product.supplierinfo': { 

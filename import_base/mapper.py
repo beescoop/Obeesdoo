@@ -148,9 +148,7 @@ class map_val_default(mapper):
         self.map = map
         
     def __call__(self, external_values):
-        print self.val(external_values)
         value = self.map.get(self.val(external_values), self.val(external_values))
-        print value
         return value
     
     def get_fields(self):
