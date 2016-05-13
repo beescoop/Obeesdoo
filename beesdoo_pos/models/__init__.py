@@ -1,1 +1,1 @@
-import beesdoo_pos
+import beesdoo_pos, beesdoo_sale_order
