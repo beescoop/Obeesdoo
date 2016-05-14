@@ -54,4 +54,14 @@
             </field>
         </field>
     </record>
+
+	<!-- S022 : By default a supplier should be a company -->
+	<record id="base.action_partner_supplier_form" model="ir.actions.act_window">
+		<field name="context">{ 'search_default_supplier': 1,
+		                        'default_customer': 0,
+		                        'default_supplier': 1,
+		                        'default_is_company' : True,
+		                        'default_company_type' : 'company', }
+		</field>
+	</record>
 </odoo>

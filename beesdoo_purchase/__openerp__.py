@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "beesdoo_product",
+    'name': "Bees Purchase",
 
     'summary': """
-        Modification of product module for the needs of beescoop
-        - SOOO5 - Ajout de label bio/ethique/provenance""",
+        Extension du module Purchase""",
 
     'description': """
-
+        Long description of module's purpose
     """,
 
     'author': "Beescoop - Cellule IT",
@@ -16,16 +15,15 @@
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
     # for the full list
-    'category': 'Sales Management',
+    'category': 'Purchase',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['beesdoo_base', 'product', 'point_of_sale'],
+    'depends': ['purchase','beesdoo_product'],
 
     # always loaded
     'data': [
-        'data/product_label.xml',
-        'views/beesdoo_product.xml',
+        'views/purchase_order.xml',
         'security/ir.model.access.csv',
     ],
     # only loaded in demonstration mode

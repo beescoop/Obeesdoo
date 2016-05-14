@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="import_odoo_form">
+            <field name="name">beesdoo.import.asbl.form</field>
+            <field name="model">beesdoo.import.asbl</field>
+            <field name="arch" type="xml">
+               <form string="Migration" version="7.0">
+                   <footer>
+                        <button type="object" name="migrate" string="Migrate" />
+                        or
+                        <button special="cancel" name="cancel" string="Cancel" />
+                   </footer>
+                </form>
+            </field>
+        </record>
+    
+        <record model="ir.actions.act_window" id="odoo_import_form">
+                <field name="name">Import From ASBL</field>
+                <field name="res_model">beesdoo.import.asbl</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">form</field>
+                <field name="target">new</field>
+       </record>
+                
+       <menuitem id="perso_account_migration_menu"
+                parent="import_odoo.import_odoo"
+                name="Import data from ASBL"
+                action="odoo_import_form" />
+    </data>
+</openerp>

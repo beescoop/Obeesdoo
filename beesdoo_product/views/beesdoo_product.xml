@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+
 	<record model="ir.ui.view" id="beesdoo_product_form">
 		<field name="name">bees.product.template.form</field>
 		<field name="model">product.template</field>
@@ -11,6 +13,17 @@
 				<field name="fair_label" />
 				<field name="origin_label" />
 			</field>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="beesdoo_product_form2">
+		<field name="name">bees.product.template.form2</field>
+		<field name="model">product.template</field>
+		<field name="inherit_id" ref="product.product_template_form_view" />
+		<field name="arch" type="xml">
+			<div name="weight" position="after">
+					<field name="main_seller_id" string="Fournisseur Principal" />
+			</div>
 		</field>
 	</record>
 
