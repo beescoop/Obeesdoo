@@ -1,21 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
-
-	<record model="ir.ui.view" id="beesdoo_product_form">
-		<field name="name">bees.product.template.form</field>
-		<field name="model">product.template</field>
-		<field name="inherit_id" ref="product.product_template_only_form_view" />
-		<field name="arch" type="xml">
-			<field name="barcode" position="after">
-				<field name="eco_label" />
-				<field name="local_label" />
-				<field name="fair_label" />
-				<field name="origin_label" />
-			</field>
-		</field>
-	</record>
-
+    <record model="ir.ui.view" id="beesdoo_product_form">
+        <field name="name">bees.product.template.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <field name="barcode" position="after">
+                <field name="eco_label"/>
+                <field name="local_label"/>
+                <field name="fair_label"/>
+                <field name="origin_label"/>
+            </field>
+            <field name="invoice_policy" position="replace">
+                <field name="invoice_policy" widget="radio" invisible="True"/>
+            </field>
+            <field name="purchase_method" position="replace">
+                <field name="purchase_method" widget="radio" invisible="True"/>
+            </field>
+            <field name="route_ids" position="replace">
+                <field name="route_ids" widget="radio" invisible="True"/>
+            </field>
+            <group name="sale_condition" position="replace">
+                <group name="sale_condition" widget="radio" invisible="True"/>
+            </group>
+            <field name="property_account_creditor_price_difference" position="replace">
+                <field name="property_account_creditor_price_difference" widget="radio" invisible="True"/>
+            </field>
+            <field name="property_account_expense_id" position="replace">
+                <field name="property_account_expense_id" widget="radio" invisible="True"/>
+            </field>
+            <field name="property_account_income_id" position="replace">
+                <field name="property_account_income_id" widget="radio" invisible="True"/>
+            </field>
+            <group name="description" position="replace">
+                <group name="description" invisible="False">
+                    <separator string="Description for picking" colspan="4"/>
+                    <field name="description_picking"
+                           placeholder="Description for Pickings (Rack, Row and Case Information)" nolabel="1"
+                           colspan="4" modifiers="{}"/>
+                    <field name="description_picking"
+                           placeholder="Description pour les devis" nolabel="1"
+                           colspan="4" modifiers="{}" invisible="True"/>
+                    <field name="description_picking"
+                           placeholder="Description for Vendors" nolabel="1"
+                           colspan="4" modifiers="{}" invisible="True"/>
+                </group>
+            </group>@
+        </field>
+    </record>
+    <record model="ir.ui.view" id="beesdoo_product_label_form">
+        <field name="name">bees.product.label.form</field>
+        <field name="model">beesdoo.product.label</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="color_code"/>
+                </group>
+            </form>
+        </field>
+    </record>
 	<record model="ir.ui.view" id="beesdoo_product_form2">
 		<field name="name">bees.product.template.form2</field>
 		<field name="model">product.template</field>
@@ -24,20 +69,6 @@
 			<div name="weight" position="after">
 					<field name="main_seller_id" string="Fournisseur Principal" />
 			</div>
-		</field>
-	</record>
-
-	<record model="ir.ui.view" id="beesdoo_product_label_form">
-		<field name="name">bees.product.label.form</field>
-		<field name="model">beesdoo.product.label</field>
-		<field name="arch" type="xml">
-			<form>
-				<group>
-					<field name="name" />
-					<field name="type" />
-					<field name="color_code" />
-				</group>
-			</form>
 		</field>
 	</record>
 </odoo>
