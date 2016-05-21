@@ -3,12 +3,14 @@ from openerp import models, fields, api, _
 from openerp.exceptions import ValidationError
 from openerp.addons.beesdoo_base.tools import concat_names
 
+
+
 class Partner(models.Model):
 
     _inherit = 'res.partner'
 
     first_name = fields.Char('First Name')
-    last_name = fields.Char('Last Name', required=True)
+    last_name = fields.Char('Last Name')
     eater = fields.Selection([('eater', 'Eater'), ('worker_eater', 'Worker and Eater')], string="Eater/Worker")
     child_eater_ids = fields.One2many("res.partner", "parent_eater_id", domain=[('customer', '=', True),
                                                                                 ('eater', '=', 'eater')])
@@ -58,3 +60,8 @@ class Partner(models.Model):
     def _new_card(self, reason, user_id):
         self.env['member.card'].create({'partner_id' : self.id,'responsible_id' : user_id, 'comment' : reason})
 
+    @api.noguess
+    def _auto_init(self, cr, context=None):
+        res = super(Partner, self)._auto_init(cr, context=context)
+        cr.execute("UPDATE res_partner set last_name = name where last_name IS NULL")
+        return res
