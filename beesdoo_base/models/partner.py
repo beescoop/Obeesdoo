@@ -20,16 +20,11 @@ class Partner(models.Model):
     barcode = fields.Char(compute="_get_bar_code", string='Code Barre', store=True)
     parent_barcode = fields.Char(compute="_get_bar_code", string='Code Barre du Parent', store=True)
     member_card_ids = fields.One2many('member.card', 'partner_id')
+    country_id = fields.Many2one('res.country', string='Country', required=True)
 
     @api.onchange('first_name', 'last_name')
     def _on_change_name(self):
         self.name = concat_names(self.first_name, self.last_name)
-
-    @api.one
-    @api.constrains('country_id')
-    def _check_country(self):
-        if len(self.country_id) == 0:
-            raise ValidationError(_('Country is mandatory'))
 
     @api.one
     @api.depends('parent_eater_id', 'parent_eater_id.barcode', 'eater', 'member_card_ids')
