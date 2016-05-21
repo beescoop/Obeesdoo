@@ -61,4 +61,4 @@ class BeescoopPosPartner(models.Model):
         eater1, eater2 = self._get_eater()
         return str(round(credit - debit, 2)), eater1, eater2
 
-    last_name = fields.Char('Last Name', required=True)
+    last_name = fields.Char('Last Name', required=True, default="/")
