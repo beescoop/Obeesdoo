@@ -7,7 +7,7 @@
             <field name="arch" type="xml">
                 <field name="iface_tax_included" position="after">
                     <separator string="Bill Value" colspan="2" />
-                    <field name="bill_value" nolabel="1" colspan="2" >
+                    <field name="bill_value" nolabel="1" colspan="2">
                         <tree editable="bottom">
                             <field name="name" />
                         </tree>
@@ -28,10 +28,11 @@
         </record>
 
         <template id="assets" inherit_id="point_of_sale.assets">
-          <xpath expr="." position="inside">
-              <script type="text/javascript" src="/beesdoo_pos/static/src/js/beesdoo.js"></script>
-              <link rel='stylesheet' href="/beesdoo_pos/static/src/css/beesdoo.css"/>
-          </xpath>
+            <xpath expr="." position="inside">
+                <script type="text/javascript"
+                    src="/beesdoo_pos/static/src/js/beesdoo.js"></script>
+                <link rel='stylesheet' href="/beesdoo_pos/static/src/css/beesdoo.css" />
+            </xpath>
         </template>
     </data>
 </openerp>
