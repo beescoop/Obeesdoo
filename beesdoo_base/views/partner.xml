@@ -23,6 +23,8 @@
                 <field name="eater"
                     attrs="{'invisible': [('company_type', '=', 'company')]}" />
                 <field name="parent_eater_id" attrs="{'invisible' : [('eater', '!=', 'eater')]}" />
+                <field name="member_card_to_be_printed"/>
+                <field name="last_printed"/>
             </field>
             <xpath expr="//notebook" position="inside">
                 <page string="Carte de Membre"

@@ -18,6 +18,8 @@ class Partner(models.Model):
     barcode = fields.Char(compute="_get_bar_code", string='Bar Code', store=True)
     parent_barcode = fields.Char(compute="_get_bar_code", string='Parent Bar Code', store=True)
     member_card_ids = fields.One2many('member.card', 'partner_id')
+    member_card_to_be_printed = fields.Boolean('Print BEES card?')
+    last_printed = fields.Datetime('Last printed on')
 
     @api.onchange('first_name', 'last_name')
     def _on_change_name(self):
