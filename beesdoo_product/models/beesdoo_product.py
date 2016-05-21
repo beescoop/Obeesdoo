@@ -19,11 +19,14 @@ class BeesdooProduct(models.Model):
 
     total_with_vat_by_unit = fields.Float(compute='get_total_with_vat_by_unit')
 
+    main_seller_id = fields.Many2one('res.partner', compute='_compute_main_seller_id', store=True)
+
+
     @api.one
     @api.depends('weight', 'display_unit')
     def get_display_weight(self):
         if self.display_unit:
-            self.display_weight = self.weight / self.display_unit.factor
+            self.display_weight = self.weight * self.display_unit.factor
 
     @api.one
     def get_total_with_vat(self):
@@ -36,7 +39,14 @@ class BeesdooProduct(models.Model):
     @api.one
     def get_total_with_vat_by_unit(self):
         if self.display_weight > 0:
-            self.total_with_vat_by_unit = self.total_with_vat/self.display_weight
+            self.total_with_vat_by_unit = self.total_with_vat / self.weight
+
+    @api.one
+    @api.depends('seller_ids', 'seller_ids.date_start')
+    def _compute_main_seller_id(self):
+        # Calcule le vendeur associé qui a la date de début la plus récente et plus petite qu’aujourd’hui
+        sellers_ids = self.seller_ids.sorted(key=lambda seller: seller.date_start, reverse=True)
+        self.main_seller_id = sellers_ids and sellers_ids[0].name or False
 
 
 class BeesdooProductLabel(models.Model):
