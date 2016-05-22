@@ -6,12 +6,22 @@ import datetime
 class BeesdooProduct(models.Model):
     _inherit = "product.template"
 
-    eco_label = fields.Many2one('beesdoo.product.label', domain = [('type', '=', 'eco')])
-    local_label = fields.Many2one('beesdoo.product.label', domain = [('type', '=', 'local')])
-    fair_label = fields.Many2one('beesdoo.product.label', domain = [('type', '=', 'fair')])
-    origin_label = fields.Many2one('beesdoo.product.label', domain = [('type', '=', 'delivery')])
+    eco_label = fields.Many2one('beesdoo.product.label', domain=[('type', '=', 'eco')])
+    local_label = fields.Many2one('beesdoo.product.label', domain=[('type', '=', 'local')])
+    fair_label = fields.Many2one('beesdoo.product.label', domain=[('type', '=', 'fair')])
+    origin_label = fields.Many2one('beesdoo.product.label', domain=[('type', '=', 'delivery')])
+
+    display_unit = fields.Many2one('product.uom', required=True)
+    default_reference_unit = fields.Many2one('product.uom', required=True)
+
+    display_weight = fields.Float(compute='get_display_weight')
+
+    total_with_vat = fields.Float(compute='get_total_with_vat')
+
+    total_with_vat_by_unit = fields.Float(compute='get_total_with_vat_by_unit')
 
     main_seller_id = fields.Many2one('res.partner', compute='_compute_main_seller_id', store=True)
+
 
     label_to_be_printed = fields.Boolean('Print label?')
     label_last_printed = fields.Datetime('Label last printed on')
@@ -53,7 +63,6 @@ class BeesdooProduct(models.Model):
     def _set_label_as_printed(self):
         self.label_to_be_printed = False
         self.label_last_printed = datetime.datetime.now()
-
 
 
 class BeesdooProductLabel(models.Model):
