@@ -77,5 +77,4 @@ class Partner(models.Model):
     @api.one
     def _set_membercard_as_printed(self):
         self.member_card_to_be_printed = False
-        print("datetime.now", datetime.datetime.now())
         self.last_printed = datetime.datetime.now()
