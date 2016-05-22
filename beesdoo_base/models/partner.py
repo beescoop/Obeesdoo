@@ -57,8 +57,15 @@ class Partner(models.Model):
             card.end_date = fields.Date.today()
 
     @api.multi
-    def _new_card(self, reason, user_id):
-        self.env['member.card'].create({'partner_id' : self.id,'responsible_id' : user_id, 'comment' : reason})
+    def _new_card(self, reason, user_id, barcode=False):
+        card_data = {
+            'partner_id' : self.id,
+            'responsible_id' : user_id,
+            'comment' : reason,
+        }
+        if barcode:
+            card_data['barcode'] = barcode
+        self.env['member.card'].create(card_data)
 
     @api.noguess
     def _auto_init(self, cr, context=None):

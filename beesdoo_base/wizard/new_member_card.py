@@ -14,9 +14,10 @@ class NewMemberCardWizard(models.TransientModel):
 
     new_comment = fields.Text('Reason', required=True)
     partner_id = fields.Many2one('res.partner', default=_get_default_partner)
+    force_barcode = fields.Char('Force Barcode', groups="beesdoo_base.group_force_barcode")
 
     @api.one
     def create_new_card(self):
         client = self.partner_id.sudo()
         client._deactivate_active_cards()
-        client._new_card(self.new_comment, self.env.uid)
+        client._new_card(self.new_comment, self.env.uid, barcode=self.force_barcode)

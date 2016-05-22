@@ -6,6 +6,9 @@
         <field name="model">membercard.new.wizard</field>
         <field name="arch" type="xml">
             <form>
+                <group groups="beesdoo_base.group_force_barcode">
+                    <field name="force_barcode" />
+                </group>
                 <separator string="Reason" />
                 <field name="new_comment" string="Raison" editable="True" />
                 <field name="partner_id" invisible="1" />
