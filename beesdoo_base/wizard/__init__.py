@@ -1,1 +1,3 @@
 import new_member_card
+import request_membercard_printing
+import set_membercard_as_printed

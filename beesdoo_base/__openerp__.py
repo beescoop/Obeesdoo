@@ -21,5 +21,7 @@
         'security/ir.model.access.csv',
         'views/partner.xml',
         'wizard/views/new_member_card.xml',
+        'wizard/views/request_membercard_printing.xml',
+        'wizard/views/set_membercard_as_printed.xml',
     ],
 }

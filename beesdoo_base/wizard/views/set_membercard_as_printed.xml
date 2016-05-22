@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="printing_membercard_request_wizard" model="ir.ui.view">
+        <field name="name">Set Membercard as Printed Wizard</field>
+        <field name="model">membercard.set_as_printed.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="partner_ids" />
+            </form>
+            <footer>
+                <button
+                    type="object"
+                    name="set_as_printed"
+                    string="Marquer les cartes de membre comme imprimées"
+                    class="oe_highlight" />
+                <button special="cancel" string="Annuler" />
+            </footer>
+        </field>
+    </record>
+    <act_window name="Set BEES card as printed"
+          res_model="membercard.set_as_printed.wizard"
+          src_model="res.partner"
+          view_mode="form"
+          target="new"
+          key2="client_action_multi"
+          id="beesdoo_base_action_set_membercard_as_printed"
+    />
+</odoo>

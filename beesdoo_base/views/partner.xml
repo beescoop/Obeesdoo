@@ -23,12 +23,15 @@
                 <field name="eater"
                     attrs="{'invisible': [('company_type', '=', 'company')]}" />
                 <field name="parent_eater_id" attrs="{'invisible' : [('eater', '!=', 'eater')]}" />
-                <field name="member_card_to_be_printed"/>
-                <field name="last_printed"/>
             </field>
             <xpath expr="//notebook" position="inside">
                 <page string="Carte de Membre"
                     attrs="{'invisible': ['|', ('customer', '=', False), ('eater', '!=', 'worker_eater')]}">
+                    <separator string="Printing" />
+                    <group>
+                      <field name="member_card_to_be_printed" />
+                      <field name="last_printed" />
+                    </group>
                     <separator string="Mangeurs" />
                     <field name="child_eater_ids" widget="many2many_tags" />
                     <separator string="Cartes" />

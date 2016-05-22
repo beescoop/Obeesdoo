@@ -2,6 +2,7 @@
 from openerp import models, fields, api, _
 from openerp.exceptions import ValidationError
 from openerp.addons.beesdoo_base.tools import concat_names
+import datetime
 
 
 
@@ -18,6 +19,7 @@ class Partner(models.Model):
     barcode = fields.Char(compute="_get_bar_code", string='Bar Code', store=True)
     parent_barcode = fields.Char(compute="_get_bar_code", string='Parent Bar Code', store=True)
     member_card_ids = fields.One2many('member.card', 'partner_id')
+
     member_card_to_be_printed = fields.Boolean('Print BEES card?')
     last_printed = fields.Datetime('Last printed on')
 
@@ -67,3 +69,13 @@ class Partner(models.Model):
         res = super(Partner, self)._auto_init(cr, context=context)
         cr.execute("UPDATE res_partner set last_name = name where last_name IS NULL")
         return res
+
+    @api.one
+    def _request_membercard_printing(self):
+        self.member_card_to_be_printed = True
+
+    @api.one
+    def _set_membercard_as_printed(self):
+        self.member_card_to_be_printed = False
+        print("datetime.now", datetime.datetime.now())
+        self.last_printed = datetime.datetime.now()
