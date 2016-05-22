@@ -6,41 +6,64 @@ Created on 16 mai 2016
 '''
 
 from coda.parser import Parser
-from openerp import models, fields, api
-# parser = Parser()
-# print "salut"
-# 
-# with open("example.coda") as f:
-#     content = f.read()
-#     
-# print content
-# statements = parser.parse(content)
-# import pdb; pdb.set_trace()
+from openerp import models, _
 
-
-class AccountBankStatementImport(models.TransientModel):
+class CodaBankStatementImport(models.TransientModel):
     _inherit = 'account.bank.statement.import'
-    
+
+    def _generate_note(self, move):
+        notes = []
+        if move.counterparty_name:
+            notes.append("%s: %s" % (_('Counter Party Name'), move.counterparty_name))
+        if move.counterparty_address:
+            notes.append("%s: %s" % (_('Counter Party Address'), move.counterparty_address))
+        if move.counterparty_number:
+            notes.append("%s: %s" % (_('Counter Party Account'), move.counterparty_number))
+        if move.communication:
+            notes.append("%s: %s" % (_('Communication'), move.communication))
+        return '\n'.join(notes)
+
+    def _get_move_value(self, move, statement, sequence):
+        move_data = {
+            'name': move.communication, #ok
+            'note': self._generate_note(move),
+            'date': move.entry_date, #ok
+            'amount': move.transaction_amount if move.transaction_amount_sign == '0' else - move.transaction_amount, #ok
+            'account_number': move.counterparty_number, #ok
+            'partner_name': move.counterparty_name, #ok
+            'ref': move.ref,
+            'sequence': sequence, #ok
+            'unique_import_id' : statement.coda_seq_number + '-' + statement.creation_date + '-' +  move.ref
+        }
+        return move_data
+
+    def _get_statement_data(self, statement):
+        statement_data = {
+            'name' : statement.paper_seq_number,
+            'date' : statement.creation_date,
+            'balance_start': statement.old_balance, #ok
+            'balance_end_real' : statement.new_balance, #ok
+            'coda_note' : '',
+            'transactions' : []
+        }
+        return statement_data
+
     def _parse_file(self, data_file):
+        parser = Parser()
+        try:
+            statements = parser.parse(data_file)
+        except ValueError:
+            return super(CodaBankStatementImport, self)._parse_file(data_file)
         currency_code = False
-        account_number = '0'
-        stmts_vals = [{
-            'name': '',
-            'date': '',
-            'balance_start': '',
-            'balance_end_real' : '',
-            'transactions' : [
-                {            
-                    'name': '',
-                    'note': '',
-                    'date': '',
-                    'amount': '',
-                    'account_number': '',
-                    'partner_name': '',
-                    'ref': '',
-                    'sequence': '',
-                    'unique_import_id' : ''
-                }
-            ],
-        }]
+        account_number = False
+
+        stmts_vals = []
+        for statement in statements:
+            account_number =  statement.acc_number
+            currency_code = statement.currency
+            statement_data = self._get_statement_data(statement)
+            stmts_vals.append(statement_data)
+            for move in statement.movements:
+                statement_data['transactions'].append(self._get_move_value(move, statement, len(statement_data['transactions']) + 1))
+
         return currency_code, account_number, stmts_vals

@@ -15,11 +15,8 @@
     'category': 'Accounting & Finance',
     'version': '0.1',
 
-    'depends': ['account'],
+    'depends': ['account_bank_statement_import'],
 
     'data': [
-        'security/ir.model.access.csv',
-        'views/partner.xml',
-        'wizard/views/new_member_card.xml',
     ],
 }
