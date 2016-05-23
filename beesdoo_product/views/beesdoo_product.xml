@@ -7,25 +7,46 @@
 		<field name="model">product.template</field>
 		<field name="inherit_id" ref="product.product_template_only_form_view" />
 		<field name="arch" type="xml">
-			<field name="barcode" position="after">
-				<field name="eco_label" />
-				<field name="local_label" />
-				<field name="fair_label" />
-				<field name="origin_label" />
-			</field>
+			<field name="invoice_policy" position="attributes">
+            	<attribute name="invisible">1</attribute>
+            </field>
+            <field name="purchase_method" position="attributes">
+            	<attribute name="invisible">1</attribute>
+            </field>
+            <field name="route_ids" position="attributes">
+            	<attribute name="invisible">1</attribute>
+            </field>
+            <group name="sale_condition" position="attributes">
+            	<attribute name="invisible">1</attribute>
+            </group>
+            <field name="property_account_creditor_price_difference" position="attributes">
+            	<attribute name="invisible">1</attribute>
+            </field>
+			<xpath expr="//group[@name='inventory']/.." position="after">
+                 <page string="Étiquette">
+                 	<group>
+                 		<group name="label">
+	                        <field name="total_with_vat"/>
+                 			<field name="display_weight"/>
+	                     	<field name="display_unit" />
+	                        <field name="default_reference_unit"/>
+	                        <field name="total_with_vat_by_unit" />
+                     	</group>
+                     	<group>
+	 						<field name="main_seller_id" />
+	                        <field name="eco_label"/>
+	                        <field name="local_label"/>
+	                        <field name="fair_label"/>
+	                        <field name="origin_label"/>
+                     	</group>
+                 	</group>
+                     
+                     
+                 </page>
+             </xpath>
 		</field>
 	</record>
 
-	<record model="ir.ui.view" id="beesdoo_product_form2">
-		<field name="name">bees.product.template.form2</field>
-		<field name="model">product.template</field>
-		<field name="inherit_id" ref="product.product_template_form_view" />
-		<field name="arch" type="xml">
-			<div name="weight" position="after">
-					<field name="main_seller_id" string="Fournisseur Principal" />
-			</div>
-		</field>
-	</record>
 
 	<record model="ir.ui.view" id="beesdoo_product_label_form">
 		<field name="name">bees.product.label.form</field>
