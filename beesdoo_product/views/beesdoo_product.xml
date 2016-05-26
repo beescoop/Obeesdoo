@@ -31,6 +31,7 @@
 	                     	<field name="display_unit" />
 	                        <field name="default_reference_unit"/>
 	                        <field name="total_with_vat_by_unit" />
+	                        <field name="total_deposit" />
                      	</group>
                      	<group>
 	 						<field name="main_seller_id" />

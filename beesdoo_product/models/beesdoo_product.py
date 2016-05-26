@@ -13,12 +13,13 @@ class BeesdooProduct(models.Model):
 
     main_seller_id = fields.Many2one('res.partner', compute='_compute_main_seller_id', store=True)
 
-    display_unit = fields.Many2one('product.uom', required=True, default=lambda self: self.env.ref('product.product_uom_kgm'))
-    default_reference_unit = fields.Many2one('product.uom', required=True, default=lambda self: self.env.ref('product.product_uom_kgm'))
+    display_unit = fields.Many2one('product.uom')
+    default_reference_unit = fields.Many2one('product.uom')
     display_weight = fields.Float(compute='_get_display_weight', store=True)
 
-    total_with_vat = fields.Float(compute='_get_total_with_vat', store=True)
-    total_with_vat_by_unit = fields.Float(compute='_get_total_with_vat_by_unit', store=True)
+    total_with_vat = fields.Float(compute='_get_total', store=True, string="Total Sales Price with VAT")
+    total_with_vat_by_unit = fields.Float(compute='_get_total', store=True, string="Total Sales Price with VAT by Reference Unit")
+    total_deposit = fields.Float(compute='_get_total', store=True, string="Deposit Price")
 
     @api.one
     @api.depends('seller_ids', 'seller_ids.date_start')
@@ -28,15 +29,12 @@ class BeesdooProduct(models.Model):
         self.main_seller_id = sellers_ids and sellers_ids[0].name or False
 
     @api.one
-    @api.depends('taxes_id', 'list_price')
-    def _get_total_with_vat(self):
-        tax_amount_sum = sum([tax.amount for tax in self.taxes_id])
-        self.total_with_vat = self.list_price * (100.0 + tax_amount_sum) / 100
-
-    @api.one
-    @api.depends('total_with_vat', 'display_weight', 'weight')
-    def _get_total_with_vat_by_unit(self):
-        print self.display_weight, self.total_with_vat, self.weight
+    @api.depends('taxes_id', 'list_price', 'taxes_id.amount', 'taxes_id.tax_group_id', 'total_with_vat', 'display_weight', 'weight')
+    def _get_total(self):
+        consignes_group = self.env.ref('beesdoo_product.consignes_group_tax')
+        tax_amount_sum = sum([tax._compute_amount(self.list_price, self.list_price) for tax in self.taxes_id if tax.tax_group_id != consignes_group])
+        self.total_deposit = sum([tax._compute_amount(self.list_price, self.list_price) for tax in self.taxes_id if tax.tax_group_id == consignes_group])
+        self.total_with_vat = self.list_price + tax_amount_sum
         if self.display_weight > 0:
             self.total_with_vat_by_unit = self.total_with_vat / self.weight
 
