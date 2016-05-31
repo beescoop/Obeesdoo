@@ -21,6 +21,10 @@ class BeesdooProduct(models.Model):
     total_with_vat_by_unit = fields.Float(compute='_get_total', store=True, string="Total Sales Price with VAT by Reference Unit")
     total_deposit = fields.Float(compute='_get_total', store=True, string="Deposit Price")
 
+    label_to_be_printed = fields.Boolean('Print label?')
+    label_last_printed = fields.Datetime('Label last printed on')
+
+
     @api.one
     @api.depends('seller_ids', 'seller_ids.date_start')
     def _compute_main_seller_id(self):

@@ -26,6 +26,7 @@
     'data': [
         'data/product_label.xml',
         'views/beesdoo_product.xml',
+        'wizard/views/label_printing_utils.xml',
         'security/ir.model.access.csv',
     ],
     # only loaded in demonstration mode
