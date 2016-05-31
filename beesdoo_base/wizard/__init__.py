@@ -1,1 +1,2 @@
-import new_member_card
+import member_card
+
