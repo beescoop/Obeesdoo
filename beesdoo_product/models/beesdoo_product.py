@@ -26,7 +26,7 @@ class BeesdooProduct(models.Model):
     
     # S0023 : List_price = Price HTVA, so add a suggested price
     list_price = fields.Float(string='ex VAT price')
-    suggested_price = fields.Float(string='Suggested Price', readOnly = True)
+    suggested_price = fields.Float(string='Suggested Price', compute='_get_suggested_price', readOnly = True)
 
     @api.one
     @api.depends('seller_ids', 'seller_ids.date_start')
@@ -56,6 +56,11 @@ class BeesdooProduct(models.Model):
         if self.display_unit.category_id != self.default_reference_unit.category_id:
             raise UserError(_('Reference Unit and Display Unit should belong to the same category'))
 
+    @api.one
+    @api.depends('list_price')
+    def _get_suggested_price(self):
+        self.suggested_price = 1000.0
+    
 class BeesdooProductLabel(models.Model):
     _name = "beesdoo.product.label"
 
