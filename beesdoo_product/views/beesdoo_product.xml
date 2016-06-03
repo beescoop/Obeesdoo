@@ -7,46 +7,50 @@
 		<field name="model">product.template</field>
 		<field name="inherit_id" ref="product.product_template_only_form_view" />
 		<field name="arch" type="xml">
+			<field name="list_price" position="after">
+				<field name="suggested_price" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+			</field>
 			<field name="invoice_policy" position="attributes">
-            	<attribute name="invisible">1</attribute>
-            </field>
-            <field name="purchase_method" position="attributes">
-            	<attribute name="invisible">1</attribute>
-            </field>
-            <field name="route_ids" position="attributes">
-            	<attribute name="invisible">1</attribute>
-            </field>
-            <group name="sale_condition" position="attributes">
-            	<attribute name="invisible">1</attribute>
-            </group>
-            <field name="property_account_creditor_price_difference" position="attributes">
-            	<attribute name="invisible">1</attribute>
-            </field>
+				<attribute name="invisible">1</attribute>
+			</field>
+			<field name="purchase_method" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</field>
+			<field name="route_ids" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</field>
+			<group name="sale_condition" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</group>
+			<field name="property_account_creditor_price_difference"
+				position="attributes">
+				<attribute name="invisible">1</attribute>
+			</field>
 			<xpath expr="//group[@name='inventory']/.." position="after">
-                 <page string="Étiquette">
-                 	<group>
-                 		<group name="label">
-	                        <field name="total_with_vat"/>
-                 			<field name="display_weight"/>
-	                     	<field name="display_unit" />
-	                        <field name="default_reference_unit"/>
-	                        <field name="total_with_vat_by_unit" />
-	                        <field name="total_deposit" />
-                     	</group>
-                     	<group>
-	 						<field name="main_seller_id" />
-	                        <field name="eco_label"/>
-	                        <field name="local_label"/>
-	                        <field name="fair_label"/>
-	                        <field name="origin_label"/>
-                            <field name="label_to_be_printed"/>
-                            <field name="label_last_printed"/>
-                     	</group>
-                 	</group>
-                     
-                     
-                 </page>
-             </xpath>
+				<page string="Étiquette">
+					<group>
+						<group name="label">
+							<field name="total_with_vat" />
+							<field name="display_weight" />
+							<field name="display_unit" />
+							<field name="default_reference_unit" />
+							<field name="total_with_vat_by_unit" />
+							<field name="total_deposit" />
+						</group>
+						<group>
+							<field name="main_seller_id" />
+							<field name="eco_label" />
+							<field name="local_label" />
+							<field name="fair_label" />
+							<field name="origin_label" />
+							<field name="label_to_be_printed" />
+							<field name="label_last_printed" />
+						</group>
+					</group>
+
+
+				</page>
+			</xpath>
 		</field>
 	</record>
 

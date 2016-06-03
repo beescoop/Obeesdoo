@@ -25,7 +25,7 @@ class BeesdooProduct(models.Model):
     label_last_printed = fields.Datetime('Label last printed on')
     
     # S0023 : List_price = Price HTVA, so add a suggested price
-    list_price = fields.Float(string='ex VAT price')
+    list_price = fields.Float(string='exVAT Price')
     suggested_price = fields.Float(string='Suggested Price', compute='_get_suggested_price', readOnly = True)
 
     @api.one
