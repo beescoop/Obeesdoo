@@ -26,7 +26,7 @@
 				<attribute name="invisible">1</attribute>
 			</field>
 			<xpath expr="//group[@name='inventory']/.." position="after">
-				<page string="Étiquette">
+				<page string="Label">
 					<group>
 						<group name="label">
 							<field name="total_with_vat" />

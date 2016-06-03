@@ -67,8 +67,6 @@ class BeesdooProduct(models.Model):
         if(len(suppliers) > 0):
             self.standard_price = suppliers[0].price
             self.suggested_price = (suppliers[0].price)* (1 + suppliers[0].product_tmpl_id.categ_id.profit_margin / 100)
-    
-    
         
 class BeesdooProductLabel(models.Model):
     _name = "beesdoo.product.label"
