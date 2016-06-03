@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
-
 	<record model="ir.ui.view" id="beesdoo_product_form">
 		<field name="name">bees.product.template.form</field>
 		<field name="model">product.template</field>
 		<field name="inherit_id" ref="product.product_template_only_form_view" />
 		<field name="arch" type="xml">
 			<field name="list_price" position="after">
-				<field name="suggested_price" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+				<field name="suggested_price" widget='monetary'
+					options="{'currency_field': 'currency_id'}" />
 			</field>
 			<field name="invoice_policy" position="attributes">
 				<attribute name="invisible">1</attribute>
@@ -54,7 +53,6 @@
 		</field>
 	</record>
 
-
 	<record model="ir.ui.view" id="beesdoo_product_label_form">
 		<field name="name">bees.product.label.form</field>
 		<field name="model">beesdoo.product.label</field>
@@ -68,4 +66,27 @@
 			</form>
 		</field>
 	</record>
+
+	<record model="ir.ui.view" id="beesdoo_product_category_list">
+		<field name="name">beesdoo.product.category.list</field>
+		<field name="model">product.category</field>
+		<field name="inherit_id" ref="product.product_category_list_view" />
+		<field name="arch" type="xml">
+			<field name="complete_name" position="after">
+				<field name="profit_margin"></field>
+			</field>
+		</field>
+	</record>
+	
+	<record model="ir.ui.view" id="beesdoo_product_category_form">
+		<field name="name">beesdoo.product.category.form</field>
+		<field name="model">product.category</field>
+		<field name="inherit_id" ref="product.product_category_form_view" />
+		<field name="arch" type="xml">
+			<field name="parent_id" position="after">
+				<field name="profit_margin"></field>
+			</field>
+		</field>
+	</record>
+
 </odoo>
