@@ -1,2 +1,2 @@
-import member_card
+import member_card, partner
 

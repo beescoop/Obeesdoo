@@ -22,5 +22,6 @@
         'security/ir.model.access.csv',
         'views/partner.xml',
         'wizard/views/member_card.xml',
+        'wizard/views/partner.xml'
     ],
 }

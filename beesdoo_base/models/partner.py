@@ -44,7 +44,7 @@ class Partner(models.Model):
     def write(self, values):
         if values.get('parent_eater_id') and self.parent_eater_id:
             raise ValidationError(_('You try to assign a eater to a worker but this easer is alread assign to %s please remove it before') % self.parent_eater_id.name)
-        #replace many2many command when writing on child_eater_ids to just remove the link
+        # replace many2many command when writing on child_eater_ids to just remove the link
         if 'child_eater_ids' in values:
             for command in values['child_eater_ids']:
                 if command[0] == 2:
@@ -74,4 +74,15 @@ class Partner(models.Model):
         cr.execute("UPDATE res_partner set last_name = name where last_name IS NULL")
         return res
 
-
+    @api.multi
+    def _new_eater(self, name, surname, email):
+        partner_data = {
+                        'name' : name,
+                        'surname' : surname,
+                        'is_customer' : True,
+                        'eater' : 'eater',
+                        'parent_eater_id' : self.id,
+                        'email' : email
+                        }
+        self.env['res.partner'].create(partner_data)
+    
