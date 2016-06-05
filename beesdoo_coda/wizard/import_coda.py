@@ -33,7 +33,7 @@ class CodaBankStatementImport(models.TransientModel):
             'partner_name': move.counterparty_name, #ok
             'ref': move.ref,
             'sequence': sequence, #ok
-            'unique_import_id' : statement.coda_seq_number + '-' + statement.new_balance_date + '-' +  move.ref
+            'unique_import_id' : statement.coda_seq_number + '-' + statement.old_balance_date + '-' + statement.new_balance_date + '-' +  move.ref
         }
         return move_data
 
