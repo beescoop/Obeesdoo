@@ -33,7 +33,7 @@ class CodaBankStatementImport(models.TransientModel):
             'partner_name': move.counterparty_name, #ok
             'ref': move.ref,
             'sequence': sequence, #ok
-            'unique_import_id' : statement.coda_seq_number + '-' + statement.creation_date + '-' +  move.ref
+            'unique_import_id' : statement.coda_seq_number + '-' + statement.new_balance_date + '-' +  move.ref
         }
         return move_data
 
@@ -47,6 +47,14 @@ class CodaBankStatementImport(models.TransientModel):
             'transactions' : []
         }
         return statement_data
+    
+    def _get_acc_number(self, acc_number):
+        #Check if we match the exact acc_number or the end of an acc number
+        journal = self.env['account.journal'].search([('bank_acc_number', '=like', '%' + acc_number)])
+        if not journal or len(journal) > 1: #if not found or ambiguious 
+            return acc_number
+        
+        return journal.bank_acc_number
 
     def _parse_file(self, data_file):
         parser = Parser()
@@ -66,4 +74,4 @@ class CodaBankStatementImport(models.TransientModel):
             for move in statement.movements:
                 statement_data['transactions'].append(self._get_move_value(move, statement, len(statement_data['transactions']) + 1))
 
-        return currency_code, account_number, stmts_vals
+        return currency_code, self._get_acc_number(account_number), stmts_vals
