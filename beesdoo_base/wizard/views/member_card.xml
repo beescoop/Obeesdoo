@@ -13,9 +13,9 @@
                 <field name="new_comment" string="Raison" editable="True" />
                 <field name="partner_id" invisible="1" />
                 <footer>
-                    <button type="object" name="create_new_card" string="Créer"
+                    <button type="object" name="create_new_card" string="Create"
                         class="oe_highlight" />
-                    <button special="cancel" string="Annuler" />
+                    <button special="cancel" string="Cancel" />
                 </footer>
             </form>
         </field>

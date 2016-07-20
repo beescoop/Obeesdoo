@@ -13,8 +13,8 @@ class Partner(models.Model):
     child_eater_ids = fields.One2many("res.partner", "parent_eater_id", domain=[('customer', '=', True),
                                                                                 ('eater', '=', 'eater')])
     parent_eater_id = fields.Many2one("res.partner", string="Parent Worker", readonly=True)
-    barcode = fields.Char(compute="_get_bar_code", string='Bar Code', store=True)
-    parent_barcode = fields.Char(compute="_get_bar_code", string='Parent Bar Code', store=True)
+    barcode = fields.Char(compute="_get_bar_code", string='Barcode', store=True)
+    parent_barcode = fields.Char(compute="_get_bar_code", string='Parent Barcode', store=True)
     member_card_ids = fields.One2many('member.card', 'partner_id')
 
     member_card_to_be_printed = fields.Boolean('Print BEES card?')

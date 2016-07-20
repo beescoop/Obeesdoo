@@ -12,7 +12,7 @@ class NewMemberCardWizard(models.TransientModel):
     def _get_default_partner(self):
         return self.env.context['active_id']
 
-    new_comment = fields.Text('Reason', required=True)
+    new_comment = fields.Char('Reason', required=True)
     partner_id = fields.Many2one('res.partner', default=_get_default_partner)
     force_barcode = fields.Char('Force Barcode', groups="beesdoo_base.group_force_barcode")
 
