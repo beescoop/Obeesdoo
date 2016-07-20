@@ -75,10 +75,11 @@ class Partner(models.Model):
         return res
 
     @api.multi
-    def _new_eater(self, name, surname, email):
+    def _new_eater(self, surname, name, email):
         partner_data = {
-                        'name' : name,
-                        'surname' : surname,
+                        'name' : surname + " "+ name,
+                        'last_name' : name,
+                        'first_name' : surname,
                         'is_customer' : True,
                         'eater' : 'eater',
                         'parent_eater_id' : self.id,
