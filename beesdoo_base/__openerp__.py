@@ -15,10 +15,12 @@
     'category': 'Project Management',
     'version': '0.1',
 
-    'depends': ['point_of_sale'],
+    'depends': ['point_of_sale', 'purchase'],
 
     'data': [
+        'security/groups.xml',
         'security/ir.model.access.csv',
         'views/partner.xml',
+        'wizard/views/member_card.xml',
     ],
 }

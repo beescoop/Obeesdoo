@@ -61,5 +61,9 @@
 			<field name="type">delivery</field>
 			<field name="color_code">#ff4000</field>
 		</record>
+		<record id="consignes_group_tax" model="account.tax.group">
+			<field name="name">Consignes</field>
+			<field name="sequence" eval="10" />
+		</record>
 	</data>
 </odoo>

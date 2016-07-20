@@ -4,7 +4,7 @@
 
     'summary': """
         Module that extends the pos for the beescoop
-	""",
+    """,
 
     'description': """
         Long description of module's purpose
@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['point_of_sale', 'beesdoo_base'],
+    'depends': ['beesdoo_base', 'beesdoo_product'],
 
     # always loaded
     'data': [

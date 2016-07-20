@@ -8,19 +8,18 @@ class Partner(models.Model):
     _inherit = 'res.partner'
 
     first_name = fields.Char('First Name')
-    last_name = fields.Char('Last Name', required=True)
-
-    eater = fields.Selection([('eater', 'Mangeur'), ('worker_eater', 'Mangeur et Travailleur')], string="Mangeur/Travailleur")
-
+    last_name = fields.Char('Last Name')
+    eater = fields.Selection([('eater', 'Eater'), ('worker_eater', 'Worker and Eater')], string="Eater/Worker")
     child_eater_ids = fields.One2many("res.partner", "parent_eater_id", domain=[('customer', '=', True),
                                                                                 ('eater', '=', 'eater')])
-
-    parent_eater_id = fields.Many2one("res.partner", string="Parent Travailleur", readonly=True)
-
-    barcode = fields.Char(compute="_get_bar_code", string='Code Barre', store=True)
-    parent_barcode = fields.Char(compute="_get_bar_code", string='Code Barre du Parent', store=True)
+    parent_eater_id = fields.Many2one("res.partner", string="Parent Worker", readonly=True)
+    barcode = fields.Char(compute="_get_bar_code", string='Barcode', store=True)
+    parent_barcode = fields.Char(compute="_get_bar_code", string='Parent Barcode', store=True)
     member_card_ids = fields.One2many('member.card', 'partner_id')
     country_id = fields.Many2one('res.country', string='Country', required=True)
+
+    member_card_to_be_printed = fields.Boolean('Print BEES card?')
+    last_printed = fields.Datetime('Last printed on')
 
     @api.onchange('first_name', 'last_name')
     def _on_change_name(self):
@@ -52,15 +51,28 @@ class Partner(models.Model):
                 if command[0] == 2:
                     command[0] = 3
         return super(Partner, self).write(values)
-    
-    @api.multi
+
+    @api.one
     def _deactivate_active_cards(self):
-        if len(self.member_card_ids) > 0:
-            for c in self.member_card_ids:
-                if c.valid:
-                    c.valid = False
-                    c.end_date = fields.Date.today()      
-    @api.multi            
-    def _new_card(self, txt):
-        self.env['member.card'].create({'partner_id' : self.env.context['active_id'],'comment' : txt})
+        for card in self.member_card_ids.filtered('valid'):
+            card.valid = False
+            card.end_date = fields.Date.today()
+
+    @api.multi
+    def _new_card(self, reason, user_id, barcode=False):
+        card_data = {
+            'partner_id' : self.id,
+            'responsible_id' : user_id,
+            'comment' : reason,
+        }
+        if barcode:
+            card_data['barcode'] = barcode
+        self.env['member.card'].create(card_data)
+
+    @api.noguess
+    def _auto_init(self, cr, context=None):
+        res = super(Partner, self)._auto_init(cr, context=context)
+        cr.execute("UPDATE res_partner set last_name = name where last_name IS NULL")
+        return res
+
 
