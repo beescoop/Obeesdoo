@@ -25,17 +25,17 @@
                 <field name="parent_eater_id" attrs="{'invisible' : [('eater', '!=', 'eater')]}" />
             </field>
             <xpath expr="//notebook" position="inside">
-                <page string="Carte de Membre"
+                <page string="Member Cards"
                     attrs="{'invisible': ['|', ('customer', '=', False), ('eater', '!=', 'worker_eater')]}">
                     <separator string="Printing" />
                     <group>
                       <field name="member_card_to_be_printed" />
                       <field name="last_printed" />
                     </group>
-                    <separator string="Mangeurs" />
+                    <separator string="Eaters" />
                     <field name="child_eater_ids" widget="many2many_tags" />
-                    <separator string="Cartes" />
-                    <field string="Cartes" name="member_card_ids">
+                    <separator string="Cards" />
+                    <field string="Cards" name="member_card_ids">
                         <tree editable="bottom">
                             <field name="barcode" />
                             <field name="create_date" />
@@ -46,7 +46,7 @@
                         </tree>
                     </field>
                     <group>
-                        <button string="Nouvelle Carte" name="%(action_membercard_wizard)d"
+                        <button string="New Card" name="%(action_membercard_wizard)d"
                             type="action" />
                     </group>
                 </page>

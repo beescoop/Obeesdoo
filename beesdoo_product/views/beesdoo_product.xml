@@ -26,30 +26,30 @@
 				<attribute name="invisible">1</attribute>
 			</field>
 			<xpath expr="//group[@name='inventory']/.." position="after">
-				<page string="Label">
-					<group>
-						<group name="label">
-							<field name="total_with_vat" />
-							<field name="display_weight" />
-							<field name="display_unit" />
-							<field name="default_reference_unit" />
-							<field name="total_with_vat_by_unit" />
-							<field name="total_deposit" />
-						</group>
-						<group>
-							<field name="main_seller_id" />
-							<field name="eco_label" />
-							<field name="local_label" />
-							<field name="fair_label" />
-							<field name="origin_label" />
-							<field name="label_to_be_printed" />
-							<field name="label_last_printed" />
-						</group>
-					</group>
-
-
-				</page>
-			</xpath>
+                 <page string="Label">
+                 	<group>
+                 		<group name="label">
+	                        <field name="total_with_vat"/>
+                 			<field name="display_weight"/>
+	                     	<field name="display_unit" />
+	                        <field name="default_reference_unit"/>
+	                        <field name="total_with_vat_by_unit" />
+	                        <field name="total_deposit" />
+                     	</group>
+                     	<group>
+	 						<field name="main_seller_id" />
+	                        <field name="eco_label"/>
+	                        <field name="local_label"/>
+	                        <field name="fair_label"/>
+	                        <field name="origin_label"/>
+                            <field name="label_to_be_printed"/>
+                            <field name="label_last_printed"/>
+                     	</group>
+                 	</group>
+                     
+                     
+                 </page>
+             </xpath>
 		</field>
 	</record>
 
