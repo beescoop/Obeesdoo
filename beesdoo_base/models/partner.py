@@ -83,7 +83,7 @@ class Partner(models.Model):
                         'is_customer' : True,
                         'eater' : 'eater',
                         'parent_eater_id' : self.id,
+                        'parent_id' : self.id,
                         'email' : email
                         }
         self.env['res.partner'].create(partner_data)
-    
