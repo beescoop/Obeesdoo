@@ -69,6 +69,9 @@
 			<field name="barcode" position="after">
 				<field name="parent_barcode" attrs="{'invisible' : [('eater', '!=', 'eater')]}" />
 			</field>
+			<button name="toggle_active" position="attributes">
+				<attribute name="groups" />
+			</button>
 		</field>
 	</record>
 
