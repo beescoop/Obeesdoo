@@ -26,7 +26,7 @@ class BeesdooProduct(models.Model):
     
     # S0023 : List_price = Price HTVA, so add a suggested price
     list_price = fields.Float(string='exVAT Price')
-    suggested_price = fields.Float(string='Suggested Price', compute='_compute_cost', readOnly=True)
+    suggested_price = fields.Float(string='Suggested exVAT Price', compute='_compute_cost', readOnly=True)
     standard_price = fields.Float(compute='_compute_cost')
     
     def _get_main_supplier_info(self):
