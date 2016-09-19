@@ -31,7 +31,8 @@
     'website': 'https://github.com/tfrancoi/',
     'depends': ['base', 'import_base'],
     'data': [
-        'view/connector.xml'
+        'view/connector.xml',
+        'security/ir.model.access.csv',
     ],
     'test': [], #TODO provide test
     'installable': True,
