@@ -21,7 +21,7 @@ class NewMemberCardWizard(models.TransientModel):
         client = self.partner_id.sudo()
         client._deactivate_active_cards()
         client._new_card(self.new_comment, self.env.uid, barcode=self.force_barcode)
-        
+        client.member_card_to_be_printed = True
 
 class RequestMemberCardPrintingWizard(models.TransientModel):
 

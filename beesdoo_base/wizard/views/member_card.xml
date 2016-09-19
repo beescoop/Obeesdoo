@@ -10,7 +10,7 @@
                     <field name="force_barcode" />
                 </group>
                 <separator string="Reason" />
-                <field name="new_comment" string="Raison" editable="True" />
+                <field name="new_comment" string="Reason" editable="True" />
                 <field name="partner_id" invisible="1" />
                 <footer>
                     <button type="object" name="create_new_card" string="Create"
