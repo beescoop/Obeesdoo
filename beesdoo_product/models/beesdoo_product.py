@@ -66,8 +66,8 @@ class BeesdooProduct(models.Model):
     def _compute_cost(self):
         suppliers = self._get_main_supplier_info()
         if(len(suppliers) > 0):
-            self.standard_price = suppliers[0].price
-            self.suggested_price = (suppliers[0].price)* (1 + suppliers[0].product_tmpl_id.categ_id.profit_margin / 100)
+            self.standard_price = suppliers[0].price * self.uom_po_id.factor
+            self.suggested_price = (suppliers[0].price * self.uom_po_id.factor)* (1 + suppliers[0].product_tmpl_id.categ_id.profit_margin / 100)
         
 class BeesdooProductLabel(models.Model):
     _name = "beesdoo.product.label"
