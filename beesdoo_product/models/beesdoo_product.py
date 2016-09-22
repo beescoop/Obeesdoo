@@ -2,6 +2,7 @@
 from openerp import models, fields, api
 from openerp.tools.translate import _
 from openerp.exceptions import UserError
+from mako.runtime import _inherit_from
 
 class BeesdooProduct(models.Model):
     _inherit = "product.template"
@@ -86,4 +87,9 @@ class BeesdooProductCategory(models.Model):
     def _check_margin(self):
         if (self.profit_margin < 0.0):
             raise UserError(_('Percentages for Profit Margin must > 0.'))
+
+class BeesdooProductSupplierInfo(models.Model):
+    _inherit = "product.supplierinfo"
+    
+    price = fields.Float('exVAT Price')
 
