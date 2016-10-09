@@ -15,7 +15,7 @@
     'category': 'Project Management',
     'version': '0.1',
 
-    'depends': ['point_of_sale', 'purchase'],
+    'depends': ['point_of_sale', 'purchase', 'report'],
 
     'data': [
         'security/groups.xml',
@@ -24,5 +24,6 @@
         'wizard/views/member_card.xml',
         'wizard/views/partner.xml',
         'data/default_contact.xml',
+        'report/beescard.xml',
     ],
 }
