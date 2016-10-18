@@ -1,0 +1,1 @@
+import beesdoo_account_invoice
