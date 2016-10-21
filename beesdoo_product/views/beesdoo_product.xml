@@ -39,6 +39,7 @@
 	                        <field name="local_label"/>
 	                        <field name="fair_label"/>
 	                        <field name="origin_label"/>
+	                        <field name="note" />
                             <field name="label_to_be_printed"/>
                             <field name="label_last_printed"/>
                      	</group>
