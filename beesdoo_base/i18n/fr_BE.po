@@ -59,8 +59,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-21 15:34+0000\n"
-"PO-Revision-Date: 2016-10-21 15:34+0000\n"
+"POT-Creation-Date: 2016-10-21 15:46+0000\n"
+"PO-Revision-Date: 2016-10-21 15:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17396,7 +17396,7 @@ msgstr "Style de couleurs"
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_label_color_code
 msgid "Color code"
-msgstr "Color code"
+msgstr "Code couleur"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_model_fields_column1
@@ -20986,7 +20986,8 @@ msgstr "Destinataires par défaut de l'enregistrement :\n"
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template_default_reference_unit
 msgid "Default reference unit"
-msgstr "Default reference unit"
+msgstr "Unité de référence par défaut\n"
+""
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_config_settings_sale_tax_id
@@ -22357,12 +22358,14 @@ msgstr "Afficher ce compte bancaire sur le pied de page des documents imprimés 
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template_display_unit
 msgid "Display unit"
-msgstr "Display unit"
+msgstr "Unité affichée\n"
+""
 
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template_display_weight
 msgid "Display weight"
-msgstr "Display weight"
+msgstr "Poids affiché\n"
+""
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_task_displayed_image_id
@@ -23078,7 +23081,7 @@ msgstr "Ecarts de conversion des devises"
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template_eco_label
 msgid "Eco label"
-msgstr "Eco label"
+msgstr "Ecologique"
 
 #. module: base
 #: model:res.country,name:base.ec
@@ -24470,7 +24473,8 @@ msgstr "Raison de l'échec. Ceci est souvent l'exception envoyée par le serveur
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template_fair_label
 msgid "Fair label"
-msgstr "Fair label"
+msgstr "Equitable\n"
+""
 
 #. module: base
 #: model:res.country,name:base.fk
@@ -31062,7 +31066,7 @@ msgstr "Libellé"
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template_label_last_printed
 msgid "Label last printed on"
-msgstr "Label last printed on"
+msgstr "Dernière impression le"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_tax_description
@@ -32736,7 +32740,7 @@ msgstr "Échec de l'évaluation locale\n"
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template_local_label
 msgid "Local label"
-msgstr "Local label"
+msgstr "Local/Monde"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_lang_code
@@ -35323,7 +35327,7 @@ msgstr "New Card"
 #: model:ir.actions.act_window,name:beesdoo_base.action_eater_wizard
 #: model:ir.ui.view,arch_db:beesdoo_base.beesdoo_partner_form_view
 msgid "New Eater"
-msgstr "New Eater"
+msgstr "Nouveau mangeur"
 
 #. module: web_view_editor
 #. openerp-web
@@ -35346,7 +35350,8 @@ msgstr "Nouveau message"
 #. module: beesdoo_base
 #: model:ir.actions.act_window,name:beesdoo_base.action_membercard_wizard
 msgid "New Member Card"
-msgstr "New Member Card"
+msgstr "Nouvelle carte de membre\n"
+""
 
 #. module: web_diagram
 #. openerp-web
@@ -37722,7 +37727,8 @@ msgstr "Origine"
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template_origin_label
 msgid "Origin label"
-msgstr "Origin label"
+msgstr "Provenance\n"
+""
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_origin_returned_move_id
@@ -43578,7 +43584,7 @@ msgstr "Demande de pièces a été envoyée"
 #. module: beesdoo_product
 #: model:ir.actions.act_window,name:beesdoo_product.beesdoo_product_action_request_label_printing
 msgid "Request label printing"
-msgstr "Request label printing"
+msgstr "Demande d'impression de l'étiquette"
 
 #. module: purchase
 #: model:ir.actions.act_window,name:purchase.purchase_rfq
@@ -46301,7 +46307,7 @@ msgstr "Marquer comme \"à faire\""
 #. module: beesdoo_product
 #: model:ir.actions.act_window,name:beesdoo_product.beesdoo_product_action_set_label_as_printed
 msgid "Set label as printed"
-msgstr "Set label as printed"
+msgstr "Marqué l'étiquette comme imprimée"
 
 #. module: stock
 #: selection:stock.config.settings,module_stock_calendar:0
