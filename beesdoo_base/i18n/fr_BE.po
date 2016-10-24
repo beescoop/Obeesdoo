@@ -59,8 +59,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-21 15:46+0000\n"
-"PO-Revision-Date: 2016-10-21 15:46+0000\n"
+"POT-Creation-Date: 2016-10-24 16:26+0000\n"
+"PO-Revision-Date: 2016-10-24 16:26+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -12941,12 +12941,6 @@ msgstr "Anguilla"
 msgid "Annonces, publicité, propagande et documentation"
 msgstr "Annonces, publicité, propagande et documentation"
 
-#. module: beesdoo_product
-#: model:ir.ui.view,arch_db:beesdoo_product.printing_label_request_wizard
-#: model:ir.ui.view,arch_db:beesdoo_product.set_label_as_printed_wizard
-msgid "Annuler"
-msgstr "Annuler"
-
 #. module: mail
 #. openerp-web
 #: code:addons/mail/static/src/js/chat_manager.js:261
@@ -15505,7 +15499,7 @@ msgstr "Canada"
 msgid "Canada - Accounting"
 msgstr "Comptabilité - Canada"
 
-#. modules: account_bank_statement_import, sale, beesdoo_base, point_of_sale, web, base_setup, web_editor, analytic, mail, stock, product, base_import, web_view_editor, web_calendar, delivery, base, portal, purchase, account, beesdoo_migration_asbl_to_coop, web_kanban, project, procurement, stock_account
+#. modules: account_bank_statement_import, sale, beesdoo_base, point_of_sale, web, base_setup, web_editor, analytic, mail, stock, product, base_import, web_view_editor, web_calendar, delivery, base, portal, beesdoo_product, purchase, account, beesdoo_migration_asbl_to_coop, web_kanban, project, procurement, stock_account
 #. openerp-web
 #: model:ir.ui.view,arch_db:account.account_aged_balance_view
 #: model:ir.ui.view,arch_db:account.account_common_report_view
@@ -15546,6 +15540,8 @@ msgstr "Comptabilité - Canada"
 #: model:ir.ui.view,arch_db:beesdoo_base.membercard_set_as_printed_wizard
 #: model:ir.ui.view,arch_db:beesdoo_base.printing_membercard_request_wizard
 #: model:ir.ui.view,arch_db:beesdoo_migration_asbl_to_coop.import_odoo_form
+#: model:ir.ui.view,arch_db:beesdoo_product.printing_label_request_wizard
+#: model:ir.ui.view,arch_db:beesdoo_product.set_label_as_printed_wizard
 #: model:ir.ui.view,arch_db:delivery.view_picking_withcarrier_out_form
 #: model:ir.ui.view,arch_db:delivery.view_picking_withcarrier_out_form_shipping
 #: code:addons/mail/static/src/js/chatter.js:129
@@ -21368,11 +21364,6 @@ msgstr "Bon de préparation"
 msgid "Delivery address for current sales order."
 msgstr "Adresse de livraison du bon de commande en cours."
 
-#. module: beesdoo_product
-#: model:ir.ui.view,arch_db:beesdoo_product.printing_label_request_wizard
-msgid "Demander l'impression d'un label"
-msgstr "Demander l'impression d'un label"
-
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_module_module_demo
 msgid "Demo Data"
@@ -23081,7 +23072,8 @@ msgstr "Ecarts de conversion des devises"
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template_eco_label
 msgid "Eco label"
-msgstr "Ecologique"
+msgstr "Etiquette Eco\n"
+""
 
 #. module: base
 #: model:res.country,name:base.ec
@@ -24473,7 +24465,8 @@ msgstr "Raison de l'échec. Ceci est souvent l'exception envoyée par le serveur
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template_fair_label
 msgid "Fair label"
-msgstr "Equitable\n"
+msgstr "Etiquette Ethique\n"
+"\n"
 ""
 
 #. module: base
@@ -32740,7 +32733,7 @@ msgstr "Échec de l'évaluation locale\n"
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template_local_label
 msgid "Local label"
-msgstr "Local/Monde"
+msgstr "Etiquette Local"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_lang_code
@@ -33217,7 +33210,7 @@ msgstr "Devise principale de la société"
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template_main_seller_id
 msgid "Main seller id"
-msgstr "Main seller id"
+msgstr "Vendeur Principal"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_module_module_maintainer
@@ -33714,11 +33707,6 @@ msgstr "Département marketing"
 #: model:ir.module.module,shortdesc:base.module_l10n_ma
 msgid "Maroc - Accounting"
 msgstr "Comptabilité - Maroc"
-
-#. module: beesdoo_product
-#: model:ir.ui.view,arch_db:beesdoo_product.set_label_as_printed_wizard
-msgid "Marquer les labels comme imprimés"
-msgstr "Marquer les labels comme imprimés"
 
 #. module: base
 #: model:res.country,name:base.mh
@@ -37727,8 +37715,7 @@ msgstr "Origine"
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template_origin_label
 msgid "Origin label"
-msgstr "Provenance\n"
-""
+msgstr "Etiquette Provenance"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_origin_returned_move_id
@@ -40677,7 +40664,7 @@ msgstr "Imprimer le workflow"
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template_label_to_be_printed
 msgid "Print label?"
-msgstr "Print label?"
+msgstr "Imprimer l'étiquette?"
 
 #. module: sale
 #: selection:sale.config.settings,module_website_quote:0
@@ -43583,6 +43570,7 @@ msgstr "Demande de pièces a été envoyée"
 
 #. module: beesdoo_product
 #: model:ir.actions.act_window,name:beesdoo_product.beesdoo_product_action_request_label_printing
+#: model:ir.ui.view,arch_db:beesdoo_product.printing_label_request_wizard
 msgid "Request label printing"
 msgstr "Demande d'impression de l'étiquette"
 
@@ -46307,6 +46295,11 @@ msgstr "Marquer comme \"à faire\""
 #. module: beesdoo_product
 #: model:ir.actions.act_window,name:beesdoo_product.beesdoo_product_action_set_label_as_printed
 msgid "Set label as printed"
+msgstr "Marqué l'étiquette comme imprimée"
+
+#. module: beesdoo_product
+#: model:ir.ui.view,arch_db:beesdoo_product.set_label_as_printed_wizard
+msgid "Set labels as printed"
 msgstr "Marqué l'étiquette comme imprimée"
 
 #. module: stock
@@ -52614,12 +52607,12 @@ msgstr "Total résiduel"
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template_total_with_vat
 msgid "Total Sales Price with VAT"
-msgstr "Total Sales Price with VAT"
+msgstr "Prix de vente TVAC"
 
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template_total_with_vat_by_unit
 msgid "Total Sales Price with VAT by Reference Unit"
-msgstr "Total Sales Price with VAT by Reference Unit"
+msgstr "Prix de vente TVAC par unité de référence"
 
 #. module: sale
 #: model:ir.ui.view,arch_db:sale.view_order_tree
@@ -58827,6 +58820,12 @@ msgstr "Produits optionnels e-commerce"
 #: model:ir.model,name:beesdoo_base.model_eater_new_wizard
 msgid "eater.new.wizard"
 msgstr "eater.new.wizard"
+
+#. module: point_of_sale
+#: model:product.product,description_sale:point_of_sale.product_product_consumable
+#: model:product.template,description_sale:point_of_sale.product_product_consumable_product_template
+msgid "eeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororo"
+msgstr "eeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororoeeeeeeeaaaazoeorororororororoororororroorororororo"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
