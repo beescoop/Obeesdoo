@@ -54,6 +54,7 @@ class BeescoopPosPartner(models.Model):
     @api.multi
     def get_balance_and_eater(self):
         self.ensure_one()
+        self = self.sudo()
         account_id = self.property_account_receivable_id.id
         move_lines = self.env['account.move.line'].search([('account_id', '=', account_id), ('partner_id', '=', self.id)])
         credit = sum([m.credit for m in move_lines])
