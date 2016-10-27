@@ -2,6 +2,7 @@
 from openerp import models, fields, api
 from openerp.tools.translate import _
 from openerp.exceptions import UserError
+import uuid
 
 class BeesdooProduct(models.Model):
     _inherit = "product.template"
@@ -26,6 +27,20 @@ class BeesdooProduct(models.Model):
 
     note = fields.Text('Comments')
 
+    @api.one
+    def generate_barcode(self):
+        print 'generate barcode', self.barcode, self.barcode == ''
+        rule = self.env['barcode.rule'].search([('name', '=', 'Beescoop Product Barcodes')])[0]
+        size = 13 - len(rule.pattern)
+        ean = rule.pattern + str(uuid.uuid4().fields[-1])[:size]
+        bc = ean[0:12] + str(self.env['barcode.nomenclature'].ean_checksum(ean))
+        # Make sure there is no other active member with the same barcode
+        while(self.search_count([('barcode', '=', bc)]) > 1):
+            ean = rule.pattern + str(uuid.uuid4().fields[-1])[:size]
+            bc = ean[0:12] + str(self.env['barcode.nomenclature'].ean_checksum(ean))
+        print 'barcode :', bc
+        self.barcode = bc
+    
     @api.one
     @api.depends('seller_ids', 'seller_ids.date_start')
     def _compute_main_seller_id(self):

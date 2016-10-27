@@ -25,6 +25,7 @@
     # always loaded
     'data': [
         'data/product_label.xml',
+        'data/barcode_rule.xml',
         'views/beesdoo_product.xml',
         'wizard/views/label_printing_utils.xml',
         'security/ir.model.access.csv',
