@@ -30,6 +30,8 @@ class BeesdooProduct(models.Model):
     suggested_price = fields.Float(string='Suggested exVAT Price', compute='_compute_cost', readOnly=True)
     standard_price = fields.Float(compute='_compute_cost')
     
+    standard_price = fields.Float(string='exVAT Cost')
+    
     def _get_main_supplier_info(self):
         return self.seller_ids.sorted(key=lambda seller: seller.date_start, reverse=True)
 
