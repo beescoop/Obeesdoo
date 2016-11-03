@@ -15,7 +15,8 @@
     'category': 'Account Module',
     'version': '0.1',
 
-    'depends': ['account'],
+    'depends': ['account',
+                'beesdoo_base'],
 
-    'data': [],
+    'data': ['views/account_invoice.xml'],
 }
