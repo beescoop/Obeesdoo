@@ -34,5 +34,7 @@
                 <link rel='stylesheet' href="/beesdoo_pos/static/src/css/beesdoo.css" />
             </xpath>
         </template>
+        
+        
     </data>
 </openerp>
