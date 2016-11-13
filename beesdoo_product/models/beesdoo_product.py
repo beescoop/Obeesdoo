@@ -24,6 +24,7 @@ class BeesdooProduct(models.Model):
     label_to_be_printed = fields.Boolean('Print label?')
     label_last_printed = fields.Datetime('Label last printed on')
 
+    note = fields.Text('Comments')
 
     @api.one
     @api.depends('seller_ids', 'seller_ids.date_start')
