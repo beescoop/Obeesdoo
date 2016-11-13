@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Beescoop Coda Import module",
+    'name': "Beescoop Crelan Import module",
 
     'summary': """
 		Import Crelan CSV Wizard

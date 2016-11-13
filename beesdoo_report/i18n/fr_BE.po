@@ -1,0 +1,89 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* beesdoo_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-11-13 15:25+0000\n"
+"PO-Revision-Date: 2016-11-13 15:25+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: beesdoo_report
+#: model:ir.actions.act_window,name:beesdoo_report.open_board_pos_beesdoo
+msgid "Beescoop Dashboard"
+msgstr "Beescoop Dashboard"
+
+#. module: beesdoo_report
+#: model:ir.ui.menu,name:beesdoo_report.beesdoo_report
+msgid "Beesdoo report"
+msgstr "Beesdoo report"
+
+#. module: beesdoo_report
+#: model:ir.ui.view,arch_db:beesdoo_report.board_pos_beesdoo_form
+msgid "Dashboard"
+msgstr "Tableau de bord"
+
+#. module: beesdoo_report
+#: model:ir.model.fields,field_description:beesdoo_report.field_beesdoo_report_visits_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: beesdoo_report
+#: model:ir.ui.menu,name:beesdoo_report.beesdoo_general_dashboard
+msgid "General Dashboard"
+msgstr "General Dashboard"
+
+#. module: beesdoo_report
+#: model:ir.model.fields,field_description:beesdoo_report.field_beesdoo_report_visits_id
+msgid "ID"
+msgstr "ID"
+
+#. module: beesdoo_report
+#: model:ir.model,name:beesdoo_report.model_beesdoo_report_visits
+msgid "Labo Market Visit"
+msgstr "Labo Market Visit"
+
+#. module: beesdoo_report
+#: model:ir.model.fields,field_description:beesdoo_report.field_beesdoo_report_visits___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: beesdoo_report
+#: model:ir.actions.act_window,name:beesdoo_report.beesdoo_report_visits_action
+#: model:ir.actions.act_window,name:beesdoo_report.beesdoo_report_visits_action_board
+msgid "Report on visits"
+msgstr "Report on visits"
+
+#. module: beesdoo_report
+#: model:ir.model.fields,field_description:beesdoo_report.field_beesdoo_report_visits_type
+msgid "Type"
+msgstr "Type"
+
+#. module: beesdoo_report
+#: model:ir.model.fields,field_description:beesdoo_report.field_beesdoo_report_visits_visitors
+msgid "Visitors"
+msgstr "Visitors"
+
+#. module: beesdoo_report
+#: model:ir.model.fields,field_description:beesdoo_report.field_beesdoo_report_visits_visits
+#: model:ir.ui.view,arch_db:beesdoo_report.board_pos_beesdoo_form
+msgid "Visits"
+msgstr "Visits"
+
+#. module: beesdoo_report
+#: model:ir.ui.menu,name:beesdoo_report.beesdoo_report_visit
+msgid "Visits report"
+msgstr "Visits report"
+
+#. module: beesdoo_report
+#: model:ir.model.fields,field_description:beesdoo_report.field_beesdoo_report_visits_week
+msgid "Week"
+msgstr "Week"
+

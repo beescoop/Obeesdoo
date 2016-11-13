@@ -1,0 +1,43 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* beesdoo_project
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-11-13 15:24+0000\n"
+"PO-Revision-Date: 2016-11-13 15:24+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: beesdoo_project
+#: model:ir.model.fields,field_description:beesdoo_project.field_project_task_author_id
+msgid "Author"
+msgstr "Auteur"
+
+#. module: beesdoo_project
+#: model:ir.model.fields,field_description:beesdoo_project.field_project_task_link_task_ids
+#: model:ir.ui.view,arch_db:beesdoo_project.beesdoo_project_task_view_form
+msgid "Linked Tasks"
+msgstr "Linked Tasks"
+
+#. module: beesdoo_project
+#: model:ir.model.fields,field_description:beesdoo_project.field_project_task_reviewer_id
+msgid "Reviewer"
+msgstr "Reviewer"
+
+#. module: beesdoo_project
+#: model:ir.model,name:beesdoo_project.model_project_task
+msgid "Task"
+msgstr "Tâche"
+
+#. module: beesdoo_project
+#: model:ir.model.fields,field_description:beesdoo_project.field_project_task_tester_id
+msgid "Tester"
+msgstr "Tester"
+
