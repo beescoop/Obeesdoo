@@ -31,17 +31,17 @@ class CodaBankStatementImport(models.TransientModel):
     _header = ['Date', 'Montant', 'Devise', 'Contrepartie', 'Compte contrepartie', "Type d'op\xc3\xa9ration", 'Communication', "Compte donneur d'ordre"]
 
 
-    def _generate_note(self, move):
+    def _generate_note_crelan(self, move):
         notes = []
         notes.append("%s: %s" % (_('Counter Party Name'), move[COUNTERPART_NAME]))
         notes.append("%s: %s" % (_('Counter Party Account'), move[COUNTERPART_NUMBER]))
         notes.append("%s: %s" % (_('Communication'), move[COMMUNICATION]))
         return '\n'.join(notes)
 
-    def _get_move_value(self, move, sequence):
+    def _get_move_value_crelan(self, move, sequence):
         move_data = {
             'name': move[TRANSACTION_TYPE] + ": " + move[COMMUNICATION],
-            'note': self._generate_note(move),
+            'note': self._generate_note_crelan(move),
             'date': self._to_iso_date(move[DATE]),
             'amount': float(move[AMOUNT]),
             'account_number': move[COUNTERPART_NUMBER], #ok
@@ -52,7 +52,7 @@ class CodaBankStatementImport(models.TransientModel):
         }
         return move_data
 
-    def _get_statement_data(self, balance_start, balance_end, begin_date, end_date):
+    def _get_statement_data_crelan(self, balance_start, balance_end, begin_date, end_date):
         statement_data = {
             'name' : _("Bank Statement from %s to %s")  % (begin_date, end_date),
             'date' : self._to_iso_date(end_date),
@@ -62,7 +62,7 @@ class CodaBankStatementImport(models.TransientModel):
         }
         return statement_data
     
-    def _get_acc_number(self, acc_number):
+    def _get_acc_number_crelan(self, acc_number):
         #Check if we match the exact acc_number or the end of an acc number
         journal = self.env['account.journal'].search([('bank_acc_number', '=like', '%' + acc_number)])
         if not journal or len(journal) > 1: #if not found or ambiguious 
@@ -70,7 +70,7 @@ class CodaBankStatementImport(models.TransientModel):
         
         return journal.bank_acc_number
 
-    def _get_acc_balance(self, acc_number):
+    def _get_acc_balance_crelan(self, acc_number):
         if not self.init_balance == None:
             return self.init_balance
         print "compute balance"
@@ -110,11 +110,11 @@ class CodaBankStatementImport(models.TransientModel):
             begin_date = begin_date or statement[DATE]
             end_date = statement[DATE]
             account_number =  statement[ACCOUNT]
-            balance = self._get_acc_balance(account_number)
+            balance = self._get_acc_balance_crelan(account_number)
             currency_code = statement[CURRENCY]
-            transactions.append(self._get_move_value(statement, i))
+            transactions.append(self._get_move_value_crelan(statement, i))
             sum_transaction += float(statement[AMOUNT])
             i += 1
-        stmt = self._get_statement_data(balance, balance+ sum_transaction, begin_date, end_date)
+        stmt = self._get_statement_data_crelan(balance, balance+ sum_transaction, begin_date, end_date)
         stmt['transactions'] = transactions
-        return currency_code, self._get_acc_number(account_number), [stmt]
+        return currency_code, self._get_acc_number_crelan(account_number), [stmt]
