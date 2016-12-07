@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- vue -->
+    <record model="ir.ui.view" id="beesdoo_report_visits_pivot">
+        <field name="name">beesdoo.report.visits.pivot</field>
+        <field name="model">beesdoo.report.visits</field>
+        <field name="arch" type="xml">
+            <pivot>
+                  <field name="week" />
+                  <field name="type" type="column"/>
+                  <field name="visits" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="beesdoo_report_visits_graph">
+        <field name="name">beesdoo.report.visits.graph</field>
+        <field name="model">beesdoo.report.visits</field>
+        <field name="arch" type="xml">
+            <graph type="bar" stacked="False">
+                  <field name="week" />
+                  <field name="type" />
+                  <field name="visits" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    
+    <!-- Action  -->
+    <record model="ir.actions.act_window" id="beesdoo_report_visits_action">
+        <field name="name">Report on visits</field>
+        <field name="res_model">beesdoo.report.visits</field>
+        <field name="view_mode">pivot,graph</field>
+    </record>
+    <!-- ir.ui.menu -->
+
+    <menuitem id="beesdoo_report"
+                parent="base.menu_reporting_config"
+                
+                name="Beesdoo report"  />
+    
+    <menuitem id="beesdoo_report_visit"
+                parent="beesdoo_report"
+                name="Visits report"
+                action="beesdoo_report_visits_action" />
+</odoo>

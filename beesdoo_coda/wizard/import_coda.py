@@ -5,7 +5,7 @@ Created on 16 mai 2016
 @author: Thibault Francois (thibault@françois.be)
 '''
 
-from coda.parser import Parser
+from coda.parser import Parser, CodaParserException
 from openerp import models, _
 
 class CodaBankStatementImport(models.TransientModel):
@@ -60,7 +60,7 @@ class CodaBankStatementImport(models.TransientModel):
         parser = Parser()
         try:
             statements = parser.parse(data_file)
-        except ValueError:
+        except CodaParserException:
             return super(CodaBankStatementImport, self)._parse_file(data_file)
         currency_code = False
         account_number = False
