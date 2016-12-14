@@ -1,2 +1,2 @@
-import member_card, partner
+import member_card, partner, portal_wizard
 
