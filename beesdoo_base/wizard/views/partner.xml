@@ -1,22 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<!-- New eater generation wizard -->
-	<record id="Eater Wizard" model="ir.ui.view">
-		<field name="name">New Eater Wizard</field>
-		<field name="model">eater.new.wizard</field>
-		<field name="arch" type="xml">
-			<form string="Create a new eater">
-				<group>
-					<field name="first_name" />
-					<field name="last_name" />
-					<field name="email" />
-				</group>
-				<footer>
-					<button type="object" name="create_new_eater" string="Create"
-						class="oe_highlight" />
-					<button special="cancel" string="Cancel" />
-				</footer>
-			</form>
-		</field>
-	</record>
+    <!-- New eater generation wizard -->
+    <record id="Eater Wizard" model="ir.ui.view">
+        <field name="name">New Eater Wizard</field>
+        <field name="model">eater.new.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Create a new eater">
+                <group>
+                    <field name="first_name" />
+                    <field name="last_name" />
+                    <field name="email" />
+                </group>
+                <footer>
+                    <button type="object" name="create_new_eater"
+                        string="Create" class="oe_highlight" />
+                    <button special="cancel" string="Cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="beesdoo_portal_wizard_view" model="ir.ui.view">
+        <field name="name">Unfuck Portal Wizard</field>
+        <field name="model">portal.wizard</field>
+        <field name="inherit_id" ref="portal.wizard_view" />
+        <field name="arch" type="xml">
+            <field name="portal_id" position="attributes">
+                <attribute name="on_change" />
+            </field>
+        </field>
+    </record>
+
 </odoo>
