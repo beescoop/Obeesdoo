@@ -7,10 +7,10 @@ import uuid
 class BeesdooProduct(models.Model):
     _inherit = "product.template"
 
-    eco_label = fields.Many2one('beesdoo.product.label', domain = [('type', '=', 'eco')])
-    local_label = fields.Many2one('beesdoo.product.label', domain = [('type', '=', 'local')])
-    fair_label = fields.Many2one('beesdoo.product.label', domain = [('type', '=', 'fair')])
-    origin_label = fields.Many2one('beesdoo.product.label', domain = [('type', '=', 'delivery')])
+    eco_label = fields.Many2one('beesdoo.product.label', domain=[('type', '=', 'eco')])
+    local_label = fields.Many2one('beesdoo.product.label', domain=[('type', '=', 'local')])
+    fair_label = fields.Many2one('beesdoo.product.label', domain=[('type', '=', 'fair')])
+    origin_label = fields.Many2one('beesdoo.product.label', domain=[('type', '=', 'delivery')])
 
     main_seller_id = fields.Many2one('res.partner', compute='_compute_main_seller_id', store=True)
 
@@ -27,6 +27,13 @@ class BeesdooProduct(models.Model):
 
     note = fields.Text('Comments')
 
+    # S0023 : List_price = Price HTVA, so add a suggested price
+    list_price = fields.Float(string='exVAT Price')
+    suggested_price = fields.Float(string='Suggested exVAT Price', compute='_compute_cost', readOnly=True)
+
+    def _get_main_supplier_info(self):
+        return self.seller_ids.sorted(key=lambda seller: seller.date_start, reverse=True)
+
     @api.one
     def generate_barcode(self):
         print 'generate barcode', self.barcode, self.barcode == ''
@@ -40,12 +47,12 @@ class BeesdooProduct(models.Model):
             bc = ean[0:12] + str(self.env['barcode.nomenclature'].ean_checksum(ean))
         print 'barcode :', bc
         self.barcode = bc
-    
+
     @api.one
     @api.depends('seller_ids', 'seller_ids.date_start')
     def _compute_main_seller_id(self):
         # Calcule le vendeur associé qui a la date de début la plus récente et plus petite qu’aujourd’hui
-        sellers_ids = self.seller_ids.sorted(key=lambda seller: seller.date_start, reverse=True)
+        sellers_ids = self._get_main_supplier_info()  # self.seller_ids.sorted(key=lambda seller: seller.date_start, reverse=True)
         self.main_seller_id = sellers_ids and sellers_ids[0].name or False
 
     @api.one
@@ -70,10 +77,33 @@ class BeesdooProduct(models.Model):
         if self.display_unit.category_id != self.default_reference_unit.category_id:
             raise UserError(_('Reference Unit and Display Unit should belong to the same category'))
 
+    @api.one
+    @api.depends('seller_ids')
+    def _compute_cost(self):
+        suppliers = self._get_main_supplier_info()
+        if(len(suppliers) > 0):
+            self.suggested_price = (suppliers[0].price * self.uom_po_id.factor)* (1 + suppliers[0].product_tmpl_id.categ_id.profit_margin / 100)
+
 class BeesdooProductLabel(models.Model):
     _name = "beesdoo.product.label"
 
     name = fields.Char()
     type = fields.Selection([('eco', 'Écologique'), ('local', 'Local'), ('fair', 'Équitable'), ('delivery', 'Distribution')])
     color_code = fields.Char()
+
+class BeesdooProductCategory(models.Model):
+    _inherit = "product.category"
+
+    profit_margin = fields.Float(default = '10.0', string = "Product Margin [%]")
+
+    @api.one
+    @api.constrains('profit_margin')
+    def _check_margin(self):
+        if (self.profit_margin < 0.0):
+            raise UserError(_('Percentages for Profit Margin must > 0.'))
+
+class BeesdooProductSupplierInfo(models.Model):
+    _inherit = "product.supplierinfo"
+
+    price = fields.Float('exVAT Price')
 

@@ -1,70 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
-	<record model="ir.ui.view" id="beesdoo_product_form">
-		<field name="name">bees.product.template.form</field>
-		<field name="model">product.template</field>
-		<field name="inherit_id" ref="product.product_template_only_form_view" />
-		<field name="arch" type="xml">
-			<field name="barcode" position="after">
-				<button string="Generate Barcode" name="generate_barcode" type="object" attrs="{'invisible' : [('barcode','!=',False)]}" /> />
-			</field>
-			<field name="invoice_policy" position="attributes">
-            	<attribute name="invisible">1</attribute>
+    <record model="ir.ui.view" id="beesdoo_product_form">
+        <field name="name">bees.product.template.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+            <field name="barcode" position="after">
+                <button string="Generate Barcode" name="generate_barcode" type="object" attrs="{'invisible' : [('barcode','!=',False)]}" /> />
+            </field>
+            <field name="list_price" position="after">
+                <field name="suggested_price" widget='monetary' options="{'currency_field': 'currency_id'}" />
+            </field>
+            <field name="invoice_policy" position="attributes">
+                <attribute name="invisible">1</attribute>
             </field>
             <field name="purchase_method" position="attributes">
-            	<attribute name="invisible">1</attribute>
+                <attribute name="invisible">1</attribute>
             </field>
             <field name="route_ids" position="attributes">
-            	<attribute name="invisible">1</attribute>
+                <attribute name="invisible">1</attribute>
             </field>
             <group name="sale_condition" position="attributes">
-            	<attribute name="invisible">1</attribute>
+                <attribute name="invisible">1</attribute>
             </group>
-            <field name="property_account_creditor_price_difference" position="attributes">
-            	<attribute name="invisible">1</attribute>
+            <field name="property_account_creditor_price_difference"
+                position="attributes">
+                <attribute name="invisible">1</attribute>
             </field>
-			<xpath expr="//group[@name='inventory']/.." position="after">
+            <xpath expr="//group[@name='inventory']/.." position="after">
                  <page string="Label">
-                 	<group>
-                 		<group name="label">
-	                        <field name="total_with_vat"/>
-                 			<field name="display_weight"/>
-	                     	<field name="display_unit" />
-	                        <field name="default_reference_unit"/>
-	                        <field name="total_with_vat_by_unit" />
-	                        <field name="total_deposit" />
-                     	</group>
-                     	<group>
-	 						<field name="main_seller_id" />
-	                        <field name="eco_label"/>
-	                        <field name="local_label"/>
-	                        <field name="fair_label"/>
-	                        <field name="origin_label"/>
-	                       <field name="label_to_be_printed"/>
+                     <group>
+                         <group name="label">
+                            <field name="total_with_vat"/>
+                             <field name="display_weight"/>
+                             <field name="display_unit" />
+                            <field name="default_reference_unit"/>
+                            <field name="total_with_vat_by_unit" />
+                            <field name="total_deposit" />
+                         </group>
+                         <group>
+                             <field name="main_seller_id" />
+                            <field name="eco_label"/>
+                            <field name="local_label"/>
+                            <field name="fair_label"/>
+                            <field name="origin_label"/>
+                           <field name="label_to_be_printed"/>
                             <field name="label_last_printed"/>
-                     	</group>
+                         </group>
                    </group>
                    <group>
                          <field name="note" />
                  </group>
                  </page>
              </xpath>
-		</field>
-	</record>
+        </field>
+    </record>
 
+    <record model="ir.ui.view" id="beesdoo_product_label_form">
+        <field name="name">bees.product.label.form</field>
+        <field name="model">beesdoo.product.label</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name" />
+                    <field name="type" />
+                    <field name="color_code" />
+                </group>
+            </form>
+        </field>
+    </record>
 
-	<record model="ir.ui.view" id="beesdoo_product_label_form">
-		<field name="name">bees.product.label.form</field>
-		<field name="model">beesdoo.product.label</field>
-		<field name="arch" type="xml">
-			<form>
-				<group>
-					<field name="name" />
-					<field name="type" />
-					<field name="color_code" />
-				</group>
-			</form>
-		</field>
-	</record>
+    <record model="ir.ui.view" id="beesdoo_product_category_list">
+        <field name="name">beesdoo.product.category.list</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_list_view" />
+        <field name="arch" type="xml">
+            <field name="complete_name" position="after">
+                <field name="profit_margin"></field>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="beesdoo_product_category_form">
+        <field name="name">beesdoo.product.category.form</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view" />
+        <field name="arch" type="xml">
+            <field name="parent_id" position="after">
+                <field name="profit_margin"></field>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="beesdoo_product_supplierinfo_tree_view">
+        <field name="name">beesdoo.product.supplierinfo.tree</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_tree_view" />
+        <field name="arch" type="xml">
+            <field name="price" position="replace">
+                <field name="price"></field>
+            </field>
+        </field>
+    </record>
 </odoo>
