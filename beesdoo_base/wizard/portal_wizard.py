@@ -1,7 +1,7 @@
 from openerp import models, fields, api
 from openerp import SUPERUSER_ID
 
-class BeesdooWizard(models.Model):
+class BeesdooWizard(models.TransientModel):
 
     _inherit = 'portal.wizard'
 
