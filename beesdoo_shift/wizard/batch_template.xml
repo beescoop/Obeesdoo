@@ -1,0 +1,41 @@
+<odoo>
+    <record model="ir.ui.view" id="task_template_generation_view_form">
+        <field name="name">Planning Form</field>
+        <field name="model">beesddoo.shift.generate_shift_template</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="planning_id" />
+                    <field name="type_id" invisible="1" />
+                </group>
+                <group>
+                    <group>
+                        <separator string="Daily Schedule" colspan="2"/>
+                        <field name="line_ids" nolabel="1" >
+                            <tree editable="bottom">
+                                <field name="start_time" widget="float_time" />
+                                <field name="end_time" widget="float_time" />
+                                <field name="worker_nb" />
+                            </tree>
+                        </field>
+                    </group>
+                    <group>
+                        <separator string="Apply for Days" colspan="2"/>
+                        <field name="day_ids" nolabel="1" >
+                            <tree>
+                                <field name="name" />
+                                <field name="number" />
+                            </tree>
+                        </field>
+                    </group>
+                </group>
+                <footer>
+                    <button type="object" name="generate" string="Confirm" class="oe_highlight"/>
+                    or
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>
