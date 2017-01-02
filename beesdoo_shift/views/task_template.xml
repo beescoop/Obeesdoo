@@ -1,0 +1,246 @@
+<odoo>
+    <record model="ir.ui.view" id="task_template_view_tree">
+        <field name="name">Shift Template List</field>
+        <field name="model">beesdoo.shift.template</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="planning_id" />
+                <field name="task_type_id" />
+                <field name="name" />
+                <field name="day_nb_id" />
+                <field name="start_time" />
+                <field name="end_time" />
+                <field name="duration" />
+                <field name="worker_nb" />
+                <field name="remaining_worker" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="task_template_view_search">
+        <field name="name">Shift Template Search</field>
+        <field name="model">beesdoo.shift.template</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="planning_id" />
+                <field name="task_type_id" />
+                <field name="day_nb_id" />
+                <field name="worker_ids" />
+                <filter string="Planning" context="{'group_by':'planning_id'}" />
+                <filter string="Week Day" context="{'group_by':'day_nb_id'}" />
+                <filter string="Place Available" name="available"
+                    domain="[('remaining_worker', '>', 0)]" />
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="task_template_view_form">
+        <field name="name">Task Template Form</field>
+        <field name="model">beesdoo.shift.template</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="day_nb_id" />
+                            <field name="planning_id" />
+                            <field name="task_type_id" />
+                            <field name="worker_nb" />
+                            <field name="remaining_worker" />
+                            <field name="active" />
+                        </group>
+                        <group>
+                            <field name="start_time" widget="float_time" />
+                            <field name="duration" widget="float_time" />
+                            <field name="end_time" widget="float_time" />
+                        </group>
+                    </group>
+                    <separator string="Recurring Workers" />
+                    <field name="worker_ids" nolabel="1" />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="task_template_view_calendar">
+        <field name="name">Shift Template Calendar</field>
+        <field name="model">beesdoo.shift.template</field>
+        <field name="arch" type="xml">
+            <calendar string="Calendar View" date_start="start_date"
+                date_stop="end_date" color="task_type_id">
+                <field name="name" />
+                <field name="worker_ids" />
+            </calendar>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="task_template_view_kanban">
+        <field name="name">Task Template Kanban</field>
+        <field name="model">beesdoo.shift.template</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="planning_id" />
+                <field name="color" />
+                <field name="task_type_id" />
+                <field name="name" />
+                <field name="day_nb_id" />
+                <field name="worker_nb" />
+                <field name="worker_ids" />
+                <field name="worker_name" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div
+                            t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
+                            <div class="o_dropdown_kanban dropdown"
+                                groups="base.group_user">
+                                <a class="dropdown-toggle btn"
+                                    data-toggle="dropdown" href="#">
+                                    <span class="fa fa-bars fa-lg" />
+                                </a>
+                                <ul class="dropdown-menu" role="menu"
+                                    aria-labelledby="dLabel">
+                                    <t t-if="widget.editable">
+                                        <li>
+                                            <a type="edit">Edit Shift
+                                                Template</a>
+                                        </li>
+                                    </t>
+                                    <t t-if="widget.deletable">
+                                        <li>
+                                            <a type="delete">Delete</a>
+                                        </li>
+                                    </t>
+                                    <li>
+                                        <ul class="oe_kanban_colorpicker"
+                                            data-field="color" />
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="oe_kanban_content">
+                                <strong>
+                                    <field name="name" />
+                                </strong>
+                                <div>
+                                    <field name="planning_id" />
+                                </div>
+                                <div t-if="record.task_type_id.raw_value">
+                                    Type:
+                                    <field name="task_type_id" />
+                                </div>
+                                <div>
+                                    Worker Number:
+                                    <field name="worker_nb" />
+                                </div>
+                                <div>
+                                    <field name="start_time"
+                                        widget="float_time" />
+                                    -
+                                    <field name="end_time" widget="float_time" />
+                                </div>
+                            </div>
+                            <div>
+                                <br />
+                                <strong>Recurring Workers</strong>
+                                <t
+                                    t-foreach="record.worker_name.raw_value.split(',')"
+                                    t-as="worker">
+                                    <div>
+                                        <t t-esc="worker" />
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <menuitem name="Shift Management" id="menu_root" />
+    <menuitem name="Templates" id="menu_template_top" parent="menu_root" />
+
+
+    <!-- Configuration -->
+    <record model="ir.ui.view" id="daynumber_view_tree">
+        <field name="name">Day Number List</field>
+        <field name="model">beesdoo.shift.daynumber</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name" />
+                <field name="number" />
+                <field name="active" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="type_view_tree">
+        <field name="name">Shift Type List</field>
+        <field name="model">beesdoo.shift.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="description" />
+                <field name="active" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_generate_shift_template_wizard">
+        <field name="name">Generate Shift Template</field>
+        <field name="res_model">beesddoo.shift.generate_shift_template</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record model="ir.ui.view" id="type_view_form">
+        <field name="name">Shift Type Form</field>
+        <field name="model">beesdoo.shift.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button type="action"
+                        name="%(action_generate_shift_template_wizard)d"
+                        string="Generate shift Templates" />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                        </group>
+                        <group>
+                            <field name="active" />
+                        </group>
+                    </group>
+                    <separator string="Description" />
+                    <field name="description" />
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem name="Configuration" id="menu_configuration_top"
+        parent="menu_root" />
+
+    <record model="ir.actions.act_window" id="action_day_number">
+        <field name="name">Day Number</field>
+        <field name="res_model">beesdoo.shift.daynumber</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem name="Shift Day" id="menu_configuration_day"
+        parent="menu_configuration_top" action="action_day_number" />
+
+    <record model="ir.actions.act_window" id="action_type">
+        <field name="name">Shift Type</field>
+        <field name="res_model">beesdoo.shift.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Shift Type" id="menu_configuration_type"
+        parent="menu_configuration_top" action="action_type" />
+</odoo>
