@@ -37,7 +37,7 @@
                     <div class="oe_button_box" name="button_box">
                         <button class="oe_stat_button" type="action"
                             name="%(action_shift_template)d" icon="fa-book"
-                            string="Shifts">
+                            string="Shifts Template">
                             <!-- <field string="Ventes" name="sale_order_count" 
                                 widget="statinfo" modifiers="{'readonly': true}"/> -->
                         </button>
@@ -63,7 +63,7 @@
             <tree>
                 <field name="name" />
                 <button type="action" name="%(action_shift_template)d"
-                    string="Shifts" />
+                    string="Shifts Template" />
             </tree>
         </field>
     </record>
