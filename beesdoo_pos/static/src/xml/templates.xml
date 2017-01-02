@@ -33,16 +33,23 @@
                 <div class="customer-information">
                     <span class='customer-name' />
                     <br />
-                    Balance:
+                   	Balance:
                     <span class='customer-balance' />
                     €
                     <br />
+                    Eater 1:
                     <span class='customer-delegate1' />
                     <br />
+                    Eater 2:
                     <span class='customer-delegate2' />
                     <br />
                 </div>
             </t>
         </t>
+    </t>
+    
+    <t t-extend="ClientListScreenWidget">
+    	<t t-jquery='.new-customer' t-operation='replace'>
+    	</t>
     </t>
 </templates>
