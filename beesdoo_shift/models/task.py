@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
-from openerp import models, fields
+from openerp import models, fields, api
 
-STATES = [
-    ('draft', 'Unconfirmed'),
-    ('open', 'Confirmed'),
-    ('done', 'Attended'),
-    ('absent', 'Absent'),
-    ('excused', 'Excused'),
-    ('replaced', 'Replaced'),
-    ('cancel', 'Cancelled'),
-]
+class TaskStage(models.Model):
+    _name = 'beesdoo.shift.stage'
+    _order = 'sequence asc'
+
+    name = fields.Char()
+    sequence = fields.Integer()
+    color = fields.Integer()
+
 
 class Task(models.Model):
     _name = 'beesdoo.shift.shift'
 
-    #EX01 ADD inheritance
     _inherit = ['mail.thread']
+
+    _order = "start_time asc"
 
     name = fields.Char(track_visibility='always')
     task_template_id = fields.Many2one('beesdoo.shift.template')
@@ -24,7 +24,9 @@ class Task(models.Model):
     worker_id = fields.Many2one('res.partner', track_visibility='onchange', domain=[('eater', '=', 'worker_eater')])
     start_time = fields.Datetime(track_visibility='always')
     end_time = fields.Datetime(track_visibility='always')
-    state = fields.Selection(STATES, default='draft', track_visibility='onchange')
+    stage_id = fields.Many2one('beesdoo.shift.stage', required=True, track_visibility='onchange')
+    super_coop_id = fields.Many2one('res.users', string="Super Cooperative", domain=[('super', '=', True)], track_visibility='onchange')
+    color = fields.Integer(related="stage_id.color", readonly=True)
 
     def message_auto_subscribe(self, updated_fields, values=None):
         self._add_follower(values)
@@ -34,3 +36,13 @@ class Task(models.Model):
         if vals.get('worker_id'):
             worker = self.env['res.partner'].browse(vals['worker_id'])
             self.message_subscribe(partner_ids=worker.ids)
+
+    @api.model
+    def _read_group_stage_id(self, ids, domain, read_group_order=None, access_rights_uid=None):
+        res  = self.env['beesdoo.shift.stage'].search([]).name_get()
+        fold = dict.fromkeys([r[0] for r in res], False)
+        return res, fold
+
+    _group_by_full = {
+        'stage_id': _read_group_stage_id,
+    }

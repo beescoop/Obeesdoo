@@ -28,7 +28,7 @@ class TaskType(models.Model):
 
 class DayNumber(models.Model):
     _name = 'beesdoo.shift.daynumber'
-    
+
     _order = 'number asc'
 
     name = fields.Char()
@@ -44,12 +44,15 @@ class Planning(models.Model):
 class TaskTemplate(models.Model):
     _name = 'beesdoo.shift.template'
 
+    _order = 'start_time'
+
     name = fields.Char(required=True)
     planning_id = fields.Many2one('beesdoo.shift.planning', required=True)
     day_nb_id = fields.Many2one('beesdoo.shift.daynumber', string='Day', required=True)
     task_type_id = fields.Many2one('beesdoo.shift.type', string="Type")
     start_time = fields.Float(required=True)
     end_time = fields.Float(required=True)
+    super_coop_id = fields.Many2one('res.users', string="Super Cooperative", domain=[('super', '=', True)])
 
     duration = fields.Float(help="Duration in Hour")
     worker_nb = fields.Integer(string="Number of worker", help="Max number of worker for this task", default=1)
@@ -72,7 +75,7 @@ class TaskTemplate(models.Model):
             h_end, m_end = floatime_to_hour_minute(rec.end_time)
             rec.start_date = fields.Datetime.context_timestamp(self, day).replace(hour=h_begin, minute=m_begin, second=0).astimezone(UTC)
             rec.end_date = fields.Datetime.context_timestamp(self, day).replace(hour=h_end, minute=m_end, second=0).astimezone(UTC)
-    
+
     def _dummy_search(self, operator, value):
         return []
 
@@ -85,7 +88,7 @@ class TaskTemplate(models.Model):
     def _get_worker_name(self):
         for rec in self:
             rec.worker_name = ','.join(rec.worker_ids.mapped('display_name'))
-    
+
     @api.constrains('worker_nb', 'worker_ids')
     def _nb_worker_max(self):
         for rec in self:
@@ -97,7 +100,7 @@ class TaskTemplate(models.Model):
     def _get_duration(self):
         if self.start_time and self.end_time:
             self.duration = self.end_time - self.start_time
-    
+
     @api.onchange('duration')
     def _set_duration(self):
         if self.start_time:
@@ -108,11 +111,13 @@ class TaskTemplate(models.Model):
         for rec in self:
             for i in xrange(0, rec.worker_nb):
                 tasks |= tasks.create({
-                    'name' :  "%s (%s) - (%s) [%s]" % (rec.name, float_to_time(rec.start_time), float_to_time(rec.end_time), i),
+                    'name' :  "%s %s (%s - %s) [%s]" % (rec.name, rec.day_nb_id.name, float_to_time(rec.start_time), float_to_time(rec.end_time), i),
                     'task_template_id' : rec.id,
                     'task_type_id' : rec.task_type_id.id,
+                    'super_coop_id': rec.super_coop_id.id,
                     'worker_id' : rec.worker_ids[i].id if len(rec.worker_ids) > i else False,
                     'start_time' : rec.start_date,
                     'end_time' :  rec.end_date,
+                    'stage_id': self.env.ref('beesdoo_shift.draft').id,
                 })
         return tasks

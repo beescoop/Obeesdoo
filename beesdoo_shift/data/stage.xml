@@ -1,0 +1,37 @@
+<odoo>
+    <record model="beesdoo.shift.stage" id="draft">
+        <field name="name">Unconfirmed</field>
+        <field name="sequence">1</field>
+        <field name="color">0</field>
+    </record>
+    <record model="beesdoo.shift.stage" id="open">
+        <field name="name">Confirmed</field>
+        <field name="sequence">2</field>
+        <field name="color">5</field>
+    </record>
+    <record model="beesdoo.shift.stage" id="done">
+        <field name="name">Attended</field>
+        <field name="sequence">3</field>
+        <field name="color">1</field>
+    </record>
+    <record model="beesdoo.shift.stage" id="replaced">
+        <field name="name">Replaced</field>
+        <field name="sequence">4</field>
+        <field name="color">5</field>
+    </record>
+    <record model="beesdoo.shift.stage" id="absent">
+        <field name="name">Absent</field>
+        <field name="sequence">5</field>
+        <field name="color">2</field>
+    </record>
+    <record model="beesdoo.shift.stage" id="excused">
+        <field name="name">Excused</field>
+        <field name="sequence">6</field>
+        <field name="color">4</field>
+    </record>
+    <record model="beesdoo.shift.stage" id="cancel">
+        <field name="name">Cancelled</field>
+        <field name="sequence">7</field>
+        <field name="color">8</field>
+    </record>
+</odoo>

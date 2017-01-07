@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from openerp import models, fields, api
+from openerp import models, fields, api, _
 
 
 class InstanciatePlanning(models.TransientModel):
@@ -15,4 +15,14 @@ class InstanciatePlanning(models.TransientModel):
     def generate_task(self):
         self.ensure_one()
         self = self.with_context(visualize_date=self.date_start)
-        self.planning_id.task_template_ids._generate_task_day()
+        shifts = self.planning_id.task_template_ids._generate_task_day()
+        return {
+           'name': _('Generated Shift'),
+           'type': 'ir.actions.act_window',
+           'view_type': 'form',
+           'view_mode': 'kanban,calendar,tree,form,pivot',
+           'res_model': 'beesdoo.shift.shift',
+           'target': 'current',
+           'domain': [('id', 'in', shifts.ids)],
+           'context' : {'search_default_gb_day': 1}
+        }

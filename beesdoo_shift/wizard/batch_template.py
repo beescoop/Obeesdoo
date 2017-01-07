@@ -9,7 +9,7 @@ from openerp import models, fields, api, _
 
 class GenerateShiftTemplate(models.TransientModel):
     _name = 'beesddoo.shift.generate_shift_template'
-    
+
     day_ids = fields.Many2many('beesdoo.shift.daynumber', relation='template_gen_day_number_rel', column1='wizard_id', column2='day_id')
     planning_id = fields.Many2one('beesdoo.shift.planning', required=True)
     type_id = fields.Many2one('beesdoo.shift.type', default=lambda self: self._context.get('active_id'))

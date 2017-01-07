@@ -15,7 +15,8 @@
         <field name="view_mode">kanban,tree,form,calendar,pivot</field>
         <field name="context">{'group_by': 'day_nb_id',
             'search_default_planning_id': active_id,
-            'default_planning_id': active_id}</field>
+            'default_planning_id': active_id}
+        </field>
     </record>
 
     <record model="ir.actions.act_window" id="action_generate_shift_wizard">
@@ -31,7 +32,7 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    
+
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
@@ -49,7 +50,8 @@
                     </div>
                     <group>
                         <button type="action"
-                        name="%(action_generate_shift_wizard)d" string="Generate shifts" colspan="2"/>
+                            name="%(action_generate_shift_wizard)d"
+                            string="Generate shifts" colspan="2" />
                     </group>
                 </sheet>
             </form>

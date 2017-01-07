@@ -1,0 +1,13 @@
+<odoo>
+
+    <record model="ir.ui.view" id="super_coop_users_inherited_view_form">
+        <field name="name">Users Super Coop</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="super" />
+            </field>
+        </field>
+    </record>
+</odoo>

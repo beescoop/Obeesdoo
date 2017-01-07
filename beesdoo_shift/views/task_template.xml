@@ -6,8 +6,9 @@
             <tree>
                 <field name="planning_id" />
                 <field name="task_type_id" />
-                <field name="name" />
                 <field name="day_nb_id" />
+                <field name="name" />
+                <field name="super_coop_id" />
                 <field name="start_time" />
                 <field name="end_time" />
                 <field name="duration" />
@@ -25,8 +26,10 @@
                 <field name="name" />
                 <field name="planning_id" />
                 <field name="task_type_id" />
+                <field name="super_coop_id" />
                 <field name="day_nb_id" />
                 <field name="worker_ids" />
+                <filter string="My Team Shift" domain="[('super_coop_id', '=', uid)]" />
                 <filter string="Planning" context="{'group_by':'planning_id'}" />
                 <filter string="Week Day" context="{'group_by':'day_nb_id'}" />
                 <filter string="Place Available" name="available"
@@ -59,6 +62,7 @@
                             <field name="start_time" widget="float_time" />
                             <field name="duration" widget="float_time" />
                             <field name="end_time" widget="float_time" />
+                            <field name="super_coop_id" />
                         </group>
                     </group>
                     <separator string="Recurring Workers" />
@@ -75,6 +79,7 @@
             <calendar string="Calendar View" date_start="start_date"
                 date_stop="end_date" color="task_type_id">
                 <field name="name" />
+                <field name="super_coop_id" />
                 <field name="worker_ids" />
             </calendar>
         </field>
@@ -93,35 +98,40 @@
                 <field name="worker_nb" />
                 <field name="worker_ids" />
                 <field name="worker_name" />
+                <field name="super_coop_id" />
                 <templates>
                     <t t-name="kanban-box">
                         <div
                             t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
-                            <div class="o_dropdown_kanban dropdown"
-                                groups="base.group_user">
-                                <a class="dropdown-toggle btn"
-                                    data-toggle="dropdown" href="#">
-                                    <span class="fa fa-bars fa-lg" />
-                                </a>
-                                <ul class="dropdown-menu" role="menu"
-                                    aria-labelledby="dLabel">
-                                    <t t-if="widget.editable">
+                            <t t-if="widget.editable">
+                                <div class="o_dropdown_kanban dropdown"
+                                    groups="base.group_user">
+                                    <a class="dropdown-toggle btn"
+                                        data-toggle="dropdown" href="#">
+                                        <span class="fa fa-bars fa-lg" />
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu"
+                                        aria-labelledby="dLabel">
+                                        <t t-if="widget.editable">
+                                            <li>
+                                                <a type="edit">Edit Shift
+                                                    Template
+                                                </a>
+                                            </li>
+                                        </t>
+                                        <t t-if="widget.deletable">
+                                            <li>
+                                                <a type="delete">Delete</a>
+                                            </li>
+                                        </t>
+
                                         <li>
-                                            <a type="edit">Edit Shift
-                                                Template</a>
+                                            <ul class="oe_kanban_colorpicker"
+                                                data-field="color" />
                                         </li>
-                                    </t>
-                                    <t t-if="widget.deletable">
-                                        <li>
-                                            <a type="delete">Delete</a>
-                                        </li>
-                                    </t>
-                                    <li>
-                                        <ul class="oe_kanban_colorpicker"
-                                            data-field="color" />
-                                    </li>
-                                </ul>
-                            </div>
+                                    </ul>
+                                </div>
+                            </t>
                             <div class="oe_kanban_content">
                                 <strong>
                                     <field name="name" />
@@ -133,6 +143,11 @@
                                     Type:
                                     <field name="task_type_id" />
                                 </div>
+                                <div t-if="record.super_coop_id.raw_value">
+                                    Super Coop:
+                                    <field name="super_coop_id" />
+                                </div>
+
                                 <div>
                                     Worker Number:
                                     <field name="worker_nb" />
@@ -162,8 +177,10 @@
         </field>
     </record>
 
-    <menuitem name="Shift Management" id="menu_root" />
-    <menuitem name="Templates" id="menu_template_top" parent="menu_root" />
+    <menuitem name="Shift Management" id="menu_root"
+        groups="beesdoo_shift.group_shift_attendance" />
+    <menuitem name="Templates" id="menu_template_top" parent="menu_root"
+        groups="beesdoo_shift.group_shift_management" />
 
 
     <!-- Configuration -->
@@ -224,7 +241,7 @@
         </field>
     </record>
     <menuitem name="Configuration" id="menu_configuration_top"
-        parent="menu_root" />
+        parent="menu_root" groups="beesdoo_shift.group_planning_management" />
 
     <record model="ir.actions.act_window" id="action_day_number">
         <field name="name">Day Number</field>
