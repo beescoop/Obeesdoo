@@ -10,4 +10,17 @@
             </field>
         </field>
     </record>
+
+    <record model="ir.ui.view" id="super_coop_partner_inherited_view_form">
+        <field name="name">Partner Super Coop</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="beesdoo_base.beesdoo_partner_form_view" />
+        <field name="arch" type="xml">
+            <field name="eater" position="after">
+                <field name="super" />
+            </field>
+        </field>
+    </record>
 </odoo>
+
+
