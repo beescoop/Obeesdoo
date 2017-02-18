@@ -39,7 +39,7 @@
 						<field name="last_printed" />
 					</group>
 					<separator string="Eaters" />
-					<field name="child_eater_ids" widget="many2many_tags" />
+					<field name="child_eater_ids" widget="many2many_tags" options="{'no_create': True}" context="{'default_eater' : 'eater', 'default_customer' : True}"/>
 					<group>
 						<button string="New Eater" name="%(action_eater_wizard)d"
 							type="action" />
@@ -72,6 +72,10 @@
 			<button name="toggle_active" position="attributes">
 				<attribute name="groups" />
 			</button>
+            <!-- Temporary fix for the partner_view -->
+            <xpath expr="//field[@name='customer']" position='before'>
+                   <field name="is_company" invisible="True"/>
+                </xpath>
 		</field>
 	</record>
 
