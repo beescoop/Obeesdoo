@@ -8,7 +8,7 @@ class StockPicking(models.Model):
     responsible = fields.Many2one('res.partner', string="Responsible")
 
     def _add_follower(self):
-       if(self.responsible):
+        if(self.responsible):
             types = self.env['mail.message.subtype'].search(['|',('res_model','=','stock.picking'),('name','=','Discussions')])
             self.env['mail.followers'].create({'res_model' : 'stock.picking', 
                                             'res_id' : self.id, 
@@ -23,6 +23,14 @@ class StockPicking(models.Model):
 
     @api.model
     def create(self, values):
+        print "Values", values
         picking = super(StockPicking, self).create(values)
         picking._add_follower()
         return picking
+
+    @api.multi
+    def copy_qty(self):
+        self.ensure_one()
+        for pack_operation in self.pack_operation_product_ids:
+            pack_operation.qty_done = pack_operation.product_qty
+        return True
