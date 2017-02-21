@@ -90,6 +90,7 @@ class BeesdooProductLabel(models.Model):
     name = fields.Char()
     type = fields.Selection([('eco', 'Écologique'), ('local', 'Local'), ('fair', 'Équitable'), ('delivery', 'Distribution')])
     color_code = fields.Char()
+    active = fields.Boolean(default=True)
 
 class BeesdooProductCategory(models.Model):
     _inherit = "product.category"

@@ -65,8 +65,22 @@
                     <field name="name" />
                     <field name="type" />
                     <field name="color_code" />
+                    <field name="active" />
                 </group>
             </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="beesdoo_product_label_tree">
+        <field name="name">bees.product.label.tree</field>
+        <field name="model">beesdoo.product.label</field>
+        <field name="arch" type="xml">
+            <tree editable="Top">
+                <field name="name" />
+                <field name="type" />
+                <field name="color_code" />
+                <field name="active" />
+            </tree>
         </field>
     </record>
 
@@ -102,4 +116,13 @@
             </field>
         </field>
     </record>
+
+    <record model="ir.actions.act_window" id="action_labels">
+        <field name="name">Product Labels</field>
+        <field name="res_model">beesdoo.product.label</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="label_configuration_menu" name="Labels" parent="product.prod_config_main"
+              action="action_labels" sequence="20"/>
 </odoo>
