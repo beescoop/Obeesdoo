@@ -21,7 +21,7 @@ class BeesAccountBankStatement(models.Model):
             return []
 
         pos_session_rec = self.env['pos.session'].browse(self.env.context['active_id'])
-        return [(0, 0, {'coin_value' : bill_value_rec.name}) for bill_value_rec in pos_session_rec.config_id.bill_value]
+        return [(0, 0, {'coin_value' : bill_value_rec.name, 'subtotal':0.0}) for bill_value_rec in pos_session_rec.config_id.bill_value]
 
     cashbox_lines_ids = fields.One2many(default=_get_default_line)
 
