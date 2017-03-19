@@ -8,6 +8,7 @@ Created on 09 Octobre 2016
 from StringIO import StringIO
 import csv
 import datetime
+import md5
 from openerp import models, _
 
 ACCOUNT = "Compte donneur d'ordre"
@@ -48,7 +49,7 @@ class CodaBankStatementImport(models.TransientModel):
             'partner_name': move[COUNTERPART_NAME], #ok
             'ref': move[DATE] + '-' + move[AMOUNT] + '-' + move[COUNTERPART_NUMBER] + '-' + move[COUNTERPART_NAME],
             'sequence': sequence, #ok
-            'unique_import_id' : move[DATE] + '-' + move[AMOUNT] + '-' + move[COUNTERPART_NUMBER] + '-' + move[COUNTERPART_NAME]
+            'unique_import_id' : move[DATE] + '-' + move[AMOUNT] + '-' + move[COUNTERPART_NUMBER] + '-' + move[COUNTERPART_NAME] + '-' + md5.new(move[COMMUNICATION]).hexdigest()
         }
         return move_data
 
