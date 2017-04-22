@@ -4,7 +4,7 @@ from openerp import models, fields, api, _
 class BeesPOS(models.Model):
     _inherit = 'pos.config'
 
-    bill_value = fields.One2many('bill_value', 'pos')
+    bill_value = fields.One2many('bill_value', 'pos', copy=True)
 
 class BillValue(models.Model):
     _name = 'bill_value'
