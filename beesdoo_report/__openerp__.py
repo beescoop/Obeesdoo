@@ -22,6 +22,7 @@
     'depends': ['beesdoo_base', 'beesdoo_pos', 'board'],
 
     'data': [
+        'security/ir.model.access.csv',
         #YOU PUT YOUR XML HERE
         'report/views/visits.xml', #Should remain the first one
         
