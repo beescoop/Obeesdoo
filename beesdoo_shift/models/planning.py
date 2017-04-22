@@ -110,12 +110,14 @@ class TaskTemplate(models.Model):
         tasks = self.env['beesdoo.shift.shift']
         for rec in self:
             for i in xrange(0, rec.worker_nb):
+                worker_id = rec.worker_ids[i].id if len(rec.worker_ids) > i else False
                 tasks |= tasks.create({
                     'name' :  "%s %s (%s - %s) [%s]" % (rec.name, rec.day_nb_id.name, float_to_time(rec.start_time), float_to_time(rec.end_time), i),
                     'task_template_id' : rec.id,
                     'task_type_id' : rec.task_type_id.id,
                     'super_coop_id': rec.super_coop_id.id,
-                    'worker_id' : rec.worker_ids[i].id if len(rec.worker_ids) > i else False,
+                    'worker_id' : worker_id,
+                    'is_regular': True if worker_id else False,
                     'start_time' : rec.start_date,
                     'end_time' :  rec.end_date,
                     'stage_id': self.env.ref('beesdoo_shift.draft').id,
