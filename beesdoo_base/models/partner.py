@@ -21,6 +21,9 @@ class Partner(models.Model):
     member_card_to_be_printed = fields.Boolean('Print BEES card?')
     last_printed = fields.Datetime('Last printed on')
 
+    info_session = fields.Boolean('Information Session ?')
+    info_session_date = fields.Datetime('Information Session Date')
+
     @api.onchange('first_name', 'last_name')
     def _on_change_name(self):
         self.name = concat_names(self.first_name, self.last_name)

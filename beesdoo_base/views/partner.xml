@@ -33,13 +33,20 @@
 			<xpath expr="//notebook" position="inside">
 				<page string="Member Card"
 					attrs="{'invisible': ['|', ('customer', '=', False), ('eater', '!=', 'worker_eater')]}">
-					<separator string="Printing" />
 					<group>
-						<field name="member_card_to_be_printed" />
-						<field name="last_printed" />
+						<group>
+							<field name="info_session" />
+							<field name="info_session_date"
+								attrs="{'invisible': ['|', ('info_session', '=', False)]}" />
+						</group>
+						<group>
+							<field name="member_card_to_be_printed" />
+							<field name="last_printed" />
+						</group>
 					</group>
 					<separator string="Eaters" />
-					<field name="child_eater_ids" widget="many2many_tags" options="{'no_create': True}" context="{'default_eater' : 'eater', 'default_customer' : True}"/>
+					<field name="child_eater_ids" widget="many2many_tags"
+						options="{'no_create': True}" context="{'default_eater' : 'eater', 'default_customer' : True}" />
 					<group>
 						<button string="New Eater" name="%(action_eater_wizard)d"
 							type="action" />
