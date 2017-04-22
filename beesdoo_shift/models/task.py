@@ -27,6 +27,8 @@ class Task(models.Model):
     stage_id = fields.Many2one('beesdoo.shift.stage', required=True, track_visibility='onchange')
     super_coop_id = fields.Many2one('res.users', string="Super Cooperative", domain=[('super', '=', True)], track_visibility='onchange')
     color = fields.Integer(related="stage_id.color", readonly=True)
+    is_regular = fields.Boolean(default=False)
+    replaced_id = fields.Many2one('res.partner', track_visibility='onchange', domain=[('eater', '=', 'worker_eater')])
 
     def message_auto_subscribe(self, updated_fields, values=None):
         self._add_follower(values)
@@ -46,3 +48,5 @@ class Task(models.Model):
     _group_by_full = {
         'stage_id': _read_group_stage_id,
     }
+
+    #TODO button to replaced someone

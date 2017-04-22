@@ -91,6 +91,8 @@
                             <field name="task_type_id" />
                             <field name="super_coop_id" />
                             <field name="worker_id" />
+                            <field name="replaced_id" />
+                            <field name="is_regular" />
                         </group>
                         <group>
                             <field name="start_time" />
@@ -118,6 +120,7 @@
                 <field name="stage_id" />
                 <field name="worker_id" />
                 <field name="super_coop_id" />
+                <field name="is_regular" />
                 <templates>
                     <t t-name="kanban-box">
                         <div
@@ -162,6 +165,9 @@
                                 <div t-if="record.super_coop_id.raw_value">
                                     Super Coop:
                                     <field name="super_coop_id" />
+                                </div>
+                                <div t-if="record.is_regular.raw_value" >
+                                    Regular Shift
                                 </div>
 
                             </div>

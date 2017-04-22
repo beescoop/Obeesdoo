@@ -1,0 +1,24 @@
+<odoo>
+    <record model="ir.ui.view" id="subscribe_coop_wizard_view_form">
+        <field name="name">Subscribre Cooperator</field>
+        <field name="model">beesdoo.shift.subscribe</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="cooperator_id" />
+                    <field name="info_session" />
+                    <field name="info_session_date" />
+                    <field name="working_mode" />
+                    <field name="shift_id" domain="[('remaining_worker', '>', 0)]" attrs="{'invisible': [('working_mode', '!=', 'regular')]}"/>
+                    <field name="super" />
+                </group>
+                <footer>
+                    <button type="object" name="subscribe"
+                        string="Confirm" class="oe_highlight" />
+                    or
+                    <button special="cancel" string="Cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
