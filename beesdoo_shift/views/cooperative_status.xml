@@ -1,0 +1,82 @@
+<odoo>
+    <record model="ir.ui.view" id="super_coop_partner_inherited_view_form">
+        <field name="name">Partner Super Coop</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="beesdoo_base.beesdoo_partner_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="coop_subscribe" string="Subscribe to shift" class="oe_highlight"
+                            type="object" groups="beesdoo_shift.group_shift_management"/>
+                </header>
+            </xpath>
+            <field name="eater" position="after">
+                <field name="super" />
+                <field name="working_mode" />
+            </field>
+            <group name="info_session" position="inside">
+                <field name="info_session" />
+                <field name="info_session_date"
+                       attrs="{'invisible': ['|', ('info_session', '=', False)]}" />
+            </group>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="coop_status_form_view">
+        <field name="name">Coop Status Form View</field>
+        <field name="model">cooperative.status</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="status" widget="statusbar" />
+                </header>
+                <group>
+                    <field name="cooperator_id" />
+                    <field name="info_session" />
+                    <field name="info_session_date" />
+                    <field name="working_mode" />
+                    <field name="super" />
+                    <field name="sr" />
+                    <field name="sc" />
+                    <field name="time_holiday" />
+                    <field name="time_extension" />
+                    <field name="holiday_start_time" />
+                    <field name="alert_start_time" />
+                    <field name="extension_start_time" />
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="coop_status_tree_view">
+        <field name="name">Coop Status Tree view</field>
+        <field name="model">cooperative.status</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="cooperator_id" />
+                <field name="super" />
+                <field name="sr" />
+                <field name="sc" />
+                <field name="time_holiday" />
+                <field name="time_extension" />
+                <field name="holiday_start_time" />
+                <field name="alert_start_time" />
+                <field name="extension_start_time" />
+                <field name="status" widget="statusbar" />
+            </tree>
+        </field>
+    </record>
+
+   <record model="ir.actions.act_window" id="action_coop_status">
+        <field name="name">Cooperator Status</field>
+        <field name="res_model">cooperative.status</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Status" id="menu_status_top" parent="menu_root"
+        groups="beesdoo_shift.group_shift_management" sequence="20" />
+    <menuitem name="Cooperative Status" id="menu_status" parent="menu_status_top"
+        action="action_coop_status" groups="beesdoo_shift.group_cooperative_admin" />
+</odoo>
+
+

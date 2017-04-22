@@ -19,14 +19,16 @@
 
     'data': [
         "data/stage.xml",
+        "data/system_parameter.xml",
         "security/group.xml",
         "security/ir.model.access.csv",
         "views/task_template.xml",
         "views/task.xml",
         "views/planning.xml",
-        "views/res_users.xml",
+        "views/cooperative_status.xml",
         "wizard/instanciate_planning.xml",
         "wizard/batch_template.xml",
         "wizard/assign_super_coop.xml",
+        "wizard/subscribe.xml",
     ],
 }

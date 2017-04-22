@@ -14,11 +14,6 @@
         <field name="sequence">3</field>
         <field name="color">1</field>
     </record>
-    <record model="beesdoo.shift.stage" id="replaced">
-        <field name="name">Replaced</field>
-        <field name="sequence">4</field>
-        <field name="color">5</field>
-    </record>
     <record model="beesdoo.shift.stage" id="absent">
         <field name="name">Absent</field>
         <field name="sequence">5</field>
@@ -26,6 +21,11 @@
     </record>
     <record model="beesdoo.shift.stage" id="excused">
         <field name="name">Excused</field>
+        <field name="sequence">6</field>
+        <field name="color">4</field>
+    </record>
+    <record model="beesdoo.shift.stage" id="excused_necessity">
+        <field name="name">Excused - Absolute Necessity</field>
         <field name="sequence">6</field>
         <field name="color">4</field>
     </record>
