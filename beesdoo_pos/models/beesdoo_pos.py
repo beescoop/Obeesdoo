@@ -44,12 +44,14 @@ class BeescoopPosPartner(models.Model):
     _inherit = 'res.partner'
 
     def _get_eater(self):
-        eater1, eater2 = False, False
+        eater1, eater2, eater3 = False, False, False
         if self.child_eater_ids:
             eater1 = self.child_eater_ids[0].name
         if len(self.child_eater_ids) > 1:
             eater2 = self.child_eater_ids[1].name
-        return eater1, eater2
+        if len(self.child_eater_ids) > 2:
+            eater3 = self.child_eater_ids[2].name
+        return eater1, eater2, eater3
 
     @api.multi
     def get_balance_and_eater(self):
@@ -59,7 +61,7 @@ class BeescoopPosPartner(models.Model):
         move_lines = self.env['account.move.line'].search([('account_id', '=', account_id), ('partner_id', '=', self.id)])
         credit = sum([m.credit for m in move_lines])
         debit = sum([m.debit for m in move_lines])
-        eater1, eater2 = self._get_eater()
-        return str(round(credit - debit, 2)), eater1, eater2
+        eater1, eater2, eater3 = self._get_eater()
+        return str(round(credit - debit, 2)), eater1, eater2, eater3
 
     last_name = fields.Char('Last Name', required=True, default="/")

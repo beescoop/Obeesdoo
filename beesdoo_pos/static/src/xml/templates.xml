@@ -22,6 +22,7 @@
                     <span class='customer-delegate1' />
                     <br />
                     <span class='customer-delegate2' />
+                    <span class='customer-delegate3' />
                 </div>
             </t>
         </t>
@@ -37,11 +38,11 @@
                     <span class='customer-balance' />
                     €
                     <br />
-                    Eater 1:
                     <span class='customer-delegate1' />
                     <br />
-                    Eater 2:
                     <span class='customer-delegate2' />
+                    <br />
+                    <span class='customer-delegate3' />
                     <br />
                 </div>
             </t>

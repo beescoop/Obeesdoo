@@ -39,9 +39,25 @@ class Partner(models.Model):
 
     @api.one
     @api.constrains('child_eater_ids', 'parent_eater_id')
-    def _only_two_eaters(self):
-        if len(self.child_eater_ids) > 2 or len(self.parent_eater_id.child_eater_ids) > 2:
-            raise ValidationError(_('You can only set two additional eaters per worker'))
+    def _check_number_of_eaters(self):
+        """The owner of an A share can have a maximum of two eaters but
+        the owner of a B share can have a maximum of three eaters.
+        """
+        # Get the default_code of the share for the current eater and his parent
+        share_type_code = None
+        parent_share_type_code = None
+        for line in self.share_ids:
+            share_type_code = line.share_product_id.default_code
+        for line in self.parent_eater_id.share_ids:
+            parent_share_type_code = line.share_product_id.default_code
+        # Raise exception
+        if share_type_code == 'share_b' or parent_share_type_code == 'share_b':
+            if len(self.child_eater_ids) > 3 or len(self.parent_eater_id.child_eater_ids) > 3:
+                raise ValidationError(_('You can only set three additional eaters per worker'))
+        else:
+            if len(self.child_eater_ids) > 2 or len(self.parent_eater_id.child_eater_ids) > 2:
+                raise ValidationError(_('You can only set two additional eaters per worker'))
+
 
     @api.multi
     def write(self, values):

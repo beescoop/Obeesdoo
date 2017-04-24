@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['beesdoo_base', 'beesdoo_product'],
+    'depends': ['beesdoo_base', 'beesdoo_product', 'easy_my_coop'],
 
     # always loaded
     'data': [

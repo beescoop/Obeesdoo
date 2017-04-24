@@ -59,6 +59,7 @@ odoo.define('beescoop.pos', function (require) {
                 set_customer_info.call(self, '.customer-balance', result[0])
                 set_customer_info.call(self, '.customer-delegate1', result[1], 'Eater 1: ');
                 set_customer_info.call(self, '.customer-delegate2', result[2], 'Eater 2: ');
+                set_customer_info.call(self, '.customer-delegate3', result[3], 'Eater 3: ');
             }, function(err) {
                 loaded.reject(err);
             });
@@ -79,6 +80,7 @@ odoo.define('beescoop.pos', function (require) {
                 set_customer_info.call(self, '.customer-balance', result[0]);
                 set_customer_info.call(self, '.customer-delegate1', result[1], 'Eater 1: ');
                 set_customer_info.call(self, '.customer-delegate2', result[2], 'Eater 2: ');
+                set_customer_info.call(self, '.customer-delegate3', result[3], 'Eater 3: ');
             }, function(err) {
                 loaded.reject(err);
             });
