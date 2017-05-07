@@ -7,7 +7,8 @@
             <xpath expr="//sheet" position="before">
                 <header>
                     <button name="coop_subscribe" string="Subscribe to shift" class="oe_highlight"
-                            type="object" groups="beesdoo_shift.group_shift_management"/>
+                            type="object" groups="beesdoo_shift.group_shift_management"
+                            attrs="{'invisible': [('eater', '!=', 'worker_eater')]}"/>
                 </header>
             </xpath>
             <field name="eater" position="after">
