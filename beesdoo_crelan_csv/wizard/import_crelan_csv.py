@@ -74,14 +74,15 @@ class CodaBankStatementImport(models.TransientModel):
     def _get_acc_balance_crelan(self, acc_number):
         if not self.init_balance == None:
             return self.init_balance
-        print "compute balance"
 
         journal = self.env['account.journal'].search([('bank_acc_number', '=like', '%' + acc_number)])
         if not journal or len(journal) > 1: #if not found or ambiguious 
             self.init_balance = 0.0
         else:
-            self.init_balance = float(journal.get_journal_dashboard_datas()['last_balance'][:-1].strip().replace(',', ''))
-        
+            lang = self._context.get('lang', 'en_US')
+            l = self.env['res.lang'].search([('code', '=', lang)])
+            balance = journal.get_journal_dashboard_datas()['last_balance'][:-1]
+            self.init_balance = float(balance.strip().replace(l.thousands_sep, '').replace(l.decimal_point, '.'))
         return self.init_balance
 
     def _to_iso_date(self, orig_date):
