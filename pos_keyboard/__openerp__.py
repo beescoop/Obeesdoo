@@ -9,7 +9,7 @@
     'category': 'Point Of Sale',
     'version': '1.0.2',
     'depends': ['point_of_sale'],
-    "price": 100.00,
+    "price": 15.00,
     "currency": "EUR",
     'data': [
         'data.xml',
