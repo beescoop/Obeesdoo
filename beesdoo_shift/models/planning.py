@@ -52,7 +52,7 @@ class TaskTemplate(models.Model):
     task_type_id = fields.Many2one('beesdoo.shift.type', string="Type")
     start_time = fields.Float(required=True)
     end_time = fields.Float(required=True)
-    super_coop_id = fields.Many2one('res.users', string="Super Cooperative", domain=[('super', '=', True)])
+    super_coop_id = fields.Many2one('res.users', string="Super Cooperative", domain=[('partner_id.super', '=', True)])
 
     duration = fields.Float(help="Duration in Hour")
     worker_nb = fields.Integer(string="Number of worker", help="Max number of worker for this task", default=1)

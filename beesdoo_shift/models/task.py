@@ -25,7 +25,7 @@ class Task(models.Model):
     start_time = fields.Datetime(track_visibility='always')
     end_time = fields.Datetime(track_visibility='always')
     stage_id = fields.Many2one('beesdoo.shift.stage', required=True, track_visibility='onchange')
-    super_coop_id = fields.Many2one('res.users', string="Super Cooperative", domain=[('super', '=', True)], track_visibility='onchange')
+    super_coop_id = fields.Many2one('res.users', string="Super Cooperative", domain=[('partner_id.super', '=', True)], track_visibility='onchange')
     color = fields.Integer(related="stage_id.color", readonly=True)
     is_regular = fields.Boolean(default=False)
     replaced_id = fields.Many2one('res.partner', track_visibility='onchange', domain=[('eater', '=', 'worker_eater')])
