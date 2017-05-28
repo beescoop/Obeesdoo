@@ -44,7 +44,7 @@ class ResPartner(models.Model):
     info_session = fields.Boolean(related='cooperative_status_ids.info_session', string='Information Session ?', readonly=True, store=True)
     info_session_date = fields.Datetime(related='cooperative_status_ids.info_session_date', string='Information Session Date', readonly=True, store=True)
     working_mode = fields.Selection(related='cooperative_status_ids.working_mode', readonly=True, store=True)
-
+    subscribed_shift_ids = fields.Many2many('beesdoo.shift.template')
     @api.multi
     def coop_subscribe(self):
         return {

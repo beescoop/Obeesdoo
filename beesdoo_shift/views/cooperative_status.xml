@@ -8,18 +8,24 @@
                 <header>
                     <button name="coop_subscribe" string="Subscribe to shift" class="oe_highlight"
                             type="object" groups="beesdoo_shift.group_shift_management"
-                            attrs="{'invisible': [('eater', '!=', 'worker_eater')]}"/>
+                            attrs="{'invisible': [('share_type', '!=', 'share_a')]}"/>
                 </header>
             </xpath>
-            <field name="eater" position="after">
-                <field name="super" />
-                <field name="working_mode" />
-            </field>
-            <group name="info_session" position="inside">
-                <field name="info_session" />
-                <field name="info_session_date"
-                       attrs="{'invisible': ['|', ('info_session', '=', False)]}" />
-            </group>
+            <page name="work" position="inside">
+                <group>
+                    <group>
+                        <field name="info_session" />
+                        <field name="info_session_date"
+                           attrs="{'invisible': ['|', ('info_session', '=', False)]}" />
+                    </group>
+                    <group>
+                        <field name="working_mode" />
+                        <field name="super" />
+                    </group>
+                </group>
+                <separator string="Subscribed Shift" />
+                <field name="subscribed_shift_ids" />
+            </page>
         </field>
     </record>
 
