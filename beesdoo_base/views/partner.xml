@@ -27,14 +27,17 @@
 					default_focus="1" />
 			</field>
 			<field name="website" position="after">
+                <field name="share_type" invisible="1"/>
 				<field name="eater" attrs="{'invisible': [('customer', '=', False)]}" />
 				<field name="parent_eater_id" attrs="{'invisible' : [('eater', '!=', 'eater')]}" />
 			</field>
 			<xpath expr="//notebook" position="inside">
+                <page string="Worker information" attrs="{'invisible': [('share_type', '!=', 'share_a')]}" name="work">
+                    <group name="info_session" />
+                </page>
 				<page string="Member Card"
 					attrs="{'invisible': ['|', ('customer', '=', False), ('eater', '!=', 'worker_eater')]}">
 					<group>
-						<group name="info_session" />
 						<group>
 							<field name="member_card_to_be_printed" />
 							<field name="last_printed" />
@@ -63,6 +66,7 @@
 							type="action" />
 					</group>
 				</page>
+
 			</xpath>
 			<field name="barcode" position="attributes">
 				<attribute name="attrs">{'invisible' : [('eater', '!=',

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="share_a" model="product.template" >
+            <field name="name">Acquisition de parts A de Beescoop scrl</field>
+            <field name="default_code">share_a</field>
+            <field name="customer" eval="True" />
+            <field name="is_share" eval="True" />
+        </record>
+        <record id="share_b" model="product.template" >
+            <field name="name">Acquisition de parts B de Beescoop scrl</field>
+            <field name="default_code">share_b</field>
+            <field name="customer" eval="True" />
+            <field name="is_share" eval="True" />
+        </record>
+        <record id="share_c" model="product.template" >
+            <field name="name">Acquisition de parts C de Beescoop scrl</field>
+            <field name="default_code">share_c</field>
+            <field name="customer" eval="False" />
+            <field name="is_share" eval="True" />
+        </record>
+    </data>
+</odoo>
