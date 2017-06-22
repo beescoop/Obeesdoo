@@ -37,7 +37,6 @@ class BeesdooProduct(models.Model):
     @api.one
     def generate_barcode(self):
         if self.to_weight:
-            print 'generate to weight barcode', self.barcode, self.barcode == ''
             seq_internal_code = self.env.ref('beesdoo_product.seq_ean_product_internal_ref')
             bc = ''
             if not self.default_code:
@@ -49,7 +48,6 @@ class BeesdooProduct(models.Model):
             ean = '02' + self.default_code[0:5] + '000000'
             bc = ean[0:12] + str(self.env['barcode.nomenclature'].ean_checksum(ean))    
         else:
-            print 'generate barcode', self.barcode, self.barcode == ''
             rule = self.env['barcode.rule'].search([('name', '=', 'Beescoop Product Barcodes')])[0]
             size = 13 - len(rule.pattern)
             ean = rule.pattern + str(uuid.uuid4().fields[-1])[:size]
