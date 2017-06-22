@@ -20,12 +20,13 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['beesdoo_base', 'product', 'point_of_sale'],
+    'depends': ['beesdoo_base', 'product', 'point_of_sale','pos_price_to_weight'],
 
     # always loaded
     'data': [
         'data/product_label.xml',
         'data/barcode_rule.xml',
+        'data/product_sequence.xml',
         'views/beesdoo_product.xml',
         'wizard/views/label_printing_utils.xml',
         'security/ir.model.access.csv',
