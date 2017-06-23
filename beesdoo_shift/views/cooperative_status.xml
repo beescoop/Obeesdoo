@@ -8,7 +8,7 @@
                 <header>
                     <button name="coop_subscribe" string="Subscribe to shift" class="oe_highlight"
                             type="object" groups="beesdoo_shift.group_shift_management"
-                            attrs="{'invisible': [('share_type', '!=', 'share_a')]}"/>
+                            attrs="{'invisible': [('cooperator_type', '!=', 'share_a')]}"/>
                 </header>
             </xpath>
             <page name="work" position="inside">
