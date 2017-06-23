@@ -1,103 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<record model="ir.actions.act_window" id="action_membercard_wizard">
-		<field name="name">New Member Card</field>
-		<field name="res_model">membercard.new.wizard</field>
-		<field name="view_mode">form</field>
-		<field name="target">new</field>
-	</record>
+    <record model="ir.actions.act_window" id="action_membercard_wizard">
+        <field name="name">New Member Card</field>
+        <field name="res_model">membercard.new.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
 
-	<record model="ir.actions.act_window" id="action_eater_wizard">
-		<field name="name">New Eater</field>
-		<field name="res_model">eater.new.wizard</field>
-		<field name="view_mode">form</field>
-		<field name="target">new</field>
-	</record>
+    <record model="ir.actions.act_window" id="action_eater_wizard">
+        <field name="name">New Eater</field>
+        <field name="res_model">eater.new.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
 
-	<record model="ir.ui.view" id="beesdoo_partner_form_view">
-		<field name="name">beesdoo.partner.form.view</field>
-		<field name="model">res.partner</field>
-		<field name="inherit_id" ref="point_of_sale.view_partner_property_form" />
-		<field name="arch" type="xml">
-			<field name="name" position="replace">
-				<field name="name" class="oe_read_only" />
-				<field name="first_name" placeholder="First Name" class="oe_edit_only"
-					attrs="{'invisible' : [('company_type', '=', 'company')]}" />
-				<field name="last_name" placeholder="Last Name" class="oe_edit_only"
-					default_focus="1" />
-			</field>
-			<field name="website" position="after">
-                <field name="cooperator_type"/>
-				<field name="eater" attrs="{'invisible': [('customer', '=', False)]}" />
-				<field name="parent_eater_id" attrs="{'invisible' : [('eater', '!=', 'eater')]}" />
-			</field>
+    <record model="ir.ui.view" id="beesdoo_partner_form_view">
+        <field name="name">beesdoo.partner.form.view</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="point_of_sale.view_partner_property_form" />
+        <field name="arch" type="xml">
+            <field name="name" position="replace">
+                <field name="name" class="oe_read_only" />
+                <field name="first_name" placeholder="First Name"
+                    class="oe_edit_only"
+                    attrs="{'invisible' : [('company_type', '=', 'company')]}" />
+                <field name="last_name" placeholder="Last Name"
+                    class="oe_edit_only" default_focus="1" />
+            </field>
+            <field name="type" position="before">
+                <field name="cooperator_type" />
+            </field>
+            <field name="website" position="after">
+                <field name="eater"
+                    attrs="{'invisible': [('customer', '=', False)]}" />
+                <field name="parent_eater_id"
+                    attrs="{'invisible' : [('eater', '!=', 'eater')]}" />
+            </field>
             <xpath expr="//notebook/page[1]" position="attributes">
-                <attribute name="attrs">{'invisible': [('cooperator_type', '=', 'share_a')]}</attribute>
+                <attribute name="attrs">{'invisible':
+                    [('cooperator_type', '=', 'share_a')]}</attribute>
             </xpath>
-			<xpath expr="//notebook" position="inside">
-                <page string="Worker information" attrs="{'invisible': [('cooperator_type', '!=', 'share_a')]}" name="work">
+            <xpath expr="//notebook" position="inside">
+                <page string="Worker information"
+                    attrs="{'invisible': [('cooperator_type', '!=', 'share_a')]}"
+                    name="work">
                     <group name="info_session" />
                 </page>
-				<page string="Member Card"
-					attrs="{'invisible': ['|', ('customer', '=', False), ('eater', '!=', 'worker_eater')]}">
-					<group>
-						<group>
-							<field name="member_card_to_be_printed" />
-							<field name="last_printed" />
-						</group>
-					</group>
-					<separator string="Eaters" />
-					<field name="child_eater_ids" widget="many2many_tags"
-						options="{'no_create': True}" context="{'default_eater' : 'eater', 'default_customer' : True}" />
-					<group>
-						<button string="New Eater" name="%(action_eater_wizard)d"
-							type="action" />
-					</group>
-					<separator string="Cards" />
-					<field string="Cards" name="member_card_ids">
-						<tree editable="bottom">
-							<field name="barcode" />
-							<field name="create_date" />
-							<field name="end_date" />
-							<field name="responsible_id" />
-							<field name="comment" />
-							<field name="valid" />
-						</tree>
-					</field>
-					<group>
-						<button string="New Card" name="%(action_membercard_wizard)d"
-							type="action" />
-					</group>
-				</page>
+                <page string="Member Card"
+                    attrs="{'invisible': ['|', ('customer', '=', False), ('eater', '!=', 'worker_eater')]}">
+                    <group>
+                        <group>
+                            <field name="member_card_to_be_printed" />
+                            <field name="last_printed" />
+                        </group>
+                    </group>
+                    <separator string="Eaters" />
+                    <field name="child_eater_ids" widget="many2many_tags"
+                        options="{'no_create': True}"
+                        context="{'default_eater' : 'eater', 'default_customer' : True}" />
+                    <group>
+                        <button string="New Eater" name="%(action_eater_wizard)d"
+                            type="action" />
+                    </group>
+                    <separator string="Cards" />
+                    <field string="Cards" name="member_card_ids">
+                        <tree editable="bottom">
+                            <field name="barcode" />
+                            <field name="create_date" />
+                            <field name="end_date" />
+                            <field name="responsible_id" />
+                            <field name="comment" />
+                            <field name="valid" />
+                        </tree>
+                    </field>
+                    <group>
+                        <button string="New Card"
+                            name="%(action_membercard_wizard)d" type="action" />
+                    </group>
+                </page>
 
-			</xpath>
-			<field name="barcode" position="attributes">
-				<attribute name="attrs">{'invisible' : [('eater', '!=',
-					'worker_eater')]}
-				</attribute>
-			</field>
-			<field name="barcode" position="after">
-				<field name="parent_barcode" attrs="{'invisible' : [('eater', '!=', 'eater')]}" />
-			</field>
-			<button name="toggle_active" position="attributes">
-				<attribute name="groups" />
-			</button>
+            </xpath>
+            <field name="barcode" position="attributes">
+                <attribute name="attrs">{'invisible' : [('eater',
+                    '!=',
+                    'worker_eater')]}
+                </attribute>
+            </field>
+            <field name="barcode" position="after">
+                <field name="parent_barcode"
+                    attrs="{'invisible' : [('eater', '!=', 'eater')]}" />
+            </field>
+            <button name="toggle_active" position="attributes">
+                <attribute name="groups" />
+            </button>
             <!-- Temporary fix for the partner_view -->
             <xpath expr="//field[@name='customer']" position='before'>
-                   <field name="is_company" invisible="True"/>
-                </xpath>
-		</field>
-	</record>
+                <field name="is_company" invisible="True" />
+            </xpath>
+        </field>
+    </record>
 
-	<!-- S022 : By default a supplier should be a company -->
-	<record id="base.action_partner_supplier_form" model="ir.actions.act_window">
-		<field name="context">{ 
-				'search_default_supplier': 1,
-				'default_customer':	0,
-				'default_supplier': 1,
-				'default_is_company' : True,
-				'default_company_type' : 'company', 
-		}
-		</field>
-	</record>
+    <!-- S022 : By default a supplier should be a company -->
+    <record id="base.action_partner_supplier_form" model="ir.actions.act_window">
+        <field name="context">{
+            'search_default_supplier': 1,
+            'default_customer': 0,
+            'default_supplier': 1,
+            'default_is_company' : True,
+            'default_company_type' : 'company',
+            }
+        </field>
+    </record>
 </odoo>
