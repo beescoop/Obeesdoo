@@ -27,12 +27,15 @@
 					default_focus="1" />
 			</field>
 			<field name="website" position="after">
-                <field name="share_type" invisible="1"/>
+                <field name="cooperator_type"/>
 				<field name="eater" attrs="{'invisible': [('customer', '=', False)]}" />
 				<field name="parent_eater_id" attrs="{'invisible' : [('eater', '!=', 'eater')]}" />
 			</field>
+            <xpath expr="//notebook/page[1]" position="attributes">
+                <attribute name="attrs">{'invisible': [('cooperator_type', '=', 'share_a')]}</attribute>
+            </xpath>
 			<xpath expr="//notebook" position="inside">
-                <page string="Worker information" attrs="{'invisible': [('share_type', '!=', 'share_a')]}" name="work">
+                <page string="Worker information" attrs="{'invisible': [('cooperator_type', '!=', 'share_a')]}" name="work">
                     <group name="info_session" />
                 </page>
 				<page string="Member Card"

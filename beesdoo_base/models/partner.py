@@ -20,7 +20,7 @@ class Partner(models.Model):
 
     member_card_to_be_printed = fields.Boolean('Print BEES card?')
     last_printed = fields.Datetime('Last printed on')
-    share_type = fields.Selection([('share_a', 'Share A'), ('share_b', 'Share B'), ('share_c', 'Share C')])
+    cooperator_type = fields.Selection([('share_a', 'Share A'), ('share_b', 'Share B'), ('share_c', 'Share C')], store=True, compute=None)
 
 
     @api.onchange('first_name', 'last_name')
