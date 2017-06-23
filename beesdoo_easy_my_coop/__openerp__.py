@@ -19,12 +19,14 @@
     'version': '1.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['beesdoo_base', 'beesdoo_shift', 'easy_my_coop'],
+    'depends': ['beesdoo_base', 'beesdoo_shift', 'easy_my_coop', ],
 
     # always loaded
     'data': [
         'data/product_share.xml',
+        'views/partner.xml',
     ],
+    'auto_install': True,
     # only loaded in demonstration mode
 }
 
