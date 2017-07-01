@@ -44,12 +44,8 @@ class Partner(models.Model):
         the owner of a B share can have a maximum of three eaters.
         """
         # Get the default_code of the share for the current eater and his parent
-        share_type_code = None
-        parent_share_type_code = None
-        for line in self.share_ids:
-            share_type_code = line.share_product_id.default_code
-        for line in self.parent_eater_id.share_ids:
-            parent_share_type_code = line.share_product_id.default_code
+        share_type_code = self.cooperator_type
+        parent_share_type_code = self.parent_eater_id.cooperator_type
         # Raise exception
         if share_type_code == 'share_b' or parent_share_type_code == 'share_b':
             if len(self.child_eater_ids) > 3 or len(self.parent_eater_id.child_eater_ids) > 3:

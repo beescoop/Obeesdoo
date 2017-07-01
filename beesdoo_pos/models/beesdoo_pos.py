@@ -44,14 +44,10 @@ class BeescoopPosPartner(models.Model):
     _inherit = 'res.partner'
 
     def _get_eater(self):
-        eater1, eater2, eater3 = False, False, False
-        if self.child_eater_ids:
-            eater1 = self.child_eater_ids[0].name
-        if len(self.child_eater_ids) > 1:
-            eater2 = self.child_eater_ids[1].name
-        if len(self.child_eater_ids) > 2:
-            eater3 = self.child_eater_ids[2].name
-        return eater1, eater2, eater3
+        eaters = [False, False, False]
+        for i, eater in enumerate(self.child_eater_ids):
+            eaters[i] = eater.name
+        return tuple(eaters)
 
     @api.multi
     def get_balance_and_eater(self):

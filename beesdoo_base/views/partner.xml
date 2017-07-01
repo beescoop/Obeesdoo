@@ -100,6 +100,20 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="beesdoo_partner_search_view">
+        <field name="name">beesdoo.partner.search.view</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <filter name="type_person" position="after">
+                <filter name="type_a" string="Cooperator type A" domain="[('cooperator_type', '=', 'share_a')]" />
+                <filter name="type_b" string="Cooperator type B" domain="[('cooperator_type', '=', 'share_b')]" />
+                <filter name="type_c" string="Cooperator type C" domain="[('cooperator_type', '=', 'share_c')]" />
+            </filter>
+        </field>
+    </record>
+
+
     <!-- S022 : By default a supplier should be a company -->
     <record id="base.action_partner_supplier_form" model="ir.actions.act_window">
         <field name="context">{
