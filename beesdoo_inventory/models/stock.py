@@ -10,7 +10,10 @@ class StockPicking(models.Model):
     def _add_follower(self):
         if(self.responsible):
             types = self.env['mail.message.subtype'].search(['|',('res_model','=','stock.picking'),('name','=','Discussions')])
-            self.env['mail.followers'].create({'res_model' : 'stock.picking', 
+            if not self.env['mail.followers'].search([('res_id', '=', self.id),
+                                                      ('res_model', '=', 'stock.picking'),
+                                                      ('partner_id', '=', self.responsible.id)]):
+                self.env['mail.followers'].create({'res_model' : 'stock.picking',
                                             'res_id' : self.id, 
                                             'partner_id' : self.responsible.id,
                                             'subtype_ids': [(6, 0, types.ids)]})
@@ -23,7 +26,6 @@ class StockPicking(models.Model):
 
     @api.model
     def create(self, values):
-        print "Values", values
         picking = super(StockPicking, self).create(values)
         picking._add_follower()
         return picking
