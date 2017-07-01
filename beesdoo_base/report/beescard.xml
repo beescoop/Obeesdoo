@@ -69,9 +69,14 @@
                                 </p>
                                 <p
                                     style="font-size: 0.8em;font-family:Roboto-Regular">
-                                    <t t-if="partner.parent_eater_id">
+                                    <t t-if="partner.parent_eater_id and partner.parent_eater_id.cooperator_type == 'share_a'">
                                         <span
                                             t-raw="'[' + (partner.parent_eater_id.first_name and partner.parent_eater_id.first_name[:30] or '') + ' ' + (partner.parent_eater_id.last_name and partner.parent_eater_id.last_name[:30] or '') + ']'"
+                                            style="font-family:Roboto-Regular" />
+                                    </t>
+                                    <t t-if="partner.parent_eater_id and partner.parent_eater_id.cooperator_type == 'share_b'">
+                                        <span
+                                            t-raw="'[' + (partner.parent_eater_id.name[:60] or '') + ']'"
                                             style="font-family:Roboto-Regular" />
                                     </t>
                                 </p>
@@ -85,9 +90,16 @@
 
                                     <div
                                         style="padding-top:0.2cm;padding-bottom:0.2cm;">
-                                        <img
-                                            src="/beesdoo_base/static/src/img/redline.png"
-                                            style="width:7.2cm;height:0.2cm" />
+                                        <t t-if="partner.cooperator_type == 'share_a' or partner.parent_eater_id.cooperator_type == 'share_a'">
+                                            <img
+                                                src="/beesdoo_base/static/src/img/redline.png"
+                                                style="width:7.2cm;height:0.2cm" />
+                                        </t>
+                                        <t t-if="partner.cooperator_type == 'share_b' or partner.parent_eater_id.cooperator_type == 'share_b'">
+                                            <img
+                                                src="/beesdoo_base/static/src/img/blueline.png"
+                                                style="width:7.2cm;height:0.2cm" />
+                                        </t>
                                     </div>
                                 </div>
                             </td>
