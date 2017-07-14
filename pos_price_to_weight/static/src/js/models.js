@@ -13,7 +13,18 @@ odoo.define('pos_price_to_weight.models', function (require) {
     var _super_PosModel = models.PosModel.prototype;
 
     models.PosModel = models.PosModel.extend({
+    	
+    	initialize: function (session, attributes) {
+            // New code
+            var product_model = _.find(this.models, function(model){
+                return model.model === 'product.product';
+            });
+            product_model.fields.push('total_with_vat');
 
+            // Inheritance
+            return _super_PosModel.initialize.call(this, session, attributes);
+        },
+        
         scan_product: function(parsed_code) {
             if (! (parsed_code.type === 'price_to_weight')){
                 // Normal behaviour
@@ -28,7 +39,10 @@ odoo.define('pos_price_to_weight.models', function (require) {
             var quantity = 0;
             var price = parseFloat(parsed_code.value) || 0;
             if (price !== 0 && product.price !== 0){
-                quantity = price / product.price;
+            	// replace the initial line cause this only work for price with
+            	// vat include in the price in the pos.
+            	//quantity = price / product.price;
+            	quantity = price / product.total_with_vat;
             }
             selectedOrder.add_product(product, {quantity:  quantity, merge: false});
             return true;
