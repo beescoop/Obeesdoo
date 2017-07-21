@@ -20,6 +20,7 @@
                     </group>
                     <group>
                         <field name="working_mode" />
+                        <field name="exempt_reason_id" attrs="{'invisible':[('working_mode', '!=', 'exempt')]}"/>
                         <field name="super" />
                     </group>
                 </group>
@@ -42,6 +43,7 @@
                     <field name="info_session" />
                     <field name="info_session_date" />
                     <field name="working_mode" />
+                    <field name="exempt_reason_id" attrs="{'invisible':[('working_mode', '!=', 'exempt')]}"/>
                     <field name="super" />
                     <field name="sr" />
                     <field name="sc" />
