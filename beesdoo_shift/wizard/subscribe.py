@@ -26,6 +26,7 @@ class Subscribe(models.TransientModel):
             ('exempt', 'Exempted'),
         ],
     )
+    exempt_reason_id = fields.Many2one('cooperative.exempt.reason', 'Exempt Reason')
     shift_id = fields.Many2one('beesdoo.shift.template')
 
     @api.multi
@@ -43,6 +44,7 @@ class Subscribe(models.TransientModel):
             'info_session' : self.info_session,
             'info_session_date': self.info_session_date,
             'working_mode' : self.working_mode,
+            'exempt_reason_id' : self.exempt_reason_id.id,
             'super' : self.super,
             'cooperator_id': self.cooperator_id.id,
             'sr' : 0, #set back to 0 if you subscribe a second time

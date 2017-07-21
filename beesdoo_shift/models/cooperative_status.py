@@ -2,6 +2,11 @@
 from openerp import models, fields, api, _
 from openerp.exceptions import ValidationError
 
+class ExemptReason(models.Model):
+    _name = 'cooperative.exempt.reason'
+
+    name = fields.Char(required=True)
+
 class CooperativeStatus(models.Model):
     _name = 'cooperative.status'
     _rec_name = 'cooperator_id'
@@ -25,8 +30,26 @@ class CooperativeStatus(models.Model):
             ('irregular', 'Irregular worker'),
             ('exempt', 'Exempted'),
         ],
-        string="Working mode",
+        string="Working mode"
     )
+    exempt_reason_id = fields.Many2one('cooperative.exempt.reason', 'Exempt Reason')
+#     cooperator_type = fields.Selection(related="cooperator_id.cooperator_type", store=True)
+# 
+#     def _auto_working_mode(self, vals):
+#         print "Auto Working mode"
+#         if vals.get('cooperator_type') == 'share_b':
+#             vals['working_mode'] = 'exempt'
+# 
+#     @api.model
+#     @api.returns('self', lambda value:value.id)
+#     def create(self, vals):
+#         self._auto_working_mode(vals)
+#         return super(CooperativeStatus, self).create(self, vals)
+# 
+#     @api.multi
+#     def _write(self, vals):
+#         self._auto_working_mode(vals)
+#         return super(CooperativeStatus, self)._write(vals)
 
     def _compute_status(self):
         for rec in self:
@@ -44,6 +67,7 @@ class ResPartner(models.Model):
     info_session = fields.Boolean(related='cooperative_status_ids.info_session', string='Information Session ?', readonly=True, store=True)
     info_session_date = fields.Datetime(related='cooperative_status_ids.info_session_date', string='Information Session Date', readonly=True, store=True)
     working_mode = fields.Selection(related='cooperative_status_ids.working_mode', readonly=True, store=True)
+    exempt_reason_id = fields.Many2one(related='cooperative_status_ids.exempt_reason_id', readonly=True, store=True)
     subscribed_shift_ids = fields.Many2many('beesdoo.shift.template')
     @api.multi
     def coop_subscribe(self):
