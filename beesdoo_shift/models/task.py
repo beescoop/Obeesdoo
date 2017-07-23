@@ -50,3 +50,10 @@ class Task(models.Model):
     }
 
     #TODO button to replaced someone
+    @api.model
+    def unsubscribe_from_today(self, worker_ids, today=None):
+        today = today or fields.Date.today()
+        today = today + ' 00:00:00'
+        to_unsubscribe = self.search([('worker_id', 'in', worker_ids), ('start_time', '>=', today)])
+        to_unsubscribe.write({'worker_id': False})
+        #What about replacement ?
