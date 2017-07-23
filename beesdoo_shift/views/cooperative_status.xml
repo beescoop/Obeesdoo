@@ -39,20 +39,41 @@
                     <field name="status" widget="statusbar" />
                 </header>
                 <group>
-                    <field name="cooperator_id" />
-                    <field name="info_session" />
-                    <field name="info_session_date" />
-                    <field name="working_mode" />
-                    <field name="exempt_reason_id" attrs="{'invisible':[('working_mode', '!=', 'exempt')]}"/>
-                    <field name="super" />
-                    <field name="sr" />
-                    <field name="sc" />
-                    <field name="time_holiday" />
-                    <field name="time_extension" />
-                    <field name="holiday_start_time" />
-                    <field name="alert_start_time" />
-                    <field name="extension_start_time" />
+                    <group>
+                        <field name="cooperator_id" />
+                        <field name="working_mode" />
+                        <field name="exempt_reason_id" attrs="{'invisible':[('working_mode', '!=', 'exempt')]}"/>
+                        <field name="super" />
+                    </group>
+                    <group>
+                        <field name="info_session" />
+                        <field name="info_session_date" />
+                        <field name="sr" />
+                        <field name="sc" />
+                        <field name="can_shop" />
+                    </group>
+                    <group>
+                        <field name="time_holiday" />
+                        <field name="time_extension" />
+                        <field name="holiday_start_time" />
+                        <field name="alert_start_time" />
+                        <field name="extension_start_time" />
+                    </group>
                 </group>
+                <group groups="base.group_no_one" col="3">
+                    <separator string="For testing purpose only" colspan="3"/>
+                    <field name="today" />
+                    <button name="clear_history" type="object" string="Clear History" />
+                </group>
+                <separator string="History" colspan="2"/>
+                <field name="history_ids">
+                    <tree>
+                        <field name="create_date" string="Date" />
+                        <field name="type" />
+                        <field name="change" />
+                        <field name="user_id" />
+                    </tree>
+                </field>
             </form>
         </field>
     </record>
@@ -86,6 +107,19 @@
         groups="beesdoo_shift.group_shift_management" sequence="20" />
     <menuitem name="Cooperative Status" id="menu_status" parent="menu_status_top"
         action="action_coop_status" groups="beesdoo_shift.group_cooperative_admin" />
+
+    <!-- Actions -->
+    <record model="ir.actions.act_window" id="action_worker">
+        <field name="name">Worker</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('cooperator_type', '=', 'share_a')]</field>
+    </record>
+
+    <menuitem name="Worker" id="menu_worker_top" parent="menu_root"
+        sequence="1" />
+    <menuitem name="Worker" id="menu_worker" parent="menu_worker_top"
+        action="action_worker" />
 </odoo>
 
 
