@@ -29,6 +29,7 @@ class HistoryStatus(models.Model):
 class CooperativeStatus(models.Model):
     _name = 'cooperative.status'
     _rec_name = 'cooperator_id'
+    _order = 'cooperator_id'
 
 
     today = fields.Date(help="Field that allow to compute field and store them even if they are based on the current date")
