@@ -62,10 +62,11 @@ class CooperativeStatus(models.Model):
                               compute="_compute_status", string="Cooperative Status", store=True)
     can_shop = fields.Boolean(compute='_compute_status', store=True)
     history_ids = fields.One2many('cooperative.status.history', 'status_id', readonly=True)
+    unsubscribed = fields.Boolean(default=False, help="Manually unsubscribed")
 
 
 
-    @api.depends('today', 'sr', 'sc', 'time_holiday', 'holiday_start_time', 'time_extension', 'alert_start_time', 'extension_start_time')
+    @api.depends('today', 'sr', 'sc', 'time_holiday', 'holiday_start_time', 'time_extension', 'alert_start_time', 'extension_start_time', 'unsubscribed')
     def _compute_status(self):
         alert_delay = int(self.env['ir.config_parameter'].get_param('alert_delay', 28))
         grace_delay = int(self.env['ir.config_parameter'].get_param('default_grace_delay', 10))
@@ -80,7 +81,7 @@ class CooperativeStatus(models.Model):
             ok = rec.sr >= 0 and rec.sc >= 0
             grace_delay = grace_delay + rec.time_extension
 
-            if rec.sr < -1: #un subscribed
+            if rec.sr < -1 or rec.unsubscribed:
                 rec.status = 'unsubscribed'
                 rec.can_shop = False
 
@@ -112,7 +113,7 @@ class CooperativeStatus(models.Model):
         """
             Overwrite write to historize the change
         """
-        for field in ['sr', 'sc', 'time_extension', 'extension_start_time', 'alert_start_time']:
+        for field in ['sr', 'sc', 'time_extension', 'extension_start_time', 'alert_start_time', 'unsubscribed']:
             if not field in vals:
                 continue
             for rec in self:
@@ -199,6 +200,12 @@ class ResPartner(models.Model):
            'res_model': 'beesdoo.shift.subscribe',
            'target': 'new',
         }
+
+    @api.multi
+    def coop_unsubscribe(self):
+        res = self.coop_subscribe()
+        res['context'] = {'default_unsubscribed': True}
+        return res
 
     #TODO access right + vue on res.partner
     #TODO can_shop : Status can_shop ou extempted ou part C

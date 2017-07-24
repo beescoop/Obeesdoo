@@ -16,6 +16,9 @@
                                                     '|',
                                                         ('state', '!=', 'suspended'),
                                                         ('extension_start_time', '!=', False)]}"/>
+                   <button name="coop_unsubscribe" string="Unsubscribe" class="oe_highlight"
+                            type="object" groups="beesdoo_shift.group_shift_management"
+                            attrs="{'invisible': [('cooperator_type', '!=', 'share_a')]}"/>
                     <field name="state" widget="statusbar" attrs="{'invisible': [('cooperator_type', '!=', 'share_a')]}" />
                 </header>
             </xpath>
@@ -59,6 +62,7 @@
                         <field name="info_session_date" />
                         <field name="sr" />
                         <field name="sc" />
+                        <field name="unsubscribed" />
                         <field name="can_shop" />
                     </group>
                     <group>
