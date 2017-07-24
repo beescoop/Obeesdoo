@@ -2,8 +2,22 @@
 from openerp import models, fields, api, _
 from openerp.exceptions import UserError
 
+class StatusActionMixin(models.AbstractModel):
+    _name = "beesdoo.shift.action_mixin"
+
+    cooperator_id = fields.Many2one('res.partner', default=lambda self: self.env['res.partner'].browse(self._context.get('active_id')), required=True)
+
+    def _check(self, group='beesdoo_shift.group_shift_management'):
+        self.ensure_one()
+        if not self.env.user.has_group(group):
+            raise UserError(_("You don't have the required access for this operation."))
+        if self.cooperator_id == self.env.user.partner_id and not self.env.user.has_group('beesdoo_shift.group_cooperative_admin'):
+            raise UserError(_("You cannot perform this operation on yourself"))
+        return self.with_context(real_uid=self._uid)
+
 class Subscribe(models.TransientModel):
     _name = 'beesdoo.shift.subscribe'
+    _inherit = 'beesdoo.shift.action_mixin'
 
     def _get_date(self):
         date = self.env['res.partner'].browse(self._context.get('active_id')).info_session_date
@@ -18,7 +32,6 @@ class Subscribe(models.TransientModel):
     def _get_mode(self):
         return self.env['res.partner'].browse(self._context.get('active_id')).working_mode
 
-    cooperator_id = fields.Many2one('res.partner', default=lambda self: self.env['res.partner'].browse(self._context.get('active_id')), required=True)
     info_session = fields.Boolean(string="Followed an information session", default=True)
     info_session_date = fields.Date(string="Date of information session", default=_get_date)
     super = fields.Boolean(string="Super Cooperator", default=_get_super)
@@ -34,16 +47,14 @@ class Subscribe(models.TransientModel):
     reset_counter = fields.Boolean(default=False)
     unsubscribed = fields.Boolean(default=False, string="Are you sure to unsubscribe this cooperator")
 
+    
+
     @api.multi
     def unsubscribe(self):
-        self.ensure_one()
+        self = self._check()
         if not self.unsubscribed:
             return
-        if not self.env.user.has_group('beesdoo_shift.group_shift_management'):
-            raise UserError(_("You don't have the required access for this operation."))
-        if self.cooperator_id == self.env.user.partner_id and not self.env.user.has_group('beesdoo_shift.group_cooperative_admin'):
-            raise UserError(_("You cannot unsubscribe yourself."))
-        self = self.with_context(real_uid=self._uid)
+
         status_id = self.env['cooperative.status'].search([('cooperator_id', '=', self.cooperator_id.id)])
         data = {
             'unsubscribed': True,
@@ -56,12 +67,7 @@ class Subscribe(models.TransientModel):
 
     @api.multi
     def subscribe(self):
-        if not self.env.user.has_group('beesdoo_shift.group_shift_management'):
-            raise UserError(_("You don't have the required access for this operation."))
-        if self.cooperator_id == self.env.user.partner_id and not self.env.user.has_group('beesdoo_shift.group_cooperative_admin'):
-            raise UserError(_("You cannot subscribe yourself."))
-        self.ensure_one()
-        self = self.with_context(real_uid=self._uid)
+        self = self._check()
         if self.shift_id and self.shift_id.remaining_worker <= 0:
             raise UserError(_('There is no remaining space for this shift'))
         if self.shift_id:
