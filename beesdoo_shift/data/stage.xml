@@ -3,35 +3,42 @@
         <field name="name">Unconfirmed</field>
         <field name="sequence">1</field>
         <field name="color">0</field>
+        <field name="code">draft</field>
     </record>
     <record model="beesdoo.shift.stage" id="open">
         <field name="name">Confirmed</field>
         <field name="sequence">2</field>
         <field name="color">5</field>
+        <field name="code">open</field>
     </record>
     <record model="beesdoo.shift.stage" id="done">
         <field name="name">Attended</field>
         <field name="sequence">3</field>
         <field name="color">1</field>
+        <field name="code">done</field>
     </record>
     <record model="beesdoo.shift.stage" id="absent">
         <field name="name">Absent</field>
         <field name="sequence">5</field>
         <field name="color">2</field>
+        <field name="code">absent</field>
     </record>
     <record model="beesdoo.shift.stage" id="excused">
         <field name="name">Excused</field>
         <field name="sequence">6</field>
         <field name="color">4</field>
+        <field name="code">excused</field>
     </record>
     <record model="beesdoo.shift.stage" id="excused_necessity">
         <field name="name">Excused - Absolute Necessity</field>
         <field name="sequence">6</field>
         <field name="color">4</field>
+        <field name="code">excused_necessity</field>
     </record>
     <record model="beesdoo.shift.stage" id="cancel">
         <field name="name">Cancelled</field>
         <field name="sequence">7</field>
         <field name="color">8</field>
+        <field name="code">cancel</field>
     </record>
 </odoo>

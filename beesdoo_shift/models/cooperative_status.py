@@ -56,8 +56,7 @@ class CooperativeStatus(models.Model):
     status = fields.Selection([('ok',  'Up to Date'),
                                ('holiday', 'Holidays'),
                                ('alert', 'Alerte'),
-                               ('extension', 'Suspended (auto ext)'),
-                               ('extension_current', 'In extension'),
+                               ('extension', 'Extension'),
                                ('suspended', 'Suspended'),
                                ('unsubscribed', 'Unsubscribed')],
                               compute="_compute_status", string="Cooperative Status", store=True)
@@ -70,7 +69,14 @@ class CooperativeStatus(models.Model):
     def _compute_status(self):
         alert_delay = int(self.env['ir.config_parameter'].get_param('alert_delay', 28))
         grace_delay = int(self.env['ir.config_parameter'].get_param('default_grace_delay', 10))
+        update = int(self.env['ir.config_parameter'].get_param('always_update', False))
+        print update
         for rec in self:
+            if update:
+                rec.status = 'ok'
+                rec.can_shop = True
+                continue
+
             ok = rec.sr >= 0 and rec.sc >= 0
             grace_delay = grace_delay + rec.time_extension
 
@@ -80,13 +86,13 @@ class CooperativeStatus(models.Model):
 
             #Transition to alert sr < 0 or stay in alert sr < 0 or sc < 0 and thus alert time is defined
             elif not ok and rec.alert_start_time and rec.extension_start_time and rec.today <= add_days_delta(rec.extension_start_time, grace_delay):
-                rec.status = 'extension_current'
+                rec.status = 'extension'
                 rec.can_shop = True
             elif not ok and rec.alert_start_time and rec.extension_start_time and rec.today > add_days_delta(rec.extension_start_time, grace_delay):
                 rec.status = 'suspended'
                 rec.can_shop = False
             elif not ok and rec.alert_start_time and rec.today > add_days_delta(rec.alert_start_time, alert_delay):
-                rec.status = 'extension'
+                rec.status = 'suspended'
                 rec.can_shop = False
             elif (rec.sr < 0) or (not ok and rec.alert_start_time):
                 rec.status = 'alert'
@@ -122,6 +128,7 @@ class CooperativeStatus(models.Model):
         return super(CooperativeStatus, self).write(vals)
 
     def _state_change(self, new_state, old_stage):
+        self.ensure_one()
         if new_state == 'alert':
             self.write({'alert_start_time': self.today, 'extension_start_time': False, 'time_extension': 0})
         if new_state == 'ok': #reset alert start time if back to ok
@@ -178,7 +185,10 @@ class ResPartner(models.Model):
     info_session_date = fields.Datetime(related='cooperative_status_ids.info_session_date', string='Information Session Date', readonly=True, store=True)
     working_mode = fields.Selection(related='cooperative_status_ids.working_mode', readonly=True, store=True)
     exempt_reason_id = fields.Many2one(related='cooperative_status_ids.exempt_reason_id', readonly=True, store=True)
+    state = fields.Selection(related='cooperative_status_ids.status', readonly=True, store=True)
+    extension_start_time = fields.Date(related='cooperative_status_ids.extension_start_time', string="Extension Start Day", readonly=True, store=True)
     subscribed_shift_ids = fields.Many2many('beesdoo.shift.template')
+
     @api.multi
     def coop_subscribe(self):
         return {
@@ -191,3 +201,4 @@ class ResPartner(models.Model):
         }
 
     #TODO access right + vue on res.partner
+    #TODO can_shop : Status can_shop ou extempted ou part C
