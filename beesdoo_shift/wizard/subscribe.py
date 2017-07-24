@@ -57,12 +57,12 @@ class Subscribe(models.TransientModel):
             'exempt_reason_id' : self.exempt_reason_id.id,
             'super' : self.super,
             'cooperator_id': self.cooperator_id.id,
-            'extension_start_time': False,
-            'alert_start_time': False,
-            'time_extension': 0,
         }
         if self.reset_counter:
             data['sr'] = 0
+            data['extension_start_time'] = False
+            data['alert_start_time'] = False
+            data['time_extension'] = 0
 
         status_id = self.env['cooperative.status'].search([('cooperator_id', '=', self.cooperator_id.id)])
         if status_id:
