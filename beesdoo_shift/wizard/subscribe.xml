@@ -4,7 +4,11 @@
         <field name="model">beesdoo.shift.subscribe</field>
         <field name="arch" type="xml">
             <form>
-                <group>
+                <group attrs="{'invisible': [('unsubscribed', '=', False)]}">
+                    <separator string="Are you sure to unsubscribe this cooperator ?" />
+                    <field name="unsubscribed" invisible="1" />
+                </group>
+                <group attrs="{'invisible': [('unsubscribed', '=', True)]}">
                     <field name="cooperator_id" />
                     <field name="info_session" />
                     <field name="info_session_date" />
@@ -16,7 +20,9 @@
                 </group>
                 <footer>
                     <button type="object" name="subscribe"
-                        string="Confirm" class="oe_highlight" />
+                        string="Confirm" class="oe_highlight" attrs="{'invisible': [('unsubscribed', '=', True)]}" />
+                    <button type="object" name="unsubscribe"
+                        string="Confirm" class="oe_highlight" attrs="{'invisible': [('unsubscribed', '=', False)]}" />
                     or
                     <button special="cancel" string="Cancel" />
                 </footer>

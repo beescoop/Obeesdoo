@@ -32,6 +32,27 @@ class Subscribe(models.TransientModel):
     exempt_reason_id = fields.Many2one('cooperative.exempt.reason', 'Exempt Reason')
     shift_id = fields.Many2one('beesdoo.shift.template')
     reset_counter = fields.Boolean(default=False)
+    unsubscribed = fields.Boolean(default=False, string="Are you sure to unsubscribe this cooperator")
+
+    @api.multi
+    def unsubscribe(self):
+        self.ensure_one()
+        if not self.unsubscribed:
+            return
+        if not self.env.user.has_group('beesdoo_shift.group_shift_management'):
+            raise UserError(_("You don't have the required access for this operation."))
+        if self.cooperator_id == self.env.user.partner_id and not self.env.user.has_group('beesdoo_shift.group_cooperative_admin'):
+            raise UserError(_("You cannot unsubscribe yourself."))
+        self = self.with_context(real_uid=self._uid)
+        status_id = self.env['cooperative.status'].search([('cooperator_id', '=', self.cooperator_id.id)])
+        data = {
+            'unsubscribed': True,
+            'cooperator_id': self.cooperator_id.id,
+        }
+        if status_id:
+            status_id.sudo().write(data)
+        else:
+            self.env['cooperative.status'].sudo().create(data)
 
     @api.multi
     def subscribe(self):
@@ -57,6 +78,7 @@ class Subscribe(models.TransientModel):
             'exempt_reason_id' : self.exempt_reason_id.id,
             'super' : self.super,
             'cooperator_id': self.cooperator_id.id,
+            'unsubscribed': False
         }
         if self.reset_counter:
             data['sr'] = 0
