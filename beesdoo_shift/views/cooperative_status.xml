@@ -9,6 +9,14 @@
                     <button name="coop_subscribe" string="Subscribe to shift" class="oe_highlight"
                             type="object" groups="beesdoo_shift.group_shift_management"
                             attrs="{'invisible': [('cooperator_type', '!=', 'share_a')]}"/>
+                   <button name="auto_extension" string="Auto Extension" class="oe_highlight"
+                            type="object" groups="beesdoo_shift.group_shift_management"
+                            attrs="{'invisible': ['|',
+                                                    ('cooperator_type', '!=', 'share_a'),
+                                                    '|',
+                                                        ('state', '!=', 'suspended'),
+                                                        ('extension_start_time', '!=', False)]}"/>
+                    <field name="state" widget="statusbar" attrs="{'invisible': [('cooperator_type', '!=', 'share_a')]}" />
                 </header>
             </xpath>
             <page name="work" position="inside">
@@ -17,6 +25,7 @@
                         <field name="info_session" />
                         <field name="info_session_date"
                            attrs="{'invisible': ['|', ('info_session', '=', False)]}" />
+                        <field name="extension_start_time" attrs="{'invisible': [('extension_start_time', '=', False)]}" />
                     </group>
                     <group>
                         <field name="working_mode" />
