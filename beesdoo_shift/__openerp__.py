@@ -32,5 +32,6 @@
         "wizard/batch_template.xml",
         "wizard/assign_super_coop.xml",
         "wizard/subscribe.xml",
+        "wizard/extension.xml",
     ],
 }

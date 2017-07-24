@@ -208,5 +208,22 @@ class ResPartner(models.Model):
         res['context'] = {'default_unsubscribed': True}
         return res
 
+    @api.multi
+    def manual_extension(self):
+        return {
+           'name': _('Manual Extension'),
+           'type': 'ir.actions.act_window',
+           'view_type': 'form',
+           'view_mode': 'form',
+           'res_model': 'beesdoo.shift.extension',
+           'target': 'new',
+        }
+
+    @api.multi
+    def auto_extension(self):
+        res = self.manual_extension()
+        res['context'] = {'default_auto': True}
+        res['name'] = _('Trigger Grace Delay')
+        return res
     #TODO access right + vue on res.partner
     #TODO can_shop : Status can_shop ou extempted ou part C
