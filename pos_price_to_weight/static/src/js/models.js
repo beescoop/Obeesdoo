@@ -41,6 +41,7 @@ odoo.define('pos_price_to_weight.models', function (require) {
             if (price !== 0 && product.price !== 0){
             	// replace the initial line cause this only work for price with
             	// vat include in the price in the pos.
+              
             	quantity = price / product.total_with_vat;
             }
             selectedOrder.add_product(product, {quantity:  quantity, merge: false});
