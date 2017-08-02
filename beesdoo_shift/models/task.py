@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp import models, fields, api
+from openerp.exceptions import UserError
 
 class TaskStage(models.Model):
     _name = 'beesdoo.shift.stage'
@@ -8,6 +9,11 @@ class TaskStage(models.Model):
     name = fields.Char()
     sequence = fields.Integer()
     color = fields.Integer()
+    code = fields.Char(readonly=True)
+
+    @api.multi
+    def unlink(self):
+        raise UserError(_("You Cannot delete Task Stage"))
 
 
 class Task(models.Model):
@@ -50,3 +56,59 @@ class Task(models.Model):
     }
 
     #TODO button to replaced someone
+    @api.model
+    def unsubscribe_from_today(self, worker_ids, today=None):
+        today = today or fields.Date.today()
+        today = today + ' 00:00:00'
+        to_unsubscribe = self.search([('worker_id', 'in', worker_ids), ('start_time', '>=', today)])
+        to_unsubscribe.write({'worker_id': False, 'is_regular': False})
+        #What about replacement ?
+        #Remove worker, replaced_id and regular
+        to_unsubscribe_replace = self.search([('replaced_id', 'in', worker_ids), ('start_time', '>=', today)])
+        to_unsubscribe_replace.write({'worker_id': False, 'is_regular': False, 'replaced_id': False})
+
+    @api.multi
+    def write(self, vals):
+        """
+            Overwrite write to track stage change
+        """
+        if 'stage_id' in vals:
+            for rec in self:
+                if vals['stage_id'] != rec.stage_id.id:
+                    rec._update_stage(rec.stage_id.id, vals['stage_id'])
+        return super(Task, self).write(vals)
+
+    def _update_stage(self, old_stage, new_stage):
+        self.ensure_one()
+        update = int(self.env['ir.config_parameter'].get_param('always_update', False))
+        if not (self.worker_id or self.replaced_id) or update:
+            return
+        new_stage = self.env['beesdoo.shift.stage'].browse(new_stage)
+
+        if not self.replaced_id: #No replacement case
+            status = self.worker_id.cooperative_status_ids[0]
+        else:
+            status = self.replaced_id.cooperative_status_ids[0]
+
+        data = {}
+        if new_stage == self.env.ref('beesdoo_shift.done') and self.is_regular:
+            pass
+        if new_stage == self.env.ref('beesdoo_shift.done') and not self.is_regular:
+            if status.sr < 0:
+                data['sr'] = status.sr + 1
+            elif status.sc < 0:
+                data['sc'] = status.sc + 1
+            else:
+                data['sr'] = status.sr + 1
+
+        if new_stage == self.env.ref('beesdoo_shift.absent') and not self.replaced_id:
+            data['sr'] = status.sr - 1
+            if status.sr <= 0:
+                data['sc'] = status.sc -1
+        if new_stage == self.env.ref('beesdoo_shift.absent') and self.replaced_id:
+            data['sr'] = status.sr -1
+
+        if new_stage == self.env.ref('beesdoo_shift.excused'):
+            data['sr'] = status.sr -1
+
+        status.sudo().write(data)

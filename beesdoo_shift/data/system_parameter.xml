@@ -1,10 +1,18 @@
 <odoo noupdate="1">
-    <record id="seq_solucom_matricule_cabinet" model="ir.config_parameter">
+    <record id="alert_delay_param" model="ir.config_parameter">
         <field name="key">alert_delay</field>
         <field name="value">28</field>
     </record>
-    <record id="seq_solucom_matricule_cabinet" model="ir.config_parameter">
+    <record id="default_grace_delay" model="ir.config_parameter">
         <field name="key">default_grace_delay</field>
         <field name="value">10</field>
+    </record>
+    <record id="default_extension_delay" model="ir.config_parameter">
+        <field name="key">default_extension_delay</field>
+        <field name="value">28</field>
+    </record>
+    <record id="always_update" model="ir.config_parameter">
+        <field name="key">always_update</field>
+        <field name="value">0</field>
     </record>
 </odoo>

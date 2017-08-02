@@ -14,4 +14,5 @@ all_config_coopplanning_daynumber,Attendance Read Daynumber,model_beesdoo_shift_
 all_config_coopplanning_planning,Attendance Read Planning,model_beesdoo_shift_planning,group_planning_management,1,1,1,1
 all_config_coopplanning_task_template,Attendance Read Template,model_beesdoo_shift_template,group_planning_management,1,1,1,1
 all_config_coopplanning_task,Attendance Edit Shift,model_beesdoo_shift_shift,group_planning_management,1,1,1,1
-
+exempt_reason_read_all,Exempt Reason Read all ,beesdoo_shift.model_cooperative_exempt_reason,,1,0,0,0
+exempt_reason,Exempt Reason Admin,beesdoo_shift.model_cooperative_exempt_reason,beesdoo_shift.group_cooperative_admin,1,1,1,1

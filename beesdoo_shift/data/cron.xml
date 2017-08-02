@@ -1,0 +1,12 @@
+<odoo>
+    <record id="ir_cron_update_today" model="ir.cron">
+        <field name="name">Update Cooperatoor status base on the date</field>
+        <field name="interval_number">24</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="model">cooperative.status</field>
+        <field name="function">_set_today</field>
+        <field name="args">()</field>
+    </record>
+</odoo>
