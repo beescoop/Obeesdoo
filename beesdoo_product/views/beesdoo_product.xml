@@ -32,25 +32,34 @@
                      <group>
                          <group name="label">
                             <field name="total_with_vat"/>
-                             <field name="display_weight"/>
-                             <field name="display_unit" />
+                            <field name="display_weight"/>
+                            <field name="display_unit"/>
                             <field name="default_reference_unit"/>
                             <field name="total_with_vat_by_unit" />
                             <field name="total_deposit" />
                          </group>
                          <group>
-                             <field name="main_seller_id" />
+                            <field name="main_seller_id"/>
                             <field name="eco_label"/>
                             <field name="local_label"/>
                             <field name="fair_label"/>
                             <field name="origin_label"/>
-                           <field name="label_to_be_printed"/>
+                            <field name="label_to_be_printed"/>
                             <field name="label_last_printed"/>
                          </group>
                    </group>
                    <group>
                          <field name="note" />
                  </group>
+                 </page>
+                 <page string="Scale labels" attrs="{'invisible':[('to_weight','=',False)]}">
+                 	<group name="scale_label">
+                 		<field name="deadline_for_sale"/>
+                 		<field name="deadline_for_consumption"/>
+                 		<field name="ingredients"/>
+                 		<field name="scale_label_info_1"/>
+                 		<field name="scale_label_info_2"/>
+                 	</group>
                  </page>
              </xpath>
         </field>

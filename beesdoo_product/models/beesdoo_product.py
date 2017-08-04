@@ -30,7 +30,13 @@ class BeesdooProduct(models.Model):
     # S0023 : List_price = Price HTVA, so add a suggested price
     list_price = fields.Float(string='exVAT Price')
     suggested_price = fields.Float(string='Suggested exVAT Price', compute='_compute_cost', readOnly=True)
-
+    
+    deadline_for_sale = fields.Integer(string="Deadline for sale(days)")
+    deadline_for_consumption = fields.Integer(string="Deadline for consumption(days)")
+    ingredients = fields.Char(string="Ingredient")
+    scale_label_info_1 = fields.Char(string="Scale lable info 1")
+    scale_label_info_2 = fields.Char(string="Scale lable info 2")
+    
     def _get_main_supplier_info(self):
         return self.seller_ids.sorted(key=lambda seller: seller.date_start, reverse=True)
 
