@@ -225,5 +225,17 @@ class ResPartner(models.Model):
         res['context'] = {'default_auto': True}
         res['name'] = _('Trigger Grace Delay')
         return res
+
+    @api.multi
+    def register_holiday(self):
+        return {
+           'name': _('Register Holiday'),
+           'type': 'ir.actions.act_window',
+           'view_type': 'form',
+           'view_mode': 'form',
+           'res_model': 'beesdoo.shift.holiday',
+           'target': 'new',
+        }
+
     #TODO access right + vue on res.partner
     #TODO can_shop : Status can_shop ou extempted ou part C
