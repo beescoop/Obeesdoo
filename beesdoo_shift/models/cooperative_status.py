@@ -39,9 +39,9 @@ class CooperativeStatus(models.Model):
     super = fields.Boolean("Super Cooperative")
     sr = fields.Integer("Compteur shift regulier", default=0)
     sc = fields.Integer("Compteur shift de compensation", default=0)
-    time_holiday = fields.Integer("Holidays Days NB", default=0)
     time_extension = fields.Integer("Extension Days NB", default=0, help="Addtional days to the automatic extension, 5 mean that you have a total of 15 extension days of default one is set to 10")
     holiday_start_time = fields.Date("Holidays Start Day")
+    holiday_end_time = fields.Date("Holidays End Day")
     alert_start_time = fields.Date("Alert Start Day")
     extension_start_time = fields.Date("Extension Start Day")
     #Champ compute
@@ -67,7 +67,7 @@ class CooperativeStatus(models.Model):
 
 
 
-    @api.depends('today', 'sr', 'sc', 'time_holiday', 'holiday_start_time', 'time_extension', 'alert_start_time', 'extension_start_time', 'unsubscribed')
+    @api.depends('today', 'sr', 'sc', 'holiday_end_time', 'holiday_start_time', 'time_extension', 'alert_start_time', 'extension_start_time', 'unsubscribed')
     def _compute_status(self):
         alert_delay = int(self.env['ir.config_parameter'].get_param('alert_delay', 28))
         grace_delay = int(self.env['ir.config_parameter'].get_param('default_grace_delay', 10))
@@ -101,7 +101,7 @@ class CooperativeStatus(models.Model):
                 rec.can_shop = True
 
             #Check for holidays; Can be in holidays even in alert or other mode ?
-            elif rec.today >= rec.holiday_start_time and rec.today < add_days_delta(rec.holiday_start_time, rec.time_holiday):
+            elif rec.today >= rec.holiday_start_time and rec.today <= rec.holiday_end_time:
                 rec.status = 'holiday'
                 rec.can_shop = True
             elif ok or (not rec.alert_start_time and rec.sr >= 0):

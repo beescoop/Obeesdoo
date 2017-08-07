@@ -73,9 +73,9 @@
                         <field name="can_shop" />
                     </group>
                     <group>
-                        <field name="time_holiday" />
                         <field name="time_extension" />
                         <field name="holiday_start_time" />
+                        <field name="holiday_end_time" />
                         <field name="alert_start_time" />
                         <field name="extension_start_time" />
                     </group>
@@ -107,9 +107,9 @@
                 <field name="super" />
                 <field name="sr" />
                 <field name="sc" />
-                <field name="time_holiday" />
                 <field name="time_extension" />
                 <field name="holiday_start_time" />
+                <field name="holiday_end_time" />
                 <field name="alert_start_time" />
                 <field name="extension_start_time" />
                 <field name="status" widget="statusbar" />
