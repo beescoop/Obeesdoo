@@ -33,5 +33,3 @@ class Subscribe(models.TransientModel):
         if today_delay < 0:
             raise UserError(_('You should not start a manual extension during the grace delay'))
         status_id.sudo().write({'time_extension': self.extension_days + today_delay})
-
-        #TO continue

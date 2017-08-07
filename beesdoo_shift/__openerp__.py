@@ -33,5 +33,6 @@
         "wizard/assign_super_coop.xml",
         "wizard/subscribe.xml",
         "wizard/extension.xml",
+        "wizard/holiday.xml",
     ],
 }
