@@ -14,9 +14,10 @@
                     <field name="info_session_date" />
                     <field name="working_mode" />
                     <field name="exempt_reason_id" attrs="{'invisible':[('working_mode', '!=', 'exempt')]}"/>
-                    <field name="shift_id" domain="[('remaining_worker', '>', 0)]" attrs="{'invisible': [('working_mode', '!=', 'regular')]}"/>
+                    <field name="shift_id" domain="[('remaining_worker', '>', 0)]" attrs="{'invisible': [('working_mode', '!=', 'regular')], 'required': [('working_mode', '=', 'regular')]}"/>
                     <field name="super" />
                     <field name="reset_counter" />
+                    <field name="reset_compensation_counter" /> <!-- TODO access right -->
                 </group>
                 <footer>
                     <button type="object" name="subscribe"
