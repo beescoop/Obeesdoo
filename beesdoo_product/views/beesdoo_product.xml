@@ -53,12 +53,17 @@
                  </group>
                  </page>
                  <page string="Scale labels" attrs="{'invisible':[('to_weight','=',False)]}">
-                 	<group name="scale_label">
-                 		<field name="deadline_for_sale"/>
-                 		<field name="deadline_for_consumption"/>
-                 		<field name="ingredients"/>
-                 		<field name="scale_label_info_1"/>
-                 		<field name="scale_label_info_2"/>
+                 	<group>
+	                 	<group name="scale_label">
+	                 		<field name="deadline_for_sale"/>
+	                 		<field name="deadline_for_consumption"/>
+	                 		<field name="ingredients"/>
+	                 		<field name="scale_label_info_1"/>
+	                 		<field name="scale_label_info_2"/>
+	                 	</group>
+                 		<group>
+                 			<field name="scale_sale_unit"/>
+                 		</group>
                  	</group>
                  </page>
              </xpath>
@@ -134,4 +139,15 @@
 
     <menuitem id="label_configuration_menu" name="Labels" parent="product.prod_config_main"
               action="action_labels" sequence="20"/>
+              
+    <record id="beesdoo_product_uom_categ_form" model="ir.ui.view">
+        <field name="name">product.uom.categ.form</field>
+        <field name="model">product.uom.categ</field>
+        <field name="inherit_id" ref="product.product_uom_categ_form_view" />
+        <field name="arch" type="xml">
+        	<field name="name" position="after">
+        		<field name="type"/>
+        	</field>
+        </field>
+    </record>
 </odoo>

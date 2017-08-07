@@ -36,6 +36,16 @@ class BeesdooProduct(models.Model):
     ingredients = fields.Char(string="Ingredient")
     scale_label_info_1 = fields.Char(string="Scale lable info 1")
     scale_label_info_2 = fields.Char(string="Scale lable info 2")
+    scale_sale_unit = fields.Char(compute="_get_scale_sale_uom", string="Scale sale unit", store=True)
+
+    @api.depends('uom_id','uom_id.category_id','uom_id.category_id.type')   
+    @api.multi
+    def _get_scale_sale_uom(self):
+        for product in self:
+            if product.uom_id.category_id.type == 'unit':
+                product.scale_sale_unit = 'F'
+            elif product.uom_id.category_id.type == 'weight':
+                product.scale_sale_unit = 'P'
     
     def _get_main_supplier_info(self):
         return self.seller_ids.sorted(key=lambda seller: seller.date_start, reverse=True)
@@ -125,3 +135,14 @@ class BeesdooProductSupplierInfo(models.Model):
 
     price = fields.Float('exVAT Price')
 
+class BeesdooUOMCateg(models.Model):
+    _inherit = 'product.uom.categ'
+    
+    type = fields.Selection([('unit','Unit'),
+                              ('weight','Weight'),
+                              ('time','Time'),
+                              ('distance','Distance'),
+                              ('surface','Surface'),
+                              ('volume','Volume'),
+                              ('other','Other')],string='Category type',default='unit')
+    
