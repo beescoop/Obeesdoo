@@ -32,6 +32,9 @@ class Subscribe(models.TransientModel):
     def _get_mode(self):
         return self.env['res.partner'].browse(self._context.get('active_id')).working_mode
 
+    def _get_reset_counter_default(self):
+        return self.env['res.partner'].browse(self._context.get('active_id')).state == 'unsubscribed'
+
     info_session = fields.Boolean(string="Followed an information session", default=True)
     info_session_date = fields.Date(string="Date of information session", default=_get_date)
     super = fields.Boolean(string="Super Cooperator", default=_get_super)
@@ -44,7 +47,8 @@ class Subscribe(models.TransientModel):
     )
     exempt_reason_id = fields.Many2one('cooperative.exempt.reason', 'Exempt Reason')
     shift_id = fields.Many2one('beesdoo.shift.template')
-    reset_counter = fields.Boolean(default=False)
+    reset_counter = fields.Boolean(default=_get_reset_counter_default)
+    reset_compensation_counter = fields.Boolean(default=False)
     unsubscribed = fields.Boolean(default=False, string="Are you sure to unsubscribe this cooperator")
 
     
@@ -91,6 +95,8 @@ class Subscribe(models.TransientModel):
             data['extension_start_time'] = False
             data['alert_start_time'] = False
             data['time_extension'] = 0
+        if self.reset_compensation_counter:
+            data['sc'] = 0
 
         status_id = self.env['cooperative.status'].search([('cooperator_id', '=', self.cooperator_id.id)])
         if status_id:
