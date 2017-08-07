@@ -63,6 +63,8 @@
 	                 	</group>
                  		<group>
                  			<field name="scale_sale_unit"/>
+                 			<field name="scale_category" widget="selection"/>
+                 			<field name="scale_category_code"/>
                  		</group>
                  	</group>
                  </page>
@@ -150,4 +152,37 @@
         	</field>
         </field>
     </record>
+
+    <record model="ir.ui.view" id="beesdoo_scale_category_list">
+        <field name="name">beesdoo.scale.category.list</field>
+        <field name="model">beesdoo.scale.category</field>
+        <field name="arch" type="xml">
+            <tree>
+          		<field name="name"/>
+          		<field name="code"/>
+          	</tree>
+        </field>
+    </record>
+        
+    <record model="ir.ui.view" id="beesdoo_scale_category_form">
+        <field name="name">beesdoo.scale.category.form</field>
+        <field name="model">beesdoo.scale.category</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+               		<field name="name"/>
+               		<field name="code"/>
+            	</group>
+            </form>
+        </field>
+    </record>
+    
+    <record model="ir.actions.act_window" id="action_scale_categories">
+        <field name="name">Scale categories</field>
+        <field name="res_model">beesdoo.scale.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="scale_categories_configuration_menu" name="Scale categories" parent="product.prod_config_main"
+              action="action_scale_categories" sequence="15"/>
 </odoo>
