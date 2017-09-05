@@ -15,7 +15,7 @@
     'category': 'Project Management',
     'version': '0.1',
 
-    'depends': ['point_of_sale', 'purchase', 'report'],
+    'depends': ['point_of_sale', 'purchase', 'report', 'portal'],
 
     'data': [
         'security/groups.xml',
