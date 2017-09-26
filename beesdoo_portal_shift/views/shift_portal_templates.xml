@@ -1,0 +1,123 @@
+<openerp>
+  <!-- We add the css stylesheet -->
+  <template id="assets_frontend" name="beesdoo_portal_shift_website_assets"
+    inherit_id="website.assets_frontend">
+    <xpath expr="." position="inside">
+      <link rel="stylesheet" type="text/css"
+        href="/beesdoo_portal_shift/static/src/css/design.css"/>
+    </xpath>
+  </template>
+
+  <!-- Task template page -->
+  <template id="task_template" name="Task template for regular worker">
+    <t t-call="website.layout">
+      <div class="container">
+        <h1>Available Tasks Templates for Regular Workers</h1>
+
+        <p class="text-center">
+          Subscribe via the member office or via <a href="mailto:membre@bees-coop.be">membre@bees-coop.be</a>
+       </p>
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Week</th>
+              <th>Task Template</th>
+              <th>Day</th>
+              <th>Time</th>
+              <th>Type of Task</th>
+              <th>Super Co-operator</th>
+              <th class="text-center">Available Spaces</th>
+            </tr>
+          </thead>
+          <tbody>
+            <t t-foreach="task_templates" t-as="template">
+              <!-- Row with no super coop will be shown in color -->
+              <tr t-attf-class="{{ 'warning' if not template.super_coop_id else '' }}">
+                <td>
+                  <t t-esc="template.planning_id.name"/>
+                </td>
+                <td>
+                  <t t-esc="template.name"/>
+                </td>
+                <td>
+                  <t t-esc="template.day_nb_id.name"/>
+                </td>
+                <td>
+                  <t t-esc='task_template_times[template_index]["start_hour"]'/>:<t t-esc='task_template_times[template_index]["start_minute"]'/> - 
+                  <t t-esc='task_template_times[template_index]["end_hour"]'/>:<t t-esc='task_template_times[template_index]["end_minute"]'/>
+                </td>
+                <td>
+                  <t t-esc="template.task_type_id.name"/>
+                </td>
+                <td>
+                  <t t-if="template.super_coop_id">
+                    Yes
+                  </t>
+                  <t t-if="not template.super_coop_id">
+                    Not yet
+                  </t>
+                </td>
+                <td class="text-center">
+                  <t t-esc="template.remaining_worker"/>
+                </td>
+              </tr>
+            </t>
+          </tbody>
+        </table>
+
+      </div>
+    </t>
+  </template>
+
+  <!-- Shift page -->
+  <template id="shift_template" name="Shift for irregular worker">
+    <t t-call="website.layout">
+      <div class="container">
+        <h1>Availables Shifts for Irregular Workers</h1>
+
+        <p class="text-center">
+          Subscribe via <a href="mailto:volant@bees-coop.be">volant@bees-coop.be</a>
+        </p>
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Shift</th>
+              <th>Type of Shift</th>
+              <th class="text-center">Available Spaces</th>
+            </tr>
+          </thead>
+          <tbody>
+            <t t-foreach="shift_templates" t-as="shift">
+              <tr>
+                <td>
+                  <t t-esc="time.strftime('%A', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
+                </td>
+                <td>
+                  <t t-esc="time.strftime('%d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
+                </td>
+                <td>
+                  <span t-field="shift.shift.start_time" t-field-options='{"format": "HH:mm"}'/> - 
+                  <span t-field="shift.shift.end_time" t-field-options='{"format": "HH:mm"}'/>
+                </td>
+                <td>
+                  <t t-esc="shift.name"/>
+                </td>
+                <td>
+                  <t t-esc="shift.task_type"/>
+                </td>
+                <td class="text-center">
+                  <t t-esc="shift.remaining_space"/>
+                </td>
+              </tr>
+            </t>
+          </tbody>
+        </table>
+      </div>
+    </t>
+  </template>
+</openerp>
