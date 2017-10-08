@@ -16,3 +16,4 @@ all_config_coopplanning_task_template,Attendance Read Template,model_beesdoo_shi
 all_config_coopplanning_task,Attendance Edit Shift,model_beesdoo_shift_shift,group_planning_management,1,1,1,1
 exempt_reason_read_all,Exempt Reason Read all ,beesdoo_shift.model_cooperative_exempt_reason,,1,0,0,0
 exempt_reason,Exempt Reason Admin,beesdoo_shift.model_cooperative_exempt_reason,beesdoo_shift.group_cooperative_admin,1,1,1,1
+history_read_all,History Read All,beesdoo_shift.model_cooperative_status_history,,1,0,0,0

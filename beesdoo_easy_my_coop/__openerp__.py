@@ -19,7 +19,7 @@
     'version': '1.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['beesdoo_base', 'beesdoo_shift', 'easy_my_coop', ],
+    'depends': ['beesdoo_base', 'beesdoo_shift', 'easy_my_coop', 'easy_my_coop_eater'],
 
     # always loaded
     'data': [
