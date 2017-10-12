@@ -44,8 +44,8 @@
                   <t t-esc="template.day_nb_id.name"/>
                 </td>
                 <td>
-                  <t t-esc='task_template_times[template_index]["start_hour"]'/>:<t t-esc='task_template_times[template_index]["start_minute"]'/> - 
-                  <t t-esc='task_template_times[template_index]["end_hour"]'/>:<t t-esc='task_template_times[template_index]["end_minute"]'/>
+                  <t t-esc='float_to_time(template.start_time)' /> -
+                  <t t-esc='float_to_time(template.end_time)'/>
                 </td>
                 <td>
                   <t t-esc="template.task_type_id.name"/>
@@ -92,7 +92,9 @@
             </tr>
           </thead>
           <tbody>
-            <t t-foreach="shift_templates" t-as="shift">
+            <t t-foreach="shift_templates" t-as="shift_and_count">
+              <t t-set="count" t-value="shift_and_count[0]" />
+              <t t-set="shift" t-value="shift_and_count[1]" />
               <tr>
                 <td>
                   <t t-esc="time.strftime('%A', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
@@ -101,17 +103,17 @@
                   <t t-esc="time.strftime('%d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
                 </td>
                 <td>
-                  <span t-field="shift.shift.start_time" t-field-options='{"format": "HH:mm"}'/> - 
-                  <span t-field="shift.shift.end_time" t-field-options='{"format": "HH:mm"}'/>
+                  <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
+                  <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
                 </td>
                 <td>
-                  <t t-esc="shift.name"/>
+                  <t t-esc="shift.task_template_id.name"/>
                 </td>
                 <td>
-                  <t t-esc="shift.task_type"/>
+                  <t t-esc="shift.task_type_id.name"/>
                 </td>
                 <td class="text-center">
-                  <t t-esc="shift.remaining_space"/>
+                  <t t-esc="count"/>
                 </td>
               </tr>
             </t>
