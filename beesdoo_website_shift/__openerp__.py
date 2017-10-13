@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Beescoop Shift Portal',
+    'name': 'Beescoop Shift Website',
 
     'summary': """
         Show available shifts for regular and irregular workers in
@@ -18,7 +18,7 @@
     'depends': ['website', 'beesdoo_shift'],
 
     'data': [
-        'views/shift_portal_templates.xml',
+        'views/shift_website_templates.xml',
         'data/config_data.xml',
     ]
 }

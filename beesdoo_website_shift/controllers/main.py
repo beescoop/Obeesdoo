@@ -23,7 +23,7 @@ class ShiftPortalController(http.Controller):
             s = [v for v in val]
             shifts_and_count.append([len(s), s[0]])
 
-        return request.render('beesdoo_portal_shift.shift_template',
+        return request.render('beesdoo_website_shift.shift_template',
             {'shift_templates': shifts_and_count}
         )
 
@@ -33,7 +33,7 @@ class ShiftPortalController(http.Controller):
         template = request.env['beesdoo.shift.template']
         task_templates = template.sudo().search([], order="planning_id, day_nb_id, start_time")
 
-        return request.render('beesdoo_portal_shift.task_template',
+        return request.render('beesdoo_website_shift.task_template',
             {
              'task_templates': task_templates,
              'float_to_time': float_to_time

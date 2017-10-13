@@ -1,10 +1,10 @@
 <openerp>
   <!-- We add the css stylesheet -->
-  <template id="assets_frontend" name="beesdoo_portal_shift_website_assets"
+  <template id="assets_frontend" name="beesdoo_website_shift_website_assets"
     inherit_id="website.assets_frontend">
     <xpath expr="." position="inside">
       <link rel="stylesheet" type="text/css"
-        href="/beesdoo_portal_shift/static/src/css/design.css"/>
+        href="/beesdoo_website_shift/static/src/css/design.css"/>
     </xpath>
   </template>
 
@@ -74,7 +74,7 @@
   <template id="shift_template" name="Shift for irregular worker">
     <t t-call="website.layout">
       <div class="container">
-        <h1>Availables Shifts for Irregular Workers</h1>
+        <h1>Available Shifts for Irregular Workers</h1>
 
         <p class="text-center">
           Subscribe via <a href="mailto:volant@bees-coop.be">volant@bees-coop.be</a>

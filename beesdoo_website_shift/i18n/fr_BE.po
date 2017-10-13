@@ -26,7 +26,7 @@ msgstr "Créneaux disponibles pour les travailleurs réguliers"
 
 #. module: beesdoo_portal_shift
 #: model:ir.ui.view,arch_db:beesdoo_portal_shift.shift_template
-msgid "Availables Shifts for Irregular Workers"
+msgid "Available Shifts for Irregular Workers"
 msgstr "Shifts disponibles pour les travailleurs volants"
 
 #. module: beesdoo_portal_shift
