@@ -1,0 +1,122 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* beesdoo_portal_shift
+# 
+# Tanslators:
+# Rémy Taymans <remytaymans@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-09-29 09:02+0000\n"
+"PO-Revision-Date: 2017-09-29 11:08+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.8.11\n"
+
+#. module: beesdoo_portal_shift
+#: model:ir.ui.view,arch_db:beesdoo_portal_shift.task_template
+msgid "Available Tasks Templates for Regular Workers"
+msgstr "Créneaux disponibles pour les travailleurs réguliers"
+
+#. module: beesdoo_portal_shift
+#: model:ir.ui.view,arch_db:beesdoo_portal_shift.shift_template
+msgid "Available Shifts for Irregular Workers"
+msgstr "Shifts disponibles pour les travailleurs volants"
+
+#. module: beesdoo_portal_shift
+#: model:ir.ui.view,arch_db:beesdoo_portal_shift.shift_template
+msgid "Date"
+msgstr "Date"
+
+#. module: beesdoo_portal_shift
+#: model:ir.ui.view,arch_db:beesdoo_portal_shift.shift_template
+msgid "Day"
+msgstr "Jour"
+
+#. module: beesdoo_portal_shift
+#: model:ir.ui.view,arch_db:beesdoo_portal_shift.shift_template
+#: model:ir.ui.view,arch_db:beesdoo_portal_shift.task_template
+msgid "Available Spaces"
+msgstr "Places disponibles"
+
+#. module: beesdoo_portal_shift
+#: model:ir.ui.view,arch_db:beesdoo_portal_shift.task_template
+msgid "Subscribe via the member office or via"
+msgstr "Inscription au bureau des membres ou via"
+
+#. module: beesdoo_portal_shift
+#: model:ir.ui.view,arch_db:beesdoo_portal_shift.shift_template
+msgid "Subscribe via"
+msgstr "Inscription via"
+
+#. module: beesdoo_portal_shift
+#: model:ir.ui.view,arch_db:beesdoo_portal_shift.task_template
+msgid "Not yet"
+msgstr "Pas encore"
+
+#. module: beesdoo_portal_shift
+#: model:ir.ui.view,arch_db:beesdoo_portal_shift.shift_template
+msgid "Shift"
+msgstr "Shift"
+
+#. module: beesdoo_portal_shift
+#: model:website.menu,name:beesdoo_portal_shift.menu_work_irregular
+msgid "Shifts Irregular"
+msgstr "Shifts"
+
+#. module: beesdoo_portal_shift
+#: model:website.menu,name:beesdoo_portal_shift.menu_work_regular
+msgid "Shifts Regular"
+msgstr "Créneaux"
+
+#. module: beesdoo_portal_shift
+#: model:ir.ui.view,arch_db:beesdoo_portal_shift.task_template
+msgid "Super Co-operator"
+msgstr "Super-coopérateur"
+
+#. module: beesdoo_portal_shift
+#: model:ir.ui.view,arch_db:beesdoo_portal_shift.task_template
+msgid "Task Template"
+msgstr "Créneau"
+
+#. module: beesdoo_portal_shift
+#: model:ir.ui.view,arch_db:beesdoo_portal_shift.shift_template
+#: model:ir.ui.view,arch_db:beesdoo_portal_shift.task_template
+msgid "Time"
+msgstr "Heures"
+
+#. module: beesdoo_portal_shift
+#: model:ir.ui.view,arch_db:beesdoo_portal_shift.shift_template
+msgid "Type of Shift"
+msgstr "Type de shift"
+
+#. module: beesdoo_portal_shift
+#: model:ir.ui.view,arch_db:beesdoo_portal_shift.task_template
+msgid "Type of Task"
+msgstr "Type de créneau"
+
+#. module: beesdoo_portal_shift
+#: model:ir.ui.view,arch_db:beesdoo_portal_shift.task_template
+msgid "Week"
+msgstr "Semaine"
+
+#. module: beesdoo_portal_shift
+#: model:ir.ui.view,arch_db:beesdoo_portal_shift.task_template
+msgid "Yes"
+msgstr "Oui"
+
+#. module: beesdoo_portal_shift
+#: model:ir.ui.view,arch_db:beesdoo_portal_shift.task_template
+msgid "membre@bees-coop.be"
+msgstr "membre@bees-coop.be"
+
+#. module: beesdoo_portal_shift
+#: model:ir.ui.view,arch_db:beesdoo_portal_shift.shift_template
+msgid "volant@bees-coop.be"
+msgstr "volant@bees-coop.be"
