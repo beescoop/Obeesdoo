@@ -19,6 +19,5 @@
 
     'data': [
         'views/shift_website_templates.xml',
-        'data/config_data.xml',
     ]
 }
