@@ -38,8 +38,38 @@ class DayNumber(models.Model):
 class Planning(models.Model):
     _name = 'beesdoo.shift.planning'
 
+    _order = 'sequence asc'
+
+    sequence = fields.Integer()
     name = fields.Char()
     task_template_ids = fields.One2many('beesdoo.shift.template', 'planning_id')
+
+    @api.model
+    def _get_next_planning(self, sequence):
+        next_planning = self.search([('sequence', '>', sequence)])
+        if not next_planning:
+            return self.search([])[0]
+        return next_planning[0]
+
+    @api.multi
+    def _get_next_planning_date(self, date):
+        self.ensure_one()
+        nb_of_day = max(self.task_template_ids.mapped('day_nb_id.number'))
+        return fields.Date.to_string(fields.Date.from_string(date) + timedelta(days=nb_of_day))
+
+    @api.model
+    def _generate_next_planning(self):
+        config = self.env['ir.config_parameter']
+        last_seq = int(config.get_param('last_planning_seq', 0))
+        date = config.get_param('next_planning_date', 0)
+
+        planning = self._get_next_planning(last_seq)
+        planning = planning.with_context(visualize_date=date)
+        planning.task_template_ids._generate_task_day()
+
+        next_date = planning._get_next_planning_date(date)
+        config.set_param('last_planning_seq', planning.sequence)
+        config.set_param('next_planning_date', next_date)
 
 class TaskTemplate(models.Model):
     _name = 'beesdoo.shift.template'
@@ -120,6 +150,6 @@ class TaskTemplate(models.Model):
                     'is_regular': True if worker_id else False,
                     'start_time' : rec.start_date,
                     'end_time' :  rec.end_date,
-                    'stage_id': self.env.ref('beesdoo_shift.draft').id,
+                    'stage_id': self.env.ref('beesdoo_shift.open').id,
                 })
         return tasks
