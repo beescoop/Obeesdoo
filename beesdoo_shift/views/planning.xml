@@ -1,14 +1,4 @@
 <odoo>
-    <record model="ir.ui.view" id="planning_view_tree">
-        <field name="name">Planning List</field>
-        <field name="model">beesdoo.shift.planning</field>
-        <field name="arch" type="xml">
-            <tree>
-                <field name="name" />
-            </tree>
-        </field>
-    </record>
-
     <record model="ir.actions.act_window" id="action_shift_template">
         <field name="name">Planning Action</field>
         <field name="res_model">beesdoo.shift.template</field>
@@ -32,7 +22,9 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-
+                    <button type="action"
+                            name="%(action_generate_shift_wizard)d"
+                            string="Generate shifts" colspan="2" />
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
@@ -49,9 +41,7 @@
                         </h1>
                     </div>
                     <group>
-                        <button type="action"
-                            name="%(action_generate_shift_wizard)d"
-                            string="Generate shifts" colspan="2" />
+                        <field name="sequence" />
                     </group>
                 </sheet>
             </form>
@@ -63,6 +53,7 @@
         <field name="model">beesdoo.shift.planning</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="sequence" />
                 <field name="name" />
                 <button type="action" name="%(action_shift_template)d"
                     string="Shifts Template" />
