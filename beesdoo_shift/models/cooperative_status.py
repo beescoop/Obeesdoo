@@ -139,6 +139,10 @@ class CooperativeStatus(models.Model):
             self.cooperator_id.sudo().write({'subscribed_shift_ids' : [(5,0,0)]})
             self.env['beesdoo.shift.shift'].sudo().unsubscribe_from_today([self.cooperator_id.id], today=self.today)
 
+    def _change_counter(self, data):
+        self.sc += data.get('sc', 0)
+        self.sr += data.get('sr', 0)
+
     @api.multi
     def _write(self, vals):
         """
