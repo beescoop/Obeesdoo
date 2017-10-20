@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from openerp import models, fields, api, _
 from openerp.exceptions import UserError
+import json
 
 class TaskStage(models.Model):
     _name = 'beesdoo.shift.stage'
@@ -35,6 +36,7 @@ class Task(models.Model):
     color = fields.Integer(related="stage_id.color", readonly=True)
     is_regular = fields.Boolean(default=False)
     replaced_id = fields.Many2one('res.partner', track_visibility='onchange', domain=[('eater', '=', 'worker_eater')])
+    revert_info = fields.Text()
 
     def message_auto_subscribe(self, updated_fields, values=None):
         self._add_follower(values)
@@ -78,8 +80,25 @@ class Task(models.Model):
                     rec._update_stage(rec.stage_id.id, vals['stage_id'])
         return super(Task, self).write(vals)
 
+    def _set_revert_info(self, data, status):
+        data = {
+            'status_id': status.id,
+            'data' : {k: data[k] * -1 for k in data.keys()}
+        }
+        self.write({'revert_info': json.dumps(data)})
+
+    def _revert(self):
+        if not self.revert_info:
+            return
+        try:
+            data = json.loads(self.revert_info)
+            self.env['cooperative.status'].browse(data['status_id'])._change_counter(data['data'])
+        except:
+            pass
+
     def _update_stage(self, old_stage, new_stage):
         self.ensure_one()
+        self._revert()
         update = int(self.env['ir.config_parameter'].get_param('always_update', False))
         if not (self.worker_id or self.replaced_id) or update:
             return
@@ -95,20 +114,21 @@ class Task(models.Model):
             pass
         if new_stage == self.env.ref('beesdoo_shift.done') and not self.is_regular:
             if status.sr < 0:
-                data['sr'] = status.sr + 1
+                data['sr'] = 1
             elif status.sc < 0:
-                data['sc'] = status.sc + 1
+                data['sc'] = 1
             else:
-                data['sr'] = status.sr + 1
+                data['sr'] = 1
 
         if new_stage == self.env.ref('beesdoo_shift.absent') and not self.replaced_id:
-            data['sr'] = status.sr - 1
+            data['sr'] = - 1
             if status.sr <= 0:
-                data['sc'] = status.sc -1
+                data['sc'] = -1
         if new_stage == self.env.ref('beesdoo_shift.absent') and self.replaced_id:
-            data['sr'] = status.sr -1
+            data['sr'] = -1
 
         if new_stage == self.env.ref('beesdoo_shift.excused'):
-            data['sr'] = status.sr -1
+            data['sr'] = -1
 
-        status.sudo().write(data)
+        status.sudo()._change_counter(data)
+        self._set_revert_info(data, status)
