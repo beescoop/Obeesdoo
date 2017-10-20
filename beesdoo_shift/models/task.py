@@ -93,6 +93,7 @@ class Task(models.Model):
         try:
             data = json.loads(self.revert_info)
             self.env['cooperative.status'].browse(data['status_id'])._change_counter(data['data'])
+            self.revert_info = False
         except:
             pass
 
