@@ -15,10 +15,6 @@
         <t t-jquery="t[t-if='widget.pos.get_client()']" t-operation="after">
             <t t-if="widget.pos.get_client()">
                 <div class='customer-information-pay'>
-                    Balance:
-                    <span class='customer-balance' />
-                    €
-                    <br />
                     <span class='customer-delegate1' />
                     <br />
                     <span class='customer-delegate2' />
@@ -34,10 +30,6 @@
             <t t-if="widget.pos.get_client()">
                 <div class="customer-information">
                     <span class='customer-name' />
-                    <br />
-                   	Balance:
-                    <span class='customer-balance' />
-                    €
                     <br />
                     <span class='customer-delegate1' />
                     <br />

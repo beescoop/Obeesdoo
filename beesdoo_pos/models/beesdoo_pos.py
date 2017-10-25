@@ -50,14 +50,8 @@ class BeescoopPosPartner(models.Model):
         return tuple(eaters)
 
     @api.multi
-    def get_balance_and_eater(self):
-        self.ensure_one()
-        self = self.sudo()
-        account_id = self.property_account_receivable_id.id
-        move_lines = self.env['account.move.line'].search([('account_id', '=', account_id), ('partner_id', '=', self.id)])
-        credit = sum([m.credit for m in move_lines])
-        debit = sum([m.debit for m in move_lines])
+    def get_eater(self):
         eater1, eater2, eater3 = self._get_eater()
-        return str(round(credit - debit, 2)), eater1, eater2, eater3
+        return eater1, eater2, eater3
 
     last_name = fields.Char('Last Name', required=True, default="/")
