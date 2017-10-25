@@ -53,13 +53,12 @@ odoo.define('beescoop.pos', function (require) {
 
             }
             var customer_id = this.pos.get_client().id;
-            var res = new Model('res.partner').call('get_balance_and_eater',
+            var res = new Model('res.partner').call('get_eater',
                     [ customer_id ], undefined, { shadow: true, timeout: 1000});
             res.then(function(result) {
-                set_customer_info.call(self, '.customer-balance', result[0])
-                set_customer_info.call(self, '.customer-delegate1', result[1], 'Eater 1: ');
-                set_customer_info.call(self, '.customer-delegate2', result[2], 'Eater 2: ');
-                set_customer_info.call(self, '.customer-delegate3', result[3], 'Eater 3: ');
+                set_customer_info.call(self, '.customer-delegate1', result[0], 'Eater 1: ');
+                set_customer_info.call(self, '.customer-delegate2', result[1], 'Eater 2: ');
+                set_customer_info.call(self, '.customer-delegate3', result[2], 'Eater 3: ');
             }, function(err) {
                 loaded.reject(err);
             });
@@ -74,13 +73,12 @@ odoo.define('beescoop.pos', function (require) {
                 return
             }
             var customer_id = this.pos.get_client().id;
-            var res = new Model('res.partner').call('get_balance_and_eater', [ customer_id ], undefined, { shadow: true, timeout: 1000});
+            var res = new Model('res.partner').call('get_eater', [ customer_id ], undefined, { shadow: true, timeout: 1000});
             res.then(function(result) {
                 set_customer_info.call(self, '.customer-name', self.pos.get_client().name);
-                set_customer_info.call(self, '.customer-balance', result[0]);
-                set_customer_info.call(self, '.customer-delegate1', result[1], 'Eater 1: ');
-                set_customer_info.call(self, '.customer-delegate2', result[2], 'Eater 2: ');
-                set_customer_info.call(self, '.customer-delegate3', result[3], 'Eater 3: ');
+                set_customer_info.call(self, '.customer-delegate1', result[0], 'Eater 1: ');
+                set_customer_info.call(self, '.customer-delegate2', result[1], 'Eater 2: ');
+                set_customer_info.call(self, '.customer-delegate3', result[2], 'Eater 3: ');
             }, function(err) {
                 loaded.reject(err);
             });
