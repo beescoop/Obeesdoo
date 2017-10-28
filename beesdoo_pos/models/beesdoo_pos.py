@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 from openerp import models, fields, api, _
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class BeesPOS(models.Model):
     _inherit = 'pos.config'
@@ -29,6 +32,11 @@ class BeescoopPosOrder(models.Model):
 
     _inherit = 'pos.order'
 
+    print_status = fields.Selection([('no_print', 'Do not Print'),
+                                     ('to_print', 'To print'),
+                                     ('printed', 'Printed')],
+                                    default="no_print", string="Print Status")
+
     @api.model
     def send_order(self, receipt_name):
         order = self.search([('pos_reference', '=', receipt_name)])
@@ -36,9 +44,23 @@ class BeescoopPosOrder(models.Model):
             return _('Error: no order found')
         if not order.partner_id.email:
             return _('Cannot send the ticket, no email address found on the client')
+        order.print_status = 'to_print'
+
+        return _("Ticket will be sent")
+
+    @api.model
+    def _send_order_cron(self):
         mail_template = self.env.ref("beesdoo_pos.email_send_ticket")
-        mail_template.send_mail(order.id)
-        return _("Ticket sent")
+        _logger.info("Start to send ticket")
+        for order in self.search([('print_status', '=', 'to_print')]):
+            if not order.partner_id.email:
+                continue
+
+            mail_template.send_mail(order.id, force_send=True)
+            order.print_status = 'printed'
+            #Make sure we commit the change to not send ticket twice
+            self.env.cr.commit()
+
 
 class BeescoopPosPartner(models.Model):
     _inherit = 'res.partner'
