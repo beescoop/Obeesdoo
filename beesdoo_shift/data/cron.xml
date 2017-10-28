@@ -12,7 +12,7 @@
         </record>
 
 
-        <record id="ir_cron_update_today" model="ir.cron">
+        <record id="ir_cron_generate_next_planning" model="ir.cron">
             <field name="name">Generate Next Planning</field>
             <field name="interval_number">1</field>
             <field name="interval_type">weeks</field>
