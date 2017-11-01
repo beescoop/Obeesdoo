@@ -31,13 +31,13 @@
     </record>
     <record model="beesdoo.shift.stage" id="excused_necessity">
         <field name="name">Excused - Absolute Necessity</field>
-        <field name="sequence">6</field>
+        <field name="sequence">7</field>
         <field name="color">4</field>
         <field name="code">excused_necessity</field>
     </record>
     <record model="beesdoo.shift.stage" id="cancel">
         <field name="name">Cancelled</field>
-        <field name="sequence">7</field>
+        <field name="sequence">8</field>
         <field name="color">8</field>
         <field name="code">cancel</field>
     </record>
