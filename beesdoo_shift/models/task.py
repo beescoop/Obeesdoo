@@ -31,7 +31,7 @@ class Task(models.Model):
     worker_id = fields.Many2one('res.partner', track_visibility='onchange', domain=[('eater', '=', 'worker_eater')])
     start_time = fields.Datetime(track_visibility='always')
     end_time = fields.Datetime(track_visibility='always')
-    stage_id = fields.Many2one('beesdoo.shift.stage', required=True, track_visibility='onchange')
+    stage_id = fields.Many2one('beesdoo.shift.stage', required=True, track_visibility='onchange', default=lambda self: self.env.ref('beesdoo_shift.open'))
     super_coop_id = fields.Many2one('res.users', string="Super Cooperative", domain=[('partner_id.super', '=', True)], track_visibility='onchange')
     color = fields.Integer(related="stage_id.color", readonly=True)
     is_regular = fields.Boolean(default=False)
@@ -59,14 +59,20 @@ class Task(models.Model):
 
     #TODO button to replaced someone
     @api.model
-    def unsubscribe_from_today(self, worker_ids, today=None):
+    def unsubscribe_from_today(self, worker_ids, today=None, end_date=None):
         today = today or fields.Date.today()
-        today = today + ' 00:00:00'
-        to_unsubscribe = self.search([('worker_id', 'in', worker_ids), ('start_time', '>=', today)])
+        today += ' 00:00:00'
+        if end_date:
+            end_date += ' 23:59:59'
+        date_domain = [('worker_id', 'in', worker_ids), ('start_time', '>=', today)]
+        if end_date:
+            date_domain.append(('end_time', '<=', end_date))
+        to_unsubscribe = self.search([('worker_id', 'in', worker_ids)] + date_domain)
+
         to_unsubscribe.write({'worker_id': False, 'is_regular': False})
         #What about replacement ?
         #Remove worker, replaced_id and regular
-        to_unsubscribe_replace = self.search([('replaced_id', 'in', worker_ids), ('start_time', '>=', today)])
+        to_unsubscribe_replace = self.search([('replaced_id', 'in', worker_ids)] + date_domain)
         to_unsubscribe_replace.write({'worker_id': False, 'is_regular': False, 'replaced_id': False})
 
     @api.multi
