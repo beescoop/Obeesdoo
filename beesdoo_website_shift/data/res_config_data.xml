@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data noupdate="1">
+    <record id="beesdoo_website_shift.irregular_shift_limit" model="ir.config_parameter">
+      <field name="key">beesdoo_website_shift.irregular_shift_limit</field>
+      <field name="value">0</field>
+    </record>
+    <record id="beesdoo_website_shift.highlight_rule" model="ir.config_parameter">
+      <field name="key">beesdoo_website_shift.highlight_rule</field>
+      <field name="value">3</field>
+    </record>
+    <record id="beesdoo_website_shift.hide_rule" model="ir.config_parameter">
+      <field name="key">beesdoo_website_shift.hide_rule</field>
+      <field name="value">20</field>
+    </record>
+  </data>
+</openerp>

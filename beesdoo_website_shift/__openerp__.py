@@ -18,6 +18,8 @@
     'depends': ['website', 'beesdoo_shift'],
 
     'data': [
+        'data/res_config_data.xml',
         'views/shift_website_templates.xml',
+        'views/res_config_views.xml',
     ]
 }

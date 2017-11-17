@@ -17,8 +17,8 @@
   </data>
 
   <!-- Available Tasks Templates for Regular Workers -->
-  <template 
-    id="task_template" 
+  <template
+    id="task_template"
     name="Available Tasks Templates for Regular Workers"
     page="True">
     <t t-call="website.layout">
@@ -64,7 +64,7 @@
             <div class="visible-xs" t-foreach="task_templates" t-as="template">
               <ul class="list-group">
                 <li class="list-group-item">
-                  <t t-esc="template.planning_id.name"/> : 
+                  <t t-esc="template.planning_id.name"/> :
                   <t t-esc="template.day_nb_id.name"/>
                   <t t-esc='float_to_time(template.start_time)' /> -
                   <t t-esc='float_to_time(template.end_time)'/>
@@ -142,8 +142,8 @@
   </template>
 
   <!-- Available shifts for irregular workers -->
-  <template 
-    id="shift_template" 
+  <template
+    id="shift_template"
     name="Available Shifts for Irregular Workers"
     page="True">
     <t t-call="website.layout">
@@ -186,12 +186,12 @@
               <t t-set="count" t-value="shift_and_count[0]" />
               <t t-set="shift" t-value="shift_and_count[1]" />
               <ul class="list-group">
-                <li class="list-group-item">
+                <li t-attf-class="{{ 'list-group-item list-group-item-danger' if count >= highlight_rule else 'list-group-item' }}">
                   <t t-esc="time.strftime('%A %d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
                   <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
                   <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
                 </li>
-                <li class="list-group-item">
+                <li t-attf-class="{{ 'list-group-item list-group-item-danger' if count >= highlight_rule else 'list-group-item' }}">
                   <t t-esc="shift.task_type_id.name"/>
                   <span class="badge">
                     <t t-esc="count"/> space(s)
@@ -215,7 +215,7 @@
                 <t t-foreach="shift_templates" t-as="shift_and_count">
                   <t t-set="count" t-value="shift_and_count[0]" />
                   <t t-set="shift" t-value="shift_and_count[1]" />
-                  <tr>
+                  <tr t-attf-class="{{ 'danger' if count >= highlight_rule else '' }}">
                     <td>
                       <t t-esc="time.strftime('%A', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
                     </td>
