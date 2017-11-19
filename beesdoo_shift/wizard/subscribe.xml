@@ -15,6 +15,7 @@
                     <field name="working_mode" />
                     <field name="exempt_reason_id" attrs="{'invisible':[('working_mode', '!=', 'exempt')]}"/>
                     <field name="shift_id" domain="[('remaining_worker', '>', 0)]" attrs="{'invisible': [('working_mode', '!=', 'regular')]}"/>
+                    <field name="irregular_start_date" attrs="{'invisible': [('working_mode', '!=', 'irregular')]}" />
                     <field name="super" />
                     <field name="reset_counter" />
                     <field name="reset_compensation_counter" /> <!-- TODO access right -->

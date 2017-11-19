@@ -2,7 +2,11 @@
 from openerp import models, fields, api, _
 from openerp.exceptions import ValidationError
 
-from datetime import timedelta
+from datetime import timedelta, datetime
+import logging
+from openerp.osv.fields import related
+
+_logger = logging.getLogger(__name__)
 
 def add_days_delta(date_from, days_delta):
     if not date_from:
@@ -65,49 +69,97 @@ class CooperativeStatus(models.Model):
     history_ids = fields.One2many('cooperative.status.history', 'status_id', readonly=True)
     unsubscribed = fields.Boolean(default=False, help="Manually unsubscribed")
 
+    #Specific to irregular
+    irregular_start_date = fields.Date()  #TODO migration script
+    irregular_absence_date = fields.Date()
+    irregular_absence_counter = fields.Integer() #TODO unsubscribe when reach -2
 
 
-    @api.depends('today', 'sr', 'sc', 'holiday_end_time', 'holiday_start_time', 'time_extension', 'alert_start_time', 'extension_start_time', 'unsubscribed')
+    @api.depends('today', 'sr', 'sc', 'holiday_end_time',
+                 'holiday_start_time', 'time_extension',
+                 'alert_start_time', 'extension_start_time',
+                 'unsubscribed', 'irregular_absence_date',
+                 'irregular_absence_counter')
     def _compute_status(self):
         alert_delay = int(self.env['ir.config_parameter'].get_param('alert_delay', 28))
         grace_delay = int(self.env['ir.config_parameter'].get_param('default_grace_delay', 10))
         update = int(self.env['ir.config_parameter'].get_param('always_update', False))
         print update
         for rec in self:
-            if update:
+            if update or not self.today:
                 rec.status = 'ok'
                 rec.can_shop = True
                 continue
 
-            ok = rec.sr >= 0 and rec.sc >= 0
-            grace_delay = grace_delay + rec.time_extension
-
-            if rec.sr < -1 or rec.unsubscribed:
-                rec.status = 'unsubscribed'
-                rec.can_shop = False
-
-            #Transition to alert sr < 0 or stay in alert sr < 0 or sc < 0 and thus alert time is defined
-            elif not ok and rec.alert_start_time and rec.extension_start_time and rec.today <= add_days_delta(rec.extension_start_time, grace_delay):
-                rec.status = 'extension'
-                rec.can_shop = True
-            elif not ok and rec.alert_start_time and rec.extension_start_time and rec.today > add_days_delta(rec.extension_start_time, grace_delay):
-                rec.status = 'suspended'
-                rec.can_shop = False
-            elif not ok and rec.alert_start_time and rec.today > add_days_delta(rec.alert_start_time, alert_delay):
-                rec.status = 'suspended'
-                rec.can_shop = False
-            elif (rec.sr < 0) or (not ok and rec.alert_start_time):
-                rec.status = 'alert'
-                rec.can_shop = True
-
-            #Check for holidays; Can be in holidays even in alert or other mode ?
-            elif rec.today >= rec.holiday_start_time and rec.today <= rec.holiday_end_time:
-                rec.status = 'holiday'
-                rec.can_shop = True
-            elif ok or (not rec.alert_start_time and rec.sr >= 0):
+            if rec.working_mode == 'regular':
+                rec._set_regular_status(grace_delay, alert_delay)
+            elif rec.working_mode == 'irregular':
+                rec._set_irregular_status(grace_delay, alert_delay)
+            elif rec.working_mode == 'exempt':
                 rec.status = 'ok'
                 rec.can_shop = True
 
+    def _set_regular_status(self, grace_delay, alert_delay):
+        self.ensure_one()
+        ok = self.sr >= 0 and self.sc >= 0
+        grace_delay = grace_delay + self.time_extension
+
+        if self.sr < -1 or self.unsubscribed:
+            self.status = 'unsubscribed'
+            self.can_shop = False
+
+        #Transition to alert sr < 0 or stay in alert sr < 0 or sc < 0 and thus alert time is defined
+        elif not ok and self.alert_start_time and self.extension_start_time and self.today <= add_days_delta(self.extension_start_time, grace_delay):
+            self.status = 'extension'
+            self.can_shop = True
+        elif not ok and self.alert_start_time and self.extension_start_time and self.today > add_days_delta(self.extension_start_time, grace_delay):
+            self.status = 'suspended'
+            self.can_shop = False
+        elif not ok and self.alert_start_time and self.today > add_days_delta(self.alert_start_time, alert_delay):
+            self.status = 'suspended'
+            self.can_shop = False
+        elif (self.sr < 0) or (not ok and self.alert_start_time):
+            self.status = 'alert'
+            self.can_shop = True
+
+        #Check for holidays; Can be in holidays even in alert or other mode ?
+        elif self.today >= self.holiday_start_time and self.today <= self.holiday_end_time:
+            self.status = 'holiday'
+            self.can_shop = True
+        elif ok or (not self.alert_start_time and self.sr >= 0):
+            self.status = 'ok'
+            self.can_shop = True
+
+    def _set_irregular_status(self, grace_delay, alert_delay):
+        self.ensure_one()
+        ok = self.sr >= 0
+        grace_delay = grace_delay + self.time_extension
+        print add_days_delta(self.extension_start_time, grace_delay)
+        if (not ok and self.irregular_absence_date and self.today > add_days_delta(self.irregular_absence_date, alert_delay * 2)) \
+             or self.unsubscribed or self.irregular_absence_counter <= -2:
+            self.status = 'unsubscribed'
+            self.can_shop = False
+        #Transition to alert sr < 0 or stay in alert sr < 0 or sc < 0 and thus alert time is defined
+        elif not ok and self.alert_start_time and self.extension_start_time and self.today <= add_days_delta(self.extension_start_time, grace_delay):
+            self.status = 'extension'
+            self.can_shop = True
+        elif not ok and self.alert_start_time and self.extension_start_time and self.today > add_days_delta(self.extension_start_time, grace_delay):
+            self.status = 'suspended'
+            self.can_shop = False
+        elif not ok and self.alert_start_time and self.today > add_days_delta(self.alert_start_time, alert_delay):
+            self.status = 'suspended'
+            self.can_shop = False
+        elif (self.sr < 0) or (not ok and self.alert_start_time):
+            self.status = 'alert'
+            self.can_shop = True
+
+        #Check for holidays; Can be in holidays even in alert or other mode ?
+        elif self.today >= self.holiday_start_time and self.today <= self.holiday_end_time:
+            self.status = 'holiday'
+            self.can_shop = True
+        elif ok or (not self.alert_start_time and self.sr >= 0):
+            self.status = 'ok'
+            self.can_shop = True
 
     @api.multi
     def write(self, vals):
@@ -137,11 +189,14 @@ class CooperativeStatus(models.Model):
             self.write({'alert_start_time': False, 'extension_start_time': False, 'time_extension': 0})
         if new_state == 'unsubscribed':
             self.cooperator_id.sudo().write({'subscribed_shift_ids' : [(5,0,0)]})
+            #TODO: Add one day othertwise unsubscribed from the shift you were absent
             self.env['beesdoo.shift.shift'].sudo().unsubscribe_from_today([self.cooperator_id.id], today=self.today)
 
     def _change_counter(self, data):
         self.sc += data.get('sc', 0)
         self.sr += data.get('sr', 0)
+        self.irregular_absence_counter += data.get('irregular_absence_counter', 0)
+        self.irregular_absence_date = data.get('irregular_absence_date', False)
 
     @api.multi
     def _write(self, vals):
@@ -181,7 +236,45 @@ class CooperativeStatus(models.Model):
     def clear_history(self):
         self.ensure_one()
         self.history_ids.unlink()
-
+    
+    @api.model
+    def _cron_compute_counter_irregular(self, today=False):
+        today = today or fields.Date.today()
+        journal = self.env['beesdoo.shift.journal'].search([('date', '=', today)])
+        if not journal:
+            journal = self.env['beesdoo.shift.journal'].create({'date': today})
+        
+        irregular = self.search([('status', '!=', 'unsubscribed'), ('working_mode', '=', 'irregular'), ('irregular_start_date', '!=', False)])
+        today_date = fields.Date.from_string(today)
+        for status in irregular:
+            delta = (today_date - fields.Date.from_string(status.irregular_start_date)).days
+            if delta and delta % 28 == 0 and status not in journal.line_ids: #TODO use system parameter for 28
+                if status.sr > 0:
+                    status.sr -= 1
+                else:
+                    status.sr -= 2
+                journal.line_ids |= status
+        
+        
+class ShiftCronJournal(models.Model):
+    _name = 'beesdoo.shift.journal'
+    _order = 'date desc'
+    _rec_name = 'date'
+    
+    date = fields.Date()
+    line_ids = fields.Many2many('cooperative.status')
+    
+    _sql_constraints = [
+        ('one_entry_per_day', 'unique (date)', _('You can only create one journal per day')),
+    ]
+    
+    @api.multi
+    def run(self):
+        self.ensure_one()
+        if not self.user_has_groups('beesdoo_shift.group_cooperative_admin'):
+            raise ValidationError(_("You don't have the access to perform this action"))
+        self.sudo().env['cooperative.status']._cron_compute_counter_irregular(today=self.date)
+   
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
