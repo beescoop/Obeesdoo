@@ -87,11 +87,14 @@ class Task(models.Model):
         return super(Task, self).write(vals)
 
     def _set_revert_info(self, data, status):
-        data = {
+        data_new = {
             'status_id': status.id,
-            'data' : {k: data[k] * -1 for k in data.keys()}
+            'data' : {k: data.get(k, 0) * -1 for k in ['sr', 'sc', 'irregular_absence_counter']}
         }
-        self.write({'revert_info': json.dumps(data)})
+        if data.get('irregular_absence_date'):
+            data_new['data']['irregular_absence_date'] = False
+
+        self.write({'revert_info': json.dumps(data_new)})
 
     def _revert(self):
         if not self.revert_info:
@@ -107,35 +110,54 @@ class Task(models.Model):
         self.ensure_one()
         self._revert()
         update = int(self.env['ir.config_parameter'].get_param('always_update', False))
-        if not (self.worker_id or self.replaced_id) or update:
-            return
+        
         new_stage = self.env['beesdoo.shift.stage'].browse(new_stage)
-
-        if not self.replaced_id: #No replacement case
-            status = self.worker_id.cooperative_status_ids[0]
-        else:
-            status = self.replaced_id.cooperative_status_ids[0]
-
         data = {}
-        if new_stage == self.env.ref('beesdoo_shift.done') and self.is_regular:
-            pass
-        if new_stage == self.env.ref('beesdoo_shift.done') and not self.is_regular:
-            if status.sr < 0:
-                data['sr'] = 1
-            elif status.sc < 0:
-                data['sc'] = 1
+        DONE = self.env.ref('beesdoo_shift.done')
+        ABSENT = self.env.ref('beesdoo_shift.absent')
+        EXCUSED = self.env.ref('beesdoo_shift.excused')
+        NECESSITY = self.env.ref('beesdoo_shift.excused_necessity')
+        
+        if not (self.worker_id or self.replaced_id) and new_stage in (DONE, ABSENT, EXCUSED, NECESSITY):
+            raise UserError(_("You cannot change to the status %s if the is no worker defined on the shift") % new_stage.name)
+        
+        if update or not (self.worker_id or self.replaced_id):
+            return
+        
+        if self.worker_id.working_mode == 'regular':
+            if not self.replaced_id: #No replacement case
+                status = self.worker_id.cooperative_status_ids[0]
             else:
+                status = self.replaced_id.cooperative_status_ids[0]
+
+            if new_stage == DONE and not self.is_regular:
+                if status.sr < 0:
+                    data['sr'] = 1
+                elif status.sc < 0:
+                    data['sc'] = 1
+                else:
+                    data['sr'] = 1
+    
+            if new_stage == ABSENT and not self.replaced_id:
+                data['sr'] = - 1
+                if status.sr <= 0:
+                    data['sc'] = -1
+            if new_stage == ABSENT and self.replaced_id:
+                data['sr'] = -1
+    
+            if new_stage == EXCUSED:
+                data['sr'] = -1
+
+        elif self.worker_id.working_mode == 'irregular':
+            status = self.worker_id.cooperative_status_ids[0]
+            if new_stage == DONE or new_stage == NECESSITY:
                 data['sr'] = 1
-
-        if new_stage == self.env.ref('beesdoo_shift.absent') and not self.replaced_id:
-            data['sr'] = - 1
-            if status.sr <= 0:
-                data['sc'] = -1
-        if new_stage == self.env.ref('beesdoo_shift.absent') and self.replaced_id:
-            data['sr'] = -1
-
-        if new_stage == self.env.ref('beesdoo_shift.excused'):
-            data['sr'] = -1
+                data['irregular_absence_date'] = False
+                data['irregular_absence_counter'] = 1 if status.irregular_absence_counter < 0 else 0
+            if new_stage == ABSENT or new_stage == EXCUSED:
+                data['sr'] = -2
+                data['irregular_absence_date'] = self.start_time[:10]
+                data['irregular_absence_counter'] = -1
 
         status.sudo()._change_counter(data)
         self._set_revert_info(data, status)

@@ -23,5 +23,17 @@
             <field name="args">()</field>
             <field name="active" eval="False" />
         </record>
+        
+        <record id="ir_cron_compute_shift_counter" model="ir.cron">
+            <field name="name">Compute Shift Counter</field>
+            <field name="interval_number">4</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="True" />
+            <field name="model">cooperative.status</field>
+            <field name="function">_cron_compute_counter_irregular</field>
+            <field name="args">()</field>
+            <field name="active" eval="False" />
+        </record>
     </data>
 </odoo>

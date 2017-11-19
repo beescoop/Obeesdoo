@@ -33,7 +33,8 @@ class Subscribe(models.TransientModel):
         return self.env['res.partner'].browse(self._context.get('active_id')).working_mode
 
     def _get_reset_counter_default(self):
-        return self.env['res.partner'].browse(self._context.get('active_id')).state == 'unsubscribed'
+        partner = self.env['res.partner'].browse(self._context.get('active_id'))
+        return partner.state  == 'unsubscribed' and partner.working_mode == 'regular'
 
     info_session = fields.Boolean(string="Followed an information session", default=True)
     info_session_date = fields.Date(string="Date of information session", default=_get_date)
@@ -50,6 +51,7 @@ class Subscribe(models.TransientModel):
     reset_counter = fields.Boolean(default=_get_reset_counter_default)
     reset_compensation_counter = fields.Boolean(default=False)
     unsubscribed = fields.Boolean(default=False, string="Are you sure to unsubscribe this cooperator")
+    irregular_start_date = fields.Date(string="Start Date", default=fields.Date.today)
 
     
 
@@ -80,6 +82,7 @@ class Subscribe(models.TransientModel):
         if self.working_mode != 'regular':
             #Remove existing shift then subscribe to the new shift
             self.cooperator_id.sudo().write({'subscribed_shift_ids' : [(5,)]})
+            
 
         data = {
             'info_session' : self.info_session,
@@ -88,7 +91,10 @@ class Subscribe(models.TransientModel):
             'exempt_reason_id' : self.exempt_reason_id.id,
             'super' : self.super,
             'cooperator_id': self.cooperator_id.id,
-            'unsubscribed': False
+            'unsubscribed': False,
+            'irregular_start_date': self.irregular_start_date,
+            'irregular_absence_date': False,
+            'irregular_absence_counter': 0,
         }
         if self.reset_counter:
             data['sr'] = 0
@@ -103,3 +109,5 @@ class Subscribe(models.TransientModel):
             status_id.sudo().write(data)
         else:
             self.env['cooperative.status'].sudo().create(data)
+            
+
