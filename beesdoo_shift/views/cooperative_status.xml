@@ -63,15 +63,19 @@
                 <group>
                     <group>
                         <field name="cooperator_id" />
-                        <field name="working_mode" />
-                        <field name="exempt_reason_id" attrs="{'invisible':[('working_mode', '!=', 'exempt')]}"/>
                         <field name="super" />
+                        <field name="working_mode" />
+                        <field name="irregular_start_date" attrs="{'invisible':[('working_mode', '!=', 'irregular')]}" />
+                        <field name="irregular_absence_date" attrs="{'invisible':[('working_mode', '!=', 'irregular')]}" />
+                        
+                        <field name="exempt_reason_id" attrs="{'invisible':[('working_mode', '!=', 'exempt')]}"/>
                     </group>
                     <group>
                         <field name="info_session" />
                         <field name="info_session_date" />
                         <field name="sr" />
                         <field name="sc" />
+                        <field name="irregular_absence_counter" attrs="{'invisible':[('working_mode', '!=', 'irregular')]}" />
                         <field name="unsubscribed" />
                         <field name="can_shop" />
                     </group>
@@ -119,6 +123,29 @@
             </tree>
         </field>
     </record>
+    
+    <record model="ir.ui.view" id="journal_form_view">
+        <field name="name">Journal Form View</field>
+        <field name="model">beesdoo.shift.journal</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="run" string="Run again for this day" type="object" />
+                </header>
+                <group>
+                    <group>
+                        <field name="date" />
+                    </group>
+                </group>
+                <separator string="Affected cooperator" />
+                <field name="line_ids" readonly="1">
+                    <tree>
+                        <field name="cooperator_id" />
+                    </tree>
+                </field>
+            </form>
+        </field>
+    </record>
 
    <record model="ir.actions.act_window" id="action_coop_status">
         <field name="name">Cooperator Status</field>
@@ -143,6 +170,15 @@
         sequence="1" />
     <menuitem name="Worker" id="menu_worker" parent="menu_worker_top"
         action="action_worker" />
+        
+    <record model="ir.actions.act_window" id="action_journal">
+        <field name="name">Counter Journal</field>
+        <field name="res_model">beesdoo.shift.journal</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+        
+    <menuitem name="Counter Update Journal" id="menu_journal" parent="menu_status_top"
+        action="action_journal" groups="beesdoo_shift.group_cooperative_admin" />
 </odoo>
 
 

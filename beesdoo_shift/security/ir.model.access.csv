@@ -17,3 +17,5 @@ all_config_coopplanning_task,Attendance Edit Shift,model_beesdoo_shift_shift,gro
 exempt_reason_read_all,Exempt Reason Read all ,beesdoo_shift.model_cooperative_exempt_reason,,1,0,0,0
 exempt_reason,Exempt Reason Admin,beesdoo_shift.model_cooperative_exempt_reason,beesdoo_shift.group_cooperative_admin,1,1,1,1
 history_read_all,History Read All,beesdoo_shift.model_cooperative_status_history,,1,0,0,0
+access_beesdoo_shift_journal,access_beesdoo_shift_journal,model_beesdoo_shift_journal,beesdoo_shift.group_cooperative_admin,1,0,1,1
+access_beesdoo_shift_journal_line,access_beesdoo_shift_journal_line,model_beesdoo_shift_journal_line,beesdoo_shift.group_cooperative_admin,1,0,0,0
