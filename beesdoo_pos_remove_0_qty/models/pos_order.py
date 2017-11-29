@@ -9,11 +9,7 @@ class PosOrder(models.Model):
 
     @api.model
     def _process_order(self, order):
-        print order
-        print order['lines']
         lines = order['lines']
         order['lines'] = [l for l in lines if l[2]['qty'] !=0]
-        print order['lines']
-        print order
                 
         return super(PosOrder, self)._process_order(order)
