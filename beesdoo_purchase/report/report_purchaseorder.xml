@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <template id="report_purchaseorder_document" inherit_id="purchase.report_purchaseorder_document" name="beesdoo purchaseorder">
+        <div t-if="o.date_order" position="after">
+            <div t-if="o.create_uid.name" class="col-xs-3">
+                <strong>Your Referent:</strong>
+                <p t-field="o.create_uid.name"/>
+                <p t-if="o.partner_id.phone" t-field="o.partner_id.phone"/>
+            </div>
+        </div>
+    </template>
+</data>
+</odoo>
