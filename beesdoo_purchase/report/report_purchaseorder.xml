@@ -6,7 +6,7 @@
             <div t-if="o.create_uid.name" class="col-xs-3">
                 <strong>Your Referent:</strong>
                 <p t-field="o.create_uid.name"/>
-                <p t-if="o.partner_id.phone" t-field="o.partner_id.phone"/>
+                <p t-if="o.create_uid.phone" t-field="o.create_uid.phone"/>
             </div>
         </div>
     </template>
