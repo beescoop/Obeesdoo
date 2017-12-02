@@ -25,6 +25,7 @@
     'data': [
         'views/purchase_order.xml',
         'security/ir.model.access.csv',
+        'report/report_purchaseorder.xml',
     ],
     # only loaded in demonstration mode
     'demo': [],
