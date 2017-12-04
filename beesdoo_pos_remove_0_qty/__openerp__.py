@@ -8,6 +8,8 @@
     'version': '9.0.1.0.0',
     'category': 'Custom',
     'summary': 'Remove pos order line with quantity set to 0',
+    'description': """
+    """,
     'author': 'BEES coop - Houssine BAKKALI',
     'website': 'http://www.bees-coop.be',
     'depends': [
