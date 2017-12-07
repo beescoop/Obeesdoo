@@ -3,18 +3,22 @@
   <!-- Add menu entries -->
   <data noupdate="1">
     <record id="menu_work_irregular" model="website.menu">
-      <field name="name">Shifts Irregular</field>
-      <field name="url">/shift_irregular_worker</field>
+      <field name="name">Shifts</field>
+      <field name="url">/shift</field>
       <field name="parent_id" ref="website.main_menu"/>
       <field name="sequence" type="int">50</field>
     </record>
-    <record id="menu_work_regular" model="website.menu">
-      <field name="name">Shifts Regular</field>
-      <field name="url">/shift_template_regular_worker</field>
-      <field name="parent_id" ref="website.main_menu"/>
-      <field name="sequence" type="int">51</field>
-    </record>
   </data>
+
+  <!-- Shift -->
+  <template
+    id="shift"
+    name="Shift"
+    page="True">
+    <t t-call="website.layout">
+      <t t-esc="user.partner_id.working_mode"/>
+    </t>
+  </template>
 
   <!-- Available Tasks Templates for Regular Workers -->
   <template
@@ -141,10 +145,10 @@
     </t>
   </template>
 
-  <!-- Available shifts for irregular workers -->
+  <!-- Shifts for Irregular Workers -->
   <template
-    id="shift_template"
-    name="Available Shifts for Irregular Workers"
+    id="irregular_worker"
+    name="Shifts for Irregular Workers"
     page="True">
     <t t-call="website.layout">
 
@@ -155,7 +159,7 @@
           <div class="row">
             <div class="col-md-12">
               <h1 class="text-center">
-                Available Shifts for Irregular Workers
+                Your shifts
               </h1>
             </div>
           </div>
@@ -167,81 +171,296 @@
       <section class="wrap">
         <div class="container">
           <div class="row">
-            <div class="col-md-12">
-              <p class="text-center">
-                Subscribe via <a href="mailto:volant@bees-coop.be">volant@bees-coop.be</a>
+            <div class="col-xs-12 col-md-4 pull-right">
+
+              <section class="wrap">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h2>
+                        Worker status
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <div class="oe_structure"/>
+
+              <p>
+                <label>Working Mode:</label>
+                <t t-esc="dict(status.fields_get(allfields=['working_mode'])['working_mode']['selection'])[status.working_mode]"/>
               </p>
+              <p>
+                <label>Status:</label>
+                <t t-esc="dict(status.fields_get(allfields=['status'])['status']['selection'])[status.status]"/>
+              </p>
+              <p>
+                <label>Absence Counter:</label>
+                <t t-esc="status.irregular_absence_counter"/>
+              </p>
+              <t t-if="status.holiday_start_time">
+                <p>
+                  <label>Holiday start time:</label>
+                  <t t-esc="status.holiday_start_time"/>
+                </p>
+                <p>
+                  <label>Holiday end time:</label>
+                  <t t-esc="status.holiday_end_time"/>
+                </p>
+              </t>
+              <p>
+                <label>Irregular start date:</label>
+                <t t-esc="status.irregular_start_date"/>
+              </p>
+              <p>
+                <label>Irregular absence date:</label>
+                <t t-if="status.irregular_absence_date">
+                  <t t-esc="status.irregular_absence_date"/>
+                </t>
+                <t t-if="not status.irregular_absence_date">
+                  No absence
+                </t>
+              </p>
+
+              <div class="oe_structure"/>
+
             </div>
-          </div>
-        </div>
-      </section>
 
-      <div class="oe_structure"/>
+            <div class="col-xs-12 col-md-8">
 
-      <section class="wrap">
-        <div class="container">
-          <div class="row">
+              <section class="wrap">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h2>
+                        Your next shifts
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+              </section>
 
-            <div class="visible-xs" t-foreach="shift_templates" t-as="shift_and_count">
-              <t t-set="count" t-value="shift_and_count[0]" />
-              <t t-set="shift" t-value="shift_and_count[1]" />
-              <ul class="list-group">
-                <li t-attf-class="{{ 'list-group-item list-group-item-danger' if count >= highlight_rule else 'list-group-item' }}">
-                  <t t-esc="time.strftime('%A %d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
-                  <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
-                  <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
-                </li>
-                <li t-attf-class="{{ 'list-group-item list-group-item-danger' if count >= highlight_rule else 'list-group-item' }}">
-                  <t t-esc="shift.task_type_id.name"/>
-                  <span class="badge">
-                    <t t-esc="count"/> space(s)
-                  </span>
-                </li>
-              </ul>
-            </div>
+              <div class="oe_structure"/>
 
-            <table class="hidden-xs table table-striped">
-              <thead>
-                <tr>
-                  <th>Day</th>
-                  <th>Date</th>
-                  <th>Time</th>
-                  <th class="hidden-sm">Shift</th>
-                  <th>Type of Shift</th>
-                  <th class="text-center">Available Spaces</th>
-                </tr>
-              </thead>
-              <tbody>
-                <t t-foreach="shift_templates" t-as="shift_and_count">
-                  <t t-set="count" t-value="shift_and_count[0]" />
-                  <t t-set="shift" t-value="shift_and_count[1]" />
-                  <tr t-attf-class="{{ 'danger' if count >= highlight_rule else '' }}">
-                    <td>
-                      <t t-esc="time.strftime('%A', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
-                    </td>
-                    <td>
-                      <t t-esc="time.strftime('%d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
-                    </td>
-                    <td>
+              <div class="visible-xs" t-foreach="subscribed_shifts" t-as="shift">
+                <div class="panel panel-default">
+                  <div class="panel-heading clearfix">
+                    <div class="panel-title">
+                      <t t-esc="time.strftime('%A %d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
                       <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
                       <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
-                    </td>
-                    <td class="hidden-sm">
-                      <t t-esc="shift.task_template_id.name"/>
-                    </td>
-                    <td>
-                      <t t-esc="shift.task_type_id.name"/>
-                    </td>
-                    <td class="text-center">
-                      <t t-esc="count"/>
-                    </td>
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <t t-esc="shift.task_type_id.name"/>
+                  </div>
+                </div>
+              </div>
+
+              <table class="hidden-xs table table-striped">
+                <thead>
+                  <tr>
+                    <th>Day</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Type of Shift</th>
                   </tr>
-                </t>
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  <t t-foreach="subscribed_shifts" t-as="shift">
+                    <tr>
+                      <td>
+                        <t t-esc="time.strftime('%A', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
+                      </td>
+                      <td>
+                        <t t-esc="time.strftime('%d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
+                      </td>
+                      <td>
+                        <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
+                        <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
+                      </td>
+                      <td>
+                        <t t-esc="shift.task_type_id.name"/>
+                      </td>
+                    </tr>
+                  </t>
+                </tbody>
+              </table>
+
+              <section class="wrap" t-if="not subscribed_shifts">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="alert alert-warning">
+                        <strong>Warning !</strong> You have not yet signed up to a shift.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="wrap">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h2>
+                        Available Shifts
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <div class="oe_structure"/>
+
+              <section class="wrap">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p class="text-center">
+                        Explanation text
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <div class="oe_structure"/>
+
+              <div class="visible-xs" t-foreach="shift_templates" t-as="shift_count_subscribed">
+                <t t-set="shift" t-value="shift_count_subscribed[0]" />
+                <t t-set="count" t-value="shift_count_subscribed[1]" />
+                <t t-set="is_subscribed" t-value="shift_count_subscribed[2]" />
+                <t t-set="highlight_class" t-value="'panel-danger' if count >= highlight_rule else 'panel-default'"/>
+                <div t-att-class="'panel %s' % highlight_class">
+                  <div class="panel-heading clearfix">
+                    <div class="panel-title pull-left">
+                      <t t-esc="time.strftime('%A %d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
+                      <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
+                      <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
+                    </div>
+                    <div class="label label-default pull-right">
+                      <t t-esc="count"/> space(s)
+                    </div>
+                  </div>
+                  <div class="panel-body clearfix">
+                    <t t-esc="shift.task_type_id.name"/>
+                    <t t-if="is_subscribed">
+                      <div class="label label-success pull-right">
+                        <span class="fa fa-check" aria-hidden="true"></span>
+                        Subscribed
+                      </div>
+                    </t>
+                    <t t-if="not is_subscribed">
+                      <button type="button" class="btn btn-default btn-sm pull-right" data-toggle="modal"
+                        t-att-data-target="'#subscribe-shift-%s' % shift.id">
+                        <span class="fa fa-user-plus" aria-hidden="true"></span>
+                        Subscribe
+                      </button>
+                    </t>
+                  </div>
+                </div>
+              </div>
+
+              <table class="hidden-xs table table-striped">
+                <thead>
+                  <tr>
+                    <th>Day</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Type of Shift</th>
+                    <th class="text-center">Available Spaces</th>
+                    <th class="text-center">Subscribed</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <t t-foreach="shift_templates" t-as="shift_count_subscribed">
+                    <t t-set="shift" t-value="shift_count_subscribed[0]" />
+                    <t t-set="count" t-value="shift_count_subscribed[1]" />
+                    <t t-set="is_subscribed" t-value="shift_count_subscribed[2]" />
+                    <tr t-attf-class="{{ 'danger' if count >= highlight_rule else '' }}">
+                      <td>
+                        <t t-esc="time.strftime('%A', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
+                      </td>
+                      <td>
+                        <t t-esc="time.strftime('%d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
+                      </td>
+                      <td>
+                        <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
+                        <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
+                      </td>
+                      <td>
+                        <t t-esc="shift.task_type_id.name"/>
+                      </td>
+                      <td class="text-center">
+                        <t t-esc="count"/>
+                      </td>
+                      <td class="text-center">
+                        <t t-if="is_subscribed">
+                          <div class="label label-success">
+                            <span class="fa fa-check" aria-hidden="true"></span>
+                            Subscribed
+                          </div>
+                        </t>
+                        <t t-if="not is_subscribed">
+                          <button type="button" class="btn btn-default btn-sm" data-toggle="modal"
+                            t-att-data-target="'#subscribe-shift-%s' % shift.id">
+                            <span class="fa fa-user-plus" aria-hidden="true"></span>
+                            Subscribe
+                          </button>
+                        </t>
+                      </td>
+                    </tr>
+                  </t>
+                </tbody>
+              </table>
+
+              <!-- Subscribe check -->
+              <t t-foreach="shift_templates" t-as="shift_count_subscribed">
+                <t t-set="shift" t-value="shift_count_subscribed[0]" />
+                <t t-set="count" t-value="shift_count_subscribed[1]" />
+                <t t-set="is_subscribed" t-value="shift_count_subscribed[2]" />
+                <div class="modal fade" t-att-id="'subscribe-shift-%s' % shift.id" tabindex="-1" role="dialog"
+                     t-att-aria-labelledby="'subscribe-shift-%s-label' % shift.id">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title" t-att-id="'subscribe-shift-%s-label' % shift.id">
+                          Are you shure you want to subscribe to this shift?
+                        </h4>
+                      </div>
+                      <div class="modal-body">
+                        <t t-esc="time.strftime('%A', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
+                        <t t-esc="time.strftime('%d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
+                        <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
+                        <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/><br/>
+                        <t t-esc="shift.task_type_id.name"/><br/>
+                        <t t-esc="count"/> available space(s)
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <a class="btn btn-primary"
+                           t-att-href="'/shift/%s/subscribe?nexturl=%s' % (shift.id, nexturl)">
+                          Subscribe
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </t>
+
+              <div class="oe_structure"/>
+
+            </div> <!-- col-md-8 -->
           </div> <!-- row -->
         </div> <!-- container -->
       </section>
+
+      <div class="oe_structure"/>
 
     </t>
   </template>
