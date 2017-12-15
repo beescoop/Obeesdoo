@@ -98,15 +98,29 @@ class WebsiteShiftController(http.Controller):
             }
         )
 
-    @http.route('/shift_template_regular_worker', auth='public', website=True)
     def shift_template_regular_worker(self, **kwargs):
+        # Get current user
+        cur_user = request.env['res.users'].browse(request.uid)
+
         # Get all the task template
         template = request.env['beesdoo.shift.template']
         task_templates = template.sudo().search([], order="planning_id, day_nb_id, start_time")
 
-        return request.render('beesdoo_website_shift.task_template',
+        # Get shifts where user is subscribed
+        now = datetime.now()
+        subscribed_shifts = request.env['beesdoo.shift.shift'].sudo().search(
+            [('start_time', '>', now.strftime("%Y-%m-%d %H:%M:%S")),
+             ('worker_id', '=', cur_user.partner_id.id)],
+            order="start_time, task_template_id, task_type_id",
+        )
+
+        return request.render(
+            'beesdoo_website_shift.regular_worker',
             {
+                'partner': cur_user.partner_id,
+                'status': cur_user.partner_id.cooperative_status_ids,
                 'task_templates': task_templates,
-                'float_to_time': float_to_time
+                'float_to_time': float_to_time,
+                'subscribed_shifts': subscribed_shifts,
             }
         )
