@@ -16,15 +16,6 @@
     </record>
   </data>
 
-  <!-- Add the css stylesheet -->
-  <template id="assets_frontend" name="beesdoo_website_shift_website_assets"
-    inherit_id="website.assets_frontend">
-    <xpath expr="." position="inside">
-      <link rel="stylesheet" type="text/css"
-        href="/beesdoo_website_shift/static/src/css/design.css"/>
-    </xpath>
-  </template>
-
   <!-- Available Tasks Templates for Regular Workers -->
   <template 
     id="task_template" 
