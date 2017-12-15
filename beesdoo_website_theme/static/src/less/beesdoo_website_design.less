@@ -1,0 +1,170 @@
+/* Define fonts */
+@font-face
+{
+    font-family: Roboto;
+    src: url(/beesdoo_website_theme/static/src/font/Roboto-Regular.ttf);
+}
+
+@font-face
+{
+    font-family: Roboto;
+    src: url(/beesdoo_website_theme/static/src/font/Roboto-Bold.ttf);
+    font-weight: bold;
+}
+
+@font-face
+{
+    font-family: Roboto;
+    src: url(/beesdoo_website_theme/static/src/font/Roboto-Italic.ttf);
+    font-style: italic;
+}
+
+@font-face
+{
+    font-family: Roboto;
+    src: url(/beesdoo_website_theme/static/src/font/Roboto-BoldItalic.ttf);
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face
+{
+    font-family: BebasNeue;
+    src: url(/beesdoo_website_theme/static/src/font/BebasNeue-Bold.ttf);
+}
+
+
+/* Defines variables */
+@colors: #FCC300, #BD0926, #12235A, #D0B565, #E7511E, #4B67AA, #5CBEC3, #1A171B;
+//@nbcolors: length(@colors); /* For less >= 1.6 */
+@nbcolors: 8; /* For less <=1.4 */
+
+
+/* Main */
+body
+{
+    font-family: Roboto, sans;
+}
+
+
+/* Header menu */
+header
+{
+    .navbar-default
+    {
+        font-family: BebasNeue, sans;
+        // Enlarge the menu
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+        .navbar-nav
+        {
+            font-size: 1.5em;
+
+            // Function to underline non active links
+            #menu()
+            {
+                padding-bottom: 10px;
+                border-bottom-width: 4px;
+                border-bottom-style: solid;
+            }
+
+            // Function to underline the active links
+            #menu-active()
+            {
+                padding-bottom: 6px;
+                border-bottom-width: 8px;
+                border-bottom-style: solid;
+            }
+
+            // Underline the link
+            a,
+            {
+                span:not(.caret)
+                {
+                    #menu
+                }
+
+                &:hover,
+                &:focus
+                {
+                    span:not(.caret)
+                    {
+                        #menu-active
+                    }
+                }
+            }
+
+            > .open > a,
+            > .open > a:hover,
+            > .open > a:focus
+            {
+                background-color: transparent;
+            }
+
+            .active
+            {
+                a,
+                a:hover,
+                a:focus
+                {
+                    background-color: transparent;
+                    span:not(.caret)
+                    {
+                        #menu-active
+                    }
+                }
+            }
+
+            // Last element is the name of the logged user.
+            // This should not be in the same font as other links
+            > li:last-child
+            {
+                font-family: Roboto;
+                font-size: 0.8em;
+            }
+
+            // Put different colors on each link of the menu
+            .menu-color-loop(@i) when (@i > 0)
+            {
+                .menu-color-loop((@i - 1));
+
+                > li:nth-child(@{nbcolors}n+@{i})
+                {
+                    a
+                    {
+                        span:not(.caret)
+                        {
+                            border-bottom-color: extract(@colors, @i);
+                        }
+                    }
+                }
+            }
+
+            .menu-color-loop(@nbcolors);
+        }
+    }
+}
+
+
+/* Titles */
+// Underline the title with colored bar
+h1
+{
+    color: black;
+    font-family: BebasNeue, sans;
+    text-align: center;
+    position: relative;
+    margin-bottom: 1em;
+}
+
+h1:after
+{
+    content: "";
+    background-color: extract(@colors, 1);
+    height: 6px;
+    width: 100px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 0.5em;
+}
