@@ -16,6 +16,8 @@ class WebsiteShiftController(http.Controller):
             return self.shift_irregular_worker()
         if working_mode == 'regular':
             return self.shift_template_regular_worker()
+        if working_mode == 'exempt':
+            return self.shift_exempted_worker()
 
         return request.render(
             'beesdoo_website_shift.shift',
@@ -122,5 +124,17 @@ class WebsiteShiftController(http.Controller):
                 'task_templates': task_templates,
                 'float_to_time': float_to_time,
                 'subscribed_shifts': subscribed_shifts,
+            }
+        )
+
+    def shift_exempted_worker(self, **kwargs):
+        # Get current user
+        cur_user = request.env['res.users'].browse(request.uid)
+
+        return request.render(
+            'beesdoo_website_shift.exempted_worker',
+            {
+                'partner': cur_user.partner_id,
+                'status': cur_user.partner_id.cooperative_status_ids,
             }
         )

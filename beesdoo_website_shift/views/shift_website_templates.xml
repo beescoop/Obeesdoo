@@ -49,6 +49,101 @@
     </t>
   </template>
 
+  <!-- Shifts Exempt Workers -->
+  <template
+    id="exempted_worker"
+    name="Shifts for Exempted Workers"
+    page="True">
+    <t t-call="website.layout">
+
+      <div class="oe_structure"/>
+
+      <section class="wrap">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <h1 class="text-center">
+                Your shifts
+              </h1>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="oe_structure"/>
+
+      <section class="wrap">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12 col-md-4 pull-right">
+
+              <section class="wrap">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h2>
+                        Worker status
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <div class="oe_structure"/>
+
+              <p>
+                <label>Working Mode:</label>
+                <t t-esc="dict(status.fields_get(allfields=['working_mode'])['working_mode']['selection'])[status.working_mode]"/>
+              </p>
+              <p>
+                <label>Status:</label>
+                <t t-esc="dict(status.fields_get(allfields=['status'])['status']['selection'])[status.status]"/>
+              </p>
+              <p>
+                <label>Exempt Reason:</label>
+                <t t-esc="status.exempt_reason_id.name"/>
+              </p>
+              <t t-if="status.holiday_start_time">
+                <p>
+                  <label>Holiday start time:</label>
+                  <t t-esc="status.holiday_start_time"/>
+                </p>
+                <p>
+                  <label>Holiday end time:</label>
+                  <t t-esc="status.holiday_end_time"/>
+                </p>
+              </t>
+
+              <div class="oe_structure"/>
+
+            </div>
+
+            <div class="col-xs-12 col-md-8">
+
+              <section class="wrap">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="alert alert-info">
+                        You don't have to participate to shift system.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <div class="oe_structure"/>
+
+            </div> <!-- col-md-8 -->
+          </div> <!-- row -->
+        </div> <!-- container -->
+      </section>
+
+      <div class="oe_structure"/>
+
+    </t>
+  </template>
+
   <!-- Shifts for Regular Workers -->
   <template
     id="regular_worker"
