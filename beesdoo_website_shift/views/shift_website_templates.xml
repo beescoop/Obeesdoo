@@ -83,6 +83,15 @@
                     <div class="col-md-12">
                       <h2>
                         Worker status
+                        <span t-att-class="'label %s pull-right' % ('label-success' if status.can_shop else 'label-danger',)">
+                          <span class="fa fa-shopping-cart"></span>
+                          <t t-if="status.can_shop">
+                            <span class="fa fa-check"></span>
+                          </t>
+                          <t t-if="not status.can_shop">
+                            <span class="fa fa-times"></span>
+                          </t>
+                        </span>
                       </h2>
                     </div>
                   </div>
@@ -178,6 +187,15 @@
                     <div class="col-md-12">
                       <h2>
                         Worker status
+                        <span t-att-class="'label %s pull-right' % ('label-success' if status.can_shop else 'label-danger',)">
+                          <span class="fa fa-shopping-cart"></span>
+                          <t t-if="status.can_shop">
+                            <span class="fa fa-check"></span>
+                          </t>
+                          <t t-if="not status.can_shop">
+                            <span class="fa fa-times"></span>
+                          </t>
+                        </span>
                       </h2>
                     </div>
                   </div>
@@ -430,6 +448,15 @@
                     <div class="col-md-12">
                       <h2>
                         Worker status
+                        <span t-att-class="'label %s pull-right' % ('label-success' if status.can_shop else 'label-danger',)">
+                          <span class="fa fa-shopping-cart"></span>
+                          <t t-if="status.can_shop">
+                            <span class="fa fa-check"></span>
+                          </t>
+                          <t t-if="not status.can_shop">
+                            <span class="fa fa-times"></span>
+                          </t>
+                        </span>
                       </h2>
                     </div>
                   </div>
