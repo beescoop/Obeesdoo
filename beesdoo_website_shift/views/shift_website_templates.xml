@@ -16,7 +16,36 @@
     name="Shift"
     page="True">
     <t t-call="website.layout">
-      <t t-esc="user.partner_id.working_mode"/>
+
+      <section class="wrap">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <h1 class="text-center">
+                Your shifts
+              </h1>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="oe_structure"/>
+
+
+      <section class="wrap">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="alert alert-info">
+                You don't have to participate to shift system.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="oe_structure"/>
+
     </t>
   </template>
 
