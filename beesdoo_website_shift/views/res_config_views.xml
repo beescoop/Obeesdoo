@@ -23,6 +23,10 @@
             <label for="hide_rule"/>
             <field name="hide_rule"/>
           </div>
+          <div>
+            <label for="irregular_enable_sign_up"/>
+            <field name="irregular_enable_sign_up"/>
+          </div>
         </form>
       </field>
     </record>

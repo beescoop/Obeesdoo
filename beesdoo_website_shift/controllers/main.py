@@ -1,10 +1,12 @@
 # -*- coding: utf8 -*-
+from ast import literal_eval
 from datetime import datetime
 from itertools import groupby
 from openerp import http
 from openerp.http import request
 
 from openerp.addons.beesdoo_shift.models.planning import float_to_time
+
 
 class WebsiteShiftController(http.Controller):
 
@@ -30,7 +32,12 @@ class WebsiteShiftController(http.Controller):
     def subscribe_to_shift(self, shift=None, **kwargs):
         # Get current user
         cur_user = request.env['res.users'].browse(request.uid)
-        if (cur_user.partner_id.working_mode == 'irregular'
+        # Get config
+        irregular_enable_sign_up = literal_eval(request.env['ir.config_parameter'].get_param(
+            'beesdoo_website_shift.irregular_enable_sign_up'))
+
+        if (irregular_enable_sign_up
+                and cur_user.partner_id.working_mode == 'irregular'
                 and shift
                 and not shift.worker_id):
             shift.worker_id = cur_user.partner_id
@@ -62,6 +69,8 @@ class WebsiteShiftController(http.Controller):
             'beesdoo_website_shift.highlight_rule'))
         hide_rule = int(request.env['ir.config_parameter'].get_param(
             'beesdoo_website_shift.hide_rule')) / 100.0
+        irregular_enable_sign_up = literal_eval(request.env['ir.config_parameter'].get_param(
+            'beesdoo_website_shift.irregular_enable_sign_up'))
 
         # Grouby task_template_id, if no task_template_id is specified
         # then group by start_time
@@ -69,7 +78,7 @@ class WebsiteShiftController(http.Controller):
         groupby_iter = groupby(shifts, groupby_func)
 
         shifts_count_subscribed = []
-        nb_displayed_shift = 0 # Number of shift displayed
+        nb_displayed_shift = 0  # Number of shift displayed
         for (keys, grouped_shifts) in groupby_iter:
             (task_template, start_time, task_type) = keys
             nb_displayed_shift = nb_displayed_shift + 1
@@ -97,6 +106,7 @@ class WebsiteShiftController(http.Controller):
                 'highlight_rule': highlight_rule,
                 'nexturl': '/shift',
                 'subscribed_shifts': subscribed_shifts,
+                'irregular_enable_sign_up': irregular_enable_sign_up,
             }
         )
 

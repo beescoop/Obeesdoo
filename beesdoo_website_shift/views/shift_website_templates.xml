@@ -536,7 +536,7 @@
                 </div>
               </div>
 
-              <table class="hidden-xs table table-striped">
+              <table class="hidden-xs table table-striped" t-if="subscribed_shifts">
                 <thead>
                   <tr>
                     <th>Day</th>
@@ -630,7 +630,7 @@
                         Subscribed
                       </div>
                     </t>
-                    <t t-if="not is_subscribed">
+                    <t t-if="irregular_enable_sign_up and not is_subscribed">
                       <button type="button" class="btn btn-default btn-sm pull-right" data-toggle="modal"
                         t-att-data-target="'#subscribe-shift-%s' % shift.id">
                         <span class="fa fa-user-plus" aria-hidden="true"></span>
@@ -649,7 +649,7 @@
                     <th>Time</th>
                     <th>Type of Shift</th>
                     <th class="text-center">Available Spaces</th>
-                    <th class="text-center">Subscribed</th>
+                    <th class="text-center" t-if="irregular_enable_sign_up">Subscribed</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -674,7 +674,7 @@
                       <td class="text-center">
                         <t t-esc="count"/>
                       </td>
-                      <td class="text-center">
+                      <td class="text-center" t-if="irregular_enable_sign_up">
                         <t t-if="is_subscribed">
                           <div class="label label-success">
                             <span class="fa fa-check" aria-hidden="true"></span>
@@ -722,6 +722,7 @@
                       <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <a class="btn btn-primary"
+                           t-if="irregular_enable_sign_up"
                            t-att-href="'/shift/%s/subscribe?nexturl=%s' % (shift.id, nexturl)">
                           Subscribe
                         </a>

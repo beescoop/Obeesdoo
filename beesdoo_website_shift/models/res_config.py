@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 
+from ast import literal_eval
 from openerp import fields, models, api
 
 PARAMS = [
     ('irregular_shift_limit', 'beesdoo_website_shift.irregular_shift_limit'),
     ('highlight_rule', 'beesdoo_website_shift.highlight_rule'),
     ('hide_rule', 'beesdoo_website_shift.hide_rule'),
+    ('irregular_enable_sign_up', 'beesdoo_website_shift.irregular_enable_sign_up'),
 ]
+
 
 class WebsiteShiftConfigSettings(models.TransientModel):
 
@@ -21,6 +24,9 @@ class WebsiteShiftConfigSettings(models.TransientModel):
     )
     hide_rule = fields.Integer(
         help="Treshold ((available space)/(max space)) in percentage of available space under wich the shift is hidden"
+    )
+    irregular_enable_sign_up = fields.Boolean(
+        help="Enable shift sign up for irregular worker"
     )
 
     @api.multi
@@ -48,4 +54,11 @@ class WebsiteShiftConfigSettings(models.TransientModel):
     def get_default_hide_rule(self):
         return {
             'hide_rule': int(self.env['ir.config_parameter'].get_param('beesdoo_website_shift.hide_rule'))
+        }
+
+    @api.multi
+    def get_default_irregular_shift_sign_up(self):
+        return {
+            'irregular_enable_sign_up': literal_eval(self.env['ir.config_parameter'].get_param(
+                'beesdoo_website_shift.irregular_enable_sign_up'))
         }
