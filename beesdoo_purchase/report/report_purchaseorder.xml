@@ -3,11 +3,13 @@
 <data>
     <template id="report_purchaseorder_document" inherit_id="purchase.report_purchaseorder_document" name="beesdoo purchaseorder">
         <div t-if="o.date_order" position="after">
+
             <div t-if="o.create_uid.name" class="col-xs-3">
                 <strong>Your Referent:</strong>
-                <p t-field="o.create_uid.name"/>
-                <p t-if="o.create_uid.phone" t-field="o.create_uid.phone"/>
+                <div t-field="o.create_uid"
+                t-field-options='{"widget": "contact", "fields": ["name", "phone", "mobile"], "no_marker": true, "phone_icons": true}'/>
             </div>
+
         </div>
     </template>
 </data>
