@@ -84,9 +84,8 @@ class CooperativeStatus(models.Model):
         alert_delay = int(self.env['ir.config_parameter'].get_param('alert_delay', 28))
         grace_delay = int(self.env['ir.config_parameter'].get_param('default_grace_delay', 10))
         update = int(self.env['ir.config_parameter'].get_param('always_update', False))
-        print update
         for rec in self:
-            if update or not self.today:
+            if update or not rec.today:
                 rec.status = 'ok'
                 rec.can_shop = True
                 continue
