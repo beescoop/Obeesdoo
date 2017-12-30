@@ -54,28 +54,31 @@
                             <field name="last_printed" />
                         </group>
                     </group>
-                    <separator string="Eaters" />
-                    <field name="child_eater_ids" widget="many2many_tags"
-                        options="{'no_create': True}"
-                        context="{'default_eater' : 'eater', 'default_customer' : True}" />
-                    <group>
-                        <button string="New Eater" name="%(action_eater_wizard)d"
-                            type="action" />
-                    </group>
-                    <separator string="Cards" />
-                    <field string="Cards" name="member_card_ids">
-                        <tree editable="bottom">
-                            <field name="barcode" />
-                            <field name="create_date" />
-                            <field name="end_date" />
-                            <field name="responsible_id" />
-                            <field name="comment" />
-                            <field name="valid" />
-                        </tree>
-                    </field>
-                    <group>
-                        <button string="New Card"
-                            name="%(action_membercard_wizard)d" type="action" />
+
+                    <group attrs="{'invisible': ['|', ('customer', '=', False), ('eater', '!=', 'worker_eater')]}">
+                        <separator string="Eaters" />
+                        <field name="child_eater_ids" widget="many2many_tags"
+                            options="{'no_create': True}"
+                            context="{'default_eater' : 'eater', 'default_customer' : True}" />
+                        <group>
+                            <button string="New Eater" name="%(action_eater_wizard)d"
+                                type="action" />
+                        </group>
+                        <separator string="Cards" />
+                        <field string="Cards" name="member_card_ids">
+                            <tree editable="bottom">
+                                <field name="barcode" />
+                                <field name="create_date" />
+                                <field name="end_date" />
+                                <field name="responsible_id" />
+                                <field name="comment" />
+                                <field name="valid" />
+                            </tree>
+                        </field>
+                        <group>
+                            <button string="New Card"
+                                name="%(action_membercard_wizard)d" type="action" />
+                        </group>
                     </group>
                 </page>
 
