@@ -47,7 +47,7 @@
                     <group name="info_session" />
                 </page>
                 <page string="Member Card"
-                    attrs="{'invisible': ['|', ('customer', '=', False), ('eater', '!=', 'worker_eater')]}">
+                    attrs="{'invisible': ['|', ('customer', '=', False), ('eater', 'not in', ('worker_eater', 'eater'))]}">
                     <group>
                         <group>
                             <field name="member_card_to_be_printed" />
