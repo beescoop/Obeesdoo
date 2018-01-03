@@ -328,8 +328,8 @@
               <section class="wrap">
                 <div class="container">
                   <div class="row">
-                    <div class="col-md-12">
-                      <p class="text-center">
+                    <div class="col-xs-12 col-sm-6">
+                      <p>
                         Explanation text
                       </p>
                     </div>
@@ -606,8 +606,8 @@
               <section class="wrap">
                 <div class="container">
                   <div class="row">
-                    <div class="col-md-12">
-                      <p class="text-center">
+                    <div class="col-xs-12 col-sm-6">
+                      <p>
                         Explanation text
                       </p>
                     </div>
@@ -621,7 +621,7 @@
                 <t t-set="shift" t-value="shift_count_subscribed[0]" />
                 <t t-set="count" t-value="shift_count_subscribed[1]" />
                 <t t-set="is_subscribed" t-value="shift_count_subscribed[2]" />
-                <t t-set="highlight_class" t-value="'panel-danger' if count >= highlight_rule else 'panel-default'"/>
+                <t t-set="highlight_class" t-value="'panel-warning' if count >= highlight_rule else 'panel-default'"/>
                 <div t-att-class="'panel %s' % highlight_class">
                   <div class="panel-heading clearfix">
                     <div class="panel-title pull-left">
@@ -668,7 +668,7 @@
                     <t t-set="shift" t-value="shift_count_subscribed[0]" />
                     <t t-set="count" t-value="shift_count_subscribed[1]" />
                     <t t-set="is_subscribed" t-value="shift_count_subscribed[2]" />
-                    <tr t-attf-class="{{ 'danger' if count >= highlight_rule else '' }}">
+                    <tr t-attf-class="{{ 'warning' if count >= highlight_rule else '' }}">
                       <td>
                         <t t-esc="time.strftime('%A', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
                       </td>
