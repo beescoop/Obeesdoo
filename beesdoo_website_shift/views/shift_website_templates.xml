@@ -49,7 +49,7 @@
     </t>
   </template>
 
-  <!-- Shifts Exempt Workers -->
+  <!-- Shifts Exempted Workers -->
   <template
     id="exempted_worker"
     name="Shifts for Exempted Workers"
@@ -104,24 +104,26 @@
                 <label>Working Mode:</label>
                 <t t-esc="dict(status.fields_get(allfields=['working_mode'])['working_mode']['selection'])[status.working_mode]"/>
               </p>
+
               <p>
                 <label>Status:</label>
                 <t t-esc="dict(status.fields_get(allfields=['status'])['status']['selection'])[status.status]"/>
               </p>
-              <p>
+
+              <p t-if="status.exempt_reason_id">
                 <label>Exempt Reason:</label>
                 <t t-esc="status.exempt_reason_id.name"/>
               </p>
-              <t t-if="status.holiday_start_time">
-                <p>
-                  <label>Holiday start time:</label>
-                  <t t-esc="status.holiday_start_time"/>
-                </p>
-                <p>
-                  <label>Holiday end time:</label>
-                  <t t-esc="status.holiday_end_time"/>
-                </p>
-              </t>
+
+              <p t-if="status.holiday_start_time">
+                <label>Holiday start time:</label>
+                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.holiday_start_time, '%Y-%m-%d'))"/>
+              </p>
+
+              <p t-if="status.holiday_end_time">
+                <label>Holiday end time:</label>
+                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.holiday_end_time, '%Y-%m-%d'))"/>
+              </p>
 
               <div class="oe_structure"/>
 
@@ -208,35 +210,40 @@
                 <label>Working Mode:</label>
                 <t t-esc="dict(status.fields_get(allfields=['working_mode'])['working_mode']['selection'])[status.working_mode]"/>
               </p>
+
               <p>
                 <label>Status:</label>
                 <t t-esc="dict(status.fields_get(allfields=['status'])['status']['selection'])[status.status]"/>
               </p>
-              <p>
-                <label>Regular Shift Counter:</label>
+
+              <p t-if="status.sr != 0">
+                <label>Shift in Advance:</label>
                 <t t-esc="status.sr"/>
               </p>
-              <p>
-                <label>Compensation Shift Counter:</label>
+
+              <p t-if="status.sc != 0">
+                <label>Compensation Shift:</label>
                 <t t-esc="status.sc"/>
               </p>
-              <t t-if="status.holiday_start_time">
-                <p>
-                  <label>Holiday start time:</label>
-                  <t t-esc="status.holiday_start_time"/>
-                </p>
-                <p>
-                  <label>Holiday end time:</label>
-                  <t t-esc="status.holiday_end_time"/>
-                </p>
-              </t>
-              <p>
-                <label>Alert start date:</label>
-                <t t-esc="status.alert_start_time"/>
+
+              <p t-if="status.holiday_start_time">
+                <label>Begining of Holiday:</label>
+                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.holiday_start_time, '%Y-%m-%d'))"/>
               </p>
-              <p>
-                <label>Extension start date:</label>
-                <t t-esc="status.extension_start_time"/>
+
+              <p t-if="status.holiday_end_time">
+                <label>End of Holiday:</label>
+                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.holiday_end_time, '%Y-%m-%d'))"/>
+              </p>
+
+              <p t-if="status.alert_start_time">
+                <label>In Alert Since:</label>
+                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.alert_start_time, '%Y-%m-%d'))"/>
+              </p>
+
+              <p t-if="status.extension_start_time">
+                <label>In Extension Since:</label>
+                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.extension_start_time, '%Y-%m-%d'))"/>
               </p>
 
               <div class="oe_structure"/>
@@ -469,36 +476,40 @@
                 <label>Working Mode:</label>
                 <t t-esc="dict(status.fields_get(allfields=['working_mode'])['working_mode']['selection'])[status.working_mode]"/>
               </p>
+
               <p>
                 <label>Status:</label>
                 <t t-esc="dict(status.fields_get(allfields=['status'])['status']['selection'])[status.status]"/>
               </p>
+
               <p>
-                <label>Absence Counter:</label>
+                <label>Shift in Advance:</label>
+                <t t-esc="status.sr"/>
+              </p>
+
+              <p t-if="date_before_last_shift">
+                <label>Date Before Last Shift:</label>
+                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(date_before_last_shift, '%Y-%m-%d'))"/>
+              </p>
+
+              <p t-if="status.holiday_start_time">
+                <label>Begining of Holiday:</label>
+                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.holiday_start_time, '%Y-%m-%d'))"/>
+              </p>
+
+              <p t-if="status.holiday_end_time">
+                <label>End of Holiday:</label>
+                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.holiday_end_time, '%Y-%m-%d'))"/>
+              </p>
+
+              <p t-if="status.irregular_absence_date">
+                <label>Last Absence Date:</label>
+                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.irregular_absence_date, '%Y-%m-%d'))"/>
+              </p>
+
+              <p t-if="status.irregular_absence_counter">
+                <label>Number of Absence:</label>
                 <t t-esc="status.irregular_absence_counter"/>
-              </p>
-              <t t-if="status.holiday_start_time">
-                <p>
-                  <label>Holiday start time:</label>
-                  <t t-esc="status.holiday_start_time"/>
-                </p>
-                <p>
-                  <label>Holiday end time:</label>
-                  <t t-esc="status.holiday_end_time"/>
-                </p>
-              </t>
-              <p>
-                <label>Irregular start date:</label>
-                <t t-esc="status.irregular_start_date"/>
-              </p>
-              <p>
-                <label>Irregular absence date:</label>
-                <t t-if="status.irregular_absence_date">
-                  <t t-esc="status.irregular_absence_date"/>
-                </t>
-                <t t-if="not status.irregular_absence_date">
-                  No absence
-                </t>
               </p>
 
               <div class="oe_structure"/>

@@ -1,8 +1,9 @@
 # -*- coding: utf8 -*-
 from ast import literal_eval
-from datetime import datetime
+from datetime import datetime, timedelta
 from itertools import groupby
-from openerp import http
+
+from openerp import http, fields
 from openerp.http import request
 
 from openerp.addons.beesdoo_shift.models.planning import float_to_time
@@ -46,6 +47,7 @@ class WebsiteShiftController(http.Controller):
     def shift_irregular_worker(self, **kwargs):
         # Get current user
         cur_user = request.env['res.users'].browse(request.uid)
+        cur_cooperative_status = cur_user.partner_id.cooperative_status_ids
 
         # Get all the shifts in the future with no worker
         now = datetime.now()
@@ -61,6 +63,12 @@ class WebsiteShiftController(http.Controller):
              ('worker_id', '=', cur_user.partner_id.id)],
             order="start_time, task_template_id, task_type_id",
         )
+
+        # Compute date before which the worker is up to date
+        today_date = fields.Date.from_string(cur_cooperative_status.today)
+        delta = (today_date - fields.Date.from_string(cur_cooperative_status.irregular_start_date)).days
+        date_before_last_shift = today_date + timedelta(days=(cur_cooperative_status.sr + 1) * 28 - delta % 28)
+        date_before_last_shift = date_before_last_shift.strftime('%Y-%m-%d')
 
         # Get config
         irregular_shift_limit = int(request.env['ir.config_parameter'].get_param(
@@ -101,7 +109,8 @@ class WebsiteShiftController(http.Controller):
             'beesdoo_website_shift.irregular_worker',
             {
                 'partner': cur_user.partner_id,
-                'status': cur_user.partner_id.cooperative_status_ids,
+                'status': cur_cooperative_status,
+                'date_before_last_shift': date_before_last_shift,
                 'shift_templates': shifts_count_subscribed,
                 'highlight_rule': highlight_rule,
                 'nexturl': '/shift',
