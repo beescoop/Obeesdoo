@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2017-2018 Rémy Taymans <remytaymans@gmail.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
 <openerp>
   <data noupdate="1">
     <record id="beesdoo_website_shift.irregular_shift_limit" model="ir.config_parameter">
