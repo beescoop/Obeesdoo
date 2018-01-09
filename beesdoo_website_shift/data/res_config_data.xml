@@ -21,5 +21,13 @@
       <field name="key">beesdoo_website_shift.irregular_enable_sign_up</field>
       <field name="value">True</field>
     </record>
+    <record id="beesdoo_website_shift.irregular_past_shift_limit" model="ir.config_parameter">
+      <field name="key">beesdoo_website_shift.irregular_past_shift_limit</field>
+      <field name="value">10</field>
+    </record>
+    <record id="beesdoo_website_shift.regular_past_shift_limit" model="ir.config_parameter">
+      <field name="key">beesdoo_website_shift.regular_past_shift_limit</field>
+      <field name="value">10</field>
+    </record>
   </data>
 </openerp>

@@ -133,6 +133,7 @@ class WebsiteShiftController(http.Controller):
 
         template_context.update(self.my_shift_worker_status())
         template_context.update(self.my_shift_next_shifts())
+        template_context.update(self.my_shift_past_shifts())
         template_context.update(self.available_shift_irregular_worker(
             irregular_enable_sign_up, nexturl
         ))
@@ -163,6 +164,7 @@ class WebsiteShiftController(http.Controller):
 
         template_context.update(self.my_shift_worker_status())
         template_context.update(self.my_shift_next_shifts())
+        template_context.update(self.my_shift_past_shifts())
         template_context.update(
             {
                 'task_templates': task_templates,
@@ -257,6 +259,40 @@ class WebsiteShiftController(http.Controller):
         )
         return {
             'subscribed_shifts': subscribed_shifts,
+        }
+
+    def my_shift_past_shifts(self):
+        """
+        Return template variables for 'beesdoo_website_shift.my_shift_past_shifts' template
+        """
+        # Get current user
+        cur_user = request.env['res.users'].browse(request.uid)
+        # Get config
+        past_shift_limit = 0
+        if self.is_user_irregular():
+            past_shift_limit = int(request.env['ir.config_parameter'].get_param(
+                'beesdoo_website_shift.irregular_past_shift_limit'))
+        if self.is_user_regular():
+            past_shift_limit = int(request.env['ir.config_parameter'].get_param(
+                'beesdoo_website_shift.regular_past_shift_limit'))
+        # Get shifts where user was subscribed
+        now = datetime.now()
+        if past_shift_limit > 0:
+            past_shifts = request.env['beesdoo.shift.shift'].sudo().search(
+                [('start_time', '<=', now.strftime("%Y-%m-%d %H:%M:%S")),
+                 ('worker_id', '=', cur_user.partner_id.id)],
+                order="start_time, task_template_id, task_type_id",
+                limit=past_shift_limit,
+            )
+        else:
+            past_shifts = request.env['beesdoo.shift.shift'].sudo().search(
+                [('start_time', '<=', now.strftime("%Y-%m-%d %H:%M:%S")),
+                 ('worker_id', '=', cur_user.partner_id.id)],
+                order="start_time, task_template_id, task_type_id",
+            )
+
+        return {
+            'past_shifts': past_shifts,
         }
 
     def my_shift_worker_status(self):

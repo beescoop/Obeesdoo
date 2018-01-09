@@ -11,6 +11,8 @@ PARAMS = [
     ('highlight_rule', 'beesdoo_website_shift.highlight_rule'),
     ('hide_rule', 'beesdoo_website_shift.hide_rule'),
     ('irregular_enable_sign_up', 'beesdoo_website_shift.irregular_enable_sign_up'),
+    ('irregular_past_shift_limit', 'beesdoo_website_shift.irregular_past_shift_limit'),
+    ('regular_past_shift_limit', 'beesdoo_website_shift.regular_past_shift_limit'),
 ]
 
 
@@ -19,6 +21,7 @@ class WebsiteShiftConfigSettings(models.TransientModel):
     _name = 'beesdoo.website.shift.config.settings'
     _inherit = 'res.config.settings'
 
+    # Irregular worker settings
     irregular_shift_limit = fields.Integer(
         help="Maximum shift that will be shown"
     )
@@ -30,6 +33,14 @@ class WebsiteShiftConfigSettings(models.TransientModel):
     )
     irregular_enable_sign_up = fields.Boolean(
         help="Enable shift sign up for irregular worker"
+    )
+    irregular_past_shift_limit = fields.Integer(
+        help="Maximum past shift that will be shown for irregular worker"
+    )
+
+    # Regular worker settings
+    regular_past_shift_limit = fields.Integer(
+        help="Maximum past shift that will be shown for regular worker"
     )
 
     @api.multi
@@ -64,4 +75,18 @@ class WebsiteShiftConfigSettings(models.TransientModel):
         return {
             'irregular_enable_sign_up': literal_eval(self.env['ir.config_parameter'].get_param(
                 'beesdoo_website_shift.irregular_enable_sign_up'))
+        }
+
+    @api.multi
+    def get_default_irregular_past_shift_limit(self):
+        return {
+            'irregular_past_shift_limit': int(self.env['ir.config_parameter'].get_param(
+                'beesdoo_website_shift.irregular_past_shift_limit'))
+        }
+
+    @api.multi
+    def get_default_regular_past_shift_limit(self):
+        return {
+            'regular_past_shift_limit': int(self.env['ir.config_parameter'].get_param(
+                'beesdoo_website_shift.regular_past_shift_limit'))
         }
