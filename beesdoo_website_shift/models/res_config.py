@@ -13,6 +13,7 @@ PARAMS = [
     ('irregular_enable_sign_up', 'beesdoo_website_shift.irregular_enable_sign_up'),
     ('irregular_past_shift_limit', 'beesdoo_website_shift.irregular_past_shift_limit'),
     ('regular_past_shift_limit', 'beesdoo_website_shift.regular_past_shift_limit'),
+    ('regular_next_shift_limit', 'beesdoo_website_shift.regular_next_shift_limit'),
 ]
 
 
@@ -41,6 +42,9 @@ class WebsiteShiftConfigSettings(models.TransientModel):
     # Regular worker settings
     regular_past_shift_limit = fields.Integer(
         help="Maximum past shift that will be shown for regular worker"
+    )
+    regular_next_shift_limit = fields.Integer(
+        help="Maximun number of next shift that will be shown"
     )
 
     @api.multi
@@ -89,4 +93,11 @@ class WebsiteShiftConfigSettings(models.TransientModel):
         return {
             'regular_past_shift_limit': int(self.env['ir.config_parameter'].get_param(
                 'beesdoo_website_shift.regular_past_shift_limit'))
+        }
+
+    @api.multi
+    def get_default_regular_next_shift_limit(self):
+        return {
+            'regular_next_shift_limit': int(self.env['ir.config_parameter'].get_param(
+                'beesdoo_website_shift.regular_next_shift_limit'))
         }

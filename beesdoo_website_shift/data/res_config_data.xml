@@ -29,5 +29,9 @@
       <field name="key">beesdoo_website_shift.regular_past_shift_limit</field>
       <field name="value">10</field>
     </record>
+    <record id="beesdoo_website_shift.regular_next_shift_limit" model="ir.config_parameter">
+      <field name="key">beesdoo_website_shift.regular_next_shift_limit</field>
+      <field name="value">13</field>
+    </record>
   </data>
 </openerp>

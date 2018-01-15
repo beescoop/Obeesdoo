@@ -120,15 +120,15 @@
       <div class="panel panel-default">
         <div class="panel-heading clearfix">
           <div class="panel-title">
-            <t t-esc="time.strftime('%A %d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
-            <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
-            <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
+            <t t-esc="'%s %s' % (shift.start_day, shift.start_date)"/>
+            <span t-esc="shift.start_time"/> -
+            <span t-esc="shift.end_time"/>
           </div>
         </div>
         <div class="panel-body">
-          <t t-esc="shift.task_type_id.name"/>
+          <t t-esc="shift.task_type_name"/>
           <button type="button" class="btn btn-default btn-sm pull-right"
-            t-if="shift.super_coop_id"
+            t-if="shift.super_coop_name"
             data-toggle="modal"
             t-att-data-target="'#super_coop-shift-%s' % shift.id">
             <span class="fa fa-info" aria-hidden="true"></span>
@@ -152,21 +152,21 @@
         <t t-foreach="subscribed_shifts" t-as="shift">
           <tr>
             <td>
-              <t t-esc="time.strftime('%A', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
+              <t t-esc="shift.start_day"/>
             </td>
             <td>
-              <t t-esc="time.strftime('%d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
+              <t t-esc="shift.start_date"/>
             </td>
             <td>
-              <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
-              <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
+              <span t-esc="shift.start_time"/> -
+              <span t-esc="shift.end_time"/>
             </td>
             <td>
-              <t t-esc="shift.task_type_id.name"/>
+              <t t-esc="shift.task_type_name"/>
             </td>
             <td class="text-center">
               <button type="button" class="btn btn-default btn-sm"
-                t-if="shift.super_coop_id"
+                t-if="shift.super_coop_name"
                 data-toggle="modal"
                 t-att-data-target="'#super_coop-shift-%s' % shift.id">
                 <span class="fa fa-info" aria-hidden="true"></span>
@@ -179,7 +179,7 @@
 
     <!-- Super Co-operator info modal -->
     <t t-foreach="subscribed_shifts" t-as="shift">
-      <div class="modal fade" t-if="shift.super_coop_id" t-att-id="'super_coop-shift-%s' % shift.id" tabindex="-1" role="dialog"
+      <div class="modal fade" t-if="shift.super_coop_name" t-att-id="'super_coop-shift-%s' % shift.id" tabindex="-1" role="dialog"
         t-att-aria-labelledby="'super_coop-shift-%s-label' % shift.id">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -188,14 +188,14 @@
                 <span aria-hidden="true">×</span>
               </button>
               <h4 class="modal-title" t-att-id="'super_coop-shift-%s-label' % shift.id">
-                <t t-esc="shift.super_coop_id.name"/>
+                <t t-esc="shift.super_coop_name"/>
               </h4>
             </div>
             <div class="modal-body">
-              <i class="fa fa-phone" aria-hidden="true"></i> <t t-esc="shift.super_coop_id.phone"/><br/>
+              <i class="fa fa-phone" aria-hidden="true"></i> <t t-esc="shift.super_coop_phone"/><br/>
               <i class="fa fa-envelope" aria-hidden="true"></i>
-              <a t-att-href="'mailto:%s' % shift.super_coop_id.email">
-                <t t-esc="shift.super_coop_id.email"/>
+              <a t-att-href="'mailto:%s' % shift.super_coop_email">
+                <t t-esc="shift.super_coop_email"/>
               </a>
             </div>
             <div class="modal-footer">

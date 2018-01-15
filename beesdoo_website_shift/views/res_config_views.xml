@@ -52,6 +52,10 @@
             <label for="regular_past_shift_limit"/>
             <field name="regular_past_shift_limit"/>
           </div>
+          <div>
+            <label for="regular_next_shift_limit"/>
+            <field name="regular_next_shift_limit"/>
+          </div>
         </form>
       </field>
     </record>
