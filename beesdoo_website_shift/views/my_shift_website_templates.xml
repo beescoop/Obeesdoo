@@ -116,6 +116,21 @@
 
     <div class="oe_structure"/>
 
+    <section class="wrap" t-if="is_regular">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="alert alert-warning">
+              <strong>Warning !</strong> For the moment public holidays are not taken into account. If your shift
+              occures during a public holiday, you do not have to do it.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="oe_structure"/>
+
     <div class="visible-xs" t-foreach="subscribed_shifts" t-as="shift">
       <div class="panel panel-default">
         <div class="panel-heading clearfix">

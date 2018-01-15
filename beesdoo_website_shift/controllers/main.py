@@ -300,6 +300,7 @@ class WebsiteShiftController(http.Controller):
                 subscribed_shifts.append(shift)
 
         return {
+            'is_regular': self.is_user_regular(),
             'subscribed_shifts': subscribed_shifts,
         }
 
