@@ -328,14 +328,14 @@ class WebsiteShiftController(http.Controller):
             past_shifts = request.env['beesdoo.shift.shift'].sudo().search(
                 [('start_time', '<=', now.strftime("%Y-%m-%d %H:%M:%S")),
                  ('worker_id', '=', cur_user.partner_id.id)],
-                order="start_time, task_template_id, task_type_id",
+                order="start_time desc, task_template_id, task_type_id",
                 limit=past_shift_limit,
             )
         else:
             past_shifts = request.env['beesdoo.shift.shift'].sudo().search(
                 [('start_time', '<=', now.strftime("%Y-%m-%d %H:%M:%S")),
                  ('worker_id', '=', cur_user.partner_id.id)],
-                order="start_time, task_template_id, task_type_id",
+                order="start_time desc, task_template_id, task_type_id",
             )
 
         return {
