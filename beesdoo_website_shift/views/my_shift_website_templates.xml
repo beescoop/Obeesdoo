@@ -618,9 +618,9 @@
                 <t t-esc="status.sr"/>
               </p>
 
-              <p t-if="date_before_last_shift">
-                <label>Date Before Last Shift:</label>
-                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(date_before_last_shift, '%Y-%m-%d'))"/>
+              <p t-if="future_alert_date">
+                <label>Future Date of Alert:</label>
+                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(future_alert_date, '%Y-%m-%d'))"/>
               </p>
 
               <p t-if="status.irregular_absence_date">

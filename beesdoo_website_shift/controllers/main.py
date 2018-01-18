@@ -144,15 +144,17 @@ class WebsiteShiftController(http.Controller):
             irregular_enable_sign_up, nexturl
         ))
 
-        # Compute date before which the worker is up to date
-        today_date = fields.Date.from_string(cur_cooperative_status.today)
-        delta = (today_date - fields.Date.from_string(cur_cooperative_status.irregular_start_date)).days
-        date_before_last_shift = today_date + timedelta(days=(cur_cooperative_status.sr + 1) * PERIOD - delta % PERIOD)
-        date_before_last_shift = date_before_last_shift.strftime('%Y-%m-%d')
+        future_alert_date = False
+        if not cur_cooperative_status.alert_start_time:
+            # Compute date before which the worker is up to date
+            today_date = fields.Date.from_string(cur_cooperative_status.today)
+            delta = (today_date - fields.Date.from_string(cur_cooperative_status.irregular_start_date)).days
+            future_alert_date = today_date + timedelta(days=(cur_cooperative_status.sr + 1) * PERIOD - delta % PERIOD)
+            future_alert_date = future_alert_date.strftime('%Y-%m-%d')
 
         template_context.update(
             {
-                'date_before_last_shift': date_before_last_shift,
+                'future_alert_date': future_alert_date,
             }
         )
         return template_context
