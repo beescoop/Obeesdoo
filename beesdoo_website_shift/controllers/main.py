@@ -61,8 +61,8 @@ class WebsiteShiftController(http.Controller):
             {}
         )
 
-    @http.route('/shift/<model("beesdoo.shift.shift"):shift>/subscribe', auth='user', website=True)
-    def subscribe_to_shift(self, shift=None, **kw):
+    @http.route('/shift/<int:shift_id>/subscribe', auth='user', website=True)
+    def subscribe_to_shift(self, shift_id=-1, **kw):
         """
         Subscribe the current connected user into the given shift
         This is done only if :
@@ -73,6 +73,8 @@ class WebsiteShiftController(http.Controller):
         """
         # Get current user
         cur_user = request.env['res.users'].browse(request.uid)
+        # Get the shift
+        shift = request.env['beesdoo.shift.shift'].sudo().browse(shift_id)
         # Get config
         irregular_enable_sign_up = literal_eval(request.env['ir.config_parameter'].get_param(
             'beesdoo_website_shift.irregular_enable_sign_up'))
