@@ -76,7 +76,7 @@
     </p>
 
     <p t-if="status.super">
-      You are a Super Co-operator
+      You are a Super Cooperator
     </p>
 
     <p>
@@ -147,7 +147,7 @@
             data-toggle="modal"
             t-att-data-target="'#super_coop-shift-%s' % shift.id">
             <span class="fa fa-info" aria-hidden="true"></span>
-            Super Co-operator Info
+            Super Cooperator Info
           </button>
         </div>
       </div>
@@ -160,7 +160,7 @@
           <th>Date</th>
           <th>Time</th>
           <th>Type of Shift</th>
-          <th class="text-center">Super Co-operator Info</th>
+          <th class="text-center">Super Cooperator Info</th>
         </tr>
       </thead>
       <tbody>
@@ -192,7 +192,7 @@
       </tbody>
     </table>
 
-    <!-- Super Co-operator info modal -->
+    <!-- Super Cooperator info modal -->
     <t t-foreach="subscribed_shifts" t-as="shift">
       <div class="modal fade" t-if="shift.super_coop_name" t-att-id="'super_coop-shift-%s' % shift.id" tabindex="-1" role="dialog"
         t-att-aria-labelledby="'super_coop-shift-%s-label' % shift.id">
