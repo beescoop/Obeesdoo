@@ -84,13 +84,13 @@
       <t t-esc="dict(status.fields_get(allfields=['status'])['status']['selection'])[status.status]"/>
     </p>
 
-    <p t-if="status.holiday_start_time">
-      <label>Holiday start time:</label>
+    <p t-if="status.holiday_start_time and status.holiday_start_time > status.today or status.status == 'holiday'">
+      <label>Begin of Holiday:</label>
       <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.holiday_start_time, '%Y-%m-%d'))"/>
     </p>
 
-    <p t-if="status.holiday_end_time">
-      <label>Holiday end time:</label>
+    <p t-if="status.holiday_end_time and status.holiday_end_time > status.today or status.status == 'holiday'">
+      <label>End of Holiday:</label>
       <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.holiday_end_time, '%Y-%m-%d'))"/>
     </p>
 
