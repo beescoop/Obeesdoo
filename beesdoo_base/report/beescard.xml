@@ -47,16 +47,15 @@
                   width: 4.98cm;
                   vertical-align:bottom;
                   height: 6.87cm;
-
-                  .canvasImg {
-                    padding-top:0.2cm;
-                    padding-left:0.1cm;
-                    padding-bottom:0.2cm;
-                  }
-                  .imgRestrict {
-                    width:4.7cm;
-                    height:6.4cm
-                  }
+                }
+                .canvasImg {
+                  padding-top:0.2cm;
+                  padding-left:0.1cm;
+                  padding-bottom:0.2cm;
+                }
+                .imgRestrict {
+                  width:4.7cm;
+                  height:6.4cm
                 }
                 .pt03 {
                   padding-top:0.3cm
@@ -66,12 +65,11 @@
                   width:7.72cm;
                   height: 6.87cm;
                   position: relative;
-
-                  .alignText {
-                    text-align: left;
-                    padding-top: 0.2cm;
-                    font-size: 1.2em;
-                  }
+                }
+                .alignText {
+                  text-align: left;
+                  padding-top: 0.2cm;
+                  font-size: 1.2em;
                 }
                 .alignBtAbs {
                   position: absolute;
@@ -95,10 +93,10 @@
                   height:0.2cm
                 }
                 .robotoB {
-                  font-family:Roboto-Bold;
+                  font-family: 'Roboto-Bold';
                 }
                 .robotoR {
-                font-family:Roboto-Regular;
+                font-family: 'Roboto-Regular';
                 }
                 .txtCenter {
                 text-align:center;
@@ -110,18 +108,25 @@
                 .beesInfos {
                   vertical-align:center;height: 1.20cm;
                 }
+                #tableInfos {
+                  width: 14.02cm;
+                  height: 9.39cm;
+                  table-layout:fixed;
+                  display: inline-block;
+                }
                 .logoRestrict {
-                  width: 12.7cm;height: 6.87cm;
-
-                  .logo {
-                    display: block;
-                    margin-left: auto;
-                    margin-right: auto;
-                    margin-top:0.2cm;
-                    margin-bottom:0.2cm;
-                    width:6.46cm;
-                    height:6.46cm
-                  }
+                  width: 12.7cm;
+                  height: 6.87cm;
+                  margin: auto;
+                }
+                .logo {
+                  display: block;
+                  margin-left: auto;
+                  margin-right: auto;
+                  margin-top:0.2cm;
+                  margin-bottom:0.2cm;
+                  width:6.46cm;
+                  height:6.46cm
                 }
             </style>
           </head>
@@ -132,99 +137,82 @@
 
 
                 <t t-foreach="docs" t-as="partner">
-                    <table class="mainTable">
-                        <tr>
-                            <td class="bd-bt-black size066cm"></td>
-                            <td class="bd-rgt-black bd-lft-black" colspan="2"></td>
-                            <td class="size066cm"></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td class="imgContainer">
-                                <div style="canvasImg">
-                                    <img alt="Embedded Image" t-att-src="'data:image/png;base64,' + partner.image"
-                                        class="imgRestrict" />
-                                </div>
-                            </td>
-                            <td class="infosContainer">
-                                <p class="alignText">
-                                    <span t-raw="partner.first_name and partner.first_name[:30] or ''" class="robotoR" />
-                                    <br />
-                                    <span t-raw="partner.last_name and partner.last_name[:26] or ''" class="robotoB" />
-                                    <br />
-                                </p>
-                                <p class="robotoR fs08">
-                                    <t t-if="partner.parent_eater_id and partner.parent_eater_id.cooperator_type == 'share_a'">
-                                        <span t-raw="'[' + (partner.parent_eater_id.first_name and partner.parent_eater_id.first_name[:30] or '') + ' ' + (partner.parent_eater_id.last_name and partner.parent_eater_id.last_name[:30] or '') + ']'" class="robotoR" />
-                                    </t>
-                                    <t t-if="partner.parent_eater_id and partner.parent_eater_id.cooperator_type == 'share_b'">
-                                        <span t-raw="'[' + (partner.parent_eater_id.name[:60] or '') + ']'" class="robotoR" />
-                                    </t>
-                                </p>
-                                <div class="alignBtAbs">
-                                    <div style="pt03">
-                                        <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=%s'%('EAN13', partner.barcode if not partner.parent_eater_id else partner.parent_barcode, 340, 70, 1)" class="barCodeSize" />
-                                    </div>
-                                    <div class="ptb02">
-                                        <t t-if="partner.cooperator_type == 'share_a' or partner.parent_eater_id.cooperator_type == 'share_a'">
-                                            <img src="/beesdoo_base/static/src/img/redline.png" class="lineSize" />
-                                        </t>
-                                        <t t-if="partner.cooperator_type == 'share_b' or partner.parent_eater_id.cooperator_type == 'share_b'">
-                                            <img src="/beesdoo_base/static/src/img/blueline.png" class="lineSize" />
-                                        </t>
-                                    </div>
-                                </div>
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td colspan="2" class="beesInfos">
-                                <p style="fs08 robotoR txtCenter">En cas de perte,
-                                    prévenez-nous via
-                                    membre@bees-coop.be
-                                </p>
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td
-                                class="bd-bt-black size066cm"></td>
-                            <td class="bd-lft-black bd-rgt-black" colspan="2"></td>
-                            <td class="bd-bt-black size066cm"></td>
-                        </tr>
-                    </table>
-
-                    <table style="width: 14.02cm;height: 9.39cm;table-layout:fixed;display: inline-block;">
-                        <tr>
-                            <td
-                                class="bd-bt-black size066cm"></td>
-                            <td class="bd-lft-black bd-rgt-black" colspan="2"></td>
-                            <td class="bd-bt-black size066cm"></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td style="logoRestrict">
+                  <div class="mainTable">
+                      <div>
+                          <div class="bd-bt-black size066cm"></div>
+                          <div class="bd-lft-black bd-rgt-black"></div>
+                          <div class="bd-bt-black size066cm"></div>
+                      </div>
+                      <div>
+                          <div class="imgContainer">
+                              <div style="canvasImg">
+                                  <img alt="Embedded Image" t-att-src="'data:image/png;base64,' + partner.image"
+                                      class="imgRestrict" />
+                              </div>
+                          </div>
+                          <div class="infosContainer">
+                              <p class="alignText">
+                                  <span t-raw="partner.first_name and partner.first_name[:30] or ''" class="robotoR" />
+                                  <br />
+                                  <span t-raw="partner.last_name and partner.last_name[:26] or ''" class="robotoB" />
+                                  <br />
+                              </p>
+                              <p class="robotoR fs08">
+                                  <t t-if="partner.parent_eater_id and partner.parent_eater_id.cooperator_type == 'share_a'">
+                                      <span t-raw="'[' + (partner.parent_eater_id.first_name and partner.parent_eater_id.first_name[:30] or '') + ' ' + (partner.parent_eater_id.last_name and partner.parent_eater_id.last_name[:30] or '') + ']'" class="robotoR" />
+                                  </t>
+                                  <t t-if="partner.parent_eater_id and partner.parent_eater_id.cooperator_type == 'share_b'">
+                                      <span t-raw="'[' + (partner.parent_eater_id.name[:60] or '') + ']'" class="robotoR" />
+                                  </t>
+                              </p>
+                              <div class="alignBtAbs">
+                                  <div style="pt03">
+                                      <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=%s'%('EAN13', partner.barcode if not partner.parent_eater_id else partner.parent_barcode, 340, 70, 1)" class="barCodeSize" />
+                                  </div>
+                                  <div class="ptb02">
+                                      <t t-if="partner.cooperator_type == 'share_a' or partner.parent_eater_id.cooperator_type == 'share_a'">
+                                          <img src="/beesdoo_base/static/src/img/redline.png" class="lineSize" />
+                                      </t>
+                                      <t t-if="partner.cooperator_type == 'share_b' or partner.parent_eater_id.cooperator_type == 'share_b'">
+                                          <img src="/beesdoo_base/static/src/img/blueline.png" class="lineSize" />
+                                      </t>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div>
+                          <div class="beesInfos">
+                              <p style="fs08 robotoR txtCenter">En cas de perte, prévenez-nous via membre@bees-coop.be</p>
+                          </div>
+                      </div>
+                      <div>
+                          <div class="bd-bt-black size066cm"></div>
+                          <div class="bd-lft-black bd-rgt-black"></div>
+                          <div class="bd-bt-black size066cm"></div>
+                      </div>
+                  </div>
+                    <div id="tableInfos" style="width: 14.02cm;height: 9.39cm;table-layout:fixed;display: inline-block;">
+                        <div>
+                            <div class="bd-bt-black size066cm"></div>
+                            <div class="bd-lft-black bd-rgt-black"></div>
+                            <div class="bd-bt-black size066cm"></div>
+                        </div>
+                        <div>
+                            <div style="logoRestrict">
                                 <img src="/beesdoo_base/static/src/img/logo.png" class="logo" />
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td style="height: 1.20cm;">
-                                <p
-                                    class="txtCenter robotoR fs11">www.bees-coop.be
-                                </p>
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td
-                                class="bd-bt-black size066cm"></td>
-                            <td class="bd-lft-black bd-rgt-black" colspan="2"></td>
-                            <td class="bd-bt-black size066cm"></td>
-                        </tr>
-                    </table>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="height: 1.20cm;">
+                                <p class="txtCenter robotoR fs11">www.bees-coop.be</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="bd-bt-black size066cm"></div>
+                            <div class="bd-lft-black bd-rgt-black"></div>
+                            <div class="bd-bt-black size066cm"></div>
+                        </div>
+                    </div>
                     <br />
                 </t>
             </div>
