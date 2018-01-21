@@ -25,8 +25,106 @@
                 url('/beesdoo_base/static/font/Roboto-Bold.ttf')
                 format('truetype');
                 }
+                .size066cm {
+                  width: 0.66cm;height: 0.66cm;
+                }
+                .bd-lft-black {
+                  border-left: 1px solid black;
+                }
+                .bd-rgt-black {
+                  border-right: 1px solid black;
+                }
+                .bd-bt-black {
+                  border-bottom: 1px solid black;
+                }
+                .mainTable {
+                  width: 14.02cm;
+                  height: 9.39cm;
+                  table-layout:fixed;
+                  display: inline-block;
+                }
+                .imgContainer {
+                  width: 4.98cm;
+                  vertical-align:bottom;
+                  height: 6.87cm;
+
+                  .canvasImg {
+                    padding-top:0.2cm;
+                    padding-left:0.1cm;
+                    padding-bottom:0.2cm;
+                  }
+                  .imgRestrict {
+                    width:4.7cm;
+                    height:6.4cm
+                  }
+                }
+                .pt03 {
+                  padding-top:0.3cm
+                }
+                .infosContainer {
+                  vertical-align:top;
+                  width:7.72cm;
+                  height: 6.87cm;
+                  position: relative;
+
+                  .alignText {
+                    text-align: left;
+                    padding-top: 0.2cm;
+                    font-size: 1.2em;
+                  }
+                }
+                .alignBtAbs {
+                  position: absolute;
+                  bottom: 0;
+                }
+                .barCodeSize {
+                  width:7.2cm;
+                  height:2.52cm
+                }
+                .pt03 {
+                padding-top:0.3cm
+                }
+                .fs08 {
+                  font-size: 0.8em;
+                }
+                .fs11 {
+                  font-size:1.1em;
+                }
+                .lineSize {
+                  width:7.2cm;
+                  height:0.2cm
+                }
+                .robotoB {
+                  font-family:Roboto-Bold;
+                }
+                .robotoR {
+                font-family:Roboto-Regular;
+                }
+                .txtCenter {
+                text-align:center;
+                }
+                .ptb02 {
+                  padding-top:0.2cm;
+                  padding-bottom:0.2cm;
+                }
+                .beesInfos {
+                  vertical-align:center;height: 1.20cm;
+                }
+                .logoRestrict {
+                  width: 12.7cm;height: 6.87cm;
+
+                  .logo {
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                    margin-top:0.2cm;
+                    margin-bottom:0.2cm;
+                    width:6.46cm;
+                    height:6.46cm
+                  }
+                }
             </style>
-        </head>
+          </head>
 
         <!-- X1.133 -->
         <t t-call="report.html_container">
@@ -34,71 +132,45 @@
 
 
                 <t t-foreach="docs" t-as="partner">
-                    <table
-                        style="width: 14.02cm;height: 9.39cm;table-layout:fixed;display: inline-block;">
+                    <table class="mainTable">
                         <tr>
-                            <td
-                                style="border-bottom: 1px solid black;width: 0.66cm;height: 0.66cm;"></td>
-                            <td
-                                style="border-left: 1px solid black;border-right: 1px solid black;"
-                                colspan="2"></td>
-                            <td
-                                style="border-bottom: 1px solid black;width: 0.66cm;height: 0.66cm;"></td>
+                            <td class="bd-bt-black size066cm"></td>
+                            <td class="bd-rgt-black bd-lft-black" colspan="2"></td>
+                            <td class="size066cm"></td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td
-                                style="width: 4.98cm;vertical-align:bottom;height: 6.87cm;">
-                                <div
-                                    style="padding-top:0.2cm;padding-left:0.1cm;padding-bottom:0.2cm;">
-                                    <img alt="Embedded Image"
-                                        t-att-src="'data:image/png;base64,' + partner.image"
-                                        style="width:4.7cm;height:6.4cm" />
+                            <td class="imgContainer">
+                                <div style="canvasImg">
+                                    <img alt="Embedded Image" t-att-src="'data:image/png;base64,' + partner.image"
+                                        class="imgRestrict" />
                                 </div>
                             </td>
-                            <td
-                                style="vertical-align:top;width:7.72cm;height: 6.87cm;position: relative;">
-                                <p
-                                    style="text-align: left;padding-top: 0.2cm;font-size: 1.2em;">
-                                    <span t-raw="partner.first_name and partner.first_name[:30] or ''"
-                                        style="font-family:Roboto-Regular" />
+                            <td class="infosContainer">
+                                <p class="alignText">
+                                    <span t-raw="partner.first_name and partner.first_name[:30] or ''" class="robotoR" />
                                     <br />
-                                    <span t-raw="partner.last_name and partner.last_name[:26] or ''"
-                                        style="font-family:Roboto-Bold;" />
+                                    <span t-raw="partner.last_name and partner.last_name[:26] or ''" class="robotoB" />
                                     <br />
                                 </p>
-                                <p
-                                    style="font-size: 0.8em;font-family:Roboto-Regular">
+                                <p class="robotoR fs08">
                                     <t t-if="partner.parent_eater_id and partner.parent_eater_id.cooperator_type == 'share_a'">
-                                        <span
-                                            t-raw="'[' + (partner.parent_eater_id.first_name and partner.parent_eater_id.first_name[:30] or '') + ' ' + (partner.parent_eater_id.last_name and partner.parent_eater_id.last_name[:30] or '') + ']'"
-                                            style="font-family:Roboto-Regular" />
+                                        <span t-raw="'[' + (partner.parent_eater_id.first_name and partner.parent_eater_id.first_name[:30] or '') + ' ' + (partner.parent_eater_id.last_name and partner.parent_eater_id.last_name[:30] or '') + ']'" class="robotoR" />
                                     </t>
                                     <t t-if="partner.parent_eater_id and partner.parent_eater_id.cooperator_type == 'share_b'">
-                                        <span
-                                            t-raw="'[' + (partner.parent_eater_id.name[:60] or '') + ']'"
-                                            style="font-family:Roboto-Regular" />
+                                        <span t-raw="'[' + (partner.parent_eater_id.name[:60] or '') + ']'" class="robotoR" />
                                     </t>
                                 </p>
-                                <div style="position: absolute;bottom: 0;">
-                                    <div style="padding-top:0.3cm">
-                                        <img
-                                            t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=%s'%('EAN13', partner.barcode if not partner.parent_eater_id else partner.parent_barcode, 340, 70, 1)"
-                                            style="width:7.2cm;height:2.52cm" />
+                                <div class="alignBtAbs">
+                                    <div style="pt03">
+                                        <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=%s'%('EAN13', partner.barcode if not partner.parent_eater_id else partner.parent_barcode, 340, 70, 1)" class="barCodeSize" />
                                     </div>
-
-
-                                    <div
-                                        style="padding-top:0.2cm;padding-bottom:0.2cm;">
+                                    <div class="ptb02">
                                         <t t-if="partner.cooperator_type == 'share_a' or partner.parent_eater_id.cooperator_type == 'share_a'">
-                                            <img
-                                                src="/beesdoo_base/static/src/img/redline.png"
-                                                style="width:7.2cm;height:0.2cm" />
+                                            <img src="/beesdoo_base/static/src/img/redline.png" class="lineSize" />
                                         </t>
                                         <t t-if="partner.cooperator_type == 'share_b' or partner.parent_eater_id.cooperator_type == 'share_b'">
-                                            <img
-                                                src="/beesdoo_base/static/src/img/blueline.png"
-                                                style="width:7.2cm;height:0.2cm" />
+                                            <img src="/beesdoo_base/static/src/img/blueline.png" class="lineSize" />
                                         </t>
                                     </div>
                                 </div>
@@ -107,10 +179,8 @@
                         </tr>
                         <tr>
                             <td></td>
-                            <td colspan="2"
-                                style="vertical-align:center;height: 1.20cm;">
-                                <p
-                                    style="text-align:center;font-size:0.8em;font-family:Roboto-Regular">En cas de perte,
+                            <td colspan="2" class="beesInfos">
+                                <p style="fs08 robotoR txtCenter">En cas de perte,
                                     prévenez-nous via
                                     membre@bees-coop.be
                                 </p>
@@ -119,33 +189,23 @@
                         </tr>
                         <tr>
                             <td
-                                style="border-top: 1px solid black;width: 0.66cm;height: 0.66cm;"></td>
-                            <td
-                                style="border-left: 1px solid black;border-right: 1px solid black;"
-                                colspan="2"></td>
-                            <td
-                                style="border-top: 1px solid black;width: 0.66cm;height: 0.66cm;"></td>
+                                class="bd-bt-black size066cm"></td>
+                            <td class="bd-lft-black bd-rgt-black" colspan="2"></td>
+                            <td class="bd-bt-black size066cm"></td>
                         </tr>
                     </table>
 
-                    <table
-                        style="width: 14.02cm;height: 9.39cm;table-layout:fixed;display: inline-block;">
+                    <table style="width: 14.02cm;height: 9.39cm;table-layout:fixed;display: inline-block;">
                         <tr>
                             <td
-                                style="border-bottom: 1px solid black;width: 0.66cm;height: 0.66cm;"></td>
-                            <td
-                                style="border-left: 1px solid black;border-right: 1px solid black;"
-                                colspan="2"></td>
-                            <td
-                                style="border-bottom: 1px solid black;width: 0.66cm;height: 0.66cm;"></td>
+                                class="bd-bt-black size066cm"></td>
+                            <td class="bd-lft-black bd-rgt-black" colspan="2"></td>
+                            <td class="bd-bt-black size066cm"></td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td style="width: 12.7cm;height: 6.87cm;">
-
-                                <img
-                                    src="/beesdoo_base/static/src/img/logo.png"
-                                    style="display: block;margin-left: auto;margin-right: auto;margin-top:0.2cm;margin-bottom:0.2cm;width:6.46cm;height:6.46cm" />
+                            <td style="logoRestrict">
+                                <img src="/beesdoo_base/static/src/img/logo.png" class="logo" />
                             </td>
                             <td></td>
                         </tr>
@@ -153,19 +213,16 @@
                             <td></td>
                             <td style="height: 1.20cm;">
                                 <p
-                                    style="text-align:center;font-family:Roboto-Regular;font-size:1.1em;">www.bees-coop.be
+                                    class="txtCenter robotoR fs11">www.bees-coop.be
                                 </p>
                             </td>
                             <td></td>
                         </tr>
                         <tr>
                             <td
-                                style="border-top: 1px solid black;width: 0.66cm;height: 0.66cm;"></td>
-                            <td
-                                style="border-left: 1px solid black;border-right: 1px solid black;"
-                                colspan="2"></td>
-                            <td
-                                style="border-top: 1px solid black;width: 0.66cm;height: 0.66cm;"></td>
+                                class="bd-bt-black size066cm"></td>
+                            <td class="bd-lft-black bd-rgt-black" colspan="2"></td>
+                            <td class="bd-bt-black size066cm"></td>
                         </tr>
                     </table>
                     <br />
