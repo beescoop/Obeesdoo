@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* beesdoo_portal_shift
-# 
+#
 # Tanslators:
 # Rémy Taymans <remytaymans@gmail.com>, 2017
 msgid ""
@@ -77,7 +77,7 @@ msgstr "Créneaux"
 
 #. module: beesdoo_portal_shift
 #: model:ir.ui.view,arch_db:beesdoo_portal_shift.task_template
-msgid "Super Co-operator"
+msgid "Super Cooperator"
 msgstr "Super-coopérateur"
 
 #. module: beesdoo_portal_shift
