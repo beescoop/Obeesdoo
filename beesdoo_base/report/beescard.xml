@@ -11,19 +11,19 @@
             <style type="text/css">
                 /* Roboto Regular */
                 @font-face {
-                font-family: 'Roboto-Regular';
-                font-style: normal;
-                src: local('Roboto Regular'),
-                url('/beesdoo_base/static/font/Roboto-Regular.ttf')
-                format('truetype');
+                  font-family: 'Roboto-Regular';
+                  font-style: normal;
+                  src: local('Roboto Regular'),
+                  url('/beesdoo_base/static/font/Roboto-Regular.ttf')
+                  format('truetype');
                 }
                 /* Roboto Bold */
                 @font-face {
-                font-family: 'Roboto-Bold';
-                font-style: normal;
-                src: local('Roboto Bold'),
-                url('/beesdoo_base/static/font/Roboto-Bold.ttf')
-                format('truetype');
+                  font-family: 'Roboto-Bold';
+                  font-style: normal;
+                  src: local('Roboto Bold'),
+                  url('/beesdoo_base/static/font/Roboto-Bold.ttf')
+                  format('truetype');
                 }
                 .size066cm {
                   width: 0.66cm;height: 0.66cm;
@@ -80,7 +80,7 @@
                   height:2.52cm
                 }
                 .pt03 {
-                padding-top:0.3cm
+                  padding-top:0.3cm
                 }
                 .fs08 {
                   font-size: 0.8em;
@@ -96,10 +96,10 @@
                   font-family: 'Roboto-Bold';
                 }
                 .robotoR {
-                font-family: 'Roboto-Regular';
+                  font-family: 'Roboto-Regular';
                 }
                 .txtCenter {
-                text-align:center;
+                  text-align:center;
                 }
                 .ptb02 {
                   padding-top:0.2cm;
