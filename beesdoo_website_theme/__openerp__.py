@@ -14,6 +14,7 @@
     'license': "AGPL-3",
     'category': 'Themes',
     'version': '9.0.0.1',
+    'application': True,
 
     'depends': ['website'],
 
