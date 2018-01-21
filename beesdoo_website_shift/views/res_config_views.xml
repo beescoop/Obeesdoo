@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2017-2018 Rémy Taymans <remytaymans@gmail.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<openerp>
+  <data>
+
+    <record id="view_website_shift_config_irregular" model="ir.ui.view">
+      <field name="name">Website Shift Settings Irregular Worker</field>
+      <field name="model">beesdoo.website.shift.config.settings</field>
+      <field name="arch" type="xml">
+        <form string="Configure Website Shift Irregular Worker" class="oe_form_configuration">
+          <header>
+            <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+            <button string="Cancel" type="object" name="cancel" class="oe_link" special="cancel"/>
+          </header>
+          <div>
+            <label for="irregular_shift_limit"/>
+            <field name="irregular_shift_limit"/>
+          </div>
+          <div>
+            <label for="highlight_rule"/>
+            <field name="highlight_rule"/>
+          </div>
+          <div>
+            <label for="hide_rule"/>
+            <field name="hide_rule"/>
+          </div>
+          <div>
+            <label for="irregular_enable_sign_up"/>
+            <field name="irregular_enable_sign_up"/>
+          </div>
+          <div>
+            <label for="irregular_past_shift_limit"/>
+            <field name="irregular_past_shift_limit"/>
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_website_shift_config_regular" model="ir.ui.view">
+      <field name="name">Website Shift Settings Regular Worker</field>
+      <field name="model">beesdoo.website.shift.config.settings</field>
+      <field name="arch" type="xml">
+        <form string="Configure Website Shift Regular Worker" class="oe_form_configuration">
+          <header>
+            <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+            <button string="Cancel" type="object" name="cancel" class="oe_link" special="cancel"/>
+          </header>
+          <div>
+            <label for="regular_past_shift_limit"/>
+            <field name="regular_past_shift_limit"/>
+          </div>
+          <div>
+            <label for="regular_next_shift_limit"/>
+            <field name="regular_next_shift_limit"/>
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_website_shift_config_irregular" model="ir.actions.act_window">
+      <field name="name">Website Shift Settings Irregular Worker</field>
+      <field name="res_model">beesdoo.website.shift.config.settings</field>
+      <field name="view_id" ref="view_website_shift_config_irregular"/>
+      <field name="view_mode">form</field>
+      <field name="target">inline</field>
+    </record>
+
+    <record id="action_website_shift_config_regular" model="ir.actions.act_window">
+      <field name="name">Website Shift Settings Regular Worker</field>
+      <field name="res_model">beesdoo.website.shift.config.settings</field>
+      <field name="view_id" ref="view_website_shift_config_regular"/>
+      <field name="view_mode">form</field>
+      <field name="target">inline</field>
+    </record>
+
+    <menuitem
+      id="menu_website_shift_root"
+      name="Shift"
+      parent="website.menu_website_configuration"
+      sequence="20"/>
+
+    <menuitem
+      id="menu_website_shift_irregular"
+      name="Irregular Shift"
+      action="action_website_shift_config_irregular"
+      parent="menu_website_shift_root"
+      sequence="1"/>
+
+    <menuitem
+      id="menu_website_shift_regular"
+      name="Regular Shift"
+      action="action_website_shift_config_regular"
+      parent="menu_website_shift_root"
+      sequence="10"/>
+
+  </data>
+</openerp>

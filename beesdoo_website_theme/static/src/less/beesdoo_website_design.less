@@ -35,9 +35,12 @@
 
 
 /* Defines variables */
-@colors: #FCC300, #BD0926, #12235A, #D0B565, #E7511E, #4B67AA, #5CBEC3, #1A171B;
+//       yellow , red    , blue   , beige  , orange ,turquoise, black
+@colors: #FCC300, #BD0926, #12235A, #D0B565, #E7511E, #5CBEC3, #1A171B;
 //@nbcolors: length(@colors); /* For less >= 1.6 */
-@nbcolors: 8; /* For less <=1.4 */
+@nbcolors: 7; /* For less <=1.4 */
+@colors-light: #fee799, #e49da8, #b7c2dd, #ece1c1, #f5b9a5, #bee5e7;
+@nbcolors-light: 6;
 
 
 /* Main */
@@ -155,6 +158,7 @@ h1
     font-family: BebasNeue, sans;
     text-align: center;
     position: relative;
+    margin-top: 1em;
     margin-bottom: 1em;
 }
 
@@ -167,4 +171,50 @@ h1:after
     display: block;
     margin: 0 auto;
     margin-top: 0.5em;
+}
+
+h2
+{
+    font-family: BebasNeue, sans;
+    font-size: 25px;
+}
+
+.alert-info
+{
+    background-color: extract(@colors-light, 3);
+    border-color: extract(@colors-light, 3);
+    color: extract(@colors, 3);
+}
+
+.alert-warning
+{
+    background-color: extract(@colors-light, 1);
+    border-color: extract(@colors-light, 1);
+}
+
+.alert-danger
+{
+    background-color: extract(@colors-light, 2);
+    border-color: extract(@colors-light, 2);
+}
+
+.panel-warning
+{
+    background-color: extract(@colors-light, 1);
+}
+
+.table > thead > tr > td.warning,
+.table > tbody > tr > td.warning,
+.table > tfoot > tr > td.warning,
+.table > thead > tr > th.warning,
+.table > tbody > tr > th.warning,
+.table > tfoot > tr > th.warning,
+.table > thead > tr.warning > td,
+.table > tbody > tr.warning > td,
+.table > tfoot > tr.warning > td,
+.table > thead > tr.warning > th,
+.table > tbody > tr.warning > th,
+.table > tfoot > tr.warning > th
+{
+    background-color: extract(@colors-light, 1);
 }
