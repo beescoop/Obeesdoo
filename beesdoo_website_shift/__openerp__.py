@@ -4,18 +4,19 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    'name': 'BEES coop Shift Website',
+    'name': 'BEES coop Website Shift',
 
     'summary': """
-        Show available shifts for regular and irregular workers in
-        portal.
+        Show available shifts for regular and irregular workers on the
+        website and let workers manage their shifts with an
+        easy web interface.
     """,
     'description': """
     """,
 
     'author': 'Rémy Taymans',
     'license': 'AGPL-3',
-    'version': '9.0.1.0',
+    'version': '9.0.2.0',
     'website': "https://github.com/beescoop/Obeesdoo",
 
     'category': 'Cooperative management',
