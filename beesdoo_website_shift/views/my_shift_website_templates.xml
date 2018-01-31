@@ -458,6 +458,102 @@
 
   </template>
 
+  <!-- Help Texts -->
+  <template
+    id="help_text_title"
+    name="Help Text Title">
+
+    <div class="oe_structure"/>
+
+    <section class="wrap">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>
+              Help
+            </h2>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="oe_structure"/>
+
+  </template>
+
+  <template
+    id="help_text_common"
+    name="Help Text Common">
+    <div class="oe_structure alert alert-info">
+      <strong>Info!</strong> Errors can occure. If you do not agree with your status, please contact us. We will find a
+      solution.
+    </div>
+
+    <p class="oe_structure">
+      Explanation of the status:
+    </p>
+
+    <p class="oe_structure">
+      <strong>Up To Date:</strong>
+      Very good. Everything is in order. You can shop. Thank you for your work.
+    </p>
+  </template>
+
+  <template
+    id="help_text_regular_worker"
+    name="Help Text for Regular Worker">
+    <p class="oe_structure">
+      <strong>Alert:</strong>
+      You did not perform your last shift. You should do one or two compensatory shift depending on your situation. To
+      know how many compensatory shift you should do, please contact your super-cooperator. You don't have to sign up to
+      a shift in order to do your compensatory shift. Simply choose a shift that that suits you. You can shop.
+    </p>
+    <p class="oe_structure">
+      <strong>Suspended:</strong>
+      You did not perform your last shift and you did not perform your compensatory shifts. You can not shop anymore.
+      But don't panic, contact us at the store and you will receive an extension of two weeks to do your compensatory
+      shift. To do you compensatory shifts, simply sign up to a shift as before you where in Alert.
+    </p>
+    <p class="oe_structure">
+      <strong>Extension:</strong>
+      You did not perform your last shift and you did not perform your compensation shifts. You can shop. You have
+      <t t-esc="status.time_extension"/> days to do your shifts otherwise you will be Suspended.
+    </p>
+    <p class="oe_structure">
+      <strong>Unsubscribed:</strong>
+      You did not perform your last two shifts. You are unsubscribed from the shift system. You can not shop anymore,
+      neither work at the store. If you want to subscribe again, please contact us.
+    </p>
+  </template>
+
+  <template
+    id="help_text_irregular_worker"
+    name="Help Text for Irregular Worker">
+    <p class="oe_structure">
+      <strong>Alert:</strong>
+      You did not perform enough shifts in advance. Your shift counter is negative (-2). You should perform two shifts
+      during the next four weeks in order to be Up To Date. To do you compensatory shifts, simply sign up to a shift as
+      before you where in Alert. You can still shop.
+    </p>
+    <p class="oe_structure">
+      <strong>Suspended:</strong>
+      You did not perform enough shifts in advance and you did not perform your compensatory shifts. You can not shop
+      anymore. But don't panic, contact us at the store and you will receive an extension of two weeks to do your
+      compensatory shift. To do you compensatory shifts, simply sign up to a shift as before you where in Alert.
+    </p>
+    <p class="oe_structure">
+      <strong>Extension:</strong>
+      You did not perform enough shifts in advance and you did not perform your compensatory shifts. You can shop. You
+      have <t t-esc="status.time_extension"/> days to do your shifts otherwise you will be Suspended.
+    </p>
+    <p class="oe_structure">
+      <strong>Unsubscribed:</strong>
+      It's been more than height weeks since you last worked at the store or you have missed 2 consecutive shifts. You
+      are unsubscribed from the shift system. You can not shop anymore, neither work at the store. If you want to
+      subscribe again, please contact us.
+    </p>
+  </template>
+
   <!-- Shift for non-worker -->
   <template
     id="my_shift_non_worker"
@@ -577,6 +673,12 @@
 
               <div class="oe_structure"/>
 
+              <t t-call="beesdoo_website_shift.help_text_title"/>
+              <t t-call="beesdoo_website_shift.help_text_common"/>
+              <t t-call="beesdoo_website_shift.help_text_regular_worker"/>
+
+              <div class="oe_structure"/>
+
             </div>
 
             <div class="col-xs-12 col-md-8">
@@ -635,6 +737,12 @@
 
               <div class="oe_structure"/>
 
+              <t t-call="beesdoo_website_shift.help_text_title"/>
+              <t t-call="beesdoo_website_shift.help_text_common"/>
+              <t t-call="beesdoo_website_shift.help_text_irregular_worker"/>
+
+              <div class="oe_structure"/>
+
             </div>
 
             <div class="col-xs-12 col-md-8">
@@ -660,7 +768,9 @@
                   <div class="row">
                     <div class="col-xs-12 col-sm-6">
                       <p>
-                        Explanation text
+                        Please, subscribe, in priority, to the highlighted shifts. To sign up to a shift click on the
+                        subscribe button. Notice that you can not unsubscribe online. To unsubscribe to a shift, please,
+                        contact us.
                       </p>
                     </div>
                   </div>
