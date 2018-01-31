@@ -5,17 +5,15 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from ast import literal_eval
-from copy import copy
 from datetime import datetime, timedelta
 from itertools import groupby
+from pytz import timezone, utc
 
 from openerp import http, fields
 from openerp.http import request
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DATETIME_FORMAT
 
 from openerp.addons.beesdoo_shift.models.planning import float_to_time
-
-PERIOD = 28  # TODO: use the same constant as in 'beesdoo_shift'
+from openerp.addons.beesdoo_shift.models.cooperative_status import PERIOD
 
 
 class WebsiteShiftController(http.Controller):
@@ -34,6 +32,34 @@ class WebsiteShiftController(http.Controller):
         user = request.env['res.users'].browse(request.uid)
         working_mode = user.partner_id.working_mode
         return working_mode == 'exempt'
+
+    def add_days(self, datetime, days):
+        """
+        Add the number of days to datetime. This take the DST in
+        account, meaning that the UTC time will be correct even if the
+        new datetime has cross the DST boundary.
+
+        :param datetime: a naive datetime expressed in UTC
+        :return: a naive datetime expressed in UTC with the added days
+        """
+        # Ensure that the datetime given is without a timezone
+        assert datetime.tzinfo is None
+        # Get current user and user timezone
+        cur_user = request.env['res.users'].browse(request.uid)
+        user_tz = timezone(cur_user.tz)
+        # Convert to UTC
+        dt_utc = utc.localize(datetime, is_dst=False)
+        # Convert to user TZ
+        dt_local = dt_utc.astimezone(user_tz)
+        # Add the number of days
+        newdt_local = dt_local + timedelta(days=days)
+        # If the newdt_local has cross the DST boundary, its tzinfo is
+        # no longer correct. So it will be replaced by the correct one.
+        newdt_local = user_tz.localize(newdt_local.replace(tzinfo=None))
+        # Now the newdt_local has the right DST so it can be converted
+        # to UTC.
+        newdt_utc = newdt_local.astimezone(utc)
+        return newdt_utc.replace(tzinfo=None)
 
     @http.route('/my/shift', auth='user', website=True)
     def my_shift(self, **kw):
@@ -79,11 +105,13 @@ class WebsiteShiftController(http.Controller):
         irregular_enable_sign_up = literal_eval(request.env['ir.config_parameter'].get_param(
             'beesdoo_website_shift.irregular_enable_sign_up'))
 
+        request.session['success'] = False
         if (irregular_enable_sign_up
                 and cur_user.partner_id.working_mode == 'irregular'
                 and shift
                 and not shift.worker_id):
             shift.worker_id = cur_user.partner_id
+            request.session['success'] = True
         return request.redirect(kw['nexturl'])
 
     @http.route('/shift_irregular_worker', auth='public', website=True)
@@ -126,10 +154,6 @@ class WebsiteShiftController(http.Controller):
         """
         Return template variables for 'beesdoo_website_shift.my_shift_irregular_worker' template
         """
-        # Get current user
-        cur_user = request.env['res.users'].browse(request.uid)
-        cur_cooperative_status = cur_user.partner_id.cooperative_status_ids
-
         # Get config
         irregular_enable_sign_up = literal_eval(request.env['ir.config_parameter'].get_param(
             'beesdoo_website_shift.irregular_enable_sign_up'))
@@ -144,19 +168,13 @@ class WebsiteShiftController(http.Controller):
             irregular_enable_sign_up, nexturl
         ))
 
-        future_alert_date = False
-        if not cur_cooperative_status.alert_start_time:
-            # Compute date before which the worker is up to date
-            today_date = fields.Date.from_string(cur_cooperative_status.today)
-            delta = (today_date - fields.Date.from_string(cur_cooperative_status.irregular_start_date)).days
-            future_alert_date = today_date + timedelta(days=(cur_cooperative_status.sr + 1) * PERIOD - delta % PERIOD)
-            future_alert_date = future_alert_date.strftime('%Y-%m-%d')
+        # Add feedback about the success or the fail of the subscription
+        template_context['back_from_subscription'] = False
+        if 'success' in request.session:
+            template_context['back_from_subscription'] = True
+            template_context['success'] = request.session.get('success')
+            del request.session['success']
 
-        template_context.update(
-            {
-                'future_alert_date': future_alert_date,
-            }
-        )
         return template_context
 
     def my_shift_regular_worker(self):
@@ -265,42 +283,57 @@ class WebsiteShiftController(http.Controller):
              ('worker_id', '=', cur_user.partner_id.id)],
             order="start_time, task_template_id, task_type_id",
         )
-        # We don't use record to show the next shift as we need to add
-        # fictive one for regular worker. I say 'fictive' one because
-        # the next shifts for the regular worker are generated on a
-        # PERIOD basis and database doesn't contain more than a PERIOD
-        # of shift. So a regular worker will always see only one
-        # next shift, the one that is generated and stored in the
-        # database. Meaning that if we want to show the next shifts
-        # for an entire year, we need to compute the dates for the next
-        # shifts and create it. But we want to keep it 'fictive',
-        # meaning that we don't want to write them in the database.
-        # So here we convert recordset into Shift object.
+        # Create a list of record in order to add new record to it later
         subscribed_shifts = []
-        for shift_rec in subscribed_shifts_rec:
-            shift = Shift(shift_rec)
-            subscribed_shifts.append(shift)
-            # We want to keep a copy of the shift that will serve as a
-            # master to create the fictive shifts.
-            if shift_rec.worker_id in shift_rec.task_template_id.worker_ids:
-                main_shift = shift
-                main_shift_rec = shift_rec
+        for rec in subscribed_shifts_rec:
+            subscribed_shifts.append(rec)
 
         # In case of regular worker, we compute his fictive next shifts
         # according to the regular_next_shift_limit
-        if self.is_user_regular() and subscribed_shifts and main_shift:
+        if self.is_user_regular():
+            # Compute main shift
+            nb_subscribed_shifts = len(subscribed_shifts)
+            if nb_subscribed_shifts > 0:
+                main_shift = subscribed_shifts[-1]
+            else:
+                task_template = request.env['beesdoo.shift.template'].sudo().search(
+                    [('worker_ids', 'in', cur_user.partner_id.id)],
+                    limit=1,
+                )
+                main_shift = request.env['beesdoo.shift.shift'].sudo().search(
+                    [('task_template_id', '=', task_template[0].id)],
+                    order="start_time desc",
+                    limit=1,
+                )
+
             # Get config
             regular_next_shift_limit = int(request.env['ir.config_parameter'].get_param(
                 'beesdoo_website_shift.regular_next_shift_limit'))
-            for i in range(1, regular_next_shift_limit):
-                # Compute the new date for the created shift
-                start_time = fields.Datetime.from_string(main_shift_rec.start_time)
-                start_time = (start_time + timedelta(days=i*PERIOD)).strftime(DATETIME_FORMAT)
+
+            for i in range(nb_subscribed_shifts, regular_next_shift_limit):
                 # Create the fictive shift
-                shift = copy(main_shift)
-                shift.id = -i  # We give negative id 'caus this shift doesn't exist in database
-                shift.start_day = start_time
-                shift.start_date = start_time
+                shift = main_shift.new()
+                shift.name = main_shift.name
+                shift.task_template_id = shift.task_template_id
+                shift.planning_id = main_shift.planning_id
+                shift.task_type_id = main_shift.task_type_id
+                shift.worker_id = main_shift.worker_id
+                shift.stage_id = main_shift.stage_id
+                shift.super_coop_id = main_shift.super_coop_id
+                shift.color = main_shift.color
+                shift.is_regular = main_shift.is_regular
+                shift.replaced_id = main_shift.replaced_id
+                shift.revert_info = main_shift.revert_info
+                # Set new date
+                shift.start_time = self.add_days(
+                    fields.Datetime.from_string(main_shift.start_time),
+                    days=i*PERIOD
+                )
+                shift.end_time = self.add_days(
+                    fields.Datetime.from_string(main_shift.end_time),
+                    days=i*PERIOD
+                )
+                # Add the fictive shift to the list of shift
                 subscribed_shifts.append(shift)
 
         return {
@@ -350,88 +383,3 @@ class WebsiteShiftController(http.Controller):
         return {
             'status': cur_user.partner_id.cooperative_status_ids,
         }
-
-
-class Shift(object):
-    """
-    Represent a shift with all useful information in a format that is directly printable in a template
-    """
-
-    def __init__(self, shift_rec=None):
-        self.id = 0
-        self._start_day = ''
-        self._start_date = ''
-        self._start_time = ''
-        self._end_time = ''
-        self.task_type_name = ''
-        self.super_coop_name = ''
-        self.super_coop_phone = ''
-        self.super_coop_email = ''
-        if shift_rec:
-            self.update(shift_rec)
-
-    def update(self, shift_rec=None):
-        """ Fill in self with data in the given record"""
-        if shift_rec:
-            self.id = shift_rec.id
-            self.start_day = shift_rec.start_time
-            self.start_date = shift_rec.start_time
-            self.start_time = shift_rec.start_time
-            self.end_time = shift_rec.end_time
-            if shift_rec.task_type_id:
-                self.task_type_name = shift_rec.task_type_id.name
-            if shift_rec.super_coop_id:
-                self.super_coop_name = shift_rec.super_coop_id.name
-                self.super_coop_phone = shift_rec.super_coop_id.phone
-                self.super_coop_email = shift_rec.super_coop_id.email
-
-    # Properties
-    @property
-    def start_day(self):
-        return self._start_day
-
-    @property
-    def start_date(self):
-        return self._start_date
-
-    @property
-    def start_time(self):
-        return self._start_time
-
-    @property
-    def end_time(self):
-        return self._end_time
-
-    # Setters
-    @start_day.setter
-    def start_day(self, datetime_str):
-        self._start_day = datetime.strptime(datetime_str, DATETIME_FORMAT).strftime('%A')
-
-    @start_date.setter
-    def start_date(self, datetime_str):
-        self._start_date = datetime.strptime(datetime_str, DATETIME_FORMAT).strftime('%d %B %Y')
-
-    @start_time.setter
-    def start_time(self, datetime_str):
-        self._start_time = datetime.strptime(datetime_str, DATETIME_FORMAT).strftime('%H:%M')
-
-    @end_time.setter
-    def end_time(self, datetime_str):
-        self._end_time = datetime.strptime(datetime_str, DATETIME_FORMAT).strftime('%H:%M')
-
-    # Deleters
-    @start_day.deleter
-    def start_day(self):
-        del self._start_day
-
-    @start_date.deleter
-    def start_date(self):
-        del self._start_date
-
-    @start_time.deleter
-    def start_time(self):
-        del self._start_time
-
-    @end_time.deleter
-    def end_time(self):
-        del self._end_time
