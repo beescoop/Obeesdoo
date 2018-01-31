@@ -135,17 +135,17 @@
       <div class="panel panel-default">
         <div class="panel-heading clearfix">
           <div class="panel-title">
-            <t t-esc="'%s %s' % (shift.start_day, shift.start_date)"/>
-            <span t-esc="shift.start_time"/> -
-            <span t-esc="shift.end_time"/>
+            <t t-esc="time.strftime('%A %d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
+            <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
+            <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
           </div>
         </div>
         <div class="panel-body">
-          <t t-esc="shift.task_type_name"/>
+          <t t-esc="shift.task_type_id.name"/>
           <button type="button" class="btn btn-default btn-sm pull-right"
-            t-if="shift.super_coop_name"
+            t-if="shift.super_coop_id.name"
             data-toggle="modal"
-            t-att-data-target="'#super_coop-shift-%s' % shift.id">
+            t-att-data-target="'#super_coop-shift-%s' % shift_index">
             <span class="fa fa-info" aria-hidden="true"></span>
             Super Cooperator Info
           </button>
@@ -167,23 +167,23 @@
         <t t-foreach="subscribed_shifts" t-as="shift">
           <tr>
             <td>
-              <t t-esc="shift.start_day"/>
+              <t t-esc="time.strftime('%A', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
             </td>
             <td>
-              <t t-esc="shift.start_date"/>
+              <t t-esc="time.strftime('%d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
             </td>
             <td>
-              <span t-esc="shift.start_time"/> -
-              <span t-esc="shift.end_time"/>
+              <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
+              <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
             </td>
             <td>
-              <t t-esc="shift.task_type_name"/>
+              <t t-esc="shift.task_type_id.name"/>
             </td>
             <td class="text-center">
               <button type="button" class="btn btn-default btn-sm"
-                t-if="shift.super_coop_name"
+                t-if="shift.super_coop_id.name"
                 data-toggle="modal"
-                t-att-data-target="'#super_coop-shift-%s' % shift.id">
+                t-att-data-target="'#super_coop-shift-%s' % shift_index">
                 <span class="fa fa-info" aria-hidden="true"></span>
               </button>
             </td>
@@ -194,23 +194,23 @@
 
     <!-- Super Cooperator info modal -->
     <t t-foreach="subscribed_shifts" t-as="shift">
-      <div class="modal fade" t-if="shift.super_coop_name" t-att-id="'super_coop-shift-%s' % shift.id" tabindex="-1" role="dialog"
-        t-att-aria-labelledby="'super_coop-shift-%s-label' % shift.id">
+      <div class="modal fade" t-if="shift.super_coop_id.name" t-att-id="'super_coop-shift-%s' % shift_index" tabindex="-1" role="dialog"
+        t-att-aria-labelledby="'super_coop-shift-%s-label' % shift_index">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
               </button>
-              <h4 class="modal-title" t-att-id="'super_coop-shift-%s-label' % shift.id">
-                <t t-esc="shift.super_coop_name"/>
+              <h4 class="modal-title" t-att-id="'super_coop-shift-%s-label' % shift_index">
+                <t t-esc="shift.super_coop_id.name"/>
               </h4>
             </div>
             <div class="modal-body">
-              <i class="fa fa-phone" aria-hidden="true"></i> <t t-esc="shift.super_coop_phone"/><br/>
+              <i class="fa fa-phone" aria-hidden="true"></i> <t t-esc="shift.super_coop_id.phone"/><br/>
               <i class="fa fa-envelope" aria-hidden="true"></i>
-              <a t-att-href="'mailto:%s' % shift.super_coop_email">
-                <t t-esc="shift.super_coop_email"/>
+              <a t-att-href="'mailto:%s' % shift.super_coop_id.email">
+                <t t-esc="shift.super_coop_id.email"/>
               </a>
             </div>
             <div class="modal-footer">
@@ -458,6 +458,112 @@
 
   </template>
 
+  <!-- Help Texts -->
+  <template
+    id="help_text_title"
+    name="Help Text Title">
+
+    <div class="oe_structure"/>
+
+    <section class="wrap">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>
+              Help
+            </h2>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="oe_structure"/>
+
+  </template>
+
+  <template
+    id="help_text_common"
+    name="Help Text Common">
+    <div class="oe_structure alert alert-info">
+      <strong>Info!</strong> If you do not agree with your status, please contact the members office by mail (membre@bees-coop.be) or during the open hours of the office (Monday 5PM to 7:30PM, Wednesday 5PM to 7:30 PM and Friday 2:30PM to 5 PM).
+    </div>
+
+    <p class="oe_structure">
+      Explanation of the status:
+    </p>
+
+    <p class="oe_structure">
+      <strong>Up To Date:</strong>
+      That's perfect! You are in order. Thanks a lot. You can come and shop, so can your eaters if you have any.
+    </p>
+  </template>
+
+  <template
+    id="help_text_regular_worker"
+    name="Help Text for Regular Worker">
+    <p class="oe_structure">
+      <strong>Alert:</strong>
+      If you are in alert status, that means you didn't do your last shift. You have
+      until your next scheduled shift to do your compensation shift according to your situation.
+      Your compensation is either simple or double. If you don't how how many compensation shifts you have to do, please contact your supercooperator.
+      To do your compensation shift, no need to subscribe in advance : you come at the beginning of the shift that best suits you.
+      Add your name and the indication "compensation shift" on the attendance list.
+      No panic, you still can come and shop, so can your eaters if you have any.
+    </p>
+    <p class="oe_structure">
+      <strong>Suspended:</strong>
+      If you are suspended, that means you didn't come to a shift and you didn't do you compensation shifts in the delay (4 weeks).
+      You cannot shop (so as your eaters). But no need to panic : a two-weeks delay is activable on demand at the entrance of the supermarket.
+      You will be able to shop during 2 more weeks and to put your situation in order.
+      To do your compensation shift, no need to subscribe in advance : you come at the beginning of the shift that best suits you.
+      Add your name and the indication "compensation shift" on the attendance list.
+    </p>
+    <p class="oe_structure">
+      <strong>Auto-Extension:</strong>
+      You didn't manage to do your compensation shifts in the delay but you benefit from the auto-extension.
+      This is two more weeks to do your compensation shifts. You can shop.
+      If you don't do your compensation shifts, you'll be suspended.
+    </p>
+    <p class="oe_structure">
+      <strong>Unsubscribed:</strong>
+      You did not attend two consecutive shifts. You are now unsubscribed. You cannot shop (nor can your eaters) nor come to work.
+      To subscribe again, please contact membre@bees-coop.be or come to the members office during the opening hours.
+    </p>
+  </template>
+
+  <template
+    id="help_text_irregular_worker"
+    name="Help Text for Irregular Worker">
+    <p class="oe_structure">
+      <strong>Alert:</strong>
+      If you are in alert status, that means you didn't anticipate enough shifts.
+      Your counter is now negative, directly to -2.
+      You have 4 weeks to do 2 shifts to be up to date.
+      For the compensation shifts, subscribe like you do for a normal shift.
+      Be careful, in addition to these 2 shifts, don't forget to do your normal shift in the same delay to prevent to be in the same situation next month.
+    </p>
+    <p class="oe_structure">
+      <strong>Suspended:</strong>
+      You did not anticipate enough shifts and you did not come back to a normal situation in the delay.
+      You cannot shop anymore, nor can your eaters.
+      But no need to panic : a two-weeks delay is activable on demand at the entrance of the supermarket.
+      You will be able to shop during 2 more weeks and to put your situation in order.
+      For the compensation shifts, subscribe like you do for a normal shift.
+    </p>
+    <p class="oe_structure">
+      <strong>Auto-Extension:</strong>
+      You didn't manage to do your compensation shifts in the delay but you benefit from the auto-extension.
+      This is two more weeks to do your compensation shifts. You can shop.
+      If you don't do your compensation shifts, you'll be suspended.
+    </p>
+    <p class="oe_structure">
+      <strong>Unsubscribed:</strong>
+      Your counter is negative and you haven't come to work for more than 8 weeks.
+      You are unsubscribed. You cannot shop nor can your eaters.
+      To subscribe again of if it's a mistake, please contact membre@bees-coop.be or come to the members office during the opening hours.
+    </p>
+  </template>
+
   <!-- Shift for non-worker -->
   <template
     id="my_shift_non_worker"
@@ -496,7 +602,7 @@
       <section class="wrap">
         <div class="container">
           <div class="row">
-            <div class="col-xs-12 col-md-4 pull-right">
+            <div class="col-xs-12 col-md-4 pull-right text-justify">
 
               <t t-call="beesdoo_website_shift.my_shift_worker_status_title"/>
 
@@ -549,7 +655,7 @@
       <section class="wrap">
         <div class="container">
           <div class="row">
-            <div class="col-xs-12 col-md-4 pull-right">
+            <div class="col-xs-12 col-md-4 pull-right text-justify">
 
               <t t-call="beesdoo_website_shift.my_shift_worker_status_title"/>
 
@@ -586,6 +692,18 @@
               <t t-call="beesdoo_website_shift.my_shift_past_shifts"/>
 
             </div> <!-- col-md-8 -->
+
+            <div class="col-xs-12 col-md-4 text-justify">
+
+              <div class="oe_structure"/>
+
+              <t t-call="beesdoo_website_shift.help_text_title"/>
+              <t t-call="beesdoo_website_shift.help_text_common"/>
+              <t t-call="beesdoo_website_shift.help_text_irregular_worker"/>
+
+              <div class="oe_structure"/>
+
+            </div> <!-- col-md-4 -->
           </div> <!-- row -->
         </div> <!-- container -->
       </section>
@@ -607,7 +725,7 @@
       <section class="wrap">
         <div class="container">
           <div class="row">
-            <div class="col-xs-12 col-md-4 pull-right">
+            <div class="col-xs-12 col-md-4 pull-right text-justify">
 
               <t t-call="beesdoo_website_shift.my_shift_worker_status_title"/>
 
@@ -618,9 +736,9 @@
                 <t t-esc="status.sr"/>
               </p>
 
-              <p t-if="future_alert_date">
+              <p t-if="status.future_alert_date">
                 <label>Future Date of Alert:</label>
-                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(future_alert_date, '%Y-%m-%d'))"/>
+                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.future_alert_date, '%Y-%m-%d'))"/>
               </p>
 
               <p t-if="status.irregular_absence_date">
@@ -638,6 +756,22 @@
             </div>
 
             <div class="col-xs-12 col-md-8">
+
+              <div t-if="back_from_subscription"
+                role="alert"
+                t-att-class="'alert alert-%s alert-dismissible' % ('success' if success else 'danger',)">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+                <t t-if="success">
+                  <strong>Success!</strong> Your subscription has succeded.
+                </t>
+                <t t-if="not success">
+                  <strong>Failed!</strong> Your subscription has failed. Someone
+                  subscribed before you or the shift was deleted. Try again in a
+                  moment.
+                </t>
+              </div>
 
               <t t-call="beesdoo_website_shift.my_shift_next_shifts"/>
 
@@ -658,9 +792,11 @@
               <section class="wrap">
                 <div class="container">
                   <div class="row">
-                    <div class="col-xs-12 col-sm-6">
+                    <div class="col-xs-12 col-sm-6 text-justify">
                       <p>
-                        Explanation text
+                        Please, subscribe, in priority, to the highlighted shifts. To sign up to a shift click on the
+                        subscribe button. Notice that you can not unsubscribe online. To unsubscribe to a shift, please,
+                        contact us.
                       </p>
                     </div>
                   </div>
@@ -673,6 +809,18 @@
               <t t-call="beesdoo_website_shift.my_shift_past_shifts"/>
 
             </div> <!-- col-md-8 -->
+
+            <div class="col-xs-12 col-md-4 text-justify">
+
+              <div class="oe_structure"/>
+
+              <t t-call="beesdoo_website_shift.help_text_title"/>
+              <t t-call="beesdoo_website_shift.help_text_common"/>
+              <t t-call="beesdoo_website_shift.help_text_irregular_worker"/>
+
+              <div class="oe_structure"/>
+
+            </div> <!-- col-md-4 -->
           </div> <!-- row -->
         </div> <!-- container -->
       </section>
