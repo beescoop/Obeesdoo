@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2018 Rémy Taymans <remytaymans@gmail.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<openerp>
+
+  <!-- Modifying the form -->
+  <template
+    id="beesdoo_website_portal_details_form"
+    name="Beesdoo Website Portal Details Form"
+    inherit_id="website_portal_extend.website_portal_details_form">
+    <xpath expr="//input[@name='name']/.." position="before">
+      <div class="col-md-12">
+        <div class="alert alert-info">
+          <strong>Info !</strong>
+          To modify information that is not present in this form,
+          please contact us.
+        </div>
+      </div>
+    </xpath>
+    <xpath expr="//input[@name='name']/.." position="replace">
+    </xpath>
+    <xpath expr="//input[@name='email']/.." position="replace">
+    </xpath>
+    <xpath expr="//input[@name='company_name']/.." position="replace">
+    </xpath>
+    <xpath expr="//input[@name='vat']/.." position="replace">
+    </xpath>
+  </template>
+
+</openerp>
