@@ -58,27 +58,27 @@
                             </td>
                             <td
                                 style="vertical-align:top;width:7.72cm;height: 6.87cm;position: relative;">
-                                <p
-                                    style="text-align: left;padding-top: 0.2cm;font-size: 1.2em;">
-                                    <span t-raw="partner.first_name and partner.first_name[:30] or ''"
-                                        style="font-family:Roboto-Regular" />
+                                <p style="text-align: left;padding-top: 0.2cm;font-size: 1.2em;">
+                                    <span t-raw="partner.first_name and partner.first_name[:30] or ''" style="font-family:Roboto-Regular" />
                                     <br />
-                                    <span t-raw="partner.last_name and partner.last_name[:26] or ''"
-                                        style="font-family:Roboto-Bold;" />
+                                    <span t-raw="partner.last_name and partner.last_name[:26] or ''" style="font-family:Roboto-Bold;" />
                                     <br />
                                 </p>
-                                <p
-                                    style="font-size: 0.8em;font-family:Roboto-Regular">
-                                    <t t-if="partner.parent_eater_id and partner.parent_eater_id.cooperator_type == 'share_a'">
-                                        <span
-                                            t-raw="'[' + (partner.parent_eater_id.first_name and partner.parent_eater_id.first_name[:30] or '') + ' ' + (partner.parent_eater_id.last_name and partner.parent_eater_id.last_name[:30] or '') + ']'"
-                                            style="font-family:Roboto-Regular" />
+                                <p style="text-align: left;padding-top: 0.2cm;font-size: 1em;">
+
+                                    <t t-if="partner.parent_eater_id and partner.eater == 'eater'">
+                                        <!--fix here -->
+                                        <span t-raw="partner.parent_eater_id.first_name and partner.parent_eater_id.first_name[:30] or ''" style="font-family:Roboto-Regular;" />
+                                        <span t-raw="partner.parent_eater_id.last_name and partner.parent_eater_id.last_name[:26] or ''" style="font-family:Roboto-Regular;" />
                                     </t>
+
                                     <t t-if="partner.parent_eater_id and partner.parent_eater_id.cooperator_type == 'share_b'">
+                                        <!--fix here never true-->
                                         <span
                                             t-raw="'[' + (partner.parent_eater_id.name[:60] or '') + ']'"
                                             style="font-family:Roboto-Regular" />
                                     </t>
+
                                 </p>
                                 <div style="position: absolute;bottom: 0;">
                                     <div style="padding-top:0.3cm">
