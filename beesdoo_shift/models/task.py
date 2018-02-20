@@ -29,7 +29,7 @@ class Task(models.Model):
     planning_id = fields.Many2one(related='task_template_id.planning_id', store=True)
     task_type_id = fields.Many2one('beesdoo.shift.type', string="Task Type")
     worker_id = fields.Many2one('res.partner', track_visibility='onchange', domain=[('eater', '=', 'worker_eater')])
-    start_time = fields.Datetime(track_visibility='always')
+    start_time = fields.Datetime(track_visibility='always', index=True)
     end_time = fields.Datetime(track_visibility='always')
     stage_id = fields.Many2one('beesdoo.shift.stage', required=True, track_visibility='onchange', default=lambda self: self.env.ref('beesdoo_shift.open'))
     super_coop_id = fields.Many2one('res.users', string="Super Cooperative", domain=[('partner_id.super', '=', True)], track_visibility='onchange')

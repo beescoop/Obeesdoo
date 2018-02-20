@@ -63,6 +63,7 @@ class CooperativeStatus(models.Model):
                                ('alert', 'Alerte'),
                                ('extension', 'Extension'),
                                ('suspended', 'Suspended'),
+                               ('exempted', 'Exempted'),
                                ('unsubscribed', 'Unsubscribed')],
                               compute="_compute_status", string="Cooperative Status", store=True)
     can_shop = fields.Boolean(compute='_compute_status', store=True)
@@ -74,12 +75,17 @@ class CooperativeStatus(models.Model):
     irregular_absence_date = fields.Date()
     irregular_absence_counter = fields.Integer() #TODO unsubscribe when reach -2
 
+    temporary_exempt_reason_id = fields.Many2one('cooperative.exempt.reason', 'Exempt Reason')
+    temporary_exempt_start_date = fields.Date()
+    temporary_exempt_end_date = fields.Date()
+
 
     @api.depends('today', 'sr', 'sc', 'holiday_end_time',
                  'holiday_start_time', 'time_extension',
                  'alert_start_time', 'extension_start_time',
                  'unsubscribed', 'irregular_absence_date',
-                 'irregular_absence_counter')
+                 'irregular_absence_counter', 'temporary_exempt_start_date',
+                 'temporary_exempt_end_date')
     def _compute_status(self):
         alert_delay = int(self.env['ir.config_parameter'].get_param('alert_delay', 28))
         grace_delay = int(self.env['ir.config_parameter'].get_param('default_grace_delay', 10))
@@ -106,6 +112,9 @@ class CooperativeStatus(models.Model):
         if self.sr < -1 or self.unsubscribed:
             self.status = 'unsubscribed'
             self.can_shop = False
+        elif self.today >= self.temporary_exempt_start_date and self.today <= self.temporary_exempt_end_date:
+            self.status = 'exempted'
+            self.can_shop = True
 
         #Transition to alert sr < 0 or stay in alert sr < 0 or sc < 0 and thus alert time is defined
         elif not ok and self.alert_start_time and self.extension_start_time and self.today <= add_days_delta(self.extension_start_time, grace_delay):
@@ -133,11 +142,13 @@ class CooperativeStatus(models.Model):
         self.ensure_one()
         ok = self.sr >= 0
         grace_delay = grace_delay + self.time_extension
-        print add_days_delta(self.extension_start_time, grace_delay)
         if (not ok and self.irregular_absence_date and self.today > add_days_delta(self.irregular_absence_date, alert_delay * 2)) \
              or self.unsubscribed or self.irregular_absence_counter <= -2:
             self.status = 'unsubscribed'
             self.can_shop = False
+        elif self.today >= self.temporary_exempt_start_date and self.today <= self.temporary_exempt_end_date:
+            self.status = 'exempted'
+            self.can_shop = True
         #Transition to alert sr < 0 or stay in alert sr < 0 or sc < 0 and thus alert time is defined
         elif not ok and self.alert_start_time and self.extension_start_time and self.today <= add_days_delta(self.extension_start_time, grace_delay):
             self.status = 'extension'
@@ -246,6 +257,8 @@ class CooperativeStatus(models.Model):
         irregular = self.search([('status', '!=', 'unsubscribed'), ('working_mode', '=', 'irregular'), ('irregular_start_date', '!=', False)])
         today_date = fields.Date.from_string(today)
         for status in irregular:
+            if status.status == 'exempted':
+                continue
             delta = (today_date - fields.Date.from_string(status.irregular_start_date)).days
             if delta and delta % 28 == 0 and status not in journal.line_ids: #TODO use system parameter for 28
                 if status.sr > 0:
@@ -330,6 +343,17 @@ class ResPartner(models.Model):
            'view_type': 'form',
            'view_mode': 'form',
            'res_model': 'beesdoo.shift.holiday',
+           'target': 'new',
+        }
+
+    @api.multi
+    def temporary_exempt(self):
+        return {
+           'name': _('Temporary Exemption'),
+           'type': 'ir.actions.act_window',
+           'view_type': 'form',
+           'view_mode': 'form',
+           'res_model': 'beesdoo.shift.temporary_exemption',
            'target': 'new',
         }
 
