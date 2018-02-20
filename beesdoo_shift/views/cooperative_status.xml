@@ -10,7 +10,7 @@
                             type="object" groups="beesdoo_shift.group_shift_management"
                             attrs="{'invisible': [('cooperator_type', '!=', 'share_a')]}"/>
                    <button name="auto_extension" string="Auto Extension" class="oe_highlight"
-                            type="object" groups="beesdoo_shift.group_shift_management"
+                            type="object" groups="beesdoo_shift.group_shift_attendance"
                             attrs="{'invisible': ['|',
                                                     ('cooperator_type', '!=', 'share_a'),
                                                     '|',

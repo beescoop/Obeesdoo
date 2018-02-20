@@ -16,7 +16,7 @@ class Subscribe(models.TransientModel):
 
     @api.multi
     def auto_ext(self):
-        self = self._check()
+        self = self._check(group='beesdoo_shift.group_shift_attendance')
         status_id = self.env['cooperative.status'].search([('cooperator_id', '=', self.cooperator_id.id)])
         status_id.sudo().write({'extension_start_time': self.extension_start_date})
 
