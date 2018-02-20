@@ -141,11 +141,14 @@ class TaskTemplate(models.Model):
         for rec in self:
             for i in xrange(0, rec.worker_nb):
                 worker_id = rec.worker_ids[i] if len(rec.worker_ids) > i else False
-                #remove worker in holiday
+                #remove worker in holiday and temporary exempted
                 if worker_id and worker_id.cooperative_status_ids:
                     status = worker_id.cooperative_status_ids[0]
                     if status.holiday_start_time and status.holiday_end_time and \
                          status.holiday_start_time <= rec.start_date[:10] and status.holiday_end_time >= rec.end_date[:10]:
+                        worker_id = False
+                    if status.temporary_exempt_start_date and status.temporary_exempt_end_date and \
+                         status.temporary_exempt_start_date <= rec.start_date[:10] and status.temporary_exempt_end_date >= rec.end_date[:10]:
                         worker_id = False
                 tasks |= tasks.create({
                     'name' :  "%s %s (%s - %s) [%s]" % (rec.name, rec.day_nb_id.name, float_to_time(rec.start_time), float_to_time(rec.end_time), i),
