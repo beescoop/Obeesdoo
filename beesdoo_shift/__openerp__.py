@@ -34,5 +34,6 @@
         "wizard/subscribe.xml",
         "wizard/extension.xml",
         "wizard/holiday.xml",
+        "wizard/temporary_exemption.xml",
     ],
 }
