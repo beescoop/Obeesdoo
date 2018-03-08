@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2018 Rémy Taymans <remytaymans@gmail.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<openerp>
+
+  <!-- Add eater information -->
+  <template
+    id="website_eater_details_side"
+    name="Website Eater Details Side"
+    priority="50"
+    inherit_id="website_portal_v10.portal_layout">
+    <xpath expr="//div[@class='o_my_details']" position="after">
+      <div class="o_my_details_eater">
+        <h3 class="page-header">Your Eaters</h3>
+        <p class="text-center">
+          <ul t-if="eaters">
+            <li t-foreach="eaters" t-as="eater">
+              <t t-esc="eater.name"/>
+            </li>
+          </ul>
+          <span t-if="not eaters">
+            You have no eaters
+          </span>
+        </p>
+      </div>
+    </xpath>
+  </template>
+
+</openerp>
