@@ -1,8 +1,103 @@
 # Obeesdoo
 Specific module for the Beescoop
 
+## Install odoo
 
-# Migrate barcode
+- cf. [install-odoo-linux.md](install-odoo-linux.md) (review)
+- cf. [install-odoo-mac.md] (install-odoo-mac.md)
+
+## Setup obeesdoo
+
+##### 1) clone repos
+
+```
+$ cd projects
+$ git clone https://github.com/beescoop/Obeesdoo.git obeesdoo -b 9.0 --depth 1
+$ git clone https://github.com/houssine78/vertical-cooperative.git vertical-cooperative -b 9.0 --depth 1
+$ git clone https://github.com/houssine78/addons.git houssine-addons -b 9.0 --depth 1
+$ git clone https://github.com/coopiteasy/procurement-addons procurement-addons -b 9.0 --depth 1
+$ git clone https://www.github.com/OCA/l10n-belgium -b 9.0 --depth 1
+$ git clone https://www.github.com/OCA/mis-builder -b 9.0 --depth 1
+$ git clone https://www.github.com/OCA/web -b 9.0 --depth 1
+$ git clone https://github.com/OCA/server-tools -b 9.0 --depth 1
+$ git clone https://github.com/OCA/reporting-engine -b 9.0 --depth 1
+```
+
+todo: setup git submodules
+
+##### 2) install wkhtmltopdf
+
+Download and install [wkhtmltopdf version 0.12.1](https://github.com/wkhtmltopdf/wkhtmltopdf/releases/0.12.1)
+
+##### 3) install less compiler
+
+```
+$ brew install npm
+$ npm install -g less
+```
+
+##### 4) set up the database and import production data.
+
+
+```
+$ createuser -d odoo
+$ createdb beescoop -o odoo
+$ gunzip <dump-file>.sql.gz
+$ psql beescoop <dump-file>.sql
+```
+
+##### 5) deactivate cron jobs and mails 
+
+```
+$ psql -d beescoop -c "UPDATE ir_cron SET active='f' WHERE active='t';"
+$ psql -d beescoop -c "update ir_mail_server set smtp_encryption='none', smtp_port=1025, smtp_host='localhost',smtp_user='', smtp_pass='';"
+$ psql -d beescoop -c "UPDATE fetchmail_server SET active='f', password='', server='localhost';"
+```
+
+##### 6) create odoo.conf
+
+```
+$ export ODOO_HOME='~/projects'
+$ vi $ODOO_HOME/odoo.conf
+```
+
+```
+[options]
+; This is the password that allows database operations:
+; admin_passwd = admin
+debug=True
+dev=True
+db_host=False
+db_port=False
+db_user=odoo
+db_password=False
+addons_path=addons,openerp/addons,$ODOO_HOME/obeesdoo,$ODOO_HOME/vertical-cooperative,$ODOO_HOME/houssine-addons,$ODOO_HOME/procurement-addons,$ODOO_HOME/l10n-belgium,$ODOO_HOME/mis-builder,$ODOO_HOME/web,$ODOO_HOME/server-tools,$ODOO_HOME/reporting-engine
+```
+
+##### 7) update database structure
+
+```
+$ cd ~/projects/odoo
+$ psql -d tmp_march_beescoop -c "truncate product_scale_log"
+$ python odoo.py -c $ODOO_HOME/odoo.conf -u all -d odoo-test --stop-after-init
+```
+
+### Troubleshoot
+
+ Missing libraries
+
+ ```
+ pip install pycoda
+ pip install xlsxwriter
+ ```
+
+ Can't update `product_scale_log` table (I did not write down the exact error)
+
+ ```
+ truncate table product_scale_log
+ ```
+
+## Migrate barcode
 
 ```sql
 insert into member_card (active, barcode, partner_id, responsible_id, activation_date) select 't', barcode, id, 1, '2016-01-01' from res_partner where barcode is not null;
