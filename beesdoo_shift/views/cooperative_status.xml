@@ -10,7 +10,7 @@
                             type="object" groups="beesdoo_shift.group_shift_management"
                             attrs="{'invisible': [('cooperator_type', '!=', 'share_a')]}"/>
                    <button name="auto_extension" string="Auto Extension" class="oe_highlight"
-                            type="object" groups="beesdoo_shift.group_shift_management"
+                            type="object" groups="beesdoo_shift.group_shift_attendance"
                             attrs="{'invisible': ['|',
                                                     ('cooperator_type', '!=', 'share_a'),
                                                     '|',
@@ -29,6 +29,9 @@
                   <button name="register_holiday" string="Register Holidays" class="oe_highlight"
                             type="object" groups="beesdoo_shift.group_shift_management"
                             attrs="{'invisible': ['|', ('cooperator_type', '!=', 'share_a'), ('state', '!=', 'ok')]}"/>
+                  <button name="temporary_exempt" string="Temporary Exemption"
+                            type="object" groups="beesdoo_shift.group_shift_management"
+                            attrs="{'invisible': ['|', ('cooperator_type', '!=', 'share_a'), ('state', '=', 'unsubscribed')]}"/>
                     <field name="state" widget="statusbar" attrs="{'invisible': [('cooperator_type', '!=', 'share_a')]}" />
                 </header>
             </xpath>
@@ -61,7 +64,7 @@
                     <field name="status" widget="statusbar" />
                 </header>
                 <group>
-                    <group>
+                    <group string="General information">
                         <field name="cooperator_id" />
                         <field name="super" />
                         <field name="working_mode" />
@@ -70,7 +73,7 @@
                         
                         <field name="exempt_reason_id" attrs="{'invisible':[('working_mode', '!=', 'exempt')]}"/>
                     </group>
-                    <group>
+                    <group string="Counter and Status">
                         <field name="info_session" />
                         <field name="info_session_date" />
                         <field name="sr" />
@@ -79,12 +82,17 @@
                         <field name="unsubscribed" />
                         <field name="can_shop" />
                     </group>
-                    <group>
+                    <group string="Timing information">
                         <field name="time_extension" />
                         <field name="holiday_start_time" />
                         <field name="holiday_end_time" />
                         <field name="alert_start_time" />
                         <field name="extension_start_time" />
+                    </group>
+                    <group string="Temporary Exemption">
+                        <field name="temporary_exempt_reason_id" />
+                        <field name="temporary_exempt_start_date" />
+                        <field name="temporary_exempt_end_date" />
                     </group>
                 </group>
                 <group groups="base.group_no_one" col="3">
