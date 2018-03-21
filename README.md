@@ -3,7 +3,7 @@ Specific module for the Beescoop
 
 ## Install odoo
 
-- cf. [install-odoo-linux.md](install-odoo-linux.md) (review)
+- cf. [install-odoo-linux-server.md](install-odoo-linux-server.md) (review)
 - cf. [install-odoo-mac.md] (install-odoo-mac.md)
 
 ## Setup obeesdoo
@@ -29,14 +29,7 @@ todo: setup git submodules
 
 Download and install [wkhtmltopdf version 0.12.1](https://github.com/wkhtmltopdf/wkhtmltopdf/releases/0.12.1)
 
-##### 3) install less compiler
-
-```
-$ brew install npm
-$ npm install -g less
-```
-
-##### 4) set up the database and import production data.
+##### 3) set up the database and import production data.
 
 
 ```
@@ -46,7 +39,7 @@ $ gunzip <dump-file>.sql.gz
 $ psql beescoop <dump-file>.sql
 ```
 
-##### 5) deactivate cron jobs and mails 
+##### 4) deactivate cron jobs and mails 
 
 ```
 $ psql -d beescoop -c "UPDATE ir_cron SET active='f' WHERE active='t';"
@@ -54,7 +47,7 @@ $ psql -d beescoop -c "update ir_mail_server set smtp_encryption='none', smtp_po
 $ psql -d beescoop -c "UPDATE fetchmail_server SET active='f', password='', server='localhost';"
 ```
 
-##### 6) create odoo.conf
+##### 5) create odoo.conf
 
 ```
 $ export ODOO_HOME='~/projects'
@@ -74,7 +67,7 @@ db_password=False
 addons_path=addons,openerp/addons,$ODOO_HOME/obeesdoo,$ODOO_HOME/vertical-cooperative,$ODOO_HOME/houssine-addons,$ODOO_HOME/procurement-addons,$ODOO_HOME/l10n-belgium,$ODOO_HOME/mis-builder,$ODOO_HOME/web,$ODOO_HOME/server-tools,$ODOO_HOME/reporting-engine
 ```
 
-##### 7) update database structure
+##### 6) update database structure
 
 ```
 $ cd ~/projects/odoo

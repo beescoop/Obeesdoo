@@ -23,8 +23,14 @@ $ brew install freetype jpeg libpng libtiff webp xz
 $ ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
 $ launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 ```
+##### 4) install less compiler
 
-##### 4) setup odoo environment
+```
+$ brew install npm
+$ npm install -g less
+```
+
+##### 5) setup odoo environment
 
 I recommend using [virtualenvwrapper](http://virtualenvwrapper.readthedocs.io/en/latest/index.html)
 
@@ -35,14 +41,14 @@ $ /Users/<user>/.virtualenvs/odoo/bin/python
 ```
 Use `deactivate` to get out of odoo environment, use `workon odoo` to activate the environment.
 
-##### 5) clone odoo
+##### 6) clone odoo
 
 ```
 $ cd ~/projects
 $ git clone https://github.com/odoo/odoo.git odoo
 ```
 
-##### 6) Install odoo requirements
+##### 7) Install odoo requirements
 
 ```
 $ cd odoo

@@ -1,47 +1,52 @@
-1) ajouter un utilisateur odoo
+# Install odoo on a linux server
+
+> by Thibault François 
+
+## Installation basique
+
+##### 1) ajouter un utilisateur odoo
 
     # adduser odoo
 
-2) Installation de postgresql (DBMS)
+##### 2) installation de postgresql (DBMS)
 
     # apt-get install postgresql
 
-3) install git
+##### 3) install git
 
     # apt-get install git
 
-4) installer pip : python package manager
+##### 4) installer pip : python package manager
 
     # apt-get install python-pip
 
-5) installation des paquets devel pour compilation des bibliothèques python
+##### 5) installation des paquets devel pour compilation des bibliothèques python
 
     # apt-get install python-dev postgresql-server-dev-all libjpeg-dev zlib1g-dev libpng12-dev libxml2-dev libxslt1-dev libldap2-dev libsasl2-dev
 
-6) installation de node-less
+##### 6) installation de node-less
 
     # apt-get install node-less
 
-7) clone odoo
+##### 7) clone odoo
 
     # su odoo
     $ cd /home/odoo
     $ git clone https://github.com/odoo/odoo.git
 
-8) installer bibliothèque python
+##### 8) installer bibliothèque python
 
     $ exit
     # cd /home/odoo/odoo
     # pip install -r requirements.txt
 
-9) créer odoo user pour postgresql avec les droits de création de base de donnée
+##### 9) créer odoo user pour postgresql avec les droits de création de base de donnée
 
     # su postgres
     $ createuser -d odoo
     $ exit
 
-
-10) Installer wkhtml to pdf 0.12.1 !! (pas une autre) (sur une machine 64 bit avec un ubuntu 64bit 14.04) 
+##### 10) Installer wkhtml to pdf 0.12.1 !! (pas une autre) (sur une machine 64 bit avec un ubuntu 64bit 14.04) 
 
     # apt-get install fontconfig  libfontconfig1 libxrender1 fontconfig-config
     # wget http://download.gna.org/wkhtmltopdf/0.12/0.12.1/wkhtmltox-0.12.1_linux-trusty-amd64.deb
@@ -50,7 +55,7 @@
     # cp wkhtmltoimage /usr/bin/wkhtmltoimage
     # cp wkhtmltopdf /usr/bin/wkhtmltopdf
 
-11) Tester l'installation de odoo
+##### 11) Tester l'installation de odoo
 
     # su odoo
     $ cd /home/odoo/odoo
@@ -60,19 +65,19 @@ lancer le navigateur http://localhost:8069 la page de création de base de donn�
 
 ctrl + c pour tuer le processus odoo depuis la console
 
-12) Pour aller plus loin: init.d script
+## Pour aller plus loin: init.d script
 
-a) créer un répertoire de log
+##### 1) créer un répertoire de log
 
     # su odoo
     $ mkdir /home/odoo/log
 
-b) créer fichier de config odoo
+##### 2) créer fichier de config odoo
 
     $ cd /home/odoo/odoo
     $ ./odoo.py -s -c /home/odoo/odoo.conf --stop-after-init --logfile=/home/odoo/log/odoo.log
 
-c) Créer le fichier init.d
+##### 3) Créer le fichier init.d
 
     $ exit
     $ vim /etc/init.d/odoo  
@@ -169,30 +174,30 @@ copier le contenu dans le fichier (gedit va aussi bien que vim)
 
     exit 0
 
-d) donner les bons droits au fichier
+##### 4) donner les bons droits au fichier
 
     # chmod 755 /etc/init.d/odoo
 
-e) tester le script
+##### 5) tester le script
     
     # /etc/init.d/odoo start
 
 tester à nouveau sur localhost:8069
 
-f) faire en sorte que le script s'exécute au démarrage
+##### 6) faire en sorte que le script s'exécute au démarrage
 
     # update-rc.d odoo defaults
 
 
-13) pour aller plus loin: proxy nginx
+## Pour aller plus loin: proxy nginx
 
-a) installer nginx
+##### 1) installer nginx
 
     # apt-get install nginx
 
 vous pouvez tester l'installation réussie sur http://localhost
 
-b) configurer nginx pour odoo : editer le fichier de conf
+##### 2) configurer nginx pour odoo : editer le fichier de conf
 
     # vim /etc/nginx/sites-enabled/default
 
@@ -221,7 +226,7 @@ supprimer le contenu et le remplacer par
             }
     }
 
-c) tester la config et relancer nginx 
+##### 3) tester la config et relancer nginx 
 
     # nginx -t
     # nginx -s reload
@@ -230,7 +235,9 @@ tester http://localhost
 
 devrait conduire à odoo (ne pas oublier de vider le cache de son navigateur au cas ou ca ne marche pas tout de suite)
 
-14) un peu de sécurité: odoo plus accessible sur le port et changer le master password
+## Sécurité
+
+> odoo plus accessible sur le port et changer le master password
 
 a) editer fichier de conf de odoo
 
@@ -249,9 +256,4 @@ pour
 b) redémarrer odoo
 
     # /etc/init.d/odoo restart
-
-
-
--- 
-Thibault François 
 
