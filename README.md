@@ -36,7 +36,7 @@ Download and install [wkhtmltopdf version 0.12.1](https://github.com/wkhtmltopdf
 $ createuser -d odoo
 $ createdb beescoop -o odoo
 $ gunzip <dump-file>.sql.gz
-$ psql beescoop <dump-file>.sql
+$ psql beescoop < <dump-file>.sql
 ```
 
 ##### 4) deactivate cron jobs and mails 
@@ -71,8 +71,8 @@ addons_path=addons,openerp/addons,$ODOO_HOME/obeesdoo,$ODOO_HOME/vertical-cooper
 
 ```
 $ cd ~/projects/odoo
-$ psql -d tmp_march_beescoop -c "truncate product_scale_log"
-$ python odoo.py -c $ODOO_HOME/odoo.conf -u all -d odoo-test --stop-after-init
+$ psql -d beescoop -c "truncate product_scale_log"
+$ python odoo.py -c $ODOO_HOME/odoo.conf -u all -d beescoop --stop-after-init
 ```
 
 ### Troubleshoot
