@@ -146,7 +146,6 @@
                       <div>
                           <div class="imgContainer">
                               <div style="canvasImg">
-                                  <img alt="Embedded Image" t-att-src="'data:image/png;base64,' + partner.image"
                                       class="imgRestrict" />
                               </div>
                           </div>
@@ -218,5 +217,4 @@
             </div>
         </t>
     </template>
-
 </odoo>
