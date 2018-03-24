@@ -80,6 +80,7 @@
                         <field name="sc" />
                         <field name="irregular_absence_counter" attrs="{'invisible':[('working_mode', '!=', 'irregular')]}" />
                         <field name="unsubscribed" />
+                        <field name="resigning" />
                         <field name="can_shop" />
                     </group>
                     <group string="Timing information">

@@ -5,7 +5,8 @@
         <field name="arch" type="xml">
             <form>
                 <group attrs="{'invisible': [('unsubscribed', '=', False)]}">
-                    <separator string="Are you sure to unsubscribe this cooperator ?" />
+                    <separator string="Are you sure to unsubscribe this cooperator ?"  colspan="2"/>
+                    <field name="resigning" />
                     <field name="unsubscribed" invisible="1" />
                 </group>
                 <group attrs="{'invisible': [('unsubscribed', '=', True)]}">

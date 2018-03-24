@@ -64,11 +64,13 @@ class CooperativeStatus(models.Model):
                                ('extension', 'Extension'),
                                ('suspended', 'Suspended'),
                                ('exempted', 'Exempted'),
-                               ('unsubscribed', 'Unsubscribed')],
+                               ('unsubscribed', 'Unsubscribed'),
+                               ('resigning', 'Resigning')],
                               compute="_compute_status", string="Cooperative Status", store=True)
     can_shop = fields.Boolean(compute='_compute_status', store=True)
     history_ids = fields.One2many('cooperative.status.history', 'status_id', readonly=True)
     unsubscribed = fields.Boolean(default=False, help="Manually unsubscribed")
+    resigning = fields.Boolean(default=False, help="Want to leave the beescoop")
 
     #Specific to irregular
     irregular_start_date = fields.Date()  #TODO migration script
@@ -85,7 +87,7 @@ class CooperativeStatus(models.Model):
                  'alert_start_time', 'extension_start_time',
                  'unsubscribed', 'irregular_absence_date',
                  'irregular_absence_counter', 'temporary_exempt_start_date',
-                 'temporary_exempt_end_date')
+                 'temporary_exempt_end_date', 'resigning')
     def _compute_status(self):
         alert_delay = int(self.env['ir.config_parameter'].get_param('alert_delay', 28))
         grace_delay = int(self.env['ir.config_parameter'].get_param('default_grace_delay', 10))
@@ -94,6 +96,10 @@ class CooperativeStatus(models.Model):
             if update or not rec.today:
                 rec.status = 'ok'
                 rec.can_shop = True
+                continue
+            if rec.resigning:
+                rec.status = 'resigning'
+                rec.can_shop = False
                 continue
 
             if rec.working_mode == 'regular':
