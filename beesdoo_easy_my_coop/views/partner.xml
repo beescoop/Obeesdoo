@@ -8,4 +8,21 @@
 			<field name="cooperator_type" position="replace" />
 		</field>
 	</record>
+
+    <record model="ir.ui.view" id="beesdoo_easy_my_coop_partner_search_view">
+        <field name="name">beesdoo_easy_my_coop.partner.search.view</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="beesdoo_base.beesdoo_partner_search_view" />
+        <field name="arch" type="xml">
+            <filter name="type_a" position="replace">
+                <filter name="type_a" string="Cooperator type A" domain="[('cooperator_type', '=', 'share_a'), ('member', '=', True)]" />
+            </filter>
+            <filter name="type_b" position="replace">
+                <filter name="type_b" string="Cooperator type B" domain="[('cooperator_type', '=', 'share_b'), ('member', '=', True)]" />
+            </filter>
+            <filter name="type_c" position="replace">
+                <filter name="type_c" string="Cooperator type C" domain="[('cooperator_type', '=', 'share_c'), ('member', '=', True)]" />
+            </filter>
+        </field>
+    </record>
 </odoo>
