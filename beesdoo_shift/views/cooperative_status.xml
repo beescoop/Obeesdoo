@@ -70,7 +70,7 @@
                         <field name="working_mode" />
                         <field name="irregular_start_date" attrs="{'invisible':[('working_mode', '!=', 'irregular')]}" />
                         <field name="irregular_absence_date" attrs="{'invisible':[('working_mode', '!=', 'irregular')]}" />
-                        
+
                         <field name="exempt_reason_id" attrs="{'invisible':[('working_mode', '!=', 'exempt')]}"/>
                     </group>
                     <group string="Counter and Status">
@@ -84,6 +84,7 @@
                         <field name="can_shop" />
                     </group>
                     <group string="Timing information">
+                        <field name="future_alert_date" readonly="1" />
                         <field name="time_extension" />
                         <field name="holiday_start_time" />
                         <field name="holiday_end_time" />
@@ -132,7 +133,7 @@
             </tree>
         </field>
     </record>
-    
+
     <record model="ir.ui.view" id="journal_form_view">
         <field name="name">Journal Form View</field>
         <field name="model">beesdoo.shift.journal</field>
@@ -179,13 +180,13 @@
         sequence="1" />
     <menuitem name="Worker" id="menu_worker" parent="menu_worker_top"
         action="action_worker" />
-        
+
     <record model="ir.actions.act_window" id="action_journal">
         <field name="name">Counter Journal</field>
         <field name="res_model">beesdoo.shift.journal</field>
         <field name="view_mode">tree,form</field>
     </record>
-        
+
     <menuitem name="Counter Update Journal" id="menu_journal" parent="menu_status_top"
         action="action_journal" groups="beesdoo_shift.group_cooperative_admin" />
 </odoo>
