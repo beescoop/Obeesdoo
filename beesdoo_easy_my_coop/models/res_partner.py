@@ -7,11 +7,13 @@ class Partner(models.Model):
     cooperator_type = fields.Selection(selection='_get_share_type', compute='_compute_share_type', string='Cooperator Type', store=True)
 
     @api.multi
-    @api.depends('share_ids', 'share_ids.share_product_id', 'share_ids.share_product_id.default_code')
+    @api.depends('share_ids', 'share_ids.share_product_id', 'share_ids.share_product_id.default_code', 'share_ids.share_number')
     def _compute_share_type(self):
         for rec in self:
-            codes = rec.share_ids.mapped('share_product_id.default_code')
-            rec.cooperator_type = codes[0] if codes else ''
+            if rec.share_ids and rec.share_ids[0].share_number > 0:
+                rec.cooperator_type = rec.share_ids[0].share_product_id.default_code
+            else:
+                rec.cooperator_type = ''
 
     @api.multi
     def _get_share_type(self):
