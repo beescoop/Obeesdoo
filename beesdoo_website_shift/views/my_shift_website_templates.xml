@@ -485,8 +485,7 @@
     id="help_text_common"
     name="Help Text Common">
     <div class="oe_structure alert alert-info">
-      <strong>Info!</strong> Errors can occure. If you do not agree with your status, please contact us. We will find a
-      solution.
+      <strong>Info!</strong> If you do not agree with your status, please contact the members office by mail (membre@bees-coop.be) or during the open hours of the office (Monday 5PM to 7:30PM, Wednesday 5PM to 7:30 PM and Friday 2:30PM to 5 PM).
     </div>
 
     <p class="oe_structure">
@@ -495,7 +494,7 @@
 
     <p class="oe_structure">
       <strong>Up To Date:</strong>
-      Very good. Everything is in order. You can shop. Thank you for your work.
+      That's perfect! You are in order. Thanks a lot. You can come and shop, so can your eaters if you have any.
     </p>
   </template>
 
@@ -504,25 +503,31 @@
     name="Help Text for Regular Worker">
     <p class="oe_structure">
       <strong>Alert:</strong>
-      You did not perform your last shift. You should do one or two compensatory shift depending on your situation. To
-      know how many compensatory shift you should do, please contact your super-cooperator. You don't have to sign up to
-      a shift in order to do your compensatory shift. Simply choose a shift that that suits you. You can shop.
+      If you are in alert status, that means you didn't do your last shift. You have
+      until your next scheduled shift to do your compensation shift according to your situation.
+      Your compensation is either simple or double. If you don't how how many compensation shifts you have to do, please contact your supercooperator.
+      To do your compensation shift, no need to subscribe in advance : you come at the beginning of the shift that best suits you.
+      Add your name and the indication "compensation shift" on the attendance list.
+      No panic, you still can come and shop, so can your eaters if you have any.
     </p>
     <p class="oe_structure">
       <strong>Suspended:</strong>
-      You did not perform your last shift and you did not perform your compensatory shifts. You can not shop anymore.
-      But don't panic, contact us at the store and you will receive an extension of two weeks to do your compensatory
-      shift. To do you compensatory shifts, simply sign up to a shift as before you where in Alert.
+      If you are suspended, that means you didn't come to a shift and you didn't do you compensation shifts in the delay (4 weeks).
+      You cannot shop (so as your eaters). But no need to panic : a two-weeks delay is activable on demand at the entrance of the supermarket.
+      You will be able to shop during 2 more weeks and to put your situation in order.
+      To do your compensation shift, no need to subscribe in advance : you come at the beginning of the shift that best suits you.
+      Add your name and the indication "compensation shift" on the attendance list.
     </p>
     <p class="oe_structure">
-      <strong>Extension:</strong>
-      You did not perform your last shift and you did not perform your compensation shifts. You can shop. You have
-      <t t-esc="status.time_extension"/> days to do your shifts otherwise you will be Suspended.
+      <strong>Auto-Extension:</strong>
+      You didn't manage to do your compensation shifts in the delay but you benefit from the auto-extension.
+      This is two more weeks to do your compensation shifts. You can shop.
+      If you don't do your compensation shifts, you'll be suspended.
     </p>
     <p class="oe_structure">
       <strong>Unsubscribed:</strong>
-      You did not perform your last two shifts. You are unsubscribed from the shift system. You can not shop anymore,
-      neither work at the store. If you want to subscribe again, please contact us.
+      You did not attend two consecutive shifts. You are now unsubscribed. You cannot shop (nor can your eaters) nor come to work.
+      To subscribe again, please contact membre@bees-coop.be or come to the members office during the opening hours.
     </p>
   </template>
 
@@ -531,26 +536,31 @@
     name="Help Text for Irregular Worker">
     <p class="oe_structure">
       <strong>Alert:</strong>
-      You did not perform enough shifts in advance. Your shift counter is negative (-2). You should perform two shifts
-      during the next four weeks in order to be Up To Date. To do you compensatory shifts, simply sign up to a shift as
-      before you where in Alert. You can still shop.
+      If you are in alert status, that means you didn't anticipate enough shifts.
+      Your counter is now negative, directly to -2.
+      You have 4 weeks to do 2 shifts to be up to date.
+      For the compensation shifts, subscribe like you do for a normal shift.
+      Be careful, in addition to these 2 shifts, don't forget to do your normal shift in the same delay to prevent to be in the same situation next month.
     </p>
     <p class="oe_structure">
       <strong>Suspended:</strong>
-      You did not perform enough shifts in advance and you did not perform your compensatory shifts. You can not shop
-      anymore. But don't panic, contact us at the store and you will receive an extension of two weeks to do your
-      compensatory shift. To do you compensatory shifts, simply sign up to a shift as before you where in Alert.
+      You did not anticipate enough shifts and you did not come back to a normal situation in the delay.
+      You cannot shop anymore, nor can your eaters.
+      But no need to panic : a two-weeks delay is activable on demand at the entrance of the supermarket.
+      You will be able to shop during 2 more weeks and to put your situation in order.
+      For the compensation shifts, subscribe like you do for a normal shift.
     </p>
     <p class="oe_structure">
-      <strong>Extension:</strong>
-      You did not perform enough shifts in advance and you did not perform your compensatory shifts. You can shop. You
-      have <t t-esc="status.time_extension"/> days to do your shifts otherwise you will be Suspended.
+      <strong>Auto-Extension:</strong>
+      You didn't manage to do your compensation shifts in the delay but you benefit from the auto-extension.
+      This is two more weeks to do your compensation shifts. You can shop.
+      If you don't do your compensation shifts, you'll be suspended.
     </p>
     <p class="oe_structure">
       <strong>Unsubscribed:</strong>
-      It's been more than height weeks since you last worked at the store or you have missed 2 consecutive shifts. You
-      are unsubscribed from the shift system. You can not shop anymore, neither work at the store. If you want to
-      subscribe again, please contact us.
+      Your counter is negative and you haven't come to work for more than 8 weeks.
+      You are unsubscribed. You cannot shop nor can your eaters.
+      To subscribe again of if it's a mistake, please contact membre@bees-coop.be or come to the members office during the opening hours.
     </p>
   </template>
 
