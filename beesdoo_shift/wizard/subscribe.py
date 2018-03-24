@@ -52,6 +52,7 @@ class Subscribe(models.TransientModel):
     reset_compensation_counter = fields.Boolean(default=False)
     unsubscribed = fields.Boolean(default=False, string="Are you sure to unsubscribe this cooperator")
     irregular_start_date = fields.Date(string="Start Date", default=fields.Date.today)
+    resigning = fields.Boolean(default=False, help="Want to leave the beescoop")
 
     
 
@@ -65,6 +66,7 @@ class Subscribe(models.TransientModel):
         data = {
             'unsubscribed': True,
             'cooperator_id': self.cooperator_id.id,
+            'resigning' : self.resigning,
         }
         if status_id:
             status_id.sudo().write(data)
