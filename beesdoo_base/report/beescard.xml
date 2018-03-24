@@ -146,6 +146,7 @@
                       <div>
                           <div class="imgContainer">
                               <div style="canvasImg">
+                                  <img alt="Embedded Image" t-att-src="/beesdoo_base/static/src/img/logo-beescoop.svg"
                                       class="imgRestrict" />
                               </div>
                           </div>
