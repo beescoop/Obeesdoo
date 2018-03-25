@@ -37,6 +37,7 @@ class Task(models.Model):
     is_regular = fields.Boolean(default=False)
     replaced_id = fields.Many2one('res.partner', track_visibility='onchange', domain=[('eater', '=', 'worker_eater')])
     revert_info = fields.Text()
+    working_mode = fields.Selection(related='worker_id.working_mode')
 
     def message_auto_subscribe(self, updated_fields, values=None):
         self._add_follower(values)
