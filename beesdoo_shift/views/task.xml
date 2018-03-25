@@ -27,33 +27,38 @@
                 <field name="name" />
                 <field name="super_coop_id" />
                 <field name="worker_id" />
-                <group>
                     <filter string="My Team Shift"
                         domain="[('super_coop_id', '=', uid)]" />
                     <filter string="My Shift"
                         domain="[('worker_id.user_ids', 'in', uid)]" />
-                </group>
-                <group>
-
+                    <separator />
                     <filter string="Assigned" name="assigned"
                         domain="[('worker_id', '!=', False)]" />
                     <filter string="Unassigned" name="unassigned"
                         domain="[('worker_id', '=', False)]" />
-                </group>
-                <group>
+                    <separator />
+                    <filter string="J-5" name="jminus1"
+                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=5)).strftime('%%Y-%%m-%%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=5)).strftime('%%Y-%%m-%%d 23:59:59'))]" />
+                    <filter string="J-4" name="jminus1"
+                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=4)).strftime('%%Y-%%m-%%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=4)).strftime('%%Y-%%m-%%d 23:59:59'))]" />
+                    <filter string="J-3" name="jminus1"
+                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=3)).strftime('%%Y-%%m-%%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=3)).strftime('%%Y-%%m-%%d 23:59:59'))]" />
+                    <filter string="J-2" name="jminus1"
+                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=2)).strftime('%%Y-%%m-%%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=2)).strftime('%%Y-%%m-%%d 23:59:59'))]" />
+                    <filter string="J-1" name="jminus1"
+                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=1)).strftime('%%Y-%%m-%%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=1)).strftime('%%Y-%%m-%%d 23:59:59'))]" />
                     <filter string="Today" name="today"
                         domain="[('end_time','&gt;', context_today().strftime('%%Y-%%m-%%d 00:00:00')), ('start_time','&lt;', context_today().strftime('%%Y-%%m-%%d 23:59:59'))]" />
-                    <filter string="Attendance" name="attendance"
-                        domain="[('end_time','&gt;', context_today().strftime('%%Y-%%m-%%d 00:00:00')), ('start_time','&lt;', context_today().strftime('%%Y-%%m-%%d 23:59:59')), ('worker_id', '!=', False)]" />
+                <group expand="1" string="Group By">
+                    <filter string="Shift Template"
+                        context="{'group_by' : 'task_template_id'}" />
+                    <filter string="Type" name="gb_type"
+                        context="{'group_by' : 'task_type_id'}" />
+                    <filter string="Status" name="gb_status"
+                        context="{'group_by' : 'stage_id'}" />
+                    <filter string="Day" name="gb_day"
+                        context="{'group_by' : 'start_time:day'}" />
                 </group>
-                <filter string="Shift Template"
-                    context="{'group_by' : 'task_template_id'}" />
-                <filter string="Type" name="gb_type"
-                    context="{'group_by' : 'task_type_id'}" />
-                <filter string="Status" name="gb_status"
-                    context="{'group_by' : 'stage_id'}" />
-                <filter string="Day" name="gb_day"
-                    context="{'group_by' : 'start_time:day'}" />
             </search>
         </field>
     </record>
@@ -194,7 +199,9 @@
         <field name="name">Shift Attendance</field>
         <field name="res_model">beesdoo.shift.shift</field>
         <field name="view_mode">kanban,tree,form</field>
-        <field name="context">{'search_default_attendance': 1,
+        <field name="context">{
+            'search_default_assigned': 1,
+            'search_default_today': 1,
             'search_default_gb_status':1}</field>
     </record>
 
