@@ -602,7 +602,7 @@
       <section class="wrap">
         <div class="container">
           <div class="row">
-            <div class="col-xs-12 col-md-4 pull-right">
+            <div class="col-xs-12 col-md-4 pull-right text-justify">
 
               <t t-call="beesdoo_website_shift.my_shift_worker_status_title"/>
 
@@ -730,9 +730,9 @@
                 <t t-esc="status.sr"/>
               </p>
 
-              <p t-if="future_alert_date">
+              <p t-if="status.future_alert_date">
                 <label>Future Date of Alert:</label>
-                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(future_alert_date, '%Y-%m-%d'))"/>
+                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.future_alert_date, '%Y-%m-%d'))"/>
               </p>
 
               <p t-if="status.irregular_absence_date">
@@ -776,7 +776,7 @@
               <section class="wrap">
                 <div class="container">
                   <div class="row">
-                    <div class="col-xs-12 col-sm-6">
+                    <div class="col-xs-12 col-sm-6 text-justify">
                       <p>
                         Please, subscribe, in priority, to the highlighted shifts. To sign up to a shift click on the
                         subscribe button. Notice that you can not unsubscribe online. To unsubscribe to a shift, please,

@@ -5,7 +5,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from ast import literal_eval
-from copy import copy
 from datetime import datetime, timedelta
 from itertools import groupby
 
@@ -14,8 +13,7 @@ from openerp.http import request
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DATETIME_FORMAT
 
 from openerp.addons.beesdoo_shift.models.planning import float_to_time
-
-PERIOD = 28  # TODO: use the same constant as in 'beesdoo_shift'
+from openerp.addons.beesdoo_shift.models.cooperative_status import PERIOD
 
 
 class WebsiteShiftController(http.Controller):
@@ -126,10 +124,6 @@ class WebsiteShiftController(http.Controller):
         """
         Return template variables for 'beesdoo_website_shift.my_shift_irregular_worker' template
         """
-        # Get current user
-        cur_user = request.env['res.users'].browse(request.uid)
-        cur_cooperative_status = cur_user.partner_id.cooperative_status_ids
-
         # Get config
         irregular_enable_sign_up = literal_eval(request.env['ir.config_parameter'].get_param(
             'beesdoo_website_shift.irregular_enable_sign_up'))
@@ -144,19 +138,6 @@ class WebsiteShiftController(http.Controller):
             irregular_enable_sign_up, nexturl
         ))
 
-        future_alert_date = False
-        if not cur_cooperative_status.alert_start_time:
-            # Compute date before which the worker is up to date
-            today_date = fields.Date.from_string(cur_cooperative_status.today)
-            delta = (today_date - fields.Date.from_string(cur_cooperative_status.irregular_start_date)).days
-            future_alert_date = today_date + timedelta(days=(cur_cooperative_status.sr + 1) * PERIOD - delta % PERIOD)
-            future_alert_date = future_alert_date.strftime('%Y-%m-%d')
-
-        template_context.update(
-            {
-                'future_alert_date': future_alert_date,
-            }
-        )
         return template_context
 
     def my_shift_regular_worker(self):
