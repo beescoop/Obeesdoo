@@ -757,6 +757,22 @@
 
             <div class="col-xs-12 col-md-8">
 
+              <div t-if="back_from_subscription"
+                role="alert"
+                t-att-class="'alert alert-%s alert-dismissible' % ('success' if success else 'danger',)">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+                <t t-if="success">
+                  <strong>Success!</strong> Your subscription has succeded.
+                </t>
+                <t t-if="not success">
+                  <strong>Failed!</strong> Your subscription has failed. Someone
+                  subscribed before you or the shift was deleted. Try again in a
+                  moment.
+                </t>
+              </div>
+
               <t t-call="beesdoo_website_shift.my_shift_next_shifts"/>
 
               <section class="wrap">

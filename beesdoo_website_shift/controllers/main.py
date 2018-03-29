@@ -77,11 +77,13 @@ class WebsiteShiftController(http.Controller):
         irregular_enable_sign_up = literal_eval(request.env['ir.config_parameter'].get_param(
             'beesdoo_website_shift.irregular_enable_sign_up'))
 
+        request.session['success'] = False
         if (irregular_enable_sign_up
                 and cur_user.partner_id.working_mode == 'irregular'
                 and shift
                 and not shift.worker_id):
             shift.worker_id = cur_user.partner_id
+            request.session['success'] = True
         return request.redirect(kw['nexturl'])
 
     @http.route('/shift_irregular_worker', auth='public', website=True)
@@ -137,6 +139,13 @@ class WebsiteShiftController(http.Controller):
         template_context.update(self.available_shift_irregular_worker(
             irregular_enable_sign_up, nexturl
         ))
+
+        # Add feedback about the success or the fail of the subscription
+        template_context['back_from_subscription'] = False
+        if 'success' in request.session:
+            template_context['back_from_subscription'] = True
+            template_context['success'] = request.session.get('success')
+            del request.session['success']
 
         return template_context
 
