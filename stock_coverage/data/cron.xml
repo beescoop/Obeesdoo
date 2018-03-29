@@ -1,0 +1,14 @@
+<odoo>
+    <data noupdate="0">
+        <record id="ir_cron_update_article_consumption" model="ir.cron">
+            <field name="name">Stock Coverage - Update Article Consumption</field>
+            <field name="interval_number">24</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+            <field name="model">product.template</field>
+            <field name="function">_batch_compute_total_consumption</field>
+            <field name="args">()</field>
+        </record>
+    </data>
+</odoo>

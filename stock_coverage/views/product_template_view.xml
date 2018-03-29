@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+  <record id="beesdoo_product_form" model="ir.ui.view">
+      <field name="name">template.consumption.form</field>
+      <field name="model">product.template</field>
+      <field eval="7" name="priority"/>
+      <field name="inherit_id" ref="product.product_template_only_form_view"/>
+      <field name="arch" type="xml">
+      <group name="stock_property" position="after">
+        <group name="Consumption Figures">
+          <field name="consumption_calculation_method"/>
+          <field name="calculation_range" />
+          <field name="average_consumption"/>
+          <field name="total_consumption"/>
+          <field name="estimated_stock_coverage"/>
+        </group>
+      </group>
+    </field>
+  </record>
+
+  <record id="beesdoo_product_tree" model="ir.ui.view">
+      <field name="name">template.consumption.tree</field>
+      <field name="model">product.template</field>
+      <field eval="7" name="priority"/>
+      <field name="inherit_id" ref="product.product_template_tree_view"/>
+      <field name="arch" type="xml">
+
+        <tree>
+          <field name="volume" invisible="1"/>
+          <field name="weight" invisible="1"/>
+          <field name="estimated_stock_coverage"/>
+          <field name="average_consumption"/>
+          <field name="total_consumption"/>
+          <field name="calculation_range"/>
+        </tree>
+
+    </field>
+  </record>
+</odoo>
