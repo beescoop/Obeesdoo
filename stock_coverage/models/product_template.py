@@ -26,6 +26,8 @@ class ProductTemplate(models.Model):
     total_consumption = fields.Float(
         string='Total Consumption',
         default=0,
+        compute='_compute_total_consumption',
+        store=True,
         readonly=True,
         digits=(100, 2),
     )
@@ -39,7 +41,7 @@ class ProductTemplate(models.Model):
     )
 
     @api.multi
-    @api.depends('calculation_range')
+    @api.depends('total_consumption')
     def _compute_average_daily_consumption(self):
         for template in self:
             if template.calculation_range > 0:
@@ -51,7 +53,7 @@ class ProductTemplate(models.Model):
         return True
 
     @api.multi
-    @api.onchange('calculation_range')
+    @api.depends('calculation_range')
     def _compute_total_consumption(self):
         for template in self:
             products = (
@@ -73,15 +75,14 @@ class ProductTemplate(models.Model):
 
             if order_lines:
                 order_lines = order_lines.filtered(
-                    lambda oi: oi.order_id.state in ['done', 'invoiced', 'paid'])  # noqa
-                res = sum(order_lines.mapped('qty'))
+                    lambda ol: ol.order_id.state in ['done', 'invoiced', 'paid'])  # noqa
+                template.total_consumption = sum(order_lines.mapped('qty'))
             else:
-                res = 0
-            template.total_consumption = res
+                template.total_consumption = 0
         return True
 
     @api.multi
-    @api.depends('calculation_range')
+    @api.depends('total_consumption')
     def _compute_estimated_stock_coverage(self):
         for product_template in self:
             qty = product_template.qty_available

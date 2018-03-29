@@ -58,7 +58,7 @@ class TestProductTemplate(TransactionCase):
                 }
             return {pid: mock_data for pid in products.ids}
 
-        # mock area
+        # mock area fixme
         # ProductTemplate._product_available = _product_available
         # ProductProduct._product_available = _product_available
         # Order = namedtuple('Order', ['id', 'state'])
@@ -92,7 +92,7 @@ class TestProductTemplate(TransactionCase):
         expected_value = 57.11
         self.assertAlmostEqual(computed_value, expected_value)
 
-    # def test_compute_estimated_stock_coverage(self):
+    # def test_compute_estimated_stock_coverage(self):  fixme
     #     """Test computed field estimated_stock_coverage"""
     #     ProductTemplate = self.env['product.template']
     #     product_template = ProductTemplate.browse(self.product_template_id)
