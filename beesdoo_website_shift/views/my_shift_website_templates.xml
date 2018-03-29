@@ -145,7 +145,7 @@
           <button type="button" class="btn btn-default btn-sm pull-right"
             t-if="shift.super_coop_id.name"
             data-toggle="modal"
-            t-att-data-target="'#super_coop-shift-%s' % shift.id">
+            t-att-data-target="'#super_coop-shift-%s' % shift_index">
             <span class="fa fa-info" aria-hidden="true"></span>
             Super Cooperator Info
           </button>
@@ -183,7 +183,7 @@
               <button type="button" class="btn btn-default btn-sm"
                 t-if="shift.super_coop_id.name"
                 data-toggle="modal"
-                t-att-data-target="'#super_coop-shift-%s' % shift.id">
+                t-att-data-target="'#super_coop-shift-%s' % shift_index">
                 <span class="fa fa-info" aria-hidden="true"></span>
               </button>
             </td>
@@ -194,15 +194,15 @@
 
     <!-- Super Cooperator info modal -->
     <t t-foreach="subscribed_shifts" t-as="shift">
-      <div class="modal fade" t-if="shift.super_coop_id.name" t-att-id="'super_coop-shift-%s' % shift.id" tabindex="-1" role="dialog"
-        t-att-aria-labelledby="'super_coop-shift-%s-label' % shift.id">
+      <div class="modal fade" t-if="shift.super_coop_id.name" t-att-id="'super_coop-shift-%s' % shift_index" tabindex="-1" role="dialog"
+        t-att-aria-labelledby="'super_coop-shift-%s-label' % shift_index">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
               </button>
-              <h4 class="modal-title" t-att-id="'super_coop-shift-%s-label' % shift.id">
+              <h4 class="modal-title" t-att-id="'super_coop-shift-%s-label' % shift_index">
                 <t t-esc="shift.super_coop_id.name"/>
               </h4>
             </div>
