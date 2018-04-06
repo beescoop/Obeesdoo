@@ -100,12 +100,9 @@ class Task(models.Model):
     def _revert(self):
         if not self.revert_info:
             return
-        try:
-            data = json.loads(self.revert_info)
-            self.env['cooperative.status'].browse(data['status_id'])._change_counter(data['data'])
-            self.revert_info = False
-        except:
-            pass
+        data = json.loads(self.revert_info)
+        self.env['cooperative.status'].browse(data['status_id']).sudo()._change_counter(data['data'])
+        self.revert_info = False
 
     def _update_stage(self, old_stage, new_stage):
         self.ensure_one()
@@ -160,5 +157,7 @@ class Task(models.Model):
                 data['irregular_absence_date'] = self.start_time[:10]
                 data['irregular_absence_counter'] = -1
 
+        else:
+            raise UserError(_("The worker has not a proper working mode define, please check the worker is subscribed"))
         status.sudo()._change_counter(data)
         self._set_revert_info(data, status)
