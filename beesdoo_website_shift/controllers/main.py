@@ -7,10 +7,10 @@
 from ast import literal_eval
 from datetime import datetime, timedelta
 from itertools import groupby
+from pytz import timezone, utc
 
 from openerp import http, fields
 from openerp.http import request
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DATETIME_FORMAT
 
 from openerp.addons.beesdoo_shift.models.planning import float_to_time
 from openerp.addons.beesdoo_shift.models.cooperative_status import PERIOD
@@ -32,6 +32,34 @@ class WebsiteShiftController(http.Controller):
         user = request.env['res.users'].browse(request.uid)
         working_mode = user.partner_id.working_mode
         return working_mode == 'exempt'
+
+    def add_days(self, datetime, days):
+        """
+        Add the number of days to datetime. This take the DST in
+        account, meaning that the UTC time will be correct even if the
+        new datetime has cross the DST boundary.
+
+        :param datetime: a naive datetime expressed in UTC
+        :return: a naive datetime expressed in UTC with the added days
+        """
+        # Ensure that the datetime given is without a timezone
+        assert datetime.tzinfo is None
+        # Get current user and user timezone
+        cur_user = request.env['res.users'].browse(request.uid)
+        user_tz = timezone(cur_user.tz)
+        # Convert to UTC
+        dt_utc = utc.localize(datetime, is_dst=False)
+        # Convert to user TZ
+        dt_local = dt_utc.astimezone(user_tz)
+        # Add the number of days
+        newdt_local = dt_local + timedelta(days=days)
+        # If the newdt_local has cross the DST boundary, its tzinfo is
+        # no longer correct. So it will be replaced by the correct one.
+        newdt_local = user_tz.localize(newdt_local.replace(tzinfo=None))
+        # Now the newdt_local has the right DST so it can be converted
+        # to UTC.
+        newdt_utc = newdt_local.astimezone(utc)
+        return newdt_utc.replace(tzinfo=None)
 
     @http.route('/my/shift', auth='user', website=True)
     def my_shift(self, **kw):
@@ -283,11 +311,6 @@ class WebsiteShiftController(http.Controller):
                 'beesdoo_website_shift.regular_next_shift_limit'))
 
             for i in range(nb_subscribed_shifts, regular_next_shift_limit):
-                # Compute the new date for the created shift
-                start_time = fields.Datetime.from_string(main_shift.start_time)
-                start_time = (start_time + timedelta(days=i*PERIOD)).strftime(DATETIME_FORMAT)
-                end_time = fields.Datetime.from_string(main_shift.end_time)
-                end_time = (end_time + timedelta(days=i*PERIOD)).strftime(DATETIME_FORMAT)
                 # Create the fictive shift
                 shift = main_shift.new()
                 shift.name = main_shift.name
@@ -302,8 +325,14 @@ class WebsiteShiftController(http.Controller):
                 shift.replaced_id = main_shift.replaced_id
                 shift.revert_info = main_shift.revert_info
                 # Set new date
-                shift.start_time = start_time
-                shift.end_time = end_time
+                shift.start_time = self.add_days(
+                    fields.Datetime.from_string(main_shift.start_time),
+                    days=i*PERIOD
+                )
+                shift.end_time = self.add_days(
+                    fields.Datetime.from_string(main_shift.end_time),
+                    days=i*PERIOD
+                )
                 # Add the fictive shift to the list of shift
                 subscribed_shifts.append(shift)
 
