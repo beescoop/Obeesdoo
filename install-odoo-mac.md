@@ -35,9 +35,9 @@ $ npm install -g less
 I recommend using [virtualenvwrapper](http://virtualenvwrapper.readthedocs.io/en/latest/index.html)
 
 ```
-$ mkvirtualenv odoo -p /path/to/python2.7
-$ which python
-$ /Users/<user>/.virtualenvs/odoo/bin/python
+$ mkvirtualenv odoo -p /path/to/python2.7  # generally /usr/bin/python2.7
+$ which python  # should return:
+/Users/<user>/.virtualenvs/odoo/bin/python
 ```
 Use `deactivate` to get out of odoo environment, use `workon odoo` to activate the environment.
 
