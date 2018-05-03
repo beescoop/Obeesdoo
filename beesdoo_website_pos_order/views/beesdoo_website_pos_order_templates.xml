@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2015-2016 Odoo S.A.
+     Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
+     Copyright 2018 Rémy Taymans <remytaymans@gmail.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<openerp>
+
+  <!-- POS Order in the menu -->
+  <template
+      id="portal_my_home_menu_pos_order"
+      name="Portal Menu: POS Order"
+      inherit_id="website_portal_v10.portal_layout"
+      priority="28">
+    <xpath expr="//ul[contains(@class,'o_portal_submenu')]"
+        position="inside">
+      <li>
+        <a href="/my/pos_order">
+          POS Orders
+        </a>
+      </li>
+    </xpath>
+  </template>
+
+  <!-- POS Order on the main page -->
+  <template
+      id="portal_my_home_pos_order"
+      name="Portal My Home : POS Order"
+      inherit_id="website_portal_v10.portal_my_home"
+      priority="28">
+    <xpath expr="//div[contains(@class,'o_my_home_content')]"
+        position="inside">
+      <h3 class="page-header">
+        <a href="/my/pos_order">
+          Your POS Orders
+          <small class="ml8">
+            <t t-if="pos_order_count">
+              <span class='badge'>
+                <t t-esc="pos_order_count"/>
+              </span>
+            </t>
+            <t t-if="not pos_order_count">
+              There are currently no POS order for your account.
+            </t>
+          </small>
+        </a>
+      </h3>
+    </xpath>
+  </template>
+
+  <!-- POS Order page -->
+  <template id="portal_my_pos_order" name="My POS Order">
+    <t t-call="website_portal_v10.portal_layout">
+      <h3 class="page-header">Your POS Orders</h3>
+      <t t-if="not pos_orders">
+        <p>
+          There are currently no POS order for your account.
+        </p>
+      </t>
+      <t t-if="pos_orders">
+        <table class="table table-hover o_my_status_table">
+          <thead>
+            <tr class="active">
+              <th>Receipt</th>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Total Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr t-foreach="pos_orders" t-as="pos_order">
+              <td>
+                <a t-att-href="'/my/pos_order_receipt/pdf/%s'
+                  % pos_order.id">
+                  <t t-esc="pos_order.pos_reference"/>
+                </a>
+              </td>
+              <td>
+                <t t-esc="pos_order.name"/>
+              </td>
+              <td>
+                <span t-field="pos_order.date_order"/>
+              </td>
+              <td>
+                <span t-field="pos_order.amount_total"
+                  t-field-options='{
+                    "widget": "monetary",
+                    "display_currency": "pos_order.partner_id.company_id.currency_id"
+                  }'/>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div t-if="pager" class="o_portal_pager text-center">
+          <t t-call="website.pager"/>
+        </div>
+      </t>
+    </t>
+  </template>
+
+</openerp>
