@@ -45,8 +45,13 @@ class WebsiteShiftController(http.Controller):
         # Ensure that the datetime given is without a timezone
         assert datetime.tzinfo is None
         # Get current user and user timezone
+        # Take user tz, if empty use context tz, if empty use UTC
         cur_user = request.env['res.users'].browse(request.uid)
-        user_tz = timezone(cur_user.tz)
+        user_tz = utc
+        if cur_user.tz:
+            user_tz = timezone(cur_user.tz)
+        elif request.env.context['tz']:
+            user_tz = timezone(request.env.context['tz'])
         # Convert to UTC
         dt_utc = utc.localize(datetime, is_dst=False)
         # Convert to user TZ
