@@ -186,7 +186,7 @@ class CooperativeStatus(models.Model):
         #Check for holidays; Can be in holidays even in alert or other mode ?
         elif self.today >= self.holiday_start_time and self.today <= self.holiday_end_time:
             self.status = 'holiday'
-            self.can_shop = True
+            self.can_shop = False
         elif ok or (not self.alert_start_time and self.sr >= 0):
             self.status = 'ok'
             self.can_shop = True
