@@ -613,5 +613,5 @@ msgstr "place(s)"
 #. module: beesdoo_website_shift
 #: model:ir.ui.view,arch_db:beesdoo_website_shift.public_shift_irregular_worker
 msgid "volant@bees-coop.be"
-msgstr "membre@bees-coop.be"
+msgstr "volant@bees-coop.be"
 
