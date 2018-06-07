@@ -1,8 +1,9 @@
  # -*- coding: utf-8 -*-
 from openerp import models, fields, api
 from openerp.tools.translate import _
-from openerp.exceptions import UserError
+from openerp.exceptions import UserError, ValidationError
 import uuid
+
 
 class BeesdooProduct(models.Model):
     _inherit = "product.template"
@@ -85,13 +86,30 @@ class BeesdooProduct(models.Model):
         self.main_seller_id = sellers_ids and sellers_ids[0].name or False
 
     @api.one
-    @api.depends('taxes_id', 'list_price', 'taxes_id.amount', 'taxes_id.tax_group_id', 'total_with_vat', 'display_weight', 'weight')
+    @api.depends('taxes_id', 'list_price', 'taxes_id.amount',
+                 'taxes_id.tax_group_id', 'total_with_vat',
+                 'display_weight', 'weight')
     def _get_total(self):
-        consignes_group = self.env.ref('beesdoo_product.consignes_group_tax', raise_if_not_found=False)
+        consignes_group = self.env.ref('beesdoo_product.consignes_group_tax',
+                                       raise_if_not_found=False)
 
-        tax_amount_sum = sum([tax._compute_amount(self.list_price, self.list_price) for tax in self.taxes_id if tax.tax_group_id != consignes_group])
-        self.total_deposit = sum([tax._compute_amount(self.list_price, self.list_price) for tax in self.taxes_id if tax.tax_group_id == consignes_group])
-        self.total_with_vat = self.list_price + tax_amount_sum
+        taxes_included = set(self.taxes_id.mapped('price_include'))
+        if len(taxes_included) > 1:
+            raise ValidationError('Several tax strategies defined for %s' % self.name)
+
+        if taxes_included.pop():
+            self.total_with_vat = self.list_price
+            self.total_deposit = sum([tax._compute_amount(self.list_price, self.list_price) for tax in self.taxes_id if tax.tax_group_id == consignes_group])
+        else:
+            tax_amount_sum = sum([tax._compute_amount(self.list_price, self.list_price)
+                                  for tax in self.taxes_id
+                                  if tax.tax_group_id != consignes_group])
+            self.total_with_vat = self.list_price + tax_amount_sum
+
+        self.total_deposit = sum([tax._compute_amount(self.list_price, self.list_price)
+                                  for tax in self.taxes_id
+                                  if tax.tax_group_id == consignes_group])
+
         if self.display_weight > 0:
             self.total_with_vat_by_unit = self.total_with_vat / self.weight
 
@@ -157,4 +175,3 @@ class BeesdooUOMCateg(models.Model):
                               ('surface','Surface'),
                               ('volume','Volume'),
                               ('other','Other')],string='Category type',default='unit')
-    
