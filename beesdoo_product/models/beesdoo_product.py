@@ -96,7 +96,6 @@ class BeesdooProduct(models.Model):
         taxes_included = set(self.taxes_id.mapped('price_include'))
         if len(taxes_included) == 0 or not self.weight:
             self.total_with_vat = self.list_price
-            self.total_with_vat_by_unit = self.total_with_vat / self.weight
             return True
 
         elif len(taxes_included) > 1:
