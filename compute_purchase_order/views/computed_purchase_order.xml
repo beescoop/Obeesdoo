@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- views-->
+
+    <!--tree-->
+  <record id="computed_purchase_order_tree" model="ir.ui.view">
+    <field name="name">computed.purchase.order.tree</field>
+    <field name="model">computed.purchase.order</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="name"/>
+        <field name="supplier_id"/>
+        <field name="order_date"/>
+        <field name="date_planned"/>
+        <field name="total_amount"/>
+      </tree>
+    </field>
+  </record>
+
+    <!-- form -->
+  <record id="computed_purchase_order_form" model="ir.ui.view">
+    <field name="name">computed.purchase.order.form</field>
+    <field name="model">computed.purchase.order</field>
+    <field name="arch" type="xml">
+      <form>
+        <header>
+          <button type="object"
+                  name="create_purchase_order"
+                  string="Create Purchase Order"
+                  class="oe_highlight"/>
+        </header>
+
+        <sheet>
+          <group>
+            <group class="oe_left">
+              <field name="supplier_id" />
+              <field name="order_date" />
+              <field name="date_planned"/>
+              <field name="total_amount"/>
+              <field name="generated_purchase_order_ids" invisible='1'/>
+            </group>
+
+            <div name="buttons" class="oe_right oe_button_box">
+               <button class="oe_inline oe_stat_button"
+                       type="object"
+                       icon="fa-shopping-cart"
+                       name="get_generated_po_action"
+                       help="Generated Purchase Orders" >
+                 <field string="Purchase orders"
+                        name="generated_po_count"
+                        widget="statinfo"/>
+               </button>
+            </div>
+
+          </group>
+
+          <field name="order_line_ids" context="{'cpo_seller_id': supplier_id}">
+            <tree string="Order Lines" editable='bottom'>
+              <field name="product_template_id" domain="[('main_seller_id', '=', cpo_seller_id)]"/>
+              <field name="category_id" readonly='1'/>
+              <field name="qty_available" readonly='1'/>
+              <field name="uom_id" readonly='1'/>
+              <field name="average_consumption" readonly='1'/>
+              <field name="stock_coverage" readonly='1'/>
+              <field name="virtual_coverage" readonly='1'/>
+              <field name="product_price" readonly='1'/>
+              <field name="uom_po_id" readonly='1'/>
+              <field name="purchase_quantity"/>
+              <field name="subtotal" readonly='1'/>
+            </tree>
+          </field>
+        </sheet>
+
+
+      </form>
+    </field>
+  </record>
+
+  <!-- filters-->
+  <record id="computed_purchase_order_filter" model="ir.ui.view">
+    <field name="model">computed.purchase.order</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="supplier_id"/>
+      </search>
+    </field>
+  </record>
+
+  <!-- Menu item -->
+
+  <record id="action_computed_purchase_order" model="ir.actions.act_window">
+      <field name="name">Computed Purchase Orders</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">computed.purchase.order</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" eval="computed_purchase_order_tree"/>
+  </record>
+
+  <menuitem id="computed_purchase_order"
+    parent="purchase.menu_procurement_management"
+    action="action_computed_purchase_order"/>
+
+    <!-- Actions -->
+
+  <act_window id="action_view_form_computed_purchase_order"
+              name="Compute Purchase Order"
+              src_model="product.template"
+              res_model="computed.purchase.order"
+              view_mode="form"
+              view_id="computed_purchase_order_form"
+              target="current"
+              key2="client_action_multi"
+    />
+
+</odoo>
