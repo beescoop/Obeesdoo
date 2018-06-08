@@ -94,14 +94,14 @@ class BeesdooProduct(models.Model):
                                        raise_if_not_found=False)
 
         taxes_included = set(self.taxes_id.mapped('price_include'))
-        if len(taxes_included) == 0 or not self.weight:
+        if len(taxes_included) == 0:
             self.total_with_vat = self.list_price
             return True
 
         elif len(taxes_included) > 1:
-            raise ValidationError('Several tax strategies defined for %s' % self.name)
+            raise ValidationError('Several tax strategies (price_include) defined for %s' % self.name)
 
-        if taxes_included.pop():
+        elif taxes_included.pop():
             self.total_with_vat = self.list_price
             self.total_deposit = sum([tax._compute_amount(self.list_price, self.list_price) for tax in self.taxes_id if tax.tax_group_id == consignes_group])
         else:
