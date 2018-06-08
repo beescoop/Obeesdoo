@@ -13,6 +13,7 @@ the display range.
     'license': 'AGPL-3',
     'depends': [
         'product',
+        'purchase',
         'point_of_sale',
         'stock'
     ],

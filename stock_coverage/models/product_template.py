@@ -13,7 +13,7 @@ class ProductTemplate(models.Model):
     )
     calculation_range = fields.Integer(
         'Calculation range (days)',
-        default=365,  # todo sensible defaults, 14, 28?
+        default=14,
     )
 
     average_consumption = fields.Float(
@@ -68,9 +68,8 @@ class ProductTemplate(models.Model):
                 self.env['pos.order.line']
                     .search([
                         ('product_id', 'in', products.ids),
-                        ('create_date', '>',
-                            fields.Datetime.to_string(pol_date_limit))
-                ])
+                        ('create_date', '>', fields.Datetime.to_string(pol_date_limit))  # noqa
+                    ])
             )
 
             if order_lines:
@@ -116,10 +115,11 @@ class ProductTemplate(models.Model):
                     BETWEEN date_trunc('day', now()) - calculation_range * interval '1 days'
                         and date_trunc('day', now())
             group by product_template_id
-        """
+        """  # noqa
 
         self.env.cr.execute(query)
         results = {pid: qty for pid, qty in self.env.cr.fetchall()}
 
         for product in products:
-            product.total_consumption = results.get(product.id, product.total_consumption)
+            product.total_consumption = results.get(product.id,
+                                                    product.total_consumption)

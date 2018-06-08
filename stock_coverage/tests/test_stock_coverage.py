@@ -1,12 +1,7 @@
 # -*- coding: utf-8 -*-
-from collections import namedtuple
 
-from openerp.tests.common import TransactionCase
-from openerp.addons.stock.product import product_template as ProductTemplate
-from openerp.addons.stock.product import product_product as ProductProduct
 import datetime as dt
-
-# fixme setup tests based on demo data, test on a clean database
+from openerp.tests.common import TransactionCase
 
 _datetimes = map(
     lambda d: d.strftime('%Y-%m-%d %H:%M:%S'),
