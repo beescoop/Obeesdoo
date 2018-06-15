@@ -170,8 +170,12 @@ class ComputedPurchaseOrder(models.Model):
 
         for cpo_line in self.order_line_ids:
             if cpo_line.purchase_quantity > 0:
+                if cpo_line.supplierinfo_id.product_code:
+                    pol_name = '[%s] %s' % (cpo_line.supplierinfo_id.product_code, cpo_line.name)
+                else:
+                    pol_name = cpo_line.name
                 pol_values = {
-                    'name': cpo_line.name,
+                    'name': pol_name,
                     'product_id': cpo_line.get_default_product_product().id,
                     'product_qty': cpo_line.purchase_quantity,
                     'price_unit': cpo_line.product_price,
