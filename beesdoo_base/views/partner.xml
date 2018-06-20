@@ -19,14 +19,6 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="point_of_sale.view_partner_property_form" />
         <field name="arch" type="xml">
-            <field name="name" position="replace">
-                <field name="name" class="oe_read_only" />
-                <field name="first_name" placeholder="First Name"
-                    class="oe_edit_only"
-                    attrs="{'invisible' : [('company_type', '=', 'company')]}" />
-                <field name="last_name" placeholder="Last Name"
-                    class="oe_edit_only" default_focus="1" />
-            </field>
             <field name="type" position="before">
                 <field name="cooperator_type" />
             </field>

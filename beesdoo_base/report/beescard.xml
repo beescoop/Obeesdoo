@@ -59,17 +59,17 @@
                             <td
                                 style="vertical-align:top;width:7.72cm;height: 6.87cm;position: relative;">
                                 <p style="text-align: left;padding-top: 0.2cm;font-size: 1.2em;">
-                                    <span t-raw="partner.first_name and partner.first_name[:30] or ''" style="font-family:Roboto-Regular" />
+                                    <span t-raw="partner.firstname and partner.firstname[:30] or ''" style="font-family:Roboto-Regular" />
                                     <br />
-                                    <span t-raw="partner.last_name and partner.last_name[:26] or ''" style="font-family:Roboto-Bold;" />
+                                    <span t-raw="partner.lastname and partner.lastname[:26] or ''" style="font-family:Roboto-Bold;" />
                                     <br />
                                 </p>
                                 <p style="text-align: left;padding-top: 0.2cm;font-size: 1em;">
 
                                     <t t-if="partner.parent_eater_id and partner.eater == 'eater'">
                                         <!--fix here -->
-                                        <span t-raw="partner.parent_eater_id.first_name and partner.parent_eater_id.first_name[:30] or ''" style="font-family:Roboto-Regular;" />
-                                        <span t-raw="partner.parent_eater_id.last_name and partner.parent_eater_id.last_name[:26] or ''" style="font-family:Roboto-Regular;" />
+                                        <span t-raw="partner.parent_eater_id.firstname and partner.parent_eater_id.firstname[:30] or ''" style="font-family:Roboto-Regular;" />
+                                        <span t-raw="partner.parent_eater_id.lastname and partner.parent_eater_id.lastname[:26] or ''" style="font-family:Roboto-Regular;" />
                                     </t>
 
                                     <t t-if="partner.parent_eater_id and partner.parent_eater_id.cooperator_type == 'share_b'">

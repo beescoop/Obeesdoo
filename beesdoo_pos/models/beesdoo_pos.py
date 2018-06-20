@@ -75,5 +75,3 @@ class BeescoopPosPartner(models.Model):
     def get_eater(self):
         eater1, eater2, eater3 = self._get_eater()
         return eater1, eater2, eater3
-
-    last_name = fields.Char('Last Name', required=True, default="/")

@@ -1,0 +1,17 @@
+<odoo>
+  <record model="ir.ui.view" id="beesdoo_partner_name_form_view">
+    <field name="name">beesdoo.partner.form.view</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="point_of_sale.view_partner_property_form" />
+    <field name="arch" type="xml">
+        <field name="name" position="replace">
+            <field name="name" class="oe_read_only" />
+            <field name="firstname" placeholder="First Name"
+                class="oe_edit_only"
+                attrs="{'invisible' : [('company_type', '=', 'company')]}" />
+            <field name="lastname" placeholder="Last Name"
+                class="oe_edit_only" default_focus="1" />
+        </field>
+    </field>
+  </record>
+</odoo>

@@ -7,8 +7,6 @@ class Partner(models.Model):
 
     _inherit = 'res.partner'
 
-    first_name = fields.Char('First Name')
-    last_name = fields.Char('Last Name')
     eater = fields.Selection([('eater', 'Eater'), ('worker_eater', 'Worker and Eater')], string="Eater/Worker")
     child_eater_ids = fields.One2many("res.partner", "parent_eater_id", domain=[('customer', '=', True),
                                                                                 ('eater', '=', 'eater')])
@@ -22,10 +20,6 @@ class Partner(models.Model):
     last_printed = fields.Datetime('Last printed on')
     cooperator_type = fields.Selection([('share_a', 'Share A'), ('share_b', 'Share B'), ('share_c', 'Share C')], store=True, compute=None)
 
-
-    @api.onchange('first_name', 'last_name')
-    def _on_change_name(self):
-        self.name = concat_names(self.first_name, self.last_name)
 
     @api.one
     @api.depends('parent_eater_id', 'parent_eater_id.barcode', 'eater', 'member_card_ids')
@@ -83,18 +77,12 @@ class Partner(models.Model):
             card_data['barcode'] = barcode
         self.env['member.card'].create(card_data)
 
-    @api.noguess
-    def _auto_init(self, cr, context=None):
-        res = super(Partner, self)._auto_init(cr, context=context)
-        cr.execute("UPDATE res_partner set last_name = name where last_name IS NULL")
-        return res
-
     @api.multi
     def _new_eater(self, surname, name, email):
         partner_data = {
-                        'name' : surname + " "+ name,
-                        'last_name' : name,
-                        'first_name' : surname,
+
+                        'lastname' : name,
+                        'firstname' : surname,
                         'is_customer' : True,
                         'eater' : 'eater',
                         'parent_eater_id' : self.id,
