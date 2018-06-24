@@ -33,5 +33,5 @@ class Partner(models.Model):
                 rec.lastname = rec.name
 
     #Compatibility with old name use in beedoo
-    last_name = fields.char(related='lastname')
-    first_name = fields.char(related='firstname')
+    last_name = fields.Char(related='lastname')
+    first_name = fields.Char(related='firstname')
