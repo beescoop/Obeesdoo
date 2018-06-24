@@ -5,6 +5,18 @@ class Partner(models.Model):
     _inherit = 'res.partner'
 
     cooperator_type = fields.Selection(selection='_get_share_type', compute='_compute_share_type', string='Cooperator Type', store=True)
+    can_shop = fields.Boolean(compute='_can_shop', store=True)
+
+    @api.depends('cooperator_type', 'cooperative_status_ids', 'cooperative_status_ids.can_shop')
+    def _can_shop(self):
+        for rec in self:
+            if rec.cooperator_type == 'share_b':
+                rec.can_shop = True
+            elif rec.cooperative_status_ids and rec.cooperative_status_ids[0].can_shop:
+                rec.can_shop = True
+            else:
+                rec.can_shop = False
+
 
     @api.multi
     @api.depends('share_ids', 'share_ids.share_product_id', 'share_ids.share_product_id.default_code', 'share_ids.share_number')
