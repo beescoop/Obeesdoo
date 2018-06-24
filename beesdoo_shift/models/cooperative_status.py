@@ -39,6 +39,7 @@ class CooperativeStatus(models.Model):
 
     today = fields.Date(help="Field that allow to compute field and store them even if they are based on the current date", default=fields.Date.today)
     cooperator_id = fields.Many2one('res.partner')
+    active = fields.Boolean(related="cooperator_id.active", store=True, index=True)
     info_session = fields.Boolean('Information Session ?')
     info_session_date = fields.Datetime('Information Session Date')
     super = fields.Boolean("Super Cooperative")
