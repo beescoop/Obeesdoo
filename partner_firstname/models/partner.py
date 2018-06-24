@@ -32,22 +32,6 @@ class Partner(models.Model):
             if not rec.firstname:
                 rec.lastname = rec.name
 
-
-    def _compatibility_layer(self, vals):
-        if 'last_name' in vals:
-            if not 'lastname' in vals:
-                vals['lastname'] = vals['last_name']
-            vals.pop('last_name')
-        if 'first_name' in vals:
-            if not 'firstname' in vals:
-                vals['firstname'] = vals['first_name']
-            vals.pop('first_name')
-        return vals
-
-    @api.multi
-    def write(self, vals):
-        return super(Partner, self).write(self._compatibility_layer(vals))
-
-    @api.model
-    def create(self, vals):
-        return super(Partner, self).create(self._compatibility_layer(vals))
+    #Compatibility with old name use in beedoo
+    last_name = fields.char(related='lastname')
+    first_name = fields.char(related='firstname')
