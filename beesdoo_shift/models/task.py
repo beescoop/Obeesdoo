@@ -36,7 +36,7 @@ class Task(models.Model):
     color = fields.Integer(related="stage_id.color", readonly=True)
     is_regular = fields.Boolean(default=False)
     replaced_id = fields.Many2one('res.partner', track_visibility='onchange', domain=[('eater', '=', 'worker_eater')])
-    revert_info = fields.Text()
+    revert_info = fields.Text(copy=False)
     working_mode = fields.Selection(related='worker_id.working_mode')
 
     def message_auto_subscribe(self, updated_fields, values=None):
@@ -80,11 +80,21 @@ class Task(models.Model):
     def write(self, vals):
         """
             Overwrite write to track stage change
+            If worker is changer:
+               Revert for the current worker
+               Change the worker info
+               Compute stage change for the new worker
         """
+        if 'worker_id' in vals:
+            for rec in self:
+                if rec.worker_id != vals['worker_id']:
+                    rec._revert()
+                    super(Task, rec).write({'worker_id': vals['worker_id']})
+                    rec._update_stage(rec.stage_id.id)
         if 'stage_id' in vals:
             for rec in self:
                 if vals['stage_id'] != rec.stage_id.id:
-                    rec._update_stage(rec.stage_id.id, vals['stage_id'])
+                    rec._update_stage(vals['stage_id'])
         return super(Task, self).write(vals)
 
     def _set_revert_info(self, data, status):
@@ -104,7 +114,7 @@ class Task(models.Model):
         self.env['cooperative.status'].browse(data['status_id']).sudo()._change_counter(data['data'])
         self.revert_info = False
 
-    def _update_stage(self, old_stage, new_stage):
+    def _update_stage(self, new_stage):
         self.ensure_one()
         self._revert()
         update = int(self.env['ir.config_parameter'].get_param('always_update', False))
