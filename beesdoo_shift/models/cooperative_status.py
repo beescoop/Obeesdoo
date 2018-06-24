@@ -89,7 +89,7 @@ class CooperativeStatus(models.Model):
                  'alert_start_time', 'extension_start_time',
                  'unsubscribed', 'irregular_absence_date',
                  'irregular_absence_counter', 'temporary_exempt_start_date',
-                 'temporary_exempt_end_date', 'resigning')
+                 'temporary_exempt_end_date', 'resigning', 'cooperator_id.subscribed_shift_ids')
     def _compute_status(self):
         alert_delay = int(self.env['ir.config_parameter'].get_param('alert_delay', 28))
         grace_delay = int(self.env['ir.config_parameter'].get_param('default_grace_delay', 10))
@@ -129,7 +129,7 @@ class CooperativeStatus(models.Model):
         ok = self.sr >= 0 and self.sc >= 0
         grace_delay = grace_delay + self.time_extension
 
-        if self.sr < -1 or self.unsubscribed:
+        if self.sr < -1 or self.unsubscribed or not self.cooperator_id.subscribed_shift_ids:
             self.status = 'unsubscribed'
             self.can_shop = False
         elif self.today >= self.temporary_exempt_start_date and self.today <= self.temporary_exempt_end_date:
