@@ -3,6 +3,7 @@
         <field name="name">Partner Super Coop</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="beesdoo_base.beesdoo_partner_form_view" />
+        <field name="priority">50</field>
         <field name="arch" type="xml">
             <xpath expr="//sheet" position="before">
                 <header>
