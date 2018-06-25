@@ -14,9 +14,7 @@ sudo apt-get install libxml2-dev libxslt1-dev libldap2-dev libsasl2-dev libssl-d
 sudo apt-get install libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
 ```
 
-##### 3) Add postgresql to system startup
 
-```
 ##### 4) install less compiler
 
 ```
