@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from openerp import models, fields, api
+from openerp import models, fields, api, SUPERUSER_ID
 from openerp.exceptions import ValidationError
 
 
@@ -183,7 +183,8 @@ class ComputedPurchaseOrder(models.Model):
                     'order_id': purchase_order.id,
                     'date_planned': self.date_planned,
                 }
-                PurchaseOrderLine.create(pol_values)
+                pol = PurchaseOrderLine.create(pol_values)
+                pol.compute_taxes_id()
 
             self.generated_purchase_order_ids += purchase_order
 
@@ -196,3 +197,17 @@ class ComputedPurchaseOrder(models.Model):
             'target': 'current',
         }
         return action
+
+
+class PurchaseOrderLine(models.Model):
+    _inherit = 'purchase.order.line'
+
+    @api.multi
+    def compute_taxes_id(self):
+        for pol in self:
+            fpos = pol.order_id.fiscal_position_id
+            if self.env.uid == SUPERUSER_ID:
+                company_id = self.env.user.company_id.id
+                pol.taxes_id = fpos.map_tax(pol.product_id.supplier_taxes_id.filtered(lambda r: r.company_id.id == company_id))
+            else:
+                pol.taxes_id = fpos.map_tax(pol.product_id.supplier_taxes_id)
