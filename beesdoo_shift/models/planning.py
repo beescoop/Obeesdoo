@@ -103,6 +103,7 @@ class TaskTemplate(models.Model):
             day = today + timedelta(days=rec.day_nb_id.number - 1)
             h_begin, m_begin = floatime_to_hour_minute(rec.start_time)
             h_end, m_end = floatime_to_hour_minute(rec.end_time)
+            day = day.replace(hour=h_begin, minute=m_begin)
             rec.start_date = fields.Datetime.context_timestamp(self, day).replace(hour=h_begin, minute=m_begin, second=0).astimezone(UTC)
             rec.end_date = fields.Datetime.context_timestamp(self, day).replace(hour=h_end, minute=m_end, second=0).astimezone(UTC)
 
