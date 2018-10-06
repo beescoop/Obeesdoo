@@ -3,9 +3,13 @@
 from openerp import models, fields, api, _
 from openerp.exceptions import UserError
 
-from pytz import UTC
+from pytz import timezone, UTC
+import logging
 import math
 from datetime import datetime, timedelta
+
+_logger = logging.getLogger(__name__)
+
 
 def float_to_time(f):
     decimal, integer = math.modf(f)
@@ -98,13 +102,46 @@ class TaskTemplate(models.Model):
 
     @api.depends('start_time', 'end_time')
     def _get_fake_date(self):
-        today = datetime.strptime(self._context.get('visualize_date'), '%Y-%m-%d') if self._context.get('visualize_date') else get_first_day_of_week()
+        # Get context/client specific timezone. If not found log it and
+        # assume UTC.
+        try:
+            context_tz = timezone(
+                self._context.get('tz') or self.env.user.tz
+            )
+        except Exception:
+            _logger.debug(
+                "failed to compute context/client-specific timestamp, "
+                "using the UTC value",
+                exc_info=True
+            )
+            context_tz = UTC
+        # Found today date which is the beginning day of the planning
+        if self._context.get('visualize_date'):
+            today = datetime.strptime(
+                self._context.get('visualize_date'),
+                '%Y-%m-%d'
+            )
+        else:
+            today = get_first_day_of_week()
+
         for rec in self:
+            # Find the day of this task template 'rec'.
             day = today + timedelta(days=rec.day_nb_id.number - 1)
+            # Compute the beginning and ending time according to the
+            # context timezone.
             h_begin, m_begin = floatime_to_hour_minute(rec.start_time)
             h_end, m_end = floatime_to_hour_minute(rec.end_time)
-            rec.start_date = fields.Datetime.context_timestamp(self, day).replace(hour=h_begin, minute=m_begin, second=0).astimezone(UTC)
-            rec.end_date = fields.Datetime.context_timestamp(self, day).replace(hour=h_end, minute=m_end, second=0).astimezone(UTC)
+            # Create the start_date and end_date of this task template
+            # 'rec' according to the context timezone.
+            start_date = context_tz.localize(
+                day.replace(hour=h_begin, minute=m_begin, second=0)
+            )
+            end_date = context_tz.localize(
+                day.replace(hour=h_end, minute=m_end, second=0)
+            )
+            # Finally, set the dates in UTC.
+            rec.start_date = start_date.astimezone(UTC)
+            rec.end_date = end_date.astimezone(UTC)
 
     def _dummy_search(self, operator, value):
         return []
