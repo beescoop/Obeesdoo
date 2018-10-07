@@ -274,8 +274,16 @@ class CooperativeStatus(models.Model):
         journal = self.env['beesdoo.shift.journal'].search([('date', '=', today)])
         if not journal:
             journal = self.env['beesdoo.shift.journal'].create({'date': today})
-        
-        irregular = self.search([('status', '!=', 'unsubscribed'), ('working_mode', '=', 'irregular'), ('irregular_start_date', '!=', False)])
+        domain = ['&',
+                                     '&',
+                                        '&', ('status', '!=', 'unsubscribed'),
+                                             ('working_mode', '=', 'irregular'),
+                                        ('irregular_start_date', '!=', False),
+                                     '|',
+                                        '|', ('holiday_start_time', '=', False), ('holiday_end_time', '=', False),
+                                        '|', ('holiday_start_time', '>', today), ('holiday_end_time', '<', today),
+        ]
+        irregular = self.search(domain)
         today_date = fields.Date.from_string(today)
         for status in irregular:
             if status.status == 'exempted':
