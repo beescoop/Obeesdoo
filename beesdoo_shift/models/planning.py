@@ -4,7 +4,6 @@ from openerp import models, fields, api, _
 from openerp.exceptions import UserError
 
 from pytz import timezone, UTC
-import logging
 import math
 from datetime import datetime, timedelta
 
@@ -21,7 +20,7 @@ def floatime_to_hour_minute(f):
 
 def get_first_day_of_week():
     today = datetime.now()
-    return datetime.now() - timedelta(days=today.weekday())
+    return (datetime.now() - timedelta(days=today.weekday())).strftime("%Y-%m-%d")
 
 class TaskType(models.Model):
     _name = 'beesdoo.shift.type'
@@ -100,30 +99,20 @@ class TaskTemplate(models.Model):
     start_date = fields.Datetime(compute="_get_fake_date", search="_dummy_search")
     end_date = fields.Datetime(compute="_get_fake_date", search="_dummy_search")
 
+    def _get_utc_date(self, day, hour, minute):
+        #Don't catch error since the error should be raise on the log as an error
+        #because generate time with UTC timezone is worse than not generate them
+        context_tz = timezone(self._context.get('tz') or self.env.user.tz)
+        day_time = day.replace(hour=hour, minute=minute)
+        day_local_time = context_tz.localize(day_time)
+        day_utc_time = day_local_time.astimezone(UTC)
+        return day_utc_time
+
+
     @api.depends('start_time', 'end_time')
     def _get_fake_date(self):
-        # Get context/client specific timezone. If not found log it and
-        # assume UTC.
-        try:
-            context_tz = timezone(
-                self._context.get('tz') or self.env.user.tz
-            )
-        except Exception:
-            _logger.debug(
-                "failed to compute context/client-specific timestamp, "
-                "using the UTC value",
-                exc_info=True
-            )
-            context_tz = UTC
-        # Found today date which is the beginning day of the planning
-        if self._context.get('visualize_date'):
-            today = datetime.strptime(
-                self._context.get('visualize_date'),
-                '%Y-%m-%d'
-            )
-        else:
-            today = get_first_day_of_week()
-
+        today = self._context.get('visualize_date', get_first_day_of_week())
+        today = datetime.strptime(today, '%Y-%m-%d')
         for rec in self:
             # Find the day of this task template 'rec'.
             day = today + timedelta(days=rec.day_nb_id.number - 1)
@@ -131,17 +120,8 @@ class TaskTemplate(models.Model):
             # context timezone.
             h_begin, m_begin = floatime_to_hour_minute(rec.start_time)
             h_end, m_end = floatime_to_hour_minute(rec.end_time)
-            # Create the start_date and end_date of this task template
-            # 'rec' according to the context timezone.
-            start_date = context_tz.localize(
-                day.replace(hour=h_begin, minute=m_begin, second=0)
-            )
-            end_date = context_tz.localize(
-                day.replace(hour=h_end, minute=m_end, second=0)
-            )
-            # Finally, set the dates in UTC.
-            rec.start_date = start_date.astimezone(UTC)
-            rec.end_date = end_date.astimezone(UTC)
+            rec.start_date = self._get_utc_date(day, h_begin, m_begin)
+            rec.end_date = self._get_utc_date(day, h_end, m_end)
 
     def _dummy_search(self, operator, value):
         return []
@@ -198,5 +178,5 @@ class TaskTemplate(models.Model):
                     'end_time' :  rec.end_date,
                     'stage_id': self.env.ref('beesdoo_shift.open').id,
                 })
-        
+
         return tasks
