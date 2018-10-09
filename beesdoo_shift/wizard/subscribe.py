@@ -97,6 +97,7 @@ class Subscribe(models.TransientModel):
             'irregular_start_date': self.irregular_start_date,
             'irregular_absence_date': False,
             'irregular_absence_counter': 0,
+            'resigning' : False,
         }
         if self.reset_counter:
             data['sr'] = 0

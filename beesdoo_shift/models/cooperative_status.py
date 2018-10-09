@@ -218,7 +218,7 @@ class CooperativeStatus(models.Model):
             self.write({'alert_start_time': self.today, 'extension_start_time': False, 'time_extension': 0})
         if new_state == 'ok': #reset alert start time if back to ok
             self.write({'alert_start_time': False, 'extension_start_time': False, 'time_extension': 0})
-        if new_state == 'unsubscribed':
+        if new_state == 'unsubscribed' or new_state == 'resigning':
             self.cooperator_id.sudo().write({'subscribed_shift_ids' : [(5,0,0)]})
             #TODO: Add one day othertwise unsubscribed from the shift you were absent
             self.env['beesdoo.shift.shift'].sudo().unsubscribe_from_today([self.cooperator_id.id], today=self.today)
