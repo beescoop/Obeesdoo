@@ -1,7 +1,9 @@
 odoo.define('beescoop.pos', function (require) {
     "use strict";
     var screens = require("point_of_sale.screens");
+    var models = require("point_of_sale.models");
     var DataModel = require('web.DataModel');
+
     var set_customer_info = function(el_class, value, prefix) {
         var el = this.$(el_class);
         el.empty();
@@ -10,6 +12,15 @@ odoo.define('beescoop.pos', function (require) {
         }
         if (value) {
             el.append(value);
+        }
+    };
+
+    // // extend backbone pos model
+    var pos_models = models.PosModel.prototype.models;
+    for(var i = 0; i < pos_models.length; i++){
+        var model = pos_models[i];
+        if(model.model === 'res.partner') {
+          model.fields.push('state');
         }
     }
 
