@@ -168,7 +168,7 @@ class Task(models.Model):
                 data['irregular_absence_date'] = False
                 data['irregular_absence_counter'] = 1 if status.irregular_absence_counter < 0 else 0
             if new_stage == ABSENT or new_stage == EXCUSED:
-                data['sr'] = -2
+                data['sr'] = -1
                 data['irregular_absence_date'] = self.start_time[:10]
                 data['irregular_absence_counter'] = -1
 
