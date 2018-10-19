@@ -212,12 +212,15 @@ class CooperativeStatus(models.Model):
                     self.env['cooperative.status.history'].sudo().create(data)
         return super(CooperativeStatus, self).write(vals)
 
-    def _state_change(self, new_state, old_stage):
+    def _state_change(self, new_state):
         self.ensure_one()
         if new_state == 'alert':
             self.write({'alert_start_time': self.today, 'extension_start_time': False, 'time_extension': 0})
-        if new_state == 'ok': #reset alert start time if back to ok
-            self.write({'alert_start_time': False, 'extension_start_time': False, 'time_extension': 0})
+        if new_state == 'ok':
+            data = {'extension_start_time': False, 'time_extension': 0}
+            if self.working_mode != 'irregular': #Don't reset alert time for irregular
+                data['alert_start_time'] = False
+            self.write(data)
         if new_state == 'unsubscribed':
             self.cooperator_id.sudo().write({'subscribed_shift_ids' : [(5,0,0)]})
             #TODO: Add one day othertwise unsubscribed from the shift you were absent
@@ -249,7 +252,7 @@ class CooperativeStatus(models.Model):
                         'user_id': self.env.context.get('real_uid', self.env.uid),
                     }
                     self.env['cooperative.status.history'].sudo().create(data)
-                    rec._state_change(vals['status'], old_status_per_id[rec.id]['status'])
+                    rec._state_change(vals['status'])
         return super(CooperativeStatus, self)._write(vals)
 
     _sql_constraints = [
@@ -291,6 +294,9 @@ class CooperativeStatus(models.Model):
             delta = (today_date - fields.Date.from_string(status.irregular_start_date)).days
             if delta and delta % PERIOD == 0 and status not in journal.line_ids:
                 if status.sr > 0:
+                    status.sr -= 1
+                    status.alert_start_time = False
+                elif status.alert_start_time:
                     status.sr -= 1
                 else:
                     status.sr -= 2
