@@ -2,7 +2,7 @@
   <record model="ir.ui.view" id="beesdoo_partner_name_form_view">
     <field name="name">beesdoo.partner.form.view</field>
     <field name="model">res.partner</field>
-    <field name="inherit_id" ref="point_of_sale.view_partner_property_form" />
+    <field name="inherit_id" ref="base.view_partner_form" />
     <field name="arch" type="xml">
         <field name="name" position="replace">
             <field name="name" class="oe_read_only" />
