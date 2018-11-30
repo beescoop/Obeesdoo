@@ -28,7 +28,12 @@ class Task(models.Model):
     task_template_id = fields.Many2one('beesdoo.shift.template')
     planning_id = fields.Many2one(related='task_template_id.planning_id', store=True)
     task_type_id = fields.Many2one('beesdoo.shift.type', string="Task Type")
-    worker_id = fields.Many2one('res.partner', track_visibility='onchange', domain=[('eater', '=', 'worker_eater'), ('working_mode', 'in', ('regular', 'irregular'))])
+    worker_id = fields.Many2one('res.partner', track_visibility='onchange',
+                                domain=[
+                                    ('eater', '=', 'worker_eater'),
+                                    ('working_mode', 'in', ('regular', 'irregular')),
+                                    ('state', 'not in', ('unsubscribed', 'resigning')),
+                                ])
     start_time = fields.Datetime(track_visibility='always', index=True)
     end_time = fields.Datetime(track_visibility='always')
     stage_id = fields.Many2one('beesdoo.shift.stage', required=True, track_visibility='onchange', default=lambda self: self.env.ref('beesdoo_shift.open'))
