@@ -23,4 +23,8 @@
         <field name="key">next_planning_date</field>
         <field name="value">1970-01-01</field>
     </record>
+    <record id="irregular_unsubscribe" model="ir.config_parameter">
+        <field name="key">irregular_counter_to_unsubscribe</field>
+        <field name="value">-4</field>
+    </record>
 </odoo>
