@@ -160,11 +160,11 @@ class CooperativeStatus(models.Model):
             self.can_shop = True
 
     def _set_irregular_status(self, grace_delay, alert_delay):
+        counter_unsubscribe = int(self.env['ir.config_parameter'].get_param('irregular_counter_to_unsubscribe', -3))
         self.ensure_one()
         ok = self.sr >= 0
         grace_delay = grace_delay + self.time_extension
-        if (not ok and self.irregular_absence_date and self.today > add_days_delta(self.irregular_absence_date, alert_delay * 2)) \
-             or self.unsubscribed or self.irregular_absence_counter <= -2:
+        if self.sr <= counter_unsubscribe or self.unsubscribed:
             self.status = 'unsubscribed'
             self.can_shop = False
         elif self.today >= self.temporary_exempt_start_date and self.today <= self.temporary_exempt_end_date:
