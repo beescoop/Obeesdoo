@@ -100,6 +100,7 @@ class WebsiteShiftController(http.Controller):
             * shift sign up is authorised via configuration panel
             * the current connected user is an irregular worker
             * the given shift exist
+            * the shift status is open
             * the shift is free for subscription
         """
         # Get current user
@@ -109,11 +110,14 @@ class WebsiteShiftController(http.Controller):
         # Get config
         irregular_enable_sign_up = literal_eval(request.env['ir.config_parameter'].get_param(
             'beesdoo_website_shift.irregular_enable_sign_up'))
+        # Get open status
+        open_status = request.env.ref('beesdoo_shift.open')
 
         request.session['success'] = False
         if (irregular_enable_sign_up
                 and cur_user.partner_id.working_mode == 'irregular'
                 and shift
+                and shift.status_id == open_status
                 and not shift.worker_id):
             shift.worker_id = cur_user.partner_id
             request.session['success'] = True
@@ -219,9 +223,11 @@ class WebsiteShiftController(http.Controller):
 
         # Get all the shifts in the future with no worker
         now = datetime.now()
+        open_status = request.env.ref('beesdoo_shift.open')
         shifts = request.env['beesdoo.shift.shift'].sudo().search(
             [('start_time', '>', now.strftime("%Y-%m-%d %H:%M:%S")),
-             ('worker_id', '=', False)],
+             ('worker_id', '=', False),
+             ('stage_id', '=', open_status.id)],
             order="start_time, task_template_id, task_type_id",
         )
 
