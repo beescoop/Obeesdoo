@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <template id="report_purchaseorder_document" inherit_id="purchase.report_purchaseorder_document" name="beesdoo purchaseorder">
+        <div t-if="o.date_order" position="after">
+
+            <div class="col-xs-3">
+                <strong>Date Planned:</strong>
+                <div t-field="o.date_planned" />
+            </div>
+
+        </div>
+        <xpath expr="//span[@t-field='line.date_planned']/.." position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+    </template>
+</data>
+</odoo>

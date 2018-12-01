@@ -1,0 +1,23 @@
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="beesdoo_purchase_order_form_view">
+            <field name="name">beesdoo.purchase.order.form.view</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_planned']/../../div" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//label[@for='date_planned']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='date_planned']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <field name="date_order" position="after">
+                    <field name="manual_date_planned" attrs="{'readonly': [('state', 'not in', ('draft', 'sent'))]}" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

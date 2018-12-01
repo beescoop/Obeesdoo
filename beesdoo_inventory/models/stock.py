@@ -5,7 +5,7 @@ class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
     max_shipping_date = fields.Datetime("End Shipping Date")
-    responsible = fields.Many2one('res.partner', string="Responsible")
+    responsible = fields.Many2one('res.partner', string="Responsible", default=lambda self: self.env.user.partner_id.id)
 
     def _add_follower(self):
         if(self.responsible):
