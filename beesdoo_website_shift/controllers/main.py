@@ -33,6 +33,19 @@ class WebsiteShiftController(http.Controller):
         working_mode = user.partner_id.working_mode
         return working_mode == 'exempt'
 
+    def user_can_subscribe(self, user=None):
+        """Return True if a user can subscribe to a shift. A user can
+        subiscribe if:
+            * the user is an irregular worker
+            * the user is not unsubscribed
+            * the user is not resigning
+        """
+        if not user:
+            user = request.env['res.users'].browse(request.uid)
+        return (user.partner_id.working_mode == 'irregular'
+                and user.partner_id.state != 'unsubscribed'
+                and user.partner_id.state != 'resigning')
+
     def add_days(self, datetime, days):
         """
         Add the number of days to datetime. This take the DST in
@@ -98,7 +111,7 @@ class WebsiteShiftController(http.Controller):
         Subscribe the current connected user into the given shift
         This is done only if :
             * shift sign up is authorised via configuration panel
-            * the current connected user is an irregular worker
+            * the user can subscribe
             * the given shift exist
             * the shift status is open
             * the shift is free for subscription
@@ -115,7 +128,7 @@ class WebsiteShiftController(http.Controller):
 
         request.session['success'] = False
         if (irregular_enable_sign_up
-                and cur_user.partner_id.working_mode == 'irregular'
+                and self.user_can_subscribe()
                 and shift
                 and shift.status_id == open_status
                 and not shift.worker_id):
@@ -174,7 +187,7 @@ class WebsiteShiftController(http.Controller):
         template_context.update(self.my_shift_next_shifts())
         template_context.update(self.my_shift_past_shifts())
         template_context.update(self.available_shift_irregular_worker(
-            irregular_enable_sign_up, nexturl
+            irregular_enable_sign_up and self.user_can_subscribe(), nexturl
         ))
 
         # Add feedback about the success or the fail of the subscription
