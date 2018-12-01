@@ -15,7 +15,7 @@ class Partner(models.Model):
 
     firstname = fields.Char('First Name')
     lastname = fields.Char('Last Name', required=True, default="/")
-    name = fields.Char(compute='_get_name', inverse='_set_name', store=True)
+    name = fields.Char(compute='_get_name', inverse='_set_name', store=True, string="Full Name")
 
     @api.depends('firstname', 'lastname')
     def _get_name(self):
@@ -33,5 +33,5 @@ class Partner(models.Model):
                 rec.lastname = rec.name
 
     #Compatibility with old name use in beedoo
-    last_name = fields.Char(related='lastname')
-    first_name = fields.Char(related='firstname')
+    last_name = fields.Char(related='lastname', string="Last Name (Legacy)")
+    first_name = fields.Char(related='firstname', string="Frist Name (Legacy)")
