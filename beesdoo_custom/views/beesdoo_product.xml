@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="beesdoo_product_tree">
+        <field name="name">bees.product.template.tree</field>
+        <field name="model">product.template</field>
+        <field name="priority">14</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="categ_id"/>
+                <field name="main_seller_id" string="Main Seller"/>
+                <field name="weight"/>
+                <field name="main_price"/>
+                <field name="main_minimum_qty"/>
+                <field name="uom_po_id"/>
+                <field name="qty_available"/>
+                <field name="virtual_available"/>
+                <field name="estimated_stock_coverage"/>
+                <field name="average_consumption"/>
+                <field name="total_consumption"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>
