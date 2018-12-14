@@ -15,20 +15,6 @@ class BeesdooProduct(models.Model):
 
     main_seller_id = fields.Many2one('res.partner', compute='_compute_main_seller_id', store=True)
 
-    main_supplierinfo = fields.Many2one(
-        'product.supplierinfo',
-        string='Main Supplier Information',
-        compute='_compute_main_supplierinfo'
-    )
-    main_price = fields.Float(
-        string='Price',
-        compute='_compute_main_supplierinfo',
-    )
-    main_minimum_qty = fields.Float(
-        string='Minimum Quantity',
-        compute='_compute_main_supplierinfo',
-    )
-
     display_unit = fields.Many2one('product.uom')
     default_reference_unit = fields.Many2one('product.uom')
     display_weight = fields.Float(compute='_get_display_weight', store=True)
@@ -63,16 +49,7 @@ class BeesdooProduct(models.Model):
                 product.scale_sale_unit = 'F'
             elif product.uom_id.category_id.type == 'weight':
                 product.scale_sale_unit = 'P'
-
-    @api.multi
-    @api.depends('seller_ids')
-    def _compute_main_supplierinfo(self):
-        for product in self:
-            supplierinfo = product._get_main_supplier_info()
-            product.main_supplierinfo = supplierinfo
-            product.main_price = supplierinfo.price
-            product.main_minimum_qty = supplierinfo.min_qty
-
+    
     def _get_main_supplier_info(self):
         return self.seller_ids.sorted(key=lambda seller: seller.date_start, reverse=True)
 

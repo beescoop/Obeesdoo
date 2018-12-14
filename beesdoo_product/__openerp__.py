@@ -20,13 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': [
-        'beesdoo_base',
-        'product',
-        'point_of_sale',
-        'pos_price_to_weight',
-        'stock_coverage',
-    ],
+    'depends': ['beesdoo_base', 'product', 'point_of_sale','pos_price_to_weight'],
 
     # always loaded
     'data': [
