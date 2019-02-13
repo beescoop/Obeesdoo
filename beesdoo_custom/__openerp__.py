@@ -2,7 +2,7 @@
 {
     'name': "beesdoo_custom",
 
-    'summary': """
+    'description': """
         View and field definition specific to BEES' needs.   
      """,
 
