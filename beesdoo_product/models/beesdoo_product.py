@@ -13,7 +13,7 @@ class BeesdooProduct(models.Model):
     fair_label = fields.Many2one('beesdoo.product.label', domain=[('type', '=', 'fair')])
     origin_label = fields.Many2one('beesdoo.product.label', domain=[('type', '=', 'delivery')])
 
-    main_seller_id = fields.Many2one('res.partner', compute='_compute_main_seller_id', store=True)
+    main_seller_id = fields.Many2one('res.partner', string='Main Seller', compute='_compute_main_seller_id', store=True)
 
     display_unit = fields.Many2one('product.uom')
     default_reference_unit = fields.Many2one('product.uom')

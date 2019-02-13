@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
+                <field name="default_code"/>
                 <field name="categ_id"/>
                 <field name="main_seller_id" string="Main Seller"/>
                 <field name="weight"/>
