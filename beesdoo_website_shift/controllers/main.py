@@ -334,6 +334,9 @@ class WebsiteShiftController(http.Controller):
             regular_next_shift_limit = int(request.env['ir.config_parameter'].get_param(
                 'beesdoo_website_shift.regular_next_shift_limit'))
 
+            # Get default status for fictive shifts
+            draft_status = request.env.ref('beesdoo_shift.draft')
+
             for i in range(nb_subscribed_shifts, regular_next_shift_limit):
                 # Create the fictive shift
                 shift = main_shift.new()
@@ -342,7 +345,7 @@ class WebsiteShiftController(http.Controller):
                 shift.planning_id = main_shift.planning_id
                 shift.task_type_id = main_shift.task_type_id
                 shift.worker_id = main_shift.worker_id
-                shift.stage_id = main_shift.stage_id
+                shift.stage_id = draft_status
                 shift.super_coop_id = main_shift.super_coop_id
                 shift.color = main_shift.color
                 shift.is_regular = main_shift.is_regular
