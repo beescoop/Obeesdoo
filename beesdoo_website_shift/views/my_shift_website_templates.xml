@@ -96,6 +96,44 @@
 
   </template>
 
+
+  <template
+    id="shift_status_label"
+    name="Shift Status Label">
+
+    <span t-if="shift.stage_id.code == 'draft'"
+      t-attf-class="label label-default {{label_css}}">
+      <t t-esc="shift.stage_id.name"/>
+    </span>
+
+    <span t-if="shift.stage_id.code == 'done'"
+      t-attf-class="label label-success {{label_css}}">
+      <t t-esc="shift.stage_id.name"/>
+    </span>
+
+    <span t-if="shift.stage_id.code == 'absent'"
+      t-attf-class="label label-warning {{label_css}}">
+      <t t-esc="shift.stage_id.name"/>
+    </span>
+
+    <span t-if="shift.stage_id.code == 'excused'"
+      t-attf-class="label label-info {{label_css}}">
+      <t t-esc="shift.stage_id.name"/>
+    </span>
+
+    <span t-if="shift.stage_id.code == 'excused_necessity'"
+      t-attf-class="label label-info {{label_css}}">
+      <t t-esc="shift.stage_id.name"/>
+    </span>
+
+    <span t-if="shift.stage_id.code == 'cancel'"
+      t-attf-class="label label-danger {{label_css}}">
+      <t t-esc="shift.stage_id.name"/>
+    </span>
+
+  </template>
+
+
   <template
     id="my_shift_next_shifts"
     name="My Shift : Next Shifts">
@@ -138,6 +176,9 @@
             <t t-esc="time.strftime('%A %d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
             <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
             <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
+            <t t-call="beesdoo_website_shift.shift_status_label">
+              <t t-set="label_css" t-value="'pull-right'"/>
+            </t>
           </div>
         </div>
         <div class="panel-body">
@@ -160,12 +201,13 @@
           <th>Date</th>
           <th>Time</th>
           <th>Type of Shift</th>
+          <th>Status</th>
           <th class="text-center">Super Cooperator Info</th>
         </tr>
       </thead>
       <tbody>
         <t t-foreach="subscribed_shifts" t-as="shift">
-          <tr>
+          <tr t-att-class="'danger text-danger' if shift.stage_id.code == 'cancel' else ''">
             <td>
               <t t-esc="time.strftime('%A', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
             </td>
@@ -178,6 +220,9 @@
             </td>
             <td>
               <t t-esc="shift.task_type_id.name"/>
+            </td>
+            <td>
+              <t t-esc="shift.stage_id.name"/>
             </td>
             <td class="text-center">
               <button type="button" class="btn btn-default btn-sm"
@@ -264,6 +309,9 @@
             <t t-esc="time.strftime('%A %d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
             <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
             <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
+            <t t-call="beesdoo_website_shift.shift_status_label">
+              <t t-set="label_css" t-value="'pull-right'"/>
+            </t>
           </div>
         </div>
         <div class="panel-body">
