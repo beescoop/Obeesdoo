@@ -37,7 +37,7 @@ class Subscribe(models.TransientModel):
         return partner.state  == 'unsubscribed' and partner.working_mode == 'regular'
 
     info_session = fields.Boolean(string="Followed an information session", default=False)
-    info_session_date = fields.Date(string="Date of information session", default=_get_date)
+    info_session_date = fields.Date(string="Date of information session")
     super = fields.Boolean(string="Super Cooperator", default=_get_super)
     working_mode = fields.Selection(
         [
