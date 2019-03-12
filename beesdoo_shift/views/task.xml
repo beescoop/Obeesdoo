@@ -99,7 +99,7 @@
                             <field name="task_type_id" />
                             <field name="super_coop_id" />
                             <field name="worker_id" />
-                            <field name="replaced_id" attrs="{'invisible': [('is_regular', '!=', True)]}"/>
+                            <field name="replaced_id" attrs="{'invisible': [('is_regular', '!=', True)]}" domain="[('is_regular', '=', True)]"/>
                             <field name="is_regular" attrs="{'invisible': [('working_mode', '=', 'irregular')]}"/>
                             <field name="working_mode" invisible="1" />
                         </group>
