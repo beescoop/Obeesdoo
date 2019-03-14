@@ -130,7 +130,7 @@ class CooperativeStatus(models.Model):
         ok = self.sr >= 0 and self.sc >= 0
         grace_delay = grace_delay + self.time_extension
 
-        if self.sr < -1 or self.unsubscribed or not self.cooperator_id.subscribed_shift_ids:
+        if self.sr < -1 or self.unsubscribed:
             self.status = 'unsubscribed'
             self.can_shop = False
         elif self.today >= self.temporary_exempt_start_date and self.today <= self.temporary_exempt_end_date:
