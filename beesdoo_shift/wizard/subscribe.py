@@ -26,6 +26,24 @@ class Subscribe(models.TransientModel):
         else:
             return date
 
+    def _get_info_session_date(self):
+        date = self.env['res.partner'].browse(self._context.get('active_id'))\
+            .info_session_date
+        if not date:
+            return False
+        elif not self._get_info_session_followed():
+            return False
+        else:
+            return date
+
+    def _get_info_session_followed(self):
+        session_followed = self.env['res.partner']\
+            .browse(self._context.get('active_id')).info_session
+        if not session_followed:
+            return False
+        else:
+            return session_followed
+
     def _get_super(self):
         return self.env['res.partner'].browse(self._context.get('active_id')).super
 
@@ -34,10 +52,10 @@ class Subscribe(models.TransientModel):
 
     def _get_reset_counter_default(self):
         partner = self.env['res.partner'].browse(self._context.get('active_id'))
-        return partner.state  == 'unsubscribed' and partner.working_mode == 'regular'
+        return partner.state == 'unsubscribed' and partner.working_mode == 'regular'
 
-    info_session = fields.Boolean(string="Followed an information session", default=False)
-    info_session_date = fields.Date(string="Date of information session")
+    info_session = fields.Boolean(string="Followed an information session", default=_get_info_session_followed)
+    info_session_date = fields.Date(string="Date of information session", default=_get_info_session_date)
     super = fields.Boolean(string="Super Cooperator", default=_get_super)
     working_mode = fields.Selection(
         [
