@@ -70,7 +70,8 @@ class Task(models.Model):
         today += ' 00:00:00'
         if end_date:
             end_date += ' 23:59:59'
-        date_domain = [('worker_id', 'in', worker_ids), ('start_time', '>=', today)]
+        # date_domain = [('worker_id', 'in', worker_ids), ('start_time', '>=', today)]
+        date_domain = [('start_time', '>=', today)]
         if end_date:
             date_domain.append(('end_time', '<=', end_date))
         to_unsubscribe = self.search([('worker_id', 'in', worker_ids)] + date_domain)
@@ -81,15 +82,14 @@ class Task(models.Model):
         to_unsubscribe_replace = self.search([('replaced_id', 'in', worker_ids)] + date_domain)
         to_unsubscribe_replace.write({'worker_id': False, 'is_regular': False, 'replaced_id': False})
 
-        # If worker is Super cooperative, remove it
+        # If worker is Super cooperative, remove it from planning
         super_coop_id = self.env['res.users'].search(
-            [('partner_id', '=', worker_ids[0]), ('super', '=', True)]).id
+            [('partner_id', 'in', worker_ids), ('super', '=', True)]).ids
 
         if super_coop_id:
-            to_unsubscribe_super_coop = self.search([('super_coop_id', '=',
-                                                      super_coop_id),
-                                                     ('start_time', '>=',
-                                                      today)])
+            to_unsubscribe_super_coop = self.search([('super_coop_id', 'in',
+                                                      super_coop_id)] +
+                                                    date_domain)
             to_unsubscribe_super_coop.write({'super_coop_id': False,
                                              'is_regular': False})
 
