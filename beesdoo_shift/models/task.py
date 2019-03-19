@@ -81,12 +81,17 @@ class Task(models.Model):
         to_unsubscribe_replace = self.search([('replaced_id', 'in', worker_ids)] + date_domain)
         to_unsubscribe_replace.write({'worker_id': False, 'is_regular': False, 'replaced_id': False})
 
-        # if self.super_coop_id.id:
-        #     to_unsubscribe_super_coop = self.search([('super_coop_id', 'in',
-        #                                               self.super_coop_id.id)]
-        #                                             + date_domain)
-        #     to_unsubscribe_super_coop.write({'super_coop_id': False,
-        #                                      'is_regular': False})
+        # If worker is Super cooperative, remove it
+        super_coop_id = self.env['res.users'].search(
+            [('partner_id', '=', worker_ids[0]), ('super', '=', True)]).id
+
+        if super_coop_id:
+            to_unsubscribe_super_coop = self.search([('super_coop_id', '=',
+                                                      super_coop_id),
+                                                     ('start_time', '>=',
+                                                      today)])
+            to_unsubscribe_super_coop.write({'super_coop_id': False,
+                                             'is_regular': False})
 
     @api.multi
     def write(self, vals):
