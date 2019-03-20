@@ -51,7 +51,13 @@ class BeesdooProduct(models.Model):
                 product.scale_sale_unit = 'P'
     
     def _get_main_supplier_info(self):
-        return self.seller_ids.sorted(key=lambda seller: seller.date_start, reverse=True)
+        suppliers = self.seller_ids.sorted(
+            key=lambda seller: seller.date_start,
+            reverse=True)
+        if suppliers:
+            return suppliers[0]
+        else:
+            return suppliers
 
     @api.one
     def generate_barcode(self):
