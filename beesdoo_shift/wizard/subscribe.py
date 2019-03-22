@@ -27,7 +27,8 @@ class Subscribe(models.TransientModel):
             return date
 
     def _get_info_session_date(self):
-        date = (self.env['res.partner'].browse(self._context.get('active_id'))
+        date = (self.env['res.partner']
+                .browse(self._context.get('active_id'))
                 .info_session_date)
         if not date:
             return False
