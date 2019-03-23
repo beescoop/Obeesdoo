@@ -41,10 +41,7 @@ class Subscribe(models.TransientModel):
         session_followed = (self.env['res.partner']
                             .browse(self._context.get('active_id'))
                             .info_session)
-        if not session_followed:
-            return False
-        else:
-            return session_followed
+        return session_followed
 
     def _get_super(self):
         return self.env['res.partner'].browse(self._context.get('active_id')).super
