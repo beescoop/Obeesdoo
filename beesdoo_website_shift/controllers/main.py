@@ -130,7 +130,7 @@ class WebsiteShiftController(http.Controller):
         if (irregular_enable_sign_up
                 and self.user_can_subscribe()
                 and shift
-                and shift.status_id == open_status
+                and shift.stage_id == open_status
                 and not shift.worker_id):
             shift.worker_id = cur_user.partner_id
             request.session['success'] = True
