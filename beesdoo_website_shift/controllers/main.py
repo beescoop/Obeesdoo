@@ -28,6 +28,11 @@ class WebsiteShiftController(http.Controller):
         working_mode = user.partner_id.working_mode
         return working_mode == 'regular'
 
+    def is_user_regular_without_shift(self):
+        user = request.env['res.users'].browse(request.uid)
+        return (not user.partner_id.subscribed_shift_ids.id and
+                self.is_user_regular())
+
     def is_user_exempted(self):
         user = request.env['res.users'].browse(request.uid)
         working_mode = user.partner_id.working_mode
@@ -89,7 +94,12 @@ class WebsiteShiftController(http.Controller):
                 'beesdoo_website_shift.my_shift_irregular_worker',
                 self.my_shift_irregular_worker(nexturl='/my/shift')
             )
-        if self.is_user_regular():
+        if self.is_user_regular_without_shift():
+            return request.render(
+                'beesdoo_website_shift.my_shift_regular_worker_without_shift',
+                self.my_shift_regular_worker_without_shift()
+            )
+        if self.is_user_regular() and not self.is_user_regular_without_shift():
             return request.render(
                 'beesdoo_website_shift.my_shift_regular_worker',
                 self.my_shift_regular_worker()
@@ -198,6 +208,12 @@ class WebsiteShiftController(http.Controller):
             del request.session['success']
 
         return template_context
+
+    def my_shift_regular_worker_without_shift(self):
+        """
+        Return template variables for 'beesdoo_website_shift.my_shift_regular_worker_without_shift' template
+        """
+        return self.my_shift_worker_status()
 
     def my_shift_regular_worker(self):
         """
