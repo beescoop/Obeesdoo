@@ -18,6 +18,11 @@ from openerp.addons.beesdoo_shift.models.cooperative_status import PERIOD
 
 class WebsiteShiftController(http.Controller):
 
+    def is_user_worker(self):
+        user = request.env['res.users'].browse(request.uid)
+        share_type = user.partner_id.cooperator_type
+        return share_type == 'share_a'
+
     def is_user_irregular(self):
         user = request.env['res.users'].browse(request.uid)
         working_mode = user.partner_id.working_mode
@@ -27,6 +32,11 @@ class WebsiteShiftController(http.Controller):
         user = request.env['res.users'].browse(request.uid)
         working_mode = user.partner_id.working_mode
         return working_mode == 'regular'
+
+    def is_user_regular_without_shift(self):
+        user = request.env['res.users'].browse(request.uid)
+        return (not user.partner_id.subscribed_shift_ids.id
+                and self.is_user_regular())
 
     def is_user_exempted(self):
         user = request.env['res.users'].browse(request.uid)
@@ -89,6 +99,11 @@ class WebsiteShiftController(http.Controller):
                 'beesdoo_website_shift.my_shift_irregular_worker',
                 self.my_shift_irregular_worker(nexturl='/my/shift')
             )
+        if self.is_user_regular_without_shift():
+            return request.render(
+                'beesdoo_website_shift.my_shift_regular_worker_without_shift',
+                self.my_shift_regular_worker_without_shift()
+            )
         if self.is_user_regular():
             return request.render(
                 'beesdoo_website_shift.my_shift_regular_worker',
@@ -98,6 +113,11 @@ class WebsiteShiftController(http.Controller):
             return request.render(
                 'beesdoo_website_shift.my_shift_exempted_worker',
                 self.my_shift_exempted_worker()
+            )
+        if self.is_user_worker():
+            return request.render(
+                'beesdoo_website_shift.my_shift_new_worker',
+                {}
             )
 
         return request.render(
@@ -198,6 +218,12 @@ class WebsiteShiftController(http.Controller):
             del request.session['success']
 
         return template_context
+
+    def my_shift_regular_worker_without_shift(self):
+        """
+        Return template variables for 'beesdoo_website_shift.my_shift_regular_worker_without_shift' template
+        """
+        return self.my_shift_worker_status()
 
     def my_shift_regular_worker(self):
         """

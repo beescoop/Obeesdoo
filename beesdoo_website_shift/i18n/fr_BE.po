@@ -567,6 +567,12 @@ msgid "You don't have to participate to shift system."
 msgstr "Vous ne devez pas participer au système de shift."
 
 #. module: beesdoo_website_shift
+#: model:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_new_worker
+#: model:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_regular_worker_without_shift
+msgid "Please contact the members office to suscribe to shifts."
+msgstr "Merci de contacter le bureau des membres pour vous inscrire à un créneau de travail."
+
+#. module: beesdoo_website_shift
 #: model:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
 msgid "Your next shifts"
 msgstr "Vos prochains shifts"
