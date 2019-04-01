@@ -638,6 +638,32 @@
     </t>
   </template>
 
+  <!-- Shift for new worker -->
+  <template
+    id="my_shift_new_worker"
+    name="My Shift for New Worker"
+    page="True">
+    <t t-call="website.layout">
+
+      <t t-call="beesdoo_website_shift.my_shift_title"/>
+
+      <section class="wrap">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="alert alert-info">
+                Please contact the members office to suscribe to shifts.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="oe_structure"/>
+
+    </t>
+  </template>
+
   <!-- Shifts Exempted Workers -->
   <template
     id="my_shift_exempted_worker"
@@ -690,6 +716,56 @@
 
     </t>
   </template>
+
+  <!-- Shifts regular worker without shift -->
+  <template
+    id="my_shift_regular_worker_without_shift"
+    name="My Shifts for regular worker without shift"
+    page="True">
+    <t t-call="website.layout">
+
+      <t t-call="beesdoo_website_shift.my_shift_title"/>
+
+      <section class="wrap">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12 col-md-4 pull-right text-justify">
+
+              <t t-call="beesdoo_website_shift.my_shift_worker_status_title"/>
+
+              <t t-call="beesdoo_website_shift.my_shift_worker_status_common"/>
+
+
+              <div class="oe_structure"/>
+
+            </div>
+
+            <div class="col-xs-12 col-md-8">
+
+              <section class="wrap">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="alert alert-info">
+                        Please contact the members office to suscribe to shifts.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <div class="oe_structure"/>
+
+            </div> <!-- col-md-8 -->
+          </div> <!-- row -->
+        </div> <!-- container -->
+      </section>
+
+      <div class="oe_structure"/>
+
+    </t>
+  </template>
+
 
   <!-- Shifts for Regular Workers -->
   <template
