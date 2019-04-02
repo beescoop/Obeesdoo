@@ -462,7 +462,7 @@ msgstr "S'inscrire"
 #. module: beesdoo_website_shift
 #: model:ir.ui.view,arch_db:beesdoo_website_shift.public_shift_irregular_worker
 msgid "Subscribe via"
-msgstr "Nous avons spécialement besoin d'aide pour les shifts&amp;nbsp; pour lesquels il y a au moins 3 places disponibles. Inscriptions via"
+msgstr "Nous avons spécialement besoin d'aide pour les shifts surlignés en jaune. Inscriptions via"
 
 #. module: beesdoo_website_shift
 #: model:ir.ui.view,arch_db:beesdoo_website_shift.public_shift_template_regular_worker

@@ -380,7 +380,8 @@
       <t t-set="shift" t-value="shift_count_subscribed[0]" />
       <t t-set="count" t-value="shift_count_subscribed[1]" />
       <t t-set="is_subscribed" t-value="shift_count_subscribed[2]" />
-      <t t-set="highlight_class" t-value="'panel-warning' if count >= highlight_rule else 'panel-default'"/>
+      <t t-set="has_enough_workers" t-value="shift_count_subscribed[3]" />
+      <t t-set="highlight_class" t-value="'panel-warning' if not has_enough_workers else 'panel-default'"/>
       <div t-att-class="'panel %s' % highlight_class">
         <div class="panel-heading clearfix">
           <div class="panel-title pull-left">
@@ -427,7 +428,8 @@
           <t t-set="shift" t-value="shift_count_subscribed[0]" />
           <t t-set="count" t-value="shift_count_subscribed[1]" />
           <t t-set="is_subscribed" t-value="shift_count_subscribed[2]" />
-          <tr t-attf-class="{{ 'warning' if count >= highlight_rule else '' }}">
+          <t t-set="has_enough_workers" t-value="shift_count_subscribed[3]"/>
+          <tr t-attf-class="{{ 'warning' if not has_enough_workers else '' }}">
             <td>
               <t t-esc="time.strftime('%A', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
             </td>

@@ -20,8 +20,8 @@
             <field name="irregular_shift_limit"/>
           </div>
           <div>
-            <label for="highlight_rule"/>
-            <field name="highlight_rule"/>
+            <label for="highlight_rule_pc"/>
+            <field name="highlight_rule_pc"/>
           </div>
           <div>
             <label for="hide_rule"/>
