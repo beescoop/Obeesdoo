@@ -253,9 +253,11 @@ class WebsiteShiftController(http.Controller):
         """
         return self.my_shift_worker_status()
 
-    def available_shift_irregular_worker(self, irregular_enable_sign_up=False, nexturl=""):
+    def available_shift_irregular_worker(self, irregular_enable_sign_up=False,
+                                         nexturl=""):
         """
-        Return template variables for 'beesdoo_website_shift.available_shift_irregular_worker' template
+        Return template variables for
+        'beesdoo_website_shift.available_shift_irregular_worker' template
         """
         # Get current user
         cur_user = request.env['res.users'].browse(request.uid)
@@ -278,12 +280,18 @@ class WebsiteShiftController(http.Controller):
         )
 
         # Get config
-        irregular_shift_limit = int(request.env['ir.config_parameter'].get_param(
-            'beesdoo_website_shift.irregular_shift_limit'))
-        highlight_rule = int(request.env['ir.config_parameter'].get_param(
-            'beesdoo_website_shift.highlight_rule'))
-        hide_rule = int(request.env['ir.config_parameter'].get_param(
-            'beesdoo_website_shift.hide_rule')) / 100.0
+        irregular_shift_limit = int(
+            request.env['ir.config_parameter']
+            .get_param('beesdoo_website_shift.irregular_shift_limit')
+        )
+        highlight_rule_pc = int(
+            request.env['ir.config_parameter']
+            .get_param('beesdoo_website_shift.highlight_rule_pc')
+        )
+        hide_rule = int(
+            request.env['ir.config_parameter']
+            .get_param('beesdoo_website_shift.hide_rule')
+        ) / 100.0
 
         # Grouby task_template_id, if no task_template_id is specified
         # then group by start_time, if no start_time specified sort by
@@ -307,15 +315,23 @@ class WebsiteShiftController(http.Controller):
                  sub_shift.start_time == start_time and
                  sub_shift.task_type_id == task_type)
                 for sub_shift in subscribed_shifts)
+            # Check the necessary number of worker based on the
+            # highlight_rule_pc
+            has_enough_workers = free_space <= (task_template.worker_nb
+                                                * highlight_rule_pc) / 100
             if free_space >= task_template.worker_nb * hide_rule:
-                shifts_count_subscribed.append([shift_list[0], free_space, is_subscribed])
+                shifts_count_subscribed.append([
+                    shift_list[0],
+                    free_space,
+                    is_subscribed,
+                    has_enough_workers,
+                ])
             # Stop showing shifts if the limit is reached
             if irregular_shift_limit > 0 and nb_displayed_shift >= irregular_shift_limit:
                 break
 
         return {
             'shift_templates': shifts_count_subscribed,
-            'highlight_rule': highlight_rule,
             'nexturl': nexturl,
             'irregular_enable_sign_up': irregular_enable_sign_up,
         }
@@ -380,11 +396,11 @@ class WebsiteShiftController(http.Controller):
                 # Set new date
                 shift.start_time = self.add_days(
                     fields.Datetime.from_string(main_shift.start_time),
-                    days=i*PERIOD
+                    days=i * PERIOD
                 )
                 shift.end_time = self.add_days(
                     fields.Datetime.from_string(main_shift.end_time),
-                    days=i*PERIOD
+                    days=i * PERIOD
                 )
                 # Add the fictive shift to the list of shift
                 subscribed_shifts.append(shift)
