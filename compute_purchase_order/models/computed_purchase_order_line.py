@@ -126,7 +126,8 @@ class ComputedPurchaseOrderLine(models.Model):
             cpol.subtotal = cpol.product_price * cpol.purchase_quantity
             avg = cpol.average_consumption
             if avg > 0:
-                qty = cpol.virtual_available + cpol.purchase_quantity
+                qty = ((cpol.virtual_available / cpol.uom_id.factor)
+                       + (cpol.purchase_quantity / cpol.uom_po_id.factor))
                 cpol.virtual_coverage = qty / avg
             else:
                 # todo what would be a good default value? (not float(inf))
@@ -193,4 +194,3 @@ class ComputedPurchaseOrderLine(models.Model):
                 u'%s:%s template has no variant set'
                 % (self.product_template_id.id, self.product_template_id.name)
             )
-
