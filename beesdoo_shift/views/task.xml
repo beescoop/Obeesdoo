@@ -97,8 +97,8 @@
                         <group>
                             <field name="task_template_id" />
                             <field name="task_type_id" />
-                            <field name="super_coop_id" />
-                            <field name="worker_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="super_coop_id" domain="[('cooperative_status_ids.status', 'not in', ('unsubscribed', 'resigning'))]"/>
+                            <field name="worker_id" options="{'no_create': True, 'no_open': True}" domain="[('cooperative_status_ids.status', 'not in', ('unsubscribed', 'resigning'))]"/>
                             <field name="replaced_id"
                                    options="{'no_create': True, 'no_open': True}"
                                    domain="[('working_mode', '=', 'regular')]"

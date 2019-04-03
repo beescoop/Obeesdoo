@@ -81,7 +81,7 @@ class Subscribe(models.TransientModel):
         data = {
             'unsubscribed': True,
             'cooperator_id': self.cooperator_id.id,
-            'resigning' : self.resigning,
+            'resigning': self.resigning,
         }
         if status_id:
             status_id.sudo().write(data)

@@ -221,7 +221,7 @@ class CooperativeStatus(models.Model):
             if self.working_mode != 'irregular': #Don't reset alert time for irregular
                 data['alert_start_time'] = False
             self.write(data)
-        if new_state == 'unsubscribed':
+        if new_state == 'unsubscribed' or new_state == 'resigning':
             self.cooperator_id.sudo().write({'subscribed_shift_ids' : [(5,0,0)]})
             #TODO: Add one day othertwise unsubscribed from the shift you were absent
             self.env['beesdoo.shift.shift'].sudo().unsubscribe_from_today([self.cooperator_id.id], today=self.today)
