@@ -205,9 +205,24 @@ class PurchaseOrderLine(models.Model):
     @api.multi
     def compute_taxes_id(self):
         for pol in self:
-            fpos = pol.order_id.fiscal_position_id
             if self.env.uid == SUPERUSER_ID:
                 company_id = self.env.user.company_id.id
-                pol.taxes_id = fpos.map_tax(pol.product_id.supplier_taxes_id.filtered(lambda r: r.company_id.id == company_id))
             else:
-                pol.taxes_id = fpos.map_tax(pol.product_id.supplier_taxes_id)
+                company_id = self.company_id.id
+
+            fpos_id = (
+                self.env['account.fiscal.position']
+                    .with_context(company_id=company_id)
+                    .get_fiscal_position(pol.partner_id.id)
+            )
+            fpos = self.env['account.fiscal.position'].browse(fpos_id)
+            pol.order_id.fiscal_position_id = fpos
+
+            taxes = self.product_id.supplier_taxes_id
+            taxes_id = fpos.map_tax(taxes) if fpos else taxes
+
+            if taxes_id:
+                taxes_id = taxes_id.filtered(
+                    lambda t: t.company_id.id == company_id)
+
+            pol.taxes_id = taxes_id
