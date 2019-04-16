@@ -98,15 +98,15 @@ class Subscribe(models.TransientModel):
             self.cooperator_id.sudo().write({'subscribed_shift_ids' : [(6,0, [self.shift_id.id])]})
         if self.working_mode != 'regular':
             #Remove existing shift then subscribe to the new shift
-            self.cooperator_id.sudo().write({'subscribed_shift_ids' : [(5,)]})
+            self.cooperator_id.sudo().write({'subscribed_shift_ids': [(5,)]})
             
 
         data = {
-            'info_session' : self.info_session,
+            'info_session': self.info_session,
             'info_session_date': self.info_session_date,
-            'working_mode' : self.working_mode,
+            'working_mode': self.working_mode,
             'exempt_reason_id' : self.exempt_reason_id.id,
-            'super' : self.super,
+            'super': self.super,
             'cooperator_id': self.cooperator_id.id,
             'unsubscribed': False,
             'irregular_start_date': self.irregular_start_date,
@@ -121,10 +121,16 @@ class Subscribe(models.TransientModel):
         if self.reset_compensation_counter:
             data['sc'] = 0
 
-        status_id = self.env['cooperative.status'].search([('cooperator_id', '=', self.cooperator_id.id)])
+        coop_status_obj = self.env['cooperative.status']
+        status_id = coop_status_obj.search(
+            [('cooperator_id', '=', self.cooperator_id.id)])
         if status_id:
             status_id.sudo().write(data)
         else:
-            self.env['cooperative.status'].sudo().create(data)
-            
-
+            status_id = coop_status_obj.sudo().create(data)
+            # Normally the write method is not necessary here.
+            # But it does not work without it. You have to make 2 registration
+            # to a shift to keep information like "Worker mode, session info
+            # ,...
+            status_id.sudo().write(data)
+        return True
