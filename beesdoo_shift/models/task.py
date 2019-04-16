@@ -77,8 +77,8 @@ class Task(models.Model):
         to_unsubscribe = self.search([('worker_id', 'in', worker_ids)] + date_domain)
 
         to_unsubscribe.write({'worker_id': False, 'is_regular': False})
-        #What about replacement ?
-        #Remove worker, replaced_id and regular
+        # What about replacement ?
+        # Remove worker, replaced_id and regular
         to_unsubscribe_replace = self.search([('replaced_id', 'in', worker_ids)] + date_domain)
         to_unsubscribe_replace.write({'worker_id': False, 'is_regular': False, 'replaced_id': False})
 

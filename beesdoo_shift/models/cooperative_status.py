@@ -218,13 +218,15 @@ class CooperativeStatus(models.Model):
             self.write({'alert_start_time': self.today, 'extension_start_time': False, 'time_extension': 0})
         if new_state == 'ok':
             data = {'extension_start_time': False, 'time_extension': 0}
-            if self.working_mode != 'irregular': #Don't reset alert time for irregular
+            if self.working_mode != 'irregular':  # Don't reset alert time for irregular
                 data['alert_start_time'] = False
             self.write(data)
         if new_state == 'unsubscribed' or new_state == 'resigning':
-            self.cooperator_id.sudo().write({'subscribed_shift_ids' : [(5,0,0)]})
-            #TODO: Add one day othertwise unsubscribed from the shift you were absent
-            self.env['beesdoo.shift.shift'].sudo().unsubscribe_from_today([self.cooperator_id.id], today=self.today)
+            self.cooperator_id.sudo().write(
+                {'subscribed_shift_ids': [(5, 0, 0)]})
+            # TODO: Add one day otherwise unsubscribed from the shift you were absent
+            self.env['beesdoo.shift.shift'].sudo().unsubscribe_from_today(
+                [self.cooperator_id.id], today=fields.Date.today())
 
     def _change_counter(self, data):
         self.sc += data.get('sc', 0)
