@@ -18,6 +18,8 @@
     # any module necessary for this one to work correctly
     'depends': [
         'beesdoo_product',
+        'purchase',
+        'easy_my_coop', # for product views
     ],
 
     # always loaded
