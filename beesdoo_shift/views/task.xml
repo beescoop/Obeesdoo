@@ -102,9 +102,16 @@
                             <field name="replaced_id"
                                    options="{'no_create': True, 'no_open': True}"
                                    domain="[('working_mode', '=', 'regular')]"
-                                   attrs="{'invisible': [('is_regular', '!=', True)]}"/>
-                            <field name="is_regular" attrs="{'invisible': [('working_mode', '=', 'irregular')]}"/>
-                            <field name="working_mode" invisible="1" />
+                                   attrs="{'invisible': [('is_regular', '!=', True), ('is_compensation', '!=', True)]}"/>
+                            <group>
+                                <field name="is_regular"
+                                       attrs="{'invisible': [('working_mode', '=', 'irregular')], 'required':[('is_compensation', '=', False)]}">
+                                    Regular shift
+                                </field>
+                                <field name="is_compensation"
+                                       attrs="{'invisible': [('working_mode', '=', 'irregular')], 'required':[('is_regular', '=', False)]}"/>
+                                <field name="working_mode" invisible="1"/>
+                            </group>
                         </group>
                         <group>
                             <field name="start_time" />
@@ -179,7 +186,7 @@
                                     Super Coop:
                                     <field name="super_coop_id" />
                                 </div>
-                                <div t-if="record.is_regular.raw_value" >
+                                <div t-if="record.is_regular.raw_value">
                                     Regular Shift
                                 </div>
 
