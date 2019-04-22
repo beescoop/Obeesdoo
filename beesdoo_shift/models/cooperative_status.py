@@ -222,9 +222,19 @@ class CooperativeStatus(models.Model):
                 data['alert_start_time'] = False
             self.write(data)
         if new_state == 'unsubscribed' or new_state == 'resigning':
-            self.cooperator_id.sudo().write({'subscribed_shift_ids' : [(5,0,0)]})
-            #TODO: Add one day othertwise unsubscribed from the shift you were absent
-            self.env['beesdoo.shift.shift'].sudo().unsubscribe_from_today([self.cooperator_id.id], today=self.today)
+            self.cooperator_id.sudo().write({'subscribed_shift_ids': [(5, 0, 0)]})
+            # Unsubscribe from shift template if super coop
+            if self.super:
+                super_cooperator_id = self.env['res.users'].search(
+                    [('partner_id', '=', self.cooperator_id.id)])
+                super_cooperator_ids = (self.env['beesdoo.shift.template']
+                                        .search([('super_coop_id', '=',
+                                                  super_cooperator_id.id)]))
+                super_cooperator_ids.write({'super_coop_id': False})
+            # TODO: Add one day otherwise unsubscribed from the shift you were
+            #  absent
+            self.env['beesdoo.shift.shift'].sudo().unsubscribe_from_today(
+                [self.cooperator_id.id], today=self.today)
 
     def _change_counter(self, data):
         self.sc += data.get('sc', 0)
