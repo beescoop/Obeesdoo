@@ -39,10 +39,21 @@ class Task(models.Model):
     stage_id = fields.Many2one('beesdoo.shift.stage', required=True, track_visibility='onchange', default=lambda self: self.env.ref('beesdoo_shift.open'))
     super_coop_id = fields.Many2one('res.users', string="Super Cooperative", domain=[('partner_id.super', '=', True)], track_visibility='onchange')
     color = fields.Integer(related="stage_id.color", readonly=True)
-    is_regular = fields.Boolean(default=False)
+    is_regular = fields.Boolean(default=False, string="Regular shift")
+    is_compensation = fields.Boolean(default=False, string="Compensation shift")
     replaced_id = fields.Many2one('res.partner', track_visibility='onchange', domain=[('eater', '=', 'worker_eater')])
     revert_info = fields.Text(copy=False)
     working_mode = fields.Selection(related='worker_id.working_mode')
+
+    @api.onchange('is_regular')
+    def _onchange_shift_is_regular(self):
+        for task in self:
+            task.is_compensation = not task.is_regular
+
+    @api.onchange('is_compensation')
+    def _onchange_shift_is_compensation(self):
+        for task in self:
+            task.is_regular = not task.is_compensation
 
     def message_auto_subscribe(self, updated_fields, values=None):
         self._add_follower(values)
