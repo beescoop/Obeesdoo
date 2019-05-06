@@ -2,8 +2,6 @@
     Copyright 2016 ufaks <https://github.com/ufaks>
     Copyright 2016 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
     Copyright 2019 Kolushov Alexandr <https://it-projects.info/team/kolushovalexandr>
-    Copyright 2019 ssaid <https://github.com/ssaid>
-    Copyright 2019 raulovallet <https://github.com/raulovallet>
     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). */
 odoo.define('pos_keyboard.pos', function (require) {
     "use strict";
@@ -78,7 +76,7 @@ odoo.define('pos_keyboard.pos', function (require) {
                 this.inputbuffer = newbuf;
                 $value.text(this.inputbuffer);
             }
-            if (this.popup_type === 'password') {
+            if (this.popup_type === 'password' && newbuf) {
                 $value.text($value.text().replace(/./g, '•'));
             }
         },
@@ -136,7 +134,6 @@ odoo.define('pos_keyboard.pos', function (require) {
                 val: undefined
             };
             this.action_callback = undefined;
-            this.active = false;
         },
 
         save_callback: function(){
@@ -162,9 +159,6 @@ odoo.define('pos_keyboard.pos', function (require) {
         // calling the callback when needed.
         connect: function(){
             var self = this;
-            if (self.active) {
-                return;
-            }
             // --- additional keyboard ---//
             // KeyCode: + or - (Keypad '+')
             var KC_PLU = 107;
@@ -264,13 +258,11 @@ odoo.define('pos_keyboard.pos', function (require) {
                     }, 50);
                 }
             });
-            self.active = true;
         },
 
         // stops catching keyboard events 
         disconnect: function(){
             $('body').off('keyup', '');
-            this.active = false;
         }
     });
     
