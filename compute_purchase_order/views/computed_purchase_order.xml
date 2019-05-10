@@ -58,6 +58,7 @@
             <tree string="Order Lines" editable='bottom'>
               <field name="product_template_id" domain="[('main_seller_id', '=', cpo_seller_id)]"/>
               <field name="qty_available" readonly='1'/>
+              <field name="virtual_available" readonly='1'/>
               <field name="uom_id" readonly='1'/>
               <field name="average_consumption" readonly='1'/>
               <field name="stock_coverage" readonly='1'/>
