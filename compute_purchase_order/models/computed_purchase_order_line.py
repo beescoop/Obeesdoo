@@ -56,7 +56,7 @@ class ComputedPurchaseOrderLine(models.Model):
              'into account incoming orders.')
 
     virtual_available = fields.Float(
-        string='Stock Quantity',
+        string='Forecast Quantity',
         related='product_template_id.virtual_available',
         read_only=True,
         help='Virtual quantity taking into account current stock, incoming '
