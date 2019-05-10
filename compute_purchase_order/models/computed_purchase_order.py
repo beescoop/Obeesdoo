@@ -36,7 +36,8 @@ class ComputedPurchaseOrder(models.Model):
 
     total_amount = fields.Float(
         string='Total Amount (w/o VAT)',
-        compute='_compute_cpo_total'
+        compute='_compute_cpo_total',
+        store=True,
     )
 
     generated_purchase_order_ids = fields.One2many(
@@ -142,7 +143,7 @@ class ComputedPurchaseOrder(models.Model):
         }
         return action
 
-    # @api.onchange(order_line_ids)  # fixme
+    @api.depends('order_line_ids.subtotal')
     @api.multi
     def _compute_cpo_total(self):
         for cpo in self:
