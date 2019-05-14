@@ -14,8 +14,8 @@ PARAMS = [
      'beesdoo_website_shift.irregular_enable_sign_up'),
     ('irregular_past_shift_limit',
      'beesdoo_website_shift.irregular_past_shift_limit'),
-    ('regular_past_shift_limit'
-     , 'beesdoo_website_shift.regular_past_shift_limit'),
+    ('regular_past_shift_limit',
+     'beesdoo_website_shift.regular_past_shift_limit'),
     ('regular_next_shift_limit',
      'beesdoo_website_shift.regular_next_shift_limit'),
 ]
