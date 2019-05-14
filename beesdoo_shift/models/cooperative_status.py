@@ -225,11 +225,9 @@ class CooperativeStatus(models.Model):
             self.cooperator_id.sudo().write({'subscribed_shift_ids': [(5, 0, 0)]})
             # Unsubscribe from shift template if super coop
             if self.super:
-                super_cooperator_id = self.env['res.users'].search(
-                    [('partner_id', '=', self.cooperator_id.id)])
                 super_cooperator_ids = (self.env['beesdoo.shift.template']
-                                        .search([('super_coop_id', '=',
-                                                  super_cooperator_id.id)]))
+                                        .search(
+                    [('super_coop_id', '=', self.cooperator_id.user_ids.id)]))
                 super_cooperator_ids.write({'super_coop_id': False})
             # TODO: Add one day otherwise unsubscribed from the shift you were
             #  absent
