@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp import models, fields, api, _
-from openerp.exceptions import UserError
+from openerp.exceptions import UserError, ValidationError
 import json
 
 class TaskStage(models.Model):
@@ -39,21 +39,31 @@ class Task(models.Model):
     stage_id = fields.Many2one('beesdoo.shift.stage', required=True, track_visibility='onchange', default=lambda self: self.env.ref('beesdoo_shift.open'))
     super_coop_id = fields.Many2one('res.users', string="Super Cooperative", domain=[('partner_id.super', '=', True)], track_visibility='onchange')
     color = fields.Integer(related="stage_id.color", readonly=True)
+    # TODO: Maybe is_regular and is_compensation must be merged in a
+    # selection field as they are mutually exclusive.
     is_regular = fields.Boolean(default=False, string="Regular shift")
     is_compensation = fields.Boolean(default=False, string="Compensation shift")
     replaced_id = fields.Many2one('res.partner', track_visibility='onchange', domain=[('eater', '=', 'worker_eater')])
     revert_info = fields.Text(copy=False)
     working_mode = fields.Selection(related='worker_id.working_mode')
 
-    @api.onchange('is_regular')
-    def _onchange_shift_is_regular(self):
+    @api.constrains('is_regular', 'is_compensation', 'worker_id')
+    def _check_compensation(self):
         for task in self:
-            task.is_compensation = not task.is_regular
+            if task.working_mode == 'regular':
+                if (task.is_regular == task.is_compensation
+                        or not (task.is_regular or task.is_compensation)):
+                    raise ValidationError(
+                        "You must choose between Regular Shift or "
+                        "Compensation Shift."
+                    )
 
-    @api.onchange('is_compensation')
-    def _onchange_shift_is_compensation(self):
+    @api.onchange('worker_id')
+    def _onchange_worker_id(self):
         for task in self:
-            task.is_regular = not task.is_compensation
+            if task.working_mode != 'regular':
+                task.is_regular = False
+                task.is_compensation = False
 
     def message_auto_subscribe(self, updated_fields, values=None):
         self._add_follower(values)
@@ -114,9 +124,17 @@ class Task(models.Model):
         """
         if 'worker_id' in vals:
             for rec in self:
-                if rec.worker_id != vals['worker_id']:
+                if rec.worker_id.id != vals['worker_id']:
                     rec._revert()
-                    super(Task, rec).write({'worker_id': vals['worker_id']})
+                    # To satisfy the constrains on worker_id, it must be
+                    # accompanied by the change in is_regular and
+                    # is_compensation field.
+                    super(Task, rec).write({
+                        'worker_id': vals['worker_id'],
+                        'is_regular': vals.get('is_regular', rec.is_regular),
+                        'is_compensation': vals.get('is_compensation',
+                                                    rec.is_compensation),
+                    })
                     rec._update_stage(rec.stage_id.id)
         if 'stage_id' in vals:
             for rec in self:
