@@ -102,14 +102,12 @@
                             <field name="replaced_id"
                                    options="{'no_create': True, 'no_open': True}"
                                    domain="[('working_mode', '=', 'regular')]"
-                                   attrs="{'invisible': [('is_regular', '!=', True), ('is_compensation', '!=', True)]}"/>
+                                   attrs="{'invisible': [('working_mode', '!=', 'regular')]}" />
                             <group>
                                 <field name="is_regular"
-                                       attrs="{'invisible': [('working_mode', '!=', 'regular')], 'required':[('is_compensation', '=', False)]}">
-                                    Regular shift
-                                </field>
+                                       attrs="{'invisible': [('working_mode', '!=', 'regular')]}"/>
                                 <field name="is_compensation"
-                                       attrs="{'invisible': [('working_mode', '!=', 'regular')], 'required':[('is_regular', '=', False)]}"/>
+                                       attrs="{'invisible': [('working_mode', '!=', 'regular')]}"/>
                                 <field name="working_mode" invisible="1"/>
                             </group>
                         </group>
