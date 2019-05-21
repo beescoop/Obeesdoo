@@ -203,8 +203,16 @@ class Task(models.Model):
 
         elif self.worker_id.working_mode == 'irregular':
             status = self.worker_id.cooperative_status_ids[0]
+            alert_start_time = fields.Date.from_string(
+                self.worker_id.cooperative_status_ids[0].alert_start_time
+            )
+            start_time = fields.Date.from_string(self.start_time)
+            sr = self.worker_id.cooperative_status_ids[0].sr
             if new_stage == DONE or new_stage == NECESSITY:
-                data['sr'] = 1
+                if start_time <= alert_start_time and sr >= -2:
+                    data['sr'] = 2
+                else:
+                    data['sr'] = 1
                 data['irregular_absence_date'] = False
                 data['irregular_absence_counter'] = 1 if status.irregular_absence_counter < 0 else 0
             if new_stage == ABSENT or new_stage == EXCUSED:
