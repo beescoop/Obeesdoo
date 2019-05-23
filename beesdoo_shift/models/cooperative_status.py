@@ -218,8 +218,7 @@ class CooperativeStatus(models.Model):
             self.write({'alert_start_time': self.today, 'extension_start_time': False, 'time_extension': 0})
         if new_state == 'ok':
             data = {'extension_start_time': False, 'time_extension': 0}
-            if self.working_mode != 'irregular':  # Don't reset alert time for irregular
-                data['alert_start_time'] = False
+            data['alert_start_time'] = False
             self.write(data)
         if new_state == 'unsubscribed' or new_state == 'resigning':
             # Remove worker from task_templates
@@ -304,7 +303,6 @@ class CooperativeStatus(models.Model):
             if delta and delta % PERIOD == 0 and status not in journal.line_ids:
                 if status.sr > 0:
                     status.sr -= 1
-                    status.alert_start_time = False
                 elif status.alert_start_time:
                     status.sr -= 1
                 else:
