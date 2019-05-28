@@ -47,23 +47,41 @@ class Task(models.Model):
     revert_info = fields.Text(copy=False)
     working_mode = fields.Selection(related='worker_id.working_mode')
 
-    @api.constrains('is_regular', 'is_compensation', 'worker_id')
+    def _compensation_validation(self, task):
+        """
+        Raise a validation error if the fields is_regular and
+        is_compensation are not properly set.
+        """
+        if (task.is_regular == task.is_compensation
+                or not (task.is_regular or task.is_compensation)):
+            raise ValidationError(
+                "You must choose between Regular Shift or "
+                "Compensation Shift."
+            )
+
+    @api.constrains('is_regular', 'is_compensation')
     def _check_compensation(self):
         for task in self:
             if task.working_mode == 'regular':
-                if (task.is_regular == task.is_compensation
-                        or not (task.is_regular or task.is_compensation)):
-                    raise ValidationError(
-                        "You must choose between Regular Shift or "
-                        "Compensation Shift."
-                    )
+                self._compensation_validation(task)
 
-    @api.onchange('worker_id')
-    def _onchange_worker_id(self):
+    @api.constrains('worker_id')
+    def _check_worker_id(self):
+        """
+        When worker_id changes we need to check whether is_regular
+        and is_compensation are set correctly.
+        When worker_id is set to a worker that doesn't need field
+        is_regular and is_compensation, these two fields are set to
+        False.
+        """
         for task in self:
-            if task.working_mode != 'regular':
-                task.is_regular = False
-                task.is_compensation = False
+            if task.working_mode == 'regular':
+                self._compensation_validation(task)
+            else:
+                task.write({
+                    'is_regular': False,
+                    'is_compensation': False,
+                })
 
     def message_auto_subscribe(self, updated_fields, values=None):
         self._add_follower(values)
@@ -97,11 +115,11 @@ class Task(models.Model):
             date_domain.append(('end_time', '<=', end_date))
         to_unsubscribe = self.search([('worker_id', 'in', worker_ids)] + date_domain)
 
-        to_unsubscribe.write({'worker_id': False, 'is_regular': False})
+        to_unsubscribe.write({'worker_id': False})
         # What about replacement ?
         # Remove worker, replaced_id and regular
         to_unsubscribe_replace = self.search([('replaced_id', 'in', worker_ids)] + date_domain)
-        to_unsubscribe_replace.write({'worker_id': False, 'is_regular': False, 'replaced_id': False})
+        to_unsubscribe_replace.write({'worker_id': False, 'replaced_id': False})
 
         # If worker is Super cooperator, remove it from planning
         super_coop_ids = self.env['res.users'].search(
@@ -110,8 +128,7 @@ class Task(models.Model):
         if super_coop_ids:
             to_unsubscribe_super_coop = self.search(
                 [('super_coop_id', 'in', super_coop_ids)] + date_domain)
-            to_unsubscribe_super_coop.write({'super_coop_id': False,
-                                             'is_regular': False})
+            to_unsubscribe_super_coop.write({'super_coop_id': False})
 
     @api.multi
     def write(self, vals):

@@ -13,7 +13,7 @@
     'website': "https://github.com/beescoop/Obeesdoo",
 
     'category': 'Cooperative management',
-    'version': '9.0.1.0.1',
+    'version': '9.0.1.0.2',
 
     'depends': ['beesdoo_base'],
 
