@@ -79,6 +79,7 @@ class CooperativeStatus(models.Model):
     irregular_absence_date = fields.Date()
     irregular_absence_counter = fields.Integer() #TODO unsubscribe when reach -2
     future_alert_date = fields.Date(compute='_compute_future_alert_date')
+    next_countdown_date = fields.Date(compute='_compute_next_countdown_date')
 
     temporary_exempt_reason_id = fields.Many2one('cooperative.exempt.reason', 'Exempt Reason')
     temporary_exempt_start_date = fields.Date()
@@ -113,17 +114,101 @@ class CooperativeStatus(models.Model):
                 rec.status = 'ok'
                 rec.can_shop = True
 
-    @api.depends('today', 'irregular_start_date', 'sr')
+    @api.depends('today', 'irregular_start_date', 'sr', 'holiday_start_time',
+                 'holiday_end_time', 'temporary_exempt_start_date',
+                 'temporary_exempt_end_date')
     def _compute_future_alert_date(self):
         """Compute date before which the worker is up to date"""
         for rec in self:
-            future_alert_date = False
-            if not rec.alert_start_time and rec.irregular_start_date:
-                today_date = fields.Date.from_string(rec.today)
-                delta = (today_date - fields.Date.from_string(rec.irregular_start_date)).days
-                future_alert_date = today_date + timedelta(days=(rec.sr + 1) * PERIOD - delta % PERIOD)
-                future_alert_date = future_alert_date.strftime('%Y-%m-%d')
-            rec.future_alert_date = future_alert_date
+            # Only for irregular worker
+            if rec.working_mode != 'irregular' and not rec.irregular_start_date:
+                rec.future_alert_date = False
+            # Alert start time already set
+            elif rec.alert_start_time:
+                rec.future_alert_date = False
+            # Holidays are not set properly
+            elif bool(rec.holiday_start_time) != bool(rec.holiday_end_time):
+                rec.future_alert_date = False
+            # Exemption have not a start and end time
+            elif (bool(rec.temporary_exempt_start_date)
+                  != bool(rec.temporary_exempt_end_date)):
+                rec.future_alert_date = False
+            else:
+                date = rec.today
+                counter = rec.sr
+                # Simulate the countdown
+                while counter >= 0:
+                    date = add_days_delta(date, 1)
+                    date = self._next_countdown_date(rec.irregular_start_date,
+                                                     date)
+                    # Check holidays
+                    if (rec.holiday_start_time and rec.holiday_end_time
+                            and date >= rec.holiday_start_time
+                            and date <= rec.holiday_end_time):
+                        continue
+                    # Check temporary exemption
+                    elif (rec.temporary_exempt_start_date
+                          and rec.temporary_exempt_end_date
+                          and date >= rec.temporary_exempt_start_date
+                          and date <= rec.temporary_exempt_end_date):
+                        continue
+                    else:
+                        counter -= 1
+                rec.future_alert_date = date
+
+    @api.depends('today', 'irregular_start_date', 'holiday_start_time',
+                 'holiday_end_time', 'temporary_exempt_start_date',
+                 'temporary_exempt_end_date')
+    def _compute_next_countdown_date(self):
+        """
+        Compute the following countdown date. This date is the date when
+        the worker will see his counter changed du to the cron. This
+        date is like the birthday date of the worker that occurred each
+        PERIOD.
+        """
+        for rec in self:
+            # Only for irregular worker
+            if rec.working_mode != 'irregular' and not rec.irregular_start_date:
+                rec.next_countdown_date = False
+            # Holidays are not set properly
+            elif bool(rec.holiday_start_time) != bool(rec.holiday_end_time):
+                rec.next_countdown_date = False
+            # Exemption have not a start and end time
+            elif (bool(rec.temporary_exempt_start_date)
+                  != bool(rec.temporary_exempt_end_date)):
+                rec.next_countdown_date = False
+            else:
+                date = rec.today
+                next_countdown_date = False
+                while not next_countdown_date:
+                    date = add_days_delta(date, 1)
+                    date = self._next_countdown_date(rec.irregular_start_date, date)
+                    # Check holidays
+                    if (rec.holiday_start_time and rec.holiday_end_time
+                            and date >= rec.holiday_start_time
+                            and date <= rec.holiday_end_time):
+                        continue
+                    # Check temporary exemption
+                    elif (rec.temporary_exempt_start_date
+                          and rec.temporary_exempt_end_date
+                          and date >= rec.temporary_exempt_start_date
+                          and date <= rec.temporary_exempt_end_date):
+                        continue
+                    else:
+                        next_countdown_date = date
+                rec.next_countdown_date = next_countdown_date
+
+    def _next_countdown_date(self, irregular_start_date, today=False):
+        """
+        Return the next countdown date given irregular_start_date and
+        today dates.
+        This does not take holiday and other status into account.
+        """
+        today = today or fields.Date.today()
+        today_dt = fields.Date.from_string(today)
+        irregular_start_dt = fields.Date.from_string(irregular_start_date)
+        delta = (today_dt - irregular_start_dt).days
+        return add_days_delta(today, delta % PERIOD)
 
     def _set_regular_status(self, grace_delay, alert_delay):
         self.ensure_one()
