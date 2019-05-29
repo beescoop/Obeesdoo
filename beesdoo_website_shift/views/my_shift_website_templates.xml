@@ -862,6 +862,11 @@
                 <t t-esc="status.sr"/>
               </p>
 
+              <p t-if="status.next_countdown_date">
+                <label>Next Countdown Date:</label>
+                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.next_countdown_date, '%Y-%m-%d'))"/>
+              </p>
+
               <p t-if="status.future_alert_date">
                 <label>Future Date of Alert:</label>
                 <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.future_alert_date, '%Y-%m-%d'))"/>
