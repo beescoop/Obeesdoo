@@ -16,7 +16,7 @@
 
     'author': 'Rémy Taymans',
     'license': 'AGPL-3',
-    'version': '9.0.2.1.1',
+    'version': '9.0.2.2.0',
     'website': "https://github.com/beescoop/Obeesdoo",
 
     'category': 'Cooperative management',
