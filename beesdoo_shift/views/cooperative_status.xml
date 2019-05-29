@@ -85,7 +85,8 @@
                         <field name="can_shop" />
                     </group>
                     <group string="Timing information">
-                        <field name="future_alert_date" readonly="1" />
+                        <field name="next_countdown_date" readonly="1" attrs="{'invisible':[('working_mode', '!=', 'irregular')]}" />
+                        <field name="future_alert_date" readonly="1" attrs="{'invisible':[('working_mode', '!=', 'irregular')]}" />
                         <field name="time_extension" />
                         <field name="holiday_start_time" />
                         <field name="holiday_end_time" />
