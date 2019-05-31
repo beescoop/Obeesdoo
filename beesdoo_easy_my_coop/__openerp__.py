@@ -25,6 +25,8 @@
     'data': [
         'data/product_share.xml',
         'views/partner.xml',
+        'views/subscription_request.xml',
+        'views/subscription_templates.xml',
     ],
     'auto_install': True,
     # only loaded in demonstration mode
