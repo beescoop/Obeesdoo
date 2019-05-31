@@ -6,6 +6,10 @@ class Partner(models.Model):
 
     cooperator_type = fields.Selection(selection='_get_share_type', compute='_compute_share_type', string='Cooperator Type', store=True)
     can_shop = fields.Boolean(compute='_can_shop', store=True)
+    info_session_confirmed = fields.Boolean(
+        string="Confirmed presence to info session",
+        default=False,
+    )
 
     @api.depends('cooperator_type', 'cooperative_status_ids', 'cooperative_status_ids.can_shop')
     def _can_shop(self):
