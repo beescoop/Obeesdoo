@@ -27,4 +27,8 @@
         <field name="key">irregular_counter_to_unsubscribe</field>
         <field name="value">-4</field>
     </record>
+    <record id="regular_counter_to_unsubscribe" model="ir.config_parameter">
+        <field name="key">regular_counter_to_unsubscribe</field>
+        <field name="value">-4</field>
+    </record>
 </odoo>
