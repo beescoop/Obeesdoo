@@ -14,7 +14,6 @@
                   <input type="checkbox"
                     class="form-control"
                     name="info_session_confirmed"
-                    required="True"
                     t-attf-value="#{info_session_confirmed or ''}"/>
               </div>
               <div class="col-md-6 col-sm-6">
