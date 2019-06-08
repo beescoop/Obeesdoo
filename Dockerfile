@@ -28,6 +28,7 @@ USER root
 RUN pip install --upgrade  setuptools enum
 RUN pip install -r /app/extra-addons/reporting-engine/requirements.txt
 RUN pip install -r /app/extra-addons/server-tools/requirements.txt
+RUN pip install -r /app/extra-addons/obeesdoo/requirements.txt
 
 USER odoo
 
