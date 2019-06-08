@@ -14,8 +14,8 @@ Specific module for the Beescoop
 ```
 $ cd projects
 $ git clone https://github.com/beescoop/Obeesdoo.git obeesdoo -b 9.0 --depth 1
-$ git clone https://github.com/houssine78/vertical-cooperative.git vertical-cooperative -b 9.0 --depth 1
-$ git clone https://github.com/houssine78/addons.git houssine-addons -b 9.0 --depth 1
+$ git clone https://github.com/coopiteasy/vertical-cooperative.git vertical-cooperative -b 9.0 --depth 1
+$ git clone https://github.com/coopiteasy/addons.git houssine-addons -b 9.0 --depth 1
 $ git clone https://github.com/coopiteasy/procurement-addons procurement-addons -b 9.0 --depth 1
 $ git clone https://www.github.com/OCA/l10n-belgium -b 9.0 --depth 1
 $ git clone https://www.github.com/OCA/mis-builder -b 9.0 --depth 1
