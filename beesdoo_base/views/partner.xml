@@ -85,9 +85,6 @@
                 <field name="parent_barcode"
                     attrs="{'invisible' : [('eater', '!=', 'eater')]}" />
             </field>
-            <button name="toggle_active" position="attributes">
-                <attribute name="groups" />
-            </button>
             <!-- Temporary fix for the partner_view -->
             <xpath expr="//field[@name='customer']" position='before'>
                 <field name="is_company" invisible="True" />
