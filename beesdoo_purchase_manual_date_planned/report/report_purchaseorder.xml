@@ -13,6 +13,9 @@
         <xpath expr="//span[@t-field='line.date_planned']/.." position="attributes">
             <attribute name="style">display:none;</attribute>
         </xpath>
+        <xpath expr="//th[hasclass('text-center')]" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
     </template>
 </data>
 </odoo>
