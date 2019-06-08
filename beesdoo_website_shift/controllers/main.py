@@ -367,7 +367,9 @@ class WebsiteShiftController(http.Controller):
                     limit=1,
                 )
                 main_shift = request.env['beesdoo.shift.shift'].sudo().search(
-                    [('task_template_id', '=', task_template[0].id)],
+                    [('task_template_id', '=', task_template[0].id),
+                     ('start_time', '!=', False),
+                     ('end_time', '!=', False)],
                     order="start_time desc",
                     limit=1,
                 )
