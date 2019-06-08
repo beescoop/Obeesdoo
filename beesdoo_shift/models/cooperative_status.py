@@ -208,7 +208,7 @@ class CooperativeStatus(models.Model):
         today_dt = fields.Date.from_string(today)
         irregular_start_dt = fields.Date.from_string(irregular_start_date)
         delta = (today_dt - irregular_start_dt).days
-        return add_days_delta(today, delta % PERIOD)
+        return add_days_delta(today, PERIOD - (delta % PERIOD))
 
     def _set_regular_status(self, grace_delay, alert_delay):
         self.ensure_one()
