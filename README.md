@@ -15,7 +15,7 @@ Specific module for the Beescoop
 $ cd projects
 $ git clone https://github.com/beescoop/Obeesdoo.git obeesdoo -b 9.0 --depth 1
 $ git clone https://github.com/coopiteasy/vertical-cooperative.git vertical-cooperative -b 9.0 --depth 1
-$ git clone https://github.com/coopiteasy/addons.git houssine-addons -b 9.0 --depth 1
+$ git clone https://github.com/coopiteasy/addons.git addons -b 9.0 --depth 1
 $ git clone https://github.com/coopiteasy/procurement-addons procurement-addons -b 9.0 --depth 1
 $ git clone https://www.github.com/OCA/l10n-belgium -b 9.0 --depth 1
 $ git clone https://www.github.com/OCA/mis-builder -b 9.0 --depth 1
@@ -65,7 +65,7 @@ db_host=False
 db_port=False
 db_user=odoo
 db_password=False
-addons_path=addons,openerp/addons,$ODOO_HOME/obeesdoo,$ODOO_HOME/vertical-cooperative,$ODOO_HOME/houssine-addons,$ODOO_HOME/procurement-addons,$ODOO_HOME/l10n-belgium,$ODOO_HOME/mis-builder,$ODOO_HOME/web,$ODOO_HOME/server-tools,$ODOO_HOME/reporting-engine
+addons_path=addons,openerp/addons,$ODOO_HOME/obeesdoo,$ODOO_HOME/vertical-cooperative,$ODOO_HOME/addons,$ODOO_HOME/procurement-addons,$ODOO_HOME/l10n-belgium,$ODOO_HOME/mis-builder,$ODOO_HOME/web,$ODOO_HOME/server-tools,$ODOO_HOME/reporting-engine
 ```
 
 ##### 6) update database structure
