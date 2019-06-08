@@ -41,6 +41,15 @@ class Subscribe(models.TransientModel):
                             .info_session)
         return session_followed
 
+    def _get_shift(self):
+        shifts = self.env['res.partner'].browse(self._context.get('active_id')).subscribed_shift_ids
+        if shifts:
+            return shifts[0]
+        return
+
+    def _get_nb_shifts(self):
+        return len(self.env['res.partner'].browse(self._context.get('active_id')).subscribed_shift_ids)
+
     def _get_super(self):
         return self.env['res.partner'].browse(self._context.get('active_id')).super
 
@@ -62,7 +71,8 @@ class Subscribe(models.TransientModel):
         ], default=_get_mode
     )
     exempt_reason_id = fields.Many2one('cooperative.exempt.reason', 'Exempt Reason')
-    shift_id = fields.Many2one('beesdoo.shift.template')
+    shift_id = fields.Many2one('beesdoo.shift.template', default=_get_shift)
+    nb_shifts = fields.Integer(string='Number of shifts', default=_get_nb_shifts)
     reset_counter = fields.Boolean(default=_get_reset_counter_default)
     reset_compensation_counter = fields.Boolean(default=False)
     unsubscribed = fields.Boolean(default=False, string="Are you sure to unsubscribe this cooperator")

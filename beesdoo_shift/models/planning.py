@@ -178,3 +178,23 @@ class TaskTemplate(models.Model):
                 })
 
         return tasks
+
+    @api.onchange('worker_ids')
+    def check_for_multiple_shifts(self):
+        original_ids = {worker.id for worker in self._origin.worker_ids}
+
+        warnings = []
+        for worker in self.worker_ids:
+            if worker.id not in original_ids:
+                shifts = [shift.name for shift in worker.subscribed_shift_ids if shift.id != self.id]
+                if shifts:
+                    warnings.append(
+                        worker.name + _(' is already assigned to ') + ", ".join(shifts))
+
+        if warnings:
+            return {
+                'warning': {
+                    'title': _("Warning"),
+                    'message': "\n".join(warnings)
+                }
+            }
