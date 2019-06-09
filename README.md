@@ -19,7 +19,10 @@ $ git clone https://github.com/coopiteasy/addons.git addons -b 9.0 --depth 1
 $ git clone https://github.com/coopiteasy/procurement-addons procurement-addons -b 9.0 --depth 1
 $ git clone https://www.github.com/OCA/l10n-belgium -b 9.0 --depth 1
 $ git clone https://www.github.com/OCA/mis-builder -b 9.0 --depth 1
+$ git clone https://www.github.com/OCA/account-financial-tools -b 9.0 --depth 1
+$ git clone https://www.github.com/OCA/account-financial-reporting -b 9.0 --depth 1
 $ git clone https://www.github.com/OCA/web -b 9.0 --depth 1
+$ git clone https://www.github.com/OCA/website -b 9.0 --depth 1
 $ git clone https://github.com/OCA/server-tools -b 9.0 --depth 1
 $ git clone https://github.com/OCA/reporting-engine -b 9.0 --depth 1
 ```
