@@ -68,7 +68,19 @@ db_host=False
 db_port=False
 db_user=odoo
 db_password=False
-addons_path=addons,openerp/addons,$ODOO_HOME/obeesdoo,$ODOO_HOME/vertical-cooperative,$ODOO_HOME/addons,$ODOO_HOME/procurement-addons,$ODOO_HOME/l10n-belgium,$ODOO_HOME/mis-builder,$ODOO_HOME/web,$ODOO_HOME/server-tools,$ODOO_HOME/reporting-engine
+addons_path=addons,openerp/addons,
+    $ODOO_HOME/obeesdoo,
+    $ODOO_HOME/vertical-cooperative,
+    $ODOO_HOME/addons,
+    $ODOO_HOME/procurement-addons,
+    $ODOO_HOME/l10n-belgium,
+    $ODOO_HOME/mis-builder,
+    $ODOO_HOME/web,
+    $ODOO_HOME/website,
+    $ODOO_HOME/server-tools,
+    $ODOO_HOME/reporting-engine,
+    $ODOO_HOME/account-financial-tools,
+    $ODOO_HOME/acconut-financial-reporting
 ```
 
 ##### 6) update database structure
