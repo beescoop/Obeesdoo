@@ -7,6 +7,6 @@ def migrate(cr, version):
         """
         UPDATE purchase_order
         SET supervisor_id = create_uid
-        WHERE supervisor_id IS NULL
+        WHERE supervisor_id IS NULL OR supervisor_id = 1
         """
     )
