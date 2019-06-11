@@ -7,27 +7,22 @@
   <template id="beesdoo_easy_my_coop.becomecooperator"
             name="Become Cooperator (in beesdoo_easy_my_coop)"
             inherit_id="easy_my_coop.becomecooperator">
-      <xpath expr="//input[@name='data_policy_approved']/../.." position="before">
-          <div t-attf-class="form-group" >
+      <xpath expr="//div[@id='data_policy_approved']" position="before">
+          <div id="info_session_confirmed" t-if="display_info_session" t-attf-class="form-group" >
               <label class="col-md-3 col-sm-4 control-label" for="info_session_confirmed">Info Session</label>
-              <div class="col-md-1 col-sm-2">
-                  <input type="checkbox"
-                    class="form-control"
-                    name="info_session_confirmed"
-                    t-attf-value="#{info_session_confirmed or ''}"/>
-              </div>
-              <div class="col-md-6 col-sm-6">
-                  <t t-call="beesdoo_easy_my_coop.info_session_confirmed_text"/>
+              <div class="col-md-9 col-sm-8">
+                  <div class="checkbox">
+                      <label>
+                          <input type="checkbox"
+                                 name="info_session_confirmed"
+                                 t-att="{'required': 'required'} if info_session_required else {}"
+                                 t-attf-value="#{data_policy_approved or ''}"/>
+                          <t t-raw="info_session_text"/>
+                      </label>
+                  </div>
               </div>
           </div>
       </xpath>
   </template>
-
-  <data noupdate="1">
-    <template id="beesdoo_easy_my_coop.info_session_confirmed_text"
-              name="Info Session Confirmed Text">
-        Check if you have already take part to an information session.
-    </template>
-  </data>
 
 </odoo>
