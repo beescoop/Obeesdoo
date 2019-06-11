@@ -20,7 +20,7 @@ class SubscriptionRequest(models.Model):
         return partner_vals
 
     def get_required_field(self):
-        required_fields = super(SubscriptionRequest, self).get_required_fiels()
+        required_fields = super(SubscriptionRequest, self).get_required_field()
         company = self.env['res.company']._company_default_get()
         if company.info_session_confirmation_required:
             required_fields.append('info_session_confirmed')
