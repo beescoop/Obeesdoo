@@ -47,7 +47,7 @@ class ReportCustom(ReportController):
 
                 cr, uid = request.cr, request.uid
                 report = request.registry['report']._get_report_from_name(cr, uid, reportname)
-                filename = "%s-test.%s" % (report.name, "pdf")
+                filename = "%s.%s" % (report.name, "pdf")
                 if docids:
                     ids = [int(x) for x in docids.split(",")]
                     obj = request.env[report.model].browse(ids)

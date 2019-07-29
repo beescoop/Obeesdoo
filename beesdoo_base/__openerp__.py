@@ -3,7 +3,7 @@
     'name': "Beescoop Base Module",
 
     'summary': """
-		Module that customize the base module and contains some python tools
+    Module that customize the base module and contains some python tools
      """,
 
     'description': """
@@ -13,7 +13,7 @@
     'website': "https://github.com/beescoop/Obeesdoo",
 
     'category': 'Project Management',
-    'version': '0.1',
+    'version': '9.0.1.0.1',
 
     'depends': ['point_of_sale', 'purchase', 'report', 'portal', 'partner_firstname'],
 
