@@ -18,6 +18,8 @@ PARAMS = [
      'beesdoo_website_shift.regular_past_shift_limit'),
     ('regular_next_shift_limit',
      'beesdoo_website_shift.regular_next_shift_limit'),
+    ('regular_highlight_rule',
+     'beesdoo_website_shift.regular_highlight_rule'),
 ]
 
 
@@ -50,6 +52,10 @@ class WebsiteShiftConfigSettings(models.TransientModel):
     )
     regular_next_shift_limit = fields.Integer(
         help="Maximun number of next shift that will be shown"
+    )
+    regular_highlight_rule = fields.Integer(
+        help="Treshold (in %) of available space in a shift that trigger the "
+        "the highlight of a shift template."
     )
 
     @api.multi
@@ -117,5 +123,14 @@ class WebsiteShiftConfigSettings(models.TransientModel):
             'regular_next_shift_limit': int(
                 self.env['ir.config_parameter']
                 .get_param('beesdoo_website_shift.regular_next_shift_limit')
+            )
+        }
+
+    @api.multi
+    def get_default_regular_highlight_rule(self):
+        return {
+            'regular_next_shift_limit': int(
+                self.env['ir.config_parameter']
+                .get_param('beesdoo_website_shift.regular_highlight_rule')
             )
         }
