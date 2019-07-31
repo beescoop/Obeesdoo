@@ -64,8 +64,11 @@
 
               <div class="oe_structure"/>
 
-              <div class="visible-xs" t-foreach="task_templates" t-as="template">
-                <div t-att-class="'panel %s' % ('panel-warning' if not template.super_coop_id else 'panel-default',)">
+              <div class="visible-xs" t-foreach="task_tpls_data" t-as="template_data">
+                <t t-set="template" t-value="template_data[0]"/>
+                <t t-set="has_enough_workers" t-value="template_data[1]"/>
+                <t t-set="highlight_class" t-value="'panel-warning' if not has_enough_workers else 'panel-default'"/>
+                <div t-att-class="'panel %s' % highlight_class">
                   <div class="panel-heading clearfix">
                     <div class="panel-title pull-left">
                       <t t-esc="template.planning_id.name"/> :
@@ -104,9 +107,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <t t-foreach="task_templates" t-as="template">
+                  <t t-foreach="task_tpls_data" t-as="template_data">
+                    <t t-set="template" t-value="template_data[0]"/>
+                    <t t-set="has_enough_workers" t-value="template_data[1]"/>
                     <!-- Row with no super coop will be shown in color -->
-                    <tr t-attf-class="{{ 'warning' if not template.super_coop_id else '' }}">
+                    <tr t-attf-class="{{ 'warning' if not has_enough_workers else '' }}">
                       <td>
                         <t t-esc="template.planning_id.name"/>
                       </td>
