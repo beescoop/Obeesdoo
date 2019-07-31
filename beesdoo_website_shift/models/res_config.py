@@ -129,7 +129,7 @@ class WebsiteShiftConfigSettings(models.TransientModel):
     @api.multi
     def get_default_regular_highlight_rule(self):
         return {
-            'regular_next_shift_limit': int(
+            'regular_highlight_rule': int(
                 self.env['ir.config_parameter']
                 .get_param('beesdoo_website_shift.regular_highlight_rule')
             )
