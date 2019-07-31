@@ -56,6 +56,10 @@
             <label for="regular_next_shift_limit"/>
             <field name="regular_next_shift_limit"/>
           </div>
+          <div>
+            <label for="regular_highlight_rule"/>
+            <field name="regular_highlight_rule"/>
+          </div>
         </form>
       </field>
     </record>
