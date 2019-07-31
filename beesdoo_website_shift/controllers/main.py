@@ -184,10 +184,26 @@ class WebsiteShiftController(http.Controller):
         template = request.env['beesdoo.shift.template']
         task_templates = template.sudo().search([], order="planning_id, day_nb_id, start_time")
 
+        # Get config
+        regular_highlight_rule = literal_eval(
+            request.env['ir.config_parameter'].get_param(
+                'beesdoo_website_shift.regular_highlight_rule'
+            )
+        )
+
+        task_tpls_data = []
+        for task_tpl in task_templates:
+            has_enough_workers = (
+                task_tpl.remaining_worker <= (
+                    task_tpl.worker_nb * regular_highlight_rule / 100
+                )
+            )
+            task_tpls_data.append((task_tpl, has_enough_workers))
+
         return request.render(
             'beesdoo_website_shift.public_shift_template_regular_worker',
             {
-                'task_templates': task_templates,
+                'task_tpls_data': task_tpls_data,
                 'float_to_time': float_to_time,
             }
         )
