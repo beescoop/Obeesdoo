@@ -33,5 +33,9 @@
       <field name="key">beesdoo_website_shift.regular_next_shift_limit</field>
       <field name="value">13</field>
     </record>
+    <record id="beesdoo_website_shift.regular_highlight_rule" model="ir.config_parameter">
+      <field name="key">beesdoo_website_shift.regular_highlight_rule</field>
+      <field name="value">20</field>
+    </record>
   </data>
 </openerp>
