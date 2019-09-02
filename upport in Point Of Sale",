@@ -1,0 +1,3874 @@
+[33mcommit 862275f61ef922877123429d87b7be43b029cf5e[m[33m ([m[1;36mHEAD -> [m[1;32m12.0-pos_keyboard[m[33m)[m
+Author: ufaks <excellm@yandex.ru>
+Date:   Thu Mar 10 16:16:32 2016 +0500
+
+    update changelog
+
+[33mcommit 811c9b4388d023ebf42f93e450470a73b5cc8c22[m
+Author: ufaks <excellm@yandex.ru>
+Date:   Thu Mar 10 13:46:40 2016 +0500
+
+    dummy commit
+
+[33mcommit 50eefac7b7de8a33c7727486ea0c2b7638aeddda[m
+Author: ufaks <excellm@yandex.ru>
+Date:   Thu Mar 10 13:32:06 2016 +0500
+
+    fix repeat last symbol when press other key
+
+[33mcommit 0dce7bbfbd1481932160451f5d82e0d58809a740[m
+Author: ufaks <excellm@yandex.ru>
+Date:   Wed Feb 17 15:05:00 2016 +0500
+
+    fix minor issues: journal sequence, __openerp__.py
+
+[33mcommit fc9185cb7eb7b26a661a55d3dca2c45ba80ecfb7[m
+Author: ufaks <excellm@yandex.ru>
+Date:   Mon Feb 1 17:42:16 2016 +0500
+
+    port to 9
+
+[33mcommit 5b3267efb11638830cda275d95b0e8d3e521abb0[m
+Author: ufaks <excellm@yandex.ru>
+Date:   Thu Jan 28 17:04:25 2016 +0500
+
+    fix bugs
+
+[33mcommit f57dd2febf75c4e8966e58127e8bdb33588f9fc0[m
+Author: ufaks <excellm@yandex.ru>
+Date:   Mon Jan 18 11:51:55 2016 +0500
+
+    REF
+
+[33mcommit 67dd3946de474eabfb7f9a122d4c9b286995cc63[m
+Author: ufaks <excellm@yandex.ru>
+Date:   Fri Jan 15 18:55:24 2016 +0500
+
+    add summary
+
+[33mcommit 72273610882d9b11615e31f4eb5e4945a66197d9[m
+Author: ufaks <excellm@yandex.ru>
+Date:   Fri Jan 15 18:43:09 2016 +0500
+
+    fix authors
+
+[33mcommit 8a004c0b2353f76166e6c9b8500b69142ae85fd9[m
+Author: ufaks <excellm@yandex.ru>
+Date:   Fri Jan 15 17:24:12 2016 +0500
+
+    fix readme
+
+[33mcommit 0b2fabe06e358b5e9ef41d73e0f6a9d9800043e8[m
+Author: ufaks <excellm@yandex.ru>
+Date:   Fri Jan 15 17:03:30 2016 +0500
+
+    fix
+
+[33mcommit 132d5b1971e3179efc0a2e6bb6ea7eb1da8c7418[m
+Author: ufaks <excellm@yandex.ru>
+Date:   Fri Jan 15 17:02:12 2016 +0500
+
+    add pic
+
+[33mcommit b550159b3d6f7755afc219114f6db42948a733a3[m
+Author: ufaks <excellm@yandex.ru>
+Date:   Fri Jan 15 16:49:00 2016 +0500
+
+    [fix] scanner bug
+
+[33mcommit 23f8a054efe08e36a3307440846831b8712e8c9a[m
+Author: Ivan Yelizariev <yelizariev@it-projects.info>
+Date:   Mon Nov 9 11:33:48 2015 +0500
+
+    Revert "update license to GPL-3"
+    
+    This reverts commit 29e92362adf022e721b9710f341967d378a01ce0.
+
+[33mcommit 5f0ef1e6918f6fc5972aa65777364efc9c9b17d7[m
+Author: Ivan Yelizariev <yelizariev@it-projects.info>
+Date:   Mon Nov 9 11:27:32 2015 +0500
+
+    update license to GPL-3
+
+[33mcommit 523e1858a29161f00c7db510049be008cec0424e[m
+Author: Ivan Yelizariev <yelizariev@it-projects.info>
+Date:   Tue Nov 3 10:33:08 2015 +0500
+
+    [DOC] add license tag
+
+[33mcommit 1bba12dc3dc2ed71c2fe5176dd17181afc1acf04[m
+Author: Ivan Yelizariev <yelizariev@it-projects.info>
+Date:   Fri Oct 16 13:16:39 2015 +0500
+
+    mark unported modules as non-installable
+
+[33mcommit 336321692d2105fe227493dced92703956e7dfdc[m
+Author: Ivan Yelizariev <yelizariev@it-projects.info>
+Date:   Sun Sep 27 10:33:47 2015 +0500
+
+    [DOC] add IT-Projects LLC to authors
+
+[33mcommit 0625ceaa60a53c4fd02d2fd0d49b82addb944915[m
+Author: Ivan Yelizariev <yelizariev@it-projects.info>
+Date:   Thu Jul 2 15:40:33 2015 +0500
+
+    [DOC] add icon
+
+[33mcommit 584e1b0711863e978fe46dc74a64aa3c3e51a635[m
+Author: igallyamov <gallyamov@it-projects.info>
+Date:   Thu May 21 16:33:50 2015 +0500
+
+    Update README.rst
+
+[33mcommit 7630868bff83bfaeb06720584fcbee4b0e717f40[m
+Author: Ilnur Gallyamov <gallyamov@it-projects.info>
+Date:   Thu May 21 16:04:39 2015 +0500
+
+    fix README.rst; added the correct revision
+
+[33mcommit cca71b07704c414dcf5830ef84fe77920cebc549[m
+Author: igallyamov <gallyamov@it-projects.info>
+Date:   Thu May 21 15:47:22 2015 +0500
+
+    add revision
+
+[33mcommit 4bea19b1f061ddbb2c5015f6c19683f09a9f519c[m
+Author: igallyamov <gallyamov@it-projects.info>
+Date:   Thu May 21 15:37:20 2015 +0500
+
+    changed the name of the module
+
+[33mcommit 618cf29e0a6c98383d2ef5dad84c6ed391a7a7ba[m
+Author: igallyamov <gallyamov@it-projects.info>
+Date:   Thu May 21 15:32:58 2015 +0500
+
+    Update README.rst
+
+[33mcommit ffac45838310c3a56864ba737f37101da62d86ee[m
+Author: igallyamov <gallyamov@it-projects.info>
+Date:   Thu May 21 15:32:24 2015 +0500
+
+    update README.rst
+
+[33mcommit 718e3c76ad1142265de34acb8a26e4e07114f693[m
+Author: Ilnur Gallyamov <gallyamov@it-projects.info>
+Date:   Wed May 20 20:48:51 2015 +0500
+
+    add "+/-" info key in README.rst file
+
+[33mcommit d830383f757b378a68720d92a4c79c2086d8746f[m
+Author: Ilnur Gallyamov <gallyamov@it-projects.info>
+Date:   Wed May 20 19:37:34 2015 +0500
+
+    README.rst style fix
+
+[33mcommit a10f970072c0785f31193a52690ff3949c5a7cb9[m
+Author: Ilnur Gallyamov <gallyamov@it-projects.info>
+Date:   Wed May 20 19:29:44 2015 +0500
+
+    README.rst style fix
+
+[33mcommit 07df647f3f50d2c296d2104c8ef537d6b7bd3130[m
+Author: Ilnur Gallyamov <gallyamov@it-projects.info>
+Date:   Wed May 20 19:25:19 2015 +0500
+
+    README.rst style fix
+
+[33mcommit 87eb21024a890379a709bf3d0ad1390394752e5f[m
+Author: Ilnur Gallyamov <gallyamov@it-projects.info>
+Date:   Wed May 20 19:20:23 2015 +0500
+
+    README.rst style fix
+
+[33mcommit fdbf9ff335dcac67a23207b42df2ba30a016c0e7[m
+Author: Ilnur Gallyamov <gallyamov@it-projects.info>
+Date:   Wed May 20 17:16:09 2015 +0500
+
+    fix style README.rst
+
+[33mcommit 81be37e990c0d342b5a9ca65902e666ae7739c31[m
+Author: Ilnur Gallyamov <gallyamov@it-projects.info>
+Date:   Wed May 20 16:59:52 2015 +0500
+
+    fix style README.rst
+
+[33mcommit 8e88b33a713d6b4375b99fdcdb36aa65742a31d6[m
+Author: Ilnur Gallyamov <gallyamov@it-projects.info>
+Date:   Tue May 19 21:51:50 2015 +0500
+
+    description displaced in the README file
+
+[33mcommit b18f45cd3e6bd2a599c0e9616af6c6b02955fe27[m
+Author: Ilnur Gallyamov <gallyamov@it-projects.info>
+Date:   Tue May 19 21:37:33 2015 +0500
+
+    1. added support for basic keyboard
+    2. handling has been omitted in input
+
+[33mcommit b34425baf5de9c2ce00ee491db6bc67d6d5779a6[m
+Author: Ilnur Gallyamov <gallyamov@it-projects.info>
+Date:   Tue May 19 15:52:02 2015 +0500
+
+    usb keyboard for Point of Sale v1.0.0
+
+[33mcommit b27ba0669c84ce4df03be36a6e643ca59609585b[m[33m ([m[1;31mbeescoop/12.0[m[33m)[m
+Merge: 1893c0bc cade8d17
+Author: Houssine BAKKALI <houssine.bakkali@gmail.com>
+Date:   Fri May 29 16:37:23 2020 +0200
+
+    Merge pull request #152 from beescoop/12.0-fix-attendance-smart-button
+    
+    [FIX] remove style in separator tag.
+
+[33mcommit 1893c0bc4ce24b6a76db64e4af186552c6490387[m
+Merge: ab7938d1 5deabce6
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Mon May 25 15:00:21 2020 +0200
+
+    Merge pull request #151 from beescoop/12.0-mig-beesdoo_crelan_csv
+    
+    [12.0] [MIG] beesdoo_crelan_csv
+
+[33mcommit cade8d179672e839ab14e63446025049aa5f2341[m
+Author: houssine <houssine.bakkali@gmail.com>
+Date:   Thu May 21 19:35:01 2020 +0200
+
+    [FIX] remove style in separator tag.
+    
+    The first one break the ability to click on the button. And style seems
+    to have no effect on v12
+
+[33mcommit 5deabce60d5f9f4f1cd7f23f086e9c1080e60b29[m
+Author: Manuel Claeys Bouuaert <manuel.claeys.b@gmail.com>
+Date:   Fri May 15 11:52:33 2020 +0200
+
+    [MIG] pos_require_product_quantity: v9 to v12
+
+[33mcommit c1bfb3593170188f488b2fbfaeee5e257dda13b7[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sun May 7 23:41:21 2017 +0200
+
+    [FIX] Import crelan use user lang to convert str balance to float
+
+[33mcommit 98348d4f922c8bb10852a582f5259fbbe16c4f6b[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sun Mar 19 13:39:51 2017 +0100
+
+    [FIX] Crelan, add md5 hash of the communication in order to avoid collision
+
+[33mcommit db8505cc5eae7dd3a8aac8e637a5a182a2c67ffe[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Thu Nov 24 19:35:19 2016 +0100
+
+    [FIX] conflict name of crelan import with coda import
+
+[33mcommit 39e2f0972523e0165a3c04f1c33200d4a6a97c71[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sun Nov 13 16:27:07 2016 +0100
+
+    [ADD] translation file for each individual module
+
+[33mcommit 6efd9d53388e3337144ed587faa26a83380651d8[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sun Oct 9 16:04:16 2016 +0200
+
+    [ADD] crelan import module
+
+[33mcommit ab7938d1c6f7f6a1c4413822ba6f9ba73a09f43e[m[33m ([m[1;33mtag: 12.0-2020-05-12.01[m[33m)[m
+Merge: d7f75044 5dc4f7b2
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Tue May 12 23:55:58 2020 +0200
+
+    Merge pull request #135 from beescoop/12.0-mig-obeesdoo-beesdoo_custom
+    
+    [12.0] [MIG] beesdoo_custom
+
+[33mcommit d7f750441e4e9ec851cd1246995c381e8757d300[m[33m ([m[1;33mtag: 12.0-2020-05-12.00[m[33m)[m
+Merge: 1ea5f5f7 019fe62f
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Tue May 12 23:34:54 2020 +0200
+
+    Merge pull request #150 from beescoop/12.0-fix-beesdoo_product-rem-pos_price_to_weight-dependency
+    
+    [12.0][REM] beesdoo_product: pos_price_to_weight dependency
+
+[33mcommit 019fe62ff60adc55d40c3596d25958ac80ae9f2c[m
+Author: Manuel Claeys Bouuaert <manuel.claeys.b@gmail.com>
+Date:   Tue May 12 15:41:27 2020 +0200
+
+    [REM] beesdoo_product: pos_price_to_weight dependency
+
+[33mcommit 5dc4f7b2b4b8f42de64be676e98a1da650054992[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Mon May 11 18:05:55 2020 +0200
+
+    [CHG] b_custom -> b_product_usability
+
+[33mcommit 1c9fe6395c5766e6c23a437194471a55b0eb4d52[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed May 6 22:25:45 2020 +0200
+
+    [IMP] b_custom: manifest
+
+[33mcommit 559329b01d91e41debee31a59c1f17788eec99e6[m
+Author: Vincent Van Rossem <vvrossem@gmail.com>
+Date:   Thu Apr 16 18:10:58 2020 +0200
+
+    [FIX] beesdoo_custom: XML external ID product -> stock
+
+[33mcommit 635808b53967e5245e79a7ccf8735904302b3ac0[m
+Author: Vincent Van Rossem <vvrossem@gmail.com>
+Date:   Thu Apr 16 17:49:16 2020 +0200
+
+    [FIX] beesdoo_custom: missing dependency and renamed fields
+
+[33mcommit 630ccdee3ce457960abfbd9ccda6b4feead4a828[m
+Author: Cyrille Bollu <cyrpub@bollu.be>
+Date:   Tue Jan 28 12:01:11 2020 +0100
+
+    [MIG] beesdoo_custom: Migration to 12.0
+
+[33mcommit 1ee245f2dc0c91fcc95cd1c3fe66904f9ba0ddfc[m
+Author: Cyrille Bollu <cyrpub@bollu.be>
+Date:   Tue Jan 28 11:59:22 2020 +0100
+
+    [MIG] beesdoo_custom: Migration to 11.0
+
+[33mcommit a2b14b9688ba8bb036957ee5b595bed7ffcd36ff[m
+Author: Cyrille Bollu <cyrpub@bollu.be>
+Date:   Tue Jan 28 11:57:11 2020 +0100
+
+    [MIG] beesdoo_custom: Migration to 10.0
+
+[33mcommit fa915870fa6aa0bee2dc9d6c589b49b804ef7d44[m
+Author: robin.keunen <robin@keunen.net>
+Date:   Fri Jan 17 16:51:36 2020 +0100
+
+    [IMP] beesdoo_custom: consistent naming accross views and filters
+
+[33mcommit 4db32159286e1f5dc3e6cdcb22a8bd5dba5ae905[m
+Author: robin.keunen <robin@keunen.net>
+Date:   Thu Jan 9 16:26:43 2020 +0100
+
+    [IMP] beesdoo_custom: rename "reference fournisseur" to "communication"
+
+[33mcommit 865e7f807aa62b04d0aec4bdf413c668bc6789e4[m
+Author: robin.keunen <robin@keunen.net>
+Date:   Sun Jan 5 17:41:50 2020 +0100
+
+    [ADD] beesdoo_custom: provider_reference on invoice_supplier_tree
+
+[33mcommit db627ed3c050920425b89b3b824833a3caf7cce7[m
+Author: robin.keunen <robin@keunen.net>
+Date:   Thu Apr 18 16:29:49 2019 +0200
+
+    [IMP] beesdoo_custom: product as list rather than kanban
+
+[33mcommit 0b58066b50cc25adb6ad0f8e16ebb37a98fa76dd[m
+Author: robin.keunen <robin@keunen.net>
+Date:   Wed Feb 13 14:37:59 2019 +0100
+
+    [FIX] beesdoo_custom: add default code to tree view
+
+[33mcommit e858324b68908db321c106a0d01f83a63e27a69d[m
+Author: robinkeunen <robin@keunen.net>
+Date:   Fri Dec 14 16:07:55 2018 +0100
+
+    [ADD] beesdoo_custom module and custom product view
+
+[33mcommit 1ea5f5f7c9241e84d6b90f9346058f2baaa5a00f[m[33m ([m[1;33mtag: 12.0-2020-05-11.00[m[33m, [m[1;32m12.0-target[m[33m)[m
+Merge: 9381f7e6 4ed8928b
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Thu May 7 18:44:47 2020 +0200
+
+    Merge pull request #149 from beescoop/12.0-mig-beesdoo-inventory
+    
+    [12.0][FIX] beesdoo_inventory
+
+[33mcommit 9381f7e6c19fa513db01a3ce61e9401c61893099[m
+Merge: abfb5ad7 195f61df
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Thu May 7 18:40:14 2020 +0200
+
+    Merge pull request #131 from beescoop/12.0-mig-beesdoo_website_posorder_amount
+    
+    [MIG] 12.0 mig beesdoo website posorder amount
+
+[33mcommit 4ed8928b9d8de09610d592bf243e241a37f6adfd[m
+Author: Manuel Claeys Bouuaert <manuel.claeys.b@gmail.com>
+Date:   Thu May 7 18:12:50 2020 +0200
+
+    [FIX] beesdoo_inventory: fix missing beesdoo_product dependency for main_seller_id, and set product filter or right field
+
+[33mcommit b6c3b228ea3fbe0a61282ab1efb0e52856b1034c[m
+Author: Manuel Claeys Bouuaert <manuel.claeys.b@gmail.com>
+Date:   Wed May 6 17:25:03 2020 +0200
+
+    [FIX] beesdoo_inventory: fix pack_operation_product_ids > move_line_ids
+
+[33mcommit abfb5ad7bbf30acee9ed2bf290a4438f0a75b595[m
+Merge: 75e64c4c e3aa714a
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Thu May 7 17:47:46 2020 +0200
+
+    Merge pull request #133 from beescoop/12.0-mig-beesdoo_shift
+    
+    [12.0][MIG] beesdoo_shift, beesdoo_website_shift, beesdoo_worker_status
+
+[33mcommit 75e64c4c0321a12c640565ce50087b73d2429399[m
+Merge: 80ba81a7 12c4083b
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed May 6 22:55:47 2020 +0200
+
+    Merge pull request #148 from beescoop/12.0-mig-REM-pos_price_to_weight
+    
+    [REM] pos_price_to_weight: remove in favour of OCA version
+
+[33mcommit 80ba81a7ebb01226e5abc08e5b7fe77994077d30[m
+Merge: ab34e005 ec6ebd24
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed May 6 22:21:10 2020 +0200
+
+    Merge pull request #145 from beescoop/12.0-mig-compute_purchase_order
+    
+    [12.0] [MIG] compute_purchase_order
+
+[33mcommit ec6ebd245f1d934a172f4ccc85829ac1b4336928[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed May 6 22:16:31 2020 +0200
+
+    [REF] purchase_order_generator: remove comment
+
+[33mcommit e3aa714afc1bd7159bf4cdc1b6870e1a3177783a[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed May 6 21:22:13 2020 +0200
+
+    [FIX] b_shift_attendance: wizard to validate sheet
+
+[33mcommit f2bac2d10262d6c6ca16c541804193456e6ed0f9[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed May 6 17:53:31 2020 +0200
+
+    [FIX] b_worker_status: working_mode in demo data
+
+[33mcommit 8399d119269d1858413c996679eb6bf18cefb2bd[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed May 6 16:41:26 2020 +0200
+
+    [FIX] b_shift: Exemption wizard
+
+[33mcommit 4793bc3f90a82ca07f1374bfe6c52a8c42d58952[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed May 6 16:38:36 2020 +0200
+
+    [FIX] b_shift: Holiday wizard
+
+[33mcommit 4a7a4828f5db1e847d48bfd3d4e4d7731ba98a87[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed May 6 16:15:49 2020 +0200
+
+    [FIX] b_base: Remove worker information that stand in b_shift
+
+[33mcommit d56c5aa98eb7018cd3728a03a2fd24b4c9681779[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed May 6 16:15:10 2020 +0200
+
+    [FIX] b_worker_status: Demo data
+
+[33mcommit 72610bc29cadcca8437f13b8196e89c85a1efb17[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed May 6 15:11:40 2020 +0200
+
+    [FIX] b_worker_status: tests
+
+[33mcommit 614b427349b65fd5a2ea9ab6141db946002347a9[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed May 6 13:22:35 2020 +0200
+
+    [MOV] b_shift: Configuration in shift instead of attendance sheet
+
+[33mcommit ab34e0059361b6ecb72a9777e34fb46c39e9c490[m
+Merge: deba5bd0 6b04c4a4
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Tue May 5 19:24:59 2020 +0200
+
+    Merge pull request #144 from beescoop/12.0-mig-beesdoo_stock-vvrossem
+    
+    [12.0] [MIG] beesdoo_stock
+
+[33mcommit deba5bd0a2a1e42a02452bee7123c5cf5b8df1be[m
+Merge: 139e86b1 118e6ca8
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Tue May 5 18:46:37 2020 +0200
+
+    Merge pull request #118 from beescoop/12.0-add-beesdoo_pos_reporting
+    
+    [12.0][ADD] beesdoo_pos_reporting
+
+[33mcommit 12c4083bc7608245e4fa3e7e91f2612bfd33b520[m
+Author: Manuel Claeys Bouuaert <manuel.claeys.b@gmail.com>
+Date:   Fri Apr 17 17:14:48 2020 +0200
+
+    [REM] pos_price_to_weight: remove in favour of OCA version
+
+[33mcommit 139e86b145719a9d47582d9ad08448e861d10b16[m
+Merge: 0209939c 5cbbf875
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Tue May 5 18:26:42 2020 +0200
+
+    Merge pull request #132 from beescoop/12.0-mig-beesdoo_website_eater
+    
+    [MIG] 12.0 mig beesdoo website eater
+
+[33mcommit 5cbbf875313a33b5ecf4c400928856301f7e8699[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Tue May 5 18:24:44 2020 +0200
+
+    [IMP] b_website_eater: cosmetic
+
+[33mcommit 0209939cd2ed8f3d56aa2c7cc45870cdb16055d8[m
+Merge: f00561a6 368c3ac0
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Tue May 5 18:21:57 2020 +0200
+
+    Merge pull request #114 from beescoop/12.0-mig-beesdoo-purchase
+    
+    [MIG] beesdoo_purchase: migrate to 12.0
+
+[33mcommit f00561a6930700155183e97adcefa0da32d775a6[m
+Merge: 0ce052da 911b8375
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Tue May 5 18:20:01 2020 +0200
+
+    Merge pull request #146 from beescoop/12.0-mig-beesdoo_pos
+    
+    [12.0] [MIG] beesdoo_pos
+
+[33mcommit 911b8375d55cc8428166704f5ee8845c631cf553[m
+Author: Manuel Claeys Bouuaert <manuel.claeys.b@gmail.com>
+Date:   Tue May 5 18:08:22 2020 +0200
+
+    [REF] beesdoo_pos: OCA conversion renamings in screens.js
+
+[33mcommit 1d4b7a8a54745bdec334938a67bce522d41a6db6[m
+Author: Manuel Claeys Bouuaert <manuel.claeys.b@gmail.com>
+Date:   Mon Apr 20 15:38:29 2020 +0200
+
+    [FIX] beesdoo_pos: eaters on action pad and payment screen
+
+[33mcommit 7c2ccefd1761d265187dcdf1660f25ec838b4b91[m
+Author: Manuel Claeys Bouuaert <manuel.claeys.b@gmail.com>
+Date:   Fri Apr 17 14:05:51 2020 +0200
+
+    [REM] beesdoo_pos: remove 'Bill Value' (standard in v12) and 'Send Orders by email' (replace with OCA module)
+
+[33mcommit 0ce052da2643df2558f697d9c2ac2e65ef196607[m
+Merge: ed01454c 9c686b49
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Tue May 5 18:13:54 2020 +0200
+
+    Merge pull request #141 from beescoop/12.0-MIG-FIX-beesdoo_product
+    
+    [12.0][MIG][FIX] beesdoo_product
+
+[33mcommit ed01454c4b119a860109243ddc6dd7aa26f78b67[m
+Merge: 0c052664 e3acfebf
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Tue May 5 18:10:32 2020 +0200
+
+    Merge pull request #139 from beescoop/12.0-mig-stock-coverage
+    
+    [12.0][MIG] beesdoo_stock_coverage
+
+[33mcommit 260171a39e65c02a8763a8ae1364fbf812b7e4fd[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Tue May 5 17:55:51 2020 +0200
+
+    [IMP] b_base: Put root user in barcode group
+
+[33mcommit 9c686b499557a02e55673b28f8a81716ff46efce[m
+Author: Manuel Claeys Bouuaert <manuel.claeys.b@gmail.com>
+Date:   Tue May 5 17:45:28 2020 +0200
+
+    [ADD] beesdoo_product: push total_with_vat to POS model, such that it can be used with oca/pos_price_to_weight
+
+[33mcommit 26bfadea66520d909fcee2ea1267fe460c1badbc[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Tue May 5 17:41:42 2020 +0200
+
+    [CHG] b_base: remove default contact not needed
+
+[33mcommit b3185cce7aeaa488d4255ebc8a75bcabf802be14[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Tue May 5 16:13:30 2020 +0200
+
+    [FIX] b_website_shift: Template errors
+
+[33mcommit c9de5d9457f0889aa881b8f26bc633101a995c38[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Thu Apr 30 20:01:54 2020 +0200
+
+    [FIX] b_shift_attendance
+
+[33mcommit d860bab58efd2c104bf97c0672d5f78333ad833b[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Thu Apr 30 20:01:10 2020 +0200
+
+    [FIX] b_worker_status
+
+[33mcommit 23ac752df8ad2d7b34896cee2890863048323ae8[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Thu Apr 30 19:59:47 2020 +0200
+
+    [FIX] b_shift: _get_counter_date_state_change
+
+[33mcommit b2155fdfccac884c0da37fc91fb17b20cf15aa06[m
+Author: robin.keunen <robin@keunen.net>
+Date:   Wed Apr 29 19:27:28 2020 +0200
+
+    [REF] cpo -> pog: rename everything
+
+[33mcommit 503a133476ce19eb6ba36a57d8b2fe88a78a1753[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed Apr 29 19:04:48 2020 +0200
+
+    [FIX] b_shift_attendance: Tests
+
+[33mcommit 2d56132e52512140baedf9701576dfd4364d7af7[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed Apr 29 17:51:12 2020 +0200
+
+    [FIX] b_shift_attendance: Group error for generic user
+
+[33mcommit fbecfa5ba62a916a4360fee5817c4d3d3d66442a[m
+Author: robin.keunen <robin@keunen.net>
+Date:   Wed Apr 29 16:49:06 2020 +0200
+
+    [IMP] cpo: return act_window from server action
+
+[33mcommit 4e58913059c882beef04184c255f4a02a25cab20[m
+Author: robin.keunen <robin@keunen.net>
+Date:   Mon Apr 27 15:37:13 2020 +0200
+
+    [REF] cpo: refactor
+    
+    [REF] cpo: blacken
+    
+    wip
+
+[33mcommit 1d644f4d9d5404febd17f5afaa313e39a394536d[m
+Author: robin.keunen <robin@keunen.net>
+Date:   Mon Apr 27 16:23:42 2020 +0200
+
+    [ADD] cpo: readme
+
+[33mcommit ff9959c7253b83e948c2d3f519bf835f9d2ac8f1[m
+Author: Vincent Van Rossem <vvrossem@gmail.com>
+Date:   Thu Apr 16 17:13:11 2020 +0200
+
+    [TOFIX] computed_purchase_order: cpo_seller_id is missing
+
+[33mcommit 73fa87b341a0654a57b52579f2785945217f9093[m
+Author: Vincent Van Rossem <vvrossem@gmail.com>
+Date:   Thu Apr 16 17:10:58 2020 +0200
+
+    [FIX] computed_purchase_order: bad sql query - duplicated id
+
+[33mcommit 33cbede8aedf0d87d5769c457ad4761d729ef843[m
+Author: Vincent Van Rossem <vvrossem@gmail.com>
+Date:   Thu Apr 16 15:36:01 2020 +0200
+
+    [FIX] compute_purchase_order: product.uom -> uom.uom
+
+[33mcommit e51e22f7566bd30fc6fd0f321525fcf1c8ee520b[m
+Author: Vincent Van Rossem <vvrossem@gmail.com>
+Date:   Thu Apr 16 15:32:31 2020 +0200
+
+    [FIX] compute_purchase_order: fields renamed in beesdoo_stock_coverage
+
+[33mcommit b1bdf152906ce7ab13e4942d5d71873627c77fd0[m
+Author: Vincent Van Rossem <vvrossem@gmail.com>
+Date:   Thu Apr 16 15:16:55 2020 +0200
+
+    [FIX] compute_purchase_order: stock_coverage has been renamed
+
+[33mcommit 0f802d97e65bdb4159d87531b89c89fcdeb7b69e[m
+Author: Vincent Van Rossem <vvrossem@gmail.com>
+Date:   Thu Apr 16 14:54:45 2020 +0200
+
+    [MIG] compute_purchase_order: migration to 12.0
+    - followed oca guidelines
+
+[33mcommit 713235e0e308bf76a6530d53b2e88f6c97f3a090[m
+Author: Vincent Van Rossem <vvrossem@gmail.com>
+Date:   Thu Apr 16 14:50:10 2020 +0200
+
+    [MIG] compute_purchase_order: migration to 11.0
+    - followed oca guidelines
+    - not tested on odoo 11.0
+
+[33mcommit af1ffcb465474da931531fee2246f3186254d690[m
+Author: Vincent Van Rossem <vvrossem@gmail.com>
+Date:   Thu Apr 16 14:47:49 2020 +0200
+
+    [MIG] compute_purchase_order: migration to 10.0
+    - followed oca guidelines
+    - not tested on odoo 10.0
+
+[33mcommit 8776fb2242a68d87c892df8ae565ac3b4412dc37[m
+Author: robin.keunen <robin@keunen.net>
+Date:   Fri May 10 14:08:31 2019 +0200
+
+    [IMP] cpo: store total_amount (performance)
+
+[33mcommit 6154a98329c467128541b992bcc41a8b1ca26867[m
+Author: robin.keunen <robin@keunen.net>
+Date:   Fri May 10 14:00:46 2019 +0200
+
+    [IMP] cpo: add forecast qty to cpo view
+
+[33mcommit 10a465c8951d3ebd229862551d76d9093e91e4d9[m
+Author: robin.keunen <robin@keunen.net>
+Date:   Wed Apr 3 17:05:11 2019 +0200
+
+    [FIX] cpo: compute fiscal position
+
+[33mcommit 2634067c7bb41b6d53003244d3f9b8b5dc6de36a[m
+Author: robin.keunen <robin@keunen.net>
+Date:   Wed Apr 3 16:26:06 2019 +0200
+
+    [FIX] cpo: use uom_po_id.factor to compute expected coverage
+
+[33mcommit 70b1fe36764b896f266852e22b42b13d65ab66e2[m
+Author: robinkeunen <robin@keunen.net>
+Date:   Thu Aug 2 16:47:12 2018 +0200
+
+    compute purchase order line taxes id
+
+[33mcommit b90adcafcc46babe6a8795e007da0f82dc005cda[m
+Author: robinkeunen <robin@keunen.net>
+Date:   Fri Jun 15 18:51:03 2018 +0200
+
+    remove category colonne (useless here)
+
+[33mcommit b74fa7b4db13372f4cb7b54fea39b5cc039fb9a1[m
+Author: robinkeunen <robin@keunen.net>
+Date:   Fri Jun 15 18:45:40 2018 +0200
+
+    [IMP] add product code in product name on PO creaption from CPO
+
+[33mcommit 393be1aa638fb334ecb040cfc504cfcccd465f45[m
+Author: robinkeunen <robin@keunen.net>
+Date:   Fri Jun 8 11:34:20 2018 +0200
+
+    compute purchase order, performance fix
+
+[33mcommit 226e4addd1e13673dc1866acb2c1c8cd19e2cbaa[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Fri Apr 17 18:00:57 2020 +0200
+
+    [FIX] beesdoo_shift_attendance: Installation
+    
+    Test does not succeed yet.
+
+[33mcommit f2307147ddecb91a7f916f62f90e226a4db85329[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed Apr 15 20:08:16 2020 +0200
+
+    [FIX] b_shift_attendance name (and move demo data)
+
+[33mcommit 04cb6ce6443e08891651a79900e46072831cb97e[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed Apr 15 19:47:23 2020 +0200
+
+    [FIX] b_base,b_worker_status: is_worker field not found
+
+[33mcommit cfe1b117b0651c011c265d326bf1d439ee573a92[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed Apr 15 17:54:02 2020 +0200
+
+    [FIX] b_worker_status
+    
+    Fix bug reported in 9.0 on the computation of nextcoundown.
+    Fix missing add_days_delta function.
+    Fix missing today var.
+
+[33mcommit fd8d71a10673e6abeecdf4a230cc5b64d834d701[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Sun Jan 26 10:53:48 2020 +0100
+
+    [MIG] beesdoo_website_shift: Migrate to 12.0
+
+[33mcommit 6b04c4a43e9392424482aee916462f45c3a668cb[m
+Author: Vincent Van Rossem <vvrossem@gmail.com>
+Date:   Wed Apr 15 11:30:33 2020 +0200
+
+    [MIG] beesdoo_stock: adaptation to 12.0
+
+[33mcommit 3a82a089d817b4bd43c3303bc93c9e137330f4e2[m
+Author: Vincent Van Rossem <vvrossem@gmail.com>
+Date:   Wed Apr 15 11:19:23 2020 +0200
+
+    [MIG] beesdoo_stock: migration to 12.0
+    - followed oca guidelines
+
+[33mcommit 5ae8aa23ef383145ba3fda01d15f2598eeb555f0[m
+Author: Vincent Van Rossem <vvrossem@gmail.com>
+Date:   Wed Apr 15 11:17:22 2020 +0200
+
+    [MIG] beesdoo_stock: migration to 11.0
+    - followed oca guidelines
+    - not tested on odoo 11.0
+
+[33mcommit 44852e563f9081688f5c08f1103138a71df4dd93[m
+Author: Vincent Van Rossem <vvrossem@gmail.com>
+Date:   Wed Apr 15 11:15:33 2020 +0200
+
+    [MIG] beesdoo_stock: migration to 10.0
+    - followed oca guidelines
+    - not tested on odoo 10.0
+
+[33mcommit e3cfe26b18d8749441f6c2e11c0bc3c17fe9ab7f[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Thu Apr 4 13:50:59 2019 +0200
+
+    [IMP] b_stock: Manifest
+    
+    Change the name of the module in the manifest and change description.
+
+[33mcommit 0bd45db3bccd98b2405a61ca2e5db635ac321d98[m
+Author: nicolasjamoulle <nicolasjamoulle@yahoo.fr>
+Date:   Fri Mar 22 15:32:08 2019 +0100
+
+    [ADD] beesdoo_stock: actions on articles in stock.picking
+    
+    [ADD] Add files and action menu
+    
+    [IMP] Tests to fill wizard with products lines
+    
+    [ADD] Get product.template method
+    
+    [ADD] Load right template wizard
+    
+    [ADD] Method to get lines product
+    
+    [ADD] beesdoo_stock: actions on articles in stock.picking
+
+[33mcommit 368c3ac0d029734323480009fbaacb0a0dc80033[m
+Author: Manuel Claeys Bouuaert <manuel.claeys.b@gmail.com>
+Date:   Fri Apr 10 17:18:30 2020 +0200
+
+    [REF] beesdoo_purchase: remove message_subscribe_users, rename t-field-options, extend description, remove unnecessary files, blacken
+
+[33mcommit b88372cfb0980a423078dd123392f57de7fc2abd[m
+Author: Vincent Van Rossem <vvrossem@gmail.com>
+Date:   Wed Apr 8 13:06:40 2020 +0200
+
+    [FIX] beesdoo_product: warning total_with_vat depends on itself
+
+[33mcommit 31c496d3ecc165108c5cf48fc37288119082861f[m
+Author: Vincent Van Rossem <vvrossem@gmail.com>
+Date:   Wed Apr 8 13:04:18 2020 +0200
+
+    [FIX] beesdoo_product: child.attrs is undefined
+    - double closing tag /> /> creates a TypeError in form_renderer.js
+
+[33mcommit e3acfebf19cf50ca9f1bd6c5ec67879c81e9d643[m
+Author: robin.keunen <robin@keunen.net>
+Date:   Sun Mar 29 16:10:10 2020 +0200
+
+    [ADD] beesdoo_stock_coverage: tests
+
+[33mcommit 306c7ffddde9cc22dc5411810be44e5dee2f4a28[m
+Author: robin.keunen <robin@keunen.net>
+Date:   Sun Mar 29 15:26:24 2020 +0200
+
+    [MIG] beesdoo_stock_coverage: v12
+
+[33mcommit 146651cddf77a0229a5ea83b58f03f303246576a[m
+Author: robin.keunen <robin@keunen.net>
+Date:   Sun Mar 29 12:04:32 2020 +0200
+
+    [REF] beesdoo_stock_coverage
+
+[33mcommit 2de207e51a0d1d321adc858bc447cf424f9a5b3f[m
+Author: robin.keunen <robin@keunen.net>
+Date:   Sun Mar 29 12:03:44 2020 +0200
+
+    [REF] blacken stock coverage
+
+[33mcommit 58f92089ad152fa51405318910f8f937273e385f[m
+Author: robinkeunen <robin@keunen.net>
+Date:   Fri Jun 8 11:33:21 2018 +0200
+
+    flake stock coverage
+
+[33mcommit 9fede5a91c82fbad939a4145167a21812b1c914b[m
+Author: robinkeunen <robin@keunen.net>
+Date:   Thu Mar 29 13:52:52 2018 +0200
+
+    store and compute total_consumption
+
+[33mcommit 171bbf8ad43435fc9bcca1c3823400da3b269b04[m
+Author: robinkeunen <robin@keunen.net>
+Date:   Thu Mar 29 13:50:01 2018 +0200
+
+    refactor module name
+
+[33mcommit 1fce26620cf8ab4e30859fe4067454232b57b5cf[m
+Author: odoo-pda <pda@odoo.com>
+Date:   Fri Mar 13 17:41:38 2020 +0100
+
+    [FIX] templates and beesdoo_shift,
+    [ADD] small changes on macavrac_base
+
+[33mcommit 3aae0fa0259dd7f046b5203ae7b30fe415ecb269[m
+Author: odoo-pda <pda@odoo.com>
+Date:   Fri Mar 13 16:27:33 2020 +0100
+
+    [ADD] macavrac_base module.
+    (+ small cleans on beesdoo_website_shift)
+
+[33mcommit d4f8d2c32adfcf48ef766e5ef8974f5f29174627[m
+Author: odoo-pda <pda@odoo.com>
+Date:   Tue Mar 10 18:42:16 2020 +0100
+
+    [FIX] make beesdoo_shift installable
+    on an empty db.
+
+[33mcommit d97b676023e8ab887910f3fe273520decee3157d[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Tue Mar 3 20:47:01 2020 +0100
+
+    [REF] Refactoring of shift module
+    
+    Move counter specific and cooperator status specific to a module call beesdoo_worker_status
+    Remove dependency of beesdoo_base to beesdoo_shift
+    beesdoo_worker_status depends on beesdoo_base
+    Move all attendance sheet related code to a new module attendance sheet
+    
+    Leave empty interface on beesdoo_shift to be implemented in other module to define
+    specific behavior of the counter and the status of the cooperator
+
+[33mcommit 22e756c9d367d90495e973f60c75bc2c6a63788a[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Mon Feb 24 19:13:27 2020 +0100
+
+    [FIX] b_shift: Having two PO file for fr language break installation
+
+[33mcommit 5804e26a420beb23cb97f3faab32f863efeef7b9[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Feb 13 10:01:28 2020 +0100
+
+    [FIX] b_shift : abstract model
+    
+    SQL requests were made on abstract table.
+
+[33mcommit 2e5b5641256a01077c1cd7e13a623da8c1f5365b[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Feb 13 16:30:53 2020 +0100
+
+    [REF] beesdoo_shift : add comment
+
+[33mcommit 3efb918708078c0f482ab5335cef669f96c1045c[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Feb 13 16:25:30 2020 +0100
+
+    [ADD] b_shift : wizard for generation of missing attendance sheets
+
+[33mcommit 62af06d757fd118a59e14e73184b818dfbb8a4b4[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Feb 13 15:53:31 2020 +0100
+
+    [MIG] b_shift : remove menu badges
+    
+    Not supported since Odoo 11.
+
+[33mcommit 98d1a81ce8c3991a67a84dde1303ccda371a50a6[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Feb 13 14:40:07 2020 +0100
+
+    [MIG] b_shift : adapt views to version 12.0
+
+[33mcommit d9536af81eb892a2666d1ba4aa709dbf339064c8[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Feb 13 14:38:22 2020 +0100
+
+    [FIX] b_shift : emails on validation
+
+[33mcommit f3362f2f019f2a5839f9d0f3624a1ed73a19974a[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Feb 7 18:47:43 2020 +0100
+
+    [UPD] b_shifts : traductions and terms
+
+[33mcommit eaf7dea0c889618148ef71f139a5567fe9f10ea0[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Feb 6 15:53:12 2020 +0100
+
+    [UPD] b_shift : attendance sheets views
+
+[33mcommit d163dba0c22f5f148d6e27b2b9406fcba6f97d21[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Feb 6 15:52:41 2020 +0100
+
+    [REF] b_shift : attendance sheet validation wizard
+
+[33mcommit 344e8eaad04d56bfcafff3bfc77d5fb7d0f43665[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Feb 12 13:37:50 2020 +0100
+
+    [MIG] b_shift : adapt kanban views
+
+[33mcommit 6579d9130e2c98ae134e3e669be0cca6aa5fc928[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Feb 6 15:51:35 2020 +0100
+
+    [ADD] b_shift : attended_worker_no
+
+[33mcommit 25088fa43ba473be27e97c4e0e3997b2ce11c039[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Feb 6 14:24:23 2020 +0100
+
+    [CHG] b_shift : generated shifts name computation
+
+[33mcommit 017947205335bb6310818d7efb6dec6bdc61221f[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Feb 12 11:17:10 2020 +0100
+
+    [MIG] b_shift : adapt kanban colors
+
+[33mcommit 11f0d190eaa43a5104253f24d5331f20a95c300d[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Feb 12 10:16:40 2020 +0100
+
+    [FIX] b_shift : datetime.combine() method for python 3.4
+
+[33mcommit 52c18bcc52950f46b88aa94d67d53147aa29db02[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Feb 11 11:28:43 2020 +0100
+
+    [REF] b_shift : task_type_default -> pre_filled_task_type
+
+[33mcommit 3bc58ed61ea17cd1e9ba70f86bd3b76b7d1b2253[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Feb 10 17:45:46 2020 +0100
+
+    [MIG] b_shift : adapt date objects
+
+[33mcommit de0edd36d4304cd9156a1aab946095d22eb37a19[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Feb 10 17:45:30 2020 +0100
+
+    [MIG] b_shift : adapt unite tests
+
+[33mcommit 0dbd974f0f100287832bb22239394ae66cf68ba4[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Feb 10 17:44:55 2020 +0100
+
+    [ADD] b_base : security groups for demo users
+
+[33mcommit 118e6ca82d7c4bb7e0eddc3fac4766519b2ea873[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Dec 24 11:17:24 2019 +0100
+
+    [CHG] beesdoo_pos_reporting : store pos_order_count field in res_partner
+
+[33mcommit e8d17f25b05a8180d00277bd5d8e267ada05a5a3[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Dec 24 11:16:56 2019 +0100
+
+    [ADD] beesdoo_pos_reporting
+
+[33mcommit 27076a08bbf622cadf72ce41916c73d775c57dcb[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Feb 10 14:43:46 2020 +0100
+
+    [MIG] b_shift : adapt to version 12
+
+[33mcommit e50da37acab41f0b363a99e35ba5a3e29118e41c[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Feb 10 14:43:29 2020 +0100
+
+    [UPD] b_shift : attendance sheet form view
+
+[33mcommit 4e153957e3157f002361e8115f4cf15e6baff421[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Jan 31 18:41:56 2020 +0100
+
+    [UPD] b_shift : attendance sheets view
+    
+    To ease scanner use.
+
+[33mcommit cc2071a6301d3d8f1ab370e3629894effe0d0e7e[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Jan 31 16:40:53 2020 +0100
+
+    [UPD] b_shift : translations
+
+[33mcommit 04570207648464d8752cd26344a8b952ff694024[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Jan 31 16:40:41 2020 +0100
+
+    fixup! [FIX] b_shift : email_template_non_attendance
+
+[33mcommit 15fdfc9302ce4d352a8716d4fbac0a866ffd9b6f[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Jan 31 15:05:40 2020 +0100
+
+    [FIX] b_shift : attendance sheet generation
+    
+    When several same shifts exists
+
+[33mcommit 5f495169380795d08980b03ea72f4872a00a1401[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Jan 31 11:59:23 2020 +0100
+
+    [UPD] b_shift : attendance sheet form view
+
+[33mcommit f5f6fa0bc53f80f11e32b01e284b2b7bd4ddd62a[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Jan 30 14:39:17 2020 +0100
+
+    [ADD] b_shift : option for worker_nb feedback
+
+[33mcommit c162e9bb4841d823302cdb99d67ecd90d4b935ad[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Jan 30 11:05:21 2020 +0100
+
+    [UPD] b_shift : security groups
+    
+    Add a new groupe only for attendance
+    sheets validation.
+
+[33mcommit 0a91cc7bc9d386bdd2c7360bbf031cb2b2a77e02[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Jan 29 17:43:47 2020 +0100
+
+    [FIX] b_shift : automatic error message
+    
+    For regular non-attended not doing
+    their compensation shift.
+
+[33mcommit a0401953be5736f2052b64508a4e6d2ddd204730[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Jan 29 11:37:26 2020 +0100
+
+    [ADD] b_shift : domain on attendance shifts
+
+[33mcommit 2558aa481bc25918b5bba8db3da795989600b996[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Jan 29 11:37:02 2020 +0100
+
+    [REF] b_shift : demos
+
+[33mcommit 3a3d49e2cca43f43ca150f51b28758fcaf22a1a0[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Jan 29 10:31:34 2020 +0100
+
+    [ADD] b_shift : constrains on exempted workers
+
+[33mcommit 10665e96e561a665cefc389bcf82d8c3fba5470e[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Jan 28 16:42:33 2020 +0100
+
+    [FIX] b_shift : security groups for coop admin
+
+[33mcommit f6b18e7f2b55fe6b69b4443ac4d14fd1c564e1fe[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Jan 29 11:12:32 2020 +0100
+
+    [REF] b_shift : remove state computation for attendance shifts
+    
+    replacement_worker_id -> replaced_id
+
+[33mcommit eb453473d58edf418497a956b7cb43a4f9ebd6a4[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Jan 28 14:38:59 2020 +0100
+
+    [UPD] b_shift : traductions
+
+[33mcommit eedc759b00c622f74c8247e4e8f269c67e8ab9f2[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Jan 28 11:21:05 2020 +0100
+
+    [FIX] b_shift : error messages
+
+[33mcommit 4a437f7b475945b7e217e30dccc9d5a903c93830[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Jan 27 17:59:25 2020 +0100
+
+    [REF] b_shift : code cleaning
+
+[33mcommit 7b313c57b984f56f666d2d0b7d81606d88480b63[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Jan 27 15:22:35 2020 +0100
+
+    [MIG] b_shift : i18n for 12.0
+
+[33mcommit b4c7fd1b66b5c9a0b131614c8ea0bd0c6c9a3db9[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Jan 27 15:22:18 2020 +0100
+
+    [MIG] b_shift : fix views to fit 12.0 requirements
+
+[33mcommit ef1ad141bdd00b1a8a1a6fc9e60137a20b0bd470[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Jan 27 15:20:21 2020 +0100
+
+    [MIG] b_shift : fix validation wizard to fit 12.0 requirements
+
+[33mcommit f5ea1faf220d9e67aa63d068b1dce9dac8f34a07[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Jan 27 14:44:18 2020 +0100
+
+    [MIG] b_shift : change cron definitions to fit 12.0 requirements
+
+[33mcommit b013e1524b274e3347c597ee55155303cc84b059[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Jan 27 11:36:09 2020 +0100
+
+    [MIG] b_shift : change settings to fit 12.0 requirements
+
+[33mcommit 19dcf1611ea86ffd2a8b2101369de9e07e074d3b[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Jan 23 18:42:12 2020 +0100
+
+    [MIG] b_shift : fix security groups
+
+[33mcommit 9149f6983ffab0a8d61538ac51e8d829b2ef0a7f[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Jan 23 17:43:13 2020 +0100
+
+    [MIG] b_shift : fix views
+
+[33mcommit 402c9181f5c2c2ad684b31c5701cef7f200017c5[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Jan 23 16:53:46 2020 +0100
+
+    [MIG] b_shift : datetimes aren't strings anymore
+
+[33mcommit ad00166dcc81d11d1572a5b9f182010bd4d881e4[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Jan 21 10:33:35 2020 +0100
+
+    [MIG] b_shift : 'ir.needaction_mixin' removed from 11.0
+
+[33mcommit 15cdf5ce4b9065f7d189e5501c49e32c5c06acc4[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Jan 20 17:32:20 2020 +0100
+
+    [ADD] b_shift : checks for holidays and exemption
+
+[33mcommit a3b85ecf8cc10a53d12fee1077ad790213240f90[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Jan 20 17:25:05 2020 +0100
+
+    [MIG] b_shift : code cleaning for 12.0
+
+[33mcommit bf9f0eb8a8cacd4136deeb484dc03a9e80215447[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Jan 20 17:24:42 2020 +0100
+
+    [CHG] b_shift : info_session to date instead of datetime
+
+[33mcommit 47ff591c1f89d2c02849f9dd823103e00bc2ef27[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Sep 16 18:26:38 2019 +0200
+
+    [FIX] b_shift : fix datetime issues coming from migration to 12.0
+
+[33mcommit 771dc7db2fde8927b5d6ad303ba6e9b2313f45bf[m
+Author: Elouan <elouan@coopiteasy.be>
+Date:   Mon Sep 9 18:06:20 2019 +0200
+
+    [FIX] b_shift : fix cron jobs definition to fit version 12.0 requirements
+
+[33mcommit bae42f7112d110efbb04fc49e2f8cfc59649ae66[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Jan 20 18:35:40 2020 +0100
+
+    [MIG] b_shift : migration to 12.0
+
+[33mcommit 2b6800bd2526625610f7360c35b375558ed638d7[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Jan 20 18:27:05 2020 +0100
+
+    [MIG] b_shift : migration to 11.0
+
+[33mcommit 3d894c3559027bec190519659ccdda34e513131c[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Jan 20 18:24:25 2020 +0100
+
+    [MIG] b_shift: migration to 10.0
+
+[33mcommit fa36b66764e836c2292fe8413effd570ede25243[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Jan 23 17:57:09 2020 +0100
+
+    [FIX] b_shift : demo datas for member cards
+
+[33mcommit 5b41b0c5b0903c0ec5638e849371d2655b1c8a18[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Jan 23 15:55:55 2020 +0100
+
+    [UPD] b_shift : unite tests
+
+[33mcommit dcf1648a5e633b2916982c7c1b8fa5ad037f10f5[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Jan 23 15:38:27 2020 +0100
+
+    [FIX] b_shift : created shifts not updating counters
+    
+    If one shift is directly created as "Attended",
+    workers' shifts counters are not updated.
+    They are only updated on state transitions.
+
+[33mcommit 6d6826260dff07e96fefd5ab000d98ebc0f52f91[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Jan 23 14:04:49 2020 +0100
+
+    [FIX] b_shift : email for non-attended shifts
+
+[33mcommit e03dc65532034c287021c5aae6ffab04336c2077[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Jan 21 17:21:05 2020 +0100
+
+    [ADD] b_shift : traductions
+
+[33mcommit 8ca22926ba9dedda4a363f906121eec661387f03[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Jan 20 14:51:47 2020 +0100
+
+    [CHG] b_shift : _cron_non_validated_sheets inactive by default
+
+[33mcommit 6afd5c9cdde125e8a24276dc2cec3722f5354dc6[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Jan 20 14:51:12 2020 +0100
+
+    [MOV] b_shift : demo datas for users in b_base
+
+[33mcommit bea03d1f808dc7d3fb7921bdf7858288764a1aaf[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Jan 20 14:50:34 2020 +0100
+
+    [ADD] b_shift : authors names
+
+[33mcommit 4fad17af332fbd1f3066cda13154c02ba463ca69[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Dec 12 15:53:16 2019 +0100
+
+    [IMP] b_shift : attendance sheet generation time configurable
+    
+    Generation CRON is running every minute and check for sheets
+    in the configurable time interval. Workers can't subscribe
+    to a shift on intranet if its start time is in this interval.
+
+[33mcommit 6cf25a2f681d8fc3b394072f3da41901f34b50a5[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Dec 5 13:54:06 2019 +0100
+
+    [ADD] b_w_shift : prevent subscription 20 min before start
+
+[33mcommit da8c38574a139fb4a7f3f9a7763cee82d270f1bd[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Jan 9 17:29:52 2020 +0100
+
+    [CHG] b_shift : shift status
+    
+    To give better understanding of compensations given by each status.
+    
+    'stage_id' is replaced by a selection field state to ease
+    domain restrictions.
+
+[33mcommit 8a3e24a43a90a5704153fc0e00aa89c95dd7e8da[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Jan 15 18:26:26 2020 +0100
+
+    [ADD] b_shift : tests for cooperative status
+
+[33mcommit d69a7af79e8b9be529f5a99dac1e14fb95004af1[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Jan 15 16:26:50 2020 +0100
+
+    [IMP] b_shift : attendance sheet validation wizard
+
+[33mcommit e216614c38632795dcbd79481607ac2b99f5e6e5[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Jan 14 18:10:48 2020 +0100
+
+    [REF] b_shift : code cleaning
+
+[33mcommit c4c5294cc6f28c8a82a082b7265845ffc6e5beb7[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Jan 14 17:27:00 2020 +0100
+
+    [FIX] b_shift : attendance sheet _compute_is_annotated
+
+[33mcommit a0711138b441c2dbeb8b72dc523a3f475682068c[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Jan 14 17:26:37 2020 +0100
+
+    [REF] b_shift : code cleaning
+
+[33mcommit 4267eb8a4233c08c2e3eb218dfca745fabcf36cc[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Jan 14 17:13:38 2020 +0100
+
+    [FIX] b_shift : search on datetime with '='
+
+[33mcommit caf6ef6096e443d26a21a9c55a711fa5d791f9a2[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Jan 13 14:40:32 2020 +0100
+
+    [CHG] b_shift : attendance sheets terminology
+
+[33mcommit daaa04b7f5f020bb966d9f25ed16da47d1a9fcf7[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Jan 13 12:36:35 2020 +0100
+
+    [UPD] b_shift : demos datas & unite tests
+
+[33mcommit eacb6397b555dbd24a7cf68595ce8036d9bce191[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Jan 10 16:32:19 2020 +0100
+
+    [FIX] b_shift : supercoop name not displayed on sheets
+
+[33mcommit af4339545572874778cf9b64f2c1e0c64f785fa8[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Jan 9 16:47:58 2020 +0100
+
+    [ADD] b_shift : group_by on worker_no_feedback
+
+[33mcommit a942d153ff715a92cd7f02dc3037830fe119cf09[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Jan 9 16:38:11 2020 +0100
+
+    [REF] b_shift : code cleaning
+
+[33mcommit 002bc8ae0699882c0cabb6b090b0d18de18b9321[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Jan 9 16:37:27 2020 +0100
+
+    [ADD] b_shift : _order for attendance sheet shifts
+
+[33mcommit b50e266f8dedef179f1fccfaa17815442e47e46e[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Jan 9 14:31:43 2020 +0100
+
+    [REF] b_shift : code cleaning
+
+[33mcommit 1a5fa7e4d8d749b95a5632853a174c221dff9a03[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Jan 9 12:08:28 2020 +0100
+
+    [FIX] b_shift : sheet generation cron overloading ram
+
+[33mcommit 6d3c187e89396965180724426dcf91fd1f1b35af[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Jan 8 17:12:50 2020 +0100
+
+    [IMP] b_shift : attendance sheet validation wizard
+    
+    Temporary changes can be saved.
+    Warnings added and modified.
+
+[33mcommit 23a3c0c21a5cd51fc74551e03e250a17126b5ea7[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Jan 8 17:12:37 2020 +0100
+
+    [FIX] b_shift : attendance sheet 'is_annotated'
+
+[33mcommit fed73cd7c8c2d9eb8f3426f18683b70618be3104[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Jan 8 15:07:31 2020 +0100
+
+    [FIX] b_shift : cron no_update='1'
+
+[33mcommit 4f64797f87c444ca27a52a92bf59c29df81b3d66[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Jan 8 12:11:44 2020 +0100
+
+    [ADD] b_shift : day_abbreviation for attendance sheets
+
+[33mcommit 1c2a0d269fb6df3aaa449c894978e6a74685544f[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Jan 7 12:22:21 2020 +0100
+
+    [ADD] b_shift : constrains on future attendance sheets validation
+
+[33mcommit 2b7cea885224007973b94e1248e36821079c4d03[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Jan 6 10:13:29 2020 +0100
+
+    [ADD] b_shift : optional validation by card scan
+
+[33mcommit aaf0b97e97f9ce7091385d835d18ccc107d6a5c4[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Jan 3 16:36:44 2020 +0100
+
+    [ADD] b_shift : replacement worker on shift kanban view
+
+[33mcommit a4c1c2c757b6097aae42131f816e7269d842bbb5[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Jan 3 15:39:15 2020 +0100
+
+    [REF] b_shift : views order and definition
+
+[33mcommit d198ef7492f3152fbec7873d4fe42de95bd255e6[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Jan 3 11:28:43 2020 +0100
+
+    [CHG] b_shift : checks on attendance sheet before validation
+
+[33mcommit 991d032754c8f71c02a41f826db9a668ceb864cf[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Jan 3 11:12:54 2020 +0100
+
+    [IMP] b_shift : automatically created shifts names
+
+[33mcommit f5b22493e03b2ac7af3755593dfdf4073c1f5baf[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Jan 3 11:12:06 2020 +0100
+
+    [REF] b_shift : code cleaning
+
+[33mcommit 4f2c3cee1b6ad6d6727da1179b5df5e62923863e[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Dec 20 12:22:37 2019 +0100
+
+    [FIX] b_shift : time on added shift
+
+[33mcommit d8f96f249c855aff36fda9d5c9ef5c89f6a15095[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Dec 20 10:40:11 2019 +0100
+
+    [ADD] b_shift : attendance sheet compensation number
+    
+    Changes from shift status update are made as well.
+
+[33mcommit ee54e62d34f7c4e218ec913cec09402ac104a9d3[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Jan 9 17:42:29 2020 +0100
+
+    [ADD] b_shift : demo datas for task templates
+
+[33mcommit c662bdd32c8a29ceb1025b73f3c80ed84b300def[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Dec 13 11:51:29 2019 +0100
+
+    [WIP] b_shift : give access to backend to attendance sheets generic group
+
+[33mcommit c4d96cc31d5a0e243ccbd97c9a8441816740381a[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Dec 13 11:45:29 2019 +0100
+
+    [ADD] b_shift : week name on attendance sheet
+
+[33mcommit 548397ca163bc36b6137eb6fd36c7cc32ebe375b[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Dec 12 16:19:49 2019 +0100
+
+    [ADD] b_shift : attendance sheet, is_compensation field for expected shifts
+
+[33mcommit 986cea6e292485108bc132a8c535d8af4e445a2b[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Dec 12 15:53:16 2019 +0100
+
+    [IMP] b_shift : attendance sheet generation time configurable
+    
+    Generation CRON is running every minute and check for sheets
+    in the configurable time interval. Workers can't subscribe
+    to a shift on intranet if its start time is in this interval.
+
+[33mcommit c5245a33b0a6581307416b90fbeb33c18b4c6f2b[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Dec 11 17:07:44 2019 +0100
+
+    [IMP] b_shift : group_shift_attendance can accessShift menu
+
+[33mcommit ee3d671ffc7027b15fd5ca98778cf5f0cfadc533[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Dec 11 15:31:30 2019 +0100
+
+    [REM] b_shift : Shift Attendance view
+
+[33mcommit 7ece3f34ede4b2ec32a6a5e3061c6ee4e5f7aa55[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Dec 11 11:08:24 2019 +0100
+
+    [IMP] b_shift : attendance annotation pre-filled on wizard
+
+[33mcommit 803e26f82d1ded2b8e98c69b8ece8daa15c25895[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Dec 11 11:00:09 2019 +0100
+
+    [UPD] b_shift : attendance sheet name splitted in day and time_slot on view
+
+[33mcommit bff2e7b57f5746b158358d42f5eacd2f3ea54233[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Dec 10 18:46:48 2019 +0100
+
+    [FIX] b_shift : cron for non-validated sheets
+
+[33mcommit c904f86851cac49050665e42691395b4fcc5b564[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Dec 10 18:45:15 2019 +0100
+
+    [IMP] b_shift : cooperative admin can validate sheet with their cards
+
+[33mcommit 44eee219b2b27478ecb829d2d9809f2eb0976e60[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Dec 10 16:03:16 2019 +0100
+
+    [REF] b_shift : code cleaning
+
+[33mcommit 61fddb6705345509c845c12e8552b898d73e946a[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Dec 10 16:02:17 2019 +0100
+
+    [REM] b_shift : attendance sheet shift 'cancelled' status
+
+[33mcommit 00b26faa5be53c264fc52bc06c2b698bd4e1df02[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Dec 10 15:50:38 2019 +0100
+
+    Revert "[ADD] b_shift : attendance sheet default super cooperator"
+    
+    This reverts commit 605ac1853f6ab0497bb0a6bf566c66655056269d.
+
+[33mcommit d4be4f520c49c2146a8017882030458b9fdbe93c[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Dec 10 15:40:52 2019 +0100
+
+    [IMP] b_shift : attendance sheet max worker no calculation
+    
+    Now based on created shifts instead of task templates
+
+[33mcommit cf14468d48edea7b06922e833e0a484bca8d263c[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Dec 10 15:37:37 2019 +0100
+
+    [IMP] b_shift : cancelled shift not added to attendance sheets
+
+[33mcommit 5506e3ac8813a2048dd6d309ec250c640ef291ce[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Dec 9 18:35:24 2019 +0100
+
+    [IMP] b_shift : no exception raised when scanning a worker twice
+
+[33mcommit cceba409e70a6e6a1a40d71a01f985ff54a8e47f[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Dec 9 17:08:09 2019 +0100
+
+    [ADD] b_shift : attendance sheet unit test on barcode scanner
+
+[33mcommit 5754c4770c87450c5b9c2524173367508741122d[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Dec 9 16:09:32 2019 +0100
+
+    [ADD] b_shift : exception raised when replaced worker try to subscribe
+
+[33mcommit 7a7de2a82058d30d19783144230255d3bbc5e6a1[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Dec 9 11:10:17 2019 +0100
+
+    [ADD] b_shift : member cards demo datas
+
+[33mcommit b13dda4a1456cddfbe2f1031c40715abb7b7d61e[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Dec 6 14:36:23 2019 +0100
+
+    [ADD] b_shift : attendance sheet test on default task type
+
+[33mcommit 3bb9f6c87878ab8b4c80143b880c38836629ea78[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Dec 6 12:23:23 2019 +0100
+
+    [ADD] b_shift : attendance sheets test on creation
+
+[33mcommit cbc67219c3985635c52faee10c2e877a46455967[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Dec 6 12:22:51 2019 +0100
+
+    [FIX] b_shift : search on equal dates
+
+[33mcommit 96a00cdeef09022b3ccc2efd37524dd6e9b11820[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Dec 5 17:02:58 2019 +0100
+
+    [ADD] b_shift : attendance sheet tests setUp
+
+[33mcommit ae8281be688f0ac46dfc5f3bb54a2b77887122d4[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Dec 5 14:50:41 2019 +0100
+
+    [IMP] b_shift : change configuration menu order
+
+[33mcommit 1d5de0a1ed367bca815818a998f175ae83d25c04[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Dec 5 12:09:41 2019 +0100
+
+    [IMP] b_shift : change attendance sheets shifts order
+
+[33mcommit b6f31f0975466f9bc9a77f2ae66eb17351279d7d[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Dec 4 18:04:51 2019 +0100
+
+    [ADD] b_shift : attendance sheet automatic emails
+
+[33mcommit 4a72deca1d71643d6df119da64dd9efcaace881a[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Dec 4 15:01:57 2019 +0100
+
+    [REF] b_shift : attendance sheet code cleaning
+
+[33mcommit 16ba3fc8c042e2f5f69320e54b3218f34f5225da[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Dec 4 12:12:26 2019 +0100
+
+    [FIX] b_shift : wrong default regular task type
+
+[33mcommit 6b3a9ed777d187c96d18a1a34131e65b06724330[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Dec 4 12:12:01 2019 +0100
+
+    [FIX] b_shift : attendance sheet annotation validation
+
+[33mcommit 418a5d142376e38ce347d53e6adbcb508a564a7f[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Dec 3 17:41:11 2019 +0100
+
+    [FIX] b_shift : attendance sheet, validated by
+
+[33mcommit 8c407e368d28a6331d9e69706087e3290eef9dc4[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Dec 3 12:07:10 2019 +0100
+
+    [FIX] b_shift : stored field in abstract class
+
+[33mcommit 89cd1f407a2cd72bb2ff1255e5484f923318eda9[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Sun Nov 17 14:41:04 2019 +0100
+
+    [ADD] b_shift : demo datas
+
+[33mcommit ce3b1ccad8cde7b862d7324d36510625f3c92a8e[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Dec 2 16:12:43 2019 +0100
+
+    Revert "[ADD] b_shift : demo datas"
+    
+    This reverts commit 6c0d0a0d8c2952628c4d26d0acc4d115f042e118.
+
+[33mcommit ead8cc6996a3d4120808b50eb100e675b827b1ac[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Dec 2 15:58:28 2019 +0100
+
+    [ADD] b_shift : attendance sheet time slot
+
+[33mcommit 4a5a8b3e5ea17512f2c003bf3eedfdeb537bcc2e[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Dec 2 15:34:48 2019 +0100
+
+    [FIX] b_shift : computed methods not applying to recordset
+
+[33mcommit 978199e8e56a34a116a87fe24c5112dcda6d0575[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Dec 2 14:52:02 2019 +0100
+
+    [ADD] b_shift : attendance sheet search view
+
+[33mcommit 3cbb36a064cbcdde56440915398f74d7300844d1[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Dec 2 14:08:14 2019 +0100
+
+    [ADD] b_shift : attendance sheet default super cooperator
+
+[33mcommit f1961aba92a9381dfc5c933ce2f0236d99362ccd[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Nov 27 11:55:02 2019 +0100
+
+    [REM] b_shift : generate_attendance_sheet views
+
+[33mcommit 4f7be634a73c69946b86e6132873d558d17c85f7[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Nov 27 11:50:59 2019 +0100
+
+    [FIX] b_shift : code cleaning
+
+[33mcommit 2635cf6141e2c7e82a2f7f5dd448e6f883d843c5[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Nov 27 10:49:42 2019 +0100
+
+    [ADD] b_shift : attendance sheet CRON for generation
+
+[33mcommit c90acf5603baf7c679f010de4a18908bb0d7ddbc[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Nov 26 16:55:14 2019 +0100
+
+    [FIX] b_shift : date format %%Y-%%m-%%d
+
+[33mcommit 797388eadb4e462ebf8afb90a026e58f96f3cd65[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Nov 26 16:54:44 2019 +0100
+
+    [ADD] b_shift : attendance sheet possibility to translate terms
+
+[33mcommit 6509edb30beffcd9200c54372f47dc9828c159d6[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Nov 26 16:26:42 2019 +0100
+
+    [IMP] b_shift : attendance sheet validation button hidden when validated
+
+[33mcommit 62fca7d44d6d07e059dc38569ea5340c079142ea[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Nov 26 15:00:39 2019 +0100
+
+    [REM] b_shift : expected_worker_nb and added_worker_nb from attendance sheet
+    
+    They are already automatically displayed on the form view.
+
+[33mcommit 7bc389902c2714965d63198a42a03542a21634e8[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Nov 26 14:10:06 2019 +0100
+
+    [IMP] b_shift : attendance sheet form view
+
+[33mcommit bb275f89a7d17d2761e5fc1b9e14304563af4298[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Nov 26 11:52:50 2019 +0100
+
+    [ADD] b_shift : constraint on irregular_start_date
+
+[33mcommit d97b1ab170fbc7ee7c29cfe3b280d61ab3c9b594[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Nov 25 19:22:33 2019 +0100
+
+    [FIX] b_shift : attendance sheet scanning methods
+
+[33mcommit 061b30d544a1ea4791593f11b655bd7010af1d94[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Nov 25 17:57:27 2019 +0100
+
+    [REM] beesdoo_shift_assets
+
+[33mcommit 95269a192a4d3965e66aeae94609cbee06997f17[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Nov 25 17:14:35 2019 +0100
+
+    [FIX] b_shift : barcode scan to attendance sheet validation
+
+[33mcommit 21fe68d0f58eca3f273bd206420b176c12acafa1[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Nov 25 16:30:09 2019 +0100
+
+    [FIX] b_shift : attendance sheet compensation_nb onchange issues
+    
+    The @api.onchange, modifying compensation_nb according to working mode,
+    led to strange behavior and lack of consistency.
+    
+    compensation_nb has consequently moved in Shift Stage.
+
+[33mcommit 8b8417305f49e3d97c18fb98b8fa36ae4244d917[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Nov 22 18:12:23 2019 +0100
+
+    [ADD] b_shift : barcode scan to attendance sheet validation
+
+[33mcommit eb2ce01823692dcd997d426f770e1ce24ff1240c[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Nov 22 15:19:53 2019 +0100
+
+    [IMP] b_shift : attendance sheet validation exceptions raised
+
+[33mcommit 82634f780bf176f041054df76917819e9e20cffa[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Nov 22 14:54:53 2019 +0100
+
+    [FIX] b_shift : code cleaning
+
+[33mcommit 2f71ef99c3481172f7eb58802033040099d45f18[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Nov 21 19:06:12 2019 +0100
+
+    [FIX] b_shift : constrain_unique_worker on attendance sheets
+
+[33mcommit 87b38ef134697a2b62dcdaa3547acbbdb179ea51[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Nov 21 19:03:36 2019 +0100
+
+    [IMP] b_shift : attendance sheets code cleaning
+
+[33mcommit 82b68f1caa2bdbcbd7b67aa1f52eb767e314a391[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Nov 21 19:00:48 2019 +0100
+
+    [IMP] b_shift : change and add access rules
+
+[33mcommit 4d01211029bfe4e09ac1893e38494ee73abf9909[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Nov 20 11:31:55 2019 +0100
+
+    [FIX] b_shift : comment attendance sheet unique worker constraint
+
+[33mcommit c071116c605cc5321a8a995c8326e196f58f0416[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Nov 20 11:00:31 2019 +0100
+
+    [IMP] b_shift : attendance sheets linting and menu sequences
+
+[33mcommit ea0bb5d0478ec10119b00f4403a95829a613d4cf[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Nov 20 10:43:52 2019 +0100
+
+    [FIX] b_shift : attendance sheet shifts worker not required
+
+[33mcommit 4d46e07394a09341246fdef0d7f3c32e1807bf6d[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Nov 20 10:42:52 2019 +0100
+
+    [REM] b_shift : attendance sheet cancelled status
+
+[33mcommit 6b4f4b1495ba52e22c7e58e44e9b3c9a9c11d6c9[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Nov 18 18:24:17 2019 +0100
+
+    [ADD] b_shift : attendance sheets barcode scanner support
+
+[33mcommit a45683d9ec4d41ca5c799615bf507014f582bfea[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Nov 15 18:06:15 2019 +0100
+
+    [ADD] b_shift : attendance sheet archived attribute
+
+[33mcommit 68956c4d6eb25686a93066c40714d403ad95ca1c[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Nov 15 15:36:22 2019 +0100
+
+    [ADD] b_shift : attendance sheet "mark as read" smart button
+
+[33mcommit d762b09a34a3874cca3ada53c1d95fbe0bc94ea0[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Nov 15 14:56:21 2019 +0100
+
+    [IMP] b_shift : constraint on validated attendance sheets
+
+[33mcommit aec6d12a0218971b1a5657369525a9e97802a742[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Nov 15 14:11:38 2019 +0100
+
+    [ADD] b_shift : default task type configuration
+
+[33mcommit 6fc398ed67fabebf443040a351be7a10b2b9c8b5[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Nov 7 15:30:57 2019 +0100
+
+    [ADD] b_shift : attendance shift validation barcode field
+
+[33mcommit df456cb7dd93f5d3799302338c9b2afe8c73f03b[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Nov 7 14:10:28 2019 +0100
+
+    [IMP] b_shift : attendance sheet display date with ISO format
+
+[33mcommit bd9379919e2026c60236c3a0a604e04b6019063d[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Nov 7 13:57:16 2019 +0100
+
+    [IMP] b_shift : attendance sheet views set no_open options
+
+[33mcommit 231142eb7b86d150056db800027241678a386719[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Nov 7 13:56:17 2019 +0100
+
+    [FIX] b_shift : attendance sheet replacement worker field name
+
+[33mcommit 91ef2bf57a92553e75ee0f9f13430db3033f9488[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Nov 5 17:35:39 2019 +0100
+
+    [ADD] b_shift : attendance sheet list items coloration
+
+[33mcommit e8f27cdf5d56ddc10f4189f0110ab1b0380d130f[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Nov 4 17:33:30 2019 +0100
+
+    [ADD] b_shift : attendance sheet notifications count
+
+[33mcommit 1ea6ced1e87ccebab23ca54f2e449160fc47af1d[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Oct 31 18:10:35 2019 +0100
+
+    [ADD] b_shift : attendance sheet validation wizard
+
+[33mcommit 4774617094ebfb8ca8d3b17e265f1ccd9ce16571[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Dec 2 16:11:40 2019 +0100
+
+    [ADD] b_shift : demo datas
+
+[33mcommit bea4258143fb4dcf71d80b0ca3ffe0380689b44b[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Oct 18 16:11:25 2019 +0200
+
+    [ADD] b_shift : attendance sheet access rules
+
+[33mcommit 252df20be3ac322726c6a4195d41b0a9f9777b1c[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Oct 15 18:12:08 2019 +0200
+
+    [ADD] b_shift : wizard for attendance sheet generation
+
+[33mcommit 0a75e54d4927da2ade114df1742adb410e7718d9[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Oct 11 14:34:07 2019 +0200
+
+    [ADD] b_shift : attendance sheet views
+
+[33mcommit edb3f9841cb2940faa681b841c291db09b9c3729[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Oct 11 11:50:13 2019 +0200
+
+    [ADD] b_shift : attendance_sheet_id to TaskTemplate
+
+[33mcommit 27397cbe4c34655573dbbecbafd211108c1a85a0[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Oct 10 12:48:47 2019 +0200
+
+    [ADD] b_shift : attendance sheet models
+
+[33mcommit 3fa6235c7123ca8021f5110511c5b7430454a8c5[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Jan 7 13:49:23 2020 +0100
+
+    [FIX] b_shift : automatic unsubscribe from next shifts
+    
+    Doesn't unsubscribe from present shift anymore
+    when worker is changing to "unsubscribed" status.
+    
+    You cannot change future shifts status anymore.
+
+[33mcommit 03e6a239366a5fa5766d700031bfa36384458556[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Jan 9 17:29:52 2020 +0100
+
+    [CHG] b_shift : shift status
+    
+    To give better understanding of compensations given by each status.
+    
+    'stage_id' is replaced by a selection field state to ease
+    domain restrictions.
+
+[33mcommit 7a55f07bd66f0d4f0ba57ae45e7199e03c79902e[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Nov 6 18:12:38 2019 +0100
+
+    [FIX] b_shift : replacement workers must be regular and not unsuscribed
+
+[33mcommit 8b452d5eac678b545af0c4bb42c0551402801d7f[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Wed Nov 6 18:15:11 2019 +0100
+
+    [ADD] b_shift : constraint on worker, cannot replace himself
+
+[33mcommit 625fd77dbd0e3097daaa31a83ee076df963d886e[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Nov 22 14:55:28 2019 +0100
+
+    [IMP] b_shift : shift start_time, end_time required
+
+[33mcommit 0d2f032f2af22f19ef1f32864480d88b892fc530[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Nov 5 10:52:43 2019 +0100
+
+    [FIX] b_shift : warning messages
+
+[33mcommit 41ff7de51eae57ea8cd68b6cae7eb753eeed3b52[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Fri Jan 10 18:05:43 2020 +0100
+
+    Revert "[FIX] b_shift : automatic unsubscribe from next shifts"
+    
+    This reverts commit 796753a5edaea9883501b54920083a3693b083bf.
+
+[33mcommit 9cf0861c690096f68f503059a2c95e98ce5e4349[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Jan 7 13:49:23 2020 +0100
+
+    [FIX] b_shift : automatic unsubscribe from next shifts
+    
+    Doesn't unsubscribe from present shift anymore
+    when worker is changing to "unsubscribed" status.
+    
+    You cannot change future shifts status anymore.
+
+[33mcommit 47b1eff4ab49db06c72222f1285b3514cda24f65[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Dec 23 12:08:56 2019 +0100
+
+    [ADD] b_shift : weekly summary email
+
+[33mcommit 2581f31838afd0bfff6a23b44ad229c51fd991d9[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Jan 2 16:53:38 2020 +0100
+
+    [FIX] b_shift : next_countdown computation
+    
+    When the next_countdown is the same day than the current one,
+    it should be the one displayed (and not the one 28 days later).
+
+[33mcommit 1292201c27c6619499a4a1a105c341c364adce62[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Mon Sep 16 11:21:41 2019 +0200
+
+    [FIX] beesdoo_shift : Error when saving a temporary exempt
+    
+    Add beesdoo_shift_temporary_exemption_id_seq.
+
+[33mcommit d55d3fcd7676c87b2ba7a83930d63a428a9665f7[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Sep 12 15:03:57 2019 +0200
+
+    [FIX] beesdoo_shift : Error when saving a temporary exempt
+    
+    Add missing sequence in database.
+
+[33mcommit 0c052664aefb922a00383dabfd796d55bee9a134[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Sun Nov 17 15:18:18 2019 +0100
+
+    [ADD] b_base : demo datas for users
+
+[33mcommit 195f61dff298552680497b0d118ec8d0fafb15cf[m
+Author: Cyrille Bollu <cyrpub@bollu.be>
+Date:   Sun Jan 26 14:39:14 2020 +0100
+
+    [ADD] beesdoo_website_posorder_amount: changed style of the Purchase block's header
+
+[33mcommit a54e056d8fbf3ebed9a9c4b954dbbdcdeea2fbee[m
+Author: Cyrille Bollu <cyrpub@bollu.be>
+Date:   Sun Jan 26 16:05:21 2020 +0100
+
+    [ADD] beesdoo_website_eater: changed style of the Your Eaters block's header
+
+[33mcommit 3268cf33a8a6bf2b06355d2c7f77a9981ef797fe[m
+Author: Cyrille Bollu <cyrpub@bollu.be>
+Date:   Sun Jan 26 15:21:39 2020 +0100
+
+    [MIG] beesdoo_website_eater: Adaptation for 12.0
+
+[33mcommit a2bfba1f995d2288d62b13caff974fd196b385e6[m
+Author: Cyrille Bollu <cyrpub@bollu.be>
+Date:   Sun Jan 26 15:18:39 2020 +0100
+
+    [MIG] beesdoo_website_eater: Migration to 12.0
+
+[33mcommit 432537fe6e8c10e88c99aeb21c8829653466ac71[m
+Author: Cyrille Bollu <cyrpub@bollu.be>
+Date:   Sun Jan 26 15:12:53 2020 +0100
+
+    [MIG] beesdoo_website_eater: Migration to 11.0
+
+[33mcommit 38a0752d2e8edc74dfe6645c4fb9717c44993580[m
+Author: Cyrille Bollu <cyrpub@bollu.be>
+Date:   Sun Jan 26 15:10:39 2020 +0100
+
+    [MIG] beesdoo_website_eater: Migration to 10.0
+
+[33mcommit cd0d5204ec0679d2d6d9426bf83f106ca68a13b7[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Thu Mar 8 17:08:46 2018 +0100
+
+    [ADD] website_eater: Information about eaters
+    
+    Add the eater information in the website portal.
+
+[33mcommit 0d524f8436e50b5e542616bec45d878fdc6e813a[m
+Author: Cyrille Bollu <cyrpub@bollu.be>
+Date:   Sun Jan 26 14:23:28 2020 +0100
+
+    [MIG] beesdoo_website_posorder_amount: Adaptation for 12.0
+
+[33mcommit d83a014f0263c6f9167a240ee68373ab22981e4b[m
+Author: houssine <houssine.bakkali@gmail.com>
+Date:   Sun Jan 26 12:43:34 2020 +0100
+
+    [CLEAN] remove extra tag
+
+[33mcommit bb7967422c92d727c25ad6025a5de0b18b050b43[m
+Author: Cyrille Bollu <cyrpub@bollu.be>
+Date:   Sun Jan 26 12:43:23 2020 +0100
+
+    [MIG] beesdoo_website_posorder_amount: Migration to 12.0
+
+[33mcommit 4126fab8fd2f00f004918c905d5778e5103a0684[m
+Author: houssine <houssine.bakkali@gmail.com>
+Date:   Sun Jan 26 12:43:22 2020 +0100
+
+    [LIC] put right licence and version
+
+[33mcommit 1a7c7284d1980143f65f0b0074e1f8ee86f4b1af[m
+Author: Cyrille Bollu <cyrpub@bollu.be>
+Date:   Sun Jan 26 12:35:48 2020 +0100
+
+    [MIG] beesdoo_website_posorder_amount: Migration to 11.0
+
+[33mcommit 5f3c32460eaee29b519467f2ea8384de9d933235[m
+Author: Cyrille Bollu <cyrpub@bollu.be>
+Date:   Sun Jan 26 12:30:45 2020 +0100
+
+    [MIG] beesdoo_website_posorder_amount: Migration to 10.0
+
+[33mcommit 308397571d713733e6ea7902be3ca3d7a18db4a9[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Mon Dec 23 15:42:13 2019 +0100
+
+    [ADD] b_w_portal: Total pos order amount for a user
+
+[33mcommit b3c884b4908eb70e488ba56540315be09edad235[m
+Merge: 70a45820 eaa4cca0
+Author: houssine <houssine.bakkali@gmail.com>
+Date:   Sun Jan 26 12:03:33 2020 +0100
+
+    Merge branch '12.0-mig-obeesdoo' of https://github.com/beescoop/Obeesdoo.git into 12.0-mig-obeesdoo
+
+[33mcommit 70a45820c4d91e477246763b514101cd7378a118[m
+Author: houssine <houssine.bakkali@gmail.com>
+Date:   Sun Jan 26 12:02:40 2020 +0100
+
+    [LIC] set contributor
+
+[33mcommit eaa4cca0443c13aeb54d816963511144f64cd764[m
+Author: houssine <houssine.bakkali@gmail.com>
+Date:   Sun Jan 26 12:02:40 2020 +0100
+
+    [FIX] fix manifest name.
+
+[33mcommit 2c710ab2b22a7c96600d0729ff0e30dc0e9bcef0[m
+Author: houssine <houssine.bakkali@gmail.com>
+Date:   Sun Jan 26 11:52:04 2020 +0100
+
+    [IMP] Remove unecessary data tag
+
+[33mcommit b94fa19b067b79a820bf5696c174a2bdbf67f45f[m
+Author: houssine <houssine.bakkali@gmail.com>
+Date:   Sun Jan 26 11:51:32 2020 +0100
+
+    [LIC] add licence
+
+[33mcommit 7e52fde971673aabecb0871779ff42b67525d986[m
+Merge: efe029de 46649ef3
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Sun Jan 26 09:14:37 2020 +0100
+
+    Merge pull request #113 from beescoop/12.0-mig-beesdoo-website-theme
+    
+    [MIG] beesdoo_website_theme: migrate to 12.0
+
+[33mcommit efe029de84feda1843909853a5803e574e5f5497[m
+Merge: fe20c1d1 89174809
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Sun Jan 26 09:14:01 2020 +0100
+
+    Merge pull request #111 from beescoop/12.0-mig-beesdoo-inventory
+    
+    [MIG] beesdoo_inventory: migrate to 12.0
+
+[33mcommit fe20c1d154a7fd6183a18644c9dca7d581732062[m
+Merge: 2e545ba4 d20fbff1
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Sun Jan 26 09:12:33 2020 +0100
+
+    Merge pull request #109 from beescoop/12.0-mig-beesdoo_account
+    
+    [MIG] beesdoo_account: migrate to 12.0
+
+[33mcommit d20fbff1718f3c0331db0af8225c4e0b3c4c460a[m
+Author: Augustin Borsu <a.borsu@gmail.com>
+Date:   Sun Nov 17 11:27:38 2019 +0100
+
+    beesdoo_account: migration to version 12.0
+
+[33mcommit 4ccebfa048959cba382ecc34ee4c76663bf33f08[m
+Author: EliseDup <Elise@mac-1o0-339.local>
+Date:   Wed Nov 9 15:54:02 2016 +0100
+
+    S0041 : add date_invoice as required in vendor bills view
+
+[33mcommit 05db213cfe5b93b8195747993794c9240402046b[m
+Author: EliseDup <Elise@wifi-secure1-585.sri.ucl.ac.be>
+Date:   Thu Nov 3 14:24:57 2016 +0100
+
+    Fix S0041
+
+[33mcommit 774dd039fffea13ae7634530c225fa95ebb780a1[m
+Author: EliseDup <Elise@wifi-secure1-585.sri.ucl.ac.be>
+Date:   Thu Nov 3 12:20:51 2016 +0100
+
+    Fix S0041 : make date_invoice as required in the view only not in the
+    model
+
+[33mcommit 0c78e6565e0a7918af73b115819b5a238926828c[m
+Author: EliseDup <Elise@mac-1o0-339.local>
+Date:   Tue Oct 18 18:51:16 2016 +0200
+
+    Account module added, make invoice_date as required.
+
+[33mcommit 89174809c108b5ced968a9bf143de4dd31d5cc0d[m
+Author: Samuel Degueldre <sad@odoo.com>
+Date:   Sun Nov 17 12:11:26 2019 +0100
+
+    [MIG] beesdoo_inventory: migrate to 12.0
+
+[33mcommit f0770ff02ffcd87d515ef6beb0f75c27a8277492[m
+Author: Augustin Borsu <a.borsu@gmail.com>
+Date:   Sat Jun 8 16:05:53 2019 +0200
+
+    [IMP] beesdoo_inventory: add filter on add item to reciept
+    
+    Added a domain to filter proposed products on the reciept view.
+    Only products whose main seller are the reciept's partner are
+    proposed in the auto-complete/selection.
+
+[33mcommit cb1b782314fa1eb49c964fde6c8a76b3cb66ae89[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sat Dec 1 17:34:53 2018 +0100
+
+    [CHANGE][0045 - Date de livraison dans le bon de commande]
+    Remove date_planned and button to set date in tab delivery
+    Add a new field manual_date_planned
+    Onchange on order_line to set the first time a date planned
+    Force the manual_date_planned to all line at confirmation
+    Change the report for purchase order
+    [ADD] default value on picking responsible: set the create_uid as responsible (this mean the one that confirm the purchase order
+
+[33mcommit c0ad80b0fcf109af1cd5ef1502c72180dc2a775b[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sat Jul 1 15:40:47 2017 +0200
+
+    [FIX] [0024-Bug] cannot set two times the same responsible
+
+[33mcommit 6330e28c911d4636d5d771e1110147d12aa5cac0[m
+Author: tfrancoi <francois.th@gmail.com>
+Date:   Tue Feb 21 22:16:15 2017 +0100
+
+    [S0046] 0046 - Faciliter la réception de marchandises: Add a button to copy all qty in done column at reception
+
+[33mcommit 3789e5b9fcdc6f951670cbf22e1236ce02879ecf[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sun Nov 13 16:27:07 2016 +0100
+
+    [ADD] translation file for each individual module
+
+[33mcommit 56e7fbdf8dfb616501429a5f23275d034d92f000[m
+Author: EliseDup <Elise@mac-1o0-339.local>
+Date:   Wed Oct 19 09:48:00 2016 +0200
+
+    Fix S0024 : add responsible as follower
+
+[33mcommit 93a77c6284504bb92136366734f7bc3a73c09c47[m
+Author: jmf <jmf@aukyma.com>
+Date:   Sat May 21 01:32:45 2016 +0200
+
+    [IMPL] Added 'responsible person' to stock picking tree view
+
+[33mcommit 828a61f59d156a1ee380fd1994ca270eefffe3ce[m
+Author: jmf <jmf@aukyma.com>
+Date:   Sat May 21 01:05:20 2016 +0200
+
+    [IMPL] Added mail.followers
+
+[33mcommit 13c6176f1e5490f388071c4263b8e9eb5a56f406[m
+Author: jmf <jmf@aukyma.com>
+Date:   Fri May 20 23:34:32 2016 +0200
+
+    [ADD] Added max_shipping_date, responsible person
+
+[33mcommit 46649ef31ec7b46a10855a9ca4df9e607d927a19[m
+Author: NadTr <trauflernadine@gmail.com>
+Date:   Sun Nov 17 17:00:47 2019 +0100
+
+    [MIG] beesdoo_website_theme: migrate to v12.0
+
+[33mcommit b77956005d09c281171d0637b2fce68afc93fd2a[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed Feb 21 17:39:26 2018 +0100
+
+    [ADD] website_theme: h3 title design
+    
+    Change the font for the h3 title.
+
+[33mcommit 63a39943664a306ad892ed742578dcb85fec6589[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Sun Jan 21 15:50:13 2018 +0100
+
+    [ADD] website_shift: Personal page for working information (#33)
+    
+    * [ADD] website_shift: Add configuration
+    
+    irregular_shift_limit: Maximum shift that will be shown
+    highlight_rule: Treshold of available space in a shift that trigger the
+                    highlight of the shift
+    hide_rule: Treshold ((available space)/(max space)) in percentage of
+               available space under wich the shift is hidden
+    The last one replaces the old hide filter.
+    
+    * [FIX] website_shift: Wrong mail on regular shift
+    
+    Fix the wrong email address that is shown on the public page that show
+    available shift for irregular worker.
+    
+    * [ADD] website_shift: Irregular personal work page
+    
+    Add personal shift page for irregular worker that allows you to
+    subscribe to a shift.
+    
+    * [ADD] website_shift: Personal page for non-worker
+    
+    Add a personal page for non-worker that shows a simple message telling
+    them that they don't have to do a shift.
+    
+    * [ADD] website_shift: Regular personal work page
+    
+    Add personal shift page for regular worker.
+    
+    * [ADD] website_shift: Exempted personal work page
+    
+    Add personal shift page for exempted worker.
+    
+    * [IMP] website_shift: Shopping status personal page
+    
+    This add a label that shows the shopping status of a user.
+    If the label is green the user can shop.
+    If the label is red the user cannot shop.
+    There is also icons for disambiguation.
+    
+    * [ADD] website_shift: Config en & dis shift sign up
+    
+    This add a configuration boolean that enable or disable the shift sign
+    up for irregular worker.
+    
+    * [IMP] website_shift: Status on personal pages
+    
+    Show dates properly.
+    Hide what's useless.
+    Give meaningful name.
+    
+    * [IMP] website_shift: Design of personal pages
+    
+    * Lower size of h2 title.
+    * Add top margin to h1.
+    * Change highlight color.
+    * Change position of explanation test.
+    
+    * [IMP] website_shift: Refactor templates
+    
+    Refactor templates to avoid dupplicate code.
+    Refactor the controller to match with new templates.
+    Add license.
+    
+    * [ADD] website_shift: Past shifts on personal page
+    
+    Add a list of the previous shifts for a worker.
+    
+    * [ADD] website_shift: Super Coop info
+    
+    Add a button to show email and phone of the super cooperator of a shift.
+    Tell you if you are a Super Co-operator
+    
+    * [IMP] website_shift: Next shifts regular worker
+    
+    Add configuration to specify how many next shifts for regular worker
+    must be shown to them on their personal web page. This config is called
+    `regular_next_shift_limit`.
+    
+    Improve the view that shows the next shifts on the personal page for a
+    regular worker regarding to the `regular_next_shift_limit`.
+    
+    Because all the next shifts are not created in the database, we need to
+    create 'fictive' one that are not stored.
+    
+    * [ADD] website_shift: Warning about holidays
+    
+    Add a warning message on the personal page for a regular worker that
+    tells that public holidays are not taken into account for the moment.
+    
+    * [IMP] website_theme: colors for warnings
+    
+    * [FIX] website_shift: 403 when subscribing
+    
+    Fix the case when an irregular worker that doesn't have write access to
+    beesdoo.shift.shift try to subscribe to a shift and got a 403 error.
+    
+    * [FIX] website_theme: Theme must be an application
+    
+    As wrote in this document :
+    https://www.odoo.com/documentation/9.0/howtos/themes.html#create-a-theme-module
+    a theme module must be an application.
+    
+    * [FIX] webs_shift: Wrong display of date last shift
+    
+    Fix the case when an irregular worker is in alert and that the date
+    before last shift is displayed.
+    
+    The `date_before_last_shift` is renamed in `future_alert_start_time`.
+    This name better represent what this variable contains. It also explains
+    why this information does not have to be displayed when the worker is
+    already in alert mode as this date is the date in the future on which
+    the worker will be in alert.
+    
+    * [FIX] website_shift: Co-operator -> Cooperator
+    
+    * [FIX] website_shift: Past shifts not ordered desc
+    
+    The past shift was not properly ordered. This fix by ordering the past
+    shifts from the newest to the oldest.
+    
+    * [FIX] website_shift: Holiday shown after end of it
+    
+    Before:
+        The holiday is shown even if the holiday is in the past.
+    After:
+        The holiday is shown only if the holiday is now or in the future.
+
+[33mcommit e41fa6b7c447374f0126c013ab59ce482909feae[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Fri Dec 15 11:06:49 2017 +0100
+
+    [ADD] Add website theme for BEES coop
+
+[33mcommit a0e9bb015c814f292571b34c8434cde26c4509a5[m
+Author: Samuel Degueldre <sad@odoo.com>
+Date:   Sun Nov 17 15:36:52 2019 +0100
+
+    [MIG] beesdoo_purchase: migrate to v12.0
+
+[33mcommit 914c7432ae021f4abfb1acf0cbb6534420e30dd8[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Tue Jun 11 16:10:36 2019 +0200
+
+    [FIX] b_purchase: Post migration script
+
+[33mcommit 03550646e046800d0477b3cd17e28be3b68759d6[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Fri Apr 26 12:11:20 2019 +0200
+
+    [ADD] b_purchase: Supervisor for sale order
+    
+    This adds a field `supervisor_id` that aims to replace the `create_uid`
+    field. To prevent regressions, the old `create_uid` field is set to be a
+    computed field that has the same value as `supervisor_id`. This allow to
+    ensure that other part of the program that refer to `create_uid` as the
+    responsible for a purchase order will get the value of `supervisor_id`.
+    
+    This new version comes with a migration script that fill the new
+    `supervisor_id` with the value of `create_uid` if `supervisor_id` is not
+    set yet.
+    
+    This trick is done because the `create_uid` field is a magic field that
+    belongs to the ORM. This field cannot be modified in a form.
+
+[33mcommit a472b58e6633599e10b4d79651dfa091384499b3[m
+Author: nicolasjamoulle <nicolasjamoulle@yahoo.fr>
+Date:   Thu Mar 28 11:58:40 2019 +0100
+
+    [ADD] Add new domain
+
+[33mcommit 00654035d4eeaca7dcc9a077cea835d3d9a16605[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Fri Oct 26 16:53:15 2018 +0200
+
+    [ADD] b_purchase: create_uid on purchase order
+    
+    This adds the field create_uid on the `purchase.order` form view.
+
+[33mcommit 2ed912c330ea16f623208e3090652f0822a54ff8[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sat Dec 1 17:34:53 2018 +0100
+
+    [CHANGE][0045 - Date de livraison dans le bon de commande]
+    Remove date_planned and button to set date in tab delivery
+    Add a new field manual_date_planned
+    Onchange on order_line to set the first time a date planned
+    Force the manual_date_planned to all line at confirmation
+    Change the report for purchase order
+    [ADD] default value on picking responsible: set the create_uid as responsible (this mean the one that confirm the purchase order
+
+[33mcommit d25ce44dff8843a31c56521d1d8e3445c72b96da[m
+Author: robinkeunen <robin@keunen.net>
+Date:   Thu Dec 28 15:04:28 2017 +0100
+
+    use contact widget
+    
+    - cleaner conditions
+    - adds phone and mobile icons
+
+[33mcommit cac710b246bda2683c467a571c3938f8b5134c46[m
+Author: odoo <odoo@roke-MBP.fritz.box>
+Date:   Thu Nov 30 15:02:09 2017 +0100
+
+    replace partner phone by user phone
+
+[33mcommit bb5cf144d2ecea12feca0672562361dfebf5ba6b[m
+Author: odoo <odoo@roke-MBP.local>
+Date:   Sat Nov 25 18:05:08 2017 +0100
+
+    add name and phone of referent on purchase order
+
+[33mcommit 773acbffdb84d9923a33795692006bf195d07f30[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sun Mar 19 17:27:37 2017 +0100
+
+    [FIX] xpath in beesdoo_purchase
+
+[33mcommit f36dda03039bb1154e78f72723a9a1b16ae7ed44[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Thu Mar 2 23:02:16 2017 +0100
+
+    [FIX] Change the right field
+
+[33mcommit d9591c8587c5ebc82cd10674ae13ce9d42768fc2[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Thu Mar 2 22:47:36 2017 +0100
+
+    [CHANGE] Make date planned editable
+
+[33mcommit 31943794f0144aaf15d1380a00cc806a8e62bd29[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Mon Feb 13 20:29:12 2017 +0100
+
+    Remove Add commande@bees-coop.be as follower
+
+[33mcommit 28df63ea65c937c7385cc1dcddbbdb4764250b6b[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sun Nov 13 16:27:07 2016 +0100
+
+    [ADD] translation file for each individual module
+
+[33mcommit aee89b0488902f3da3df55fb67e8a03b0ec78088[m
+Author: Thibault Francois <tfr@openerp.com>
+Date:   Wed Oct 26 10:26:14 2016 +0200
+
+    [CLEAN] remove trailing space
+
+[33mcommit 943bb5abdbe9c1109a502a01ecb9cdae0d65a63e[m
+Author: EliseDup <Elise@mac-1o0-339.local>
+Date:   Mon Oct 17 17:02:47 2016 +0200
+
+    S0025 : fix. Add subtypes discussion and those linked to purchase_order
+
+[33mcommit ce5371acb1a0ded5621c44544d2bec26839d8109[m
+Author: EliseDup <Elise@mac-1o0-339.local>
+Date:   Thu Oct 13 08:34:00 2016 +0200
+
+    Fix task 025, command@bees follower of purchase order
+
+[33mcommit 827f3958039042a66e80247b0cddfb6871da32bc[m
+Author: EliseDup <Elise@192.168.1.30>
+Date:   Wed Mar 9 23:03:32 2016 +0100
+
+    last changes
+
+[33mcommit 8887cf6b712b70bee10c177726c7e7ac63550139[m
+Author: EliseDup <Elise@wifi-secure1-933.sri.ucl.ac.be>
+Date:   Wed Mar 9 15:44:50 2016 +0100
+
+    S001
+
+[33mcommit 2e545ba44c7b3c0ff4b002ff9bbbed0269f6061c[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Tue Nov 12 10:17:16 2019 +0100
+
+    [ADD] b_pos : default customer barcode config
+    
+    Override default data so as to set encoding to EAN-13.
+
+[33mcommit 7920d40b0cd1f99f0a0bbcc78a7337806289f13c[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Sun Nov 17 17:03:57 2019 +0100
+
+    [ADD] b_base : demo datas worker eater
+
+[33mcommit f06e493023f538d8844b79a468e86ccfff6c14a6[m
+Author: Augustin Borsu <a.borsu@gmail.com>
+Date:   Sun Nov 17 15:45:03 2019 +0100
+
+    [DOC] add partner-contact OCA module
+
+[33mcommit ab88ed1b8d7a8ee4dea40480fba0b7326c6f3a79[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Sun Nov 17 15:18:18 2019 +0100
+
+    [ADD] b_base : demo datas
+
+[33mcommit 4c2d119103dd04f7f510de09d0395137c41b85dc[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Sun Nov 17 14:59:40 2019 +0100
+
+    [REM] partner_firstname
+
+[33mcommit c997b76b88f4ee5fc10455fb606e367be1cee571[m
+Author: Manuel Claeys Bouuaert <manuel.claeys.b@gmail.com>
+Date:   Mon Oct 7 15:59:42 2019 +0200
+
+    [FIX] remove button and functionality of print receipt
+
+[33mcommit 59fbe7609aea99c6ba8cd1666a71242d0ed107b9[m
+Author: Manuel Claeys Bouuaert <manuel.claeys.b@gmail.com>
+Date:   Fri Oct 4 13:42:20 2019 +0200
+
+    [FIX] Fix indentation
+
+[33mcommit 94fce4b3d97e661fced057de4d9703ca4d7a35ec[m
+Author: Manuel Claeys Bouuaert <manuel.claeys.b@gmail.com>
+Date:   Fri Oct 4 13:32:14 2019 +0200
+
+    [FIX] Fix version number, data tags and import ordering
+
+[33mcommit 3bcd51ba712b3c2aa6abfef21a317eb9d6ccf1e0[m
+Author: Manuel Claeys Bouuaert <manuel.claeys.b@gmail.com>
+Date:   Tue Oct 1 11:53:09 2019 +0200
+
+    beesdoo_pos module : migration to version 10.0, 11.0 and 12.0
+
+[33mcommit a525d0a01779ba01a4a3512e24540e5f5b0ad2ed[m
+Author: Manuel Claeys Bouuaert <manuel.claeys.b@gmail.com>
+Date:   Tue Oct 1 11:24:51 2019 +0200
+
+    Adding beesdoo_pos module (version 9.0)
+
+[33mcommit 1421460e964a67bb3ccc51a4facc34845475b0a9[m
+Author: Manuel Claeys Bouuaert <manuel.claeys.b@gmail.com>
+Date:   Mon Sep 30 12:38:57 2019 +0200
+
+    beesdoo_product module : migration to version 11.0 and 12.0
+
+[33mcommit 677d43af344139d7be0eed29009f7967e4793007[m
+Author: Manuel Claeys Bouuaert <manuel.claeys.b@gmail.com>
+Date:   Mon Sep 30 12:31:01 2019 +0200
+
+    beesdoo_product module : migration to version 10.0
+
+[33mcommit dcf7ce9a5c265297b0133ea86a4f94058be5ecfa[m
+Author: Manuel Claeys Bouuaert <manuel.claeys.b@gmail.com>
+Date:   Mon Sep 30 12:17:17 2019 +0200
+
+    Adding beesdoo_product module (version 9.0)
+
+[33mcommit 6c126e7525a962a1d31a31c9ccbaaade04f1772a[m
+Author: Manuel Claeys Bouuaert <manuel.claeys.b@gmail.com>
+Date:   Mon Sep 30 11:56:33 2019 +0200
+
+    pos_price_to_weight module : migration to version 12.0
+
+[33mcommit b6c5075872bb44b9ec405a097056ae4b5e0f3eba[m
+Author: Manuel Claeys Bouuaert <manuel.claeys.b@gmail.com>
+Date:   Mon Sep 30 11:49:51 2019 +0200
+
+    pos_price_to_weight module : migration to version 11.0
+
+[33mcommit eb92bd7044e1d035c385baa876b518e564951607[m
+Author: Manuel Claeys Bouuaert <manuel.claeys.b@gmail.com>
+Date:   Mon Sep 30 11:46:10 2019 +0200
+
+    pos_price_to_weight module : migration to version 10.0
+
+[33mcommit 7cf663d55c50578440cbcb7a7e454e6d9a1de553[m
+Author: Manuel Claeys Bouuaert <manuel.claeys.b@gmail.com>
+Date:   Mon Sep 30 11:33:06 2019 +0200
+
+    Adding pos_price_to_weight module (version 9.0)
+
+[33mcommit b6b73cac03d6a41e1e3aa3fd2cea5e8ef0a71b0f[m
+Author: Elouan <elouan@coopiteasy.be>
+Date:   Mon Sep 9 16:13:40 2019 +0200
+
+    Report controller not needed anymore in 12.0 for beesdoo_base
+
+[33mcommit 542a17fec27cac0ecbf662e926f131ea980b49ba[m
+Author: Elouan <elouan@coopiteasy.be>
+Date:   Mon Sep 9 16:02:25 2019 +0200
+
+    Adjusted beesdoo_base to version 12.0
+
+[33mcommit 9cd3fa2e5df1284962f829bd414992b9a35428e8[m
+Author: Elouan Le Bars <elouan@coopiteasy.be>
+Date:   Thu Sep 19 17:02:50 2019 +0200
+
+    [FIX] b_base
+
+[33mcommit b0b7c65f2ee7479c596292c17512f030f4da449e[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Sun Nov 17 11:58:43 2019 +0100
+
+    [ADD] Readme: Module that do not need to be ported
+
+[33mcommit 7ff9742ce96760093bcfcfc5fb21068cb99ac1d2[m
+Author: Augustin Borsu <a.borsu@gmail.com>
+Date:   Sun Nov 17 10:38:31 2019 +0100
+
+    [doc] docker create initial db
+
+[33mcommit e061b657c6484bf285bd82b36bb11f6fddf1a0a6[m
+Author: Augustin Borsu <a.borsu@gmail.com>
+Date:   Thu Oct 10 23:21:44 2019 +0200
+
+    [FIX]: working dockerfile and docker-compose
+
+[33mcommit eb6f9cd6d8760478728792955024c6aed359b0d9[m
+Author: Augustin Borsu <a.borsu@gmail.com>
+Date:   Thu Oct 10 23:19:34 2019 +0200
+
+    [DOC] update main readme
+
+[33mcommit 18e2975a24adfcf00ce2c633d4dca2d8ac8a41e0[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed Jul 31 18:47:35 2019 +0200
+
+    [FIX] b_w_shift: Configure highlight of task template
+    
+    Fix for feature added in commit 24d193d.
+
+[33mcommit 558eb78311f9fb99a62bd7a9053be3a34c4c81b8[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed Jul 31 18:07:07 2019 +0200
+
+    [CHG] b_w_shift: Configure highlight of task template
+    
+    Task templates are now highlighted based on a highlight rule.
+
+[33mcommit a570574ce07ebc698a3c1955858c29ab09e0a2e5[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Sat Jun 8 19:55:59 2019 +0200
+
+    [FIX] b_w_shift: Shift with no start and end time
+    
+    When the worker has subscribed to a shift template but not yet to a
+    shift, the shift used to generate her next shift is the first shift
+    found in the shift template (so this is a shift that is attached to
+    another worker from the same shift template).
+    
+    Now the system pays attention to not use a shift that has no start time
+    or end time defined.
+
+[33mcommit 739280b52d09ee19feddf46a2b5452b5feee7175[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed May 29 17:38:09 2019 +0200
+
+    [IMP] b_w_shift: Show Next Countdown date on intranet
+
+[33mcommit b9cfe66f798781d14a108874e8ebd66c55663a4b[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Tue May 14 16:58:26 2019 +0200
+
+    [FIX] b_w_shift: Issue with settings
+    
+    There was an issue that shows an error message when trying to modify the
+    settings for shift in the website configuration.
+    
+    This is due to a missing sequence in the database. I don't know why this
+    sequence where not present. But a simple query create it if it doesn't
+    exists.
+
+[33mcommit 70010703d11f3b50533ce247fa18b5de466e8b6e[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Tue May 14 16:56:54 2019 +0200
+
+    [FIX] b_w_shift: Syntax
+
+[33mcommit 1d98c0f0c3fbe4195def8ac6d6efdd0f5b3f345c[m
+Author: nicolasjamoulle <nicolasjamoulle@yahoo.fr>
+Date:   Tue Apr 2 17:07:22 2019 +0200
+
+    [IMP] beesdoo_website_shift new configuration rule in pc
+
+[33mcommit 8b7c5f4d36787607ba6dfe468336b7fe466b369f[m
+Author: nicolasjamoulle <nicolasjamoulle@yahoo.fr>
+Date:   Mon Apr 1 14:53:48 2019 +0200
+
+    [ADD] b_w_shift: Message for new worker
+
+[33mcommit 0645875fb0ea5ee831fa1f3c5e930a598c96ef41[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Mon Mar 25 11:48:23 2019 +0100
+
+    [FIX] b_w_shift: status_id not found
+
+[33mcommit 668764f35de1a811a19e8d4d50d7970d882310a7[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Thu Feb 28 18:30:51 2019 +0100
+
+    [ADD] b_website_shift: shift status
+    
+    Show the shift status in the list of the next shifts of a worker. For
+    small screen shift status is represented by a colored label.
+    
+    Add shift status as a label for the past shift of a worker on small screen.
+
+[33mcommit 81e25904c0b1bb758e074f32efe3c050532c6f17[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Sat Dec 1 09:24:23 2018 +0100
+
+    [FIX] b_website_shift: unsubscribed worker
+    
+    The user unsubscribed and resigning should not be able to subscribe to a
+    shift.
+
+[33mcommit b05371a085818bf1411375cd1b55ca8f650ef435[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Sat Dec 1 00:15:52 2018 +0100
+
+    [FIX] b_website_shift: cancelled shift
+    
+    Stop showing cancelled shift in available shift list.
+
+[33mcommit 91d2ba09e9aae58a51e9b3ce366600465e2350b7[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Sun May 27 23:09:28 2018 +0200
+
+    [FIX] website_shift: Translation
+
+[33mcommit 5ded695423d5599382dd565baa59c15dc4794130[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed May 16 11:55:15 2018 +0200
+
+    [FIX] website_shift: Error when regular has no tz
+    
+    Issue when no timezone set to a regular worker. It try to use the user
+    timezone but has it doesn't exists runs into an error.
+    To solve this, it first takes the timezone of the user, if it is
+    empty, it takes the timezone of the context, and if also empty it uses
+    UTC.
+
+[33mcommit de3bad0aafe5233b11ccffd34e2781df8f34baad[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed Jan 31 17:10:46 2018 +0100
+
+    [IMP] website_shift: Refactor and fix bugs (s0030g)
+    
+    [IMP] website_shift: Next shifts for regular
+    
+    Refactor the generation of the next shift for regular worker.
+    Fix: no next shifts shown when the worker is a new worker and doesn't have any
+    past shift
+    Fix: no next shifts shown when the next shift of the worker is not
+    generated yet.
+    
+    [ADD] website_shift: Help texts
+    
+    [FIX] website_shift: Help texts
+    
+    Fix help text for the status based on the input from the members office
+    
+    [IMP] website_shift: Help texts translation
+    
+    Add translation for the help texts.
+    
+    [IMP] website_shift: Future alert date
+    
+    The future alert date has moved to beesdoo_shift module. So we use this
+    one instead of re-compute it in the controller.
+    
+    [IMP] website_shift: Update manifest
+    
+    [FIX] website_shift: Better position for help text
+    
+    On a small screen help texts appear on the top of the page leaving
+    useful info on the bottom. Now help texts is moved on the bottom of the
+    page.
+    
+    [ADD] website_shift: Feedback when subscribing
+    
+    Add a feedback to the user about the successfulness of the subscription.
+    
+    [FIX] website_shift: Super-cooperator info modal
+    
+    The modal showing the super-cooperator information didn't work for the
+    'fictive' shift generated for regular workers. It's due to the fact that
+    a 'fictive' shift doesn't have an id. So we should not use it to
+    generate xml ids. Instead we use the index of the foreach loop.
+    
+    [FIX] website_shift: Wrong time when crossing DST
+    
+    The issue: There was a time difference of one hour when the fictive
+    shifts cross the DST (Daylight Saving Time).
+    
+    Explanation: Python works with two types of datetime. The datetime
+    without a timezone called *naive* and the one with a timezone called
+    *non-naive*. `timedelta()` is used to add a number of day to a datetime.
+    However, changing a non-naive datetime with `timedelta` just change the
+    date but leave the timezone unchanged. That's no correct because the new
+    date may not be in the same timezone because of the DST. If the new date
+    is after a change of time, due to DST, the timezone of the non-naive
+    datetime should be updated. Python don't do that because `timedelta`
+    doesn't realy add days but add the corresponding hours ! So when adding
+    hours it's consistent to not change the timezone (you can use
+    `normalize()` to get your datetime in the right timezone after a cross
+    of DST). To fix this, after adding a `timedelta` the timezone of the
+    datetime should be set to none and the relocalized with the `localize()`
+    function of the `pytz` corresponding timezone.
+    
+    [FIX] website_shift: Translations
+
+[33mcommit b7a15cbe5d1ad6d1c582d30031b22c6b592620cc[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Sun Jan 21 15:50:13 2018 +0100
+
+    [ADD] website_shift: Personal page for working information (#33)
+    
+    * [ADD] website_shift: Add configuration
+    
+    irregular_shift_limit: Maximum shift that will be shown
+    highlight_rule: Treshold of available space in a shift that trigger the
+                    highlight of the shift
+    hide_rule: Treshold ((available space)/(max space)) in percentage of
+               available space under wich the shift is hidden
+    The last one replaces the old hide filter.
+    
+    * [FIX] website_shift: Wrong mail on regular shift
+    
+    Fix the wrong email address that is shown on the public page that show
+    available shift for irregular worker.
+    
+    * [ADD] website_shift: Irregular personal work page
+    
+    Add personal shift page for irregular worker that allows you to
+    subscribe to a shift.
+    
+    * [ADD] website_shift: Personal page for non-worker
+    
+    Add a personal page for non-worker that shows a simple message telling
+    them that they don't have to do a shift.
+    
+    * [ADD] website_shift: Regular personal work page
+    
+    Add personal shift page for regular worker.
+    
+    * [ADD] website_shift: Exempted personal work page
+    
+    Add personal shift page for exempted worker.
+    
+    * [IMP] website_shift: Shopping status personal page
+    
+    This add a label that shows the shopping status of a user.
+    If the label is green the user can shop.
+    If the label is red the user cannot shop.
+    There is also icons for disambiguation.
+    
+    * [ADD] website_shift: Config en & dis shift sign up
+    
+    This add a configuration boolean that enable or disable the shift sign
+    up for irregular worker.
+    
+    * [IMP] website_shift: Status on personal pages
+    
+    Show dates properly.
+    Hide what's useless.
+    Give meaningful name.
+    
+    * [IMP] website_shift: Design of personal pages
+    
+    * Lower size of h2 title.
+    * Add top margin to h1.
+    * Change highlight color.
+    * Change position of explanation test.
+    
+    * [IMP] website_shift: Refactor templates
+    
+    Refactor templates to avoid dupplicate code.
+    Refactor the controller to match with new templates.
+    Add license.
+    
+    * [ADD] website_shift: Past shifts on personal page
+    
+    Add a list of the previous shifts for a worker.
+    
+    * [ADD] website_shift: Super Coop info
+    
+    Add a button to show email and phone of the super cooperator of a shift.
+    Tell you if you are a Super Co-operator
+    
+    * [IMP] website_shift: Next shifts regular worker
+    
+    Add configuration to specify how many next shifts for regular worker
+    must be shown to them on their personal web page. This config is called
+    `regular_next_shift_limit`.
+    
+    Improve the view that shows the next shifts on the personal page for a
+    regular worker regarding to the `regular_next_shift_limit`.
+    
+    Because all the next shifts are not created in the database, we need to
+    create 'fictive' one that are not stored.
+    
+    * [ADD] website_shift: Warning about holidays
+    
+    Add a warning message on the personal page for a regular worker that
+    tells that public holidays are not taken into account for the moment.
+    
+    * [IMP] website_theme: colors for warnings
+    
+    * [FIX] website_shift: 403 when subscribing
+    
+    Fix the case when an irregular worker that doesn't have write access to
+    beesdoo.shift.shift try to subscribe to a shift and got a 403 error.
+    
+    * [FIX] website_theme: Theme must be an application
+    
+    As wrote in this document :
+    https://www.odoo.com/documentation/9.0/howtos/themes.html#create-a-theme-module
+    a theme module must be an application.
+    
+    * [FIX] webs_shift: Wrong display of date last shift
+    
+    Fix the case when an irregular worker is in alert and that the date
+    before last shift is displayed.
+    
+    The `date_before_last_shift` is renamed in `future_alert_start_time`.
+    This name better represent what this variable contains. It also explains
+    why this information does not have to be displayed when the worker is
+    already in alert mode as this date is the date in the future on which
+    the worker will be in alert.
+    
+    * [FIX] website_shift: Co-operator -> Cooperator
+    
+    * [FIX] website_shift: Past shifts not ordered desc
+    
+    The past shift was not properly ordered. This fix by ordering the past
+    shifts from the newest to the oldest.
+    
+    * [FIX] website_shift: Holiday shown after end of it
+    
+    Before:
+        The holiday is shown even if the holiday is in the past.
+    After:
+        The holiday is shown only if the holiday is now or in the future.
+
+[33mcommit fa7287ee78be31d44e2510ef7af8fd7ea1942d3f[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Fri Dec 15 11:06:49 2017 +0100
+
+    [ADD] Add website theme for BEES coop
+
+[33mcommit 3c620790af3688aa9bedd7a81bdec876fed15b30[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Thu Nov 23 23:10:20 2017 +0100
+
+    [CLEAN] Don't need to be that strict with 80 char per line it doesn't make the code more readable, 120 is perfectly fine nowdays.
+    [CLEAN] use anonymous variable _ when unpacking tuple.
+    [CLEAN] use free_space instead of len(s)
+
+[33mcommit 80b00d3bd20ccf640b18abd82b0e28b503756e81[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Mon Oct 16 17:05:47 2017 +0200
+
+    [IMP] website_shift: Move menu in template
+    
+    The menu entry was recorded in data folder. But this folder is reserved
+    for buisness data. So I moved the menu entry in the views directory.
+    
+    [IMP] website_shift: Responsive design
+    
+    [IMP] website_shift: change rules of display
+    
+    Shows only available space:
+        if more than 5 max worker and at least two available spaces
+        if less than 5 max worker and at least one available spaces
+    
+    This take care of the case where no task_template is defined in the task
+    
+    [IMP] website_shift: Make template CMS compliant
+
+[33mcommit 72c6e2128d6066ea7f66879620d9db29dabe490f[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Fri Oct 13 11:57:24 2017 +0200
+
+    [FIX] beesdoo_portal_shift: change name
+    
+    Change name from beesdoo_portal_shift to beesdoo_website_shift.
+
+[33mcommit 6f801e6d47a02b6abdf49c65ad8e07334f57bdd4[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Sun Jun 2 22:49:00 2019 +0200
+
+    [ADD] b_shift: Set configurable limit to unsubscribe regular worker
+    
+    This adds a configurable limit under which the regular worker is
+    unsubscribed. The regular worker is unsubscribed when the sum of his
+    shift counter and his compensation shift counter reach the configured
+    limit.
+
+[33mcommit c4967ddf5dc60db87779e1574a3317a3e887ee20[m
+Author: Augustin Borsu <a.borsu@gmail.com>
+Date:   Sat Jun 8 18:03:17 2019 +0200
+
+    [ADD] beesdoo_shift: warn when assigning a second shift
+    
+    Warn when adding a shift to a worker who is already subscribed to one.
+
+[33mcommit da6499648cd0bd99f617e8bfc1b71f87305e4ae3[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Sat Jun 8 17:12:40 2019 +0200
+
+    [FIX] b_shift: Next Countdown compute
+    
+    This fixes the computation of the next countdown date.
+
+[33mcommit efec421508d687069fe02b66a968b5aca5c6cee0[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Wed May 29 16:47:27 2019 +0200
+
+    [IMP] b_shift: Future alert date and Next Countdown date
+    
+    This improves the calculation of the future alert date in other to take
+    holidays and temporary exemption into account.
+    
+    This also adds the date of the next countdown that also take holidays
+    and temporary exemption into account.
+
+[33mcommit 70bcadf5a14941622941bb21e55afbd103083302[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Thu May 23 16:52:14 2019 +0200
+
+    [CHG] b_shift: Remove alert_start_time when not in alert status
+    
+    Before this commit, the alert_start_time was not erased when a status
+    change from 'alert' to 'ok' for an irregular worker.
+    
+    People find that unintuitive (despite this date was in the past when
+    you are in 'ok' status).
+    
+    Now, this alert_start_time was erased when the status change from
+    'alert' to 'ok'.
+
+[33mcommit 80270603a3d85aaea24e1184faff71f044f2c25d[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Tue May 28 18:47:04 2019 +0200
+
+    [FIX] b_shift: Properly resigning worker
+    
+    This fix the case where a worker is unsubscribed from a shift where he
+    is supercooperator.
+    
+    In the function unsubscribed_from_today, when removing the supercoop,
+    the field is_regular was also set to False. I seams that this is not
+    correct as this field is related to the worker_id not to the supercoop.
+    
+    Also, I found other issues as when removing a worker_id the fields
+    is_regular and is_compensation was not reset.
+    
+    This let me think about other cases where worker_id is emptied, the
+    is_regular and is_compensation would be never been reset if the
+    programmer doesn't think to reset it.
+    
+    So I modified the constrains on these field in order to have these field
+    reset properly when worker_id is changed.
+
+[33mcommit 8ff734bd354d6385a7ee459345061801352a9adf[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Tue May 21 16:57:35 2019 +0200
+
+    [FIX] b_shift: Unsubscribe resigning worker
+
+[33mcommit 011370aec8e36288e3439b5e09e88e291ecce852[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Thu May 23 17:02:32 2019 +0200
+
+    Revert "[FIX] b_shift: Too late shift validation"
+    
+    This reverts commit 351a107a65094b413da6fdc034274a2fee076eb1.
+    
+    This commit try to fix with a naive approach that doesn't work in every
+    case.
+    
+    A better fix must be done in the future.
+
+[33mcommit 06b646083bd33cfb62a1305de5f837b73af35148[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Tue May 21 14:46:58 2019 +0200
+
+    [FIX] b_shift: Too late shift validation
+    
+    This commit brings fix a bug that occur when a worker do a shift before
+    her future_alert_date and the shift was marked as attended after the
+    future_alert_date. In such a case, the worker fell in alert state and
+    get a -2. This don't fix the fact that the worker fall in alert. But
+    brings correction when the shift is finally marked as attended.
+
+[33mcommit a955f2ddc8c44e7225eb46e316f4ce2d77e5f531[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Thu May 16 19:08:18 2019 +0200
+
+    [FIX] b_shift: Raise error when shift not configured well
+
+[33mcommit 8d5fd2456ffebf7c1a39798b43ceace6ec40b1e0[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Thu May 16 15:15:22 2019 +0200
+
+    [FIX] b_shift: Do not show regular info for non regular worker
+
+[33mcommit 4452e31005d4bedeb7d7ef06b2e6904abbe4bfd3[m
+Author: nicolasjamoulle <nicolasjamoulle@yahoo.fr>
+Date:   Mon Apr 22 19:30:40 2019 +0200
+
+    [ADD] beesdoo_shift: add compensation shift option in task
+
+[33mcommit cbb0d045963b757424aac83bc3bc36270f69c582[m
+Author: nicolasjamoulle <nicolasjamoulle@yahoo.fr>
+Date:   Tue Apr 16 12:04:20 2019 +0200
+
+    [FIX] beesdoo_shift remove only next shifts in planning for unsubscribed workers"
+
+[33mcommit 3b1391e714513337f363da99ea9ca44ff3f535cf[m
+Author: nicolasjamoulle <nicolasjamoulle@yahoo.fr>
+Date:   Tue Apr 16 14:24:30 2019 +0200
+
+    [FIX] fix first registration shift
+
+[33mcommit bd2c18939d993ee5ffa2bb4468d6b18eec0bb214[m
+Author: nicolasjamoulle <nicolasjamoulle@yahoo.fr>
+Date:   Sat Mar 23 09:37:34 2019 +0100
+
+    Makeup on code after review
+
+[33mcommit a49250c8550140dbaf202ce55cf0928d5085792c[m
+Author: nicolasjamoulle <nicolasjamoulle@yahoo.fr>
+Date:   Tue Mar 19 16:05:47 2019 +0100
+
+    [REF] date_domain and to_unsubscribe_super_coop
+
+[33mcommit d7a70778d467ae17a38847106ea193fcd474a98b[m
+Author: nicolasjamoulle <nicolasjamoulle@yahoo.fr>
+Date:   Tue Mar 19 11:33:18 2019 +0100
+
+    [ADD] Remove super cooperative from future planning
+
+[33mcommit bae9393c547e9adf489b25cf6c88f1aa1c04ba81[m
+Author: nicolasjamoulle <nicolasjamoulle@yahoo.fr>
+Date:   Tue Mar 12 14:44:08 2019 +0100
+
+    [WIP] Tests in comment
+
+[33mcommit af479163dd8420cb548cb6b271de9c4932d413e4[m
+Author: nicolasjamoulle <nicolasjamoulle@yahoo.fr>
+Date:   Tue Mar 12 10:16:25 2019 +0100
+
+    [ADD] remove super_coop_id
+
+[33mcommit 54003dfbcce860d2a03c3677c35841eb664410cf[m
+Author: nicolasjamoulle <nicolasjamoulle@yahoo.fr>
+Date:   Mon Mar 11 15:26:28 2019 +0100
+
+    [FIX] Remove shifts for resigning status
+    
+    And does not allow to add unsubscribed and resigning statut to a new shift
+
+[33mcommit 1f32514609b4e0d8b901467c4fa1abdfa39e30cf[m
+Author: nicolasjamoulle <nicolasjamoulle@yahoo.fr>
+Date:   Fri Mar 29 16:32:59 2019 +0100
+
+    [ADD] Makup code
+
+[33mcommit 94eab1a7476ff9c6ff8df0c474f40a71f79f368a[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Thu Mar 28 16:25:28 2019 +0100
+
+    [FIX] b_shift: PR #62 and #63
+    
+    This fixes PR #62 and #63. It uses the `no_create` and `no_open` options
+    for `many2many` widget.
+
+[33mcommit 0c011608dbe6f7bbfcad8ebb8058bf8f4901dca3[m
+Author: nicolasjamoulle <nicolasjamoulle@yahoo.fr>
+Date:   Sat Mar 23 09:45:19 2019 +0100
+
+    [IMP] _get_info_session_followed made shorter
+
+[33mcommit 4cc1836803c6f8eb847cf81e9927a6b138526c3e[m
+Author: nicolasjamoulle <nicolasjamoulle@yahoo.fr>
+Date:   Fri Mar 22 15:35:24 2019 +0100
+
+    Dots alignment
+
+[33mcommit 89fa9e5c89be92eb15b379ed9c7cdd1e5ccf9048[m
+Author: nicolasjamoulle <nicolasjamoulle@yahoo.fr>
+Date:   Wed Mar 20 15:25:24 2019 +0100
+
+    [FIX] syntax error break line
+
+[33mcommit a883beaffed16905b522d6a3bd5a65779d8be3b4[m
+Author: nicolasjamoulle <nicolasjamoulle@yahoo.fr>
+Date:   Sat Mar 16 10:19:27 2019 +0100
+
+    [ADD] Default information from worker
+
+[33mcommit a8247fbf69ed819f7e761a36894c4cf899ab0753[m
+Author: nicolasjamoulle <nicolasjamoulle@yahoo.fr>
+Date:   Sun Mar 17 10:41:20 2019 +0100
+
+    [ADD] Cannot create worker from field worker_id
+
+[33mcommit 0f8026125ddd5a26541c20dda8cfd91aabdb3600[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Thu Mar 14 16:58:41 2019 +0100
+
+    [FIX] b_shift: Condition to unsubscribe a worker
+    
+    Quick fix from @tfrancoi.
+
+[33mcommit fce95d3b1903ce20e9a1062f0de9ae5b255cae8b[m
+Author: nicolasjamoulle <nicolasjamoulle@yahoo.fr>
+Date:   Tue Mar 5 14:21:13 2019 +0100
+
+    [ADD] Date of information session not fill by default
+
+[33mcommit aba7246b5316293c5ce3e6e895cd65fb0341f3e4[m
+Author: nicolasjamoulle <nicolasjamoulle@yahoo.fr>
+Date:   Sat Mar 2 09:43:09 2019 +0100
+
+    Followed info session not checked by default
+
+[33mcommit 5be9ee380c055b531e3675e3e4e093231945ffbe[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sat Oct 20 00:04:29 2018 +0200
+
+    [CHANGE] -1 instead of -2 when not attempting a shift, -2 only when alert time is not set, remove alert time only once you reach +1
+
+[33mcommit 474e8b815e8d3d3a535595100b7ce8ec855d8ad9[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Fri Nov 30 23:39:41 2018 +0100
+
+    [CHANGE] Change the computation for unsubscribed status of irregular worker
+    They become unsubscribe when the regular counter fall under a value that can be define in parameter
+    [FIX] don't show unsubscribed or resigning worker in the list of worker you can assign on a shift
+
+[33mcommit ae8c715e268d4e8f34c96405c21710be45a22cf2[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Tue Oct 9 23:56:40 2018 +0200
+
+    [CLEAN] separate timezone logic in another methoda
+
+[33mcommit 4d668d54a32be1b80a8e8c292dcdf868bc31143d[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Sat Oct 6 22:31:12 2018 +0200
+
+    [FIX] b_shift: timezone error in shift generation
+    
+    The bug was that some shift are 'misstimezoned' near DST moment and for
+    timezone far from the UTC time. Now the date and time of a shift is
+    calculated in the local timezone then converted into UTC time to be
+    stored in database.
+
+[33mcommit 7f5166aad8f40851fb088dbfcb3d166df86b3e51[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sun Oct 7 22:35:15 2018 +0200
+
+    [TASK 48l] take irregular worker holidays into account: Don't change counterduring cron when they are on holidays
+
+[33mcommit c32e324ade1e747c3aadba29c2e03d46f3d6bf1e[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Mon Jun 25 00:22:07 2018 +0200
+
+    [ADD][TASK 0048j]
+    Cooperative status des personnes archivées à archiver aussi
+
+[33mcommit 9067913f312f7a8c67b19b776398c4894e17bf5f[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Mon Jun 25 00:19:33 2018 +0200
+
+    [FIX][TASK 0048k] Revert info à supprimer quand worker id change
+
+[33mcommit 00a2aa55ab9c594b9d06d1cb689a9c4ccd85de04[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sun Jun 24 23:36:33 2018 +0200
+
+    [IMP][TASK 0048i] Statut a jour mais pas de créneau - cannot shop?
+
+[33mcommit 51077450ff1a6001bc090b67bbc74f09721ceb0a[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sun Jun 24 23:34:01 2018 +0200
+
+    [FIX] Double header on partner form
+
+[33mcommit 9488fd042022934b9c767c7521b935f64853c8e9[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sat Oct 6 22:49:43 2018 +0200
+
+    [FIX] Bad hour for shift generated the day of timeshift, use the hour of the shift instead of 00:00:00 to call context_timestamp
+
+[33mcommit 5a178a685fa93a9c0a24d131e7d76623d5c2ff18[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Fri May 25 23:53:32 2018 +0200
+
+    [FIX] Irregular worker in holiday cannot shop
+
+[33mcommit a089d48e6b4e35c5af7c52b624bf8197ce53c31f[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Fri May 25 23:31:52 2018 +0200
+
+    [FIX] Regular worker in holiday cannot shop
+
+[33mcommit 0a871324bc1c59ad63e517be8eccddf2d04b584f[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sat Apr 7 00:51:54 2018 +0200
+
+    [ADD] Filter from today to J+ 4
+    [FIX] Silent error when reverting counter info while status change of task when missing some access right
+    [IMP] Performance improvement in shift generation: Skip message generation
+
+[33mcommit 0eb6c3c28a168c2131669a85796c1286827efcba[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Tue Mar 27 10:43:24 2018 +0200
+
+    Update temporary_exemption.xml
+    
+    [Fix] Copy paste of xml ID that shadows the view for holiday wizard
+
+[33mcommit 0c005eae56baf3f05d6accfabffda80f232c04f1[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Mon Mar 26 00:17:03 2018 +0200
+
+    [ADD] 0071 - Ajout filtre J-5 dans Shift Management
+
+[33mcommit 604b74a2dcab86573563311c62f36fff85c717ab[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Sat Mar 24 11:32:59 2018 +0100
+
+    [ADD] beesdoo_shift: Future alert date
+
+[33mcommit e8efd861fee439c0484e68d8dbe12f88e6a5f5ff[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sun Mar 25 12:38:56 2018 +0200
+
+    [IMP] 0044_j - cacher la case is-regular si c'est un volant qui est inscrit au shift
+
+[33mcommit d3156e89e449928b0fa52a8d1462fd32967d5748[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sat Mar 24 16:08:26 2018 +0100
+
+    [FIX] 0044_k - empêcher d'inscrire à un shift ou créneau si pas de régime définir: add a domain based on working mode
+
+[33mcommit e446f216969422a42c566c129f0fb8ce3f70bb32[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sat Mar 24 15:33:53 2018 +0100
+
+    [ADD] 0048g- Statut démissionnaire: possible when unscribed to check the box resigning, the cooperator will be in a specific status resigning
+
+[33mcommit 3c231006b01d27f2290669f9a5d8ae99550fc12d[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Tue Feb 20 23:55:46 2018 +0100
+
+    [ADD] beesdoo_shift: S0048 temporary exemption
+
+[33mcommit 58fe243857ec72eb547bf115029afad76dd1abe4[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Tue Feb 20 23:04:49 2018 +0100
+
+    [CHANGE] beesdoo_shift: allow to launch auto extension as group_shift_attendance AKA accueil groupe
+
+[33mcommit 5dd5b88a8475f5152fcefe09ab6dc666994415ea[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Tue Feb 20 22:55:53 2018 +0100
+
+    [ADD] Don't assign the worker if he is in holiday
+
+[33mcommit a97f331abe0c46c9d3d983fcce359c9697a973cd[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Fri Dec 29 17:57:20 2017 +0100
+
+    [FIX] fix 'typo' self instead of rec
+
+[33mcommit c246e119929bc9e8416db34c60b00ad558d795f3[m
+Author: tfrancoi <francois.th@gmail.com>
+Date:   Thu Nov 23 23:27:42 2017 +0100
+
+    [FIX] Remove wrong access right line
+
+[33mcommit 2aadff1bde84b5ab04c476a9fbd9cef3d0731ccf[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Mon Nov 20 00:08:36 2017 +0100
+
+    [ADD] Implement status management for irregular worker
+
+[33mcommit 48da2be7fb661e500fab121fb0ef232ebb4fde1b[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Wed Nov 1 17:34:19 2017 +0100
+
+    FIX stage status sequence
+    FIX default value for today on status
+    FIX default value for stage_id that allow to manually create shift
+    ADD un subscribed from shift during holidays
+    ADD Cannot subscribe to new holidays when you've already planned some holidays and they are not over yet
+
+[33mcommit 893870fe0389c3f0f134c2cb73741f790b310936[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sat Oct 28 14:39:59 2017 +0200
+
+    [FIX] fix xml id of generate shift cron
+
+[33mcommit 321f424c0b4c533213036f81c47643375ea2cfac[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Fri Oct 20 11:24:32 2017 +0200
+
+    [FIX] make 100% sure that revert info are erased after beeing applied
+
+[33mcommit d913a26c2cf743920f0aba46f015282619d6502b[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Fri Oct 20 11:22:04 2017 +0200
+
+    [IMP] Can make mistake in status change, the counter change get revert and only the change needed by the new stage get applied
+
+[33mcommit 87341433aa84f4f880186a42e48ab85d1ca11e27[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Mon Oct 16 22:59:21 2017 +0200
+
+    [ADD] cron to generate next planning + [CHANGE] shift generated are already confirmed
+
+[33mcommit b72834ac0aeb392d605c61b15a55b322e35bbba8[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sun Oct 8 18:55:40 2017 +0200
+
+    [FIX] Make the runbot green again, remove the warning
+
+[33mcommit 9585639efcafb96c929c779d035aba7e0d57ca16[m
+Author: Houssine BAKKALI <houssine.bakkali@gmail.com>
+Date:   Thu Sep 7 13:40:17 2017 +0200
+
+    Update task.py
+
+[33mcommit e940fc5ce3c04a2d80704838eed5eeb406831878[m
+Author: Thibault Francois <tfr@openerp.com>
+Date:   Thu Aug 31 10:35:48 2017 +0200
+
+    [FIX] Subscription: don't have to choose a shift when choosing a work mode
+
+[33mcommit 79a4ab3e6785d15f12fd124ee7114afd5201c660[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Mon Aug 7 23:36:14 2017 +0200
+
+    [IMP] default value to true when unsubscribed to reset counter + possibility to reset compensation counter
+
+[33mcommit 98d84f4bbd496b4b59f93ba638faed7be3a12247[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Mon Aug 7 23:29:17 2017 +0200
+
+    [ADD] Holiday wizard
+
+[33mcommit a4d1805b127a9632e8215533c084bc0144a19392[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Mon Aug 7 23:06:38 2017 +0200
+
+    [IMP] Holiday end with and end day rater then a nb of days after the start
+
+[33mcommit 957965bab37cb0a52b436d2505c95579ed858026[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Mon Jul 24 22:22:31 2017 +0200
+
+    [ADD] extension wizard + [CLEAN] Abstract class for all wizard related to action on the cooperative status
+
+[33mcommit c5429e937858332e4868b9a54d6631b59a1af8b0[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Mon Jul 24 14:07:56 2017 +0200
+
+    [IMP] improve order of cooperative status
+
+[33mcommit 20b7b29982ef6b473bb58c4de1966ec4d2211c1e[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Mon Jul 24 14:07:33 2017 +0200
+
+    [ADD] Add unsubscribe wizard
+
+[33mcommit cc4dd3d79ea600544677eb776887b5c9c342b151[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Mon Jul 24 11:11:21 2017 +0200
+
+    [ADD] Mechanism to change counter according to presence to shift or not + Option to not launch status mechanism
+
+[33mcommit efb5ac2d568f3a1d9b99fbd761f68ff7c846a6c2[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sun Jul 23 12:18:14 2017 +0200
+
+    [ADD] Compute state of cooperative based on their shift presence
+
+[33mcommit 211e24a5c57347321ebd02f419cf7e9d49d231e0[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Fri Jul 21 14:11:36 2017 +0200
+
+    [WIP]
+
+[33mcommit e4207c5af475be4f60dd345fe89678ccd61dcbe1[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Fri Jun 23 22:38:24 2017 +0200
+
+    [FIX] use existing field for cooperator type + [CLEAN] hide useless tab for physical person
+
+[33mcommit 49837c9d84b60c097eaa4cb2fca721b948c9e750[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sun May 28 23:00:18 2017 +0200
+
+    [TASK 0044_b] Gestion des shifts : visualiser le créneau sur la fiche du membre régulier + [ADD] Tab worker information for all information linked with the work in the cooperative + [ADD] share type for beescoop + [ADD] Specific module that make the link between beesdoo and easy_my_coop : compute the share_type base on the share bought
+
+[33mcommit 6d09e5f6be1fc0e28a294f5827e90fcaad2f74c2[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Thu May 25 10:37:13 2017 +0200
+
+    [FIX] Can see user as super cooperator
+
+[33mcommit c926742803704dade682c98e76fcf1027349a9d8[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sun May 7 23:54:17 2017 +0200
+
+    [ADD] hide subscribe button is not worker
+
+[33mcommit ee10adfe2336f8f0729f331c29f8bc7400e21859[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sat Apr 22 20:25:36 2017 +0200
+
+    [S0047] Faire le suivi des inscriptions aux séances info/inscriptions shifts
+
+[33mcommit 5fc4fbff24d88a2b442096eaa4be33a0838b1f28[m
+Author: Rémy Taymans <remytaymans@gmail.com>
+Date:   Sat Apr 22 15:24:08 2017 +0200
+
+    [ADD][TASK s0048a] working mode
+    
+    [CHANGE][TASK s0048] occasional -> irregular
+
+[33mcommit c484fe0d0d16f2becb3fcdb34825ca7a037450b8[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Tue Jan 10 00:25:43 2017 +0100
+
+    [ADD] info on super cooperaive status on res.partner, it's not meant to be change here
+
+[33mcommit 9fde3dc0bec3f655a4d625f81ee6bc21ccac448f[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sun Jan 8 00:44:12 2017 +0100
+
+    [ADD] Improve Shift management
+    après avoir généré les shifts pour une semaine, rediriger vers les shifts générés : ok
+    Ajouter un supercoopérateur au niveau du template de shift. Pas de champs related car il faut pouvoir gérer les remplacements entre supercoopérateurs. : Rajouter un boolean sur res.users pour dire qu'ils sont super coopérateur du coup on peut choisir qu'un utilisateur super coopérateur : Ok
+    Sur la vue des shifts, permettre de sélectionner un ensemble de shifts pour pouvoir changer son supercoopérateur en une action : Ok
+    Avoir une vue des shifts par défaut plus lisible que le calendrier : KANBAN avec TODAY par défaut et les colonnes selon le type de shift : ok
+    Dans la vue KANBAN du planning des semaines, faire un tri sur la start date pour que ça ressemble à une vue calendrier :ok
+    Droits d'accès : 3 groupes :
+    modifier un shift existant et confirmer son statut : absence/présence
+    générer et supprimer des shifts à partir du template
+    modifier le template des semaines et gérer la config
+    En réfléchissant à ceux qui vont gérer les présences : il faudrait avoir une vue facile sur les shifts du jour et une manière simple de dire présent/absent/remplacé pour l'ensemble des coopérateurs présents (éviter de devoir chaque fois sélectionner le shift, cliquer sur le statut, aller au shift suivant, cliquer sur le statut...).
+    J'ai fait un nouveau point de menu avec une vue Kanban grouper par status, il suffit de faire du drag and drop pour changer le status, les shifts sont aussi filtré sur aujourd'hui et seulement ceux ayant un worker assigné.
+
+[33mcommit da447c4afbb9c11751ffc6979476ddc9f1ec36ee[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Mon Jan 2 23:58:05 2017 +0100
+
+    [FIX] Change naming of button on planning to avoid confusion
+
+[33mcommit 366e4dc2a1fd432b4f80b4cd9a84d1b6abf08fd3[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Mon Jan 2 23:16:46 2017 +0100
+
+    [ADD] beesdoo_shift module, first version of the module to manage shifts
+
+[33mcommit ae19ae72553eab953c046a71488d6fa7da676aa4[m
+Author: Elouan <elouan@coopiteasy.be>
+Date:   Mon Sep 9 16:13:40 2019 +0200
+
+    Report controller not needed anymore in 12.0 for beesdoo_base
+
+[33mcommit 0d46cbdead2c4b0edbf60527cd635a6a8e355e78[m
+Author: Elouan <elouan@coopiteasy.be>
+Date:   Mon Sep 9 16:02:25 2019 +0200
+
+    Adjusted beesdoo_base to version 12.0
+
+[33mcommit 4acac187834cd30cd0cd812bc821008e2a157916[m
+Merge: bcb8d12b 8bb743e0
+Author: Elouan <elouan@coopiteasy.be>
+Date:   Mon Sep 9 12:11:25 2019 +0200
+
+    beesdoo_base module : migration to version 12.0
+
+[33mcommit bcb8d12b694214f28002107313d609cb4658781e[m
+Author: Elouan <elouan@coopiteasy.be>
+Date:   Mon Sep 9 12:01:35 2019 +0200
+
+    beesdoo_base module : migration to version 11.0
+
+[33mcommit 101abfd8f3720c564be4b66db31cd652e4c43b1c[m
+Author: Elouan <elouan@coopiteasy.be>
+Date:   Mon Sep 9 11:55:15 2019 +0200
+
+    beesdoo_base module : migration to version 10.0
+
+[33mcommit 8a34a893086bd72306338282ab3f335fec0f81f0[m
+Author: Elouan <elouan@coopiteasy.be>
+Date:   Mon Sep 9 11:26:40 2019 +0200
+
+    Adding beesdoo_base module (version 9.0)
+    
+    The beesdoo_base module is added, before upgrading it to version 12.0. Commits history can be found on branch 9.0, here : https://github.com/beescoop/Obeesdoo/commits/9.0/beesdoo_base
+
+[33mcommit 8bb743e0959036d691c4a9821237f464c9697548[m
+Author: Elouan <elouan@coopiteasy.be>
+Date:   Mon Sep 9 11:26:40 2019 +0200
+
+    Adding beesdoo_base module (version 9.0)
+    
+    The beesdoo_base module is added, before upgrading it to version 12.0. Commits history can be found on branch 9.0, here : https://github.com/beescoop/Obeesdoo/commits/9.0/beesdoo_base
+
+[33mcommit 88a084448c9cea4a3120b17113c90e12eb207140[m
+Author: Elouan <elouan@coopiteasy.be>
+Date:   Fri Sep 6 15:32:35 2019 +0200
+
+    Module partner_firstname. Adjusting changes for version 12.0
+
+[33mcommit 4970748a4d24e89a482be5637fd3ecc98eec1fa8[m
+Author: Elouan <elouan@coopiteasy.be>
+Date:   Fri Sep 6 15:00:00 2019 +0200
+
+    Migration to version 11.0
+
+[33mcommit bc232f28c6d7541d974dd6326f5e5df7c0d76b61[m
+Author: Elouan <elouan@coopiteasy.be>
+Date:   Fri Sep 6 14:53:24 2019 +0200
+
+    Migration to version 10.0
+
+[33mcommit cce67fee8500ee9c12f4f37a2a9094c55958936e[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sat Dec 1 10:38:29 2018 +0100
+
+    [FIX] Change label on different firstname and last name and name field to make them easier to differianciate
+
+[33mcommit c2040d0f11d2c2f0ac7dea557c2eadfc2f6fa4e0[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Thu Nov 15 16:00:30 2018 +0100
+
+    [FIX] Use the right view inheritance
+    
+    don't use pos view for a module that only depens on base
+
+[33mcommit 53f7ce639c86f95fd8a957b4b585e74f49c3f961[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sun Jun 24 21:27:36 2018 +0200
+
+    [IMP] improve compatibility layer, use related field: fix capital C
+
+[33mcommit ac00bb1e43394f44acf16e5604cdf1888eeeb4b5[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Sun Jun 24 20:46:11 2018 +0200
+
+    [IMP] improve compatibility layer, use related field
+
+[33mcommit b09dc2102804eccf7e58b3dbfb681256220bc2f1[m
+Author: Thibault Francois <francois.th@gmail.com>
+Date:   Wed Jun 20 23:02:32 2018 +0200
+
+    [ADD] Split firstname feature in a new module and change the name of the field to fit the community module with the same name. This module will shadow partner_firstname and thus remove the cheesy feature
+
+[33mcommit dfbbf17d15dd68506764a384b82790f73611b9c6[m
+Author: Elouan <elouan@coopiteasy.be>
+Date:   Fri Sep 6 14:19:41 2019 +0200
+
+    Initial commit
