@@ -1,1 +1,1 @@
-import partner
+from . import partner
