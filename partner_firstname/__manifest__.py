@@ -20,4 +20,6 @@
     'data': [
         'views/res_partner.xml',
     ],
+
+    'installable': True
 }
