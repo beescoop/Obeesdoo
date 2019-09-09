@@ -19,16 +19,4 @@
             </form>
         </field>
     </record>
-
-    <record id="beesdoo_portal_wizard_view" model="ir.ui.view">
-        <field name="name">Unfuck Portal Wizard</field>
-        <field name="model">portal.wizard</field>
-        <field name="inherit_id" ref="portal.wizard_view" />
-        <field name="arch" type="xml">
-            <field name="portal_id" position="attributes">
-                <attribute name="on_change" />
-            </field>
-        </field>
-    </record>
-
 </odoo>
