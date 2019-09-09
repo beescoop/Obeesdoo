@@ -28,9 +28,11 @@
                 <field name="super_coop_id" />
                 <field name="worker_id" />
                     <filter string="My Team Shift"
-                        domain="[('super_coop_id', '=', uid)]" />
+                        domain="[('super_coop_id', '=', uid)]"
+                        name="team_shift"/>
                     <filter string="My Shift"
-                        domain="[('worker_id.user_ids', 'in', uid)]" />
+                        domain="[('worker_id.user_ids', 'in', uid)]"
+                        name="shift" />
                     <separator />
                     <filter string="Assigned" name="assigned"
                         domain="[('worker_id', '!=', False)]" />
@@ -53,7 +55,8 @@
                         domain="[('end_time','&gt;', context_today().strftime('%%Y-%%m-%%d 00:00:00')), ('start_time','&lt;', context_today().strftime('%%Y-%%m-%%d 23:59:59'))]" />
                 <group expand="1" string="Group By">
                     <filter string="Shift Template"
-                        context="{'group_by' : 'task_template_id'}" />
+                        context="{'group_by' : 'task_template_id'}"
+                        name="shift_template" />
                     <filter string="Type" name="gb_type"
                         context="{'group_by' : 'task_type_id'}" />
                     <filter string="Status" name="gb_status"

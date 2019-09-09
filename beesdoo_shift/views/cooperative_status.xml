@@ -192,5 +192,3 @@
     <menuitem name="Counter Update Journal" id="menu_journal" parent="menu_status_top"
         action="action_journal" groups="beesdoo_shift.group_cooperative_admin" />
 </odoo>
-
-
