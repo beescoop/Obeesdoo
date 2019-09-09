@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_force_barcode" model="res.groups">
+        <field name="name">Bees Card Force Barcode</field>
+    </record>
+</odoo>
