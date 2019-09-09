@@ -1,1 +1,1 @@
-import partner, membercard
+from . import partner, membercard
