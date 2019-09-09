@@ -35,7 +35,7 @@ class RequestMemberCardPrintingWizard(models.TransientModel):
     @api.one
     def request_printing(self):
         self.partner_ids.write({'member_card_to_be_printed' : True})
-     
+
 class SetAsPrintedWizard(models.TransientModel):
 
     _name = 'membercard.set_as_printed.wizard'
@@ -47,5 +47,5 @@ class SetAsPrintedWizard(models.TransientModel):
 
     @api.one
     def set_as_printed(self):
-        self.partner_ids.write({'member_card_to_be_printed' : False, 
+        self.partner_ids.write({'member_card_to_be_printed' : False,
                                 'last_printed' : fields.Datetime.now()})

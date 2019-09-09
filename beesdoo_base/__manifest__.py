@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "Beescoop Base Module",
 

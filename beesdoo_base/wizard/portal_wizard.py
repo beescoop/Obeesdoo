@@ -10,7 +10,7 @@ class BeesdooWizard(models.TransientModel):
         # for each partner, determine corresponding portal.wizard.user records
         res_partner = self.env['res.partner']
         partner_ids = self._context.get('active_ids', [])
-    
+
         contact_ids = set()
         for partner in res_partner.browse(partner_ids):
             for contact in (partner.child_ids | partner):
@@ -23,4 +23,3 @@ class BeesdooWizard(models.TransientModel):
                         'email': contact.email,
                         'in_portal': in_portal,
                     })
-
