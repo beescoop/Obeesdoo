@@ -1,5 +1,5 @@
-from openerp import models, fields, api
-from openerp import SUPERUSER_ID
+from odoo import models, fields, api
+from odoo import SUPERUSER_ID
 
 class BeesdooWizard(models.TransientModel):
 
