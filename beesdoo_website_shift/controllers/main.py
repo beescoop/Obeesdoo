@@ -1,4 +1,3 @@
-# -*- coding: utf8 -*-
 
 # Copyright 2017-2018 Rémy Taymans <remytaymans@gmail.com>
 # Copyright 2017-2018 Thibault François
