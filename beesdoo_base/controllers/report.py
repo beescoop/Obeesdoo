@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo.addons.web.http import Controller, route, request
@@ -42,7 +41,7 @@ class ReportCustom(ReportController):
                     response = self.report_routes(reportname, docids=docids, converter='pdf')
                 else:
                     # Particular report:
-                    data = url_decode(url.split('?')[1]).items()  # decoding the args represented in JSON
+                    data = list(url_decode(url.split('?')[1]).items())  # decoding the args represented in JSON
                     response = self.report_routes(reportname, converter='pdf', **dict(data))
 
                 cr, uid = request.cr, request.uid
@@ -63,7 +62,7 @@ class ReportCustom(ReportController):
                 return response
             else:
                 return
-        except Exception, e:
+        except Exception as e:
             se = _serialize_exception(e)
             error = {
                 'code': 200,
