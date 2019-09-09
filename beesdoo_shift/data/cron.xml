@@ -6,10 +6,9 @@
             <field name="interval_type">hours</field>
             <field name="numbercall">-1</field>
             <field name="doall" eval="False" />
-            <field name="model_id" ref="cooperative.status">
+            <field name="model_id" ref="model_cooperative_status" />
             <field name="code">model._set_today()</field>
         </record>
-
 
         <record id="ir_cron_generate_next_planning" model="ir.cron">
             <field name="name">Generate Next Planning</field>
@@ -17,7 +16,7 @@
             <field name="interval_type">weeks</field>
             <field name="numbercall">-1</field>
             <field name="doall" eval="False" />
-            <field name="model_id" ref="beesdoo.shift.planning">
+            <field name="model_id" ref="model_beesdoo_shift_planning" />
             <field name="code">model._generate_next_planning()</field>
             <field name="active" eval="False" />
         </record>
@@ -28,7 +27,7 @@
             <field name="interval_type">hours</field>
             <field name="numbercall">-1</field>
             <field name="doall" eval="True" />
-            <field name="model_id" ref="cooperative.status">
+            <field name="model_id" ref="model_cooperative_status" />
             <field name="code">model._cron_compute_counter_irregular()</field>
             <field name="active" eval="False" />
         </record>

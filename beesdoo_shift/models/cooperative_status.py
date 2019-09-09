@@ -3,7 +3,6 @@ from odoo.exceptions import ValidationError
 
 from datetime import timedelta, datetime
 import logging
-from odoo.osv.fields import related
 
 _logger = logging.getLogger(__name__)
 PERIOD = 28  # TODO: use system parameter
@@ -363,7 +362,7 @@ class CooperativeStatus(models.Model):
     def clear_history(self):
         self.ensure_one()
         self.history_ids.unlink()
-    
+
     @api.model
     def _cron_compute_counter_irregular(self, today=False):
         today = today or fields.Date.today()
@@ -393,27 +392,27 @@ class CooperativeStatus(models.Model):
                 else:
                     status.sr -= 2
                 journal.line_ids |= status
-        
-        
+
+
 class ShiftCronJournal(models.Model):
     _name = 'beesdoo.shift.journal'
     _order = 'date desc'
     _rec_name = 'date'
-    
+
     date = fields.Date()
     line_ids = fields.Many2many('cooperative.status')
-    
+
     _sql_constraints = [
         ('one_entry_per_day', 'unique (date)', _('You can only create one journal per day')),
     ]
-    
+
     @api.multi
     def run(self):
         self.ensure_one()
         if not self.user_has_groups('beesdoo_shift.group_cooperative_admin'):
             raise ValidationError(_("You don't have the access to perform this action"))
         self.sudo().env['cooperative.status']._cron_compute_counter_irregular(today=self.date)
-   
+
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
