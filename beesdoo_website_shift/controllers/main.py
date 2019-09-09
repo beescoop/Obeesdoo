@@ -9,11 +9,11 @@ from datetime import datetime, timedelta
 from itertools import groupby
 from pytz import timezone, utc
 
-from openerp import http, fields
-from openerp.http import request
+from odoo import http, fields
+from odoo.http import request
 
-from openerp.addons.beesdoo_shift.models.planning import float_to_time
-from openerp.addons.beesdoo_shift.models.cooperative_status import PERIOD
+from odoo.addons.beesdoo_shift.models.planning import float_to_time
+from odoo.addons.beesdoo_shift.models.cooperative_status import PERIOD
 
 
 class WebsiteShiftController(http.Controller):
