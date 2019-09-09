@@ -1,0 +1,321 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* beesdoo_base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-11-13 15:16+0000\n"
+"PO-Revision-Date: 2016-11-13 15:16+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card_valid
+msgid "Active"
+msgstr "Actif"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card_barcode
+msgid "Barcode"
+msgstr "Code Barre"
+
+#. module: beesdoo_base
+#: model:res.groups,name:beesdoo_base.group_force_barcode
+msgid "Bees Card Force Barcode"
+msgstr "Bees Card Force Barcode"
+
+#. module: beesdoo_base
+#: model:ir.ui.view,arch_db:beesdoo_base.Eater Wizard
+#: model:ir.ui.view,arch_db:beesdoo_base.MemberCard Wizard
+#: model:ir.ui.view,arch_db:beesdoo_base.membercard_set_as_printed_wizard
+#: model:ir.ui.view,arch_db:beesdoo_base.printing_membercard_request_wizard
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: beesdoo_base
+#: model:ir.ui.view,arch_db:beesdoo_base.beesdoo_partner_form_view
+msgid "Cards"
+msgstr "Cards"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_partner_child_eater_ids
+msgid "Child eater ids"
+msgstr "Child eater ids"
+
+#. module: beesdoo_base
+#: model:ir.ui.view,arch_db:beesdoo_base.Eater Wizard
+#: model:ir.ui.view,arch_db:beesdoo_base.MemberCard Wizard
+msgid "Create"
+msgstr "Créer"
+
+#. module: beesdoo_base
+#: model:ir.ui.view,arch_db:beesdoo_base.Eater Wizard
+msgid "Create a new eater"
+msgstr "Create a new eater"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard_create_uid
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card_create_uid
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard_create_uid
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard_create_uid
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard_create_date
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card_create_date
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard_create_date
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard_create_date
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard_display_name
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card_display_name
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard_display_name
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard_display_name
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: beesdoo_base
+#: selection:res.partner,eater:0
+msgid "Eater"
+msgstr "Eater"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_partner_eater
+msgid "Eater/Worker"
+msgstr "Eater/Worker"
+
+#. module: beesdoo_base
+#: model:ir.ui.view,arch_db:beesdoo_base.beesdoo_partner_form_view
+msgid "Eaters"
+msgstr "Eaters"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard_email
+msgid "Email"
+msgstr "Courriel"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card_end_date
+msgid "Expiration Date"
+msgstr "Date d'expiration"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard_first_name
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_partner_first_name
+#: model:ir.ui.view,arch_db:beesdoo_base.beesdoo_partner_form_view
+msgid "First Name"
+msgstr "Prénom"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard_force_barcode
+msgid "Force Barcode"
+msgstr "Force Barcode"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard_id
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card_id
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard_id
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard_id
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard_id
+msgid "ID"
+msgstr "ID"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard___last_update
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card___last_update
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard___last_update
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard___last_update
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard_last_name
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_partner_last_name
+#: model:ir.ui.view,arch_db:beesdoo_base.beesdoo_partner_form_view
+msgid "Last Name"
+msgstr "Nom"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard_write_uid
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card_write_uid
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard_write_uid
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard_write_uid
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard_write_uid
+msgid "Last Updated by"
+msgstr "Mis à jour par"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard_write_date
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card_write_date
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard_write_date
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard_write_date
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard_write_date
+msgid "Last Updated on"
+msgstr "Mis à jour le"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_partner_last_printed
+msgid "Last printed on"
+msgstr "Last printed on"
+
+#. module: beesdoo_base
+#: model:ir.ui.view,arch_db:beesdoo_base.beesdoo_partner_form_view
+msgid "Member Card"
+msgstr "Member Card"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_partner_member_card_ids
+msgid "Member card ids"
+msgstr "Member card ids"
+
+#. module: beesdoo_base
+#: model:ir.ui.view,arch_db:beesdoo_base.beesdoo_partner_form_view
+msgid "New Card"
+msgstr "New Card"
+
+#. module: beesdoo_base
+#: model:ir.actions.act_window,name:beesdoo_base.action_eater_wizard
+#: model:ir.ui.view,arch_db:beesdoo_base.beesdoo_partner_form_view
+msgid "New Eater"
+msgstr "New Eater"
+
+#. module: beesdoo_base
+#: model:ir.actions.act_window,name:beesdoo_base.action_membercard_wizard
+msgid "New Member Card"
+msgstr "New Member Card"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_partner_parent_barcode
+msgid "Parent Barcode"
+msgstr "Parent Barcode"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_partner_parent_eater_id
+msgid "Parent Worker"
+msgstr "Parent Worker"
+
+#. module: beesdoo_base
+#: model:ir.model,name:beesdoo_base.model_res_partner
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard_partner_id
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card_partner_id
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard_partner_id
+msgid "Partner id"
+msgstr "Partner id"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard_partner_ids
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard_partner_ids
+msgid "Partner ids"
+msgstr "Partner ids"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_partner_member_card_to_be_printed
+msgid "Print BEES card?"
+msgstr "Print BEES card?"
+
+#. module: beesdoo_base
+#: model:ir.ui.view,arch_db:beesdoo_base.beesdoo_partner_form_view
+msgid "Printing"
+msgstr "Printing"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card_comment
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard_new_comment
+#: model:ir.ui.view,arch_db:beesdoo_base.MemberCard Wizard
+msgid "Reason"
+msgstr "Motif"
+
+#. module: beesdoo_base
+#: model:ir.actions.act_window,name:beesdoo_base.beesdoo_base_action_request_membercard_printing
+msgid "Request BEES card printing"
+msgstr "Request BEES card printing"
+
+#. module: beesdoo_base
+#: model:ir.ui.view,arch_db:beesdoo_base.printing_membercard_request_wizard
+msgid "Request Beescard Printing"
+msgstr "Request Beescard Printing"
+
+#. module: beesdoo_base
+#: model:ir.ui.view,arch_db:beesdoo_base.printing_membercard_request_wizard
+msgid "Request Printing for"
+msgstr "Request Printing for"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card_responsible_id
+msgid "Responsible"
+msgstr "Responsable"
+
+#. module: beesdoo_base
+#: model:ir.actions.act_window,name:beesdoo_base.beesdoo_base_action_set_membercard_as_printed
+msgid "Set BEES card as printed"
+msgstr "Set BEES card as printed"
+
+#. module: beesdoo_base
+#: model:ir.ui.view,arch_db:beesdoo_base.membercard_set_as_printed_wizard
+msgid "Set as Printed"
+msgstr "Set as Printed"
+
+#. module: beesdoo_base
+#: model:ir.ui.view,arch_db:beesdoo_base.membercard_set_as_printed_wizard
+msgid "Set as Printed for"
+msgstr "Set as Printed for"
+
+#. module: beesdoo_base
+#: selection:res.partner,eater:0
+msgid "Worker and Eater"
+msgstr "Worker and Eater"
+
+#. module: beesdoo_base
+#: code:addons/beesdoo_base/models/partner.py:42
+#, python-format
+msgid "You can only set two additional eaters per worker"
+msgstr "You can only set two additional eaters per worker"
+
+#. module: beesdoo_base
+#: code:addons/beesdoo_base/models/partner.py:47
+#, python-format
+msgid "You try to assign a eater to a worker but this easer is alread assign to %s please remove it before"
+msgstr "You try to assign a eater to a worker but this easer is alread assign to %s please remove it before"
+
+#. module: beesdoo_base
+#: model:ir.model,name:beesdoo_base.model_eater_new_wizard
+msgid "eater.new.wizard"
+msgstr "eater.new.wizard"
+
+#. module: beesdoo_base
+#: model:ir.model,name:beesdoo_base.model_member_card
+msgid "member.card"
+msgstr "member.card"
+
+#. module: beesdoo_base
+#: model:ir.model,name:beesdoo_base.model_membercard_new_wizard
+msgid "membercard.new.wizard"
+msgstr "membercard.new.wizard"
+
+#. module: beesdoo_base
+#: model:ir.model,name:beesdoo_base.model_membercard_requestprinting_wizard
+msgid "membercard.requestprinting.wizard"
+msgstr "membercard.requestprinting.wizard"
+
+#. module: beesdoo_base
+#: model:ir.model,name:beesdoo_base.model_membercard_set_as_printed_wizard
+msgid "membercard.set_as_printed.wizard"
+msgstr "membercard.set_as_printed.wizard"
+
