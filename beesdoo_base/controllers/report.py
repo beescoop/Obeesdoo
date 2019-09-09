@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from openerp.addons.web.http import Controller, route, request
-from openerp.addons.web.controllers.main import _serialize_exception, content_disposition
-from openerp.tools import html_escape
+from odoo.addons.web.http import Controller, route, request
+from odoo.addons.web.controllers.main import _serialize_exception, content_disposition
+from odoo.tools import html_escape
 
 import json
 import time
@@ -12,8 +12,8 @@ from werkzeug.test import Client
 from werkzeug.wrappers import BaseResponse
 from werkzeug.datastructures import Headers
 
-from openerp.addons.report.controllers.main import ReportController
-from openerp.tools.safe_eval import safe_eval
+from odoo.addons.report.controllers.main import ReportController
+from odoo.tools.safe_eval import safe_eval
 
 
 class ReportCustom(ReportController):
