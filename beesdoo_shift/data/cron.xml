@@ -6,9 +6,8 @@
             <field name="interval_type">hours</field>
             <field name="numbercall">-1</field>
             <field name="doall" eval="False" />
-            <field name="model">cooperative.status</field>
-            <field name="function">_set_today</field>
-            <field name="args">()</field>
+            <field name="model_id" ref="model_cooperative_status" />
+            <field name="code">model._set_today()</field>
         </record>
 
         <record id="ir_cron_generate_next_planning" model="ir.cron">
@@ -17,9 +16,8 @@
             <field name="interval_type">weeks</field>
             <field name="numbercall">-1</field>
             <field name="doall" eval="False" />
-            <field name="model">beesdoo.shift.planning</field>
-            <field name="function">_generate_next_planning</field>
-            <field name="args">()</field>
+            <field name="model_id" ref="model_beesdoo_shift_planning" />
+            <field name="code">model._generate_next_planning()</field>
             <field name="active" eval="False" />
         </record>
 
@@ -29,9 +27,8 @@
             <field name="interval_type">minutes</field>
             <field name="numbercall">-1</field>
             <field name="doall" eval="False" />
-            <field name="model">beesdoo.shift.sheet</field>
-            <field name="function">_generate_attendance_sheet</field>
-            <field name="args">()</field>
+            <field name="model_id" ref="model_beesdoo_shift_sheet" />
+            <field name="code">model._generate_attendance_sheet()</field>
             <field name="active" eval="False" />
         </record>
 
@@ -41,9 +38,8 @@
             <field name="interval_type">hours</field>
             <field name="numbercall">-1</field>
             <field name="doall" eval="True" />
-            <field name="model">cooperative.status</field>
-            <field name="function">_cron_compute_counter_irregular</field>
-            <field name="args">()</field>
+            <field name="model_id" ref="model_cooperative_status" />
+            <field name="code">model._cron_compute_counter_irregular()</field>
             <field name="active" eval="False" />
         </record>
 
@@ -54,9 +50,8 @@
             <field name="numbercall">-1</field>
             <field name="doall" eval="False" />
             <field name="nextcall" eval="(datetime.now()).strftime('%Y-%m-%d 00:00:10')"/>
-            <field name="model">beesdoo.shift.sheet</field>
-            <field name="function">_cron_non_validated_sheets</field>
-            <field name="args">()</field>
+            <field name="model_id" ref="model_beesdoo_shift_sheet" />
+            <field name="code">model._cron_non_validated_sheets()</field>
             <field name="active" eval="False" />
         </record>
 
@@ -69,9 +64,8 @@
             <field name="nextcall"
                    eval="str(datetime.utcnow() + timedelta((6-datetime.utcnow().weekday()) % 7 ))"
             />
-            <field name="model">beesdoo.shift.shift</field>
-            <field name="function">_cron_send_weekly_emails</field>
-            <field name="args">()</field>
+            <field name="model_id" ref="model_beesdoo_shift_shift" />
+            <field name="code">_cron_send_weekly_emails()</field>
             <field name="active" eval="False" />
         </record>
     </data>
