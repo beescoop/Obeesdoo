@@ -71,7 +71,7 @@
     name="My Shift Worker Status Common">
 
     <p>
-      <label>Working Mode:</label>
+      <label for="working_mode">Working Mode:</label>
       <t t-esc="dict(status.fields_get(allfields=['working_mode'])['working_mode']['selection'])[status.working_mode]"/>
     </p>
 
@@ -80,17 +80,17 @@
     </p>
 
     <p>
-      <label>Status:</label>
+      <label for="status">Status:</label>
       <t t-esc="dict(status.fields_get(allfields=['status'])['status']['selection'])[status.status]"/>
     </p>
 
     <p t-if="status.holiday_start_time and status.holiday_start_time > status.today or status.status == 'holiday'">
-      <label>Begin of Holiday:</label>
+      <label for="holiday_start_time">Begin of Holiday:</label>
       <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.holiday_start_time, '%Y-%m-%d'))"/>
     </p>
 
     <p t-if="status.holiday_end_time and status.holiday_end_time > status.today or status.status == 'holiday'">
-      <label>End of Holiday:</label>
+      <label for="holiday_end_time">End of Holiday:</label>
       <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.holiday_end_time, '%Y-%m-%d'))"/>
     </p>
 
@@ -685,7 +685,7 @@
               <t t-call="beesdoo_website_shift.my_shift_worker_status_common"/>
 
               <p t-if="status.exempt_reason_id">
-                <label>Exempt Reason:</label>
+                <label for="exempt_reason">Exempt Reason:</label>
                 <t t-esc="status.exempt_reason_id.name"/>
               </p>
 
@@ -788,22 +788,22 @@
               <t t-call="beesdoo_website_shift.my_shift_worker_status_common"/>
 
               <p t-if="status.sr != 0">
-                <label>Shift in Advance:</label>
+                <label for="nb_advanced_shifts">Shift in Advance:</label>
                 <t t-esc="status.sr"/>
               </p>
 
               <p t-if="status.sc != 0">
-                <label>Compensation Shift:</label>
+                <label for="nb_compensation_shifts">Compensation Shift:</label>
                 <t t-esc="status.sc"/>
               </p>
 
               <p t-if="status.alert_start_time">
-                <label>In Alert Since:</label>
+                <label for="alert_start_time">In Alert Since:</label>
                 <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.alert_start_time, '%Y-%m-%d'))"/>
               </p>
 
               <p t-if="status.extension_start_time">
-                <label>In Extension Since:</label>
+                <label for="extension_start_time">In Extension Since:</label>
                 <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.extension_start_time, '%Y-%m-%d'))"/>
               </p>
 
@@ -858,27 +858,27 @@
               <t t-call="beesdoo_website_shift.my_shift_worker_status_common"/>
 
               <p>
-                <label>Shift in Advance:</label>
+                <label for="nb_advanced_shifts">Shift in Advance:</label>
                 <t t-esc="status.sr"/>
               </p>
 
               <p t-if="status.next_countdown_date">
-                <label>Next Countdown Date:</label>
+                <label for="next_countdown_date">Next Countdown Date:</label>
                 <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.next_countdown_date, '%Y-%m-%d'))"/>
               </p>
 
               <p t-if="status.future_alert_date">
-                <label>Future Date of Alert:</label>
+                <label for="future_alert_date">Future Date of Alert:</label>
                 <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.future_alert_date, '%Y-%m-%d'))"/>
               </p>
 
               <p t-if="status.irregular_absence_date">
-                <label>Last Absence Date:</label>
+                <label for="last_absence_date">Last Absence Date:</label>
                 <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.irregular_absence_date, '%Y-%m-%d'))"/>
               </p>
 
               <p t-if="status.irregular_absence_counter">
-                <label>Number of Absence:</label>
+                <label for="absence_counter">Number of Absence:</label>
                 <t t-esc="status.irregular_absence_counter"/>
               </p>
 

@@ -412,11 +412,11 @@ class WebsiteShiftController(http.Controller):
                 shift.revert_info = main_shift.revert_info
                 # Set new date
                 shift.start_time = self.add_days(
-                    fields.Datetime.from_string(main_shift.start_time),
+                    main_shift.start_time.to_datetime(),
                     days=i * PERIOD
                 )
                 shift.end_time = self.add_days(
-                    fields.Datetime.from_string(main_shift.end_time),
+                    main_shift.end_time.to_datetime(),
                     days=i * PERIOD
                 )
                 # Add the fictive shift to the list of shift
