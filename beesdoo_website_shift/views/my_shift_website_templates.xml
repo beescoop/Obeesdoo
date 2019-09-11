@@ -8,7 +8,7 @@
   <!-- Add menu entries -->
   <template id="my_shift_link" name="Link to frontend portal" inherit_id="website.user_navbar">
     <xpath expr="//a[@id='o_logout']" position="before">
-      <a href="/my/home" role="menuitem" class="dropdown-item">My Shift</a>
+      <a href="/my/shift" role="menuitem" class="dropdown-item">My Shift</a>
     </xpath>
   </template>
 
@@ -616,7 +616,7 @@
 
   <!-- Shift for non-worker -->
   <template
-    id="my_shift_non_worker_template"
+    id="my_shift_non_worker"
     name="My Shift for Non Worker"
      >
      <!-- page="True" -->
@@ -640,13 +640,6 @@
 
     </t>
   </template>
-
-  <!-- <record id="my_shift_non_worker" model="website.page">
-    <field name="name">My shift</field>
-    <field name="website_published">True</field>
-    <field name="url">/my/shift</field>
-    <field name="view_id" ref="my_shift_non_worker_template"/>
-  </record> -->
 
   <!-- Shift for new worker -->
   <template
