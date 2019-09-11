@@ -6,9 +6,9 @@
 <odoo>
 
   <!-- Add menu entries -->
-  <template id="my_shift_link" name="Link to frontend portal" inherit_id="website.layout">
-    <xpath expr="//li[@id='o_logout']" position="before">
-      <li><a href="/my/shift" role="menuitem">My Shift</a></li>
+  <template id="my_shift_link" name="Link to frontend portal" inherit_id="website.user_navbar">
+    <xpath expr="//a[@id='o_logout']" position="before">
+      <a href="/my/home" role="menuitem" class="dropdown-item">My Shift</a>
     </xpath>
   </template>
 
@@ -616,9 +616,10 @@
 
   <!-- Shift for non-worker -->
   <template
-    id="my_shift_non_worker"
+    id="my_shift_non_worker_template"
     name="My Shift for Non Worker"
-    page="True">
+     >
+     <!-- page="True" -->
     <t t-call="website.layout">
 
       <t t-call="beesdoo_website_shift.my_shift_title"/>
@@ -640,11 +641,19 @@
     </t>
   </template>
 
+  <!-- <record id="my_shift_non_worker" model="website.page">
+    <field name="name">My shift</field>
+    <field name="website_published">True</field>
+    <field name="url">/my/shift</field>
+    <field name="view_id" ref="my_shift_non_worker_template"/>
+  </record> -->
+
   <!-- Shift for new worker -->
   <template
     id="my_shift_new_worker"
     name="My Shift for New Worker"
-    page="True">
+    >
+    <!-- page="True" -->
     <t t-call="website.layout">
 
       <t t-call="beesdoo_website_shift.my_shift_title"/>
@@ -670,7 +679,8 @@
   <template
     id="my_shift_exempted_worker"
     name="My Shifts for Exempted Workers"
-    page="True">
+    >
+    <!-- page="True" -->
     <t t-call="website.layout">
 
       <t t-call="beesdoo_website_shift.my_shift_title"/>
@@ -723,7 +733,8 @@
   <template
     id="my_shift_regular_worker_without_shift"
     name="My Shifts for regular worker without shift"
-    page="True">
+    >
+    <!-- page="True" -->
     <t t-call="website.layout">
 
       <t t-call="beesdoo_website_shift.my_shift_title"/>
@@ -773,7 +784,8 @@
   <template
     id="my_shift_regular_worker"
     name="My Shifts for Regular Workers"
-    page="True">
+    >
+    <!-- page="True" -->
     <t t-call="website.layout">
 
       <t t-call="beesdoo_website_shift.my_shift_title"/>
@@ -843,7 +855,8 @@
   <template
     id="my_shift_irregular_worker"
     name="Shifts for Irregular Workers"
-    page="True">
+    >
+    <!-- page="True" -->
     <t t-call="website.layout">
 
       <t t-call="beesdoo_website_shift.my_shift_title"/>

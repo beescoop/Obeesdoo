@@ -25,7 +25,8 @@
   <template
     id="public_shift_template_regular_worker"
     name="Available Tasks Templates for Regular Workers"
-    page="True">
+    >
+    <!-- page="True" -->
     <t t-call="website.layout">
 
       <div class="oe_structure"/>
@@ -156,7 +157,8 @@
   <template
     id="public_shift_irregular_worker"
     name="Available Shifts for Irregular Workers"
-    page="True">
+    >
+    <!-- page="True" -->
     <t t-call="website.layout">
 
       <div class="oe_structure"/>
