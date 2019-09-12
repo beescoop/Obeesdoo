@@ -4,7 +4,7 @@ from odoo.exceptions import UserError
 
 from pytz import timezone, UTC
 import math
-from datetime import datetime, timedelta
+from datetime import datetime, time, timedelta
 
 
 def float_to_time(f):
@@ -17,7 +17,7 @@ def floatime_to_hour_minute(f):
 
 def get_first_day_of_week():
     today = datetime.now()
-    return (datetime.now() - timedelta(days=today.weekday())).strftime("%Y-%m-%d")
+    return datetime.now() - timedelta(days=today.weekday())
 
 class TaskType(models.Model):
     _name = 'beesdoo.shift.type'
@@ -55,7 +55,7 @@ class Planning(models.Model):
     def _get_next_planning_date(self, date):
         self.ensure_one()
         nb_of_day = max(self.task_template_ids.mapped('day_nb_id.number'))
-        return fields.Date.to_string(fields.Date.from_string(date) + timedelta(days=nb_of_day))
+        return date + timedelta(days=nb_of_day)
 
     @api.model
     def _generate_next_planning(self):
@@ -97,19 +97,15 @@ class TaskTemplate(models.Model):
     end_date = fields.Datetime(compute="_get_fake_date", search="_dummy_search")
 
     def _get_utc_date(self, day, hour, minute):
-        #Don't catch error since the error should be raise on the log as an error
-        #because generate time with UTC timezone is worse than not generate them
         context_tz = timezone(self._context.get('tz') or self.env.user.tz)
-        day_time = day.replace(hour=hour, minute=minute)
-        day_local_time = context_tz.localize(day_time)
-        day_utc_time = day_local_time.astimezone(UTC)
-        return day_utc_time
-
+        day_local_time=datetime.combine(day, time(hour=hour, minute=minute), tzinfo=context_tz)
+        day_utc_time=day_local_time.astimezone(UTC)
+        # Return naïve datetime so as to be saved in database
+        return day_utc_time.replace(tzinfo=None)
 
     @api.depends('start_time', 'end_time')
     def _get_fake_date(self):
         today = self._context.get('visualize_date', get_first_day_of_week())
-        today = datetime.strptime(today, '%Y-%m-%d')
         for rec in self:
             # Find the day of this task template 'rec'.
             day = today + timedelta(days=rec.day_nb_id.number - 1)
