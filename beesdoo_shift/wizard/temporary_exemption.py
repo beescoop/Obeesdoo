@@ -13,8 +13,8 @@ class TemporaryExemption(models.TransientModel):
     def exempt(self):
         self = self._check() #maybe a different group
         status_id = self.env['cooperative.status'].search([('cooperator_id', '=', self.cooperator_id.id)])
-        if status_id.temporary_exempt_end_date >= status_id.today:
-            raise ValidationError(_("You cannot encode new temporary exemptuon since the previous one are not over yet"))
+        if status_id.temporary_exempt_end_date and status_id.temporary_exempt_end_date >= status_id.today:
+            raise ValidationError(_("You cannot encode new temporary exemption since the previous one are not over yet"))
         status_id.sudo().write({
             'temporary_exempt_start_date': self.temporary_exempt_start_date,
             'temporary_exempt_end_date': self.temporary_exempt_end_date,

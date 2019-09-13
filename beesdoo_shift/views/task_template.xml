@@ -106,6 +106,7 @@
                             <t t-if="widget.editable">
                                 <div class="o_dropdown_kanban dropdown"
                                     groups="base.group_user">
+                                    <!-- Following block raises a warning -->
                                     <a class="dropdown-toggle btn"
                                         data-toggle="dropdown" href="#">
                                         <span class="fa fa-bars fa-lg" />

@@ -1,5 +1,8 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
+
+from datetime import date, datetime, time, timedelta
+
 import json
 
 class TaskStage(models.Model):
@@ -38,7 +41,7 @@ class Task(models.Model):
     stage_id = fields.Many2one('beesdoo.shift.stage', required=True, track_visibility='onchange', default=lambda self: self.env.ref('beesdoo_shift.open'))
     super_coop_id = fields.Many2one('res.users', string="Super Cooperative", domain=[('partner_id.super', '=', True)], track_visibility='onchange')
     color = fields.Integer(related="stage_id.color", readonly=True)
-    # TODO: Maybe is_regular and is_compensation must be merged in a
+    # TODO: Maybe is_regular and is_compensation have to be merged in a
     # selection field as they are mutually exclusive.
     is_regular = fields.Boolean(default=False, string="Regular shift")
     is_compensation = fields.Boolean(default=False, string="Compensation shift")
@@ -105,9 +108,10 @@ class Task(models.Model):
     @api.model
     def unsubscribe_from_today(self, worker_ids, today=None, end_date=None):
         today = today or fields.Date.today()
-        today += ' 00:00:00'
+        # Date to Datetime
+        today = datetime.combine(today, time())
         if end_date:
-            end_date += ' 23:59:59'
+            end_date = datetime.combine(end_date,time(hour=23, minute=59, second=59))
         # date_domain = [('worker_id', 'in', worker_ids), ('start_time', '>=', today)]
         date_domain = [('start_time', '>=', today)]
         if end_date:
@@ -179,20 +183,20 @@ class Task(models.Model):
         self.ensure_one()
         self._revert()
         update = int(self.env['ir.config_parameter'].get_param('always_update', False))
-        
+
         new_stage = self.env['beesdoo.shift.stage'].browse(new_stage)
         data = {}
         DONE = self.env.ref('beesdoo_shift.done')
         ABSENT = self.env.ref('beesdoo_shift.absent')
         EXCUSED = self.env.ref('beesdoo_shift.excused')
         NECESSITY = self.env.ref('beesdoo_shift.excused_necessity')
-        
+
         if not (self.worker_id or self.replaced_id) and new_stage in (DONE, ABSENT, EXCUSED, NECESSITY):
             raise UserError(_("You cannot change to the status %s if the is no worker defined on the shift") % new_stage.name)
-        
+
         if update or not (self.worker_id or self.replaced_id):
             return
-        
+
         if self.worker_id.working_mode == 'regular':
             if not self.replaced_id: #No replacement case
                 status = self.worker_id.cooperative_status_ids[0]
@@ -206,14 +210,14 @@ class Task(models.Model):
                     data['sc'] = 1
                 else:
                     data['sr'] = 1
-    
+
             if new_stage == ABSENT and not self.replaced_id:
                 data['sr'] = - 1
                 if status.sr <= 0:
                     data['sc'] = -1
             if new_stage == ABSENT and self.replaced_id:
                 data['sr'] = -1
-    
+
             if new_stage == EXCUSED:
                 data['sr'] = -1
 

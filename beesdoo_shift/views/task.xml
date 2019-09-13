@@ -106,13 +106,11 @@
                                    options="{'no_create': True, 'no_open': True}"
                                    domain="[('working_mode', '=', 'regular')]"
                                    attrs="{'invisible': [('working_mode', '!=', 'regular')]}" />
-                            <group>
-                                <field name="is_regular"
-                                       attrs="{'invisible': [('working_mode', '!=', 'regular')]}"/>
-                                <field name="is_compensation"
-                                       attrs="{'invisible': [('working_mode', '!=', 'regular')]}"/>
-                                <field name="working_mode" invisible="1"/>
-                            </group>
+                            <field name="is_regular"
+                                   attrs="{'invisible': [('working_mode', '!=', 'regular')]}"/>
+                            <field name="is_compensation"
+                                   attrs="{'invisible': [('working_mode', '!=', 'regular')]}"/>
+                            <field name="working_mode" invisible="1"/>
                         </group>
                         <group>
                             <field name="start_time" />
@@ -148,6 +146,7 @@
                             t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
                             <div class="o_dropdown_kanban dropdown"
                                 groups="base.group_user">
+                                <!-- Following block raises a warning -->
                                 <a class="dropdown-toggle btn"
                                     data-toggle="dropdown" href="#">
                                     <span class="fa fa-bars fa-lg" />

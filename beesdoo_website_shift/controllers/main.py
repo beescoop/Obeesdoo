@@ -34,7 +34,7 @@ class WebsiteShiftController(http.Controller):
 
     def is_user_regular_without_shift(self):
         user = request.env['res.users'].browse(request.uid)
-        return (not user.partner_id.subscribed_shift_ids.id
+        return (not len(user.partner_id.subscribed_shift_ids)
                 and self.is_user_regular())
 
     def is_user_exempted(self):
@@ -412,11 +412,11 @@ class WebsiteShiftController(http.Controller):
                 shift.revert_info = main_shift.revert_info
                 # Set new date
                 shift.start_time = self.add_days(
-                    main_shift.start_time.to_datetime(),
+                    main_shift.start_time,
                     days=i * PERIOD
                 )
                 shift.end_time = self.add_days(
-                    main_shift.end_time.to_datetime(),
+                    main_shift.end_time,
                     days=i * PERIOD
                 )
                 # Add the fictive shift to the list of shift

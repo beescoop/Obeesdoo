@@ -154,11 +154,12 @@ class TaskTemplate(models.Model):
                 #remove worker in holiday and temporary exempted
                 if worker_id and worker_id.cooperative_status_ids:
                     status = worker_id.cooperative_status_ids[0]
+                    import pdb; pdb.set_trace()
                     if status.holiday_start_time and status.holiday_end_time and \
-                         status.holiday_start_time <= rec.start_date[:10] and status.holiday_end_time >= rec.end_date[:10]:
+                         status.holiday_start_time <= rec.start_date and status.holiday_end_time >= rec.end_date:
                         worker_id = False
                     if status.temporary_exempt_start_date and status.temporary_exempt_end_date and \
-                         status.temporary_exempt_start_date <= rec.start_date[:10] and status.temporary_exempt_end_date >= rec.end_date[:10]:
+                         status.temporary_exempt_start_date <= rec.start_date and status.temporary_exempt_end_date >= rec.end_date:
                         worker_id = False
                 tasks |= tasks.create({
                     'name' :  "%s %s (%s - %s) [%s]" % (rec.name, rec.day_nb_id.name, float_to_time(rec.start_time), float_to_time(rec.end_time), i),

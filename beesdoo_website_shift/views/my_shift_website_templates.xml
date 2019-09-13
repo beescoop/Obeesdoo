@@ -86,12 +86,12 @@
 
     <p t-if="status.holiday_start_time and status.holiday_start_time > status.today or status.status == 'holiday'">
       <label for="holiday_start_time">Begin of Holiday:</label>
-      <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.holiday_start_time, '%Y-%m-%d'))"/>
+      <t t-esc="holiday_start_time.strftime('%A %d %B %Y')"/>
     </p>
 
     <p t-if="status.holiday_end_time and status.holiday_end_time > status.today or status.status == 'holiday'">
       <label for="holiday_end_time">End of Holiday:</label>
-      <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.holiday_end_time, '%Y-%m-%d'))"/>
+      <t t-esc="holiday_end_time.strftime('%A %d %B %Y')"/>
     </p>
 
   </template>
@@ -173,7 +173,7 @@
       <div class="panel panel-default">
         <div class="panel-heading clearfix">
           <div class="panel-title">
-            <t t-esc="time.strftime('%A %d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
+            <t t-esc="shift.start_time.strftime('%A %d %B %Y')"/>
             <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
             <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
             <t t-call="beesdoo_website_shift.shift_status_label">
@@ -209,10 +209,10 @@
         <t t-foreach="subscribed_shifts" t-as="shift">
           <tr t-att-class="'danger text-danger' if shift.stage_id.code == 'cancel' else ''">
             <td>
-              <t t-esc="time.strftime('%A', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
+              <t t-esc="shift.start_time.strftime('%A')"/>
             </td>
             <td>
-              <t t-esc="time.strftime('%d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
+              <t t-esc="shift.start_time.strftime('%d %B %Y')"/>
             </td>
             <td>
               <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
@@ -306,7 +306,7 @@
       <div class="panel panel-default">
         <div class="panel-heading clearfix">
           <div class="panel-title">
-            <t t-esc="time.strftime('%A %d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
+            <t t-esc="shift.start_time.strftime('%A %d %B %Y')"/>
             <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
             <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
             <t t-call="beesdoo_website_shift.shift_status_label">
@@ -334,10 +334,10 @@
         <t t-foreach="past_shifts" t-as="shift">
           <tr>
             <td>
-              <t t-esc="time.strftime('%A', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
+              <t t-esc="shift.start_time.strftime('%A')"/>
             </td>
             <td>
-              <t t-esc="time.strftime('%d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
+              <t t-esc="shift.start_time.strftime('%d %B %Y')"/>
             </td>
             <td>
               <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
@@ -385,7 +385,7 @@
       <div t-att-class="'panel %s' % highlight_class">
         <div class="panel-heading clearfix">
           <div class="panel-title pull-left">
-            <t t-esc="time.strftime('%A %d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
+            <t t-esc="shift.start_time.strftime('%A %d %B %Y')"/>
             <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
             <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
           </div>
@@ -431,10 +431,10 @@
           <t t-set="has_enough_workers" t-value="shift_count_subscribed[3]"/>
           <tr t-attf-class="{{ 'warning' if not has_enough_workers else '' }}">
             <td>
-              <t t-esc="time.strftime('%A', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
+              <t t-esc="shift.start_time.strftime('%A')"/>
             </td>
             <td>
-              <t t-esc="time.strftime('%d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
+              <t t-esc="shift.start_time.strftime('%d %B %Y')"/>
             </td>
             <td>
               <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
@@ -484,8 +484,8 @@
               </h4>
             </div>
             <div class="modal-body">
-              <t t-esc="time.strftime('%A', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
-              <t t-esc="time.strftime('%d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
+              <t t-esc="shift.start_time.strftime('%A')"/>
+              <t t-esc="shift.start_time.strftime('%d %B %Y')"/>
               <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
               <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/><br/>
               <t t-esc="shift.task_type_id.name"/><br/>
