@@ -65,30 +65,30 @@
 
               <div class="oe_structure"/>
 
-              <div class="visible-xs" t-foreach="task_tpls_data" t-as="template_data">
+              <div class="d-block d-sm-none" t-foreach="task_tpls_data" t-as="template_data">
                 <t t-set="template" t-value="template_data[0]"/>
                 <t t-set="has_enough_workers" t-value="template_data[1]"/>
-                <t t-set="highlight_class" t-value="'panel-warning' if not has_enough_workers else 'panel-default'"/>
-                <div t-att-class="'panel %s' % highlight_class">
-                  <div class="panel-heading clearfix">
-                    <div class="panel-title pull-left">
+                <t t-set="highlight_class" t-value="'bg-warning ' if not has_enough_workers else none"/>
+                <div t-att-class="'card %s' % highlight_class">
+                  <div class="card-header clearfix">
+                    <div class="card-title float-left">
                       <t t-esc="template.planning_id.name"/> :
                       <t t-esc="template.day_nb_id.name"/>
                       <t t-esc='float_to_time(template.start_time)' /> -
                       <t t-esc='float_to_time(template.end_time)'/>
                     </div>
-                    <div class="label label-default pull-right"
+                    <div class="badge badge-secondary float-right"
                       t-if="template.remaining_worker > 0">
                       <t t-esc="template.remaining_worker"/> space(s)
                     </div>
-                    <div class="label label-default pull-right"
+                    <div class="badge badge-secondary float-right"
                       t-if="template.remaining_worker == 0">
                       full
                     </div>
                   </div>
-                  <div class="panel-body clearfix">
+                  <div class="card-body clearfix">
                     <t t-esc="template.task_type_id.name"/>
-                    <div class="label label-warning pull-right"
+                    <div class="badge badge-warning float-right"
                       t-if="not template.super_coop_id">
                       Need Super Co-operator
                     </div>
@@ -96,7 +96,7 @@
                 </div>
               </div>
 
-              <table class="hidden-xs table table-striped">
+              <table class="d-none d-sm-block table table-striped">
                 <thead>
                   <tr>
                     <th>Week</th>
@@ -112,7 +112,7 @@
                     <t t-set="template" t-value="template_data[0]"/>
                     <t t-set="has_enough_workers" t-value="template_data[1]"/>
                     <!-- Row with no super coop will be shown in color -->
-                    <tr t-attf-class="{{ 'warning' if not has_enough_workers else '' }}">
+                    <tr t-attf-class="{{ 'bg-warning ' if not has_enough_workers else '' }}">
                       <td>
                         <t t-esc="template.planning_id.name"/>
                       </td>

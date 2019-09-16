@@ -47,7 +47,7 @@
           <div class="col-md-12">
             <h2>
               Worker status
-              <span t-att-class="'label %s pull-right' % ('label-success' if status.can_shop else 'label-danger',)">
+              <span t-att-class="'badge %s float-right' % ('badge-success' if status.can_shop else 'badge-danger',)">
                 <span class="fa fa-shopping-cart"></span>
                 <t t-if="status.can_shop">
                   <span class="fa fa-check"></span>
@@ -71,7 +71,7 @@
     name="My Shift Worker Status Common">
 
     <p>
-      <label for="working_mode">Working Mode:</label>
+      <label for="working_mode">Working Mode :</label>
       <t t-esc="dict(status.fields_get(allfields=['working_mode'])['working_mode']['selection'])[status.working_mode]"/>
     </p>
 
@@ -80,18 +80,18 @@
     </p>
 
     <p>
-      <label for="status">Status:</label>
+      <label for="status">Status :</label>
       <t t-esc="dict(status.fields_get(allfields=['status'])['status']['selection'])[status.status]"/>
     </p>
 
     <p t-if="status.holiday_start_time and status.holiday_start_time > status.today or status.status == 'holiday'">
-      <label for="holiday_start_time">Begin of Holiday:</label>
-      <t t-esc="holiday_start_time.strftime('%A %d %B %Y')"/>
+      <label for="status.holiday_start_time">Holidays start date :</label>
+      <t t-esc="status.holiday_start_time.strftime('%A %d %B %Y')"/>
     </p>
 
     <p t-if="status.holiday_end_time and status.holiday_end_time > status.today or status.status == 'holiday'">
-      <label for="holiday_end_time">End of Holiday:</label>
-      <t t-esc="holiday_end_time.strftime('%A %d %B %Y')"/>
+      <label for="status.holiday_end_time">Holidays end date :</label>
+      <t t-esc="status.holiday_end_time.strftime('%A %d %B %Y')"/>
     </p>
 
   </template>
@@ -102,32 +102,32 @@
     name="Shift Status Label">
 
     <span t-if="shift.stage_id.code == 'draft'"
-      t-attf-class="label label-default {{label_css}}">
+      t-attf-class="badge badge-secondary {{label_css}}">
       <t t-esc="shift.stage_id.name"/>
     </span>
 
     <span t-if="shift.stage_id.code == 'done'"
-      t-attf-class="label label-success {{label_css}}">
+      t-attf-class="badge badge-success {{label_css}}">
       <t t-esc="shift.stage_id.name"/>
     </span>
 
     <span t-if="shift.stage_id.code == 'absent'"
-      t-attf-class="label label-warning {{label_css}}">
+      t-attf-class="badge badge-warning {{label_css}}">
       <t t-esc="shift.stage_id.name"/>
     </span>
 
     <span t-if="shift.stage_id.code == 'excused'"
-      t-attf-class="label label-info {{label_css}}">
+      t-attf-class="badge badge-info {{label_css}}">
       <t t-esc="shift.stage_id.name"/>
     </span>
 
     <span t-if="shift.stage_id.code == 'excused_necessity'"
-      t-attf-class="label label-info {{label_css}}">
+      t-attf-class="badge badge-info {{label_css}}">
       <t t-esc="shift.stage_id.name"/>
     </span>
 
     <span t-if="shift.stage_id.code == 'cancel'"
-      t-attf-class="label label-danger {{label_css}}">
+      t-attf-class="badge badge-danger {{label_css}}">
       <t t-esc="shift.stage_id.name"/>
     </span>
 
@@ -158,7 +158,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <div class="alert alert-warning">
+            <div class="alert alert-warning ">
               <strong>Warning !</strong> For the moment public holidays are not taken into account. If your shift
               occures during a public holiday, you do not have to do it.
             </div>
@@ -169,21 +169,21 @@
 
     <div class="oe_structure"/>
 
-    <div class="visible-xs" t-foreach="subscribed_shifts" t-as="shift">
-      <div class="panel panel-default">
-        <div class="panel-heading clearfix">
-          <div class="panel-title">
+    <div class="d-block d-sm-none" t-foreach="subscribed_shifts" t-as="shift">
+      <div class="card">
+        <div class="card-header clearfix">
+          <div class="card-title">
             <t t-esc="shift.start_time.strftime('%A %d %B %Y')"/>
-            <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
-            <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
+            <span t-esc="shift.start_time.strftime('%H:%M')"/> -
+            <span t-esc="shift.end_time.strftime('%H:%M')"/>
             <t t-call="beesdoo_website_shift.shift_status_label">
-              <t t-set="label_css" t-value="'pull-right'"/>
+              <t t-set="badge_css" t-value="'float-right'"/>
             </t>
           </div>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <t t-esc="shift.task_type_id.name"/>
-          <button type="button" class="btn btn-default btn-sm pull-right"
+          <button type="button" class="btn btn-default btn-sm float-right"
             t-if="shift.super_coop_id.name"
             data-toggle="modal"
             t-att-data-target="'#super_coop-shift-%s' % shift_index">
@@ -194,7 +194,7 @@
       </div>
     </div>
 
-    <table class="hidden-xs table table-striped" t-if="subscribed_shifts">
+    <table class="d-none d-sm-block table table-striped" t-if="subscribed_shifts">
       <thead>
         <tr>
           <th>Day</th>
@@ -207,7 +207,7 @@
       </thead>
       <tbody>
         <t t-foreach="subscribed_shifts" t-as="shift">
-          <tr t-att-class="'danger text-danger' if shift.stage_id.code == 'cancel' else ''">
+          <tr t-att-class="'danger bg-warning ' if shift.stage_id.code == 'cancel' else ''">
             <td>
               <t t-esc="shift.start_time.strftime('%A')"/>
             </td>
@@ -215,8 +215,8 @@
               <t t-esc="shift.start_time.strftime('%d %B %Y')"/>
             </td>
             <td>
-              <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
-              <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
+              <span t-esc="shift.start_time.strftime('%H:%M')"/> -
+              <span t-esc="shift.end_time.strftime('%H:%M')"/>
             </td>
             <td>
               <t t-esc="shift.task_type_id.name"/>
@@ -270,7 +270,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <div class="alert alert-warning">
+            <div class="alert alert-warning ">
               <strong>Warning !</strong> You have not yet signed up to a shift.
             </div>
           </div>
@@ -302,25 +302,25 @@
 
     <div class="oe_structure"/>
 
-    <div class="visible-xs" t-foreach="past_shifts" t-as="shift">
-      <div class="panel panel-default">
-        <div class="panel-heading clearfix">
-          <div class="panel-title">
+    <div class="d-block d-sm-none" t-foreach="past_shifts" t-as="shift">
+      <div class="card">
+        <div class="card-header clearfix">
+          <div class="card-title">
             <t t-esc="shift.start_time.strftime('%A %d %B %Y')"/>
-            <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
-            <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
+            <span t-esc="shift.start_time.strftime('%H:%M')"/> -
+            <span t-esc="shift.end_time.strftime('%H:%M')"/>
             <t t-call="beesdoo_website_shift.shift_status_label">
-              <t t-set="label_css" t-value="'pull-right'"/>
+              <t t-set="badge_css" t-value="'float-right'"/>
             </t>
           </div>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <t t-esc="shift.task_type_id.name"/>
         </div>
       </div>
     </div>
 
-    <table class="hidden-xs table table-striped" t-if="past_shifts">
+    <table class="d-none d-sm-block table table-striped" t-if="past_shifts">
       <thead>
         <tr>
           <th>Day</th>
@@ -340,8 +340,8 @@
               <t t-esc="shift.start_time.strftime('%d %B %Y')"/>
             </td>
             <td>
-              <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
-              <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
+              <span t-esc="shift.start_time.strftime('%H:%M')"/> -
+              <span t-esc="shift.end_time.strftime('%H:%M')"/>
             </td>
             <td>
               <t t-esc="shift.task_type_id.name"/>
@@ -376,33 +376,33 @@
 
     <div class="oe_structure"/>
 
-    <div class="visible-xs" t-foreach="shift_templates" t-as="shift_count_subscribed">
+    <div class="d-block d-sm-none" t-foreach="shift_templates" t-as="shift_count_subscribed">
       <t t-set="shift" t-value="shift_count_subscribed[0]" />
       <t t-set="count" t-value="shift_count_subscribed[1]" />
       <t t-set="is_subscribed" t-value="shift_count_subscribed[2]" />
       <t t-set="has_enough_workers" t-value="shift_count_subscribed[3]" />
-      <t t-set="highlight_class" t-value="'panel-warning' if not has_enough_workers else 'panel-default'"/>
-      <div t-att-class="'panel %s' % highlight_class">
-        <div class="panel-heading clearfix">
-          <div class="panel-title pull-left">
+      <t t-set="highlight_class" t-value="'bg-warning ' if not has_enough_workers else none"/>
+      <div t-att-class="'card %s' % highlight_class">
+        <div class="card-header clearfix">
+          <div class="card-title float-left">
             <t t-esc="shift.start_time.strftime('%A %d %B %Y')"/>
-            <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
-            <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
+            <span t-esc="shift.start_time.strftime('%H:%M')"/> -
+            <span t-esc="shift.end_time.strftime('%H:%M')"/>
           </div>
-          <div class="label label-default pull-right">
+          <div class="badge badge-secondary float-right">
             <t t-esc="count"/> space(s)
           </div>
         </div>
-        <div class="panel-body clearfix">
+        <div class="card-body clearfix">
           <t t-esc="shift.task_type_id.name"/>
           <t t-if="is_subscribed">
-            <div class="label label-success pull-right">
+            <div class="badge badge-success float-right">
               <span class="fa fa-check" aria-hidden="true"></span>
               Subscribed
             </div>
           </t>
           <t t-if="irregular_enable_sign_up and not is_subscribed">
-            <button type="button" class="btn btn-default btn-sm pull-right" data-toggle="modal"
+            <button type="button" class="btn btn-default btn-sm float-right" data-toggle="modal"
               t-att-data-target="'#subscribe-shift-%s' % shift.id">
               <span class="fa fa-user-plus" aria-hidden="true"></span>
               Subscribe
@@ -412,7 +412,7 @@
       </div>
     </div>
 
-    <table class="hidden-xs table table-striped">
+    <table class="d-none d-sm-block table table-striped">
       <thead>
         <tr>
           <th>Day</th>
@@ -437,8 +437,8 @@
               <t t-esc="shift.start_time.strftime('%d %B %Y')"/>
             </td>
             <td>
-              <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
-              <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
+              <span t-esc="shift.start_time.strftime('%H:%M')"/> -
+              <span t-esc="shift.end_time.strftime('%H:%M')"/>
             </td>
             <td>
               <t t-esc="shift.task_type_id.name"/>
@@ -448,7 +448,7 @@
             </td>
             <td class="text-center" t-if="irregular_enable_sign_up">
               <t t-if="is_subscribed">
-                <div class="label label-success">
+                <div class="badge badge-success">
                   <span class="fa fa-check" aria-hidden="true"></span>
                   Subscribed
                 </div>
@@ -486,8 +486,8 @@
             <div class="modal-body">
               <t t-esc="shift.start_time.strftime('%A')"/>
               <t t-esc="shift.start_time.strftime('%d %B %Y')"/>
-              <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
-              <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/><br/>
+              <span t-esc="shift.start_time.strftime('%H:%M')"/> -
+              <span t-esc="shift.end_time.strftime('%H:%M')"/><br/>
               <t t-esc="shift.task_type_id.name"/><br/>
               <t t-esc="count"/> available space(s)
             </div>
@@ -681,7 +681,7 @@
       <section class="wrap">
         <div class="container">
           <div class="row">
-            <div class="col-xs-12 col-md-4 pull-right text-justify">
+            <div class="col-12 col-md-4 float-right text-justify">
 
               <t t-call="beesdoo_website_shift.my_shift_worker_status_title"/>
 
@@ -696,7 +696,7 @@
 
             </div>
 
-            <div class="col-xs-12 col-md-8">
+            <div class="col-12 col-md-8">
 
               <section class="wrap">
                 <div class="container">
@@ -735,7 +735,7 @@
       <section class="wrap">
         <div class="container">
           <div class="row">
-            <div class="col-xs-12 col-md-4 pull-right text-justify">
+            <div class="col-12 col-md-4 float-right text-justify">
 
               <t t-call="beesdoo_website_shift.my_shift_worker_status_title"/>
 
@@ -746,7 +746,7 @@
 
             </div>
 
-            <div class="col-xs-12 col-md-8">
+            <div class="col-12 col-md-8">
 
               <section class="wrap">
                 <div class="container">
@@ -786,7 +786,7 @@
       <section class="wrap">
         <div class="container">
           <div class="row">
-            <div class="col-xs-12 col-md-4 pull-right text-justify">
+            <div class="col-12 col-md-4 float-right text-justify">
 
               <t t-call="beesdoo_website_shift.my_shift_worker_status_title"/>
 
@@ -816,7 +816,7 @@
 
             </div>
 
-            <div class="col-xs-12 col-md-8">
+            <div class="col-12 col-md-8">
 
               <t t-call="beesdoo_website_shift.my_shift_next_shifts"/>
 
@@ -824,7 +824,7 @@
 
             </div> <!-- col-md-8 -->
 
-            <div class="col-xs-12 col-md-4 text-justify">
+            <div class="col-12 col-md-4 text-justify">
 
               <div class="oe_structure"/>
 
@@ -857,7 +857,7 @@
       <section class="wrap">
         <div class="container">
           <div class="row">
-            <div class="col-xs-12 col-md-4 pull-right text-justify">
+            <div class="col-12 col-md-4 float-right text-justify">
 
               <t t-call="beesdoo_website_shift.my_shift_worker_status_title"/>
 
@@ -892,7 +892,7 @@
 
             </div>
 
-            <div class="col-xs-12 col-md-8">
+            <div class="col-12 col-md-8">
 
               <div t-if="back_from_subscription"
                 role="alert"
@@ -929,7 +929,7 @@
               <section class="wrap">
                 <div class="container">
                   <div class="row">
-                    <div class="col-xs-12 col-sm-6 text-justify">
+                    <div class="col-12 col-sm-6 text-justify">
                       <p>
                         Please, subscribe, in priority, to the highlighted shifts. To sign up to a shift click on the
                         subscribe button. Notice that you can not unsubscribe online. To unsubscribe to a shift, please,
@@ -947,7 +947,7 @@
 
             </div> <!-- col-md-8 -->
 
-            <div class="col-xs-12 col-md-4 text-justify">
+            <div class="col-12 col-md-4 text-justify">
 
               <div class="oe_structure"/>
 
