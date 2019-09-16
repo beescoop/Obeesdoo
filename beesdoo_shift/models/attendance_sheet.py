@@ -223,26 +223,19 @@ class AttendanceSheet(models.Model):
     @api.depends("start_time", "end_time")
     def _compute_time_slot(self):
         for rec in self:
-            start_time_dt = fields.Datetime.from_string(rec.start_time)
-            start_time_dt = fields.Datetime.context_timestamp(
-                rec, start_time_dt
-            )
-            end_time_dt = fields.Datetime.from_string(rec.end_time)
-            end_time_dt = fields.Datetime.context_timestamp(rec, end_time_dt)
+            start_time = fields.Datetime.context_timestamp(rec, rec.start_time)
+            end_time = fields.Datetime.context_timestamp(rec, rec.end_time)
             rec.time_slot = (
-                start_time_dt.strftime("%H:%M")
+                start_time.strftime("%H:%M")
                 + "-"
-                + end_time_dt.strftime("%H:%M")
+                + end_time.strftime("%H:%M")
             )
 
     @api.depends("start_time", "end_time", "week", "day_abbrevation")
     def _compute_name(self):
         for rec in self:
-            start_time_dt = fields.Datetime.from_string(rec.start_time)
-            start_time_dt = fields.Datetime.context_timestamp(
-                rec, start_time_dt
-            )
-            name = "[%s] " % fields.Date.to_string(start_time_dt)
+            start_time = fields.Datetime.context_timestamp(rec, rec.start_time)
+            name = "[%s] " % fields.Date.to_string(start_time)
             if rec.week:
                 name += rec.week + " "
             if rec.day_abbrevation:
@@ -254,7 +247,7 @@ class AttendanceSheet(models.Model):
     @api.depends("start_time")
     def _compute_day(self):
         for rec in self:
-            rec.day = fields.Date.from_string(rec.start_time)
+            rec.day = rec.start_time.date()
 
     @api.depends("expected_shift_ids")
     def _compute_day_abbrevation(self):
@@ -397,19 +390,16 @@ class AttendanceSheet(models.Model):
         # to the time range
         tasks = self.env["beesdoo.shift.shift"]
         expected_shift = self.env["beesdoo.shift.sheet.expected"]
-        s_time = fields.Datetime.from_string(new_sheet.start_time)
-        e_time = fields.Datetime.from_string(new_sheet.end_time)
         # Fix issues with equality check on datetime
         # by searching on a small intervall instead
         delta = timedelta(minutes=1)
-        to_string = fields.Datetime.to_string
 
         tasks = tasks.search(
             [
-                ("start_time", ">", to_string(s_time - delta)),
-                ("start_time", "<", to_string(s_time + delta)),
-                ("end_time", ">", to_string(e_time - delta)),
-                ("end_time", "<", to_string(e_time + delta)),
+                ("start_time", ">", new_sheet.start_time - delta),
+                ("start_time", "<", new_sheet.start_time + delta),
+                ("end_time", ">", new_sheet.end_time - delta),
+                ("end_time", "<", new_sheet.end_time + delta),
             ]
         )
         for task in tasks:
@@ -484,17 +474,14 @@ class AttendanceSheet(models.Model):
             # Fix issues with equality check on datetime
             # by searching on a small intervall instead
             delta = timedelta(minutes=1)
-            s_time = fields.Datetime.from_string(self.start_time)
-            e_time = fields.Datetime.from_string(self.end_time)
-            to_string = fields.Datetime.to_string
 
             non_assigned_shifts = self.env["beesdoo.shift.shift"].search(
                 [
                     ("worker_id", "=", False),
-                    ("start_time", ">", to_string(s_time - delta)),
-                    ("start_time", "<", to_string(s_time + delta)),
-                    ("end_time", ">", to_string(e_time - delta)),
-                    ("end_time", "<", to_string(e_time + delta)),
+                    ("start_time", ">", self.start_time - delta),
+                    ("start_time", "<", self.start_time + delta),
+                    ("end_time", ">", self.end_time - delta),
+                    ("end_time", "<", self.end_time + delta),
                     ("task_type_id", "=", added_shift.task_type_id.id),
                 ],
                 limit=1,
@@ -530,11 +517,11 @@ class AttendanceSheet(models.Model):
     @api.multi
     def validate_with_checks(self):
         self.ensure_one()
-        start_time_dt = fields.Datetime.from_string(self.start_time)
+
 
         if self.state == "validated":
             raise UserError(_("The sheet has already been validated."))
-        if start_time_dt > datetime.now():
+        if self.start_time > datetime.now():
             raise UserError(
                 _("Attendance sheet can only be validated once the shifts have started.")
             )

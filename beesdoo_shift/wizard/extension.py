@@ -26,9 +26,7 @@ class Subscribe(models.TransientModel):
         status_id = self.env['cooperative.status'].search([('cooperator_id', '=', self.cooperator_id.id)])
         if not status_id.extension_start_time:
             raise UserError(_('You should not make a manual extension when the grace delay has not been triggered yet'))
-        extension_date = fields.Date.from_string(status_id.extension_start_time)
-        today = fields.Date.from_string(status_id.today)
-        today_delay = (today - extension_date).days - grace_delay
+        today_delay = (status_id.today - status_id.extension_start_time).days - grace_delay
         if today_delay < 0:
             raise UserError(_('You should not start a manual extension during the grace delay'))
         status_id.sudo().write({'time_extension': self.extension_days + today_delay})

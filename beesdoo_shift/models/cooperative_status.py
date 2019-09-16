@@ -10,8 +10,8 @@ PERIOD = 28  # TODO: use system parameter
 def add_days_delta(date_from, days_delta):
     if not date_from:
         return date_from
-    next_date = fields.Date.from_string(date_from) + timedelta(days=days_delta)
-    return fields.Date.to_string(next_date)
+    next_date = date_from + timedelta(days=days_delta)
+    return next_date
 
 class ExemptReason(models.Model):
     _name = 'cooperative.exempt.reason'
@@ -220,9 +220,8 @@ class CooperativeStatus(models.Model):
         This does not take holiday and other status into account.
         """
         today = today or fields.Date.today()
-        today_dt = fields.Date.from_string(today)
-        irregular_start_dt = fields.Date.from_string(irregular_start_date)
-        delta = (today_dt - irregular_start_dt).days
+
+        delta = (today - irregular_start_date).days
         if not delta % PERIOD:
             return today
         return add_days_delta(today, PERIOD - (delta % PERIOD))
@@ -381,7 +380,7 @@ class CooperativeStatus(models.Model):
     def clear_history(self):
         self.ensure_one()
         self.history_ids.unlink()
-    
+
     @api.model
     def _cron_compute_counter_irregular(self, today=False):
         today = today or fields.Date.today()
@@ -398,11 +397,10 @@ class CooperativeStatus(models.Model):
                                         '|', ('holiday_start_time', '>', today), ('holiday_end_time', '<', today),
         ]
         irregular = self.search(domain)
-        today_date = fields.Date.from_string(today)
         for status in irregular:
             if status.status == 'exempted':
                 continue
-            delta = (today_date - fields.Date.from_string(status.irregular_start_date)).days
+            delta = (today - status.irregular_start_date).days
             if delta and delta % PERIOD == 0 and status not in journal.line_ids:
                 if status.sr > 0:
                     status.sr -= 1
@@ -411,27 +409,27 @@ class CooperativeStatus(models.Model):
                 else:
                     status.sr -= 2
                 journal.line_ids |= status
-        
-        
+
+
 class ShiftCronJournal(models.Model):
     _name = 'beesdoo.shift.journal'
     _order = 'date desc'
     _rec_name = 'date'
-    
+
     date = fields.Date()
     line_ids = fields.Many2many('cooperative.status')
-    
+
     _sql_constraints = [
         ('one_entry_per_day', 'unique (date)', _('You can only create one journal per day')),
     ]
-    
+
     @api.multi
     def run(self):
         self.ensure_one()
         if not self.user_has_groups('beesdoo_shift.group_cooperative_admin'):
             raise ValidationError(_("You don't have the access to perform this action"))
         self.sudo().env['cooperative.status']._cron_compute_counter_irregular(today=self.date)
-   
+
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 

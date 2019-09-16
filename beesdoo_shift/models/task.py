@@ -148,7 +148,7 @@ class Task(models.Model):
             today += ' 00:00:00'
             date_domain = [('start_time', '>', today)]
             if end_date:
-                end_date += ' 23:59:59'
+                end_date = datetime.combine(end_date,time(hour=23, minute=59, second=59))
                 date_domain.append(('end_time', '<=', end_date))
 
         to_unsubscribe = self.search([('worker_id', 'in', worker_ids)] + date_domain)
@@ -258,7 +258,7 @@ class Task(models.Model):
             if new_state == "absent_2" or new_state == "absent_1":
                 if new_state == "absent_2":
                     data['sr'] = -1
-                data['irregular_absence_date'] = self.start_time[:10]
+                data['irregular_absence_date'] = self.start_time.date()
                 data['irregular_absence_counter'] = -1
 
         else:
@@ -282,8 +282,8 @@ class Task(models.Model):
 
         confirmed_tasks = tasks.search(
             [
-                ("start_time", ">", start_time.strftime("%Y-%m-%d 00:00:01")),
-                ("start_time", "<", end_time.strftime("%Y-%m-%d 23:59:59")),
+                ("start_time", ">", start_time),
+                ("start_time", "<", end_time),
                 ("worker_id", "!=", False),
                 ("state", "=", "open"),
             ]

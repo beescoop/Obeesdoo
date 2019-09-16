@@ -155,8 +155,6 @@ class TestBeesdooShift(TransactionCase):
 
     def search_sheets(self, start_time, end_time):
         if (type(start_time) and type(end_time)) == datetime:
-            start_time = fields.Datetime.to_string(start_time)
-            end_time = fields.Datetime.to_string(end_time)
         return self.attendance_sheet_model.search(
             [("start_time", "=", start_time), ("end_time", "=", end_time)]
         )
