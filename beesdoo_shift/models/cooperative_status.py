@@ -10,8 +10,8 @@ PERIOD = 28  # TODO: use system parameter
 def add_days_delta(date_from, days_delta):
     if not date_from:
         return date_from
-    next_date = fields.Date.from_string(date_from) + timedelta(days=days_delta)
-    return fields.Date.to_string(next_date)
+    next_date = date_from + timedelta(days=days_delta)
+    return next_date
 
 class ExemptReason(models.Model):
     _name = 'cooperative.exempt.reason'
@@ -203,9 +203,7 @@ class CooperativeStatus(models.Model):
         This does not take holiday and other status into account.
         """
         today = today or fields.Date.today()
-        today_dt = fields.Date.from_string(today)
-        irregular_start_dt = fields.Date.from_string(irregular_start_date)
-        delta = (today_dt - irregular_start_dt).days
+        delta = (today - irregular_start_date).days
         return add_days_delta(today, PERIOD - (delta % PERIOD))
 
     def _set_regular_status(self, grace_delay, alert_delay):
@@ -380,11 +378,10 @@ class CooperativeStatus(models.Model):
                                         '|', ('holiday_start_time', '>', today), ('holiday_end_time', '<', today),
         ]
         irregular = self.search(domain)
-        today_date = fields.Date.from_string(today)
         for status in irregular:
             if status.status == 'exempted':
                 continue
-            delta = (today_date - fields.Date.from_string(status.irregular_start_date)).days
+            delta = (today - status.irregular_start_date).days
             if delta and delta % PERIOD == 0 and status not in journal.line_ids:
                 if status.sr > 0:
                     status.sr -= 1
