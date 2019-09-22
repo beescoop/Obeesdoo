@@ -6,6 +6,7 @@ Specific module for the Beescoop
 - cf. [install-odoo-linux-server.md](install-odoo-linux-server.md) (review)
 - cf. [install-odoo-linux.md](install-odoo.md) (review)
 - cf. [install-odoo-mac.md](install-odoo-mac.md)
+- cf. [install-odoo-docker.md](install-odoo-docker.md)
 
 ## Setup obeesdoo
 
@@ -112,3 +113,4 @@ $ python odoo.py -c $ODOO_HOME/odoo.conf -u all -d beescoop --stop-after-init
 insert into member_card (active, barcode, partner_id, responsible_id, activation_date) select 't', barcode, id, 1, '2016-01-01' from res_partner where barcode is not null;
 update res_partner set eater = 'worker_eater' where barcode is not null;
 ```
+

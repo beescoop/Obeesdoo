@@ -1,35 +1,76 @@
-FROM odoo:9.0
+FROM ubuntu:14.04
+# Starting from ubuntu 14 as its the only one really supported for wkhtmltopdf (I don't like hacking around).
+# Also its a docker image, not a server.
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install the basics
+RUN ln -fs /usr/share/zoneinfo/Europe/Brussels /etc/localtime && \
+    apt-get update && apt-get install -y curl git postgresql python-psycopg2 python-pip && \
+    dpkg-reconfigure --frontend noninteractive tzdata
+
+# Install wkhtmltopdf 0.12.1
+RUN curl -L https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.1/wkhtmltox-0.12.1_linux-trusty-amd64.deb \
+    --output wkhtmltox-0.12.1_linux-trusty-amd64.deb && \
+    (dpkg -i wkhtmltox-0.12.1_linux-trusty-amd64.deb || apt-get -f install -y) && \
+    ln -s /usr/local/bin/wkhtmltoimage /usr/bin/wkhtmltoimage && \
+    ln -s /usr/local/bin/wkhtmltopdf /usr/bin/wkhtmltopdf && \
+    rm -f wkhtmltox-0.12.1_linux-trusty-amd64.deb
+
+# Node (ubuntu 14 version of node is Old as f*)
+RUN curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - && \
+    apt-get install -y nodejs && \
+    npm install -g less less-plugin-clean-css
+
+
+RUN useradd -ms /bin/bash odoo
+USER odoo
+RUN mkdir -p /home/odoo/extra-addons
+WORKDIR /home/odoo
+RUN git clone https://github.com/coopiteasy/OCB.git /home/odoo/odoo -b 9.0 --depth 1 && \
+	git clone https://github.com/coopiteasy/addons.git /home/odoo/addons -b 9.0 --depth 1 && \
+    git clone https://github.com/beescoop/Obeesdoo.git /home/odoo/obeesdoo -b 9.0 --depth 1 && \
+	git clone https://github.com/coopiteasy/procurement-addons.git /home/odoo/procurement-addons -b 9.0 --depth 1 && \
+	git clone https://github.com/coopiteasy/vertical-cooperative.git /home/odoo/vertical-cooperative -b 9.0 --depth 1 && \
+	git clone https://github.com/coopiteasy/account-financial-reporting.git /home/odoo/account-financial-reporting -b 9.0 --depth 1 && \
+	git clone https://github.com/coopiteasy/account-financial-tools.git /home/odoo/account-financial-tools -b 9.0 --depth 1 && \
+	git clone https://github.com/coopiteasy/bank-payment.git /home/odoo/bank-payment -b 9.0 --depth 1 && \
+	git clone https://github.com/coopiteasy/l10n-belgium.git /home/odoo/l10n-belgium -b 9.0 --depth 1 && \
+	git clone https://github.com/coopiteasy/mis-builder.git /home/odoo/mis-builder -b 9.0 --depth 1 && \
+	git clone https://github.com/coopiteasy/pos.git /home/odoo/pos -b 9.0 --depth 1   && \
+	git clone https://github.com/coopiteasy/reporting-engine.git /home/odoo/reporting-engine -b 9.0 --depth 1 && \
+	git clone https://github.com/coopiteasy/server-tools.git /home/odoo/server-tools -b 9.0 --depth 1 && \
+	git clone https://github.com/coopiteasy/web.git /home/odoo/web -b 9.0 --depth 1   && \
+	git clone https://github.com/coopiteasy/website.git /home/odoo/website -b 9.0 --depth 1 && \
+	echo "That's all folks!"
+
 
 USER root
-RUN printf "deb http://archive.debian.org/debian/ jessie main\ndeb-src http://archive.debian.org/debian/ jessie main\ndeb http://security.debian.org jessie/updates main\ndeb-src http://security.debian.org jessie/updates main" > /etc/apt/sources.list
-RUN apt-get update && apt-get install -y git wget gcc python-dev libssl-dev libffi-dev make
+RUN pip install --upgrade pip
+# adding dependencies here so that we don't have to rebuild the previous steps if it changes.
+# python c header files
+# pillow dependencies
+# more pillow dependencies
+# python-lxml
+# python-ldap
+RUN apt-get install -y python-dev \
+                       libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev \
+                       libwebp-dev tcl8.6-dev tk8.6-dev \
+                       libxml2-dev libxslt1-dev \
+                       libsasl2-dev libldap2-dev libssl-dev
 
-##### 10) Installer wkhtml to pdf 0.12.1 !! (pas une autre) (sur une machine 64 bit avec un ubuntu 64bit 14.04)
-# RUN apt-get install -y fontconfig  libfontconfig1 libxrender1 fontconfig-config libjpeg-turbo8-dev && \
-#     wget --quiet https://downloads.wkhtmltopdf.org/0.12/0.12.5/wkhtmltox_0.12.5-1.trusty_amd64.deb && \
-#     dpkg -i wkhtmltox_0.12.5-1.trusty_amd64.deb && \
-#     ln -s /usr/local/bin/wkhtmltoimage /usr/bin/wkhtmltoimage && \
-#     ln -s /usr/local/bin/wkhtmltopdf /usr/bin/wkhtmltopdf
-
-RUN mkdir -p /app/extra-addons &&  chown odoo /app/extra-addons
-
-USER odoo
-RUN git clone https://github.com/beescoop/Obeesdoo.git /app/extra-addons/obeesdoo -b 9.0 --depth 1 && \
-	git clone https://github.com/coopiteasy/vertical-cooperative.git /app/extra-addons/vertical-cooperative -b 9.0 --depth 1 && \
-	git clone https://github.com/coopiteasy/addons.git /app/extra-addons/houssine-addons -b 9.0 --depth 1 && \
-	git clone https://github.com/coopiteasy/procurement-addons /app/extra-addons/procurement-addons -b 9.0 --depth 1 && \
-	git clone https://www.github.com/OCA/l10n-belgium /app/extra-addons/l10n-belgium -b 9.0 --depth 1 && \
-	git clone https://www.github.com/OCA/mis-builder /app/extra-addons/mis-builder -b 9.0 --depth 1 && \
-	git clone https://www.github.com/OCA/web /app/extra-addons/web -b 9.0 --depth 1   && \
-	git clone https://github.com/OCA/server-tools /app/extra-addons/server-tools -b 9.0 --depth 1 && \
-	git clone https://github.com/OCA/reporting-engine /app/extra-addons/reporting-engine -b 9.0 --depth 1
-
-USER root
-RUN pip install --upgrade  setuptools enum
-RUN pip install -r /app/extra-addons/reporting-engine/requirements.txt
-RUN pip install -r /app/extra-addons/server-tools/requirements.txt
-RUN pip install -r /app/extra-addons/obeesdoo/requirements.txt
 
 USER odoo
+# Installing in user space because system-libraries cannot be uninstalled and conflict.
+# Simpler than creating a virtualenv
+RUN sed -i '/psycopg2/d' /home/odoo/odoo/requirements.txt && \
+    sed -i '/xlwt/d' /home/odoo/odoo/requirements.txt && \
+    sed -i '/python-ldap/d' /home/odoo/odoo/requirements.txt && \
+    pip install --user -r /home/odoo/odoo/requirements.txt \
+                       -r /home/odoo/reporting-engine/requirements.txt \
+                       -r /home/odoo/server-tools/requirements.txt \
+                       -r /home/odoo/obeesdoo/requirements.txt \
+                       -r /home/odoo/pos/requirements.txt
 
-# COPY example_odoo.conf /etc/odoo/openerp-server.conf
+WORKDIR /home/odoo/odoo
+CMD python odoo.py
