@@ -1,7 +1,7 @@
  # -*- coding: utf-8 -*-
-from openerp import models, fields, api
-from openerp.tools.translate import _
-from openerp.exceptions import UserError, ValidationError
+from odoo import models, fields, api
+from odoo.tools.translate import _
+from odoo.exceptions import UserError, ValidationError
 import uuid
 
 
