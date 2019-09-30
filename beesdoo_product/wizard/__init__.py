@@ -1,1 +1,1 @@
-import label_printing_utils
+from . import label_printing_utils

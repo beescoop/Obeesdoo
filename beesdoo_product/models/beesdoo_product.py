@@ -1,4 +1,3 @@
- # -*- coding: utf-8 -*-
 from odoo import models, fields, api
 from odoo.tools.translate import _
 from odoo.exceptions import UserError, ValidationError
@@ -15,8 +14,8 @@ class BeesdooProduct(models.Model):
 
     main_seller_id = fields.Many2one('res.partner', string='Main Seller', compute='_compute_main_seller_id', store=True)
 
-    display_unit = fields.Many2one('product.uom')
-    default_reference_unit = fields.Many2one('product.uom')
+    display_unit = fields.Many2one('uom.uom')
+    default_reference_unit = fields.Many2one('uom.uom')
     display_weight = fields.Float(compute='_get_display_weight', store=True)
 
     total_with_vat = fields.Float(compute='_get_total', store=True, string="Total Sales Price with VAT")
@@ -81,7 +80,7 @@ class BeesdooProduct(models.Model):
             while(self.search_count([('barcode', '=', bc)]) > 1):
                 ean = rule.pattern + str(uuid.uuid4().fields[-1])[:size]
                 bc = ean[0:12] + str(self.env['barcode.nomenclature'].ean_checksum(ean))
-        print 'barcode :', bc
+        print('barcode :', bc)
         self.barcode = bc
 
     @api.one
@@ -176,7 +175,7 @@ class BeesdooProductSupplierInfo(models.Model):
     price = fields.Float('exVAT Price')
 
 class BeesdooUOMCateg(models.Model):
-    _inherit = 'product.uom.categ'
+    _inherit = 'uom.category'
     
     type = fields.Selection([('unit','Unit'),
                               ('weight','Weight'),
