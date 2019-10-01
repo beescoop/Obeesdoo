@@ -1,1 +1,1 @@
-import beesdoo_pos
+from . import beesdoo_pos
