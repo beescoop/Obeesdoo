@@ -1,9 +1,9 @@
-<openerp>
+<odoo>
     <data>
         <record model="ir.ui.view" id="beescoop_pos_inherit">
             <field name="name">bees.pos.config.form.view</field>
             <field name="model">pos.config</field>
-            <field name="inherit_id" ref="point_of_sale.view_pos_config_form" />
+            <field name="inherit_id" ref="point_of_sale.pos_config_view_form" />
             <field name="arch" type="xml">
                 <field name="iface_tax_included" position="after">
                     <separator string="Bill Value" colspan="2" />
@@ -35,4 +35,4 @@
             </xpath>
         </template>
     </data>
-</openerp>
+</odoo>

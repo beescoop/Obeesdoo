@@ -6,9 +6,8 @@
             <field name="interval_type">minutes</field>
             <field name="numbercall">-1</field>
             <field name="doall" eval="False" />
-            <field name="model">pos.order</field>
-            <field name="function">_send_order_cron</field>
-            <field name="args">()</field>
+            <field name="model_id" ref="model_pos_order"/>
+            <field name="code">model._send_order_cron()</field>
         </record>
     </data>
 </odoo>
