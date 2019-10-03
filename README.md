@@ -18,14 +18,16 @@ $ git clone https://github.com/beescoop/Obeesdoo.git obeesdoo -b 9.0 --depth 1
 $ git clone https://github.com/coopiteasy/vertical-cooperative.git vertical-cooperative -b 9.0 --depth 1
 $ git clone https://github.com/coopiteasy/addons.git addons -b 9.0 --depth 1
 $ git clone https://github.com/coopiteasy/procurement-addons procurement-addons -b 9.0 --depth 1
-$ git clone https://www.github.com/OCA/l10n-belgium -b 9.0 --depth 1
-$ git clone https://www.github.com/OCA/mis-builder -b 9.0 --depth 1
-$ git clone https://www.github.com/OCA/account-financial-tools -b 9.0 --depth 1
-$ git clone https://www.github.com/OCA/account-financial-reporting -b 9.0 --depth 1
-$ git clone https://www.github.com/OCA/web -b 9.0 --depth 1
-$ git clone https://www.github.com/OCA/website -b 9.0 --depth 1
+$ git clone https://github.com/OCA/l10n-belgium -b 9.0 --depth 1
+$ git clone https://github.com/OCA/mis-builder -b 9.0 --depth 1
+$ git clone https://github.com/OCA/account-financial-tools -b 9.0 --depth 1
+$ git clone https://github.com/OCA/account-financial-reporting -b 9.0 --depth 1
+$ git clone https://github.com/OCA/web -b 9.0 --depth 1
+$ git clone https://github.com/OCA/website -b 9.0 --depth 1
 $ git clone https://github.com/OCA/server-tools -b 9.0 --depth 1
 $ git clone https://github.com/OCA/reporting-engine -b 9.0 --depth 1
+$ git clone https://github.com/OCA/bank-payment.git -b 9.0 --depth 1
+$ git clone https://github.com/OCA/pos.git -b 9.0 --depth 1
 ```
 
 todo: setup git submodules
@@ -79,9 +81,11 @@ addons_path=addons,openerp/addons,
     $ODOO_HOME/web,
     $ODOO_HOME/website,
     $ODOO_HOME/server-tools,
-    $ODOO_HOME/reporting-engine,
+    $ODOO_HOME/account-financial-reporting,
     $ODOO_HOME/account-financial-tools,
-    $ODOO_HOME/acconut-financial-reporting
+    $ODOO_HOME/bank-payment,
+    $ODOO_HOME/pos,
+    $ODOO_HOME/reporting-engine
 ```
 
 ##### 6) update database structure
