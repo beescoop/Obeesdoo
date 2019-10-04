@@ -6,7 +6,6 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 
 <odoo>
-
     <record id="rule_price_to_weight" model="barcode.rule">
         <field name="name">Price Barcodes (Computed Weight) 2 Decimals</field>
             <field name="barcode_nomenclature_id" ref="barcodes.default_barcode_nomenclature"/>
@@ -15,5 +14,4 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="sequence">15</field>
         <field name="encoding">ean13</field>
     </record>
-
 </odoo>
