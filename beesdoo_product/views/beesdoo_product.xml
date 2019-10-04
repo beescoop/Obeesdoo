@@ -47,20 +47,20 @@
                  </group>
                  </page>
                  <page string="Scale labels" attrs="{'invisible':[('to_weight','=',False)]}">
-                 	<group>
-	                 	<group name="scale_label">
-	                 		<field name="deadline_for_sale"/>
-	                 		<field name="deadline_for_consumption"/>
-	                 		<field name="ingredients"/>
-	                 		<field name="scale_label_info_1"/>
-	                 		<field name="scale_label_info_2"/>
-	                 	</group>
-                 		<group>
-                 			<field name="scale_sale_unit"/>
-                 			<field name="scale_category" widget="selection"/>
-                 			<field name="scale_category_code"/>
-                 		</group>
-                 	</group>
+                     <group>
+                         <group name="scale_label">
+                             <field name="deadline_for_sale"/>
+                             <field name="deadline_for_consumption"/>
+                             <field name="ingredients"/>
+                             <field name="scale_label_info_1"/>
+                             <field name="scale_label_info_2"/>
+                         </group>
+                         <group>
+                             <field name="scale_sale_unit"/>
+                             <field name="scale_category" widget="selection"/>
+                             <field name="scale_category_code"/>
+                         </group>
+                     </group>
                  </page>
              </xpath>
         </field>
@@ -152,9 +152,9 @@
         <field name="model">uom.category</field>
         <field name="inherit_id" ref="uom.product_uom_categ_form_view" />
         <field name="arch" type="xml">
-        	<field name="name" position="after">
-        		<field name="type"/>
-        	</field>
+            <field name="name" position="after">
+                <field name="type"/>
+            </field>
         </field>
     </record>
 
@@ -163,9 +163,9 @@
         <field name="model">beesdoo.scale.category</field>
         <field name="arch" type="xml">
             <tree>
-          		<field name="name"/>
-          		<field name="code"/>
-          	</tree>
+                  <field name="name"/>
+                  <field name="code"/>
+              </tree>
         </field>
     </record>
         
@@ -175,9 +175,9 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-               		<field name="name"/>
-               		<field name="code"/>
-            	</group>
+                       <field name="name"/>
+                       <field name="code"/>
+                </group>
             </form>
         </field>
     </record>
