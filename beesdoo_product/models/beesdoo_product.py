@@ -1,7 +1,8 @@
+import uuid
+
 from odoo import models, fields, api
 from odoo.tools.translate import _
 from odoo.exceptions import UserError, ValidationError
-import uuid
 
 
 class BeesdooProduct(models.Model):
