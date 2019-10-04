@@ -16,7 +16,7 @@
     # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
     # for the full list
     'category': 'Point Of Sale',
-    'version': '9.0.1.1.0',
+    'version': '12.0.1.0.0',
 
     # any module necessary for this one to work correctly
     'depends': ['beesdoo_base', 'beesdoo_product'],
