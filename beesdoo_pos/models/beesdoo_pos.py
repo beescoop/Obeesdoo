@@ -75,7 +75,7 @@ class BeescoopPosPartner(models.Model):
         eater1, eater2, eater3 = self._get_eater()
         return eater1, eater2, eater3
 
-# TODO: put back when 'pos_receipt.order' will be back point_of_sale.action_report_pos_receipt
+# TODO: will be taken care of in separate 'pos_order_email' module
 # from odoo.addons.point_of_sale.report import pos_receipt
 # 
 # class order_tva_included(pos_receipt.order):
