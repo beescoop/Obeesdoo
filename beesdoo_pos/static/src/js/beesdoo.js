@@ -13,7 +13,8 @@ odoo.define('beescoop.pos', function (require) {
         }
     }
 
-    module.ReceiptScreenWidget = module.ReceiptScreenWidget.include({
+// TODO: will be taken care of in separate 'pos_order_email' module
+/*    module.ReceiptScreenWidget = module.ReceiptScreenWidget.include({
         send : function() {
             var self = this;
             var loaded = new $.Deferred();
@@ -41,7 +42,7 @@ odoo.define('beescoop.pos', function (require) {
             var self = this;
             this.$('.message-send').empty();
         },
-    })
+    })*/
 
     module.ActionpadWidget = module.ActionpadWidget.include({
         renderElement : function() {

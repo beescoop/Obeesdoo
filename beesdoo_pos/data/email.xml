@@ -10,7 +10,7 @@
             <field name="partner_to">${object.partner_id.id}</field>
             <field name="model_id" ref="point_of_sale.model_pos_order" />
             <field name="auto_delete" eval="True" />
-            <!-- TODO: put back when 'pos_report' will be back -->
+            <!-- TODO: will be taken care of in separate 'pos_order_email' module -->
             <!--<field name="report_template" ref="point_of_sale.action_report_pos_receipt" />-->
             <field name="report_name">Ticket ${object.pos_reference}</field>
             <field name="lang">${object.partner_id.lang}</field>
