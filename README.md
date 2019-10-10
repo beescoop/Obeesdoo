@@ -6,6 +6,7 @@ Specific module for the Beescoop
 - cf. [install-odoo-linux-server.md](install-odoo-linux-server.md) (review)
 - cf. [install-odoo-linux.md](install-odoo.md) (review)
 - cf. [install-odoo-mac.md](install-odoo-mac.md)
+- cf. [install-odoo-docker.md](install-odoo-docker.md)
 
 ## Setup obeesdoo
 
