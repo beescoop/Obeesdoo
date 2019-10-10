@@ -4,6 +4,7 @@ _build/
 # dotfiles
 .*
 !.gitignore
+!.dockerignore
 !.mailmap
 # compiled python files
 *.py[co]
@@ -32,3 +33,5 @@ install/win32/meta.py
 /man/
 /share/
 /src/
+
+initial-data-load/*.sql.gz
