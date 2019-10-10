@@ -13,25 +13,27 @@ Specific module for the Beescoop
 
 ```
 $ cd projects
-$ git clone https://github.com/beescoop/Obeesdoo.git obeesdoo -b 9.0 --depth 1
-$ git clone https://github.com/coopiteasy/vertical-cooperative.git vertical-cooperative -b 9.0 --depth 1
-$ git clone https://github.com/coopiteasy/addons.git addons -b 9.0 --depth 1
-$ git clone https://github.com/coopiteasy/procurement-addons procurement-addons -b 9.0 --depth 1
-$ git clone https://www.github.com/OCA/l10n-belgium -b 9.0 --depth 1
-$ git clone https://www.github.com/OCA/mis-builder -b 9.0 --depth 1
-$ git clone https://www.github.com/OCA/account-financial-tools -b 9.0 --depth 1
-$ git clone https://www.github.com/OCA/account-financial-reporting -b 9.0 --depth 1
-$ git clone https://www.github.com/OCA/web -b 9.0 --depth 1
-$ git clone https://www.github.com/OCA/website -b 9.0 --depth 1
-$ git clone https://github.com/OCA/server-tools -b 9.0 --depth 1
-$ git clone https://github.com/OCA/reporting-engine -b 9.0 --depth 1
+$ git clone https://github.com/beescoop/Obeesdoo.git obeesdoo -b 12.0 --depth 1
+$ git clone https://github.com/coopiteasy/vertical-cooperative.git vertical-cooperative -b 12.0 --depth 1
+$ git clone https://github.com/coopiteasy/addons.git addons -b 12.0 --depth 1
+# $ git clone https://github.com/coopiteasy/procurement-addons procurement-addons -b 12.0 --depth 1
+$ git clone https://github.com/OCA/l10n-belgium -b 12.0 --depth 1
+$ git clone https://github.com/OCA/mis-builder -b 12.0 --depth 1
+$ git clone https://github.com/OCA/account-financial-tools -b 12.0 --depth 1
+$ git clone https://github.com/OCA/account-financial-reporting -b 12.0 --depth 1
+$ git clone https://github.com/OCA/web -b 12.0 --depth 1
+$ git clone https://github.com/OCA/website -b 12.0 --depth 1
+$ git clone https://github.com/OCA/server-tools -b 12.0 --depth 1
+$ git clone https://github.com/OCA/reporting-engine -b 12.0 --depth 1
+$ git clone https://github.com/OCA/bank-payment.git -b 12.0 --depth 1
+$ git clone https://github.com/OCA/pos.git -b 12.0 --depth 1
 ```
 
 todo: setup git submodules
 
 ##### 2) install wkhtmltopdf
 
-Download and install [wkhtmltopdf version 0.12.1](https://github.com/wkhtmltopdf/wkhtmltopdf/releases/0.12.1)
+Download and install [wkhtmltopdf version 0.12.5](https://github.com/wkhtmltopdf/wkhtmltopdf/releases/0.12.5)
 
 ##### 3) set up the database and import production data.
 
@@ -72,15 +74,17 @@ addons_path=addons,openerp/addons,
     $ODOO_HOME/obeesdoo,
     $ODOO_HOME/vertical-cooperative,
     $ODOO_HOME/addons,
-    $ODOO_HOME/procurement-addons,
+#    $ODOO_HOME/procurement-addons,
     $ODOO_HOME/l10n-belgium,
     $ODOO_HOME/mis-builder,
     $ODOO_HOME/web,
     $ODOO_HOME/website,
     $ODOO_HOME/server-tools,
-    $ODOO_HOME/reporting-engine,
+    $ODOO_HOME/account-financial-reporting,
     $ODOO_HOME/account-financial-tools,
-    $ODOO_HOME/acconut-financial-reporting
+    $ODOO_HOME/bank-payment,
+    $ODOO_HOME/pos,
+    $ODOO_HOME/reporting-engine
 ```
 
 ##### 6) update database structure
@@ -112,3 +116,4 @@ $ python odoo.py -c $ODOO_HOME/odoo.conf -u all -d beescoop --stop-after-init
 insert into member_card (active, barcode, partner_id, responsible_id, activation_date) select 't', barcode, id, 1, '2016-01-01' from res_partner where barcode is not null;
 update res_partner set eater = 'worker_eater' where barcode is not null;
 ```
+
