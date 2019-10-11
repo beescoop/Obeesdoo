@@ -23,6 +23,7 @@
         "data/cron.xml",
         "security/group.xml",
         "security/ir.model.access.csv",
+        "views/attendance_sheet.xml",
         "views/task_template.xml",
         "views/task.xml",
         "views/planning.xml",

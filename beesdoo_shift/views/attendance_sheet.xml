@@ -1,11 +1,102 @@
 <odoo>
+    <!-- Attendance Sheet Shifts Views -->
+
+    <record model="ir.ui.view" id="sheet_expected_view_tree">
+        <field name="name">Expected Shifts List</field>
+        <field name="model">beesdoo.shift.sheet.expected</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="task_type_id" />
+                <field name="worker_id" />
+                <field name="replacement_worker_id" />
+                <field name="working_mode" />
+                <field name="status" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sheet_added_view_tree">
+        <field name="view_mode">tree</field>
+        <field name="name">Added Shifts List</field>
+        <field name="model">beesdoo.shift.sheet.added</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="task_type_id" />
+                <field name="worker_id" />
+                <field name="working_mode" />
+                <field name="regular_task_type" />
+                <field name="status" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Attendance Sheets Views -->
+
+    <record model="ir.ui.view" id="sheet_view_tree">
+        <field name="name">Daily Attendance Sheets List</field>
+        <field name="model">beesdoo.shift.sheet</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="start_time" />
+                <field name="end_time" />
+                <field name="max_worker_nb" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sheet_view_form">
+        <field name="name">Attendance Sheet Form</field>
+        <field name="model">beesdoo.shift.sheet</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"
+                        clickable="0" />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            Test
+                        </h1>
+                    </div>
+                        <group>
+                            <field name="start_time" />
+                            <field name="end_time" />
+                            <field name="max_worker_nb" />
+                        </group>
+                        <h2> Expected workers </h2>
+                        <group>
+                            <field name="expected_worker_nb" />
+                        </group>
+                        <field name="expected_shift_ids" />
+                        <h2> Added workers </h2>
+                        <field name="added_shift_ids" />
+                        <h3> Additional important informations </h3>
+                        <field name="annotation" />
+                        <h3> General feedback </h3>
+                        <field name="feedback" />
+                        <group>
+                            <field name="worker_nb_feedback" />
+                        </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <act_window id="action_sheet"
+            name="Attendance Sheet"
+            res_model="beesdoo.shift.sheet"
+            view_mode="tree,form"
+    />
+
     <!-- Top menu item -->
     <menuitem id="menu_sheet_top"
         name="Attendance Sheets"
         parent="menu_root"
     />
 
-    <!-- Actions -->
+    <!-- Menu actions -->
     <menuitem id="menu_sheet"
               name="Daily Attendance Sheets"
               parent="menu_sheet_top"
