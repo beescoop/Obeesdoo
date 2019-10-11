@@ -81,6 +81,7 @@ class TaskTemplate(models.Model):
     planning_id = fields.Many2one('beesdoo.shift.planning', required=True)
     day_nb_id = fields.Many2one('beesdoo.shift.daynumber', string='Day', required=True)
     task_type_id = fields.Many2one('beesdoo.shift.type', string="Type")
+    attendance_sheet_id = fields.Many2one('beesdoo.shift.sheet', string="Attendance Sheet")
     start_time = fields.Float(required=True)
     end_time = fields.Float(required=True)
     super_coop_id = fields.Many2one('res.users', string="Super Cooperative", domain=[('partner_id.super', '=', True)])
