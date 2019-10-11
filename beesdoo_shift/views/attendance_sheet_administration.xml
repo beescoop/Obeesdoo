@@ -1,0 +1,24 @@
+<odoo>
+    <!-- Top menu item -->
+    <menuitem id="menu_sheet_admin_top"
+        name="Attendance Sheets Administration"
+        parent="menu_root"
+    />
+
+    <!-- Actions -->
+    <menuitem id="menu_sheet_admin_non_validated"
+              name="Non-validated Sheets"
+              parent="menu_sheet_admin_top"
+              action="action_sheet_admin_non_validated"
+    />
+    <menuitem id="menu_sheet_admin_annotated"
+              name="Annotated Sheets"
+              parent="menu_sheet_admin_top"
+              action="action_sheet_admin_annotated"
+    />
+    <menuitem id="menu_sheet_admin_list"
+              name="All sheets"
+              parent="menu_sheet_admin_top"
+              action="action_sheet_admin_list"
+    />
+</odoo>

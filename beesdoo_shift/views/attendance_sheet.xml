@@ -1,0 +1,14 @@
+<odoo>
+    <!-- Top menu item -->
+    <menuitem id="menu_sheet_top"
+        name="Attendance Sheets"
+        parent="menu_root"
+    />
+
+    <!-- Actions -->
+    <menuitem id="menu_sheet"
+              name="Daily Attendance Sheets"
+              parent="menu_sheet_top"
+              action="action_sheet"
+    />
+</odoo>
