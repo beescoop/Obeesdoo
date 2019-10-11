@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 from openerp import models, fields
 
-class AttendanceSheetShift(models.Abstract):
-    _name = "beesdoo.shift.sheet_shift"
+class AttendanceSheetShift(models.Model):
+    _name = "beesdoo.shift.sheet.shift"
     _description = "Copy of an actual shift into an attendance sheet"
 
     # Related actual shift
-    task_id = fields.Many2one("beesdoo.shift.shift", string ="Task")
-    attendance_sheet_id = fields.Many2one("beesdoo.shift.sheet", string = "Attendance Sheet")
+    task_id = fields.Many2one("beesdoo.shift.shift", string="Task", required=True)
+    attendance_sheet_id = fields.Many2one('beesdoo.shift.sheet', string="Attendance Sheet", required=True)
     status = fields.Selection([('present', 'Present'),
                                 ('absent 0', 'Absent - 0 Compensation'),
                                 ('absent 1', 'Absent - 1 Compensations'),
@@ -16,32 +16,33 @@ class AttendanceSheetShift(models.Abstract):
                                 ],
     string="Status", copy=False, default="not validated", track_visibility="onchange")
     # The worker should be editable for added shifts but not for expected ones.
-    worker_id = fields.Many2One('res.partner', track_visibility='onchange',
+    worker_id = fields.Many2one('res.partner', string="Worker", track_visibility='onchange',
                                 domain=[
                                     ('eater', '=', 'worker_eater'),
                                     ('working_mode', 'in', ('regular', 'irregular')),
                                     ('state', 'not in', ('unsubscribed', 'resigning')),
-                                ]))
-    task_type_id = fields.Many2one('beesdoo.shift.type', string="Task Type")
+                                ], required=True)
+    task_type_id = fields.Many2one('beesdoo.shift.type', string="Task Type", required=True)
     working_mode = fields.Selection(related='worker_id.working_mode', string="Working Mode")
 
 
-class AttendanceSheetShiftExpected:
-    _name = "beesdoo.shift.sheet_shift_expected"
+class AttendanceSheetShiftExpected(models.Model):
+    _name = "beesdoo.shift.sheet.expected"
     _description = "Expected Shift"
-    _inherit = "beesdoo.shift.sheet_shift"
+    _inherit = ['beesdoo.shift.sheet.shift']
 
-    replacement_worker_id = fields.Many2One('res.partner', string="Replacement worker")
+    replacement_worker_id = fields.Many2one('res.partner', string="Replacement worker")
 
 
-class AttendanceSheetShiftAdded:
-    _name = "beesdoo.shift.sheet_shift_added"
+class AttendanceSheetShiftAdded(models.Model):
+    _name = "beesdoo.shift.sheet.added"
     _description = "Added Shift"
-    _inherit = "beesdoo.shift.sheet_shift"
+    _inherit = ['beesdoo.shift.sheet.shift']
 
-    # Change the previously determined string for a more comprehensive one
-    is_regular = fields.Boolean(default=False, string="Normal shift")
-    is_compensation = fields.Boolean(default=False, string="Compensation shift")
+    # Change the previously determined two booleans for a more comprehensive field
+    regular_task_type = fields.Selection([('normal', 'Normal'),
+                                          ('compensation', 'Compensation')],
+    string="Regular Task Type", help="Shift type for regular workers. ")
 
 
 class AttendanceSheet(models.Model):
@@ -51,19 +52,19 @@ class AttendanceSheet(models.Model):
     same hours and their attendance status."
     _order = 'start_time'
 
-    state = fields.Selection([
-    ('not validated', 'Not Validated'),
-    ('validated', 'Validated'),
-    ('cancelled', 'Cancelled')],
-    string="Status", readonly=True, index=True, copy=False, default="not validated", track_visibility="onchange")
+    state = fields.Selection([('not validated', 'Not Validated'),
+                              ('validated', 'Validated'),
+                              ('cancelled', 'Cancelled')],
+    string="Status", readonly=True, index=True, copy=False,
+    default="not validated", track_visibility="onchange")
 
     day = fields.Datetime(string="Attendance Sheet Day", compute="_get_day")
-    start_time = fields.Datetime(string="Attendance Sheet Start Time")
-    end_time = fields.Datetime(string="Attendance Sheet End Time")
+    start_time = fields.Datetime(string="Attendance Sheet Start Time", readonly=True)
+    end_time = fields.Datetime(string="Attendance Sheet End Time", readonly=True)
 
-    task_template_ids = fields.One2many('beesdoo.shift.template', )
-    expected_shift_ids = fields.One2many('beesdoo.shift.sheet_shift_expected', 'attendance_sheet_id', string="Expected Shifts")
-    added_shift_ids = fields.One2many('beesdoo.shift.sheet_shift_added', 'attendance_sheet_id', string="Added Shifts")
+    task_template_ids = fields.One2many('beesdoo.shift.template','attendance_sheet_id')
+    expected_shift_ids = fields.One2many('beesdoo.shift.sheet.expected', 'attendance_sheet_id', string="Expected Shifts")
+    added_shift_ids = fields.One2many('beesdoo.shift.sheet.added', 'attendance_sheet_id', string="Added Shifts")
 
     max_worker_nb = fields.Integer(string="Max number of workers", compute="_get_worker_nb", default=0,
         help="Indicative maximum number of workers for the shifts.")
@@ -79,6 +80,7 @@ class AttendanceSheet(models.Model):
     attended_worker_nb = fields.Integer(string="Attended Workers Number", default=0,
         help="Number of workers who attended the session.")
 
+    """
     @api.depends('start_time', 'end_time')
     def _get_day(self):
 
@@ -96,3 +98,4 @@ class AttendanceSheet(models.Model):
     def is_annotated(self):
 
     def validate(self):
+    """
