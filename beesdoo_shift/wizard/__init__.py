@@ -1,4 +1,5 @@
 import instanciate_planning
+import generate_attendance_sheet
 import batch_template
 import assign_super_coop
 import subscribe
