@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+
+from lxml import etree
+
 from openerp import models, exceptions, fields, api
 from openerp.exceptions import UserError, ValidationError
 
@@ -138,6 +141,8 @@ class AttendanceSheetShiftAdded(models.Model):
             self.regular_task_type = "compensation"
         if self.working_mode == "irregular":
             self.regular_task_type = False
+
+
 
 
 class AttendanceSheet(models.Model):
