@@ -34,6 +34,7 @@
     <menuitem id="menu_sheet_admin_top"
         name="Attendance Sheets Administration"
         parent="menu_root"
+        groups="beesdoo_shift.group_cooperative_admin"
     />
 
     <!-- Menu actions -->
