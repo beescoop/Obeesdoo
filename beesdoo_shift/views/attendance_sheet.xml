@@ -85,7 +85,9 @@
                         <h4> Additional important informations </h4>
                         <field name="annotation" />
                         <group>
-                            <field name="is_read" />
+                            <field name="is_read"
+                                   groups="beesdoo_shift.group_cooperative_admin"
+                            />
                         </group>
                         <h4> General feedback </h4>
                         <field name="feedback" />
@@ -97,7 +99,10 @@
                         </group>
                 </sheet>
                 <div class="oe_chatter">
-                    <field name="message_ids" widget="mail_thread"/>
+                    <field name="message_ids"
+                           widget="mail_thread"
+                           groups="beesdoo_shift.group_cooperative_admin"
+                    />
                 </div>
             </form>
         </field>
@@ -120,6 +125,7 @@
     <menuitem id="menu_sheet_top"
         name="Attendance Sheets"
         parent="menu_root"
+        groups="beesdoo_shift.group_shift_attendance_sheet"
     />
 
     <!-- Menu actions -->
