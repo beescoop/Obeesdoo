@@ -1,10 +1,23 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
-access_coopplanning_task_type,Attendance Read Type,model_beesdoo_shift_type,group_shift_attendance,1,0,0,0
+
+access_attendance_sheet_task,Attendance Create Shift,model_beesdoo_shift_shift,group_shift_attendance_sheet,1,1,1,0
+access_attendance_sheet_abstract_task,Attendance Sheet Shift Read Abstract (generic),model_beesdoo_shift_sheet_shift,group_shift_attendance_sheet,1,0,0,0
+access_attendance_sheet_task_expected,Attendance Sheet Shift Expected (generic),model_beesdoo_shift_sheet_expected,group_shift_attendance_sheet,1,1,1,0
+access_attendance_sheet_task_added,Attendance Sheet Shift Added (generic),model_beesdoo_shift_sheet_added,group_shift_attendance_sheet,1,1,1,1
+access_attendance_sheet,Attendance Sheet Create (generic),model_beesdoo_shift_sheet,group_shift_attendance_sheet,1,1,1,0
+access_attendance_sheet_task_template,Attendance Read Template,model_beesdoo_shift_template,group_shift_attendance_sheet,1,0,0,0
+
+access_coopplanning_task_stage,Attendance Read Stage,model_beesdoo_shift_stage,group_shift_attendance_sheet,1,0,0,0
+access_coopplanning_task_type,Attendance Read Type,model_beesdoo_shift_type,group_shift_attendance_sheet,1,0,0,0
 access_coopplanning_daynumber,Attendance Read Daynumber,model_beesdoo_shift_daynumber,group_shift_attendance,1,0,0,0
 access_coopplanning_planning,Attendance Read Planning,model_beesdoo_shift_planning,group_shift_attendance,1,0,0,0
 access_coopplanning_task_template,Attendance Read Template,model_beesdoo_shift_template,group_shift_attendance,1,0,0,0
 access_coopplanning_task,Attendance Edit Shift,model_beesdoo_shift_shift,group_shift_attendance,1,1,0,0
 access_coopplanning_task_full,Shift Management all Shift,model_beesdoo_shift_shift,group_shift_management,1,1,1,1
+
+admin_access_attendance_sheet,Attendance Sheet Shift Read Abstract,model_beesdoo_shift_sheet_shift,group_cooperative_admin,1,1,1,1
+admin_access_attendance_sheet_expected,Attendance Sheet Shift Read Expected,model_beesdoo_shift_sheet_expected,group_cooperative_admin,1,1,1,1
+
 access_coop_status,Coop Status Read for all,model_cooperative_status,,1,0,0,0
 access_coop_status_all,Coop Status Admin,model_cooperative_status,group_cooperative_admin,1,1,1,1
 all_config_coopplanning_task_type,Attendance Read Type,model_beesdoo_shift_type,group_planning_management,1,1,1,1

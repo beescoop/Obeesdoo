@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2019-2020 Elouan Le Bars <elouan@coopiteasy.be>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<openerp>
+  <data>
+
+      <record model="ir.ui.view" id="shift_settings_view_form">
+          <field name="name">Shifts Configuration Form</field>
+          <field name="model">beesdoo.shift.config.settings</field>
+          <field name="arch" type="xml">
+              <form string="Settings" class="oe_form_configuration" create="false" delete="false" >
+                      <header>
+                          <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                          <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                      </header>
+                      <separator string="General Settings"/>
+                      <group name="Attendance Sheets">
+                          <field name="default_task_type_id"/>
+                      </group>
+              </form>
+          </field>
+      </record>
+
+      <record model="ir.actions.act_window" id="action_shift_settings">
+          <field name="name">Settings</field>
+          <field name="res_model">beesdoo.shift.config.settings</field>
+          <field name="view_mode">form</field>
+          <field name="target">inline</field>
+      </record>
+
+      <menuitem name="Settings"
+                id="menu_shift_settings"
+                parent="menu_configuration_top"
+                action="action_shift_settings"
+                groups="beesdoo_shift.group_cooperative_admin"
+      />
+  </data>
+</openerp>
