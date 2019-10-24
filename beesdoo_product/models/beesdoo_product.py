@@ -139,7 +139,10 @@ class BeesdooProduct(models.Model):
     def _compute_cost(self):
         suppliers = self._get_main_supplier_info()
         if(len(suppliers) > 0):
-            self.suggested_price = (suppliers[0].price * self.uom_po_id.factor)* (1 + suppliers[0].product_tmpl_id.categ_id.profit_margin / 100)
+            # Conversion to displayed unit
+            ratio = self.uom_po_id.factor / self.uom_id.factor
+            margin = suppliers[0].product_tmpl_id.categ_id.profit_margin
+            self.suggested_price = (suppliers[0].price * ratio) * (1 + margin / 100)
 
 class BeesdooScaleCategory(models.Model):
     _name = "beesdoo.scale.category"
