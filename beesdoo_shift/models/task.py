@@ -39,27 +39,28 @@ class Task(models.Model):
     stage_id = fields.Many2one('beesdoo.shift.stage', required=True, track_visibility='onchange', default=lambda self: self.env.ref('beesdoo_shift.open'))
     super_coop_id = fields.Many2one('res.users', string="Super Cooperative", domain=[('partner_id.super', '=', True)], track_visibility='onchange')
     color = fields.Integer(related="stage_id.color", readonly=True)
-    # TODO: Maybe is_regular and is_compensation must be merged in a
-    # selection field as they are mutually exclusive.
-    is_regular = fields.Boolean(default=False, string="Regular shift")
-    is_compensation = fields.Boolean(default=False, string="Compensation shift")
+    # WARNING : CHANGE FROM OLD VERSION WITH TWO BOOLEANS, DATABASE TO UPDATE
+    regular_task_type = fields.Selection(
+        [("normal", "Normal Shift"),("compensation", "Compensation Shift")],
+        string="Task Mode (if regular)",
+        help="Task Mode for regular workers. "
+    )
     replaced_id = fields.Many2one('res.partner', track_visibility='onchange', domain=[('eater', '=', 'worker_eater')])
     revert_info = fields.Text(copy=False)
     working_mode = fields.Selection(related='worker_id.working_mode')
 
     def _compensation_validation(self, task):
         """
-        Raise a validation error if the fields is_regular and
-        is_compensation are not properly set.
+        Raise a validation error if the fields regular_task_type
+        is not properly set.
         """
-        if (task.is_regular == task.is_compensation
-                or not (task.is_regular or task.is_compensation)):
+        if not regular_task_type:
             raise ValidationError(
-                "You must choose between Regular Shift or "
+                "You must choose between Normal Shift or "
                 "Compensation Shift."
             )
 
-    @api.constrains('is_regular', 'is_compensation')
+    @api.constrains('regular_task_type')
     def _check_compensation(self):
         for task in self:
             if task.working_mode == 'regular':
@@ -68,20 +69,16 @@ class Task(models.Model):
     @api.constrains('worker_id')
     def _check_worker_id(self):
         """
-        When worker_id changes we need to check whether is_regular
-        and is_compensation are set correctly.
+        When worker_id changes we need to check whether
+        regular_task_type is set correctly.
         When worker_id is set to a worker that doesn't need field
-        is_regular and is_compensation, these two fields are set to
-        False.
+        regular_task_type is set to False.
         """
         for task in self:
             if task.working_mode == 'regular':
                 self._compensation_validation(task)
             else:
-                task.write({
-                    'is_regular': False,
-                    'is_compensation': False,
-                })
+                task.regular_task_type = False
 
     def message_auto_subscribe(self, updated_fields, values=None):
         self._add_follower(values)
@@ -144,13 +141,10 @@ class Task(models.Model):
                 if rec.worker_id.id != vals['worker_id']:
                     rec._revert()
                     # To satisfy the constrains on worker_id, it must be
-                    # accompanied by the change in is_regular and
-                    # is_compensation field.
+                    # accompanied by the change in regular_task_type field.
                     super(Task, rec).write({
                         'worker_id': vals['worker_id'],
-                        'is_regular': vals.get('is_regular', rec.is_regular),
-                        'is_compensation': vals.get('is_compensation',
-                                                    rec.is_compensation),
+                        'regular_task_type': vals.get('regular_task_type', rec.regular_task_type)
                     })
                     rec._update_stage(rec.stage_id.id)
         if 'stage_id' in vals:
@@ -200,7 +194,7 @@ class Task(models.Model):
             else:
                 status = self.replaced_id.cooperative_status_ids[0]
 
-            if new_stage == DONE and not self.is_regular:
+            if new_stage == DONE and (not self.regular_task_type or self.regular_task_type == "compensation"):
                 if status.sr < 0:
                     data['sr'] = 1
                 elif status.sc < 0:

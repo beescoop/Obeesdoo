@@ -104,9 +104,7 @@
                                    domain="[('working_mode', '=', 'regular')]"
                                    attrs="{'invisible': [('working_mode', '!=', 'regular')]}" />
                             <group>
-                                <field name="is_regular"
-                                       attrs="{'invisible': [('working_mode', '!=', 'regular')]}"/>
-                                <field name="is_compensation"
+                                <field name="regular_task_type"
                                        attrs="{'invisible': [('working_mode', '!=', 'regular')]}"/>
                                 <field name="working_mode" invisible="1"/>
                             </group>
@@ -138,7 +136,7 @@
                 <field name="stage_id" />
                 <field name="worker_id" />
                 <field name="super_coop_id" />
-                <field name="is_regular" />
+                <field name="regular_task_type" />
                 <templates>
                     <t t-name="kanban-box">
                         <div
@@ -184,7 +182,7 @@
                                     Super Coop:
                                     <field name="super_coop_id" />
                                 </div>
-                                <div t-if="record.is_regular.raw_value">
+                                <div t-if="record.regular_task_type.raw_value == 'normal'">
                                     Regular Shift
                                 </div>
 
