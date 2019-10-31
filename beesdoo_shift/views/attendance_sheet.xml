@@ -64,6 +64,10 @@
             <form create="false" delete="false">
                 <header>
                     <field name="state" widget="statusbar" readonly="True" />
+                    <button type="object"
+                            name="validate_via_wizard"
+                            string="Validate Sheet"
+                            />
                 </header>
                 <sheet>
                     <div class="oe_title">
