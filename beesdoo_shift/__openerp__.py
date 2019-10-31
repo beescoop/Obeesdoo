@@ -28,6 +28,7 @@
         "views/planning.xml",
         "views/cooperative_status.xml",
         "views/exempt_reason.xml",
+        "wizard/validate_attendance_sheet.xml",
         "views/attendance_sheet.xml",
         "views/attendance_sheet_admin.xml",
         "wizard/instanciate_planning.xml",
