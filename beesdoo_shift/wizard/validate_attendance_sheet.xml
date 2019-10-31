@@ -1,0 +1,21 @@
+<odoo>
+    <record model="ir.ui.view" id="validate_attendance_sheet_form">
+        <field name="name">Validate Attendance Sheet</field>
+        <field name="model">beesdoo.shift.sheet.validate</field>
+        <field name="arch" type="xml">
+            <form>
+                <label string="Beware : a validated sheet cannot be edited anymore and you won't be able to add any latecomers.
+                                Emails will be sent to workers who did not attend their shift." />
+                <group>
+                    <field name="user" />
+                </group>
+                <footer>
+                    <button type="object" name="validate_sheet"
+                        string="Confirm" class="oe_highlight" />
+                    or
+                    <button special="cancel" string="Cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
