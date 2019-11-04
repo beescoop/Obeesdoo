@@ -147,8 +147,7 @@ class AttendanceSheetShiftAdded(models.Model):
 
 class AttendanceSheet(models.Model):
     _name = "beesdoo.shift.sheet"
-    _inherit = ["mail.thread"]
-    # _inherit = ['mail.thread','ir.needaction_mixin']
+    _inherit = ["mail.thread", "ir.needaction_mixin"]
     _description = "Attendance sheets with all the shifts in one time range."
     _order = "start_time"
 
@@ -332,9 +331,16 @@ class AttendanceSheet(models.Model):
             new_sheet.max_worker_nb += task_template.worker_nb
         return new_sheet
 
-    # @api.model
-    # def _needaction_domain_get(self):
-    #   return [('state','=','not_validated')]
+    # Workaround to display notifications only for unread and not validated
+    # sheets, via a check on domain.
+    @api.model
+    def _needaction_count(self, domain=None):
+        if domain == [
+            ("is_annotated", "=", True),
+            ("is_read", "=", False),
+        ] or domain == [("state", "=", "not_validated")]:
+            return self.search_count(domain)
+        return
 
     @api.multi
     def write(self, vals):
