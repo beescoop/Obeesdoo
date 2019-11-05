@@ -190,9 +190,8 @@ class Task(models.Model):
         ABSENT = self.env.ref('beesdoo_shift.absent')
         EXCUSED = self.env.ref('beesdoo_shift.excused')
         NECESSITY = self.env.ref('beesdoo_shift.excused_necessity')
-
         if not (self.worker_id or self.replaced_id) and new_stage in (DONE, ABSENT, EXCUSED, NECESSITY):
-            raise UserError(_("You cannot change to the status %s if the is no worker defined on the shift") % new_stage.name)
+            raise UserError(_("You cannot change to the status %s if no worker is defined for the shift") % new_stage.name)
 
         if update or not (self.worker_id or self.replaced_id):
             return
@@ -233,7 +232,7 @@ class Task(models.Model):
                 data['irregular_absence_counter'] = -1
 
         else:
-            raise UserError(_("The worker has not a proper working mode define, please check the worker is subscribed"))
+            raise UserError(_("Working mode is not properly defined. Please check if the worker is subscribed"))
         status.sudo()._change_counter(data)
         self._set_revert_info(data, status)
 
