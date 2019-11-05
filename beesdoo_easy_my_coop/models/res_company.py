@@ -25,3 +25,12 @@ class ResCompany(models.Model):
     def onchange_info_session_confirmatio_required(self):
         if self.info_session_confirmation_required:
             self.display_info_session_confirmation = True
+
+    _sql_constraints = [(
+        'info_session_approval_constraint',
+        """CHECK ((info_session_confirmation_required=FALSE
+            AND display_info_session_confirmation=FALSE)
+            OR display_info_session_confirmation=TRUE)
+        """,
+        "Approval can't be mandatory and not displayed."
+    )]
