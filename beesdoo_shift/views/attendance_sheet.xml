@@ -6,7 +6,9 @@
         <field name="name">Expected Shifts List</field>
         <field name="model">beesdoo.shift.sheet.expected</field>
         <field name="arch" type="xml">
-            <tree editable="top" create="false" delete="false">
+            <tree editable="top" create="false" delete="false"
+                  decoration-danger="stage == 'absent'"
+                  decoration-success="stage == 'present'">
                 <field name="task_type_id" readonly="True"/>
                 <field name="worker_id" readonly="True"/>
                 <field name="working_mode" />
@@ -28,7 +30,8 @@
         <field name="name">Added Shifts List</field>
         <field name="model">beesdoo.shift.sheet.added</field>
         <field name="arch" type="xml">
-            <tree editable="top">
+            <tree editable="top"
+                  decoration-success="stage == 'present'">
                 <field name="task_type_id" />
                 <field name="worker_id" />
                 <field name="working_mode" />
@@ -43,11 +46,11 @@
     <!-- Attendance Sheets Views -->
 
     <record model="ir.ui.view" id="sheet_view_tree">
-        <field name="name">Daily Attendance Sheets List</field>
+        <field name="name">Attendance Sheet List</field>
         <field name="model">beesdoo.shift.sheet</field>
         <field name="arch" type="xml">
-            <!-- <tree create="false" delete="false"> -->
-            <tree create="false" >
+            <!-- <tree create="false" delete="false" decoration-danger="stage == 'absent'"> -->
+            <tree create="false" decoration-danger="state == 'not_validated'">
                 <field name="name"/>
                 <field name="max_worker_nb" type="char"/>
                 <field name="state" />
