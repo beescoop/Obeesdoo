@@ -43,7 +43,12 @@ class Task(models.Model):
     # selection field as they are mutually exclusive.
     is_regular = fields.Boolean(default=False, string="Regular shift")
     is_compensation = fields.Boolean(default=False, string="Compensation shift")
-    replaced_id = fields.Many2one('res.partner', track_visibility='onchange', domain=[('eater', '=', 'worker_eater')])
+    replaced_id = fields.Many2one('res.partner', track_visibility='onchange',
+                                  domain=[
+                                        ('eater', '=', 'worker_eater'),
+                                        ('working_mode', '=', 'regular'),
+                                        ('state', 'not in', ('unsubscribed', 'resigning')),
+                                  ])
     revert_info = fields.Text(copy=False)
     working_mode = fields.Selection(related='worker_id.working_mode')
 
