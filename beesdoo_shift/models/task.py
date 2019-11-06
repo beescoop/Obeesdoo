@@ -85,6 +85,9 @@ class Task(models.Model):
                     'is_regular': False,
                     'is_compensation': False,
                 })
+            if task.worker_id:
+                if task.worker_id == task.replaced_id:
+                    raise UserError("A worker cannot replace himself.")
 
     def message_auto_subscribe(self, updated_fields, values=None):
         self._add_follower(values)
