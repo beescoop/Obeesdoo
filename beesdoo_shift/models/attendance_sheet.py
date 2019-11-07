@@ -268,6 +268,7 @@ class AttendanceSheet(models.Model):
         return
 
     # Compute name (not hardcorded to prevent incoherence with timezone)
+    # Actually not working, should depends on timezone as well
     @api.depends("start_time", "end_time")
     def _compute_name(self):
 
@@ -277,10 +278,10 @@ class AttendanceSheet(models.Model):
         end_time_dt = fields.Datetime.context_timestamp(self, end_time_dt)
 
         self.name = (
-            start_time_dt.strftime("%d/%m/%y")
-            + " | "
+            start_time_dt.strftime("%Y-%m-%d")
+            + "   "
             + start_time_dt.strftime("%H:%M")
-            + "-"
+            + " - "
             + end_time_dt.strftime("%H:%M")
         )
         return
