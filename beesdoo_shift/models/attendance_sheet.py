@@ -386,9 +386,7 @@ class AttendanceSheet(models.Model):
             # How can we show a message without stopping validation ?
             if actual_stage:
                 actual_shift.stage_id = actual_stage
-                actual_shift.replacement_worker_id = (
-                    expected_shift.replacement_worker_id
-                )
+                actual_shift.replaced_id = expected_shift.replacement_worker_id
 
         # Added shifts status update
         for added_shift in self.added_shift_ids:
