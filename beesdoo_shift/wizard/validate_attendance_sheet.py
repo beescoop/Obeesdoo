@@ -12,11 +12,24 @@ class ValidateAttendanceSheet(models.TransientModel):
         return self._context.get("active_id")
 
     # current user as default value  !
-    user = fields.Many2one("res.partner", string="User Name", required=True,)
+    #card = fields.Many2one("member.card", string="MemberCard")
+    barcode = fields.Char(string="Barcode", required=True)
+    user = fields.Many2one("res.partner", compute="_compute_user", string="User Name", readonly=True)
+
+    @api.depends("barcode")
+    def _compute_user(self):
+        if self.barcode:
+            card = self.env["member.card"].search([("barcode", "=", self.barcode)])
+            if card:
+                self.user = card[0].partner_id
+            else:
+                self.user = False
 
     # Is the "@api.multi" correct here ?
     @api.multi
     def validate_sheet(self):
+        if not self.user:
+            raise UserError("Please set a correct barcode.")
         sheet_id = self._context.get("active_id")
         sheet_model = self._context.get("active_model")
         sheet = self.env[sheet_model].browse(sheet_id)

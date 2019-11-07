@@ -8,6 +8,7 @@
                                 Emails will be sent to workers who did not attend their shift." />
                 <group>
                     <field name="user" />
+                    <field name="barcode" />
                 </group>
                 <footer>
                     <button type="object" name="validate_sheet"
