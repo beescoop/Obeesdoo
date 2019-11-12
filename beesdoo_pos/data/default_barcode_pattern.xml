@@ -1,0 +1,7 @@
+<odoo>
+    <data>
+        <record id="point_of_sale.barcode_rule_client" model="barcode.rule">
+            <field name="encoding">ean13</field>
+        </record>
+    </data>
+</odoo>
