@@ -27,9 +27,9 @@
         'security/ir.model.access.csv',
         'views/beesdoo_pos.xml',
         'data/email.xml',
+        'data/default_barcode_pattern.xml',
         'data/cron.xml',
     ],
     'qweb': ['static/src/xml/templates.xml'],
     # only loaded in demonstration mode
 }
-
