@@ -72,6 +72,37 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="beesdoo_product_product_form">
+        <field name="name">bees.product.product.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='inventory']/.." position="after">
+                <page string="Label">
+                    <group>
+                        <group name="label">
+                            <field name="total_with_vat"/>
+                            <field name="display_weight"/>
+                            <field name="display_unit"/>
+                            <field name="default_reference_unit"/>
+                            <field name="total_with_vat_by_unit" />
+                            <field name="total_deposit" />
+                        </group>
+                        <group>
+                            <field name="main_seller_id"/>
+                            <field name="eco_label"/>
+                            <field name="local_label"/>
+                            <field name="fair_label"/>
+                            <field name="origin_label"/>
+                            <field name="label_to_be_printed"/>
+                            <field name="label_last_printed"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
     <record model="ir.ui.view" id="beesdoo_product_label_form">
         <field name="name">bees.product.label.form</field>
         <field name="model">beesdoo.product.label</field>
