@@ -15,8 +15,8 @@ class AttendanceSheetShift(models.Model):
 
     @api.model
     def _default_task_type_id(self):
-        parameters = self.env['ir.config_parameter']
-        id = int(parameters.get_param('beesdoo_shift.default_task_type_id'))
+        parameters = self.env["ir.config_parameter"]
+        id = int(parameters.get_param("beesdoo_shift.default_task_type_id"))
         task_types = self.env["beesdoo.shift.type"]
         return task_types.browse(id)
 
@@ -49,7 +49,9 @@ class AttendanceSheetShift(models.Model):
         ],
         required=True,
     )
-    task_type_id = fields.Many2one("beesdoo.shift.type", string="Task Type", default=_default_task_type_id)
+    task_type_id = fields.Many2one(
+        "beesdoo.shift.type", string="Task Type", default=_default_task_type_id
+    )
     working_mode = fields.Selection(
         related="worker_id.working_mode", string="Working Mode", store=True
     )
@@ -150,15 +152,15 @@ class AttendanceSheetShiftAdded(models.Model):
             self.regular_task_type = False
 
 
-
-
 class AttendanceSheet(models.Model):
     _name = "beesdoo.shift.sheet"
     _inherit = ["mail.thread", "ir.needaction_mixin"]
     _description = "Attendance sheets with all the shifts in one time range."
     _order = "start_time"
 
-    name = fields.Char(string="Name", compute="_compute_name", store=True)
+    name = fields.Char(
+        string="Name", compute="_compute_name", store=True, readonly=True
+    )
     state = fields.Selection(
         [
             ("not_validated", "Not Validated"),
@@ -236,6 +238,7 @@ class AttendanceSheet(models.Model):
         string="Number of attended workers",
         default=0,
         help="Number of workers who attended the session.",
+        readonly=True,
     )
     validated_by = fields.Many2one(
         "res.partner",
@@ -247,6 +250,7 @@ class AttendanceSheet(models.Model):
             ("state", "not in", ("unsubscribed", "resigning")),
         ],
         track_visibility="onchange",
+        readonly=True,
     )
 
     _sql_constraints = [
@@ -256,6 +260,19 @@ class AttendanceSheet(models.Model):
             "Non-annotated sheets can't be marked as read. ",
         )
     ]
+
+    @api.constrains(
+        "expected_shift_ids",
+        "added_shift_ids",
+        "annotation",
+        "feedback",
+        "worker_nb_feedback",
+    )
+    def _lock_after_validation(self):
+        if self.state == "validated":
+            raise UserError(
+                "The sheet has already been validated and can't be edited."
+            )
 
     @api.constrains("expected_shift_ids", "added_shift_ids")
     def _constrain_unique_worker(self):
@@ -350,16 +367,6 @@ class AttendanceSheet(models.Model):
             return self.search_count(domain)
         return
 
-    @api.multi
-    def write(self, vals):
-        if self.state == "validated" and not self.env.user.has_group(
-            "beesdoo_shift.group_cooperative_admin"
-        ):
-            raise UserError(
-                "The sheet has already been validated and can't be edited."
-            )
-        return super(AttendanceSheet, self).write(vals)
-
     @api.one
     def validate(self):
         self.ensure_one()
@@ -417,7 +424,7 @@ class AttendanceSheet(models.Model):
                     ("worker_id", "=", False),
                     ("start_time", "=", self.start_time),
                     ("end_time", "=", self.end_time),
-                    ("task_type_id", "=", added_shift.task_type_id.id)
+                    ("task_type_id", "=", added_shift.task_type_id.id),
                 ]
             )
 
