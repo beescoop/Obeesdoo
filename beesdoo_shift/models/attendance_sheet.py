@@ -274,6 +274,12 @@ class AttendanceSheet(models.Model):
                 "The sheet has already been validated and can't be edited."
             )
 
+    @api.multi
+    def button_mark_as_read(self):
+        if self.is_read:
+            raise UserError("The sheet has already been marked as read.")
+        self.is_read = True
+
     @api.constrains("expected_shift_ids", "added_shift_ids")
     def _constrain_unique_worker(self):
         added_workers = set(self.added_shift_ids.mapped("worker_id").ids)
