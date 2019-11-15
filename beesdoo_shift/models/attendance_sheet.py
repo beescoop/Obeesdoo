@@ -13,6 +13,13 @@ class AttendanceSheetShift(models.Model):
     _name = "beesdoo.shift.sheet.shift"
     _description = "Copy of an actual shift into an attendance sheet"
 
+    @api.model
+    def _default_task_type_id(self):
+        parameters = self.env['ir.config_parameter']
+        id = int(parameters.get_param('beesdoo_shift.default_task_type_id'))
+        task_types = self.env["beesdoo.shift.type"]
+        return task_types.browse(id)
+
     # Related actual shift, not required because doesn't exist for added shift before validation
     # To update after validation
     task_id = fields.Many2one("beesdoo.shift.shift", string="Task")
@@ -42,7 +49,7 @@ class AttendanceSheetShift(models.Model):
         ],
         required=True,
     )
-    task_type_id = fields.Many2one("beesdoo.shift.type", string="Task Type")
+    task_type_id = fields.Many2one("beesdoo.shift.type", string="Task Type", default=_default_task_type_id)
     working_mode = fields.Selection(
         related="worker_id.working_mode", string="Working Mode", store=True
     )
