@@ -76,6 +76,13 @@
                             />
                 </header>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="button_mark_as_read" type="object"
+                                class="oe_stat_button" icon="fa-check"
+                                string="Mark as read"
+                                groups="beesdoo_shift.group_cooperative_admin"
+                                />
+                    </div>
                     <div class="oe_title">
                         <h1><field name="name" /></h1>
                     </div>
@@ -94,11 +101,6 @@
                         <field name="added_shift_ids" />
                         <h4> Additional important informations </h4>
                         <field name="annotation" />
-                        <group>
-                            <field name="is_read"
-                                   groups="beesdoo_shift.group_cooperative_admin"
-                            />
-                        </group>
                         <h4> General feedback </h4>
                         <field name="feedback" />
                         <group>
