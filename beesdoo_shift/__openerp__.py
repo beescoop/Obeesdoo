@@ -24,6 +24,7 @@
         "security/group.xml",
         "security/ir.model.access.csv",
         "views/task_template.xml",
+        "views/res_config_view.xml",
         "views/task.xml",
         "views/planning.xml",
         "views/cooperative_status.xml",
