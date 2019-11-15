@@ -161,6 +161,7 @@ class AttendanceSheet(models.Model):
     name = fields.Char(
         string="Name", compute="_compute_name", store=True, readonly=True
     )
+    active = fields.Boolean(string="Active", default=1)
     state = fields.Selection(
         [
             ("not_validated", "Not Validated"),
