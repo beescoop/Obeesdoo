@@ -18,6 +18,7 @@ access_coopplanning_task_full,Shift Management all Shift,model_beesdoo_shift_shi
 admin_access_attendance_sheet,Attendance Sheet Shift Read Abstract,model_beesdoo_shift_sheet_shift,group_cooperative_admin,1,1,1,1
 admin_access_attendance_sheet_expected,Attendance Sheet Shift Read Expected,model_beesdoo_shift_sheet_expected,group_cooperative_admin,1,1,1,1
 
+
 access_coop_status,Coop Status Read for all,model_cooperative_status,,1,0,0,0
 access_coop_status_all,Coop Status Admin,model_cooperative_status,group_cooperative_admin,1,1,1,1
 all_config_coopplanning_task_type,Attendance Read Type,model_beesdoo_shift_type,group_planning_management,1,1,1,1
