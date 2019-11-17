@@ -40,4 +40,9 @@
         "wizard/holiday.xml",
         "wizard/temporary_exemption.xml",
     ],
+    'demo': [
+        "demo/workers.xml",
+        "demo/users.xml",
+        "demo/templates.xml",
+    ]
 }
