@@ -26,4 +26,7 @@
         'data/default_contact.xml',
         'report/beescard.xml',
     ],
+    'demo': [
+        'demo/cooperators.xml',
+    ]
 }
