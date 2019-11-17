@@ -1,6 +1,18 @@
 # Obeesdoo
 Specific module for the Beescoop
 
+
+## Migration to 12.0
+
+**Do not migrate the following modules**:
+- `admin_technical_features`
+- `base_technical_features`
+- `beesdoo_coda`
+- `beesdoo_crelan_csv` vérifier s'il n'existe pas dans l'oca.
+- `mass_editing`
+- `pos_price_to_weigth` Attention il y a eu des modification de Houssine.
+- `web_environment_ribbon`
+
 ## Install odoo
 
 - cf. [install-odoo-linux-server.md](install-odoo-linux-server.md) (review)
