@@ -18,7 +18,6 @@
     'depends': ['point_of_sale', 'purchase', 'portal', 'partner_firstname'],
 
     'data': [
-        'demo/cooperators.xml',
         'security/groups.xml',
         'security/ir.model.access.csv',
         'views/partner.xml',
@@ -27,4 +26,8 @@
         'data/default_contact.xml',
         'report/beescard.xml',
     ],
+    'demo': [
+        'demo/cooperators.xml',
+        'demo/users.xml',
+    ]
 }
