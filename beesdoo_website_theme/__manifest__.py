@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'BEES coop Website Theme',
 
@@ -13,7 +12,7 @@
 
     'license': "AGPL-3",
     'category': 'Themes',
-    'version': '9.0.0.1',
+    'version': '12.0.0.1',
     'application': True,
 
     'depends': ['website'],

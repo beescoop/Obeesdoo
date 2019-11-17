@@ -1,4 +1,4 @@
-<openerp>
+<odoo>
   <!-- We add the css stylesheet -->
   <template id="assets_frontend" name="beesdoo_website_theme_website_assets"
     inherit_id="website.assets_frontend">
@@ -7,4 +7,4 @@
         href="/beesdoo_website_theme/static/src/less/beesdoo_website_design.less"/>
     </xpath>
   </template>
-</openerp>
+</odoo>
