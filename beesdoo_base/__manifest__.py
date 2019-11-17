@@ -18,6 +18,7 @@
     'depends': ['point_of_sale', 'purchase', 'portal', 'partner_firstname'],
 
     'data': [
+        'demo/cooperators.xml',
         'security/groups.xml',
         'security/ir.model.access.csv',
         'views/partner.xml',
