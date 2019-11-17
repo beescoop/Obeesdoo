@@ -1,4 +1,4 @@
-<openerp>
+<odoo>
 	<data>
 		<record model="ir.ui.view" id="beesdoo_account_invoice_form_view">
 			<field name="name">beesdoo.account.invoice.form.view</field>
@@ -24,5 +24,4 @@
 			</field>
 		</record>
 	</data>
-
-</openerp>
+</odoo>
