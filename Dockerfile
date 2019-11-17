@@ -28,6 +28,7 @@ WORKDIR /home/odoo
 RUN git clone https://github.com/coopiteasy/OCB.git /home/odoo/odoo -b 12.0 --depth 1 && \
 	git clone https://github.com/coopiteasy/addons.git /home/odoo/addons -b 12.0 --depth 1 && \
     git clone https://github.com/beescoop/Obeesdoo.git /home/odoo/obeesdoo -b 12.0 --depth 1 && \
+    git clone https://github.com/OCA/partner-contact.git /home/odoo/partner-contact -b 12.0 --depth 1 && \
 	# git clone https://github.com/coopiteasy/procurement-addons.git /home/odoo/procurement-addons -b 12.0 --depth 1 && \
 	git clone https://github.com/coopiteasy/vertical-cooperative.git /home/odoo/vertical-cooperative -b 12.0 --depth 1 && \
 	git clone https://github.com/coopiteasy/account-financial-reporting.git /home/odoo/account-financial-reporting -b 12.0 --depth 1 && \
