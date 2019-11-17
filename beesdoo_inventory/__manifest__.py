@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 {
-    'name': "beesdoo_inventory",
+    'name': "Beesdoo Inventory",
 
     'summary': """
-        Modification of inventory data for the needs of beescoop
-        - SOO24 - Bon de livraison""",
+        Adds a responsible, a max shipping date and a button to copy quantity to
+        stock pickings.""",
 
     'description': """
 
@@ -17,7 +16,7 @@
     # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
     # for the full list
     'category': 'Sales Management',
-    'version': '9.0.1.0.0',
+    'version': '12.0.1.0.0',
 
     # any module necessary for this one to work correctly
     'depends': ['delivery', 'beesdoo_base'],
