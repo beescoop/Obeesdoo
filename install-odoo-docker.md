@@ -33,6 +33,11 @@ docker-compose rm db
 ```
 
 ## 4) Run the project
+If you are not using a pre-created db run 
+```bash
+docker-compose run odoo python3 odoo-bin -d beescoop -i base -c odoo.conf
+```
+
 All the modules need to be updated in order to be recognised.
 To do that run 
 ```bash
