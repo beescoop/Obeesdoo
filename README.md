@@ -29,6 +29,7 @@ $ cd projects
 $ git clone https://github.com/beescoop/Obeesdoo.git obeesdoo -b 12.0 --depth 1
 $ git clone https://github.com/coopiteasy/vertical-cooperative.git vertical-cooperative -b 12.0 --depth 1
 $ git clone https://github.com/coopiteasy/addons.git addons -b 12.0 --depth 1
+$ git clone https://github.com/OCA/partner-contact.git partner-contact -b 12.0 --depth 1
 # $ git clone https://github.com/coopiteasy/procurement-addons procurement-addons -b 12.0 --depth 1
 $ git clone https://github.com/OCA/l10n-belgium -b 12.0 --depth 1
 $ git clone https://github.com/OCA/mis-builder -b 12.0 --depth 1
@@ -87,6 +88,7 @@ addons_path=addons,openerp/addons,
     $ODOO_HOME/obeesdoo,
     $ODOO_HOME/vertical-cooperative,
     $ODOO_HOME/addons,
+    $ODOO_HOME/partner-contact,
 #    $ODOO_HOME/procurement-addons,
     $ODOO_HOME/l10n-belgium,
     $ODOO_HOME/mis-builder,
