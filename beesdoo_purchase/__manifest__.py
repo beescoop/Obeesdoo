@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Bees Purchase",
 
@@ -14,7 +13,7 @@
     'website': "https://github.com/beescoop/Obeesdoo",
 
     'category': 'Purchase',
-    'version': '9.0.1.1.0',
+    'version': '12.0.1.1.0',
 
     'depends': ['base', 'purchase', 'beesdoo_product'],
 

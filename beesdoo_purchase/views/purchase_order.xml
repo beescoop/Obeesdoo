@@ -1,4 +1,4 @@
-<openerp>
+<odoo>
     <data>
         <record model="ir.ui.view" id="beesdoo_purchase_order_form_view">
             <field name="name">beesdoo.purchase.order.form.view</field>
@@ -36,4 +36,4 @@
             </field>
         </record>
     </data>
-</openerp>
+</odoo>
