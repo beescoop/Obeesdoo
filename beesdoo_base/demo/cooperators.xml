@@ -10,6 +10,7 @@
         <field name="lastname">Peso</field>
         <field name="customer" eval="True"/>
         <field name="member" eval="True"/>
+        <field name="eater">worker_eater</field>
         <field name="is_company" eval="False"/>
         <field name="email">fernand_peso@demo.net</field>
         <field name="street">Avenue des Bas-de-Callanques, 15</field>
@@ -22,6 +23,7 @@
         <field name="name">Dupont Dupont</field>
         <field name="customer" eval="True"/>
         <field name="member" eval="True"/>
+        <field name="eater">worker_eater</field>
         <field name="is_company" eval="False"/>
         <field name="email">d_dupont@demo.net</field>
         <field name="street">Rue des sables, 20</field>
@@ -34,6 +36,7 @@
         <field name="name">Ronan Le Gall</field>
         <field name="customer" eval="True"/>
         <field name="member" eval="True"/>
+        <field name="eater">worker_eater</field>
         <field name="is_company" eval="False"/>
         <field name="email">ronan_gall@demo.net</field>
         <field name="street">Rue des pecheurs, 23</field>
@@ -46,6 +49,7 @@
         <field name="name">Elouan Bees</field>
         <field name="customer" eval="True"/>
         <field name="member" eval="True"/>
+        <field name="eater">worker_eater</field>
         <field name="is_company" eval="False"/>
         <field name="email">elouan_bees@demo.net</field>
         <field name="street">Rue Wéry, 15</field>
@@ -58,6 +62,7 @@
         <field name="name">Anne de Marchalo</field>
         <field name="customer" eval="True"/>
         <field name="member" eval="True"/>
+        <field name="eater">worker_eater</field>
         <field name="is_company" eval="False"/>
         <field name="email">anne_marchalo@demo.net</field>
         <field name="street">Rue du Wels, 6</field>
@@ -70,6 +75,7 @@
         <field name="name">Jean Beaumont</field>
         <field name="customer" eval="True"/>
         <field name="member" eval="True"/>
+        <field name="eater">worker_eater</field>
         <field name="is_company" eval="False"/>
         <field name="email">jean_beaumont@demo.net</field>
         <field name="street">Rue de la Jungle, 8</field>
