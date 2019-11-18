@@ -15,7 +15,7 @@
     'category': 'Cooperative management',
     'version': '9.0.1.3.0',
 
-    'depends': ['beesdoo_base'],
+    'depends': ['beesdoo_base', 'barcodes'],
 
     'data': [
         "data/system_parameter.xml",
@@ -23,6 +23,7 @@
         "data/mail_template.xml",
         "security/group.xml",
         "security/ir.model.access.csv",
+        "views/beesdoo_shift_assets.xml",
         "views/task_template.xml",
         "views/res_config_view.xml",
         "views/task.xml",
