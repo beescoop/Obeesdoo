@@ -154,7 +154,7 @@ class AttendanceSheetShiftAdded(models.Model):
 
 class AttendanceSheet(models.Model):
     _name = "beesdoo.shift.sheet"
-    _inherit = ["mail.thread", "ir.needaction_mixin"]
+    _inherit = ["mail.thread", "ir.needaction_mixin", "barcodes.barcode_events_mixin"]
     _description = "Attendance sheets with all the shifts in one time range."
     _order = "start_time"
 
@@ -481,3 +481,8 @@ class AttendanceSheet(models.Model):
             "view_mode": "form",
             "target": "new",
         }
+
+    def on_barcode_scanned(self, barcode):
+        import pdb; pdb.set_trace()
+        worker = self.env["res.partner"].search([("barcode","=",barcode)])
+        self.name = barcode
