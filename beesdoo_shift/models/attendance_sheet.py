@@ -32,8 +32,7 @@ class AttendanceSheetShift(models.Model):
     stage = fields.Selection(
         [
             ("present", "Present"),
-            ("absent", "Absent"),
-            ("cancelled", "Cancelled"),
+            ("absent", "Absent")
         ],
         string="Shift Stage",
         copy=False,
@@ -166,7 +165,6 @@ class AttendanceSheet(models.Model):
         [
             ("not_validated", "Not Validated"),
             ("validated", "Validated"),
-            ("cancelled", "Cancelled"),
         ],
         string="Status",
         readonly=True,
