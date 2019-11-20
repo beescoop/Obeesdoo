@@ -31,7 +31,6 @@
               name="Generate a sheet"
               parent="menu_sheet_top"
               action="action_generate_sheet_wizard"
-              sequence="5"
     />
 
 </odoo>
