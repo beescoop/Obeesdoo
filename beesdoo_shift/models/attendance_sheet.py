@@ -280,15 +280,20 @@ class AttendanceSheet(models.Model):
 
     @api.constrains("expected_shift_ids", "added_shift_ids")
     def _constrain_unique_worker(self):
-        added_workers = set(self.added_shift_ids.mapped("worker_id").ids)
-        expected_workers = self.expected_shift_ids.mapped("worker_id").ids
-        replacement_workers = self.expected_shift_ids.mapped(
-            "replacement_worker_id"
-        ).ids
-        if len(
-            added_workers.intersection(replacement_workers + expected_workers)
-        ):
-            raise UserError("You can't add an already expected worker.")
+        # Warning : map return generator in python3 (for Odoo 12)
+        added_workers_ids = map(lambda s: s.worker_id.id, self.added_shift_ids)
+        expected_workers_ids = map(
+            lambda s: s.worker_id.id, self.expected_shift_ids
+        )
+        replacement_workers_ids = map(
+            lambda s: s.replacement_worker_id.id, self.expected_shift_ids
+        )
+        ids = (
+            added_workers_ids + expected_workers_ids + replacement_workers_ids
+        )
+
+        if len(ids) - len(set(ids)):
+            raise UserError("You can't add the same worker more than once.")
 
     @api.depends("added_shift_ids")
     def _compute_added_shift_nb(self):
@@ -296,7 +301,6 @@ class AttendanceSheet(models.Model):
         return
 
     # Compute name (not hardcorded to prevent incoherence with timezone)
-    # Actually not working, should depends on timezone as well
     @api.depends("start_time", "end_time")
     def _compute_name(self):
 
@@ -481,6 +485,8 @@ class AttendanceSheet(models.Model):
         }
 
     def on_barcode_scanned(self, barcode):
-        import pdb; pdb.set_trace()
-        worker = self.env["res.partner"].search([("barcode","=",barcode)])
+        import pdb
+
+        pdb.set_trace()
+        worker = self.env["res.partner"].search([("barcode", "=", barcode)])
         self.name = barcode
