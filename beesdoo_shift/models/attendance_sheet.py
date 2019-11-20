@@ -46,7 +46,6 @@ class AttendanceSheetShift(models.Model):
             ("working_mode", "in", ("regular", "irregular")),
             ("state", "not in", ("unsubscribed", "resigning")),
         ],
-        required=True,
     )
     task_type_id = fields.Many2one(
         "beesdoo.shift.type", string="Task Type", default=_default_task_type_id
@@ -342,20 +341,21 @@ class AttendanceSheet(models.Model):
                 compensation_nb = "1"
             else:
                 compensation_nb = "2"
-            new_expected_shift = expected_shift.create(
-                {
-                    "attendance_sheet_id": new_sheet.id,
-                    "task_id": task.id,
-                    "worker_id": task.worker_id.id,
-                    "replacement_worker_id": task.replaced_id.id,
-                    "task_type_id": task.task_type_id.id,
-                    "stage": "absent",
-                    "compensation_nb": compensation_nb,
-                    "working_mode": task.working_mode,
-                }
-            )
-            task_templates.add(task.task_template_id)
-            new_sheet.expected_worker_nb += 1
+            if task.worker_id:
+                new_expected_shift = expected_shift.create(
+                    {
+                        "attendance_sheet_id": new_sheet.id,
+                        "task_id": task.id,
+                        "worker_id": task.worker_id.id,
+                        "replacement_worker_id": task.replaced_id.id,
+                        "task_type_id": task.task_type_id.id,
+                        "stage": "absent",
+                        "compensation_nb": compensation_nb,
+                        "working_mode": task.working_mode,
+                    }
+                )
+                task_templates.add(task.task_template_id)
+                new_sheet.expected_worker_nb += 1
         # Maximum number of workers calculation
         for task_template in task_templates:
             new_sheet.max_worker_nb += task_template.worker_nb
