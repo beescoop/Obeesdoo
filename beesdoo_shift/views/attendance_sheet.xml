@@ -153,6 +153,7 @@
               name="Daily attendance sheets"
               parent="menu_sheet_top"
               action="action_sheet_daily"
+              sequence="2"
     />
 
 </odoo>
