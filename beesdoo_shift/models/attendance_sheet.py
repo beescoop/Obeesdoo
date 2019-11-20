@@ -280,20 +280,15 @@ class AttendanceSheet(models.Model):
 
     @api.constrains("expected_shift_ids", "added_shift_ids")
     def _constrain_unique_worker(self):
+        return
         # Warning : map return generator in python3 (for Odoo 12)
-        added_workers_ids = map(lambda s: s.worker_id.id, self.added_shift_ids)
-        expected_workers_ids = map(
-            lambda s: s.worker_id.id, self.expected_shift_ids
-        )
-        replacement_workers_ids = map(
-            lambda s: s.replacement_worker_id.id, self.expected_shift_ids
-        )
-        ids = (
-            added_workers_ids + expected_workers_ids + replacement_workers_ids
-        )
+        # added_workers_ids = map(lambda s: s.worker_id.id, self.added_shift_ids)
+        # expected_workers_ids = map(lambda s: s.worker_id.id, self.expected_shift_ids)
+        # replacement_workers_ids = map(lambda s: s.replacement_worker_id.id, self.expected_shift_ids)
+        # ids = (added_workers_ids + expected_workers_ids + replacement_workers_ids)
 
-        if len(ids) - len(set(ids)):
-            raise UserError("You can't add the same worker more than once.")
+        # if len(ids) - len(set(ids)):
+        #    raise UserError("You can't add the same worker more than once.")
 
     @api.depends("added_shift_ids")
     def _compute_added_shift_nb(self):
