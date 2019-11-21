@@ -30,10 +30,7 @@ class AttendanceSheetShift(models.Model):
         ondelete="cascade",
     )
     stage = fields.Selection(
-        [
-            ("present", "Present"),
-            ("absent", "Absent")
-        ],
+        [("present", "Present"), ("absent", "Absent")],
         string="Shift Stage",
         copy=False,
     )
@@ -152,7 +149,11 @@ class AttendanceSheetShiftAdded(models.Model):
 
 class AttendanceSheet(models.Model):
     _name = "beesdoo.shift.sheet"
-    _inherit = ["mail.thread", "ir.needaction_mixin", "barcodes.barcode_events_mixin"]
+    _inherit = [
+        "mail.thread",
+        "ir.needaction_mixin",
+        "barcodes.barcode_events_mixin",
+    ]
     _description = "Attendance sheets with all the shifts in one time range."
     _order = "start_time"
 
@@ -161,14 +162,10 @@ class AttendanceSheet(models.Model):
     )
     active = fields.Boolean(string="Active", default=1)
     state = fields.Selection(
-        [
-            ("not_validated", "Not Validated"),
-            ("validated", "Validated"),
-        ],
+        [("not_validated", "Not Validated"), ("validated", "Validated"),],
         string="Status",
         readonly=True,
         index=True,
-        copy=False,
         default="not_validated",
         track_visibility="onchange",
     )
@@ -303,15 +300,13 @@ class AttendanceSheet(models.Model):
         start_time_dt = fields.Datetime.context_timestamp(self, start_time_dt)
         end_time_dt = fields.Datetime.from_string(self.end_time)
         end_time_dt = fields.Datetime.context_timestamp(self, end_time_dt)
-
         self.name = (
             start_time_dt.strftime("%Y-%m-%d")
-            + "   "
+            + " "
             + start_time_dt.strftime("%H:%M")
-            + " - "
+            + "-"
             + end_time_dt.strftime("%H:%M")
         )
-        return
 
     # Is this method necessary ?
     @api.depends("annotation")
@@ -356,8 +351,8 @@ class AttendanceSheet(models.Model):
                 task_templates.add(task.task_template_id)
                 new_sheet.expected_worker_nb += 1
         # Maximum number of workers calculation
-        for task_template in task_templates:
-            new_sheet.max_worker_nb += task_template.worker_nb
+
+        new_sheet.max_worker_nb = sum(r.worker_nb for r in task_templates)
         return new_sheet
 
     # Workaround to display notifications only for unread and not validated
@@ -371,7 +366,6 @@ class AttendanceSheet(models.Model):
             return self.search_count(domain)
         return
 
-    @api.one
     def validate(self):
         self.ensure_one()
         if self.state == "validated":
@@ -397,11 +391,11 @@ class AttendanceSheet(models.Model):
         # Expected shifts status update
         for expected_shift in self.expected_shift_ids:
             actual_shift = expected_shift.task_id
-            actual_stage = stage.search(
-                [("code", "=", expected_shift.get_actual_stage())]
-            )
+            # We get stage record corresponding to mapped stage id
+            actual_stage = self.env.ref("beesdoo_shift.%s" % expected_shift.get_actual_stage())
+
             # If the actual stage has been deleted, the sheet is still validated.
-            # Raising an exception would stop this.
+            # Raising an exception would stop this but would prevent validation.
             # How can we show a message without stopping validation ?
             if actual_stage:
                 actual_shift.stage_id = actual_stage
@@ -409,10 +403,7 @@ class AttendanceSheet(models.Model):
 
         # Added shifts status update
         for added_shift in self.added_shift_ids:
-            actual_stage = stage.search(
-                [("code", "=", added_shift.get_actual_stage())]
-            )
-            # WARNING: mapping the selection field to the booleans used in Task
+            actual_stage = self.env.ref("beesdoo_shift.%s" % added_shift.get_actual_stage())
             is_regular_worker = added_shift.worker_id.working_mode == "regular"
             is_regular_shift = added_shift.regular_task_type == "normal"
             # Add an annotation if a regular worker is doing its regular shift
@@ -429,7 +420,7 @@ class AttendanceSheet(models.Model):
                     ("start_time", "=", self.start_time),
                     ("end_time", "=", self.end_time),
                     ("task_type_id", "=", added_shift.task_type_id.id),
-                ]
+                ], limit=1
             )
 
             if len(non_assigned_shifts):
