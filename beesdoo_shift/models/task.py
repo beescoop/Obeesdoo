@@ -37,8 +37,8 @@ class Task(models.Model):
                                     ('working_mode', 'in', ('regular', 'irregular')),
                                     ('state', 'not in', ('unsubscribed', 'resigning')),
                                 ])
-    start_time = fields.Datetime(track_visibility='always', index=True)
-    end_time = fields.Datetime(track_visibility='always')
+    start_time = fields.Datetime(track_visibility='always', index=True, required=True)
+    end_time = fields.Datetime(track_visibility='always', required=True)
     stage_id = fields.Many2one('beesdoo.shift.stage', required=True, track_visibility='onchange', default=lambda self: self.env.ref('beesdoo_shift.open'))
     super_coop_id = fields.Many2one('res.users', string="Super Cooperative", domain=[('partner_id.super', '=', True)], track_visibility='onchange')
     color = fields.Integer(related="stage_id.color", readonly=True)
