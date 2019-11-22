@@ -282,7 +282,9 @@ class AttendanceSheet(models.Model):
         ids = added_ids + expected_ids + replacement_ids
 
         if (len(ids) - len(set(ids))) > 0:
-            raise UserError("You can't add the same worker more than once to an attendance sheet.")
+            raise UserError(
+                "You can't add the same worker more than once to an attendance sheet."
+            )
 
     @api.depends("added_shift_ids")
     def _compute_added_shift_nb(self):
@@ -372,23 +374,47 @@ class AttendanceSheet(models.Model):
 
         # Fields validation
         for added_shift in self.added_shift_ids:
-            if (
-                not added_shift.stage
-                or not added_shift.worker_id
-                or not added_shift.task_type_id
-                or not added_shift.working_mode
-                or (
-                    added_shift.worker_id.working_mode == "regular"
-                    and not added_shift.regular_task_type
+            if not added_shift.worker_id:
+                raise UserError(
+                    "Worker must be set for shift %s" % added_shift.id
                 )
+            if not added_shift.stage:
+                raise UserError(
+                    "Shift Stage is missing for %s"
+                    % added_shift.worker_id.name
+                )
+            if not added_shift.task_type_id:
+                raise UserError(
+                    "Task Type is missing for %s" % added_shift.worker_id.name
+                )
+            if not added_shift.working_mode:
+                raise UserError(
+                    "Working mode is missing for %s"
+                    % added_shift.worker_id.name
+                )
+            if (
+                added_shift.worker_id.working_mode == "regular"
+                and not added_shift.regular_task_type
             ):
-                raise UserError("All fields must be set before validation.")
+                raise UserError(
+                    "Regular Task Type is missing for %s"
+                    % added_shift.worker_id.name
+                )
+
+        for expected_shift in self.expected_shift_ids:
+            if not expected_shift.stage:
+                raise UserError(
+                    "Shift Stage is missing for %s"
+                    % expected_shift.worker_id.name
+                )
 
         # Expected shifts status update
         for expected_shift in self.expected_shift_ids:
             actual_shift = expected_shift.task_id
             # We get stage record corresponding to mapped stage id
-            actual_stage = self.env.ref("beesdoo_shift.%s" % expected_shift.get_actual_stage())
+            actual_stage = self.env.ref(
+                "beesdoo_shift.%s" % expected_shift.get_actual_stage()
+            )
 
             # If the actual stage has been deleted, the sheet is still validated.
             # Raising an exception would stop this but would prevent validation.
@@ -399,7 +425,9 @@ class AttendanceSheet(models.Model):
 
         # Added shifts status update
         for added_shift in self.added_shift_ids:
-            actual_stage = self.env.ref("beesdoo_shift.%s" % added_shift.get_actual_stage())
+            actual_stage = self.env.ref(
+                "beesdoo_shift.%s" % added_shift.get_actual_stage()
+            )
             is_regular_worker = added_shift.worker_id.working_mode == "regular"
             is_regular_shift = added_shift.regular_task_type == "normal"
             # Add an annotation if a regular worker is doing its regular shift
@@ -416,7 +444,8 @@ class AttendanceSheet(models.Model):
                     ("start_time", "=", self.start_time),
                     ("end_time", "=", self.end_time),
                     ("task_type_id", "=", added_shift.task_type_id.id),
-                ], limit=1
+                ],
+                limit=1,
             )
 
             if len(non_assigned_shifts):
