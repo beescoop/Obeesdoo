@@ -6,9 +6,10 @@
             <form>
                 <label string="Beware : a validated sheet cannot be edited anymore and you won't be able to add any latecomers.
                                 Emails will be sent to workers who did not attend their shift." />
+
+                <field name="_barcode_scanned" widget="barcode_handler"/>
                 <group>
-                    <field name="user" />
-                    <field name="barcode" />
+                    <!--<field name="user" />-->
                 </group>
                 <footer>
                     <button type="object" name="validate_sheet"
