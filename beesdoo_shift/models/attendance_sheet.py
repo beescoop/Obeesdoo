@@ -9,7 +9,7 @@ from datetime import datetime
 from lxml import etree
 
 
-class AttendanceSheetShift(models.Model):
+class AttendanceSheetShift(models.AbstractModel):
     _name = "beesdoo.shift.sheet.shift"
     _description = "Copy of an actual shift into an attendance sheet"
 
@@ -30,9 +30,8 @@ class AttendanceSheetShift(models.Model):
         ondelete="cascade",
     )
     stage = fields.Selection(
-        [("present", "Present"), ("absent", "Absent")],
+        [("present", "Present"), ("absent", "Absent"), ("cancelled", "Cancelled")],
         string="Shift Stage",
-        copy=False,
     )
 
     worker_id = fields.Many2one(
@@ -132,11 +131,7 @@ class AttendanceSheetShiftAdded(models.Model):
         string="Task Mode (if regular)",
         help="Shift type for regular workers. ",
     )
-
-    @api.model
-    def create(self, vals):
-        vals["stage"] = "present"
-        return super(AttendanceSheetShiftAdded, self).create(vals)
+    stage = fields.Selection(default="present")
 
     @api.onchange("working_mode")
     def on_change_working_mode(self):
@@ -439,7 +434,7 @@ class AttendanceSheet(models.Model):
             else:
                 actual_shift = shift.create(
                     {
-                        "name": "Added shift TEST %s" % self.start_time,
+                        "name": "[Added Shift] %s" % self.start_time,
                         "task_type_id": added_shift.task_type_id.id,
                         "worker_id": added_shift.worker_id.id,
                         "start_time": self.start_time,
