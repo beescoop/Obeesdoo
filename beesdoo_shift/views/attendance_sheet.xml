@@ -7,7 +7,7 @@
         <field name="model">beesdoo.shift.sheet.expected</field>
         <field name="arch" type="xml">
             <tree editable="bottom" create="false" delete="false" open="false"
-                  decoration-danger="stage == 'absent'"
+                  decoration-danger="stage == 'absent_0' or stage == 'absent_1' or stage == 'absent_2'"
                   decoration-success="stage == 'present'">
                 <field name="task_type_id" readonly="True" options="{'no_open': True}"/>
                 <field name="worker_id" readonly="True" options="{'no_open': True}"/>
@@ -16,12 +16,7 @@
                        attrs="{'readonly':
                              [('working_mode','=','irregular')]}"
                        options="{'no_create': True, 'no_create_edit':True}"/>
-                <field name="stage" />
-                <field name="compensation_nb"
-                       attrs="{'readonly':
-                             ['|',
-                              ('working_mode','=','irregular'),
-                              ('stage','in',['present','cancelled'])]}"/>
+                <field name="stage"/>
             </tree>
         </field>
     </record>
