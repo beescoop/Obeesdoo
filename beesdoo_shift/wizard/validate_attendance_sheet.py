@@ -9,23 +9,25 @@ class ValidateAttendanceSheet(models.TransientModel):
     Useless for users in group_cooperative_admin"""
     _inherit = ["barcodes.barcode_events_mixin"]
 
+    barcode = fields.Char("Barcode Scanned", required=True)
+
     @api.multi
-    def validate_sheet(self, user):
+    def validate_sheet(self):
         sheet_id = self._context.get("active_id")
         sheet_model = self._context.get("active_model")
         sheet = self.env[sheet_model].browse(sheet_id)
-        if not user.super:
+        card = self.env["member.card"].search(
+            [("barcode", "=", self.barcode)]
+        )
+        if not len(card):
+            raise UserError("Please set a correct barcode.")
+        user = card[0].partner_id
+        if not user:
             raise UserError(
                 "Only super-cooperators and administrators can validate attendance sheets."
             )
-        # Following methods call not working
         sheet.validated_by = user
         sheet.validate()
 
     def on_barcode_scanned(self, barcode):
-        card = self.env["member.card"].search(
-            [("barcode", "=", barcode)]
-        )
-        if not len(card):
-            raise UserError("Please set a correct barcode.")
-        self.validate_sheet(card[0].partner_id)
+        self.barcode = barcode
