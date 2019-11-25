@@ -63,7 +63,7 @@
         <field name="model">beesdoo.shift.sheet</field>
         <field name="arch" type="xml">
             <form create="false" delete="false">
-
+                <field name="_barcode_scanned" widget="barcode_handler"/>
                 <header>
                     <field name="state" widget="statusbar" readonly="True" />
                     <button type="object"
@@ -92,25 +92,26 @@
                         <group>
                             <field name="max_worker_nb" />
                         </group>
-                        <h2> Expected workers </h2>
-                        <group>
-                            <field name="expected_worker_nb" />
+                        <group col="1" string="Expected workers">
+                            <group>
+                                <field name="expected_worker_nb" />
+                            </group>
+                            <field name="expected_shift_ids"/>
                         </group>
-                        <field name="expected_shift_ids"/>
-                        <h2> Added workers </h2>
-                        <group>
-                            <field name="added_worker_nb" />
+                        <group col="1" string="Added workers">
+                            <group>
+                                <field name="added_worker_nb" />
+                            </group>
+                            <field name="added_shift_ids" />
                         </group>
-                        <field name="added_shift_ids" />
-                        <h4> Additional important informations </h4>
-                        <field name="annotation" barcode_events="true"/>
-                        <h4> General feedback </h4>
-                        <field name="feedback" />
-                        <field name="worker_nb_feedback" >
-                            <field name="_barcode_scanned" widget="barcode_handler"/>
-                        </field>
-                        <group>
-                            <field name="validated_by" readonly="True" />
+                        <group col="1" string="Informations"
+                               groups="beesdoo_shift.group_cooperative_admin">
+                            <field name="annotation" />
+                            <field name="feedback" />
+                            <field name="worker_nb_feedback" />
+                            <group>
+                                <field name="validated_by" readonly="True"/>
+                            </group>
                         </group>
                 </sheet>
                 <div class="oe_chatter">

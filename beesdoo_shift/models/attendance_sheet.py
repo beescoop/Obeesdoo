@@ -119,6 +119,7 @@ class AttendanceSheetShiftAdded(models.Model):
     )
     stage = fields.Selection(default="present")
 
+    # WARNING: check the code, readonly fields modified by onchange are not inserted on write
     @api.onchange("working_mode")
     def on_change_working_mode(self):
         self.stage = "present"
@@ -205,7 +206,7 @@ class AttendanceSheet(models.Model):
         [
             ("not_enough", "Not enough"),
             ("enough", "Enough"),
-            ("too much", "Too much"),
+            ("too_many", "Too many"),
         ],
         string="Feedback regarding the number of workers.",
         track_visibility="onchange",
@@ -481,8 +482,42 @@ class AttendanceSheet(models.Model):
         }
 
     def on_barcode_scanned(self, barcode):
-        import pdb
 
-        pdb.set_trace()
+        if self.state == "validated":
+            raise UserError(
+                "You cannot modify a validated attendance sheet."
+            )
+
         worker = self.env["res.partner"].search([("barcode", "=", barcode)])
-        self.name = barcode
+        if not len(worker):
+            raise UserError("Worker not found (invalid barcode or status).")
+        if len(worker) > 1:
+            raise UserError("Multiple workers corresponding to barcode.")
+
+        if worker.state in ("unsubscribed", "resigning"):
+            raise UserError("Worker is %s." % worker.state)
+        if worker.working_mode not in ("regular", "irregular"):
+            raise UserError("Worker is %s and should be regular or irregular." % worker.working_mode)
+
+        for id in self.expected_shift_ids.ids:
+            shift = self.env["beesdoo.shift.sheet.expected"].browse(id)
+            if shift.worker_id == worker or shift.replacement_worker_id == worker:
+                shift.stage = "present"
+                return
+
+        if worker.working_mode == "regular":
+            regular_task_type = "normal"
+        else:
+            regular_task_type = False
+
+        added_ids = map(lambda s: s.worker_id.id, self.added_shift_ids)
+        if worker.id in added_ids:
+            raise UserError("Worker is already present.")
+
+        self.added_shift_ids |= self.added_shift_ids.new({
+            "task_type_id": self.added_shift_ids._default_task_type_id(),
+            "stage": "present",
+            "attendance_sheet_id": self._origin.id,
+            "worker_id": worker.id,
+            "regular_task_type": regular_task_type
+        })

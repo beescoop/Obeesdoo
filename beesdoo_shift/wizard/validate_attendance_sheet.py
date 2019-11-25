@@ -9,7 +9,22 @@ class ValidateAttendanceSheet(models.TransientModel):
     Useless for users in group_cooperative_admin"""
     _inherit = ["barcodes.barcode_events_mixin"]
 
-    barcode = fields.Char("Barcode Scanned", required=True)
+    barcode = fields.Char(string="Barcode", required=True)
+    annotation = fields.Text(
+        "Important information requiring permanent member assistance", default=""
+    )
+    feedback = fields.Text(
+        "General feedback"
+    )
+    worker_nb_feedback = fields.Selection(
+        [
+            ("not_enough", "Not enough"),
+            ("enough", "Enough"),
+            ("too_many", "Too many"),
+        ],
+        string="Number of workers",
+        required=True
+    )
 
     @api.multi
     def validate_sheet(self):
@@ -26,6 +41,9 @@ class ValidateAttendanceSheet(models.TransientModel):
             raise UserError(
                 "Only super-cooperators and administrators can validate attendance sheets."
             )
+        sheet.annotation = self.annotation
+        sheet.feedback = self.feedback
+        sheet.worker_nb_feedback = self.worker_nb_feedback
         sheet.validated_by = user
         sheet.validate()
 
