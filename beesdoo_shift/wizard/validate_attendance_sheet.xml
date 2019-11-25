@@ -9,7 +9,7 @@
 
                 <field name="_barcode_scanned" widget="barcode_handler"/>
                 <group>
-                    <!--<field name="user" />-->
+                    <field name="barcode" />
                 </group>
                 <footer>
                     <button type="object" name="validate_sheet"
