@@ -30,7 +30,13 @@ class AttendanceSheetShift(models.AbstractModel):
         ondelete="cascade",
     )
     stage = fields.Selection(
-        [("present", "Present"), ("absent", "Absent"), ("cancelled", "Cancelled")],
+        [
+            ("present", "Present"),
+            ("absent_0", "Absent / 0 Compensation"),
+            ("absent_1", "Absent / 1 Compensation"),
+            ("absent_2", "Absent / 2 Compensations"),
+            ("cancelled", "Cancelled"),
+        ],
         string="Shift Stage",
     )
 
@@ -64,13 +70,12 @@ class AttendanceSheetShift(models.AbstractModel):
         if self.working_mode == "regular":
             if self.stage == "present":
                 return "done"
-            if self.stage == "absent" and self.compensation_nb:
-                if self.compensation_nb == "0":
-                    return "excused_necessity"
-                if self.compensation_nb == "1":
-                    return "excused"
-                if self.compensation_nb == "2":
-                    return "absent"
+            if self.stage == "absent_0":
+                return "excused_necessity"
+            if self.stage == "absent_1":
+                return "excused"
+            if self.stage == "absent_2":
+                return "absent"
             if self.stage == "cancelled":
                 return "cancel"
         if self.working_mode == "irregular":
@@ -86,11 +91,6 @@ class AttendanceSheetShiftExpected(models.Model):
     _description = "Expected Shift"
     _inherit = ["beesdoo.shift.sheet.shift"]
 
-    compensation_nb = fields.Selection(
-        [("0", "0"), ("1", "1"), ("2", "2")],
-        string="Compensations (if absent)",
-    )
-
     replacement_worker_id = fields.Many2one(
         "res.partner",
         string="Replacement Worker",
@@ -100,20 +100,6 @@ class AttendanceSheetShiftExpected(models.Model):
             ("state", "not in", ("unsubscribed", "resigning")),
         ],
     )
-
-    # The webclient has display issues with this method.
-    @api.onchange("stage")
-    def on_change_stage(self):
-        if self.working_mode == "irregular":
-            if self.stage == "present" or "cancelled":
-                self.compensation_nb = False
-            if self.stage == "absent":
-                self.compensation_nb = "1"
-        if self.working_mode == "regular":
-            if self.stage == "present" or "cancelled":
-                self.compensation_nb = False
-            if self.stage == "absent":
-                self.compensation_nb = "2"
 
 
 class AttendanceSheetShiftAdded(models.Model):
@@ -330,9 +316,9 @@ class AttendanceSheet(models.Model):
         task_templates = set()
         for task in tasks:
             if task.working_mode == "irregular":
-                compensation_nb = "1"
+                stage = "absent_1"
             else:
-                compensation_nb = "2"
+                stage = "absent_2"
             if task.worker_id:
                 new_expected_shift = expected_shift.create(
                     {
@@ -341,8 +327,7 @@ class AttendanceSheet(models.Model):
                         "worker_id": task.worker_id.id,
                         "replacement_worker_id": task.replaced_id.id,
                         "task_type_id": task.task_type_id.id,
-                        "stage": "absent",
-                        "compensation_nb": compensation_nb,
+                        "stage": stage,
                         "working_mode": task.working_mode,
                     }
                 )
