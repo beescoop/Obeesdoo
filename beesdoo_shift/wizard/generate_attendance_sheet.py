@@ -60,11 +60,13 @@ class GenerateAttendanceSheet(models.TransientModel):
         sheets = self.env["beesdoo.shift.sheet"]
         if not self.time_range:
             raise exceptions.UserError(
-                "Please select a time time_range to generate the sheet."
+                _("Please select a time time_range to generate the sheet.")
             )
         time_range = self.time_range.split("~")
         if len(time_range) != 2:
-            raise exceptions.ValidationError("Selection key has wrong format.")
+            raise exceptions.ValidationError(
+                _("Selection key has wrong format.")
+            )
         sheet = sheets.create(
             {"start_time": time_range[0], "end_time": time_range[1]}
         )
