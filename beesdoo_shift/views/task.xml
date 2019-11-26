@@ -38,19 +38,19 @@
                         domain="[('worker_id', '=', False)]" />
                     <separator />
                     <filter string="4 next days" name="nextweek"
-                        domain="[('end_time','&gt;', context_today().strftime('%%Y-%%m-%%d 00:00:00')), ('start_time','&lt;', (context_today()  + datetime.timedelta(days=4)).strftime('%%Y-%%m-%%d 23:59:59'))]" />
+                        domain="[('end_time','&gt;', context_today().strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  + datetime.timedelta(days=4)).strftime('%Y-%m-%d 23:59:59'))]" />
                     <filter string="J-5" name="jminus5"
-                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=5)).strftime('%%Y-%%m-%%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=5)).strftime('%%Y-%%m-%%d 23:59:59'))]" />
+                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=5)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=5)).strftime('%Y-%m-%d 23:59:59'))]" />
                     <filter string="J-4" name="jminus4"
-                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=4)).strftime('%%Y-%%m-%%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=4)).strftime('%%Y-%%m-%%d 23:59:59'))]" />
+                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=4)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=4)).strftime('%Y-%m-%d 23:59:59'))]" />
                     <filter string="J-3" name="jminus3"
-                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=3)).strftime('%%Y-%%m-%%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=3)).strftime('%%Y-%%m-%%d 23:59:59'))]" />
+                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=3)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=3)).strftime('%Y-%m-%d 23:59:59'))]" />
                     <filter string="J-2" name="jminus2"
-                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=2)).strftime('%%Y-%%m-%%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=2)).strftime('%%Y-%%m-%%d 23:59:59'))]" />
+                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=2)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=2)).strftime('%Y-%m-%d 23:59:59'))]" />
                     <filter string="J-1" name="jminus1"
-                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=1)).strftime('%%Y-%%m-%%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=1)).strftime('%%Y-%%m-%%d 23:59:59'))]" />
+                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=1)).strftime('%Y-%m-%d 23:59:59'))]" />
                     <filter string="Today" name="today"
-                        domain="[('end_time','&gt;', context_today().strftime('%%Y-%%m-%%d 00:00:00')), ('start_time','&lt;', context_today().strftime('%%Y-%%m-%%d 23:59:59'))]" />
+                        domain="[('end_time','&gt;', context_today().strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', context_today().strftime('%Y-%m-%d 23:59:59'))]" />
                 <group expand="1" string="Group By">
                     <filter string="Shift Template"
                         context="{'group_by' : 'task_template_id'}" />
