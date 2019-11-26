@@ -5,9 +5,7 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                    <div class="oe_title">
-                        <h1>Validation</h1>
-                    </div>
+                    <separator string="Validation"/>
                     <label string="Beware : a validated sheet cannot be edited anymore
                                    and you won't be able to add any latecomers.
                                    Emails will be sent to workers who did not attend their shift." />
