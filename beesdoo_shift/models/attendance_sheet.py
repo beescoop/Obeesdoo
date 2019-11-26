@@ -2,7 +2,7 @@
 
 from lxml import etree
 
-from openerp import models, exceptions, fields, api
+from openerp import models, exceptions, fields, api, _
 from openerp.exceptions import UserError, ValidationError
 
 from datetime import datetime
@@ -65,7 +65,7 @@ class AttendanceSheetShift(models.AbstractModel):
          """
         if not self.working_mode or not self.stage:
             raise UserError(
-                "Impossible to map task status, all values are not set."
+                _("Impossible to map task status, all values are not set.")
             )
         if self.working_mode == "regular":
             if self.stage == "present":
@@ -172,9 +172,7 @@ class AttendanceSheet(models.Model):
         readonly=True,
         help="Indicative maximum number of workers for the shifts.",
     )
-    annotation = fields.Text(
-        "Annotation", default=""
-    )
+    annotation = fields.Text("Annotation", default="")
     is_annotated = fields.Boolean(
         compute="_compute_is_annotated",
         string="Annotation",
@@ -187,9 +185,7 @@ class AttendanceSheet(models.Model):
         default=False,
         track_visibility="onchange",
     )
-    feedback = fields.Text(
-        "Feedback"
-    )
+    feedback = fields.Text("Feedback")
     worker_nb_feedback = fields.Selection(
         [
             ("not_enough", "Not enough"),
@@ -221,7 +217,7 @@ class AttendanceSheet(models.Model):
         (
             "check_no_annotation_mark_read",
             "CHECK ((is_annotated=FALSE AND is_read=FALSE) OR is_annotated=TRUE)",
-            "Non-annotated sheets can't be marked as read. ",
+            _("Non-annotated sheets can't be marked as read."),
         )
     ]
 
@@ -235,13 +231,13 @@ class AttendanceSheet(models.Model):
     def _lock_after_validation(self):
         if self.state == "validated":
             raise UserError(
-                "The sheet has already been validated and can't be edited."
+                _("The sheet has already been validated and can't be edited.")
             )
 
     @api.multi
     def button_mark_as_read(self):
         if self.is_read:
-            raise UserError("The sheet has already been marked as read.")
+            raise UserError(_("The sheet has already been marked as read."))
         self.is_read = True
 
     @api.constrains("expected_shift_ids", "added_shift_ids")
@@ -257,7 +253,9 @@ class AttendanceSheet(models.Model):
 
         if (len(ids) - len(set(ids))) > 0:
             raise UserError(
-                "You can't add the same worker more than once to an attendance sheet."
+                _(
+                    "You can't add the same worker more than once to an attendance sheet."
+                )
             )
 
     # Compute name (not hardcorded to prevent incoherence with timezone)
@@ -343,20 +341,21 @@ class AttendanceSheet(models.Model):
         for added_shift in self.added_shift_ids:
             if not added_shift.worker_id:
                 raise UserError(
-                    "Worker must be set for shift %s" % added_shift.id
+                    _("Worker must be set for shift %s") % added_shift.id
                 )
             if not added_shift.stage:
                 raise UserError(
-                    "Shift Stage is missing for %s"
+                    _("Shift Stage is missing for %s")
                     % added_shift.worker_id.name
                 )
             if not added_shift.task_type_id:
                 raise UserError(
-                    "Task Type is missing for %s" % added_shift.worker_id.name
+                    _("Task Type is missing for %s")
+                    % added_shift.worker_id.name
                 )
             if not added_shift.working_mode:
                 raise UserError(
-                    "Working mode is missing for %s"
+                    _("Working mode is missing for %s")
                     % added_shift.worker_id.name
                 )
             if (
@@ -364,14 +363,14 @@ class AttendanceSheet(models.Model):
                 and not added_shift.regular_task_type
             ):
                 raise UserError(
-                    "Regular Task Type is missing for %s"
+                    _("Regular Task Type is missing for %s")
                     % added_shift.worker_id.name
                 )
 
         for expected_shift in self.expected_shift_ids:
             if not expected_shift.stage:
                 raise UserError(
-                    "Shift Stage is missing for %s"
+                    _("Shift Stage is missing for %s")
                     % expected_shift.worker_id.name
                 )
 
@@ -400,8 +399,10 @@ class AttendanceSheet(models.Model):
             # Add an annotation if a regular worker is doing its regular shift
             if is_regular_shift and is_regular_worker:
                 self.annotation += (
-                    "\n\nWarning : %s attended its shift as a normal one but was not expected."
-                    " Something may be wrong in his/her personnal informations.\n"
+                    _(
+                        "\n\nWarning : %s attended its shift as a normal one but was not expected."
+                        " Something may be wrong in his/her personnal informations.\n"
+                    )
                     % added_shift.worker_id.name
                 )
             # Edit a non-assigned shift or create one if none
@@ -430,7 +431,7 @@ class AttendanceSheet(models.Model):
             else:
                 actual_shift = self.env["beesdoo.shift.shift"].create(
                     {
-                        "name": "[Added Shift] %s" % self.start_time,
+                        "name": _("[Added Shift] %s") % self.start_time,
                         "task_type_id": added_shift.task_type_id.id,
                         "worker_id": added_shift.worker_id.id,
                         "start_time": self.start_time,
@@ -466,23 +467,31 @@ class AttendanceSheet(models.Model):
 
         if self.state == "validated":
             raise UserError(
-                "You cannot modify a validated attendance sheet."
+                _("You cannot modify a validated attendance sheet.")
             )
 
         worker = self.env["res.partner"].search([("barcode", "=", barcode)])
         if not len(worker):
-            raise UserError("Worker not found (invalid barcode or status).")
+            raise UserError(_("Worker not found (invalid barcode or status)."))
         if len(worker) > 1:
-            raise UserError("Multiple workers corresponding to barcode.")
+            raise UserError(
+                _("Multiple workers are corresponding this barcode.")
+            )
 
         if worker.state in ("unsubscribed", "resigning"):
-            raise UserError("Worker is %s." % worker.state)
+            raise UserError(_("Worker is %s.") % worker.state)
         if worker.working_mode not in ("regular", "irregular"):
-            raise UserError("Worker is %s and should be regular or irregular." % worker.working_mode)
+            raise UserError(
+                _("Worker is %s and should be regular or irregular.")
+                % worker.working_mode
+            )
 
         for id in self.expected_shift_ids.ids:
             shift = self.env["beesdoo.shift.sheet.expected"].browse(id)
-            if shift.worker_id == worker or shift.replacement_worker_id == worker:
+            if (
+                shift.worker_id == worker
+                or shift.replacement_worker_id == worker
+            ):
                 shift.stage = "present"
                 return
 
@@ -493,12 +502,14 @@ class AttendanceSheet(models.Model):
 
         added_ids = map(lambda s: s.worker_id.id, self.added_shift_ids)
         if worker.id in added_ids:
-            raise UserError("Worker is already present.")
+            raise UserError(_("Worker is already present."))
 
-        self.added_shift_ids |= self.added_shift_ids.new({
-            "task_type_id": self.added_shift_ids._default_task_type_id(),
-            "stage": "present",
-            "attendance_sheet_id": self._origin.id,
-            "worker_id": worker.id,
-            "regular_task_type": regular_task_type
-        })
+        self.added_shift_ids |= self.added_shift_ids.new(
+            {
+                "task_type_id": self.added_shift_ids._default_task_type_id(),
+                "stage": "present",
+                "attendance_sheet_id": self._origin.id,
+                "worker_id": worker.id,
+                "regular_task_type": regular_task_type,
+            }
+        )
