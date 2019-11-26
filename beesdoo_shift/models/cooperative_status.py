@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp import models, fields, api, _
-from openerp.exceptions import ValidationError
+from openerp.exceptions import ValidationError, UserError
 
 from datetime import timedelta, datetime
 import logging
@@ -200,6 +200,11 @@ class CooperativeStatus(models.Model):
                     else:
                         next_countdown_date = date
                 rec.next_countdown_date = next_countdown_date
+
+    @api.constrains("working_mode", "irregular_start_date")
+    def _constrains_irregular_start_date(self):
+        if self.working_mode == "irregular" and not self.irregular_start_date:
+            raise UserError(_("Irregular workers must have an irregular start date."))
 
     def _next_countdown_date(self, irregular_start_date, today=False):
         """
