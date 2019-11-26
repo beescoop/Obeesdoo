@@ -100,12 +100,14 @@
                 <field name="_barcode_scanned" widget="barcode_handler"/>
                 <header>
                     <div>
-                        <field name="state" widget="statusbar" readonly="True" />
+                        <field name="state" widget="statusbar" readonly="True" class="oe_inline"/>
                         <button type="object"
                                 name="validate_via_wizard"
                                 string="Validate Sheet"
+                                attrs="{'invisible': [('state', '=', 'validated')]}"
                         />
                     </div>
+                    <div class="oe_clear" />
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
