@@ -151,7 +151,6 @@ class AttendanceSheet(models.Model):
         default="not_validated",
         track_visibility="onchange",
     )
-
     start_time = fields.Datetime(
         string="Start Time", required=True, readonly=True
     )
@@ -167,8 +166,7 @@ class AttendanceSheet(models.Model):
         "attendance_sheet_id",
         string="Added Shifts",
     )
-
-    max_worker_nb = fields.Integer(
+    max_worker_no = fields.Integer(
         string="Maximum number of workers",
         default=0,
         readonly=True,
@@ -185,7 +183,7 @@ class AttendanceSheet(models.Model):
     )
 
     annotation = fields.Text(
-        "Attendance Sheet annotation", default="", track_visibility="onchange"
+        "Annotation", default=""
     )
     is_annotated = fields.Boolean(
         compute="_compute_is_annotated",
@@ -200,7 +198,7 @@ class AttendanceSheet(models.Model):
         track_visibility="onchange",
     )
     feedback = fields.Text(
-        "Attendance Sheet feedback", track_visibility="onchange"
+        "Feedback"
     )
     worker_nb_feedback = fields.Selection(
         [
@@ -208,8 +206,7 @@ class AttendanceSheet(models.Model):
             ("enough", "Enough"),
             ("too_many", "Too many"),
         ],
-        string="Feedback regarding the number of workers.",
-        track_visibility="onchange",
+        string="Number of workers.",
     )
     attended_worker_nb = fields.Integer(
         string="Number of attended workers",

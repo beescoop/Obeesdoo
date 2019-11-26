@@ -41,6 +41,40 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="sheet_expected_view_form">
+        <field name="view_mode">tree</field>
+        <field name="name">Expected Shifts Form</field>
+        <field name="model">beesdoo.shift.sheet.expected</field>
+        <field name="arch" type="xml">
+            <form readonly="True">
+                <group string="Expected Shift" >
+                    <field name="task_type_id" options="{'no_open': True}" />
+                    <field name="worker_id" options="{'no_open': True}" />
+                    <field name="working_mode" options="{'no_open': True}" />
+                    <field name="replacement_worker_id" options="{'no_open': True}" />
+                    <field name="stage" options="{'no_open': True}" />
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sheet_added_view_form">
+        <field name="view_mode">tree</field>
+        <field name="name">Added Shifts Form</field>
+        <field name="model">beesdoo.shift.sheet.added</field>
+        <field name="arch" type="xml">
+            <form readonly="True" >
+                <group>
+                    <field name="task_type_id" options="{'no_open': True}" />
+                    <field name="worker_id" options="{'no_open': True}" />
+                    <field name="working_mode" options="{'no_open': True}" />
+                    <field name="regular_task_type" options="{'no_open': True}" />
+                    <field name="stage" options="{'no_open': True}" />
+                </group>
+            </form>
+        </field>
+    </record>
+
     <!-- Attendance Sheets Views -->
 
     <record model="ir.ui.view" id="sheet_view_tree">
@@ -65,11 +99,13 @@
             <form create="false" delete="false">
                 <field name="_barcode_scanned" widget="barcode_handler"/>
                 <header>
-                    <field name="state" widget="statusbar" readonly="True" />
-                    <button type="object"
-                            name="validate_via_wizard"
-                            string="Validate Sheet"
-                            />
+                    <div>
+                        <field name="state" widget="statusbar" readonly="True" />
+                        <button type="object"
+                                name="validate_via_wizard"
+                                string="Validate Sheet"
+                        />
+                    </div>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
@@ -87,28 +123,26 @@
                         </button>
                     </div>
                     <div class="oe_title">
-                        <h1><field name="name"/></h1>
+                        <h1>
+                            <field name="name" />
+                        </h1>
                     </div>
-                        <group>
-                            <field name="max_worker_nb" />
+                        <separator string="Expected workers" />
+                        <field name="expected_shift_ids" />
+                        <separator string="Added workers" />
+                        <field name="added_shift_ids"/>
+                        <group string="Informations">
+                            <field name="max_worker_no" />
                         </group>
-                        <group col="1" string="Expected workers">
-                            <group>
-                                <field name="expected_worker_nb" />
-                            </group>
-                            <field name="expected_shift_ids"/>
-                        </group>
-                        <group col="1" string="Added workers">
-                            <group>
-                                <field name="added_worker_nb" />
-                            </group>
-                            <field name="added_shift_ids" />
-                        </group>
-                        <group col="1" string="Informations"
+                        <br/>
+                        <group col="1" string="Feedback"
                                groups="beesdoo_shift.group_cooperative_admin">
                             <field name="annotation" />
+                            <br/>
                             <field name="feedback" />
+                            <br/>
                             <field name="worker_nb_feedback" />
+                            <br/>
                             <group>
                                 <field name="validated_by" readonly="True"/>
                             </group>
