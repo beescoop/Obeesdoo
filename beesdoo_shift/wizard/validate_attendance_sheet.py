@@ -11,11 +11,10 @@ class ValidateAttendanceSheet(models.TransientModel):
 
     barcode = fields.Char(string="Barcode", required=True)
     annotation = fields.Text(
-        "Important information requiring permanent member assistance", default=""
+        "Important information requiring permanent member assistance",
+        default="",
     )
-    feedback = fields.Text(
-        "General feedback"
-    )
+    feedback = fields.Text("General feedback")
     worker_nb_feedback = fields.Selection(
         [
             ("not_enough", "Not enough"),
@@ -23,7 +22,7 @@ class ValidateAttendanceSheet(models.TransientModel):
             ("too_many", "Too many"),
         ],
         string="Number of workers",
-        required=True
+        required=True,
     )
 
     @api.multi
@@ -31,15 +30,15 @@ class ValidateAttendanceSheet(models.TransientModel):
         sheet_id = self._context.get("active_id")
         sheet_model = self._context.get("active_model")
         sheet = self.env[sheet_model].browse(sheet_id)
-        card = self.env["member.card"].search(
-            [("barcode", "=", self.barcode)]
-        )
+        card = self.env["member.card"].search([("barcode", "=", self.barcode)])
         if not len(card):
-            raise UserError("Please set a correct barcode.")
+            raise UserError(_("Please set a correct barcode."))
         user = card[0].partner_id
         if not user:
             raise UserError(
-                "Only super-cooperators and administrators can validate attendance sheets."
+                _(
+                    "Only super-cooperators and administrators can validate attendance sheets."
+                )
             )
         sheet.annotation = self.annotation
         sheet.feedback = self.feedback
