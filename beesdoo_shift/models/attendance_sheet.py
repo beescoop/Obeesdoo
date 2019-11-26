@@ -172,16 +172,6 @@ class AttendanceSheet(models.Model):
         readonly=True,
         help="Indicative maximum number of workers for the shifts.",
     )
-    expected_worker_nb = fields.Integer(
-        string="Number of expected workers", readonly=True, default=0
-    )
-    added_worker_nb = fields.Integer(
-        compute="_compute_added_shift_nb",
-        string="Number of added workers",
-        readonly=True,
-        default=0,
-    )
-
     annotation = fields.Text(
         "Annotation", default=""
     )
@@ -270,10 +260,6 @@ class AttendanceSheet(models.Model):
                 "You can't add the same worker more than once to an attendance sheet."
             )
 
-    @api.depends("added_shift_ids")
-    def _compute_added_shift_nb(self):
-        self.added_worker_nb = len(self.added_shift_ids)
-
     # Compute name (not hardcorded to prevent incoherence with timezone)
     @api.depends("start_time", "end_time")
     def _compute_name(self):
@@ -330,10 +316,8 @@ class AttendanceSheet(models.Model):
                     }
                 )
                 task_templates.add(task.task_template_id)
-                new_sheet.expected_worker_nb += 1
         # Maximum number of workers calculation
-
-        new_sheet.max_worker_nb = sum(r.worker_nb for r in task_templates)
+        new_sheet.max_worker_no = sum(r.worker_nb for r in task_templates)
         return new_sheet
 
     # Workaround to display notifications only for unread and not validated
