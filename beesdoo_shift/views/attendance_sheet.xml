@@ -84,7 +84,7 @@
             <!-- <tree create="false" delete="false" decoration-danger="stage == 'absent'"> -->
             <tree create="false" decoration-danger="state == 'not_validated'">
                 <field name="name"/>
-                <field name="max_worker_nb" type="char"/>
+                <field name="max_worker_no" type="char"/>
                 <field name="state" />
                 <field name="validated_by" />
                 <field name="is_annotated" />
