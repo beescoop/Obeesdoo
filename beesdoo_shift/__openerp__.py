@@ -37,7 +37,6 @@
         "wizard/assign_super_coop.xml",
         "wizard/subscribe.xml",
         "wizard/extension.xml",
-        "wizard/generate_attendance_sheet.xml",
         "wizard/holiday.xml",
         "wizard/temporary_exemption.xml",
     ],
