@@ -11,7 +11,6 @@
             <field name="args">()</field>
         </record>
 
-
         <record id="ir_cron_generate_next_planning" model="ir.cron">
             <field name="name">Generate Next Planning</field>
             <field name="interval_number">1</field>
@@ -22,6 +21,17 @@
             <field name="function">_generate_next_planning</field>
             <field name="args">()</field>
             <field name="active" eval="False" />
+        </record>
+
+        <record id="ir_cron_generate_attendance_sheet" model="ir.cron">
+            <field name="name">Generate Attendance Sheet</field>
+            <field name="interval_number">20</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+            <field name="model">beesdoo.shift.sheet</field>
+            <field name="function">_generate_attendance_sheet</field>
+            <field name="args">()</field>
         </record>
 
         <record id="ir_cron_compute_shift_counter" model="ir.cron">
