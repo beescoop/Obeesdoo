@@ -5,7 +5,7 @@ from lxml import etree
 from openerp import models, exceptions, fields, api, _
 from openerp.exceptions import UserError, ValidationError
 
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from lxml import etree
 
 
@@ -462,6 +462,40 @@ class AttendanceSheet(models.Model):
             "view_mode": "form",
             "target": "new",
         }
+
+    @api.model
+    def _generate_attendance_sheet(self):
+        """
+        Generate sheets 20 minutes before current time.
+        Corresponding CRON intervall time must be the same.
+        Check if any task exists in the time intervall.
+        If no sheet is already created, it is created.
+        """
+
+        time_ranges = set()
+        tasks = self.env["beesdoo.shift.shift"]
+        sheets = self.env["beesdoo.shift.sheet"]
+        current_time = datetime.now()
+        allowed_time_range = timedelta(minutes=20)
+
+        tasks = tasks.search(
+            [
+                ("start_time", ">", str(current_time),),
+                ("start_time", "<", str(current_time + allowed_time_range),),
+            ]
+        )
+
+        for task in tasks:
+            start_time = task.start_time
+            end_time = task.end_time
+            sheets = sheets.search(
+                [("start_time", "=", start_time), ("end_time", "=", end_time),]
+            )
+
+            if not sheets:
+                sheet = sheets.create(
+                    {"start_time": start_time, "end_time": end_time}
+                )
 
     def on_barcode_scanned(self, barcode):
 
