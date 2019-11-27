@@ -31,7 +31,7 @@ class GenerateAttendanceSheet(models.TransientModel):
                 [("start_time", "=", start_time), ("end_time", "=", end_time),]
             )
 
-            if len(sheets) == 0:
+            if not sheets:
                 start_time_dt = fields.Datetime.from_string(start_time)
                 start_time_dt = fields.Datetime.context_timestamp(
                     self, start_time_dt
