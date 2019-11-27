@@ -14,9 +14,12 @@ class AttendanceSheetShift(models.AbstractModel):
     _description = "Copy of an actual shift into an attendance sheet"
 
     @api.model
-    def _default_task_type_id(self):
+    def default_task_type_id(self):
         parameters = self.env["ir.config_parameter"]
-        id = int(parameters.get_param("beesdoo_shift.default_task_type_id"))
+        id = (
+            int(parameters.get_param("beesdoo_shift.default_task_type_id"))
+            or 1
+        )
         task_types = self.env["beesdoo.shift.type"]
         return task_types.browse(id)
 
@@ -50,7 +53,7 @@ class AttendanceSheetShift(models.AbstractModel):
         ],
     )
     task_type_id = fields.Many2one(
-        "beesdoo.shift.type", string="Task Type", default=_default_task_type_id
+        "beesdoo.shift.type", string="Task Type", default=default_task_type_id
     )
     working_mode = fields.Selection(
         related="worker_id.working_mode", string="Working Mode", store=True
@@ -59,9 +62,9 @@ class AttendanceSheetShift(models.AbstractModel):
     def get_actual_stage(self):
         """
          Mapping function returning the actual id
-         of corresponding beesdoo.shift.stage
-         This behavior should be temporary
-         (increases lack of understanding).
+         of corresponding beesdoo.shift.stage,
+         because we prefer users to select number of compensations
+         on the sheet rather than the exact stage name.
          """
         if not self.working_mode or not self.stage:
             raise UserError(
@@ -540,7 +543,7 @@ class AttendanceSheet(models.Model):
 
         self.added_shift_ids |= self.added_shift_ids.new(
             {
-                "task_type_id": self.added_shift_ids._default_task_type_id(),
+                "task_type_id": self.added_shift_ids.default_task_type_id(),
                 "stage": "present",
                 "attendance_sheet_id": self._origin.id,
                 "worker_id": worker.id,
