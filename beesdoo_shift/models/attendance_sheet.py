@@ -295,24 +295,25 @@ class AttendanceSheet(models.Model):
         Look for the super cooperator of a shift
         with default Task Type
         """
-        default_task_type = self.env[
-            "beesdoo.shift.sheet.expected"
-        ].default_task_type_id()
-        shift = self.expected_shift_ids.search(
-            [
-                ("task_type_id", "=", default_task_type.id),
-                ("super_coop_id", "!=", False),
-            ],
-            limit=1,
-        )
-        self.default_super_coop_id = shift.super_coop_id
+        for rec in self:
+            default_task_type = rec.env[
+                "beesdoo.shift.sheet.expected"
+            ].default_task_type_id()
+            shift = rec.expected_shift_ids.search(
+                [
+                    ("task_type_id", "=", default_task_type.id),
+                    ("super_coop_id", "!=", False),
+                ],
+                limit=1,
+            )
+            rec.default_super_coop_id = shift.super_coop_id
 
     # Is this method necessary ?
     @api.depends("annotation")
     def _compute_is_annotated(self):
-        if self.annotation:
-            self.is_annotated = len(self.annotation) != 0
-        return
+        for rec in self:
+            if rec.annotation:
+                rec.is_annotated = len(rec.annotation) != 0
 
     @api.model
     def create(self, vals):
