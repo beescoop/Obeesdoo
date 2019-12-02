@@ -10,6 +10,7 @@
                   decoration-danger="stage == 'absent_0' or stage == 'absent_1' or stage == 'absent_2'"
                   decoration-success="stage == 'present'">
                 <field name="task_type_id" readonly="True" options="{'no_open': True}"/>
+                <field name="super_coop_id" readonly="True" options="{'no_open': True}"/>
                 <field name="worker_id" readonly="True" options="{'no_open': True}"/>
                 <field name="working_mode" />
                 <field name="replacement_worker_id"
@@ -81,10 +82,12 @@
         <field name="name">Attendance Sheet List</field>
         <field name="model">beesdoo.shift.sheet</field>
         <field name="arch" type="xml">
-            <!-- <tree create="false" delete="false" decoration-danger="stage == 'absent'"> -->
-            <tree create="false" decoration-danger="state == 'not_validated'">
-                <field name="name"/>
+            <tree create="false" delete="false" default_order="start_time desc"
+                  decoration-danger="state == 'not_validated'">
+                <field name="day" />
+                <field name="time_slot" />
                 <field name="max_worker_no" type="char"/>
+                <field name="default_super_coop_id" />
                 <field name="state" />
                 <field name="validated_by" />
                 <field name="is_annotated" />
@@ -134,6 +137,7 @@
                         <separator string="Added workers" />
                         <field name="added_shift_ids"/>
                         <group string="Informations">
+                            <field name="default_super_coop_id" />
                             <field name="max_worker_no" />
                         </group>
                         <br/>
