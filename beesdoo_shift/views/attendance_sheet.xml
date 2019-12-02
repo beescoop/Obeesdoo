@@ -7,9 +7,7 @@
         <field name="model">beesdoo.shift.sheet</field>
         <field name="arch" type="xml">
             <search>
-                <field name="name" />
-                <field name="start_time" />
-                <field name="end_time" />
+                <field name="day" />
                 <field name="default_super_coop_id" />
                 <field name="validated_by" />
                 <filter string="Annotated (unread)"
@@ -156,7 +154,7 @@
                     </div>
                     <div class="oe_title">
                         <h1>
-                            <field name="name" />
+                            <field name="time_slot" />
                         </h1>
                     </div>
                         <separator string="Expected workers" />
