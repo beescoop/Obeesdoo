@@ -2,6 +2,33 @@
 
     <!-- Attendance Sheet Shifts Views -->
 
+    <record model="ir.ui.view" id="sheet_view_search">
+        <field name="name">Attendance Sheet Search</field>
+        <field name="model">beesdoo.shift.sheet</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="start_time" />
+                <field name="end_time" />
+                <field name="default_super_coop_id" />
+                <field name="validated_by" />
+                <filter string="Annotated (unread)"
+                        domain="[('is_annotated', '=', True),
+                        ('is_read', '=', False)]" />
+                <filter string="Annotated (read)"
+                        domain="[('is_annotated', '=', True),
+                        ('is_read', '=', True)]" />
+                <separator />
+                <filter string="Archived"
+                        domain="[('active', '=', False)]" />
+                <group expand="1" string="Group By">
+                    <filter string="Day" name="gb_day"
+                            context="{'group_by' : 'start_time:day'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
     <record model="ir.ui.view" id="sheet_expected_view_tree">
         <field name="name">Expected Shifts List</field>
         <field name="model">beesdoo.shift.sheet.expected</field>
