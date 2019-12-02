@@ -55,6 +55,11 @@ class AttendanceSheetShift(models.AbstractModel):
     task_type_id = fields.Many2one(
         "beesdoo.shift.type", string="Task Type", default=default_task_type_id
     )
+    super_coop_id = fields.Many2one(
+        "res.users",
+        string="Super Cooperative",
+        domain=[("partner_id.super", "=", True)],
+    )
     working_mode = fields.Selection(
         related="worker_id.working_mode", string="Working Mode", store=True
     )
@@ -159,6 +164,14 @@ class AttendanceSheet(models.Model):
     )
     end_time = fields.Datetime(string="End Time", required=True, readonly=True)
 
+    default_super_coop_id = fields.Many2one(
+        "res.users",
+        string="Default Super Cooperative",
+        help="Super Cooperative for default Task Type",
+        domain=[("partner_id.super", "=", True)],
+        compute="_compute_default_super_coop_id",
+        store=True,
+    )
     expected_shift_ids = fields.One2many(
         "beesdoo.shift.sheet.expected",
         "attendance_sheet_id",
@@ -208,7 +221,6 @@ class AttendanceSheet(models.Model):
         string="Validated by",
         domain=[
             ("eater", "=", "worker_eater"),
-            ("super", "=", True),
             ("working_mode", "=", "regular"),
             ("state", "not in", ("unsubscribed", "resigning")),
         ],
@@ -277,6 +289,24 @@ class AttendanceSheet(models.Model):
             + end_time_dt.strftime("%H:%M")
         )
 
+    @api.depends("expected_shift_ids")
+    def _compute_default_super_coop_id(self):
+        """
+        Look for the super cooperator of a shift
+        with default Task Type
+        """
+        default_task_type = self.env[
+            "beesdoo.shift.sheet.expected"
+        ].default_task_type_id()
+        shift = self.expected_shift_ids.search(
+            [
+                ("task_type_id", "=", default_task_type.id),
+                ("super_coop_id", "!=", False),
+            ],
+            limit=1,
+        )
+        self.default_super_coop_id = shift.super_coop_id
+
     # Is this method necessary ?
     @api.depends("annotation")
     def _compute_is_annotated(self):
@@ -312,6 +342,7 @@ class AttendanceSheet(models.Model):
                         "worker_id": task.worker_id.id,
                         "replacement_worker_id": task.replaced_id.id,
                         "task_type_id": task.task_type_id.id,
+                        "super_coop_id": task.super_coop_id.id,
                         "stage": stage,
                         "working_mode": task.working_mode,
                     }
