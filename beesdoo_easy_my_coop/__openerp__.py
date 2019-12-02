@@ -29,6 +29,9 @@
         'views/subscription_request.xml',
         'views/subscription_templates.xml',
     ],
+    'demo': [
+        'demo/share_lines.xml',
+    ],
     'auto_install': True,
     # only loaded in demonstration mode
 }

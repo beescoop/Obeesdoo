@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2019 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="product_product_share_type_1_demo" model="product.product">
+        <field name="product_tmpl_id" ref="beesdoo_easy_my_coop.share_a"/>
+        <field name="default_code">share_a</field>
+    </record>
+
+    <record id="share_line_1_demo" model="share.line">
+        <field name="share_product_id" ref="product_product_share_type_1_demo"/>
+        <field name="share_number">2</field>
+        <field name="share_unit_price">50</field>
+        <field name="partner_id" ref="easy_my_coop.res_partner_cooperator_1_demo"/>
+        <field name="effective_date" eval="datetime.now() - timedelta(days=120)"/>
+    </record>
+
+    <record id="share_line_2_demo" model="share.line">
+        <field name="share_product_id" ref="product_product_share_type_1_demo"/>
+        <field name="share_number">4</field>
+        <field name="share_unit_price">50</field>
+        <field name="partner_id" ref="easy_my_coop.res_partner_cooperator_2_demo"/>
+        <field name="effective_date" eval="datetime.now() - timedelta(days=120)"/>
+    </record>
+
+    <record id="share_line_3_demo" model="share.line">
+        <field name="share_product_id" ref="product_product_share_type_1_demo"/>
+        <field name="share_number">2</field>
+        <field name="share_unit_price">50</field>
+        <field name="partner_id" ref="easy_my_coop.res_partner_cooperator_3_demo"/>
+        <field name="effective_date" eval="datetime.now() - timedelta(days=120)"/>
+    </record>
+
+    <record id="share_line_4_demo" model="share.line">
+        <field name="share_product_id" ref="product_product_share_type_1_demo"/>
+        <field name="share_number">6</field>
+        <field name="share_unit_price">50</field>
+        <field name="partner_id" ref="easy_my_coop.res_partner_cooperator_4_demo"/>
+        <field name="effective_date" eval="datetime.now() - timedelta(days=120)"/>
+    </record>
+
+    <record id="share_line_5_demo" model="share.line">
+        <field name="share_product_id" ref="product_product_share_type_1_demo"/>
+        <field name="share_number">2</field>
+        <field name="share_unit_price">50</field>
+        <field name="partner_id" ref="easy_my_coop.res_partner_cooperator_5_demo"/>
+        <field name="effective_date" eval="datetime.now() - timedelta(days=120)"/>
+    </record>
+
+    <record id="share_line_6_demo" model="share.line">
+        <field name="share_product_id" ref="product_product_share_type_1_demo"/>
+        <field name="share_number">4</field>
+        <field name="share_unit_price">50</field>
+        <field name="partner_id" ref="easy_my_coop.res_partner_cooperator_6_demo"/>
+        <field name="effective_date" eval="datetime.now() - timedelta(days=120)"/>
+    </record>
+</odoo>
