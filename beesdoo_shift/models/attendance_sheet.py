@@ -147,8 +147,12 @@ class AttendanceSheet(models.Model):
     _description = "Attendance sheets with all the shifts in one time range."
     _order = "start_time"
 
-    name = fields.Char(
-        string="Name", compute="_compute_name", store=True, readonly=True
+    name = fields.Char(string="Name", compute="_compute_name")
+    time_slot = fields.Char(
+        string="Time Slot",
+        compute="_compute_time_slot",
+        store=True,
+        readonly=True,
     )
     active = fields.Boolean(string="Active", default=1)
     state = fields.Selection(
@@ -163,6 +167,7 @@ class AttendanceSheet(models.Model):
         string="Start Time", required=True, readonly=True
     )
     end_time = fields.Datetime(string="End Time", required=True, readonly=True)
+    day = fields.Date(string="Day", compute="_compute_day", store=True)
 
     default_super_coop_id = fields.Many2one(
         "res.users",
@@ -273,21 +278,37 @@ class AttendanceSheet(models.Model):
                 )
             )
 
-    # Compute name (not hardcorded to prevent incoherence with timezone)
+    @api.depends("start_time", "end_time")
+    def _compute_time_slot(self):
+        for rec in self:
+            start_time_dt = fields.Datetime.from_string(rec.start_time)
+            start_time_dt = fields.Datetime.context_timestamp(
+                rec, start_time_dt
+            )
+            end_time_dt = fields.Datetime.from_string(rec.end_time)
+            end_time_dt = fields.Datetime.context_timestamp(rec, end_time_dt)
+            rec.time_slot = (
+                start_time_dt.strftime("%H:%M")
+                + " - "
+                + end_time_dt.strftime("%H:%M")
+            )
+
     @api.depends("start_time", "end_time")
     def _compute_name(self):
+        for rec in self:
+            start_time_dt = fields.Datetime.from_string(rec.start_time)
+            start_time_dt = fields.Datetime.context_timestamp(
+                rec, start_time_dt
+            )
+            if rec.time_slot:
+                rec.name = (
+                    fields.Date.to_string(start_time_dt) + " " + rec.time_slot
+                )
 
-        start_time_dt = fields.Datetime.from_string(self.start_time)
-        start_time_dt = fields.Datetime.context_timestamp(self, start_time_dt)
-        end_time_dt = fields.Datetime.from_string(self.end_time)
-        end_time_dt = fields.Datetime.context_timestamp(self, end_time_dt)
-        self.name = (
-            start_time_dt.strftime("%Y-%m-%d")
-            + " "
-            + start_time_dt.strftime("%H:%M")
-            + "-"
-            + end_time_dt.strftime("%H:%M")
-        )
+    @api.depends("start_time")
+    def _compute_day(self):
+        for rec in self:
+            rec.day = fields.Date.from_string(rec.start_time)
 
     @api.depends("expected_shift_ids")
     def _compute_default_super_coop_id(self):
