@@ -34,7 +34,7 @@ class ValidateAttendanceSheet(models.TransientModel):
         if not len(card):
             raise UserError(_("Please set a correct barcode."))
         user = card[0].partner_id
-        if not user:
+        if not user.super:
             raise UserError(
                 _(
                     "Only super-cooperators and administrators can validate attendance sheets."
@@ -43,8 +43,7 @@ class ValidateAttendanceSheet(models.TransientModel):
         sheet.annotation = self.annotation
         sheet.feedback = self.feedback
         sheet.worker_nb_feedback = self.worker_nb_feedback
-        sheet.validated_by = user
-        sheet.validate()
+        sheet.validate(user or self.env.user.partner_id)
 
     def on_barcode_scanned(self, barcode):
         self.barcode = barcode
