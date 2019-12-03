@@ -73,7 +73,7 @@ class AttendanceSheetShift(models.AbstractModel):
          """
         if not self.working_mode or not self.stage:
             raise UserError(
-                _("Impossible to map task status, all values are not set.")
+                _("Impossible to map task stage, all values are not set.")
             )
         if self.working_mode == "regular":
             if self.stage == "present":
@@ -157,7 +157,7 @@ class AttendanceSheet(models.Model):
     active = fields.Boolean(string="Active", default=1)
     state = fields.Selection(
         [("not_validated", "Not Validated"), ("validated", "Validated"),],
-        string="Status",
+        string="State",
         readonly=True,
         index=True,
         default="not_validated",
@@ -213,13 +213,7 @@ class AttendanceSheet(models.Model):
             ("enough", "Enough"),
             ("too_many", "Too many"),
         ],
-        string="Number of workers.",
-    )
-    attended_worker_nb = fields.Integer(
-        string="Number of attended workers",
-        default=0,
-        help="Number of workers who attended the session.",
-        readonly=True,
+        string="Number of workers",
     )
     validated_by = fields.Many2one(
         "res.partner",
@@ -385,7 +379,7 @@ class AttendanceSheet(models.Model):
             return self.search_count(domain)
         return
 
-    def validate(self):
+    def validate(self, user):
         self.ensure_one()
         if self.state == "validated":
             raise UserError("The sheet has already been validated.")
@@ -500,6 +494,7 @@ class AttendanceSheet(models.Model):
                 )
             added_shift.task_id = actual_shift.id
 
+        self.validated_by = user
         self.state = "validated"
         return
 
