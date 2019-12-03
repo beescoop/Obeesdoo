@@ -10,14 +10,14 @@
                                    and you won't be able to add any latecomers.
                                    Emails will be sent to workers who did not attend their shift." />
                     <field name="_barcode_scanned" widget="barcode_handler"/>
-                    <group col="1" string="Additionnal informations" >
+                    <group col="1" string="Additional informations" >
                         <field name="annotation" />
                         <field name="feedback" />
                     </group>
                     <group>
                         <field name="worker_nb_feedback" />
                     </group>
-                    <group string="Scan your barcode">
+                    <group string="Scan your card">
                         <field name="barcode" />
                     </group>
                 </sheet>
