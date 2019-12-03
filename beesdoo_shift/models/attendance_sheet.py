@@ -61,7 +61,7 @@ class AttendanceSheetShift(models.AbstractModel):
         domain=[("partner_id.super", "=", True)],
     )
     working_mode = fields.Selection(
-        related="worker_id.working_mode", string="Working Mode", store=True
+        related="worker_id.working_mode", string="Working Mode"
     )
 
     def get_actual_stage(self):
