@@ -327,8 +327,7 @@ class AttendanceSheet(models.Model):
     @api.depends("annotation")
     def _compute_is_annotated(self):
         for rec in self:
-            if rec.annotation:
-                rec.is_annotated = len(rec.annotation) != 0
+            rec.is_annotated = (rec.annotation.strip() != False)
 
     @api.model
     def create(self, vals):
@@ -448,13 +447,17 @@ class AttendanceSheet(models.Model):
             is_regular_shift = added_shift.regular_task_type == "normal"
             # Add an annotation if a regular worker is doing its regular shift
             if is_regular_shift and is_regular_worker:
-                self.annotation += (
+                warning_message = (
                     _(
-                        "\n\nWarning : %s attended its shift as a normal one but was not expected."
+                        "\nWarning : %s attended its shift as a normal one but was not expected."
                         " Something may be wrong in his/her personnal informations.\n"
                     )
                     % added_shift.worker_id.name
                 )
+                if self.annotation:
+                    self.annotation += warning_message
+                else:
+                    self.annotation = warning_message
             # Edit a non-assigned shift or create one if none
             non_assigned_shifts = shift.search(
                 [
@@ -499,12 +502,11 @@ class AttendanceSheet(models.Model):
         return
 
     # @api.multi is needed to call the wizard, but doesn't match @api.one
-    # from the validate() method
+    # from the validate(user) method
     @api.multi
     def validate_via_wizard(self):
         if self.env.user.has_group("beesdoo_shift.group_cooperative_admin"):
-            self.validated_by = self.env.user.partner_id
-            self.validate()
+            self.validate(self.env.user.partner_id)
             return
         return {
             "type": "ir.actions.act_window",
