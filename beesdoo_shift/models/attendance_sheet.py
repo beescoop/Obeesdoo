@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from lxml import etree
-
-from openerp import models, exceptions, fields, api, _
-from openerp.exceptions import UserError, ValidationError
-
 from datetime import date, datetime, timedelta
+
 from lxml import etree
+
+from openerp import _, api, exceptions, fields, models
+from openerp.exceptions import UserError, ValidationError
 
 
 class AttendanceSheetShift(models.AbstractModel):
@@ -23,8 +22,7 @@ class AttendanceSheetShift(models.AbstractModel):
         task_types = self.env["beesdoo.shift.type"]
         return task_types.browse(id)
 
-    # Related actual shift, not required because doesn't exist for added shift before validation
-    # To update after validation
+    # Related actual shift
     task_id = fields.Many2one("beesdoo.shift.shift", string="Task")
     attendance_sheet_id = fields.Many2one(
         "beesdoo.shift.sheet",
@@ -42,7 +40,6 @@ class AttendanceSheetShift(models.AbstractModel):
         ],
         string="Shift Stage",
     )
-
     worker_id = fields.Many2one(
         "res.partner",
         string="Worker",
@@ -119,7 +116,7 @@ class AttendanceSheetShiftAdded(models.Model):
     _description = "Added Shift"
     _inherit = ["beesdoo.shift.sheet.shift"]
 
-    # Change the previously determined two booleans for a more comprehensive field
+    # The two exclusive booleans are gathered in a selection field
     regular_task_type = fields.Selection(
         [("normal", "Normal"), ("compensation", "Compensation")],
         string="Task Mode (if regular)",
@@ -127,7 +124,6 @@ class AttendanceSheetShiftAdded(models.Model):
     )
     stage = fields.Selection(default="present")
 
-    # WARNING: check the code, readonly fields modified by onchange are not inserted on write
     @api.onchange("working_mode")
     def on_change_working_mode(self):
         self.stage = "present"
@@ -144,7 +140,7 @@ class AttendanceSheet(models.Model):
         "ir.needaction_mixin",
         "barcodes.barcode_events_mixin",
     ]
-    _description = "Attendance sheets with all the shifts in one time range."
+    _description = "Attendance sheet"
     _order = "start_time"
 
     name = fields.Char(string="Name", compute="_compute_name")
@@ -187,6 +183,7 @@ class AttendanceSheet(models.Model):
         "attendance_sheet_id",
         string="Added Shifts",
     )
+
     max_worker_no = fields.Integer(
         string="Maximum number of workers",
         default=0,
@@ -235,42 +232,17 @@ class AttendanceSheet(models.Model):
         )
     ]
 
-    @api.constrains(
-        "expected_shift_ids",
-        "added_shift_ids",
-        "annotation",
-        "feedback",
-        "worker_nb_feedback",
-    )
-    def _lock_after_validation(self):
-        if self.state == "validated":
-            raise UserError(
-                _("The sheet has already been validated and can't be edited.")
+    @api.depends("start_time", "end_time")
+    def _compute_name(self):
+        for rec in self:
+            start_time_dt = fields.Datetime.from_string(rec.start_time)
+            start_time_dt = fields.Datetime.context_timestamp(
+                rec, start_time_dt
             )
-
-    @api.multi
-    def button_mark_as_read(self):
-        if self.is_read:
-            raise UserError(_("The sheet has already been marked as read."))
-        self.is_read = True
-
-    @api.constrains("expected_shift_ids", "added_shift_ids")
-    def _constrain_unique_worker(self):
-        # Warning : map return generator in python3 (for Odoo 12)
-        added_ids = map(lambda s: s.worker_id.id, self.added_shift_ids)
-        expected_ids = map(lambda s: s.worker_id.id, self.expected_shift_ids)
-        replacement_ids = map(
-            lambda s: s.replacement_worker_id.id, self.expected_shift_ids
-        )
-        replacement_ids = filter(bool, replacement_ids)
-        ids = added_ids + expected_ids + replacement_ids
-
-        if (len(ids) - len(set(ids))) > 0:
-            raise UserError(
-                _(
-                    "You can't add the same worker more than once to an attendance sheet."
+            if rec.time_slot:
+                rec.name = (
+                    fields.Date.to_string(start_time_dt) + " " + rec.time_slot
                 )
-            )
 
     @api.depends("start_time", "end_time")
     def _compute_time_slot(self):
@@ -286,18 +258,6 @@ class AttendanceSheet(models.Model):
                 + " - "
                 + end_time_dt.strftime("%H:%M")
             )
-
-    @api.depends("start_time", "end_time")
-    def _compute_name(self):
-        for rec in self:
-            start_time_dt = fields.Datetime.from_string(rec.start_time)
-            start_time_dt = fields.Datetime.context_timestamp(
-                rec, start_time_dt
-            )
-            if rec.time_slot:
-                rec.name = (
-                    fields.Date.to_string(start_time_dt) + " " + rec.time_slot
-                )
 
     @api.depends("start_time")
     def _compute_day(self):
@@ -323,11 +283,92 @@ class AttendanceSheet(models.Model):
             )
             rec.default_super_coop_id = shift.super_coop_id
 
-    # Is this method necessary ?
     @api.depends("annotation")
     def _compute_is_annotated(self):
         for rec in self:
-            rec.is_annotated = (rec.annotation.strip() != False)
+            rec.is_annotated = bool(rec.annotation.strip())
+
+    @api.constrains("expected_shift_ids", "added_shift_ids")
+    def _constrain_unique_worker(self):
+        # Warning : map return generator in python3 (for Odoo 12)
+        added_ids = map(lambda s: s.worker_id.id, self.added_shift_ids)
+        expected_ids = map(lambda s: s.worker_id.id, self.expected_shift_ids)
+        replacement_ids = map(
+            lambda s: s.replacement_worker_id.id, self.expected_shift_ids
+        )
+        replacement_ids = filter(bool, replacement_ids)
+        ids = added_ids + expected_ids + replacement_ids
+
+        if (len(ids) - len(set(ids))) > 0:
+            raise UserError(
+                _(
+                    "You can't add the same worker more than once to an attendance sheet."
+                )
+            )
+
+    @api.constrains(
+        "expected_shift_ids",
+        "added_shift_ids",
+        "annotation",
+        "feedback",
+        "worker_nb_feedback",
+    )
+    def _lock_after_validation(self):
+        if self.state == "validated":
+            raise UserError(
+                _("The sheet has already been validated and can't be edited.")
+            )
+
+    def on_barcode_scanned(self, barcode):
+
+        if self.state == "validated":
+            raise UserError(
+                _("You cannot modify a validated attendance sheet.")
+            )
+
+        worker = self.env["res.partner"].search([("barcode", "=", barcode)])
+        if not len(worker):
+            raise UserError(_("Worker not found (invalid barcode or status)."))
+        if len(worker) > 1:
+            raise UserError(
+                _("Multiple workers are corresponding this barcode.")
+            )
+
+        if worker.state in ("unsubscribed", "resigning"):
+            raise UserError(_("Worker is %s.") % worker.state)
+        if worker.working_mode not in ("regular", "irregular"):
+            raise UserError(
+                _("Worker is %s and should be regular or irregular.")
+                % worker.working_mode
+            )
+
+        for id in self.expected_shift_ids.ids:
+            shift = self.env["beesdoo.shift.sheet.expected"].browse(id)
+            if (
+                shift.worker_id == worker
+                or shift.replacement_worker_id == worker
+            ):
+                shift.stage = "present"
+                return
+
+        if worker.working_mode == "regular":
+            regular_task_type = "compensation"
+        else:
+            regular_task_type = False
+
+        added_ids = map(lambda s: s.worker_id.id, self.added_shift_ids)
+        if worker.id in added_ids:
+            raise UserError(_("Worker is already present."))
+
+        self.added_shift_ids |= self.added_shift_ids.new(
+            {
+                "task_type_id": self.added_shift_ids.default_task_type_id(),
+                "stage": "present",
+                "attendance_sheet_id": self._origin.id,
+                "worker_id": worker.id,
+                "regular_task_type": regular_task_type,
+            }
+        )
 
     @api.model
     def create(self, vals):
@@ -367,8 +408,14 @@ class AttendanceSheet(models.Model):
         new_sheet.max_worker_no = sum(r.worker_nb for r in task_templates)
         return new_sheet
 
-    # Workaround to display notifications only for unread and not validated
-    # sheets, via a check on domain.
+    @api.multi
+    def button_mark_as_read(self):
+        if self.is_read:
+            raise UserError(_("The sheet has already been marked as read."))
+        self.is_read = True
+
+    # Workaround to display notifications only
+    # for unread and not validated sheets, via a check on domain.
     @api.model
     def _needaction_count(self, domain=None):
         if domain == [
@@ -426,14 +473,10 @@ class AttendanceSheet(models.Model):
         # Expected shifts status update
         for expected_shift in self.expected_shift_ids:
             actual_shift = expected_shift.task_id
-            # We get stage record corresponding to mapped stage id
             actual_stage = self.env.ref(
                 "beesdoo_shift.%s" % expected_shift.get_actual_stage()
             )
 
-            # If the actual stage has been deleted, the sheet is still validated.
-            # Raising an exception would stop this but would prevent validation.
-            # How can we show a message without stopping validation ?
             if actual_stage:
                 actual_shift.stage_id = actual_stage
                 actual_shift.replaced_id = expected_shift.replacement_worker_id
@@ -445,7 +488,6 @@ class AttendanceSheet(models.Model):
             )
             is_regular_worker = added_shift.worker_id.working_mode == "regular"
             is_regular_shift = added_shift.regular_task_type == "normal"
-            # Add an annotation if a regular worker is doing its regular shift
             if is_regular_shift and is_regular_worker:
                 warning_message = (
                     _(
@@ -501,10 +543,9 @@ class AttendanceSheet(models.Model):
         self.state = "validated"
         return
 
-    # @api.multi is needed to call the wizard, but doesn't match @api.one
-    # from the validate(user) method
     @api.multi
     def validate_via_wizard(self):
+        self.ensure_one()
         if self.env.user.has_group("beesdoo_shift.group_cooperative_admin"):
             self.validate(self.env.user.partner_id)
             return
@@ -522,7 +563,6 @@ class AttendanceSheet(models.Model):
         Generate sheets 20 minutes before current time.
         Corresponding CRON intervall time must be the same.
         Check if any task exists in the time intervall.
-        If no sheet is already created, it is created.
         """
 
         time_ranges = set()
@@ -549,54 +589,3 @@ class AttendanceSheet(models.Model):
                 sheet = sheets.create(
                     {"start_time": start_time, "end_time": end_time}
                 )
-
-    def on_barcode_scanned(self, barcode):
-
-        if self.state == "validated":
-            raise UserError(
-                _("You cannot modify a validated attendance sheet.")
-            )
-
-        worker = self.env["res.partner"].search([("barcode", "=", barcode)])
-        if not len(worker):
-            raise UserError(_("Worker not found (invalid barcode or status)."))
-        if len(worker) > 1:
-            raise UserError(
-                _("Multiple workers are corresponding this barcode.")
-            )
-
-        if worker.state in ("unsubscribed", "resigning"):
-            raise UserError(_("Worker is %s.") % worker.state)
-        if worker.working_mode not in ("regular", "irregular"):
-            raise UserError(
-                _("Worker is %s and should be regular or irregular.")
-                % worker.working_mode
-            )
-
-        for id in self.expected_shift_ids.ids:
-            shift = self.env["beesdoo.shift.sheet.expected"].browse(id)
-            if (
-                shift.worker_id == worker
-                or shift.replacement_worker_id == worker
-            ):
-                shift.stage = "present"
-                return
-
-        if worker.working_mode == "regular":
-            regular_task_type = "compensation"
-        else:
-            regular_task_type = False
-
-        added_ids = map(lambda s: s.worker_id.id, self.added_shift_ids)
-        if worker.id in added_ids:
-            raise UserError(_("Worker is already present."))
-
-        self.added_shift_ids |= self.added_shift_ids.new(
-            {
-                "task_type_id": self.added_shift_ids.default_task_type_id(),
-                "stage": "present",
-                "attendance_sheet_id": self._origin.id,
-                "worker_id": worker.id,
-                "regular_task_type": regular_task_type,
-            }
-        )
