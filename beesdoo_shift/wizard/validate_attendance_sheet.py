@@ -40,8 +40,10 @@ class ValidateAttendanceSheet(models.TransientModel):
                     "Only super-cooperators and administrators can validate attendance sheets."
                 )
             )
-        sheet.annotation = self.annotation
-        sheet.feedback = self.feedback
+        if self.annotation:
+            sheet.annotation += self.annotation
+        if sheet.feedback:
+            sheet.feedback += self.feedback
         sheet.worker_nb_feedback = self.worker_nb_feedback
         sheet.validate(user or self.env.user.partner_id)
 
