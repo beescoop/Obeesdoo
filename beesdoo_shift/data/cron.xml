@@ -32,6 +32,7 @@
             <field name="model">beesdoo.shift.sheet</field>
             <field name="function">_generate_attendance_sheet</field>
             <field name="args">()</field>
+            <field name="active" eval="False" />
         </record>
 
         <record id="ir_cron_compute_shift_counter" model="ir.cron">
@@ -42,6 +43,19 @@
             <field name="doall" eval="True" />
             <field name="model">cooperative.status</field>
             <field name="function">_cron_compute_counter_irregular</field>
+            <field name="args">()</field>
+            <field name="active" eval="False" />
+        </record>
+
+        <record id="ir_cron_check_non_validated_sheet" model="ir.cron">
+            <field name="name">Check for non-validated sheets</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="True" />
+            <field name="nextcall" eval="(datetime.now() + timedelta(days=1)).replace(hour=1,minute=0,second=0)" />
+            <field name="model">beesdoo.shift.sheet</field>
+            <field name="function">_cron_non_validated_sheets</field>
             <field name="args">()</field>
             <field name="active" eval="False" />
         </record>
