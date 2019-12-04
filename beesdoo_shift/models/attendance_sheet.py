@@ -481,6 +481,12 @@ class AttendanceSheet(models.Model):
                 actual_shift.stage_id = actual_stage
                 actual_shift.replaced_id = expected_shift.replacement_worker_id
 
+                if expected_shift.stage in ["absent_1", "absent_2"]:
+                    mail_template = self.env.ref(
+                        "beesdoo_shift.email_template_non_attendance", False
+                    )
+                    mail_template.send_mail(expected_shift.task_id.id, True)
+
         # Added shifts status update
         for added_shift in self.added_shift_ids:
             actual_stage = self.env.ref(
@@ -589,3 +595,20 @@ class AttendanceSheet(models.Model):
                 sheet = sheets.create(
                     {"start_time": start_time, "end_time": end_time}
                 )
+
+    @api.model
+    def _cron_non_validated_sheets(self):
+        sheets = self.env["beesdoo.shift.sheet"]
+        non_validated_sheets = sheets.search(
+            [
+                ("day", "=", date.today() - timedelta(days=1)),
+                ("state", "=", "not_validated"),
+            ]
+        )
+
+        if non_validated_sheets:
+            mail_template = self.env.ref(
+                "beesdoo_shift.email_template_non_validated_sheet", False
+            )
+            for rec in non_validated_sheets:
+                mail_template.send_mail(rec.id, True)

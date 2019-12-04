@@ -21,6 +21,7 @@
         "data/stage.xml",
         "data/system_parameter.xml",
         "data/cron.xml",
+        "data/mail_template.xml",
         "security/group.xml",
         "security/ir.model.access.csv",
         "views/task_template.xml",
