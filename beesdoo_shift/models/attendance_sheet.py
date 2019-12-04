@@ -583,7 +583,7 @@ class AttendanceSheet(models.Model):
                 return
 
         if worker.working_mode == "regular":
-            regular_task_type = "normal"
+            regular_task_type = "compensation"
         else:
             regular_task_type = False
 
