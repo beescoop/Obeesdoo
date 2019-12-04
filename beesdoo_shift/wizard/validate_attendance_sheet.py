@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from openerp import models, fields, api, exceptions, _
+from openerp import _, api, exceptions, fields, models
 from openerp.exceptions import UserError, ValidationError
 
 
@@ -25,6 +25,9 @@ class ValidateAttendanceSheet(models.TransientModel):
         required=True,
     )
 
+    def on_barcode_scanned(self, barcode):
+        self.barcode = barcode
+
     @api.multi
     def validate_sheet(self):
         sheet_id = self._context.get("active_id")
@@ -46,6 +49,3 @@ class ValidateAttendanceSheet(models.TransientModel):
             sheet.feedback += self.feedback
         sheet.worker_nb_feedback = self.worker_nb_feedback
         sheet.validate(user or self.env.user.partner_id)
-
-    def on_barcode_scanned(self, barcode):
-        self.barcode = barcode
