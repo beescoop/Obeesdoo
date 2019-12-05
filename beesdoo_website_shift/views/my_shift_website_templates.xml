@@ -480,7 +480,7 @@
                 <span aria-hidden="true">×</span>
               </button>
               <h4 class="modal-title" t-att-id="'subscribe-shift-%s-label' % shift.id">
-                Are you shure you want to subscribe to this shift?
+                Please confirm subscription
               </h4>
             </div>
             <div class="modal-body">
@@ -901,6 +901,8 @@
                   <strong>Failed!</strong> Your subscription has failed. Someone
                   subscribed before you or the shift was deleted. Try again in a
                   moment.
+
+                  Please note that you can't subscribe 20 minutes before the shift.
                 </t>
               </div>
 
