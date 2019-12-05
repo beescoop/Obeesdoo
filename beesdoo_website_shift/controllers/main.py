@@ -135,6 +135,7 @@ class WebsiteShiftController(http.Controller):
             * the given shift exist
             * the shift status is open
             * the shift is free for subscription
+            * the shift is starting in more than 20 minutes
         """
         # Get current user
         cur_user = request.env['res.users'].browse(request.uid)
@@ -145,12 +146,16 @@ class WebsiteShiftController(http.Controller):
             'beesdoo_website_shift.irregular_enable_sign_up'))
         # Get open status
         open_status = request.env.ref('beesdoo_shift.open')
-
+        # Set start time limit
+        start_time_limit = datetime.now() + timedelta(minutes = 20)
+        shift_start_time = fields.Datetime.from_string(shift.start_time)
         request.session['success'] = False
+
         if (irregular_enable_sign_up
                 and self.user_can_subscribe()
                 and shift
                 and shift.stage_id == open_status
+                and shift_start_time > start_time_limit
                 and not shift.worker_id):
             shift.worker_id = cur_user.partner_id
             request.session['success'] = True
