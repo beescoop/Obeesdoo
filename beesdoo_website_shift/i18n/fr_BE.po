@@ -167,7 +167,7 @@ msgstr "Appliquer"
 
 #. module: beesdoo_website_shift
 #: model:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_irregular_worker
-msgid "Are you shure you want to subscribe to this shift?"
+msgid "Please confirm subscription"
 msgstr "Etes-vous sûr de vouloir vous inscrire à ce shift ?"
 
 #. module: beesdoo_website_shift
