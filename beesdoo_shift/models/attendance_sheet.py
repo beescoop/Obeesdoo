@@ -377,10 +377,17 @@ class AttendanceSheet(models.Model):
         # Creation and addition of the expected shifts corresponding
         # to the time range
         tasks = self.env["beesdoo.shift.shift"]
+
+        s_time = fields.Datetime.from_string(new_sheet.start_time)
+        e_time = fields.Datetime.from_string(new_sheet.end_time)
+        delta = timedelta(minutes=1)
+
         tasks = tasks.search(
             [
-                ("start_time", "=", new_sheet.start_time),
-                ("end_time", "=", new_sheet.end_time),
+                ("start_time", ">", fields.Datetime.to_string(s_time - delta)),
+                ("start_time", "<", fields.Datetime.to_string(s_time + delta)),
+                ("end_time", ">", fields.Datetime.to_string(e_time - delta)),
+                ("end_time", "<", fields.Datetime.to_string(e_time + delta)),
             ]
         )
         expected_shift = self.env["beesdoo.shift.sheet.expected"]
@@ -566,7 +573,7 @@ class AttendanceSheet(models.Model):
     @api.model
     def _generate_attendance_sheet(self):
         """
-        Generate sheets 20 minutes before current time.
+        Generate sheets 20 minutes before their start time.
         Corresponding CRON intervall time must be the same.
         Check if any task exists in the time intervall.
         """
