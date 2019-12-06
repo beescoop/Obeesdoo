@@ -15,17 +15,22 @@ class TestAttendanceSheet(TransactionCase):
         self.shift_model = self.env["beesdoo.shift.shift"]
         self.shift_template_model = self.env["beesdoo.shift.template"]
         self.attendance_sheet_model = self.env["beesdoo.shift.sheet"]
+        self.attendance_sheet_shift_model = self.env[
+            "beesdoo.shift.sheet.shift"
+        ]
         self.shift_expected_model = self.env["beesdoo.shift.sheet.expected"]
         self.shift_added_model = self.env["beesdoo.shift.sheet.added"]
+        self.default_task_type_id = self.env["ir.config_parameter"].get_param(
+            "beesdoo_shift.default_task_type_id"
+        )
 
         self.current_time = datetime.now()
-
-        self.user_admin = self.env.ref("base.partner_root")
-        self.user_permanent = self.env.ref(
-            "beesdoo_shift.beesdoo_shift_partner_2_demo"
-        )
+        self.user_admin = self.env.ref("base.user_root")
         self.user_generic = self.env.ref(
-            "beesdoo_shift.beesdoo_shift_partner_1_demo"
+            "beesdoo_shift.beesdoo_shift_user_1_demo"
+        )
+        self.user_permanent = self.env.ref(
+            "beesdoo_shift.beesdoo_shift_user_2_demo"
         )
 
         self.worker_regular_1 = self.env.ref(
@@ -140,6 +145,29 @@ class TestAttendanceSheet(TransactionCase):
         return self.attendance_sheet_model.search(
             [("start_time", "=", start_time), ("end_time", "=", end_time)]
         )
+
+    def test_default_task_type_setting(self):
+        "Test default task type setting"
+        setting_wizard = self.env["beesdoo.shift.config.settings"].sudo(
+            self.user_admin
+        )
+
+        # do it for several task_type
+        for task_type in (self.task_type_1, self.task_type_2):
+            # setting default value
+            setting_wizard_1 = setting_wizard.create(
+                {"default_task_type_id": task_type.id}
+            )
+            setting_wizard_1.execute()
+            param_id = self.env["ir.config_parameter"].get_param(
+                "beesdoo_shift.default_task_type_id"
+            )
+            self.assertEquals(int(param_id), task_type.id)
+            # check propagation on attendance sheet shifts
+            self.assertEquals(
+                self.attendance_sheet_shift_model.default_task_type_id(),
+                task_type,
+            )
 
     def test_attendance_sheet_creation(self):
         "Test the creation of an attendance sheet with all its expected shifts"
