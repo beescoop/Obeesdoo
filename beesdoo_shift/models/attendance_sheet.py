@@ -360,7 +360,7 @@ class AttendanceSheet(models.Model):
 
         added_ids = map(lambda s: s.worker_id.id, self.added_shift_ids)
         if worker.id in added_ids:
-            raise UserError(_("Worker is already present."))
+            return
 
         self.added_shift_ids |= self.added_shift_ids.new(
             {
