@@ -320,7 +320,6 @@ class AttendanceSheet(models.Model):
             )
 
     def on_barcode_scanned(self, barcode):
-
         if self.state == "validated":
             raise UserError(
                 _("You cannot modify a validated attendance sheet.")
@@ -345,11 +344,14 @@ class AttendanceSheet(models.Model):
         for id in self.expected_shift_ids.ids:
             shift = self.env["beesdoo.shift.sheet.expected"].browse(id)
             if (
-                shift.worker_id == worker
-                or shift.replacement_worker_id == worker
-            ):
+                shift.worker_id == worker and not shift.replacement_worker_id
+            ) or shift.replacement_worker_id == worker:
                 shift.stage = "present"
                 return
+            if shift.worker_id == worker and shift.replacement_worker_id:
+                raise UserError(
+                    _("%s was expected as replaced.") % worker.name
+                )
 
         if worker.working_mode == "regular":
             regular_task_type = "compensation"
