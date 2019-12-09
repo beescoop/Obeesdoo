@@ -4,8 +4,8 @@
 
 from datetime import date, datetime, timedelta
 
-from openerp import fields
-
+from openerp import exceptions, fields
+from openerp.exceptions import UserError, ValidationError
 from openerp.tests.common import TransactionCase
 
 
@@ -40,7 +40,7 @@ class TestAttendanceSheet(TransactionCase):
             "beesdoo_base.res_partner_cooperator_5_demo"
         )
         self.worker_regular_3 = self.env.ref(
-            "beesdoo_base.res_partner_cooperator_4_demo"
+            "beesdoo_base.res_partner_cooperator_3_demo"
         )
         self.worker_regular_super_1 = self.env.ref(
             "beesdoo_base.res_partner_cooperator_1_demo"
@@ -100,7 +100,7 @@ class TestAttendanceSheet(TransactionCase):
                 "end_time": self.current_time + timedelta(minutes=10),
                 "is_regular": True,
                 "is_compensation": False,
-                "replaced_id": self.worker_regular_1.id,
+                "replaced_id": self.worker_regular_2.id,
             }
         )
         self.shift_regular_compensation_1 = self.shift_model.create(
@@ -152,7 +152,6 @@ class TestAttendanceSheet(TransactionCase):
             self.user_admin
         )
 
-        # do it for several task_type
         for task_type in (self.task_type_1, self.task_type_2):
             # setting default value
             setting_wizard_1 = setting_wizard.create(
@@ -170,7 +169,7 @@ class TestAttendanceSheet(TransactionCase):
             )
 
     def test_attendance_sheet_creation(self):
-        "Test the creation of an attendance sheet with all its expected shifts"
+        "Test creation of an attendance sheet with all its expected shifts"
 
         start_in_1 = self.shift_regular_regular_1.start_time
         end_in_1 = self.shift_regular_regular_1.end_time
@@ -229,3 +228,79 @@ class TestAttendanceSheet(TransactionCase):
 
         # test default super-cooperator setting
         self.assertTrue(self.shift_expected_model.default_task_type_id())
+
+    def test_attendance_sheet_barcode_scanner(self):
+        "Test edition of an attendance sheet with barcode scanner"
+
+        # attendance sheet generation
+        self.attendance_sheet_model.sudo(self.user_generic)._generate_attendance_sheet()
+        sheet_1 = self._search_sheets(
+            self.shift_regular_regular_1.start_time,
+            self.shift_regular_regular_1.end_time,
+        )
+
+        """
+        Expected workers :
+            worker_regular_1 (barcode : 421457731745)
+            worker_regular_3 replaced by worker_regular_2 (barcode : 421457731744))
+            worker_irregular_1 (barcode : 429919251493)
+        """
+
+        # scan barcode for expected workers
+        for barcode in [421457731745, 421457731744, 429919251493]:
+            sheet_1.on_barcode_scanned(barcode)
+
+        # check expected shifts update
+        for id in sheet_1.expected_shift_ids.ids:
+            shift = sheet_1.expected_shift_ids.browse(id)
+            self.assertEquals(shift.stage, "present")
+
+        """
+        Added workers :
+            worker_regular_super_1 (barcode : 421457731741)
+            worker_irregular_2 (barcode : 421457731743)
+        """
+
+        # _onchange method not applying on temporary object in tests
+        sheet_1._origin = sheet_1
+
+        # scan barcode for added workers
+        sheet_1.on_barcode_scanned(421457731741)
+        self.assertEquals(len(sheet_1.added_shift_ids), 1)
+        sheet_1.on_barcode_scanned(421457731743)
+        # scan an already added worker should not change anything
+        sheet_1.on_barcode_scanned(421457731743)
+        self.assertEquals(len(sheet_1.added_shift_ids), 2)
+
+        # check added shifts fields
+        for id in sheet_1.added_shift_ids.ids:
+            shift = sheet_1.added_shift_ids.browse(id)
+            self.assertEquals(sheet_1, shift.attendance_sheet_id)
+            self.assertEquals(shift.stage, "present")
+            self.assertEquals(
+                shift.task_type_id,
+                self.attendance_sheet_shift_model.default_task_type_id(),
+            )
+            if shift.working_mode == "regular":
+                self.assertEquals(shift.regular_task_type, "compensation")
+            else:
+                self.assertFalse(shift.regular_task_type)
+
+        # add a worker that should be replaced
+        with self.assertRaises(UserError) as e:
+            sheet_1.on_barcode_scanned(421457731742)
+        # wrong barcode
+        with self.assertRaises(UserError) as e:
+            sheet_1.on_barcode_scanned(101010)
+
+        # add an already expected worker
+        with self.assertRaises(ValidationError) as e:
+            sheet_1.added_shift_ids |= sheet_1.added_shift_ids.new(
+                {
+                    "task_type_id": sheet_1.added_shift_ids.default_task_type_id(),
+                    "stage": "present",
+                    "attendance_sheet_id": sheet_1.id,
+                    "worker_id": self.worker_regular_1.id,
+                    "regular_task_type": "normal",
+                }
+            )
