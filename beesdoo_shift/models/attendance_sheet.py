@@ -36,7 +36,6 @@ class AttendanceSheetShift(models.AbstractModel):
             ("absent_0", "Absent / 0 Compensation"),
             ("absent_1", "Absent / 1 Compensation"),
             ("absent_2", "Absent / 2 Compensations"),
-            ("cancelled", "Cancelled"),
         ],
         string="Shift Stage",
     )
@@ -81,13 +80,9 @@ class AttendanceSheetShift(models.AbstractModel):
                 return "excused"
             if self.stage == "absent_2":
                 return "absent"
-            if self.stage == "cancelled":
-                return "cancel"
         if self.working_mode == "irregular":
             if self.stage == "present":
                 return "done"
-            if self.stage == "cancelled":
-                return "cancel"
             return "absent"
 
 
