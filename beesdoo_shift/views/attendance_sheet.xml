@@ -8,7 +8,6 @@
         <field name="arch" type="xml">
             <search>
                 <field name="day" />
-                <field name="default_super_coop_id" />
                 <field name="validated_by" />
                 <filter string="Annotated (unread)"
                         domain="[('is_annotated', '=', True),
@@ -35,7 +34,6 @@
                   decoration-danger="stage == 'absent_0' or stage == 'absent_1' or stage == 'absent_2'"
                   decoration-success="stage == 'present'">
                 <field name="task_type_id" readonly="True" options="{'no_open': True}"/>
-                <field name="super_coop_id" readonly="True" options="{'no_open': True}"/>
                 <field name="worker_id" readonly="True" options="{'no_open': True}"/>
                 <field name="working_mode" />
                 <field name="replacement_worker_id"
@@ -107,12 +105,10 @@
         <field name="name">Attendance Sheet List</field>
         <field name="model">beesdoo.shift.sheet</field>
         <field name="arch" type="xml">
-            <tree create="false" delete="false" default_order="start_time desc"
-                  decoration-danger="state == 'not_validated'">
-                <field name="day" />
-                <field name="time_slot" />
+            <!-- <tree create="false" delete="false" decoration-danger="stage == 'absent'"> -->
+            <tree create="false" decoration-danger="state == 'not_validated'">
+                <field name="name"/>
                 <field name="max_worker_no" type="char"/>
-                <field name="default_super_coop_id" />
                 <field name="state" />
                 <field name="validated_by" />
                 <field name="is_annotated" />
@@ -164,9 +160,6 @@
                         <field name="added_shift_ids"/>
                         <separator string="Expected workers" />
                         <field name="expected_shift_ids" />
-                        <group string="Informations">
-                            <field name="default_super_coop_id" />
-                        </group>
                         <br/>
                         <group col="1" string="Feedback"
                                groups="beesdoo_shift.group_cooperative_admin">
