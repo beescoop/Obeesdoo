@@ -36,8 +36,11 @@ class ValidateAttendanceSheet(models.TransientModel):
         card = self.env["member.card"].search([("barcode", "=", self.barcode)])
         if not len(card):
             raise UserError(_("Please set a correct barcode."))
-        user = card[0].partner_id
-        if not user.super:
+        partner = card[0].partner_id
+        is_admin = partner.user_ids.has_group(
+            "beesdoo_shift.group_cooperative_admin"
+        )
+        if not partner.super and not is_admin:
             raise UserError(
                 _(
                     "Only super-cooperators and administrators can validate attendance sheets."
@@ -48,4 +51,4 @@ class ValidateAttendanceSheet(models.TransientModel):
         if sheet.feedback:
             sheet.feedback += self.feedback
         sheet.worker_nb_feedback = self.worker_nb_feedback
-        sheet.validate(user or self.env.user.partner_id)
+        sheet.validate(partner or self.env.user.partner_id)
