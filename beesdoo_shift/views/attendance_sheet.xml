@@ -157,13 +157,15 @@
                             <field name="time_slot" />
                         </h1>
                     </div>
+                        <group>
+                            <field name="max_worker_no" />
+                        </group>
                         <separator string="Added workers" />
                         <field name="added_shift_ids"/>
                         <separator string="Expected workers" />
                         <field name="expected_shift_ids" />
                         <group string="Informations">
                             <field name="default_super_coop_id" />
-                            <field name="max_worker_no" />
                         </group>
                         <br/>
                         <group col="1" string="Feedback"
