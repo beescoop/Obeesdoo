@@ -188,7 +188,8 @@ class AttendanceSheet(models.Model):
         string="Maximum number of workers",
         default=0,
         readonly=True,
-        help="Indicative maximum number of workers for the shifts.",
+        help="Indicative maximum number of workers.",
+
     )
     annotation = fields.Text("Annotation", default="")
     is_annotated = fields.Boolean(
@@ -379,6 +380,7 @@ class AttendanceSheet(models.Model):
         # Creation and addition of the expected shifts corresponding
         # to the time range
         tasks = self.env["beesdoo.shift.shift"]
+        expected_shift = self.env["beesdoo.shift.sheet.expected"]
         cancelled_stage = self.env.ref("beesdoo_shift.cancel")
         s_time = fields.Datetime.from_string(new_sheet.start_time)
         e_time = fields.Datetime.from_string(new_sheet.end_time)
@@ -392,8 +394,6 @@ class AttendanceSheet(models.Model):
                 ("end_time", "<", fields.Datetime.to_string(e_time + delta)),
             ]
         )
-        expected_shift = self.env["beesdoo.shift.sheet.expected"]
-        task_templates = set()
         for task in tasks:
             if task.working_mode == "irregular":
                 stage = "absent_1"
@@ -412,9 +412,8 @@ class AttendanceSheet(models.Model):
                         "working_mode": task.working_mode,
                     }
                 )
-                task_templates.add(task.task_template_id)
-        # Maximum number of workers calculation
-        new_sheet.max_worker_no = sum(r.worker_nb for r in task_templates)
+        # Maximum number of workers calculation (count empty shifts)
+        new_sheet.max_worker_no = len(tasks)
         return new_sheet
 
     @api.multi
