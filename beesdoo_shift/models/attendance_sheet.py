@@ -379,7 +379,7 @@ class AttendanceSheet(models.Model):
         # Creation and addition of the expected shifts corresponding
         # to the time range
         tasks = self.env["beesdoo.shift.shift"]
-
+        cancelled_stage = self.env.ref("beesdoo_shift.cancel")
         s_time = fields.Datetime.from_string(new_sheet.start_time)
         e_time = fields.Datetime.from_string(new_sheet.end_time)
         delta = timedelta(minutes=1)
@@ -399,7 +399,7 @@ class AttendanceSheet(models.Model):
                 stage = "absent_1"
             else:
                 stage = "absent_2"
-            if task.worker_id:
+            if task.worker_id and (task.stage_id != cancelled_stage):
                 new_expected_shift = expected_shift.create(
                     {
                         "attendance_sheet_id": new_sheet.id,
