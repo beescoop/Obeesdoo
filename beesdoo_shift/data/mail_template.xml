@@ -23,7 +23,7 @@
     <br/><br/>Your status have been updated to "${object.worker_id.state}".
     <br/><br/>If you have any question regarding this non-attendance, feel free to contact us.
     </p>
-    </br>
+    <br/>
     <p>Sustainably yours,</p>
     <p>${object.worker_id.company_id.name}.</p>
 
