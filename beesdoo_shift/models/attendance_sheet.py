@@ -165,14 +165,6 @@ class AttendanceSheet(models.Model):
     end_time = fields.Datetime(string="End Time", required=True, readonly=True)
     day = fields.Date(string="Day", compute="_compute_day", store=True)
 
-    default_super_coop_id = fields.Many2one(
-        "res.users",
-        string="Default Super Cooperative",
-        help="Super Cooperative for default Task Type",
-        domain=[("partner_id.super", "=", True)],
-        compute="_compute_default_super_coop_id",
-        store=True,
-    )
     expected_shift_ids = fields.One2many(
         "beesdoo.shift.sheet.expected",
         "attendance_sheet_id",
@@ -218,6 +210,7 @@ class AttendanceSheet(models.Model):
         string="Validated by",
         domain=[
             ("eater", "=", "worker_eater"),
+            ("super", "=", True),
             ("working_mode", "=", "regular"),
             ("state", "not in", ("unsubscribed", "resigning")),
         ],
@@ -266,23 +259,12 @@ class AttendanceSheet(models.Model):
             rec.day = fields.Date.from_string(rec.start_time)
 
     @api.depends("expected_shift_ids")
-    def _compute_default_super_coop_id(self):
+    def _compute_week(self):
         """
-        Look for the super cooperator of a shift
-        with default Task Type
+        Compute Week Name from Planning Name of first expected shift
         """
         for rec in self:
-            default_task_type = rec.env[
-                "beesdoo.shift.sheet.expected"
-            ].default_task_type_id()
-            shift = rec.expected_shift_ids.search(
-                [
-                    ("task_type_id", "=", default_task_type.id),
-                    ("super_coop_id", "!=", False),
-                ],
-                limit=1,
-            )
-            rec.default_super_coop_id = shift.super_coop_id
+            rec.week = rec.expected_shift_ids.task_id.planning_id.name
 
     @api.depends("annotation")
     def _compute_is_annotated(self):
@@ -407,7 +389,6 @@ class AttendanceSheet(models.Model):
                         "worker_id": task.worker_id.id,
                         "replacement_worker_id": task.replaced_id.id,
                         "task_type_id": task.task_type_id.id,
-                        "super_coop_id": task.super_coop_id.id,
                         "stage": stage,
                         "working_mode": task.working_mode,
                     }
