@@ -13,7 +13,7 @@ class ShiftConfigSettings(models.TransientModel):
     default_task_type_id = fields.Many2one(
         "beesdoo.shift.type",
         string="Default Task Type",
-        help="Default task type for shifts added on an attendance sheet.",
+        help="Default task type for attendance sheet pre-filling.",
     )
 
     @api.multi

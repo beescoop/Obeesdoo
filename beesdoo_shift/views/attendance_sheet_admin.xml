@@ -1,14 +1,4 @@
 <odoo>
-<!--
-    <record model="ir.ui.view" id="sheet_view_search">
-        <field name="name">Attendance Sheet Search</field>
-        <field name="model">beesdoo.shift.sheet</field>
-        <field name="arch" type="xml">
-            <search>
-            </search>
-        </field>
-    </record>
--->
 
     <act_window id="action_sheet_admin_non_validated"
             name="Non-validated sheets"
