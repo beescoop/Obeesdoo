@@ -53,7 +53,8 @@
             <field name="interval_type">days</field>
             <field name="numbercall">-1</field>
             <field name="doall" eval="True" />
-            <field name="nextcall" eval="(datetime.now() + timedelta(days=1)).replace(hour=1,minute=0,second=0)" />
+            <field name="nextcall" eval="(datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d 01:00:00')"/>
+            <!-- <field name="nextcall" eval="(datetime.now() + timedelta(days=1)).replace(hour=1,minute=0,second=0)" /> -->
             <field name="model">beesdoo.shift.sheet</field>
             <field name="function">_cron_non_validated_sheets</field>
             <field name="args">()</field>
