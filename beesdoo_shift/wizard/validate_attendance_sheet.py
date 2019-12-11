@@ -9,10 +9,36 @@ class ValidateAttendanceSheet(models.TransientModel):
     Useless for users in group_cooperative_admin"""
     _inherit = ["barcodes.barcode_events_mixin"]
 
+    @api.multi
+    def _default_annotation(self):
+        """
+        The annotation is pre-filled with a warning message
+        if a regular worker is added and should have been expected.
+        """
+
+        sheet_id = self._context.get("active_id")
+        sheet_model = self._context.get("active_model")
+        sheet = self.env[sheet_model].browse(sheet_id)
+        warning_message = ""
+
+        for added_shift in sheet.added_shift_ids:
+            is_regular_worker = added_shift.worker_id.working_mode == "regular"
+            is_regular_shift = added_shift.regular_task_type == "normal"
+
+            if is_regular_shift and is_regular_worker:
+                warning_message += (
+                    _(
+                        "Warning : %s attended its shift as a normal one but was not expected. "
+                        "Something may be wrong in his/her personnal informations.\n\n"
+                    )
+                    % added_shift.worker_id.name
+                )
+        return warning_message
+
     barcode = fields.Char(string="Barcode", required=True)
     annotation = fields.Text(
         "Important information requiring permanent member assistance",
-        default="",
+        default=_default_annotation,
     )
     feedback = fields.Text("General feedback")
     worker_nb_feedback = fields.Selection(
