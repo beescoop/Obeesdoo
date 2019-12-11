@@ -105,9 +105,9 @@
         <field name="name">Attendance Sheet List</field>
         <field name="model">beesdoo.shift.sheet</field>
         <field name="arch" type="xml">
-            <!-- <tree create="false" delete="false" decoration-danger="stage == 'absent'"> -->
-            <tree create="false" decoration-danger="state == 'not_validated'">
-                <field name="name"/>
+            <tree create="false" delete="false" decoration-danger="state == 'not_validated'">
+                <field name="day" />
+                <field name="time_slot" />
                 <field name="max_worker_no" type="char"/>
                 <field name="state" />
                 <field name="validated_by" />
