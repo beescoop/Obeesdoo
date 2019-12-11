@@ -209,6 +209,6 @@
         sequence="1" groups="beesdoo_shift.group_shift_attendance" />
     <!-- actions -->
     <menuitem name="Shift" id="menu_task" parent="menu_task_top"
-        action="action_task" groups="beesdoo_shift.group_shift_management" />
+        action="action_task" groups="beesdoo_shift.group_shift_attendance" />
 
 </odoo>
