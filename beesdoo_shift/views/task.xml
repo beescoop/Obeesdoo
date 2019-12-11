@@ -204,25 +204,11 @@
             'search_default_gb_type':1}</field>
     </record>
 
-    <record model="ir.actions.act_window" id="action_task_attendance">
-        <field name="name">Shift Attendance</field>
-        <field name="res_model">beesdoo.shift.shift</field>
-        <field name="view_mode">kanban,tree,form</field>
-        <field name="context">{
-            'search_default_assigned': 1,
-            'search_default_today': 1,
-            'search_default_gb_status':1}</field>
-    </record>
-
-
-
-
     <!-- Top menu item -->
     <menuitem name="Planning" id="menu_task_top" parent="menu_root"
         sequence="1" groups="beesdoo_shift.group_shift_attendance" />
     <!-- actions -->
     <menuitem name="Shift" id="menu_task" parent="menu_task_top"
         action="action_task" groups="beesdoo_shift.group_shift_management" />
-    <menuitem name="Shift Attendance" id="menu_task_attendance"
-        parent="menu_task_top" action="action_task_attendance" />
+
 </odoo>
