@@ -478,18 +478,7 @@ class AttendanceSheet(models.Model):
             )
             is_regular_worker = added_shift.worker_id.working_mode == "regular"
             is_regular_shift = added_shift.regular_task_type == "normal"
-            if is_regular_shift and is_regular_worker:
-                warning_message = (
-                    _(
-                        "\nWarning : %s attended its shift as a normal one but was not expected."
-                        " Something may be wrong in his/her personnal informations.\n"
-                    )
-                    % added_shift.worker_id.name
-                )
-                if self.annotation:
-                    self.annotation += warning_message
-                else:
-                    self.annotation = warning_message
+
             # Edit a non-assigned shift or create one if none
             non_assigned_shifts = shift.search(
                 [
