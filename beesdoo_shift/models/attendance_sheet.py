@@ -176,7 +176,6 @@ class AttendanceSheet(models.Model):
         default=0,
         readonly=True,
         help="Indicative maximum number of workers.",
-
     )
     annotation = fields.Text("Annotation", default="")
     is_annotated = fields.Boolean(
@@ -539,16 +538,19 @@ class AttendanceSheet(models.Model):
     @api.model
     def _generate_attendance_sheet(self):
         """
-        Generate sheets 20 minutes before their start time.
-        Corresponding CRON intervall time must be the same.
-        Check if any task exists in the time intervall.
+        Generate sheets with shifts in the time interval
+        defined from corresponding CRON time interval.
         """
 
         time_ranges = set()
         tasks = self.env["beesdoo.shift.shift"]
         sheets = self.env["beesdoo.shift.sheet"]
         current_time = datetime.now()
-        allowed_time_range = timedelta(minutes=20)
+        generation_interval_setting = int(self.env["ir.config_parameter"].get_param(
+            "beesdoo_shift.attendance_sheet_generation_interval"
+        ))
+
+        allowed_time_range = timedelta(minutes=generation_interval_setting)
 
         tasks = tasks.search(
             [
