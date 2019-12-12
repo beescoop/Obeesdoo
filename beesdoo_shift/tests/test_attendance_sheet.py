@@ -282,9 +282,9 @@ class TestAttendanceSheet(TransactionCase):
                 self.attendance_sheet_shift_model.default_task_type_id(),
             )
             if shift.working_mode == "regular":
-                self.assertEquals(shift.regular_task_type, "compensation")
+                self.assertTrue(shift.is_compensation)
             else:
-                self.assertFalse(shift.regular_task_type)
+                self.assertFalse(shift.is_compensation)
 
         # add a worker that should be replaced
         with self.assertRaises(UserError) as e:
