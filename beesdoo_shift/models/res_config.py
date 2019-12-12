@@ -15,13 +15,24 @@ class ShiftConfigSettings(models.TransientModel):
         string="Default Task Type",
         help="Default task type for attendance sheet pre-filling.",
     )
+    attendance_sheet_generation_interval = fields.Integer(
+        string="Time interval for attendance sheet generation",
+        help="Time interval expressed in minutes",
+    )
 
     @api.multi
     def set_params(self):
         self.ensure_one()
-        value = self.default_task_type_id.id
+
         parameters = self.env["ir.config_parameter"]
-        parameters.set_param("beesdoo_shift.default_task_type_id", value)
+        parameters.set_param(
+            "beesdoo_shift.default_task_type_id",
+            str(self.default_task_type_id.id),
+        )
+        parameters.set_param(
+            "beesdoo_shift.attendance_sheet_generation_interval",
+            str(self.attendance_sheet_generation_interval),
+        )
 
     @api.multi
     def get_default_task_type_id(self):
@@ -29,6 +40,16 @@ class ShiftConfigSettings(models.TransientModel):
             "default_task_type_id": int(
                 self.env["ir.config_parameter"].get_param(
                     "beesdoo_shift.default_task_type_id"
+                )
+            )
+        }
+
+    @api.multi
+    def get_default_attendance_sheet_generation_interval(self):
+        return {
+            "attendance_sheet_generation_interval": int(
+                self.env["ir.config_parameter"].get_param(
+                    "beesdoo_shift.attendance_sheet_generation_interval"
                 )
             )
         }
