@@ -59,7 +59,11 @@ class AttendanceSheetShift(models.AbstractModel):
     working_mode = fields.Selection(
         related="worker_id.working_mode", string="Working Mode"
     )
-
+    # The two exclusive booleans are gathered in a simple one
+    is_compensation = fields.Boolean(
+        string="Compensation shift ?",
+        help="Only for regular workers"
+    )
     def get_actual_stage(self):
         """
          Mapping function returning the actual id
@@ -111,21 +115,12 @@ class AttendanceSheetShiftAdded(models.Model):
     _description = "Added Shift"
     _inherit = ["beesdoo.shift.sheet.shift"]
 
-    # The two exclusive booleans are gathered in a selection field
-    regular_task_type = fields.Selection(
-        [("normal", "Normal"), ("compensation", "Compensation")],
-        string="Task Mode (if regular)",
-        help="Shift type for regular workers. ",
-    )
     stage = fields.Selection(default="present")
 
     @api.onchange("working_mode")
     def on_change_working_mode(self):
         self.stage = "present"
-        if self.working_mode == "regular":
-            self.regular_task_type = "compensation"
-        if self.working_mode == "irregular":
-            self.regular_task_type = False
+        self.is_compensation = self.working_mode == "regular"
 
 
 class AttendanceSheet(models.Model):
@@ -330,10 +325,7 @@ class AttendanceSheet(models.Model):
                     _("%s was expected as replaced.") % worker.name
                 )
 
-        if worker.working_mode == "regular":
-            regular_task_type = "compensation"
-        else:
-            regular_task_type = False
+        is_compensation = (worker.working_mode == "regular")
 
         added_ids = map(lambda s: s.worker_id.id, self.added_shift_ids)
         if worker.id in added_ids:
@@ -345,7 +337,7 @@ class AttendanceSheet(models.Model):
                 "stage": "present",
                 "attendance_sheet_id": self._origin.id,
                 "worker_id": worker.id,
-                "regular_task_type": regular_task_type,
+                "is_compensation": is_compensation,
             }
         )
 
@@ -385,6 +377,7 @@ class AttendanceSheet(models.Model):
                         "task_type_id": task.task_type_id.id,
                         "stage": stage,
                         "working_mode": task.working_mode,
+                        "is_compensation": task.is_compensation,
                     }
                 )
         # Maximum number of workers calculation (count empty shifts)
@@ -437,14 +430,6 @@ class AttendanceSheet(models.Model):
                     _("Working mode is missing for %s")
                     % added_shift.worker_id.name
                 )
-            if (
-                added_shift.worker_id.working_mode == "regular"
-                and not added_shift.regular_task_type
-            ):
-                raise UserError(
-                    _("Regular Task Type is missing for %s")
-                    % added_shift.worker_id.name
-                )
 
         for expected_shift in self.expected_shift_ids:
             if not expected_shift.stage:
@@ -476,7 +461,7 @@ class AttendanceSheet(models.Model):
                 "beesdoo_shift.%s" % added_shift.get_actual_stage()
             )
             is_regular_worker = added_shift.worker_id.working_mode == "regular"
-            is_regular_shift = added_shift.regular_task_type == "normal"
+            is_compensation = added_shift.is_compensation
 
             # Edit a non-assigned shift or create one if none
             non_assigned_shifts = shift.search(
@@ -496,8 +481,8 @@ class AttendanceSheet(models.Model):
                         "stage_id": actual_stage.id,
                         "worker_id": added_shift.worker_id.id,
                         "stage_id": actual_stage.id,
-                        "is_regular": is_regular_shift and is_regular_worker,
-                        "is_compensation": not is_regular_shift
+                        "is_regular": not is_compensation and is_regular_worker,
+                        "is_compensation": is_compensation
                         and is_regular_worker,
                     }
                 )
@@ -510,8 +495,8 @@ class AttendanceSheet(models.Model):
                         "start_time": self.start_time,
                         "end_time": self.end_time,
                         "stage_id": actual_stage.id,
-                        "is_regular": is_regular_shift and is_regular_worker,
-                        "is_compensation": not is_regular_shift
+                        "is_regular": not is_compensation and is_regular_worker,
+                        "is_compensation": is_compensation
                         and is_regular_worker,
                     }
                 )
