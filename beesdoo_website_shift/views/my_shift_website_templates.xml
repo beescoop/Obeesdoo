@@ -902,7 +902,7 @@
                   subscribed before you or the shift was deleted. Try again in a
                   moment.
 
-                  Please note that you can't subscribe 20 minutes before the shift.
+                  Please note that you can't subscribe <t t-esc="subscription_time_limit"/>  minutes before the shift.
                 </t>
               </div>
 
