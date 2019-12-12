@@ -135,7 +135,8 @@ class WebsiteShiftController(http.Controller):
             * the given shift exist
             * the shift status is open
             * the shift is free for subscription
-            * the shift is starting in more than 20 minutes
+            * the shift is starting after the time interval
+            for attendance sheet generation defined in beesdoo_shift settings
         """
         # Get current user
         cur_user = request.env['res.users'].browse(request.uid)
@@ -144,8 +145,13 @@ class WebsiteShiftController(http.Controller):
         # Get config
         irregular_enable_sign_up = literal_eval(request.env['ir.config_parameter'].get_param(
             'beesdoo_website_shift.irregular_enable_sign_up'))
-        # Set start time limit
-        start_time_limit = datetime.now() + timedelta(minutes = 20)
+        # Set start time limit as defined in beesdoo_shift settings
+        setting = int(
+            request.env["ir.config_parameter"].get_param(
+                "beesdoo_shift.attendance_sheet_generation_interval"
+            )
+        )
+        start_time_limit = datetime.now() + timedelta(minutes=setting)
         shift_start_time = fields.Datetime.from_string(shift.start_time)
         request.session['success'] = False
 
@@ -235,6 +241,14 @@ class WebsiteShiftController(http.Controller):
             template_context['back_from_subscription'] = True
             template_context['success'] = request.session.get('success')
             del request.session['success']
+
+        # Add setting for subscription allowed time
+        subscription_time_limit = int(
+            request.env["ir.config_parameter"].get_param(
+                "beesdoo_shift.attendance_sheet_generation_interval"
+            )
+        )
+        template_context['subscription_time_limit'] = subscription_time_limit
 
         return template_context
 
