@@ -40,6 +40,7 @@
                       </header>
                       <separator string="General Settings"/>
                       <group name="Attendance Sheets">
+                          <field name="attendance_sheet_generation_interval"/>
                           <field name="default_task_type_id"/>
                       </group>
               </form>
