@@ -1,11 +1,11 @@
 <odoo>
-    <data noupdate="1">
+    <data noupdate="0">
         <record id="group_shift_attendance_sheet" model="res.groups">
-            <field name="name">Attendance Sheet Access</field>
+            <field name="name">Attendance Sheet Generic Access</field>
             <field name="category_id" ref="base.module_category_cooperative_management"/>
         </record>
         <record id="group_shift_attendance" model="res.groups">
-            <field name="name">Shift Attendance</field>
+            <field name="name">Shift and Worker Access</field>
             <field name="category_id" ref="base.module_category_cooperative_management"/>
         </record>
         <record id="group_shift_management" model="res.groups">
@@ -26,5 +26,13 @@
             />
             <field name="users" eval="[(4, ref('base.user_root'))]"/>
         </record>
+        <record model="ir.ui.menu" id="base.menu_board_root">
+              <field name="groups_id" eval="[(6,0,[ref('group_shift_attendance_sheet')])]"/>
+        </record>
+
+        <!-- <template id="website.user_navbar">
+            <field name="groups"  eval="[(6,0,[ref('group_shift_attendance_sheet')])]"/>
+        </template> -->
+
     </data>
 </odoo>
