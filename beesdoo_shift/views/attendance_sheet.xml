@@ -106,6 +106,7 @@
         <field name="model">beesdoo.shift.sheet</field>
         <field name="arch" type="xml">
             <tree create="false" delete="false" decoration-danger="state == 'not_validated'">
+                <field name="week" />
                 <field name="day" />
                 <field name="time_slot" />
                 <field name="max_worker_no" type="char"/>

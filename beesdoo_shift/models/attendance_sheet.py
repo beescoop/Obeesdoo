@@ -154,6 +154,11 @@ class AttendanceSheet(models.Model):
     )
     end_time = fields.Datetime(string="End Time", required=True, readonly=True)
     day = fields.Date(string="Day", compute="_compute_day", store=True)
+    week = fields.Char(
+        string="Week",
+        help="Computed from planning names",
+        compute="_compute_week",
+    )
 
     expected_shift_ids = fields.One2many(
         "beesdoo.shift.sheet.expected",
@@ -215,17 +220,19 @@ class AttendanceSheet(models.Model):
         )
     ]
 
-    @api.depends("start_time", "end_time")
+    @api.depends("start_time", "end_time", "week")
     def _compute_name(self):
         for rec in self:
             start_time_dt = fields.Datetime.from_string(rec.start_time)
             start_time_dt = fields.Datetime.context_timestamp(
                 rec, start_time_dt
             )
+            name = "[%s] - " % fields.Date.to_string(start_time_dt)
+            if rec.week:
+                name += rec.week + " - "
             if rec.time_slot:
-                rec.name = (
-                    fields.Date.to_string(start_time_dt) + " " + rec.time_slot
-                )
+                name += rec.time_slot
+            rec.name = name
 
     @api.depends("start_time", "end_time")
     def _compute_time_slot(self):
@@ -253,7 +260,8 @@ class AttendanceSheet(models.Model):
         Compute Week Name from Planning Name of first expected shift
         """
         for rec in self:
-            rec.week = rec.expected_shift_ids.task_id.planning_id.name
+            if rec.expected_shift_ids:
+                rec.week = rec.expected_shift_ids[0].task_id.planning_id.name
 
     @api.depends("annotation")
     def _compute_is_annotated(self):
