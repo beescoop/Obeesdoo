@@ -1,5 +1,5 @@
 <odoo>
-    <data noupdate="1">
+    <data noupdate="0">
         <record id="ir_cron_update_today" model="ir.cron">
             <field name="name">Update Cooperatoor status base on the date</field>
             <field name="interval_number">24</field>
