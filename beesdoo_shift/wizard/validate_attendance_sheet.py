@@ -23,9 +23,9 @@ class ValidateAttendanceSheet(models.TransientModel):
 
         for added_shift in sheet.added_shift_ids:
             is_regular_worker = added_shift.worker_id.working_mode == "regular"
-            is_regular_shift = added_shift.regular_task_type == "normal"
+            is_compensation = added_shift.is_compensation
 
-            if is_regular_shift and is_regular_worker:
+            if is_regular_worker and not is_compensation:
                 warning_message += (
                     _(
                         "Warning : %s attended its shift as a normal one but was not expected. "
