@@ -489,7 +489,7 @@ class AttendanceSheet(models.Model):
             else:
                 actual_shift = self.env["beesdoo.shift.shift"].create(
                     {
-                        "name": _("[Added Shift] %s") % self.start_time,
+                        "name": _("[Added Shift]"),
                         "task_type_id": added_shift.task_type_id.id,
                         "state": added_shift.state,
                         "worker_id": added_shift.worker_id.id,
