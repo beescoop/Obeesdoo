@@ -211,9 +211,9 @@ class TestAttendanceSheet(TransactionCase):
             self.assertEquals(shift.working_mode, shift.task_id.working_mode)
 
             if shift.working_mode == "regular":
-                self.assertEquals(shift.stage, "absent_2")
+                self.assertEquals(shift.state, "absent_2")
             if shift.working_mode == "irregular":
-                self.assertEquals(shift.stage, "absent_1")
+                self.assertEquals(shift.state, "absent_1")
 
         # test maximum number of workers calculation from task_templates
         self.assertEquals(sheet_1.max_worker_no, 21)
@@ -253,7 +253,7 @@ class TestAttendanceSheet(TransactionCase):
         # check expected shifts update
         for id in sheet_1.expected_shift_ids.ids:
             shift = sheet_1.expected_shift_ids.browse(id)
-            self.assertEquals(shift.stage, "present")
+            self.assertEquals(shift.state, "present")
 
         """
         Added workers :
@@ -276,7 +276,7 @@ class TestAttendanceSheet(TransactionCase):
         for id in sheet_1.added_shift_ids.ids:
             shift = sheet_1.added_shift_ids.browse(id)
             self.assertEquals(sheet_1, shift.attendance_sheet_id)
-            self.assertEquals(shift.stage, "present")
+            self.assertEquals(shift.state, "present")
             self.assertEquals(
                 shift.task_type_id,
                 self.attendance_sheet_shift_model.default_task_type_id(),
@@ -298,7 +298,7 @@ class TestAttendanceSheet(TransactionCase):
             sheet_1.added_shift_ids |= sheet_1.added_shift_ids.new(
                 {
                     "task_type_id": sheet_1.added_shift_ids.default_task_type_id(),
-                    "stage": "present",
+                    "state": "present",
                     "attendance_sheet_id": sheet_1.id,
                     "worker_id": self.worker_regular_1.id,
                     "regular_task_type": "normal",

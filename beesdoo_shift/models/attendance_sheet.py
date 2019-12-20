@@ -30,14 +30,8 @@ class AttendanceSheetShift(models.AbstractModel):
         required=True,
         ondelete="cascade",
     )
-    stage = fields.Selection(
-        [
-            ("present", "Present"),
-            ("absent_0", "Absent / 0 Compensation"),
-            ("absent_1", "Absent / 1 Compensation"),
-            ("absent_2", "Absent / 2 Compensations"),
-        ],
-        string="Shift Stage",
+    state = fields.Selection(
+        [("done", "Present"), ("absent", "Absent"),], string="Shift State",
     )
     worker_id = fields.Many2one(
         "res.partner",
@@ -64,40 +58,24 @@ class AttendanceSheetShift(models.AbstractModel):
         string="Compensation shift ?",
         help="Only for regular workers"
     )
-    def get_actual_stage(self):
-        """
-         Mapping function returning the actual id
-         of corresponding beesdoo.shift.stage,
-         because we prefer users to select number of compensations
-         on the sheet rather than the exact stage name.
-         """
-        if not self.working_mode or not self.stage:
-            raise UserError(
-                _("Impossible to map task stage, all values are not set.")
-            )
-        if self.working_mode == "regular":
-            if self.stage == "present":
-                return "done"
-            if self.stage == "absent_0":
-                return "excused_necessity"
-            if self.stage == "absent_1":
-                return "excused"
-            if self.stage == "absent_2":
-                return "absent"
-        if self.working_mode == "irregular":
-            if self.stage == "present":
-                return "done"
-            return "absent"
 
 
 class AttendanceSheetShiftExpected(models.Model):
+    """
+    Irregulars can only have two compensations
+    """
+
     _name = "beesdoo.shift.sheet.expected"
     _description = "Expected Shift"
     _inherit = ["beesdoo.shift.sheet.shift"]
 
+    compensation_no = fields.Selection(
+        [(1, "1"), (2, "2"),], string="Compensations"
+    )
     replacement_worker_id = fields.Many2one(
         "res.partner",
         string="Replacement Worker",
+        help="Replacement Worker (must be regular)",
         domain=[
             ("eater", "=", "worker_eater"),
             ("working_mode", "=", "regular"),
@@ -105,23 +83,29 @@ class AttendanceSheetShiftExpected(models.Model):
         ],
     )
 
+    @api.onchange("state")
+    def on_change_state(self):
+        if not self.state or self.state == "done":
+            self.compensation_no = False
+        if self.state == "absent":
+            self.compensation_no = 2
+
 
 class AttendanceSheetShiftAdded(models.Model):
-    """The added shifts stage must be Present
-    (add an SQL constraint ?)
+    """
+    Added shifts are necessarily 'Present'
     """
 
     _name = "beesdoo.shift.sheet.added"
     _description = "Added Shift"
     _inherit = ["beesdoo.shift.sheet.shift"]
 
-    stage = fields.Selection(default="present")
+    state = fields.Selection(default="done")
 
     @api.onchange("working_mode")
     def on_change_working_mode(self):
-        self.stage = "present"
+        self.state = "done"
         self.is_compensation = self.working_mode == "regular"
-
 
 class AttendanceSheet(models.Model):
     _name = "beesdoo.shift.sheet"
@@ -326,7 +310,7 @@ class AttendanceSheet(models.Model):
             if (
                 shift.worker_id == worker and not shift.replacement_worker_id
             ) or shift.replacement_worker_id == worker:
-                shift.stage = "present"
+                shift.state = "done"
                 return
             if shift.worker_id == worker and shift.replacement_worker_id:
                 raise UserError(
@@ -336,13 +320,14 @@ class AttendanceSheet(models.Model):
         is_compensation = (worker.working_mode == "regular")
 
         added_ids = map(lambda s: s.worker_id.id, self.added_shift_ids)
+
         if worker.id in added_ids:
             return
 
         self.added_shift_ids |= self.added_shift_ids.new(
             {
                 "task_type_id": self.added_shift_ids.default_task_type_id(),
-                "stage": "present",
+                "state": "done",
                 "attendance_sheet_id": self._origin.id,
                 "worker_id": worker.id,
                 "is_compensation": is_compensation,
@@ -357,7 +342,6 @@ class AttendanceSheet(models.Model):
         # to the time range
         tasks = self.env["beesdoo.shift.shift"]
         expected_shift = self.env["beesdoo.shift.sheet.expected"]
-        cancelled_stage = self.env.ref("beesdoo_shift.cancel")
         s_time = fields.Datetime.from_string(new_sheet.start_time)
         e_time = fields.Datetime.from_string(new_sheet.end_time)
         delta = timedelta(minutes=1)
@@ -371,11 +355,7 @@ class AttendanceSheet(models.Model):
             ]
         )
         for task in tasks:
-            if task.working_mode == "irregular":
-                stage = "absent_1"
-            else:
-                stage = "absent_2"
-            if task.worker_id and (task.stage_id != cancelled_stage):
+            if task.worker_id and (task.state != "cancel"):
                 new_expected_shift = expected_shift.create(
                     {
                         "attendance_sheet_id": new_sheet.id,
@@ -383,7 +363,8 @@ class AttendanceSheet(models.Model):
                         "worker_id": task.worker_id.id,
                         "replacement_worker_id": task.replaced_id.id,
                         "task_type_id": task.task_type_id.id,
-                        "stage": stage,
+                        "state": "absent",
+                        "compensation_no": 2,
                         "working_mode": task.working_mode,
                         "is_compensation": task.is_compensation,
                     }
@@ -415,7 +396,6 @@ class AttendanceSheet(models.Model):
             raise UserError("The sheet has already been validated.")
 
         shift = self.env["beesdoo.shift.shift"]
-        stage = self.env["beesdoo.shift.stage"]
 
         # Fields validation
         for added_shift in self.added_shift_ids:
@@ -423,9 +403,9 @@ class AttendanceSheet(models.Model):
                 raise UserError(
                     _("Worker must be set for shift %s") % added_shift.id
                 )
-            if not added_shift.stage:
+            if added_shift.state != "done":
                 raise UserError(
-                    _("Shift Stage is missing for %s")
+                    _("Shift State is missing or wrong for %s")
                     % added_shift.worker_id.name
                 )
             if not added_shift.task_type_id:
@@ -440,34 +420,40 @@ class AttendanceSheet(models.Model):
                 )
 
         for expected_shift in self.expected_shift_ids:
-            if not expected_shift.stage:
+            if not expected_shift.state:
                 raise UserError(
-                    _("Shift Stage is missing for %s")
+                    _("Shift State is missing for %s")
+                    % expected_shift.worker_id.name
+                )
+            if (
+                expected_shift.state == "absent"
+                and not expected_shift.compensation_no
+            ):
+                raise UserError(
+                    _("Compensation number is missing for %s")
                     % expected_shift.worker_id.name
                 )
 
         # Expected shifts status update
         for expected_shift in self.expected_shift_ids:
             actual_shift = expected_shift.task_id
-            actual_stage = self.env.ref(
-                "beesdoo_shift.%s" % expected_shift.get_actual_stage()
-            )
+            # Merge state with compensations number to fit Task model
+            if expected_shift.state == "absent" and expected_shift.compensation_no:
+                state_converted = "absent_%s" % expected_shift.compensation_no
+            else:
+                state_converted = expected_shift.state
 
-            if actual_stage:
-                actual_shift.stage_id = actual_stage
-                actual_shift.replaced_id = expected_shift.replacement_worker_id
+            actual_shift.replaced_id = expected_shift.replacement_worker_id
+            actual_shift.state = state_converted
 
-                if expected_shift.stage in ["absent_1", "absent_2"]:
-                    mail_template = self.env.ref(
-                        "beesdoo_shift.email_template_non_attendance", False
-                    )
-                    mail_template.send_mail(expected_shift.task_id.id, True)
+            if expected_shift.state == "absent":
+                mail_template = self.env.ref(
+                    "beesdoo_shift.email_template_non_attendance", False
+                )
+                mail_template.send_mail(expected_shift.task_id.id, True)
 
         # Added shifts status update
         for added_shift in self.added_shift_ids:
-            actual_stage = self.env.ref(
-                "beesdoo_shift.%s" % added_shift.get_actual_stage()
-            )
             is_regular_worker = added_shift.worker_id.working_mode == "regular"
             is_compensation = added_shift.is_compensation
 
@@ -486,9 +472,8 @@ class AttendanceSheet(models.Model):
                 actual_shift = non_assigned_shifts[0]
                 actual_shift.write(
                     {
-                        "stage_id": actual_stage.id,
+                        "state": added_shift.state,
                         "worker_id": added_shift.worker_id.id,
-                        "stage_id": actual_stage.id,
                         "is_regular": not is_compensation and is_regular_worker,
                         "is_compensation": is_compensation
                         and is_regular_worker,
@@ -499,10 +484,10 @@ class AttendanceSheet(models.Model):
                     {
                         "name": _("[Added Shift] %s") % self.start_time,
                         "task_type_id": added_shift.task_type_id.id,
+                        "state": added_shift.state,
                         "worker_id": added_shift.worker_id.id,
                         "start_time": self.start_time,
                         "end_time": self.end_time,
-                        "stage_id": actual_stage.id,
                         "is_regular": not is_compensation and is_regular_worker,
                         "is_compensation": is_compensation
                         and is_regular_worker,
