@@ -206,6 +206,9 @@
                             <field name="name" />
                         </group>
                         <group>
+                            <field name="color" />
+                        </group>
+                        <group>
                             <field name="active" />
                         </group>
                     </group>

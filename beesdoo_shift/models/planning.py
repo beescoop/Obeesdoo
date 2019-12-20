@@ -25,6 +25,7 @@ class TaskType(models.Model):
 
     name = fields.Char()
     description = fields.Text()
+    color = fields.Integer("Color to be displayed in Kanban View")
     active = fields.Boolean(default=True)
 
 class DayNumber(models.Model):
@@ -175,7 +176,7 @@ class TaskTemplate(models.Model):
                     'is_regular': True if worker_id else False,
                     'start_time' : rec.start_date,
                     'end_time' :  rec.end_date,
-                    'stage_id': self.env.ref('beesdoo_shift.open').id,
+                    'state': 'open',
                 })
 
         return tasks

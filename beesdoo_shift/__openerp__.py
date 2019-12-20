@@ -18,7 +18,6 @@
     'depends': ['beesdoo_base', 'barcodes'],
 
     'data': [
-        "data/stage.xml",
         "data/system_parameter.xml",
         "data/cron.xml",
         "data/mail_template.xml",

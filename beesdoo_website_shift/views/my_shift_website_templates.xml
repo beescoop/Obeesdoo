@@ -101,34 +101,34 @@
     id="shift_status_label"
     name="Shift Status Label">
 
-    <span t-if="shift.stage_id.code == 'draft'"
+    <span t-if="shift.state == 'draft'"
       t-attf-class="label label-default {{label_css}}">
-      <t t-esc="shift.stage_id.name"/>
+      <t t-esc="shift.state"/>
     </span>
 
-    <span t-if="shift.stage_id.code == 'done'"
+    <span t-if="shift.state == 'done'"
       t-attf-class="label label-success {{label_css}}">
-      <t t-esc="shift.stage_id.name"/>
+      <t t-esc="shift.state"/>
     </span>
 
-    <span t-if="shift.stage_id.code == 'absent'"
+    <span t-if="shift.state == 'absent'"
       t-attf-class="label label-warning {{label_css}}">
-      <t t-esc="shift.stage_id.name"/>
+      <t t-esc="shift.state"/>
     </span>
 
-    <span t-if="shift.stage_id.code == 'excused'"
+    <span t-if="shift.state == 'excused'"
       t-attf-class="label label-info {{label_css}}">
-      <t t-esc="shift.stage_id.name"/>
+      <t t-esc="shift.state"/>
     </span>
 
-    <span t-if="shift.stage_id.code == 'excused_necessity'"
+    <span t-if="shift.state == 'excused_necessity'"
       t-attf-class="label label-info {{label_css}}">
-      <t t-esc="shift.stage_id.name"/>
+      <t t-esc="shift.state"/>
     </span>
 
-    <span t-if="shift.stage_id.code == 'cancel'"
+    <span t-if="shift.state == 'cancel'"
       t-attf-class="label label-danger {{label_css}}">
-      <t t-esc="shift.stage_id.name"/>
+      <t t-esc="shift.state"/>
     </span>
 
   </template>
@@ -207,7 +207,7 @@
       </thead>
       <tbody>
         <t t-foreach="subscribed_shifts" t-as="shift">
-          <tr t-att-class="'danger text-danger' if shift.stage_id.code == 'cancel' else ''">
+          <tr t-att-class="'danger text-danger' if shift.state == 'cancel' else ''">
             <td>
               <t t-esc="time.strftime('%A', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
             </td>
@@ -222,7 +222,7 @@
               <t t-esc="shift.task_type_id.name"/>
             </td>
             <td>
-              <t t-esc="shift.stage_id.name"/>
+              <t t-esc="shift.state"/>
             </td>
             <td class="text-center">
               <button type="button" class="btn btn-default btn-sm"
@@ -347,7 +347,7 @@
               <t t-esc="shift.task_type_id.name"/>
             </td>
             <td>
-              <t t-esc="shift.stage_id.name"/>
+              <t t-esc="shift.state"/>
             </td>
           </tr>
         </t>
