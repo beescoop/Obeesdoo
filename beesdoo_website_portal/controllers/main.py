@@ -5,6 +5,7 @@
 
 
 from openerp.addons.website_portal_extend.controllers.main import ExtendWebsiteAccountController
+from openerp.http import request
 
 
 class BeesdooAccountWebsiteController(ExtendWebsiteAccountController):
