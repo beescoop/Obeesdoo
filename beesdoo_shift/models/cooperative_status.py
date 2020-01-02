@@ -137,7 +137,7 @@ class CooperativeStatus(models.Model):
                 date = rec.today
                 counter = rec.sr
                 # Simulate the countdown
-                while counter >= 0:
+                while counter > 0:
                     date = add_days_delta(date, 1)
                     date = self._next_countdown_date(rec.irregular_start_date,
                                                      date)
@@ -154,7 +154,9 @@ class CooperativeStatus(models.Model):
                         continue
                     else:
                         counter -= 1
-                rec.future_alert_date = date
+                rec.future_alert_date = self._next_countdown_date(
+                    rec.irregular_start_date, date
+                )
 
     @api.depends('today', 'irregular_start_date', 'holiday_start_time',
                  'holiday_end_time', 'temporary_exempt_start_date',
@@ -181,18 +183,19 @@ class CooperativeStatus(models.Model):
                 date = rec.today
                 next_countdown_date = False
                 while not next_countdown_date:
-                    date = add_days_delta(date, 1)
                     date = self._next_countdown_date(rec.irregular_start_date, date)
                     # Check holidays
                     if (rec.holiday_start_time and rec.holiday_end_time
                             and date >= rec.holiday_start_time
                             and date <= rec.holiday_end_time):
+                        date = add_days_delta(date, 1)
                         continue
                     # Check temporary exemption
                     elif (rec.temporary_exempt_start_date
                           and rec.temporary_exempt_end_date
                           and date >= rec.temporary_exempt_start_date
                           and date <= rec.temporary_exempt_end_date):
+                        date = add_days_delta(date, 1)
                         continue
                     else:
                         next_countdown_date = date
@@ -208,6 +211,8 @@ class CooperativeStatus(models.Model):
         today_dt = fields.Date.from_string(today)
         irregular_start_dt = fields.Date.from_string(irregular_start_date)
         delta = (today_dt - irregular_start_dt).days
+        if not delta % PERIOD:
+            return today
         return add_days_delta(today, PERIOD - (delta % PERIOD))
 
     def _set_regular_status(self, grace_delay, alert_delay):
