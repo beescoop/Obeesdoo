@@ -43,6 +43,7 @@ class AttendanceSheetShift(models.AbstractModel):
             ("working_mode", "in", ("regular", "irregular")),
             ("state", "not in", ("unsubscribed", "resigning")),
         ],
+        required=True,
     )
     task_type_id = fields.Many2one(
         "beesdoo.shift.type", string="Task Type", default=default_task_type_id
@@ -57,8 +58,7 @@ class AttendanceSheetShift(models.AbstractModel):
     )
     # The two exclusive booleans are gathered in a simple one
     is_compensation = fields.Boolean(
-        string="Compensation shift ?",
-        help="Only for regular workers"
+        string="Compensation shift ?", help="Only for regular workers"
     )
 
 
@@ -113,6 +113,7 @@ class AttendanceSheetShiftAdded(models.Model):
     def on_change_working_mode(self):
         self.state = "done"
         self.is_compensation = self.working_mode == "regular"
+
 
 class AttendanceSheet(models.Model):
     _name = "beesdoo.shift.sheet"
@@ -324,7 +325,7 @@ class AttendanceSheet(models.Model):
                     _("%s was expected as replaced.") % worker.name
                 )
 
-        is_compensation = (worker.working_mode == "regular")
+        is_compensation = worker.working_mode == "regular"
 
         added_ids = map(lambda s: s.worker_id.id, self.added_shift_ids)
 
@@ -445,7 +446,10 @@ class AttendanceSheet(models.Model):
         for expected_shift in self.expected_shift_ids:
             actual_shift = expected_shift.task_id
             # Merge state with compensations number to fit Task model
-            if expected_shift.state == "absent" and expected_shift.compensation_no:
+            if (
+                expected_shift.state == "absent"
+                and expected_shift.compensation_no
+            ):
                 state_converted = "absent_%s" % expected_shift.compensation_no
             else:
                 state_converted = expected_shift.state
@@ -481,7 +485,8 @@ class AttendanceSheet(models.Model):
                     {
                         "state": added_shift.state,
                         "worker_id": added_shift.worker_id.id,
-                        "is_regular": not is_compensation and is_regular_worker,
+                        "is_regular": not is_compensation
+                        and is_regular_worker,
                         "is_compensation": is_compensation
                         and is_regular_worker,
                     }
@@ -495,7 +500,8 @@ class AttendanceSheet(models.Model):
                         "worker_id": added_shift.worker_id.id,
                         "start_time": self.start_time,
                         "end_time": self.end_time,
-                        "is_regular": not is_compensation and is_regular_worker,
+                        "is_regular": not is_compensation
+                        and is_regular_worker,
                         "is_compensation": is_compensation
                         and is_regular_worker,
                     }
@@ -531,9 +537,11 @@ class AttendanceSheet(models.Model):
         tasks = self.env["beesdoo.shift.shift"]
         sheets = self.env["beesdoo.shift.sheet"]
         current_time = datetime.now()
-        generation_interval_setting = int(self.env["ir.config_parameter"].get_param(
-            "beesdoo_shift.attendance_sheet_generation_interval"
-        ))
+        generation_interval_setting = int(
+            self.env["ir.config_parameter"].get_param(
+                "beesdoo_shift.attendance_sheet_generation_interval"
+            )
+        )
 
         allowed_time_range = timedelta(minutes=generation_interval_setting)
 
