@@ -136,6 +136,7 @@
                 <field name="name" />
                 <field name="state" />
                 <field name="worker_id" />
+                <field name="replaced_id" />
                 <field name="super_coop_id" />
                 <field name="is_regular" />
                 <templates>
@@ -178,6 +179,10 @@
                                 <div>
                                     Worker:
                                     <field name="worker_id" />
+                                </div>
+                                <div t-if="record.replaced_id.raw_value">
+                                    Replacement worker:
+                                    <field name="replaced_id" />
                                 </div>
                                 <div t-if="record.super_coop_id.raw_value">
                                     Super Coop:
