@@ -212,20 +212,6 @@ class AttendanceSheet(models.Model):
         )
     ]
 
-    @api.depends("start_time", "end_time", "week")
-    def _compute_name(self):
-        for rec in self:
-            start_time_dt = fields.Datetime.from_string(rec.start_time)
-            start_time_dt = fields.Datetime.context_timestamp(
-                rec, start_time_dt
-            )
-            name = "[%s] - " % fields.Date.to_string(start_time_dt)
-            if rec.week:
-                name += rec.week + " - "
-            if rec.time_slot:
-                name += rec.time_slot
-            rec.name = name
-
     @api.depends("start_time", "end_time")
     def _compute_time_slot(self):
         for rec in self:
@@ -237,9 +223,24 @@ class AttendanceSheet(models.Model):
             end_time_dt = fields.Datetime.context_timestamp(rec, end_time_dt)
             rec.time_slot = (
                 start_time_dt.strftime("%H:%M")
-                + " - "
+                + "-"
                 + end_time_dt.strftime("%H:%M")
             )
+
+    @api.depends("start_time", "end_time", "week")
+    def _compute_name(self):
+        for rec in self:
+            start_time_dt = fields.Datetime.from_string(rec.start_time)
+            start_time_dt = fields.Datetime.context_timestamp(
+                rec, start_time_dt
+            )
+            name = "%s - " % (fields.Date.to_string(start_time_dt),)
+            if rec.week:
+                name += rec.week + "_"
+            name += "%s_" % (start_time_dt.strftime("%a"),)
+            if rec.time_slot:
+                name += rec.time_slot
+            rec.name = name
 
     @api.depends("start_time")
     def _compute_day(self):
@@ -494,7 +495,7 @@ class AttendanceSheet(models.Model):
             else:
                 actual_shift = self.env["beesdoo.shift.shift"].create(
                     {
-                        "name": _("[Added Shift]"),
+                        "name": _("%s (added)" % self.name),
                         "task_type_id": added_shift.task_type_id.id,
                         "state": added_shift.state,
                         "worker_id": added_shift.worker_id.id,
