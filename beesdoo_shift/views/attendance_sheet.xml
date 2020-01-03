@@ -134,7 +134,7 @@
                     <div>
                         <field name="state" widget="statusbar" readonly="True" class="oe_inline"/>
                         <button type="object"
-                                name="validate_via_wizard"
+                                name="validate_with_checks"
                                 string="Validate Sheet"
                                 attrs="{'invisible': [('state', '=', 'validated')]}"
                         />
@@ -164,6 +164,9 @@
                         <group>
                             <field name="max_worker_no" />
                         </group>
+                        <label string="If you encounter any issues, you can add an
+                            annotation during validation to notify permanent members."
+                        />
                         <separator string="Added workers" />
                         <field name="added_shift_ids"/>
                         <separator string="Expected workers" />

@@ -399,49 +399,10 @@ class AttendanceSheet(models.Model):
             return self.search_count(domain)
         return
 
-    def validate(self, user):
+    def _validate(self, user):
         self.ensure_one()
         if self.state == "validated":
             raise UserError("The sheet has already been validated.")
-
-        shift = self.env["beesdoo.shift.shift"]
-
-        # Fields validation
-        for added_shift in self.added_shift_ids:
-            if not added_shift.worker_id:
-                raise UserError(
-                    _("Worker must be set for shift %s") % added_shift.id
-                )
-            if added_shift.state != "done":
-                raise UserError(
-                    _("Shift State is missing or wrong for %s")
-                    % added_shift.worker_id.name
-                )
-            if not added_shift.task_type_id:
-                raise UserError(
-                    _("Task Type is missing for %s")
-                    % added_shift.worker_id.name
-                )
-            if not added_shift.working_mode:
-                raise UserError(
-                    _("Working mode is missing for %s")
-                    % added_shift.worker_id.name
-                )
-
-        for expected_shift in self.expected_shift_ids:
-            if not expected_shift.state:
-                raise UserError(
-                    _("Shift State is missing for %s")
-                    % expected_shift.worker_id.name
-                )
-            if (
-                expected_shift.state == "absent"
-                and not expected_shift.compensation_no
-            ):
-                raise UserError(
-                    _("Compensation number is missing for %s")
-                    % expected_shift.worker_id.name
-                )
 
         # Expected shifts status update
         for expected_shift in self.expected_shift_ids:
@@ -514,10 +475,51 @@ class AttendanceSheet(models.Model):
         return
 
     @api.multi
-    def validate_via_wizard(self):
+    def validate_with_checks(self):
         self.ensure_one()
+        if self.state == "validated":
+            raise UserError("The sheet has already been validated.")
+
+        # Fields validation
+        for added_shift in self.added_shift_ids:
+            if not added_shift.worker_id:
+                raise UserError(
+                    _("Worker name is missing for an added shift.")
+                )
+            if added_shift.state != "done":
+                raise UserError(
+                    _("Shift State is missing or wrong for %s")
+                    % added_shift.worker_id.name
+                )
+            if not added_shift.task_type_id:
+                raise UserError(
+                    _("Task Type is missing for %s")
+                    % added_shift.worker_id.name
+                )
+            if not added_shift.working_mode:
+                raise UserError(
+                    _("Working mode is missing for %s")
+                    % added_shift.worker_id.name
+                )
+
+        for expected_shift in self.expected_shift_ids:
+            if not expected_shift.state:
+                raise UserError(
+                    _("Shift State is missing for %s")
+                    % expected_shift.worker_id.name
+                )
+            if (
+                expected_shift.state == "absent"
+                and not expected_shift.compensation_no
+            ):
+                raise UserError(
+                    _("Compensation number is missing for %s")
+                    % expected_shift.worker_id.name
+                )
+
+        # open a validation wizard if not admin
         if self.env.user.has_group("beesdoo_shift.group_cooperative_admin"):
-            self.validate(self.env.user.partner_id)
+            self._validate(self.env.user.partner_id)
             return
         return {
             "type": "ir.actions.act_window",
