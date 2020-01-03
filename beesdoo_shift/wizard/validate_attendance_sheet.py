@@ -77,4 +77,4 @@ class ValidateAttendanceSheet(models.TransientModel):
         if sheet.feedback:
             sheet.feedback += self.feedback
         sheet.worker_nb_feedback = self.worker_nb_feedback
-        sheet.validate(partner or self.env.user.partner_id)
+        sheet._validate(partner or self.env.user.partner_id)
