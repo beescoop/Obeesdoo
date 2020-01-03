@@ -69,6 +69,6 @@
     </record>
 
     <menuitem name="Planning Week" id="menu_planning" parent="menu_template_top"
-        sequence="10" action="action_planning" />
+        sequence="20" action="action_planning" />
 
 </odoo>

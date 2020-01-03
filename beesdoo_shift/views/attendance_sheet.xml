@@ -196,10 +196,26 @@
     </record>
 
     <!-- Actions -->
-    <!-- This method would be better but library "fields" is not imported -->
-    <!--
-    domain="[('end_time','&gt;',fields.Datetime.to_string(datetime.date.today())),
-    ('start_time','&lt;', fields.Datetime.to_string(datetime.date.today() + datetime.timedelta(days=1)))]" -->
+
+    <act_window id="action_sheet_admin_non_validated"
+            name="Non-validated sheets"
+            res_model="beesdoo.shift.sheet"
+            view_mode="tree,form"
+            domain="[('state','=','not_validated')]"
+    />
+    <!-- Annotated sheets should display only the both annotated and validated ones-->
+    <act_window id="action_sheet_admin_annotated"
+            name="Unread annotations"
+            res_model="beesdoo.shift.sheet"
+            view_mode="tree,form"
+            domain="[('is_annotated','=',True),
+                    ('is_read','=',False)]"
+    />
+    <act_window id="action_sheet_admin_list"
+            name="All sheets"
+            res_model="beesdoo.shift.sheet"
+            view_mode="tree,form"
+    />
     <act_window id="action_sheet_daily"
             name="Daily attendance sheets"
             res_model="beesdoo.shift.sheet"
@@ -213,6 +229,7 @@
         name="Attendance Sheets"
         parent="menu_root"
         groups="beesdoo_shift.group_shift_attendance_sheet"
+        sequence="1"
     />
 
     <!-- Menu actions -->
@@ -222,5 +239,22 @@
               action="action_sheet_daily"
               sequence="2"
     />
-
+    <menuitem id="menu_sheet_admin_non_validated"
+              name="Non-validated sheets"
+              parent="menu_sheet_top"
+              action="action_sheet_admin_non_validated"
+              groups="beesdoo_shift.group_cooperative_admin"
+    />
+    <menuitem id="menu_sheet_admin_annotated"
+              name="Unread annotations"
+              parent="menu_sheet_top"
+              action="action_sheet_admin_annotated"
+              groups="beesdoo_shift.group_cooperative_admin"
+    />
+    <menuitem id="menu_sheet_admin_list"
+              name="All sheets"
+              parent="menu_sheet_top"
+              action="action_sheet_admin_list"
+              groups="beesdoo_shift.group_cooperative_admin"
+    />
 </odoo>
