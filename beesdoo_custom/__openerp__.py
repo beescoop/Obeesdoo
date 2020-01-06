@@ -25,5 +25,6 @@
     # always loaded
     'data': [
         'views/beesdoo_product.xml',
+        'views/account_invoice.xml',
     ],
 }
