@@ -17,7 +17,16 @@
                     <group>
                         <field name="worker_nb_feedback" />
                     </group>
-                    <group string="Scan your card">
+                    <field name="card_support" invisible="1" />
+                    <group string="Login"
+                           attrs="{'invisible': [('card_support', '=', True)]}"
+                    >
+                        <field name="user_id" />
+                        <field name="password" password="True"/>
+                    </group>
+                    <group string="Scan your card"
+                        attrs="{'invisible': [('card_support', '=', False)]}"
+                    >
                         <field name="barcode" />
                     </group>
                 </sheet>
