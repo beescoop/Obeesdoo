@@ -9,6 +9,11 @@ class ValidateAttendanceSheet(models.TransientModel):
     Useless for users in group_cooperative_admin"""
     _inherit = ["barcodes.barcode_events_mixin"]
 
+    def _get_card_support_setting(self):
+        return self.env["ir.config_parameter"].get_param(
+                "beesdoo_shift.card_support"
+            ) == "True"
+
     @api.multi
     def _default_annotation(self):
         """
@@ -35,7 +40,10 @@ class ValidateAttendanceSheet(models.TransientModel):
                 )
         return warning_message
 
-    barcode = fields.Char(string="Barcode", required=True)
+    card_support = fields.Boolean(default=_get_card_support_setting)
+    user_id = fields.Many2one("res.users", string="Login")
+    password = fields.Char(string="Password")
+    barcode = fields.Char(string="Barcode")
     annotation = fields.Text(
         "Important information requiring permanent member assistance",
         default=_default_annotation,
@@ -59,13 +67,24 @@ class ValidateAttendanceSheet(models.TransientModel):
         sheet_id = self._context.get("active_id")
         sheet_model = self._context.get("active_model")
         sheet = self.env[sheet_model].browse(sheet_id)
-        card = self.env["member.card"].search([("barcode", "=", self.barcode)])
-        if not len(card):
-            raise UserError(_("Please set a correct barcode."))
-        partner = card[0].partner_id
+
+        if self.card_support:
+            # Login with barcode
+            card = self.env["member.card"].search([("barcode", "=", self.barcode)])
+            if not len(card):
+                raise UserError(_("Please set a correct barcode."))
+            partner = card[0].partner_id
+        else:
+            # Login with credentials
+            if not self.user_id:
+                raise UserError(_("Please enter an user name."))
+            self.user_id.sudo(self.user_id.id).check_credentials(self.password)
+            partner = self.user_id.partner_id
+
         is_admin = partner.user_ids.has_group(
             "beesdoo_shift.group_cooperative_admin"
         )
+
         if not partner.super and not is_admin:
             raise UserError(
                 _(
