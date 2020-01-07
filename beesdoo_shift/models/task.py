@@ -62,6 +62,16 @@ class Task(models.Model):
                 "Compensation Shift."
             )
 
+    @api.constrains("state")
+    def _lock_future_task(self):
+        start_time_dt = fields.Datetime.from_string(self.start_time)
+        if datetime.now() < start_time_dt:
+            if self.state in ["done", "absent_2", "absent_1", "absent_0"]:
+                raise UserError(_(
+                    "You cannot set shift state to 'present' "
+                    "or 'absent' for a future shift."
+                ))
+
     @api.constrains('is_regular', 'is_compensation')
     def _check_compensation(self):
         for task in self:
@@ -107,19 +117,32 @@ class Task(models.Model):
 
     #TODO button to replaced someone
     @api.model
-    def unsubscribe_from_today(self, worker_ids, today=None, end_date=None):
-        today = today or fields.Date.today()
-        today += ' 00:00:00'
-        if end_date:
-            end_date += ' 23:59:59'
-        # date_domain = [('worker_id', 'in', worker_ids), ('start_time', '>=', today)]
-        date_domain = [('start_time', '>=', today)]
-        if end_date:
-            date_domain.append(('end_time', '<=', end_date))
-        to_unsubscribe = self.search([('worker_id', 'in', worker_ids)] + date_domain)
+    def unsubscribe_from_today(self, worker_ids, today=None, end_date=None, now=None):
+        """
+        Unsubscribe workers from *worker_ids* from all shift that start *today* and later.
+        If *end_date* is given, unsubscribe workers from shift between *today* and *end_date*.
+        If *now* is given workers are unsubscribed from all shifts starting *now* and later.
+        If *now* is given, *end_date* is not taken into account.
 
+        :type today: fields.Date
+        :type end_date: fields.Date
+        :type now: fields.Datetime
+        """
+        if now:
+            if len(now) != 19:
+                raise UserError (_("'Now' must be a datetime."))
+            date_domain = [('start_time', '>', now)]
+        else:
+            today = today or fields.Date.today()
+            today += ' 00:00:00'
+            date_domain = [('start_time', '>', today)]
+            if end_date:
+                end_date += ' 23:59:59'
+                date_domain.append(('end_time', '<=', end_date))
+
+        to_unsubscribe = self.search([('worker_id', 'in', worker_ids)] + date_domain)
         to_unsubscribe.write({'worker_id': False})
-        # What about replacement ?
+
         # Remove worker, replaced_id and regular
         to_unsubscribe_replace = self.search([('replaced_id', 'in', worker_ids)] + date_domain)
         to_unsubscribe_replace.write({'worker_id': False, 'replaced_id': False})
