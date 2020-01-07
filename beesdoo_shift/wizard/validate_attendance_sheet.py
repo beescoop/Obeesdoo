@@ -10,9 +10,12 @@ class ValidateAttendanceSheet(models.TransientModel):
     _inherit = ["barcodes.barcode_events_mixin"]
 
     def _get_card_support_setting(self):
-        return self.env["ir.config_parameter"].get_param(
+        return (
+            self.env["ir.config_parameter"].get_param(
                 "beesdoo_shift.card_support"
-            ) == "True"
+            )
+            == "True"
+        )
 
     @api.multi
     def _default_annotation(self):
@@ -70,7 +73,9 @@ class ValidateAttendanceSheet(models.TransientModel):
 
         if self.card_support:
             # Login with barcode
-            card = self.env["member.card"].search([("barcode", "=", self.barcode)])
+            card = self.env["member.card"].search(
+                [("barcode", "=", self.barcode)]
+            )
             if not len(card):
                 raise UserError(_("Please set a correct barcode."))
             partner = card[0].partner_id
