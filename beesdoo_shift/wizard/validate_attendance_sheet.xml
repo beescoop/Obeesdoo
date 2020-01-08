@@ -6,22 +6,23 @@
             <form>
                 <sheet>
                     <separator string="Validation"/>
-                    <label string="Beware : a validated sheet cannot be edited anymore
-                                   and you won't be able to add any latecomers.
-                                   Emails will be sent to workers who did not attend their shift." />
                     <field name="_barcode_scanned" widget="barcode_handler"/>
+                    <field name="warning_regular_workers"
+                           readonly="1"
+                           attrs="{'invisible': [('warning_regular_workers', '=', False)]}"
+                    />
                     <group col="1" string="Additional informations" >
                         <field name="annotation" />
                         <field name="feedback" />
                     </group>
                     <group>
-                        <field name="worker_nb_feedback" />
+                        <field name="worker_nb_feedback"/>
                     </group>
                     <field name="card_support" invisible="1" />
                     <group string="Login"
                            attrs="{'invisible': [('card_support', '=', True)]}"
                     >
-                        <field name="user_id" />
+                        <field name="login" />
                         <field name="password" password="True"/>
                     </group>
                     <group string="Scan your card"
@@ -31,9 +32,13 @@
                     </group>
                 </sheet>
                 <footer>
-                    <button type="object" name="validate_sheet"
-                        string="Confirm" class="oe_highlight" />
-                    or
+                    <button type="object"
+                        name="validate_sheet"
+                        string="Validate"
+                        class="oe_highlight"
+                    />
+                    <button type="object" name="save"
+                        string="Save"  />
                     <button special="cancel" string="Cancel" />
                 </footer>
             </form>
