@@ -136,6 +136,9 @@
                         <button type="object"
                                 name="validate_with_checks"
                                 string="Validate Sheet"
+                                confirm="Beware : a validated sheet cannot be edited anymore
+                                    and you won't be able to add any latecomers.
+                                    Emails will be sent to workers who did not attend their shift."
                                 attrs="{'invisible': [('state', '=', 'validated')]}"
                         />
                     </div>
