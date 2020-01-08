@@ -98,6 +98,7 @@ class AttendanceSheetShiftExpected(models.Model):
             if not self.compensation_no:
                 raise UserError(_("You must choose a compensation number."))
 
+
 class AttendanceSheetShiftAdded(models.Model):
     """
     Added shifts are necessarily 'Present'
@@ -146,6 +147,9 @@ class AttendanceSheet(models.Model):
     )
     end_time = fields.Datetime(string="End Time", required=True, readonly=True)
     day = fields.Date(string="Day", compute="_compute_day", store=True)
+    day_abbrevation = fields.Char(
+        string="Day Abbrevation", compute="_compute_day_abbrevation"
+    )
     week = fields.Char(
         string="Week",
         help="Computed from planning names",
@@ -227,19 +231,20 @@ class AttendanceSheet(models.Model):
                 + end_time_dt.strftime("%H:%M")
             )
 
-    @api.depends("start_time", "end_time", "week")
+    @api.depends("start_time", "end_time", "week", "day_abbrevation")
     def _compute_name(self):
         for rec in self:
             start_time_dt = fields.Datetime.from_string(rec.start_time)
             start_time_dt = fields.Datetime.context_timestamp(
                 rec, start_time_dt
             )
-            name = "%s - " % (fields.Date.to_string(start_time_dt),)
+            name = "[%s] " % (fields.Date.to_string(start_time_dt),)
             if rec.week:
-                name += rec.week + "_"
-            name += "%s_" % (start_time_dt.strftime("%a"),)
+                name += rec.week + " "
+            if rec.day_abbrevation:
+                name += rec.day_abbrevation + " "
             if rec.time_slot:
-                name += rec.time_slot
+                name += "(%s)" % rec.time_slot
             rec.name = name
 
     @api.depends("start_time")
@@ -248,13 +253,28 @@ class AttendanceSheet(models.Model):
             rec.day = fields.Date.from_string(rec.start_time)
 
     @api.depends("expected_shift_ids")
-    def _compute_week(self):
+    def _compute_day_abbrevation(self):
         """
-        Compute Week Name from Planning Name of first expected shift
+        Compute Day Abbrevation from Planning Name
+        of first expected shift with one.
         """
         for rec in self:
-            if rec.expected_shift_ids:
-                rec.week = rec.expected_shift_ids[0].task_id.planning_id.name
+            for shift in rec.expected_shift_ids:
+                if shift.task_id.task_template_id.day_nb_id.name:
+                    rec.day_abbrevation = (
+                        shift.task_id.task_template_id.day_nb_id.name
+                    )
+
+    @api.depends("expected_shift_ids")
+    def _compute_week(self):
+        """
+        Compute Week Name from Planning Name
+        of first expected shift with one
+        """
+        for rec in self:
+            for shift in rec.expected_shift_ids:
+                if shift.task_id.planning_id.name:
+                    rec.week = shift.task_id.planning_id.name
 
     @api.depends("annotation")
     def _compute_is_annotated(self):
