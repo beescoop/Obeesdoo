@@ -545,7 +545,7 @@ class AttendanceSheet(models.Model):
                     % expected_shift.worker_id.name
                 )
 
-        # open a validation wizard if not admin
+        # Open a validation wizard only if not admin
         if self.env.user.has_group("beesdoo_shift.group_cooperative_admin"):
             self._validate(self.env.user.partner_id)
             return

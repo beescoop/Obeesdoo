@@ -9,6 +9,14 @@ class ValidateAttendanceSheet(models.TransientModel):
     Useless for users in group_cooperative_admin"""
     _inherit = ["barcodes.barcode_events_mixin"]
 
+    @api.multi
+    def _get_active_sheet(self):
+        sheet_id = self._context.get("active_id")
+        sheet_model = self._context.get("active_model")
+
+        if sheet_id and sheet_model:
+            return self.env[sheet_model].browse(sheet_id)
+
     def _get_card_support_setting(self):
         return (
             self.env["ir.config_parameter"].get_param(
@@ -18,40 +26,57 @@ class ValidateAttendanceSheet(models.TransientModel):
         )
 
     @api.multi
-    def _default_annotation(self):
+    def _get_warning_regular_workers(self):
         """
-        The annotation is pre-filled with a warning message
-        if a regular worker is added and should have been expected.
+        A warning is shown if some regular workers were not expected
+        but should be doing their regular shifts. This warning is added
+        to sheet's annotation at validation.
         """
-
-        sheet_id = self._context.get("active_id")
-        sheet_model = self._context.get("active_model")
-        sheet = self.env[sheet_model].browse(sheet_id)
+        sheet = self._get_active_sheet()
         warning_message = ""
+        if sheet:
+            for added_shift in sheet.added_shift_ids:
+                is_regular_worker = added_shift.worker_id.working_mode == "regular"
+                is_compensation = added_shift.is_compensation
 
-        for added_shift in sheet.added_shift_ids:
-            is_regular_worker = added_shift.worker_id.working_mode == "regular"
-            is_compensation = added_shift.is_compensation
-
-            if is_regular_worker and not is_compensation:
-                warning_message += (
-                    _(
-                        "Warning : %s attended its shift as a normal one but was not expected. "
-                        "Something may be wrong in his/her personnal informations.\n\n"
+                if is_regular_worker and not is_compensation:
+                    warning_message += (
+                        _(
+                            "\n%s attended its shift as a normal one but was not expected. "
+                            "Something may be wrong in his/her personnal informations.\n"
+                        )
+                        % added_shift.worker_id.name
                     )
-                    % added_shift.worker_id.name
-                )
         return warning_message
 
+    @api.multi
+    def _get_default_annotation(self):
+        if self._get_active_sheet():
+            return self._get_active_sheet().annotation
+
+    @api.multi
+    def _get_default_feedback(self):
+        if self._get_active_sheet():
+            return self._get_active_sheet().feedback
+
+    @api.multi
+    def _get_default_worker_nb_feedback(self):
+        if self._get_active_sheet():
+            return self._get_active_sheet().worker_nb_feedback
+
     card_support = fields.Boolean(default=_get_card_support_setting)
-    user_id = fields.Many2one("res.users", string="Login")
+    login = fields.Char(string="Login")
     password = fields.Char(string="Password")
     barcode = fields.Char(string="Barcode")
+    warning_regular_workers = fields.Text("Warning",
+        default=_get_warning_regular_workers,
+        help="Is any regular worker doing its regular shift as an added one ?"
+    )
     annotation = fields.Text(
         "Important information requiring permanent member assistance",
-        default=_default_annotation,
+        default=_get_default_annotation,
     )
-    feedback = fields.Text("General feedback")
+    feedback = fields.Text("General feedback", default=_get_default_feedback)
     worker_nb_feedback = fields.Selection(
         [
             ("not_enough", "Not enough"),
@@ -59,6 +84,7 @@ class ValidateAttendanceSheet(models.TransientModel):
             ("too_many", "Too many"),
         ],
         string="Number of workers",
+        default=_get_default_worker_nb_feedback,
         required=True,
     )
 
@@ -66,10 +92,19 @@ class ValidateAttendanceSheet(models.TransientModel):
         self.barcode = barcode
 
     @api.multi
+    def save(self):
+        """
+        Save modifications onto attendance sheet.
+        """
+        sheet = self._get_active_sheet()
+
+        sheet.annotation = self.annotation
+        sheet.feedback = self.feedback
+        sheet.worker_nb_feedback = self.worker_nb_feedback
+
+    @api.multi
     def validate_sheet(self):
-        sheet_id = self._context.get("active_id")
-        sheet_model = self._context.get("active_model")
-        sheet = self.env[sheet_model].browse(sheet_id)
+        sheet = self._get_active_sheet()
 
         if self.card_support:
             # Login with barcode
@@ -81,10 +116,11 @@ class ValidateAttendanceSheet(models.TransientModel):
             partner = card[0].partner_id
         else:
             # Login with credentials
-            if not self.user_id:
-                raise UserError(_("Please enter an user name."))
-            self.user_id.sudo(self.user_id.id).check_credentials(self.password)
-            partner = self.user_id.partner_id
+            if not self.login:
+                raise UserError(_("Please enter your login."))
+            user = self.env["res.users"].search([("login", "=", self.login)])
+            user.sudo(user.id).check_credentials(self.password)
+            partner = user.partner_id
 
         is_admin = partner.user_ids.has_group(
             "beesdoo_shift.group_cooperative_admin"
@@ -96,9 +132,7 @@ class ValidateAttendanceSheet(models.TransientModel):
                     "Only super-cooperators and administrators can validate attendance sheets."
                 )
             )
-        if self.annotation:
-            sheet.annotation += self.annotation
-        if sheet.feedback:
-            sheet.feedback += self.feedback
-        sheet.worker_nb_feedback = self.worker_nb_feedback
+
+        self.annotation += self.warning_regular_workers
+        self.save()
         sheet._validate(partner or self.env.user.partner_id)
