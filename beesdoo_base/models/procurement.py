@@ -4,6 +4,7 @@
 
 from openerp import models, fields, api
 import logging
+
 _logger = logging.getLogger(__name__)
 
 
@@ -23,25 +24,34 @@ class ProcurementOrder(models.Model):
 
         # in remaining procurement, cancel those with no procurement order
         unlinked_procurement = self.env["procurement.order"].search(
-            [("state", "=", "running"),
-             ("purchase_line_id", "=", False)]
+            [("state", "=", "running"), ("purchase_line_id", "=", False)]
         )
-        _logger.info("cancelling %s procurement unlinked from PO." % len(unlinked_procurement))
+        _logger.info(
+            "cancelling %s procurement unlinked from PO."
+            % len(unlinked_procurement)
+        )
         unlinked_procurement.cancel()
 
         # in remaining procurement, delete those from 'done' purchase order
         procurement_linked_to_done_PO = self.env["procurement.order"].search(
-            [("state", "=", "running"),
-             ("purchase_line_id", "!=", False),
-             ("purchase_line_id.order_id.state", "=", "done")]
+            [
+                ("state", "=", "running"),
+                ("purchase_line_id", "!=", False),
+                ("purchase_line_id.order_id.state", "=", "done"),
+            ]
         )
-        _logger.info("set %s procurement to done (linked to done PO)" % len(procurement_linked_to_done_PO))
+        _logger.info(
+            "set %s procurement to done (linked to done PO)"
+            % len(procurement_linked_to_done_PO)
+        )
         procurement_linked_to_done_PO.write({"state": "done"})
 
         # cancel procurement order from exceptions
         exception_procurement = self.env["procurement.order"].search(
-            [("state", "=", "exception"),
-             ("purchase_line_id", "=", False)]
+            [("state", "=", "exception"), ("purchase_line_id", "=", False)]
         )
-        _logger.info("cancelling %s procurement in exception" % len(exception_procurement))
+        _logger.info(
+            "cancelling %s procurement in exception"
+            % len(exception_procurement)
+        )
         exception_procurement.cancel()
