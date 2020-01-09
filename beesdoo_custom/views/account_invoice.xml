@@ -12,6 +12,9 @@
             <field name="reference" position="after">
                 <field name="provider_reference"/>
             </field>
+            <field name="reference" position="attributes">
+                <attribute name="string">Communication</attribute>
+            </field>
         </field>
     </record>
 </odoo>
