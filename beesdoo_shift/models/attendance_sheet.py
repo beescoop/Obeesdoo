@@ -11,6 +11,7 @@ from openerp.exceptions import UserError, ValidationError
 class AttendanceSheetShift(models.AbstractModel):
     _name = "beesdoo.shift.sheet.shift"
     _description = "Copy of an actual shift into an attendance sheet"
+    _order = 'task_type_id, worker_name'
 
     @api.model
     def default_task_type_id(self):
@@ -45,6 +46,7 @@ class AttendanceSheetShift(models.AbstractModel):
         ],
         required=True,
     )
+    worker_name = fields.Char(related="worker_id.name", store=True)
     task_type_id = fields.Many2one(
         "beesdoo.shift.type", string="Task Type", default=default_task_type_id
     )
