@@ -12,7 +12,7 @@
                 <field name="worker_id" />
                 <field name="replaced_id" />
                 <field name="end_time" />
-                <field name="stage_id" />
+                <field name="state" />
             </tree>
         </field>
     </record>
@@ -57,7 +57,7 @@
                     <filter string="Type" name="gb_type"
                         context="{'group_by' : 'task_type_id'}" />
                     <filter string="Status" name="gb_status"
-                        context="{'group_by' : 'stage_id'}" />
+                        context="{'group_by' : 'state'}" />
                     <filter string="Day" name="gb_day"
                         context="{'group_by' : 'start_time:day'}" />
                 </group>
@@ -84,8 +84,7 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <field name="stage_id" widget="statusbar"
-                        clickable="1" />
+                    <field name="state" widget="statusbar" clickable="1" />
                 </header>
                 <sheet>
                     <div class="oe_title">
@@ -135,7 +134,7 @@
                 <field name="color" />
                 <field name="task_type_id" />
                 <field name="name" />
-                <field name="stage_id" />
+                <field name="state" />
                 <field name="worker_id" />
                 <field name="super_coop_id" />
                 <field name="is_regular" />
@@ -170,7 +169,7 @@
                                 </div>
                                 <div>
                                     Status:
-                                    <field name="stage_id" />
+                                    <field name="state" />
                                 </div>
                                 <div t-if="record.task_type_id.raw_value">
                                     Type:

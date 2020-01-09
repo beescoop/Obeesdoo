@@ -6,19 +6,6 @@ from openerp import _, api, fields, models
 from openerp.exceptions import UserError, ValidationError
 
 
-class TaskStage(models.Model):
-    _name = 'beesdoo.shift.stage'
-    _order = 'sequence asc'
-
-    name = fields.Char()
-    sequence = fields.Integer()
-    color = fields.Integer()
-    code = fields.Char(readonly=True)
-
-    @api.multi
-    def unlink(self):
-        raise UserError(_("You Cannot delete Task Stage"))
-
 
 class Task(models.Model):
     _name = 'beesdoo.shift.shift'
@@ -39,9 +26,22 @@ class Task(models.Model):
                                 ])
     start_time = fields.Datetime(track_visibility='always', index=True, required=True)
     end_time = fields.Datetime(track_visibility='always', required=True)
-    stage_id = fields.Many2one('beesdoo.shift.stage', required=True, track_visibility='onchange', default=lambda self: self.env.ref('beesdoo_shift.open'))
+    state = fields.Selection(selection=[
+            ("draft","Unconfirmed"),
+            ("open","Confirmed"),
+            ("done","Attended"),
+            ("absent_2","Absent - 2 compensations"),
+            ("absent_1","Absent - 1 compensation"),
+            ("absent_0","Absent - 0 compensation"),
+            ("cancel","Cancelled")
+    ],
+        default="open",
+        required=True,
+        store=True,
+        track_visibility='onchange',
+    )
+    color = fields.Integer(compute="_compute_color")
     super_coop_id = fields.Many2one('res.users', string="Super Cooperative", domain=[('partner_id.super', '=', True)], track_visibility='onchange')
-    color = fields.Integer(related="stage_id.color", readonly=True)
     # TODO: Maybe is_regular and is_compensation must be merged in a
     # selection field as they are mutually exclusive.
     is_regular = fields.Boolean(default=False, string="Regular shift")
@@ -54,6 +54,20 @@ class Task(models.Model):
                                   ])
     revert_info = fields.Text(copy=False)
     working_mode = fields.Selection(related='worker_id.working_mode')
+
+    @api.depends("state")
+    def _compute_color(self):
+        color_mapping = {
+            "draft": 0,
+            "open": 1,
+            "done": 5,
+            "absent_2": 2,
+            "absent_1": 7,
+            "absent_0": 3,
+            "cancel": 9,
+        }
+        for rec in self:
+            rec.color = color_mapping[rec.state]
 
     def _compensation_validation(self, task):
         """
@@ -103,16 +117,6 @@ class Task(models.Model):
             worker = self.env['res.partner'].browse(vals['worker_id'])
             self.message_subscribe(partner_ids=worker.ids)
 
-    @api.model
-    def _read_group_stage_id(self, ids, domain, read_group_order=None, access_rights_uid=None):
-        res  = self.env['beesdoo.shift.stage'].search([]).name_get()
-        fold = dict.fromkeys([r[0] for r in res], False)
-        return res, fold
-
-    _group_by_full = {
-        'stage_id': _read_group_stage_id,
-    }
-
     #TODO button to replaced someone
     @api.model
     def unsubscribe_from_today(self, worker_ids, today=None, end_date=None):
@@ -144,11 +148,11 @@ class Task(models.Model):
     @api.multi
     def write(self, vals):
         """
-            Overwrite write to track stage change
+            Overwrite write to track state change
             If worker is changer:
                Revert for the current worker
                Change the worker info
-               Compute stage change for the new worker
+               Compute state change for the new worker
         """
         if 'worker_id' in vals:
             for rec in self:
@@ -163,11 +167,11 @@ class Task(models.Model):
                         'is_compensation': vals.get('is_compensation',
                                                     rec.is_compensation),
                     })
-                    rec._update_stage(rec.stage_id.id)
-        if 'stage_id' in vals:
+                    rec._update_state(rec.state)
+        if 'state' in vals:
             for rec in self:
-                if vals['stage_id'] != rec.stage_id.id:
-                    rec._update_stage(vals['stage_id'])
+                if vals['state'] != rec.state:
+                    rec._update_state(vals['state'])
         return super(Task, self).write(vals)
 
     def _set_revert_info(self, data, status):
@@ -187,19 +191,15 @@ class Task(models.Model):
         self.env['cooperative.status'].browse(data['status_id']).sudo()._change_counter(data['data'])
         self.revert_info = False
 
-    def _update_stage(self, new_stage):
+    def _update_state(self, new_state):
         self.ensure_one()
         self._revert()
         update = int(self.env['ir.config_parameter'].get_param('always_update', False))
 
-        new_stage = self.env['beesdoo.shift.stage'].browse(new_stage)
         data = {}
-        DONE = self.env.ref('beesdoo_shift.done')
-        ABSENT = self.env.ref('beesdoo_shift.absent')
-        EXCUSED = self.env.ref('beesdoo_shift.excused')
-        NECESSITY = self.env.ref('beesdoo_shift.excused_necessity')
-        if not (self.worker_id or self.replaced_id) and new_stage in (DONE, ABSENT, EXCUSED, NECESSITY):
-            raise UserError(_("You cannot change to the status %s if no worker is defined for the shift") % new_stage.name)
+
+        if not (self.worker_id or self.replaced_id) and new_state in ("done", "absent_0", "absent_1", "absent_2"):
+            raise UserError(_("You cannot change to the status %s if no worker is defined for the shift") % new_state)
 
         if update or not (self.worker_id or self.replaced_id):
             return
@@ -210,32 +210,32 @@ class Task(models.Model):
             else:
                 status = self.replaced_id.cooperative_status_ids[0]
 
-            if new_stage == DONE and not self.is_regular:
+            if new_state == "done" and not self.is_regular:
+                # Regular counter is always updated first
                 if status.sr < 0:
                     data['sr'] = 1
                 elif status.sc < 0:
                     data['sc'] = 1
+                # Bonus shift case
                 else:
                     data['sr'] = 1
 
-            if new_stage == ABSENT and not self.replaced_id:
-                data['sr'] = - 1
-                if status.sr <= 0:
-                    data['sc'] = -1
-            if new_stage == ABSENT and self.replaced_id:
+            if new_state == "absent_2":
                 data['sr'] = -1
+                data['sc'] = -1
 
-            if new_stage == EXCUSED:
+            if new_state == "absent_1":
                 data['sr'] = -1
 
         elif self.worker_id.working_mode == 'irregular':
             status = self.worker_id.cooperative_status_ids[0]
-            if new_stage == DONE or new_stage == NECESSITY:
+            if new_state == "done" or new_state == "absent_0":
                 data['sr'] = 1
                 data['irregular_absence_date'] = False
                 data['irregular_absence_counter'] = 1 if status.irregular_absence_counter < 0 else 0
-            if new_stage == ABSENT or new_stage == EXCUSED:
-                data['sr'] = -1
+            if new_state == "absent_2" or new_state == "absent_1":
+                if new_state == "absent_2":
+                    data['sr'] = -1
                 data['irregular_absence_date'] = self.start_time[:10]
                 data['irregular_absence_counter'] = -1
 
@@ -263,7 +263,7 @@ class Task(models.Model):
                 ("start_time", ">", start_time.strftime("%Y-%m-%d 00:00:01")),
                 ("start_time", "<", end_time.strftime("%Y-%m-%d 23:59:59")),
                 ("worker_id", "!=", False),
-                ("stage_id", "=", self.env.ref("beesdoo_shift.open").id),
+                ("state", "=", "open"),
             ]
         )
 
