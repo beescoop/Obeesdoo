@@ -143,14 +143,12 @@ class WebsiteShiftController(http.Controller):
         # Get config
         irregular_enable_sign_up = literal_eval(request.env['ir.config_parameter'].get_param(
             'beesdoo_website_shift.irregular_enable_sign_up'))
-        # Get open status
-        open_status = request.env.ref('beesdoo_shift.open')
 
         request.session['success'] = False
         if (irregular_enable_sign_up
                 and self.user_can_subscribe()
                 and shift
-                and shift.stage_id == open_status
+                and shift.state == "open"
                 and not shift.worker_id):
             shift.worker_id = cur_user.partner_id
             request.session['success'] = True
@@ -280,11 +278,10 @@ class WebsiteShiftController(http.Controller):
 
         # Get all the shifts in the future with no worker
         now = datetime.now()
-        open_status = request.env.ref('beesdoo_shift.open')
         shifts = request.env['beesdoo.shift.shift'].sudo().search(
             [('start_time', '>', now.strftime("%Y-%m-%d %H:%M:%S")),
              ('worker_id', '=', False),
-             ('stage_id', '=', open_status.id)],
+             ('state', '=', 'open')],
             order="start_time, task_template_id, task_type_id",
         )
 
@@ -394,9 +391,6 @@ class WebsiteShiftController(http.Controller):
             regular_next_shift_limit = int(request.env['ir.config_parameter'].get_param(
                 'beesdoo_website_shift.regular_next_shift_limit'))
 
-            # Get default status for fictive shifts
-            draft_status = request.env.ref('beesdoo_shift.draft')
-
             for i in range(nb_subscribed_shifts, regular_next_shift_limit):
                 # Create the fictive shift
                 shift = main_shift.new()
@@ -405,7 +399,7 @@ class WebsiteShiftController(http.Controller):
                 shift.planning_id = main_shift.planning_id
                 shift.task_type_id = main_shift.task_type_id
                 shift.worker_id = main_shift.worker_id
-                shift.stage_id = draft_status
+                shift.state = "draft"
                 shift.super_coop_id = main_shift.super_coop_id
                 shift.color = main_shift.color
                 shift.is_regular = main_shift.is_regular
