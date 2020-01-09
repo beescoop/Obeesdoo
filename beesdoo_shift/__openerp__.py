@@ -13,12 +13,11 @@
     'website': "https://github.com/beescoop/Obeesdoo",
 
     'category': 'Cooperative management',
-    'version': '9.0.1.2.3',
+    'version': '9.0.1.3.0',
 
     'depends': ['beesdoo_base'],
 
     'data': [
-        "data/stage.xml",
         "data/system_parameter.xml",
         "data/cron.xml",
         "data/mail_template.xml",
