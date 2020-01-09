@@ -20,6 +20,7 @@
     'data': [
         'security/groups.xml',
         'security/ir.model.access.csv',
+        'data/cron.xml',
         'views/partner.xml',
         'wizard/views/member_card.xml',
         'wizard/views/partner.xml',
