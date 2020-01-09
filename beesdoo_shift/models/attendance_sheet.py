@@ -88,6 +88,11 @@ class AttendanceSheetShiftExpected(models.Model):
         ],
     )
 
+    @api.onchange("replacement_worker_id")
+    def on_change_replacement_worker(self):
+        if self.replacement_worker_id:
+            self.state = "done"
+
     @api.onchange("state")
     def on_change_state(self):
         if not self.state or self.state == "done":
@@ -551,6 +556,10 @@ class AttendanceSheet(models.Model):
 
         # Open a validation wizard only if not admin
         if self.env.user.has_group("beesdoo_shift.group_cooperative_admin"):
+            if not self.worker_nb_feedback:
+                raise UserError(
+                    _("Please give your feedback about the number of workers.")
+                )
             self._validate(self.env.user.partner_id)
             return
         return {
