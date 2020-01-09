@@ -25,7 +25,7 @@
 
         <record id="ir_cron_generate_attendance_sheet" model="ir.cron">
             <field name="name">Generate Attendance Sheets</field>
-            <field name="interval_number">1</field>
+            <field name="interval_number">4</field>
             <field name="interval_type">minutes</field>
             <field name="numbercall">-1</field>
             <field name="doall" eval="False" />
