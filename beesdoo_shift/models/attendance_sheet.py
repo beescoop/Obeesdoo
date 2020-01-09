@@ -502,7 +502,7 @@ class AttendanceSheet(models.Model):
         start_time_dt = fields.Datetime.from_string(self.start_time)
 
         if self.state == "validated":
-            raise UserError("The sheet has already been validated.")
+            raise UserError(_("The sheet has already been validated."))
         if start_time_dt > datetime.now():
             raise UserError(
                 _("You must wait for the shifts to begin to validate sheet.")
