@@ -21,6 +21,9 @@
                 <group expand="1" string="Group By">
                     <filter string="Day" name="gb_day"
                             context="{'group_by' : 'start_time:day'}" />
+                    <filter string="Feedback on number of workers"
+                            name="gb_worker_nb_feedback"
+                            context="{'group_by' : 'worker_nb_feedback'}" />
                 </group>
             </search>
         </field>
