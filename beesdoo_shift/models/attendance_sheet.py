@@ -64,9 +64,10 @@ class AttendanceSheetShift(models.AbstractModel):
     )
 
 
+
 class AttendanceSheetShiftExpected(models.Model):
     """
-    Irregulars can only have two compensations
+    Already existing shifts on sheet creation.
     """
 
     _name = "beesdoo.shift.sheet.expected"
@@ -103,6 +104,7 @@ class AttendanceSheetShiftExpected(models.Model):
 
 class AttendanceSheetShiftAdded(models.Model):
     """
+    Not already registered shifts.
     Added shifts are necessarily 'Present'
     """
 
@@ -195,7 +197,7 @@ class AttendanceSheet(models.Model):
             ("enough", "Enough"),
             ("too_many", "Too many"),
         ],
-        string="Number of workers",
+        string="Feedback on number of workers",
     )
     validated_by = fields.Many2one(
         "res.partner",
