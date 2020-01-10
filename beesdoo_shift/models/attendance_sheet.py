@@ -11,7 +11,7 @@ from openerp.exceptions import UserError, ValidationError
 class AttendanceSheetShift(models.AbstractModel):
     _name = "beesdoo.shift.sheet.shift"
     _description = "Copy of an actual shift into an attendance sheet"
-    _order = 'task_type_id, worker_name'
+    _order = "task_type_id, worker_name"
 
     @api.model
     def default_task_type_id(self):
@@ -50,11 +50,6 @@ class AttendanceSheetShift(models.AbstractModel):
     task_type_id = fields.Many2one(
         "beesdoo.shift.type", string="Task Type", default=default_task_type_id
     )
-    super_coop_id = fields.Many2one(
-        "res.users",
-        string="Super Cooperative",
-        domain=[("partner_id.super", "=", True)],
-    )
     working_mode = fields.Selection(
         related="worker_id.working_mode", string="Working Mode"
     )
@@ -62,7 +57,6 @@ class AttendanceSheetShift(models.AbstractModel):
     is_compensation = fields.Boolean(
         string="Compensation shift ?", help="Only for regular workers"
     )
-
 
 
 class AttendanceSheetShiftExpected(models.Model):
@@ -74,6 +68,9 @@ class AttendanceSheetShiftExpected(models.Model):
     _description = "Expected Shift"
     _inherit = ["beesdoo.shift.sheet.shift"]
 
+    super_coop_id = fields.Many2one(
+        related="task_id.super_coop_id", store=True
+    )
     compensation_no = fields.Selection(
         [("0", "0"), ("1", "1"), ("2", "2"),], string="Compensations",
     )
