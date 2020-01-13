@@ -140,8 +140,9 @@
                                 name="validate_with_checks"
                                 string="Validate Sheet"
                                 confirm="Beware : a validated sheet cannot be edited anymore
-                                    and you won't be able to add any latecomers.
-                                    Emails will be sent to workers who did not attend their shift."
+                                and you won't be able to add any latecomers.
+                                The counters of those who didn't attend will be updated
+                                and they will get warning emails."
                                 attrs="{'invisible': [('state', '=', 'validated')]}"
                         />
                     </div>
@@ -170,8 +171,9 @@
                         <group>
                             <field name="max_worker_no" />
                         </group>
-                        <label string="If you encounter any issues, you can add an
-                            annotation during validation to notify permanent members."
+                        <label string="You will be able to write notes
+                            about what you cannot encode here
+                            when clicking on 'validate'."
                         />
                         <separator string="Added workers" />
                         <field name="added_shift_ids"/>
@@ -180,7 +182,7 @@
                         <br/>
                         <group col="1" string="Feedback"
                                groups="beesdoo_shift.group_cooperative_admin">
-                            <field name="annotation" />
+                            <field name="notes" />
                             <br/>
                             <field name="feedback" />
                             <br/>
@@ -211,7 +213,7 @@
     />
     <!-- Annotated sheets should display only the both annotated and validated ones-->
     <act_window id="action_sheet_admin_annotated"
-            name="Unread annotations"
+            name="Unread notes"
             res_model="beesdoo.shift.sheet"
             view_mode="tree,form"
             domain="[('is_annotated','=',True),
@@ -252,7 +254,7 @@
               groups="beesdoo_shift.group_cooperative_admin"
     />
     <menuitem id="menu_sheet_admin_annotated"
-              name="Unread annotations"
+              name="Unread notes"
               parent="menu_sheet_top"
               action="action_sheet_admin_annotated"
               groups="beesdoo_shift.group_cooperative_admin"
