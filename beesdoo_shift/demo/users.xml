@@ -5,7 +5,7 @@
 -->
 <odoo>
 
-<!-- Generic and permanent account -->
+    <!-- Generic and permanent account -->
 
     <record id="beesdoo_shift_partner_1_demo" model="res.partner">
         <field name="name">Generic Account</field>
@@ -33,5 +33,10 @@
             <field name="password">demo</field>
     </record>
 
+    <!-- Security groups -->
+
+    <record id="beesdoo_shift.group_shift_attendance_sheet" model="res.groups">
+        <field name="users" eval="[(6,0,[ref('beesdoo_shift_user_1_demo')])]"/>
+    </record>
 
 </odoo>
