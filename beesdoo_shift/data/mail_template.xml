@@ -38,10 +38,11 @@
     % endif
 
     <br/><br/>Your status have been updated to "${object.worker_id.state}".
-    <br/><br/>If you have any question regarding this non-attendance, feel free to contact us.
+    <br/><br/>If you have any question regarding this non-attendance, just answer this e-mail.
     </p>
     <br/>
-    <p>Sustainably yours,</p>
+    <p>Cooperatively yours,<br/>
+    The Members' office volunteers</p>
     <p>${object.worker_id.company_id.name}.</p>
 
     % if object.worker_id.company_id.street:

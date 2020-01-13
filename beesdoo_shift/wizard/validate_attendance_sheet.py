@@ -30,7 +30,7 @@ class ValidateAttendanceSheet(models.TransientModel):
         """
         A warning is shown if some regular workers were not expected
         but should be doing their regular shifts. This warning is added
-        to sheet's annotation at validation.
+        to sheet's notes at validation.
         """
         sheet = self._get_active_sheet()
         warning_message = ""
@@ -50,9 +50,9 @@ class ValidateAttendanceSheet(models.TransientModel):
         return warning_message
 
     @api.multi
-    def _get_default_annotation(self):
+    def _get_default_notes(self):
         if self._get_active_sheet():
-            return self._get_active_sheet().annotation
+            return self._get_active_sheet().notes
 
     @api.multi
     def _get_default_feedback(self):
@@ -72,18 +72,18 @@ class ValidateAttendanceSheet(models.TransientModel):
         default=_get_warning_regular_workers,
         help="Is any regular worker doing its regular shift as an added one ?"
     )
-    annotation = fields.Text(
-        "Important information requiring permanent member assistance",
-        default=_get_default_annotation,
+    notes = fields.Text(
+        "Notes about the attendance for Members Office",
+        default=_get_default_notes,
     )
-    feedback = fields.Text("General feedback", default=_get_default_feedback)
+    feedback = fields.Text("Comments about the shift", default=_get_default_feedback)
     worker_nb_feedback = fields.Selection(
         [
             ("not_enough", "Not enough"),
             ("enough", "Enough"),
             ("too_many", "Too many"),
         ],
-        string="Number of workers",
+        string="Was your team big enough?",
         default=_get_default_worker_nb_feedback,
         required=True,
     )
@@ -98,7 +98,7 @@ class ValidateAttendanceSheet(models.TransientModel):
         """
         sheet = self._get_active_sheet()
 
-        sheet.annotation = self.annotation
+        sheet.notes = self.notes
         sheet.feedback = self.feedback
         sheet.worker_nb_feedback = self.worker_nb_feedback
 
@@ -133,6 +133,6 @@ class ValidateAttendanceSheet(models.TransientModel):
                 )
             )
 
-        self.annotation += self.warning_regular_workers
+        self.notes += self.warning_regular_workers
         self.save()
         sheet._validate(partner or self.env.user.partner_id)
