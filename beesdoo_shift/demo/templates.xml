@@ -85,8 +85,8 @@
     <record id="beesdoo_shift_task_template_2_demo" model="beesdoo.shift.template">
         <field name="name">A_MAR_12:00-14:30</field>
         <field name="planning_id" ref="beesdoo_shift_planning_1_demo" />
-        <field name="day_nb_id" ref="beesdoo_shift_daynumber_1_demo" />
-        <field name="task_type_id" ref="beesdoo_shift_task_type_3_demo" />
+        <field name="day_nb_id" ref="beesdoo_shift_daynumber_2_demo" />
+        <field name="task_type_id" ref="beesdoo_shift_task_type_2_demo" />
         <field name="start_time">12</field>
         <field name="end_time">14.5</field>
         <field name="duration">2.5</field>

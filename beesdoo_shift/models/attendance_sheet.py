@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import unittest
+
 from datetime import date, datetime, timedelta
 
 from lxml import etree
