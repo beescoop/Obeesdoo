@@ -247,7 +247,7 @@ class TestAttendanceSheet(TransactionCase):
         self.assertEquals(sheet_1.day_abbrevation, "Lundi")
         self.assertEquals(sheet_1.week, "Semaine A")
         self.assertTrue(sheet_1.name)
-        self.assertFalse(sheet_1.annotation)
+        self.assertFalse(sheet_1.notes)
         self.assertFalse(sheet_1.is_annotated)
 
     def test_attendance_sheet_barcode_scan(self):

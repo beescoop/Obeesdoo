@@ -181,27 +181,27 @@ class AttendanceSheet(models.Model):
         readonly=True,
         help="Indicative maximum number of workers.",
     )
-    annotation = fields.Text("Annotation", default="")
+    notes = fields.Text("Notes", default="")
     is_annotated = fields.Boolean(
         compute="_compute_is_annotated",
-        string="Annotation",
+        string="Is annotated",
         readonly=True,
         store=True,
     )
     is_read = fields.Boolean(
         string="Mark as read",
-        help="Has annotation been read by an administrator ?",
+        help="Has notes been read by an administrator ?",
         default=False,
         track_visibility="onchange",
     )
-    feedback = fields.Text("Feedback")
+    feedback = fields.Text("Comments about the shift")
     worker_nb_feedback = fields.Selection(
         [
-            ("not_enough", "Not enough"),
-            ("enough", "Enough"),
-            ("too_many", "Too many"),
+            ("not_enough", "Not enough workers"),
+            ("enough", "Enough workers"),
+            ("too_many", "Too many workers"),
         ],
-        string="Feedback on number of workers",
+        string="Was your team big enough ?",
     )
     validated_by = fields.Many2one(
         "res.partner",
@@ -218,7 +218,7 @@ class AttendanceSheet(models.Model):
 
     _sql_constraints = [
         (
-            "check_no_annotation_mark_read",
+            "check_not_annotated_mark_as_read",
             "CHECK ((is_annotated=FALSE AND is_read=FALSE) OR is_annotated=TRUE)",
             _("Non-annotated sheets can't be marked as read."),
         )
@@ -284,11 +284,11 @@ class AttendanceSheet(models.Model):
                 if shift.task_id.planning_id.name:
                     rec.week = shift.task_id.planning_id.name
 
-    @api.depends("annotation")
+    @api.depends("notes")
     def _compute_is_annotated(self):
         for rec in self:
-            if rec.annotation:
-                return bool(rec.annotation.strip())
+            if rec.notes:
+                return bool(rec.notes.strip())
             return False
 
     @api.constrains("expected_shift_ids", "added_shift_ids")
@@ -312,7 +312,7 @@ class AttendanceSheet(models.Model):
     @api.constrains(
         "expected_shift_ids",
         "added_shift_ids",
-        "annotation",
+        "notes",
         "feedback",
         "worker_nb_feedback",
     )
@@ -336,14 +336,26 @@ class AttendanceSheet(models.Model):
                 _("Multiple workers are corresponding this barcode.")
             )
 
-        if worker.state in ("unsubscribed", "resigning"):
-            raise UserError(_("Worker is %s.") % worker.state)
+        if worker.state == "unsubscribed":
+            shift_counter = worker.cooperative_status_ids.sc + worker.cooperative_status_ids.sr
+            raise UserError(_(
+                "Beware, your account is frozen because your shift counter "
+                "is at %s. Please contact Members Office to unfreeze it. "
+                "If you want to attend this shift, your supercoop "
+                "can write your name in the notes field during validation."
+            ) % shift_counter)
+        if worker.state == "resigning":
+            raise UserError(_(
+                "Beware, you are recorded as resigning. "
+                "Please contact member's office if this is incorrect. Thank you."
+            ))
         if worker.working_mode not in ("regular", "irregular"):
             raise UserError(
-                _("Worker is %s and should be regular or irregular.")
-                % worker.working_mode
+                _("%s is %s and should be regular or irregular.")
+                % worker.name, worker.working_mode
             )
 
+        # expected shifts status update
         for id in self.expected_shift_ids.ids:
             shift = self.env["beesdoo.shift.sheet.expected"].browse(id)
             if (
@@ -363,6 +375,7 @@ class AttendanceSheet(models.Model):
         if worker.id in added_ids:
             return
 
+        # added shift creation
         self.added_shift_ids |= self.added_shift_ids.new(
             {
                 "task_type_id": self.added_shift_ids.default_task_type_id(),
