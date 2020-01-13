@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2019 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <data noupdate="0">
+        <record id="cron_cleanup_procurement_order" model="ir.cron">
+            <field name="name">Procurement: cleanup procurement orders blocking the procurement rules</field>
+            <field name="active" eval="True"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="True"/>
+            <field name="model">procurement.order</field>
+            <field name="function">cron_cleanup_procurement_order</field>
+            <field name="args">()</field>
+        </record>
+    </data>
+</odoo>
