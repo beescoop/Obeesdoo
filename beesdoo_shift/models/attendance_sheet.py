@@ -396,14 +396,17 @@ class AttendanceSheet(models.Model):
         expected_shift = self.env["beesdoo.shift.sheet.expected"]
         s_time = fields.Datetime.from_string(new_sheet.start_time)
         e_time = fields.Datetime.from_string(new_sheet.end_time)
+        # Fix issues with equality check on datetime
+        # by searching on a small intervall instead
         delta = timedelta(minutes=1)
+        to_string = fields.Datetime.to_string
 
         tasks = tasks.search(
             [
-                ("start_time", ">", fields.Datetime.to_string(s_time - delta)),
-                ("start_time", "<", fields.Datetime.to_string(s_time + delta)),
-                ("end_time", ">", fields.Datetime.to_string(e_time - delta)),
-                ("end_time", "<", fields.Datetime.to_string(e_time + delta)),
+                ("start_time", ">", to_string(s_time - delta)),
+                ("start_time", "<", to_string(s_time + delta)),
+                ("end_time", ">", to_string(e_time - delta)),
+                ("end_time", "<", to_string(e_time + delta)),
             ]
         )
         for task in tasks:
@@ -474,11 +477,21 @@ class AttendanceSheet(models.Model):
             is_compensation = added_shift.is_compensation
 
             # Edit a non-assigned shift or create one if none
-            non_assigned_shifts = shift.search(
+
+            # Fix issues with equality check on datetime
+            # by searching on a small intervall instead
+            delta = timedelta(minutes=1)
+            s_time = fields.Datetime.from_string(self.start_time)
+            e_time = fields.Datetime.from_string(self.end_time)
+            to_string = fields.Datetime.to_string
+
+            non_assigned_shifts = self.env["beesdoo.shift.shift"].search(
                 [
                     ("worker_id", "=", False),
-                    ("start_time", "=", self.start_time),
-                    ("end_time", "=", self.end_time),
+                    ("start_time", ">", to_string(s_time - delta)),
+                    ("start_time", "<", to_string(s_time + delta)),
+                    ("end_time", ">", to_string(e_time - delta)),
+                    ("end_time", "<", to_string(e_time + delta)),
                     ("task_type_id", "=", added_shift.task_type_id.id),
                 ],
                 limit=1,
