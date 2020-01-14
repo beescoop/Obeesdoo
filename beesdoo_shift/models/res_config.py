@@ -3,6 +3,8 @@
 # Copyright 2019-2020 Elouan Le Bars <elouan@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+import ast
+
 from openerp import fields, models, api
 
 
@@ -12,7 +14,7 @@ class ShiftConfigSettings(models.TransientModel):
 
     card_support = fields.Boolean(
         string="Scan cooperators cards instead of login for sheets validation",
-        default=False
+        default=False,
     )
     default_task_type_id = fields.Many2one(
         "beesdoo.shift.type",
@@ -45,11 +47,10 @@ class ShiftConfigSettings(models.TransientModel):
     @api.multi
     def get_default_card_support(self):
         return {
-            "card_support": (
+            "card_support": ast.literal_eval(
                 self.env["ir.config_parameter"].get_param(
                     "beesdoo_shift.card_support"
                 )
-                == "True"
             )
         }
 
