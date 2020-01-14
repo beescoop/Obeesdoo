@@ -246,7 +246,7 @@ class AttendanceSheet(models.Model):
             start_time_dt = fields.Datetime.context_timestamp(
                 rec, start_time_dt
             )
-            name = "[%s] " % (fields.Date.to_string(start_time_dt),)
+            name = "[%s] " % fields.Date.to_string(start_time_dt)
             if rec.week:
                 name += rec.week + " "
             if rec.day_abbrevation:
@@ -277,7 +277,7 @@ class AttendanceSheet(models.Model):
     def _compute_week(self):
         """
         Compute Week Name from Planning Name
-        of first expected shift with one
+        of first expected shift with one.
         """
         for rec in self:
             for shift in rec.expected_shift_ids:
@@ -337,22 +337,31 @@ class AttendanceSheet(models.Model):
             )
 
         if worker.state == "unsubscribed":
-            shift_counter = worker.cooperative_status_ids.sc + worker.cooperative_status_ids.sr
-            raise UserError(_(
-                "Beware, your account is frozen because your shift counter "
-                "is at %s. Please contact Members Office to unfreeze it. "
-                "If you want to attend this shift, your supercoop "
-                "can write your name in the notes field during validation."
-            ) % shift_counter)
+            shift_counter = (
+                worker.cooperative_status_ids.sc
+                + worker.cooperative_status_ids.sr
+            )
+            raise UserError(
+                _(
+                    "Beware, your account is frozen because your shift counter "
+                    "is at %s. Please contact Members Office to unfreeze it. "
+                    "If you want to attend this shift, your supercoop "
+                    "can write your name in the notes field during validation."
+                )
+                % shift_counter
+            )
         if worker.state == "resigning":
-            raise UserError(_(
-                "Beware, you are recorded as resigning. "
-                "Please contact member's office if this is incorrect. Thank you."
-            ))
+            raise UserError(
+                _(
+                    "Beware, you are recorded as resigning. "
+                    "Please contact member's office if this is incorrect. Thank you."
+                )
+            )
         if worker.working_mode not in ("regular", "irregular"):
             raise UserError(
                 _("%s is %s and should be regular or irregular.")
-                % worker.name, worker.working_mode
+                % worker.name,
+                worker.working_mode,
             )
 
         # expected shifts status update

@@ -26,6 +26,7 @@
             />
             <field name="users" eval="[(4, ref('base.user_root'))]"/>
         </record>
+        <!-- Could the following be removed ? -->
         <record model="ir.ui.menu" id="base.menu_board_root">
               <field name="groups_id" eval="[(6,0,[ref('group_shift_attendance_sheet')])]"/>
         </record>
