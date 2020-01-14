@@ -288,8 +288,7 @@ class AttendanceSheet(models.Model):
     def _compute_is_annotated(self):
         for rec in self:
             if rec.notes:
-                return bool(rec.notes.strip())
-            return False
+                rec.is_annotated = bool(rec.notes.strip())
 
     @api.constrains("expected_shift_ids", "added_shift_ids")
     def _constrain_unique_worker(self):
