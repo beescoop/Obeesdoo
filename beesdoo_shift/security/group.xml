@@ -30,10 +30,5 @@
         <record model="ir.ui.menu" id="base.menu_board_root">
               <field name="groups_id" eval="[(6,0,[ref('group_shift_attendance_sheet')])]"/>
         </record>
-
-        <!-- <template id="website.user_navbar">
-            <field name="groups"  eval="[(6,0,[ref('group_shift_attendance_sheet')])]"/>
-        </template> -->
-
     </data>
 </odoo>
