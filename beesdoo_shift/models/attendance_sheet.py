@@ -18,10 +18,7 @@ class AttendanceSheetShift(models.AbstractModel):
     @api.model
     def default_task_type_id(self):
         parameters = self.env["ir.config_parameter"]
-        id = (
-            int(parameters.get_param("beesdoo_shift.default_task_type_id"))
-            or 1
-        )
+        id = int(parameters.get_param("beesdoo_shift.default_task_type_id", default=1))
         task_types = self.env["beesdoo.shift.type"]
         return task_types.browse(id)
 
@@ -293,12 +290,13 @@ class AttendanceSheet(models.Model):
     @api.constrains("expected_shift_ids", "added_shift_ids")
     def _constrain_unique_worker(self):
         # Warning : map return generator in python3 (for Odoo 12)
-        added_ids = map(lambda s: s.worker_id.id, self.added_shift_ids)
-        expected_ids = map(lambda s: s.worker_id.id, self.expected_shift_ids)
-        replacement_ids = map(
-            lambda s: s.replacement_worker_id.id, self.expected_shift_ids
-        )
-        replacement_ids = filter(bool, replacement_ids)
+        added_ids = [s.worker_id.id for s in self.added_shift_ids]
+        expected_ids = [s.worker_id.id for s in self.expected_shift_ids]
+        replacement_ids = [
+            s.replacement_worker_id.id
+            for s in self.expected_shift_ids
+            if s.replacement_worker_id.id
+        ]
         ids = added_ids + expected_ids + replacement_ids
 
         if (len(ids) - len(set(ids))) > 0:
@@ -363,7 +361,7 @@ class AttendanceSheet(models.Model):
                 worker.working_mode,
             )
 
-        # expected shifts status update
+        # Expected shifts status update
         for id in self.expected_shift_ids.ids:
             shift = self.env["beesdoo.shift.sheet.expected"].browse(id)
             if (
@@ -380,19 +378,17 @@ class AttendanceSheet(models.Model):
 
         added_ids = map(lambda s: s.worker_id.id, self.added_shift_ids)
 
-        if worker.id in added_ids:
-            return
-
-        # added shift creation
-        self.added_shift_ids |= self.added_shift_ids.new(
-            {
-                "task_type_id": self.added_shift_ids.default_task_type_id(),
-                "state": "done",
-                "attendance_sheet_id": self._origin.id,
-                "worker_id": worker.id,
-                "is_compensation": is_compensation,
-            }
-        )
+        if worker.id not in added_ids:
+            # Added shift creation
+            self.added_shift_ids |= self.added_shift_ids.new(
+                {
+                    "task_type_id": self.added_shift_ids.default_task_type_id(),
+                    "state": "done",
+                    "attendance_sheet_id": self._origin.id,
+                    "worker_id": worker.id,
+                    "is_compensation": is_compensation,
+                }
+            )
 
     @api.model
     def create(self, vals):

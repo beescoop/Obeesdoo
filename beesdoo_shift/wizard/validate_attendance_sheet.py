@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+
+import ast
+
 from openerp import _, api, exceptions, fields, models
 from openerp.exceptions import UserError, ValidationError
 
@@ -18,11 +21,10 @@ class ValidateAttendanceSheet(models.TransientModel):
             return self.env[sheet_model].browse(sheet_id)
 
     def _get_card_support_setting(self):
-        return (
+        return ast.literal_eval(
             self.env["ir.config_parameter"].get_param(
                 "beesdoo_shift.card_support"
             )
-            == "True"
         )
 
     @api.multi
@@ -36,7 +38,9 @@ class ValidateAttendanceSheet(models.TransientModel):
         warning_message = ""
         if sheet:
             for added_shift in sheet.added_shift_ids:
-                is_regular_worker = added_shift.worker_id.working_mode == "regular"
+                is_regular_worker = (
+                    added_shift.worker_id.working_mode == "regular"
+                )
                 is_compensation = added_shift.is_compensation
 
                 if is_regular_worker and not is_compensation:
@@ -68,15 +72,18 @@ class ValidateAttendanceSheet(models.TransientModel):
     login = fields.Char(string="Login")
     password = fields.Char(string="Password")
     barcode = fields.Char(string="Barcode")
-    warning_regular_workers = fields.Text("Warning",
+    warning_regular_workers = fields.Text(
+        "Warning",
         default=_get_warning_regular_workers,
-        help="Is any regular worker doing its regular shift as an added one ?"
+        help="Is any regular worker doing its regular shift as an added one ?",
     )
     notes = fields.Text(
         "Notes about the attendance for Members Office",
         default=_get_default_notes,
     )
-    feedback = fields.Text("Comments about the shift", default=_get_default_feedback)
+    feedback = fields.Text(
+        "Comments about the shift", default=_get_default_feedback
+    )
     worker_nb_feedback = fields.Selection(
         [
             ("not_enough", "Not enough"),
