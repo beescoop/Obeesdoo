@@ -5,8 +5,10 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                    <separator string="Validation"/>
+                    <field name="card_support" invisible="1" />
+                    <field name="active_sheet" invisible="1" />
                     <field name="_barcode_scanned" widget="barcode_handler"/>
+                    <separator string="Validation"/>
                     <field name="warning_regular_workers"
                            readonly="1"
                            attrs="{'invisible': [('warning_regular_workers', '=', False)]}"
@@ -18,7 +20,6 @@
                     <group>
                         <field name="worker_nb_feedback"/>
                     </group>
-                    <field name="card_support" invisible="1" />
                     <group string="Login"
                            attrs="{'invisible': [('card_support', '=', True)]}"
                     >
