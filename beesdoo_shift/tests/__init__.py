@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-import test_attendance_sheet
+import test_beesdoo_shift

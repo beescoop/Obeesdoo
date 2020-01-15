@@ -10,9 +10,9 @@ from openerp.exceptions import UserError, ValidationError
 from openerp.tests.common import TransactionCase
 
 
-class TestAttendanceSheet(TransactionCase):
+class TestBeesdooShift(TransactionCase):
     def setUp(self):
-        super(TestAttendanceSheet, self).setUp()
+        super(TestBeesdooShift, self).setUp()
         self.shift_model = self.env["beesdoo.shift.shift"]
         self.shift_template_model = self.env["beesdoo.shift.template"]
         self.attendance_sheet_model = self.env["beesdoo.shift.sheet"]
@@ -117,7 +117,7 @@ class TestAttendanceSheet(TransactionCase):
                 "replaced_id": self.worker_regular_2.id,
             }
         )
-        self.shift_regular_compensation_1 = self.shift_model.create(
+        future_shift_regular = self.shift_model.create(
             {
                 "task_template_id": self.task_template_2.id,
                 "task_type_id": self.task_type_1.id,
@@ -410,3 +410,89 @@ class TestAttendanceSheet(TransactionCase):
 
         # sheet_1.expected_shift_ids[0].worker_id
         # sheet_1.expected_shift_ids[2].replacement_worker_id
+
+    def test_shift_counters(self):
+        "Test shift counters calculation and cooperative status update"
+
+        status_1 = self.worker_regular_1.cooperative_status_ids
+        status_2 = self.worker_regular_3.cooperative_status_ids
+        status_3 = self.worker_irregular_1.cooperative_status_ids
+
+        shift_regular = self.shift_model.create(
+            {
+                "task_template_id": self.task_template_1.id,
+                "task_type_id": self.task_type_1.id,
+                "worker_id": self.worker_regular_1.id,
+                "start_time": datetime.now() - timedelta(minutes=50),
+                "end_time": datetime.now() - timedelta(minutes=40),
+                "is_regular": True,
+                "is_compensation": False,
+            }
+        )
+        future_shift_regular = self.shift_model.create(
+            {
+                "task_template_id": self.task_template_2.id,
+                "task_type_id": self.task_type_2.id,
+                "worker_id": self.worker_regular_1.id,
+                "start_time": datetime.now() + timedelta(minutes=20),
+                "end_time": datetime.now() + timedelta(minutes=30),
+                "is_regular": True,
+                "is_compensation": False,
+            }
+        )
+        shift_irregular = self.shift_model.create(
+            {
+                "task_template_id": self.task_template_2.id,
+                "task_type_id": self.task_type_3.id,
+                "worker_id": self.worker_irregular_1.id,
+                "start_time": datetime.now() - timedelta(minutes=15),
+                "end_time": datetime.now() - timedelta(minutes=10),
+            }
+        )
+
+        # For a regular worker
+        status_1.sr = 0
+        status_1.sc = 0
+        self.assertEquals(status_1.status, "ok")
+        shift_regular.state = "absent_1"
+        self.assertEquals(status_1.sr, -1)
+        self.assertEquals(status_1.status, "alert")
+        shift_regular.state = "done"
+        self.assertEquals(status_1.sr, 0)
+        self.assertEquals(status_1.sc, 0)
+
+        # Check unsubscribed status
+        status_1.sr = -1
+        status_1.sc = -1
+
+        # Subscribe him to another future shift
+        future_shift_regular.worker_id = self.worker_regular_1
+        shift_regular.state = "absent_2"
+        self.assertEquals(status_1.sr, -2)
+        self.assertEquals(status_1.sc, -2)
+        self.assertEquals(status_1.status, "unsubscribed")
+
+        # Should be unsubscribed from future shift
+        self.assertFalse(future_shift_regular.worker_id)
+
+        # With replacement worker (self.worker_regular_3)
+        shift_regular.state = "open"
+        status_1.sr = 0
+        status_1.sc = 0
+        status_2.sr = 0
+        status_2.sc = 0
+        shift_regular.replaced_id = self.worker_regular_3
+        shift_regular.state = "absent_2"
+        self.assertEquals(status_1.sr, 0)
+        self.assertEquals(status_1.sc, 0)
+        self.assertEquals(status_2.sr, -1)
+        self.assertEquals(status_2.sc, -1)
+
+        # For an irregular worker
+        status_3.sr = 0
+        status_3.sc = 0
+        self.assertEquals(status_3.status, "ok")
+        shift_irregular.state = "done"
+        self.assertEquals(status_3.sr, 1)
+        shift_irregular.state = "absent_2"
+        self.assertEquals(status_3.sr, -1)
