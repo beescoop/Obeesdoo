@@ -34,7 +34,7 @@ class ValidateAttendanceSheet(models.TransientModel):
         but should be doing their regular shifts. This warning is added
         to sheet's notes at validation.
         """
-        sheet = self._get_active_sheet()
+        sheet = self.active_sheet
         warning_message = ""
         if sheet:
             for added_shift in sheet.added_shift_ids:
@@ -53,21 +53,9 @@ class ValidateAttendanceSheet(models.TransientModel):
                     )
         return warning_message
 
-    @api.multi
-    def _get_default_notes(self):
-        if self._get_active_sheet():
-            return self._get_active_sheet().notes
-
-    @api.multi
-    def _get_default_feedback(self):
-        if self._get_active_sheet():
-            return self._get_active_sheet().feedback
-
-    @api.multi
-    def _get_default_worker_nb_feedback(self):
-        if self._get_active_sheet():
-            return self._get_active_sheet().worker_nb_feedback
-
+    active_sheet = fields.Many2one(
+        "beesdoo.shift.sheet", default=_get_active_sheet
+    )
     card_support = fields.Boolean(default=_get_card_support_setting)
     login = fields.Char(string="Login")
     password = fields.Char(string="Password")
@@ -77,22 +65,10 @@ class ValidateAttendanceSheet(models.TransientModel):
         default=_get_warning_regular_workers,
         help="Is any regular worker doing its regular shift as an added one ?",
     )
-    notes = fields.Text(
-        "Notes about the attendance for Members Office",
-        default=_get_default_notes,
-    )
-    feedback = fields.Text(
-        "Comments about the shift", default=_get_default_feedback
-    )
+    notes = fields.Text(related="active_sheet.notes")
+    feedback = fields.Text(related="active_sheet.feedback")
     worker_nb_feedback = fields.Selection(
-        [
-            ("not_enough", "Not enough"),
-            ("enough", "Enough"),
-            ("too_many", "Too many"),
-        ],
-        string="Was your team big enough?",
-        default=_get_default_worker_nb_feedback,
-        required=True,
+        related="active_sheet.worker_nb_feedback", required=True
     )
 
     def on_barcode_scanned(self, barcode):
@@ -100,18 +76,14 @@ class ValidateAttendanceSheet(models.TransientModel):
 
     @api.multi
     def save(self):
-        """
-        Save modifications onto attendance sheet.
-        """
-        sheet = self._get_active_sheet()
-
+        sheet = self.active_sheet
         sheet.notes = self.notes
         sheet.feedback = self.feedback
         sheet.worker_nb_feedback = self.worker_nb_feedback
 
     @api.multi
     def validate_sheet(self):
-        sheet = self._get_active_sheet()
+        sheet = self.active_sheet
 
         if self.card_support:
             # Login with barcode
