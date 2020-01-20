@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 
 import unittest
 
@@ -376,7 +375,7 @@ class AttendanceSheet(models.Model):
 
         is_compensation = worker.working_mode == "regular"
 
-        added_ids = map(lambda s: s.worker_id.id, self.added_shift_ids)
+        added_ids = [s.worker_id.id for s in self.added_shift_ids]
 
         if worker.id not in added_ids:
             # Added shift creation

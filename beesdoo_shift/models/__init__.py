@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
-import attendance_sheet
-import planning
-import res_config
-import task
-import cooperative_status
+from . import attendance_sheet
+from . import planning
+from . import res_config
+from . import task
+from . import cooperative_status

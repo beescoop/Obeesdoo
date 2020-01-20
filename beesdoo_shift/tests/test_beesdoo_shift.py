@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2019 - Today Coop IT Easy SCRLfs (<http://www.coopiteasy.be>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
@@ -174,9 +173,9 @@ class TestBeesdooShift(TransactionCase):
             param_id = self.env["ir.config_parameter"].get_param(
                 "beesdoo_shift.default_task_type_id"
             )
-            self.assertEquals(int(param_id), task_type.id)
+            self.assertEqual(int(param_id), task_type.id)
             # Check propagation on attendance sheet shifts
-            self.assertEquals(
+            self.assertEqual(
                 self.attendance_sheet_shift_model.default_task_type_id(),
                 task_type,
             )
@@ -196,16 +195,16 @@ class TestBeesdooShift(TransactionCase):
         # Test attendance sheets creation
         self.attendance_sheet_model._generate_attendance_sheet()
 
-        self.assertEquals(
+        self.assertEqual(
             len(self.search_sheets(self.start_in_1, self.end_in_1)), 1
         )
-        self.assertEquals(
+        self.assertEqual(
             len(self.search_sheets(self.start_in_2, self.end_in_2)), 1
         )
-        self.assertEquals(
+        self.assertEqual(
             len(self.search_sheets(self.start_out_1, self.end_out_1)), 0
         )
-        self.assertEquals(
+        self.assertEqual(
             len(self.search_sheets(self.start_out_2, self.end_out_2)), 0
         )
 
@@ -220,32 +219,32 @@ class TestBeesdooShift(TransactionCase):
         self.assertTrue(sheet_1.end_time)
 
         # Empty shift should not be added
-        self.assertEquals(len(sheet_1.expected_shift_ids), 3)
-        self.assertEquals(len(sheet_1.added_shift_ids), 0)
-        self.assertEquals(len(sheet_2.expected_shift_ids), 1)
+        self.assertEqual(len(sheet_1.expected_shift_ids), 3)
+        self.assertEqual(len(sheet_1.added_shift_ids), 0)
+        self.assertEqual(len(sheet_2.expected_shift_ids), 1)
 
         # Test consistency with actual shift for sheet 1
         for shift in sheet_1.expected_shift_ids:
-            self.assertEquals(shift.worker_id, shift.task_id.worker_id)
-            self.assertEquals(
+            self.assertEqual(shift.worker_id, shift.task_id.worker_id)
+            self.assertEqual(
                 shift.replacement_worker_id, shift.task_id.replaced_id
             )
-            self.assertEquals(shift.task_type_id, shift.task_id.task_type_id)
-            self.assertEquals(shift.super_coop_id, shift.task_id.super_coop_id)
-            self.assertEquals(shift.working_mode, shift.task_id.working_mode)
+            self.assertEqual(shift.task_type_id, shift.task_id.task_type_id)
+            self.assertEqual(shift.super_coop_id, shift.task_id.super_coop_id)
+            self.assertEqual(shift.working_mode, shift.task_id.working_mode)
 
             # Status should be "absent" for all shifts
-            self.assertEquals(shift.state, "absent")
-            self.assertEquals(shift.compensation_no, "2")
+            self.assertEqual(shift.state, "absent")
+            self.assertEqual(shift.compensation_no, "2")
 
         # Empty shift should be considered in max worker number calculation
-        self.assertEquals(sheet_1.max_worker_no, 4)
+        self.assertEqual(sheet_1.max_worker_no, 4)
 
         # Test default values creation
         self.assertTrue(sheet_1.time_slot)
-        self.assertEquals(sheet_1.day, fields.Date.to_string(self.start_in_1))
-        self.assertEquals(sheet_1.day_abbrevation, "Lundi")
-        self.assertEquals(sheet_1.week, "Semaine A")
+        self.assertEqual(sheet_1.day, fields.Date.to_string(self.start_in_1))
+        self.assertEqual(sheet_1.day_abbrevation, "Lundi")
+        self.assertEqual(sheet_1.week, "Semaine A")
         self.assertTrue(sheet_1.name)
         self.assertFalse(sheet_1.notes)
         self.assertFalse(sheet_1.is_annotated)
@@ -276,7 +275,7 @@ class TestBeesdooShift(TransactionCase):
         # Check expected shifts update
         for id in sheet_1.expected_shift_ids.ids:
             shift = sheet_1.expected_shift_ids.browse(id)
-            self.assertEquals(shift.state, "done")
+            self.assertEqual(shift.state, "done")
 
         """
         Added workers are :
@@ -290,18 +289,18 @@ class TestBeesdooShift(TransactionCase):
 
         # Scan barcode for added workers
         sheet_1.on_barcode_scanned(421457731741)
-        self.assertEquals(len(sheet_1.added_shift_ids), 1)
+        self.assertEqual(len(sheet_1.added_shift_ids), 1)
         sheet_1.on_barcode_scanned(421457731743)
         # Scan an already added worker should not change anything
         sheet_1.on_barcode_scanned(421457731743)
-        self.assertEquals(len(sheet_1.added_shift_ids), 2)
+        self.assertEqual(len(sheet_1.added_shift_ids), 2)
 
         # Check added shifts fields
         for id in sheet_1.added_shift_ids.ids:
             shift = sheet_1.added_shift_ids.browse(id)
-            self.assertEquals(sheet_1, shift.attendance_sheet_id)
-            self.assertEquals(shift.state, "done")
-            self.assertEquals(
+            self.assertEqual(sheet_1, shift.attendance_sheet_id)
+            self.assertEqual(shift.state, "done")
+            self.assertEqual(
                 shift.task_type_id,
                 self.attendance_sheet_shift_model.default_task_type_id(),
             )
@@ -385,8 +384,8 @@ class TestBeesdooShift(TransactionCase):
             sheet_1.validate_with_checks()
             self.assertIn("already been validated", str(e.exception))
 
-        self.assertEquals(sheet_1.state, "validated")
-        self.assertEquals(sheet_1.validated_by, self.user_admin.partner_id)
+        self.assertEqual(sheet_1.state, "validated")
+        self.assertEqual(sheet_1.validated_by, self.user_admin.partner_id)
         self.assertTrue(sheet_1.is_annotated)
         self.assertFalse(sheet_1.is_read)
 
@@ -394,19 +393,19 @@ class TestBeesdooShift(TransactionCase):
         workers = sheet_1.expected_shift_ids.mapped(
             "worker_id"
         ) | sheet_1.added_shift_ids.mapped("worker_id")
-        self.assertEquals(len(workers), 5)
-        self.assertEquals(
+        self.assertEqual(len(workers), 5)
+        self.assertEqual(
             sheet_1.expected_shift_ids[0].task_id.state, "absent_2"
         )
-        self.assertEquals(sheet_1.expected_shift_ids[1].task_id.state, "done")
-        self.assertEquals(
+        self.assertEqual(sheet_1.expected_shift_ids[1].task_id.state, "done")
+        self.assertEqual(
             sheet_1.expected_shift_ids[2].task_id.state, "absent_1"
         )
-        self.assertEquals(sheet_1.added_shift_ids[0].task_id.state, "done")
-        self.assertEquals(sheet_1.added_shift_ids[1].task_id.state, "done")
+        self.assertEqual(sheet_1.added_shift_ids[0].task_id.state, "done")
+        self.assertEqual(sheet_1.added_shift_ids[1].task_id.state, "done")
 
         # Empty shift should have been updated
-        self.assertEquals(
+        self.assertEqual(
             sheet_1.added_shift_ids[0].task_id, self.shift_empty_1
         )
 
@@ -455,10 +454,10 @@ class TestBeesdooShift(TransactionCase):
         # For a regular worker
         status_1.sr = 0
         status_1.sc = 0
-        self.assertEquals(status_1.status, "ok")
+        self.assertEqual(status_1.status, "ok")
         shift_regular.state = "absent_1"
-        self.assertEquals(status_1.sr, -1)
-        self.assertEquals(status_1.status, "alert")
+        self.assertEqual(status_1.sr, -1)
+        self.assertEqual(status_1.status, "alert")
         shift_regular.state = "done"
         self.assertEquals(status_1.sr, 0)
         self.assertEquals(status_1.sc, 0)
@@ -492,16 +491,16 @@ class TestBeesdooShift(TransactionCase):
         status_2.sc = 0
         shift_regular.replaced_id = self.worker_regular_3
         shift_regular.state = "absent_2"
-        self.assertEquals(status_1.sr, 0)
-        self.assertEquals(status_1.sc, 0)
-        self.assertEquals(status_2.sr, -1)
-        self.assertEquals(status_2.sc, -1)
+        self.assertEqual(status_1.sr, 0)
+        self.assertEqual(status_1.sc, 0)
+        self.assertEqual(status_2.sr, -1)
+        self.assertEqual(status_2.sc, -1)
 
         # For an irregular worker
         status_3.sr = 0
         status_3.sc = 0
-        self.assertEquals(status_3.status, "ok")
+        self.assertEqual(status_3.status, "ok")
         shift_irregular.state = "done"
-        self.assertEquals(status_3.sr, 1)
+        self.assertEqual(status_3.sr, 1)
         shift_irregular.state = "absent_2"
-        self.assertEquals(status_3.sr, -1)
+        self.assertEqual(status_3.sr, -1)

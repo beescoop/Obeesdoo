@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Beescoop Shift Management",
 
@@ -13,7 +12,7 @@
     'website': "https://github.com/beescoop/Obeesdoo",
 
     'category': 'Cooperative management',
-    'version': '10.0.1.0.0',
+    'version': '11.0.1.0.0',
 
     'depends': ['beesdoo_base', 'barcodes'],
 
