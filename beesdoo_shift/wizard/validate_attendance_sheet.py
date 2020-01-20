@@ -2,8 +2,8 @@
 
 import ast
 
-from openerp import _, api, exceptions, fields, models
-from openerp.exceptions import UserError, ValidationError
+from odoo import _, api, exceptions, fields, models
+from odoo.exceptions import UserError, ValidationError
 
 
 class ValidateAttendanceSheet(models.TransientModel):

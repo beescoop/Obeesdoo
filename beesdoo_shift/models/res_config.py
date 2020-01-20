@@ -5,7 +5,7 @@
 
 import ast
 
-from openerp import fields, models, api
+from odoo import fields, models, api
 
 
 class ShiftConfigSettings(models.TransientModel):

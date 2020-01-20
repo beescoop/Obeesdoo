@@ -3,7 +3,7 @@
      Copyright 2019-2020 Elouan Le Bars <elouan@coopiteasy.be>
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
-<openerp>
+<odoo>
   <data>
       <record model="ir.ui.view" id="daynumber_view_tree">
           <field name="name">Day Number List</field>
@@ -88,4 +88,4 @@
       />
 
   </data>
-</openerp>
+</odoo>
