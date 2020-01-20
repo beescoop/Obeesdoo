@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
@@ -155,7 +154,7 @@ class TaskTemplate(models.Model):
     def _generate_task_day(self):
         tasks = self.env['beesdoo.shift.shift']
         for rec in self:
-            for i in xrange(0, rec.worker_nb):
+            for i in range(0, rec.worker_nb):
                 worker_id = rec.worker_ids[i] if len(rec.worker_ids) > i else False
                 #remove worker in holiday and temporary exempted
                 if worker_id and worker_id.cooperative_status_ids:
