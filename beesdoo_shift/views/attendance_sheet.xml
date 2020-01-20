@@ -10,13 +10,16 @@
                 <field name="day" />
                 <field name="validated_by" />
                 <filter string="Annotated (unread)"
+                        name="annotated"
                         domain="[('is_annotated', '=', True),
                         ('is_read', '=', False)]" />
                 <filter string="Annotated (read)"
+                        name="annotated_read"
                         domain="[('is_annotated', '=', True),
                         ('is_read', '=', True)]" />
                 <separator />
                 <filter string="Archived"
+                        name="archived"
                         domain="[('active', '=', False)]" />
                 <group expand="1" string="Group By">
                     <filter string="Day" name="gb_day"
