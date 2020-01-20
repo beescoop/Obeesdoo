@@ -29,9 +29,9 @@
                 <field name="super_coop_id" />
                 <field name="day_nb_id" />
                 <field name="worker_ids" />
-                <filter string="My Team Shift" domain="[('super_coop_id', '=', uid)]" />
-                <filter string="Planning" context="{'group_by':'planning_id'}" />
-                <filter string="Week Day" context="{'group_by':'day_nb_id'}" />
+                <filter string="My Team Shift" name="my_team_shift" domain="[('super_coop_id', '=', uid)]" />
+                <filter string="Planning" name="planning" context="{'group_by':'planning_id'}" />
+                <filter string="Week Day" name="week_day" context="{'group_by':'day_nb_id'}" />
                 <filter string="Place Available" name="available"
                     domain="[('remaining_worker', '>', 0)]" />
             </search>
