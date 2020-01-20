@@ -41,8 +41,6 @@ class Task(models.Model):
     )
     color = fields.Integer(compute="_compute_color")
     super_coop_id = fields.Many2one('res.users', string="Super Cooperative", domain=[('partner_id.super', '=', True)], track_visibility='onchange')
-    # TODO: Maybe is_regular and is_compensation must be merged in a
-    # selection field as they are mutually exclusive.
     is_regular = fields.Boolean(default=False, string="Regular shift")
     is_compensation = fields.Boolean(default=False, string="Compensation shift")
     replaced_id = fields.Many2one('res.partner', track_visibility='onchange',
