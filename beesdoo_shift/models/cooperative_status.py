@@ -235,9 +235,11 @@ class CooperativeStatus(models.Model):
         if (self.sr + self.sc) <= counter_unsubscribe or self.unsubscribed:
             self.status = 'unsubscribed'
             self.can_shop = False
-        elif self.today >= self.temporary_exempt_start_date and self.today <= self.temporary_exempt_end_date:
-            self.status = 'exempted'
-            self.can_shop = True
+        #Check if exempted. Exempt end date is not required.
+        elif self.temporary_exempt_start_date and self.today >= self.temporary_exempt_start_date:
+            if not self.temporary_exempt_end_date or self.today <= self.temporary_exempt_end_date:
+                self.status = 'exempted'
+                self.can_shop = True
 
         #Transition to alert sr < 0 or stay in alert sr < 0 or sc < 0 and thus alert time is defined
         elif not ok and self.alert_start_time and self.extension_start_time and self.today <= add_days_delta(self.extension_start_time, grace_delay):
@@ -254,7 +256,13 @@ class CooperativeStatus(models.Model):
             self.can_shop = True
 
         #Check for holidays; Can be in holidays even in alert or other mode ?
-        elif self.today >= self.holiday_start_time and self.today <= self.holiday_end_time:
+        elif (
+            self.holiday_start_time
+            and self.holiday_end_time
+            and self.today >= self.holiday_start_time
+            and self.today <= self.holiday_end_time
+        ):
+
             self.status = 'holiday'
             self.can_shop = False
         elif ok or (not self.alert_start_time and self.sr >= 0):
@@ -269,9 +277,11 @@ class CooperativeStatus(models.Model):
         if self.sr <= counter_unsubscribe or self.unsubscribed:
             self.status = 'unsubscribed'
             self.can_shop = False
-        elif self.today >= self.temporary_exempt_start_date and self.today <= self.temporary_exempt_end_date:
-            self.status = 'exempted'
-            self.can_shop = True
+        #Check if exempted. Exempt end date is not required.
+        elif self.temporary_exempt_start_date and self.today >= self.temporary_exempt_start_date:
+            if not self.temporary_exempt_end_date or self.today <= self.temporary_exempt_end_date:
+                self.status = 'exempted'
+                self.can_shop = True
         #Transition to alert sr < 0 or stay in alert sr < 0 or sc < 0 and thus alert time is defined
         elif not ok and self.alert_start_time and self.extension_start_time and self.today <= add_days_delta(self.extension_start_time, grace_delay):
             self.status = 'extension'
@@ -287,7 +297,12 @@ class CooperativeStatus(models.Model):
             self.can_shop = True
 
         #Check for holidays; Can be in holidays even in alert or other mode ?
-        elif self.today >= self.holiday_start_time and self.today <= self.holiday_end_time:
+        elif (
+            self.holiday_start_time
+            and self.holiday_end_time
+            and self.today >= self.holiday_start_time
+            and self.today <= self.holiday_end_time
+        ):
             self.status = 'holiday'
             self.can_shop = False
         elif ok or (not self.alert_start_time and self.sr >= 0):
