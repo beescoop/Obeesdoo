@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2019 Coop IT Easy SCRL fs
 #   Robin Keunen <robin@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
@@ -47,11 +48,14 @@ class ProcurementOrder(models.Model):
         procurement_linked_to_done_PO.write({"state": "done"})
 
         # cancel procurement order from exceptions
-        exception_procurement = self.env["procurement.order"].search(
-            [("state", "=", "exception"), ("purchase_line_id", "=", False)]
-        )
-        _logger.info(
-            "cancelling %s procurement in exception"
-            % len(exception_procurement)
-        )
-        exception_procurement.cancel()
+        # Refused by SPP - La Fève, overload this function in custom modules
+        # to automate cleanup of exceptions
+
+        # exception_procurement = self.env["procurement.order"].search(
+        #     [("state", "=", "exception"), ("purchase_line_id", "=", False)]
+        # )
+        # _logger.info(
+        #     "cancelling %s procurement in exception"
+        #     % len(exception_procurement)
+        # )
+        # exception_procurement.cancel()
