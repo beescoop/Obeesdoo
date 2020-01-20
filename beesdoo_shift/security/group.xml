@@ -1,5 +1,4 @@
 <odoo>
-    <data noupdate="0">
         <record id="group_shift_attendance_sheet" model="res.groups">
             <field name="name">Attendance Sheet Generic Access</field>
             <field name="category_id" ref="base.module_category_cooperative_management"/>
@@ -30,5 +29,4 @@
         <record model="ir.ui.menu" id="base.menu_board_root">
               <field name="groups_id" eval="[(6,0,[ref('group_shift_attendance_sheet')])]"/>
         </record>
-    </data>
 </odoo>

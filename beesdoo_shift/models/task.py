@@ -2,8 +2,8 @@
 import json
 from datetime import datetime, timedelta
 
-from openerp import _, api, fields, models
-from openerp.exceptions import UserError, ValidationError
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError, ValidationError
 
 
 
