@@ -28,10 +28,10 @@ class TestBeesdooShift(TransactionCase):
         self.current_time = datetime.now()
         self.user_admin = self.env.ref("base.user_root")
         self.user_generic = self.env.ref(
-            "beesdoo_shift.beesdoo_shift_user_1_demo"
+            "beesdoo_base.beesdoo_shift_user_1_demo"
         )
         self.user_permanent = self.env.ref(
-            "beesdoo_shift.beesdoo_shift_user_2_demo"
+            "beesdoo_base.beesdoo_shift_user_2_demo"
         )
 
         self.setting_wizard = self.env["beesdoo.shift.config.settings"].sudo(
