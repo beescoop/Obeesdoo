@@ -9,7 +9,7 @@
 
     """,
 
-    'author': "Thibault Francois",
+    'author': "Thibault Francois, Elouan Le Bars, Coop It Easy",
     'website': "https://github.com/beescoop/Obeesdoo",
 
     'category': 'Cooperative management',
