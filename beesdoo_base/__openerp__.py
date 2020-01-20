@@ -29,5 +29,6 @@
     ],
     'demo': [
         'demo/cooperators.xml',
+        'demo/users.xml',
     ]
 }
