@@ -57,6 +57,7 @@
             <field name="model">beesdoo.shift.sheet</field>
             <field name="function">_cron_non_validated_sheets</field>
             <field name="args">()</field>
+            <field name="active" eval="False" />
         </record>
 
         <record id="ir_cron_send_weekly_emails" model="ir.cron">
