@@ -124,7 +124,7 @@ class AttendanceSheet(models.Model):
     _name = "beesdoo.shift.sheet"
     _inherit = [
         "mail.thread",
-        "ir.needaction_mixin",
+        "mail.activity.mixin",
         "barcodes.barcode_events_mixin",
     ]
     _description = "Attendance sheet"
