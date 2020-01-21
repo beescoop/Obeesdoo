@@ -87,8 +87,8 @@ class Task(models.Model):
         if datetime.now() < start_time_dt:
             if self.state in ["done", "absent_2", "absent_1", "absent_0"]:
                 raise UserError(_(
-                    "You cannot set shift state to 'present' "
-                    "or 'absent' for a future shift."
+                    "Shift state of a future shift "
+                    "can't be set to 'present' or 'absent'."
                 ))
 
     @api.constrains('is_regular', 'is_compensation')

@@ -149,7 +149,7 @@
                         <field name="date" />
                     </group>
                 </group>
-                <separator string="Affected cooperator" />
+                <separator string="Assigned cooperator" />
                 <field name="line_ids" readonly="1">
                     <tree>
                         <field name="cooperator_id" />

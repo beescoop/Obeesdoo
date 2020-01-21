@@ -100,7 +100,7 @@ class AttendanceSheetShiftExpected(models.Model):
     def _constrain_compensation_no(self):
         if self.state == "absent":
             if not self.compensation_no:
-                raise UserError(_("You must choose a compensation number."))
+                raise UserError(_("A compensation number is required"))
 
 
 class AttendanceSheetShiftAdded(models.Model):
@@ -157,7 +157,7 @@ class AttendanceSheet(models.Model):
     )
     week = fields.Char(
         string="Week",
-        help="Computed from planning names",
+        help="Computed from planning name",
         compute="_compute_week",
     )
 
@@ -178,7 +178,7 @@ class AttendanceSheet(models.Model):
         readonly=True,
         help="Indicative maximum number of workers.",
     )
-    notes = fields.Text("Notes", default="")
+    notes = fields.Text("Notes", default="", help="Notes about the attendance for the Members Office")
     is_annotated = fields.Boolean(
         compute="_compute_is_annotated",
         string="Is annotated",
@@ -322,7 +322,7 @@ class AttendanceSheet(models.Model):
     def on_barcode_scanned(self, barcode):
         if self.state == "validated":
             raise UserError(
-                _("You cannot modify a validated attendance sheet.")
+                _("A validated attendance sheet can't be modified")
             )
 
         worker = self.env["res.partner"].search([("barcode", "=", barcode)])
@@ -543,7 +543,7 @@ class AttendanceSheet(models.Model):
             raise UserError(_("The sheet has already been validated."))
         if start_time_dt > datetime.now():
             raise UserError(
-                _("You must wait for the shifts to begin to validate sheet.")
+                _("Attendance sheet can only be validated once the shifts have started.")
             )
 
         # Fields validation
