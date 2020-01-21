@@ -139,7 +139,7 @@ class TaskTemplate(models.Model):
     def _nb_worker_max(self):
         for rec in self:
             if len(rec.worker_ids) > rec.worker_nb:
-                raise UserError(_('you cannot assign more worker then the number maximal define on the template'))
+                raise UserError(_('You cannot assign more workers than the maximal number defined on template.'))
 
 
     @api.onchange('start_time', 'end_time')
