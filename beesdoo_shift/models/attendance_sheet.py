@@ -157,7 +157,7 @@ class AttendanceSheet(models.Model):
     )
     week = fields.Char(
         string="Week",
-        help="Computed from planning names",
+        help="Computed from planning name",
         compute="_compute_week",
     )
 
@@ -178,7 +178,7 @@ class AttendanceSheet(models.Model):
         readonly=True,
         help="Indicative maximum number of workers.",
     )
-    notes = fields.Text("Notes", default="")
+    notes = fields.Text("Notes", default="", help="Notes about the attendance for the Members Office")
     is_annotated = fields.Boolean(
         compute="_compute_is_annotated",
         string="Is annotated",
