@@ -1,31 +1,25 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Bees Purchase Manual date planned",
+    'name': "Beescoop Purchase - Manual date planned",
 
     'summary': """
-        Extension du module Purchase to set manually the date planned for the whole purchase.order""",
-
-    'description': """
-        Long description of module's purpose
+        Extension of module Purchase to manually set the planned date for the whole purchase.order
     """,
 
-    'author': "Beescoop - Cellule IT",
+    'description': """
+
+    """,
+
+    'author': "Beescoop - Cellule IT, Elouan Le Bars",
     'website': "https://github.com/beescoop/Obeesdoo",
 
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
-    # for the full list
     'category': 'Purchase',
-    'version': '0.1',
+    'version': '9.0.1.0.1',
 
-    # any module necessary for this one to work correctly
     'depends': ['purchase'],
 
-    # always loaded
     'data': [
         'views/purchase_order.xml',
         'report/report_purchaseorder.xml',
     ],
-    # only loaded in demonstration mode
-    'demo': [],
 }

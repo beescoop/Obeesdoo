@@ -5,7 +5,7 @@
         <div t-if="o.date_order" position="after">
 
             <div class="col-xs-3">
-                <strong>Date Planned:</strong>
+                <strong>Date Planned :</strong>
                 <div t-field="o.manual_date_planned" />
             </div>
 
