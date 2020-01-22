@@ -9,6 +9,23 @@ class PurchaseOrder(models.Model):
         string="Scheduled Date", required=True
     )
 
+    def init(self,cr):
+        cr.execute(
+            """
+            UPDATE purchase_order
+            SET manual_date_planned = (SELECT date_planned
+                FROM purchase_order_line
+                    WHERE purchase_order_line.order_id = purchase_order.id
+                    AND purchase_order_line.date_planned IS NOT NULL
+                    LIMIT 1)
+            """
+        )
+        cr.execute(
+            """
+            ALTER TABLE purchase_order ALTER COLUMN manual_date_planned SET NOT NULL
+            """
+        )
+
     @api.onchange("order_line", "order_line.date_planned")
     def _on_change_manual_date_planned(self):
         """
@@ -23,7 +40,7 @@ class PurchaseOrder(models.Model):
     @api.multi
     def button_confirm(self):
         """
-            Since we hide the button to set the date planned on all line and we 
+            Since we hide the button to set the date planned on all line and we
             hide them, we call the method to set the date planned on the line at the confirmation
         """
         self.ensure_one()
