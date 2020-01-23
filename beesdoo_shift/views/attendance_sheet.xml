@@ -36,7 +36,7 @@
         <field name="name">Expected Shifts List</field>
         <field name="model">beesdoo.shift.sheet.expected</field>
         <field name="arch" type="xml">
-            <tree editable="bottom" create="false" delete="false" open="false"
+            <tree editable="bottom" create="false" delete="false"
                   decoration-danger="state == 'absent'"
                   decoration-success="state == 'done'">
                 <field name="task_type_id" readonly="True" options="{'no_open': True}"/>
@@ -49,10 +49,10 @@
                        options="{'no_create': True, 'no_create_edit':True}"/>
                 <field name="state" options="{'no_open': True}" />
                 <field name="compensation_no"
-                    options="{'horizontal': true}"
-                    attrs="{
+                       options="{'horizontal': true}"
+                       attrs="{
                            'invisible': [('state', 'in', ['done', False])]
-                           }"
+                       }"
                 />
             </tree>
         </field>
@@ -174,10 +174,9 @@
                         <group>
                             <field name="max_worker_no" />
                         </group>
-                        <label string="You will be able to write notes
-                            about what you cannot encode here
-                            when clicking on 'validate'."
-                        />
+                        You will be able to write notes
+                        about what you cannot encode here
+                        when clicking on 'validate'.
                         <separator string="Added workers" />
                         <field name="added_shift_ids"/>
                         <separator string="Expected workers" />
@@ -231,8 +230,8 @@
             name="Daily attendance sheets"
             res_model="beesdoo.shift.sheet"
             view_mode="tree,form"
-            domain="[('end_time','&gt;', datetime.now().replace(hour=00, minute=00, second=10)),
-                ('start_time','&lt;', datetime.now().replace(hour=23, minute=59, second=59))]"
+            domain="[('end_time','&gt;', datetime.datetime.now().replace(hour=00, minute=00, second=10)),
+                ('start_time','&lt;', datetime.datetime.now().replace(hour=23, minute=59, second=59))]"
     />
 
     <!-- Top menu item -->
