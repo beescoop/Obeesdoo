@@ -29,14 +29,17 @@
                 <field name="worker_id" />
                     <filter string="My Team Shift"
                             name="my_team_shift"
-                        domain="[('super_coop_id', '=', uid)]" />
+                            domain="[('super_coop_id', '=', uid)]" />
                     <filter string="My Shift"
-                        domain="[('worker_id.user_ids', 'in', uid)]" />
+                            name="my_shift"
+                            domain="[('worker_id.user_ids', 'in', uid)]" />
                     <separator />
-                    <filter string="Assigned" name="assigned"
-                        domain="[('worker_id', '!=', False)]" />
-                    <filter string="Unassigned" name="unassigned"
-                        domain="[('worker_id', '=', False)]" />
+                    <filter string="Assigned"
+                            name="assigned"
+                            domain="[('worker_id', '!=', False)]" />
+                    <filter string="Unassigned"
+                            name="unassigned"
+                            domain="[('worker_id', '=', False)]" />
                     <separator />
                     <filter string="4 next days" name="nextweek"
                         domain="[('end_time','&gt;', context_today().strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  + datetime.timedelta(days=4)).strftime('%Y-%m-%d 23:59:59'))]" />
@@ -55,13 +58,16 @@
                 <group expand="1" string="Group By">
                     <filter string="Shift Template"
                             name="template"
-                        context="{'group_by' : 'task_template_id'}" />
-                    <filter string="Type" name="gb_type"
-                        context="{'group_by' : 'task_type_id'}" />
-                    <filter string="Status" name="gb_status"
-                        context="{'group_by' : 'state'}" />
-                    <filter string="Day" name="gb_day"
-                        context="{'group_by' : 'start_time:day'}" />
+                            context="{'group_by' : 'task_template_id'}" />
+                    <filter string="Type"
+                            name="gb_type"
+                            context="{'group_by' : 'task_type_id'}" />
+                    <filter string="Status"
+                            name="gb_status"
+                            context="{'group_by' : 'state'}" />
+                    <filter string="Day"
+                            name="gb_day"
+                            context="{'group_by' : 'start_time:day'}" />
                 </group>
             </search>
         </field>
@@ -140,22 +146,17 @@
                 <field name="super_coop_id" />
                 <field name="is_regular" />
                 <templates>
-                    <t t-name="kanban-box">
-                        <div
-                            t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
-                            <div class="o_dropdown_kanban dropdown"
-                                groups="base.group_user">
-                                <a class="dropdown-toggle btn"
-                                    data-toggle="dropdown" href="#">
-                                    <span class="fa fa-bars fa-lg" />
+                      <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
+                            <div class="o_dropdown_kanban dropdown" name="card_dropdown_menu" groups="base.group_user">
+                                <a role="button" class="dropdown-toggle o-no-caret btn" data-toggle="dropdown"
+                                   href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                    <span class="fa fa-bars fa-lg"/>
                                 </a>
-                                <ul class="dropdown-menu" role="menu"
-                                    aria-labelledby="dLabel">
-                                    <t t-if="widget.editable">
-                                        <li>
-                                            <a type="edit">Edit Shift</a>
-                                        </li>
-                                    </t>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                    <li t-if="widget.editable">
+                                        <a type="edit">Edit Shift</a>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="oe_kanban_content">
