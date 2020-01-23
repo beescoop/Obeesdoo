@@ -49,24 +49,25 @@
             <field name="interval_type">days</field>
             <field name="numbercall">-1</field>
             <field name="doall" eval="False" />
-            <field name="nextcall" eval="datetime.combine(datetime.now(), time(hour=00, minute=00, second=10))">
+            <field name="nextcall" eval="datetime.now().replace(hour=00, minute=00, second=10)" />
             <field name="model_id" ref="model_beesdoo_shift_sheet" />
             <field name="code">model._cron_non_validated_sheets()</field>
             <field name="active" eval="False" />
         </record>
 
         <record id="ir_cron_send_weekly_emails" model="ir.cron">
-            <field name="name">Send weekly shift summary</field>
-            <field name="interval_number">7</field>
-            <field name="interval_type">days</field>
-            <field name="numbercall">-1</field>
-            <field name="doall" eval="True" />
-            <field name="nextcall"
-                   eval="datetime.utcnow() + timedelta((6-datetime.utcnow().weekday()) % 7"
-            />
-            <field name="model_id" ref="model_beesdoo_shift_shift" />
-            <field name="code">_cron_send_weekly_emails()</field>
-            <field name="active" eval="False" />
+          <field name="name">Send weekly shift summary</field>
+          <field name="interval_number">7</field>
+          <field name="interval_type">days</field>
+          <field name="numbercall">-1</field>
+          <field name="doall" eval="True" />
+          <field name="nextcall"
+            eval="datetime.now() + timedelta((6 - datetime.now().weekday()) % 7)"
+          />
+          <field name="model_id" ref="model_beesdoo_shift_shift" />
+          <field name="code">_cron_send_weekly_emails()</field>
+          <field name="active" eval="False" />
         </record>
+
     </data>
 </odoo>

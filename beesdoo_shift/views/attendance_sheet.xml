@@ -231,8 +231,8 @@
             name="Daily attendance sheets"
             res_model="beesdoo.shift.sheet"
             view_mode="tree,form"
-            domain="[('end_time','&gt;', datetime.combine(datetime.now(), time(hour=00, minute=00, second=10))),
-                ('start_time','&lt;', datetime.combine(datetime.now(), time(hour=23, minute=59, second=59)))]"
+            domain="[('end_time','&gt;', datetime.now().replace(hour=00, minute=00, second=10)),
+                ('start_time','&lt;', datetime.now().replace(hour=23, minute=59, second=59))]"
     />
 
     <!-- Top menu item -->
