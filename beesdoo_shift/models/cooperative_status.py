@@ -36,6 +36,15 @@ class CooperativeStatus(models.Model):
     _rec_name = 'cooperator_id'
     _order = 'cooperator_id'
 
+    def get_status_value(self):
+        """
+        Workararound to get translated selection value instead of key in mail template.
+        """
+
+        state_list = self.env["cooperative.status"]._fields["status"].selection
+        state_list = self.env["cooperative.status"]._fields['status']._description_selection(self.env)
+
+        return dict(state_list)[self.status]
 
     today = fields.Date(help="Field that allow to compute field and store them even if they are based on the current date", default=fields.Date.today)
     cooperator_id = fields.Many2one('res.partner')
