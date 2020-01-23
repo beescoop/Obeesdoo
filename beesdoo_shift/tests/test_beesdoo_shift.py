@@ -342,8 +342,9 @@ class TestBeesdooShift(TransactionCase):
                 "task_type_id": self.task_type_2.id,
                 "state": "done",
                 "attendance_sheet_id": sheet_1.id,
-                "worker_id": self.worker_regular_super_1.id,
+                "worker_id": self.worker_irregular_2.id,
                 "is_compensation": False,
+                "is_regular": False,
             }
         )
         # Same task type as empty shift (should edit it on validation)
@@ -352,8 +353,9 @@ class TestBeesdooShift(TransactionCase):
                 "task_type_id": self.task_type_1.id,
                 "state": "done",
                 "attendance_sheet_id": sheet_1.id,
-                "worker_id": self.worker_irregular_2.id,
+                "worker_id": self.worker_regular_super_1.id,
                 "is_compensation": True,
+                "is_regular": False,
             }
         )
 
@@ -460,6 +462,11 @@ class TestBeesdooShift(TransactionCase):
         shift_regular.state = "done"
         self.assertEquals(status_1.sr, 0)
         self.assertEquals(status_1.sc, 0)
+        shift_regular.state = "open"
+        shift_regular.write({"is_regular": False, "is_compensation": True})
+        shift_regular.state = "done"
+        self.assertEquals(status_1.sr, 1)
+        self.assertEquals(status_1.sc, 0)
 
         # Check unsubscribed status
         status_1.sr = -1
@@ -467,9 +474,11 @@ class TestBeesdooShift(TransactionCase):
 
         # Subscribe him to another future shift
         future_shift_regular.worker_id = self.worker_regular_1
-        shift_regular.state = "absent_2"
-        self.assertEquals(status_1.sr, -2)
-        self.assertEquals(status_1.sc, -2)
+        with self.assertRaises(ValidationError) as e:
+            future_shift_regular.state = "absent_2"
+            self.assertIn("future", str(e.exception))
+        status_1.sr = -2
+        status_1.sc = -2
         self.assertEquals(status_1.status, "unsubscribed")
 
         # Should be unsubscribed from future shift
