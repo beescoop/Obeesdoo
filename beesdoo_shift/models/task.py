@@ -80,8 +80,7 @@ class Task(models.Model):
 
     @api.constrains("state")
     def _lock_future_task(self):
-        start_time_dt = fields.Datetime.from_string(self.start_time)
-        if datetime.now() < start_time_dt:
+        if datetime.now() < self.start_time:
             if self.state in ["done", "absent_2", "absent_1", "absent_0"]:
                 raise UserError(_(
                     "Shift state of a future shift "
