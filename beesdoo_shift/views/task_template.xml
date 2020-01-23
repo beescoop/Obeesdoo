@@ -177,7 +177,7 @@
     </record>
 
     <menuitem name="Shift Management" id="menu_root"
-        groups="beesdoo_shift.group_shift_attendance_sheet" />
+        groups="beesdoo_shift.group_shift_attendance_sheet,beesdoo_shift.group_shift_attendance" />
     <menuitem name="Templates" id="menu_template_top" parent="menu_root"
         groups="beesdoo_shift.group_shift_management"
         sequence="20" />
