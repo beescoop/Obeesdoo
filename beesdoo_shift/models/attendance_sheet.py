@@ -503,31 +503,25 @@ class AttendanceSheet(models.Model):
 
             if len(non_assigned_shifts):
                 actual_shift = non_assigned_shifts[0]
-                actual_shift.write(
-                    {
-                        "state": added_shift.state,
-                        "worker_id": added_shift.worker_id.id,
-                        "is_regular": not is_compensation
-                        and is_regular_worker,
-                        "is_compensation": is_compensation
-                        and is_regular_worker,
-                    }
-                )
             else:
                 actual_shift = self.env["beesdoo.shift.shift"].create(
                     {
                         "name": _("%s (added)" % self.name),
                         "task_type_id": added_shift.task_type_id.id,
-                        "state": added_shift.state,
-                        "worker_id": added_shift.worker_id.id,
                         "start_time": self.start_time,
                         "end_time": self.end_time,
-                        "is_regular": not is_compensation
-                        and is_regular_worker,
-                        "is_compensation": is_compensation
-                        and is_regular_worker,
                     }
                 )
+            actual_shift.write(
+                {
+                    "state": added_shift.state,
+                    "worker_id": added_shift.worker_id.id,
+                    "is_regular": not is_compensation
+                    and is_regular_worker,
+                    "is_compensation": is_compensation
+                    and is_regular_worker,
+                }
+            )
             added_shift.task_id = actual_shift.id
 
         self.validated_by = user
