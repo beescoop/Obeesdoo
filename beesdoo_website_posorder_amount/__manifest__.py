@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2019 Coop IT Easy SCRLfs
 #   Rémy Taymans <remy@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
@@ -11,7 +10,7 @@
     """,
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
-    "version": "11.0.1.0.0",
+    "version": "12.0.1.0.0",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Website",
     "depends": ["website_portal_v10"],
