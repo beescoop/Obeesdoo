@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 # Copyright 2019 Coop IT Easy SCRLfs
 # Nicolas Jamoulle, <nicolas@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     "name": "BEES coop Stock",
-    "version": "9.0.1.0",
+    "version": "12.0.1.0.0",
     "depends": [
         'stock',
     ],
@@ -17,5 +16,5 @@
     "data": [
         'views/stock_view.xml',
     ],
-    'installable': True,
+    'installable': False,
 }
