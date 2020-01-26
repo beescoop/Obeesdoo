@@ -1,3 +1,6 @@
+# Copyright 2017-2018 Elise Dupont
+# Copyright 2017-2020 Rémy Taymans <remy@coopiteasy.be>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Beescoop  Account Module",
     "summary": """
