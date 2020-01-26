@@ -11,7 +11,7 @@
     """,
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
-    "version": "9.0.1.0",
+    "version": "10.0.1.0.0",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Website",
     "depends": ["website_portal_v10"],
