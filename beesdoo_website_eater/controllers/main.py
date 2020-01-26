@@ -4,9 +4,9 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 
-from openerp.http import request
+from odoo.http import request
 
-from openerp.addons.website_portal_v10.controllers.main import WebsiteAccount
+from odoo.addons.website_portal_v10.controllers.main import WebsiteAccount
 
 
 class EaterWebsiteAccount(WebsiteAccount):
