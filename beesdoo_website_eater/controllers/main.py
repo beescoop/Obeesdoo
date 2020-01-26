@@ -5,10 +5,10 @@
 
 from odoo.http import request
 
-from odoo.addons.website_portal_v10.controllers.main import WebsiteAccount
+from odoo.addons.portal.controllers.portal import CustomerPortal
 
 
-class EaterWebsiteAccount(WebsiteAccount):
+class EaterWebsiteAccount(CustomerPortal):
 
     def _prepare_portal_layout_values(self):
         values = super(EaterWebsiteAccount,

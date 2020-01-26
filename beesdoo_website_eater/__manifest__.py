@@ -20,7 +20,7 @@
 
     'depends': [
         'website',
-        'website_portal_v10',
+        'portal',
         'beesdoo_base',
     ],
 
