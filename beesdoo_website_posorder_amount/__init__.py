@@ -1,2 +1,2 @@
 # -*- coding: utf8 -*-
-import controllers
+from . import controllers
