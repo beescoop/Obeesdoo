@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 
 # Copyright 2018 Rémy Taymans <remytaymans@gmail.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
@@ -14,7 +13,7 @@
 
     'author': 'Rémy Taymans',
     'license': 'AGPL-3',
-    'version': '10.0.1.0',
+    'version': '11.0.1.0',
     'website': "https://github.com/beescoop/Obeesdoo",
 
     'category': 'Website',
