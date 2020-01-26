@@ -1,5 +1,7 @@
-# Copyright 2017-2018 Elise Dupont
-# Copyright 2017-2020 Rémy Taymans <remy@coopiteasy.be>
+# Copyright 2017 - 2020 BEES coop SCRLfs
+#   - Rémy Taymans <remy@coopiteasy.be>
+#   - Elise Dupont
+#   - Augustin Borsu
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Beescoop  Account Module",
