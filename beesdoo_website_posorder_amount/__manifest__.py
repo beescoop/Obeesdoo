@@ -13,6 +13,6 @@
     "version": "12.0.1.0.0",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Website",
-    "depends": ["website_portal_v10"],
+    "depends": ["portal", "point_of_sale"],
     "data": ["templates/portal_posorder_amount.xml"],
 }

@@ -10,8 +10,8 @@
     id="total_pos_order_amount"
     name="Portal total POS order amount"
     priority="40"
-    inherit_id="website_portal_v10.portal_layout">
-    <xpath expr="//div[@class='o_my_details']" position="after">
+    inherit_id="portal.portal_layout">
+    <xpath expr="//div[@class='o_portal_my_details']" position="after">
       <div class="o_my_details_eater">
         <h3 class="page-header">Purchases</h3>
         <p>

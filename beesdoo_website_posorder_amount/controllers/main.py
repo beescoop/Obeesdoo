@@ -2,11 +2,11 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 
-from odoo.addons.website_portal_v10.controllers.main import WebsiteAccount
+from odoo.addons.portal.controllers.portal import CustomerPortal
 from odoo.http import request
 
 
-class PortalPosOrderAmount(WebsiteAccount):
+class PortalPosOrderAmount(CustomerPortal):
 
     def _prepare_portal_layout_values(self):
         values = super(
