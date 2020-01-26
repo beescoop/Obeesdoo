@@ -1,6 +1,5 @@
-# -*- coding: utf8 -*-
-
-# Copyright 2017-2018 Rémy Taymans <remytaymans@gmail.com>
+# Copyright 2017-2020 Coop IT Easy (http://coopiteasy.be)
+#   Rémy Taymans <remy@coopiteasy.be>
 # Copyright 2017-2018 Thibault François
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -141,23 +140,18 @@ class WebsiteShiftController(http.Controller):
         # Get the shift
         shift = request.env['beesdoo.shift.shift'].sudo().browse(shift_id)
         # Get config
-        irregular_enable_sign_up = literal_eval(request.env['ir.config_parameter'].get_param(
-            'beesdoo_website_shift.irregular_enable_sign_up'))
+        irregular_enable_sign_up = request.website.irregular_enable_sign_up
         # Set start time limit as defined in beesdoo_shift settings
-        setting = int(
-            request.env["ir.config_parameter"].get_param(
-                "beesdoo_shift.attendance_sheet_generation_interval"
-            )
-        )
-        start_time_limit = datetime.now() + timedelta(minutes=setting)
-        shift_start_time = fields.Datetime.from_string(shift.start_time)
+        # TODO: Move this into the attendance_sheet module
+        # setting = request.website.attendance_sheet_generation_interval
+        start_time_limit = datetime.now()  # + timedelta(minutes=setting)
         request.session['success'] = False
 
         if (irregular_enable_sign_up
                 and self.user_can_subscribe()
                 and shift
                 and shift.state == "open"
-                and shift_start_time > start_time_limit
+                and shift.start_time > start_time_limit
                 and not shift.worker_id):
             shift.worker_id = cur_user.partner_id
             request.session['success'] = True
@@ -192,11 +186,7 @@ class WebsiteShiftController(http.Controller):
         task_templates = template.sudo().search([], order="planning_id, day_nb_id, start_time")
 
         # Get config
-        regular_highlight_rule = literal_eval(
-            request.env['ir.config_parameter'].get_param(
-                'beesdoo_website_shift.regular_highlight_rule'
-            )
-        )
+        regular_highlight_rule = request.website.regular_highlight_rule
 
         task_tpls_data = []
         for task_tpl in task_templates:
@@ -220,8 +210,7 @@ class WebsiteShiftController(http.Controller):
         Return template variables for 'beesdoo_website_shift.my_shift_irregular_worker' template
         """
         # Get config
-        irregular_enable_sign_up = literal_eval(request.env['ir.config_parameter'].get_param(
-            'beesdoo_website_shift.irregular_enable_sign_up'))
+        irregular_enable_sign_up = request.website.irregular_enable_sign_up
 
         # Create template context
         template_context = {}
@@ -241,11 +230,11 @@ class WebsiteShiftController(http.Controller):
             del request.session['success']
 
         # Add setting for subscription allowed time
-        subscription_time_limit = int(
-            request.env["ir.config_parameter"].get_param(
-                "beesdoo_shift.attendance_sheet_generation_interval"
-            )
-        )
+        # TODO: move this to the attendance_sheet module
+        # subscription_time_limit = (
+        #     request.website.attendance_sheet_generation_interval
+        # )
+        subscription_time_limit = 0
         template_context['subscription_time_limit'] = subscription_time_limit
 
         return template_context
@@ -310,18 +299,9 @@ class WebsiteShiftController(http.Controller):
         )
 
         # Get config
-        irregular_shift_limit = int(
-            request.env['ir.config_parameter']
-            .get_param('beesdoo_website_shift.irregular_shift_limit')
-        )
-        highlight_rule_pc = int(
-            request.env['ir.config_parameter']
-            .get_param('beesdoo_website_shift.highlight_rule_pc')
-        )
-        hide_rule = int(
-            request.env['ir.config_parameter']
-            .get_param('beesdoo_website_shift.hide_rule')
-        ) / 100.0
+        irregular_shift_limit = request.website.irregular_shift_limit
+        highlight_rule_pc = request.website.highlight_rule_pc
+        hide_rule = request.website.hide_rule / 100.0
 
         # Grouby task_template_id, if no task_template_id is specified
         # then group by start_time, if no start_time specified sort by
@@ -405,8 +385,7 @@ class WebsiteShiftController(http.Controller):
                 )
 
             # Get config
-            regular_next_shift_limit = int(request.env['ir.config_parameter'].get_param(
-                'beesdoo_website_shift.regular_next_shift_limit'))
+            regular_next_shift_limit = request.website.regular_next_shift_limit
             shift_period = int(request.env['ir.config_parameter'].get_param(
                 'beesdoo_website_shift.shift_period'))
 
@@ -426,11 +405,11 @@ class WebsiteShiftController(http.Controller):
                 shift.revert_info = main_shift.revert_info
                 # Set new date
                 shift.start_time = self.add_days(
-                    fields.Datetime.from_string(main_shift.start_time),
+                    main_shift.start_time,
                     days=i * shift_period
                 )
                 shift.end_time = self.add_days(
-                    fields.Datetime.from_string(main_shift.end_time),
+                    main_shift.end_time,
                     days=i * shift_period
                 )
                 # Add the fictive shift to the list of shift
@@ -450,11 +429,9 @@ class WebsiteShiftController(http.Controller):
         # Get config
         past_shift_limit = 0
         if self.is_user_irregular():
-            past_shift_limit = int(request.env['ir.config_parameter'].get_param(
-                'beesdoo_website_shift.irregular_past_shift_limit'))
+            past_shift_limit = request.website.irregular_past_shift_limit
         if self.is_user_regular():
-            past_shift_limit = int(request.env['ir.config_parameter'].get_param(
-                'beesdoo_website_shift.regular_past_shift_limit'))
+            past_shift_limit = request.website.regular_past_shift_limit
         # Get shifts where user was subscribed
         now = datetime.now()
         if past_shift_limit > 0:
