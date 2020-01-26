@@ -1,3 +1,10 @@
+# Copyright 2017 - 2020 BEES coop SCRLfs
+#   - Elouan Lebars <elouan@coopiteasy.be>
+#   - Rémy Taymans <remy@coopiteasy.be>
+#   - Houssine BAKKALI <houssine@coopiteasy.be>
+#   - Elise Dupont
+#   - Thibault François
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': "beesdoo_product",
 
@@ -11,17 +18,10 @@
 
     'author': "Beescoop - Cellule IT",
     'website': "https://github.com/beescoop/Obeesdoo",
-
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
-    # for the full list
-    'category': 'Sales Management',
-    'version': '0.1',
-
-    # any module necessary for this one to work correctly
+    'category': 'Sales',
+    'version': '12.0.1.0.0',
     'depends': ['beesdoo_base', 'product', 'sale', 'point_of_sale', 'pos_price_to_weight'],
 
-    # always loaded
     'data': [
         'data/product_label.xml',
         'data/barcode_rule.xml',
@@ -30,6 +30,5 @@
         'wizard/views/label_printing_utils.xml',
         'security/ir.model.access.csv',
     ],
-    # only loaded in demonstration mode
-    'demo': [],
+    'installable': True,
 }

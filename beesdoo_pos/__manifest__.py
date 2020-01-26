@@ -1,3 +1,10 @@
+# Copyright 2017 - 2020 BEES coop SCRLfs
+#   - Elouan Lebars <elouan@coopiteasy.be>
+#   - Rémy Taymans <remy@coopiteasy.be>
+#   - Elise Dupont
+#   - Thibault François
+#   - Grégoire Leeuwerck
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': "Beescoop Point of sale",
 
@@ -12,16 +19,11 @@
     'author': "Beescoop - Cellule IT",
     'website': "https://github.com/beescoop/Obeesdoo",
 
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
-    # for the full list
     'category': 'Point Of Sale',
     'version': '12.0.1.0.0',
 
-    # any module necessary for this one to work correctly
     'depends': ['beesdoo_base', 'beesdoo_product'],
 
-    # always loaded
     'data': [
         'security/ir.model.access.csv',
         'views/beesdoo_pos.xml',
@@ -30,5 +32,6 @@
         'data/cron.xml',
     ],
     'qweb': ['static/src/xml/templates.xml'],
-    # only loaded in demonstration mode
+
+    'installable': True,
 }

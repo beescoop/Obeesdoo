@@ -18,7 +18,7 @@
     'author': "Beescoop - Cellule IT",
     'website': "https://github.com/beescoop/Obeesdoo",
 
-    'category': 'Project Management',
+    'category': 'Sales',
     'version': '12.0.1.0.0',
 
     'depends': ['point_of_sale', 'purchase', 'portal', 'partner_firstname'],
@@ -33,4 +33,5 @@
         'data/default_contact.xml',
         'report/beescard.xml',
     ],
+    'installable': True,
 }
