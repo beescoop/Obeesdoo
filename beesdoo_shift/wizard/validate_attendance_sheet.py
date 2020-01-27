@@ -64,10 +64,10 @@ class ValidateAttendanceSheet(models.TransientModel):
         default=_get_warning_regular_workers,
         help="Is any regular worker doing its regular shift as an added one ?",
     )
-    notes = fields.Text(related="active_sheet.notes")
-    feedback = fields.Text(related="active_sheet.feedback")
+    notes = fields.Text(related="active_sheet.notes", readonly=False)
+    feedback = fields.Text(related="active_sheet.feedback", readonly=False)
     worker_nb_feedback = fields.Selection(
-        related="active_sheet.worker_nb_feedback", required=True
+        related="active_sheet.worker_nb_feedback", readonly=False, required=True
     )
 
     def on_barcode_scanned(self, barcode):
@@ -97,7 +97,7 @@ class ValidateAttendanceSheet(models.TransientModel):
             if not self.login:
                 raise UserError(_("Please enter your login."))
             user = self.env["res.users"].search([("login", "=", self.login)])
-            user.sudo(user.id).check_credentials(self.password)
+            user.sudo(user.id)._check_credentials(self.password)
             partner = user.partner_id
 
         is_admin = partner.user_ids.has_group(
