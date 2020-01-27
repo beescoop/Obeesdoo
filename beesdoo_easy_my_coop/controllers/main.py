@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from openerp import http
-from openerp.http import request
+from odoo import http
+from odoo.http import request
 
-from openerp.addons.easy_my_coop.controllers.main import WebsiteSubscription as Base
+from odoo.addons.easy_my_coop.controllers.main import WebsiteSubscription as Base
 
 class WebsiteSubscription(Base):
 
