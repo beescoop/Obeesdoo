@@ -100,9 +100,9 @@ class CooperativeStatus(models.Model):
                  'irregular_absence_counter', 'temporary_exempt_start_date',
                  'temporary_exempt_end_date', 'resigning', 'cooperator_id.subscribed_shift_ids')
     def _compute_status(self):
-        alert_delay = int(self.env['ir.config_parameter'].get_param('alert_delay', 28))
-        grace_delay = int(self.env['ir.config_parameter'].get_param('default_grace_delay', 10))
-        update = int(self.env['ir.config_parameter'].get_param('always_update', False))
+        alert_delay = int(self.env['ir.config_parameter'].sudo().get_param('alert_delay', 28))
+        grace_delay = int(self.env['ir.config_parameter'].sudo().get_param('default_grace_delay', 10))
+        update = int(self.env['ir.config_parameter'].sudo().get_param('always_update', False))
         for rec in self:
             if update or not rec.today:
                 rec.status = 'ok'
@@ -228,7 +228,7 @@ class CooperativeStatus(models.Model):
 
     def _set_regular_status(self, grace_delay, alert_delay):
         self.ensure_one()
-        counter_unsubscribe = int(self.env['ir.config_parameter'].get_param('regular_counter_to_unsubscribe', -4))
+        counter_unsubscribe = int(self.env['ir.config_parameter'].sudo().get_param('regular_counter_to_unsubscribe', -4))
         ok = self.sr >= 0 and self.sc >= 0
         grace_delay = grace_delay + self.time_extension
 
@@ -270,7 +270,7 @@ class CooperativeStatus(models.Model):
             self.can_shop = True
 
     def _set_irregular_status(self, grace_delay, alert_delay):
-        counter_unsubscribe = int(self.env['ir.config_parameter'].get_param('irregular_counter_to_unsubscribe', -3))
+        counter_unsubscribe = int(self.env['ir.config_parameter'].sudo().get_param('irregular_counter_to_unsubscribe', -3))
         self.ensure_one()
         ok = self.sr >= 0
         grace_delay = grace_delay + self.time_extension

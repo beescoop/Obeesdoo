@@ -15,9 +15,9 @@ class AttendanceSheetShift(models.AbstractModel):
     _order = "task_type_id, worker_name"
 
     @api.model
-    def default_task_type_id(self):
-        parameters = self.env["ir.config_parameter"]
-        id = int(parameters.get_param("beesdoo_shift.default_task_type_id", default=1))
+    def task_type_default_id(self):
+        parameters = self.env["ir.config_parameter"].sudo()
+        id = int(parameters.get_param("beesdoo_shift.task_type_default_id", default=1))
         task_types = self.env["beesdoo.shift.type"]
         return task_types.browse(id)
 
@@ -46,7 +46,7 @@ class AttendanceSheetShift(models.AbstractModel):
     )
     worker_name = fields.Char(related="worker_id.name", store=True)
     task_type_id = fields.Many2one(
-        "beesdoo.shift.type", string="Task Type", default=default_task_type_id
+        "beesdoo.shift.type", string="Task Type", default=task_type_default_id
     )
     working_mode = fields.Selection(
         related="worker_id.working_mode", string="Working Mode"
@@ -374,7 +374,7 @@ class AttendanceSheet(models.Model):
             # Added shift creation
             self.added_shift_ids |= self.added_shift_ids.new(
                 {
-                    "task_type_id": self.added_shift_ids.default_task_type_id(),
+                    "task_type_id": self.added_shift_ids.task_type_default_id(),
                     "state": "done",
                     "attendance_sheet_id": self._origin.id,
                     "worker_id": worker.id,
@@ -591,7 +591,7 @@ class AttendanceSheet(models.Model):
         sheets = self.env["beesdoo.shift.sheet"]
         current_time = datetime.now()
         generation_interval_setting = int(
-            self.env["ir.config_parameter"].get_param(
+            self.env["ir.config_parameter"].sudo().get_param(
                 "beesdoo_shift.attendance_sheet_generation_interval"
             )
         )

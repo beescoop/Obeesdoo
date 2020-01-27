@@ -39,8 +39,8 @@
         <field name="key">beesdoo_shift.attendance_sheet_generation_interval</field>
         <field name="value">15</field>
     </record>
-    <record id="beesdoo_shift.default_task_type_id" model="ir.config_parameter">
-        <field name="key">beesdoo_shift.default_task_type_id</field>
+    <record id="beesdoo_shift.task_type_default_id" model="ir.config_parameter">
+        <field name="key">beesdoo_shift.task_type_default_id</field>
         <field name="value">1</field>
     </record>
 </odoo>
