@@ -831,12 +831,12 @@ msgid "Day ids"
 msgstr "Ids des jours"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_config_settings_default_task_type_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_config_settings_task_type_default_id
 msgid "Default Task Type"
 msgstr "Type de tâche par défaut"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_config_settings_default_task_type_id
+#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_config_settings_task_type_default_id
 msgid "Default task type for attendance sheet pre-filling"
 msgstr "Type de shift par défaut pour le remplissage automatique des feuilles de présence"
 
