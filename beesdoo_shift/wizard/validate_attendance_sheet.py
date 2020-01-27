@@ -21,7 +21,7 @@ class ValidateAttendanceSheet(models.TransientModel):
 
     def _get_card_support_setting(self):
         return ast.literal_eval(
-            self.env["ir.config_parameter"].get_param(
+            self.env["ir.config_parameter"].sudo().get_param(
                 "beesdoo_shift.card_support"
             )
         )
