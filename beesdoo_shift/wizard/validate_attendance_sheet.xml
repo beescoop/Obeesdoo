@@ -13,7 +13,7 @@
                            readonly="1"
                            attrs="{'invisible': [('warning_regular_workers', '=', False)]}"
                     />
-                    <group col="1" string="Additional informations" >
+                    <group string="Additional informations" >
                         <field name="notes" />
                         <field name="feedback" />
                     </group>
