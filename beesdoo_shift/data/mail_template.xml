@@ -2,7 +2,8 @@
 <odoo>
     <!-- Mail template are declared in a NOUPDATE block
          so users can freely customize/delete them -->
-    <data noupdate="1">
+    <data noupdate="0">
+        <!-- TODO: improve with Jinja2 comparaison operators in v12.0 -->
         <record id="email_template_non_attendance" model="mail.template">
             <field name="name">Shift Non-attendance</field>
             <field name="subject">Non-attendance to your last shift.</field>
@@ -13,36 +14,39 @@
             <field name="body_html"><![CDATA[
               <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
 
-                  % if object.replaced_id:
-                  <p>Hello ${object.replaced_id.name},
+                  <p>Hello ${object.replaced_id.name or object.worker_id.name},
 
-                  <br><br>You have been recorded as non-attended during your last shift (${format_tz(object.start_time,object.replaced_id.tz or 'Europe/Brussels','%d.%m.%Y - %H:%M')}),
-                    and you were supposed to replace ${object.worker_id.name}.
-                  <br><br>Your current status is "${object.worker_id.cooperative_status_ids.get_status_value()}".
-                  % endif
-
-                  % if not object.replaced_id:
-                  </p><p>Hello ${object.worker_id.name},</p>
-
-                  <p>You have been recorded as non-attended during your last shift (${format_tz(object.start_time,object.worker_id.tz or 'Europe/Brussels','%d.%m.%Y - %H:%M')}).
-                  <br><br>Your current status is "${object.worker_id.cooperative_status_ids.get_status_value()}".
-                  % endif
+                  <br><br>You have been recorded as non-attended during your last shift (${format_tz(object.start_time,object.replaced_id.tz or 'Europe/Brussels','%d.%m.%Y - %H:%M')}).
 
                   % if object.worker_id.working_mode == 'regular':
                     % if object.state == 'absent_0':
-                        <br><br>Super-cooperator assigned you 0 compensation, so you won't have any additionnal shift to do before your next regular shift.
+                        <br><br>The supercooperator assigned you 0 compensation shift.
                     % endif
                     % if object.state == 'absent_1':
-                        <br><br>Super-cooperator assigned you 1 compensation, so you have to attend one additionnal shift before your next regular shift.
+                        <br><br>The supercooperator assigned you 1 compensation shift.
                     % endif
                     % if object.state == 'absent_2':
-                        <br><br>Super-cooperator assigned you 2 compensations, so you have to attend two additionnal shifts before your next regular shift.
+                        <br><br>The supercooperator assigned you 2 compensation shifts.
                     % endif
+
+                      % if object.replaced_id:
+                            You have to do ${(object.replaced_id.cooperative_status_ids.sr + object.replaced_id.cooperative_status_ids.sc) * -1 } shifts before your next regular shift.<br>
+                      % else:
+                            You have to do ${(object.worker_id.cooperative_status_ids.sr + object.worker_id.cooperative_status_ids.sc) * -1 } shifts before your next regular shift.<br>
+                      % endif
                   % endif
 
                   % if object.worker_id.working_mode == 'irregular':
-                        Your shift counter is ${object.worker_id.cooperative_status_ids.sr}.
-                        You should be at a minimum of 0 before the ${object.worker_id.cooperative_status_ids.future_alert_date}.
+                        Your shift counter is at ${object.worker_id.cooperative_status_ids.sr} and should
+                        be superior or equal to 1 before the
+                         ${object.worker_id.cooperative_status_ids.future_alert_date}.<br>
+                  % endif
+
+                  % if object.replaced_id:
+                    You were supposed to replace ${object.worker_id.name} and your
+                     current status is "${object.replaced_id.cooperative_status_ids.get_status_value()}".
+                  % else:
+                    <br><br>Your current status is "${object.worker_id.cooperative_status_ids.get_status_value()}".
                   % endif
 
                   <br>If you have any question regarding this non-attendance, just answer this e-mail.
