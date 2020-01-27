@@ -71,7 +71,7 @@ class CooperativeStatus(models.Model):
     exempt_reason_id = fields.Many2one('cooperative.exempt.reason', 'Exempt Reason')
     status = fields.Selection([('ok',  'Up to Date'),
                                ('holiday', 'Holidays'),
-                               ('alert', 'Alerte'),
+                               ('alert', 'Alert'),
                                ('extension', 'Extension'),
                                ('suspended', 'Suspended'),
                                ('exempted', 'Exempted'),
