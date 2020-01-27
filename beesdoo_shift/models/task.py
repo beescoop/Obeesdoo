@@ -213,7 +213,7 @@ class Task(models.Model):
     def _update_state(self, new_state):
         self.ensure_one()
         self._revert()
-        update = int(self.env['ir.config_parameter'].get_param('always_update', False))
+        update = int(self.env['ir.config_parameter'].sudo().get_param('always_update', False))
 
         data = {}
 
