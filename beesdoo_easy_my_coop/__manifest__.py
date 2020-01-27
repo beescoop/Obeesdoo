@@ -16,7 +16,7 @@
     # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
     # for the full list
     'category': 'Cooperative management',
-    'version': '9.0.1.1.3',
+    'version': '10.0.1.0.0',
 
     # any module necessary for this one to work correctly
     'depends': ['beesdoo_base', 'beesdoo_shift', 'easy_my_coop', 'easy_my_coop_eater'],

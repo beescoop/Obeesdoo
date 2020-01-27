@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from openerp import models, fields, api, _
+from odoo import models, fields, api, _
 
 class Partner(models.Model):
     _inherit = 'res.partner'
