@@ -40,7 +40,6 @@
     ],
     'demo': [
         "demo/workers.xml",
-        "demo/users.xml",
         "demo/templates.xml",
     ]
 }
