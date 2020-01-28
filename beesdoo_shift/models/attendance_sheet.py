@@ -327,10 +327,18 @@ class AttendanceSheet(models.Model):
 
         worker = self.env["res.partner"].search([("barcode", "=", barcode)])
         if not len(worker):
-            raise UserError(_("Worker not found (invalid barcode or status)."))
+            raise UserError(
+                _(
+                    "Worker not found (invalid barcode or status). \nBarcode : %s"
+                )
+                % barcode
+            )
         if len(worker) > 1:
             raise UserError(
-                _("Multiple workers are corresponding this barcode.")
+                _(
+                    "Multiple workers are corresponding this barcode. \nBarcode : %s"
+                )
+                % barcode
             )
 
         if worker.state == "unsubscribed":
@@ -357,8 +365,7 @@ class AttendanceSheet(models.Model):
         if worker.working_mode not in ("regular", "irregular"):
             raise UserError(
                 _("%s is %s and should be regular or irregular.")
-                % worker.name,
-                worker.working_mode,
+                % (worker.name, worker.working_mode)
             )
 
         # Expected shifts status update
