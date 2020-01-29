@@ -36,24 +36,18 @@
         <field name="name">Expected Shifts List</field>
         <field name="model">beesdoo.shift.sheet.expected</field>
         <field name="arch" type="xml">
-            <tree editable="bottom" create="false" delete="false"
-                  decoration-danger="state == 'absent'"
+            <tree editable="bottom" create="false" delete="false" open="false"
+                  decoration-danger="state in ['absent_0', 'absent_1', 'absent_2'] "
                   decoration-success="state == 'done'">
                 <field name="task_type_id" readonly="True" options="{'no_open': True}"/>
                 <field name="super_coop_id" readonly="True" options="{'no_open': True}"/>
                 <field name="worker_id" readonly="True" options="{'no_open': True}"/>
                 <field name="working_mode" />
-                <field name="replacement_worker_id"
+                <field name="replaced_id"
                        attrs="{'readonly':
                              [('working_mode','=','irregular')]}"
                        options="{'no_create': True, 'no_create_edit':True}"/>
                 <field name="state" options="{'no_open': True}" />
-                <field name="compensation_no"
-                       options="{'horizontal': true}"
-                       attrs="{
-                           'invisible': [('state', 'in', ['done', False])]
-                       }"
-                />
             </tree>
         </field>
     </record>
@@ -88,7 +82,7 @@
                     <field name="task_type_id" options="{'no_open': True}" />
                     <field name="worker_id" options="{'no_open': True}" />
                     <field name="working_mode" options="{'no_open': True}" />
-                    <field name="replacement_worker_id" options="{'no_open': True}" />
+                    <field name="replaced_id" options="{'no_open': True}" />
                     <field name="state" options="{'no_open': True}" />
                 </group>
             </form>
