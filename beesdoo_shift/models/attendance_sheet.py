@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import unittest
-
 from datetime import date, datetime, timedelta
 
 from lxml import etree
@@ -18,7 +16,11 @@ class AttendanceSheetShift(models.AbstractModel):
     @api.model
     def default_task_type_id(self):
         parameters = self.env["ir.config_parameter"]
-        id = int(parameters.get_param("beesdoo_shift.default_task_type_id", default=1))
+        id = int(
+            parameters.get_param(
+                "beesdoo_shift.default_task_type_id", default=1
+            )
+        )
         task_types = self.env["beesdoo.shift.type"]
         return task_types.browse(id)
 
@@ -31,7 +33,12 @@ class AttendanceSheetShift(models.AbstractModel):
         ondelete="cascade",
     )
     state = fields.Selection(
-        [("done", "Present"), ("absent", "Absent"),],
+        [
+            ("done", "Present"),
+            ("absent_0", "Absent - 0 Compensation"),
+            ("absent_1", "Absent - 1 Compensation"),
+            ("absent_2", "Absent - 2 Compensations"),
+        ],
         string="Shift State",
         required=True,
     )
@@ -60,7 +67,7 @@ class AttendanceSheetShift(models.AbstractModel):
 
 class AttendanceSheetShiftExpected(models.Model):
     """
-    Already existing shifts on sheet creation.
+    Shifts already expected.
     """
 
     _name = "beesdoo.shift.sheet.expected"
@@ -70,10 +77,7 @@ class AttendanceSheetShiftExpected(models.Model):
     super_coop_id = fields.Many2one(
         related="task_id.super_coop_id", store=True
     )
-    compensation_no = fields.Selection(
-        [("0", "0"), ("1", "1"), ("2", "2"),], string="Compensations",
-    )
-    replacement_worker_id = fields.Many2one(
+    replaced_id = fields.Many2one(
         "res.partner",
         string="Replacement Worker",
         help="Replacement Worker (must be regular)",
@@ -84,29 +88,15 @@ class AttendanceSheetShiftExpected(models.Model):
         ],
     )
 
-    @api.onchange("replacement_worker_id")
+    @api.onchange("replaced_id")
     def on_change_replacement_worker(self):
-        if self.replacement_worker_id:
+        if self.replaced_id:
             self.state = "done"
-
-    @api.onchange("state")
-    def on_change_state(self):
-        if not self.state or self.state == "done":
-            self.compensation_no = False
-        if self.state == "absent":
-            self.compensation_no = "2"
-
-    @api.constrains("state", "compensation_no")
-    def _constrain_compensation_no(self):
-        if self.state == "absent":
-            if not self.compensation_no:
-                raise UserError(_("A compensation number is required"))
 
 
 class AttendanceSheetShiftAdded(models.Model):
     """
-    Not already registered shifts.
-    Added shifts are necessarily 'Present'
+    Shifts added during time slot.
     """
 
     _name = "beesdoo.shift.sheet.added"
@@ -178,7 +168,11 @@ class AttendanceSheet(models.Model):
         readonly=True,
         help="Indicative maximum number of workers.",
     )
-    notes = fields.Text("Notes", default="", help="Notes about the attendance for the Members Office")
+    notes = fields.Text(
+        "Notes",
+        default="",
+        help="Notes about the attendance for the Members Office",
+    )
     is_annotated = fields.Boolean(
         compute="_compute_is_annotated",
         string="Is annotated",
@@ -293,9 +287,9 @@ class AttendanceSheet(models.Model):
         added_ids = [s.worker_id.id for s in self.added_shift_ids]
         expected_ids = [s.worker_id.id for s in self.expected_shift_ids]
         replacement_ids = [
-            s.replacement_worker_id.id
+            s.replaced_id.id
             for s in self.expected_shift_ids
-            if s.replacement_worker_id.id
+            if s.replaced_id.id
         ]
         ids = added_ids + expected_ids + replacement_ids
 
@@ -326,6 +320,7 @@ class AttendanceSheet(models.Model):
             )
 
         worker = self.env["res.partner"].search([("barcode", "=", barcode)])
+
         if not len(worker):
             raise UserError(
                 _(
@@ -372,11 +367,11 @@ class AttendanceSheet(models.Model):
         for id in self.expected_shift_ids.ids:
             shift = self.env["beesdoo.shift.sheet.expected"].browse(id)
             if (
-                shift.worker_id == worker and not shift.replacement_worker_id
-            ) or shift.replacement_worker_id == worker:
+                shift.worker_id == worker and not shift.replaced_id
+            ) or shift.replaced_id == worker:
                 shift.state = "done"
                 return
-            if shift.worker_id == worker and shift.replacement_worker_id:
+            if shift.worker_id == worker and shift.replaced_id:
                 raise UserError(
                     _("%s was expected as replaced.") % worker.name
                 )
@@ -427,10 +422,9 @@ class AttendanceSheet(models.Model):
                         "attendance_sheet_id": new_sheet.id,
                         "task_id": task.id,
                         "worker_id": task.worker_id.id,
-                        "replacement_worker_id": task.replaced_id.id,
+                        "replaced_id": task.replaced_id.id,
                         "task_type_id": task.task_type_id.id,
-                        "state": "absent",
-                        "compensation_no": "2",
+                        "state": "absent_2",
                         "working_mode": task.working_mode,
                         "is_compensation": task.is_compensation,
                     }
@@ -464,19 +458,10 @@ class AttendanceSheet(models.Model):
         # Expected shifts status update
         for expected_shift in self.expected_shift_ids:
             actual_shift = expected_shift.task_id
-            # Merge state with compensations number to fit Task model
-            if (
-                expected_shift.state == "absent"
-                and expected_shift.compensation_no
-            ):
-                state_converted = "absent_%s" % expected_shift.compensation_no
-            else:
-                state_converted = expected_shift.state
+            actual_shift.replaced_id = expected_shift.replaced_id
+            actual_shift.state = expected_shift.state
 
-            actual_shift.replaced_id = expected_shift.replacement_worker_id
-            actual_shift.state = state_converted
-
-            if expected_shift.state == "absent":
+            if expected_shift.state != "done":
                 mail_template = self.env.ref(
                     "beesdoo_shift.email_template_non_attendance", False
                 )
@@ -523,10 +508,8 @@ class AttendanceSheet(models.Model):
                 {
                     "state": added_shift.state,
                     "worker_id": added_shift.worker_id.id,
-                    "is_regular": not is_compensation
-                    and is_regular_worker,
-                    "is_compensation": is_compensation
-                    and is_regular_worker,
+                    "is_regular": not is_compensation and is_regular_worker,
+                    "is_compensation": is_compensation and is_regular_worker,
                 }
             )
             added_shift.task_id = actual_shift.id
@@ -544,7 +527,9 @@ class AttendanceSheet(models.Model):
             raise UserError(_("The sheet has already been validated."))
         if start_time_dt > datetime.now():
             raise UserError(
-                _("Attendance sheet can only be validated once the shifts have started.")
+                _(
+                    "Attendance sheet can only be validated once the shifts have started."
+                )
             )
 
         # Fields validation

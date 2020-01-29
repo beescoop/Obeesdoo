@@ -1696,12 +1696,12 @@ msgid "Replaced id"
 msgstr "Replaced id"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_expected_replacement_worker_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_expected_replaced_id
 msgid "Replacement Worker"
 msgstr "Vervangingswerker"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_sheet_expected_replacement_worker_id
+#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_sheet_expected_replaced_id
 msgid "Replacement Worker (must be regular)"
 msgstr "Vervangingswerker (regelmatig werkregime vereist)"
 

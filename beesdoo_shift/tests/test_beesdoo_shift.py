@@ -228,15 +228,14 @@ class TestBeesdooShift(TransactionCase):
         for shift in sheet_1.expected_shift_ids:
             self.assertEquals(shift.worker_id, shift.task_id.worker_id)
             self.assertEquals(
-                shift.replacement_worker_id, shift.task_id.replaced_id
+                shift.replaced_id, shift.task_id.replaced_id
             )
             self.assertEquals(shift.task_type_id, shift.task_id.task_type_id)
             self.assertEquals(shift.super_coop_id, shift.task_id.super_coop_id)
             self.assertEquals(shift.working_mode, shift.task_id.working_mode)
 
             # Status should be "absent" for all shifts
-            self.assertEquals(shift.state, "absent")
-            self.assertEquals(shift.compensation_no, "2")
+            self.assertEquals(shift.state, "absent_2")
 
         # Empty shift should be considered in max worker number calculation
         self.assertEquals(sheet_1.max_worker_no, 4)
@@ -333,8 +332,7 @@ class TestBeesdooShift(TransactionCase):
 
         # Expected shifts edition
         sheet_1.expected_shift_ids[1].state = "done"
-        sheet_1.expected_shift_ids[1].compensation_no = False
-        sheet_1.expected_shift_ids[2].compensation_no = "1"
+        sheet_1.expected_shift_ids[2].state = "absent_1"
 
         # Added shits addition
         sheet_1.added_shift_ids |= sheet_1.added_shift_ids.new(
@@ -411,7 +409,7 @@ class TestBeesdooShift(TransactionCase):
         )
 
         # sheet_1.expected_shift_ids[0].worker_id
-        # sheet_1.expected_shift_ids[2].replacement_worker_id
+        # sheet_1.expected_shift_ids[2].replaced_id
 
     def test_shift_counters(self):
         "Test shift counters calculation and cooperative status update"
