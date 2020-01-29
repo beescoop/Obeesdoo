@@ -33,7 +33,8 @@ class ValidateAttendanceSheet(models.TransientModel):
         but should be doing their regular shifts. This warning is added
         to sheet's notes at validation.
         """
-        sheet = self.active_sheet
+        sheet = self._get_active_sheet()
+
         warning_message = ""
         if sheet:
             for added_shift in sheet.added_shift_ids:
@@ -64,8 +65,8 @@ class ValidateAttendanceSheet(models.TransientModel):
         default=_get_warning_regular_workers,
         help="Is any regular worker doing its regular shift as an added one ?",
     )
-    notes = fields.Text(related="active_sheet.notes", readonly=False)
-    feedback = fields.Text(related="active_sheet.feedback", readonly=False)
+    notes = fields.Text(related="active_sheet.notes", default="", readonly=False)
+    feedback = fields.Text(related="active_sheet.feedback", default="", readonly=False)
     worker_nb_feedback = fields.Selection(
         related="active_sheet.worker_nb_feedback", readonly=False, required=True
     )
@@ -83,7 +84,6 @@ class ValidateAttendanceSheet(models.TransientModel):
     @api.multi
     def validate_sheet(self):
         sheet = self.active_sheet
-
         if self.card_support:
             # Login with barcode
             card = self.env["member.card"].search(
@@ -111,6 +111,10 @@ class ValidateAttendanceSheet(models.TransientModel):
                 )
             )
 
-        self.notes += self.warning_regular_workers
+        if self.notes and self.warning_regular_workers:
+            self.notes += self.warning_regular_workers
+        elif self.warning_regular_workers:
+            self.notes = self.warning_regular_workers
+
         self.save()
         sheet._validate(partner or self.env.user.partner_id)
