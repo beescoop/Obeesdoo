@@ -138,9 +138,9 @@ class CooperativeStatus(models.Model):
                 counter = rec.sr
                 # Simulate the countdown
                 while counter > 0:
-                    date = add_days_delta(date, 1)
-                    date = self._next_countdown_date(rec.irregular_start_date,
-                                                     date)
+                    date = self._next_countdown_date(
+                        rec.irregular_start_date, date
+                    )
                     # Check holidays
                     if (rec.holiday_start_time and rec.holiday_end_time
                             and date >= rec.holiday_start_time
@@ -154,6 +154,7 @@ class CooperativeStatus(models.Model):
                         continue
                     else:
                         counter -= 1
+                    date = add_days_delta(date, 1)
                 rec.future_alert_date = self._next_countdown_date(
                     rec.irregular_start_date, date
                 )
