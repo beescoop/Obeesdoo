@@ -7,25 +7,21 @@
 
     <record id="beesdoo_shift_task_type_1_demo" model="beesdoo.shift.type">
         <field name="name">Inventaire</field>
-        <field name="color">1</field>
         <field name="description">Inventaire frais et vrac.</field>
     </record>
 
     <record id="beesdoo_shift_task_type_2_demo" model="beesdoo.shift.type">
         <field name="name">Bureau des Membres</field>
-        <field name="color">2</field>
         <field name="description">Gestion admin (encodage liste présences, etc.)</field>
     </record>
 
     <record id="beesdoo_shift_task_type_3_demo" model="beesdoo.shift.type">
         <field name="name">Magasin</field>
-        <field name="color">3</field>
         <field name="description">Gestion du magasin.</field>
     </record>
 
     <record id="beesdoo_shift_task_type_4_demo" model="beesdoo.shift.type">
         <field name="name">Découpe fromage</field>
-        <field name="color">4</field>
         <field name="description">Caisse, remplissage des rayons, accueil.</field>
     </record>
 
