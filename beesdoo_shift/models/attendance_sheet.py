@@ -539,6 +539,14 @@ class AttendanceSheet(models.Model):
                     _("Working mode is missing for %s")
                     % added_shift.worker_id.name
                 )
+            if added_shift.working_mode not in ["regular", "irregular"]:
+                raise UserError(
+                    _("Warning : Working mode for %s is %s")
+                    % (
+                        added_shift.worker_id.name,
+                        added_shift.worker_id.working_mode,
+                    )
+                )
 
         for expected_shift in self.expected_shift_ids:
             if not expected_shift.state:
