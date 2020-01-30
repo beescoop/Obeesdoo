@@ -191,6 +191,7 @@ class AttendanceSheet(models.Model):
             ("not_enough", "Not enough workers"),
             ("enough", "Enough workers"),
             ("too_many", "Too many workers"),
+            ("empty", "I was not there during the shift"),
         ],
         string="Was your team big enough ?",
     )
