@@ -306,6 +306,12 @@ class AttendanceSheet(models.Model):
             )
 
     def on_barcode_scanned(self, barcode):
+        if self.env.user.has_group("beesdoo_shift.group_shift_attendance"):
+            raise UserError(
+                _("You must be logged as 'Attendance Sheet Generic Access' "
+                " if you want to scan cards.")
+            )
+
         if self.state == "validated":
             raise UserError(
                 _("A validated attendance sheet can't be modified")
@@ -564,7 +570,7 @@ class AttendanceSheet(models.Model):
                 )
 
         # Open a validation wizard only if not admin
-        if self.env.user.has_group("beesdoo_shift.group_cooperative_admin"):
+        if self.env.user.has_group("beesdoo_shift.group_shift_attendance_sheet_validation"):
             if not self.worker_nb_feedback:
                 raise UserError(
                     _("Please give your feedback about the number of workers.")

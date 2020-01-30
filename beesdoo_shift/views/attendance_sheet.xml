@@ -147,11 +147,11 @@
                         <button name="button_mark_as_read" type="object"
                                 class="oe_stat_button" icon="fa-check"
                                 string="Mark as read"
-                                groups="beesdoo_shift.group_cooperative_admin"
+                                groups="beesdoo_shift.group_shift_attendance"
                                 />
                         <button name="toggle_active"
                                 type="object"
-                                groups="beesdoo_shift.group_cooperative_admin"
+                                groups="beesdoo_shift.group_shift_attendance"
                                 class="oe_stat_button"
                                 icon="fa-archive">
                             <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
@@ -172,8 +172,8 @@
                         <separator string="Expected workers" />
                         <field name="expected_shift_ids" />
                         <br/>
-                        <group string="Feedback"
-                               groups="beesdoo_shift.group_cooperative_admin">
+                        <group col="1" string="Feedback"
+                               groups="beesdoo_shift.group_shift_attendance">
                             <field name="notes" />
                             <field name="feedback" />
                             <field name="worker_nb_feedback" />
@@ -183,7 +183,7 @@
                 <div class="oe_chatter">
                     <field name="message_ids"
                            widget="mail_thread"
-                           groups="beesdoo_shift.group_cooperative_admin"
+                           groups="beesdoo_shift.group_shift_attendance"
                     />
                 </div>
             </form>
@@ -238,18 +238,18 @@
               name="Non-validated sheets"
               parent="menu_sheet_top"
               action="action_sheet_admin_non_validated"
-              groups="beesdoo_shift.group_cooperative_admin"
+              groups="beesdoo_shift.group_shift_attendance"
     />
     <menuitem id="menu_sheet_admin_annotated"
               name="Unread notes"
               parent="menu_sheet_top"
               action="action_sheet_admin_annotated"
-              groups="beesdoo_shift.group_cooperative_admin"
+              groups="beesdoo_shift.group_shift_attendance"
     />
     <menuitem id="menu_sheet_admin_list"
               name="All sheets"
               parent="menu_sheet_top"
               action="action_sheet_admin_list"
-              groups="beesdoo_shift.group_cooperative_admin"
+              groups="beesdoo_shift.group_shift_attendance"
     />
 </odoo>

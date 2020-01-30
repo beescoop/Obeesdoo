@@ -257,6 +257,7 @@ class TestBeesdooShift(TransactionCase):
             self.user_generic
         )._generate_attendance_sheet()
         sheet_1 = self.search_sheets(self.start_in_1, self.end_in_1,)
+        sheet_1 = sheet_1.sudo(self.user_generic)
 
         """
         Expected workers are :
@@ -354,14 +355,6 @@ class TestBeesdooShift(TransactionCase):
             }
         )
 
-        # Wait necessary time for shifts to begin
-        waiting_time = (self.start_in_1 - datetime.now()).total_seconds()
-        if waiting_time > 0:
-            with self.assertRaises(UserError) as e:
-                sheet_1.validate_with_checks()
-                self.assertIn("wait", str(e.exception))
-            time.sleep(waiting_time)
-
         # TODO: test validation with wizard (as generic user)
         # class odoo.tests.common.Form(recordp, view=None)
         # is only available from version 12
@@ -370,6 +363,15 @@ class TestBeesdooShift(TransactionCase):
 
         # Validation without wizard (as admin user)
         sheet_1 = sheet_1.sudo(self.user_admin)
+
+        # Wait necessary time for shifts to begin
+        waiting_time = (self.start_in_1 - datetime.now()).total_seconds()
+        if waiting_time > 0:
+            with self.assertRaises(UserError) as e:
+                sheet_1.validate_with_checks()
+                self.assertIn("wait", str(e.exception))
+            time.sleep(waiting_time)
+
         sheet_1.worker_nb_feedback = "enough"
         sheet_1.feedback = "Great session."
         sheet_1.notes = "Important information."

@@ -8,7 +8,7 @@ from odoo.exceptions import UserError, ValidationError
 class ValidateAttendanceSheet(models.TransientModel):
     _name = "beesdoo.shift.sheet.validate"
     _description = """Check the user name and validate sheet.
-    Useless for users in group_cooperative_admin"""
+    Useless for users in group_shift_attendance"""
     _inherit = ["barcodes.barcode_events_mixin"]
 
     @api.multi
@@ -100,11 +100,11 @@ class ValidateAttendanceSheet(models.TransientModel):
             user.sudo(user.id)._check_credentials(self.password)
             partner = user.partner_id
 
-        is_admin = partner.user_ids.has_group(
-            "beesdoo_shift.group_cooperative_admin"
+        can_validate = partner.user_ids.has_group(
+            "beesdoo_shift.group_shift_attendance_sheet_validation"
         )
 
-        if not partner.super and not is_admin:
+        if not partner.super and not can_validate:
             raise UserError(
                 _(
                     "Only super-cooperators and administrators can validate attendance sheets."
