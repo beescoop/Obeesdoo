@@ -33,18 +33,15 @@
         <field name="name">Expected Shifts List</field>
         <field name="model">beesdoo.shift.sheet.expected</field>
         <field name="arch" type="xml">
-            <tree editable="bottom" create="false" delete="false" open="false"
+            <tree create="false" delete="false" open="false"
                   decoration-danger="state in ['absent_0', 'absent_1', 'absent_2'] "
                   decoration-success="state == 'done'">
                 <field name="task_type_id" readonly="True" options="{'no_open': True}"/>
                 <field name="super_coop_id" readonly="True" options="{'no_open': True}"/>
                 <field name="worker_id" readonly="True" options="{'no_open': True}"/>
                 <field name="working_mode" />
-                <field name="replaced_id"
-                       attrs="{'readonly':
-                             [('working_mode','=','irregular')]}"
-                       options="{'no_create': True, 'no_create_edit':True}"/>
-                <field name="state" options="{'no_open': True}" />
+                <field name="replaced_id" readonly="True"/>
+                <field name="state" readonly="True" />
             </tree>
         </field>
     </record>
@@ -54,17 +51,14 @@
         <field name="name">Added Shifts List</field>
         <field name="model">beesdoo.shift.sheet.added</field>
         <field name="arch" type="xml">
-            <tree editable="bottom"
-                  decoration-success="state == 'done'">
+            <tree decoration-success="state == 'done'">
                 <field name="task_type_id"
                        options="{'no_open': True, 'no_create': True, 'no_create_edit':True }" />
                 <field name="worker_id"
                        domain="[('state','in',['alert', 'ok'])]"
                        options="{'no_open': True, 'no_create': True, 'no_create_edit':True }" />
                 <field name="working_mode" />
-                <field name="is_compensation"
-                       attrs="{'invisible':
-                             [('working_mode','=','irregular')]}"/>
+                <field name="is_compensation" readonly="True"/>
                 <field name="state" readonly="True" />
             </tree>
         </field>
@@ -76,12 +70,15 @@
         <field name="model">beesdoo.shift.sheet.expected</field>
         <field name="arch" type="xml">
             <form readonly="True">
-                <group string="Expected Shift" >
-                    <field name="task_type_id" options="{'no_open': True}" />
-                    <field name="worker_id" options="{'no_open': True}" />
-                    <field name="working_mode" options="{'no_open': True}" />
-                    <field name="replaced_id" options="{'no_open': True}" />
-                    <field name="state" options="{'no_open': True}" />
+                <group string="Expected Shift">
+                    <field name="task_type_id" readonly="True" options="{'no_open': True}"/>
+                    <field name="worker_id" readonly="True" options="{'no_open': True}"/>
+                    <field name="working_mode" />
+                    <field name="replaced_id"
+                           attrs="{'invisible':
+                                 [('working_mode','=','irregular')]}"
+                           options="{'no_create': True, 'no_create_edit':True}"/>
+                    <field name="state" />
                 </group>
             </form>
         </field>
@@ -94,11 +91,16 @@
         <field name="arch" type="xml">
             <form readonly="True" >
                 <group>
-                    <field name="task_type_id" options="{'no_open': True}" />
-                    <field name="worker_id" options="{'no_open': True}" />
-                    <field name="working_mode" options="{'no_open': True}" />
-                    <field name="is_compensation" options="{'no_open': True}" />
-                    <field name="state" options="{'no_open': True}" />
+                    <field name="task_type_id"
+                           options="{'no_open': True, 'no_create': True, 'no_create_edit':True }" />
+                    <field name="worker_id"
+                           domain="[('state','in',['alert', 'ok'])]"
+                           options="{'no_open': True, 'no_create': True, 'no_create_edit':True }" />
+                    <field name="working_mode" />
+                    <field name="is_compensation"
+                           attrs="{'invisible':
+                                 [('working_mode','=','irregular')]}"/>
+                    <field name="state" readonly="True" />
                 </group>
             </form>
         </field>
