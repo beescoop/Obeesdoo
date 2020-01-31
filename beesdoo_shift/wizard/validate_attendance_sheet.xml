@@ -5,15 +5,11 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
+                    <separator string="Validation" style="position:absolute; top:0px;"/>
                     <field name="card_support" invisible="1" />
                     <field name="active_sheet" invisible="1" />
                     <field name="_barcode_scanned" widget="barcode_handler"/>
-                    <separator string="Validation"/>
-                    <field name="warning_regular_workers"
-                           readonly="1"
-                           attrs="{'invisible': [('warning_regular_workers', '=', False)]}"
-                    />
-                    <group col="1" string="Additional informations" >
+                    <group col="1">
                         <field name="notes" />
                         <field name="feedback" />
                     </group>
@@ -31,6 +27,10 @@
                     >
                         <field name="barcode" />
                     </group>
+                    <field name="warning_regular_workers"
+                           readonly="1"
+                           attrs="{'invisible': [('warning_regular_workers', '=', False)]}"
+                    />
                 </sheet>
                 <footer>
                     <button type="object"

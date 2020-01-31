@@ -129,7 +129,7 @@
             <form create="false" delete="false">
                 <field name="_barcode_scanned" widget="barcode_handler"/>
                 <header>
-                    <div>
+                    <div class="oe_bold">
                         <field name="state" widget="statusbar" readonly="True" class="oe_inline"/>
                         <button type="object"
                                 name="validate_with_checks"
@@ -143,7 +143,7 @@
                     </div>
                     <div class="oe_clear" />
                 </header>
-                <sheet>
+                <sheet >
                     <div class="oe_button_box" name="button_box">
                         <button name="button_mark_as_read" type="object"
                                 class="oe_stat_button" icon="fa-check"
@@ -158,22 +158,10 @@
                             <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
                         </button>
                     </div>
-                    <div class="oe_title">
-                        <h1>
-                            <field name="time_slot" />
-                        </h1>
-                    </div>
-                        <group>
-                            <field name="max_worker_no" />
-                        </group>
-                        <label string="You will be able to write notes
-                            about what you cannot encode here
-                            when clicking on 'validate'."
-                        />
-                        <separator string="Added workers" />
-                        <field name="added_shift_ids"/>
-                        <separator string="Expected workers" />
+                        <separator string="Expected Shifts" style="position:relative;padding:0px;margin:0px;" />
                         <field name="expected_shift_ids" />
+                        <separator string="Added Shifts" style="position:relative;padding:0px;margin-top:15px;margin-bottom:0px;" />
+                        <field name="added_shift_ids" />
                         <br/>
                         <group col="1" string="Feedback"
                                groups="beesdoo_shift.group_shift_attendance">
