@@ -411,9 +411,13 @@ class AttendanceSheet(models.Model):
                 ("end_time", "<", new_sheet.end_time + delta),
             ]
         )
+
+        workers = []
+
         for task in tasks:
-            if task.worker_id and (task.state != "cancel"):
-                new_expected_shift = expected_shift.create(
+            # Only one shift is added if multiple similar exist 
+            if task.worker_id and task.worker_id not in workers and (task.state != "cancel") :
+                expected_shift.create(
                     {
                         "attendance_sheet_id": new_sheet.id,
                         "task_id": task.id,
@@ -425,6 +429,7 @@ class AttendanceSheet(models.Model):
                         "is_compensation": task.is_compensation,
                     }
                 )
+                workers.append(task.worker_id)
         # Maximum number of workers calculation (count empty shifts)
         new_sheet.max_worker_no = len(tasks)
         return new_sheet
