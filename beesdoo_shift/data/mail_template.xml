@@ -37,9 +37,13 @@
                   % endif
 
                   % if object.worker_id.working_mode == 'irregular':
-                        Your shift counter is at ${object.worker_id.cooperative_status_ids.sr} and should
-                        be superior or equal to 1 before the
-                         ${object.worker_id.cooperative_status_ids.future_alert_date}.<br>
+                        Your shift counter is at ${object.worker_id.cooperative_status_ids.sr}.
+
+                        % if object.worker_id.cooperative_status_ids.future_alert_date:
+                            It should be superior or equal to 1 before the
+                            ${object.worker_id.cooperative_status_ids.future_alert_date}.
+                        % endif
+                        <br>
                   % endif
 
                   % if object.replaced_id:
