@@ -167,6 +167,11 @@ class AttendanceSheet(models.Model):
         readonly=True,
         help="Indicative maximum number of workers.",
     )
+    attended_worker_no = fields.Integer(
+        string="Number of workers present",
+        default=0,
+        readonly=True,
+    )
     notes = fields.Text(
         "Notes",
         default="",
@@ -472,6 +477,9 @@ class AttendanceSheet(models.Model):
             actual_shift.replaced_id = expected_shift.replaced_id
             actual_shift.state = expected_shift.state
 
+            if expected_shift.state == "done":
+                self.attended_worker_no += 1
+
             if expected_shift.state != "done":
                 mail_template = self.env.ref(
                     "beesdoo_shift.email_template_non_attendance", False
@@ -524,6 +532,9 @@ class AttendanceSheet(models.Model):
                 }
             )
             added_shift.task_id = actual_shift.id
+
+            if actual_shift.state == "done":
+                self.attended_worker_no += 1
 
         self.validated_by = user
         self.state = "validated"

@@ -119,6 +119,7 @@
                 <field name="max_worker_no" type="char"/>
                 <field name="state" />
                 <field name="validated_by" />
+                <field name="attended_worker_no" type="char"/>
                 <field name="is_annotated" />
             </tree>
         </field>
@@ -164,9 +165,12 @@
                         <field name="expected_shift_ids" />
                         <separator string="Added Shifts" style="position:relative;padding:0px;margin-top:15px;margin-bottom:0px;" />
                         <field name="added_shift_ids" />
-                        <br/>
+                        <group>
+                            <field name="max_worker_no" />
+                        </group>
                         <group col="1" string="Feedback"
                                groups="beesdoo_shift.group_shift_attendance">
+                            <field name="attended_worker_no" />
                             <field name="notes" />
                             <br/>
                             <field name="feedback" />
