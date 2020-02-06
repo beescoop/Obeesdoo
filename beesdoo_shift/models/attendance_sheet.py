@@ -197,7 +197,7 @@ class AttendanceSheet(models.Model):
             ("too_many", "Too many workers"),
             ("empty", "I was not there during the shift"),
         ],
-        string="Was your team big enough ?",
+        string="Was your team big enough ? *",
     )
     validated_by = fields.Many2one(
         "res.partner",
