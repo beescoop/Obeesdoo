@@ -168,7 +168,14 @@ class TaskTemplate(models.Model):
                          status.temporary_exempt_start_date <= rec.start_date.date() and status.temporary_exempt_end_date >= rec.end_date.date():
                         worker_id = False
                 tasks |= tasks.create({
-                    'name' :  "%s %s (%s - %s) [%s]" % (rec.name, rec.day_nb_id.name, float_to_time(rec.start_time), float_to_time(rec.end_time), i),
+                    'name' :  "[%s] %s %s (%s - %s) [%s]" % (
+                        rec.start_date.date(),
+                        rec.planning_id.name,
+                        rec.day_nb_id.name,
+                        float_to_time(rec.start_time),
+                        float_to_time(rec.end_time),
+                        i,
+                    ),
                     'task_template_id' : rec.id,
                     'task_type_id' : rec.task_type_id.id,
                     'super_coop_id': rec.super_coop_id.id,
