@@ -69,7 +69,7 @@ class ValidateAttendanceSheet(models.TransientModel):
     notes = fields.Text(related="active_sheet.notes", default="")
     feedback = fields.Text(related="active_sheet.feedback", default="")
     worker_nb_feedback = fields.Selection(
-        related="active_sheet.worker_nb_feedback", required=True
+        related="active_sheet.worker_nb_feedback"
     )
 
     def on_barcode_scanned(self, barcode):
@@ -85,6 +85,10 @@ class ValidateAttendanceSheet(models.TransientModel):
     @api.multi
     def validate_sheet(self):
         sheet = self.active_sheet
+
+        if not self.worker_nb_feedback:
+            raise UserError(_("Please give your feedback on the number of workers."))
+
         if self.card_support:
             # Login with barcode
             card = self.env["member.card"].search(
