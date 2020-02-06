@@ -17,12 +17,11 @@ class AttendanceSheetShift(models.AbstractModel):
     def default_task_type_id(self):
         parameters = self.env["ir.config_parameter"]
         id = int(
-            parameters.get_param(
-                "beesdoo_shift.default_task_type_id", default=1
-            )
+            parameters.get_param("beesdoo_shift.default_task_type_id", default=False)
         )
         task_types = self.env["beesdoo.shift.type"]
-        return task_types.browse(id)
+        if id:
+            return task_types.browse(id)
 
     # Related actual shift
     task_id = fields.Many2one("beesdoo.shift.shift", string="Task")
