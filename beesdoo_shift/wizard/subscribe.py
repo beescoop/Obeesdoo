@@ -74,11 +74,11 @@ class Subscribe(models.TransientModel):
     nb_shifts = fields.Integer(string='Number of shifts', default=_get_nb_shifts)
     reset_counter = fields.Boolean(default=_get_reset_counter_default)
     reset_compensation_counter = fields.Boolean(default=False)
-    unsubscribed = fields.Boolean(default=False, string="Are you sure to unsubscribe this cooperator")
+    unsubscribed = fields.Boolean(default=False, string="Are you sure to remove this cooperator from his subscribed shift ?")
     irregular_start_date = fields.Date(string="Start Date", default=fields.Date.today)
     resigning = fields.Boolean(default=False, help="Want to leave the beescoop")
 
-    
+
 
     @api.multi
     def unsubscribe(self):
@@ -108,7 +108,7 @@ class Subscribe(models.TransientModel):
         if self.working_mode != 'regular':
             #Remove existing shift then subscribe to the new shift
             self.cooperator_id.sudo().write({'subscribed_shift_ids': [(5,)]})
-            
+
 
         data = {
             'info_session': self.info_session,
