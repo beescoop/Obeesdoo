@@ -35,7 +35,7 @@
                 <footer>
                     <button type="object"
                         name="validate_sheet"
-                        string="Comment and validate"
+                        string="Validate"
                         class="oe_highlight"
                     />
                     <button type="object" name="save"

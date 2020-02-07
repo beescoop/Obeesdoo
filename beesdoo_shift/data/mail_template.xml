@@ -30,6 +30,7 @@
                     % endif
 
                       % if object.replaced_id:
+                            You were supposed to replace ${object.worker_id.name}.
                             You have to do ${(object.replaced_id.cooperative_status_ids.sr + object.replaced_id.cooperative_status_ids.sc) * -1 } shifts before your next regular shift.<br>
                       % else:
                             You have to do ${(object.worker_id.cooperative_status_ids.sr + object.worker_id.cooperative_status_ids.sc) * -1 } shifts before your next regular shift.<br>
@@ -47,8 +48,7 @@
                   % endif
 
                   % if object.replaced_id:
-                    You were supposed to replace ${object.worker_id.name} and your
-                     current status is "${object.replaced_id.cooperative_status_ids.get_status_value()}".
+                     Your current status is "${object.replaced_id.cooperative_status_ids.get_status_value()}".
                   % else:
                     <br><br>Your current status is "${object.worker_id.cooperative_status_ids.get_status_value()}".
                   % endif

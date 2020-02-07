@@ -147,7 +147,7 @@
                         <field name="state" widget="statusbar" readonly="True" class="oe_inline"/>
                         <button type="object"
                                 name="validate_with_checks"
-                                string="Validate Sheet"
+                                string="Comment and validate"
                                 confirm="Beware : a validated sheet cannot be edited anymore
                                 and you won't be able to add any latecomers.
                                 The counters of those who didn't attend will be updated

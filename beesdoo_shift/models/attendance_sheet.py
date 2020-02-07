@@ -370,7 +370,7 @@ class AttendanceSheet(models.Model):
             )
         if worker.working_mode not in ("regular", "irregular"):
             raise UserError(
-                _("%s is %s and should be regular or irregular.")
+                _("%s's working mode is %s and should be regular or irregular.")
                 % (worker.name, worker.working_mode)
             )
 
@@ -384,7 +384,7 @@ class AttendanceSheet(models.Model):
                 return
             if shift.worker_id == worker and shift.replaced_id:
                 raise UserError(
-                    _("%s was expected as replaced.") % worker.name
+                    _("%s is registered as replaced.") % worker.name
                 )
 
         is_compensation = worker.working_mode == "regular"
@@ -430,7 +430,7 @@ class AttendanceSheet(models.Model):
         workers = []
 
         for task in tasks:
-            # Only one shift is added if multiple similar exist 
+            # Only one shift is added if multiple similar exist
             if task.worker_id and task.worker_id not in workers and (task.state != "cancel") :
                 expected_shift.create(
                     {
