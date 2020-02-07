@@ -154,6 +154,7 @@
                             and you won't be able to add any latecomers.
                             The counters of those who didn't attend will be updated
                             and they will get warning emails."
+                            attrs="{'invisible': [('state', '=', 'validated')]}"
                     />
                 </header>
                 <sheet >

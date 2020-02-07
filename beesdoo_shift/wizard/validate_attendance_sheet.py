@@ -56,7 +56,9 @@ class ValidateAttendanceSheet(models.TransientModel):
     active_sheet = fields.Many2one(
         "beesdoo.shift.sheet", default=_get_active_sheet
     )
-    card_support = fields.Boolean(default=_get_card_support_setting)
+    card_support = fields.Boolean(
+        default=_get_card_support_setting, string="Card validation"
+    )
     login = fields.Char(string="Login")
     password = fields.Char(string="Password")
     barcode = fields.Char(string="Barcode")
@@ -65,8 +67,18 @@ class ValidateAttendanceSheet(models.TransientModel):
         default=_get_warning_regular_workers,
         help="Is any regular worker doing its regular shift as an added one ?",
     )
-    notes = fields.Text(related="active_sheet.notes", default="", readonly=False)
-    feedback = fields.Text(related="active_sheet.feedback", default="", readonly=False)
+    notes = fields.Text(
+        related="active_sheet.notes",
+        string="Notes about the attendance for the Members Office",
+        default="",
+        readonly=False,
+    )
+    feedback = fields.Text(
+        related="active_sheet.feedback",
+        string="Comments about the shift",
+        default="",
+        readonly=False,
+    )
     worker_nb_feedback = fields.Selection(
         related="active_sheet.worker_nb_feedback", readonly=False
     )
@@ -86,7 +98,9 @@ class ValidateAttendanceSheet(models.TransientModel):
         sheet = self.active_sheet
 
         if not self.worker_nb_feedback:
-            raise UserError(_("Please give your feedback on the number of workers."))
+            raise UserError(
+                _("Please give your feedback on the number of workers.")
+            )
 
         if self.card_support:
             # Login with barcode
