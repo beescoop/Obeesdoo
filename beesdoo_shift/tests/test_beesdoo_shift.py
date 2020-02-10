@@ -33,7 +33,7 @@ class TestBeesdooShift(TransactionCase):
             "beesdoo_base.beesdoo_shift_user_2_demo"
         )
 
-        self.setting_wizard = self.env["beesdoo.shift.config.settings"].sudo(
+        self.setting_wizard = self.env["res.config.settings"].sudo(
             self.user_admin
         )
 
@@ -159,25 +159,6 @@ class TestBeesdooShift(TransactionCase):
                 [("start_time", "=", start_time), ("end_time", "=", end_time)]
             )
 
-    def test_default_task_type_setting(self):
-        "Test default task type setting"
-
-        for task_type in (self.task_type_1, self.task_type_2):
-            # Setting default value
-            setting_wizard_1 = self.setting_wizard.create(
-                {"task_type_default_id": task_type.id}
-            )
-            setting_wizard_1.execute()
-            param_id = self.env["ir.config_parameter"].sudo().get_param(
-                "beesdoo_shift.task_type_default_id"
-            )
-            self.assertEqual(int(param_id), task_type.id)
-            # Check propagation on attendance sheet shifts
-            self.assertEqual(
-                self.attendance_sheet_shift_model.task_type_default_id(),
-                task_type,
-            )
-
     def test_attendance_sheet_creation(self):
         "Test creation of an attendance sheet with all its expected shifts"
 
@@ -239,7 +220,7 @@ class TestBeesdooShift(TransactionCase):
 
         # Test default values creation
         self.assertTrue(sheet_1.time_slot)
-        self.assertEqual(sheet_1.day, fields.Date.to_string(self.start_in_1))
+        self.assertEqual(sheet_1.day, self.start_in_1.date())
         self.assertEqual(sheet_1.day_abbrevation, "Lundi")
         self.assertEqual(sheet_1.week, "Semaine A")
         self.assertTrue(sheet_1.name)
