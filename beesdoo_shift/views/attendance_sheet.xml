@@ -36,7 +36,7 @@
         <field name="name">Expected Shifts List</field>
         <field name="model">beesdoo.shift.sheet.expected</field>
         <field name="arch" type="xml">
-            <tree create="false" delete="false" open="false"
+            <tree create="false"
                   decoration-danger="state in ['absent_0', 'absent_1', 'absent_2'] "
                   decoration-success="state == 'done'">
                 <field name="task_type_id" readonly="True" options="{'no_open': True}"/>
@@ -134,19 +134,15 @@
             <form create="false" delete="false">
                 <field name="_barcode_scanned" widget="barcode_handler"/>
                 <header>
-                    <div class="oe_bold">
-                        <field name="state" widget="statusbar" readonly="True" class="oe_inline"/>
-                        <button type="object"
-                                name="validate_with_checks"
-                                string="Validate Sheet"
-                                confirm="Beware : a validated sheet cannot be edited anymore
-                                and you won't be able to add any latecomers.
-                                The counters of those who didn't attend will be updated
-                                and they will get warning emails."
-                                attrs="{'invisible': [('state', '=', 'validated')]}"
-                        />
-                    </div>
-                    <div class="oe_clear" />
+                    <field name="state" widget="statusbar" readonly="True"/>
+                    <button type="object"
+                            name="validate_with_checks"
+                            string="Validate Sheet"
+                            confirm="Beware : a validated sheet cannot be edited anymore
+                            and you won't be able to add any latecomers.
+                            The counters of those who didn't attend will be updated
+                            and they will get warning emails."
+                    />
                 </header>
                 <sheet >
                     <div class="oe_button_box" name="button_box">
@@ -168,7 +164,7 @@
                         <separator string="Added Shifts" style="position:relative;padding:0px;margin-top:15px;margin-bottom:0px;" />
                         <field name="added_shift_ids" />
                         <br/>
-                        <group col="1" string="Feedback"
+                        <group col="3" string="Feedback"
                                groups="beesdoo_shift.group_shift_attendance">
                             <field name="notes" />
                             <field name="feedback" />
