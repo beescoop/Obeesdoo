@@ -1,5 +1,5 @@
 import json
-from datetime import datetime, timedelta
+from datetime import datetime, time, timedelta
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
@@ -132,17 +132,17 @@ class Task(models.Model):
         If *now* is given workers are unsubscribed from all shifts starting *now* and later.
         If *now* is given, *end_date* is not taken into account.
 
-        :type today: fields.Date
-        :type end_date: fields.Date
-        :type now: fields.Datetime
+        :type today: date
+        :type end_date: date
+        :type now: datetime
         """
         if now:
-            if len(now) != 19:
+            if not isinstance(now, datetime):
                 raise UserError (_("'Now' must be a datetime."))
             date_domain = [('start_time', '>', now)]
         else:
             today = today or fields.Date.today()
-            today += ' 00:00:00'
+            today = datetime.combine(today, time())
             date_domain = [('start_time', '>', today)]
             if end_date:
                 end_date = datetime.combine(end_date,time(hour=23, minute=59, second=59))
