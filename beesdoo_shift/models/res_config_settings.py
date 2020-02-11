@@ -13,7 +13,7 @@ class ResConfigSettings(models.TransientModel):
         string="Scan cooperators cards instead of login for sheets validation",
         config_parameter="beesdoo_shift.card_support",
     )
-    task_type_default_id = fields.Many2one(
+    pre_filled_task_type_id = fields.Many2one(
         "beesdoo.shift.type",
         string="Default Task Type",
         help="Default task type for attendance sheet pre-filling",
@@ -35,8 +35,8 @@ class ResConfigSettings(models.TransientModel):
             "beesdoo_shift.card_support", str(self.card_support),
         )
         parameters.set_param(
-            "beesdoo_shift.task_type_default_id",
-            str(self.task_type_default_id.id),
+            "beesdoo_shift.pre_filled_task_type_id",
+            str(self.pre_filled_task_type_id.id),
         )
         parameters.set_param(
             "beesdoo_shift.attendance_sheet_generation_interval",
@@ -52,9 +52,9 @@ class ResConfigSettings(models.TransientModel):
                     "beesdoo_shift.card_support"
                 ),
             ),
-            task_type_default_id=int(
+            pre_filled_task_type_id=int(
                 self.env["ir.config_parameter"].get_param(
-                    "beesdoo_shift.task_type_default_id"
+                    "beesdoo_shift.pre_filled_task_type_id"
                 )
             ),
         )
