@@ -838,12 +838,12 @@ msgid "Day ids"
 msgstr "Day ids"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_config_settings_task_type_default_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_config_settings_pre_filled_task_type_id
 msgid "Default Task Type"
 msgstr "Standaard Soort taak"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_config_settings_task_type_default_id
+#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_config_settings_pre_filled_task_type_id
 msgid "Default task type for attendance sheet pre-filling"
 msgstr "Standaard soort taak toe te kennen bij voor-invullen van aanwezigheidslijst"
 

@@ -20,8 +20,8 @@ class TestBeesdooShift(TransactionCase):
         ]
         self.shift_expected_model = self.env["beesdoo.shift.sheet.expected"]
         self.shift_added_model = self.env["beesdoo.shift.sheet.added"]
-        self.task_type_default_id = self.env["ir.config_parameter"].sudo().get_param(
-            "beesdoo_shift.task_type_default_id"
+        self.pre_filled_task_type_id = self.env["ir.config_parameter"].sudo().get_param(
+            "beesdoo_shift.pre_filled_task_type_id"
         )
 
         self.current_time = datetime.now()
@@ -165,7 +165,7 @@ class TestBeesdooShift(TransactionCase):
         # Set generation interval setting
         setting_wizard_1 = self.setting_wizard.create(
             {
-                "task_type_default_id": self.task_type_1.id,
+                "pre_filled_task_type_id": self.task_type_1.id,
                 "attendance_sheet_generation_interval": 15,
             }
         )
@@ -281,7 +281,7 @@ class TestBeesdooShift(TransactionCase):
             self.assertEqual(shift.state, "done")
             self.assertEqual(
                 shift.task_type_id,
-                self.attendance_sheet_shift_model.task_type_default_id(),
+                self.attendance_sheet_shift_model.pre_filled_task_type_id(),
             )
             if shift.working_mode == "regular":
                 self.assertTrue(shift.is_compensation)

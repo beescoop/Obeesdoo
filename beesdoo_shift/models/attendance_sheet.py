@@ -13,11 +13,11 @@ class AttendanceSheetShift(models.AbstractModel):
     _order = "task_type_id, worker_name"
 
     @api.model
-    def task_type_default_id(self):
+    def pre_filled_task_type_id(self):
         parameters = self.env["ir.config_parameter"].sudo()
         id = int(
             parameters.get_param(
-                "beesdoo_shift.default_task_type_id", default=1
+                "beesdoo_shift.pre_filled_task_type_id", default=1
             )
         )
         task_types = self.env["beesdoo.shift.type"]
@@ -53,7 +53,7 @@ class AttendanceSheetShift(models.AbstractModel):
     )
     worker_name = fields.Char(related="worker_id.name", store=True)
     task_type_id = fields.Many2one(
-        "beesdoo.shift.type", string="Task Type", default=task_type_default_id
+        "beesdoo.shift.type", string="Task Type", default=pre_filled_task_type_id
     )
     working_mode = fields.Selection(
         related="worker_id.working_mode", string="Working Mode"
@@ -383,7 +383,7 @@ class AttendanceSheet(models.Model):
             # Added shift creation
             self.added_shift_ids |= self.added_shift_ids.new(
                 {
-                    "task_type_id": self.added_shift_ids.task_type_default_id(),
+                    "task_type_id": self.added_shift_ids.pre_filled_task_type_id(),
                     "state": "done",
                     "attendance_sheet_id": self._origin.id,
                     "worker_id": worker.id,

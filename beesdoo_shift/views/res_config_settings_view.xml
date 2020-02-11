@@ -77,8 +77,8 @@
                                       </div>
                                       <div class="content-group">
                                           <div class="mt16 row">
-                                              <label for="task_type_default_id" string="Default Task Type" class="col-3 col-lg-3 o_light_label"/>
-                                              <field name="task_type_default_id" class="oe_inline" required="1"/>
+                                              <label for="pre_filled_task_type_id" string="Default Task Type" class="col-3 col-lg-3 o_light_label"/>
+                                              <field name="pre_filled_task_type_id" class="oe_inline" required="1"/>
                                           </div>
                                       </div>
                                   </div>
