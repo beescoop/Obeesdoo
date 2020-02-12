@@ -7,7 +7,7 @@ class InstanciatePlanning(models.TransientModel):
     def _get_planning(self):
         return self._context.get('active_id')
 
-    date_start = fields.Date("First Day of planning", required=True)
+    date_start = fields.Date("First Day of planning (should be monday)", required=True)
     planning_id = fields.Many2one('beesdoo.shift.planning', readonly=True, default=_get_planning)
 
     @api.multi
