@@ -101,34 +101,17 @@
                 <field name="super_coop_id" />
                 <templates>
                     <t t-name="kanban-box">
-                        <div
-                            t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
+                        <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
                             <t t-if="widget.editable">
                                 <div class="o_dropdown_kanban dropdown" name="card_dropdown_menu">
-                                    <a role="button" class="dropdown-toggle o-no-caret btn" data-toggle="dropdown"
-                                       href="#" aria-label="Dropdown menu" title="Dropdown menu">
-                                        <span class="fa fa-bars fa-lg"/>
+                                    <a class="dropdown-toggle o-no-caret btn" role="button" data-toggle="dropdown" data-display="static" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                        <span class="fa fa-ellipsis-v"/>
                                     </a>
-                                    <ul class="dropdown-menu" role="menu"
-                                        aria-labelledby="dLabel">
-                                        <t t-if="widget.editable">
-                                            <li>
-                                                <a type="edit">Edit Shift
-                                                    Template
-                                                </a>
-                                            </li>
-                                        </t>
-                                        <t t-if="widget.deletable">
-                                            <li>
-                                                <a type="delete">Delete</a>
-                                            </li>
-                                        </t>
-
-                                        <li>
-                                            <ul class="oe_kanban_colorpicker"
-                                                data-field="color" />
-                                        </li>
-                                    </ul>
+                                    <div class="dropdown-menu" role="menu">
+                                        <t t-if="widget.editable"><a role="menuitem" type="edit" class="dropdown-item">Edit Shift Template</a></t>
+                                        <t t-if="widget.deletable"><a role="menuitem" type="delete" class="dropdown-item">Delete</a></t>
+                                        <ul role="menu" class="oe_kanban_colorpicker" data-field="color" />
+                                    </div>
                                 </div>
                             </t>
                             <div class="oe_kanban_content">
