@@ -100,11 +100,15 @@ class TaskTemplate(models.Model):
     end_date = fields.Datetime(compute="_get_fake_date", search="_dummy_search")
 
     def _get_utc_date(self, day, hour, minute):
+        """Combine day number, hours and minutes to save
+        corresponding UTC datetime in database.
+        """
         context_tz = timezone(self._context.get('tz') or self.env.user.tz)
-        day_local_time=datetime.combine(day, time(hour=hour, minute=minute), tzinfo=context_tz)
-        day_utc_time=day_local_time.astimezone(UTC)
+        day_local_time = datetime.combine(day, time(hour=hour, minute=minute))
+        day_local_time = context_tz.localize(day_local_time)
+        day_utc_time = day_local_time.astimezone(UTC)
         # Return naïve datetime so as to be saved in database
-        return day_utc_time.replace(tzinfo=None)
+        return  day_utc_time.replace(tzinfo=None)
 
     @api.depends('start_time', 'end_time')
     def _get_fake_date(self):
