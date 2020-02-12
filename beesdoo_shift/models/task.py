@@ -56,12 +56,12 @@ class Task(models.Model):
     def _compute_color(self):
         color_mapping = {
             "draft": 0,
-            "open": 1,
-            "done": 5,
-            "absent_2": 2,
-            "absent_1": 7,
+            "open": 0,
+            "done": 10,
+            "absent_2": 1,
+            "absent_1": 2,
             "absent_0": 3,
-            "cancel": 9,
+            "cancel": 5,
         }
         for rec in self:
             rec.color = color_mapping[rec.state]
