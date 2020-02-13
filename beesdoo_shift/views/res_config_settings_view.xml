@@ -96,6 +96,13 @@
                 sequence="21"
       />
 
+
+      <record model="ir.actions.act_window" id="action_missing_attendance_sheets">
+          <field name="name">Generate missing past attendance sheets</field>
+          <field name="res_model">beesdoo.shift.generate_missing_attendance_sheets</field>
+          <field name="view_mode">form</field>
+      </record>
+
       <record model="ir.actions.act_window" id="action_day_number">
           <field name="name">Day Number</field>
           <field name="res_model">beesdoo.shift.daynumber</field>
