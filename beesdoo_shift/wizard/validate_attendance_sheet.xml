@@ -5,14 +5,14 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                    <separator string="Validation" style="position:absolute; top:0px;"/>
+                    <separator string="Validation"/>
                     <field name="card_support" invisible="1" />
                     <field name="active_sheet" invisible="1" />
                     <field name="_barcode_scanned" widget="barcode_handler"/>
-                    <group col="1">
+                        <label for="notes" />
                         <field name="notes" />
+                        <label for="feedback" />
                         <field name="feedback" />
-                    </group>
                     <group>
                         <field name="worker_nb_feedback"/>
                     </group>
