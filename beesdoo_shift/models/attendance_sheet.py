@@ -597,7 +597,6 @@ class AttendanceSheet(models.Model):
         defined from corresponding CRON time interval.
         """
 
-        time_ranges = set()
         tasks = self.env["beesdoo.shift.shift"]
         sheets = self.env["beesdoo.shift.sheet"]
         current_time = datetime.now()
