@@ -446,6 +446,10 @@ class ShiftCronJournal(models.Model):
         self.sudo().env['cooperative.status']._cron_compute_counter_irregular(today=self.date)
 
 class ResPartner(models.Model):
+    """
+    One2many relationship with CooperativeStatus should
+    be replaced by inheritance.
+    """
     _inherit = 'res.partner'
 
     cooperative_status_ids = fields.One2many('cooperative.status', 'cooperator_id', readonly=True)
