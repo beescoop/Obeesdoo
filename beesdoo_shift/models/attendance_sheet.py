@@ -114,7 +114,6 @@ class AttendanceSheet(models.Model):
     _name = "beesdoo.shift.sheet"
     _inherit = [
         "mail.thread",
-        "mail.activity.mixin",
         "barcodes.barcode_events_mixin",
     ]
     _description = "Attendance sheet"
@@ -444,17 +443,6 @@ class AttendanceSheet(models.Model):
         if self.is_read:
             raise UserError(_("The sheet has already been marked as read."))
         self.is_read = True
-
-    # Workaround to display notifications only
-    # for unread and not validated sheets, via a check on domain.
-    @api.model
-    def _needaction_count(self, domain=None):
-        if domain == [
-            ("is_annotated", "=", True),
-            ("is_read", "=", False),
-        ] or domain == [("state", "=", "not_validated")]:
-            return self.search_count(domain)
-        return
 
     def _validate(self, user):
         self.ensure_one()
