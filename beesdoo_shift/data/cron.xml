@@ -67,7 +67,7 @@
             <field name="numbercall">-1</field>
             <field name="doall" eval="False" />
             <field name="nextcall"
-                   eval="str(datetime.utcnow() + timedelta((6-datetime.utcnow().weekday()) % 7 ))"
+                   eval="(datetime.utcnow() + timedelta((6-datetime.utcnow().weekday()) % 7 )).strftime('%Y-%m-%d 21:00:00')"
             />
             <field name="model">beesdoo.shift.shift</field>
             <field name="function">_cron_send_weekly_emails</field>
