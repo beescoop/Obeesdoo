@@ -8,7 +8,16 @@ from openerp import _, api, exceptions, fields, models
 from openerp.exceptions import UserError, ValidationError
 
 
-class AttendanceSheetShift(models.AbstractModel):
+class AttendanceSheetShift(models.Model):
+    """
+    Partial copy of Task class to use in AttendanceSheet,
+    actual Task is updated at validation.
+
+    Should be Abstract and not used alone (common code for
+    AttendanceSheetShiftAdded and AttendanceSheetShiftExpected),
+    but create() method from res.partner raise error
+    when class is Abstract.
+    """
     _name = "beesdoo.shift.sheet.shift"
     _description = "Copy of an actual shift into an attendance sheet"
     _order = "task_type_id, worker_name"
