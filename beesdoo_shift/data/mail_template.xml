@@ -18,14 +18,12 @@
 
                   <br><br>You have been recorded as non-attended during your last shift (${format_tz(object.start_time,object.replaced_id.tz or 'Europe/Brussels','%d.%m.%Y - %H:%M')}),
                     and you were supposed to replace ${object.worker_id.name}.
-                  <br><br>Your current status is "${object.worker_id.cooperative_status_ids.get_status_value()}".
                   % endif
 
                   % if not object.replaced_id:
                   </p><p>Hello ${object.worker_id.name},</p>
 
                   <p>You have been recorded as non-attended during your last shift (${format_tz(object.start_time,object.worker_id.tz or 'Europe/Brussels','%d.%m.%Y - %H:%M')}).
-                  <br><br>Your current status is "${object.worker_id.cooperative_status_ids.get_status_value()}".
                   % endif
 
                   % if object.worker_id.working_mode == 'regular':
