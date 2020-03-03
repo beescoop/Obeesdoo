@@ -798,17 +798,22 @@
               </p>
 
               <p t-if="status.alert_start_time">
-                <label>In Alert Since:</label>
-                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.alert_start_time, '%Y-%m-%d'))"/>
+                <label for="alert_start_time">In Alert Since:</label>
+                <t t-esc="status.alert_start_time.strftime('%A %d %B %Y')"/>
               </p>
 
               <p t-if="status.extension_start_time">
-                <label>In Extension Since:</label>
-                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.extension_start_time, '%Y-%m-%d'))"/>
+                <label for="extension_start_time">In Extension Since:</label>
+                <t t-esc="status.extension_start_time.strftime('%A %d %B %Y')"/>
               </p>
 
               <div class="oe_structure"/>
 
+              <t t-call="beesdoo_website_shift.help_text_title"/>
+              <t t-call="beesdoo_website_shift.help_text_common"/>
+              <t t-call="beesdoo_website_shift.help_text_irregular_worker"/>
+
+              <div class="oe_structure"/>
             </div>
 
             <div class="col-xs-12 col-md-8">
@@ -819,17 +824,6 @@
 
             </div> <!-- col-md-8 -->
 
-            <div class="col-xs-12 col-md-4 text-justify">
-
-              <div class="oe_structure"/>
-
-              <t t-call="beesdoo_website_shift.help_text_title"/>
-              <t t-call="beesdoo_website_shift.help_text_common"/>
-              <t t-call="beesdoo_website_shift.help_text_irregular_worker"/>
-
-              <div class="oe_structure"/>
-
-            </div> <!-- col-md-4 -->
           </div> <!-- row -->
         </div> <!-- container -->
       </section>
@@ -863,18 +857,18 @@
               </p>
 
               <p t-if="status.next_countdown_date">
-                <label>Next Countdown Date:</label>
-                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.next_countdown_date, '%Y-%m-%d'))"/>
+                <label for="next_countdown_date">Next Countdown Date:</label>
+                <t t-esc="status.next_countdown_date.strftime('%A %d %B %Y')"/>
               </p>
 
               <p t-if="status.future_alert_date">
-                <label>Future Date of Alert:</label>
-                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.future_alert_date, '%Y-%m-%d'))"/>
+                <label for="future_alert_date">Future Date of Alert:</label>
+                <t t-esc="status.future_alert_date.strftime('%A %d %B %Y')"/>
               </p>
 
               <p t-if="status.irregular_absence_date">
-                <label>Last Absence Date:</label>
-                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.irregular_absence_date, '%Y-%m-%d'))"/>
+                <label for="last_absence_date">Last Absence Date:</label>
+                <t t-esc="status.irregular_absence_date.strftime('%A %d %B %Y')"/>
               </p>
 
               <p t-if="status.irregular_absence_counter">
@@ -883,7 +877,10 @@
               </p>
 
               <div class="oe_structure"/>
-
+              <t t-call="beesdoo_website_shift.help_text_title"/>
+              <t t-call="beesdoo_website_shift.help_text_common"/>
+              <t t-call="beesdoo_website_shift.help_text_irregular_worker"/>
+               <div class="oe_structure"/>
             </div>
 
             <div class="col-xs-12 col-md-8">
@@ -925,7 +922,7 @@
               <section class="wrap">
                 <div class="container">
                   <div class="row">
-                    <div class="col-xs-12 col-sm-6 text-justify">
+                    <div class="col-12 col-md-12 text-justify">
                       <p>
                         Please, subscribe, in priority, to the highlighted shifts. To sign up to a shift click on the
                         subscribe button. Notice that you can not unsubscribe online. To unsubscribe to a shift, please,
@@ -943,17 +940,6 @@
 
             </div> <!-- col-md-8 -->
 
-            <div class="col-xs-12 col-md-4 text-justify">
-
-              <div class="oe_structure"/>
-
-              <t t-call="beesdoo_website_shift.help_text_title"/>
-              <t t-call="beesdoo_website_shift.help_text_common"/>
-              <t t-call="beesdoo_website_shift.help_text_irregular_worker"/>
-
-              <div class="oe_structure"/>
-
-            </div> <!-- col-md-4 -->
           </div> <!-- row -->
         </div> <!-- container -->
       </section>
