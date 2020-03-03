@@ -8,13 +8,15 @@
 
     """,
 
-    'author': "Thibault Francois, Elouan Le Bars, Coop It Easy",
+    'author': "THibault Francois, Elouan Le Bars, Coop It Easy",
     'website': "https://github.com/beescoop/Obeesdoo",
 
     'category': 'Cooperative management',
     'version': '12.0.1.0.0',
 
-    'depends': ['beesdoo_base', 'barcodes'],
+    'depends': [
+        'mail',
+    ],
 
     'data': [
         "data/system_parameter.xml",
@@ -23,13 +25,10 @@
         "security/group.xml",
         "security/ir.model.access.csv",
         "views/task_template.xml",
-        "views/res_config_settings_view.xml",
         "views/task.xml",
         "views/planning.xml",
         "views/cooperative_status.xml",
         "views/exempt_reason.xml",
-        "wizard/validate_attendance_sheet.xml",
-        "views/attendance_sheet.xml",
         "wizard/instanciate_planning.xml",
         "wizard/batch_template.xml",
         "wizard/assign_super_coop.xml",
@@ -40,6 +39,7 @@
         "wizard/generate_missing_attendance_sheets.xml",
     ],
     'demo': [
+        "demo/cooperators.xml",
         "demo/workers.xml",
         "demo/templates.xml",
     ]

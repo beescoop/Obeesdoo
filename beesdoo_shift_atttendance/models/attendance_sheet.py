@@ -30,7 +30,7 @@ class AttendanceSheetShift(models.Model):
             )
         )
         task_types = self.env["beesdoo.shift.type"]
-        return task_types.browse(id)
+        return task_types.browse(default_task_type_id)
 
     # Related actual shift
     task_id = fields.Many2one("beesdoo.shift.shift", string="Task")
@@ -54,7 +54,7 @@ class AttendanceSheetShift(models.Model):
         "res.partner",
         string="Worker",
         domain=[
-            ("eater", "=", "worker_eater"),
+            ("is_worker", "=", True),
             ("working_mode", "in", ("regular", "irregular")),
             ("state", "not in", ("unsubscribed", "resigning")),
         ],
