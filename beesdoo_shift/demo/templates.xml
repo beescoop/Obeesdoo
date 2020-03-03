@@ -75,7 +75,7 @@
         <field name="duration">2.5</field>
         <field name="worker_nb">12</field>
         <!-- WARNING: issue, worker not registered in demo -->
-        <field name="worker_ids" eval="[(6, 0, [ref('beesdoo_base.res_partner_cooperator_1_demo')])]"/>
+        <field name="worker_ids" eval="[(6, 0, [ref('beesdoo_shift.res_partner_cooperator_1_demo')])]"/>
     </record>
 
     <record id="beesdoo_shift_task_template_2_demo" model="beesdoo.shift.template">
@@ -88,7 +88,7 @@
         <field name="duration">2.5</field>
         <field name="worker_nb">9</field>
         <!-- WARNING: issue, worker not registered in demo -->
-        <field name="worker_ids" eval="[(6, 0, [ref('beesdoo_base.res_partner_cooperator_3_demo')])]"/>
+        <field name="worker_ids" eval="[(6, 0, [ref('beesdoo_shift.res_partner_cooperator_3_demo')])]"/>
     </record>
 
     <record id="beesdoo_shift_task_template_3_demo" model="beesdoo.shift.template">
@@ -101,7 +101,7 @@
         <field name="duration">2.5</field>
         <field name="worker_nb">7</field>
         <!-- WARNING: issue, worker not registered in demo -->
-        <field name="worker_ids" eval="[(6, 0, [ref('beesdoo_base.res_partner_cooperator_6_demo')])]"/>
+        <field name="worker_ids" eval="[(6, 0, [ref('beesdoo_shift.res_partner_cooperator_6_demo')])]"/>
     </record>
 
 </odoo>

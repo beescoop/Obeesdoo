@@ -89,7 +89,7 @@ class TaskTemplate(models.Model):
 
     duration = fields.Float(help="Duration in Hour")
     worker_nb = fields.Integer(string="Number of worker", help="Max number of worker for this task", default=1)
-    worker_ids = fields.Many2many('res.partner', string="Recurrent worker assigned", domain=[('eater', '=', 'worker_eater'), ('working_mode', '=', 'regular')])
+    worker_ids = fields.Many2many('res.partner', string="Recurrent worker assigned", domain=[('is_worker', '=', True)])
     remaining_worker = fields.Integer(compute="_get_remaining", store=True, string="Remaining Place")
     active = fields.Boolean(default=True)
     #For Kanban View Only

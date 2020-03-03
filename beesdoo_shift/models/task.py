@@ -13,31 +13,50 @@ class Task(models.Model):
 
     _order = "start_time asc"
 
+    ##################################
+    # Method to override             #
+    # to have different state        #
+    # on the shift                   #
+    ##################################
+    def _get_selection_status(self):
+        return [
+            ("open","Confirmed"),
+            ("done","Attended"),
+            ("absent","Absent"),
+            ("excused","Excused"),
+            ("cancel","Cancelled")
+        ]
+
+    def _get_color_mapping(state):
+        return {
+            "draft": 0,
+            "open": 1,
+            "done": 5,
+            "absent": 2,
+            "excused": 3,
+            "cancel": 9,
+        }[state]
+
+    def _get_final_state():
+        return ["done", "absent", "excused"]
+
     name = fields.Char(track_visibility='always')
     task_template_id = fields.Many2one('beesdoo.shift.template')
     planning_id = fields.Many2one(related='task_template_id.planning_id', store=True)
     task_type_id = fields.Many2one('beesdoo.shift.type', string="Task Type")
     worker_id = fields.Many2one('res.partner', track_visibility='onchange',
                                 domain=[
-                                    ('eater', '=', 'worker_eater'),
+                                    ('is_worker', '=', True),
                                     ('working_mode', 'in', ('regular', 'irregular')),
                                     ('state', 'not in', ('unsubscribed', 'resigning')),
                                 ])
     start_time = fields.Datetime(track_visibility='always', index=True, required=True)
     end_time = fields.Datetime(track_visibility='always', required=True)
-    state = fields.Selection(selection=[
-            ("draft","Unconfirmed"),
-            ("open","Confirmed"),
-            ("done","Attended"),
-            ("absent_2","Absent - 2 compensations"),
-            ("absent_1","Absent - 1 compensation"),
-            ("absent_0","Absent - 0 compensation"),
-            ("cancel","Cancelled")
-    ],
+    state = fields.Selection(selection=_get_selection_status,
         default="open",
         required=True,
-        store=True,
         track_visibility='onchange',
+        group_expand='_expand_states'
     )
     color = fields.Integer(compute="_compute_color")
     super_coop_id = fields.Many2one('res.users', string="Super Cooperative", domain=[('partner_id.super', '=', True)], track_visibility='onchange')
@@ -52,19 +71,14 @@ class Task(models.Model):
     revert_info = fields.Text(copy=False)
     working_mode = fields.Selection(related='worker_id.working_mode')
 
+    def _expand_states(self, states, domain, order):
+        return [key for key, val in self._fields['state'].selection]
+
+
     @api.depends("state")
     def _compute_color(self):
-        color_mapping = {
-            "draft": 0,
-            "open": 0,
-            "done": 10,
-            "absent_2": 1,
-            "absent_1": 2,
-            "absent_0": 3,
-            "cancel": 5,
-        }
         for rec in self:
-            rec.color = color_mapping[rec.state]
+            rec.color = self._state_color_mapping(rec.state)
 
     def _compensation_validation(self, task):
         """
@@ -81,7 +95,7 @@ class Task(models.Model):
     @api.constrains("state")
     def _lock_future_task(self):
         if datetime.now() < self.start_time:
-            if self.state in ["done", "absent_2", "absent_1", "absent_0"]:
+            if self.state in self._get_final_state():
                 raise UserError(_(
                     "Shift state of a future shift "
                     "can't be set to 'present' or 'absent'."
@@ -213,53 +227,19 @@ class Task(models.Model):
     def _update_state(self, new_state):
         self.ensure_one()
         self._revert()
-        update = int(self.env['ir.config_parameter'].sudo().get_param('always_update', False))
 
         data = {}
 
-        if not (self.worker_id or self.replaced_id) and new_state in ("done", "absent_0", "absent_1", "absent_2"):
+        if not (self.worker_id or self.replaced_id) and new_state in self._get_final_state():
             raise UserError(_("You cannot change to the status %s if no worker is defined for the shift") % new_state)
+        if not (self.worker_id.working_mode in ['regular', 'irregular']):
+            raise UserError(_("Working mode is not properly defined. Please check if the worker is subscribed"))
 
-        if update or not (self.worker_id or self.replaced_id):
+        always_update = int(self.env['ir.config_parameter'].sudo().get_param('always_update', False))
+        if always_update or not (self.worker_id or self.replaced_id):
             return
 
-        if self.worker_id.working_mode == 'regular':
-            if not self.replaced_id: #No replacement case
-                status = self.worker_id.cooperative_status_ids[0]
-            else:
-                status = self.replaced_id.cooperative_status_ids[0]
-
-            if new_state == "done" and not self.is_regular:
-                # Regular counter is always updated first
-                if status.sr < 0:
-                    data['sr'] = 1
-                elif status.sc < 0:
-                    data['sc'] = 1
-                # Bonus shift case
-                else:
-                    data['sr'] = 1
-
-            if new_state == "absent_2":
-                data['sr'] = -1
-                data['sc'] = -1
-
-            if new_state == "absent_1":
-                data['sr'] = -1
-
-        elif self.worker_id.working_mode == 'irregular':
-            status = self.worker_id.cooperative_status_ids[0]
-            if new_state == "done" or new_state == "absent_0":
-                data['sr'] = 1
-                data['irregular_absence_date'] = False
-                data['irregular_absence_counter'] = 1 if status.irregular_absence_counter < 0 else 0
-            if new_state == "absent_2" or new_state == "absent_1":
-                if new_state == "absent_2":
-                    data['sr'] = -1
-                data['irregular_absence_date'] = self.start_time.date()
-                data['irregular_absence_counter'] = -1
-
-        else:
-            raise UserError(_("Working mode is not properly defined. Please check if the worker is subscribed"))
+        data = self._get_counter_date_state_change(new_state)
         status.sudo()._change_counter(data)
         self._set_revert_info(data, status)
 
@@ -288,3 +268,20 @@ class Task(models.Model):
 
         for rec in confirmed_tasks:
             shift_summary_mail_template.send_mail(rec.id, True)
+
+    ########################################################
+    #                   Method to override                 #
+    #           To define the behavior of the status       #
+    #                                                      #
+    #       By default: everyone is always up to date      #
+    ########################################################
+
+    def _get_counter_date_state_change(self, new_state):
+        """
+            Return the data to change counter or other things
+            that change on the cooperator status
+            see _change_counter
+
+            We have eheck the worker is legitimate
+        """
+        return {}
