@@ -20,8 +20,7 @@ class WebsiteShiftController(http.Controller):
 
     def is_user_worker(self):
         user = request.env['res.users'].browse(request.uid)
-        share_type = user.partner_id.cooperator_type
-        return share_type == 'share_a'
+        return user.partner_id.is_worker
 
     def is_user_irregular(self):
         user = request.env['res.users'].browse(request.uid)

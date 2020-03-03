@@ -3,7 +3,7 @@
      Copyright 2017-2018 Rémy Taymans <remytaymans@gmail.com>
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
-<openerp>
+<odoo>
 
   <!-- Add menu entries -->
   <data noupdate="1">
@@ -11,13 +11,13 @@
       <field name="name">Shifts Irregular</field>
       <field name="url">/shift_irregular_worker</field>
       <field name="parent_id" ref="website.main_menu"/>
-      <field name="sequence" type="int">50</field>
+      <field name="sequence">50</field>
     </record>
     <record id="menu_work_regular" model="website.menu">
       <field name="name">Shifts Regular</field>
       <field name="url">/shift_template_regular_worker</field>
       <field name="parent_id" ref="website.main_menu"/>
-      <field name="sequence" type="int">51</field>
+      <field name="sequence">51</field>
     </record>
   </data>
 
@@ -206,4 +206,4 @@
     </t>
   </template>
 
-</openerp>
+</odoo>
