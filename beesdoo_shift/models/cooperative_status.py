@@ -114,7 +114,6 @@ class CooperativeStatus(models.Model):
             elif rec.working_mode == 'exempt':
                 rec.status = 'ok'
 
-
     _sql_constraints = [
         ('cooperator_uniq', 'unique (cooperator_id)', _('You can only set one cooperator status per cooperator')),
     ]

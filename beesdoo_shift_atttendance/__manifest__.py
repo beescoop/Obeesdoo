@@ -30,6 +30,7 @@
         "security/ir.model.access.csv",
         "views/res_config_settings_view.xml",
         "wizard/validate_attendance_sheet.xml",
+        "wizard/generate_missing_attendance_sheets.xml",
         "views/attendance_sheet.xml",
     ],
     'demo': []
