@@ -36,7 +36,6 @@
         "wizard/extension.xml",
         "wizard/holiday.xml",
         "wizard/temporary_exemption.xml",
-        "wizard/generate_missing_attendance_sheets.xml",
     ],
     'demo': [
         "demo/cooperators.xml",
