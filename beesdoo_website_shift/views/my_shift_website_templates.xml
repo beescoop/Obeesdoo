@@ -6,9 +6,9 @@
 <odoo>
 
   <!-- Add menu entries -->
-  <template id="my_shift_link" name="Link to frontend portal" inherit_id="website.layout">
-    <xpath expr="//li[@id='o_logout']" position="before">
-      <li><a href="/my/shift" role="menuitem">My Shift</a></li>
+  <template id="my_shift_link" name="Link to frontend portal" inherit_id="portal.frontend_layout">
+    <xpath expr="//a[@id='o_logout']" position="before">
+      <a href="/my/shift" role="menuitem" class="dropdown-item">My Shift</a>
     </xpath>
   </template>
 
@@ -618,7 +618,7 @@
   <template
     id="my_shift_non_worker"
     name="My Shift for Non Worker"
-    page="True">
+  >
     <t t-call="website.layout">
 
       <t t-call="beesdoo_website_shift.my_shift_title"/>
@@ -644,7 +644,7 @@
   <template
     id="my_shift_new_worker"
     name="My Shift for New Worker"
-    page="True">
+    >
     <t t-call="website.layout">
 
       <t t-call="beesdoo_website_shift.my_shift_title"/>
@@ -670,7 +670,7 @@
   <template
     id="my_shift_exempted_worker"
     name="My Shifts for Exempted Workers"
-    page="True">
+    >
     <t t-call="website.layout">
 
       <t t-call="beesdoo_website_shift.my_shift_title"/>
@@ -723,7 +723,7 @@
   <template
     id="my_shift_regular_worker_without_shift"
     name="My Shifts for regular worker without shift"
-    page="True">
+    >
     <t t-call="website.layout">
 
       <t t-call="beesdoo_website_shift.my_shift_title"/>
@@ -773,7 +773,7 @@
   <template
     id="my_shift_regular_worker"
     name="My Shifts for Regular Workers"
-    page="True">
+    >
     <t t-call="website.layout">
 
       <t t-call="beesdoo_website_shift.my_shift_title"/>
@@ -837,7 +837,7 @@
   <template
     id="my_shift_irregular_worker"
     name="Shifts for Irregular Workers"
-    page="True">
+    >
     <t t-call="website.layout">
 
       <t t-call="beesdoo_website_shift.my_shift_title"/>
