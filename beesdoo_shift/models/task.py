@@ -27,7 +27,7 @@ class Task(models.Model):
             ("cancel","Cancelled")
         ]
 
-    def _get_color_mapping(state):
+    def _get_color_mapping(self, state):
         return {
             "draft": 0,
             "open": 1,
@@ -37,7 +37,7 @@ class Task(models.Model):
             "cancel": 9,
         }[state]
 
-    def _get_final_state():
+    def _get_final_state(self):
         return ["done", "absent", "excused"]
 
     name = fields.Char(track_visibility='always')
@@ -78,7 +78,7 @@ class Task(models.Model):
     @api.depends("state")
     def _compute_color(self):
         for rec in self:
-            rec.color = self._state_color_mapping(rec.state)
+            rec.color = self._get_color_mapping(rec.state)
 
     def _compensation_validation(self, task):
         """
