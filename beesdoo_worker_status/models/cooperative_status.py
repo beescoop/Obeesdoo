@@ -253,7 +253,7 @@ class ResPartner(models.Model):
         Override is_worker definition
         You need have subscribe to a A Share
     """
-    is_worker = fields.Boolean(compute="_is_worker", search="_search_worker")
+    is_worker = fields.Boolean(compute="_is_worker", search="_search_worker", readonly=True, related="")
 
     def _is_worker(self):
         for rec in self:

@@ -9,11 +9,10 @@ from datetime import datetime, timedelta
 from itertools import groupby
 from pytz import timezone, utc
 
-from openerp import http, fields
-from openerp.http import request
+from odoo import http, fields
+from odoo.http import request
 
-from openerp.addons.beesdoo_shift.models.planning import float_to_time
-from openerp.addons.beesdoo_shift.models.cooperative_status import PERIOD
+from odoo.addons.beesdoo_shift.models.planning import float_to_time
 
 
 class WebsiteShiftController(http.Controller):
@@ -408,6 +407,8 @@ class WebsiteShiftController(http.Controller):
             # Get config
             regular_next_shift_limit = int(request.env['ir.config_parameter'].get_param(
                 'beesdoo_website_shift.regular_next_shift_limit'))
+            shift_period = int(request.env['ir.config_parameter'].get_param(
+                'beesdoo_website_shift.shift_period'))
 
             for i in range(nb_subscribed_shifts, regular_next_shift_limit):
                 # Create the fictive shift
@@ -426,11 +427,11 @@ class WebsiteShiftController(http.Controller):
                 # Set new date
                 shift.start_time = self.add_days(
                     fields.Datetime.from_string(main_shift.start_time),
-                    days=i * PERIOD
+                    days=i * shift_period
                 )
                 shift.end_time = self.add_days(
                     fields.Datetime.from_string(main_shift.end_time),
-                    days=i * PERIOD
+                    days=i * shift_period
                 )
                 # Add the fictive shift to the list of shift
                 subscribed_shifts.append(shift)
