@@ -3,7 +3,7 @@
      Copyright 2017-2018 Rémy Taymans <remytaymans@gmail.com>
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
-<openerp>
+<odoo>
   <data>
 
     <record id="view_website_shift_config_irregular" model="ir.ui.view">
@@ -101,4 +101,4 @@
       sequence="10"/>
 
   </data>
-</openerp>
+</odoo>

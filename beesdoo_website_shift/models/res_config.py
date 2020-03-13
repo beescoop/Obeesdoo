@@ -4,7 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from ast import literal_eval
-from openerp import fields, models, api
+from odoo import fields, models, api
 
 PARAMS = [
     ('irregular_shift_limit', 'beesdoo_website_shift.irregular_shift_limit'),
