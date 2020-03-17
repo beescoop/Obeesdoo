@@ -6,7 +6,7 @@
 # Copyright 2019 Anvar Kildebekov https://it-projects.info/team/fedoranvar>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 {
-    "name": """Keyboard support in Point Of Sale""",
+    "name": """POS Keyboard""",
     "summary": """Module allows to use usual keyboard (not virtual one) in Point of Sale""",
     "category": "Point Of Sale",
     # "live_test_url": "http://apps.it-projects.info/shop/product/DEMO-URL?version={ODOO_BRANCH}",
