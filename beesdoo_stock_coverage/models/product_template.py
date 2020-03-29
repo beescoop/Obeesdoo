@@ -41,9 +41,9 @@ class ProductTemplate(models.Model):
                  join product_template template ON product.product_tmpl_id = template.id
         where po.state in ('done', 'invoiced', 'paid')
           and template.active
-          and pol.create_date
-            BETWEEN date_trunc('day', now()) - template.computation_range * interval '1 days'
-            and date_trunc('day', now())
+          and po.date_order
+            BETWEEN now() - template.computation_range * interval '1 days'
+            and now()
             and template.id in %(template_ids)s
         group by product_template_id
         """

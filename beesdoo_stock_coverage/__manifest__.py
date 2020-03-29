@@ -9,7 +9,7 @@
     "author": "Coop IT Easy SCRLfs",
     "website": "https://www.coopiteasy.be",
     "license": "AGPL-3",
-    "depends": ["point_of_sale", "sale", "l10n_be"],  # fixme
+    "depends": ["point_of_sale", "sale_stock"],
     "data": ["views/product_template_view.xml", "data/cron.xml"],
     "installable": True,
     "application": False,
