@@ -9,23 +9,6 @@
 		</field>
 	</record>
 
-    <record model="ir.ui.view" id="beesdoo_easy_my_coop_partner_search_view">
-        <field name="name">beesdoo_easy_my_coop.partner.search.view</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="beesdoo_base.beesdoo_partner_search_view" />
-        <field name="arch" type="xml">
-            <filter name="type_a" position="replace">
-                <filter name="type_a" string="Cooperator type A" domain="[('cooperator_type', '=', 'share_a'), ('member', '=', True)]" />
-            </filter>
-            <filter name="type_b" position="replace">
-                <filter name="type_b" string="Cooperator type B" domain="[('cooperator_type', '=', 'share_b'), ('member', '=', True)]" />
-            </filter>
-            <filter name="type_c" position="replace">
-                <filter name="type_c" string="Cooperator type C" domain="[('cooperator_type', '=', 'share_c'), ('member', '=', True)]" />
-            </filter>
-        </field>
-    </record>
-
     <record model="ir.ui.view" id="beesdoo_partner_form_view_remove_duplicate_header">
         <field name="name">beesdoo.partner.form.view.remove_duplicate_header</field>
         <field name="model">res.partner</field>
@@ -34,9 +17,9 @@
             <xpath expr="header" position="replace" />
             <xpath expr="//field[@name='state']" position="before">
                 <button string="Create Subscription" name="%(easy_my_coop.action_view_create_subscription)d"
-                                type="action" context="{'default_active_id': active_id}" groups="easy_my_coop.group_energiris_manager"/>
+                                type="action" context="{'default_active_id': active_id}" groups="easy_my_coop.group_easy_my_coop_manager"/>
                  <button string="Update info" name="%(easy_my_coop.action_view_update_partner_info)d"
-                                type="action" context="{'default_active_id': active_id}" groups="easy_my_coop.group_energiris_manager"/>
+                                type="action" context="{'default_active_id': active_id}" groups="easy_my_coop.group_easy_my_coop_manager"/>
             </xpath>
             <xpath expr="//field[@name='info_session']" position="before">
                 <field name="can_shop" />
