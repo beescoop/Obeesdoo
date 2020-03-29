@@ -7,41 +7,38 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     consumption_calculation_method = fields.Selection(
-        selection=[('sales_history', 'Sales History')],
-        string='Consumption Calculation Method',
-        default='sales_history',
+        selection=[("sales_history", "Sales History")],
+        string="Consumption Calculation Method",
+        default="sales_history",
     )
-    calculation_range = fields.Integer(
-        'Calculation range (days)',
-        default=14,
-    )
+    calculation_range = fields.Integer("Calculation range (days)", default=14)
 
     average_consumption = fields.Float(
-        string='Average Consumption',
-        compute='_compute_average_daily_consumption',
+        string="Average Consumption",
+        compute="_compute_average_daily_consumption",
         readonly=True,
         digits=(100, 2),
     )
 
     total_consumption = fields.Float(
-        string='Total Consumption',
+        string="Total Consumption",
         default=0,
-        compute='_compute_total_consumption',
+        compute="_compute_total_consumption",
         store=True,
         readonly=True,
         digits=(100, 2),
     )
 
     estimated_stock_coverage = fields.Float(
-        string='Estimated Stock Coverage (days)',
-        compute='_compute_estimated_stock_coverage',
+        string="Estimated Stock Coverage (days)",
+        compute="_compute_estimated_stock_coverage",
         default=0,
         digits=(100, 2),
         readonly=True,
     )
 
     @api.multi
-    @api.depends('total_consumption')
+    @api.depends("total_consumption")
     def _compute_average_daily_consumption(self):
         for template in self:
             if template.calculation_range > 0:
@@ -53,35 +50,41 @@ class ProductTemplate(models.Model):
         return True
 
     @api.multi
-    @api.depends('calculation_range')
+    @api.depends("calculation_range")
     def _compute_total_consumption(self):
         for template in self:
-            products = (
-                self.env['product.product']
-                    .search([('product_tmpl_id', '=', template.id)]))
+            products = self.env["product.product"].search(
+                [("product_tmpl_id", "=", template.id)]
+            )
 
             today = dt.date.today()
-            pol_date_limit = (
-                 today - dt.timedelta(days=template.calculation_range))
+            pol_date_limit = today - dt.timedelta(
+                days=template.calculation_range
+            )
 
-            order_lines = (
-                self.env['pos.order.line']
-                    .search([
-                        ('product_id', 'in', products.ids),
-                        ('create_date', '>', fields.Datetime.to_string(pol_date_limit))  # noqa
-                    ])
+            order_lines = self.env["pos.order.line"].search(
+                [
+                    ("product_id", "in", products.ids),
+                    (
+                        "create_date",
+                        ">",
+                        fields.Datetime.to_string(pol_date_limit),
+                    ),  # noqa
+                ]
             )
 
             if order_lines:
                 order_lines = order_lines.filtered(
-                    lambda ol: ol.order_id.state in ['done', 'invoiced', 'paid'])  # noqa
-                template.total_consumption = sum(order_lines.mapped('qty'))
+                    lambda ol: ol.order_id.state
+                    in ["done", "invoiced", "paid"]
+                )  # noqa
+                template.total_consumption = sum(order_lines.mapped("qty"))
             else:
                 template.total_consumption = 0
         return True
 
     @api.multi
-    @api.depends('total_consumption')
+    @api.depends("total_consumption")
     def _compute_estimated_stock_coverage(self):
         for product_template in self:
             qty = product_template.qty_available
@@ -96,10 +99,7 @@ class ProductTemplate(models.Model):
 
     @api.model
     def _batch_compute_total_consumption(self):
-        products = (
-            self.env['product.template']
-                .search([('active', '=', True)])
-        )
+        products = self.env["product.template"].search([("active", "=", True)])
 
         query = """
             select
@@ -121,5 +121,6 @@ class ProductTemplate(models.Model):
         results = {pid: qty for pid, qty in self.env.cr.fetchall()}
 
         for product in products:
-            product.total_consumption = results.get(product.id,
-                                                    product.total_consumption)
+            product.total_consumption = results.get(
+                product.id, product.total_consumption
+            )
