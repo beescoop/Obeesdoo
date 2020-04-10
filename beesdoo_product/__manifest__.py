@@ -10,10 +10,7 @@
     "summary": """
         Modification of product module for the needs of beescoop
         - SOOO5 - Ajout de label bio/ethique/provenance""",
-    "description": """
-
-    """,
-    "author": "Beescoop - Cellule IT",
+    "author": "Beescoop - Cellule IT, Coop IT Easy SCRLfs",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Sales",
     "version": "12.0.1.0.0",
@@ -28,4 +25,5 @@
         "security/ir.model.access.csv",
     ],
     "installable": True,
+    "license": "AGPL-3",
 }

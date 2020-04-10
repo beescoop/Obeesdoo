@@ -1,12 +1,7 @@
 {
     "name": "Beescoop link with easy my coop",
-    "summary": """
-        Module that made the link between beesdoo customization
-        and easy_my_coop
-    """,
-    "description": """
-    """,
-    "author": "BEES coop, Coop IT Easy",
+    "summary": """Link between beesdoo customization and easy_my_coop""",
+    "author": "BEES coop, Coop IT Easy SCRLfs",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
     "version": "12.0.1.0.0",
@@ -25,4 +20,5 @@
     ],
     "demo": ["demo/product_share.xml"],
     "auto_install": True,
+    "license": "AGPL-3",
 }

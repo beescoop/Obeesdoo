@@ -8,10 +8,7 @@
     "summary": """
         Volonteer Timetable Management
         Attendance Sheet for BEES coop""",
-    "description": """
-
-    """,
-    "author": "Elouan Le Bars, Coop It Easy",
+    "author": "Elouan Le Bars, Coop IT Easy SCRLfs",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
     "version": "12.0.1.0.1",
@@ -33,5 +30,6 @@
         "wizard/generate_missing_attendance_sheets.xml",
         "views/attendance_sheet.xml",
     ],
-    "demo": ["demo/users.xml",],
+    "demo": ["demo/users.xml"],
+    "license": "AGPL-3",
 }

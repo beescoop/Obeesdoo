@@ -9,14 +9,12 @@
     "summary": """
         Adds a responsible, a max shipping date and a button to copy quantity to
         stock pickings.""",
-    "description": """
-
-    """,
-    "author": "Beescoop - Cellule IT",
+    "author": "Beescoop - Cellule IT, Coop IT Easy SCRLfs",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Inventory",
     "version": "12.0.1.0.0",
     "depends": ["delivery", "beesdoo_base", "beesdoo_product"],
     "data": ["views/stock.xml"],
     "installable": True,
+    "license": "AGPL-3",
 }

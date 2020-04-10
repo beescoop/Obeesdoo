@@ -6,8 +6,6 @@
     "summary": """
     Show the total amount of pos order in the website portal.
     """,
-    "description": """
-    """,
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "version": "12.0.1.0.0",

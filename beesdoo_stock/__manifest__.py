@@ -8,7 +8,7 @@
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "website": "www.coopiteasy.be",
-    "description": """
+    "summary": """
         Enable action on multiple products of a stock receipt
     """,
     "data": ["views/stock_view.xml"],

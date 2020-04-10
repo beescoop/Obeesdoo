@@ -1,4 +1,4 @@
-# Copyright 2017-2020 Coop IT Easy (http://coopiteasy.be)
+# Copyright 2017-2020 Coop IT Easy SCRLfs (http://coopiteasy.be)
 #   Rémy Taymans <remy@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -8,8 +8,6 @@
         Show available shifts for regular and irregular workers on the
         website and let workers manage their shifts with an
         easy web interface.
-    """,
-    "description": """
     """,
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
