@@ -14,5 +14,6 @@
         "beesdoo_stock_coverage",
         "beesdoo_purchase",
     ],
-    "data": ["views/beesdoo_product.xml",],
+    "data": ["views/beesdoo_product.xml"],
+    "license": "AGPL-3",
 }
