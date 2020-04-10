@@ -1,4 +1,4 @@
-# Copyright 2017-2020 Coop IT Easy (http://coopiteasy.be)
+# Copyright 2017-2020 Coop IT Easy SCRLfs (http://coopiteasy.be)
 #   Rémy Taymans <remy@coopiteasy.be>
 # Copyright 2017-2018 Thibault François
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
