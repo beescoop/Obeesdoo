@@ -7,7 +7,7 @@
             <div t-if="o.create_uid.name" class="col-xs-3">
                 <strong>Your Referent:</strong>
                 <div t-field="o.create_uid"
-                t-field-options='{"widget": "contact", "fields": ["name", "phone", "mobile"], "no_marker": true, "phone_icons": true}'/>
+                t-options='{"widget": "contact", "fields": ["name", "phone", "mobile"], "no_marker": true, "phone_icons": true}'/>
             </div>
 
         </div>
