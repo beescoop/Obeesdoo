@@ -3,6 +3,7 @@ from odoo import models, fields, api, _
 
 class InstanciatePlanning(models.TransientModel):
     _name = 'beesddoo.shift.generate_planning'
+    _description = 'beesddoo.shift.generate_planning'
 
     def _get_planning(self):
         return self._context.get('active_id')

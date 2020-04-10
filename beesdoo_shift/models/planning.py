@@ -21,6 +21,7 @@ def get_first_day_of_week():
 
 class TaskType(models.Model):
     _name = 'beesdoo.shift.type'
+    _description = 'beesdoo.shift.type'
 
     name = fields.Char()
     description = fields.Text()
@@ -28,6 +29,7 @@ class TaskType(models.Model):
 
 class DayNumber(models.Model):
     _name = 'beesdoo.shift.daynumber'
+    _description = 'beesdoo.shift.daynumber'
 
     _order = 'number asc'
 
@@ -37,7 +39,7 @@ class DayNumber(models.Model):
 
 class Planning(models.Model):
     _name = 'beesdoo.shift.planning'
-
+    _description = 'beesdoo.shift.planning'
     _order = 'sequence asc'
 
     sequence = fields.Integer()
@@ -75,7 +77,7 @@ class Planning(models.Model):
 
 class TaskTemplate(models.Model):
     _name = 'beesdoo.shift.template'
-
+    _description = 'beesdoo.shift.template'
     _order = 'start_time'
 
     name = fields.Char(required=True)

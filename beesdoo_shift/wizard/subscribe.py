@@ -3,6 +3,7 @@ from odoo.exceptions import UserError
 
 class StatusActionMixin(models.AbstractModel):
     _name = "beesdoo.shift.action_mixin"
+    _description = "beesdoo.shift.action_mixin"
 
     cooperator_id = fields.Many2one('res.partner', default=lambda self: self.env['res.partner'].browse(self._context.get('active_id')), required=True)
 
@@ -16,6 +17,7 @@ class StatusActionMixin(models.AbstractModel):
 
 class Subscribe(models.TransientModel):
     _name = 'beesdoo.shift.subscribe'
+    _description = 'beesdoo.shift.subscribe'
     _inherit = 'beesdoo.shift.action_mixin'
 
     def _get_date(self):

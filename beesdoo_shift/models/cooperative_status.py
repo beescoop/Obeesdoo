@@ -14,11 +14,13 @@ def add_days_delta(date_from, days_delta):
 
 class ExemptReason(models.Model):
     _name = 'cooperative.exempt.reason'
+    _description = 'cooperative.exempt.reason'
 
     name = fields.Char(required=True)
 
 class HistoryStatus(models.Model):
     _name = 'cooperative.status.history'
+    _description = 'cooperative.status.history'
 
     _order= 'create_date desc'
 
@@ -30,6 +32,7 @@ class HistoryStatus(models.Model):
 
 class CooperativeStatus(models.Model):
     _name = 'cooperative.status'
+    _description = 'cooperative.status'
     _rec_name = 'cooperator_id'
     _order = 'cooperator_id'
     _period = 28
@@ -296,6 +299,7 @@ class CooperativeStatus(models.Model):
 
 class ShiftCronJournal(models.Model):
     _name = 'beesdoo.shift.journal'
+    _description = 'beesdoo.shift.journal'
     _order = 'date desc'
     _rec_name = 'date'
 

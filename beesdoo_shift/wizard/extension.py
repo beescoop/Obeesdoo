@@ -3,6 +3,7 @@ from odoo.exceptions import UserError
 
 class Subscribe(models.TransientModel):
     _name = 'beesdoo.shift.extension'
+    _description = 'beesdoo.shift.extension'
     _inherit = 'beesdoo.shift.action_mixin'
 
     def _get_default_extension_delay(self):
