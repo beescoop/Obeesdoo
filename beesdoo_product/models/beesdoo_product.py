@@ -143,6 +143,7 @@ class BeesdooProduct(models.Model):
 
 class BeesdooScaleCategory(models.Model):
     _name = "beesdoo.scale.category"
+    _description = "beesdoo.scale.category"
 
     name = fields.Char(string="Scale name category")
     code = fields.Integer(string="Category code")
@@ -153,6 +154,7 @@ class BeesdooScaleCategory(models.Model):
     
 class BeesdooProductLabel(models.Model):
     _name = "beesdoo.product.label"
+    _description = "beesdoo.product.label"
 
     name = fields.Char()
     type = fields.Selection([('eco', 'Écologique'), ('local', 'Local'), ('fair', 'Équitable'), ('delivery', 'Distribution')])

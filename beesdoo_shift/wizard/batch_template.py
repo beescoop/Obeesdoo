@@ -8,6 +8,7 @@ from odoo import models, fields, api, _
 
 class GenerateShiftTemplate(models.TransientModel):
     _name = 'beesddoo.shift.generate_shift_template'
+    _description = 'beesddoo.shift.generate_shift_template'
 
     day_ids = fields.Many2many('beesdoo.shift.daynumber', relation='template_gen_day_number_rel', column1='wizard_id', column2='day_id')
     planning_id = fields.Many2one('beesdoo.shift.planning', required=True)
@@ -45,6 +46,7 @@ class GenerateShiftTemplate(models.TransientModel):
 
 class GenerateShiftTemplateLine(models.TransientModel):
     _name = 'beesddoo.shift.generate_shift_template.line'
+    _description = 'beesddoo.shift.generate_shift_template.line'
 
     wizard_id = fields.Many2one('beesddoo.shift.generate_shift_template')
     start_time = fields.Float(required=True)

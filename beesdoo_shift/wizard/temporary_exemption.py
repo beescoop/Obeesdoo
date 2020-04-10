@@ -3,6 +3,7 @@ from odoo.exceptions import ValidationError
 
 class TemporaryExemption(models.TransientModel):
     _name = 'beesdoo.shift.temporary_exemption'
+    _description = 'beesdoo.shift.temporary_exemption'
     _inherit = 'beesdoo.shift.action_mixin'
 
     temporary_exempt_reason_id = fields.Many2one('cooperative.exempt.reason', 'Exempt Reason', required=True)

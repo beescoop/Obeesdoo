@@ -1,8 +1,8 @@
 from odoo import models, fields, api
 
 class RequestLabelPrintingWizard(models.TransientModel):
-
     _name = 'label.printing.wizard'
+    _description = 'label.printing.wizard'
 
     def _get_selected_products(self):
         return self.env.context['active_ids']

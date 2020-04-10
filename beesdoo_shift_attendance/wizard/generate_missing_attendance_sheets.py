@@ -10,6 +10,7 @@ class GenerateMissingAttendanceSheets(models.TransientModel):
     """
 
     _name = "beesdoo.shift.generate_missing_attendance_sheets"
+    _description = "beesdoo.shift.generate_missing_attendance_sheets"
 
     date_start = fields.Datetime("Start date", required=True)
     date_end = fields.Datetime("End date", required=True)

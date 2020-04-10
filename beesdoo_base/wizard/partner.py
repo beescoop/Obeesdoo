@@ -5,6 +5,7 @@ class NewEaterWizard(models.TransientModel):
         A transient model for the creation of a eater related to a worker.
     """
     _name = 'eater.new.wizard'
+    _description = 'eater.new.wizard'
 
     def _get_default_partner(self):
         return self.env.context['active_id']

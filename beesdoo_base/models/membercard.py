@@ -14,6 +14,7 @@ class MemberCard(models.Model):
 
     _name = 'member.card'
     _order = 'create_date desc'
+    _description = "Member Card"
 
     valid = fields.Boolean(default=True, string="Active")
     barcode = fields.Char("Barcode", oldname='ean13', default=_compute_bar_code)

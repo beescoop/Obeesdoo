@@ -2,7 +2,6 @@ from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
 class Partner(models.Model):
-
     _inherit = 'res.partner'
 
     eater = fields.Selection([('eater', 'Eater'), ('worker_eater', 'Worker and Eater')], string="Eater/Worker")
