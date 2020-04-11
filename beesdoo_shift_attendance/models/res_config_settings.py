@@ -11,9 +11,9 @@ class ResConfigSettings(models.TransientModel):
 
     card_support = fields.Boolean(
         string="Scan cooperators cards instead of login for sheets validation",
-        config_parameter="beesdoo_shift.card_support",
+        config_parameter="beesdoo_shift_attendance.card_support",
     )
-    task_type_default_id = fields.Many2one(
+    pre_filled_task_type_id = fields.Many2one(
         "beesdoo.shift.type",
         string="Default Task Type",
         help="Default task type for attendance sheet pre-filling",
@@ -24,7 +24,7 @@ class ResConfigSettings(models.TransientModel):
         string="Time interval for attendance sheet generation",
         help="Time interval expressed in minutes",
         required=True,
-        config_parameter="beesdoo_shift.attendance_sheet_generation_interval",
+        config_parameter="beesdoo_shift_attendance.attendance_sheet_generation_interval",
     )
 
     @api.multi
@@ -32,14 +32,14 @@ class ResConfigSettings(models.TransientModel):
         super(ResConfigSettings, self).set_values()
         parameters = self.env["ir.config_parameter"].sudo()
         parameters.set_param(
-            "beesdoo_shift.card_support", str(self.card_support),
+            "beesdoo_shift_attendance.card_support", str(self.card_support),
         )
         parameters.set_param(
-            "beesdoo_shift.task_type_default_id",
-            str(self.task_type_default_id.id),
+            "beesdoo_shift_attendance.pre_filled_task_type_id",
+            str(self.pre_filled_task_type_id.id),
         )
         parameters.set_param(
-            "beesdoo_shift.attendance_sheet_generation_interval",
+            "beesdoo_shift_attendance.attendance_sheet_generation_interval",
             str(self.attendance_sheet_generation_interval),
         )
 
@@ -49,12 +49,12 @@ class ResConfigSettings(models.TransientModel):
         res.update(
             card_support=ast.literal_eval(
                 self.env["ir.config_parameter"].get_param(
-                    "beesdoo_shift.card_support"
+                    "beesdoo_shift_attendance.card_support"
                 ),
             ),
-            task_type_default_id=int(
+            pre_filled_task_type_id=int(
                 self.env["ir.config_parameter"].get_param(
-                    "beesdoo_shift.task_type_default_id"
+                    "beesdoo_shift_attendance.pre_filled_task_type_id"
                 )
             ),
         )

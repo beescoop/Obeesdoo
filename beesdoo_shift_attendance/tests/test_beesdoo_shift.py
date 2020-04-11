@@ -21,7 +21,7 @@ class TestBeesdooShift(TransactionCase):
         self.shift_expected_model = self.env["beesdoo.shift.sheet.expected"]
         self.shift_added_model = self.env["beesdoo.shift.sheet.added"]
         self.pre_filled_task_type_id = self.env["ir.config_parameter"].sudo().get_param(
-            "beesdoo_shift.pre_filled_task_type_id"
+            "beesdoo_shift_attendance.pre_filled_task_type_id"
         )
 
         self.current_time = datetime.now()

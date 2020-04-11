@@ -22,7 +22,7 @@ class ValidateAttendanceSheet(models.TransientModel):
     def _get_card_support_setting(self):
         return ast.literal_eval(
             self.env["ir.config_parameter"].sudo().get_param(
-                "beesdoo_shift.card_support"
+                "beesdoo_shift_attendance.card_support"
             )
         )
 
@@ -119,7 +119,7 @@ class ValidateAttendanceSheet(models.TransientModel):
             partner = user.partner_id
 
         can_validate = partner.user_ids.has_group(
-            "beesdoo_shift.group_shift_attendance_sheet_validation"
+            "beesdoo_shift_attendance.group_shift_attendance_sheet_validation"
         )
 
         if not partner.super and not can_validate:
