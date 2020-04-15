@@ -1,8 +1,10 @@
 from odoo import models, fields, api, _
+from odoo.addons.beesdoo_shift.models.cooperative_status import add_days_delta
 from odoo.exceptions import ValidationError, UserError
 
 from datetime import timedelta, datetime
 import logging
+
 
 class CooperativeStatus(models.Model):
     _inherit = 'cooperative.status'
@@ -16,7 +18,6 @@ class CooperativeStatus(models.Model):
 
     future_alert_date = fields.Date(compute='_compute_future_alert_date')
     next_countdown_date = fields.Date(compute='_compute_next_countdown_date')
-
 
     @api.depends('today', 'irregular_start_date', 'sr', 'holiday_start_time',
                  'holiday_end_time', 'temporary_exempt_start_date',
@@ -42,22 +43,29 @@ class CooperativeStatus(models.Model):
                 counter = rec.sr
                 # Simulate the countdown
                 while counter > 0:
-                    date = add_days_delta(date, 1)
-                    date = self._next_countdown_date(rec.irregular_start_date,
-                                                     date)
+                    date = self._next_countdown_date(
+                        rec.irregular_start_date, date
+                    )
                     # Check holidays
-                    if (rec.holiday_start_time and rec.holiday_end_time
-                            and date >= rec.holiday_start_time
-                            and date <= rec.holiday_end_time):
+                    if (
+                        rec.holiday_start_time and rec.holiday_end_time
+                        and date >= rec.holiday_start_time
+                        and date <= rec.holiday_end_time
+                    ):
+                        date = add_days_delta(date, 1)
                         continue
                     # Check temporary exemption
-                    elif (rec.temporary_exempt_start_date
-                          and rec.temporary_exempt_end_date
-                          and date >= rec.temporary_exempt_start_date
-                          and date <= rec.temporary_exempt_end_date):
+                    if (
+                        rec.temporary_exempt_start_date
+                        and rec.temporary_exempt_end_date
+                        and date >= rec.temporary_exempt_start_date
+                        and date <= rec.temporary_exempt_end_date
+                    ):
+                        date = add_days_delta(date, 1)
                         continue
-                    else:
-                        counter -= 1
+                    # Otherwise
+                    date = add_days_delta(date, 1)
+                    counter -= 1
                 rec.future_alert_date = self._next_countdown_date(
                     rec.irregular_start_date, date
                 )
@@ -87,24 +95,29 @@ class CooperativeStatus(models.Model):
                 date = rec.today
                 next_countdown_date = False
                 while not next_countdown_date:
-                    date = self._next_countdown_date(rec.irregular_start_date, date)
+                    date = self._next_countdown_date(
+                        rec.irregular_start_date, date
+                    )
                     # Check holidays
-                    if (rec.holiday_start_time and rec.holiday_end_time
-                            and date >= rec.holiday_start_time
-                            and date <= rec.holiday_end_time):
+                    if (
+                        rec.holiday_start_time and rec.holiday_end_time
+                        and date >= rec.holiday_start_time
+                        and date <= rec.holiday_end_time
+                    ):
                         date = add_days_delta(date, 1)
                         continue
                     # Check temporary exemption
-                    elif (rec.temporary_exempt_start_date
-                          and rec.temporary_exempt_end_date
-                          and date >= rec.temporary_exempt_start_date
-                          and date <= rec.temporary_exempt_end_date):
+                    if (
+                        rec.temporary_exempt_start_date
+                        and rec.temporary_exempt_end_date
+                        and date >= rec.temporary_exempt_start_date
+                        and date <= rec.temporary_exempt_end_date
+                    ):
                         date = add_days_delta(date, 1)
                         continue
-                    else:
-                        next_countdown_date = date
+                    # Otherwise
+                    next_countdown_date = date
                 rec.next_countdown_date = next_countdown_date
-
 
     #####################################
     #   Status Change implementation    #
@@ -210,7 +223,8 @@ class CooperativeStatus(models.Model):
     ###### Irregular Cron implementation ##########
     ###############################################
 
-    def _get_irregular_worker_domain(self):
+    def _get_irregular_worker_domain(self, **kwargs):
+        today = kwargs.get("today") or self.today
         return ['&',
                     '&',
                         '&',
@@ -242,9 +256,9 @@ class CooperativeStatus(models.Model):
         today = today or fields.Date.today()
 
         delta = (today - irregular_start_date).days
-        if not delta % PERIOD:
+        if not delta % self._period:
             return today
-        return add_days_delta(today, PERIOD - (delta % PERIOD))
+        return add_days_delta(today, self._period - (delta % self._period))
 
 
 class ResPartner(models.Model):
