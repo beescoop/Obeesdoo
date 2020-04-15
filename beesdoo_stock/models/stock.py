@@ -10,7 +10,7 @@ class StockPackOperation(models.Model):
         context = self._context
         ctx = (context or {}).copy()
         ctx['articles'] = []
-        for line in self.browse(ids).pack_operation_ids:
+        for line in self.browse(ids).move_line_ids:
             ctx['articles'].append(line.product_id.product_tmpl_id.id)
         if ctx['articles']:
             return {
@@ -24,5 +24,5 @@ class StockPackOperation(models.Model):
                 'context': ctx,
                 'nodestroy': True,
                 'res_id': ctx['articles'],
-                'domain': [('id', '=', ctx['articles'])],
+                'domain': [('id', 'in', ctx['articles'])],
             }
