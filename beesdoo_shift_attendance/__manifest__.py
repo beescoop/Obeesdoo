@@ -33,5 +33,7 @@
         "wizard/generate_missing_attendance_sheets.xml",
         "views/attendance_sheet.xml",
     ],
-    'demo': []
+    'demo': [
+        "demo/users.xml",
+    ]
 }
