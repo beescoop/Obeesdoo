@@ -20,7 +20,6 @@
         <field name="inherit_id" ref="point_of_sale.view_partner_property_form" />
         <field name="arch" type="xml">
             <field name="type" position="before">
-                <field name="is_worker"/>
                 <field name="cooperator_type"/>
             </field>
             <field name="website" position="after">

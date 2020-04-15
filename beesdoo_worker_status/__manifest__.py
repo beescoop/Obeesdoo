@@ -20,6 +20,7 @@
     ],
 
     'data': [
+        "views/res_partner.xml",
     ],
     'demo': [
     ]

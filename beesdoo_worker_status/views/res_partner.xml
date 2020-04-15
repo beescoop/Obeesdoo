@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="beesdoo_partner_form_view">
+        <field name="name">beesdoo.partner.form.view</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="beesdoo_base.beesdoo_partner_form_view" />
+        <field name="arch" type="xml">
+            <field name="cooperator_type" position="before">
+                <field name="is_worker"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
