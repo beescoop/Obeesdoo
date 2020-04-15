@@ -191,7 +191,7 @@ class CooperativeStatus(models.Model):
         if not journal:
             journal = self.env['beesdoo.shift.journal'].create({'date': today})
 
-        domain = self._get_irregular_worker_domain()
+        domain = self._get_irregular_worker_domain(today=today)
         irregular = self.search(domain)
         for status in irregular:
             delta = (today - status.irregular_start_date).days
