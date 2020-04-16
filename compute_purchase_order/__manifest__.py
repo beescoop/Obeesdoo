@@ -1,7 +1,6 @@
-# -*- encoding: utf-8 -*-
 {
     'name': 'Computed Purchase Order',
-    'version': '10.0.1.0.0',
+    'version': '11.0.1.0.0',
     'category': 'Purchase Order',
     'description': """ todo """,
     'author': 'Coop IT Easy',

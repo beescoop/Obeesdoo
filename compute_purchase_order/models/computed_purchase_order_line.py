@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import logging
 
 from odoo import models, fields, api
@@ -151,13 +150,13 @@ class ComputedPurchaseOrderLine(models.Model):
 
                 if len(si) == 0:
                     raise ValidationError(
-                        u'No supplier information set for {name}'
+                        'No supplier information set for {name}'
                         .format(name=cpol.product_template_id.name))
                 elif len(si) == 1:
                     cpol.supplierinfo_id = si
                 else:
                     _logger.warning(
-                        u'product {name} has several suppliers, chose last'
+                        'product {name} has several suppliers, chose last'
                         .format(name=cpol.product_template_id.name)
                     )
                     si = si.sorted(key=lambda r: r.create_date, reverse=True)
@@ -167,10 +166,10 @@ class ComputedPurchaseOrderLine(models.Model):
     def _check_minimum_purchase_quantity(self):
         for cpol in self:
             if cpol.purchase_quantity < 0:
-                raise ValidationError(u'Purchase quantity for {product_name} must be greater than 0'  # noqa
+                raise ValidationError('Purchase quantity for {product_name} must be greater than 0'  # noqa
                                         .format(product_name=cpol.product_template_id.name))
             elif 0 < cpol.purchase_quantity < cpol.minimum_purchase_qty:
-                raise ValidationError(u'Purchase quantity for {product_name} must be greater than {min_qty}'  # noqa
+                raise ValidationError('Purchase quantity for {product_name} must be greater than {min_qty}'  # noqa
                                        .format(product_name=cpol.product_template_id.name,
                                                min_qty=cpol.minimum_purchase_qty))
 
@@ -191,6 +190,6 @@ class ComputedPurchaseOrderLine(models.Model):
             return products[0]
         else:
             raise ValidationError(
-                u'%s:%s template has no variant set'
+                '%s:%s template has no variant set'
                 % (self.product_template_id.id, self.product_template_id.name)
             )
