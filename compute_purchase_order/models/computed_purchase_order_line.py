@@ -61,14 +61,14 @@ class ComputedPurchaseOrderLine(models.Model):
         help='Virtual quantity taking into account current stock, incoming '
              'orders and outgoing sales.')
 
-    average_consumption = fields.Float(
+    daily_sales = fields.Float(
         string='Average Consumption',
-        related='product_template_id.average_consumption',
+        related='product_template_id.daily_sales',
         read_only=True)
 
     stock_coverage = fields.Float(
         string='Stock Coverage',
-        related='product_template_id.estimated_stock_coverage',
+        related='product_template_id.stock_coverage',
         read_only=True,
     )
 
@@ -123,7 +123,7 @@ class ComputedPurchaseOrderLine(models.Model):
     def _depends_on_purchase_quantity(self):
         for cpol in self:
             cpol.subtotal = cpol.product_price * cpol.purchase_quantity
-            avg = cpol.average_consumption
+            avg = cpol.daily_sales
             if avg > 0:
                 qty = ((cpol.virtual_available / cpol.uom_id.factor)
                        + (cpol.purchase_quantity / cpol.uom_po_id.factor))

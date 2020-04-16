@@ -60,7 +60,7 @@
               <field name="qty_available" readonly='1'/>
               <field name="virtual_available" readonly='1'/>
               <field name="uom_id" readonly='1'/>
-              <field name="average_consumption" readonly='1'/>
+              <field name="daily_sales" readonly='1'/>
               <field name="stock_coverage" readonly='1'/>
               <field name="virtual_coverage" readonly='1'/>
               <field name="product_price" readonly='1'/>
