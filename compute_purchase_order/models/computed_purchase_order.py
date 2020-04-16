@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from openerp import models, fields, api, SUPERUSER_ID
-from openerp.exceptions import ValidationError
+from odoo import models, fields, api, SUPERUSER_ID
+from odoo.exceptions import ValidationError
 
 
 class ComputedPurchaseOrder(models.Model):

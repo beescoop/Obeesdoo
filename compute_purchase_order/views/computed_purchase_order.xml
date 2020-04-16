@@ -55,7 +55,7 @@
           </group>
 
           <field name="order_line_ids" context="{'cpo_seller_id': supplier_id}">
-            <tree string="Order Lines" editable='bottom'>
+            <tree name="order_lines" string="Order Lines" editable='bottom'>
               <field name="product_template_id" domain="[('main_seller_id', '=', cpo_seller_id)]"/>
               <field name="qty_available" readonly='1'/>
               <field name="virtual_available" readonly='1'/>
