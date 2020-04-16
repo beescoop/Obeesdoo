@@ -17,9 +17,9 @@
                 <field name="uom_po_id"/>
                 <field name="qty_available"/>
                 <field name="virtual_available"/>
-                <field name="estimated_stock_coverage"/>
-                <field name="average_consumption"/>
-                <field name="total_consumption"/>
+                <field name="stock_coverage"/>
+                <field name="daily_sales"/>
+                <field name="range_sales"/>
             </tree>
         </field>
     </record>

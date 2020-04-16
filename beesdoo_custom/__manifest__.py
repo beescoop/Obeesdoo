@@ -17,6 +17,7 @@
     # any module necessary for this one to work correctly
     'depends': [
         'beesdoo_product',
+        'beesdoo_stock_coverage',
         'purchase',
         'easy_my_coop', # for product views
     ],
