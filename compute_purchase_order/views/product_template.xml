@@ -12,10 +12,10 @@
           <field name="name"/>
             <field name="ref interne"/>
             <field name="supplier"/>
-          <field name="estimated_stock_coverage"/>
+            <field name="stock_coverage"/>
             <field name="virtual_coverage"/>
-          <field name="categ_id"/>
-          <field name="qty_available"/>
+            <field name="categ_id"/>
+            <field name="qty_available"/>
             <field name="expected quantity"/>
         </tree>
 
