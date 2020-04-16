@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from odoo import models, fields, api, SUPERUSER_ID
 from odoo.exceptions import ValidationError
 
@@ -83,12 +82,12 @@ class ComputedPurchaseOrder(models.Model):
             suppliers.add(main_supplier_id)
 
         if len(suppliers) == 0:
-            raise ValidationError(u'No supplier is set for selected articles.')
+            raise ValidationError('No supplier is set for selected articles.')
         elif len(suppliers) == 1:
             return suppliers.pop()
         else:
             raise ValidationError(
-                u'You must select article from a single supplier.')
+                'You must select article from a single supplier.')
 
     def _create_order_lines(self):
         product_tmpl_ids = self._get_selected_products()
@@ -113,7 +112,7 @@ class ComputedPurchaseOrder(models.Model):
                     .browse(supplier_id)
                     .name)
 
-            name = u'CPO {} {}'.format(
+            name = 'CPO {} {}'.format(
                 supplier_name,
                 fields.Date.today())
         else:
@@ -155,8 +154,8 @@ class ComputedPurchaseOrder(models.Model):
         self.ensure_one()
 
         if sum(self.order_line_ids.mapped('purchase_quantity')) == 0:
-            raise ValidationError(u'You need at least a product to generate '
-                                  u'a Purchase Order')
+            raise ValidationError('You need at least a product to generate '
+                                  'a Purchase Order')
 
         PurchaseOrder = self.env['purchase.order']
         PurchaseOrderLine = self.env['purchase.order.line']
