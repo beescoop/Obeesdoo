@@ -10,7 +10,7 @@
         'product',
         'purchase',
         'stock',
-        'stock_coverage',
+        'beesdoo_stock_coverage',
     ],
     'data': [
         'security/ir.model.access.csv',
