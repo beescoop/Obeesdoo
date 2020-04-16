@@ -41,7 +41,7 @@ class ComputedPurchaseOrderLine(models.Model):
         read_only=True)
 
     uom_id = fields.Many2one(
-        'product.uom',
+        'uom.uom',
         string='Unit of Measure',
         read_only=True,
         related='product_template_id.uom_id',
@@ -83,7 +83,7 @@ class ComputedPurchaseOrderLine(models.Model):
         default=0.)
 
     uom_po_id = fields.Many2one(
-        'product.uom',
+        'uom.uom',
         string='Purchase Unit of Measure',
         read_only=True,
         related='product_template_id.uom_po_id',
