@@ -1,9 +1,14 @@
+# This module is, for now, specific to the BEES coop.
+# Therefore, this module depends on `beesdo_worker_status`.
+# If someone needs this module but has another worker_status rules
+# this module can be splitted into a generic part, and a specific part
+# that implement the worker_status rules.
 {
     'name': "Beescoop Shift Attendance Sheet",
 
     'summary': """
         Volonteer Timetable Management
-        Attendance Sheet""",
+        Attendance Sheet for BEES coop""",
 
     'description': """
 
@@ -17,7 +22,7 @@
 
     'depends': [
         'beesdoo_shift',
-        'beesdoo_worker_status', #TODO move the part that require beesdoo_worker_status in beesdoo_worker status or another module
+        'beesdoo_worker_status',
         'mail',
         'barcodes',
     ],

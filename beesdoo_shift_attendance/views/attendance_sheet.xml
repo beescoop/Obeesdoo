@@ -230,8 +230,8 @@
     <!-- Top menu item -->
     <menuitem id="menu_sheet_top"
         name="Attendance Sheets"
-        parent="menu_root"
-        groups="beesdoo_shift.group_shift_attendance_sheet"
+        parent="beesdoo_shift.menu_root"
+        groups="beesdoo_shift_attendance.group_shift_attendance_sheet"
         sequence="1"
     />
 

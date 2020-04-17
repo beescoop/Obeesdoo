@@ -27,10 +27,10 @@ class TestBeesdooShift(TransactionCase):
         self.current_time = datetime.now()
         self.user_admin = self.env.ref("base.user_root")
         self.user_generic = self.env.ref(
-            "beesdoo_base.beesdoo_shift_user_1_demo"
+            "beesdoo_shift_attendance.beesdoo_shift_user_1_demo"
         )
         self.user_permanent = self.env.ref(
-            "beesdoo_base.beesdoo_shift_user_2_demo"
+            "beesdoo_shift_attendance.beesdoo_shift_user_2_demo"
         )
 
         self.setting_wizard = self.env["res.config.settings"].sudo(
@@ -38,22 +38,22 @@ class TestBeesdooShift(TransactionCase):
         )
 
         self.worker_regular_1 = self.env.ref(
-            "beesdoo_base.res_partner_cooperator_6_demo"
+            "beesdoo_shift.res_partner_cooperator_6_demo"
         )
         self.worker_regular_2 = self.env.ref(
-            "beesdoo_base.res_partner_cooperator_5_demo"
+            "beesdoo_shift.res_partner_cooperator_5_demo"
         )
         self.worker_regular_3 = self.env.ref(
-            "beesdoo_base.res_partner_cooperator_3_demo"
+            "beesdoo_shift.res_partner_cooperator_3_demo"
         )
         self.worker_regular_super_1 = self.env.ref(
-            "beesdoo_base.res_partner_cooperator_1_demo"
+            "beesdoo_shift.res_partner_cooperator_1_demo"
         )
         self.worker_irregular_1 = self.env.ref(
-            "beesdoo_base.res_partner_cooperator_2_demo"
+            "beesdoo_shift.res_partner_cooperator_2_demo"
         )
         self.worker_irregular_2 = self.env.ref(
-            "beesdoo_base.res_partner_cooperator_4_demo"
+            "beesdoo_shift.res_partner_cooperator_4_demo"
         )
 
         self.task_type_1 = self.env.ref(
@@ -116,7 +116,7 @@ class TestBeesdooShift(TransactionCase):
                 "replaced_id": self.worker_regular_2.id,
             }
         )
-        future_shift_regular = self.shift_model.create(
+        self.future_shift_regular = self.shift_model.create(
             {
                 "task_template_id": self.task_template_2.id,
                 "task_type_id": self.task_type_1.id,

@@ -1,4 +1,3 @@
-
 from datetime import date, datetime, timedelta
 
 from lxml import etree
@@ -24,13 +23,13 @@ class AttendanceSheetShift(models.Model):
     @api.model
     def pre_filled_task_type_id(self):
         parameters = self.env["ir.config_parameter"].sudo()
-        id = int(
+        tasktype_id = int(
             parameters.get_param(
-                "beesdoo_shift.pre_filled_task_type_id", default=1
+                "beesdoo_shift_attendance.pre_filled_task_type_id", default=1
             )
         )
         task_types = self.env["beesdoo.shift.type"]
-        return task_types.browse(default_task_type_id)
+        return task_types.browse(tasktype_id)
 
     # Related actual shift
     task_id = fields.Many2one("beesdoo.shift.shift", string="Task")
@@ -320,7 +319,7 @@ class AttendanceSheet(models.Model):
             )
 
     def on_barcode_scanned(self, barcode):
-        if self.env.user.has_group("beesdoo_shift.group_shift_attendance"):
+        if self.env.user.has_group("beesdoo_shift_attendance.group_shift_attendance"):
             raise UserError(
                 _("You must be logged as 'Attendance Sheet Generic Access' "
                 " if you want to scan cards.")
@@ -469,7 +468,7 @@ class AttendanceSheet(models.Model):
 
             if expected_shift.state != "done":
                 mail_template = self.env.ref(
-                    "beesdoo_shift.email_template_non_attendance", False
+                    "beesdoo_shift_attendance.email_template_non_attendance", False
                 )
                 mail_template.send_mail(expected_shift.task_id.id, True)
 
@@ -584,7 +583,9 @@ class AttendanceSheet(models.Model):
                 )
 
         # Open a validation wizard only if not admin
-        if self.env.user.has_group("beesdoo_shift.group_shift_attendance_sheet_validation"):
+        if self.env.user.has_group(
+            "beesdoo_shift_attendance.group_shift_attendance_sheet_validation"
+        ):
             if not self.worker_nb_feedback:
                 raise UserError(
                     _("Please give your feedback about the number of workers.")
@@ -611,7 +612,7 @@ class AttendanceSheet(models.Model):
         current_time = datetime.now()
         generation_interval_setting = int(
             self.env["ir.config_parameter"].sudo().get_param(
-                "beesdoo_shift.attendance_sheet_generation_interval"
+                "beesdoo_shift_attendance.attendance_sheet_generation_interval"
             )
         )
 
@@ -628,7 +629,7 @@ class AttendanceSheet(models.Model):
             start_time = task.start_time
             end_time = task.end_time
             sheets = sheets.search(
-                [("start_time", "=", start_time), ("end_time", "=", end_time),]
+                [("start_time", "=", start_time), ("end_time", "=", end_time)]
             )
 
             if not sheets:
@@ -648,7 +649,8 @@ class AttendanceSheet(models.Model):
 
         if non_validated_sheets:
             mail_template = self.env.ref(
-                "beesdoo_shift.email_template_non_validated_sheet", False
+                "beesdoo_shift_attendance.email_template_non_validated_sheet",
+                False,
             )
             for rec in non_validated_sheets:
                 mail_template.send_mail(rec.id, True)
