@@ -1,18 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template">
-    <!-- TODO: will be taken care of in separate 'pos_order_email' module -->
-    <!-- <t t-extend="ReceiptScreenWidget">
-        <t t-jquery='.pos-receipt-container' t-operation='before'>
-            <div class="button send">
-                <i class='fa fa-envelope'></i>
-                Send Receipt By Mail
-            </div>
-            <div class="message-send">
-            </div>
-        </t>
-    </t>
-    -->
-
     <t t-extend="ActionpadWidget">
         <t t-jquery="t[t-if='widget.pos.get_client()']" t-operation="after">
             <t t-if="widget.pos.get_client()">

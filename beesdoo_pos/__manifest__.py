@@ -13,7 +13,7 @@
     """,
 
     'description': """
-        Long description of module's purpose
+        This module adds the eaters of the customer to the POS ActionpadWidget and PaymentScreenWidget.
     """,
 
     'author': "Beescoop - Cellule IT",
@@ -25,11 +25,8 @@
     'depends': ['beesdoo_base', 'beesdoo_product'],
 
     'data': [
-        'security/ir.model.access.csv',
         'views/beesdoo_pos.xml',
-        'data/email.xml',
         'data/default_barcode_pattern.xml',
-        'data/cron.xml',
     ],
     'qweb': ['static/src/xml/templates.xml'],
 
