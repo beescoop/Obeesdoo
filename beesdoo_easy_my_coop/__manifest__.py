@@ -18,7 +18,8 @@
     'depends': ['beesdoo_base',
                 'beesdoo_shift',
                 'easy_my_coop',
-                'easy_my_coop_eater'
+                'easy_my_coop_eater',
+                'easy_my_coop_website',
                 ],
 
     'data': [
