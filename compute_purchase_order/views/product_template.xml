@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+  <record id="product_template_tree" model="ir.ui.view">
+      <field name="name">product.template.tree</field>
+      <field name="model">product.template</field>
+      <field eval="6" name="priority"/>
+      <!--<field name="inherit_id" ref="product.product_template_tree_view"/>-->
+      <field name="arch" type="xml">
+
+        <tree>
+          <field name="name"/>
+            <field name="ref interne"/>
+            <field name="supplier"/>
+            <field name="stock_coverage"/>
+            <field name="virtual_coverage"/>
+            <field name="categ_id"/>
+            <field name="qty_available"/>
+            <field name="expected quantity"/>
+        </tree>
+
+    </field>
+  </record>
+</odoo>
