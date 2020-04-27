@@ -1,131 +1,155 @@
-from odoo import models, fields, api, SUPERUSER_ID
+# Copyright 2020 Coop IT Easy SCRL fs
+#   Robin Keunen <robin@coopiteasy.be>
+#   Vincent Van Rossem <vincent@coopiteasy.be>
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+
+from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
 
 class ComputedPurchaseOrder(models.Model):
-    _description = 'Computed Purchase Order'
-    _name = 'computed.purchase.order'
-    _order = 'id desc'
+    _description = "Computed Purchase Order"
+    _name = "computed.purchase.order"
+    _order = "id desc"
 
-    name = fields.Char(
-        string='CPO Reference',
-        size=64,
-        default='New')
-
+    name = fields.Char(string="CPO Reference", default=_("New"))
     order_date = fields.Datetime(
-        string='Purchase Order Date',
+        string="Purchase Order Date",
         default=fields.Datetime.now,
-        help="Depicts the date where the Quotation should be validated and converted into a purchase order.")  # noqa
-
+        help="Date at which the Quotation should be validated and "
+        "converted into a purchase order.",
+    )
     date_planned = fields.Datetime(
-        string='Date Planned'
+        string="Date Planned",
+        default=fields.Datetime.now,  # default=lambda _: fields.Datetime.now()
     )
-
     supplier_id = fields.Many2one(
-        'res.partner',
-        string='Supplier',
+        comodel_name="res.partner",
+        string="Supplier",
         readonly=True,
-        help="Supplier of the purchase order.")
-
-    order_line_ids = fields.One2many(
-        'computed.purchase.order.line',
-        'computed_purchase_order_id',
-        string='Order Lines',
+        help="Supplier of the purchase order.",
     )
-
+    cpo_line_ids = fields.One2many(
+        comodel_name="computed.purchase.order.line",
+        inverse_name="cpo_id",
+        string="Order Lines",
+    )
     total_amount = fields.Float(
-        string='Total Amount (w/o VAT)',
-        compute='_compute_cpo_total',
-        store=True,
+        string="Total Amount (w/o VAT)", compute="_compute_cpo_total"
     )
-
     generated_purchase_order_ids = fields.One2many(
-        'purchase.order',
-        'original_cpo_id',
-        string='Generated Purchase Orders',
+        comodel_name="purchase.order",
+        inverse_name="original_cpo_id",
+        string="Generated Purchase Orders",
     )
-
     generated_po_count = fields.Integer(
-        string='Generated Purchase Order count',
-        compute='_compute_generated_po_count',
+        string="Generated Purchase Order count",
+        compute="_compute_generated_po_count",
     )
-
-    @api.model
-    def default_get(self, fields_list):
-        record = super(ComputedPurchaseOrder, self).default_get(fields_list)
-
-        record['date_planned'] = self._get_default_date_planned()
-        record['supplier_id'] = self._get_selected_supplier_id()
-        record['order_line_ids'] = self._create_order_lines()
-        record['name'] = self._compute_default_name()
-
-        return record
-
-    def _get_default_date_planned(self):
-        return fields.Datetime.now()
-
-    def _get_selected_supplier_id(self):
-        """
-        Calcule le vendeur associé qui a la date de début la plus récente et
-        plus petite qu’aujourd’hui pour chaque article sélectionné.
-        Will raise an error if more than two sellers are set
-        """
-        if 'active_ids' not in self.env.context:
-            return False
-
-        product_ids = self.env.context['active_ids']
-        products = self.env['product.template'].browse(product_ids)
-
-        suppliers = set()
-        for product in products:
-            main_supplier_id = product.main_supplier_id.id
-            suppliers.add(main_supplier_id)
-
-        if len(suppliers) == 0:
-            raise ValidationError('No supplier is set for selected articles.')
-        elif len(suppliers) == 1:
-            return suppliers.pop()
-        else:
-            raise ValidationError(
-                'You must select article from a single supplier.')
-
-    def _create_order_lines(self):
-        product_tmpl_ids = self._get_selected_products()
-        cpol_ids = []
-        OrderLine = self.env['computed.purchase.order.line']
-        for product_id in product_tmpl_ids:
-            cpol = OrderLine.create(
-                {'computed_purchase_order_id': self.id,
-                 'product_template_id': product_id,
-                 }
-            )
-            # should ideally be set in cpol defaults
-            cpol.purchase_quantity = cpol.minimum_purchase_qty
-            cpol_ids.append(cpol.id)
-        return cpol_ids
-
-    def _compute_default_name(self):
-        supplier_id = self._get_selected_supplier_id()
-        if supplier_id:
-            supplier_name = (
-                self.env['res.partner']
-                    .browse(supplier_id)
-                    .name)
-
-            name = 'CPO {} {}'.format(
-                supplier_name,
-                fields.Date.today())
-        else:
-            name = 'New'
-        return name
-
-    def _get_selected_products(self):
-        if 'active_ids' in self.env.context:
-            return self.env.context['active_ids']
-        else:
-            return []
 
     @api.multi
+    @api.depends("cpo_line_ids", "cpo_line_ids.purchase_quantity")
+    def _compute_cpo_total(self):
+        for cpo in self:
+            total_amount = sum(cpol.subtotal for cpol in cpo.cpo_line_ids)
+            cpo.total_amount = total_amount
+
+    @api.model
+    def _get_selected_supplier(self):
+        product_ids = self.env.context.get("active_ids", [])
+        products = self.env["product.template"].browse(product_ids)
+        suppliers = products.mapped("main_supplier_id")
+
+        if not suppliers:
+            raise ValidationError("No supplier is set for selected articles.")
+        elif len(suppliers) == 1:
+            return suppliers
+        else:
+            raise ValidationError(
+                "You must select article from a single supplier."
+            )
+
+    @api.model
+    def generate_cpo(self):
+        order_line_obj = self.env["computed.purchase.order.line"]
+        product_ids = self.env.context.get("active_ids", [])
+
+        supplier = self._get_selected_supplier()
+        name = "CPO {} {}".format(supplier.name, fields.Date.today())
+        cpo = self.create({"name": name, "supplier_id": supplier.id})
+
+        for product_id in product_ids:
+            supplierinfo = self.env["product.supplierinfo"].search(
+                [
+                    ("product_tmpl_id", "=", product_id),
+                    ("name", "=", supplier.id),
+                ]
+            )
+            min_qty = supplierinfo.min_qty if supplierinfo else 0
+            order_line_obj.create(
+                {
+                    "cpo_id": cpo.id,
+                    "product_template_id": product_id,
+                    "purchase_quantity": min_qty,
+                }
+            )
+        action = {
+            "type": "ir.actions.act_window",
+            "res_model": "computed.purchase.order",
+            "views": [[False, "form"]],
+            # "view_mode": "form,tree",
+            # "view_type": "form",
+            # "target": "current",
+            "res_id": cpo.id,
+        }
+        return action
+
+    @api.multi
+    def create_purchase_order(self):
+        self.ensure_one()
+
+        if sum(self.cpo_line_ids.mapped("purchase_quantity")) == 0:
+            raise ValidationError(
+                "You need at least a product to generate " "a Purchase Order"
+            )
+
+        purchase_order = self.env["purchase.order"].create(
+            {
+                "date_order": self.order_date,
+                "partner_id": self.supplier_id.id,
+                "date_planned": self.date_planned,
+            }
+        )
+
+        for cpo_line in self.cpo_line_ids:
+            if cpo_line.purchase_quantity > 0:
+                pol = self.env["purchase.order.line"].create(
+                    {
+                        "name": cpo_line.name,
+                        "product_id": cpo_line.product_template_id.product_variant_id.id,
+                        "product_qty": cpo_line.purchase_quantity,
+                        "price_unit": cpo_line.product_price,
+                        "product_uom": cpo_line.uom_po_id.id,
+                        "order_id": purchase_order.id,
+                        "date_planned": self.date_planned,
+                    }
+                )
+                pol.compute_taxes_id()
+
+            self.generated_purchase_order_ids += purchase_order
+
+        action = {
+            "type": "ir.actions.act_window",
+            "res_model": "purchase.order",
+            "res_id": purchase_order.id,
+            "view_type": "form",
+            "view_mode": "form,tree",
+            "target": "current",
+        }
+        return action
+
+    @api.multi
+    @api.depends("generated_purchase_order_ids")
     def _compute_generated_po_count(self):
         for cpo in self:
             cpo.generated_po_count = len(cpo.generated_purchase_order_ids)
@@ -134,95 +158,10 @@ class ComputedPurchaseOrder(models.Model):
     def get_generated_po_action(self):
         self.ensure_one()
         action = {
-            'type': 'ir.actions.act_window',
-            'res_model': 'purchase.order',
-            'view_mode': 'tree,form,kanban',
-            'target': 'current',
-            'domain': [('id', 'in', self.generated_purchase_order_ids.ids)],
+            "type": "ir.actions.act_window",
+            "res_model": "purchase.order",
+            "view_mode": "tree,form,kanban",
+            "target": "current",
+            "domain": [("id", "in", self.generated_purchase_order_ids.ids)],
         }
         return action
-
-    @api.depends('order_line_ids.subtotal')
-    @api.multi
-    def _compute_cpo_total(self):
-        for cpo in self:
-            total_amount = sum(cpol.subtotal for cpol in cpo.order_line_ids)
-            cpo.total_amount = total_amount
-
-    @api.multi
-    def create_purchase_order(self):
-        self.ensure_one()
-
-        if sum(self.order_line_ids.mapped('purchase_quantity')) == 0:
-            raise ValidationError('You need at least a product to generate '
-                                  'a Purchase Order')
-
-        PurchaseOrder = self.env['purchase.order']
-        PurchaseOrderLine = self.env['purchase.order.line']
-
-        po_values = {
-            'name': 'New',
-            'date_order': self.order_date,
-            'partner_id': self.supplier_id.id,
-            'date_planned': self.date_planned,
-        }
-        purchase_order = PurchaseOrder.create(po_values)
-
-        for cpo_line in self.order_line_ids:
-            if cpo_line.purchase_quantity > 0:
-                if cpo_line.supplierinfo_id.product_code:
-                    pol_name = '[%s] %s' % (cpo_line.supplierinfo_id.product_code, cpo_line.name)
-                else:
-                    pol_name = cpo_line.name
-                pol_values = {
-                    'name': pol_name,
-                    'product_id': cpo_line.get_default_product_product().id,
-                    'product_qty': cpo_line.purchase_quantity,
-                    'price_unit': cpo_line.product_price,
-                    'product_uom': cpo_line.uom_po_id.id,
-                    'order_id': purchase_order.id,
-                    'date_planned': self.date_planned,
-                }
-                pol = PurchaseOrderLine.create(pol_values)
-                pol.compute_taxes_id()
-
-            self.generated_purchase_order_ids += purchase_order
-
-        action = {
-            'type': 'ir.actions.act_window',
-            'res_model': 'purchase.order',
-            'res_id': purchase_order.id,
-            'view_type': 'form',
-            'view_mode': 'form',
-            'target': 'current',
-        }
-        return action
-
-
-class PurchaseOrderLine(models.Model):
-    _inherit = 'purchase.order.line'
-
-    @api.multi
-    def compute_taxes_id(self):
-        for pol in self:
-            if self.env.uid == SUPERUSER_ID:
-                company_id = self.env.user.company_id.id
-            else:
-                company_id = self.company_id.id
-
-            fpos_id = (
-                self.env['account.fiscal.position']
-                    .with_context(company_id=company_id)
-                    .get_fiscal_position(pol.partner_id.id)
-            )
-            fpos = self.env['account.fiscal.position'].browse(fpos_id)
-            pol.order_id.fiscal_position_id = fpos
-
-            taxes = self.product_id.supplier_taxes_id
-            taxes_id = fpos.map_tax(taxes) if fpos else taxes
-
-            if taxes_id:
-                taxes_id = taxes_id.filtered(
-                    lambda t: t.company_id.id == company_id)
-
-            pol.taxes_id = taxes_id

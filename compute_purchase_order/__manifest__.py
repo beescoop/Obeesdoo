@@ -10,12 +10,7 @@
     "author": "Coop IT Easy",
     "website": "https://github.com/coopiteasy/procurement-addons",
     "license": "AGPL-3",
-    "depends": [
-        "product",
-        "purchase",
-        "stock",
-        "beesdoo_stock_coverage",
-    ],  # todo simplify
+    "depends": ["purchase", "beesdoo_stock_coverage"],
     "data": [
         "security/ir.model.access.csv",
         "views/computed_purchase_order.xml",
