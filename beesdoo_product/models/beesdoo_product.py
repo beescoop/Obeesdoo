@@ -93,7 +93,7 @@ class BeesdooProduct(models.Model):
 
     @api.one
     @api.depends('taxes_id', 'list_price', 'taxes_id.amount',
-                 'taxes_id.tax_group_id', 'total_with_vat',
+                 'taxes_id.tax_group_id',
                  'display_weight', 'weight')
     def _get_total(self):
         consignes_group = self.env.ref('beesdoo_product.consignes_group_tax',
