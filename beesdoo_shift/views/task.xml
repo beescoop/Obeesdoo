@@ -12,7 +12,7 @@
                 <field name="worker_id" />
                 <field name="replaced_id" />
                 <field name="end_time" />
-                <field name="stage_id" />
+                <field name="state" />
             </tree>
         </field>
     </record>
@@ -28,38 +28,46 @@
                 <field name="super_coop_id" />
                 <field name="worker_id" />
                     <filter string="My Team Shift"
-                        domain="[('super_coop_id', '=', uid)]" />
+                            name="my_team_shift"
+                            domain="[('super_coop_id', '=', uid)]" />
                     <filter string="My Shift"
-                        domain="[('worker_id.user_ids', 'in', uid)]" />
+                            name="my_shift"
+                            domain="[('worker_id.user_ids', 'in', uid)]" />
                     <separator />
-                    <filter string="Assigned" name="assigned"
-                        domain="[('worker_id', '!=', False)]" />
-                    <filter string="Unassigned" name="unassigned"
-                        domain="[('worker_id', '=', False)]" />
+                    <filter string="Assigned"
+                            name="assigned"
+                            domain="[('worker_id', '!=', False)]" />
+                    <filter string="Unassigned"
+                            name="unassigned"
+                            domain="[('worker_id', '=', False)]" />
                     <separator />
                     <filter string="4 next days" name="nextweek"
-                        domain="[('end_time','&gt;', context_today().strftime('%%Y-%%m-%%d 00:00:00')), ('start_time','&lt;', (context_today()  + datetime.timedelta(days=4)).strftime('%%Y-%%m-%%d 23:59:59'))]" />
+                        domain="[('end_time','&gt;', context_today().strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  + datetime.timedelta(days=4)).strftime('%Y-%m-%d 23:59:59'))]" />
                     <filter string="J-5" name="jminus5"
-                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=5)).strftime('%%Y-%%m-%%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=5)).strftime('%%Y-%%m-%%d 23:59:59'))]" />
+                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=5)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=5)).strftime('%Y-%m-%d 23:59:59'))]" />
                     <filter string="J-4" name="jminus4"
-                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=4)).strftime('%%Y-%%m-%%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=4)).strftime('%%Y-%%m-%%d 23:59:59'))]" />
+                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=4)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=4)).strftime('%Y-%m-%d 23:59:59'))]" />
                     <filter string="J-3" name="jminus3"
-                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=3)).strftime('%%Y-%%m-%%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=3)).strftime('%%Y-%%m-%%d 23:59:59'))]" />
+                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=3)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=3)).strftime('%Y-%m-%d 23:59:59'))]" />
                     <filter string="J-2" name="jminus2"
-                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=2)).strftime('%%Y-%%m-%%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=2)).strftime('%%Y-%%m-%%d 23:59:59'))]" />
+                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=2)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=2)).strftime('%Y-%m-%d 23:59:59'))]" />
                     <filter string="J-1" name="jminus1"
-                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=1)).strftime('%%Y-%%m-%%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=1)).strftime('%%Y-%%m-%%d 23:59:59'))]" />
+                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=1)).strftime('%Y-%m-%d 23:59:59'))]" />
                     <filter string="Today" name="today"
-                        domain="[('end_time','&gt;', context_today().strftime('%%Y-%%m-%%d 00:00:00')), ('start_time','&lt;', context_today().strftime('%%Y-%%m-%%d 23:59:59'))]" />
+                        domain="[('end_time','&gt;', context_today().strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', context_today().strftime('%Y-%m-%d 23:59:59'))]" />
                 <group expand="1" string="Group By">
                     <filter string="Shift Template"
-                        context="{'group_by' : 'task_template_id'}" />
-                    <filter string="Type" name="gb_type"
-                        context="{'group_by' : 'task_type_id'}" />
-                    <filter string="Status" name="gb_status"
-                        context="{'group_by' : 'stage_id'}" />
-                    <filter string="Day" name="gb_day"
-                        context="{'group_by' : 'start_time:day'}" />
+                            name="template"
+                            context="{'group_by' : 'task_template_id'}" />
+                    <filter string="Type"
+                            name="gb_type"
+                            context="{'group_by' : 'task_type_id'}" />
+                    <filter string="Status"
+                            name="gb_status"
+                            context="{'group_by' : 'state'}" />
+                    <filter string="Day"
+                            name="gb_day"
+                            context="{'group_by' : 'start_time:day'}" />
                 </group>
             </search>
         </field>
@@ -84,8 +92,7 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <field name="stage_id" widget="statusbar"
-                        clickable="1" />
+                    <field name="state" widget="statusbar" clickable="1" />
                 </header>
                 <sheet>
                     <div class="oe_title">
@@ -103,13 +110,11 @@
                                    options="{'no_create': True, 'no_open': True}"
                                    domain="[('working_mode', '=', 'regular')]"
                                    attrs="{'invisible': [('working_mode', '!=', 'regular')]}" />
-                            <group>
-                                <field name="is_regular"
-                                       attrs="{'invisible': [('working_mode', '!=', 'regular')]}"/>
-                                <field name="is_compensation"
-                                       attrs="{'invisible': [('working_mode', '!=', 'regular')]}"/>
-                                <field name="working_mode" invisible="1"/>
-                            </group>
+                            <field name="is_regular"
+                                   attrs="{'invisible': [('working_mode', '!=', 'regular')]}"/>
+                            <field name="is_compensation"
+                                   attrs="{'invisible': [('working_mode', '!=', 'regular')]}"/>
+                            <field name="working_mode" invisible="1"/>
                         </group>
                         <group>
                             <field name="start_time" />
@@ -135,28 +140,22 @@
                 <field name="color" />
                 <field name="task_type_id" />
                 <field name="name" />
-                <field name="stage_id" />
+                <field name="state" />
                 <field name="worker_id" />
+                <field name="replaced_id" />
                 <field name="super_coop_id" />
                 <field name="is_regular" />
                 <templates>
-                    <t t-name="kanban-box">
-                        <div
-                            t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
-                            <div class="o_dropdown_kanban dropdown"
-                                groups="base.group_user">
-                                <a class="dropdown-toggle btn"
-                                    data-toggle="dropdown" href="#">
-                                    <span class="fa fa-bars fa-lg" />
+                      <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
+                            <div class="o_dropdown_kanban dropdown" name="card_dropdown_menu" groups="base.group_user">
+                                <a class="dropdown-toggle o-no-caret btn" role="button" data-toggle="dropdown" data-display="static" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                    <span class="fa fa-ellipsis-v"/>
                                 </a>
-                                <ul class="dropdown-menu" role="menu"
-                                    aria-labelledby="dLabel">
-                                    <t t-if="widget.editable">
-                                        <li>
-                                            <a type="edit">Edit Shift</a>
-                                        </li>
-                                    </t>
-                                </ul>
+                                <div class="dropdown-menu" role="menu">
+                                    <t t-if="widget.editable"><a role="menuitem" type="edit" class="dropdown-item">Edit Shift</a></t>
+                                    <t t-if="widget.deletable"><a role="menuitem" type="delete" class="dropdown-item">Delete</a></t>
+                                </div>
                             </div>
                             <div class="oe_kanban_content">
                                 <strong>
@@ -170,7 +169,7 @@
                                 </div>
                                 <div>
                                     Status:
-                                    <field name="stage_id" />
+                                    <field name="state" />
                                 </div>
                                 <div t-if="record.task_type_id.raw_value">
                                     Type:
@@ -179,6 +178,10 @@
                                 <div>
                                     Worker:
                                     <field name="worker_id" />
+                                </div>
+                                <div t-if="record.replaced_id.raw_value">
+                                    Replacement worker:
+                                    <field name="replaced_id" />
                                 </div>
                                 <div t-if="record.super_coop_id.raw_value">
                                     Super Coop:
@@ -198,32 +201,18 @@
 
     <!-- Actions -->
     <record model="ir.actions.act_window" id="action_task">
-        <field name="name">Task Action</field>
+        <field name="name">Shifts</field>
         <field name="res_model">beesdoo.shift.shift</field>
         <field name="view_mode">kanban,calendar,tree,form,pivot</field>
         <field name="context">{'search_default_today': 1,
             'search_default_gb_type':1}</field>
     </record>
 
-    <record model="ir.actions.act_window" id="action_task_attendance">
-        <field name="name">Shift Attendance</field>
-        <field name="res_model">beesdoo.shift.shift</field>
-        <field name="view_mode">kanban,tree,form</field>
-        <field name="context">{
-            'search_default_assigned': 1,
-            'search_default_today': 1,
-            'search_default_gb_status':1}</field>
-    </record>
-
-
-
-
     <!-- Top menu item -->
     <menuitem name="Planning" id="menu_task_top" parent="menu_root"
-        sequence="1" />
+        sequence="1" groups="beesdoo_shift.group_shift_attendance" />
     <!-- actions -->
-    <menuitem name="Shift" id="menu_task" parent="menu_task_top"
-        action="action_task" groups="beesdoo_shift.group_shift_management" />
-    <menuitem name="Shift Attendance" id="menu_task_attendance"
-        parent="menu_task_top" action="action_task_attendance" />
+    <menuitem name="Shifts" id="menu_task" parent="menu_task_top"
+        action="action_task" groups="beesdoo_shift.group_shift_attendance" />
+
 </odoo>

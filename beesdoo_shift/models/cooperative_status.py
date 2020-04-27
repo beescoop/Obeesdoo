@@ -1,19 +1,16 @@
-# -*- coding: utf-8 -*-
-from openerp import models, fields, api, _
-from openerp.exceptions import ValidationError
+from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError, UserError
 
 from datetime import timedelta, datetime
 import logging
-from openerp.osv.fields import related
 
 _logger = logging.getLogger(__name__)
-PERIOD = 28  # TODO: use system parameter
 
 def add_days_delta(date_from, days_delta):
     if not date_from:
         return date_from
-    next_date = fields.Date.from_string(date_from) + timedelta(days=days_delta)
-    return fields.Date.to_string(next_date)
+    next_date = date_from + timedelta(days=days_delta)
+    return next_date
 
 class ExemptReason(models.Model):
     _name = 'cooperative.exempt.reason'
@@ -35,22 +32,33 @@ class CooperativeStatus(models.Model):
     _name = 'cooperative.status'
     _rec_name = 'cooperator_id'
     _order = 'cooperator_id'
+    _period = 28
 
+    def _get_status(self):
+        return [
+            ('ok',  'Up to Date'),
+            ('holiday', 'Holidays'),
+            ('alert', 'Alerte'),
+            ('extension', 'Extension'),
+            ('suspended', 'Suspended'),
+            ('exempted', 'Exempted'),
+            ('unsubscribed', 'Unsubscribed'),
+            ('resigning', 'Resigning')
+        ]
 
     today = fields.Date(help="Field that allow to compute field and store them even if they are based on the current date", default=fields.Date.today)
     cooperator_id = fields.Many2one('res.partner')
     active = fields.Boolean(related="cooperator_id.active", store=True, index=True)
     info_session = fields.Boolean('Information Session ?')
-    info_session_date = fields.Datetime('Information Session Date')
+    info_session_date = fields.Date('Information Session Date')
     super = fields.Boolean("Super Cooperative")
-    sr = fields.Integer("Compteur shift regulier", default=0)
-    sc = fields.Integer("Compteur shift de compensation", default=0)
+    sr = fields.Integer("Regular shifts counter", default=0)
+    sc = fields.Integer("Compensation shifts counter", default=0)
     time_extension = fields.Integer("Extension Days NB", default=0, help="Addtional days to the automatic extension, 5 mean that you have a total of 15 extension days of default one is set to 10")
     holiday_start_time = fields.Date("Holidays Start Day")
     holiday_end_time = fields.Date("Holidays End Day")
     alert_start_time = fields.Date("Alert Start Day")
     extension_start_time = fields.Date("Extension Start Day")
-    #Champ compute
     working_mode = fields.Selection(
         [
             ('regular', 'Regular worker'),
@@ -60,16 +68,9 @@ class CooperativeStatus(models.Model):
         string="Working mode"
     )
     exempt_reason_id = fields.Many2one('cooperative.exempt.reason', 'Exempt Reason')
-    status = fields.Selection([('ok',  'Up to Date'),
-                               ('holiday', 'Holidays'),
-                               ('alert', 'Alerte'),
-                               ('extension', 'Extension'),
-                               ('suspended', 'Suspended'),
-                               ('exempted', 'Exempted'),
-                               ('unsubscribed', 'Unsubscribed'),
-                               ('resigning', 'Resigning')],
+    status = fields.Selection(selection=_get_status,
                               compute="_compute_status", string="Cooperative Status", store=True)
-    can_shop = fields.Boolean(compute='_compute_status', store=True)
+    can_shop = fields.Boolean(compute='_compute_can_shop', store=True)
     history_ids = fields.One2many('cooperative.status.history', 'status_id', readonly=True)
     unsubscribed = fields.Boolean(default=False, help="Manually unsubscribed")
     resigning = fields.Boolean(default=False, help="Want to leave the beescoop")
@@ -85,6 +86,10 @@ class CooperativeStatus(models.Model):
     temporary_exempt_start_date = fields.Date()
     temporary_exempt_end_date = fields.Date()
 
+    @api.depends('status')
+    def _compute_can_shop(self):
+        for rec in self:
+            rec.can_shop = rec.status in self._can_shop_status()
 
     @api.depends('today', 'sr', 'sc', 'holiday_end_time',
                  'holiday_start_time', 'time_extension',
@@ -93,190 +98,30 @@ class CooperativeStatus(models.Model):
                  'irregular_absence_counter', 'temporary_exempt_start_date',
                  'temporary_exempt_end_date', 'resigning', 'cooperator_id.subscribed_shift_ids')
     def _compute_status(self):
-        alert_delay = int(self.env['ir.config_parameter'].get_param('alert_delay', 28))
-        grace_delay = int(self.env['ir.config_parameter'].get_param('default_grace_delay', 10))
-        update = int(self.env['ir.config_parameter'].get_param('always_update', False))
+        update = int(self.env['ir.config_parameter'].sudo().get_param('always_update', False))
         for rec in self:
             if update or not rec.today:
                 rec.status = 'ok'
-                rec.can_shop = True
                 continue
             if rec.resigning:
                 rec.status = 'resigning'
-                rec.can_shop = False
                 continue
 
             if rec.working_mode == 'regular':
-                rec._set_regular_status(grace_delay, alert_delay)
+                rec.status = rec._get_regular_status()
             elif rec.working_mode == 'irregular':
-                rec._set_irregular_status(grace_delay, alert_delay)
+                rec.status = rec._get_irregular_status()
             elif rec.working_mode == 'exempt':
                 rec.status = 'ok'
-                rec.can_shop = True
 
-    @api.depends('today', 'irregular_start_date', 'sr', 'holiday_start_time',
-                 'holiday_end_time', 'temporary_exempt_start_date',
-                 'temporary_exempt_end_date')
-    def _compute_future_alert_date(self):
-        """Compute date before which the worker is up to date"""
-        for rec in self:
-            # Only for irregular worker
-            if rec.working_mode != 'irregular' and not rec.irregular_start_date:
-                rec.future_alert_date = False
-            # Alert start time already set
-            elif rec.alert_start_time:
-                rec.future_alert_date = False
-            # Holidays are not set properly
-            elif bool(rec.holiday_start_time) != bool(rec.holiday_end_time):
-                rec.future_alert_date = False
-            # Exemption have not a start and end time
-            elif (bool(rec.temporary_exempt_start_date)
-                  != bool(rec.temporary_exempt_end_date)):
-                rec.future_alert_date = False
-            else:
-                date = rec.today
-                counter = rec.sr
-                # Simulate the countdown
-                while counter >= 0:
-                    date = add_days_delta(date, 1)
-                    date = self._next_countdown_date(rec.irregular_start_date,
-                                                     date)
-                    # Check holidays
-                    if (rec.holiday_start_time and rec.holiday_end_time
-                            and date >= rec.holiday_start_time
-                            and date <= rec.holiday_end_time):
-                        continue
-                    # Check temporary exemption
-                    elif (rec.temporary_exempt_start_date
-                          and rec.temporary_exempt_end_date
-                          and date >= rec.temporary_exempt_start_date
-                          and date <= rec.temporary_exempt_end_date):
-                        continue
-                    else:
-                        counter -= 1
-                rec.future_alert_date = date
+    _sql_constraints = [
+        ('cooperator_uniq', 'unique (cooperator_id)', _('You can only set one cooperator status per cooperator')),
+    ]
 
-    @api.depends('today', 'irregular_start_date', 'holiday_start_time',
-                 'holiday_end_time', 'temporary_exempt_start_date',
-                 'temporary_exempt_end_date')
-    def _compute_next_countdown_date(self):
-        """
-        Compute the following countdown date. This date is the date when
-        the worker will see his counter changed du to the cron. This
-        date is like the birthday date of the worker that occurred each
-        PERIOD.
-        """
-        for rec in self:
-            # Only for irregular worker
-            if rec.working_mode != 'irregular' and not rec.irregular_start_date:
-                rec.next_countdown_date = False
-            # Holidays are not set properly
-            elif bool(rec.holiday_start_time) != bool(rec.holiday_end_time):
-                rec.next_countdown_date = False
-            # Exemption have not a start and end time
-            elif (bool(rec.temporary_exempt_start_date)
-                  != bool(rec.temporary_exempt_end_date)):
-                rec.next_countdown_date = False
-            else:
-                date = rec.today
-                next_countdown_date = False
-                while not next_countdown_date:
-                    date = add_days_delta(date, 1)
-                    date = self._next_countdown_date(rec.irregular_start_date, date)
-                    # Check holidays
-                    if (rec.holiday_start_time and rec.holiday_end_time
-                            and date >= rec.holiday_start_time
-                            and date <= rec.holiday_end_time):
-                        continue
-                    # Check temporary exemption
-                    elif (rec.temporary_exempt_start_date
-                          and rec.temporary_exempt_end_date
-                          and date >= rec.temporary_exempt_start_date
-                          and date <= rec.temporary_exempt_end_date):
-                        continue
-                    else:
-                        next_countdown_date = date
-                rec.next_countdown_date = next_countdown_date
-
-    def _next_countdown_date(self, irregular_start_date, today=False):
-        """
-        Return the next countdown date given irregular_start_date and
-        today dates.
-        This does not take holiday and other status into account.
-        """
-        today = today or fields.Date.today()
-        today_dt = fields.Date.from_string(today)
-        irregular_start_dt = fields.Date.from_string(irregular_start_date)
-        delta = (today_dt - irregular_start_dt).days
-        return add_days_delta(today, PERIOD - (delta % PERIOD))
-
-    def _set_regular_status(self, grace_delay, alert_delay):
-        self.ensure_one()
-        counter_unsubscribe = int(self.env['ir.config_parameter'].get_param('regular_counter_to_unsubscribe', -4))
-        ok = self.sr >= 0 and self.sc >= 0
-        grace_delay = grace_delay + self.time_extension
-
-        if (self.sr + self.sc) <= counter_unsubscribe or self.unsubscribed:
-            self.status = 'unsubscribed'
-            self.can_shop = False
-        elif self.today >= self.temporary_exempt_start_date and self.today <= self.temporary_exempt_end_date:
-            self.status = 'exempted'
-            self.can_shop = True
-
-        #Transition to alert sr < 0 or stay in alert sr < 0 or sc < 0 and thus alert time is defined
-        elif not ok and self.alert_start_time and self.extension_start_time and self.today <= add_days_delta(self.extension_start_time, grace_delay):
-            self.status = 'extension'
-            self.can_shop = True
-        elif not ok and self.alert_start_time and self.extension_start_time and self.today > add_days_delta(self.extension_start_time, grace_delay):
-            self.status = 'suspended'
-            self.can_shop = False
-        elif not ok and self.alert_start_time and self.today > add_days_delta(self.alert_start_time, alert_delay):
-            self.status = 'suspended'
-            self.can_shop = False
-        elif (self.sr < 0) or (not ok and self.alert_start_time):
-            self.status = 'alert'
-            self.can_shop = True
-
-        #Check for holidays; Can be in holidays even in alert or other mode ?
-        elif self.today >= self.holiday_start_time and self.today <= self.holiday_end_time:
-            self.status = 'holiday'
-            self.can_shop = False
-        elif ok or (not self.alert_start_time and self.sr >= 0):
-            self.status = 'ok'
-            self.can_shop = True
-
-    def _set_irregular_status(self, grace_delay, alert_delay):
-        counter_unsubscribe = int(self.env['ir.config_parameter'].get_param('irregular_counter_to_unsubscribe', -3))
-        self.ensure_one()
-        ok = self.sr >= 0
-        grace_delay = grace_delay + self.time_extension
-        if self.sr <= counter_unsubscribe or self.unsubscribed:
-            self.status = 'unsubscribed'
-            self.can_shop = False
-        elif self.today >= self.temporary_exempt_start_date and self.today <= self.temporary_exempt_end_date:
-            self.status = 'exempted'
-            self.can_shop = True
-        #Transition to alert sr < 0 or stay in alert sr < 0 or sc < 0 and thus alert time is defined
-        elif not ok and self.alert_start_time and self.extension_start_time and self.today <= add_days_delta(self.extension_start_time, grace_delay):
-            self.status = 'extension'
-            self.can_shop = True
-        elif not ok and self.alert_start_time and self.extension_start_time and self.today > add_days_delta(self.extension_start_time, grace_delay):
-            self.status = 'suspended'
-            self.can_shop = False
-        elif not ok and self.alert_start_time and self.today > add_days_delta(self.alert_start_time, alert_delay):
-            self.status = 'suspended'
-            self.can_shop = False
-        elif (self.sr < 0) or (not ok and self.alert_start_time):
-            self.status = 'alert'
-            self.can_shop = True
-
-        #Check for holidays; Can be in holidays even in alert or other mode ?
-        elif self.today >= self.holiday_start_time and self.today <= self.holiday_end_time:
-            self.status = 'holiday'
-            self.can_shop = False
-        elif ok or (not self.alert_start_time and self.sr >= 0):
-            self.status = 'ok'
-            self.can_shop = True
+    @api.constrains("working_mode", "irregular_start_date")
+    def _constrains_irregular_start_date(self):
+        if self.working_mode == "irregular" and not self.irregular_start_date:
+            raise UserError(_("Irregular workers must have an irregular start date."))
 
     @api.multi
     def write(self, vals):
@@ -297,34 +142,6 @@ class CooperativeStatus(models.Model):
                     data['change'] = '%s: %s -> %s' % (field.upper(), rec[field], vals.get(field))
                     self.env['cooperative.status.history'].sudo().create(data)
         return super(CooperativeStatus, self).write(vals)
-
-    def _state_change(self, new_state):
-        self.ensure_one()
-        if new_state == 'alert':
-            self.write({'alert_start_time': self.today, 'extension_start_time': False, 'time_extension': 0})
-        if new_state == 'ok':
-            data = {'extension_start_time': False, 'time_extension': 0}
-            data['alert_start_time'] = False
-            self.write(data)
-        if new_state == 'unsubscribed' or new_state == 'resigning':
-            # Remove worker from task_templates
-            self.cooperator_id.sudo().write(
-                {'subscribed_shift_ids': [(5, 0, 0)]})
-            # Remove worker from supercoop in task_templates
-            task_tpls = self.env['beesdoo.shift.template'].search(
-                [('super_coop_id', 'in', self.cooperator_id.user_ids.ids)]
-            )
-            task_tpls.write({'super_coop_id': False})
-            # Remove worker for future task (remove also supercoop)
-            # TODO: Add one day otherwise unsubscribed from the shift you were absent
-            self.env['beesdoo.shift.shift'].sudo().unsubscribe_from_today(
-                [self.cooperator_id.id], today=fields.Date.today())
-
-    def _change_counter(self, data):
-        self.sc += data.get('sc', 0)
-        self.sr += data.get('sr', 0)
-        self.irregular_absence_counter += data.get('irregular_absence_counter', 0)
-        self.irregular_absence_date = data.get('irregular_absence_date', False)
 
     @api.multi
     def _write(self, vals):
@@ -349,9 +166,12 @@ class CooperativeStatus(models.Model):
                     rec._state_change(vals['status'])
         return super(CooperativeStatus, self)._write(vals)
 
-    _sql_constraints = [
-        ('cooperator_uniq', 'unique (cooperator_id)', _('You can only set one cooperator status per cooperator')),
-    ]
+    def get_status_value(self):
+        """
+        Workararound to get translated selection value instead of key in mail template.
+        """
+        state_list = self.env["cooperative.status"]._fields['status']._description_selection(self.env)
+        return dict(state_list)[self.status]
 
     @api.model
     def _set_today(self):
@@ -360,68 +180,152 @@ class CooperativeStatus(models.Model):
         """
         self.search([]).write({'today': fields.Date.today()})
 
-    @api.multi
-    def clear_history(self):
-        self.ensure_one()
-        self.history_ids.unlink()
-    
     @api.model
     def _cron_compute_counter_irregular(self, today=False):
+        """
+            Journal ensure that a irregular worker will be only check
+            once per day
+        """
         today = today or fields.Date.today()
         journal = self.env['beesdoo.shift.journal'].search([('date', '=', today)])
         if not journal:
             journal = self.env['beesdoo.shift.journal'].create({'date': today})
-        domain = ['&',
-                                     '&',
-                                        '&', ('status', '!=', 'unsubscribed'),
-                                             ('working_mode', '=', 'irregular'),
-                                        ('irregular_start_date', '!=', False),
-                                     '|',
-                                        '|', ('holiday_start_time', '=', False), ('holiday_end_time', '=', False),
-                                        '|', ('holiday_start_time', '>', today), ('holiday_end_time', '<', today),
-        ]
+
+        domain = self._get_irregular_worker_domain(today=today)
         irregular = self.search(domain)
-        today_date = fields.Date.from_string(today)
         for status in irregular:
-            if status.status == 'exempted':
-                continue
-            delta = (today_date - fields.Date.from_string(status.irregular_start_date)).days
-            if delta and delta % PERIOD == 0 and status not in journal.line_ids:
-                if status.sr > 0:
-                    status.sr -= 1
-                elif status.alert_start_time:
-                    status.sr -= 1
-                else:
-                    status.sr -= 2
+            delta = (today - status.irregular_start_date).days
+            if delta and delta % self._period == 0 and status not in journal.line_ids:
+                status._change_irregular_counter()
                 journal.line_ids |= status
-        
-        
+
+    @api.multi
+    def clear_history(self):
+        self.ensure_one()
+        self.history_ids.unlink()
+
+    ########################################################
+    #                   Method to override                 #
+    #           To define the behavior of the status       #
+    #                                                      #
+    #       By default: everyone is always up to date      #
+    ########################################################
+
+    ##############################
+    #   Computed field section   #
+    ##############################
+    @api.depends('today')
+    def _compute_future_alert_date(self):
+        """
+            Compute date until the worker is up to date
+            for irregular worker
+        """
+        for rec in self:
+            rec.future_alert_date = False
+
+    @api.depends('today')
+    def _compute_next_countdown_date(self):
+        """
+        Compute the following countdown date. This date is the date when
+        the worker will see his counter changed due to the cron. This
+        date is like the birthday date of the worker that occurred each
+        _period.
+        """
+        for rec in self:
+            rec.next_countdown_date = False
+
+    def _can_shop_status(self):
+        """
+            return the list of status that give access
+            to active cooperator privilege
+        """
+        return ['ok', 'alert', 'extension', 'exempted']
+
+    #####################################
+    #   Status Change implementation    #
+    #####################################
+
+    def _get_regular_status(self):
+        """
+            Return the value of the status
+            for the regular worker
+        """
+        return 'ok'
+
+    def _get_irregular_status(self):
+        """
+            Return the value of the status
+            for the irregular worker
+        """
+        return 'ok'
+
+    def _state_change(self, new_state):
+        """
+            Hook to watch change in the state
+        """
+        pass
+
+    def _change_counter(self, data):
+        """
+            Call when a shift state is changed
+            use data generated by _get_counter_date_state_change
+        """
+        pass
+
+
+    ###############################################
+    ###### Irregular Cron implementation ##########
+    ###############################################
+
+    def _get_irregular_worker_domain(self):
+        """
+            return the domain the give the list
+            of valid irregular worker that should
+            get their counter changed by the cron
+        """
+        return [(0, '=', 1)]
+
+    def _change_irregular_counter(self):
+        """
+            Define how the counter will change
+            for the irregular worker
+            where today - start_date is a multiple of the period
+            by default 28 days
+        """
+        pass
+
 class ShiftCronJournal(models.Model):
     _name = 'beesdoo.shift.journal'
     _order = 'date desc'
     _rec_name = 'date'
-    
+
     date = fields.Date()
     line_ids = fields.Many2many('cooperative.status')
-    
+
     _sql_constraints = [
         ('one_entry_per_day', 'unique (date)', _('You can only create one journal per day')),
     ]
-    
+
     @api.multi
     def run(self):
         self.ensure_one()
         if not self.user_has_groups('beesdoo_shift.group_cooperative_admin'):
             raise ValidationError(_("You don't have the access to perform this action"))
         self.sudo().env['cooperative.status']._cron_compute_counter_irregular(today=self.date)
-   
+
 class ResPartner(models.Model):
+    """
+    One2many relationship with CooperativeStatus should
+    be replaced by inheritance.
+    """
     _inherit = 'res.partner'
 
+    worker_store = fields.Boolean(default=False)
+    is_worker = fields.Boolean(related="worker_store", string="Worker", readonly=False)
     cooperative_status_ids = fields.One2many('cooperative.status', 'cooperator_id', readonly=True)
     super = fields.Boolean(related='cooperative_status_ids.super', string="Super Cooperative", readonly=True, store=True)
     info_session = fields.Boolean(related='cooperative_status_ids.info_session', string='Information Session ?', readonly=True, store=True)
-    info_session_date = fields.Datetime(related='cooperative_status_ids.info_session_date', string='Information Session Date', readonly=True, store=True)
+    info_session_date = fields.Date(related='cooperative_status_ids.info_session_date', string='Information Session Date', readonly=True, store=True)
     working_mode = fields.Selection(related='cooperative_status_ids.working_mode', readonly=True, store=True)
     exempt_reason_id = fields.Many2one(related='cooperative_status_ids.exempt_reason_id', readonly=True, store=True)
     state = fields.Selection(related='cooperative_status_ids.status', readonly=True, store=True)
@@ -486,4 +390,3 @@ class ResPartner(models.Model):
         }
 
     #TODO access right + vue on res.partner
-    #TODO can_shop : Status can_shop ou extempted ou part C

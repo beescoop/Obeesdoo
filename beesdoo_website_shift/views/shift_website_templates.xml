@@ -1,209 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright 2017-2018 Rémy Taymans <remytaymans@gmail.com>
+     Copyright 2017-2020 Rémy Taymans <remytaymans@gmail.com>
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
-<openerp>
+<odoo>
 
-  <!-- Add menu entries -->
-  <data noupdate="1">
-    <record id="menu_work_irregular" model="website.menu">
-      <field name="name">Shifts Irregular</field>
-      <field name="url">/shift_irregular_worker</field>
-      <field name="parent_id" ref="website.main_menu"/>
-      <field name="sequence" type="int">50</field>
-    </record>
-    <record id="menu_work_regular" model="website.menu">
-      <field name="name">Shifts Regular</field>
-      <field name="url">/shift_template_regular_worker</field>
-      <field name="parent_id" ref="website.main_menu"/>
-      <field name="sequence" type="int">51</field>
-    </record>
-  </data>
+    <!-- Add menu entries -->
+    <data noupdate="1">
+        <record id="menu_work_irregular" model="website.menu">
+            <field name="name">Shifts Irregular</field>
+            <field name="url">/shift_irregular_worker</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence">50</field>
+        </record>
+        <record id="menu_work_regular" model="website.menu">
+            <field name="name">Shifts Regular</field>
+            <field name="url">/shift_template_regular_worker</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence">51</field>
+        </record>
+    </data>
 
-  <!-- Public Available Tasks Templates for Regular Workers -->
-  <template
-    id="public_shift_template_regular_worker"
-    name="Available Tasks Templates for Regular Workers"
-    page="True">
-    <t t-call="website.layout">
 
-      <div class="oe_structure"/>
+    <!-- Help texts -->
+    <template
+        id="help_text_public_shift_template_regular_worker"
+        name="Help text for public available shifts template for irregular worker"
+    >
+        <p class="text-center">
+            Help text or information text.
+        </p>
+    </template>
 
-      <section class="wrap">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <h1 class="text-center">
-                Available Tasks Templates for Regular Workers
-              </h1>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <div class="oe_structure"/>
+    <template
+        id="help_text_public_shift_irregular_worker"
+        name="Help text for public Available Shifts for Irregular Worker"
+    >
+        <p class="text-center">
+            Help text or information text.
+        </p>
+    </template>
 
-      <section class="wrap">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <p class="text-center">
-                Subscribe via the member office or via
-                <a href="mailto:membre@bees-coop.be">membre@bees-coop.be</a>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <section class="wrap">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
+    <!-- Public Available Tasks Templates for Regular Workers -->
+    <template
+        id="public_shift_template_regular_worker"
+        name="Available Tasks Templates for Regular Workers"
+    >
+        <t t-call="portal.portal_layout">
 
-              <div class="oe_structure"/>
+            <div class="o_regular_shift_template">
 
-              <div class="visible-xs" t-foreach="task_tpls_data" t-as="template_data">
-                <t t-set="template" t-value="template_data[0]"/>
-                <t t-set="has_enough_workers" t-value="template_data[1]"/>
-                <t t-set="highlight_class" t-value="'panel-warning' if not has_enough_workers else 'panel-default'"/>
-                <div t-att-class="'panel %s' % highlight_class">
-                  <div class="panel-heading clearfix">
-                    <div class="panel-title pull-left">
-                      <t t-esc="template.planning_id.name"/> :
-                      <t t-esc="template.day_nb_id.name"/>
-                      <t t-esc='float_to_time(template.start_time)' /> -
-                      <t t-esc='float_to_time(template.end_time)'/>
+                <div class="container mt32">
+                    <div class="row mt4">
+                        <div class="col">
+                            <h1 class="text-center">
+                                Available Tasks Templates for Regular Workers
+                            </h1>
+                        </div>
                     </div>
-                    <div class="label label-default pull-right"
-                      t-if="template.remaining_worker > 0">
-                      <t t-esc="template.remaining_worker"/> space(s)
+
+                    <div class="row mt4">
+                        <div class="col">
+                            <t t-call="beesdoo_website_shift.help_text_public_shift_template_regular_worker"/>
+                        </div>
                     </div>
-                    <div class="label label-default pull-right"
-                      t-if="template.remaining_worker == 0">
-                      full
-                    </div>
-                  </div>
-                  <div class="panel-body clearfix">
-                    <t t-esc="template.task_type_id.name"/>
-                    <div class="label label-warning pull-right"
-                      t-if="not template.super_coop_id">
-                      Need Super Co-operator
-                    </div>
-                  </div>
                 </div>
-              </div>
 
-              <table class="hidden-xs table table-striped">
-                <thead>
-                  <tr>
-                    <th>Week</th>
-                    <th>Day</th>
-                    <th>Time</th>
-                    <th>Type of Task</th>
-                    <th>Super Co-operator</th>
-                    <th class="text-center">Available Spaces</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <t t-foreach="task_tpls_data" t-as="template_data">
-                    <t t-set="template" t-value="template_data[0]"/>
-                    <t t-set="has_enough_workers" t-value="template_data[1]"/>
-                    <!-- Row with no super coop will be shown in color -->
-                    <tr t-attf-class="{{ 'warning' if not has_enough_workers else '' }}">
-                      <td>
-                        <t t-esc="template.planning_id.name"/>
-                      </td>
-                      <td>
-                        <t t-esc="template.day_nb_id.name"/>
-                      </td>
-                      <td>
-                        <t t-esc='float_to_time(template.start_time)' /> -
-                        <t t-esc='float_to_time(template.end_time)'/>
-                      </td>
-                      <td>
-                        <t t-esc="template.task_type_id.name"/>
-                      </td>
-                      <td>
-                        <t t-if="template.super_coop_id">
-                          Yes
-                        </t>
-                        <t t-if="not template.super_coop_id">
-                          Not yet
-                        </t>
-                      </td>
-                      <td class="text-center">
-                        <t t-esc="template.remaining_worker"/>
-                      </td>
-                    </tr>
-                  </t>
-                </tbody>
-              </table>
+                <div class="container mb64">
+                    <div class="row mt4 justify-content-center">
+                        <div class="col-12 col-lg-6">
 
-            </div> <!-- col-md -->
-          </div> <!-- row -->
-        </div> <!-- container -->
-      </section>
+                            <t t-foreach="task_tpls_data" t-as="template_data">
+                                <t t-set="template" t-value="template_data[0]"/>
+                                <t t-set="has_enough_workers" t-value="template_data[1]"/>
+                                <t t-set="highlight_header_class" t-value="'bg-warning' if not has_enough_workers else ''"/>
+                                <t t-set="highlight_class" t-value="'border-warning' if not has_enough_workers else ''"/>
+                                <div t-att-class="'card mt-4 %s' % highlight_class">
+                                    <div t-att-class="'card-header %s clearfix' % highlight_header_class">
+                                        <div class="pull-left">
+                                            <t t-esc="template.planning_id.name"/> :
+                                            <t t-esc="template.day_nb_id.name"/>
+                                            <t t-esc='float_to_time(template.start_time)' /> -
+                                            <t t-esc='float_to_time(template.end_time)'/>
+                                        </div>
+                                        <div class="badge badge-secondary pull-right"
+                                            t-if="template.remaining_worker > 0">
+                                            <t t-esc="template.remaining_worker"/> space(s)
+                                        </div>
+                                        <div class="badge badge-secondary pull-right"
+                                            t-if="template.remaining_worker == 0">
+                                            full
+                                        </div>
+                                    </div>
+                                    <div class="card-body clearfix">
+                                        <t t-esc="template.task_type_id.name"/>
+                                        <div class="badge badge-warning pull-right"
+                                            t-if="not template.super_coop_id">
+                                            Need Super Co-operator
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
 
-      <div class="oe_structure"/>
+                        </div>
+                    </div>
+                </div>
 
-    </t>
-  </template>
-
-
-  <!-- Public Available Shifts for Irregular Workers -->
-  <template
-    id="public_shift_irregular_worker"
-    name="Available Shifts for Irregular Workers"
-    page="True">
-    <t t-call="website.layout">
-
-      <div class="oe_structure"/>
-
-      <section class="wrap">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <h1 class="text-center">
-                Available Shifts for Irregular Workers
-              </h1>
             </div>
-          </div>
-        </div>
-      </section>
 
-      <div class="oe_structure"/>
+        </t>
+    </template>
 
-      <section class="wrap">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <p class="text-center">
-                Subscribe via <a href="mailto:volant@bees-coop.be">volant@bees-coop.be</a>
-              </p>
+
+    <!-- Public Available Shifts for Irregular Workers -->
+    <template
+        id="public_shift_irregular_worker"
+        name="Available Shifts for Irregular Workers"
+    >
+        <t t-call="portal.portal_layout">
+            <t t-set="no_breadcrumbs" t-value="True"/>
+
+            <div class="o_regular_shift_template">
+
+                <div class="container mt32">
+                    <div class="row mt4">
+                        <div class="col">
+                            <h1 class="text-center">
+                                Available Shifts for Irregular Workers
+                            </h1>
+                        </div>
+                    </div>
+
+                    <div class="row mt4">
+                        <div class="col">
+                            <t t-call="beesdoo_website_shift.help_text_public_shift_irregular_worker "/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container mb64">
+                    <div class="row mt4 justify-content-center">
+                        <div class="col-12 col-lg-6">
+
+                            <t t-call="beesdoo_website_shift.available_shift_irregular_worker"/>
+
+                        </div>
+                    </div>
+                </div>
+
             </div>
-          </div>
-        </div>
-      </section>
 
-      <div class="oe_structure"/>
+        </t>
+    </template>
 
-      <section class="wrap">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-
-              <t t-call="beesdoo_website_shift.available_shift_irregular_worker"/>
-
-            </div> <!-- col-md -->
-          </div> <!-- row -->
-        </div> <!-- container -->
-      </section>
-
-      <div class="oe_structure"/>
-
-    </t>
-  </template>
-
-</openerp>
+</odoo>

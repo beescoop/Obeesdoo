@@ -2,57 +2,65 @@
     <record model="ir.ui.view" id="super_coop_partner_inherited_view_form">
         <field name="name">Partner Super Coop</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="beesdoo_base.beesdoo_partner_form_view" />
+        <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="priority">50</field>
         <field name="arch" type="xml">
             <xpath expr="//sheet" position="before">
                 <header>
                     <button name="coop_subscribe" string="Subscribe to shift" class="oe_highlight"
                             type="object" groups="beesdoo_shift.group_shift_management"
-                            attrs="{'invisible': [('cooperator_type', '!=', 'share_a')]}"/>
+                            attrs="{'invisible': [('is_worker', '=', False)]}"/>
                    <button name="auto_extension" string="Auto Extension" class="oe_highlight"
                             type="object" groups="beesdoo_shift.group_shift_attendance"
                             attrs="{'invisible': ['|',
-                                                    ('cooperator_type', '!=', 'share_a'),
+                                                    ('is_worker', '=', False),
                                                     '|',
                                                         ('state', '!=', 'suspended'),
                                                         ('extension_start_time', '!=', False)]}" />
                    <button name="manual_extension" string="Manual Extension" class="oe_highlight"
                             type="object" groups="beesdoo_shift.group_shift_management"
                             attrs="{'invisible': ['|',
-                                                    ('cooperator_type', '!=', 'share_a'),
+                                                    ('is_worker', '=', False),
                                                     '|',
                                                         ('state', '!=', 'suspended'),
                                                         ('extension_start_time', '=', False)]}" />
                    <button name="coop_unsubscribe" string="Unsubscribe" class="oe_highlight"
                             type="object" groups="beesdoo_shift.group_shift_management"
-                            attrs="{'invisible': [('cooperator_type', '!=', 'share_a')]}"/>
+                            attrs="{'invisible': [('is_worker', '=', False)]}"/>
                   <button name="register_holiday" string="Register Holidays" class="oe_highlight"
                             type="object" groups="beesdoo_shift.group_shift_management"
-                            attrs="{'invisible': ['|', ('cooperator_type', '!=', 'share_a'), ('state', '!=', 'ok')]}"/>
+                            attrs="{'invisible': ['|', ('is_worker', '=', False), ('state', '!=', 'ok')]}"/>
                   <button name="temporary_exempt" string="Temporary Exemption"
                             type="object" groups="beesdoo_shift.group_shift_management"
-                            attrs="{'invisible': ['|', ('cooperator_type', '!=', 'share_a'), ('state', '=', 'unsubscribed')]}"/>
-                    <field name="state" widget="statusbar" attrs="{'invisible': [('cooperator_type', '!=', 'share_a')]}" />
+                            attrs="{'invisible': ['|', ('is_worker', '=', False), ('state', '=', 'unsubscribed')]}"/>
+                    <field name="state" widget="statusbar" attrs="{'invisible': [('is_worker', '=', False)]}" />
                 </header>
             </xpath>
-            <page name="work" position="inside">
-                <group>
+            <xpath expr="//field[@name='type']" position="before">
+                <field name="is_worker"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Worker information"
+                    attrs="{'invisible': [('is_worker', '=', False)]}"
+                    name="work">
+                    <group name="info_session"/>
                     <group>
-                        <field name="info_session" />
-                        <field name="info_session_date"
-                           attrs="{'invisible': ['|', ('info_session', '=', False)]}" />
-                        <field name="extension_start_time" attrs="{'invisible': [('extension_start_time', '=', False)]}" />
+                        <group>
+                            <field name="info_session" />
+                            <field name="info_session_date"
+                            attrs="{'invisible': ['|', ('info_session', '=', False)]}" />
+                            <field name="extension_start_time" attrs="{'invisible': [('extension_start_time', '=', False)]}" />
+                        </group>
+                        <group>
+                            <field name="working_mode" />
+                            <field name="exempt_reason_id" attrs="{'invisible':[('working_mode', '!=', 'exempt')]}"/>
+                            <field name="super" />
+                        </group>
                     </group>
-                    <group>
-                        <field name="working_mode" />
-                        <field name="exempt_reason_id" attrs="{'invisible':[('working_mode', '!=', 'exempt')]}"/>
-                        <field name="super" />
-                    </group>
-                </group>
-                <separator string="Subscribed Shift" />
-                <field name="subscribed_shift_ids" />
-            </page>
+                    <separator string="Subscribed Shift" />
+                    <field name="subscribed_shift_ids" />
+                </page>
+            </xpath>
         </field>
     </record>
 
@@ -149,7 +157,7 @@
                         <field name="date" />
                     </group>
                 </group>
-                <separator string="Affected cooperator" />
+                <separator string="Assigned cooperator" />
                 <field name="line_ids" readonly="1">
                     <tree>
                         <field name="cooperator_id" />
@@ -175,11 +183,11 @@
         <field name="name">Worker</field>
         <field name="res_model">res.partner</field>
         <field name="view_mode">kanban,tree,form</field>
-        <field name="domain">[('cooperator_type', '=', 'share_a')]</field>
+        <field name="domain">[('is_worker', '=', True)]</field>
     </record>
 
     <menuitem name="Worker" id="menu_worker_top" parent="menu_root"
-        sequence="1" />
+        groups="beesdoo_shift.group_shift_attendance" sequence="1" />
     <menuitem name="Worker" id="menu_worker" parent="menu_worker_top"
         action="action_worker" />
 
@@ -192,5 +200,3 @@
     <menuitem name="Counter Update Journal" id="menu_journal" parent="menu_status_top"
         action="action_journal" groups="beesdoo_shift.group_cooperative_admin" />
 </odoo>
-
-

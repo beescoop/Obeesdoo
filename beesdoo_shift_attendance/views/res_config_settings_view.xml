@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2019-2020 Elouan Le Bars <elouan@coopiteasy.be>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+  <data>
+      <record model="ir.ui.view" id="daynumber_view_tree">
+          <field name="name">Day Number List</field>
+          <field name="model">beesdoo.shift.daynumber</field>
+          <field name="arch" type="xml">
+              <tree editable="top">
+                  <field name="name" />
+                  <field name="number" />
+                  <field name="active" />
+              </tree>
+          </field>
+      </record>
+
+      <record model="ir.ui.view" id="type_view_tree">
+          <field name="name">Shift Type List</field>
+          <field name="model">beesdoo.shift.type</field>
+          <field name="arch" type="xml">
+              <tree>
+                  <field name="name" />
+                  <field name="description" />
+                  <field name="active" />
+              </tree>
+          </field>
+      </record>
+
+      <record id="res_config_settings_view_form" model="ir.ui.view">
+          <field name="name">res.config.settings.view.form.inherit.beesdoo.shift</field>
+          <field name="model">res.config.settings</field>
+          <field name="priority" eval="50"/>
+          <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+          <field name="arch" type="xml">
+              <xpath expr="//div[hasclass('settings')]" position="inside">
+                  <div class="app_settings_block" data-string="Shifts Management" string="Shifts Management" data-key="shifts_management" groups="beesdoo_shift.group_cooperative_admin">
+                      <field name="has_accounting_entries" invisible="1"/>
+                          <h2>Attendance Sheets</h2>
+                           <div class="row mt16 o_settings_container">
+                             <div class="col-xs-12 col-md-6 o_setting_box">
+                                 <div class="o_setting_left_pane">
+                                     <field name="card_support"/>
+                                 </div>
+                                 <div class="o_setting_right_pane">
+                                     <label for="card_support" string="Scan cards for validation" />
+                                     <div class="text-muted">
+                                         If not checked, user credentials are asked.
+                                     </div>
+                                 </div>
+                             </div>
+                           </div>
+                           <div class="row mt16 o_settings_container">
+                               <div class="col-12 col-lg-6 o_setting_box">
+                                   <div class="o_setting_right_pane">
+                                       <span class="o_form_label">Attendance Sheets Generation Interval</span>
+                                       <div class="text-muted">
+                                           Generate attendance sheets before shifts start.
+                                       </div>
+                                       <div class="content-group">
+                                           <div class="mt16 row">
+                                               <label for="attendance_sheet_generation_interval"  string="Interval (minutes)" class="col-3 col-lg-3 o_light_label"/>
+                                               <field name="attendance_sheet_generation_interval" class="oe_inline" required="1"/>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                          <div class="row mt16 o_settings_container">
+                              <div class="col-12 col-lg-6 o_setting_box">
+                                  <div class="o_setting_right_pane">
+                                      <span class="o_form_label">Default Task Type</span>
+                                      <div class="text-muted">
+                                          For attendance sheets automatic pre-filling.
+                                      </div>
+                                      <div class="content-group">
+                                          <div class="mt16 row">
+                                              <label for="pre_filled_task_type_id" string="Default Task Type" class="col-3 col-lg-3 o_light_label"/>
+                                              <field name="pre_filled_task_type_id" class="oe_inline" required="1"/>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    </xpath>
+            </field>
+      </record>
+
+      <menuitem name="Configuration"
+                id="menu_configuration_top"
+                parent="beesdoo_shift.menu_root"
+                groups="beesdoo_shift.group_planning_management"
+                sequence="21"
+      />
+
+
+      <record model="ir.actions.act_window" id="action_missing_attendance_sheets">
+          <field name="name">Generate missing past attendance sheets</field>
+          <field name="res_model">beesdoo.shift.generate_missing_attendance_sheets</field>
+          <field name="view_mode">form</field>
+      </record>
+
+      <record model="ir.actions.act_window" id="action_day_number">
+          <field name="name">Day Number</field>
+          <field name="res_model">beesdoo.shift.daynumber</field>
+          <field name="view_mode">tree</field>
+      </record>
+
+      <menuitem name="Shift Day" id="menu_configuration_day"
+          parent="menu_configuration_top" action="action_day_number" />
+
+      <record model="ir.actions.act_window" id="action_type">
+          <field name="name">Shift Type</field>
+          <field name="res_model">beesdoo.shift.type</field>
+          <field name="view_mode">tree,form</field>
+      </record>
+
+      <menuitem name="Shift Type" id="menu_configuration_type"
+          parent="menu_configuration_top" action="action_type" />
+
+      <record model="ir.actions.act_window" id="action_shift_settings">
+          <field name="name">Settings</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="res_model">res.config.settings</field>
+          <field name="view_mode">form</field>
+          <field name="target">inline</field>
+          <field name="context">{'module' : 'beesdoo_shift'}</field>
+      </record>
+
+      <menuitem name="Shift Settings"
+                id="menu_shift_settings"
+                parent="menu_configuration_top"
+                action="action_shift_settings"
+                groups="beesdoo_shift.group_cooperative_admin"
+      />
+
+  </data>
+</odoo>

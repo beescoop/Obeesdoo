@@ -31,8 +31,6 @@
                         <button class="oe_stat_button" type="action"
                             name="%(action_shift_template)d" icon="fa-book"
                             string="Shifts Template">
-                            <!-- <field string="Ventes" name="sale_order_count" 
-                                widget="statinfo" modifiers="{'readonly': true}"/> -->
                         </button>
                     </div>
                     <div class="oe_title">
@@ -69,6 +67,6 @@
     </record>
 
     <menuitem name="Planning Week" id="menu_planning" parent="menu_template_top"
-        sequence="10" action="action_planning" />
+        sequence="20" action="action_planning" />
 
 </odoo>

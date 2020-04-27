@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Beescoop Shift Management",
 
@@ -9,18 +8,20 @@
 
     """,
 
-    'author': "Thibault Francois",
+    'author': "THibault Francois, Elouan Le Bars, Coop It Easy",
     'website': "https://github.com/beescoop/Obeesdoo",
 
     'category': 'Cooperative management',
-    'version': '9.0.1.2.0',
+    'version': '12.0.1.0.0',
 
-    'depends': ['beesdoo_base'],
+    'depends': [
+        'mail',
+    ],
 
     'data': [
-        "data/stage.xml",
         "data/system_parameter.xml",
         "data/cron.xml",
+        "data/mail_template.xml",
         "security/group.xml",
         "security/ir.model.access.csv",
         "views/task_template.xml",
@@ -36,4 +37,9 @@
         "wizard/holiday.xml",
         "wizard/temporary_exemption.xml",
     ],
+    'demo': [
+        "demo/cooperators.xml",
+        "demo/workers.xml",
+        "demo/templates.xml",
+    ]
 }

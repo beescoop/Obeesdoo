@@ -1,7 +1,7 @@
-import instanciate_planning
-import batch_template
-import assign_super_coop
-import subscribe
-import extension
-import holiday
-import temporary_exemption
+from . import instanciate_planning
+from . import batch_template
+from . import assign_super_coop
+from . import subscribe
+from . import extension
+from . import holiday
+from . import temporary_exemption
