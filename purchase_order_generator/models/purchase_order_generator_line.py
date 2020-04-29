@@ -10,14 +10,14 @@ from odoo.exceptions import ValidationError
 _logger = logging.getLogger(__name__)
 
 
-class ComputedPurchaseOrderLine(models.Model):
-    _description = "Computed Purchase Order Line"
-    _name = "computed.purchase.order.line"
+class PurchaseOrderGeneratorLine(models.Model):
+    _description = "Purchase Order Generator Line"
+    _name = "purchase.order.generator.line"
 
     name = fields.Char(string="Product Name", compute="_compute_name")
     cpo_id = fields.Many2one(
-        comodel_name="computed.purchase.order",
-        string="Computed Purchase Order",
+        comodel_name="purchase.order.generator",
+        string="Purchase Order Generator",
     )
     product_template_id = fields.Many2one(
         comodel_name="product.template",
@@ -146,7 +146,7 @@ class ComputedPurchaseOrderLine(models.Model):
 
             if len(si) == 0:
                 raise ValidationError(
-                    _("CPO supplier does not sell product {name}").format(
+                    _("POG supplier does not sell product {name}").format(
                         name=cpol.product_template_id.name
                     )
                 )
