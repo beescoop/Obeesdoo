@@ -38,8 +38,6 @@
         "wizard/temporary_exemption.xml",
     ],
     'demo': [
-        "demo/cooperators.xml",
-        "demo/workers.xml",
         "demo/templates.xml",
     ]
 }
