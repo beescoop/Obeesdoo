@@ -21,6 +21,7 @@
     'version': '12.0.1.0.0',
 
     'depends': [
+        'beesdoo_base',
         'beesdoo_shift',
         'beesdoo_worker_status',
         'mail',
@@ -39,6 +40,8 @@
         "views/attendance_sheet.xml",
     ],
     'demo': [
+        "demo/tasks.xml",
+        "demo/workers.xml",
         "demo/users.xml",
     ]
 }

@@ -38,32 +38,35 @@ class TestBeesdooShift(TransactionCase):
         )
 
         self.worker_regular_1 = self.env.ref(
-            "beesdoo_shift.res_partner_cooperator_6_demo"
+            "beesdoo_base.res_partner_cooperator_6_demo"
         )
         self.worker_regular_2 = self.env.ref(
-            "beesdoo_shift.res_partner_cooperator_5_demo"
+            "beesdoo_base.res_partner_cooperator_5_demo"
         )
         self.worker_regular_3 = self.env.ref(
-            "beesdoo_shift.res_partner_cooperator_3_demo"
+            "beesdoo_base.res_partner_cooperator_3_demo"
         )
         self.worker_regular_super_1 = self.env.ref(
-            "beesdoo_shift.res_partner_cooperator_1_demo"
+            "beesdoo_base.res_partner_cooperator_1_demo"
         )
         self.worker_irregular_1 = self.env.ref(
-            "beesdoo_shift.res_partner_cooperator_2_demo"
+            "beesdoo_base.res_partner_cooperator_2_demo"
         )
         self.worker_irregular_2 = self.env.ref(
-            "beesdoo_shift.res_partner_cooperator_4_demo"
+            "beesdoo_base.res_partner_cooperator_4_demo"
         )
 
         self.task_type_1 = self.env.ref(
-            "beesdoo_shift.beesdoo_shift_task_type_1_demo"
+            "beesdoo_shift_attendance"
+            ".beesdoo_shift_attendance_task_type_1_demo"
         )
         self.task_type_2 = self.env.ref(
-            "beesdoo_shift.beesdoo_shift_task_type_2_demo"
+            "beesdoo_shift_attendance"
+            ".beesdoo_shift_attendance_task_type_2_demo"
         )
         self.task_type_3 = self.env.ref(
-            "beesdoo_shift.beesdoo_shift_task_type_3_demo"
+            "beesdoo_shift_attendance"
+            ".beesdoo_shift_attendance_task_type_3_demo"
         )
 
         self.task_template_1 = self.env.ref(
