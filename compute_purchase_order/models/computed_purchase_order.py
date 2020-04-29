@@ -96,11 +96,10 @@ class ComputedPurchaseOrder(models.Model):
         action = {
             "type": "ir.actions.act_window",
             "res_model": "computed.purchase.order",
-            "views": [[False, "form"]],
-            # "view_mode": "form,tree",
-            # "view_type": "form",
-            # "target": "current",
             "res_id": cpo.id,
+            "view_type": "form",
+            "view_mode": "form,tree",
+            "target": "current",
         }
         return action
 

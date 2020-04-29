@@ -107,12 +107,7 @@
         <field name="binding_model_id" ref="product.model_product_template"/>
         <field name="state">code</field>
         <field name="code">
-          model.generate_cpo()
+          action = model.generate_cpo()
         </field>
-
     </record>
-    <menuitem id='menu_testing' name='Testing' sequence="100"
-              parent="purchase.menu_procurement_management"
-              action="action_generate_cpo"/>
-
 </odoo>
