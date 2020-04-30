@@ -122,20 +122,22 @@ class CooperativeStatus(models.Model):
     #####################################
     #   Status Change implementation    #
     #####################################
-    def _set_regular_status(self, grace_delay, alert_delay):
+    def _get_regular_status(self):
         self.ensure_one()
-        counter_unsubscribe = int(self.env['ir.config_parameter'].get_param('regular_counter_to_unsubscribe', -4))
+        counter_unsubscribe = int(self.env['ir.config_parameter'].sudo().get_param('regular_counter_to_unsubscribe', -4))
+        alert_delay = int(self.env['ir.config_parameter'].sudo().get_param('alert_delay', 28))
+        grace_delay = int(self.env['ir.config_parameter'].sudo().get_param('default_grace_delay', 10))
         ok = self.sr >= 0 and self.sc >= 0
         grace_delay = grace_delay + self.time_extension
 
         if (self.sr + self.sc) <= counter_unsubscribe or self.unsubscribed:
             return 'unsubscribed'
-        #Check if exempted. Exempt end date is not required.
+        # Check if exempted. Exempt end date is not required.
         if self.temporary_exempt_start_date and self.today >= self.temporary_exempt_start_date:
             if not self.temporary_exempt_end_date or self.today <= self.temporary_exempt_end_date:
                 return 'exempted'
 
-        #Transition to alert sr < 0 or stay in alert sr < 0 or sc < 0 and thus alert time is defined
+        # Transition to alert sr < 0 or stay in alert sr < 0 or sc < 0 and thus alert time is defined
         if not ok and self.alert_start_time and self.extension_start_time and self.today <= add_days_delta(self.extension_start_time, grace_delay):
             return 'extension'
         if not ok and self.alert_start_time and self.extension_start_time and self.today > add_days_delta(self.extension_start_time, grace_delay):
@@ -156,18 +158,20 @@ class CooperativeStatus(models.Model):
         elif ok or (not self.alert_start_time and self.sr >= 0):
             return 'ok'
 
-    def _set_irregular_status(self, grace_delay, alert_delay):
-        counter_unsubscribe = int(self.env['ir.config_parameter'].get_param('irregular_counter_to_unsubscribe', -3))
+    def _get_irregular_status(self):
         self.ensure_one()
+        counter_unsubscribe = int(self.env['ir.config_parameter'].sudo().get_param('irregular_counter_to_unsubscribe', -3))
+        alert_delay = int(self.env['ir.config_parameter'].sudo().get_param('alert_delay', 28))
+        grace_delay = int(self.env['ir.config_parameter'].sudo().get_param('default_grace_delay', 10))
         ok = self.sr >= 0
         grace_delay = grace_delay + self.time_extension
         if self.sr <= counter_unsubscribe or self.unsubscribed:
             return 'unsubscribed'
-        #Check if exempted. Exempt end date is not required.
+        # Check if exempted. Exempt end date is not required.
         elif self.temporary_exempt_start_date and self.today >= self.temporary_exempt_start_date:
             if not self.temporary_exempt_end_date or self.today <= self.temporary_exempt_end_date:
                 return 'exempted'
-        #Transition to alert sr < 0 or stay in alert sr < 0 or sc < 0 and thus alert time is defined
+        # Transition to alert sr < 0 or stay in alert sr < 0 or sc < 0 and thus alert time is defined
         elif not ok and self.alert_start_time and self.extension_start_time and self.today <= add_days_delta(self.extension_start_time, grace_delay):
             return 'extension'
         elif not ok and self.alert_start_time and self.extension_start_time and self.today > add_days_delta(self.extension_start_time, grace_delay):

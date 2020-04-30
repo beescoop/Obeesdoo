@@ -5,7 +5,6 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 
 
-
 class Task(models.Model):
     _inherit = 'beesdoo.shift.shift'
 
@@ -23,7 +22,7 @@ class Task(models.Model):
             ("cancel","Cancelled")
         ]
 
-    def _get_color_mapping(state):
+    def _get_color_mapping(self, state):
         return {
             "draft": 0,
             "open": 1,
@@ -34,9 +33,10 @@ class Task(models.Model):
             "cancel": 9,
         }[state]
 
-    def _get_final_state():
+    def _get_final_state(self):
         return ["done", "absent_2", "absent_1", "absent_0"]
 
+    state = fields.Selection(selection=_get_selection_status)
 
     ##############################################
     #    Change counter when state change        #
@@ -45,7 +45,7 @@ class Task(models.Model):
         data = {}
         if self.worker_id.working_mode == 'regular':
 
-            if not self.replaced_id: #No replacement case
+            if not self.replaced_id:  # No replacement case
                 status = self.worker_id.cooperative_status_ids[0]
             else:
                 status = self.replaced_id.cooperative_status_ids[0]
@@ -78,4 +78,4 @@ class Task(models.Model):
                     data['sr'] = -1
                 data['irregular_absence_date'] = self.start_time.date()
                 data['irregular_absence_counter'] = -1
-        return data
+        return data, status
