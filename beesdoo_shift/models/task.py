@@ -228,20 +228,20 @@ class Task(models.Model):
         self.ensure_one()
         self._revert()
 
-        data = {}
-
         if not (self.worker_id or self.replaced_id) and new_state in self._get_final_state():
             raise UserError(_("You cannot change to the status %s if no worker is defined for the shift") % new_state)
-        if not (self.worker_id.working_mode in ['regular', 'irregular']):
-            raise UserError(_("Working mode is not properly defined. Please check if the worker is subscribed"))
 
         always_update = int(self.env['ir.config_parameter'].sudo().get_param('always_update', False))
         if always_update or not (self.worker_id or self.replaced_id):
             return
 
-        data = self._get_counter_date_state_change(new_state)
-        status.sudo()._change_counter(data)
-        self._set_revert_info(data, status)
+        if not (self.worker_id.working_mode in ['regular', 'irregular']):
+            raise UserError(_("Working mode is not properly defined. Please check if the worker is subscribed"))
+
+        data, status = self._get_counter_date_state_change(new_state)
+        if status:
+            status.sudo()._change_counter(data)
+            self._set_revert_info(data, status)
 
     @api.model
     def _cron_send_weekly_emails(self):
@@ -278,10 +278,13 @@ class Task(models.Model):
 
     def _get_counter_date_state_change(self, new_state):
         """
-            Return the data to change counter or other things
-            that change on the cooperator status
-            see _change_counter
+        Return the cooperator_status of the cooperator that need to be
+        change and data that need to be change. It does not perform the
+        change directly. The cooperator_status will be changed by the
+        _change_counter function.
 
-            We have eheck the worker is legitimate
+        Check has been done to ensure that worker is legitimate.
         """
-        return {}
+        data = {}
+        status = None
+        return data, status
