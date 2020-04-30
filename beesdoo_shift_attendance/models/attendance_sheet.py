@@ -527,7 +527,6 @@ class AttendanceSheet(models.Model):
     def validate_with_checks(self):
         self.ensure_one()
 
-
         if self.state == "validated":
             raise UserError(_("The sheet has already been validated."))
         if self.start_time > datetime.now():
@@ -606,7 +605,6 @@ class AttendanceSheet(models.Model):
         Generate sheets with shifts in the time interval
         defined from corresponding CRON time interval.
         """
-
         tasks = self.env["beesdoo.shift.shift"]
         sheets = self.env["beesdoo.shift.sheet"]
         current_time = datetime.now()
@@ -620,8 +618,8 @@ class AttendanceSheet(models.Model):
 
         tasks = tasks.search(
             [
-                ("start_time", ">", str(current_time),),
-                ("start_time", "<", str(current_time + allowed_time_range),),
+                ("start_time", ">", str(current_time)),
+                ("start_time", "<", str(current_time + allowed_time_range)),
             ]
         )
 

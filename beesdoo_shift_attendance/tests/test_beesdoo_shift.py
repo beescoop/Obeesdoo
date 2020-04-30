@@ -57,23 +57,22 @@ class TestBeesdooShift(TransactionCase):
         )
 
         self.task_type_1 = self.env.ref(
-            "beesdoo_shift_attendance"
-            ".beesdoo_shift_attendance_task_type_1_demo"
+            "beesdoo_shift.beesdoo_shift_task_type_1_demo"
         )
         self.task_type_2 = self.env.ref(
-            "beesdoo_shift_attendance"
-            ".beesdoo_shift_attendance_task_type_2_demo"
+            "beesdoo_shift.beesdoo_shift_task_type_2_demo"
         )
         self.task_type_3 = self.env.ref(
-            "beesdoo_shift_attendance"
-            ".beesdoo_shift_attendance_task_type_3_demo"
+            "beesdoo_shift.beesdoo_shift_task_type_3_demo"
         )
 
         self.task_template_1 = self.env.ref(
-            "beesdoo_shift.beesdoo_shift_task_template_1_demo"
+            "beesdoo_shift_attendance"
+            ".beesdoo_shift_attendance_task_template_1_demo"
         )
         self.task_template_2 = self.env.ref(
-            "beesdoo_shift.beesdoo_shift_task_template_2_demo"
+            "beesdoo_shift_attendance"
+            ".beesdoo_shift_attendance_task_template_2_demo"
         )
 
         # Set time in and out of generation interval parameter
@@ -292,16 +291,16 @@ class TestBeesdooShift(TransactionCase):
                 self.assertFalse(shift.is_compensation)
 
         # Add a worker that should be replaced
-        with self.assertRaises(UserError) as e:
+        with self.assertRaises(UserError):
             sheet_1.on_barcode_scanned(421457731742)
         # Wrong barcode
-        with self.assertRaises(UserError) as e:
+        with self.assertRaises(UserError):
             sheet_1.on_barcode_scanned(101010)
 
         # Add an unsubscribed worker
         self.worker_regular_1.cooperative_status_ids.sr = -2
         self.worker_regular_1.cooperative_status_ids.sc = -2
-        with self.assertRaises(UserError) as e:
+        with self.assertRaises(UserError):
             sheet_1.on_barcode_scanned(421457731745)
 
     def test_attendance_sheet_edition(self):
@@ -351,9 +350,9 @@ class TestBeesdooShift(TransactionCase):
         # Wait necessary time for shifts to begin
         waiting_time = (self.start_in_1 - datetime.now()).total_seconds()
         if waiting_time > 0:
-            with self.assertRaises(UserError) as e:
+            with self.assertRaises(UserError) as econtext:
                 sheet_1.validate_with_checks()
-                self.assertIn("wait", str(e.exception))
+            self.assertIn("once the shifts have started", str(econtext.exception))
             time.sleep(waiting_time)
 
         sheet_1.worker_nb_feedback = "enough"
@@ -362,9 +361,9 @@ class TestBeesdooShift(TransactionCase):
 
         sheet_1.validate_with_checks()
 
-        with self.assertRaises(UserError) as e:
+        with self.assertRaises(UserError) as econtext:
             sheet_1.validate_with_checks()
-            self.assertIn("already been validated", str(e.exception))
+        self.assertIn("already been validated", str(econtext.exception))
 
         self.assertEqual(sheet_1.state, "validated")
         self.assertEqual(sheet_1.validated_by, self.user_admin.partner_id)
