@@ -29,7 +29,6 @@
         'views/partner.xml',
         'wizard/views/member_card.xml',
         'wizard/views/partner.xml',
-        'data/default_contact.xml',
         'report/beescard.xml',
     ],
     'installable': True,
