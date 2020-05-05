@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="product.product_template_only_form_view" />
         <field name="arch" type="xml">
             <field name="barcode" position="after">
-                <button string="Generate Barcode" name="generate_barcode" type="object" colspan="2" attrs="{'invisible' : [('barcode','!=',False)]}" /> />
+                <button string="Generate Barcode" name="generate_barcode" type="object" colspan="2" attrs="{'invisible' : [('barcode','!=',False)]}" />
             </field>
             <field name="list_price" position="after">
                 <field name="suggested_price" widget='monetary' options="{'currency_field': 'currency_id'}" />
