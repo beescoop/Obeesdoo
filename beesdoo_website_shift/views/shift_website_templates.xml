@@ -49,6 +49,7 @@
         name="Available Tasks Templates for Regular Workers"
     >
         <t t-call="portal.portal_layout">
+            <t t-set="no_breadcrumbs" t-value="True"/>
 
             <div class="o_regular_shift_template">
 
@@ -135,7 +136,7 @@
 
                     <div class="row mt4">
                         <div class="col">
-                            <t t-call="beesdoo_website_shift.help_text_public_shift_irregular_worker "/>
+                            <t t-call="beesdoo_website_shift.help_text_public_shift_irregular_worker"/>
                         </div>
                     </div>
                 </div>
