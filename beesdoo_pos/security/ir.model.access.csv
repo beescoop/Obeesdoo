@@ -1,5 +1,0 @@
-"id","name","model_id/id","group_id/id","perm_read","perm_write","perm_create","perm_unlink"
-"bill_value_read_all","Read All","beesdoo_pos.model_bill_value","","True","False","False","False"
-"bill_value_accountant_all","All Comptable","beesdoo_pos.model_bill_value","account.group_account_user","True","True","True","True"
-"bill_value_pos_manager_all","All POS manager","beesdoo_pos.model_bill_value","point_of_sale.group_pos_manager","True","True","True","True"
-"account_bank_statement_cashbox POS user","account.bank.statement.cashbox POS User","account.model_account_bank_statement_cashbox","point_of_sale.group_pos_user","True","True","True","False"

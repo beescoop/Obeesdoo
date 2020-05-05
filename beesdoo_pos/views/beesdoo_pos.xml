@@ -1,31 +1,4 @@
 <odoo>
-    <record model="ir.ui.view" id="beescoop_pos_inherit">
-        <field name="name">bees.pos.config.form.view</field>
-        <field name="model">pos.config</field>
-        <field name="inherit_id" ref="point_of_sale.pos_config_view_form" />
-        <field name="arch" type="xml">
-            <field name="iface_tax_included" position="after">
-                <separator string="Bill Value" colspan="2" />
-                <field name="bill_value" nolabel="1" colspan="2">
-                    <tree editable="bottom">
-                        <field name="name" />
-                    </tree>
-                </field>
-            </field>
-        </field>
-    </record>
-
-    <record id="view_account_bnk_stmt_cashbox" model="ir.ui.view">
-        <field name="name">account.bnk_stmt_cashbox.form</field>
-        <field name="model">account.bank.statement.cashbox</field>
-        <field name="inherit_id" ref="account.view_account_bnk_stmt_cashbox" />
-        <field name="arch" type="xml">
-            <field name="coin_value" position="attributes">
-                <attribute name="readonly">1</attribute>
-            </field>
-        </field>
-    </record>
-
     <template id="assets" inherit_id="point_of_sale.assets">
         <xpath expr="." position="inside">
             <script type="text/javascript"
