@@ -1,7 +1,6 @@
-odoo.define('beescoop.pos', function (require) {
+odoo.define('beesdoo_pos.screens', function (require) {
     "use strict";
-    var module   = require("point_of_sale.screens");
-    var rpc = require('web.rpc')
+    var screens = require("point_of_sale.screens");
     var set_customer_info = function(el_class, value, prefix) {
         var el = this.$(el_class);
         el.empty();
@@ -13,7 +12,7 @@ odoo.define('beescoop.pos', function (require) {
         }
     }
 
-    module.ActionpadWidget = module.ActionpadWidget.include({
+    screens.ActionpadWidget = screens.ActionpadWidget.include({
         renderElement : function() {
             var self = this;
             var loaded = new $.Deferred();
@@ -42,7 +41,7 @@ odoo.define('beescoop.pos', function (require) {
         },
     });
 
-    module.PaymentScreenWidget.include({
+    screens.PaymentScreenWidget.include({
         render_customer_info : function() {
             var self = this;
             var loaded = new $.Deferred();
