@@ -14,7 +14,7 @@
     <xpath expr="//div[@class='o_portal_my_details']" position="after">
       <div class="o_my_details_eater mt-2">
         <h4 class="page-header">Your Eaters</h4>
-	<hr class="mt-1 mb-0" />
+        <hr class="mt-1 mb-0" />
         <p>
           <ul t-if="eaters">
             <li t-foreach="eaters" t-as="eater">
