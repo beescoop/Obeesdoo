@@ -20,9 +20,9 @@
     ],
 
     'data': [
-        "views/res_partner.xml",
     ],
     'demo': [
+        "demo/cooperators.xml",
         "demo/workers.xml",
         "demo/tasks.xml",
     ]
