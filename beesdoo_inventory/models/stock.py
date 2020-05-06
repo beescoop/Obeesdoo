@@ -32,6 +32,6 @@ class StockPicking(models.Model):
     @api.multi
     def copy_qty(self):
         self.ensure_one()
-        for pack_operation in self.pack_operation_product_ids:
-            pack_operation.qty_done = pack_operation.product_qty
+        for move_line in self.move_line_ids:
+            move_line.qty_done = move_line.product_qty
         return True

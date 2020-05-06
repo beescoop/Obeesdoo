@@ -23,7 +23,7 @@
                 <field name="responsible" />
             </field>
             <button name="action_assign" position="after">
-                 <button name="copy_qty" string="Copy Pack Quantity" states="partially_available,assigned" type="object" class="oe_highlight"
+                 <button name="copy_qty" string="Copy Move Line Quantity" states="partially_available,assigned" type="object" class="oe_highlight"
                          attrs="{'invisible': ['|', ('picking_type_code', '!=', 'incoming')]}"/>
             </button>
             <xpath expr="//field[@name='product_id']" position="attributes">
