@@ -29,6 +29,7 @@
         "views/planning.xml",
         "views/cooperative_status.xml",
         "views/exempt_reason.xml",
+        "views/menu.xml",
         "wizard/instanciate_planning.xml",
         "wizard/batch_template.xml",
         "wizard/assign_super_coop.xml",

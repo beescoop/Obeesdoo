@@ -208,11 +208,4 @@
             'search_default_gb_type':1}</field>
     </record>
 
-    <!-- Top menu item -->
-    <menuitem name="Planning" id="menu_task_top" parent="menu_root"
-        sequence="1" groups="beesdoo_shift.group_shift_attendance" />
-    <!-- actions -->
-    <menuitem name="Shifts" id="menu_task" parent="menu_task_top"
-        action="action_task" groups="beesdoo_shift.group_shift_attendance" />
-
 </odoo>
