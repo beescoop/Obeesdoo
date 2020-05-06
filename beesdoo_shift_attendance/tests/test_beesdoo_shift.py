@@ -67,12 +67,12 @@ class TestBeesdooShift(TransactionCase):
         )
 
         self.task_template_1 = self.env.ref(
-            "beesdoo_shift_attendance"
-            ".beesdoo_shift_attendance_task_template_1_demo"
+            "beesdoo_worker_status"
+            ".beesdoo_shift_task_template_1_demo"
         )
         self.task_template_2 = self.env.ref(
-            "beesdoo_shift_attendance"
-            ".beesdoo_shift_attendance_task_template_2_demo"
+            "beesdoo_worker_status"
+            ".beesdoo_shift_task_template_2_demo"
         )
 
         # Set time in and out of generation interval parameter

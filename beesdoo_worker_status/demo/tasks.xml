@@ -5,7 +5,7 @@
 -->
 <odoo>
 
-    <record id="beesdoo_shift_attendance_task_template_1_demo" model="beesdoo.shift.template">
+    <record id="beesdoo_shift_task_template_1_demo" model="beesdoo.shift.template">
         <field name="name">A_LUN_7:00-9:30</field>
         <field name="planning_id" ref="beesdoo_shift.beesdoo_shift_planning_1_demo" />
         <field name="day_nb_id" ref="beesdoo_shift.beesdoo_shift_daynumber_1_demo" />
@@ -17,7 +17,7 @@
         <field name="worker_ids" eval="[(6, 0, [ref('beesdoo_base.res_partner_cooperator_1_demo')])]"/>
     </record>
 
-    <record id="beesdoo_shift_attendance_task_template_2_demo" model="beesdoo.shift.template">
+    <record id="beesdoo_shift_task_template_2_demo" model="beesdoo.shift.template">
         <field name="name">A_MAR_12:00-14:30</field>
         <field name="planning_id" ref="beesdoo_shift.beesdoo_shift_planning_1_demo" />
         <field name="day_nb_id" ref="beesdoo_shift.beesdoo_shift_daynumber_2_demo" />
@@ -30,7 +30,7 @@
         <field name="worker_ids" eval="[(6, 0, [ref('beesdoo_base.res_partner_cooperator_3_demo')])]"/>
     </record>
 
-    <record id="beesdoo_shift_attendance_task_template_3_demo" model="beesdoo.shift.template">
+    <record id="beesdoo_shift_task_template_3_demo" model="beesdoo.shift.template">
         <field name="name">A_VEN_7:00-9:30</field>
         <field name="planning_id" ref="beesdoo_shift.beesdoo_shift_planning_1_demo" />
         <field name="day_nb_id" ref="beesdoo_shift.beesdoo_shift_daynumber_5_demo" />

@@ -23,5 +23,7 @@
         "views/res_partner.xml",
     ],
     'demo': [
+        "demo/workers.xml",
+        "demo/tasks.xml",
     ]
 }

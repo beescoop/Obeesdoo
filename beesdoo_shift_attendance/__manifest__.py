@@ -40,8 +40,6 @@
         "views/attendance_sheet.xml",
     ],
     'demo': [
-        "demo/tasks.xml",
-        "demo/workers.xml",
         "demo/users.xml",
     ]
 }
