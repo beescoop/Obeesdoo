@@ -159,13 +159,6 @@
         </field>
     </record>
 
-    <menuitem name="Shift Management" id="menu_root"
-        groups="beesdoo_shift.group_shift_attendance" />
-    <menuitem name="Templates" id="menu_template_top" parent="menu_root"
-        groups="beesdoo_shift.group_shift_management"
-        sequence="20" />
-
-
     <record model="ir.actions.act_window" id="action_generate_shift_template_wizard">
         <field name="name">Generate Shift Template</field>
         <field name="res_model">beesddoo.shift.generate_shift_template</field>

@@ -167,18 +167,13 @@
         </field>
     </record>
 
-   <record model="ir.actions.act_window" id="action_coop_status">
+    <!-- Actions -->
+    <record model="ir.actions.act_window" id="action_coop_status">
         <field name="name">Cooperator Status</field>
         <field name="res_model">cooperative.status</field>
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem name="Status" id="menu_status_top" parent="menu_root"
-        groups="beesdoo_shift.group_shift_management" sequence="20" />
-    <menuitem name="Cooperative Status" id="menu_status" parent="menu_status_top"
-        action="action_coop_status" groups="beesdoo_shift.group_cooperative_admin" />
-
-    <!-- Actions -->
     <record model="ir.actions.act_window" id="action_worker">
         <field name="name">Worker</field>
         <field name="res_model">res.partner</field>
@@ -186,17 +181,9 @@
         <field name="domain">[('is_worker', '=', True)]</field>
     </record>
 
-    <menuitem name="Worker" id="menu_worker_top" parent="menu_root"
-        groups="beesdoo_shift.group_shift_attendance" sequence="1" />
-    <menuitem name="Worker" id="menu_worker" parent="menu_worker_top"
-        action="action_worker" />
-
     <record model="ir.actions.act_window" id="action_journal">
         <field name="name">Counter Journal</field>
         <field name="res_model">beesdoo.shift.journal</field>
         <field name="view_mode">tree,form</field>
     </record>
-
-    <menuitem name="Counter Update Journal" id="menu_journal" parent="menu_status_top"
-        action="action_journal" groups="beesdoo_shift.group_cooperative_admin" />
 </odoo>
