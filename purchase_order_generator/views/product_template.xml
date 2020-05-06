@@ -5,7 +5,6 @@
       <field name="name">product.template.tree</field>
       <field name="model">product.template</field>
       <field eval="6" name="priority"/>
-      <!--<field name="inherit_id" ref="product.product_template_tree_view"/>-->
       <field name="arch" type="xml">
 
         <tree>
