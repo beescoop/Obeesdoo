@@ -27,5 +27,4 @@
     <record id="beesdoo_base.res_partner_cooperator_6_demo" model="res.partner">
         <field name="cooperator_type">share_a</field>
     </record>
-
 </odoo>
