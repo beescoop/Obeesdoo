@@ -179,7 +179,7 @@
                         <group>
                             <field name="max_worker_no" />
                         </group>
-                        <group col="1" string="Feedback"
+                        <group string="Feedback"
                                groups="beesdoo_shift.group_shift_attendance">
                             <field name="attended_worker_no" />
                             <field name="notes" />

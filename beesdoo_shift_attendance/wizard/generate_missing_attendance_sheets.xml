@@ -1,5 +1,5 @@
 <odoo>
-    <record model="ir.ui.view" id="validate_attendance_sheet_form">
+    <record model="ir.ui.view" id="generate_attendance_sheet_form">
         <field name="name">Generate Missing Attendance Sheets</field>
         <field name="model">beesdoo.shift.generate_missing_attendance_sheets</field>
         <field name="arch" type="xml">

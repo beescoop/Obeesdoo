@@ -6,13 +6,13 @@
             <form>
                 <sheet>
                     <separator string="Validation"/>
-                    <field name="card_support" invisible="1" />
-                    <field name="active_sheet" invisible="1" />
+                    <field name="card_support" invisible="1"/>
+                    <field name="active_sheet" invisible="1"/>
                     <field name="_barcode_scanned" widget="barcode_handler"/>
-                        <label for="notes" />
-                        <field name="notes" />
-                        <label for="feedback" />
-                        <field name="feedback" />
+                        <label for="notes"/>
+                        <field name="notes"/>
+                        <label for="feedback"/>
+                        <field name="feedback"/>
                     <group>
                         <field name="worker_nb_feedback"/>
                     </group>
