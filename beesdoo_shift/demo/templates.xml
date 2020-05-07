@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2019 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+
+    <record id="beesdoo_shift_task_type_1_demo" model="beesdoo.shift.type">
+        <field name="name">Inventaire</field>
+        <field name="description">Inventaire frais et vrac.</field>
+    </record>
+
+    <record id="beesdoo_shift_task_type_2_demo" model="beesdoo.shift.type">
+        <field name="name">Bureau des Membres</field>
+        <field name="description">Gestion admin (encodage liste présences, etc.)</field>
+    </record>
+
+    <record id="beesdoo_shift_task_type_3_demo" model="beesdoo.shift.type">
+        <field name="name">Magasin</field>
+        <field name="description">Gestion du magasin.</field>
+    </record>
+
+    <record id="beesdoo_shift_task_type_4_demo" model="beesdoo.shift.type">
+        <field name="name">Découpe fromage</field>
+        <field name="description">Caisse, remplissage des rayons, accueil.</field>
+    </record>
+
+    <record id="beesdoo_shift_daynumber_1_demo" model="beesdoo.shift.daynumber">
+        <field name="name">Lundi</field>
+        <field name="number">1</field>
+    </record>
+
+    <record id="beesdoo_shift_daynumber_2_demo" model="beesdoo.shift.daynumber">
+        <field name="name">Mardi</field>
+        <field name="number">2</field>
+    </record>
+
+    <record id="beesdoo_shift_daynumber_3_demo" model="beesdoo.shift.daynumber">
+        <field name="name">Mercredi</field>
+        <field name="number">3</field>
+    </record>
+
+    <record id="beesdoo_shift_daynumber_4_demo" model="beesdoo.shift.daynumber">
+        <field name="name">Jeudi</field>
+        <field name="number">4</field>
+    </record>
+
+    <record id="beesdoo_shift_daynumber_5_demo" model="beesdoo.shift.daynumber">
+        <field name="name">Vendredi</field>
+        <field name="number">5</field>
+    </record>
+
+    <record id="beesdoo_shift_daynumber_6_demo" model="beesdoo.shift.daynumber">
+        <field name="name">Samedi</field>
+        <field name="number">6</field>
+    </record>
+
+    <record id="beesdoo_shift_daynumber_7_demo" model="beesdoo.shift.daynumber">
+        <field name="name">Dimanche</field>
+        <field name="number">7</field>
+    </record>
+
+    <record id="beesdoo_shift_planning_1_demo" model="beesdoo.shift.planning">
+        <field name="sequence">1</field>
+        <field name="name">Semaine A</field>
+    </record>
+
+</odoo>

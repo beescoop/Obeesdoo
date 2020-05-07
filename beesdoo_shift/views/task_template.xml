@@ -29,9 +29,9 @@
                 <field name="super_coop_id" />
                 <field name="day_nb_id" />
                 <field name="worker_ids" />
-                <filter string="My Team Shift" domain="[('super_coop_id', '=', uid)]" />
-                <filter string="Planning" context="{'group_by':'planning_id'}" />
-                <filter string="Week Day" context="{'group_by':'day_nb_id'}" />
+                <filter string="My Team Shift" name="my_team_shift" domain="[('super_coop_id', '=', uid)]" />
+                <filter string="Planning" name="planning" context="{'group_by':'planning_id'}" />
+                <filter string="Week Day" name="week_day" context="{'group_by':'day_nb_id'}" />
                 <filter string="Place Available" name="available"
                     domain="[('remaining_worker', '>', 0)]" />
             </search>
@@ -101,35 +101,17 @@
                 <field name="super_coop_id" />
                 <templates>
                     <t t-name="kanban-box">
-                        <div
-                            t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
+                        <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
                             <t t-if="widget.editable">
-                                <div class="o_dropdown_kanban dropdown"
-                                    groups="base.group_user">
-                                    <a class="dropdown-toggle btn"
-                                        data-toggle="dropdown" href="#">
-                                        <span class="fa fa-bars fa-lg" />
+                                <div class="o_dropdown_kanban dropdown" name="card_dropdown_menu">
+                                    <a class="dropdown-toggle o-no-caret btn" role="button" data-toggle="dropdown" data-display="static" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                        <span class="fa fa-ellipsis-v"/>
                                     </a>
-                                    <ul class="dropdown-menu" role="menu"
-                                        aria-labelledby="dLabel">
-                                        <t t-if="widget.editable">
-                                            <li>
-                                                <a type="edit">Edit Shift
-                                                    Template
-                                                </a>
-                                            </li>
-                                        </t>
-                                        <t t-if="widget.deletable">
-                                            <li>
-                                                <a type="delete">Delete</a>
-                                            </li>
-                                        </t>
-
-                                        <li>
-                                            <ul class="oe_kanban_colorpicker"
-                                                data-field="color" />
-                                        </li>
-                                    </ul>
+                                    <div class="dropdown-menu" role="menu">
+                                        <t t-if="widget.editable"><a role="menuitem" type="edit" class="dropdown-item">Edit Shift Template</a></t>
+                                        <t t-if="widget.deletable"><a role="menuitem" type="delete" class="dropdown-item">Delete</a></t>
+                                        <ul role="menu" class="oe_kanban_colorpicker" data-field="color" />
+                                    </div>
                                 </div>
                             </t>
                             <div class="oe_kanban_content">
@@ -177,37 +159,6 @@
         </field>
     </record>
 
-    <menuitem name="Shift Management" id="menu_root"
-        groups="beesdoo_shift.group_shift_attendance" />
-    <menuitem name="Templates" id="menu_template_top" parent="menu_root"
-        groups="beesdoo_shift.group_shift_management" />
-
-
-    <!-- Configuration -->
-    <record model="ir.ui.view" id="daynumber_view_tree">
-        <field name="name">Day Number List</field>
-        <field name="model">beesdoo.shift.daynumber</field>
-        <field name="arch" type="xml">
-            <tree editable="top">
-                <field name="name" />
-                <field name="number" />
-                <field name="active" />
-            </tree>
-        </field>
-    </record>
-
-    <record model="ir.ui.view" id="type_view_tree">
-        <field name="name">Shift Type List</field>
-        <field name="model">beesdoo.shift.type</field>
-        <field name="arch" type="xml">
-            <tree>
-                <field name="name" />
-                <field name="description" />
-                <field name="active" />
-            </tree>
-        </field>
-    </record>
-
     <record model="ir.actions.act_window" id="action_generate_shift_template_wizard">
         <field name="name">Generate Shift Template</field>
         <field name="res_model">beesddoo.shift.generate_shift_template</field>
@@ -240,24 +191,4 @@
             </form>
         </field>
     </record>
-    <menuitem name="Configuration" id="menu_configuration_top"
-        parent="menu_root" groups="beesdoo_shift.group_planning_management" />
-
-    <record model="ir.actions.act_window" id="action_day_number">
-        <field name="name">Day Number</field>
-        <field name="res_model">beesdoo.shift.daynumber</field>
-        <field name="view_mode">tree</field>
-    </record>
-
-    <menuitem name="Shift Day" id="menu_configuration_day"
-        parent="menu_configuration_top" action="action_day_number" />
-
-    <record model="ir.actions.act_window" id="action_type">
-        <field name="name">Shift Type</field>
-        <field name="res_model">beesdoo.shift.type</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-
-    <menuitem name="Shift Type" id="menu_configuration_type"
-        parent="menu_configuration_top" action="action_type" />
 </odoo>

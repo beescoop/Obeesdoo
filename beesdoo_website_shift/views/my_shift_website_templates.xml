@@ -1,964 +1,705 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright 2017-2018 Rémy Taymans <remytaymans@gmail.com>
+     Copyright 2017-2020 Rémy Taymans <remytaymans@gmail.com>
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
-<openerp>
+<odoo>
 
-  <!-- Add menu entries -->
-  <template id="my_shift_link" name="Link to frontend portal" inherit_id="website.layout">
-    <xpath expr="//li[@id='o_logout']" position="before">
-      <li><a href="/my/shift" role="menuitem">My Shift</a></li>
-    </xpath>
-  </template>
+    <!-- Add menu entries -->
+    <template id="my_shift_link" name="Link to frontend portal" inherit_id="portal.frontend_layout">
+        <xpath expr="//a[@id='o_logout']" position="before">
+            <a href="/my/shift" class="dropdown-item" role="menuitem">My Shift</a>
+        </xpath>
+    </template>
 
-  <!-- Reusable templates -->
-  <template
-    id="my_shift_title"
-    name="My Shift Title">
+    <!-- Reusable templates -->
+    <template
+        id="my_shift_title"
+        name="My Shift Title">
 
-    <div class="oe_structure"/>
+        <h1>
+            Your shifts
+        </h1>
+    </template>
 
-    <section class="wrap">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <h1 class="text-center">
-              Your shifts
-            </h1>
-          </div>
-        </div>
-      </div>
-    </section>
+    <template
+        id="my_shift_worker_status_title"
+        name="My Shift Worker Status Title">
 
-    <div class="oe_structure"/>
-
-  </template>
-
-  <template
-    id="my_shift_worker_status_title"
-    name="My Shift Worker Status Title">
-
-    <div class="oe_structure"/>
-
-    <section class="wrap">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <h2>
-              Worker status
-              <span t-att-class="'label %s pull-right' % ('label-success' if status.can_shop else 'label-danger',)">
+        <h2>
+            Worker status
+            <span t-att-class="'badge %s pull-right' % ('badge-success' if status.can_shop else 'badge-danger',)">
                 <span class="fa fa-shopping-cart"></span>
                 <t t-if="status.can_shop">
-                  <span class="fa fa-check"></span>
+                    <span class="fa fa-check"></span>
                 </t>
                 <t t-if="not status.can_shop">
-                  <span class="fa fa-times"></span>
+                    <span class="fa fa-times"></span>
                 </t>
-              </span>
-            </h2>
-          </div>
+            </span>
+        </h2>
+
+    </template>
+
+    <template
+        id="my_shift_worker_status_common"
+        name="My Shift Worker Status Common">
+
+        <p>
+            <label class="font-weight-bold">Working Mode:</label>
+            <t t-esc="dict(status.fields_get(allfields=['working_mode'])['working_mode']['selection'])[status.working_mode]"/>
+        </p>
+
+        <p t-if="status.super">
+            You are a Super Cooperator
+        </p>
+
+        <p>
+            <label class="font-weight-bold">Status:</label>
+            <t t-esc="dict(status.fields_get(allfields=['status'])['status']['selection'])[status.status]"/>
+        </p>
+
+        <p t-if="status.holiday_start_time and status.holiday_start_time > status.today or status.status == 'holiday'">
+            <label class="font-weight-bold">Begin of Holiday:</label>
+            <t t-esc="status.holiday_start_time"/>
+        </p>
+
+        <p t-if="status.holiday_end_time and status.holiday_end_time > status.today or status.status == 'holiday'">
+            <label class="font-weight-bold">End of Holiday:</label>
+            <t t-esc="status.holiday_end_time"/>
+        </p>
+
+    </template>
+
+
+    <template
+        id="shift_status_label"
+        name="Shift Status Label">
+
+        <span t-if="shift.state == 'draft'"
+            t-attf-class="badge badge-default {{label_css}}">
+            <t t-esc="shift.state"/>
+        </span>
+
+        <span t-if="shift.state == 'done'"
+            t-attf-class="badge badge-success {{label_css}}">
+            <t t-esc="shift.state"/>
+        </span>
+
+        <span t-if="shift.state == 'absent_2'"
+            t-attf-class="badge badge-warning {{label_css}}">
+            <t t-esc="shift.state"/>
+        </span>
+
+        <span t-if="shift.state == 'absent_1'"
+            t-attf-class="badge badge-info {{label_css}}">
+            <t t-esc="shift.state"/>
+        </span>
+
+        <span t-if="shift.state == 'absent_0'"
+            t-attf-class="badge badge-info {{label_css}}">
+            <t t-esc="shift.state"/>
+        </span>
+
+        <span t-if="shift.state == 'cancel'"
+            t-attf-class="badge badge-danger {{label_css}}">
+            <t t-esc="shift.state"/>
+        </span>
+
+    </template>
+
+
+    <template
+        id="my_shift_next_shifts"
+        name="My Shift : Next Shifts">
+
+        <h2>
+            Your next shifts
+        </h2>
+
+        <div class="alert alert-warning">
+            <strong>Warning !</strong> For the moment public holidays are not taken into account. If your shift
+            occures during a public holiday, you do not have to do it.
         </div>
-      </div>
-    </section>
 
-    <div class="oe_structure"/>
-
-  </template>
-
-  <template
-    id="my_shift_worker_status_common"
-    name="My Shift Worker Status Common">
-
-    <p>
-      <label>Working Mode:</label>
-      <t t-esc="dict(status.fields_get(allfields=['working_mode'])['working_mode']['selection'])[status.working_mode]"/>
-    </p>
-
-    <p t-if="status.super">
-      You are a Super Cooperator
-    </p>
-
-    <p>
-      <label>Status:</label>
-      <t t-esc="dict(status.fields_get(allfields=['status'])['status']['selection'])[status.status]"/>
-    </p>
-
-    <p t-if="status.holiday_start_time and status.holiday_start_time > status.today or status.status == 'holiday'">
-      <label>Begin of Holiday:</label>
-      <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.holiday_start_time, '%Y-%m-%d'))"/>
-    </p>
-
-    <p t-if="status.holiday_end_time and status.holiday_end_time > status.today or status.status == 'holiday'">
-      <label>End of Holiday:</label>
-      <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.holiday_end_time, '%Y-%m-%d'))"/>
-    </p>
-
-  </template>
-
-
-  <template
-    id="shift_status_label"
-    name="Shift Status Label">
-
-    <span t-if="shift.stage_id.code == 'draft'"
-      t-attf-class="label label-default {{label_css}}">
-      <t t-esc="shift.stage_id.name"/>
-    </span>
-
-    <span t-if="shift.stage_id.code == 'done'"
-      t-attf-class="label label-success {{label_css}}">
-      <t t-esc="shift.stage_id.name"/>
-    </span>
-
-    <span t-if="shift.stage_id.code == 'absent'"
-      t-attf-class="label label-warning {{label_css}}">
-      <t t-esc="shift.stage_id.name"/>
-    </span>
-
-    <span t-if="shift.stage_id.code == 'excused'"
-      t-attf-class="label label-info {{label_css}}">
-      <t t-esc="shift.stage_id.name"/>
-    </span>
-
-    <span t-if="shift.stage_id.code == 'excused_necessity'"
-      t-attf-class="label label-info {{label_css}}">
-      <t t-esc="shift.stage_id.name"/>
-    </span>
-
-    <span t-if="shift.stage_id.code == 'cancel'"
-      t-attf-class="label label-danger {{label_css}}">
-      <t t-esc="shift.stage_id.name"/>
-    </span>
-
-  </template>
-
-
-  <template
-    id="my_shift_next_shifts"
-    name="My Shift : Next Shifts">
-
-    <div class="oe_structure"/>
-
-    <section class="wrap">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <h2>
-              Your next shifts
-            </h2>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="oe_structure"/>
-
-    <section class="wrap" t-if="is_regular">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="alert alert-warning">
-              <strong>Warning !</strong> For the moment public holidays are not taken into account. If your shift
-              occures during a public holiday, you do not have to do it.
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="oe_structure"/>
-
-    <div class="visible-xs" t-foreach="subscribed_shifts" t-as="shift">
-      <div class="panel panel-default">
-        <div class="panel-heading clearfix">
-          <div class="panel-title">
-            <t t-esc="time.strftime('%A %d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
-            <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
-            <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
-            <t t-call="beesdoo_website_shift.shift_status_label">
-              <t t-set="label_css" t-value="'pull-right'"/>
-            </t>
-          </div>
-        </div>
-        <div class="panel-body">
-          <t t-esc="shift.task_type_id.name"/>
-          <button type="button" class="btn btn-default btn-sm pull-right"
-            t-if="shift.super_coop_id.name"
-            data-toggle="modal"
-            t-att-data-target="'#super_coop-shift-%s' % shift_index">
-            <span class="fa fa-info" aria-hidden="true"></span>
-            Super Cooperator Info
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <table class="hidden-xs table table-striped" t-if="subscribed_shifts">
-      <thead>
-        <tr>
-          <th>Day</th>
-          <th>Date</th>
-          <th>Time</th>
-          <th>Type of Shift</th>
-          <th>Status</th>
-          <th class="text-center">Super Cooperator Info</th>
-        </tr>
-      </thead>
-      <tbody>
         <t t-foreach="subscribed_shifts" t-as="shift">
-          <tr t-att-class="'danger text-danger' if shift.stage_id.code == 'cancel' else ''">
-            <td>
-              <t t-esc="time.strftime('%A', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
-            </td>
-            <td>
-              <t t-esc="time.strftime('%d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
-            </td>
-            <td>
-              <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
-              <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
-            </td>
-            <td>
-              <t t-esc="shift.task_type_id.name"/>
-            </td>
-            <td>
-              <t t-esc="shift.stage_id.name"/>
-            </td>
-            <td class="text-center">
-              <button type="button" class="btn btn-default btn-sm"
-                t-if="shift.super_coop_id.name"
-                data-toggle="modal"
-                t-att-data-target="'#super_coop-shift-%s' % shift_index">
-                <span class="fa fa-info" aria-hidden="true"></span>
-              </button>
-            </td>
-          </tr>
+            <div t-att-class="'card mb-4 %s' % highlight_class">
+                <div t-att-class="'card-header %s clearfix' % highlight_header_class">
+                    <div class="pull-left">
+                        <span t-field="shift.start_time"/> -
+                        <span t-field="shift.end_time" t-options='{"format": "HH:mm"}'/>
+                    </div>
+                    <t t-call="beesdoo_website_shift.shift_status_label">
+                        <t t-set="label_css" t-value="'pull-right'"/>
+                    </t>
+                </div>
+                <div class="card-body clearfix">
+                    <t t-esc="shift.task_type_id.name"/>
+                    <button
+                        type="button"
+                        class="btn btn-default btn-sm pull-right"
+                        t-if="shift.super_coop_id.name"
+                        data-toggle="modal"
+                        t-att-data-target="'#super_coop-shift-%s' % shift_index"
+                        >
+                        <span class="fa fa-info" aria-hidden="true"></span>
+                        Super Cooperator Info
+                    </button>
+                </div>
+            </div>
         </t>
-      </tbody>
-    </table>
 
-    <!-- Super Cooperator info modal -->
-    <t t-foreach="subscribed_shifts" t-as="shift">
-      <div class="modal fade" t-if="shift.super_coop_id.name" t-att-id="'super_coop-shift-%s' % shift_index" tabindex="-1" role="dialog"
-        t-att-aria-labelledby="'super_coop-shift-%s-label' % shift_index">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-              <h4 class="modal-title" t-att-id="'super_coop-shift-%s-label' % shift_index">
-                <t t-esc="shift.super_coop_id.name"/>
-              </h4>
+        <!-- Super Cooperator info modal -->
+        <t t-foreach="subscribed_shifts" t-as="shift">
+            <div class="modal fade" t-if="shift.super_coop_id.name" t-att-id="'super_coop-shift-%s' % shift_index" tabindex="-1" role="dialog"
+                t-att-aria-labelledby="'super_coop-shift-%s-label' % shift_index">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <h4 class="modal-title" t-att-id="'super_coop-shift-%s-label' % shift_index">
+                                <t t-esc="shift.super_coop_id.name"/>
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <i class="fa fa-phone" aria-hidden="true"></i> <t t-esc="shift.super_coop_id.phone"/><br/>
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                            <a t-att-href="'mailto:%s' % shift.super_coop_id.email">
+                                <t t-esc="shift.super_coop_id.email"/>
+                            </a>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-              <i class="fa fa-phone" aria-hidden="true"></i> <t t-esc="shift.super_coop_id.phone"/><br/>
-              <i class="fa fa-envelope" aria-hidden="true"></i>
-              <a t-att-href="'mailto:%s' % shift.super_coop_id.email">
-                <t t-esc="shift.super_coop_id.email"/>
-              </a>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
+        </t>
+
+        <div class="alert alert-warning" t-if="not subscribed_shifts">
+            <strong>Warning !</strong> You have not yet signed up to a shift.
         </div>
-      </div>
-    </t>
 
-    <section class="wrap" t-if="not subscribed_shifts">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="alert alert-warning">
-              <strong>Warning !</strong> You have not yet signed up to a shift.
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    </template>
 
-    <div class="oe_structure"/>
+    <template
+        id="my_shift_past_shifts"
+        name="My Shift : Past Shifts">
 
-  </template>
+        <h2>
+            Your past shifts
+        </h2>
 
-  <template
-    id="my_shift_past_shifts"
-    name="My Shift : Past Shifts">
-
-    <div class="oe_structure"/>
-
-    <section class="wrap">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <h2>
-              Your past shifts
-            </h2>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="oe_structure"/>
-
-    <div class="visible-xs" t-foreach="past_shifts" t-as="shift">
-      <div class="panel panel-default">
-        <div class="panel-heading clearfix">
-          <div class="panel-title">
-            <t t-esc="time.strftime('%A %d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
-            <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
-            <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
-            <t t-call="beesdoo_website_shift.shift_status_label">
-              <t t-set="label_css" t-value="'pull-right'"/>
-            </t>
-          </div>
-        </div>
-        <div class="panel-body">
-          <t t-esc="shift.task_type_id.name"/>
-        </div>
-      </div>
-    </div>
-
-    <table class="hidden-xs table table-striped" t-if="past_shifts">
-      <thead>
-        <tr>
-          <th>Day</th>
-          <th>Date</th>
-          <th>Time</th>
-          <th>Type of Shift</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
         <t t-foreach="past_shifts" t-as="shift">
-          <tr>
-            <td>
-              <t t-esc="time.strftime('%A', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
-            </td>
-            <td>
-              <t t-esc="time.strftime('%d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
-            </td>
-            <td>
-              <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
-              <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
-            </td>
-            <td>
-              <t t-esc="shift.task_type_id.name"/>
-            </td>
-            <td>
-              <t t-esc="shift.stage_id.name"/>
-            </td>
-          </tr>
+            <div t-att-class="'card mb-4 %s' % highlight_class">
+                <div t-att-class="'card-header %s clearfix' % highlight_header_class">
+                    <div class="pull-left">
+                        <span t-field="shift.start_time"/> -
+                        <span t-field="shift.end_time" t-options='{"format": "HH:mm"}'/>
+                    </div>
+                    <t t-call="beesdoo_website_shift.shift_status_label">
+                        <t t-set="label_css" t-value="'pull-right'"/>
+                    </t>
+                </div>
+                <div class="card-body clearfix">
+                    <t t-esc="shift.task_type_id.name"/>
+                </div>
+            </div>
         </t>
-      </tbody>
-    </table>
 
-    <section class="wrap" t-if="not past_shifts">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="alert alert-info">
-              <strong>Info !</strong> You don't have any past shift.
-            </div>
-          </div>
+        <div class="alert alert-info">
+            <strong>Info !</strong> You don't have any past shift.
         </div>
-      </div>
-    </section>
 
-    <div class="oe_structure"/>
+    </template>
 
-  </template>
+    <template
+        id="available_shift_irregular_worker"
+        name="Available Shift for Irregular Worker"
+        >
 
-  <template
-    id="available_shift_irregular_worker"
-    name="Available Shift for Irregular Worker">
-
-    <div class="oe_structure"/>
-
-    <div class="visible-xs" t-foreach="shift_templates" t-as="shift_count_subscribed">
-      <t t-set="shift" t-value="shift_count_subscribed[0]" />
-      <t t-set="count" t-value="shift_count_subscribed[1]" />
-      <t t-set="is_subscribed" t-value="shift_count_subscribed[2]" />
-      <t t-set="has_enough_workers" t-value="shift_count_subscribed[3]" />
-      <t t-set="highlight_class" t-value="'panel-warning' if not has_enough_workers else 'panel-default'"/>
-      <div t-att-class="'panel %s' % highlight_class">
-        <div class="panel-heading clearfix">
-          <div class="panel-title pull-left">
-            <t t-esc="time.strftime('%A %d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
-            <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
-            <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
-          </div>
-          <div class="label label-default pull-right">
-            <t t-esc="count"/> space(s)
-          </div>
-        </div>
-        <div class="panel-body clearfix">
-          <t t-esc="shift.task_type_id.name"/>
-          <t t-if="is_subscribed">
-            <div class="label label-success pull-right">
-              <span class="fa fa-check" aria-hidden="true"></span>
-              Subscribed
-            </div>
-          </t>
-          <t t-if="irregular_enable_sign_up and not is_subscribed">
-            <button type="button" class="btn btn-default btn-sm pull-right" data-toggle="modal"
-              t-att-data-target="'#subscribe-shift-%s' % shift.id">
-              <span class="fa fa-user-plus" aria-hidden="true"></span>
-              Subscribe
-            </button>
-          </t>
-        </div>
-      </div>
-    </div>
-
-    <table class="hidden-xs table table-striped">
-      <thead>
-        <tr>
-          <th>Day</th>
-          <th>Date</th>
-          <th>Time</th>
-          <th>Type of Shift</th>
-          <th class="text-center">Available Spaces</th>
-          <th class="text-center" t-if="irregular_enable_sign_up">Subscribed</th>
-        </tr>
-      </thead>
-      <tbody>
         <t t-foreach="shift_templates" t-as="shift_count_subscribed">
-          <t t-set="shift" t-value="shift_count_subscribed[0]" />
-          <t t-set="count" t-value="shift_count_subscribed[1]" />
-          <t t-set="is_subscribed" t-value="shift_count_subscribed[2]" />
-          <t t-set="has_enough_workers" t-value="shift_count_subscribed[3]"/>
-          <tr t-attf-class="{{ 'warning' if not has_enough_workers else '' }}">
-            <td>
-              <t t-esc="time.strftime('%A', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
-            </td>
-            <td>
-              <t t-esc="time.strftime('%d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
-            </td>
-            <td>
-              <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
-              <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/>
-            </td>
-            <td>
-              <t t-esc="shift.task_type_id.name"/>
-            </td>
-            <td class="text-center">
-              <t t-esc="count"/>
-            </td>
-            <td class="text-center" t-if="irregular_enable_sign_up">
-              <t t-if="is_subscribed">
-                <div class="label label-success">
-                  <span class="fa fa-check" aria-hidden="true"></span>
-                  Subscribed
+            <t t-set="shift" t-value="shift_count_subscribed[0]" />
+            <t t-set="count" t-value="shift_count_subscribed[1]" />
+            <t t-set="is_subscribed" t-value="shift_count_subscribed[2]" />
+            <t t-set="has_enough_workers" t-value="shift_count_subscribed[3]" />
+            <t t-set="highlight_class" t-value="'panel-warning' if not has_enough_workers else 'panel-default'"/>
+            <div t-att-class="'card mb-4 %s' % highlight_class">
+                <div t-att-class="'card-header %s clearfix' % highlight_header_class">
+                    <div class="pull-left">
+                        <span t-field="shift.start_time"/> -
+                        <span t-field="shift.end_time" t-options='{"format": "HH:mm"}'/>
+                    </div>
+                    <div class="badge badge-secondary pull-right"
+                        t-if="count > 0">
+                        <t t-esc="count"/> space(s)
+                    </div>
+                    <div class="badge badge-secondary pull-right"
+                        t-if="count == 0">
+                        full
+                    </div>
                 </div>
-              </t>
-              <t t-if="not is_subscribed">
-                <button type="button" class="btn btn-default btn-sm" data-toggle="modal"
-                  t-att-data-target="'#subscribe-shift-%s' % shift.id">
-                  <span class="fa fa-user-plus" aria-hidden="true"></span>
-                  Subscribe
-                </button>
-              </t>
-            </td>
-          </tr>
+                <div class="card-body clearfix">
+                    <t t-esc="shift.task_type_id.name"/>
+                    <div class="badge badge-success pull-right"
+                        t-if="is_subscribed">
+                        Subscribed
+                    </div>
+                    <button
+                        type="button"
+                        class="btn btn-default btn-sm pull-right"
+                        data-toggle="modal"
+                        t-att-data-target="'#subscribe-shift-%s' % shift.id"
+                        t-if="irregular_enable_sign_up and not is_subscribed"
+                        >
+                        <span class="fa fa-user-plus" aria-hidden="true"></span>
+                        Subscribe
+                    </button>
+                </div>
+            </div>
+
+            <!-- Subscribe check -->
+            <t t-foreach="shift_templates" t-as="shift_count_subscribed">
+                <t t-set="shift" t-value="shift_count_subscribed[0]" />
+                <t t-set="count" t-value="shift_count_subscribed[1]" />
+                <t t-set="is_subscribed" t-value="shift_count_subscribed[2]" />
+                <div class="modal fade" t-att-id="'subscribe-shift-%s' % shift.id" tabindex="-1" role="dialog"
+                    t-att-aria-labelledby="'subscribe-shift-%s-label' % shift.id">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <h4 class="modal-title" t-att-id="'subscribe-shift-%s-label' % shift.id">
+                                    Please confirm subscription
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <span t-field="shift.start_time"/> -
+                                <span t-field="shift.end_time" t-options='{"format": "HH:mm"}'/><br/>
+                                <t t-esc="shift.task_type_id.name"/><br/>
+                                <t t-esc="count"/> available space(s)
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <a class="btn btn-primary"
+                                    t-if="irregular_enable_sign_up"
+                                    t-att-href="'/shift/%s/subscribe?nexturl=%s' % (shift.id, nexturl)">
+                                    Subscribe
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+
         </t>
-      </tbody>
-    </table>
 
-    <!-- Subscribe check -->
-    <t t-foreach="shift_templates" t-as="shift_count_subscribed">
-      <t t-set="shift" t-value="shift_count_subscribed[0]" />
-      <t t-set="count" t-value="shift_count_subscribed[1]" />
-      <t t-set="is_subscribed" t-value="shift_count_subscribed[2]" />
-      <div class="modal fade" t-att-id="'subscribe-shift-%s' % shift.id" tabindex="-1" role="dialog"
-        t-att-aria-labelledby="'subscribe-shift-%s-label' % shift.id">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-              <h4 class="modal-title" t-att-id="'subscribe-shift-%s-label' % shift.id">
-                Are you shure you want to subscribe to this shift?
-              </h4>
-            </div>
-            <div class="modal-body">
-              <t t-esc="time.strftime('%A', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
-              <t t-esc="time.strftime('%d %B %Y', time.strptime(shift.start_time, '%Y-%m-%d %H:%M:%S'))"/>
-              <span t-field="shift.start_time" t-field-options='{"format": "HH:mm"}'/> -
-              <span t-field="shift.end_time" t-field-options='{"format": "HH:mm"}'/><br/>
-              <t t-esc="shift.task_type_id.name"/><br/>
-              <t t-esc="count"/> available space(s)
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <a class="btn btn-primary"
-                t-if="irregular_enable_sign_up"
-                t-att-href="'/shift/%s/subscribe?nexturl=%s' % (shift.id, nexturl)">
-                Subscribe
-              </a>
-            </div>
-          </div>
+    </template>
+
+    <!-- Help Texts -->
+    <template
+        id="help_text_title"
+        name="Help Text Title">
+        <h2>
+            Help
+        </h2>
+    </template>
+
+    <template
+        id="help_text_common"
+        name="Help Text Common">
+        <div class="alert alert-info">
+            <strong>Info!</strong> If you do not agree with your status, please contact the members office by mail (membre@bees-coop.be) or during the open hours of the office (Monday 5PM to 7:30PM, Wednesday 5PM to 7:30 PM and Friday 2:30PM to 5 PM).
         </div>
-      </div>
-    </t>
 
-    <div class="oe_structure"/>
+        <p>
+            Explanation of the status:
+        </p>
 
-  </template>
+        <p>
+            <strong>Up To Date:</strong>
+            That's perfect! You are in order. Thanks a lot. You can come and shop, so can your eaters if you have any.
+        </p>
+    </template>
 
-  <!-- Help Texts -->
-  <template
-    id="help_text_title"
-    name="Help Text Title">
+    <template
+        id="help_text_regular_worker"
+        name="Help Text for Regular Worker">
+        <p class="h_reg_alert">
+            <strong>Alert:</strong>
+            If you are in alert status, that means you didn't do your last shift. You have
+            until your next scheduled shift to do your compensation shift according to your situation.
+            Your compensation is either simple or double. If you don't how how many compensation shifts you have to do, please contact your supercooperator.
+            To do your compensation shift, no need to subscribe in advance : you come at the beginning of the shift that best suits you.
+            Add your name and the indication "compensation shift" on the attendance list.
+            No panic, you still can come and shop, so can your eaters if you have any.
+        </p>
+        <p class="h_reg_suspended">
+            <strong>Suspended:</strong>
+            If you are suspended, that means you didn't come to a shift and you didn't do you compensation shifts in the delay (4 weeks).
+            You cannot shop (so as your eaters). But no need to panic : a two-weeks delay is activable on demand at the entrance of the supermarket.
+            You will be able to shop during 2 more weeks and to put your situation in order.
+            To do your compensation shift, no need to subscribe in advance : you come at the beginning of the shift that best suits you.
+            Add your name and the indication "compensation shift" on the attendance list.
+        </p>
+        <p class="h_reg_autoextension">
+            <strong>Auto-Extension:</strong>
+            You didn't manage to do your compensation shifts in the delay but you benefit from the auto-extension.
+            This is two more weeks to do your compensation shifts. You can shop.
+            If you don't do your compensation shifts, you'll be suspended.
+        </p>
+        <p class="h_reg_unsubscribed">
+            <strong>Unsubscribed:</strong>
+            You did not attend two consecutive shifts. You are now unsubscribed. You cannot shop (nor can your eaters) nor come to work.
+            To subscribe again, please contact membre@bees-coop.be or come to the members office during the opening hours.
+        </p>
+    </template>
 
-    <div class="oe_structure"/>
+    <template
+        id="help_text_irregular_worker"
+        name="Help Text for Irregular Worker">
+        <p class="h_irreg_alert">
+            <strong>Alert:</strong>
+            If you are in alert status, that means you didn't anticipate enough shifts.
+            Your counter is now negative, directly to -2.
+            You have 4 weeks to do 2 shifts to be up to date.
+            For the compensation shifts, subscribe like you do for a normal shift.
+            Be careful, in addition to these 2 shifts, don't forget to do your normal shift in the same delay to prevent to be in the same situation next month.
+        </p>
+        <p class="h_irreg_suspended">
+            <strong>Suspended:</strong>
+            You did not anticipate enough shifts and you did not come back to a normal situation in the delay.
+            You cannot shop anymore, nor can your eaters.
+            But no need to panic : a two-weeks delay is activable on demand at the entrance of the supermarket.
+            You will be able to shop during 2 more weeks and to put your situation in order.
+            For the compensation shifts, subscribe like you do for a normal shift.
+        </p>
+        <p class="h_irreg_autoextension">
+            <strong>Auto-Extension:</strong>
+            You didn't manage to do your compensation shifts in the delay but you benefit from the auto-extension.
+            This is two more weeks to do your compensation shifts. You can shop.
+            If you don't do your compensation shifts, you'll be suspended.
+        </p>
+        <p class="h_irreg_unsubscribed">
+            <strong>Unsubscribed:</strong>
+            Your counter is negative and you haven't come to work for more than 8 weeks.
+            You are unsubscribed. You cannot shop nor can your eaters.
+            To subscribe again of if it's a mistake, please contact membre@bees-coop.be or come to the members office during the opening hours.
+        </p>
+    </template>
 
-    <section class="wrap">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <h2>
-              Help
-            </h2>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Shift for non-worker -->
+    <template
+        id="my_shift_non_worker"
+        name="My Shift for Non Worker"
+        >
+        <t t-call="portal.portal_layout">
+            <t t-set="no_breadcrumbs" t-value="True"/>
 
-    <div class="oe_structure"/>
-
-  </template>
-
-  <template
-    id="help_text_common"
-    name="Help Text Common">
-    <div class="oe_structure alert alert-info">
-      <strong>Info!</strong> If you do not agree with your status, please contact the members office by mail (membre@bees-coop.be) or during the open hours of the office (Monday 5PM to 7:30PM, Wednesday 5PM to 7:30 PM and Friday 2:30PM to 5 PM).
-    </div>
-
-    <p class="oe_structure">
-      Explanation of the status:
-    </p>
-
-    <p class="oe_structure">
-      <strong>Up To Date:</strong>
-      That's perfect! You are in order. Thanks a lot. You can come and shop, so can your eaters if you have any.
-    </p>
-  </template>
-
-  <template
-    id="help_text_regular_worker"
-    name="Help Text for Regular Worker">
-    <p class="oe_structure">
-      <strong>Alert:</strong>
-      If you are in alert status, that means you didn't do your last shift. You have
-      until your next scheduled shift to do your compensation shift according to your situation.
-      Your compensation is either simple or double. If you don't how how many compensation shifts you have to do, please contact your supercooperator.
-      To do your compensation shift, no need to subscribe in advance : you come at the beginning of the shift that best suits you.
-      Add your name and the indication "compensation shift" on the attendance list.
-      No panic, you still can come and shop, so can your eaters if you have any.
-    </p>
-    <p class="oe_structure">
-      <strong>Suspended:</strong>
-      If you are suspended, that means you didn't come to a shift and you didn't do you compensation shifts in the delay (4 weeks).
-      You cannot shop (so as your eaters). But no need to panic : a two-weeks delay is activable on demand at the entrance of the supermarket.
-      You will be able to shop during 2 more weeks and to put your situation in order.
-      To do your compensation shift, no need to subscribe in advance : you come at the beginning of the shift that best suits you.
-      Add your name and the indication "compensation shift" on the attendance list.
-    </p>
-    <p class="oe_structure">
-      <strong>Auto-Extension:</strong>
-      You didn't manage to do your compensation shifts in the delay but you benefit from the auto-extension.
-      This is two more weeks to do your compensation shifts. You can shop.
-      If you don't do your compensation shifts, you'll be suspended.
-    </p>
-    <p class="oe_structure">
-      <strong>Unsubscribed:</strong>
-      You did not attend two consecutive shifts. You are now unsubscribed. You cannot shop (nor can your eaters) nor come to work.
-      To subscribe again, please contact membre@bees-coop.be or come to the members office during the opening hours.
-    </p>
-  </template>
-
-  <template
-    id="help_text_irregular_worker"
-    name="Help Text for Irregular Worker">
-    <p class="oe_structure">
-      <strong>Alert:</strong>
-      If you are in alert status, that means you didn't anticipate enough shifts.
-      Your counter is now negative, directly to -2.
-      You have 4 weeks to do 2 shifts to be up to date.
-      For the compensation shifts, subscribe like you do for a normal shift.
-      Be careful, in addition to these 2 shifts, don't forget to do your normal shift in the same delay to prevent to be in the same situation next month.
-    </p>
-    <p class="oe_structure">
-      <strong>Suspended:</strong>
-      You did not anticipate enough shifts and you did not come back to a normal situation in the delay.
-      You cannot shop anymore, nor can your eaters.
-      But no need to panic : a two-weeks delay is activable on demand at the entrance of the supermarket.
-      You will be able to shop during 2 more weeks and to put your situation in order.
-      For the compensation shifts, subscribe like you do for a normal shift.
-    </p>
-    <p class="oe_structure">
-      <strong>Auto-Extension:</strong>
-      You didn't manage to do your compensation shifts in the delay but you benefit from the auto-extension.
-      This is two more weeks to do your compensation shifts. You can shop.
-      If you don't do your compensation shifts, you'll be suspended.
-    </p>
-    <p class="oe_structure">
-      <strong>Unsubscribed:</strong>
-      Your counter is negative and you haven't come to work for more than 8 weeks.
-      You are unsubscribed. You cannot shop nor can your eaters.
-      To subscribe again of if it's a mistake, please contact membre@bees-coop.be or come to the members office during the opening hours.
-    </p>
-  </template>
-
-  <!-- Shift for non-worker -->
-  <template
-    id="my_shift_non_worker"
-    name="My Shift for Non Worker"
-    page="True">
-    <t t-call="website.layout">
-
-      <t t-call="beesdoo_website_shift.my_shift_title"/>
-
-      <section class="wrap">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="alert alert-info">
-                You don't have to participate to shift system.
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div class="oe_structure"/>
-
-    </t>
-  </template>
-
-  <!-- Shift for new worker -->
-  <template
-    id="my_shift_new_worker"
-    name="My Shift for New Worker"
-    page="True">
-    <t t-call="website.layout">
-
-      <t t-call="beesdoo_website_shift.my_shift_title"/>
-
-      <section class="wrap">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="alert alert-info">
-                Please contact the members office to suscribe to shifts.
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div class="oe_structure"/>
-
-    </t>
-  </template>
-
-  <!-- Shifts Exempted Workers -->
-  <template
-    id="my_shift_exempted_worker"
-    name="My Shifts for Exempted Workers"
-    page="True">
-    <t t-call="website.layout">
-
-      <t t-call="beesdoo_website_shift.my_shift_title"/>
-
-      <section class="wrap">
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-12 col-md-4 pull-right text-justify">
-
-              <t t-call="beesdoo_website_shift.my_shift_worker_status_title"/>
-
-              <t t-call="beesdoo_website_shift.my_shift_worker_status_common"/>
-
-              <p t-if="status.exempt_reason_id">
-                <label>Exempt Reason:</label>
-                <t t-esc="status.exempt_reason_id.name"/>
-              </p>
-
-              <div class="oe_structure"/>
-
-            </div>
-
-            <div class="col-xs-12 col-md-8">
-
-              <section class="wrap">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="alert alert-info">
-                        You don't have to participate to shift system.
-                      </div>
+            <div class="container mt16">
+                <div class="row">
+                    <div class="col text-center">
+                        <t t-call="beesdoo_website_shift.my_shift_title"/>
                     </div>
-                  </div>
                 </div>
-              </section>
 
-              <div class="oe_structure"/>
+                <div class="row">
+                    <div class="col">
 
-            </div> <!-- col-md-8 -->
-          </div> <!-- row -->
-        </div> <!-- container -->
-      </section>
+                        <div class="alert alert-info">
+                            You don't have to participate to shift system.
+                        </div>
 
-      <div class="oe_structure"/>
-
-    </t>
-  </template>
-
-  <!-- Shifts regular worker without shift -->
-  <template
-    id="my_shift_regular_worker_without_shift"
-    name="My Shifts for regular worker without shift"
-    page="True">
-    <t t-call="website.layout">
-
-      <t t-call="beesdoo_website_shift.my_shift_title"/>
-
-      <section class="wrap">
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-12 col-md-4 pull-right text-justify">
-
-              <t t-call="beesdoo_website_shift.my_shift_worker_status_title"/>
-
-              <t t-call="beesdoo_website_shift.my_shift_worker_status_common"/>
-
-
-              <div class="oe_structure"/>
-
+                    </div>
+                </div>
             </div>
 
-            <div class="col-xs-12 col-md-8">
+        </t>
+    </template>
 
-              <section class="wrap">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="alert alert-info">
-                        Please contact the members office to suscribe to shifts.
-                      </div>
+    <!-- Shift for new worker -->
+    <template
+        id="my_shift_new_worker"
+        name="My Shift for New Worker"
+        >
+        <t t-call="portal.portal_layout">
+            <t t-set="no_breadcrumbs" t-value="True"/>
+
+
+            <div class="container mt6">
+                <div class="row">
+                    <div class="col text-center">
+                        <t t-call="beesdoo_website_shift.my_shift_title"/>
                     </div>
-                  </div>
                 </div>
-              </section>
 
-              <div class="oe_structure"/>
+                <div class="row">
+                    <div class="col">
 
-            </div> <!-- col-md-8 -->
-          </div> <!-- row -->
-        </div> <!-- container -->
-      </section>
+                        <div class="alert alert-info">
+                            Please contact the members office to suscribe to shifts.
+                        </div>
 
-      <div class="oe_structure"/>
-
-    </t>
-  </template>
-
-
-  <!-- Shifts for Regular Workers -->
-  <template
-    id="my_shift_regular_worker"
-    name="My Shifts for Regular Workers"
-    page="True">
-    <t t-call="website.layout">
-
-      <t t-call="beesdoo_website_shift.my_shift_title"/>
-
-      <section class="wrap">
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-12 col-md-4 pull-right text-justify">
-
-              <t t-call="beesdoo_website_shift.my_shift_worker_status_title"/>
-
-              <t t-call="beesdoo_website_shift.my_shift_worker_status_common"/>
-
-              <p t-if="status.sr != 0">
-                <label>Shift in Advance:</label>
-                <t t-esc="status.sr"/>
-              </p>
-
-              <p t-if="status.sc != 0">
-                <label>Compensation Shift:</label>
-                <t t-esc="status.sc"/>
-              </p>
-
-              <p t-if="status.alert_start_time">
-                <label>In Alert Since:</label>
-                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.alert_start_time, '%Y-%m-%d'))"/>
-              </p>
-
-              <p t-if="status.extension_start_time">
-                <label>In Extension Since:</label>
-                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.extension_start_time, '%Y-%m-%d'))"/>
-              </p>
-
-              <div class="oe_structure"/>
-
+                    </div>
+                </div>
             </div>
 
-            <div class="col-xs-12 col-md-8">
+        </t>
+    </template>
 
-              <t t-call="beesdoo_website_shift.my_shift_next_shifts"/>
+    <!-- Shifts Exempted Workers -->
+    <template
+        id="my_shift_exempted_worker"
+        name="My Shifts for Exempted Workers"
+        >
+        <t t-call="portal.portal_layout">
+            <t t-set="no_breadcrumbs" t-value="True"/>
 
-              <t t-call="beesdoo_website_shift.my_shift_past_shifts"/>
 
-            </div> <!-- col-md-8 -->
+            <div class="container mt16">
+                <div class="row">
+                    <div class="col text-center">
+                        <t t-call="beesdoo_website_shift.my_shift_title"/>
+                    </div>
+                </div>
 
-            <div class="col-xs-12 col-md-4 text-justify">
+                <div class="row">
 
-              <div class="oe_structure"/>
+                    <div class="col-12 col-lg-6 m-auto text-justify">
 
-              <t t-call="beesdoo_website_shift.help_text_title"/>
-              <t t-call="beesdoo_website_shift.help_text_common"/>
-              <t t-call="beesdoo_website_shift.help_text_irregular_worker"/>
+                        <t t-call="beesdoo_website_shift.my_shift_worker_status_title"/>
 
-              <div class="oe_structure"/>
+                        <t t-call="beesdoo_website_shift.my_shift_worker_status_common"/>
 
-            </div> <!-- col-md-4 -->
-          </div> <!-- row -->
-        </div> <!-- container -->
-      </section>
+                        <p t-if="status.exempt_reason_id">
+                            <label class="font-weight-bold">Exempt Reason:</label>
+                            <t t-esc="status.exempt_reason_id.name"/>
+                        </p>
 
-      <div class="oe_structure"/>
+                    </div>
 
-    </t>
-  </template>
+                    <div class="col-12 col-lg-8 m-auto">
 
-  <!-- Shifts for Irregular Workers -->
-  <template
-    id="my_shift_irregular_worker"
-    name="Shifts for Irregular Workers"
-    page="True">
-    <t t-call="website.layout">
+                        <div class="alert alert-info">
+                            You don't have to participate to shift system.
+                        </div>
 
-      <t t-call="beesdoo_website_shift.my_shift_title"/>
-
-      <section class="wrap">
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-12 col-md-4 pull-right text-justify">
-
-              <t t-call="beesdoo_website_shift.my_shift_worker_status_title"/>
-
-              <t t-call="beesdoo_website_shift.my_shift_worker_status_common"/>
-
-              <p>
-                <label>Shift in Advance:</label>
-                <t t-esc="status.sr"/>
-              </p>
-
-              <p t-if="status.next_countdown_date">
-                <label>Next Countdown Date:</label>
-                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.next_countdown_date, '%Y-%m-%d'))"/>
-              </p>
-
-              <p t-if="status.future_alert_date">
-                <label>Future Date of Alert:</label>
-                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.future_alert_date, '%Y-%m-%d'))"/>
-              </p>
-
-              <p t-if="status.irregular_absence_date">
-                <label>Last Absence Date:</label>
-                <t t-esc="time.strftime('%A %d %B %Y', time.strptime(status.irregular_absence_date, '%Y-%m-%d'))"/>
-              </p>
-
-              <p t-if="status.irregular_absence_counter">
-                <label>Number of Absence:</label>
-                <t t-esc="status.irregular_absence_counter"/>
-              </p>
-
-              <div class="oe_structure"/>
-
+                    </div>
+                </div>
             </div>
 
-            <div class="col-xs-12 col-md-8">
+        </t>
+    </template>
 
-              <div t-if="back_from_subscription"
-                role="alert"
-                t-att-class="'alert alert-%s alert-dismissible' % ('success' if success else 'danger',)">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">×</span>
-                </button>
-                <t t-if="success">
-                  <strong>Success!</strong> Your subscription has succeded.
-                </t>
-                <t t-if="not success">
-                  <strong>Failed!</strong> Your subscription has failed. Someone
-                  subscribed before you or the shift was deleted. Try again in a
-                  moment.
-                </t>
-              </div>
+    <!-- Shifts regular worker without shift -->
+    <template
+        id="my_shift_regular_worker_without_shift"
+        name="My Shifts for regular worker without shift"
+        >
+        <t t-call="portal.portal_layout">
+            <t t-set="no_breadcrumbs" t-value="True"/>
 
-              <t t-call="beesdoo_website_shift.my_shift_next_shifts"/>
 
-              <section class="wrap">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <h2>
-                        Available Shifts
-                      </h2>
+            <div class="container mt16">
+                <div class="row">
+                    <div class="col text-center">
+                        <t t-call="beesdoo_website_shift.my_shift_title"/>
                     </div>
-                  </div>
                 </div>
-              </section>
+                <div class="row">
+                    <div class="col-12 col-lg-6 m-auto text-justify">
 
-              <div class="oe_structure"/>
+                        <t t-call="beesdoo_website_shift.my_shift_worker_status_title"/>
 
-              <section class="wrap">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-xs-12 col-sm-6 text-justify">
-                      <p>
-                        Please, subscribe, in priority, to the highlighted shifts. To sign up to a shift click on the
-                        subscribe button. Notice that you can not unsubscribe online. To unsubscribe to a shift, please,
-                        contact us.
-                      </p>
+                        <t t-call="beesdoo_website_shift.my_shift_worker_status_common"/>
+
                     </div>
-                  </div>
+
+                    <div class="col-12 col-lg-8 m-auto">
+
+                        <div class="alert alert-info">
+                            Please contact the members office to suscribe to shifts.
+                        </div>
+
+                    </div>
                 </div>
-              </section>
-              <div class="oe_structure"/>
+            </div>
 
-              <t t-call="beesdoo_website_shift.available_shift_irregular_worker"/>
+        </t>
+    </template>
 
-              <t t-call="beesdoo_website_shift.my_shift_past_shifts"/>
 
-            </div> <!-- col-md-8 -->
+    <!-- Shifts for Regular Workers -->
+    <template
+        id="my_shift_regular_worker"
+        name="My Shifts for Regular Workers"
+        >
+        <t t-call="portal.portal_layout">
+            <t t-set="no_breadcrumbs" t-value="True"/>
 
-            <div class="col-xs-12 col-md-4 text-justify">
+            <div class="container mt16">
+                <div class="row">
+                    <div class="col text-center">
+                        <t t-call="beesdoo_website_shift.my_shift_title"/>
+                    </div>
+                </div>
 
-              <div class="oe_structure"/>
+                <div class="row">
+                    <div class="col-12 col-lg-6 m-auto text-justify">
 
-              <t t-call="beesdoo_website_shift.help_text_title"/>
-              <t t-call="beesdoo_website_shift.help_text_common"/>
-              <t t-call="beesdoo_website_shift.help_text_irregular_worker"/>
+                        <t t-call="beesdoo_website_shift.my_shift_worker_status_title"/>
 
-              <div class="oe_structure"/>
+                        <t t-call="beesdoo_website_shift.my_shift_worker_status_common"/>
 
-            </div> <!-- col-md-4 -->
-          </div> <!-- row -->
-        </div> <!-- container -->
-      </section>
+                        <p t-if="status.sr != 0">
+                            <label class="font-weight-bold">Shift in Advance:</label>
+                            <t t-esc="status.sr"/>
+                        </p>
 
-      <div class="oe_structure"/>
+                        <p t-if="status.sc != 0">
+                            <label class="font-weight-bold">Compensation Shift:</label>
+                            <t t-esc="status.sc"/>
+                        </p>
 
-    </t>
-  </template>
+                        <p t-if="status.alert_start_time">
+                            <label class="font-weight-bold">In Alert Since:</label>
+                            <t t-esc="status.alert_start_time"/>
+                        </p>
 
-</openerp>
+                        <p t-if="status.extension_start_time">
+                            <label class="font-weight-bold">In Extension Since:</label>
+                            <t t-esc="status.extension_start_time"/>
+                        </p>
+
+                    </div>
+
+                    <div class="col-12 col-lg-8">
+
+                        <t t-call="beesdoo_website_shift.my_shift_next_shifts"/>
+
+                        <t t-call="beesdoo_website_shift.my_shift_past_shifts"/>
+
+                    </div>
+
+                    <div class="col-12 col-lg-4 text-justify">
+
+                        <t t-call="beesdoo_website_shift.help_text_title"/>
+                        <t t-call="beesdoo_website_shift.help_text_common"/>
+                        <t t-call="beesdoo_website_shift.help_text_irregular_worker"/>
+
+                    </div>
+                </div>
+            </div>
+
+        </t>
+    </template>
+
+    <!-- Shifts for Irregular Workers -->
+    <template
+        id="my_shift_irregular_worker"
+        name="Shifts for Irregular Workers"
+        >
+        <t t-call="portal.portal_layout">
+            <t t-set="no_breadcrumbs" t-value="True"/>
+
+            <div class="container mt16">
+                <div class="row">
+                    <div class="col text-center">
+                        <t t-call="beesdoo_website_shift.my_shift_title"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-lg-6 m-auto text-justify">
+
+                        <t t-call="beesdoo_website_shift.my_shift_worker_status_title"/>
+
+                        <t t-call="beesdoo_website_shift.my_shift_worker_status_common"/>
+
+                        <p>
+                            <label class="font-weight-bold">Shift in Advance:</label>
+                            <t t-esc="status.sr"/>
+                        </p>
+
+                        <p t-if="status.next_countdown_date">
+                            <label class="font-weight-bold">Next Countdown Date:</label>
+                            <t t-esc="status.next_countdown_date"/>
+                        </p>
+
+                        <p t-if="status.future_alert_date">
+                            <label class="font-weight-bold">Future Date of Alert:</label>
+                            <t t-esc="status.future_alert_date"/>
+                        </p>
+
+                        <p t-if="status.irregular_absence_date">
+                            <label class="font-weight-bold">Last Absence Date:</label>
+                            <t t-esc="status.irregular_absence_date"/>
+                        </p>
+
+                        <p t-if="status.irregular_absence_counter">
+                            <label class="font-weight-bold">Number of Absence:</label>
+                            <t t-esc="status.irregular_absence_counter"/>
+                        </p>
+
+                    </div>
+
+                    <div class="col-12 col-lg-8">
+
+                        <div t-if="back_from_subscription"
+                            role="alert"
+                            t-att-class="'alert alert-%s alert-dismissible' % ('success' if success else 'danger',)">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <t t-if="success">
+                                <strong>Success!</strong> Your subscription has succeded.
+                            </t>
+                            <t t-if="not success">
+                                <strong>Failed!</strong> Your subscription has failed. Someone
+                                subscribed before you or the shift was deleted. Try again in a
+                                moment.
+
+                                Please note that you can't subscribe <t t-esc="subscription_time_limit"/>  minutes before the shift.
+                            </t>
+                        </div>
+
+                        <t t-call="beesdoo_website_shift.my_shift_next_shifts"/>
+
+                        <h2>
+                            Available Shifts
+                        </h2>
+
+                        <div class="row">
+                            <div class="col-12 col-md-6 text-justify">
+                                <p>
+                                    Please, subscribe, in priority, to the highlighted shifts. To sign up to a shift click on the
+                                    subscribe button. Notice that you can not unsubscribe online. To unsubscribe to a shift, please,
+                                    contact us.
+                                </p>
+                            </div>
+                        </div>
+
+                        <t t-call="beesdoo_website_shift.available_shift_irregular_worker"/>
+
+                        <t t-call="beesdoo_website_shift.my_shift_past_shifts"/>
+
+                    </div>
+
+                    <div class="col-12 col-lg-4 text-justify">
+
+                        <t t-call="beesdoo_website_shift.help_text_title"/>
+                        <t t-call="beesdoo_website_shift.help_text_common"/>
+                        <t t-call="beesdoo_website_shift.help_text_irregular_worker"/>
+
+                    </div>
+                </div>
+            </div>
+
+        </t>
+    </template>
+
+</odoo>

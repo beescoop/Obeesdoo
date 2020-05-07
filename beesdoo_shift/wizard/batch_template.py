@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 '''
 Created on 2 janv. 2017
 
 @author: Thibault Francois
 '''
 
-from openerp import models, fields, api, _
+from odoo import models, fields, api, _
 
 class GenerateShiftTemplate(models.TransientModel):
     _name = 'beesddoo.shift.generate_shift_template'

@@ -20,7 +20,7 @@
         <field name="inherit_id" ref="point_of_sale.view_partner_property_form" />
         <field name="arch" type="xml">
             <field name="type" position="before">
-                <field name="cooperator_type" />
+                <field name="cooperator_type"/>
             </field>
             <field name="website" position="after">
                 <field name="eater"
@@ -33,11 +33,6 @@
                     [('cooperator_type', '=', 'share_a')]}</attribute>
             </xpath>
             <xpath expr="//notebook" position="inside">
-                <page string="Worker information"
-                    attrs="{'invisible': [('cooperator_type', '!=', 'share_a')]}"
-                    name="work">
-                    <group name="info_session" />
-                </page>
                 <page string="Member Card"
                     attrs="{'invisible': ['|', ('customer', '=', False), ('eater', 'not in', ('worker_eater', 'eater'))]}">
                     <group>
