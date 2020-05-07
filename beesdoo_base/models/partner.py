@@ -12,7 +12,7 @@ class Partner(models.Model):
     barcode = fields.Char(compute="_get_bar_code", string='Barcode', store=True)
     parent_barcode = fields.Char(compute="_get_bar_code", string='Parent Barcode', store=True)
     member_card_ids = fields.One2many('member.card', 'partner_id')
-    country_id = fields.Many2one(required=True, default=lambda self: self.env.ref('base.be'))
+    country_id = fields.Many2one(required=True)
 
     member_card_to_be_printed = fields.Boolean('Print BEES card?')
     last_printed = fields.Datetime('Last printed on')
