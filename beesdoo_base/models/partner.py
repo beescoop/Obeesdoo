@@ -19,9 +19,9 @@ class Partner(models.Model):
     cooperator_type = fields.Selection([('share_a', 'Share A'), ('share_b', 'Share B'), ('share_c', 'Share C')], store=True, compute=None)
 
 
-    @api.one
     @api.depends('parent_eater_id', 'parent_eater_id.barcode', 'eater', 'member_card_ids')
     def _get_bar_code(self):
+        self.ensure_one()
         if self.eater == 'eater':
             self.parent_barcode = self.parent_eater_id.barcode
         elif self.member_card_ids:
@@ -29,12 +29,12 @@ class Partner(models.Model):
                 if c.valid:
                     self.barcode = c.barcode
 
-    @api.one
     @api.constrains('child_eater_ids', 'parent_eater_id')
     def _check_number_of_eaters(self):
         """The owner of an A share can have a maximum of two eaters but
         the owner of a B share can have a maximum of three eaters.
         """
+        self.ensure_one()
         # Get the default_code of the share for the current eater and his parent
         share_type_code = self.cooperator_type
         parent_share_type_code = self.parent_eater_id.cooperator_type
@@ -58,8 +58,8 @@ class Partner(models.Model):
                     command[0] = 3
         return super(Partner, self).write(values)
 
-    @api.one
     def _deactivate_active_cards(self):
+        self.ensure_one()
         for card in self.member_card_ids.filtered('valid'):
             card.valid = False
             card.end_date = fields.Date.today()
