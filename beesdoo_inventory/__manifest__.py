@@ -19,7 +19,7 @@
     'website': "https://github.com/beescoop/Obeesdoo",
     'category': 'Inventory',
     'version': '12.0.1.0.0',
-    'depends': ['delivery', 'beesdoo_base'],
+    'depends': ['delivery', 'beesdoo_base', 'beesdoo_product'],
     'data': [
         'views/stock.xml'
     ],
