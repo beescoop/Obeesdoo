@@ -6,7 +6,8 @@
         <field name="inherit_id" ref="easy_my_coop.product_template_share_form_view"/>
         <field name="arch" type="xml">
             <field name="customer" position="after">
-                <field name="can_shop"/>
+                <field name="allow_working"/>
+                <field name="max_nb_eater_allowed"/>
             </field>
         </field>
     </record>
