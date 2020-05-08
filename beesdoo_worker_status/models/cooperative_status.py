@@ -263,22 +263,3 @@ class CooperativeStatus(models.Model):
         if not delta % self._period:
             return today
         return add_days_delta(today, self._period - (delta % self._period))
-
-
-class ResPartner(models.Model):
-    _inherit = 'res.partner'
-    """
-        Override is_worker definition
-        You need have subscribe to a A Share
-    """
-    is_worker = fields.Boolean(compute="_is_worker", search="_search_worker", readonly=True, related="")
-
-    def _is_worker(self):
-        for rec in self:
-            rec.is_worker = rec.cooperator_type == 'share_a'
-
-    def _search_worker(self, operator, value):
-        if (operator == '=' and value) or (operator == '!=' and not value):
-            return [('cooperator_type', '=', 'share_a')]
-        else:
-            return [('cooperator_type', '!=', 'share_a')]

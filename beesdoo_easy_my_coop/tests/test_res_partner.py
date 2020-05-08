@@ -76,3 +76,46 @@ class TestResPartner(TransactionCase):
         with self.assertRaises(ValidationError) as econtext:
             coop3.write({"child_eater_ids": [(4, self.eater3.id)]})
         self.assertIn("can only set", str(econtext.exception))
+
+    def test_is_worker_share_a(self):
+        """
+        Test that a cooperator is a worker based on his share type.
+        """
+        coop1 = self.env.ref(
+            "beesdoo_base.res_partner_cooperator_1_demo"
+        )
+        # Run computed field
+        coop1._is_worker()
+        self.assertEqual(coop1.is_worker, True)
+
+    def test_is_worker_share_b(self):
+        """
+        Test that a cooperator is a worker based on his share type.
+        """
+        coop2 = self.env.ref(
+            "beesdoo_base.res_partner_cooperator_2_demo"
+        )
+        # Run computed field
+        coop2._is_worker()
+        self.assertEqual(coop2.is_worker, False)
+
+    def test_search_worker(self):
+        """
+        Test that the search function returns worker based on the
+        'is_worker' field.
+        """
+        coop1 = self.env.ref(
+            "beesdoo_base.res_partner_cooperator_1_demo"
+        )
+        coop2 = self.env.ref(
+            "beesdoo_base.res_partner_cooperator_2_demo"
+        )
+        # Run computed field
+        coop1._is_worker()
+        coop2._is_worker()
+        workers = self.env["res.partner"].search([("is_worker", "=", True)])
+        self.assertIn(coop1, workers)
+        self.assertNotIn(coop2, workers)
+        workers = self.env["res.partner"].search([("is_worker", "=", False)])
+        self.assertNotIn(coop1, workers)
+        self.assertIn(coop2, workers)
