@@ -20,3 +20,7 @@ class ProductTemplate(models.Model):
             "shift system."
         )
     )
+    eater = fields.Selection(
+        [("eater", "Eater"), ("worker_eater", "Worker and Eater")],
+        string="Eater/Worker",
+    )

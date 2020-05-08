@@ -9,7 +9,7 @@
     'description': """
     """,
 
-    'author': "Beescoop - Cellule IT",
+    'author': "BEES coop, Coop IT Easy",
     'website': "https://github.com/beescoop/Obeesdoo",
 
     'category': 'Cooperative management',
@@ -18,8 +18,8 @@
     'depends': ['beesdoo_base',
                 'beesdoo_shift',
                 'easy_my_coop',
-                'easy_my_coop_eater',
                 'easy_my_coop_website',
+                'partner_age',
                 ],
 
     'data': [
