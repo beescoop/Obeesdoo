@@ -1,11 +1,11 @@
 # Copyright 2017 - 2020 BEES coop SCRLfs
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
-    'name': "BEES coop Custom",
+    'name': "BEES coop Product Usability",
 
     'description': """
-        View and field definition specific to BEES' needs.
-     """,
+    Adapt the
+    """,
 
     'author': "Beescoop - Cellule IT, Coop IT Easy",
     'website': "https://github.com/beescoop/Obeesdoo",
@@ -14,8 +14,7 @@
     'depends': [
         'beesdoo_product',
         'beesdoo_stock_coverage',
-        'purchase',
-        'easy_my_coop',  # for product views
+        'beesdoo_purchase',
     ],
     'data': [
         'views/beesdoo_product.xml',
