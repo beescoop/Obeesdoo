@@ -20,7 +20,7 @@
     'website': "https://github.com/beescoop/Obeesdoo",
     'category': 'Sales',
     'version': '12.0.1.0.0',
-    'depends': ['beesdoo_base', 'product', 'sale', 'point_of_sale', 'pos_price_to_weight'],
+    'depends': ['beesdoo_base', 'product', 'sale', 'point_of_sale'],
 
     'data': [
         'data/product_label.xml',
