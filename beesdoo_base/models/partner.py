@@ -1,3 +1,6 @@
+# Copyright 2020 Coop IT Easy SCRL fs
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
@@ -24,10 +27,23 @@ class Partner(models.Model):
         compute="_compute_bar_code", string="Parent Barcode", store=True
     )
     member_card_ids = fields.One2many("member.card", "partner_id")
+    country_id = fields.Many2one(
+        required=True, default=lambda self: self.env.ref("base.be")
+    )
 
     member_card_to_be_printed = fields.Boolean("Print BEES card?")
     last_printed = fields.Datetime("Last printed on")
+    cooperator_type = fields.Selection(
+        [
+            ("share_a", "Share A"),
+            ("share_b", "Share B"),
+            ("share_c", "Share C"),
+        ],
+        store=True,
+        compute=None,
+    )
 
+    @api.multi
     @api.depends(
         "parent_eater_id",
         "parent_eater_id.barcode",
@@ -35,28 +51,61 @@ class Partner(models.Model):
         "member_card_ids",
     )
     def _compute_bar_code(self):
-        for rec in self:
-            if rec.eater == "eater":
-                rec.parent_barcode = rec.parent_eater_id.barcode
-            elif rec.member_card_ids:
-                for c in rec.member_card_ids:
+        for partner in self:
+            if partner.eater == "eater":
+                partner.parent_barcode = partner.parent_eater_id.barcode
+            elif partner.member_card_ids:
+                for c in partner.member_card_ids:
                     if c.valid:
-                        rec.barcode = c.barcode
+                        partner.barcode = c.barcode
+
+    @api.multi
+    @api.constrains("child_eater_ids", "parent_eater_id")
+    def _check_number_of_eaters(self):
+        """The owner of an A share can have a maximum of two eaters but
+        the owner of a B share can have a maximum of three eaters.
+        """
+        for partner in self:
+            # Get the default_code of the share for the current eater and his parent
+            share_type_code = partner.cooperator_type
+            parent_share_type_code = partner.parent_eater_id.cooperator_type
+            # Raise exception
+            if (
+                share_type_code == "share_b"
+                or parent_share_type_code == "share_b"
+            ):
+                if (
+                    len(partner.child_eater_ids) > 3
+                    or len(partner.parent_eater_id.child_eater_ids) > 3
+                ):
+                    raise ValidationError(
+                        _(
+                            "You can only set three additional eaters per worker"
+                        )
+                    )
+            else:
+                if (
+                    len(partner.child_eater_ids) > 2
+                    or len(partner.parent_eater_id.child_eater_ids) > 2
+                ):
+                    raise ValidationError(
+                        _("You can only set two additional eaters per worker")
+                    )
 
     @api.multi
     def write(self, values):
-        for rec in self:
+        for partner in self:
             if (
                 values.get("parent_eater_id")
-                and rec.parent_eater_id
-                and rec.parent_eater_id.id != values.get("parent_eater_id")
+                and partner.parent_eater_id
+                and partner.parent_eater_id.id != values.get("parent_eater_id")
             ):
                 raise ValidationError(
                     _(
                         "You try to assign a eater to a worker but this eater "
                         "is already assign to %s please remove it before "
                     )
-                    % rec.parent_eater_id.name
+                    % partner.parent_eater_id.name
                 )
         # replace many2many command when writing on child_eater_ids to just
         # remove the link
@@ -66,6 +115,7 @@ class Partner(models.Model):
                     command[0] = 3
         return super(Partner, self).write(values)
 
+    @api.multi
     def _deactivate_active_cards(self):
         self.ensure_one()
         for card in self.member_card_ids.filtered("valid"):

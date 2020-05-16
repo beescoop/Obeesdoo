@@ -1,3 +1,6 @@
+# Copyright 2020 Coop IT Easy SCRL fs
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+
 import logging
 import uuid
 
@@ -150,11 +153,13 @@ class BeesdooProduct(models.Model):
     @api.multi
     @api.depends("seller_ids", "seller_ids.date_start")
     def _compute_main_seller_id(self):
-        self.ensure_one()
-        # Calcule le vendeur associé qui a la date de début la plus récente
-        # et plus petite qu’aujourd’hui
-        sellers_ids = self._get_main_supplier_info()
-        self.main_seller_id = sellers_ids and sellers_ids[0].name or False
+        for product in self:
+            # Calcule le vendeur associé qui a la date de début la plus récente
+            # et plus petite qu’aujourd’hui
+            sellers_ids = product._get_main_supplier_info()
+            product.main_seller_id = (
+                sellers_ids and sellers_ids[0].name or False
+            )
 
     @api.multi
     @api.depends(
@@ -166,57 +171,65 @@ class BeesdooProduct(models.Model):
         "weight",
     )
     def _compute_total(self):
-        self.ensure_one()
-        consignes_group = self.env.ref(
-            "beesdoo_product.consignes_group_tax", raise_if_not_found=False
-        )
-
-        taxes_included = set(self.taxes_id.mapped("price_include"))
-        if len(taxes_included) == 0:
-            self.total_with_vat = self.list_price
-            return True
-
-        elif len(taxes_included) > 1:
-            raise ValidationError(
-                _("Several tax strategies (price_include) defined for %s")
-                % self.name
+        for product in self:
+            consignes_group = self.env.ref(
+                "beesdoo_product.consignes_group_tax", raise_if_not_found=False
             )
 
-        elif taxes_included.pop():
-            self.total_with_vat = self.list_price
-            self.total_deposit = sum(
+            taxes_included = set(product.taxes_id.mapped("price_include"))
+            if len(taxes_included) == 0:
+                product.total_with_vat = product.list_price
+                return True
+
+            elif len(taxes_included) > 1:
+                raise ValidationError(
+                    _("Several tax strategies (price_include) defined for %s")
+                    % product.name
+                )
+
+            elif taxes_included.pop():
+                product.total_with_vat = product.list_price
+                product.total_deposit = sum(
+                    [
+                        tax._compute_amount(
+                            product.list_price, product.list_price
+                        )
+                        for tax in product.taxes_id
+                        if tax.tax_group_id == consignes_group
+                    ]
+                )
+            else:
+                tax_amount_sum = sum(
+                    [
+                        tax._compute_amount(
+                            product.list_price, product.list_price
+                        )
+                        for tax in product.taxes_id
+                        if tax.tax_group_id != consignes_group
+                    ]
+                )
+                product.total_with_vat = product.list_price + tax_amount_sum
+
+            product.total_deposit = sum(
                 [
-                    tax._compute_amount(self.list_price, self.list_price)
-                    for tax in self.taxes_id
+                    tax._compute_amount(product.list_price, product.list_price)
+                    for tax in product.taxes_id
                     if tax.tax_group_id == consignes_group
                 ]
             )
-        else:
-            tax_amount_sum = sum(
-                [
-                    tax._compute_amount(self.list_price, self.list_price)
-                    for tax in self.taxes_id
-                    if tax.tax_group_id != consignes_group
-                ]
-            )
-            self.total_with_vat = self.list_price + tax_amount_sum
 
-        self.total_deposit = sum(
-            [
-                tax._compute_amount(self.list_price, self.list_price)
-                for tax in self.taxes_id
-                if tax.tax_group_id == consignes_group
-            ]
-        )
-
-        if self.display_weight > 0:
-            self.total_with_vat_by_unit = self.total_with_vat / self.weight
+            if product.display_weight > 0:
+                product.total_with_vat_by_unit = (
+                    product.total_with_vat / product.weight
+                )
 
     @api.multi
     @api.depends("weight", "display_unit")
     def _compute_display_weight(self):
-        self.ensure_one()
-        self.display_weight = self.weight * self.display_unit.factor
+        for product in self:
+            product.display_weight = (
+                product.weight * product.display_unit.factor
+            )
 
     @api.multi
     @api.constrains("display_unit", "default_reference_unit")
@@ -236,12 +249,15 @@ class BeesdooProduct(models.Model):
     @api.multi
     @api.depends("seller_ids")
     def _compute_cost(self):
-        self.ensure_one()
-        suppliers = self._get_main_supplier_info()
-        if len(suppliers) > 0:
-            self.suggested_price = (
-                suppliers[0].price * self.uom_po_id.factor
-            ) * (1 + suppliers[0].product_tmpl_id.categ_id.profit_margin / 100)
+        for product in self:
+            suppliers = product._get_main_supplier_info()
+            if len(suppliers) > 0:
+                product.suggested_price = (
+                    suppliers[0].price * product.uom_po_id.factor
+                ) * (
+                    1
+                    + suppliers[0].product_tmpl_id.categ_id.profit_margin / 100
+                )
 
 
 class BeesdooScaleCategory(models.Model):
