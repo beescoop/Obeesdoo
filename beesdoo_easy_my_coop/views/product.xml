@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <field name="customer" position="after">
                 <field name="allow_working" attrs="{'invisible':[('is_share','=',False)]}"/>
+                <field name="allow_shopping" attrs="{'invisible':[('is_share','=',False)]}"/>
                 <field name="max_nb_eater_allowed" attrs="{'invisible':[('is_share','=',False)]}"/>
             </field>
             <field name="minimum_quantity" position="after">

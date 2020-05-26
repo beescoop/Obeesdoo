@@ -6,6 +6,7 @@
         <field name="default_code">share_a</field>
         <field name="customer" eval="True" />
         <field name="allow_working" eval="True" />
+        <field name="allow_shopping" eval="True" />
         <field name="max_nb_eater_allowed">3</field>
         <field name="is_share" eval="True" />
     </record>
@@ -14,14 +15,16 @@
         <field name="default_code">share_b</field>
         <field name="customer" eval="True" />
         <field name="allow_working" eval="False" />
+        <field name="allow_shopping" eval="True" />
         <field name="max_nb_eater_allowed">2</field>
         <field name="is_share" eval="True" />
     </record>
     <record id="share_c" model="product.product" >
         <field name="name">Acquisition de parts C de Beescoop scrl</field>
         <field name="default_code">share_c</field>
-        <field name="customer" eval="False" />
+        <field name="customer" eval="True" />
         <field name="allow_working" eval="False" />
+        <field name="allow_shopping" eval="False" />
         <field name="max_nb_eater_allowed">-1</field>
         <field name="is_share" eval="True" />
     </record>

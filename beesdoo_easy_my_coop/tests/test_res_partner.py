@@ -150,3 +150,25 @@ class TestResPartner(TransactionCase):
         workers = self.env["res.partner"].search([("is_worker", "=", False)])
         self.assertNotIn(coop1, workers)
         self.assertIn(coop2, workers)
+
+    def test_compute_can_shop_share_a(self):
+        """
+        Test that a cooperator can shop based on his share type.
+        """
+        coop1 = self.env.ref(
+            "beesdoo_base.res_partner_cooperator_1_demo"
+        )
+        # Run computed field
+        coop1._compute_can_shop()
+        self.assertEqual(coop1.can_shop, True)
+
+    def test_compute_can_shop_share_c(self):
+        """
+        Test that a cooperator can shop based on his share type.
+        """
+        coop3 = self.env.ref(
+            "beesdoo_base.res_partner_cooperator_3_demo"
+        )
+        # Run computed field
+        coop3._compute_can_shop()
+        self.assertEqual(coop3.can_shop, False)

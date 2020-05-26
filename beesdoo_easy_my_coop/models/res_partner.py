@@ -19,6 +19,19 @@ class Partner(models.Model):
         related=""
     )
 
+    def _cooperator_share_type(self):
+        """
+        Return the share.type that correspond to the cooperator_type.
+        """
+        self.ensure_one()
+        share_type = None
+        if self.cooperator_type:
+            share_type = (
+                self.env['product.template']
+                .search([('default_code', '=', self.cooperator_type)])
+            )[0]
+        return share_type
+
     @api.depends(
         'share_ids',
         'share_ids.share_product_id',
@@ -31,12 +44,7 @@ class Partner(models.Model):
         This is defined on the share type.
         """
         for rec in self:
-            share_type = None
-            if rec.cooperator_type:
-                share_type = (
-                    self.env['product.template']
-                    .search([('default_code', '=', rec.cooperator_type)])
-                )[0]
+            share_type = rec._cooperator_share_type()
             if share_type:
                 rec.is_worker = share_type.allow_working
                 rec.worker_store = share_type.allow_working
@@ -46,6 +54,31 @@ class Partner(models.Model):
 
     def _search_worker(self, operator, value):
         return [('worker_store', operator, value)]
+
+    @api.depends(
+        "cooperative_status_ids",
+        "share_ids",
+        "share_ids.share_product_id",
+        "share_ids.share_product_id.default_code",
+        "share_ids.share_number",
+    )
+    def _compute_can_shop(self):
+        """
+        Overwrite default behavior to take the owned share into account.
+        """
+        for rec in self:
+            share_type = rec._cooperator_share_type()
+            if share_type:
+                rec.can_shop = (
+                    rec.cooperative_status_ids.can_shop
+                    if rec.cooperative_status_ids
+                    else share_type.allow_shopping
+                )
+            else:
+                rec.can_shop = (
+                    rec.cooperative_status_ids.can_shop
+                    if rec.cooperative_status_ids else False
+                )
 
     @api.constrains('child_eater_ids', 'parent_eater_id')
     def _check_number_of_eaters(self):

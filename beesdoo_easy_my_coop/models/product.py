@@ -20,6 +20,10 @@ class ProductTemplate(models.Model):
             "shift system."
         )
     )
+    allow_shopping = fields.Boolean(
+        string="Allow owner to shop?",
+        help="Owner of this type of share are allowed to shop.",
+    )
     eater = fields.Selection(
         [("eater", "Eater"), ("worker_eater", "Worker and Eater")],
         string="Eater/Worker",
