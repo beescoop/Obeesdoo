@@ -77,6 +77,37 @@ class TestResPartner(TransactionCase):
             coop3.write({"child_eater_ids": [(4, self.eater3.id)]})
         self.assertIn("can only set", str(econtext.exception))
 
+    def test_multiple_eater_assignement_share_a(self):
+        """
+        Test adding multiple eater in one write.
+        """
+        coop1 = self.env.ref(
+            "beesdoo_base.res_partner_cooperator_1_demo"
+        )
+        coop1.write(
+            {
+                "child_eater_ids": [
+                    (4, self.eater1.id),
+                    (4, self.eater2.id),
+                    (4, self.eater3.id),
+                ]
+            }
+        )
+        self.assertEqual(len(coop1.child_eater_ids), 3)
+
+    def test_parent_assignement_to_eater(self):
+        """
+        Test adding a parent to multiple eater in one write from the eater.
+        """
+        coop1 = self.env.ref(
+            "beesdoo_base.res_partner_cooperator_1_demo"
+        )
+        eaters = self.eater1
+        eaters |= self.eater2
+        eaters |= self.eater3
+        eaters.write({"parent_eater_id": coop1.id})
+        self.assertEqual(len(coop1.child_eater_ids), 3)
+
     def test_is_worker_share_a(self):
         """
         Test that a cooperator is a worker based on his share type.

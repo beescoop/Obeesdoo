@@ -28,8 +28,13 @@ class Partner(models.Model):
 
     @api.multi
     def write(self, values):
-        if values.get('parent_eater_id') and self.parent_eater_id:
-            raise ValidationError(_('You try to assign a eater to a worker but this easer is alread assign to %s please remove it before') % self.parent_eater_id.name)
+        for rec in self:
+            if (
+                values.get('parent_eater_id')
+                and rec.parent_eater_id
+                and rec.parent_eater_id.id != values.get("parent_eater_id")
+            ):
+                raise ValidationError(_('You try to assign a eater to a worker but this eater is already assign to %s please remove it before') % rec.parent_eater_id.name)
         # replace many2many command when writing on child_eater_ids to just remove the link
         if 'child_eater_ids' in values:
             for command in values['child_eater_ids']:
