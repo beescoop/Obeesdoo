@@ -38,6 +38,7 @@
             </xpath>
             <xpath expr="//field[@name='type']" position="before">
                 <field name="is_worker"/>
+                <field name="can_shop"/>
             </xpath>
             <xpath expr="//notebook" position="inside">
                 <page string="Worker information"
