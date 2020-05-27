@@ -31,6 +31,19 @@ class TestResPartner(TransactionCase):
         with self.assertRaises(ValidationError) as econtext:
             coop1.write({"child_eater_ids": [(4, self.eater4.id)]})
         self.assertIn("can only set", str(econtext.exception))
+        # Reset
+        coop1.write({"child_eater_ids": [(5, None, None)]})
+        self.assertEqual(len(coop1.child_eater_ids), 0)
+        # Test by editing parent_eater_id
+        self.eater1.write({"parent_eater_id": coop1.id})
+        self.assertEqual(len(coop1.child_eater_ids), 1)
+        self.eater2.write({"parent_eater_id": coop1.id})
+        self.assertEqual(len(coop1.child_eater_ids), 2)
+        self.eater3.write({"parent_eater_id": coop1.id})
+        self.assertEqual(len(coop1.child_eater_ids), 3)
+        with self.assertRaises(ValidationError) as econtext:
+            self.eater4.write({"parent_eater_id": coop1.id})
+        self.assertIn("can only set", str(econtext.exception))
 
     def test_max_eater_assignment_share_b(self):
         """
@@ -46,6 +59,17 @@ class TestResPartner(TransactionCase):
         self.assertEqual(len(coop2.child_eater_ids), 2)
         with self.assertRaises(ValidationError) as econtext:
             coop2.write({"child_eater_ids": [(4, self.eater3.id)]})
+        self.assertIn("can only set", str(econtext.exception))
+        # Reset
+        coop2.write({"child_eater_ids": [(5, None, None)]})
+        self.assertEqual(len(coop2.child_eater_ids), 0)
+        # Test by editing parent_eater_id
+        self.eater1.write({"parent_eater_id": coop2.id})
+        self.assertEqual(len(coop2.child_eater_ids), 1)
+        self.eater2.write({"parent_eater_id": coop2.id})
+        self.assertEqual(len(coop2.child_eater_ids), 2)
+        with self.assertRaises(ValidationError) as econtext:
+            self.eater3.write({"parent_eater_id": coop2.id})
         self.assertIn("can only set", str(econtext.exception))
 
     def test_unlimited_eater_assignment_share_c(self):
@@ -75,6 +99,9 @@ class TestResPartner(TransactionCase):
         )
         with self.assertRaises(ValidationError) as econtext:
             coop3.write({"child_eater_ids": [(4, self.eater3.id)]})
+        self.assertIn("can only set", str(econtext.exception))
+        with self.assertRaises(ValidationError) as econtext:
+            self.eater1.write({"parent_eater_id": coop3.id})
         self.assertIn("can only set", str(econtext.exception))
 
     def test_multiple_eater_assignement_share_a(self):

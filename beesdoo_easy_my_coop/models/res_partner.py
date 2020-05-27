@@ -80,31 +80,37 @@ class Partner(models.Model):
                     if rec.cooperative_status_ids else False
                 )
 
-    @api.constrains('child_eater_ids', 'parent_eater_id')
-    def _check_number_of_eaters(self):
+    @api.constrains('parent_eater_id')
+    def _check_max_parent_eaters(self):
+        """
+        Check that the parent_eater_id in parnter in self doesn't exceed
+        the maximum eater limit.
+        See also: _check_max_child_eaters()
+        """
+        for rec in self:
+            if rec.parent_eater_id:
+                share_type = rec.parent_eater_id._cooperator_share_type()
+                if (
+                    share_type
+                    and share_type.max_nb_eater_allowed >= 0
+                    and len(
+                        rec.parent_eater_id.child_eater_ids
+                    ) > share_type.max_nb_eater_allowed
+                ):
+                    raise ValidationError(
+                        _('You can only set %d additional eaters per worker')
+                        % share_type.max_nb_eater_allowed
+                    )
+
+    @api.constrains('child_eater_ids')
+    def _check_max_child_eaters(self):
         """
         Check the maximum number of eaters that can be assigned to a
         share owner.
+        See also: _check_max_parent_eaters()
         """
         for rec in self:
-            share_type = None
-            if rec.cooperator_type:
-                share_type = (
-                    self.env['product.template']
-                    .search([('default_code', '=', rec.cooperator_type)])
-                )[0]
-            # If the current partner owns no share, check his parent.
-            if not share_type:
-                share_type = (
-                    self.env['product.template']
-                    .search([
-                        (
-                            'default_code',
-                            '=',
-                            rec.parent_eater_id.cooperator_type
-                        )
-                    ])
-                )[0]
+            share_type = rec._cooperator_share_type()
             if (
                 share_type
                 and share_type.max_nb_eater_allowed >= 0
