@@ -34,26 +34,14 @@ class ResConfigSettings(models.TransientModel):
         super(ResConfigSettings, self).set_values()
         parameters = self.env["ir.config_parameter"].sudo()
         parameters.set_param(
-            "beesdoo_shift_attendance.card_support", str(self.card_support),
-        )
-        parameters.set_param(
             "beesdoo_shift_attendance.pre_filled_task_type_id",
             str(self.pre_filled_task_type_id.id),
-        )
-        parameters.set_param(
-            "beesdoo_shift_attendance.attendance_sheet_generation_interval",
-            str(self.attendance_sheet_generation_interval),
         )
 
     @api.multi
     def get_values(self):
         res = super(ResConfigSettings, self).get_values()
         res.update(
-            card_support=ast.literal_eval(
-                self.env["ir.config_parameter"].get_param(
-                    "beesdoo_shift_attendance.card_support"
-                ),
-            ),
             pre_filled_task_type_id=int(
                 self.env["ir.config_parameter"].get_param(
                     "beesdoo_shift_attendance.pre_filled_task_type_id"
