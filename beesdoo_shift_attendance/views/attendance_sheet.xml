@@ -157,13 +157,12 @@
                             attrs="{'invisible': [('state', '=', 'validated')]}"
                     />
                 </header>
-                <sheet >
+                <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button name="button_mark_as_read" type="object"
                                 class="oe_stat_button" icon="fa-check"
                                 string="Mark as read"
-                                groups="beesdoo_shift.group_shift_attendance"
-                                />
+                                groups="beesdoo_shift.group_shift_attendance"/>
                         <button name="toggle_active"
                                 type="object"
                                 groups="beesdoo_shift.group_shift_attendance"
@@ -172,21 +171,21 @@
                             <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
                         </button>
                     </div>
-                        <separator string="Expected Shifts" style="position:relative;padding:0px;margin:0px;" />
-                        <field name="expected_shift_ids" />
-                        <separator string="Added Shifts" style="position:relative;padding:0px;margin-top:15px;margin-bottom:0px;" />
-                        <field name="added_shift_ids" />
-                        <group>
-                            <field name="max_worker_no" />
-                        </group>
-                        <group string="Feedback"
-                               groups="beesdoo_shift.group_shift_attendance">
-                            <field name="attended_worker_no" />
-                            <field name="notes" />
-                            <field name="feedback" />
-                            <field name="worker_nb_feedback" />
-                            <field name="validated_by" readonly="True"/>
-                        </group>
+                    <separator string="Expected Shifts"/>
+                    <field name="expected_shift_ids" />
+                    <separator string="Added Shifts"/>
+                    <field name="added_shift_ids" />
+                    <group>
+                        <field name="max_worker_no" />
+                    </group>
+                    <group string="Feedback"
+                           groups="beesdoo_shift.group_shift_attendance">
+                        <field name="attended_worker_no" />
+                        <field name="notes" />
+                        <field name="feedback" />
+                        <field name="worker_nb_feedback" />
+                        <field name="validated_by" readonly="True"/>
+                    </group>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_ids"
