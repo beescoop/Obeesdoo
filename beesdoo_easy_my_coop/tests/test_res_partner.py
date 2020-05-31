@@ -188,6 +188,10 @@ class TestResPartner(TransactionCase):
         # Run computed field
         coop1._compute_can_shop()
         self.assertEqual(coop1.can_shop, True)
+        # Now unsubscribe the coop
+        coop1.cooperative_status_ids.status = 'resigning'
+        self.assertEqual(coop1.cooperative_status_ids.can_shop, False)
+        self.assertEqual(coop1.can_shop, False)
 
     def test_compute_can_shop_share_c(self):
         """

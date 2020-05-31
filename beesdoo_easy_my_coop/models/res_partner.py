@@ -57,6 +57,8 @@ class Partner(models.Model):
 
     @api.depends(
         "cooperative_status_ids",
+        "cooperative_status_ids.status",
+        "cooperative_status_ids.can_shop",
         "share_ids",
         "share_ids.share_product_id",
         "share_ids.share_product_id.default_code",
@@ -71,13 +73,13 @@ class Partner(models.Model):
             if share_type:
                 rec.can_shop = (
                     rec.cooperative_status_ids.can_shop
-                    if rec.cooperative_status_ids
+                    if rec.is_worker and rec.cooperative_status_ids
                     else share_type.allow_shopping
                 )
             else:
                 rec.can_shop = (
                     rec.cooperative_status_ids.can_shop
-                    if rec.cooperative_status_ids else False
+                    if rec.is_worker and rec.cooperative_status_ids else False
                 )
 
     @api.constrains('parent_eater_id')
