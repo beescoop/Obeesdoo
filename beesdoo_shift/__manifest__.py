@@ -40,5 +40,6 @@
     ],
     'demo': [
         "demo/templates.xml",
+        "demo/workers.xml",
     ]
 }
