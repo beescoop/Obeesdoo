@@ -18,8 +18,8 @@ xmlid_renames = [
     ('beesdoo_shift.default_task_type_id',
      'beesdoo_shift_attendance.pre_filled_task_type_id'),
     # security/group.xml
-    ('beesdoo_shift.group_shift_attendance',
-     'beesdoo_shift_attendance.group_shift_attendance'),
+    ('beesdoo_shift.group_shift_attendance_sheet',
+     'beesdoo_shift_attendance.group_shift_attendance_sheet'),
     ('beesdoo_shift.group_shift_attendance_sheet_validation',
      'beesdoo_shift_attendance.group_shift_attendance_sheet_validation'),
 ]
