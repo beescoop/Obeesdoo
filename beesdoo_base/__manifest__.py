@@ -34,5 +34,6 @@
     'installable': True,
     'demo': [
         'demo/cooperators.xml',
+        'demo/eaters.xml',
     ]
 }

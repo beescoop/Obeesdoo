@@ -12,45 +12,29 @@ class Partner(models.Model):
     barcode = fields.Char(compute="_get_bar_code", string='Barcode', store=True)
     parent_barcode = fields.Char(compute="_get_bar_code", string='Parent Barcode', store=True)
     member_card_ids = fields.One2many('member.card', 'partner_id')
-    country_id = fields.Many2one(required=True, default=lambda self: self.env.ref('base.be'))
 
     member_card_to_be_printed = fields.Boolean('Print BEES card?')
     last_printed = fields.Datetime('Last printed on')
-    cooperator_type = fields.Selection([('share_a', 'Share A'), ('share_b', 'Share B'), ('share_c', 'Share C')], store=True, compute=None)
 
-
-    @api.one
     @api.depends('parent_eater_id', 'parent_eater_id.barcode', 'eater', 'member_card_ids')
     def _get_bar_code(self):
-        if self.eater == 'eater':
-            self.parent_barcode = self.parent_eater_id.barcode
-        elif self.member_card_ids:
-            for c in self.member_card_ids:
-                if c.valid:
-                    self.barcode = c.barcode
-
-    @api.one
-    @api.constrains('child_eater_ids', 'parent_eater_id')
-    def _check_number_of_eaters(self):
-        """The owner of an A share can have a maximum of two eaters but
-        the owner of a B share can have a maximum of three eaters.
-        """
-        # Get the default_code of the share for the current eater and his parent
-        share_type_code = self.cooperator_type
-        parent_share_type_code = self.parent_eater_id.cooperator_type
-        # Raise exception
-        if share_type_code == 'share_b' or parent_share_type_code == 'share_b':
-            if len(self.child_eater_ids) > 3 or len(self.parent_eater_id.child_eater_ids) > 3:
-                raise ValidationError(_('You can only set three additional eaters per worker'))
-        else:
-            if len(self.child_eater_ids) > 2 or len(self.parent_eater_id.child_eater_ids) > 2:
-                raise ValidationError(_('You can only set two additional eaters per worker'))
-
+        for rec in self:
+            if rec.eater == 'eater':
+                rec.parent_barcode = rec.parent_eater_id.barcode
+            elif rec.member_card_ids:
+                for c in rec.member_card_ids:
+                    if c.valid:
+                        rec.barcode = c.barcode
 
     @api.multi
     def write(self, values):
-        if values.get('parent_eater_id') and self.parent_eater_id:
-            raise ValidationError(_('You try to assign a eater to a worker but this easer is alread assign to %s please remove it before') % self.parent_eater_id.name)
+        for rec in self:
+            if (
+                values.get('parent_eater_id')
+                and rec.parent_eater_id
+                and rec.parent_eater_id.id != values.get("parent_eater_id")
+            ):
+                raise ValidationError(_('You try to assign a eater to a worker but this eater is already assign to %s please remove it before') % rec.parent_eater_id.name)
         # replace many2many command when writing on child_eater_ids to just remove the link
         if 'child_eater_ids' in values:
             for command in values['child_eater_ids']:
@@ -58,8 +42,8 @@ class Partner(models.Model):
                     command[0] = 3
         return super(Partner, self).write(values)
 
-    @api.one
     def _deactivate_active_cards(self):
+        self.ensure_one()
         for card in self.member_card_ids.filtered('valid'):
             card.valid = False
             card.end_date = fields.Date.today()
