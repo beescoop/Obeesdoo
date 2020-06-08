@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
+# Copyright 2017 - Today Coop IT Easy SCRLfs (<http://www.coopiteasy.be>)
+# - Rémy Taymans  <remy@coopiteasy.be>
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-# Copyright 2017-2018 Rémy Taymans <remytaymans@gmail.com>
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-
-from openerp.addons.website_portal_extend.controllers.main import ExtendWebsiteAccountController
-from openerp.http import request
+from odoo.addons.website_portal_extend.controllers.main import ExtendWebsiteAccountController
+from odoo.http import request
 
 
 class BeesdooAccountWebsiteController(ExtendWebsiteAccountController):
