@@ -9,7 +9,7 @@
     """,
     'author': 'Coop IT Easy SCRLfs',
     'license': 'AGPL-3',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'website': "https://www.coopiteasy.be",
     'category': 'Cooperative management',
     'depends': [
