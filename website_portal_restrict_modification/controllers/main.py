@@ -6,7 +6,7 @@
 from odoo.addons.portal.controllers.portal import CustomerPortal
 
 
-class BeesdooAccountWebsiteController(CustomerPortal):
+class CustomerPortalRestrictModification(CustomerPortal):
     # override from `portal` module
     CustomerPortal.MANDATORY_BILLING_FIELDS = [
         "city",

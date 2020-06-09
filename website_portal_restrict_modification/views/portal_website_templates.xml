@@ -6,8 +6,8 @@
 <odoo>
 
     <!-- Modifying the form -->
-    <template id="beesdoo_website_portal_details_form"
-              name="Beesdoo Website Portal Details Form"
+    <template id="website_portal_restrict_my_details"
+              name="Website Portal Restrict Modification"
               inherit_id="portal.portal_my_details">
         <xpath expr="//input[@name='name']/.." position="before">
             <div class="col-lg-12">
