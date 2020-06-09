@@ -22,13 +22,13 @@ class CustomerPortalRestrictModification(CustomerPortal):
 
         # since we override mandatory and optional billing fields,
         # parent method will insert the following key/value in `error` dict and `error_message` list,
-        # preventing from saving the form. Workaround is to clear both dict and list.
+        # preventing from saving the form. Workaround is to remove them from both dict and list.
         if (
             error.get("common")
-            and error["common"] == "Unknown field"
-            and "Unknown field 'name,email,company_name,vat'" in error_message
+            and error["common"].lower() == "unknown field"
+            and any("unknown field" in s.lower() for s in error_message)
         ):
             error.pop("common")
-            error_message.remove("Unknown field 'name,email,company_name,vat'")
+            error_message = [s for s in error_message if "unknown field" not in s.lower()]
 
         return error, error_message
