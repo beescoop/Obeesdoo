@@ -3,25 +3,32 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 
-from odoo.addons.website_portal_extend.controllers.main import ExtendWebsiteAccountController
-from odoo.http import request
+from odoo.addons.portal.controllers.portal import CustomerPortal
 
 
-class BeesdooAccountWebsiteController(ExtendWebsiteAccountController):
-
-    mandatory_billing_fields = [
-        "phone",
+class BeesdooAccountWebsiteController(CustomerPortal):
+    # override from `portal` module
+    CustomerPortal.MANDATORY_BILLING_FIELDS = [
         "city",
         "country_id",
+        "phone",
         "street",
         "zipcode",
     ]
-    optional_billing_fields = [
-        "state_id",
-    ]
+    CustomerPortal.OPTIONAL_BILLING_FIELDS = ["state_id"]
 
-    def _set_mandatory_fields(self, data):
-        """This is not useful as the field 'company_name' is not present
-        anymore.
-        """
-        pass
+    def details_form_validate(self, data):
+        error, error_message = super().details_form_validate(data)
+
+        # since we override mandatory and optional billing fields,
+        # parent method will insert the following key/value in `error` dict and `error_message` list,
+        # preventing from saving the form. Workaround is to clear both dict and list.
+        if (
+            error.get("common")
+            and error["common"] == "Unknown field"
+            and "Unknown field 'name,email,company_name,vat'" in error_message
+        ):
+            error.pop("common")
+            error_message.remove("Unknown field 'name,email,company_name,vat'")
+
+        return error, error_message

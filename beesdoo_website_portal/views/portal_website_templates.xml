@@ -5,28 +5,31 @@
 -->
 <odoo>
 
-  <!-- Modifying the form -->
-  <template
-    id="beesdoo_website_portal_details_form"
-    name="Beesdoo Website Portal Details Form"
-    inherit_id="website_portal_extend.website_portal_details_form">
-    <xpath expr="//input[@name='name']/.." position="before">
-      <div class="col-md-12">
-        <div class="alert alert-info">
-          <strong>Info !</strong>
-          To modify information that is not present in this form,
-          please contact us.
-        </div>
-      </div>
-    </xpath>
-    <xpath expr="//input[@name='name']/.." position="replace">
-    </xpath>
-    <xpath expr="//input[@name='email']/.." position="replace">
-    </xpath>
-    <xpath expr="//input[@name='company_name']/.." position="replace">
-    </xpath>
-    <xpath expr="//input[@name='vat']/.." position="replace">
-    </xpath>
-  </template>
+    <!-- Modifying the form -->
+    <template id="beesdoo_website_portal_details_form"
+              name="Beesdoo Website Portal Details Form"
+              inherit_id="portal.portal_my_details">
+        <xpath expr="//input[@name='name']/.." position="before">
+            <div class="col-lg-12">
+                <div class="alert alert-info">
+                    <strong>Info !</strong>
+                    To modify information that cannot be edited in this form,
+                    please contact us.
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//input[@name='name']" position="attributes">
+            <attribute name="t-att-readonly">True</attribute>
+        </xpath>
+        <xpath expr="//input[@name='email']" position="attributes">
+            <attribute name="t-att-readonly">True</attribute>
+        </xpath>
+        <xpath expr="//input[@name='company_name']" position="attributes">
+            <attribute name="t-att-readonly">True</attribute>
+        </xpath>
+        <xpath expr="//input[@name='vat']" position="attributes">
+            <attribute name="t-att-readonly">True</attribute>
+        </xpath>
+    </template>
 
 </odoo>

@@ -4,8 +4,8 @@
 
 {
     'name': 'BEES coop Website Portal',
-    'description': """
-    Extension of the Website Portal that prevent modification of sensible data by the users
+    'summary': """
+    Extension of the Portal that prevent modification of sensible data by the users
     """,
     'author': 'Coop IT Easy SCRLfs',
     'license': 'AGPL-3',
@@ -13,8 +13,8 @@
     'website': "https://www.coopiteasy.be",
     'category': 'Cooperative management',
     'depends': [
-        'website',
-        'website_portal_extend',
+        'portal',
+        'website'
     ],
     'data': [
         'views/portal_website_templates.xml',
