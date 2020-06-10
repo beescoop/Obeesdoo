@@ -37,7 +37,8 @@
                 </header>
             </xpath>
             <xpath expr="//field[@name='type']" position="before">
-                <field name="is_worker"/>
+                <field name="worker_store"/>
+                <field name="is_worker" invisible="1"/>
                 <field name="can_shop"/>
             </xpath>
             <xpath expr="//notebook" position="inside">

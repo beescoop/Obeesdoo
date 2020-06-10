@@ -13,7 +13,7 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     worker_store = fields.Boolean(default=False)
-    is_worker = fields.Boolean(related="worker_store", string="Worker", readonly=False)
+    is_worker = fields.Boolean(string="Worker", compute="_compute_is_worker", store=True)
     can_shop = fields.Boolean(string="Is worker allowed to shop?", compute="_compute_can_shop", store=True)
     cooperative_status_ids = fields.One2many('cooperative.status', 'cooperator_id', readonly=True)
     super = fields.Boolean(related='cooperative_status_ids.super', string="Super Cooperative", readonly=True, store=True)
@@ -24,6 +24,11 @@ class ResPartner(models.Model):
     state = fields.Selection(related='cooperative_status_ids.status', readonly=True, store=True)
     extension_start_time = fields.Date(related='cooperative_status_ids.extension_start_time', string="Extension Start Day", readonly=True, store=True)
     subscribed_shift_ids = fields.Many2many('beesdoo.shift.template')
+
+    @api.depends("worker_store")
+    def _compute_is_worker(self):
+        for rec in self:
+            rec.is_worker = rec.worker_store
 
     @api.depends("cooperative_status_ids")
     def _compute_can_shop(self):

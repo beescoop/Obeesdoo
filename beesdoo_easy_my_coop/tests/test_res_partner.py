@@ -143,7 +143,7 @@ class TestResPartner(TransactionCase):
             "beesdoo_base.res_partner_cooperator_1_demo"
         )
         # Run computed field
-        coop1._is_worker()
+        coop1._compute_is_worker()
         self.assertEqual(coop1.is_worker, True)
 
     def test_is_worker_share_b(self):
@@ -154,7 +154,7 @@ class TestResPartner(TransactionCase):
             "beesdoo_base.res_partner_cooperator_2_demo"
         )
         # Run computed field
-        coop2._is_worker()
+        coop2._compute_is_worker()
         self.assertEqual(coop2.is_worker, False)
 
     def test_search_worker(self):
@@ -169,8 +169,8 @@ class TestResPartner(TransactionCase):
             "beesdoo_base.res_partner_cooperator_2_demo"
         )
         # Run computed field
-        coop1._is_worker()
-        coop2._is_worker()
+        coop1._compute_is_worker()
+        coop2._compute_is_worker()
         workers = self.env["res.partner"].search([("is_worker", "=", True)])
         self.assertIn(coop1, workers)
         self.assertNotIn(coop2, workers)

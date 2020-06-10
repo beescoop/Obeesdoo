@@ -26,7 +26,8 @@
         'views/res_company.xml',
         'views/subscription_request.xml',
         'views/subscription_templates.xml',
-        'views/product.xml'
+        'views/product.xml',
+        'views/res_partner.xml'
     ],
     'demo': [
         'demo/product_share.xml',

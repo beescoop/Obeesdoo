@@ -28,7 +28,7 @@ class Partner(models.Model):
     comment_request = fields.Char(string="Commentaire")
 
     email_sent = fields.Boolean(string="Email envoyé")
-    is_worker = fields.Boolean(compute="_compute_is_worker", search="_search_is_worker", string="is Worker", readonly=True, related="")
+    is_worker = fields.Boolean(compute="_compute_is_worker", string="is Worker", readonly=True, store=True)
 
 
     @api.depends('share_qty')
@@ -41,9 +41,3 @@ class Partner(models.Model):
     def _compute_is_worker(self):
         for rec in self:
             rec.is_worker = rec.cooperator_type == 'share_b'
-
-    def _search_is_worker(self, operator, value):
-        if (operator == '=' and value) or (operator == '!=' and not value):
-            return [('cooperator_type', '=', 'share_b')]
-        else:
-            return [('cooperator_type', '!=', 'share_b')]

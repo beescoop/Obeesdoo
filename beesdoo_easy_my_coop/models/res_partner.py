@@ -12,12 +12,6 @@ class Partner(models.Model):
         string="Confirmed presence to info session",
         default=False,
     )
-    is_worker = fields.Boolean(
-        compute="_is_worker",
-        search="_search_worker",
-        readonly=True,
-        related=""
-    )
 
     def _cooperator_share_type(self):
         """
@@ -33,12 +27,9 @@ class Partner(models.Model):
         return share_type
 
     @api.depends(
-        'share_ids',
-        'share_ids.share_product_id',
-        'share_ids.share_product_id.default_code',
-        'share_ids.share_number',
+        "cooperator_type"
     )
-    def _is_worker(self):
+    def _compute_is_worker(self):
         """
         Return True if the partner can participate tho the shift system.
         This is defined on the share type.
@@ -47,13 +38,8 @@ class Partner(models.Model):
             share_type = rec._cooperator_share_type()
             if share_type:
                 rec.is_worker = share_type.allow_working
-                rec.worker_store = share_type.allow_working
             else:
                 rec.is_worker = False
-                rec.worker_store = False
-
-    def _search_worker(self, operator, value):
-        return [('worker_store', operator, value)]
 
     @api.depends(
         "cooperative_status_ids",
