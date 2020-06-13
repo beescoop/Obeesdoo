@@ -36,6 +36,7 @@ class Partner(models.Model):
         "share_ids",
         "share_ids.share_product_id",
         "share_ids.share_product_id.default_code",
+        "share_ids.share_product_id.allow_working",
         "share_ids.share_number",
     )
     def _compute_is_worker(self):
@@ -47,13 +48,18 @@ class Partner(models.Model):
             share_type = rec._cooperator_share_type()
             if share_type:
                 rec.is_worker = share_type.allow_working
-                rec.worker_store = share_type.allow_working
             else:
                 rec.is_worker = False
-                rec.worker_store = False
 
     def _search_worker(self, operator, value):
-        return [("worker_store", operator, value)]
+        lines = self.env['share.line'].search(
+            [('share_product_id.allow_working', '=', 'True')]
+        )
+        partner_ids = lines.mapped('partner_id').ids
+        if (operator, value) in [('=', True), ('!=', False)]:
+            return [('id', 'in', partner_ids)]
+        else:
+            return [('id', 'not in', partner_ids)]
 
     @api.depends(
         "cooperative_status_ids",
