@@ -32,7 +32,6 @@
             <field name="numbercall">-1</field>
             <field name="doall" eval="True"/>
             <field name="active" eval="False"/>
-            <field name="state">code</field>
         </record>
 
         <record id="ir_cron_send_weekly_emails" model="ir.cron">
