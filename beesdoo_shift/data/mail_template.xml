@@ -5,9 +5,14 @@
     <data noupdate="1">
         <record id="email_template_shift_summary" model="mail.template">
             <field name="name">Shift Summary</field>
-            <field name="subject">Your next shift (${format_tz(object.start_time,object.worker_id.tz or 'Europe/Brussels','%d.%m.%Y - %H:%M')})</field>
-            <field name="email_from">${object.worker_id.company_id.email}</field>
-            <field name="partner_to">${object.replaced_id.id or object.worker_id.id|safe}</field>
+            <field name="subject">Your next shift
+                (${format_tz(object.start_time,object.worker_id.tz or 'Europe/Brussels','%d.%m.%Y - %H:%M')})
+            </field>
+            <field name="email_from">${object.worker_id.company_id.email}
+            </field>
+            <field name="partner_to">
+                ${object.replaced_id.id or object.worker_id.id|safe}
+            </field>
             <field name="model_id" ref="model_beesdoo_shift_shift"/>
             <field name="auto_delete" eval="True"/>
             <field name="lang">${object.worker_id.lang}</field>

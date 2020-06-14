@@ -5,33 +5,43 @@
         <field name="arch" type="xml">
             <form>
                 <group attrs="{'invisible': [('unsubscribed', '=', False)]}">
-                    <separator string="Are you sure to unsubscribe this cooperator ?"  colspan="2"/>
-                    <field name="resigning" />
-                    <field name="unsubscribed" invisible="1" />
+                    <separator
+                            string="Are you sure to unsubscribe this cooperator ?"
+                            colspan="2"/>
+                    <field name="resigning"/>
+                    <field name="unsubscribed" invisible="1"/>
                 </group>
                 <group attrs="{'invisible': [('unsubscribed', '=', True)]}">
-                    <field name="cooperator_id" />
-                    <field name="info_session" />
-                    <field name="info_session_date" />
-                    <field name="working_mode" />
-                    <field name="exempt_reason_id" attrs="{'invisible':[('working_mode', '!=', 'exempt')]}"/>
-                    <field name="shift_id" domain="[('remaining_worker', '>', 0)]" attrs="{'invisible': [('working_mode', '!=', 'regular')]}"/>
+                    <field name="cooperator_id"/>
+                    <field name="info_session"/>
+                    <field name="info_session_date"/>
+                    <field name="working_mode"/>
+                    <field name="exempt_reason_id"
+                           attrs="{'invisible':[('working_mode', '!=', 'exempt')]}"/>
+                    <field name="shift_id"
+                           domain="[('remaining_worker', '>', 0)]"
+                           attrs="{'invisible': [('working_mode', '!=', 'regular')]}"/>
                     <field name="nb_shifts" attrs="{'invisible': True}"/>
-                    <field name="irregular_start_date" attrs="{'invisible': [('working_mode', '!=', 'irregular')]}" />
-                    <field name="super" />
-                    <field name="reset_counter" />
-                    <field name="reset_compensation_counter" /> <!-- TODO access right -->
+                    <field name="irregular_start_date"
+                           attrs="{'invisible': [('working_mode', '!=', 'irregular')]}"/>
+                    <field name="super"/>
+                    <field name="reset_counter"/>
+                    <field name="reset_compensation_counter"/> <!-- TODO access right -->
                 </group>
                 <footer>
-                    <div class="alert alert-danger" role="alert" attrs="{'invisible': [('nb_shifts', '&lt;', 2)]}">
-                      Current worker has more than one shift, subscribing him to a new shift will erase all previous shifts.
+                    <div class="alert alert-danger" role="alert"
+                         attrs="{'invisible': [('nb_shifts', '&lt;', 2)]}">
+                        Current worker has more than one shift, subscribing him
+                        to a new shift will erase all previous shifts.
                     </div>
                     <button type="object" name="subscribe"
-                        string="Confirm" class="oe_highlight" attrs="{'invisible': [('unsubscribed', '=', True)]}" />
+                            string="Confirm" class="oe_highlight"
+                            attrs="{'invisible': [('unsubscribed', '=', True)]}"/>
                     <button type="object" name="unsubscribe"
-                        string="Confirm" class="oe_highlight" attrs="{'invisible': [('unsubscribed', '=', False)]}" />
+                            string="Confirm" class="oe_highlight"
+                            attrs="{'invisible': [('unsubscribed', '=', False)]}"/>
                     or
-                    <button special="cancel" string="Cancel" />
+                    <button special="cancel" string="Cancel"/>
                 </footer>
             </form>
         </field>
