@@ -6,5 +6,5 @@ class AccountJournal(models.Model):
 
     def _get_bank_statements_available_import_formats(self):
         formats_list = super()._get_bank_statements_available_import_formats()
-        formats_list.append('Crelan')
+        formats_list.append("Crelan")
         return formats_list

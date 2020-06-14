@@ -18,8 +18,5 @@
     "category": "Purchase",
     "version": "12.0.1.1.0",
     "depends": ["base", "purchase", "beesdoo_product"],
-    "data": [
-        "views/purchase_order.xml",
-        "report/report_purchaseorder.xml",
-    ],
+    "data": ["views/purchase_order.xml", "report/report_purchaseorder.xml",],
 }

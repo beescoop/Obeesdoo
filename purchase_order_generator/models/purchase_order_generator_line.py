@@ -4,7 +4,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 import logging
 
-from odoo import models, fields, api, _
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
@@ -102,7 +102,7 @@ class PurchaseOrderGeneratorLine(models.Model):
             if cpol.supplierinfo_id and cpol.supplierinfo_id.product_code:
                 product_code = cpol.supplierinfo_id.product_code
                 product_name = cpol.product_template_id.name
-                cpol_name = "[%s] %s" % (product_code, product_name)
+                cpol_name = "[{}] {}".format(product_code, product_name)
             else:
                 cpol_name = cpol.product_template_id.name
             cpol.name = cpol_name

@@ -1,22 +1,21 @@
 # Copyright 2019-2020 Coop IT Easy SCRLfs
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import models, fields, api, _
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
 class Partner(models.Model):
-    _inherit = 'res.partner'
+    _inherit = "res.partner"
 
     info_session_confirmed = fields.Boolean(
-        string="Confirmed presence to info session",
-        default=False,
+        string="Confirmed presence to info session", default=False
     )
     is_worker = fields.Boolean(
         compute="_is_worker",
         search="_search_worker",
         readonly=True,
-        related=""
+        related="",
     )
 
     def _cooperator_share_type(self):
@@ -27,16 +26,17 @@ class Partner(models.Model):
         share_type = None
         if self.cooperator_type:
             share_type = (
-                self.env['product.template']
-                .search([('default_code', '=', self.cooperator_type)])
+                self.env["product.template"].search(
+                    [("default_code", "=", self.cooperator_type)]
+                )
             )[0]
         return share_type
 
     @api.depends(
-        'share_ids',
-        'share_ids.share_product_id',
-        'share_ids.share_product_id.default_code',
-        'share_ids.share_number',
+        "share_ids",
+        "share_ids.share_product_id",
+        "share_ids.share_product_id.default_code",
+        "share_ids.share_number",
     )
     def _is_worker(self):
         """
@@ -53,7 +53,7 @@ class Partner(models.Model):
                 rec.worker_store = False
 
     def _search_worker(self, operator, value):
-        return [('worker_store', operator, value)]
+        return [("worker_store", operator, value)]
 
     @api.depends(
         "cooperative_status_ids",
@@ -79,10 +79,11 @@ class Partner(models.Model):
             else:
                 rec.can_shop = (
                     rec.cooperative_status_ids.can_shop
-                    if rec.is_worker and rec.cooperative_status_ids else False
+                    if rec.is_worker and rec.cooperative_status_ids
+                    else False
                 )
 
-    @api.constrains('parent_eater_id')
+    @api.constrains("parent_eater_id")
     def _check_max_parent_eaters(self):
         """
         Check that the parent_eater_id in parnter in self doesn't exceed
@@ -95,16 +96,15 @@ class Partner(models.Model):
                 if (
                     share_type
                     and share_type.max_nb_eater_allowed >= 0
-                    and len(
-                        rec.parent_eater_id.child_eater_ids
-                    ) > share_type.max_nb_eater_allowed
+                    and len(rec.parent_eater_id.child_eater_ids)
+                    > share_type.max_nb_eater_allowed
                 ):
                     raise ValidationError(
-                        _('You can only set %d additional eaters per worker')
+                        _("You can only set %d additional eaters per worker")
                         % share_type.max_nb_eater_allowed
                     )
 
-    @api.constrains('child_eater_ids')
+    @api.constrains("child_eater_ids")
     def _check_max_child_eaters(self):
         """
         Check the maximum number of eaters that can be assigned to a
@@ -119,6 +119,6 @@ class Partner(models.Model):
                 and len(rec.child_eater_ids) > share_type.max_nb_eater_allowed
             ):
                 raise ValidationError(
-                    _('You can only set %d additional eaters per worker')
+                    _("You can only set %d additional eaters per worker")
                     % share_type.max_nb_eater_allowed
                 )

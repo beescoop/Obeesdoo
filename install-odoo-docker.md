@@ -26,20 +26,20 @@ docker-compose up db
 ```
 
 This could take a while (~20 minutes) depending on the data dump you are using.
-In order to reset your database, remove the container. 
+In order to reset your database, remove the container.
 (It will have to rebuild the database the next time you start it).
 ```bash
 docker-compose rm db
 ```
 
 ## 4) Run the project
-If you are not using a pre-created db run 
+If you are not using a pre-created db run
 ```bash
 docker-compose run odoo python3 odoo-bin -d beescoop -i base -c odoo.conf
 ```
 
 All the modules need to be updated in order to be recognised.
-To do that run 
+To do that run
 ```bash
 docker-compose run -p 8096:8096 odoo python odoo.py -c odoo.conf -d beescoop -u all
 ```
@@ -51,9 +51,9 @@ docker-compose up
 
 I like to start the database in the background to only have the logs of the application.
 ```bash
-docker-compose up -d db 
-docker-compose up odoo 
-``` 
- 
+docker-compose up -d db
+docker-compose up odoo
+```
+
 ## 5) Login
 To login you may either use your account or the admin account whose password should have been reset to admin.

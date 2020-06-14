@@ -4,31 +4,25 @@
 # this module can be splitted into a generic part, and a specific part
 # that implement the worker_status rules.
 {
-    'name': "Beescoop Shift Attendance Sheet",
-
-    'summary': """
+    "name": "Beescoop Shift Attendance Sheet",
+    "summary": """
         Volonteer Timetable Management
         Attendance Sheet for BEES coop""",
-
-    'description': """
+    "description": """
 
     """,
-
-    'author': "Elouan Le Bars, Coop It Easy",
-    'website': "https://github.com/beescoop/Obeesdoo",
-
-    'category': 'Cooperative management',
-    'version': '12.0.1.0.1',
-
-    'depends': [
-        'beesdoo_base',
-        'beesdoo_shift',
-        'beesdoo_worker_status',
-        'mail',
-        'barcodes',
+    "author": "Elouan Le Bars, Coop It Easy",
+    "website": "https://github.com/beescoop/Obeesdoo",
+    "category": "Cooperative management",
+    "version": "12.0.1.0.1",
+    "depends": [
+        "beesdoo_base",
+        "beesdoo_shift",
+        "beesdoo_worker_status",
+        "mail",
+        "barcodes",
     ],
-
-    'data': [
+    "data": [
         "data/system_parameter.xml",
         "data/cron.xml",
         "data/mail_template.xml",
@@ -39,7 +33,5 @@
         "wizard/generate_missing_attendance_sheets.xml",
         "views/attendance_sheet.xml",
     ],
-    'demo': [
-        "demo/users.xml",
-    ]
+    "demo": ["demo/users.xml",],
 }

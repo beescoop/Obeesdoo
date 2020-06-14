@@ -2,22 +2,30 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 
-from odoo.addons.portal.controllers.portal import CustomerPortal
 from odoo.http import request
+
+from odoo.addons.portal.controllers.portal import CustomerPortal
 
 
 class PortalPosOrderAmount(CustomerPortal):
-
     def _prepare_portal_layout_values(self):
         values = super(
             PortalPosOrderAmount, self
         )._prepare_portal_layout_values()
         user = request.env.user
-        owned_posorder = request.env["pos.order"].sudo().search(
-            [
-                ("partner_id", "=", user.partner_id.commercial_partner_id.id),
-                ("state", "!=", "cancel"),
-            ]
+        owned_posorder = (
+            request.env["pos.order"]
+            .sudo()
+            .search(
+                [
+                    (
+                        "partner_id",
+                        "=",
+                        user.partner_id.commercial_partner_id.id,
+                    ),
+                    ("state", "!=", "cancel"),
+                ]
+            )
         )
         values["posorder_amount"] = sum(
             po.amount_total for po in owned_posorder

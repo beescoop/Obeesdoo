@@ -1,4 +1,3 @@
-
 import ast
 
 from odoo import _, api, exceptions, fields, models
@@ -21,9 +20,9 @@ class ValidateAttendanceSheet(models.TransientModel):
 
     def _get_card_support_setting(self):
         return ast.literal_eval(
-            self.env["ir.config_parameter"].sudo().get_param(
-                "beesdoo_shift_attendance.card_support"
-            )
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_shift_attendance.card_support")
         )
 
     @api.multi

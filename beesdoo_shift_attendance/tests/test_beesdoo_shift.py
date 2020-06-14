@@ -20,8 +20,10 @@ class TestBeesdooShift(TransactionCase):
         ]
         self.shift_expected_model = self.env["beesdoo.shift.sheet.expected"]
         self.shift_added_model = self.env["beesdoo.shift.sheet.added"]
-        self.pre_filled_task_type_id = self.env["ir.config_parameter"].sudo().get_param(
-            "beesdoo_shift.pre_filled_task_type_id"
+        self.pre_filled_task_type_id = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_shift.pre_filled_task_type_id")
         )
 
         self.current_time = datetime.now()
@@ -67,12 +69,10 @@ class TestBeesdooShift(TransactionCase):
         )
 
         self.task_template_1 = self.env.ref(
-            "beesdoo_worker_status"
-            ".beesdoo_shift_task_template_1_demo"
+            "beesdoo_worker_status" ".beesdoo_shift_task_template_1_demo"
         )
         self.task_template_2 = self.env.ref(
-            "beesdoo_worker_status"
-            ".beesdoo_shift_task_template_2_demo"
+            "beesdoo_worker_status" ".beesdoo_shift_task_template_2_demo"
         )
 
         # Set time in and out of generation interval parameter
@@ -207,9 +207,7 @@ class TestBeesdooShift(TransactionCase):
         # Test consistency with actual shift for sheet 1
         for shift in sheet_1.expected_shift_ids:
             self.assertEquals(shift.worker_id, shift.task_id.worker_id)
-            self.assertEquals(
-                shift.replaced_id, shift.task_id.replaced_id
-            )
+            self.assertEquals(shift.replaced_id, shift.task_id.replaced_id)
             self.assertEqual(shift.task_type_id, shift.task_id.task_type_id)
             self.assertEqual(shift.super_coop_id, shift.task_id.super_coop_id)
             self.assertEqual(shift.working_mode, shift.task_id.working_mode)
@@ -239,7 +237,7 @@ class TestBeesdooShift(TransactionCase):
         self.attendance_sheet_model.sudo(
             self.user_generic
         )._generate_attendance_sheet()
-        sheet_1 = self.search_sheets(self.start_in_1, self.end_in_1,)
+        sheet_1 = self.search_sheets(self.start_in_1, self.end_in_1)
         sheet_1 = sheet_1.sudo(self.user_generic)
 
         """
@@ -352,7 +350,9 @@ class TestBeesdooShift(TransactionCase):
         if waiting_time > 0:
             with self.assertRaises(UserError) as econtext:
                 sheet_1.validate_with_checks()
-            self.assertIn("once the shifts have started", str(econtext.exception))
+            self.assertIn(
+                "once the shifts have started", str(econtext.exception)
+            )
             time.sleep(waiting_time)
 
         sheet_1.worker_nb_feedback = "enough"

@@ -53,4 +53,3 @@ pip install --no-binary :all: psycopg2
 ```
 
 You should now be able to start a simple odoo instance with `./odoo/odoo.py`
-

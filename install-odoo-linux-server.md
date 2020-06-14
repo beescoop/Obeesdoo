@@ -1,6 +1,6 @@
 # Install odoo on a linux server
 
-> by Thibault François 
+> by Thibault François
 
 ## Installation basique
 
@@ -46,7 +46,7 @@
     $ createuser -d odoo
     $ exit
 
-##### 10) Installer wkhtml to pdf 0.12.1 !! (pas une autre) (sur une machine 64 bit avec un ubuntu 64bit 14.04) 
+##### 10) Installer wkhtml to pdf 0.12.1 !! (pas une autre) (sur une machine 64 bit avec un ubuntu 64bit 14.04)
 
     # apt-get install fontconfig  libfontconfig1 libxrender1 fontconfig-config
     # wget http://download.gna.org/wkhtmltopdf/0.12/0.12.1/wkhtmltox-0.12.1_linux-trusty-amd64.deb
@@ -67,22 +67,25 @@ ctrl + c pour tuer le processus odoo depuis la console
 
 ## Pour aller plus loin: init.d script
 
-##### 1) créer un répertoire de log
+
+##### 1) créer un répertoire de log
 
     # su odoo
     $ mkdir /home/odoo/log
 
-##### 2) créer fichier de config odoo
+
+##### 2) créer fichier de config odoo
 
     $ cd /home/odoo/odoo
     $ ./odoo.py -s -c /home/odoo/odoo.conf --stop-after-init --logfile=/home/odoo/log/odoo.log
 
-##### 3) Créer le fichier init.d
+
+##### 3) Créer le fichier init.d
 
     $ exit
-    $ vim /etc/init.d/odoo  
+    $ vim /etc/init.d/odoo
 
-copier le contenu dans le fichier (gedit va aussi bien que vim) 
+copier le contenu dans le fichier (gedit va aussi bien que vim)
 
 
     #!/bin/sh
@@ -174,30 +177,35 @@ copier le contenu dans le fichier (gedit va aussi bien que vim)
 
     exit 0
 
-##### 4) donner les bons droits au fichier
+
+##### 4) donner les bons droits au fichier
 
     # chmod 755 /etc/init.d/odoo
 
-##### 5) tester le script
-    
+
+##### 5) tester le script
+
     # /etc/init.d/odoo start
 
 tester à nouveau sur localhost:8069
 
-##### 6) faire en sorte que le script s'exécute au démarrage
+
+##### 6) faire en sorte que le script s'exécute au démarrage
 
     # update-rc.d odoo defaults
 
 
 ## Pour aller plus loin: proxy nginx
 
-##### 1) installer nginx
+
+##### 1) installer nginx
 
     # apt-get install nginx
 
 vous pouvez tester l'installation réussie sur http://localhost
 
-##### 2) configurer nginx pour odoo : editer le fichier de conf
+
+##### 2) configurer nginx pour odoo : editer le fichier de conf
 
     # vim /etc/nginx/sites-enabled/default
 
@@ -226,7 +234,8 @@ supprimer le contenu et le remplacer par
             }
     }
 
-##### 3) tester la config et relancer nginx 
+
+##### 3) tester la config et relancer nginx
 
     # nginx -t
     # nginx -s reload
@@ -243,12 +252,12 @@ a) editer fichier de conf de odoo
 
     # vim /home/odoo/odoo.conf
 
-changer 
+changer
 
-    admin_passwd = admin 
+    admin_passwd = admin
     xmlrpc_interface =
 
-pour 
+pour
 
     admin_passwd = secret_password
     xmlrpc_interface = 127.0.0.1
@@ -256,4 +265,3 @@ pour
 b) redémarrer odoo
 
     # /etc/init.d/odoo restart
-

@@ -3,7 +3,7 @@
 #   Vincent Van Rossem <vincent@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import models, fields, api, _
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -20,8 +20,7 @@ class PurchaseOrderGenerator(models.Model):
         "converted into a purchase order.",
     )
     date_planned = fields.Datetime(
-        string="Date Planned",
-        default=fields.Datetime.now,
+        string="Date Planned", default=fields.Datetime.now
     )
     supplier_id = fields.Many2one(
         comodel_name="res.partner",

@@ -29,6 +29,8 @@ class CustomerPortalRestrictModification(CustomerPortal):
             and any("unknown field" in s.lower() for s in error_message)
         ):
             error.pop("common")
-            error_message = [s for s in error_message if "unknown field" not in s.lower()]
+            error_message = [
+                s for s in error_message if "unknown field" not in s.lower()
+            ]
 
         return error, error_message

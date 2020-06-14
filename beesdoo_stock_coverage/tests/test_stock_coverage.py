@@ -3,10 +3,11 @@
 # @author: Robin Keunen <robin@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import fields
-from odoo.tools import float_compare
-from odoo.tests.common import TransactionCase
 from datetime import timedelta
+
+from odoo import fields
+from odoo.tests.common import TransactionCase
+from odoo.tools import float_compare
 
 
 class TestModule(TransactionCase):

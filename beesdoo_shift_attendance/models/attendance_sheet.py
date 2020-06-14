@@ -16,6 +16,7 @@ class AttendanceSheetShift(models.Model):
     but create() method from res.partner raise error
     when class is Abstract.
     """
+
     _name = "beesdoo.shift.sheet.shift"
     _description = "Copy of an actual shift into an attendance sheet"
     _order = "task_type_id, worker_name"
@@ -61,7 +62,9 @@ class AttendanceSheetShift(models.Model):
     )
     worker_name = fields.Char(related="worker_id.name", store=True)
     task_type_id = fields.Many2one(
-        "beesdoo.shift.type", string="Task Type", default=pre_filled_task_type_id
+        "beesdoo.shift.type",
+        string="Task Type",
+        default=pre_filled_task_type_id,
     )
     working_mode = fields.Selection(
         related="worker_id.working_mode", string="Working Mode"
@@ -120,10 +123,7 @@ class AttendanceSheetShiftAdded(models.Model):
 
 class AttendanceSheet(models.Model):
     _name = "beesdoo.shift.sheet"
-    _inherit = [
-        "mail.thread",
-        "barcodes.barcode_events_mixin",
-    ]
+    _inherit = ["mail.thread", "barcodes.barcode_events_mixin"]
     _description = "Attendance sheet"
     _order = "start_time"
 
@@ -136,7 +136,7 @@ class AttendanceSheet(models.Model):
     )
     active = fields.Boolean(string="Active", default=1)
     state = fields.Selection(
-        [("not_validated", "Not Validated"), ("validated", "Validated"),],
+        [("not_validated", "Not Validated"), ("validated", "Validated")],
         string="State",
         readonly=True,
         index=True,
@@ -175,9 +175,7 @@ class AttendanceSheet(models.Model):
         help="Indicative maximum number of workers.",
     )
     attended_worker_no = fields.Integer(
-        string="Number of workers present",
-        default=0,
-        readonly=True,
+        string="Number of workers present", default=0, readonly=True
     )
     notes = fields.Text(
         "Notes",
@@ -233,9 +231,7 @@ class AttendanceSheet(models.Model):
             start_time = fields.Datetime.context_timestamp(rec, rec.start_time)
             end_time = fields.Datetime.context_timestamp(rec, rec.end_time)
             rec.time_slot = (
-                start_time.strftime("%H:%M")
-                + "-"
-                + end_time.strftime("%H:%M")
+                start_time.strftime("%H:%M") + "-" + end_time.strftime("%H:%M")
             )
 
     @api.depends("start_time", "end_time", "week", "day_abbrevation")
@@ -319,10 +315,14 @@ class AttendanceSheet(models.Model):
             )
 
     def on_barcode_scanned(self, barcode):
-        if self.env.user.has_group("beesdoo_shift_attendance.group_shift_attendance"):
+        if self.env.user.has_group(
+            "beesdoo_shift_attendance.group_shift_attendance"
+        ):
             raise UserError(
-                _("You must be logged as 'Attendance Sheet Generic Access' "
-                " if you want to scan cards.")
+                _(
+                    "You must be logged as 'Attendance Sheet Generic Access' "
+                    " if you want to scan cards."
+                )
             )
 
         if self.state == "validated":
@@ -370,7 +370,9 @@ class AttendanceSheet(models.Model):
             )
         if worker.working_mode not in ("regular", "irregular"):
             raise UserError(
-                _("%s's working mode is %s and should be regular or irregular.")
+                _(
+                    "%s's working mode is %s and should be regular or irregular."
+                )
                 % (worker.name, worker.working_mode)
             )
 
@@ -428,7 +430,11 @@ class AttendanceSheet(models.Model):
 
         for task in tasks:
             # Only one shift is added if multiple similar exist
-            if task.worker_id and task.worker_id not in workers and (task.state != "cancel") :
+            if (
+                task.worker_id
+                and task.worker_id not in workers
+                and (task.state != "cancel")
+            ):
                 expected_shift.create(
                     {
                         "attendance_sheet_id": new_sheet.id,
@@ -468,7 +474,8 @@ class AttendanceSheet(models.Model):
 
             if expected_shift.state != "done":
                 mail_template = self.env.ref(
-                    "beesdoo_shift_attendance.email_template_non_attendance", False
+                    "beesdoo_shift_attendance.email_template_non_attendance",
+                    False,
                 )
                 mail_template.send_mail(expected_shift.task_id.id, True)
 
@@ -609,7 +616,9 @@ class AttendanceSheet(models.Model):
         sheets = self.env["beesdoo.shift.sheet"]
         current_time = datetime.now()
         generation_interval_setting = int(
-            self.env["ir.config_parameter"].sudo().get_param(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param(
                 "beesdoo_shift_attendance.attendance_sheet_generation_interval"
             )
         )

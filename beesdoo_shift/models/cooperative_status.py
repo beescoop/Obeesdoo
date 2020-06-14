@@ -1,10 +1,11 @@
-from odoo import models, fields, api, _
-from odoo.exceptions import ValidationError, UserError
-
-from datetime import timedelta, datetime
 import logging
+from datetime import datetime, timedelta
+
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError, ValidationError
 
 _logger = logging.getLogger(__name__)
+
 
 def add_days_delta(date_from, days_delta):
     if not date_from:
@@ -12,138 +13,198 @@ def add_days_delta(date_from, days_delta):
     next_date = date_from + timedelta(days=days_delta)
     return next_date
 
+
 class ExemptReason(models.Model):
-    _name = 'cooperative.exempt.reason'
-    _description = 'cooperative.exempt.reason'
+    _name = "cooperative.exempt.reason"
+    _description = "cooperative.exempt.reason"
 
     name = fields.Char(required=True)
 
+
 class HistoryStatus(models.Model):
-    _name = 'cooperative.status.history'
-    _description = 'cooperative.status.history'
+    _name = "cooperative.status.history"
+    _description = "cooperative.status.history"
 
-    _order= 'create_date desc'
+    _order = "create_date desc"
 
-    status_id = fields.Many2one('cooperative.status')
-    cooperator_id = fields.Many2one('res.partner')
+    status_id = fields.Many2one("cooperative.status")
+    cooperator_id = fields.Many2one("res.partner")
     change = fields.Char()
-    type = fields.Selection([('status', 'Status Change'), ('counter', 'Counter Change')])
-    user_id = fields.Many2one('res.users', string="User")
+    type = fields.Selection(
+        [("status", "Status Change"), ("counter", "Counter Change")]
+    )
+    user_id = fields.Many2one("res.users", string="User")
+
 
 class CooperativeStatus(models.Model):
-    _name = 'cooperative.status'
-    _description = 'cooperative.status'
-    _rec_name = 'cooperator_id'
-    _order = 'cooperator_id'
+    _name = "cooperative.status"
+    _description = "cooperative.status"
+    _rec_name = "cooperator_id"
+    _order = "cooperator_id"
     _period = 28
 
     def _get_status(self):
         return [
-            ('ok',  'Up to Date'),
-            ('holiday', 'Holidays'),
-            ('alert', 'Alerte'),
-            ('extension', 'Extension'),
-            ('suspended', 'Suspended'),
-            ('exempted', 'Exempted'),
-            ('unsubscribed', 'Unsubscribed'),
-            ('resigning', 'Resigning')
+            ("ok", "Up to Date"),
+            ("holiday", "Holidays"),
+            ("alert", "Alerte"),
+            ("extension", "Extension"),
+            ("suspended", "Suspended"),
+            ("exempted", "Exempted"),
+            ("unsubscribed", "Unsubscribed"),
+            ("resigning", "Resigning"),
         ]
 
-    today = fields.Date(help="Field that allow to compute field and store them even if they are based on the current date", default=fields.Date.today)
-    cooperator_id = fields.Many2one('res.partner')
-    active = fields.Boolean(related="cooperator_id.active", store=True, index=True)
-    info_session = fields.Boolean('Information Session ?')
-    info_session_date = fields.Date('Information Session Date')
+    today = fields.Date(
+        help="Field that allow to compute field and store them even if they are based on the current date",
+        default=fields.Date.today,
+    )
+    cooperator_id = fields.Many2one("res.partner")
+    active = fields.Boolean(
+        related="cooperator_id.active", store=True, index=True
+    )
+    info_session = fields.Boolean("Information Session ?")
+    info_session_date = fields.Date("Information Session Date")
     super = fields.Boolean("Super Cooperative")
     sr = fields.Integer("Regular shifts counter", default=0)
     sc = fields.Integer("Compensation shifts counter", default=0)
-    time_extension = fields.Integer("Extension Days NB", default=0, help="Addtional days to the automatic extension, 5 mean that you have a total of 15 extension days of default one is set to 10")
+    time_extension = fields.Integer(
+        "Extension Days NB",
+        default=0,
+        help="Addtional days to the automatic extension, 5 mean that you have a total of 15 extension days of default one is set to 10",
+    )
     holiday_start_time = fields.Date("Holidays Start Day")
     holiday_end_time = fields.Date("Holidays End Day")
     alert_start_time = fields.Date("Alert Start Day")
     extension_start_time = fields.Date("Extension Start Day")
     working_mode = fields.Selection(
         [
-            ('regular', 'Regular worker'),
-            ('irregular', 'Irregular worker'),
-            ('exempt', 'Exempted'),
+            ("regular", "Regular worker"),
+            ("irregular", "Irregular worker"),
+            ("exempt", "Exempted"),
         ],
-        string="Working mode"
+        string="Working mode",
     )
-    exempt_reason_id = fields.Many2one('cooperative.exempt.reason', 'Exempt Reason')
-    status = fields.Selection(selection=_get_status,
-                              compute="_compute_status", string="Cooperative Status", store=True)
-    can_shop = fields.Boolean(compute='_compute_can_shop', store=True)
-    history_ids = fields.One2many('cooperative.status.history', 'status_id', readonly=True)
+    exempt_reason_id = fields.Many2one(
+        "cooperative.exempt.reason", "Exempt Reason"
+    )
+    status = fields.Selection(
+        selection=_get_status,
+        compute="_compute_status",
+        string="Cooperative Status",
+        store=True,
+    )
+    can_shop = fields.Boolean(compute="_compute_can_shop", store=True)
+    history_ids = fields.One2many(
+        "cooperative.status.history", "status_id", readonly=True
+    )
     unsubscribed = fields.Boolean(default=False, help="Manually unsubscribed")
-    resigning = fields.Boolean(default=False, help="Want to leave the beescoop")
+    resigning = fields.Boolean(
+        default=False, help="Want to leave the beescoop"
+    )
 
-    #Specific to irregular
-    irregular_start_date = fields.Date()  #TODO migration script
+    # Specific to irregular
+    irregular_start_date = fields.Date()  # TODO migration script
     irregular_absence_date = fields.Date()
-    irregular_absence_counter = fields.Integer() #TODO unsubscribe when reach -2
-    future_alert_date = fields.Date(compute='_compute_future_alert_date')
-    next_countdown_date = fields.Date(compute='_compute_next_countdown_date')
+    irregular_absence_counter = (
+        fields.Integer()
+    )  # TODO unsubscribe when reach -2
+    future_alert_date = fields.Date(compute="_compute_future_alert_date")
+    next_countdown_date = fields.Date(compute="_compute_next_countdown_date")
 
-    temporary_exempt_reason_id = fields.Many2one('cooperative.exempt.reason', 'Exempt Reason')
+    temporary_exempt_reason_id = fields.Many2one(
+        "cooperative.exempt.reason", "Exempt Reason"
+    )
     temporary_exempt_start_date = fields.Date()
     temporary_exempt_end_date = fields.Date()
 
-    @api.depends('status')
+    @api.depends("status")
     def _compute_can_shop(self):
         for rec in self:
             rec.can_shop = rec.status in self._can_shop_status()
 
-    @api.depends('today', 'sr', 'sc', 'holiday_end_time',
-                 'holiday_start_time', 'time_extension',
-                 'alert_start_time', 'extension_start_time',
-                 'unsubscribed', 'irregular_absence_date',
-                 'irregular_absence_counter', 'temporary_exempt_start_date',
-                 'temporary_exempt_end_date', 'resigning', 'cooperator_id.subscribed_shift_ids')
+    @api.depends(
+        "today",
+        "sr",
+        "sc",
+        "holiday_end_time",
+        "holiday_start_time",
+        "time_extension",
+        "alert_start_time",
+        "extension_start_time",
+        "unsubscribed",
+        "irregular_absence_date",
+        "irregular_absence_counter",
+        "temporary_exempt_start_date",
+        "temporary_exempt_end_date",
+        "resigning",
+        "cooperator_id.subscribed_shift_ids",
+    )
     def _compute_status(self):
-        update = int(self.env['ir.config_parameter'].sudo().get_param('always_update', False))
+        update = int(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("always_update", False)
+        )
         for rec in self:
             if update or not rec.today:
-                rec.status = 'ok'
+                rec.status = "ok"
                 continue
             if rec.resigning:
-                rec.status = 'resigning'
+                rec.status = "resigning"
                 continue
 
-            if rec.working_mode == 'regular':
+            if rec.working_mode == "regular":
                 rec.status = rec._get_regular_status()
-            elif rec.working_mode == 'irregular':
+            elif rec.working_mode == "irregular":
                 rec.status = rec._get_irregular_status()
-            elif rec.working_mode == 'exempt':
-                rec.status = 'ok'
+            elif rec.working_mode == "exempt":
+                rec.status = "ok"
 
     _sql_constraints = [
-        ('cooperator_uniq', 'unique (cooperator_id)', _('You can only set one cooperator status per cooperator')),
+        (
+            "cooperator_uniq",
+            "unique (cooperator_id)",
+            _("You can only set one cooperator status per cooperator"),
+        )
     ]
 
     @api.constrains("working_mode", "irregular_start_date")
     def _constrains_irregular_start_date(self):
         if self.working_mode == "irregular" and not self.irregular_start_date:
-            raise UserError(_("Irregular workers must have an irregular start date."))
+            raise UserError(
+                _("Irregular workers must have an irregular start date.")
+            )
 
     @api.multi
     def write(self, vals):
         """
             Overwrite write to historize the change
         """
-        for field in ['sr', 'sc', 'time_extension', 'extension_start_time', 'alert_start_time', 'unsubscribed']:
+        for field in [
+            "sr",
+            "sc",
+            "time_extension",
+            "extension_start_time",
+            "alert_start_time",
+            "unsubscribed",
+        ]:
             if not field in vals:
                 continue
             for rec in self:
                 data = {
-                        'status_id': rec.id,
-                        'cooperator_id': rec.cooperator_id.id,
-                        'type': 'counter',
-                        'user_id': self.env.context.get('real_uid', self.env.uid),
+                    "status_id": rec.id,
+                    "cooperator_id": rec.cooperator_id.id,
+                    "type": "counter",
+                    "user_id": self.env.context.get("real_uid", self.env.uid),
                 }
                 if vals.get(field, rec[field]) != rec[field]:
-                    data['change'] = '%s: %s -> %s' % (field.upper(), rec[field], vals.get(field))
-                    self.env['cooperative.status.history'].sudo().create(data)
+                    data["change"] = "{}: {} -> {}".format(
+                        field.upper(),
+                        rec[field],
+                        vals.get(field),
+                    )
+                    self.env["cooperative.status.history"].sudo().create(data)
         return super(CooperativeStatus, self).write(vals)
 
     @api.multi
@@ -152,28 +213,42 @@ class CooperativeStatus(models.Model):
             Overwrite write to historize the change of status
             and make action on status change
         """
-        if 'status' in vals:
-            self._cr.execute('select id, status, sr, sc from "%s" where id in %%s' % self._table, (self._ids,))
+        if "status" in vals:
+            self._cr.execute(
+                'select id, status, sr, sc from "%s" where id in %%s'
+                % self._table,
+                (self._ids,),
+            )
             result = self._cr.dictfetchall()
-            old_status_per_id = {r['id'] : r for r in result}
+            old_status_per_id = {r["id"]: r for r in result}
             for rec in self:
-                if old_status_per_id[rec.id]['status'] != vals['status']:
+                if old_status_per_id[rec.id]["status"] != vals["status"]:
                     data = {
-                        'status_id': rec.id,
-                        'cooperator_id': rec.cooperator_id.id,
-                        'type': 'status',
-                        'change': "STATUS: %s -> %s" % (old_status_per_id[rec.id]['status'], vals['status']),
-                        'user_id': self.env.context.get('real_uid', self.env.uid),
+                        "status_id": rec.id,
+                        "cooperator_id": rec.cooperator_id.id,
+                        "type": "status",
+                        "change": "STATUS: %s -> %s"
+                        % (
+                            old_status_per_id[rec.id]["status"],
+                            vals["status"],
+                        ),
+                        "user_id": self.env.context.get(
+                            "real_uid", self.env.uid
+                        ),
                     }
-                    self.env['cooperative.status.history'].sudo().create(data)
-                    rec._state_change(vals['status'])
+                    self.env["cooperative.status.history"].sudo().create(data)
+                    rec._state_change(vals["status"])
         return super(CooperativeStatus, self)._write(vals)
 
     def get_status_value(self):
         """
         Workararound to get translated selection value instead of key in mail template.
         """
-        state_list = self.env["cooperative.status"]._fields['status']._description_selection(self.env)
+        state_list = (
+            self.env["cooperative.status"]
+            ._fields["status"]
+            ._description_selection(self.env)
+        )
         return dict(state_list)[self.status]
 
     @api.model
@@ -181,7 +256,7 @@ class CooperativeStatus(models.Model):
         """
             Method call by the cron to update store value base on the date
         """
-        self.search([]).write({'today': fields.Date.today()})
+        self.search([]).write({"today": fields.Date.today()})
 
     @api.model
     def _cron_compute_counter_irregular(self, today=False):
@@ -190,15 +265,21 @@ class CooperativeStatus(models.Model):
             once per day
         """
         today = today or fields.Date.today()
-        journal = self.env['beesdoo.shift.journal'].search([('date', '=', today)])
+        journal = self.env["beesdoo.shift.journal"].search(
+            [("date", "=", today)]
+        )
         if not journal:
-            journal = self.env['beesdoo.shift.journal'].create({'date': today})
+            journal = self.env["beesdoo.shift.journal"].create({"date": today})
 
         domain = self._get_irregular_worker_domain(today=today)
         irregular = self.search(domain)
         for status in irregular:
             delta = (today - status.irregular_start_date).days
-            if delta and delta % self._period == 0 and status not in journal.line_ids:
+            if (
+                delta
+                and delta % self._period == 0
+                and status not in journal.line_ids
+            ):
                 status._change_irregular_counter()
                 journal.line_ids |= status
 
@@ -217,7 +298,7 @@ class CooperativeStatus(models.Model):
     ##############################
     #   Computed field section   #
     ##############################
-    @api.depends('today')
+    @api.depends("today")
     def _compute_future_alert_date(self):
         """
             Compute date until the worker is up to date
@@ -226,7 +307,7 @@ class CooperativeStatus(models.Model):
         for rec in self:
             rec.future_alert_date = False
 
-    @api.depends('today')
+    @api.depends("today")
     def _compute_next_countdown_date(self):
         """
         Compute the following countdown date. This date is the date when
@@ -242,7 +323,7 @@ class CooperativeStatus(models.Model):
             return the list of status that give access
             to active cooperator privilege
         """
-        return ['ok', 'alert', 'extension', 'exempted']
+        return ["ok", "alert", "extension", "exempted"]
 
     #####################################
     #   Status Change implementation    #
@@ -253,14 +334,14 @@ class CooperativeStatus(models.Model):
             Return the value of the status
             for the regular worker
         """
-        return 'ok'
+        return "ok"
 
     def _get_irregular_status(self):
         """
             Return the value of the status
             for the irregular worker
         """
-        return 'ok'
+        return "ok"
 
     def _state_change(self, new_state):
         """
@@ -275,7 +356,6 @@ class CooperativeStatus(models.Model):
         """
         pass
 
-
     ###############################################
     ###### Irregular Cron implementation ##########
     ###############################################
@@ -286,7 +366,7 @@ class CooperativeStatus(models.Model):
             of valid irregular worker that should
             get their counter changed by the cron
         """
-        return [(0, '=', 1)]
+        return [(0, "=", 1)]
 
     def _change_irregular_counter(self):
         """
@@ -297,22 +377,31 @@ class CooperativeStatus(models.Model):
         """
         pass
 
+
 class ShiftCronJournal(models.Model):
-    _name = 'beesdoo.shift.journal'
-    _description = 'beesdoo.shift.journal'
-    _order = 'date desc'
-    _rec_name = 'date'
+    _name = "beesdoo.shift.journal"
+    _description = "beesdoo.shift.journal"
+    _order = "date desc"
+    _rec_name = "date"
 
     date = fields.Date()
-    line_ids = fields.Many2many('cooperative.status')
+    line_ids = fields.Many2many("cooperative.status")
 
     _sql_constraints = [
-        ('one_entry_per_day', 'unique (date)', _('You can only create one journal per day')),
+        (
+            "one_entry_per_day",
+            "unique (date)",
+            _("You can only create one journal per day"),
+        )
     ]
 
     @api.multi
     def run(self):
         self.ensure_one()
-        if not self.user_has_groups('beesdoo_shift.group_cooperative_admin'):
-            raise ValidationError(_("You don't have the access to perform this action"))
-        self.sudo().env['cooperative.status']._cron_compute_counter_irregular(today=self.date)
+        if not self.user_has_groups("beesdoo_shift.group_cooperative_admin"):
+            raise ValidationError(
+                _("You don't have the access to perform this action")
+            )
+        self.sudo().env["cooperative.status"]._cron_compute_counter_irregular(
+            today=self.date
+        )

@@ -1,8 +1,8 @@
-from odoo import models, api
+from odoo import api, models
 
 
 class BeescoopPosPartner(models.Model):
-    _inherit = 'res.partner'
+    _inherit = "res.partner"
 
     def _get_eater(self):
         eaters = [False, False, False]

@@ -40,4 +40,3 @@
         <field name="customer" eval="True"/>
     </record>
 </odoo>
-

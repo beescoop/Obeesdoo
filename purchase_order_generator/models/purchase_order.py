@@ -2,7 +2,7 @@
 #   Robin Keunen <robin@coopiteasy.be>
 #   Vincent Van Rossem <vincent@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models, fields, api, SUPERUSER_ID
+from odoo import SUPERUSER_ID, api, fields, models
 
 
 class PurchaseOrder(models.Model):

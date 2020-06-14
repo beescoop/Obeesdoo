@@ -1,7 +1,7 @@
-from odoo import models, fields, api, _
-from odoo.exceptions import UserError, ValidationError
-
 from datetime import datetime
+
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError, ValidationError
 
 
 class GenerateMissingAttendanceSheets(models.TransientModel):
@@ -34,7 +34,7 @@ class GenerateMissingAttendanceSheets(models.TransientModel):
             start_time = task.start_time
             end_time = task.end_time
             sheet = sheets.search(
-                [("start_time", "=", start_time), ("end_time", "=", end_time),]
+                [("start_time", "=", start_time), ("end_time", "=", end_time)]
             )
 
             if not sheet:

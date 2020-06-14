@@ -1,12 +1,12 @@
 # Copyright 2019 Coop IT Easy SCRLfs
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models, _
+from odoo import _, api, fields, models
 
 
 class Subscribe(models.TransientModel):
 
-    _inherit = 'beesdoo.shift.subscribe'
+    _inherit = "beesdoo.shift.subscribe"
 
     def _get_info_session_followed(self):
         """
@@ -15,10 +15,11 @@ class Subscribe(models.TransientModel):
         """
         followed = super(Subscribe, self)._get_info_session_followed()
         if not followed:
-            return (self.env['res.partner']
-                    .browse(self._context.get('active_id'))
-                    .info_session_confirmed)
+            return (
+                self.env["res.partner"]
+                .browse(self._context.get("active_id"))
+                .info_session_confirmed
+            )
         return followed
 
     info_session = fields.Boolean(default=_get_info_session_followed)
-
