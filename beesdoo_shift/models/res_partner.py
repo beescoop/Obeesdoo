@@ -1,8 +1,4 @@
-import logging
-from datetime import datetime, timedelta
-
 from odoo import _, api, fields, models
-from odoo.exceptions import UserError, ValidationError
 
 
 class ResPartner(models.Model):
