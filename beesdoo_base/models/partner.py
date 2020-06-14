@@ -18,10 +18,10 @@ class Partner(models.Model):
         "res.partner", string="Parent Worker", readonly=True
     )
     barcode = fields.Char(
-        compute="_get_bar_code", string="Barcode", store=True
+        compute="_compute_bar_code", string="Barcode", store=True
     )
     parent_barcode = fields.Char(
-        compute="_get_bar_code", string="Parent Barcode", store=True
+        compute="_compute_bar_code", string="Parent Barcode", store=True
     )
     member_card_ids = fields.One2many("member.card", "partner_id")
 
@@ -34,7 +34,7 @@ class Partner(models.Model):
         "eater",
         "member_card_ids",
     )
-    def _get_bar_code(self):
+    def _compute_bar_code(self):
         for rec in self:
             if rec.eater == "eater":
                 rec.parent_barcode = rec.parent_eater_id.barcode

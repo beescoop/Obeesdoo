@@ -30,18 +30,22 @@ class BeesdooProduct(models.Model):
 
     display_unit = fields.Many2one("uom.uom")
     default_reference_unit = fields.Many2one("uom.uom")
-    display_weight = fields.Float(compute="_get_display_weight", store=True)
+    display_weight = fields.Float(
+        compute="_compute_display_weight", store=True
+    )
 
     total_with_vat = fields.Float(
-        compute="_get_total", store=True, string="Total Sales Price with VAT"
+        compute="_compute_total",
+        store=True,
+        string="Total Sales Price with VAT",
     )
     total_with_vat_by_unit = fields.Float(
-        compute="_get_total",
+        compute="_compute_total",
         store=True,
         string="Total Sales Price with VAT by Reference Unit",
     )
     total_deposit = fields.Float(
-        compute="_get_total", store=True, string="Deposit Price"
+        compute="_compute_total", store=True, string="Deposit Price"
     )
 
     label_to_be_printed = fields.Boolean("Print label?")
@@ -63,7 +67,7 @@ class BeesdooProduct(models.Model):
     scale_label_info_1 = fields.Char(string="Scale lable info 1")
     scale_label_info_2 = fields.Char(string="Scale lable info 2")
     scale_sale_unit = fields.Char(
-        compute="_get_scale_sale_uom", string="Scale sale unit", store=True
+        compute="_compute_scale_sale_uom", string="Scale sale unit", store=True
     )
     scale_category = fields.Many2one(
         "beesdoo.scale.category", string="Scale Category"
@@ -77,7 +81,7 @@ class BeesdooProduct(models.Model):
 
     @api.depends("uom_id", "uom_id.category_id", "uom_id.category_id.type")
     @api.multi
-    def _get_scale_sale_uom(self):
+    def _compute_scale_sale_uom(self):
         for product in self:
             if product.uom_id.category_id.type == "unit":
                 product.scale_sale_unit = "F"
@@ -157,7 +161,7 @@ class BeesdooProduct(models.Model):
         "display_weight",
         "weight",
     )
-    def _get_total(self):
+    def _compute_total(self):
         consignes_group = self.env.ref(
             "beesdoo_product.consignes_group_tax", raise_if_not_found=False
         )
@@ -205,7 +209,7 @@ class BeesdooProduct(models.Model):
 
     @api.one
     @api.depends("weight", "display_unit")
-    def _get_display_weight(self):
+    def _compute_display_weight(self):
         self.display_weight = self.weight * self.display_unit.factor
 
     @api.one

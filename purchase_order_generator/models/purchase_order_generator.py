@@ -34,7 +34,7 @@ class PurchaseOrderGenerator(models.Model):
         string="Order Lines",
     )
     total_amount = fields.Float(
-        string="Total Amount (w/o VAT)", compute="compute_pog_total"
+        string="Total Amount (w/o VAT)", compute="_compute_pog_total"
     )
     generated_purchase_order_ids = fields.One2many(
         comodel_name="purchase.order",
@@ -48,7 +48,7 @@ class PurchaseOrderGenerator(models.Model):
 
     @api.multi
     @api.depends("pog_line_ids", "pog_line_ids.purchase_quantity")
-    def compute_pog_total(self):
+    def _compute_pog_total(self):
         for cpo in self:
             total_amount = sum(cpol.subtotal for cpol in cpo.pog_line_ids)
             cpo.total_amount = total_amount
@@ -60,7 +60,9 @@ class PurchaseOrderGenerator(models.Model):
         suppliers = products.mapped("main_supplier_id")
 
         if not suppliers:
-            raise ValidationError(_("No supplier is set for selected articles."))
+            raise ValidationError(
+                _("No supplier is set for selected articles.")
+            )
         elif len(suppliers) == 1:
             return suppliers
         else:
@@ -108,7 +110,10 @@ class PurchaseOrderGenerator(models.Model):
 
         if sum(self.pog_line_ids.mapped("purchase_quantity")) == 0:
             raise ValidationError(
-                _("You need at least a product to generate " "a Purchase Order")
+                _(
+                    "You need at least a product to generate "
+                    "a Purchase Order"
+                )
             )
 
         purchase_order = self.env["purchase.order"].create(

@@ -12,7 +12,7 @@ class Partner(models.Model):
         string="Confirmed presence to info session", default=False
     )
     is_worker = fields.Boolean(
-        compute="_is_worker",
+        compute="_compute_is_worker",
         search="_search_worker",
         readonly=True,
         related="",
@@ -38,7 +38,7 @@ class Partner(models.Model):
         "share_ids.share_product_id.default_code",
         "share_ids.share_number",
     )
-    def _is_worker(self):
+    def _compute_is_worker(self):
         """
         Return True if the partner can participate tho the shift system.
         This is defined on the share type.

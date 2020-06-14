@@ -120,18 +120,18 @@ class TaskTemplate(models.Model):
         domain=[("is_worker", "=", True)],
     )
     remaining_worker = fields.Integer(
-        compute="_get_remaining", store=True, string="Remaining Place"
+        compute="_compute_remaining", store=True, string="Remaining Place"
     )
     active = fields.Boolean(default=True)
     # For Kanban View Only
     color = fields.Integer("Color Index")
-    worker_name = fields.Char(compute="_get_worker_name")
+    worker_name = fields.Char(compute="_compute_worker_name")
     # For calendar View
     start_date = fields.Datetime(
-        compute="_get_fake_date", search="_dummy_search"
+        compute="_compute_fake_date", search="_search_dummy"
     )
     end_date = fields.Datetime(
-        compute="_get_fake_date", search="_dummy_search"
+        compute="_compute_fake_date", search="_search_dummy"
     )
 
     def _get_utc_date(self, day, hour, minute):
@@ -146,7 +146,7 @@ class TaskTemplate(models.Model):
         return day_utc_time.replace(tzinfo=None)
 
     @api.depends("start_time", "end_time")
-    def _get_fake_date(self):
+    def _compute_fake_date(self):
         today = self._context.get("visualize_date", get_first_day_of_week())
         for rec in self:
             # Find the day of this task template 'rec'.
@@ -158,16 +158,16 @@ class TaskTemplate(models.Model):
             rec.start_date = self._get_utc_date(day, h_begin, m_begin)
             rec.end_date = self._get_utc_date(day, h_end, m_end)
 
-    def _dummy_search(self, operator, value):
+    def _search_dummy(self, operator, value):
         return []
 
     @api.depends("worker_ids", "worker_nb")
-    def _get_remaining(self):
+    def _compute_remaining(self):
         for rec in self:
             rec.remaining_worker = rec.worker_nb - len(rec.worker_ids)
 
     @api.depends("worker_ids")
-    def _get_worker_name(self):
+    def _compute_worker_name(self):
         for rec in self:
             rec.worker_name = ",".join(rec.worker_ids.mapped("display_name"))
 
