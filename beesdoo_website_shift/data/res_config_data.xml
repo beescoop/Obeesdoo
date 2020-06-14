@@ -5,7 +5,7 @@
 -->
 <odoo>
     <data noupdate="1">
-        <record id="beesdoo_website_shift.shift_period"
+        <record id="shift_period"
                 model="ir.config_parameter">
             <field name="key">beesdoo_website_shift.shift_period</field>
             <field name="value">28</field>
