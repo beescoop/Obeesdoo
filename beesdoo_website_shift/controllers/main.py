@@ -161,7 +161,8 @@ class WebsiteShiftController(http.Controller):
     @http.route("/shift_irregular_worker", auth="public", website=True)
     def public_shift_irregular_worker(self, **kw):
         """
-        Show a public access page that show all the available shifts for irregular worker.
+        Show a public access page that show all the available shifts for
+        irregular worker.
         """
         nexturl = "/shift_irregular_worker"
         irregular_enable_sign_up = False
@@ -182,7 +183,8 @@ class WebsiteShiftController(http.Controller):
     @http.route("/shift_template_regular_worker", auth="public", website=True)
     def public_shift_template_regular_worker(self, **kw):
         """
-        Show a public access page that show all the available shift templates for regular worker.
+        Show a public access page that show all the available shift templates
+        for regular worker.
         """
         # Get all the task template
         template = request.env["beesdoo.shift.template"]
@@ -207,7 +209,8 @@ class WebsiteShiftController(http.Controller):
 
     def my_shift_irregular_worker(self, nexturl=""):
         """
-        Return template variables for 'beesdoo_website_shift.my_shift_irregular_worker' template
+        Return template variables for
+        'beesdoo_website_shift.my_shift_irregular_worker' template
         """
         # Get config
         irregular_enable_sign_up = request.website.irregular_enable_sign_up
@@ -243,13 +246,15 @@ class WebsiteShiftController(http.Controller):
 
     def my_shift_regular_worker_without_shift(self):
         """
-        Return template variables for 'beesdoo_website_shift.my_shift_regular_worker_without_shift' template
+        Return template variables for
+        'beesdoo_website_shift.my_shift_regular_worker_without_shift' template
         """
         return self.my_shift_worker_status()
 
     def my_shift_regular_worker(self):
         """
-        Return template variables for 'beesdoo_website_shift.my_shift_regular_worker' template
+        Return template variables for
+        'beesdoo_website_shift.my_shift_regular_worker' template
         """
         # Create template context
         template_context = {}
@@ -270,7 +275,8 @@ class WebsiteShiftController(http.Controller):
 
     def my_shift_exempted_worker(self):
         """
-        Return template variables for 'beesdoo_website_shift.my_shift_exempted_worker' template
+        Return template variables for
+        'beesdoo_website_shift.my_shift_exempted_worker' template
         """
         return self.my_shift_worker_status()
 
@@ -372,7 +378,8 @@ class WebsiteShiftController(http.Controller):
 
     def my_shift_next_shifts(self):
         """
-        Return template variables for 'beesdoo_website_shift.my_shift_next_shifts' template
+        Return template variables for
+        'beesdoo_website_shift.my_shift_next_shifts' template
         """
         # Get current user
         cur_user = request.env["res.users"].browse(request.uid)
@@ -462,7 +469,8 @@ class WebsiteShiftController(http.Controller):
 
     def my_shift_past_shifts(self):
         """
-        Return template variables for 'beesdoo_website_shift.my_shift_past_shifts' template
+        Return template variables for
+        'beesdoo_website_shift.my_shift_past_shifts' template
         """
         # Get current user
         cur_user = request.env["res.users"].browse(request.uid)
@@ -512,7 +520,8 @@ class WebsiteShiftController(http.Controller):
 
     def my_shift_worker_status(self):
         """
-        Return template variables for 'beesdoo_website_shift.my_shift_worker_status_*' template
+        Return template variables for
+        'beesdoo_website_shift.my_shift_worker_status_*' template
         """
         cur_user = request.env["res.users"].browse(request.uid)
         return {"status": cur_user.partner_id.cooperative_status_ids}
