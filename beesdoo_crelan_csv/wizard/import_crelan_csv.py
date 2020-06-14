@@ -41,7 +41,9 @@ class CodaBankStatementImport(models.TransientModel):
             "{}: {}".format(_("Counter Party Name"), move[COUNTERPART_NAME])
         )
         notes.append(
-            "{}: {}".format(_("Counter Party Account"), move[COUNTERPART_NUMBER])
+            "{}: {}".format(
+                _("Counter Party Account"), move[COUNTERPART_NUMBER]
+            )
         )
         notes.append("{}: {}".format(_("Communication"), move[COMMUNICATION]))
         return "\n".join(notes)

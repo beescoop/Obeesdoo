@@ -200,9 +200,7 @@ class CooperativeStatus(models.Model):
                 }
                 if vals.get(field, rec[field]) != rec[field]:
                     data["change"] = "{}: {} -> {}".format(
-                        field.upper(),
-                        rec[field],
-                        vals.get(field),
+                        field.upper(), rec[field], vals.get(field)
                     )
                     self.env["cooperative.status.history"].sudo().create(data)
         return super(CooperativeStatus, self).write(vals)

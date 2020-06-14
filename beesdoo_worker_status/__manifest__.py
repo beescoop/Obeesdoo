@@ -11,6 +11,6 @@
     "version": "12.0.1.0.0",
     "depends": ["beesdoo_base", "beesdoo_shift"],
     "data": [],
-    "demo": ["demo/cooperators.xml", "demo/tasks.xml",],
+    "demo": ["demo/cooperators.xml", "demo/tasks.xml"],
     "license": "AGPL-3",
 }
