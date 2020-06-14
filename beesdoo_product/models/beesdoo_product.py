@@ -1,9 +1,10 @@
+import logging
 import uuid
 
 from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.translate import _
-import logging
+
 _logger = logging.getLogger(__name__)
 
 
@@ -99,8 +100,9 @@ class BeesdooProduct(models.Model):
         else:
             return suppliers
 
-    @api.one
+    @api.multi
     def generate_barcode(self):
+        self.ensure_one()
         if self.to_weight:
             seq_internal_code = self.env.ref(
                 "beesdoo_product.seq_ean_product_internal_ref"
@@ -145,16 +147,17 @@ class BeesdooProduct(models.Model):
         _logger.info("barcode :", bc)
         self.barcode = bc
 
-    @api.one
+    @api.multi
     @api.depends("seller_ids", "seller_ids.date_start")
     def _compute_main_seller_id(self):
+        self.ensure_one()
         # Calcule le vendeur associé qui a la date de début la plus récente et plus petite qu’aujourd’hui
         sellers_ids = (
             self._get_main_supplier_info()
         )  # self.seller_ids.sorted(key=lambda seller: seller.date_start, reverse=True)
         self.main_seller_id = sellers_ids and sellers_ids[0].name or False
 
-    @api.one
+    @api.multi
     @api.depends(
         "taxes_id",
         "list_price",
@@ -164,6 +167,7 @@ class BeesdooProduct(models.Model):
         "weight",
     )
     def _compute_total(self):
+        self.ensure_one()
         consignes_group = self.env.ref(
             "beesdoo_product.consignes_group_tax", raise_if_not_found=False
         )
@@ -209,27 +213,31 @@ class BeesdooProduct(models.Model):
         if self.display_weight > 0:
             self.total_with_vat_by_unit = self.total_with_vat / self.weight
 
-    @api.one
+    @api.multi
     @api.depends("weight", "display_unit")
     def _compute_display_weight(self):
+        self.ensure_one()
         self.display_weight = self.weight * self.display_unit.factor
 
-    @api.one
+    @api.multi
     @api.constrains("display_unit", "default_reference_unit")
     def _unit_same_category(self):
-        if (
-            self.display_unit.category_id
-            != self.default_reference_unit.category_id
-        ):
-            raise UserError(
-                _(
-                    "Reference Unit and Display Unit should belong to the same category"
+        for product in self:
+            if (
+                product.display_unit.category_id
+                != product.default_reference_unit.category_id
+            ):
+                raise UserError(
+                    _(
+                        "Reference Unit and Display Unit should belong to the "
+                        "same category "
+                    )
                 )
-            )
 
-    @api.one
+    @api.multi
     @api.depends("seller_ids")
     def _compute_cost(self):
+        self.ensure_one()
         suppliers = self._get_main_supplier_info()
         if len(suppliers) > 0:
             self.suggested_price = (
@@ -275,11 +283,12 @@ class BeesdooProductCategory(models.Model):
 
     profit_margin = fields.Float(default="10.0", string="Product Margin [%]")
 
-    @api.one
+    @api.multi
     @api.constrains("profit_margin")
     def _check_margin(self):
-        if self.profit_margin < 0.0:
-            raise UserError(_("Percentages for Profit Margin must > 0."))
+        for product in self:
+            if product.profit_margin < 0.0:
+                raise UserError(_("Percentages for Profit Margin must > 0."))
 
 
 class BeesdooProductSupplierInfo(models.Model):

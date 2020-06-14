@@ -18,6 +18,7 @@ class NewEaterWizard(models.TransientModel):
 
     partner_id = fields.Many2one("res.partner", default=_get_default_partner)
 
-    @api.one
+    @api.multi
     def create_new_eater(self):
+        self.ensure_one()
         self.partner_id._new_eater(self.first_name, self.last_name, self.email)

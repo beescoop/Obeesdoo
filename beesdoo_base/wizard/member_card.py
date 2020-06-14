@@ -20,8 +20,9 @@ class NewMemberCardWizard(models.TransientModel):
         "Force Barcode", groups="beesdoo_base.group_force_barcode"
     )
 
-    @api.one
+    @api.multi
     def create_new_card(self):
+        self.ensure_one()
         client = self.partner_id.sudo()
         client._deactivate_active_cards()
         client._new_card(
@@ -41,8 +42,9 @@ class RequestMemberCardPrintingWizard(models.TransientModel):
         "res.partner", default=_get_selected_partners
     )
 
-    @api.one
+    @api.multi
     def request_printing(self):
+        self.ensure_one()
         self.partner_ids.write({"member_card_to_be_printed": True})
 
 
@@ -57,8 +59,9 @@ class SetAsPrintedWizard(models.TransientModel):
         "res.partner", default=_get_selected_partners
     )
 
-    @api.one
+    @api.multi
     def set_as_printed(self):
+        self.ensure_one()
         self.partner_ids.write(
             {
                 "member_card_to_be_printed": False,

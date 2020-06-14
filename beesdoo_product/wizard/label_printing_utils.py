@@ -12,12 +12,14 @@ class RequestLabelPrintingWizard(models.TransientModel):
         "product.template", default=_get_selected_products
     )
 
-    @api.one
+    @api.multi
     def request_printing(self):
+        self.ensure_one()
         self.product_ids.write({"label_to_be_printed": True})
 
-    @api.one
+    @api.multi
     def set_as_printed(self):
+        self.ensure_one()
         self.product_ids.write(
             {
                 "label_to_be_printed": False,
