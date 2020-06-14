@@ -3,13 +3,13 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    'name': 'BEES coop Website Shift',
-    'summary': """
+    "name": "BEES coop Website Shift",
+    "summary": """
         Show available shifts for regular and irregular workers on the
         website and let workers manage their shifts with an
         easy web interface.
     """,
-    'description': """
+    "description": """
     """,
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
