@@ -15,5 +15,6 @@
         "security/ir.model.access.csv",
         "views/purchase_order_generator.xml",
         "views/purchase_order.xml",
+        "views/product_template.xml",
     ],
 }
