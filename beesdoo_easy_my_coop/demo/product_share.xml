@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- Share products -->
-    <record id="share_a" model="product.product" >
+    <record id="share_a" model="product.product">
         <field name="name">Acquisition de parts A de Beescoop scrl</field>
         <field name="default_code">share_a</field>
-        <field name="customer" eval="True" />
-        <field name="allow_working" eval="True" />
-        <field name="allow_shopping" eval="True" />
+        <field name="customer" eval="True"/>
+        <field name="allow_working" eval="True"/>
+        <field name="allow_shopping" eval="True"/>
         <field name="max_nb_eater_allowed">3</field>
-        <field name="is_share" eval="True" />
+        <field name="is_share" eval="True"/>
     </record>
-    <record id="share_b" model="product.product" >
+    <record id="share_b" model="product.product">
         <field name="name">Acquisition de parts B de Beescoop scrl</field>
         <field name="default_code">share_b</field>
-        <field name="customer" eval="True" />
-        <field name="allow_working" eval="False" />
-        <field name="allow_shopping" eval="True" />
+        <field name="customer" eval="True"/>
+        <field name="allow_working" eval="False"/>
+        <field name="allow_shopping" eval="True"/>
         <field name="max_nb_eater_allowed">2</field>
-        <field name="is_share" eval="True" />
+        <field name="is_share" eval="True"/>
     </record>
-    <record id="share_c" model="product.product" >
+    <record id="share_c" model="product.product">
         <field name="name">Acquisition de parts C de Beescoop scrl</field>
         <field name="default_code">share_c</field>
-        <field name="customer" eval="True" />
-        <field name="allow_working" eval="False" />
-        <field name="allow_shopping" eval="False" />
+        <field name="customer" eval="True"/>
+        <field name="allow_working" eval="False"/>
+        <field name="allow_shopping" eval="False"/>
         <field name="max_nb_eater_allowed">-1</field>
-        <field name="is_share" eval="True" />
+        <field name="is_share" eval="True"/>
     </record>
 
     <!-- Share lines -->
@@ -35,10 +35,10 @@
         <field name="share_number">2</field>
         <field name="effective_date">2020-01-01</field>
         <field name="partner_id"
-            ref="beesdoo_base.res_partner_cooperator_1_demo"/>
+               ref="beesdoo_base.res_partner_cooperator_1_demo"/>
     </record>
     <record id="beesdoo_base.res_partner_cooperator_1_demo"
-        model="res.partner">
+            model="res.partner">
         <field name="cooperator" eval="True"/>
         <field name="member" eval="True"/>
         <field name="share_ids" eval="[(4, ref('shareline_coop_1'))]"/>
@@ -50,10 +50,10 @@
         <field name="share_number">4</field>
         <field name="effective_date">2020-01-01</field>
         <field name="partner_id"
-            ref="beesdoo_base.res_partner_cooperator_2_demo"/>
+               ref="beesdoo_base.res_partner_cooperator_2_demo"/>
     </record>
     <record id="beesdoo_base.res_partner_cooperator_2_demo"
-        model="res.partner">
+            model="res.partner">
         <field name="cooperator" eval="True"/>
         <field name="member" eval="True"/>
         <field name="share_ids" eval="[(4, ref('shareline_coop_2'))]"/>
@@ -65,10 +65,10 @@
         <field name="share_number">6</field>
         <field name="effective_date">2020-01-01</field>
         <field name="partner_id"
-            ref="beesdoo_base.res_partner_cooperator_3_demo"/>
+               ref="beesdoo_base.res_partner_cooperator_3_demo"/>
     </record>
     <record id="beesdoo_base.res_partner_cooperator_3_demo"
-        model="res.partner">
+            model="res.partner">
         <field name="cooperator" eval="True"/>
         <field name="member" eval="True"/>
         <field name="share_ids" eval="[(4, ref('shareline_coop_3'))]"/>

@@ -17,47 +17,50 @@
     <record model="ir.ui.view" id="beesdoo_partner_form_view">
         <field name="name">beesdoo.partner.form.view</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="point_of_sale.view_partner_property_form" />
+        <field name="inherit_id"
+               ref="point_of_sale.view_partner_property_form"/>
         <field name="arch" type="xml">
             <field name="website" position="after">
                 <field name="eater"
-                    attrs="{'invisible': [('customer', '=', False)]}" />
+                       attrs="{'invisible': [('customer', '=', False)]}"/>
                 <field name="parent_eater_id"
-                    attrs="{'invisible' : [('eater', '!=', 'eater')]}" />
+                       attrs="{'invisible' : [('eater', '!=', 'eater')]}"/>
             </field>
             <xpath expr="//notebook" position="inside">
                 <page string="Member Card"
-                    attrs="{'invisible': ['|', ('customer', '=', False), ('eater', 'not in', ('worker_eater', 'eater'))]}">
+                      attrs="{'invisible': ['|', ('customer', '=', False), ('eater', 'not in', ('worker_eater', 'eater'))]}">
                     <group>
                         <group>
-                            <field name="member_card_to_be_printed" />
-                            <field name="last_printed" />
+                            <field name="member_card_to_be_printed"/>
+                            <field name="last_printed"/>
                         </group>
                     </group>
 
                     <group attrs="{'invisible': ['|', ('customer', '=', False), ('eater', '!=', 'worker_eater')]}">
-                        <separator string="Eaters" />
+                        <separator string="Eaters"/>
                         <field name="child_eater_ids" widget="many2many_tags"
-                            options="{'no_create': True}"
-                            context="{'default_eater' : 'eater', 'default_customer' : True}" />
+                               options="{'no_create': True}"
+                               context="{'default_eater' : 'eater', 'default_customer' : True}"/>
                         <group>
-                            <button string="New Eater" name="%(action_eater_wizard)d"
-                                type="action" />
+                            <button string="New Eater"
+                                    name="%(action_eater_wizard)d"
+                                    type="action"/>
                         </group>
-                        <separator string="Cards" />
+                        <separator string="Cards"/>
                         <field string="Cards" name="member_card_ids">
                             <tree editable="bottom">
-                                <field name="barcode" />
-                                <field name="create_date" />
-                                <field name="end_date" />
-                                <field name="responsible_id" />
-                                <field name="comment" />
-                                <field name="valid" />
+                                <field name="barcode"/>
+                                <field name="create_date"/>
+                                <field name="end_date"/>
+                                <field name="responsible_id"/>
+                                <field name="comment"/>
+                                <field name="valid"/>
                             </tree>
                         </field>
                         <group>
                             <button string="New Card"
-                                name="%(action_membercard_wizard)d" type="action" />
+                                    name="%(action_membercard_wizard)d"
+                                    type="action"/>
                         </group>
                     </group>
                 </page>
@@ -71,18 +74,19 @@
             </field>
             <field name="barcode" position="after">
                 <field name="parent_barcode"
-                    attrs="{'invisible' : [('eater', '!=', 'eater')]}" />
+                       attrs="{'invisible' : [('eater', '!=', 'eater')]}"/>
             </field>
             <!-- Temporary fix for the partner_view -->
             <xpath expr="//field[@name='customer']" position='before'>
-                <field name="is_company" invisible="True" />
+                <field name="is_company" invisible="True"/>
             </xpath>
         </field>
     </record>
 
 
     <!-- S022 : By default a supplier should be a company -->
-    <record id="base.action_partner_supplier_form" model="ir.actions.act_window">
+    <record id="base.action_partner_supplier_form"
+            model="ir.actions.act_window">
         <field name="context">{
             'search_default_supplier': 1,
             'default_customer': 0,

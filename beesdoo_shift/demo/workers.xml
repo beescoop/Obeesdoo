@@ -6,10 +6,12 @@
 <odoo>
 
     <record id="cooperative_status_1_demo" model="cooperative.status">
-        <field name="cooperator_id" ref="beesdoo_base.res_partner_cooperator_1_demo" />
-        <field name="info_session" eval="True" />
-        <field name="info_session_date" eval="datetime.now() - timedelta(days=58)" />
-        <field name="super" eval="True" />
+        <field name="cooperator_id"
+               ref="beesdoo_base.res_partner_cooperator_1_demo"/>
+        <field name="info_session" eval="True"/>
+        <field name="info_session_date"
+               eval="datetime.now() - timedelta(days=58)"/>
+        <field name="super" eval="True"/>
         <field name="sr">2</field>
         <field name="working_mode">regular</field>
     </record>
@@ -17,27 +19,33 @@
     <record id="beesdoo_base.res_partner_cooperator_1_demo" model="res.partner">
         <field name="working_mode">regular</field>
         <field name="is_worker" eval="True"/>
-        <field name="cooperative_status_ids" eval="[(6, 0, [ref('beesdoo_shift.cooperative_status_1_demo')])]"/>
+        <field name="cooperative_status_ids"
+               eval="[(6, 0, [ref('beesdoo_shift.cooperative_status_1_demo')])]"/>
     </record>
 
     <record id="cooperative_status_2_demo" model="cooperative.status">
-        <field name="cooperator_id" ref="beesdoo_base.res_partner_cooperator_2_demo" />
-        <field name="info_session" eval="False" />
+        <field name="cooperator_id"
+               ref="beesdoo_base.res_partner_cooperator_2_demo"/>
+        <field name="info_session" eval="False"/>
         <field name="sr">2</field>
         <field name="working_mode">irregular</field>
-        <field name="irregular_start_date" eval="datetime.now() - timedelta(days=3)" />
+        <field name="irregular_start_date"
+               eval="datetime.now() - timedelta(days=3)"/>
     </record>
 
     <record id="beesdoo_base.res_partner_cooperator_2_demo" model="res.partner">
         <field name="working_mode">irregular</field>
         <field name="is_worker" eval="True"/>
-        <field name="cooperative_status_ids" eval="[(6, 0, [ref('beesdoo_shift.cooperative_status_2_demo')])]"/>
+        <field name="cooperative_status_ids"
+               eval="[(6, 0, [ref('beesdoo_shift.cooperative_status_2_demo')])]"/>
     </record>
 
     <record id="cooperative_status_3_demo" model="cooperative.status">
-        <field name="cooperator_id" ref="beesdoo_base.res_partner_cooperator_3_demo" />
-        <field name="info_session" eval="True" />
-        <field name="info_session_date" eval="datetime.now() - timedelta(days=98)" />
+        <field name="cooperator_id"
+               ref="beesdoo_base.res_partner_cooperator_3_demo"/>
+        <field name="info_session" eval="True"/>
+        <field name="info_session_date"
+               eval="datetime.now() - timedelta(days=98)"/>
         <field name="sc">2</field>
         <field name="working_mode">regular</field>
     </record>
@@ -45,24 +53,29 @@
     <record id="beesdoo_base.res_partner_cooperator_3_demo" model="res.partner">
         <field name="working_mode">regular</field>
         <field name="is_worker" eval="True"/>
-        <field name="cooperative_status_ids" eval="[(6, 0, [ref('beesdoo_shift.cooperative_status_3_demo')])]"/>
+        <field name="cooperative_status_ids"
+               eval="[(6, 0, [ref('beesdoo_shift.cooperative_status_3_demo')])]"/>
     </record>
 
     <record id="cooperative_status_4_demo" model="cooperative.status">
-        <field name="cooperator_id" ref="beesdoo_base.res_partner_cooperator_4_demo" />
+        <field name="cooperator_id"
+               ref="beesdoo_base.res_partner_cooperator_4_demo"/>
         <field name="sr">2</field>
         <field name="working_mode">irregular</field>
-        <field name="irregular_start_date" eval="datetime.now() - timedelta(days=6)" />
+        <field name="irregular_start_date"
+               eval="datetime.now() - timedelta(days=6)"/>
     </record>
 
     <record id="beesdoo_base.res_partner_cooperator_4_demo" model="res.partner">
         <field name="working_mode">irregular</field>
         <field name="is_worker" eval="True"/>
-        <field name="cooperative_status_ids" eval="[(6, 0, [ref('beesdoo_shift.cooperative_status_4_demo')])]"/>
+        <field name="cooperative_status_ids"
+               eval="[(6, 0, [ref('beesdoo_shift.cooperative_status_4_demo')])]"/>
     </record>
 
     <record id="cooperative_status_5_demo" model="cooperative.status">
-        <field name="cooperator_id" ref="beesdoo_base.res_partner_cooperator_5_demo" />
+        <field name="cooperator_id"
+               ref="beesdoo_base.res_partner_cooperator_5_demo"/>
         <field name="sr">2</field>
         <field name="working_mode">regular</field>
     </record>
@@ -70,13 +83,16 @@
     <record id="beesdoo_base.res_partner_cooperator_5_demo" model="res.partner">
         <field name="working_mode">regular</field>
         <field name="is_worker" eval="True"/>
-        <field name="cooperative_status_ids" eval="[(6, 0, [ref('beesdoo_shift.cooperative_status_5_demo')])]"/>
+        <field name="cooperative_status_ids"
+               eval="[(6, 0, [ref('beesdoo_shift.cooperative_status_5_demo')])]"/>
     </record>
 
     <record id="cooperative_status_6_demo" model="cooperative.status">
-        <field name="cooperator_id" ref="beesdoo_base.res_partner_cooperator_6_demo" />
-        <field name="info_session" eval="True" />
-        <field name="info_session_date" eval="datetime.now() - timedelta(days=36)" />
+        <field name="cooperator_id"
+               ref="beesdoo_base.res_partner_cooperator_6_demo"/>
+        <field name="info_session" eval="True"/>
+        <field name="info_session_date"
+               eval="datetime.now() - timedelta(days=36)"/>
         <field name="sc">2</field>
         <field name="working_mode">regular</field>
     </record>
@@ -84,7 +100,8 @@
     <record id="beesdoo_base.res_partner_cooperator_6_demo" model="res.partner">
         <field name="working_mode">regular</field>
         <field name="is_worker" eval="True"/>
-        <field name="cooperative_status_ids" eval="[(6, 0, [ref('beesdoo_shift.cooperative_status_6_demo')])]"/>
+        <field name="cooperative_status_ids"
+               eval="[(6, 0, [ref('beesdoo_shift.cooperative_status_6_demo')])]"/>
     </record>
 
 </odoo>

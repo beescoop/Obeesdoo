@@ -6,7 +6,8 @@
         <field name="inherit_id" ref="stock.view_picking_form"></field>
         <field name="arch" type="xml">
             <button name="button_validate" position="after">
-                <button name="actions_on_articles" string="Actions on articles" type="object" class="oe_highlight"/>
+                <button name="actions_on_articles" string="Actions on articles"
+                        type="object" class="oe_highlight"/>
             </button>
         </field>
     </record>

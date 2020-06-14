@@ -5,11 +5,12 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="priority">99</field>
         <field name="arch" type="xml">
-          <xpath expr="//notebook/page[1]" position="attributes">
-            <attribute name="autofocus">0</attribute>
-          </xpath>
-          <xpath expr="//notebook" position="inside">
-                <page string="Google Sheet Infos" name="google_sheet"  autofocus="autofocus">
+            <xpath expr="//notebook/page[1]" position="attributes">
+                <attribute name="autofocus">0</attribute>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Google Sheet Infos" name="google_sheet"
+                      autofocus="autofocus">
                     <group>
                         <field name="date_stamp"/>
                         <field name="coop_number"/>
@@ -26,7 +27,7 @@
                         <field name="payment_details"/>
                         <field name="certificate_sent_date"/>
                         <field name="comment_request"/>
-                        <field name="fiscal_certificate_sent_date"/>                        
+                        <field name="fiscal_certificate_sent_date"/>
                     </group>
                 </page>
             </xpath>

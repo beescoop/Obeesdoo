@@ -9,7 +9,8 @@
         <field name="model">res.company</field>
         <field name="inherit_id" ref="easy_my_coop.view_company_inherit_form2"/>
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='coop_grp']//field[@name='display_data_policy_approval']" position="before">
+            <xpath expr="//group[@name='coop_grp']//field[@name='display_data_policy_approval']"
+                   position="before">
                 <field name="display_info_session_confirmation"/>
                 <field name="info_session_confirmation_required"/>
                 <field name="info_session_confirmation_text"/>

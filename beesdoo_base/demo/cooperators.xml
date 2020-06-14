@@ -84,51 +84,51 @@
         <field name="country_id" ref="base.be"/>
     </record>
 
-      <record id="member_card_1_demo" model="member.card">
+    <record id="member_card_1_demo" model="member.card">
         <field name="barcode">421457731741</field>
         <field name="comment">Demo data</field>
-        <field name="create_date" eval="datetime.now() - timedelta(days=15)" />
-        <field name="partner_id" ref="res_partner_cooperator_1_demo" />
-        <field name="valid" eval="True" />
+        <field name="create_date" eval="datetime.now() - timedelta(days=15)"/>
+        <field name="partner_id" ref="res_partner_cooperator_1_demo"/>
+        <field name="valid" eval="True"/>
     </record>
 
     <record id="member_card_2_demo" model="member.card">
         <field name="barcode">429919251493</field>
         <field name="comment">Demo data</field>
-        <field name="create_date" eval="datetime.now() - timedelta(days=10)" />
-        <field name="partner_id" ref="res_partner_cooperator_2_demo" />
-        <field name="valid" eval="True" />
+        <field name="create_date" eval="datetime.now() - timedelta(days=10)"/>
+        <field name="partner_id" ref="res_partner_cooperator_2_demo"/>
+        <field name="valid" eval="True"/>
     </record>
 
     <record id="member_card_3_demo" model="member.card">
         <field name="barcode">421457731742</field>
         <field name="comment">Demo data</field>
-        <field name="create_date" eval="datetime.now() - timedelta(days=15)" />
-        <field name="partner_id" ref="res_partner_cooperator_3_demo" />
-        <field name="valid" eval="True" />
+        <field name="create_date" eval="datetime.now() - timedelta(days=15)"/>
+        <field name="partner_id" ref="res_partner_cooperator_3_demo"/>
+        <field name="valid" eval="True"/>
     </record>
 
     <record id="member_card_4_demo" model="member.card">
         <field name="barcode">421457731743</field>
         <field name="comment">Demo data</field>
-        <field name="create_date" eval="datetime.now() - timedelta(days=15)" />
-        <field name="partner_id" ref="res_partner_cooperator_4_demo" />
-        <field name="valid" eval="True" />
+        <field name="create_date" eval="datetime.now() - timedelta(days=15)"/>
+        <field name="partner_id" ref="res_partner_cooperator_4_demo"/>
+        <field name="valid" eval="True"/>
     </record>
 
     <record id="member_card_5_demo" model="member.card">
         <field name="barcode">421457731744</field>
         <field name="comment">Demo data</field>
-        <field name="create_date" eval="datetime.now() - timedelta(days=15)" />
-        <field name="partner_id" ref="res_partner_cooperator_5_demo" />
-        <field name="valid" eval="True" />
+        <field name="create_date" eval="datetime.now() - timedelta(days=15)"/>
+        <field name="partner_id" ref="res_partner_cooperator_5_demo"/>
+        <field name="valid" eval="True"/>
     </record>
 
     <record id="member_card_6_demo" model="member.card">
         <field name="barcode">421457731745</field>
         <field name="comment">Demo data</field>
-        <field name="create_date" eval="datetime.now() - timedelta(days=15)" />
-        <field name="partner_id" ref="res_partner_cooperator_6_demo" />
-        <field name="valid" eval="True" />
+        <field name="create_date" eval="datetime.now() - timedelta(days=15)"/>
+        <field name="partner_id" ref="res_partner_cooperator_6_demo"/>
+        <field name="valid" eval="True"/>
     </record>
 </odoo>

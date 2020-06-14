@@ -4,52 +4,52 @@
         <field name="name">Request Label Printing Wizard</field>
         <field name="model">label.printing.wizard</field>
         <field name="arch" type="xml">
-          <form>
-              <field name="product_ids" />
-              <footer>
-                  <button
-                      type="object"
-                      name="request_printing"
-                      string="Request label printing"
-                      class="oe_highlight" />
-                  <button special="cancel" string="Cancel" />
-              </footer>
-          </form>
+            <form>
+                <field name="product_ids"/>
+                <footer>
+                    <button
+                            type="object"
+                            name="request_printing"
+                            string="Request label printing"
+                            class="oe_highlight"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
         </field>
     </record>
     <act_window name="Request label printing"
-          res_model="label.printing.wizard"
-          src_model="product.template"
-          view_mode="form"
-          target="new"
-          view_id="printing_label_request_wizard"
-          key2="client_action_multi"
-          id="beesdoo_product_action_request_label_printing"
+                res_model="label.printing.wizard"
+                src_model="product.template"
+                view_mode="form"
+                target="new"
+                view_id="printing_label_request_wizard"
+                key2="client_action_multi"
+                id="beesdoo_product_action_request_label_printing"
     />
     <record id="set_label_as_printed_wizard" model="ir.ui.view">
         <field name="name">Request Label Printing Wizard</field>
         <field name="model">label.printing.wizard</field>
         <field name="arch" type="xml">
-          <form>
-              <field name="product_ids" />
-              <footer>
-                  <button
-                      type="object"
-                      name="set_as_printed"
-                      string="Set labels as printed"
-                      class="oe_highlight" />
-                  <button special="cancel" string="Cancel" />
-              </footer>
-          </form>
+            <form>
+                <field name="product_ids"/>
+                <footer>
+                    <button
+                            type="object"
+                            name="set_as_printed"
+                            string="Set labels as printed"
+                            class="oe_highlight"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
         </field>
     </record>
     <act_window name="Set label as printed"
-          res_model="label.printing.wizard"
-          src_model="product.template"
-          view_mode="form"
-          view_id="set_label_as_printed_wizard"
-          target="new"
-          key2="client_action_multi"
-          id="beesdoo_product_action_set_label_as_printed"
+                res_model="label.printing.wizard"
+                src_model="product.template"
+                view_mode="form"
+                view_id="set_label_as_printed_wizard"
+                target="new"
+                key2="client_action_multi"
+                id="beesdoo_product_action_set_label_as_printed"
     />
 </odoo>

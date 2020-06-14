@@ -4,11 +4,11 @@
         <t t-jquery="t[t-if='widget.pos.get_client()']" t-operation="after">
             <t t-if="widget.pos.get_client()">
                 <div class='customer-information-pay'>
-                    <span class='customer-delegate1' />
-                    <br />
-                    <span class='customer-delegate2' />
-                    <br />
-                    <span class='customer-delegate3' />
+                    <span class='customer-delegate1'/>
+                    <br/>
+                    <span class='customer-delegate2'/>
+                    <br/>
+                    <span class='customer-delegate3'/>
                 </div>
             </t>
         </t>
@@ -18,22 +18,22 @@
         <t t-jquery=".paymentmethods-container" t-operation="inner">
             <t t-if="widget.pos.get_client()">
                 <div class="customer-information">
-                    <span class='customer-name' />
-                    <br />
-                    <span class='customer-delegate1' />
-                    <br />
-                    <span class='customer-delegate2' />
-                    <br />
-                    <span class='customer-delegate3' />
-                    <br />
+                    <span class='customer-name'/>
+                    <br/>
+                    <span class='customer-delegate1'/>
+                    <br/>
+                    <span class='customer-delegate2'/>
+                    <br/>
+                    <span class='customer-delegate3'/>
+                    <br/>
                 </div>
             </t>
         </t>
     </t>
 
     <t t-extend="ClientListScreenWidget">
-    	<t t-jquery='.new-customer' t-operation='replace'>
-    	</t>
+        <t t-jquery='.new-customer' t-operation='replace'>
+        </t>
 
         <t t-jquery=".client-list" t-operation="replace">
 
@@ -53,7 +53,9 @@
     <t t-extend="ClientLine">
         <t t-jquery=".client-line" t-operation="replace">
             <tr class='client-line' t-att-data-id='partner.id'>
-                <td><t t-esc='partner.name' /></td>
+                <td>
+                    <t t-esc='partner.name'/>
+                </td>
             </tr>
         </t>
     </t>

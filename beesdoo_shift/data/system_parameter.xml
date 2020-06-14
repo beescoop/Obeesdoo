@@ -19,7 +19,7 @@
         <field name="key">last_planning_seq</field>
         <field name="value">0</field>
     </record>
-        <record id="next_planning_date" model="ir.config_parameter">
+    <record id="next_planning_date" model="ir.config_parameter">
         <field name="key">next_planning_date</field>
         <field name="value">1970-01-01</field>
     </record>

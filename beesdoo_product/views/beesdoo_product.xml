@@ -3,13 +3,16 @@
     <record model="ir.ui.view" id="beesdoo_product_form">
         <field name="name">bees.product.template.form</field>
         <field name="model">product.template</field>
-        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
         <field name="arch" type="xml">
             <field name="barcode" position="after">
-                <button string="Generate Barcode" name="generate_barcode" type="object" colspan="2" attrs="{'invisible' : [('barcode','!=',False)]}" />
+                <button string="Generate Barcode" name="generate_barcode"
+                        type="object" colspan="2"
+                        attrs="{'invisible' : [('barcode','!=',False)]}"/>
             </field>
             <field name="list_price" position="after">
-                <field name="suggested_price" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                <field name="suggested_price" widget='monetary'
+                       options="{'currency_field': 'currency_id'}"/>
             </field>
             <field name="purchase_method" position="attributes">
                 <attribute name="invisible">1</attribute>
@@ -18,21 +21,21 @@
                 <attribute name="invisible">1</attribute>
             </field>
             <field name="property_account_creditor_price_difference"
-                position="attributes">
+                   position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
             <xpath expr="//group[@name='inventory']/.." position="after">
-                 <page string="Label">
-                     <group>
-                         <group name="label">
+                <page string="Label">
+                    <group>
+                        <group name="label">
                             <field name="total_with_vat"/>
                             <field name="display_weight"/>
                             <field name="display_unit"/>
                             <field name="default_reference_unit"/>
-                            <field name="total_with_vat_by_unit" />
-                            <field name="total_deposit" />
-                         </group>
-                         <group>
+                            <field name="total_with_vat_by_unit"/>
+                            <field name="total_deposit"/>
+                        </group>
+                        <group>
                             <field name="main_seller_id"/>
                             <field name="eco_label"/>
                             <field name="local_label"/>
@@ -40,36 +43,38 @@
                             <field name="origin_label"/>
                             <field name="label_to_be_printed"/>
                             <field name="label_last_printed"/>
-                         </group>
-                   </group>
-                   <group>
-                         <field name="note" />
-                 </group>
-                 </page>
-                 <page string="Scale labels" attrs="{'invisible':[('to_weight','=',False)]}">
-                     <group>
-                         <group name="scale_label">
-                             <field name="deadline_for_sale"/>
-                             <field name="deadline_for_consumption"/>
-                             <field name="ingredients"/>
-                             <field name="scale_label_info_1"/>
-                             <field name="scale_label_info_2"/>
-                         </group>
-                         <group>
-                             <field name="scale_sale_unit"/>
-                             <field name="scale_category" widget="selection"/>
-                             <field name="scale_category_code"/>
-                         </group>
-                     </group>
-                 </page>
-             </xpath>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="note"/>
+                    </group>
+                </page>
+                <page string="Scale labels"
+                      attrs="{'invisible':[('to_weight','=',False)]}">
+                    <group>
+                        <group name="scale_label">
+                            <field name="deadline_for_sale"/>
+                            <field name="deadline_for_consumption"/>
+                            <field name="ingredients"/>
+                            <field name="scale_label_info_1"/>
+                            <field name="scale_label_info_2"/>
+                        </group>
+                        <group>
+                            <field name="scale_sale_unit"/>
+                            <field name="scale_category" widget="selection"/>
+                            <field name="scale_category_code"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
         </field>
     </record>
 
     <record model="ir.ui.view" id="beesdoo_product_sales_form">
         <field name="name">bees.product.sales.form</field>
         <field name="model">product.template</field>
-        <field name="inherit_id" ref="sale.product_template_form_view_invoice_policy" />
+        <field name="inherit_id"
+               ref="sale.product_template_form_view_invoice_policy"/>
         <field name="arch" type="xml">
             <field name="invoice_policy" position="attributes">
                 <attribute name="invisible">1</attribute>
@@ -83,10 +88,10 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-                    <field name="name" />
-                    <field name="type" />
-                    <field name="color_code" />
-                    <field name="active" />
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="color_code"/>
+                    <field name="active"/>
                 </group>
             </form>
         </field>
@@ -97,10 +102,10 @@
         <field name="model">beesdoo.product.label</field>
         <field name="arch" type="xml">
             <tree editable="top">
-                <field name="name" />
-                <field name="type" />
-                <field name="color_code" />
-                <field name="active" />
+                <field name="name"/>
+                <field name="type"/>
+                <field name="color_code"/>
+                <field name="active"/>
             </tree>
         </field>
     </record>
@@ -108,7 +113,7 @@
     <record model="ir.ui.view" id="beesdoo_product_category_list">
         <field name="name">beesdoo.product.category.list</field>
         <field name="model">product.category</field>
-        <field name="inherit_id" ref="product.product_category_list_view" />
+        <field name="inherit_id" ref="product.product_category_list_view"/>
         <field name="arch" type="xml">
             <field name="display_name" position="after">
                 <field name="profit_margin"></field>
@@ -119,7 +124,7 @@
     <record model="ir.ui.view" id="beesdoo_product_category_form">
         <field name="name">beesdoo.product.category.form</field>
         <field name="model">product.category</field>
-        <field name="inherit_id" ref="product.product_category_form_view" />
+        <field name="inherit_id" ref="product.product_category_form_view"/>
         <field name="arch" type="xml">
             <field name="parent_id" position="after">
                 <field name="profit_margin"></field>
@@ -130,7 +135,7 @@
     <record model="ir.ui.view" id="beesdoo_product_supplierinfo_tree_view">
         <field name="name">beesdoo.product.supplierinfo.tree</field>
         <field name="model">product.supplierinfo</field>
-        <field name="inherit_id" ref="product.product_supplierinfo_tree_view" />
+        <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
         <field name="arch" type="xml">
             <field name="price" position="replace">
                 <field name="price"></field>
@@ -144,13 +149,14 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="label_configuration_menu" name="Labels" parent="sale.prod_config_main"
+    <menuitem id="label_configuration_menu" name="Labels"
+              parent="sale.prod_config_main"
               action="action_labels" sequence="20"/>
-              
+
     <record id="beesdoo_product_uom_categ_form" model="ir.ui.view">
         <field name="name">uom.category.form</field>
         <field name="model">uom.category</field>
-        <field name="inherit_id" ref="uom.product_uom_categ_form_view" />
+        <field name="inherit_id" ref="uom.product_uom_categ_form_view"/>
         <field name="arch" type="xml">
             <field name="name" position="after">
                 <field name="type"/>
@@ -163,31 +169,32 @@
         <field name="model">beesdoo.scale.category</field>
         <field name="arch" type="xml">
             <tree>
-                  <field name="name"/>
-                  <field name="code"/>
-              </tree>
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
         </field>
     </record>
-        
+
     <record model="ir.ui.view" id="beesdoo_scale_category_form">
         <field name="name">beesdoo.scale.category.form</field>
         <field name="model">beesdoo.scale.category</field>
         <field name="arch" type="xml">
             <form>
                 <group>
-                       <field name="name"/>
-                       <field name="code"/>
+                    <field name="name"/>
+                    <field name="code"/>
                 </group>
             </form>
         </field>
     </record>
-    
+
     <record model="ir.actions.act_window" id="action_scale_categories">
         <field name="name">Scale categories</field>
         <field name="res_model">beesdoo.scale.category</field>
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="scale_categories_configuration_menu" name="Scale categories" parent="sale.prod_config_main"
+    <menuitem id="scale_categories_configuration_menu" name="Scale categories"
+              parent="sale.prod_config_main"
               action="action_scale_categories" sequence="15"/>
 </odoo>

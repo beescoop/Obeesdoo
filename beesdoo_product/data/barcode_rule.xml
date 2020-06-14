@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data noupdate="1">
-		<record model="barcode.rule" id="beesdoo_product_barcode_rule">
-			<field name="name">Beescoop Product Barcodes</field>
-			<field name="barcode_nomenclature_id">1</field>
-			<field name="type">product</field>
-			<field name="pattern">043</field>
-			<field name="sequence">45</field>
-			<field name="encoding">ean13</field>
-		</record>
-	</data>
+    <data noupdate="1">
+        <record model="barcode.rule" id="beesdoo_product_barcode_rule">
+            <field name="name">Beescoop Product Barcodes</field>
+            <field name="barcode_nomenclature_id">1</field>
+            <field name="type">product</field>
+            <field name="pattern">043</field>
+            <field name="sequence">45</field>
+            <field name="encoding">ean13</field>
+        </record>
+    </data>
 </odoo>

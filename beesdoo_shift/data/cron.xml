@@ -2,52 +2,52 @@
     <data noupdate="1">
         <record id="ir_cron_update_today" model="ir.cron">
             <field name="name">Update Cooperatoor status base on the date</field>
-            <field name="model_id" ref="model_cooperative_status" />
+            <field name="model_id" ref="model_cooperative_status"/>
             <field name="state">code</field>
             <field name="code">model._set_today()</field>
             <field name="interval_number">24</field>
             <field name="interval_type">hours</field>
             <field name="numbercall">-1</field>
-            <field name="doall" eval="False" />
+            <field name="doall" eval="False"/>
         </record>
 
         <record id="ir_cron_generate_next_planning" model="ir.cron">
             <field name="name">Generate Next Planning</field>
-            <field name="model_id" ref="model_beesdoo_shift_planning" />
+            <field name="model_id" ref="model_beesdoo_shift_planning"/>
             <field name="state">code</field>
             <field name="code">model._generate_next_planning()</field>
             <field name="interval_number">1</field>
             <field name="interval_type">weeks</field>
             <field name="numbercall">-1</field>
-            <field name="doall" eval="False" />
+            <field name="doall" eval="False"/>
         </record>
 
         <record id="ir_cron_compute_shift_counter" model="ir.cron">
             <field name="name">Compute Shift Counter</field>
-            <field name="model_id" ref="model_cooperative_status" />
+            <field name="model_id" ref="model_cooperative_status"/>
             <field name="state">code</field>
             <field name="code">model._cron_compute_counter_irregular()</field>
             <field name="interval_number">4</field>
             <field name="interval_type">hours</field>
             <field name="numbercall">-1</field>
-            <field name="doall" eval="True" />
-            <field name="active" eval="False" />
+            <field name="doall" eval="True"/>
+            <field name="active" eval="False"/>
             <field name="state">code</field>
         </record>
 
         <record id="ir_cron_send_weekly_emails" model="ir.cron">
-          <field name="name">Send weekly shift summary</field>
-          <field name="model_id" ref="model_beesdoo_shift_shift" />
-          <field name="state">code</field>
-          <field name="code">model._cron_send_weekly_emails()</field>
-          <field name="interval_number">7</field>
-          <field name="interval_type">days</field>
-          <field name="numbercall">-1</field>
-          <field name="doall" eval="True" />
-          <field name="nextcall"
-            eval="datetime.now() + timedelta((6 - datetime.now().weekday()) % 7)"
-          />
-          <field name="active" eval="False" />
+            <field name="name">Send weekly shift summary</field>
+            <field name="model_id" ref="model_beesdoo_shift_shift"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_send_weekly_emails()</field>
+            <field name="interval_number">7</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="True"/>
+            <field name="nextcall"
+                   eval="datetime.now() + timedelta((6 - datetime.now().weekday()) % 7)"
+            />
+            <field name="active" eval="False"/>
         </record>
 
     </data>

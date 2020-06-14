@@ -9,23 +9,23 @@
                     <field name="card_support" invisible="1"/>
                     <field name="active_sheet" invisible="1"/>
                     <field name="_barcode_scanned" widget="barcode_handler"/>
-                        <label for="notes"/>
-                        <field name="notes"/>
-                        <label for="feedback"/>
-                        <field name="feedback"/>
+                    <label for="notes"/>
+                    <field name="notes"/>
+                    <label for="feedback"/>
+                    <field name="feedback"/>
                     <group>
                         <field name="worker_nb_feedback"/>
                     </group>
                     <group string="Login"
                            attrs="{'invisible': [('card_support', '=', True)]}"
                     >
-                        <field name="login" />
+                        <field name="login"/>
                         <field name="password" password="True"/>
                     </group>
                     <group string="Scan your card"
-                        attrs="{'invisible': [('card_support', '=', False)]}"
+                           attrs="{'invisible': [('card_support', '=', False)]}"
                     >
-                        <field name="barcode" />
+                        <field name="barcode"/>
                     </group>
                     <field name="warning_regular_workers"
                            readonly="1"
@@ -34,13 +34,13 @@
                 </sheet>
                 <footer>
                     <button type="object"
-                        name="validate_sheet"
-                        string="Validate"
-                        class="oe_highlight"
+                            name="validate_sheet"
+                            string="Validate"
+                            class="oe_highlight"
                     />
                     <button type="object" name="save"
-                        string="Save"  />
-                    <button special="cancel" string="Cancel" />
+                            string="Save"/>
+                    <button special="cancel" string="Cancel"/>
                 </footer>
             </form>
         </field>
