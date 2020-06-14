@@ -105,8 +105,10 @@ class Task(models.Model):
             task.is_regular or task.is_compensation
         ):
             raise ValidationError(
-                "You must choose between Regular Shift or "
-                "Compensation Shift."
+                _(
+                    "You must choose between Regular Shift or "
+                    "Compensation Shift."
+                )
             )
 
     @api.constrains("state")
@@ -142,7 +144,7 @@ class Task(models.Model):
                 task.write({"is_regular": False, "is_compensation": False})
             if task.worker_id:
                 if task.worker_id == task.replaced_id:
-                    raise UserError("A worker cannot replace himself.")
+                    raise UserError(_("A worker cannot replace himself."))
 
     def message_auto_subscribe(self, updated_fields, values=None):
         self._add_follower(values)
