@@ -4,10 +4,11 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
 <odoo>
-  <data noupdate="1">
-    <record id="beesdoo_website_shift.shift_period" model="ir.config_parameter">
-      <field name="key">beesdoo_website_shift.shift_period</field>
-      <field name="value">28</field>
-    </record>
-  </data>
+    <data noupdate="1">
+        <record id="beesdoo_website_shift.shift_period"
+                model="ir.config_parameter">
+            <field name="key">beesdoo_website_shift.shift_period</field>
+            <field name="value">28</field>
+        </record>
+    </data>
 </odoo>
