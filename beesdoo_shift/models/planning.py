@@ -10,8 +10,7 @@ from odoo.exceptions import UserError
 def float_to_time(f):
     decimal, integer = math.modf(f)
     return "{}:{}".format(
-        str(int(integer)).zfill(2),
-        str(int(round(decimal * 60))).zfill(2),
+        str(int(integer)).zfill(2), str(int(round(decimal * 60))).zfill(2)
     )
 
 
