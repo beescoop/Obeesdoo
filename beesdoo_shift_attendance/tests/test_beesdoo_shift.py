@@ -240,12 +240,10 @@ class TestBeesdooShift(TransactionCase):
         sheet_1 = self.search_sheets(self.start_in_1, self.end_in_1)
         sheet_1 = sheet_1.sudo(self.user_generic)
 
-        """
-        Expected workers are :
-            worker_regular_1 (barcode : 421457731745)
-            worker_regular_3 replaced by worker_regular_2 (barcode : 421457731744))
-            worker_irregular_1 (barcode : 429919251493)
-        """
+        # Expected workers are :
+        #     worker_regular_1 (barcode : 421457731745)
+        #     worker_regular_3 replaced by worker_regular_2 (barcode : 421457731744))
+        #     worker_irregular_1 (barcode : 429919251493)
 
         # Scan barcode for expected workers
         for barcode in [421457731745, 421457731744, 429919251493]:
@@ -256,11 +254,9 @@ class TestBeesdooShift(TransactionCase):
             shift = sheet_1.expected_shift_ids.browse(id_)
             self.assertEqual(shift.state, "done")
 
-        """
-        Added workers are :
-            worker_regular_super_1 (barcode : 421457731741)
-            worker_irregular_2 (barcode : 421457731743)
-        """
+        # Added workers are :
+        #     worker_regular_super_1 (barcode : 421457731741)
+        #     worker_irregular_2 (barcode : 421457731743)
 
         # Workararound for _onchange method
         # (not applying on temporary object in tests)
