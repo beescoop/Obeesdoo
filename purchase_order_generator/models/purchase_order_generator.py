@@ -12,7 +12,7 @@ class PurchaseOrderGenerator(models.Model):
     _name = "purchase.order.generator"
     _order = "id desc"
 
-    name = fields.Char(string="POG Reference", default=_("New"))
+    name = fields.Char(string="POG Reference", default="New")
     order_date = fields.Datetime(
         string="Purchase Order Date",
         default=fields.Datetime.now,
@@ -60,12 +60,12 @@ class PurchaseOrderGenerator(models.Model):
         suppliers = products.mapped("main_supplier_id")
 
         if not suppliers:
-            raise ValidationError("No supplier is set for selected articles.")
+            raise ValidationError(_("No supplier is set for selected articles."))
         elif len(suppliers) == 1:
             return suppliers
         else:
             raise ValidationError(
-                "You must select article from a single supplier."
+                _("You must select article from a single supplier.")
             )
 
     @api.model
@@ -108,7 +108,7 @@ class PurchaseOrderGenerator(models.Model):
 
         if sum(self.pog_line_ids.mapped("purchase_quantity")) == 0:
             raise ValidationError(
-                "You need at least a product to generate " "a Purchase Order"
+                _("You need at least a product to generate " "a Purchase Order")
             )
 
         purchase_order = self.env["purchase.order"].create(

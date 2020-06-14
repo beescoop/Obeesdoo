@@ -461,7 +461,7 @@ class AttendanceSheet(models.Model):
     def _validate(self, user):
         self.ensure_one()
         if self.state == "validated":
-            raise UserError("The sheet has already been validated.")
+            raise UserError(_("The sheet has already been validated."))
 
         # Expected shifts status update
         for expected_shift in self.expected_shift_ids:

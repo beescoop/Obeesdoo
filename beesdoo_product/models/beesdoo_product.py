@@ -169,7 +169,7 @@ class BeesdooProduct(models.Model):
 
         elif len(taxes_included) > 1:
             raise ValidationError(
-                "Several tax strategies (price_include) defined for %s"
+                _("Several tax strategies (price_include) defined for %s")
                 % self.name
             )
 
