@@ -5,8 +5,8 @@
 {
     "name": "Beescoop Crelan Import module",
     "summary": """
-		Import Crelan CSV Wizard
-     """,
+        Import Crelan CSV Wizard
+    """,
     "author": "Beescoop - Cellule IT, Coop IT Easy SCRLfs",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Accounting & Finance",

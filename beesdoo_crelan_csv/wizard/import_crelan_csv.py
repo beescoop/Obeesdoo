@@ -99,7 +99,7 @@ class CodaBankStatementImport(models.TransientModel):
         return journal.bank_acc_number
 
     def _get_acc_balance_crelan(self, acc_number):
-        if not self.init_balance == None:
+        if self.init_balance is not None:
             return self.init_balance
 
         journal = self.env["account.journal"].search(
@@ -110,15 +110,15 @@ class CodaBankStatementImport(models.TransientModel):
             self.init_balance = 0.0
         else:
             lang = self._context.get("lang", "en_US")
-            l = self.env["res.lang"].search([("code", "=", lang)])
+            lang = self.env["res.lang"].search([("code", "=", lang)])
             balance = journal.get_journal_dashboard_datas()["last_balance"][
                 :-1
             ]
             self.init_balance = float(
                 balance.replace(currency.symbol, "")
                 .strip()
-                .replace(l.thousands_sep, "")
-                .replace(l.decimal_point, ".")
+                .replace(lang.thousands_sep, "")
+                .replace(lang.decimal_point, ".")
             )
         return self.init_balance
 

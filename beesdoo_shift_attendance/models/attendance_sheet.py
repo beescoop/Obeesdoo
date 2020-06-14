@@ -647,9 +647,7 @@ class AttendanceSheet(models.Model):
             )
 
             if not sheets:
-                sheet = sheets.create(
-                    {"start_time": start_time, "end_time": end_time}
-                )
+                sheets.create({"start_time": start_time, "end_time": end_time})
 
     @api.model
     def _cron_non_validated_sheets(self):

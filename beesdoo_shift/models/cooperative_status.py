@@ -191,7 +191,7 @@ class CooperativeStatus(models.Model):
             "alert_start_time",
             "unsubscribed",
         ]:
-            if not field in vals:
+            if field not in vals:
                 continue
             for rec in self:
                 data = {
@@ -358,7 +358,7 @@ class CooperativeStatus(models.Model):
         pass
 
     ###############################################
-    ###### Irregular Cron implementation ##########
+    #        Irregular Cron implementation        #
     ###############################################
 
     def _get_irregular_worker_domain(self):

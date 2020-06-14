@@ -317,7 +317,7 @@ class CooperativeStatus(models.Model):
         self.irregular_absence_date = data.get("irregular_absence_date", False)
 
     ###############################################
-    ###### Irregular Cron implementation ##########
+    #        Irregular Cron implementation        #
     ###############################################
 
     def _get_irregular_worker_domain(self, **kwargs):
