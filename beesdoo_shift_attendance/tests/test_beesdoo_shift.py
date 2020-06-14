@@ -252,8 +252,8 @@ class TestBeesdooShift(TransactionCase):
             sheet_1.on_barcode_scanned(barcode)
 
         # Check expected shifts update
-        for id in sheet_1.expected_shift_ids.ids:
-            shift = sheet_1.expected_shift_ids.browse(id)
+        for id_ in sheet_1.expected_shift_ids.ids:
+            shift = sheet_1.expected_shift_ids.browse(id_)
             self.assertEqual(shift.state, "done")
 
         """
@@ -275,8 +275,8 @@ class TestBeesdooShift(TransactionCase):
         self.assertEqual(len(sheet_1.added_shift_ids), 2)
 
         # Check added shifts fields
-        for id in sheet_1.added_shift_ids.ids:
-            shift = sheet_1.added_shift_ids.browse(id)
+        for id_ in sheet_1.added_shift_ids.ids:
+            shift = sheet_1.added_shift_ids.browse(id_)
             self.assertEqual(sheet_1, shift.attendance_sheet_id)
             self.assertEqual(shift.state, "done")
             self.assertEqual(

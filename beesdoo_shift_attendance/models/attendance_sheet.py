@@ -377,8 +377,8 @@ class AttendanceSheet(models.Model):
             )
 
         # Expected shifts status update
-        for id in self.expected_shift_ids.ids:
-            shift = self.env["beesdoo.shift.sheet.expected"].browse(id)
+        for id_ in self.expected_shift_ids.ids:
+            shift = self.env["beesdoo.shift.sheet.expected"].browse(id_)
             if (
                 shift.worker_id == worker and not shift.replaced_id
             ) or shift.replaced_id == worker:
