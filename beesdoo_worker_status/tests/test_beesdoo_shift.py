@@ -1,11 +1,9 @@
 # Copyright 2019 - Today Coop IT Easy SCRLfs (<http://www.coopiteasy.be>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-import time
 from datetime import datetime, timedelta
 
-from odoo import exceptions, fields
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
 
 

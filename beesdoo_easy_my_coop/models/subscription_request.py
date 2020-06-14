@@ -1,11 +1,10 @@
 # Copyright 2019 Coop IT Easy SCRLfs
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import fields, models
 
 
 class SubscriptionRequest(models.Model):
-
     _inherit = "subscription.request"
 
     info_session_confirmed = fields.Boolean(

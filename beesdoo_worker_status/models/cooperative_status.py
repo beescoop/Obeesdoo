@@ -1,8 +1,4 @@
-import logging
-from datetime import datetime, timedelta
-
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError, ValidationError
+from odoo import api, fields, models
 
 from odoo.addons.beesdoo_shift.models.cooperative_status import add_days_delta
 

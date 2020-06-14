@@ -3,13 +3,12 @@
 # Copyright 2017-2018 Thibault François
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from ast import literal_eval
 from datetime import datetime, timedelta
 from itertools import groupby
 
 from pytz import timezone, utc
 
-from odoo import fields, http
+from odoo import http
 from odoo.http import request
 
 from odoo.addons.beesdoo_shift.models.planning import float_to_time

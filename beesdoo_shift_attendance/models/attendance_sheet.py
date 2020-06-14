@@ -1,9 +1,7 @@
 from datetime import date, datetime, timedelta
 
-from lxml import etree
-
-from odoo import _, api, exceptions, fields, models
-from odoo.exceptions import UserError, ValidationError
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 
 class AttendanceSheetShift(models.Model):

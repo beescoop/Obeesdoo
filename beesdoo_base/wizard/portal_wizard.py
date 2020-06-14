@@ -1,8 +1,7 @@
-from odoo import SUPERUSER_ID, api, fields, models
+from odoo import api, models
 
 
 class BeesdooWizard(models.TransientModel):
-
     _inherit = "portal.wizard"
 
     @api.onchange("portal_id")

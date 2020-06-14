@@ -1,8 +1,4 @@
-import json
-from datetime import datetime, timedelta
-
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError, ValidationError
+from odoo import fields, models
 
 
 class Task(models.Model):

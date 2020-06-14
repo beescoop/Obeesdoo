@@ -4,8 +4,7 @@
 import time
 from datetime import datetime, timedelta
 
-from odoo import exceptions, fields
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import UserError
 from odoo.tests.common import TransactionCase
 
 

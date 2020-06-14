@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from odoo import _, api, fields, models
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import UserError
 
 
 class GenerateMissingAttendanceSheets(models.TransientModel):

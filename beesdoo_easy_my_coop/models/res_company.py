@@ -1,11 +1,10 @@
 # Copyright 2019 Coop IT Easy SCRLfs
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 
 class ResCompany(models.Model):
-
     _inherit = "res.company"
     display_info_session_confirmation = fields.Boolean(
         help="Choose to display a info session checkbox on the cooperator"

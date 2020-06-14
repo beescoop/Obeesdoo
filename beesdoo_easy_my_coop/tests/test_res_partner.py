@@ -1,7 +1,6 @@
 # Copyright 2020 Coop IT Easy SCRLfs (<http://www.coopiteasy.be>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import exceptions
 from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
 

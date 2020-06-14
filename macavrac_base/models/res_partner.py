@@ -1,9 +1,7 @@
-from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo import api, fields, models
 
 
 class Partner(models.Model):
-
     _inherit = "res.partner"
 
     date_stamp = fields.Date(

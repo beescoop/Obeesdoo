@@ -1,4 +1,3 @@
-from odoo import http
 from odoo.http import request
 
 from odoo.addons.easy_my_coop_website.controllers.main import (

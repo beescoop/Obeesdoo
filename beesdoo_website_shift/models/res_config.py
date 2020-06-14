@@ -1,9 +1,7 @@
 # Copyright 2017-2020 Rémy Taymans <remytaymans@gmail.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from ast import literal_eval
-
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class WebsiteShiftConfigSettings(models.TransientModel):
