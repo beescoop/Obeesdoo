@@ -44,6 +44,8 @@ class TestModule(TransactionCase):
     def _create_order(self):
         date = fields.Date.today() - timedelta(days=1)
         date_str = fields.Date.to_string(date)
+        account = self.env.user.partner_id.property_account_receivable_id
+        statement = self.pos_config.current_session_id.statement_ids[0]
         order_data = {
             "id": u"0006-001-0010",
             "to_invoice": True,
@@ -75,10 +77,8 @@ class TestModule(TransactionCase):
                             "journal_id": self.pos_config.journal_ids[0].id,
                             "amount": 0.9,
                             "name": fields.Datetime.now(),
-                            "account_id": self.env.user.partner_id.property_account_receivable_id.id,
-                            "statement_id": self.pos_config.current_session_id.statement_ids[
-                                0
-                            ].id,
+                            "account_id": account.id,
+                            "statement_id": statement.id,
                         },
                     ]
                 ],

@@ -53,11 +53,13 @@ class Partner(models.Model):
             ):
                 raise ValidationError(
                     _(
-                        "You try to assign a eater to a worker but this eater is already assign to %s please remove it before"
+                        "You try to assign a eater to a worker but this eater "
+                        "is already assign to %s please remove it before "
                     )
                     % rec.parent_eater_id.name
                 )
-        # replace many2many command when writing on child_eater_ids to just remove the link
+        # replace many2many command when writing on child_eater_ids to just
+        # remove the link
         if "child_eater_ids" in values:
             for command in values["child_eater_ids"]:
                 if command[0] == 2:

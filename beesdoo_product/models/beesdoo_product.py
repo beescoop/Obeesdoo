@@ -151,10 +151,9 @@ class BeesdooProduct(models.Model):
     @api.depends("seller_ids", "seller_ids.date_start")
     def _compute_main_seller_id(self):
         self.ensure_one()
-        # Calcule le vendeur associé qui a la date de début la plus récente et plus petite qu’aujourd’hui
-        sellers_ids = (
-            self._get_main_supplier_info()
-        )  # self.seller_ids.sorted(key=lambda seller: seller.date_start, reverse=True)
+        # Calcule le vendeur associé qui a la date de début la plus récente
+        # et plus petite qu’aujourd’hui
+        sellers_ids = self._get_main_supplier_info()
         self.main_seller_id = sellers_ids and sellers_ids[0].name or False
 
     @api.multi

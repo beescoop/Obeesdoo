@@ -38,7 +38,8 @@ class ProductTemplate(models.Model):
         from pos_order_line pol
                  join pos_order po ON pol.order_id = po.id
                  join product_product product ON pol.product_id = product.id
-                 join product_template template ON product.product_tmpl_id = template.id
+                 join product_template template
+                  ON product.product_tmpl_id = template.id
         where po.state in ('done', 'invoiced', 'paid')
           and template.active
           and po.date_order

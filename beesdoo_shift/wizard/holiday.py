@@ -24,7 +24,8 @@ class Subscribe(models.TransientModel):
         ):
             raise ValidationError(
                 _(
-                    "You cannot encode new holidays since the previous holidays encoded are not over yet"
+                    "You cannot encode new holidays since the previous "
+                    "holidays encoded are not over yet "
                 )
             )
         status_id.sudo().write(

@@ -5,7 +5,8 @@
     "name": "Product - Stock Coverage",
     "version": "12.0.0.0.1",
     "category": "Product",
-    "summary": "Compute estimated stock coverage based on product sales over a date range.",
+    "summary": "Compute estimated stock coverage based on product sales over "
+    "a date range.",
     "author": "Coop IT Easy SCRLfs",
     "website": "https://www.coopiteasy.be",
     "license": "AGPL-3",

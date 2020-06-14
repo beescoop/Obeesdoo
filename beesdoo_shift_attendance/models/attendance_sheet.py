@@ -218,7 +218,8 @@ class AttendanceSheet(models.Model):
     _sql_constraints = [
         (
             "check_not_annotated_mark_as_read",
-            "CHECK ((is_annotated=FALSE AND is_read=FALSE) OR is_annotated=TRUE)",
+            "CHECK"
+            " ((is_annotated=FALSE AND is_read=FALSE) OR is_annotated=TRUE)",
             _("Non-annotated sheets can't be marked as read."),
         )
     ]
@@ -295,7 +296,8 @@ class AttendanceSheet(models.Model):
         if (len(ids) - len(set(ids))) > 0:
             raise UserError(
                 _(
-                    "You can't add the same worker more than once to an attendance sheet."
+                    "You can't add the same worker more than once to an "
+                    "attendance sheet. "
                 )
             )
 
@@ -333,14 +335,16 @@ class AttendanceSheet(models.Model):
         if not len(worker):
             raise UserError(
                 _(
-                    "Worker not found (invalid barcode or status). \nBarcode : %s"
+                    "Worker not found (invalid barcode or status). \n"
+                    "Barcode : %s"
                 )
                 % barcode
             )
         if len(worker) > 1:
             raise UserError(
                 _(
-                    "Multiple workers are corresponding this barcode. \nBarcode : %s"
+                    "Multiple workers are corresponding this barcode. \n"
+                    "Barcode : %s"
                 )
                 % barcode
             )
@@ -363,13 +367,15 @@ class AttendanceSheet(models.Model):
             raise UserError(
                 _(
                     "Beware, you are recorded as resigning. "
-                    "Please contact member's office if this is incorrect. Thank you."
+                    "Please contact member's office if this is incorrect. "
+                    "Thank you. "
                 )
             )
         if worker.working_mode not in ("regular", "irregular"):
             raise UserError(
                 _(
-                    "%s's working mode is %s and should be regular or irregular."
+                    "%s's working mode is %s and should be regular or "
+                    "irregular. "
                 )
                 % (worker.name, worker.working_mode)
             )
@@ -395,7 +401,9 @@ class AttendanceSheet(models.Model):
             # Added shift creation
             self.added_shift_ids |= self.added_shift_ids.new(
                 {
-                    "task_type_id": self.added_shift_ids.pre_filled_task_type_id(),
+                    "task_type_id": (
+                        self.added_shift_ids.pre_filled_task_type_id()
+                    ),
                     "state": "done",
                     "attendance_sheet_id": self._origin.id,
                     "worker_id": worker.id,
@@ -537,7 +545,8 @@ class AttendanceSheet(models.Model):
         if self.start_time > datetime.now():
             raise UserError(
                 _(
-                    "Attendance sheet can only be validated once the shifts have started."
+                    "Attendance sheet can only be validated once the shifts "
+                    "have started. "
                 )
             )
 

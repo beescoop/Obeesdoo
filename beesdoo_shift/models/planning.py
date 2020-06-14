@@ -42,7 +42,9 @@ class DayNumber(models.Model):
     name = fields.Char()
     number = fields.Integer(
         "Day Number",
-        help="From 1 to N, When you will instanciate your planning, Day 1 will be the start date of the instance, Day 2 the second, etc...",
+        help="From 1 to N, When you will instanciate your planning, Day 1 "
+        "will be the start date of the instance, Day 2 the second, "
+        "etc...",
     )
     active = fields.Boolean(default=True)
 
@@ -99,7 +101,8 @@ class TaskTemplate(models.Model):
         "beesdoo.shift.daynumber", string="Day", required=True
     )
     task_type_id = fields.Many2one("beesdoo.shift.type", string="Type")
-    # attendance_sheet_id = fields.Many2one('beesdoo.shift.sheet', string="Attendance Sheet") FIXME removed because beesdoo.shift.sheet is from another module.
+    # FIXME removed because beesdoo.shift.sheet is from another module.
+    # attendance_sheet_id = fields.Many2one('beesdoo.shift.sheet', string="Attendance Sheet")  # noqa
     start_time = fields.Float(required=True)
     end_time = fields.Float(required=True)
     super_coop_id = fields.Many2one(
@@ -177,7 +180,8 @@ class TaskTemplate(models.Model):
             if len(rec.worker_ids) > rec.worker_nb:
                 raise UserError(
                     _(
-                        "You cannot assign more workers than the maximal number defined on template."
+                        "You cannot assign more workers than the maximal "
+                        "number defined on template. "
                     )
                 )
 

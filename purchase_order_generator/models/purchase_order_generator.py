@@ -126,10 +126,11 @@ class PurchaseOrderGenerator(models.Model):
 
         for cpo_line in self.pog_line_ids:
             if cpo_line.purchase_quantity > 0:
+                product = cpo_line.product_template_id.product_variant_id
                 pol = self.env["purchase.order.line"].create(
                     {
                         "name": cpo_line.name,
-                        "product_id": cpo_line.product_template_id.product_variant_id.id,
+                        "product_id": product.id,
                         "product_qty": cpo_line.purchase_quantity,
                         "price_unit": cpo_line.product_price,
                         "product_uom": cpo_line.uom_po_id.id,

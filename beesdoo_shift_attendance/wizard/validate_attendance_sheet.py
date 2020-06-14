@@ -45,8 +45,9 @@ class ValidateAttendanceSheet(models.TransientModel):
                 if is_regular_worker and not is_compensation:
                     warning_message += (
                         _(
-                            "\n%s attended its shift as a normal one but was not expected. "
-                            "Something may be wrong in his/her personnal informations.\n"
+                            "\n%s attended its shift as a normal one but was "
+                            "not expected. Something may be wrong in his/her "
+                            "personnal informations.\n "
                         )
                         % added_shift.worker_id.name
                     )
@@ -124,7 +125,8 @@ class ValidateAttendanceSheet(models.TransientModel):
         if not partner.super and not can_validate:
             raise UserError(
                 _(
-                    "Only super-cooperators and administrators can validate attendance sheets."
+                    "Only super-cooperators and administrators can validate "
+                    "attendance sheets. "
                 )
             )
 

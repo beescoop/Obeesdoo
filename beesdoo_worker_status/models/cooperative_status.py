@@ -171,7 +171,8 @@ class CooperativeStatus(models.Model):
             ):
                 return "exempted"
 
-        # Transition to alert sr < 0 or stay in alert sr < 0 or sc < 0 and thus alert time is defined
+        # Transition to alert sr < 0 or stay in alert sr < 0 or sc < 0 and
+        # thus alert time is defined
         if (
             not ok
             and self.alert_start_time
@@ -237,7 +238,8 @@ class CooperativeStatus(models.Model):
                 or self.today <= self.temporary_exempt_end_date
             ):
                 return "exempted"
-        # Transition to alert sr < 0 or stay in alert sr < 0 or sc < 0 and thus alert time is defined
+        # Transition to alert sr < 0 or stay in alert sr < 0 or sc < 0 and
+        # thus alert time is defined
         elif (
             not ok
             and self.alert_start_time

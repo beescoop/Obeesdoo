@@ -20,9 +20,10 @@ class CustomerPortalRestrictModification(CustomerPortal):
     def details_form_validate(self, data):
         error, error_message = super().details_form_validate(data)
 
-        # since we override mandatory and optional billing fields,
-        # parent method will insert the following key/value in `error` dict and `error_message` list,
-        # preventing from saving the form. Workaround is to remove them from both dict and list.
+        # since we override mandatory and optional billing fields, parent
+        # method will insert the following key/value in `error` dict and
+        # `error_message` list, preventing from saving the form. Workaround
+        # is to remove them from both dict and list.
         if (
             error.get("common")
             and error["common"].lower() == "unknown field"
