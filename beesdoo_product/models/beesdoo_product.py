@@ -3,6 +3,8 @@ import uuid
 from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.translate import _
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class BeesdooProduct(models.Model):
@@ -140,7 +142,7 @@ class BeesdooProduct(models.Model):
                 bc = ean[0:12] + str(
                     self.env["barcode.nomenclature"].ean_checksum(ean)
                 )
-        print("barcode :", bc)
+        _logger.info("barcode :", bc)
         self.barcode = bc
 
     @api.one
