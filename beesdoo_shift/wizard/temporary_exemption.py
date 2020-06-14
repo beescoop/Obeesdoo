@@ -27,14 +27,16 @@ class TemporaryExemption(models.TransientModel):
         ):
             raise ValidationError(
                 _(
-                    "You cannot encode new temporary exemptuon since the previous one are not over yet"
+                    "You cannot encode new temporary exemption since the "
+                    "previous one are not over yet "
                 )
             )
+        reason = self.temporary_exempt_reason_id
         status_id.sudo().write(
             {
                 "temporary_exempt_start_date": self.temporary_exempt_start_date,
                 "temporary_exempt_end_date": self.temporary_exempt_end_date,
-                "temporary_exempt_reason_id": self.temporary_exempt_reason_id.id,
+                "temporary_exempt_reason_id": reason.id,
             }
         )
         self.env["beesdoo.shift.shift"].sudo().unsubscribe_from_today(

@@ -163,9 +163,12 @@ class Task(models.Model):
         self, worker_ids, today=None, end_date=None, now=None
     ):
         """
-        Unsubscribe workers from *worker_ids* from all shift that start *today* and later.
-        If *end_date* is given, unsubscribe workers from shift between *today* and *end_date*.
-        If *now* is given workers are unsubscribed from all shifts starting *now* and later.
+        Unsubscribe workers from *worker_ids* from all shift that start
+          *today* and later.
+        If *end_date* is given, unsubscribe workers from shift between *today*
+          and *end_date*.
+        If *now* is given workers are unsubscribed from all shifts starting
+           *now* and later.
         If *now* is given, *end_date* is not taken into account.
 
         :type today: date
@@ -278,7 +281,8 @@ class Task(models.Model):
         ):
             raise UserError(
                 _(
-                    "You cannot change to the status %s if no worker is defined for the shift"
+                    "You cannot change to the status %s if no worker is "
+                    "defined for the shift "
                 )
                 % new_state
             )
@@ -294,7 +298,8 @@ class Task(models.Model):
         if not (self.worker_id.working_mode in ["regular", "irregular"]):
             raise UserError(
                 _(
-                    "Working mode is not properly defined. Please check if the worker is subscribed"
+                    "Working mode is not properly defined. Please check if "
+                    "the worker is subscribed "
                 )
             )
 

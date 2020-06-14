@@ -56,7 +56,8 @@ class CooperativeStatus(models.Model):
         ]
 
     today = fields.Date(
-        help="Field that allow to compute field and store them even if they are based on the current date",
+        help="Field that allow to compute field and store them even if they "
+        "are based on the current date",
         default=fields.Date.today,
     )
     cooperator_id = fields.Many2one("res.partner")
@@ -71,7 +72,8 @@ class CooperativeStatus(models.Model):
     time_extension = fields.Integer(
         "Extension Days NB",
         default=0,
-        help="Addtional days to the automatic extension, 5 mean that you have a total of 15 extension days of default one is set to 10",
+        help="Addtional days to the automatic extension, 5 mean that you have "
+        "a total of 15 extension days of default one is set to 10",
     )
     holiday_start_time = fields.Date("Holidays Start Day")
     holiday_end_time = fields.Date("Holidays End Day")
@@ -240,7 +242,8 @@ class CooperativeStatus(models.Model):
 
     def get_status_value(self):
         """
-        Workararound to get translated selection value instead of key in mail template.
+        Workararound to get translated selection value instead of key in mail
+        template.
         """
         state_list = (
             self.env["cooperative.status"]
