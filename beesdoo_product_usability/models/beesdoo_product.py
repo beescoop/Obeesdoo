@@ -5,12 +5,12 @@ class BeesdooProduct(models.Model):
     _inherit = "product.template"
 
     main_supplierinfo = fields.Many2one(
-        "product.supplierinfo",
+        comodel_name="product.supplierinfo",
         string="Main Supplier Information",
         compute="_compute_main_supplierinfo",
     )
     main_price = fields.Float(
-        string="Price", compute="_compute_main_supplierinfo"
+        string="Supplier Price", compute="_compute_main_supplierinfo"
     )
     main_minimum_qty = fields.Float(
         string="Minimum Quantity", compute="_compute_main_supplierinfo"
