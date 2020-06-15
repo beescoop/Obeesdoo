@@ -16,6 +16,7 @@
         <field name="city">Etterbeek</field>
         <field name="zip">1040</field>
         <field name="country_id" ref="base.be"/>
+        <field name="cooperator_type">share_a</field>
     </record>
 
     <record id="res_partner_cooperator_2_demo" model="res.partner">
@@ -28,6 +29,7 @@
         <field name="city">Bruxelles</field>
         <field name="zip">10000</field>
         <field name="country_id" ref="base.be"/>
+        <field name="cooperator_type">share_a</field>
     </record>
 
     <record id="res_partner_cooperator_3_demo" model="res.partner">
@@ -40,6 +42,7 @@
         <field name="city">Landudec</field>
         <field name="zip">29710</field>
         <field name="country_id" ref="base.fr"/>
+        <field name="cooperator_type">share_a</field>
     </record>
 
     <record id="res_partner_cooperator_4_demo" model="res.partner">
@@ -52,6 +55,7 @@
         <field name="city">Ixelles</field>
         <field name="zip">1050</field>
         <field name="country_id" ref="base.be"/>
+        <field name="cooperator_type">share_a</field>
     </record>
 
     <record id="res_partner_cooperator_5_demo" model="res.partner">
@@ -64,6 +68,7 @@
         <field name="city">Nantes</field>
         <field name="zip">44000</field>
         <field name="country_id" ref="base.fr"/>
+        <field name="cooperator_type">share_a</field>
     </record>
 
     <record id="res_partner_cooperator_6_demo" model="res.partner">
@@ -76,6 +81,7 @@
         <field name="city">St-Gilles</field>
         <field name="zip">1060</field>
         <field name="country_id" ref="base.be"/>
+        <field name="cooperator_type">share_a</field>
     </record>
 
     <record id="member_card_1_demo" model="member.card">
