@@ -88,7 +88,7 @@ class CooperativeStatus(models.Model):
         string="Working mode",
     )
     exempt_reason_id = fields.Many2one(
-        "cooperative.exempt.reason", "Exempt Reason"
+        comodel_name="cooperative.exempt.reason", string="Exempt Reason"
     )
     status = fields.Selection(
         selection=_get_status,
@@ -115,7 +115,8 @@ class CooperativeStatus(models.Model):
     next_countdown_date = fields.Date(compute="_compute_next_countdown_date")
 
     temporary_exempt_reason_id = fields.Many2one(
-        "cooperative.exempt.reason", "Exempt Reason"
+        comodel_name="cooperative.exempt.reason",
+        string="Temporary Exempt Reason",
     )
     temporary_exempt_start_date = fields.Date()
     temporary_exempt_end_date = fields.Date()
