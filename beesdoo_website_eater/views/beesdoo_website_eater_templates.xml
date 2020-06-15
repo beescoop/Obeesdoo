@@ -11,7 +11,7 @@
             name="Website Eater Details Side"
             priority="50"
             inherit_id="portal.portal_layout">
-        <xpath expr="//div[@class='o_portal_my_details']" position="after">
+        <xpath expr="//div[hasclass('o_portal_my_details')]" position="after">
             <div class="o_my_details_eater mt-2">
                 <h4 class="page-header">Your Eaters</h4>
                 <hr class="mt-1 mb-0"/>
