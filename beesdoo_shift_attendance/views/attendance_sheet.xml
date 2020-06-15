@@ -51,7 +51,6 @@
     </record>
 
     <record model="ir.ui.view" id="sheet_added_view_tree">
-        <field name="view_mode">tree</field>
         <field name="name">Added Shifts List</field>
         <field name="model">beesdoo.shift.sheet.added</field>
         <field name="arch" type="xml">
@@ -76,7 +75,6 @@
     </record>
 
     <record model="ir.ui.view" id="sheet_expected_view_form">
-        <field name="view_mode">tree</field>
         <field name="name">Expected Shifts Form</field>
         <field name="model">beesdoo.shift.sheet.expected</field>
         <field name="arch" type="xml">
@@ -98,7 +96,6 @@
     </record>
 
     <record model="ir.ui.view" id="sheet_added_view_form">
-        <field name="view_mode">tree</field>
         <field name="name">Added Shifts Form</field>
         <field name="model">beesdoo.shift.sheet.added</field>
         <field name="arch" type="xml">
