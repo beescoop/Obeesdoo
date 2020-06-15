@@ -14,9 +14,7 @@ class WebsiteShiftConfigSettings(models.TransientModel):
     highlight_rule_pc = fields.Integer(
         related="website_id.highlight_rule_pc", readonly=False
     )
-    hide_rule = fields.Integer(
-        related="website_id.highlight_rule_pc", readonly=False
-    )
+    hide_rule = fields.Integer(related="website_id.hide_rule", readonly=False)
     irregular_enable_sign_up = fields.Boolean(
         related="website_id.irregular_enable_sign_up", readonly=False
     )

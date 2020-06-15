@@ -19,7 +19,10 @@ class ResPartner(models.Model):
         store=True,
     )
     cooperative_status_ids = fields.One2many(
-        "cooperative.status", "cooperator_id", readonly=True
+        string="Cooperative Statuses",
+        comodel_name="cooperative.status",
+        inverse_name="cooperator_id",
+        readonly=True,
     )
     super = fields.Boolean(
         related="cooperative_status_ids.super",
