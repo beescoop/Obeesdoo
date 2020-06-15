@@ -12,14 +12,16 @@ class Website(models.Model):
         default=0, help="Maximum shift that will be shown"
     )
     highlight_rule_pc = fields.Integer(
+        string="Percentage threshold highlight rule",
         default=30,
-        help="Treshold (in %) of available space in a shift that trigger the "
+        help="Threshold (in %) of available space in a shift that trigger the "
         "highlight of the shift",
     )
     hide_rule = fields.Integer(
+        string="Hide Rule",
         default=20,
-        help="Treshold ((available space)/(max space)) in percentage of "
-        "available space under wich the shift is hidden",
+        help="Threshold ((available space)/(max space)) in percentage of "
+        "available space under which the shift is hidden",
     )
     irregular_enable_sign_up = fields.Boolean(
         default=True, help="Enable shift sign up for irregular worker"
