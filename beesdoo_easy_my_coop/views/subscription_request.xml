@@ -3,17 +3,6 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 
 <odoo>
-	<record id="view_partner_form_easy_my_coop" model="ir.ui.view">
-        <field name="name">res.partner.form.easy_my_coop</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="easy_my_coop.view_partner_form_easy_my_coop"/>
-        <field name="arch" type="xml">
-            <field name="data_policy_approved" position="after">
-                <field name="info_session_confirmed"
-                       attrs="{'invisible':[('member','=',False)]}"/>
-            </field>
-        </field>
-    </record>
 
     <record model="ir.ui.view" id="subscription_request_form_view">
         <field name="name">subscription.request.form (in beesdoo_easy_my_coop)</field>
