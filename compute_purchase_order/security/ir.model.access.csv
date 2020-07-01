@@ -1,11 +1,11 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 
-access_purchase_order,purchase.order,model_computed_purchase_order,purchase.group_purchase_user,1,1,1,1
-access_purchase_order_manager,purchase.order,model_computed_purchase_order,purchase.group_purchase_manager,1,1,1,1
-access_purchase_order_stock_worker,purchase.order,model_computed_purchase_order,stock.group_stock_user,1,0,0,0
-access_purchase_order_invoicing_payments,purchase.order,model_computed_purchase_order,account.group_account_invoice,1,1,0,0
+access_computed_purchase_order,computed.purchase.order,model_computed_purchase_order,purchase.group_purchase_user,1,1,1,1
+access_computed_purchase_order_manager,computed.purchase.order,model_computed_purchase_order,purchase.group_purchase_manager,1,1,1,1
+access_computed_purchase_order_stock_worker,computed.purchase.order,model_computed_purchase_order,stock.group_stock_user,1,0,0,0
+access_computed_purchase_order_invoicing_payments,computed.purchase.order,model_computed_purchase_order,account.group_account_invoice,1,1,0,0
 
-access_purchase_order_line,purchase.order.line user,model_computed_purchase_order_line,purchase.group_purchase_user,1,1,1,1
-access_purchase_order_line_manager,purchase.order.line manager,model_computed_purchase_order_line,purchase.group_purchase_manager,1,1,1,1
-access_purchase_order_line_stock_worker,purchase.order.line,model_computed_purchase_order_line,stock.group_stock_user,1,0,0,0
-access_purchase_order_line_invoicing_payments,purchase.order.line,model_computed_purchase_order_line,account.group_account_invoice,1,1,0,0
+access_computed_purchase_order_line,computed.purchase.order.line user,model_computed_purchase_order_line,purchase.group_purchase_user,1,1,1,1
+access_computed_purchase_order_line_manager,computed.purchase.order.line manager,model_computed_purchase_order_line,purchase.group_purchase_manager,1,1,1,1
+access_computed_purchase_order_line_stock_worker,computed.purchase.order.line,model_computed_purchase_order_line,stock.group_stock_user,1,0,0,0
+access_computed_purchase_order_line_invoicing_payments,computed.purchase.order.line,model_computed_purchase_order_line,account.group_account_invoice,1,1,0,0
