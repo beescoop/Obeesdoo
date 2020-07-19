@@ -7,8 +7,12 @@
     "author": "Patricia Daloze, Coop IT Easy SCRLfs",
     "category": "Sales",
     "version": "12.0.1.0.0",
-    "depends": ["beesdoo_shift", "contacts"],
-    "data": ["views/res_partner.xml"],
+    "depends": ["beesdoo_shift", "beesdoo_website_shift", "contacts"],
+    "data": [
+        "data/mail_template.xml",
+        "views/res_partner.xml",
+        "views/shift.xml",
+    ],
     "installable": True,
     "license": "AGPL-3",
 }

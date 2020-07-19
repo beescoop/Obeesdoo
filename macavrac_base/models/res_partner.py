@@ -59,6 +59,12 @@ class Partner(models.Model):
         readonly=True,
         related="",
     )
+    need_referent = fields.Boolean(
+        compute="_compute_need_referent",
+        search="_search_need_referent",
+        string="Need Referent",
+        readonly=True,
+    )
 
     @api.depends("share_qty")
     def _compute_share_amount(self):
@@ -70,10 +76,21 @@ class Partner(models.Model):
     @api.depends("cooperator_type")
     def _compute_is_worker(self):
         for rec in self:
-            rec.is_worker = rec.cooperator_type == "share_b"
+            rec.is_worker = rec.cooperator_type in ('share_a', 'share_b') 
 
     def _search_is_worker(self, operator, value):
-        if (operator == "=" and value) or (operator == "!=" and not value):
-            return [("cooperator_type", "=", "share_b")]
+        if (operator == '=' and value) or (operator == '!=' and not value):
+            return [('cooperator_type', 'in', ('share_a', 'share_b'))]
         else:
-            return [("cooperator_type", "!=", "share_b")]
+            return ['&', ('cooperator_type', '!=', 'share_a'), ('cooperator_type', '!=', 'share_b')]
+
+    @api.depends("super")
+    def _compute_need_referent(self):
+        for rec in self:
+            rec.need_referent = rec.super
+
+    def _search_need_referent(self, operator, value):
+        if (operator == '=' and value) or (operator == '!=' and not value):
+            return [('super', '=', True)]
+        else:
+            return []

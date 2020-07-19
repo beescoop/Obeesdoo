@@ -255,12 +255,10 @@
                 </div>
             </div>
         </t>
-
         <div class="alert alert-info" t-if="not past_shifts">
             <strong>Info !</strong>
             You don't have any past shift.
         </div>
-
     </template>
 
     <template
@@ -542,13 +540,7 @@
             For the compensation shifts, subscribe like you do for a normal
             shift.
         </p>
-        <p class="h_irreg_autoextension">
-            <strong>Auto-Extension:</strong>
-            You didn't manage to do your compensation shifts in the delay but
-            you benefit from the auto-extension.
-            This is two more weeks to do your compensation shifts. You can shop.
-            If you don't do your compensation shifts, you'll be suspended.
-        </p>
+        <!-- TODO make the modif in herited view-->
         <p class="h_irreg_unsubscribed">
             <strong>Unsubscribed:</strong>
             Your counter is negative and you haven't come to work for more than
@@ -803,7 +795,6 @@
                             </label>
                             <t t-esc="status.sr" />
                         </p>
-
                         <p t-if="status.next_countdown_date">
                             <label class="font-weight-bold">Next Countdown
                                 Date:
@@ -817,7 +808,6 @@
                             </label>
                             <t t-esc="status.future_alert_date" />
                         </p>
-
                         <p t-if="status.irregular_absence_date">
                             <label class="font-weight-bold">Last Absence Date:
                             </label>
