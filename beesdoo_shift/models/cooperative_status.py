@@ -91,7 +91,7 @@ class CooperativeStatus(models.Model):
         comodel_name="cooperative.exempt.reason", string="Exempt Reason"
     )
     status = fields.Selection(
-        selection=_get_status,
+        selection=lambda x: x._get_status(),
         compute="_compute_status",
         string="Cooperative Status",
         store=True,
@@ -106,11 +106,10 @@ class CooperativeStatus(models.Model):
     )
 
     # Specific to irregular
-    irregular_start_date = fields.Date()  # TODO migration script
+    irregular_start_date = fields.Date()
     irregular_absence_date = fields.Date()
-    irregular_absence_counter = (
-        fields.Integer()
-    )  # TODO unsubscribe when reach -2
+    irregular_absence_counter = fields.Integer()
+
     future_alert_date = fields.Date(compute="_compute_future_alert_date")
     next_countdown_date = fields.Date(compute="_compute_next_countdown_date")
 
@@ -273,7 +272,7 @@ class CooperativeStatus(models.Model):
         if not journal:
             journal = self.env["beesdoo.shift.journal"].create({"date": today})
 
-        domain = self._get_irregular_worker_domain(today=today)
+        domain = self._get_irregular_worker_domain(today)
         irregular = self.search(domain)
         for status in irregular:
             delta = (today - status.irregular_start_date).days
@@ -362,7 +361,7 @@ class CooperativeStatus(models.Model):
     #        Irregular Cron implementation        #
     ###############################################
 
-    def _get_irregular_worker_domain(self):
+    def _get_irregular_worker_domain(self, today):
         """
             return the domain the give the list
             of valid irregular worker that should

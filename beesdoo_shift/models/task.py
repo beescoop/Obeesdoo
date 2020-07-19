@@ -59,7 +59,7 @@ class Task(models.Model):
     )
     end_time = fields.Datetime(track_visibility="always", required=True)
     state = fields.Selection(
-        selection=_get_selection_status,
+        selection=lambda x: x._get_selection_status(),
         default="open",
         required=True,
         track_visibility="onchange",
@@ -96,20 +96,6 @@ class Task(models.Model):
         for rec in self:
             rec.color = self._get_color_mapping(rec.state)
 
-    def _compensation_validation(self, task):
-        """
-        Raise a validation error if the fields is_regular and
-        is_compensation are not properly set.
-        """
-        if task.is_regular == task.is_compensation or not (
-            task.is_regular or task.is_compensation
-        ):
-            raise ValidationError(
-                _(
-                    "You must choose between Regular Shift or "
-                    "Compensation Shift."
-                )
-            )
 
     @api.constrains("state")
     def _lock_future_task(self):
@@ -121,30 +107,6 @@ class Task(models.Model):
                         "can't be set to 'present' or 'absent'."
                     )
                 )
-
-    @api.constrains("is_regular", "is_compensation")
-    def _check_compensation(self):
-        for task in self:
-            if task.working_mode == "regular":
-                self._compensation_validation(task)
-
-    @api.constrains("worker_id")
-    def _check_worker_id(self):
-        """
-        When worker_id changes we need to check whether is_regular
-        and is_compensation are set correctly.
-        When worker_id is set to a worker that doesn't need field
-        is_regular and is_compensation, these two fields are set to
-        False.
-        """
-        for task in self:
-            if task.working_mode == "regular":
-                self._compensation_validation(task)
-            else:
-                task.write({"is_regular": False, "is_compensation": False})
-            if task.worker_id:
-                if task.worker_id == task.replaced_id:
-                    raise UserError(_("A worker cannot replace himself."))
 
     def message_auto_subscribe(self, updated_fields, values=None):
         self._add_follower(values)

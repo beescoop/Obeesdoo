@@ -320,8 +320,7 @@ class CooperativeStatus(models.Model):
     #        Irregular Cron implementation        #
     ###############################################
 
-    def _get_irregular_worker_domain(self, **kwargs):
-        today = kwargs.get("today") or self.today
+    def _get_irregular_worker_domain(self, today):
         return [
             "&",
             "&",
