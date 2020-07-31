@@ -11,6 +11,19 @@ from odoo.tools.translate import _
 _logger = logging.getLogger(__name__)
 
 
+class ResPartner(models.Model):
+    _inherit = "res.partner"
+
+    profit_margin = fields.Float(string="Product Margin [%]")
+
+    @api.multi
+    @api.constrains("profit_margin")
+    def _check_margin(self):
+        for product in self:
+            if product.profit_margin < 0.0:
+                raise UserError(_("Percentages for Profit Margin must > 0."))
+
+
 class BeesdooProduct(models.Model):
     _inherit = "product.template"
 
@@ -252,12 +265,17 @@ class BeesdooProduct(models.Model):
         for product in self:
             suppliers = product._get_main_supplier_info()
             if len(suppliers) > 0:
-                product.suggested_price = (
-                    suppliers[0].price * product.uom_po_id.factor
-                ) * (
-                    1
-                    + suppliers[0].product_tmpl_id.categ_id.profit_margin / 100
+                price = suppliers[0].price
+                profit_margin_supplier = suppliers[0].name.profit_margin
+                profit_margin_product_category = suppliers[
+                    0
+                ].product_tmpl_id.categ_id.profit_margin
+                profit_margin = (
+                    profit_margin_supplier or profit_margin_product_category
                 )
+                product.suggested_price = (
+                    price * product.uom_po_id.factor
+                ) * (1 + profit_margin / 100)
 
 
 class BeesdooScaleCategory(models.Model):
