@@ -46,6 +46,10 @@
                         </group>
                     </group>
                     <group>
+                        <field name="fds_label" widget="selection"/>
+                        <field name="hazard_label" widget="selection"/>
+                    </group>
+                    <group>
                         <field name="note"/>
                     </group>
                 </page>
@@ -110,6 +114,32 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="beesdoo_product_hazard_form">
+        <field name="name">bees.product.hazard.form</field>
+        <field name="model">beesdoo.product.hazard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="active"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="beesdoo_product_hazard_tree">
+        <field name="name">bees.product.hazard.tree</field>
+        <field name="model">beesdoo.product.hazard</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name"/>
+                <field name="type"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
     <record model="ir.ui.view" id="beesdoo_product_category_list">
         <field name="name">beesdoo.product.category.list</field>
         <field name="model">product.category</field>
@@ -149,9 +179,19 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+    <record model="ir.actions.act_window" id="action_hazards">
+        <field name="name">Product Hazards</field>
+        <field name="res_model">beesdoo.product.hazard</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
     <menuitem id="label_configuration_menu" name="Labels"
               parent="sale.prod_config_main"
               action="action_labels" sequence="20"/>
+
+    <menuitem id="hazard_configuration_menu" name="Hazards"
+              parent="sale.prod_config_main"
+              action="action_hazards" sequence="30"/>
 
     <record id="beesdoo_product_uom_categ_form" model="ir.ui.view">
         <field name="name">uom.category.form</field>
