@@ -9,7 +9,7 @@
         <field name="model">subscription.request</field>
         <field name="inherit_id" ref="easy_my_coop.subscription_request_form"/>
         <field name="arch" type="xml">
-            <field name="data_policy_approved" position="before">
+            <field name="internal_rules_approved" position="before">
                 <field name="info_session_confirmed"/>
             </field>
         </field>
