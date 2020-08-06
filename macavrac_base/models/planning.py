@@ -57,9 +57,15 @@ class Task(models.Model):
         return data, status
 
     def _compute_can_unsubscribe(self):
+        now = datetime.now()
+        ICP = self.env["ir.config_parameter"].sudo()
+        max_hours = int(ICP.get_param("max_hours_to_unsubscribe", 2))
         for rec in self:
-            print(datetime.now())
-            rec.can_unsubscribe = True
+            if now > rec.start_time or rec.state != 'open':
+                rec.can_unsubscribe = False
+            else:
+                delta = (now - rec.start_time).seconds / 3600.0
+                rec.can_unsubscribe = delta >= max_hours
 
 
     def write(self, vals):
