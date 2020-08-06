@@ -1,0 +1,140 @@
+<odoo>
+    <record model="ir.ui.view" id="type_view_form_inherit">
+        <field name="name">Shift Type Form Inherit</field>
+        <field name="model">beesdoo.shift.type</field>
+        <field name="inherit_id" ref="beesdoo_shift.type_view_form" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="super_only" />
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="task_template_view_form_inherit">
+        <field name="name">Task Template Form Inherit</field>
+        <field name="model">beesdoo.shift.template</field>
+        <field name="inherit_id" ref="beesdoo_shift.task_template_view_form" />
+        <field name="arch" type="xml">
+            <field name="super_coop_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="task_type_id" position="after">
+                <field name="super_only" invisible="1" />
+                <field name="shift_presence_value" />
+            </field>
+            <field name="worker_ids" position="attributes">
+                <attribute name="domain">[("is_worker", "=", True), ('need_referent', '=', super_only)]</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="task_view_form_inherit">
+        <field name="name">Task Form inherit</field>
+        <field name="inherit_id" ref="beesdoo_shift.task_view_form" />
+        <field name="model">beesdoo.shift.shift</field>
+        <field name="arch" type="xml">
+            <field name="super_coop_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="replaced_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="is_regular" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="is_compensation" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="task_type_id" position="after">
+                <field name="super_only" invisible="1" />
+            </field>
+            <field name="worker_id" position="attributes">
+                <attribute name="domain">[('cooperative_status_ids.status', 'not in', ('unsubscribed', 'resigning')), ('need_referent', '=', super_only)]</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="coop_status_form_view_inherit">
+        <field name="name">Coop Status Form View Inherit</field>
+        <field name="inherit_id" ref="beesdoo_shift.coop_status_form_view" />
+        <field name="model">cooperative.status</field>
+        <field name="arch" type="xml">
+            <field name="irregular_start_date" position="attributes">
+                <attribute name="attrs" ></attribute>
+                <attribute name="string">Start date</attribute>
+            </field>
+            <field name="sc" position="attributes">
+                <attribute name="invisible" >1</attribute>
+            </field>
+            <field name="time_extension" position="attributes">
+                <attribute name="invisible" >1</attribute>
+            </field>
+            <field name="extension_start_time" position="attributes">
+                <attribute name="invisible" >1</attribute>
+            </field>
+            <field name="info_session" position="attributes">
+                <attribute name="invisible" >1</attribute>
+            </field>
+            <field name="info_session_date" position="attributes">
+                <attribute name="invisible" >1</attribute>
+            </field>
+            <field name="irregular_absence_counter" position="attributes">
+                <attribute name="invisible" >1</attribute>
+            </field>
+            <field name="irregular_absence_date" position="attributes">
+                <attribute name="invisible" >1</attribute>
+            </field>
+            <field name="holiday_start_time" position="attributes">
+                <attribute name="invisible" >1</attribute>
+            </field>
+            <field name="holiday_end_time" position="attributes">
+                <attribute name="invisible" >1</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="super_coop_partner_inherited_view_form">
+        <field name="name">Partner Macavrac</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="beesdoo_shift.super_coop_partner_inherited_view_form"/>
+        <field name="priority">50</field>
+        <field name="arch" type="xml">
+            <button name="coop_subscribe" string="Subscribe to shift"
+                    class="oe_highlight"
+                    type="object"
+                    groups="beesdoo_shift.group_shift_management"
+                    attrs="{'invisible': [('is_worker', '=', False)]}"/>
+            <button name="auto_extension" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+            <button name="manual_extension" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+            <button name="register_holiday" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+        </field>
+    </record>
+
+
+    <!-- Wizard view modification -->
+    <record model="ir.ui.view" id="subscribe_coop_wizard_view_form_inherit">
+        <field name="name">Subscribe Cooperator</field>
+        <field name="model">beesdoo.shift.subscribe</field>
+        <field name="inherit_id" ref="beesdoo_shift.subscribe_coop_wizard_view_form" />
+        <field name="arch" type="xml">
+            <field name="shift_id" position="attributes">
+                <attribute name="attrs"></attribute>
+            </field>
+            <field name="info_session" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="info_session_date" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="reset_compensation_counter" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
