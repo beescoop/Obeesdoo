@@ -62,6 +62,21 @@ class Task(models.Model):
             rec.can_unsubscribe = True
 
 
+    def write(self, vals):
+        if 'worker_id' in vals:
+            template_unsubscribed = self.env.ref("macavrac_base.email_template_shift_unsubscribed") 
+            template_subscribed = self.env.ref("macavrac_base.email_template_shift_subscribed")
+            new_worker_id = self.env['beesdoo.shift.shift'].browse(vals.get('worker_id'))
+            for record in self:
+                old_worker_id  = record.worker_id
+                if old_worker_id:
+                    template_unsubscribed.send_mail(record.id)
+                if new_worker_id and old_worker_id != new_worker_id:
+                    res = super(Task, record).write(vals)
+                    template_subscribed.send_mail(record.id)
+        return super(Task, self).write(vals)
+
+
 class CooperativeStatus(models.Model):
     _inherit = 'cooperative.status'
 

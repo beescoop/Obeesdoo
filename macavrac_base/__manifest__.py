@@ -9,6 +9,7 @@
     "version": "12.0.1.0.0",
     "depends": ["beesdoo_shift", "contacts"],
     "data": [
+        "data/mail_template.xml",
         "views/res_partner.xml",
         "views/shift.xml",
     ],
