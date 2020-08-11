@@ -3,6 +3,7 @@
 
 import logging
 import uuid
+from datetime import date
 
 from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
@@ -95,9 +96,15 @@ class BeesdooProduct(models.Model):
                 product.scale_sale_unit = "P"
 
     def _get_main_supplier_info(self):
-        suppliers = self.seller_ids.sorted(
-            key=lambda seller: seller.date_start, reverse=True
-        )
+        far_future = date(3000, 1, 1)
+
+        def sort_date_first(seller):
+            if seller.date_start:
+                return seller.date_start
+            else:
+                return far_future
+
+        suppliers = self.seller_ids.sorted(key=sort_date_first, reverse=True)
         if suppliers:
             return suppliers[0]
         else:
