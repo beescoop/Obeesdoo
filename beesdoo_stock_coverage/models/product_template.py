@@ -20,16 +20,21 @@ class ProductTemplate(models.Model):
 
     computation_range = fields.Integer("Computation range (days)", default=14)
     range_sales = fields.Float(
-        string="Sales over Range", compute="_compute_stock_coverage"
+        string="Sales over Range",
+        compute="_compute_stock_coverage",
+        store=True,
     )
     daily_sales = fields.Float(
-        string="Daily Sales", compute="_compute_stock_coverage"
+        string="Daily Sales", compute="_compute_stock_coverage", store=True,
     )
     stock_coverage = fields.Float(
-        string="Stock Coverage (days)", compute="_compute_stock_coverage"
+        string="Stock Coverage (days)",
+        compute="_compute_stock_coverage",
+        store=True,
     )
 
     @api.multi
+    @api.depends("computation_range", "virtual_available", "active")
     def _compute_stock_coverage(self):
         query = """
         select template.id  as product_template_id,
@@ -48,7 +53,8 @@ class ProductTemplate(models.Model):
             and template.id in %(template_ids)s
         group by product_template_id
         """
-        self.env.cr.execute(query, {"template_ids": tuple(self.ids)})
+        template_ids = tuple(self.ids) if self.ids else (self._origin.id,)
+        self.env.cr.execute(query, {"template_ids": template_ids})
         results = {pid: (qty, avg) for pid, qty, avg in self.env.cr.fetchall()}
         for template in self:
             qty, avg = results.get(template.id, (0, 0))
