@@ -64,7 +64,8 @@ class Task(models.Model):
             if now > rec.start_time or rec.state != 'open':
                 rec.can_unsubscribe = False
             else:
-                delta = (now - rec.start_time).seconds / 3600.0
+                delta = (rec.start_time - now)
+                delta = delta.seconds / 3600.0 + delta.days * 24
                 rec.can_unsubscribe = delta >= max_hours
 
 
