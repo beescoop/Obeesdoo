@@ -30,15 +30,7 @@
 
         <h2>
             Worker status
-            <span t-att-class="'badge %s pull-right' % ('badge-success' if status.can_shop else 'badge-danger',)">
-                <span class="fa fa-shopping-cart"></span>
-                <t t-if="status.can_shop">
-                    <span class="fa fa-check"></span>
-                </t>
-                <t t-if="not status.can_shop">
-                    <span class="fa fa-times"></span>
-                </t>
-            </span>
+            <!-- TODO specific view -->
         </h2>
 
     </template>
@@ -77,34 +69,19 @@
     <template
             id="shift_status_label"
             name="Shift Status Label">
-
-        <span t-if="shift.state == 'draft'"
-              t-attf-class="badge badge-default {{label_css}}">
-            <t t-esc="shift.state"/>
-        </span>
-
+        <!-- TODO specific to beescoop -->
         <span t-if="shift.state == 'done'"
               t-attf-class="badge badge-success {{label_css}}">
             <t t-esc="shift.state"/>
         </span>
 
-        <span t-if="shift.state == 'absent_2'"
-              t-attf-class="badge badge-warning {{label_css}}">
-            <t t-esc="shift.state"/>
-        </span>
-
-        <span t-if="shift.state == 'absent_1'"
-              t-attf-class="badge badge-info {{label_css}}">
-            <t t-esc="shift.state"/>
-        </span>
-
-        <span t-if="shift.state == 'absent_0'"
-              t-attf-class="badge badge-info {{label_css}}">
+        <span t-if="shift.state == 'absent'"
+              t-attf-class="badge badge-danger {{label_css}}">
             <t t-esc="shift.state"/>
         </span>
 
         <span t-if="shift.state == 'cancel'"
-              t-attf-class="badge badge-danger {{label_css}}">
+              t-attf-class="badge badge-warning {{label_css}}">
             <t t-esc="shift.state"/>
         </span>
 
@@ -225,11 +202,12 @@
                 </div>
             </div>
         </t>
-
-        <div class="alert alert-info">
-            <strong>Info !</strong>
-            You don't have any past shift.
-        </div>
+        <t t-if="not past_shifts">
+            <div class="alert alert-info">
+                <strong>Info !</strong>
+                You don't have any past shift.
+            </div>
+        </t>
 
     </template>
 
@@ -237,96 +215,75 @@
             id="available_shift_irregular_worker"
             name="Available Shift for Irregular Worker"
     >
-
+        <!-- Inherited View -->
         <t t-foreach="shift_templates" t-as="shift_count_subscribed">
             <t t-set="shift" t-value="shift_count_subscribed[0]"/>
             <t t-set="count" t-value="shift_count_subscribed[1]"/>
             <t t-set="is_subscribed" t-value="shift_count_subscribed[2]"/>
             <t t-set="has_enough_workers" t-value="shift_count_subscribed[3]"/>
-            <t t-set="highlight_class"
-               t-value="'panel-warning' if not has_enough_workers else 'panel-default'"/>
-            <div t-att-class="'card mb-4 %s' % highlight_class">
+            <t t-set="highlight_class" t-value="'panel-warning' if not has_enough_workers else 'panel-default'"/>
+            <t t-set="need_super" t-value="shift.task_type_id.super_only" />
+            <t t-set="user_super" t-value="request.env.user.partner_id.super" />
+            <div t-att-class="'card mb-4 %s' % highlight_class" t-if="not need_super or need_super and (user_super)">
                 <div t-att-class="'card-header %s clearfix' % highlight_header_class">
                     <div class="pull-left">
                         <span t-field="shift.start_time"/>
                         -
-                        <span t-field="shift.end_time"
-                              t-options='{"format": "HH:mm"}'/>
+                        <span t-field="shift.end_time" t-options="{&quot;format&quot;: &quot;HH:mm&quot;}"/>
                     </div>
-                    <div class="badge badge-secondary pull-right"
-                         t-if="count > 0">
+                    <div class="badge badge-secondary pull-right" t-if="count &gt; 0">
                         <t t-esc="count"/>
                         space(s)
                     </div>
-                    <div class="badge badge-secondary pull-right"
-                         t-if="count == 0">
+                    <t t-esc="need_super" />
+                                <t t-esc="user_super" />
+                    <div class="badge badge-secondary pull-right" t-if="count == 0">
                         full
                     </div>
                 </div>
                 <div class="card-body clearfix">
                     <t t-esc="shift.task_type_id.name"/>
-                    <div class="badge badge-success pull-right"
-                         t-if="is_subscribed">
-                        Subscribed
+                    <div class="badge badge-dark pull-right" t-if="is_subscribed">
+                        Already Subscribed
                     </div>
-                    <button
-                            type="button"
-                            class="btn btn-primary btn-sm pull-right"
-                            data-toggle="modal"
-                            t-att-data-target="'#subscribe-shift-%s' % shift.id"
-                            t-if="irregular_enable_sign_up and not is_subscribed"
-                    >
-                        <span class="fa fa-user-plus" aria-hidden="true"></span>
+                    <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" t-att-data-target="'#subscribe-shift-%s' % shift.id" t-if="irregular_enable_sign_up and not is_subscribed">
+                        <span class="fa fa-user-plus" aria-hidden="true"/>
                         Subscribe
                     </button>
                 </div>
             </div>
 
             <!-- Subscribe check -->
-            <t t-foreach="shift_templates" t-as="shift_count_subscribed">
-                <t t-set="shift" t-value="shift_count_subscribed[0]"/>
-                <t t-set="count" t-value="shift_count_subscribed[1]"/>
-                <t t-set="is_subscribed" t-value="shift_count_subscribed[2]"/>
-                <div class="modal fade"
-                     t-att-id="'subscribe-shift-%s' % shift.id" tabindex="-1"
-                     role="dialog"
-                     t-att-aria-labelledby="'subscribe-shift-%s-label' % shift.id">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title"
-                                    t-att-id="'subscribe-shift-%s-label' % shift.id">
-                                    Please confirm subscription
-                                </h4>
-                            </div>
-                            <div class="modal-body">
-                                <span t-field="shift.start_time"/>
-                                -
-                                <span t-field="shift.end_time"
-                                      t-options='{"format": "HH:mm"}'/>
-                                <br/>
-                                <t t-esc="shift.task_type_id.name"/>
-                                <br/>
-                                <t t-esc="count"/>
-                                available space(s)
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default"
-                                        data-dismiss="modal">Close
-                                </button>
-                                <a class="btn btn-primary"
-                                   t-if="irregular_enable_sign_up"
-                                   t-att-href="'/shift/%s/subscribe?nexturl=%s' % (shift.id, nexturl)">
-                                    Subscribe
-                                </a>
-                            </div>
+            <div class="modal fade" t-att-id="'subscribe-shift-%s' % shift.id" tabindex="-1" role="dialog" t-att-aria-labelledby="'subscribe-shift-%s-label' % shift.id">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" t-att-id="'subscribe-shift-%s-label' % shift.id">
+                                Please confirm subscription
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <span t-field="shift.start_time"/>
+                            -
+                            <span t-field="shift.end_time" t-options="{&quot;format&quot;: &quot;HH:mm&quot;}"/>
+                            <br/>
+                            <t t-esc="shift.task_type_id.name"/>
+                            <br/>
+                            <t t-esc="count"/>
+                            available space(s)
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                            </button>
+                            <a class="btn btn-primary" t-if="irregular_enable_sign_up" t-att-href="'/shift/%s/subscribe?nexturl=%s' % (shift.id, nexturl)">
+                                Subscribe
+                            </a>
                         </div>
                     </div>
                 </div>
-            </t>
+            </div>
 
         </t>
-
     </template>
 
     <!-- Help Texts -->
@@ -696,21 +653,7 @@
                             </label>
                             <t t-esc="status.sr"/>
                         </p>
-
-                        <p t-if="status.next_countdown_date">
-                            <label class="font-weight-bold">Next Countdown
-                                Date:
-                            </label>
-                            <t t-esc="status.next_countdown_date"/>
-                        </p>
-
-                        <p t-if="status.future_alert_date">
-                            <label class="font-weight-bold">Future Date of
-                                Alert:
-                            </label>
-                            <t t-esc="status.future_alert_date"/>
-                        </p>
-
+                        <!-- TODO specific view for beescoop -->
                         <p t-if="status.irregular_absence_date">
                             <label class="font-weight-bold">Last Absence Date:
                             </label>

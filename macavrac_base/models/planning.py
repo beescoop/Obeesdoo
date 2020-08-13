@@ -69,19 +69,19 @@ class Task(models.Model):
                 rec.can_unsubscribe = delta >= max_hours
 
 
-    def write(self, vals):
-        if 'worker_id' in vals:
-            template_unsubscribed = self.env.ref("macavrac_base.email_template_shift_unsubscribed") 
-            template_subscribed = self.env.ref("macavrac_base.email_template_shift_subscribed")
-            new_worker_id = self.env['beesdoo.shift.shift'].browse(vals.get('worker_id'))
-            for record in self:
-                old_worker_id  = record.worker_id
-                if old_worker_id:
-                    template_unsubscribed.send_mail(record.id)
-                if new_worker_id and old_worker_id != new_worker_id:
-                    res = super(Task, record).write(vals)
-                    template_subscribed.send_mail(record.id)
-        return super(Task, self).write(vals)
+    # def write(self, vals):
+    #     if 'worker_id' in vals:
+    #         template_unsubscribed = self.env.ref("macavrac_base.email_template_shift_unsubscribed")
+    #         template_subscribed = self.env.ref("macavrac_base.email_template_shift_subscribed")
+    #         new_worker_id = self.env['beesdoo.shift.shift'].browse(vals.get('worker_id'))
+    #         for record in self:
+    #             old_worker_id  = record.worker_id
+    #             if old_worker_id:
+    #                 template_unsubscribed.send_mail(record.id)
+    #             if new_worker_id and old_worker_id != new_worker_id:
+    #                 res = super(Task, record).write(vals)
+    #                 template_subscribed.send_mail(record.id)
+    #     return super(Task, self).write(vals)
 
 
 class CooperativeStatus(models.Model):
@@ -133,6 +133,9 @@ class CooperativeStatus(models.Model):
     def _compute_future_alert_date(self):
         """Compute date before which the worker is up to date"""
         for rec in self:
+            #TODO fix infinite loop
+            rec.future_alert_date = False
+            continue
             # Only for irregular worker
             # Alert start time already set
             real_today = rec.today
@@ -171,6 +174,9 @@ class CooperativeStatus(models.Model):
         PERIOD.
         """
         for rec in self:
+            #TODO fix infinite loop
+            rec.next_countdown_date = False
+            continue
             real_today = rec.today
             # Only for irregular worker
             if rec.working_mode != "irregular" or not rec.irregular_start_date:
