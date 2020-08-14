@@ -36,8 +36,21 @@ def rename_config_parameters(cr, keys_spec):
         openupgrade.logged_query(cr, query, (new, old))
 
 
+def fix_shift_status(cr):
+    """
+    The 'draft' status for the shift (a task) does not exist in 12.0. So
+    shift in this state will be moved to the 'cancel' state.
+    """
+    query = (
+        "UPDATE beesdoo_shift_shift SET state = 'cancel' "
+        "WHERE state = 'draft'"
+    )
+    openupgrade.logged_query(cr, query)
+
+
 @openupgrade.migrate()
 def migrate(env, version):
     cr = env.cr
     openupgrade.rename_xmlids(cr, xmlid_renames)
     rename_config_parameters(cr, _config_param_renames)
+    fix_shift_status(cr)
