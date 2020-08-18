@@ -19,14 +19,28 @@ class Task(models.Model):
         ]
 
     def _get_color_mapping(self, state):
+        """
+        Set of colors:
+            0: none,
+            1: dark orange,
+            2: orange,
+            3: yellow,
+            4: light blue,
+            5: dark purple,
+            6: light red (pink),
+            7: cyan,
+            8: dark blue,
+            9: magenta (red),
+            10: green,
+            11: purple
+        """
         return {
-            "draft": 0,
-            "open": 1,
-            "done": 5,
-            "absent_2": 2,
-            "absent_1": 7,
+            "open": 0,
+            "done": 10,
+            "absent_2": 9,
+            "absent_1": 2,
             "absent_0": 3,
-            "cancel": 9,
+            "cancel": 5,
         }[state]
 
     def _get_final_state(self):
