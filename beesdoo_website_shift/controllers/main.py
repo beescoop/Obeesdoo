@@ -446,7 +446,7 @@ class WebsiteShiftController(http.Controller):
                 shift.planning_id = main_shift.planning_id
                 shift.task_type_id = main_shift.task_type_id
                 shift.worker_id = main_shift.worker_id
-                shift.state = "draft"
+                shift.state = "open"
                 shift.super_coop_id = main_shift.super_coop_id
                 shift.color = main_shift.color
                 shift.is_regular = main_shift.is_regular
