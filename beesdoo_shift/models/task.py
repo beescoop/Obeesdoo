@@ -89,7 +89,7 @@ class Task(models.Model):
     working_mode = fields.Selection(related="worker_id.working_mode")
 
     def _expand_states(self, states, domain, order):
-        return [key for key, val in self._fields["state"].selection]
+        return [key for key, val in self._fields["state"].selection(self)]
 
     @api.depends("state")
     def _compute_color(self):
