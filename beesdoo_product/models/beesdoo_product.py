@@ -21,7 +21,7 @@ class ResPartner(models.Model):
     def _check_margin(self):
         for product in self:
             if product.profit_margin < 0.0:
-                raise UserError(_("Percentages for Profit Margin must > 0."))
+                raise UserError(_("Percentages for Profit Margin must >= 0."))
 
 
 class BeesdooProduct(models.Model):
@@ -321,7 +321,7 @@ class BeesdooProductCategory(models.Model):
     def _check_margin(self):
         for product in self:
             if product.profit_margin < 0.0:
-                raise UserError(_("Percentages for Profit Margin must > 0."))
+                raise UserError(_("Percentages for Profit Margin must >= 0."))
 
 
 class BeesdooProductSupplierInfo(models.Model):
