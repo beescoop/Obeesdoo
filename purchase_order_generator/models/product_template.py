@@ -3,6 +3,8 @@
 #   Vincent Van Rossem <vincent@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+from datetime import date
+
 from odoo import api, fields, models
 
 
@@ -13,17 +15,20 @@ class ProductTemplate(models.Model):
         "res.partner", compute="_compute_main_supplier_id", store=True
     )
 
-    def _get_sorted_supplierinfo(self):
-        return self.seller_ids.sorted(
-            key=lambda seller: seller.date_start, reverse=True
-        )
-
     @api.multi
     @api.depends("seller_ids", "seller_ids.date_start")
     def _compute_main_supplier_id(self):
+        far_future = date(3000, 1, 1)
+
+        def sort_date_first(seller):
+            if seller.date_start:
+                return seller.date_start
+            else:
+                return far_future
+
         for pt in self:
             sellers_ids = pt.seller_ids.sorted(
-                key=lambda seller: seller.date_start, reverse=True
+                key=sort_date_first, reverse=True
             )
             if sellers_ids:
                 pt.main_supplier_id = sellers_ids[0].name
