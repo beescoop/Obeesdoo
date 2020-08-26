@@ -433,7 +433,7 @@ class WebsiteShiftController(http.Controller):
             # Get config
             regular_next_shift_limit = request.website.regular_next_shift_limit
             shift_period = int(
-                request.env["ir.config_parameter"].get_param(
+                request.env["ir.config_parameter"].sudo().get_param(
                     "beesdoo_website_shift.shift_period"
                 )
             )
