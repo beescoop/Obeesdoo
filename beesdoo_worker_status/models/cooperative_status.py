@@ -162,14 +162,18 @@ class CooperativeStatus(models.Model):
             return "unsubscribed"
         # Check if exempted. Exempt end date is not required.
         if (
+            # Start and end are defined
             self.temporary_exempt_start_date
+            and self.temporary_exempt_end_date
+            and self.today >= self.temporary_exempt_start_date
+            and self.today <= self.temporary_exempt_end_date
+        ) or (
+            # Only start is defined
+            self.temporary_exempt_start_date
+            and not self.temporary_exempt_end_date
             and self.today >= self.temporary_exempt_start_date
         ):
-            if (
-                not self.temporary_exempt_end_date
-                or self.today <= self.temporary_exempt_end_date
-            ):
-                return "exempted"
+            return "exempted"
 
         # Transition to alert sr < 0 or stay in alert sr < 0 or sc < 0 and
         # thus alert time is defined
@@ -181,6 +185,7 @@ class CooperativeStatus(models.Model):
             <= add_days_delta(self.extension_start_time, grace_delay)
         ):
             return "extension"
+
         if (
             not ok
             and self.alert_start_time
@@ -189,12 +194,14 @@ class CooperativeStatus(models.Model):
             > add_days_delta(self.extension_start_time, grace_delay)
         ):
             return "suspended"
+
         if (
             not ok
             and self.alert_start_time
             and self.today > add_days_delta(self.alert_start_time, alert_delay)
         ):
             return "suspended"
+
         if (self.sr < 0) or (not ok and self.alert_start_time):
             return "alert"
 
@@ -204,7 +211,6 @@ class CooperativeStatus(models.Model):
             and self.today >= self.holiday_start_time
             and self.today <= self.holiday_end_time
         ):
-
             return "holiday"
         elif ok or (not self.alert_start_time and self.sr >= 0):
             return "ok"
@@ -230,14 +236,18 @@ class CooperativeStatus(models.Model):
             return "unsubscribed"
         # Check if exempted. Exempt end date is not required.
         elif (
+            # Start and end are defined
             self.temporary_exempt_start_date
+            and self.temporary_exempt_end_date
+            and self.today >= self.temporary_exempt_start_date
+            and self.today <= self.temporary_exempt_end_date
+        ) or (
+            # Only start is defined
+            self.temporary_exempt_start_date
+            and not self.temporary_exempt_end_date
             and self.today >= self.temporary_exempt_start_date
         ):
-            if (
-                not self.temporary_exempt_end_date
-                or self.today <= self.temporary_exempt_end_date
-            ):
-                return "exempted"
+            return "exempted"
         # Transition to alert sr < 0 or stay in alert sr < 0 or sc < 0 and
         # thus alert time is defined
         elif (
