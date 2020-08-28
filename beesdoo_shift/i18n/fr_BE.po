@@ -2078,13 +2078,13 @@ msgstr "Exemption temporaire"
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_temporary_exemption_temporary_exempt_end_date
 #: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_temporary_exempt_end_date
 msgid "Temporary exempt end date"
-msgstr "Date de début d'exemption temporaire"
+msgstr "Date de fin d'exemption temporaire"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_temporary_exemption_temporary_exempt_start_date
 #: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_temporary_exempt_start_date
 msgid "Temporary exempt start date"
-msgstr "Date de fin d'exemption temporaire"
+msgstr "Date de début d'exemption temporaire"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,help:beesdoo_shift.field_res_users_website_url
