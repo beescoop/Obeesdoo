@@ -18,7 +18,7 @@
         <field name="name">beesdoo.partner.form.view</field>
         <field name="model">res.partner</field>
         <field name="inherit_id"
-               ref="point_of_sale.view_partner_property_form"/>
+               ref="base.view_partner_form"/>
         <field name="arch" type="xml">
             <field name="website" position="after">
                 <field name="eater"
