@@ -25,7 +25,7 @@ class ProductTemplate(models.Model):
         store=True,
     )
     daily_sales = fields.Float(
-        string="Daily Sales", compute="_compute_stock_coverage", store=True,
+        string="Daily Sales", compute="_compute_stock_coverage", store=True
     )
     stock_coverage = fields.Float(
         string="Stock Coverage (days)",
@@ -53,7 +53,14 @@ class ProductTemplate(models.Model):
             and template.id in %(template_ids)s
         group by product_template_id
         """
-        template_ids = tuple(self.ids) if self.ids else (self._origin.id,)
+
+        if self.ids:  # on RecordSet
+            template_ids = tuple(self.ids)
+        elif self._origin:  # on temporary object (on_change)
+            template_ids = (self._origin.id,)
+        else:  # on temporary object (creation)
+            return True
+
         self.env.cr.execute(query, {"template_ids": template_ids})
         results = {pid: (qty, avg) for pid, qty, avg in self.env.cr.fetchall()}
         for template in self:
