@@ -71,7 +71,7 @@ class PurchaseOrderGenerator(models.Model):
             )
 
     @api.model
-    def generate_cpo(self):
+    def test_generate_pog(self):
         order_line_obj = self.env["purchase.order.generator.line"]
         product_ids = self.env.context.get("active_ids", [])
 

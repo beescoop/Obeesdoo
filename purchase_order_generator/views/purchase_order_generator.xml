@@ -101,13 +101,13 @@
 
     <!-- Actions -->
 
-    <record id="action_generate_cpo" model="ir.actions.server">
+    <record id="action_generate_pog" model="ir.actions.server">
         <field name="name">Generate Purchase Order</field>
         <field name="model_id" ref="model_purchase_order_generator"/>
         <field name="binding_model_id" ref="product.model_product_template"/>
         <field name="state">code</field>
         <field name="code">
-            action = model.generate_cpo()
+            action = model.test_generate_pog()
         </field>
     </record>
 </odoo>

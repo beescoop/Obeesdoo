@@ -15,7 +15,7 @@ class TestCPO(TransactionCase):
         self.pproduct2 = self.browse_ref("product.product_delivery_02")
         self.ptemplate2 = self.pproduct2.product_tmpl_id
 
-    def test_generate_cpo(self):
+    def test_generate_pog(self):
         supplierinfo_obj = self.env["product.supplierinfo"]
         supplierinfo = supplierinfo_obj.search(
             [
@@ -33,7 +33,7 @@ class TestCPO(TransactionCase):
         pog_obj = self.env["purchase.order.generator"]
         pog_action = pog_obj.with_context(
             active_ids=[self.ptemplate1.id]
-        ).generate_cpo()
+        ).test_generate_pog()
         pog = pog_obj.browse(pog_action["res_id"])
         pogl = pog.pog_line_ids  # expect one line
 
@@ -66,7 +66,7 @@ class TestCPO(TransactionCase):
         cpo_obj = self.env["purchase.order.generator"]
         cpo_action = cpo_obj.with_context(
             active_ids=[self.ptemplate1.id, self.ptemplate2.id]
-        ).generate_cpo()
+        ).test_generate_pog()
         cpo = cpo_obj.browse(cpo_action["res_id"])
         po_action = cpo.create_purchase_order()
         po = self.env["purchase.order"].browse(po_action["res_id"])
