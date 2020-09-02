@@ -8,6 +8,12 @@ from datetime import date
 from odoo import api, fields, models
 
 
+class SupplierInfo(models.Model):
+    _inherit = "product.supplierinfo"
+
+    date_start = fields.Date(default=fields.Date.context_today, required=True)
+
+
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
