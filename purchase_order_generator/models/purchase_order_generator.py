@@ -71,7 +71,7 @@ class PurchaseOrderGenerator(models.Model):
             )
 
     @api.model
-    def generate_cpo(self):
+    def test_generate_pog(self):
         order_line_obj = self.env["purchase.order.generator.line"]
         product_ids = self.env.context.get("active_ids", [])
 
@@ -84,8 +84,17 @@ class PurchaseOrderGenerator(models.Model):
                 [
                     ("product_tmpl_id", "=", product_id),
                     ("name", "=", supplier.id),
-                ]
+                ],
+                order="date_start desc",
+                limit=1,
             )
+
+            if not supplierinfo:
+                product_name = self.env["product.template"].browse(product_id).name
+                raise ValidationError(
+                    _("No supplier defined for product %s") % product_name
+                )
+
             min_qty = supplierinfo.min_qty if supplierinfo else 0
             order_line_obj.create(
                 {

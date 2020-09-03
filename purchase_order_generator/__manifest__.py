@@ -4,7 +4,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Purchase Order Generator",
-    "version": "12.0.1.0.0",
+    "version": "12.0.2.0.0",
     "category": "Purchase Order",
     "summary": "Generate purchase order from a product selection",
     "author": "Coop IT Easy SCRLfs",
