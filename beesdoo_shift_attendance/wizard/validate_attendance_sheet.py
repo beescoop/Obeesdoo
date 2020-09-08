@@ -47,7 +47,7 @@ class ValidateAttendanceSheet(models.TransientModel):
                         _(
                             "\n%s attended its shift as a normal one but was "
                             "not expected. Something may be wrong in his/her "
-                            "personnal informations.\n "
+                            "personal informations.\n "
                         )
                         % added_shift.worker_id.name
                     )
