@@ -2,6 +2,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 
+from itertools import groupby
+
 from odoo.http import request
 
 from odoo.addons.portal.controllers.portal import CustomerPortal
@@ -30,6 +32,15 @@ class PortalPosOrderAmount(CustomerPortal):
         values["posorder_amount"] = sum(
             po.amount_total for po in owned_posorder
         )
+        values["posorder_amount_by_year"] = [
+            {
+                "year": key,
+                "amount": sum(element.amount_total for element in group),
+            }
+            for key, group in groupby(
+                owned_posorder, key=lambda element: element.date_order.year
+            )
+        ]
         values["company_currency"] = (
             request.env["res.company"]._company_default_get().currency_id
         )
