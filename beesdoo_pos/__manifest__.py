@@ -1,6 +1,7 @@
 # Copyright 2017 - 2020 BEES coop SCRLfs
 #   - Elouan Lebars <elouan@coopiteasy.be>
 #   - Rémy Taymans <remy@coopiteasy.be>
+#   - Vincent Van Rossem <vincent@coopiteasy.be>
 #   - Elise Dupont
 #   - Thibault François
 #   - Grégoire Leeuwerck
@@ -12,7 +13,7 @@
     "author": "Beescoop - Cellule IT, Coop IT Easy SCRLfs",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Point Of Sale",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.1.0",
     "depends": ["beesdoo_base", "beesdoo_product"],
     "data": ["views/beesdoo_pos.xml", "data/default_barcode_pattern.xml"],
     "qweb": ["static/src/xml/templates.xml"],

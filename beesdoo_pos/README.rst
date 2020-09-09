@@ -19,7 +19,9 @@ Beescoop Point of sale
 
 |badge1| |badge2| |badge3| 
 
-This module adds the eaters of the customer to the POS ActionpadWidget and PaymentScreenWidget.
+This module :
+- adds the eaters of the customer to the POS ActionpadWidget and PaymentScreenWidget.
+- maintains "Available in POS" (`available_in_pos`) value when unchecking "Can be Sold" (`sale_ok`).
 
 **Table of contents**
 
