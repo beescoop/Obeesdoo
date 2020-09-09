@@ -55,7 +55,8 @@
 
                     </group>
 
-                    <field name="pog_line_ids">
+                    <field name="pog_line_ids"
+                           context="{'cpo_seller_id': supplier_id}">
                         <tree name="order_lines" string="Order Lines"
                               editable='bottom'>
                             <field name="product_template_id"/>
