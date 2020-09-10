@@ -12,6 +12,7 @@
                     <field name="daily_sales"/>
                     <field name="range_sales"/>
                     <field name="stock_coverage"/>
+                    <field name="effective_sale_price"/>
                 </group>
             </group>
         </field>
@@ -26,6 +27,7 @@
                 <field name="range_sales"/>
                 <field name="daily_sales"/>
                 <field name="stock_coverage"/>
+                <field name="effective_sale_price"/>
             </field>
         </field>
     </record>
