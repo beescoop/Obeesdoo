@@ -7,12 +7,22 @@
             <field name="arch" type="xml">
                 <field name="date_order" position="after">
                     <field name="supervisor_id"/>
+                    <button name="action_toggle_adapt_purchase_price" type="object"
+                            string="Toggle To Purchase Price"
+                            help="TODO"/>
+                    <button name="action_toggle_adapt_purchase_price" type="object"
+                            string="Toggle To Selling Price"
+                            help="TODO"/>
                 </field>
                 <field name="product_id" position="attributes">
                     <attribute name="domain">[
                         ('main_seller_id','=', parent.partner_id),
                         ('purchase_ok', '=', True) ]
                     </attribute>
+                </field>
+                <field name="price_subtotal" position="after">
+                    <field name="adapt_purchase_price" string="To purchase price"/>
+                    <field name="adapt_selling_price" string="To selling price"/>
                 </field>
             </field>
         </record>

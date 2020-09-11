@@ -28,8 +28,8 @@ class PurchaseOrder(models.Model):
         if "supervisor_id" in vals:
             new_partner = (
                 self.env["res.users"]
-                .browse(vals["supervisor_id"])
-                .partner_id.id
+                    .browse(vals["supervisor_id"])
+                    .partner_id.id
             )
             for rec in self:
                 rec.message_unsubscribe(
@@ -39,3 +39,51 @@ class PurchaseOrder(models.Model):
                     partner_ids=[new_partner], subtype_ids=[]
                 )
         return super(PurchaseOrder, self).write(vals)
+
+    @api.multi
+    def action_toggle_adapt_purchase_price(self):
+        for order in self:
+            for line in order.order_line:
+                line.adapt_purchase_price ^= True
+
+    @api.multi
+    def action_toggle_adapt_selling_price(self):
+        for order in self:
+            for line in order.order_line:
+                line.adapt_selling_price ^= True
+
+    @api.multi
+    def button_confirm(self):
+        res = super(PurchaseOrder, self).button_confirm()
+        for order in self:
+            for line in order.order_line:
+                if line.adapt_purchase_price:
+                    seller = line.product_id._select_seller(
+                        partner_id=line.order_id.partner_id,
+                        quantity=line.product_qty,
+                        date=order.date_order and order.date_order.date(),
+                        uom_id=line.product_uom,
+                        params={'order_id': line.order_id}
+                    )
+                    if seller:
+                        seller.price = line.price_unit
+
+        return res
+
+
+class PurchaseOrderLine(models.Model):
+    _inherit = "purchase.order.line"
+
+    adapt_purchase_price = fields.Boolean(
+        default=False,
+        string='Adapt vendor purchase price',
+        help='Check this box to adapt the purchase price on the product page when confirming Purchase Order'
+    )
+
+    adapt_selling_price = fields.Boolean(
+        default=False,
+        string='Adapt product seling price',
+        help='Check this box to adapt the selling price on the product page when confirming Purchase Order'
+    )
+
+
