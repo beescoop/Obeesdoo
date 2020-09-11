@@ -72,10 +72,8 @@ class BeesdooProduct(models.Model):
 
     note = fields.Text("Comments")
 
-    # S0023 : List_price = Price HTVA, so add a suggested price
-    list_price = fields.Float(string="exVAT Price")
     suggested_price = fields.Float(
-        string="Suggested exVAT Price", compute="_compute_cost", readOnly=True,
+        string="Suggested Price", compute="_compute_cost", readOnly=True,
         help="""
         This field computes a suggested price based on the 'Product Margin' 
         field on Partners (Vendors), if it's set, or otherwise on the 'Product 
@@ -332,7 +330,7 @@ class BeesdooProductCategory(models.Model):
 class BeesdooProductSupplierInfo(models.Model):
     _inherit = "product.supplierinfo"
 
-    price = fields.Float("exVAT Price")
+    price = fields.Float("Price")
 
 
 class BeesdooUOMCateg(models.Model):
