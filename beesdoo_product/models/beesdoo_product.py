@@ -75,7 +75,12 @@ class BeesdooProduct(models.Model):
     # S0023 : List_price = Price HTVA, so add a suggested price
     list_price = fields.Float(string="exVAT Price")
     suggested_price = fields.Float(
-        string="Suggested exVAT Price", compute="_compute_cost", readOnly=True
+        string="Suggested exVAT Price", compute="_compute_cost", readOnly=True,
+        help="""
+        This field computes a suggested price based on the 'Product Margin' 
+        field on Partners (Vendors), if it's set, or otherwise on the 'Product 
+        Margin' field in Product Categories (which has a default value).
+        """
     )
 
     deadline_for_sale = fields.Integer(string="Deadline for sale(days)")
