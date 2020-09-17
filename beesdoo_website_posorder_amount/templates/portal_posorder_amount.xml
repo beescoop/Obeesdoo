@@ -21,7 +21,7 @@
                           t-esc-options='{"widget": "monetary", "display_currency": "company_currency"}'/>
                     .
                 </p>
-                <table class="table table-striped">
+                <table name="posorder_amount_by_year" class="table table-striped">
                     <tr>
                         <th>
                             Year
