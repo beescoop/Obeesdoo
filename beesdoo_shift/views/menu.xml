@@ -3,7 +3,8 @@
 
     <!-- Root menu -->
     <menuitem name="Shift Management" id="menu_root"
-              groups="beesdoo_shift.group_shift_attendance"/>
+              groups="beesdoo_shift.group_shift_attendance"
+              web_icon="beesdoo_shift,static/description/icon.png" />
 
 
     <!-- Planning -->
