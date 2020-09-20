@@ -109,7 +109,7 @@ msgstr ""
 #: code:addons/beesdoo_shift_attendance/wizard/validate_attendance_sheet.py:47
 #, python-format
 msgid "\n"
-"%s attended its shift as a normal one but was not expected. Something may be wrong in his/her personnal informations.\n"
+"%s attended its shift as a normal one but was not expected. Something may be wrong in his/her personal informations.\n"
 " "
 msgstr "%s a effectué son shift comme un shift normal mais n'était pas attendu(e). Veuillez vérifier son inscription à ce créneau."
 

@@ -177,7 +177,7 @@ msgstr "\n"
 #: code:addons/custom/obeesdoo/beesdoo_shift/wizard/validate_attendance_sheet.py:49
 #, python-format
 msgid "\n"
-"%s attended its shift as a normal one but was not expected. Something may be wrong in his/her personnal informations.\n"
+"%s attended its shift as a normal one but was not expected. Something may be wrong in his/her personal informations.\n"
 ""
 msgstr "\n"
 "%s voerde zijn shift uit als een normale shift, maar werd niet verwacht. Controleer zijn registratie voor dit tijdslot.\n"
