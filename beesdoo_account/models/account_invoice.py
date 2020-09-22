@@ -8,22 +8,31 @@ class AccountInvoice(models.Model):
     @api.multi
     def action_invoice_open(self):
         if self.user_has_groups(
-                'beesdoo_account.'
-                'group_validate_invoice_negative_total_amount'):
+            "beesdoo_account." "group_validate_invoice_negative_total_amount"
+        ):
             return self.action_invoice_negative_amount_open()
         return super(AccountInvoice, self).action_invoice_open()
 
     @api.multi
     def action_invoice_negative_amount_open(self):
         """Identical to action_invoice_open without UserError on an invoice with a negative total amount"""
-        to_open_invoices = self.filtered(lambda inv: inv.state != 'open')
+        to_open_invoices = self.filtered(lambda inv: inv.state != "open")
         if to_open_invoices.filtered(lambda inv: not inv.partner_id):
-            raise UserError(_("The field Vendor is required, please complete it to validate the Vendor Bill."))
-        if to_open_invoices.filtered(lambda inv: inv.state != 'draft'):
-            raise UserError(_("Invoice must be in draft state in order to validate it."))
+            raise UserError(
+                _(
+                    "The field Vendor is required, please complete it to validate the Vendor Bill."
+                )
+            )
+        if to_open_invoices.filtered(lambda inv: inv.state != "draft"):
+            raise UserError(
+                _("Invoice must be in draft state in order to validate it.")
+            )
         if to_open_invoices.filtered(lambda inv: not inv.account_id):
             raise UserError(
-                _('No account was found to create the invoice, be sure you have installed a chart of account.'))
+                _(
+                    "No account was found to create the invoice, be sure you have installed a chart of account."
+                )
+            )
         to_open_invoices.action_date_assign()
         to_open_invoices.action_move_create()
         return to_open_invoices.invoice_validate()
