@@ -6,3 +6,4 @@ create_uid ORM field. His user's contact info is printed on
 purchases orders as 'Referent'.
 - A filter w.r.t. the mail sellers is placed on the products field of a
 purchase order.
+- Allow inverting the Purchase Order Reference on the invoice lines.
