@@ -5,18 +5,6 @@ from odoo.exceptions import UserError
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
-    @api.one
-    @api.depends(
-        'state', 'currency_id', 'invoice_line_ids.price_subtotal',
-        'move_id.line_ids.amount_residual',
-        'move_id.line_ids.currency_id')
-    def _compute_residual(self):
-        super(AccountInvoice,self)._compute_residual()
-        sign = self.amount_total < 0 and -1 or 1
-        self.residual_company_signed *= sign
-        self.residual_signed *= sign
-        self.residual *= sign
-
     @api.multi
     def action_invoice_open(self):
         if self.user_has_groups(
