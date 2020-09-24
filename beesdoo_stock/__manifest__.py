@@ -7,7 +7,7 @@
     "depends": ["stock"],
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
-    "website": "www.coopiteasy.be",
+    "website": "https://www.coopiteasy.be",
     "summary": """
         Enable action on multiple products of a stock receipt
     """,
