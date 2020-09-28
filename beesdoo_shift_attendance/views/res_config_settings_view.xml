@@ -17,7 +17,7 @@
                 <xpath expr="//div[hasclass('settings')]" position="inside">
                     <div class="app_settings_block"
                          data-string="Shifts Management"
-                         string="Shifts Management" data-key="shifts_management"
+                         string="Shifts Management" data-key="beesdoo_shift"
                          groups="beesdoo_shift.group_cooperative_admin">
                         <field name="has_accounting_entries" invisible="1"/>
                         <h2>Attendance Sheets</h2>
