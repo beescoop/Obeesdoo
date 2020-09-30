@@ -5,14 +5,21 @@
             <field name="model">purchase.order</field>
             <field name="inherit_id" ref="purchase.purchase_order_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                    <button name="action_toggle_adapt_purchase_price" type="object"
+                            string="Adapt Purchase Price"
+                            icon="fa-check-square"
+                            class="oe_stat_button"
+                            help="TODO"/>
+                    <button name="action_toggle_adapt_selling_price" type="object"
+                            string="Toggle To Selling Price"
+                            icon="fa-toggle-on"
+                            class="oe_stat_button"
+                            attrs="{'invisible': True}"
+                            help="TODO"/>
+                </xpath>
                 <field name="date_order" position="after">
                     <field name="supervisor_id"/>
-                    <button name="action_toggle_adapt_purchase_price" type="object"
-                            string="Toggle To Purchase Price"
-                            help="TODO"/>
-                    <button name="action_toggle_adapt_purchase_price" type="object"
-                            string="Toggle To Selling Price"
-                            help="TODO"/>
                 </field>
                 <field name="product_id" position="attributes">
                     <attribute name="domain">[
@@ -22,7 +29,7 @@
                 </field>
                 <field name="price_subtotal" position="after">
                     <field name="adapt_purchase_price" string="To purchase price"/>
-                    <field name="adapt_selling_price" string="To selling price"/>
+                    <field name="adapt_selling_price" string="To selling price" invisible="True"/>
                 </field>
             </field>
         </record>
