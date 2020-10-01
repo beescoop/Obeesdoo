@@ -7,16 +7,15 @@
             <field name="arch" type="xml">
                 <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
                     <button name="action_toggle_adapt_purchase_price" type="object"
-                            string="Adapt Purchase Price"
+                            string="Toggle Purchase Price"
                             icon="fa-check-square"
                             class="oe_stat_button"
-                            help="TODO"/>
+                            help="Toggle Purchase Price checkboxes to adapt the purchase price on the product page when confirming Purchase Order"/>
                     <button name="action_toggle_adapt_selling_price" type="object"
-                            string="Toggle To Selling Price"
-                            icon="fa-toggle-on"
+                            string="Toggle Selling Price"
+                            icon="fa-check-square"
                             class="oe_stat_button"
-                            attrs="{'invisible': True}"
-                            help="TODO"/>
+                            help="Toggle Selling Price checkboxes to adapt the selling price on the product page when confirming Purchase Order"/>
                 </xpath>
                 <field name="date_order" position="after">
                     <field name="supervisor_id"/>
@@ -28,8 +27,8 @@
                     </attribute>
                 </field>
                 <field name="price_subtotal" position="after">
-                    <field name="adapt_purchase_price" string="To purchase price"/>
-                    <field name="adapt_selling_price" string="To selling price" invisible="True"/>
+                    <field name="adapt_purchase_price" string="Is Purchase Price"/>
+                    <field name="adapt_selling_price" string="Is Selling Price"/>
                 </field>
             </field>
         </record>
