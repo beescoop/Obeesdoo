@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2020 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<templates id="template">
+    <t t-extend="ActionpadWidget">
+        <t t-jquery="t[t-esc='widget.pos.get_client().name']" t-operation="after">
+            <t t-if="widget.pos.get_client().can_shop">
+                <div name="can-shop-status" class="coop_status can_shop">(Can shop)</div>
+            </t>
+            <t t-else="">
+                <div name="cannot-shop-status" class="coop_status cannot_shop">(Cannot shop)</div>
+            </t>
+        </t>
+    </t>
+</templates>
