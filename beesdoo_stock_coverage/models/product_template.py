@@ -50,12 +50,12 @@ class ProductTemplate(models.Model):
           over order lines
         """
         query = """
+    with sales as (
         select template.id                               as product_template_id,
                sum(pol.qty)                              as total_sales,
                sum(pol.qty) / template.computation_range as daily_sales,
-               sum(pol.price_subtotal) / sum(pol.qty)    as effective_sale_price,
-               sum(pol.price_subtotal_incl) /
-               sum(pol.qty)                              as effective_sale_price_incl
+               sum(pol.price_subtotal)                   as total_sale_price,
+               sum(pol.price_subtotal_incl)              as total_sale_price_incl
         from pos_order_line pol
                  join pos_order po ON pol.order_id = po.id
                  join product_product product ON pol.product_id = product.id
@@ -69,6 +69,14 @@ class ProductTemplate(models.Model):
           and pol.qty != 0
           and template.id in %(template_ids)s
         group by product_template_id
+    )
+    select product_template_id,
+           total_sales,
+           daily_sales,
+           total_sale_price / total_sales      as effective_sale_price,
+           total_sale_price_incl / total_sales as effective_sale_price_incl
+    from sales
+    where total_sales != 0
         """
 
         if self.ids:  # on RecordSet
