@@ -32,26 +32,51 @@ class ProductTemplate(models.Model):
         compute="_compute_stock_coverage",
         store=True,
     )
+    effective_sale_price = fields.Float(
+        string="Effective Sale Price",
+        compute="_compute_stock_coverage",
+        store=True,
+        help="SUM (unit_price * qty) / SUM (qty) over pos order lines",
+    )
 
     @api.multi
     @api.depends("computation_range", "virtual_available", "active")
     def _compute_stock_coverage(self):
+        """
+        effective_sale_price is balanced:
+        - [SUM (unit_price_i * qty_i)] / SUM (qty_i) for i in 0..n
+          over order lines
+        == SUM (price_subtotal_i) / SUM (qty_i) for i in 0..n
+          over order lines
+        """
         query = """
-        select template.id  as product_template_id,
-               sum(pol.qty) as total_sales,
-               sum(pol.qty) / template.computation_range as daily_sales
+    with sales as (
+        select template.id                               as product_template_id,
+               sum(pol.qty)                              as total_sales,
+               sum(pol.qty) / template.computation_range as daily_sales,
+               sum(pol.price_subtotal)                   as total_sale_price,
+               sum(pol.price_subtotal_incl)              as total_sale_price_incl
         from pos_order_line pol
                  join pos_order po ON pol.order_id = po.id
                  join product_product product ON pol.product_id = product.id
                  join product_template template
-                  ON product.product_tmpl_id = template.id
+                      ON product.product_tmpl_id = template.id
         where po.state in ('done', 'invoiced', 'paid')
           and template.active
           and po.date_order
             BETWEEN now() - template.computation_range * interval '1 days'
             and now()
-            and template.id in %(template_ids)s
+          and pol.qty != 0
+          and template.id in %(template_ids)s
         group by product_template_id
+    )
+    select product_template_id,
+           total_sales,
+           daily_sales,
+           total_sale_price / total_sales      as effective_sale_price,
+           total_sale_price_incl / total_sales as effective_sale_price_incl
+    from sales
+    where total_sales != 0
         """
 
         if self.ids:  # on RecordSet
@@ -62,11 +87,19 @@ class ProductTemplate(models.Model):
             return True
 
         self.env.cr.execute(query, {"template_ids": template_ids})
-        results = {pid: (qty, avg) for pid, qty, avg in self.env.cr.fetchall()}
+        results = {
+            pid: (qty, avg, esp, espi)
+            for pid, qty, avg, esp, espi in self.env.cr.fetchall()
+        }
         for template in self:
-            qty, avg = results.get(template.id, (0, 0))
+            qty, avg, esp, espi = results.get(template.id, (0, 0, 0, 0))
             template.range_sales = qty
             template.daily_sales = avg
+            if any(template.taxes_id.mapped("price_include")):
+                template.effective_sale_price = espi
+            else:
+                template.effective_sale_price = esp
+
             if avg != 0:
                 template.stock_coverage = template.virtual_available / avg
             else:

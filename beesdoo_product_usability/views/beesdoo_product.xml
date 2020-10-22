@@ -20,6 +20,8 @@
                 <field name="stock_coverage"/>
                 <field name="daily_sales"/>
                 <field name="range_sales"/>
+                <field name="list_price"/>
+                <field name="effective_sale_price"/>
             </tree>
         </field>
     </record>
