@@ -221,7 +221,7 @@
         <field name="name">Shifts</field>
         <field name="res_model">beesdoo.shift.shift</field>
         <field name="view_mode">kanban,calendar,tree,form,pivot</field>
-        <field name="context">{'search_default_today': 1, 'search_default_gb_type':1}</field>
+        <field name="context">{'search_default_today': 1}</field>
     </record>
 
 </odoo>
