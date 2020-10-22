@@ -1,3 +1,4 @@
+import logging
 import math
 from datetime import datetime, time, timedelta
 
@@ -5,6 +6,8 @@ from pytz import UTC, timezone
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
+
+_logger = logging.getLogger(__name__)
 
 
 def float_to_time(f):
@@ -83,6 +86,13 @@ class Planning(models.Model):
 
         planning = self._get_next_planning(last_seq)
         planning = planning.with_context(visualize_date=date)
+
+        if not planning.task_template_ids:
+            _logger.error(
+                "Could not generate next planning: no task template defined."
+            )
+            return
+
         planning.task_template_ids._generate_task_day()
 
         next_date = planning._get_next_planning_date(date)
