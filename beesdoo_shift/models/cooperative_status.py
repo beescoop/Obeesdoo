@@ -94,6 +94,7 @@ class CooperativeStatus(models.Model):
         selection=_get_status,
         compute="_compute_status",
         string="Cooperative Status",
+        translate=True,
         store=True,
     )
     can_shop = fields.Boolean(compute="_compute_can_shop", store=True)

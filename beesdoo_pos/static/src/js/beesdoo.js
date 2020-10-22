@@ -12,7 +12,7 @@ odoo.define('beesdoo_pos.screens', function (require) {
         }
     }
 
-    screens.ActionpadWidget = screens.ActionpadWidget.include({
+    screens.ActionpadWidget.include({
         renderElement : function() {
             var self = this;
             var loaded = new $.Deferred();
