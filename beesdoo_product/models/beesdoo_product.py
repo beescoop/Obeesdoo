@@ -265,12 +265,22 @@ class BeesdooProduct(models.Model):
                 )
 
     @api.multi
-    @api.depends("seller_ids")
+    @api.depends("seller_ids", "supplier_taxes_id", "taxes_id")
     def _compute_cost(self):
         for product in self:
             suppliers = product._get_main_supplier_info()
             if len(suppliers) > 0:
                 price = suppliers[0].price
+                supplier_taxes = product.supplier_taxes_id.filtered(
+                    lambda t: t.amount_type == "percent" and t.price_include
+                )
+                supplier_taxes_factor = 1 / (
+                    1 + sum(supplier_taxes.mapped("amount")) / 100
+                )
+                sale_taxes = product.taxes_id.filtered(
+                    lambda t: t.amount_type == "percent" and t.price_include
+                )
+                sale_taxes_factor = 1 + sum(sale_taxes.mapped("amount")) / 100
                 profit_margin_supplier = suppliers[0].name.profit_margin
                 profit_margin_product_category = suppliers[
                     0
@@ -283,13 +293,17 @@ class BeesdooProduct(models.Model):
                     .sudo()
                     .get_param("beesdoo_product.suggested_price_reference")
                 )
-                factor = (
+                profit_margin_factor = (
                     1 / (1 - profit_margin / 100)
                     if suggested_price_reference == "sale_price"
                     else (1 + profit_margin / 100)
                 )
                 product.suggested_price = (
-                    price * product.uom_po_id.factor * factor
+                    price
+                    * product.uom_po_id.factor
+                    * supplier_taxes_factor
+                    * sale_taxes_factor
+                    * profit_margin_factor
                 )
 
 
