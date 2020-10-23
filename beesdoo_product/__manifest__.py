@@ -21,6 +21,7 @@
         "data/product_sequence.xml",
         "views/beesdoo_product.xml",
         "views/assets.xml",
+        "views/res_config_settings.xml",
         "wizard/views/label_printing_utils.xml",
         "security/ir.model.access.csv",
     ],

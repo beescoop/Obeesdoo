@@ -73,12 +73,14 @@ class BeesdooProduct(models.Model):
     note = fields.Text("Comments")
 
     suggested_price = fields.Float(
-        string="Suggested Price", compute="_compute_cost", readOnly=True,
+        string="Suggested Price",
+        compute="_compute_cost",
+        readOnly=True,
         help="""
         This field computes a suggested price based on the 'Product Margin' 
         field on Partners (Vendors), if it's set, or otherwise on the 'Product 
         Margin' field in Product Categories (which has a default value).
-        """
+        """,
     )
 
     deadline_for_sale = fields.Integer(string="Deadline for sale(days)")
@@ -276,9 +278,19 @@ class BeesdooProduct(models.Model):
                 profit_margin = (
                     profit_margin_supplier or profit_margin_product_category
                 )
+                suggested_price_reference = (
+                    self.env["ir.config_parameter"]
+                    .sudo()
+                    .get_param("beesdoo_product.suggested_price_reference")
+                )
+                factor = (
+                    1 / (1 - profit_margin / 100)
+                    if suggested_price_reference == "sale_price"
+                    else (1 + profit_margin / 100)
+                )
                 product.suggested_price = (
-                    price * product.uom_po_id.factor
-                ) * (1 + profit_margin / 100)
+                    price * product.uom_po_id.factor * factor
+                )
 
 
 class BeesdooScaleCategory(models.Model):
