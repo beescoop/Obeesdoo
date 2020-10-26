@@ -21,6 +21,24 @@
                           t-esc-options='{"widget": "monetary", "display_currency": "company_currency"}'/>
                     .
                 </p>
+                <table name="posorder_amount_by_year" class="table table-striped">
+                    <tr>
+                        <th>
+                            Year
+                        </th>
+                        <th>
+                            Amount
+                        </th>
+                    </tr>
+                    <tr t-foreach="posorder_amount_by_year" t-as="row">
+                        <td>
+                            <t t-esc="row['year']"/>
+                        </td>
+                        <td>
+                            <t t-esc="row['amount']" t-esc-options='{"widget": "monetary", "display_currency": "company_currency"}'/>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </xpath>
     </template>
