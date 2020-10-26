@@ -1,4 +1,5 @@
 from odoo import fields, models
+from odoo.tools.translate import _
 
 
 class Task(models.Model):
@@ -10,12 +11,12 @@ class Task(models.Model):
 
     def _get_selection_status(self):
         return [
-            ("open", "Confirmed"),
-            ("done", "Attended"),
-            ("absent_2", "Absent - 2 compensations"),
-            ("absent_1", "Absent - 1 compensation"),
-            ("absent_0", "Absent - 0 compensation"),
-            ("cancel", "Cancelled"),
+            ("open", _("Confirmed")),
+            ("done", _("Attended")),
+            ("absent_2", _("Absent - 2 compensations")),
+            ("absent_1", _("Absent - 1 compensation")),
+            ("absent_0", _("Absent - 0 compensation")),
+            ("cancel", _("Cancelled")),
         ]
 
     def _get_color_mapping(self, state):
