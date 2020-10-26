@@ -3,6 +3,7 @@ from datetime import datetime, time, timedelta
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
+from odoo.tools.translate import _
 
 
 class Task(models.Model):
@@ -19,11 +20,11 @@ class Task(models.Model):
     ##################################
     def _get_selection_status(self):
         return [
-            ("open", "Confirmed"),
-            ("done", "Attended"),
-            ("absent", "Absent"),
-            ("excused", "Excused"),
-            ("cancel", "Cancelled"),
+            ("open", _("Confirmed")),
+            ("done", _("Attended")),
+            ("absent", _("Absent")),
+            ("excused", _("Excused")),
+            ("cancel", _("Cancelled")),
         ]
 
     def _get_color_mapping(self, state):
