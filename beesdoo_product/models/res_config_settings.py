@@ -9,8 +9,8 @@ class ResConfigSettings(models.TransientModel):
 
     suggested_price_reference = fields.Selection(
         selection=[
-            ("supplier_price", "Supplier Price"),
-            ("sale_price", "Sale Price"),
+            ("supplier_price", "On Supplier Price"),
+            ("sale_price", "On Sale Price"),
         ],
         string="Suggested price reference for margin",
         help="""

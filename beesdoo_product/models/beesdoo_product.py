@@ -267,6 +267,11 @@ class BeesdooProduct(models.Model):
     @api.multi
     @api.depends("seller_ids", "supplier_taxes_id", "taxes_id")
     def _compute_cost(self):
+        suggested_price_reference = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_product.suggested_price_reference")
+        )
         for product in self:
             suppliers = product._get_main_supplier_info()
             if len(suppliers) > 0:
@@ -287,11 +292,6 @@ class BeesdooProduct(models.Model):
                 ].product_tmpl_id.categ_id.profit_margin
                 profit_margin = (
                     profit_margin_supplier or profit_margin_product_category
-                )
-                suggested_price_reference = (
-                    self.env["ir.config_parameter"]
-                    .sudo()
-                    .get_param("beesdoo_product.suggested_price_reference")
                 )
                 profit_margin_factor = (
                     1 / (1 - profit_margin / 100)
