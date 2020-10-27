@@ -164,6 +164,17 @@
         </field>
     </record>
 
+    <record id="beesdoo_product_res_parter_form" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <group name="purchase" position="inside">
+                <field name="profit_margin"/>
+            </group>
+        </field>
+    </record>
+
     <record model="ir.ui.view" id="beesdoo_scale_category_list">
         <field name="name">beesdoo.scale.category.list</field>
         <field name="model">beesdoo.scale.category</field>

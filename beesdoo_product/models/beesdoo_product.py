@@ -12,6 +12,19 @@ from odoo.tools.translate import _
 _logger = logging.getLogger(__name__)
 
 
+class ResPartner(models.Model):
+    _inherit = "res.partner"
+
+    profit_margin = fields.Float(string="Product Margin [%]")
+
+    @api.multi
+    @api.constrains("profit_margin")
+    def _check_margin(self):
+        for product in self:
+            if product.profit_margin < 0.0:
+                raise UserError(_("Percentages for Profit Margin must >= 0."))
+
+
 class BeesdooProduct(models.Model):
     _inherit = "product.template"
 
@@ -60,10 +73,15 @@ class BeesdooProduct(models.Model):
 
     note = fields.Text("Comments")
 
-    # S0023 : List_price = Price HTVA, so add a suggested price
-    list_price = fields.Float(string="exVAT Price")
     suggested_price = fields.Float(
-        string="Suggested exVAT Price", compute="_compute_cost", readOnly=True
+        string="Suggested Price",
+        compute="_compute_cost",
+        readOnly=True,
+        help="""
+        This field computes a suggested price based on the 'Product Margin' 
+        field on Partners (Vendors), if it's set, or otherwise on the 'Product 
+        Margin' field in Product Categories (which has a default value).
+        """,
     )
 
     deadline_for_sale = fields.Integer(string="Deadline for sale(days)")
@@ -254,16 +272,45 @@ class BeesdooProduct(models.Model):
                 )
 
     @api.multi
-    @api.depends("seller_ids")
+    @api.depends("seller_ids", "supplier_taxes_id", "taxes_id")
     def _compute_cost(self):
+        suggested_price_reference = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_product.suggested_price_reference")
+        )
         for product in self:
             suppliers = product._get_main_supplier_info()
             if len(suppliers) > 0:
+                price = suppliers[0].price
+                supplier_taxes = product.supplier_taxes_id.filtered(
+                    lambda t: t.amount_type == "percent" and t.price_include
+                )
+                supplier_taxes_factor = 1 / (
+                    1 + sum(supplier_taxes.mapped("amount")) / 100
+                )
+                sale_taxes = product.taxes_id.filtered(
+                    lambda t: t.amount_type == "percent" and t.price_include
+                )
+                sale_taxes_factor = 1 + sum(sale_taxes.mapped("amount")) / 100
+                profit_margin_supplier = suppliers[0].name.profit_margin
+                profit_margin_product_category = suppliers[
+                    0
+                ].product_tmpl_id.categ_id.profit_margin
+                profit_margin = (
+                    profit_margin_supplier or profit_margin_product_category
+                )
+                profit_margin_factor = (
+                    1 / (1 - profit_margin / 100)
+                    if suggested_price_reference == "sale_price"
+                    else (1 + profit_margin / 100)
+                )
                 product.suggested_price = (
-                    suppliers[0].price * product.uom_po_id.factor
-                ) * (
-                    1
-                    + suppliers[0].product_tmpl_id.categ_id.profit_margin / 100
+                    price
+                    * product.uom_po_id.factor
+                    * supplier_taxes_factor
+                    * sale_taxes_factor
+                    * profit_margin_factor
                 )
 
 
@@ -310,13 +357,13 @@ class BeesdooProductCategory(models.Model):
     def _check_margin(self):
         for product in self:
             if product.profit_margin < 0.0:
-                raise UserError(_("Percentages for Profit Margin must > 0."))
+                raise UserError(_("Percentages for Profit Margin must >= 0."))
 
 
 class BeesdooProductSupplierInfo(models.Model):
     _inherit = "product.supplierinfo"
 
-    price = fields.Float("exVAT Price")
+    price = fields.Float("Price")
 
 
 class BeesdooUOMCateg(models.Model):
