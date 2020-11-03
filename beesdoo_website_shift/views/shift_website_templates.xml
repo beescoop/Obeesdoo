@@ -6,7 +6,7 @@
 <odoo>
 
     <!-- Add menu entries -->
-    <data noupdate="1">
+    <data noupdate="0">
         <record id="menu_work_irregular" model="website.menu">
             <field name="name">Shifts Irregular</field>
             <field name="url">/shift_irregular_worker</field>
