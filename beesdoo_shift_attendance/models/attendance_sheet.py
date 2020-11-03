@@ -1,10 +1,8 @@
 import logging
-
 from datetime import date, datetime, timedelta
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
-
 
 _logger = logging.getLogger(__name__)
 
@@ -488,10 +486,9 @@ class AttendanceSheet(models.Model):
                 self._message_log(
                     body=_(
                         "The shift linked to the expected shift of %s "
-                        "does exist any more."
+                        "does exist anymore."
                         "This expected shift is ignored in the "
-                        "validation process."
-                        % expected_shift.worker_id.name
+                        "validation process." % expected_shift.worker_id.name
                     )
                 )
                 continue
