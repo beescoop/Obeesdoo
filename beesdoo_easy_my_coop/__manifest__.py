@@ -4,7 +4,7 @@
     "author": "BEES coop, Coop IT Easy SCRLfs",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
-    "version": "12.0.1.0.1",
+    "version": "12.0.1.0.2",
     "depends": [
         "beesdoo_base",
         "beesdoo_shift",
