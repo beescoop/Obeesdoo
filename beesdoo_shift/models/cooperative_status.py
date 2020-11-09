@@ -143,6 +143,7 @@ class CooperativeStatus(models.Model):
         "temporary_exempt_end_date",
         "resigning",
         "cooperator_id.subscribed_shift_ids",
+        "working_mode",
     )
     def _compute_status(self):
         update = int(
