@@ -29,12 +29,7 @@ class BeesdooProductHazard(models.Model):
     _description = "beesdoo.product.hazard"
 
     name = fields.Char()
-    type = fields.Selection(
-        [
-            ("fds", "FDS"),
-            ("hazard", "Specific hazard"),
-        ]
-    )
+    type = fields.Selection([("fds", "FDS"), ("hazard", "Specific hazard")])
     active = fields.Boolean(default=True)
 
 
@@ -42,20 +37,16 @@ class BeesdooProduct(models.Model):
     _inherit = "product.template"
 
     eco_label = fields.Many2one(
-        "beesdoo.product.label",
-        domain=[("type", "=", "eco")]
+        "beesdoo.product.label", domain=[("type", "=", "eco")]
     )
     local_label = fields.Many2one(
-        "beesdoo.product.label",
-        domain=[("type", "=", "local")]
+        "beesdoo.product.label", domain=[("type", "=", "local")]
     )
     fair_label = fields.Many2one(
-        "beesdoo.product.label",
-        domain=[("type", "=", "fair")]
+        "beesdoo.product.label", domain=[("type", "=", "fair")]
     )
     origin_label = fields.Many2one(
-        "beesdoo.product.label",
-        domain=[("type", "=", "delivery")]
+        "beesdoo.product.label", domain=[("type", "=", "delivery")]
     )
 
     fds_label = fields.Many2one(
@@ -63,14 +54,18 @@ class BeesdooProduct(models.Model):
         string="FDS label",
         domain=[("type", "=", "fds")],
         translate=True,
-        default=lambda self: self.env['beesdoo.product.hazard'].search([["type", "=", "fds"],["name", "=", "Not required"]])
+        default=lambda self: self.env["beesdoo.product.hazard"].search(
+            [["type", "=", "fds"], ["name", "=", "Not required"]]
+        ),
     )
     hazard_label = fields.Many2one(
         "beesdoo.product.hazard",
         string="Hazard label",
         domain=[("type", "=", "hazard")],
         translate=True,
-        default=lambda self: self.env['beesdoo.product.hazard'].search([["type", "=", "hazard"],["name", "=", "No"]])
+        default=lambda self: self.env["beesdoo.product.hazard"].search(
+            [["type", "=", "hazard"], ["name", "=", "No"]]
+        ),
     )
 
     main_seller_id = fields.Many2one(
@@ -106,12 +101,14 @@ class BeesdooProduct(models.Model):
     note = fields.Text("Comments")
 
     suggested_price = fields.Float(
-        string="Suggested Price", compute="_compute_cost", readOnly=True,
+        string="Suggested Price",
+        compute="_compute_cost",
+        readOnly=True,
         help="""
-        This field computes a suggested price based on the 'Product Margin' 
-        field on Partners (Vendors), if it's set, or otherwise on the 'Product 
+        This field computes a suggested price based on the 'Product Margin'
+        field on Partners (Vendors), if it's set, or otherwise on the 'Product
         Margin' field in Product Categories (which has a default value).
-        """
+        """,
     )
 
     deadline_for_sale = fields.Integer(string="Deadline for sale(days)")
