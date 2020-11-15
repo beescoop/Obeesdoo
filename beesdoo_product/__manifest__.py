@@ -18,6 +18,7 @@
     "depends": ["beesdoo_base", "product", "sale", "point_of_sale"],
     "data": [
         "data/product_label.xml",
+        "data/product_hazard.xml",
         "data/barcode_rule.xml",
         "data/product_sequence.xml",
         "views/beesdoo_product.xml",

@@ -25,6 +25,15 @@ class ResPartner(models.Model):
                 raise UserError(_("Percentages for Profit Margin must >= 0."))
 
 
+class BeesdooProductHazard(models.Model):
+    _name = "beesdoo.product.hazard"
+    _description = "beesdoo.product.hazard"
+
+    name = fields.Char()
+    type = fields.Selection([("fds", "FDS"), ("hazard", "Specific hazard")])
+    active = fields.Boolean(default=True)
+
+
 class BeesdooProduct(models.Model):
     _inherit = "product.template"
 
@@ -39,6 +48,19 @@ class BeesdooProduct(models.Model):
     )
     origin_label = fields.Many2one(
         "beesdoo.product.label", domain=[("type", "=", "delivery")]
+    )
+
+    fds_label = fields.Many2one(
+        "beesdoo.product.hazard",
+        string="FDS label",
+        domain=[("type", "=", "fds")],
+        translate=True,
+    )
+    hazard_label = fields.Many2one(
+        "beesdoo.product.hazard",
+        string="Hazard label",
+        domain=[("type", "=", "hazard")],
+        translate=True,
     )
 
     main_seller_id = fields.Many2one(
@@ -78,8 +100,8 @@ class BeesdooProduct(models.Model):
         compute="_compute_cost",
         readOnly=True,
         help="""
-        This field computes a suggested price based on the 'Product Margin' 
-        field on Partners (Vendors), if it's set, or otherwise on the 'Product 
+        This field computes a suggested price based on the 'Product Margin'
+        field on Partners (Vendors), if it's set, or otherwise on the 'Product
         Margin' field in Product Categories (which has a default value).
         """,
     )

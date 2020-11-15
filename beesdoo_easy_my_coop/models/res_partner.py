@@ -52,14 +52,14 @@ class Partner(models.Model):
                 rec.is_worker = False
 
     def _search_worker(self, operator, value):
-        lines = self.env['share.line'].search(
-            [('share_product_id.allow_working', '=', 'True')]
+        lines = self.env["share.line"].search(
+            [("share_product_id.allow_working", "=", "True")]
         )
-        partner_ids = lines.mapped('partner_id').ids
-        if (operator, value) in [('=', True), ('!=', False)]:
-            return [('id', 'in', partner_ids)]
+        partner_ids = lines.mapped("partner_id").ids
+        if (operator, value) in [("=", True), ("!=", False)]:
+            return [("id", "in", partner_ids)]
         else:
-            return [('id', 'not in', partner_ids)]
+            return [("id", "not in", partner_ids)]
 
     @api.depends(
         "cooperative_status_ids",
