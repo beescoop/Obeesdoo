@@ -226,7 +226,7 @@
             </div>
         </t>
 
-        <div class="alert alert-info">
+        <div class="alert alert-info" t-if="not past_shifts">
             <strong>Info !</strong>
             You don't have any past shift.
         </div>
