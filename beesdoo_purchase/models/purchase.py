@@ -39,3 +39,62 @@ class PurchaseOrder(models.Model):
                     partner_ids=[new_partner], subtype_ids=[]
                 )
         return super(PurchaseOrder, self).write(vals)
+
+    @api.multi
+    def action_toggle_adapt_purchase_price(self):
+        for order in self:
+            for line in order.order_line:
+                line.adapt_purchase_price ^= True
+
+    @api.multi
+    def action_toggle_adapt_selling_price(self):
+        for order in self:
+            for line in order.order_line:
+                line.adapt_selling_price ^= True
+
+    @api.multi
+    def button_confirm(self):
+        res = super(PurchaseOrder, self).button_confirm()
+        for order in self:
+            for line in order.order_line:
+                product_id = line.product_id
+                product_tmpl_id = product_id.product_tmpl_id
+                seller = product_id._select_seller(
+                    partner_id=line.order_id.partner_id,
+                    quantity=line.product_qty,
+                    date=order.date_order and order.date_order.date(),
+                    uom_id=line.product_uom,
+                    params={"order_id": line.order_id},
+                )
+                price = line.price_unit
+                suggested_price = (
+                    price * product_tmpl_id.uom_po_id.factor
+                ) * (1 + product_tmpl_id.categ_id.profit_margin / 100)
+                if line.adapt_purchase_price and line.adapt_selling_price:
+                    seller.price = price
+                    # will asynchronously trigger _compute_cost()
+                    # on `product.template` in `beesdoo_product`
+                    product_tmpl_id.list_price = suggested_price
+                elif line.adapt_purchase_price:
+                    seller.price = price  # see above comment
+                elif line.adapt_selling_price:
+                    product_tmpl_id.list_price = suggested_price
+        return res
+
+
+class PurchaseOrderLine(models.Model):
+    _inherit = "purchase.order.line"
+
+    adapt_purchase_price = fields.Boolean(
+        default=False,
+        string="Adapt vendor purchase price",
+        help="Check this box to adapt the purchase price "
+        "on the product page when confirming Purchase Order",
+    )
+
+    adapt_selling_price = fields.Boolean(
+        default=False,
+        string="Adapt product seling price",
+        help="Check this box to adapt the selling price "
+        "on the product page when confirming Purchase Order",
+    )
