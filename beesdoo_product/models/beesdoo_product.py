@@ -54,18 +54,12 @@ class BeesdooProduct(models.Model):
         string="FDS label",
         domain=[("type", "=", "fds")],
         translate=True,
-        default=lambda self: self.env["beesdoo.product.hazard"].search(
-            [["type", "=", "fds"], ["name", "=", "Not required"]]
-        ),
     )
     hazard_label = fields.Many2one(
         "beesdoo.product.hazard",
         string="Hazard label",
         domain=[("type", "=", "hazard")],
         translate=True,
-        default=lambda self: self.env["beesdoo.product.hazard"].search(
-            [["type", "=", "hazard"], ["name", "=", "No"]]
-        ),
     )
 
     main_seller_id = fields.Many2one(
