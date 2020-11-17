@@ -368,15 +368,18 @@ ul.auto-toc {
 !! changes will be overwritten.                   !!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 <p><a class="reference external" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external" href="https://github.com/beescoop/obeesdoo/tree/12.0/beesdoo_purchase"><img alt="beescoop/obeesdoo" src="https://img.shields.io/badge/github-beescoop%2Fobeesdoo-lightgray.png?logo=github" /></a></p>
-<p>Extends Purchase module:
-- Adds a ‘Responsible’ field to purchase orders:
+<p>Extends Purchase module:</p>
+<ul class="simple">
+<li>Adds a ‘Responsible’ field to purchase orders:
 This is a user who will follow up the order. This users replaces
 the creator in the order’s mail messages followers list, and in the
 create_uid ORM field. His user’s contact info is printed on
-purchases orders as ‘Referent’.
-- A filter w.r.t. the mail sellers is placed on the products field of a
-purchase order.
-- Allow inverting the Purchase Order Reference on the invoice lines.</p>
+purchases orders as ‘Referent’.</li>
+<li>A filter w.r.t. the mail sellers is placed on the products field of a
+purchase order.</li>
+<li>Allows inverting the Purchase Order (PO) Reference on the invoice lines.</li>
+<li>Allows adapting a product’s purchase and/or selling price from a PO.</li>
+</ul>
 <p><strong>Table of contents</strong></p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
