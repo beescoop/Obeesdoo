@@ -1,1 +1,30 @@
-sdfg
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* beesdoo_pos
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-11-29 08:23+0000\n"
+"PO-Revision-Date: 2020-12-02 19:27+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#. module: beesdoo_pos
+#: model:ir.model,name:beesdoo_pos.model_res_partner
+msgid "Contact"
+msgstr "Contacte"
+
+#. module: beesdoo_pos
+#. openerp-web
+#: code:addons/beesdoo_pos/static/src/xml/templates.xml:43
+#, python-format
+msgid "Name"
+msgstr "Nom"
