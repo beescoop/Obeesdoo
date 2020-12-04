@@ -1,0 +1,358 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* beesdoo_base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-11-29 07:48+0000\n"
+"PO-Revision-Date: 2020-12-04 09:09+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ca\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card__valid
+msgid "Active"
+msgstr "Actiu"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card__barcode
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_partner__barcode
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_users__barcode
+msgid "Barcode"
+msgstr "Codi de barres"
+
+#. module: beesdoo_base
+#: model:res.groups,name:beesdoo_base.group_force_barcode
+msgid "Bees Card Force Barcode"
+msgstr "Generar codi de barres del carnet Supercoop"
+
+#. module: beesdoo_base
+#: model:ir.actions.report,name:beesdoo_base.report_beescard_cm
+msgid "Beescaard"
+msgstr "Carnet Supercoop"
+
+#. module: beesdoo_base
+#: model_terms:ir.ui.view,arch_db:beesdoo_base.Eater Wizard
+#: model_terms:ir.ui.view,arch_db:beesdoo_base.MemberCard
+#: model_terms:ir.ui.view,arch_db:beesdoo_base.membercard_set_as_printed_wizard
+#: model_terms:ir.ui.view,arch_db:beesdoo_base.printing_membercard_request_wizard
+msgid "Cancel"
+msgstr "Cancel·lar"
+
+#. module: beesdoo_base
+#: model_terms:ir.ui.view,arch_db:beesdoo_base.beesdoo_partner_form_view
+msgid "Cards"
+msgstr "Carnets"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_partner__child_eater_ids
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_users__child_eater_ids
+msgid "Child Eater"
+msgstr "Fill(a) de sòcia activa amb dret per comprar"
+
+#. module: beesdoo_base
+#: model:ir.model,name:beesdoo_base.model_res_partner
+msgid "Contact"
+msgstr "Contacte"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_partner__cooperator_type
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_users__cooperator_type
+msgid "Cooperator Type"
+msgstr "Tipus de sòcia"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_partner__country_id
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_users__country_id
+msgid "Country"
+msgstr "País"
+
+#. module: beesdoo_base
+#: model_terms:ir.ui.view,arch_db:beesdoo_base.Eater Wizard
+#: model_terms:ir.ui.view,arch_db:beesdoo_base.MemberCard
+msgid "Create"
+msgstr "Crear"
+
+#. module: beesdoo_base
+#: model_terms:ir.ui.view,arch_db:beesdoo_base.Eater Wizard
+msgid "Create a new eater"
+msgstr "crea una nova persona amb dret per a comprar (PDC)"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard__create_uid
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card__create_uid
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__create_uid
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard__create_uid
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard__create_uid
+msgid "Created by"
+msgstr "Creat per"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard__create_date
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card__create_date
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__create_date
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard__create_date
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard__create_date
+msgid "Created on"
+msgstr "Creat el"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard__display_name
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card__display_name
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__display_name
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard__display_name
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard__display_name
+msgid "Display Name"
+msgstr "Mostrar Nom"
+
+#. module: beesdoo_base
+#: selection:res.partner,eater:0
+msgid "Eater"
+msgstr "Persona amb dret per a comprar"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_partner__eater
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_users__eater
+msgid "Eater/Worker"
+msgstr "Pot comprar/Socia activa"
+
+#. module: beesdoo_base
+#: model_terms:ir.ui.view,arch_db:beesdoo_base.beesdoo_partner_form_view
+msgid "Eaters"
+msgstr "Persones amb dret per a comprar"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard__email
+msgid "Email"
+msgstr "Correu electrònic"
+
+#. module: beesdoo_base
+#: model_terms:ir.ui.view,arch_db:beesdoo_base.beescard_template_cm
+msgid "Embedded Image"
+msgstr "Imatge incrustada"
+
+#. module: beesdoo_base
+#: model_terms:ir.ui.view,arch_db:beesdoo_base.beescard_template_cm
+msgid ""
+"En cas de perte,\n"
+"                                    prévenez-nous via\n"
+"                                    membre@bees-coop.be"
+msgstr "En cas de pèrdua aviseu-nos per correu electrònic"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card__end_date
+msgid "Expiration Date"
+msgstr "Data d'expiració"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard__first_name
+msgid "First Name"
+msgstr "Nom"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__force_barcode
+msgid "Force Barcode"
+msgstr "obliga codi de barres"
+
+#. module: beesdoo_base
+#: model:ir.model,name:beesdoo_base.model_portal_wizard
+msgid "Grant Portal Access"
+msgstr "Concedeix accés al portal"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard__id
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card__id
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__id
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard__id
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard__id
+msgid "ID"
+msgstr "ID"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard____last_update
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card____last_update
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard____last_update
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard____last_update
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard____last_update
+msgid "Last Modified on"
+msgstr "Última modificació el"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard__last_name
+msgid "Last Name"
+msgstr "Cognoms"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard__write_uid
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card__write_uid
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__write_uid
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard__write_uid
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Última actualització per"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard__write_date
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card__write_date
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__write_date
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard__write_date
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard__write_date
+msgid "Last Updated on"
+msgstr "Última actualització el"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_partner__last_printed
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_users__last_printed
+msgid "Last printed on"
+msgstr "Darrera impressió"
+
+#. module: beesdoo_base
+#: model:ir.model,name:beesdoo_base.model_member_card
+#: model:ir.model,name:beesdoo_base.model_membercard_new_wizard
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_partner__member_card_ids
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_users__member_card_ids
+#: model_terms:ir.ui.view,arch_db:beesdoo_base.beesdoo_partner_form_view
+msgid "Member Card"
+msgstr "Carnet de soci/a"
+
+#. module: beesdoo_base
+#: model:ir.model,name:beesdoo_base.model_membercard_requestprinting_wizard
+msgid "Member Card - Request Print Wizard"
+msgstr "Carnet de soci/a - Demanar impressió"
+
+#. module: beesdoo_base
+#: model:ir.model,name:beesdoo_base.model_membercard_set_as_printed_wizard
+msgid "Member card - Set as printed wizard"
+msgstr "Carnet de soci/a - Marcar com a imprès"
+
+#. module: beesdoo_base
+#: model_terms:ir.ui.view,arch_db:beesdoo_base.beesdoo_partner_form_view
+msgid "New Card"
+msgstr "Nou carnet"
+
+#. module: beesdoo_base
+#: model:ir.actions.act_window,name:beesdoo_base.action_eater_wizard
+#: model_terms:ir.ui.view,arch_db:beesdoo_base.beesdoo_partner_form_view
+msgid "New Eater"
+msgstr "Nova persona amb dret per a comprar"
+
+#. module: beesdoo_base
+#: model:ir.actions.act_window,name:beesdoo_base.action_membercard_wizard
+msgid "New Member Card"
+msgstr "Nou carnet de sòcia"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_partner__parent_barcode
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_users__parent_barcode
+msgid "Parent Barcode"
+msgstr "Codi de barres socia activa vinculada"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_partner__parent_eater_id
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_users__parent_eater_id
+msgid "Parent Worker"
+msgstr "Socia activa vinculada"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard__partner_id
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card__partner_id
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__partner_id
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard__partner_ids
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard__partner_ids
+msgid "Partner"
+msgstr "Parella/empresa"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_partner__member_card_to_be_printed
+#: model:ir.model.fields,field_description:beesdoo_base.field_res_users__member_card_to_be_printed
+msgid "Print BEES card?"
+msgstr "Imprimir carnet Supercoop?"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card__comment
+#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__new_comment
+#: model_terms:ir.ui.view,arch_db:beesdoo_base.MemberCard Wizard
+msgid "Reason"
+msgstr "Raó"
+
+#. module: beesdoo_base
+#: model:ir.actions.act_window,name:beesdoo_base.beesdoo_base_action_request_membercard_printing
+msgid "Request BEES card printing"
+msgstr "Demanar impressió carnet Supercoop"
+
+#. module: beesdoo_base
+#: model_terms:ir.ui.view,arch_db:beesdoo_base.printing_membercard_request_wizard
+msgid "Request Beescard Printing"
+msgstr "Demanar impressió carnet Supercoop"
+
+#. module: beesdoo_base
+#: model_terms:ir.ui.view,arch_db:beesdoo_base.printing_membercard_request_wizard
+msgid "Request Printing for"
+msgstr "Demanar impressió"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,field_description:beesdoo_base.field_member_card__responsible_id
+msgid "Responsible"
+msgstr "Responsable"
+
+#. module: beesdoo_base
+#: model:ir.actions.act_window,name:beesdoo_base.beesdoo_base_action_set_membercard_as_printed
+msgid "Set BEES card as printed"
+msgstr "Marcar Carnet Supercoop com a imprès"
+
+#. module: beesdoo_base
+#: model_terms:ir.ui.view,arch_db:beesdoo_base.membercard_set_as_printed_wizard
+msgid "Set as Printed"
+msgstr "Marcar com a imprès"
+
+#. module: beesdoo_base
+#: model_terms:ir.ui.view,arch_db:beesdoo_base.membercard_set_as_printed_wizard
+msgid "Set as Printed for"
+msgstr "Marcat com a imprès per"
+
+#. module: beesdoo_base
+#: model:ir.model.fields,help:beesdoo_base.field_res_partner__barcode
+#: model:ir.model.fields,help:beesdoo_base.field_res_users__barcode
+msgid "Use a barcode to identify this contact from the Point of Sale."
+msgstr "Utilitzeu un codi de barres per identificar aquest contacte des del punt de venda."
+
+#. module: beesdoo_base
+#: selection:res.partner,eater:0
+msgid "Worker and Eater"
+msgstr "Actiu i dret per a comprar"
+
+#. module: beesdoo_base
+#: code:addons/beesdoo_base/models/partner.py:82
+#, python-format
+msgid "You can only set three additional eaters per worker"
+msgstr "Només pots afegir 3 persones amb dret per a comprar per sòcia activa"
+
+#. module: beesdoo_base
+#: code:addons/beesdoo_base/models/partner.py:92
+#, python-format
+msgid "You can only set two additional eaters per worker"
+msgstr "Només pots afegir 2 persones amb dret per a comprar per sòcia activa"
+
+#. module: beesdoo_base
+#: code:addons/beesdoo_base/models/partner.py:104
+#, python-format
+msgid "You try to assign a eater to a worker but this eater is already assign to %s please remove it before "
+msgstr "Has intentat vincular una persona amb dret per a comprar (PDC) a una sòcia activa però aquest PDC  ja està assignat a %s, abans l'has de desvincular"
+
+#. module: beesdoo_base
+#: model:ir.model,name:beesdoo_base.model_eater_new_wizard
+msgid "eater.new.wizard"
+msgstr "PDC.new.wizard"
+
+#. module: beesdoo_base
+#: model_terms:ir.ui.view,arch_db:beesdoo_base.beescard_template_cm
+msgid "www.bees-coop.be"
+msgstr "www.supercoopmanresa.cat"
