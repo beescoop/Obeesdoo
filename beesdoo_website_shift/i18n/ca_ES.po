@@ -1,0 +1,577 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* beesdoo_website_shift
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-11-29 07:58+0000\n"
+"PO-Revision-Date: 2020-12-04 09:59+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ca\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
+msgid ""
+"<span class=\"fa fa-info\" aria-hidden=\"true\"/>\n"
+"                        Super Cooperator Info"
+msgstr ""
+"<span class=\"fa fa-info\" aria-hidden=\"true\"/>\n"
+"                        Info del Responsable de torn"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.view_website_shift_config_irregular
+msgid "<span class=\"fa fa-lg fa-globe\" title=\"Values set here are website-specific.\" groups=\"website.group_multi_website\"/>"
+msgstr "<span class=\"fa fa-lg fa-globe\" title=\"Values set here are website-specific.\" groups=\"website.group_multi_website\"/>"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_irregular_worker
+msgid ""
+"<span class=\"fa fa-user-plus\" aria-hidden=\"true\"/>\n"
+"                        Subscribe"
+msgstr ""
+"<span class=\"fa fa-user-plus\" aria-hidden=\"true\"/>\n"
+"                        Registra't"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_irregular_worker
+msgid ""
+"<strong>Alert:</strong>\n"
+"            If you are in alert status, that means you didn't anticipate enough\n"
+"            shifts.\n"
+"            Your counter is now negative, directly to -2.\n"
+"            You have 4 weeks to do 2 shifts to be up to date.\n"
+"            For the compensation shifts, subscribe like you do for a normal\n"
+"            shift.\n"
+"            Be careful, in addition to these 2 shifts, don't forget to do your\n"
+"            normal shift in the same delay to prevent to be in the same\n"
+"            situation next month."
+msgstr ""
+"<strong>Alerta:</strong>\n"
+"            Si el teu estat és Alerta, vol dir que no estàs al dia amb els teus torns de treball. El teu comptador és ara negatiu (-2) el que vol dir que has de fer dos torns de treball en les quatre setmanes vinents per posar-te al dia. Per a fer els torns de compensació has d'apuntar-te tal com ho fas amb un torn normal.\n"
+"Fes atenció que, a banda d'aquests dos torns, has de fer el torn normal d'aquest mes per no trobar-te amb la mateixa situació el mes vinent."
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_regular_worker
+msgid ""
+"<strong>Alert:</strong>\n"
+"            If you are in alert status, that means you didn't do your last\n"
+"            shift. You have\n"
+"            until your next scheduled shift to do your compensation shift\n"
+"            according to your situation.\n"
+"            Your compensation is either simple or double. If you don't how how\n"
+"            many compensation shifts you have to do, please contact your\n"
+"            supercooperator.\n"
+"            To do your compensation shift, no need to subscribe in advance : you\n"
+"            come at the beginning of the shift that best suits you.\n"
+"            Add your name and the indication \"compensation shift\" on the\n"
+"            attendance list.\n"
+"            No panic, you still can come and shop, so can your eaters if you\n"
+"            have any."
+msgstr ""
+"<strong>Alerta:</strong>\n"
+"            Si el teu estat és alerta vol dir que no has fet el teu darrer torn.Abans del teu proper torn has de fer el torn de compensació que corresponguin a la teva situació.Si no saps quants torn de compensació has de fer, poden ser un o dos, si us plau contacte amb el teu supervisor. Per fer el teu torn de compensació, No has de registrar-te prèviament: has d'anar al començament del torn que més et convingui. Afegeix el teu nom amb la indicació torn de compensació a la llista d'assistència. Tu, i les persones vinculats amb el teu compte si els tens, podeu seguir comprant el supermercat, no t'amoïnis."
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_irregular_worker
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_regular_worker
+msgid ""
+"<strong>Auto-Extension:</strong>\n"
+"            You didn't manage to do your compensation shifts in the delay but\n"
+"            you benefit from the auto-extension.\n"
+"            This is two more weeks to do your compensation shifts. You can shop.\n"
+"            If you don't do your compensation shifts, you'll be suspended."
+msgstr ""
+"<strong>Extensió:</strong>\n"
+"        Encara no has regularitzat els torns de compensació pendents. Estàs en les dues setmanes d'extensió que tens per regularitzar la teva situació. Si no ho fas a temps, el teu estat passarà suspensió."
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
+msgid ""
+"<strong>Failed!</strong>\n"
+"                                Your subscription has failed. Someone\n"
+"                                subscribed before you or the shift was deleted.\n"
+"                                Try again in a\n"
+"                                moment.\n"
+"\n"
+"                                Please note that you can't subscribe"
+msgstr ""
+"<strong>Error!</strong>\n"
+"                                El teu registre no s'ha completat amb èxit. Algú \n"
+"                                 es va registrar abans que tu o el torn estat eliminat. \n"
+"                                 Prova d'aquí a uns \n"
+"                                 moments.\n"
+"\n"
+"                                Tingueu en compte que no has registrat torn"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_past_shifts
+msgid ""
+"<strong>Info !</strong>\n"
+"            You don't have any past shift."
+msgstr ""
+"<strong>Info !</strong>\n"
+"            No has fet cap torn anteriorment."
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_common
+msgid ""
+"<strong>Info!</strong>\n"
+"            If you do not agree with your status, please contact the members\n"
+"            office by mail (membre@bees-coop.be) or during the open hours of the\n"
+"            office (Monday 5PM to 7:30PM, Wednesday 5PM to 7:30 PM and Friday\n"
+"            2:30PM to 5 PM)."
+msgstr ""
+"<strong>Informació:</strong>\n"
+"Si no estàs d'acord amb el teu estat, Si us plau contacte amb cercle comunitat a través del correu electrònic "
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
+msgid ""
+"<strong>Success!</strong>\n"
+"                                Your subscription has succeded."
+msgstr ""
+"<strong>Fet!</strong>\n"
+"                                El teu registre s'ha completat amb èxit."
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_regular_worker
+msgid ""
+"<strong>Suspended:</strong>\n"
+"            If you are suspended, that means you didn't come to a shift and you\n"
+"            didn't do you compensation shifts in the delay (4 weeks).\n"
+"            You cannot shop (so as your eaters). But no need to panic : a\n"
+"            two-weeks delay is activable on demand at the entrance of the\n"
+"            supermarket.\n"
+"            You will be able to shop during 2 more weeks and to put your\n"
+"            situation in order.\n"
+"            To do your compensation shift, no need to subscribe in advance : you\n"
+"            come at the beginning of the shift that best suits you.\n"
+"            Add your name and the indication \"compensation shift\" on the\n"
+"            attendance list."
+msgstr ""
+"<strong>Suspensió:</strong>\n"
+"Si el teu estat és suspensió, vol dir que no vas venir a fer el torn que et tocava ni has fet els torns de compensació corresponents durant el període indicat (4 setmanes). No pots comprar, ni tu ni les persones vinculats amb tu. Tanmateix pots activar a l'entrada del supermercat una extensió de dues setmanes en la que podràs posar al dia el teu estat. Per fer un torn de compensació no cal subscriure's prèviament: pots anar al començament del torn que més et convingui i afegir el teu nom a la llista d'assistència amb la indicació de \"torn de compensació\"."
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_irregular_worker
+msgid ""
+"<strong>Suspended:</strong>\n"
+"            You did not anticipate enough shifts and you did not come back to a\n"
+"            normal situation in the delay.\n"
+"            You cannot shop anymore, nor can your eaters.\n"
+"            But no need to panic : a two-weeks delay is activable on demand at\n"
+"            the entrance of the supermarket.\n"
+"            You will be able to shop during 2 more weeks and to put your\n"
+"            situation in order.\n"
+"            For the compensation shifts, subscribe like you do for a normal\n"
+"            shift."
+msgstr ""
+"<strong>Suspensió:</strong>\n"
+"No t'has registrat a prou torns per regularitzar la teva situació a temps. No pots comprar, ni tu ni les persones vinculats amb tu. Tanmateix pots activar a l'entrada del supermercat una extensió de dues setmanes en la que podràs posar al dia el teu estat. Per fer un torn de compensació no cal subscriure's prèviament: pots anar al començament del torn que més et convingui i afegir el teu nom a la llista d'assistència amb la indicació de \"torn de compensació\"."
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_regular_worker
+msgid ""
+"<strong>Unsubscribed:</strong>\n"
+"            You did not attend two consecutive shifts. You are now unsubscribed.\n"
+"            You cannot shop (nor can your eaters) nor come to work.\n"
+"            To subscribe again, please contact membre@bees-coop.be or come to\n"
+"            the members office during the opening hours."
+msgstr ""
+"<strong>Bloquejat:</strong>\n"
+"           No has fet els dos darrers torns consecutius. Hem bloquejat els teus drets de sòcia.\n"
+"           No pots comprar ni tu ni les persones vinculats amb el teu compte.\n"
+"           Per regularitzar la teva situació, si us plau contacte amb cercle comunitat."
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_irregular_worker
+msgid ""
+"<strong>Unsubscribed:</strong>\n"
+"            Your counter is negative and you haven't come to work for more than\n"
+"            8 weeks.\n"
+"            You are unsubscribed. You cannot shop nor can your eaters.\n"
+"            To subscribe again of if it's a mistake, please contact\n"
+"            membre@bees-coop.be or come to the members office during the opening\n"
+"            hours."
+msgstr ""
+"<strong>Bloquejat:</strong>\n"
+"            El teu comptador està en negatiu i no has vingut a fer cap torn en els darrers vuit setmanes. El teu compte està bloquejat. No pots comprar ni tu ni les persones vinculats amb el teu compte. Per regularitzar la teva situació o si creus que això és un error posa't en contacte amb cercle comunitat."
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_common
+msgid ""
+"<strong>Up To Date:</strong>\n"
+"            That's perfect! You are in order. Thanks a lot. You can come and\n"
+"            shop, so can your eaters if you have any."
+msgstr ""
+"<strong>Al dia:</strong>\n"
+"            Genial! Estàs al dia. Gràcies pel teu compromís. Tu i les persones vinculades, si els tens, esteu autoritzats a comprar\n"
+"."
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
+msgid ""
+"<strong>Warning !</strong>\n"
+"            For the moment public holidays are not taken into account. If your\n"
+"            shift\n"
+"            occures during a public holiday, you do not have to do it."
+msgstr ""
+"<strong>Atenció!</strong>\n"
+"            De moment no s'han registrat vacances en el teu compte. Si el teu torn\n"
+"  \n"
+"            és en un dia de vacances no has de fer-lo.."
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
+msgid ""
+"<strong>Warning !</strong>\n"
+"            You have not yet signed up to a shift."
+msgstr ""
+"<strong>Atenció!</strong>\n"
+"            Encara no t'has apuntat a cap torn."
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
+msgid "Available Shifts"
+msgstr "Torns disponibles"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.public_shift_irregular_worker
+msgid "Available Shifts for Irregular Workers"
+msgstr "Torns variables disponibles per socis actius "
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.public_shift_template_regular_worker
+msgid "Available Tasks Templates for Regular Workers"
+msgstr "Plantilles de torns disponibles per a sòcies actives"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_worker_status_common
+msgid "Begin of Holiday:"
+msgstr "Inici de vacances:"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_irregular_worker
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
+msgid "Close"
+msgstr "Tancar"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_regular_worker
+msgid ""
+"Compensation\n"
+"                                Shift:"
+msgstr "Torn de compensació:"
+
+#. module: beesdoo_website_shift
+#: model:ir.model,name:beesdoo_website_shift.model_res_config_settings
+msgid "Config Settings"
+msgstr "Configuració"
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,help:beesdoo_website_shift.field_res_config_settings__irregular_enable_sign_up
+#: model:ir.model.fields,help:beesdoo_website_shift.field_website__irregular_enable_sign_up
+msgid "Enable shift sign up for irregular worker"
+msgstr "activar registre a torn variable"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_worker_status_common
+msgid "End of Holiday:"
+msgstr "Final de vacances:"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_exempted_worker
+msgid "Exempt Reason:"
+msgstr "Motiu de l'exempció:"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_common
+msgid "Explanation of the status:"
+msgstr "Què suposen els diferents estats:"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
+msgid ""
+"Future Date of\n"
+"                                Alert:"
+msgstr "Proper període d'alerta:"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_title
+msgid "Help"
+msgstr "Ajuda"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_public_shift_irregular_worker
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_public_shift_template_regular_worker
+msgid "Help text or information text."
+msgstr "Text d'ajuda o informació:"
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_config_settings__hide_rule
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_website__hide_rule
+msgid "Hide Rule"
+msgstr "Amaga regla"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_regular_worker
+msgid "In Alert Since:"
+msgstr "En \"Alerta\" des de:"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_regular_worker
+msgid ""
+"In Extension\n"
+"                                Since:"
+msgstr ""
+"Extès\n"
+"                                Des de:"
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_config_settings__irregular_enable_sign_up
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_website__irregular_enable_sign_up
+msgid "Irregular Enable Sign Up"
+msgstr "Registre per torns variables disponible"
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_config_settings__irregular_past_shift_limit
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_website__irregular_past_shift_limit
+msgid "Irregular Past Shift Limit"
+msgstr "Límit de torns variable pasat"
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_config_settings__irregular_shift_limit
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_website__irregular_shift_limit
+msgid "Irregular Shift Limit"
+msgstr "Límit torns variable"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
+msgid "Last Absence Date:"
+msgstr "Data de la darrera absència:"
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,help:beesdoo_website_shift.field_res_config_settings__irregular_past_shift_limit
+#: model:ir.model.fields,help:beesdoo_website_shift.field_website__irregular_past_shift_limit
+msgid "Maximum past shift that will be shown for irregular worker"
+msgstr "Nombre màxim de torn realitzats que es mostraran pels sòcies amb torns fixes"
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,help:beesdoo_website_shift.field_res_config_settings__regular_past_shift_limit
+#: model:ir.model.fields,help:beesdoo_website_shift.field_website__regular_past_shift_limit
+msgid "Maximum past shift that will be shown for regular worker"
+msgstr "Nombre màxim de torns realitzats que es mostraran per a sòcies amb torn variable."
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,help:beesdoo_website_shift.field_res_config_settings__irregular_shift_limit
+#: model:ir.model.fields,help:beesdoo_website_shift.field_website__irregular_shift_limit
+msgid "Maximum shift that will be shown"
+msgstr "Màxim de torns que es mostrarà"
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,help:beesdoo_website_shift.field_res_config_settings__regular_next_shift_limit
+#: model:ir.model.fields,help:beesdoo_website_shift.field_website__regular_next_shift_limit
+msgid "Maximun number of next shift that will be shown"
+msgstr "Màxim de torns futurs que es mostraràn"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_link
+msgid "My Shift"
+msgstr "El meu torn"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.public_shift_template_regular_worker
+msgid "Need Super Co-operator"
+msgstr "Fa falta responsable de torn"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
+msgid ""
+"Next Countdown\n"
+"                                Date:"
+msgstr "Inici del proper període:"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
+msgid "Number of Absence:"
+msgstr "Nombre d'assistències:"
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_config_settings__highlight_rule_pc
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_website__highlight_rule_pc
+msgid "Percentage threshold highlight rule"
+msgstr "Regla de percentage per destacar torns"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_irregular_worker
+msgid "Please confirm subscription"
+msgstr "Sisplau, confirma la teva registre de torn"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_new_worker
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_regular_worker_without_shift
+msgid ""
+"Please contact the members office to suscribe to\n"
+"                            shifts."
+msgstr "Si us plau contacta amb cercle comunitat per registrar-te als torns."
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
+msgid ""
+"Please, subscribe, in priority, to the\n"
+"                                    highlighted shifts. To sign up to a shift\n"
+"                                    click on the\n"
+"                                    subscribe button. Notice that you can not\n"
+"                                    unsubscribe online. To unsubscribe to a\n"
+"                                    shift, please,\n"
+"                                    contact us."
+msgstr "Si us plau, registra't de forma prioritària als torns destacats. Per registrar-te un torn, clica sobre del botó registrar-me. Fixa't que no pots  esborrar-te online d'un torn. Per fer-ho posa't en contacte amb cercle comunitat."
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_config_settings__regular_highlight_rule
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_website__regular_highlight_rule
+msgid "Regular Highlight Rule"
+msgstr "Com destacar regles"
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_config_settings__regular_next_shift_limit
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_website__regular_next_shift_limit
+msgid "Regular Next Shift Limit"
+msgstr "Posa límit torns futurs"
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_config_settings__regular_past_shift_limit
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_website__regular_past_shift_limit
+msgid "Regular Past Shift Limit"
+msgstr "Posa límit torns passats"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_regular_worker
+msgid "Shift in Advance:"
+msgstr "Torn per avançat:"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.view_website_shift_config_irregular
+msgid "Shift: Irregular Worker"
+msgstr "Torn: variable"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.view_website_shift_config_irregular
+msgid "Shift: Regular Worker"
+msgstr "Torn: fixe"
+
+#. module: beesdoo_website_shift
+#: model:website.menu,name:beesdoo_website_shift.menu_work_irregular
+msgid "Shifts Irregular"
+msgstr "Torns irregulars"
+
+#. module: beesdoo_website_shift
+#: model:website.menu,name:beesdoo_website_shift.menu_work_regular
+msgid "Shifts Regular"
+msgstr "Torns fixos"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_worker_status_common
+msgid "Status:"
+msgstr "Estat:"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_irregular_worker
+msgid "Subscribe"
+msgstr "Subscriure's"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_irregular_worker
+msgid "Subscribed"
+msgstr "Subscrit"
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,help:beesdoo_website_shift.field_res_config_settings__hide_rule
+#: model:ir.model.fields,help:beesdoo_website_shift.field_website__hide_rule
+msgid "Threshold ((available space)/(max space)) in percentage of available space under which the shift is hidden"
+msgstr "Percentatge (places disponibles/places totals) per sota del que el torn s'amaga"
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,help:beesdoo_website_shift.field_res_config_settings__highlight_rule_pc
+#: model:ir.model.fields,help:beesdoo_website_shift.field_website__highlight_rule_pc
+msgid "Threshold (in %) of available space in a shift that trigger the highlight of the shift"
+msgstr "Percentatge de places disponibles que activa que es destaqui el torn"
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,help:beesdoo_website_shift.field_res_config_settings__regular_highlight_rule
+#: model:ir.model.fields,help:beesdoo_website_shift.field_website__regular_highlight_rule
+msgid "Treshold (in %) of available space in a shift that trigger the the highlight of a shift template."
+msgstr "Percentatge (en%) de places disponible en un torn que activa el ressaltat d'una plantilla de torn."
+
+#. module: beesdoo_website_shift
+#: model:ir.model,name:beesdoo_website_shift.model_website
+msgid "Website"
+msgstr "Lloc web"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_worker_status_title
+msgid "Worker status"
+msgstr "estatus de sòcia"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_worker_status_common
+msgid "Working Mode:"
+msgstr "Modalitat de treball:"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_worker_status_common
+msgid "You are a Super Cooperator"
+msgstr "Ets Responsable de torn"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_exempted_worker
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_non_worker
+msgid "You don't have to participate to shift system."
+msgstr "No has de participar en el sistema de torns."
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
+msgid "Your next shifts"
+msgstr "Els teus torns previstos"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_past_shifts
+msgid "Your past shifts"
+msgstr "Torns fets"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_title
+msgid "Your shifts"
+msgstr "Els teus torns"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_irregular_worker
+msgid "available space(s)"
+msgstr "places diponibles"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_irregular_worker
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.public_shift_template_regular_worker
+msgid "full"
+msgstr "complert"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
+msgid "minutes before the shift."
+msgstr "minuts abans del torn."
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_irregular_worker
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.public_shift_template_regular_worker
+msgid "space(s)"
+msgstr "places"
