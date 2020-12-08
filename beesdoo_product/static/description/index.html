@@ -368,8 +368,40 @@ ul.auto-toc {
 !! changes will be overwritten.                   !!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 <p><a class="reference external" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external" href="https://github.com/beescoop/obeesdoo/tree/12.0/beesdoo_product"><img alt="beescoop/obeesdoo" src="https://img.shields.io/badge/github-beescoop%2Fobeesdoo-lightgray.png?logo=github" /></a></p>
-<p>Modification of product module for the needs of beescoop
-- SOOO5 - Ajout de label bio/ethique/provenance</p>
+<p>Modification of product module for the needs of beescoop</p>
+<ul>
+<li><p class="first">Adds the label bio/ethique/provenance</p>
+</li>
+<li><p class="first">Add a ‘Suggested Price’ field on products, and a ‘Product Margin’ field on Partners (Vendors) and Product Categories.
+The first margin is used if set, otherwise the second margin (which has a default value) is used.</p>
+</li>
+<li><p class="first">The reference price on which this margin is applied (supplier price or sale price)
+can be selected in the general settings.</p>
+</li>
+<li><p class="first">Also, sale and supplier taxes that are of type ‘percentage’ and that are marked as ‘included in price’
+are taken into account when computing the suggested price.</p>
+</li>
+<li><p class="first">Adds “Edit Price” submenu on Point Of Sale, Purchase and Sale modules.
+The user lands on an editable List View with the following columns :</p>
+<ul class="simple">
+<li>Name (<cite>name</cite>)</li>
+<li>Main Seller (<cite>main_seller_id</cite>)</li>
+<li>Purchase Price (<cite>purchase_price</cite>)</li>
+<li>Purchase Unit of Measure (<cite>uom_po_id</cite>)</li>
+<li>Suggested Price (<cite>suggested_price</cite>)</li>
+<li>Sales Price (<cite>list_price</cite>)</li>
+<li>Unit of Measure (<cite>uom_id</cite>)</li>
+</ul>
+<p>The only editable field is Purchase Price.
+Through “Action &gt; Adapt Sales Price”, the user can, on the selected products,
+adapt the Sales Price according to the Suggested Price.</p>
+</li>
+</ul>
+<p>Please note that this model makes assumptions when computing the suggested price:</p>
+<ul class="simple">
+<li>It supposes that each product has only one supplier and that products coming from multiple suppliers
+occure as duplicated products with one supplier each.</li>
+</ul>
 <p><strong>Table of contents</strong></p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
