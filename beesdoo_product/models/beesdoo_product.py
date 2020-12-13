@@ -125,6 +125,11 @@ class BeesdooProduct(models.Model):
         readonly=True,
         store=True,
     )
+    purchase_price = fields.Float(
+        string="Purchase Price",
+        compute="_compute_purchase_price",
+        inverse="_inverse_purchase_price",
+    )
 
     @api.depends("uom_id", "uom_id.category_id", "uom_id.category_id.type")
     @api.multi
@@ -333,6 +338,27 @@ class BeesdooProduct(models.Model):
                     * supplier_taxes_factor
                     * sale_taxes_factor
                     * profit_margin_factor
+                )
+
+    @api.multi
+    @api.depends("seller_ids")
+    def _compute_purchase_price(self):
+        for product in self:
+            supplierinfo = product._get_main_supplier_info()
+            if supplierinfo:
+                product.purchase_price = supplierinfo.price
+            else:
+                product.purchase_price = 0
+
+    @api.multi
+    def _inverse_purchase_price(self):
+        for product in self:
+            supplierinfo = product._get_main_supplier_info()
+            if supplierinfo:
+                supplierinfo.price = product.purchase_price
+            else:
+                raise ValidationError(
+                    _("No Vendor defined for product '%s'") % product.name
                 )
 
 
