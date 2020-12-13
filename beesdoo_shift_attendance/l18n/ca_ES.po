@@ -1,0 +1,982 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* beesdoo_shift_attendance
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-11 07:34+0000\n"
+"PO-Revision-Date: 2020-12-13 09:51+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: ca\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#. module: beesdoo_shift_attendance
+#: model:mail.template,body_html:beesdoo_shift_attendance.email_template_non_attendance
+msgid ""
+"\n"
+"              <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"\n"
+"                  % if object.replaced_id:\n"
+"                  <p>Hello ${object.replaced_id.name},\n"
+"\n"
+"                  <br><br>You have been recorded as non-attended during your last shift (${format_tz(object.start_time,object.replaced_id.tz or 'Europe/Brussels','%d.%m.%Y - %H:%M')}),\n"
+"                    and you were supposed to replace ${object.worker_id.name}.\n"
+"                  % endif\n"
+"\n"
+"                  % if not object.replaced_id:\n"
+"                  </p><p>Hello ${object.worker_id.name},</p>\n"
+"\n"
+"                  <p>You have been recorded as non-attended during your last shift (${format_tz(object.start_time,object.worker_id.tz or 'Europe/Brussels','%d.%m.%Y - %H:%M')}).\n"
+"                  % endif\n"
+"\n"
+"                  % if object.worker_id.working_mode == 'regular':\n"
+"                    % if object.state == 'absent_0':\n"
+"                        <br><br>Super-cooperator assigned you 0 compensation, so you won't have any additionnal shift to do before your next regular shift.\n"
+"                    % endif\n"
+"                    % if object.state == 'absent_1':\n"
+"                        <br><br>Super-cooperator assigned you 1 compensation, so you have to attend one additionnal shift before your next regular shift.\n"
+"                    % endif\n"
+"                    % if object.state == 'absent_2':\n"
+"                        <br><br>Super-cooperator assigned you 2 compensations, so you have to attend two additionnal shifts before your next regular shift.\n"
+"                    % endif\n"
+"\n"
+"                      % if object.replaced_id:\n"
+"                            You were supposed to replace ${object.worker_id.name}.\n"
+"                            You have to do ${(object.replaced_id.cooperative_status_ids.sr + object.replaced_id.cooperative_status_ids.sc) * -1 } shifts before your next regular shift.<br>\n"
+"                      % else:\n"
+"                            You have to do ${(object.worker_id.cooperative_status_ids.sr + object.worker_id.cooperative_status_ids.sc) * -1 } shifts before your next regular shift.<br>\n"
+"                      % endif\n"
+"                  % endif\n"
+"\n"
+"                  % if object.worker_id.working_mode == 'irregular':\n"
+"                        Your shift counter is at ${object.worker_id.cooperative_status_ids.sr}.\n"
+"\n"
+"                        % if object.worker_id.cooperative_status_ids.future_alert_date:\n"
+"                            It should be superior or equal to 1 before the\n"
+"                            ${object.worker_id.cooperative_status_ids.future_alert_date}.\n"
+"                        % endif\n"
+"                        <br>\n"
+"                  % endif\n"
+"\n"
+"                  % if object.replaced_id:\n"
+"                     Your current status is \"${object.replaced_id.cooperative_status_ids.get_status_value()}\".\n"
+"                  % else:\n"
+"                    <br><br>Your current status is \"${object.worker_id.cooperative_status_ids.get_status_value()}\".\n"
+"                  % endif\n"
+"\n"
+"                  <br>If you have any question regarding this non-attendance, just answer this e-mail.\n"
+"                  </p>\n"
+"                  <br>\n"
+"                  <p>Cooperatively yours,<br>\n"
+"                  The Members' office volunteers</p>\n"
+"                  <p>${object.worker_id.company_id.name}.</p>\n"
+"\n"
+"                  % if object.worker_id.company_id.street:\n"
+"                      ${object.worker_id.company_id.street}\n"
+"                  % endif\n"
+"                  % if object.worker_id.company_id.street2:\n"
+"                      ${object.worker_id.company_id.street2}<br>\n"
+"                  % endif\n"
+"                  % if object.worker_id.company_id.city or object.worker_id.company_id.zip:\n"
+"                      ${object.worker_id.company_id.zip} ${object.worker_id.company_id.city}<br>\n"
+"                  % endif\n"
+"                  % if object.worker_id.company_id.country_id:\n"
+"                      ${object.worker_id.company_id.state_id and ('%s, ' % object.worker_id.company_id.state_id.name) or ''} ${object.worker_id.company_id.country_id.name or ''}<br>\n"
+"                  % endif\n"
+"                  % if object.worker_id.company_id.phone:\n"
+"                      Phone:&nbsp; ${object.worker_id.company_id.phone}\n"
+"                  % endif\n"
+"\n"
+"                  % if object.worker_id.company_id.website:\n"
+"                      <div>\n"
+"                          Web :&nbsp;<a href=\"${object.worker_id.company_id.website}\">${object.worker_id.company_id.website}</a>\n"
+"                      </div>\n"
+"                  %endif\n"
+"                  % if object.worker_id.company_id.logo_url:\n"
+"                  <div>\n"
+"                      <img src=\"${object.worker_id.company_id.logo_url}\">\n"
+"                  </div>\n"
+"                  %endif\n"
+"              </div>\n"
+"            "
+msgstr ""
+"\n"
+"             <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"\n"
+"                               % if object.replaced_id:\n"
+"                               <p> Hola $ {object.replaced_id.name},\n"
+"\n"
+"            <br><br> Us hem registrat com a no assistit durant el vostre darrer torn ($ {format_tz (object.start_time, object.replaced_id.tz or 'Europe / Brussels','%d.% m.% Y -% H:% M')} ), i se suposava que heu de substituir $ {object.worker_id.name}.\n"
+" % endif \n"
+"\n"
+"            % if no object.replaced_id:\n"
+"</p><p> Hola $ {object.worker_id.name},</p><p> Se us ha registrat com a no assistit durant el darrer torn ($ {format_tz (object.start_time, object.worker_id.tz or 'Europe / Brussels', '%d.% m.% Y -% H:% M')}).\n"
+"                % endif \n"
+"\n"
+"                 % if object.worker_id.working_mode == 'regular':\n"
+"                % if object.state == 'absent_0':\n"
+"                   <br><br> El súper cooperador us ha assignat 0 compensacions, de manera que no tindreu cap torn addicional per fer abans del proper torn regular.\n"
+"                            % endif \n"
+"                      % if object.state == 'absent_1':\n"
+"                 <br><br> El super-cooperador us ha assignat 1 compensació, de manera que heu d'assistir a un torn addicional abans del proper torn regular. \n"
+"                       % endif\n"
+"                     % if object.state == 'absent_2':\n"
+"                          <br><br> El super-cooperador us va assignar 2 compensacions, de manera que heu d'assistir a dos torns addicionals abans del proper torn regular. \n"
+"                                   % endif\n"
+"\n"
+"                             if object.replaced_id:\n"
+"                                         Se suposava que havíeu de substituir $ {object.worker_id.name}.\n"
+"                                       Has de fer $ {(object.replaced_id.cooperative_status_ids.sr + object.replaced_id.cooperative_status_ids.sc) * -1} torns abans del vostre proper torn regular.<br> \n"
+"                                   % else: \n"
+"                           heu de fer $ {(object.worker_id.cooperative_status_ids.sr + object.worker_id.cooperative_status_ids.sc) * -1} torns abans del vostre proper torn regular.<br> \n"
+"                             % endif\n"
+"                            % endif \n"
+"\n"
+"                             % if object.worker_id.working_mode =='irregular': \n"
+"                            el vostre comptador de torns és de $ {object.worker_id.cooperative_status_ids.sr}. \n"
+"\n"
+"                                  % if object.worker_id.cooperative_status_ids.future_alert_date: \n"
+"                                    ha de ser superior o igual a 1 abans del \n"
+"                                 $ {object.worker_id.cooperative_status_ids.future_alert_date}. \n"
+"                                      % endif \n"
+"                                       br> \n"
+"                                    % endif \n"
+"\n"
+"                             % if object.replaced_id: \n"
+"                              el vostre estat actual és \"$ {object.replaced_id.cooperative_status_ids.get_status_value ()}\". \n"
+"\n"
+"                                      % else:\n"
+"                            <br><br> El vostre estat actual és \"$ {object.worker_id.cooperative_status_ids.get_status_value ()}\". \n"
+"                           % endif\n"
+"\n"
+"                         <br> Si teniu alguna pregunta sobre aquesta inassistència, només cal que respongueu aquest correu electrònic.\n"
+"                              </p>\n"
+"                            <br>\n"
+"                         <p> Cooperativament vostre,<br>\n"
+"                          Cercle comunitat</p>\n"
+"                         <p> {object.worker_id.company_id.name} $.</p> \n"
+"   \n"
+"                          % if object.worker_id.company_id.street: \n"
+"                       $ {object.worker_id.company_id.street} \n"
+"                      % endif \n"
+"                      % if object.worker_id.company_id.street2: \n"
+"                              $ {object.worker_id.company_id.street2}<br> \n"
+"                         % endif \n"
+"                        % if object.worker_id.company_id.city or object.worker_id.company_id.zip: \n"
+"                               $ {object.worker_id.company_id.zip} $ {object.worker_id.company_id.city}<br> \n"
+"                           % endif \n"
+"                             % if object.worker_id.company_id.country_id: \n"
+"                        $ {object.worker_id.company_id.state_id i ('%s,' % object.worker_id.company_id.state_id.name) or \"} $ {object.worker_id.company_id.country_id.name or \"}<br> \n"
+"                        % endif \n"
+"                                    % if object.worker_id.company_id.phone:\n"
+"                                  Telèfon:&nbsp; $ {object.worker_id.company_id.phone} \n"
+"                           % endif % \n"
+"\n"
+"                       if object.worker_id.company_id.website:\n"
+"                    <div>\n"
+"                   Web: &nbsp;<a href=\"${object.worker_id.company_id.website}\">{object.worker_id.company_id.website} $</a>\n"
+"                </div> %endif \n"
+"                 % if object.worker_id.company_id.logo_url:\n"
+"                            <div>\n"
+"                            <img src=\"${object.worker_id.company_id.logo_url}\">\n"
+"                            </div> \n"
+"                        %endif\n"
+"                        </div>"
+
+#. module: beesdoo_shift_attendance
+#: model:mail.template,body_html:beesdoo_shift_attendance.email_template_non_validated_sheet
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"\n"
+"    <p>${object.day}\n"
+"    <br/><br/>The attendance sheet for ${object.time_slot} is not validated.\n"
+"    <br/><br/>Please, do it as soon as possible so as to update workers' status.\n"
+"    </p>\n"
+"\n"
+"</div>\n"
+"            "
+msgstr ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"\n"
+"    <p>${object.day}\n"
+"    <br/><br/>El full d'assistència per {object.time_slot} $ no està validat.    <br/><br/>Si us plau, feu-ho el més aviat possible per actualitzar l'estat dels treballadors.    </p>\n"
+"\n"
+"</div>\n"
+"            "
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.res_config_settings_view_form
+msgid ""
+"<span class=\"o_form_label\">\n"
+"                                        Attendance Sheets Generation Interval\n"
+"                                    </span>"
+msgstr "<span class=\"o_form_label\">Interval de generació de fulls d'assistència                                    </span>"
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.res_config_settings_view_form
+msgid ""
+"<span class=\"o_form_label\">\n"
+"                                        Default Task Type\n"
+"                                    </span>"
+msgstr "<span class=\"o_form_label\">Tipus de tasca per defecte                                    </span>"
+
+#. module: beesdoo_shift_attendance
+#: selection:beesdoo.shift.sheet.added,state:0
+#: selection:beesdoo.shift.sheet.expected,state:0
+#: selection:beesdoo.shift.sheet.shift,state:0
+msgid "Absent - 0 Compensation"
+msgstr "Absent - 0 Indemnització"
+
+#. module: beesdoo_shift_attendance
+#: selection:beesdoo.shift.sheet.added,state:0
+#: selection:beesdoo.shift.sheet.expected,state:0
+#: selection:beesdoo.shift.sheet.shift,state:0
+msgid "Absent - 1 Compensation"
+msgstr "Absent - 1 Indemnització"
+
+#. module: beesdoo_shift_attendance
+#: selection:beesdoo.shift.sheet.added,state:0
+#: selection:beesdoo.shift.sheet.expected,state:0
+#: selection:beesdoo.shift.sheet.shift,state:0
+msgid "Absent - 2 Compensations"
+msgstr "Absent - 2 Indemnitzacions"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__message_needaction
+msgid "Action Needed"
+msgstr "Acció necessària"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__active
+msgid "Active"
+msgstr "Actiu"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_validate__active_sheet
+msgid "Active Sheet"
+msgstr "Full actiu"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model,name:beesdoo_shift_attendance.model_beesdoo_shift_sheet_added
+msgid "Added Shift"
+msgstr "Torn afegit"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__added_shift_ids
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.sheet_view_form
+msgid "Added Shifts"
+msgstr "Torns afegits"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.actions.act_window,name:beesdoo_shift_attendance.action_sheet_admin_list
+#: model:ir.ui.menu,name:beesdoo_shift_attendance.menu_sheet_admin_list
+msgid "All sheets"
+msgstr "Tots els fulls"
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.sheet_view_search
+msgid "Annotated (read)"
+msgstr "Anotat (llegit)"
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.sheet_view_search
+msgid "Annotated (unread)"
+msgstr "Anotat (sense llegir)"
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.sheet_view_search
+msgid "Archived"
+msgstr "Arxivat"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__message_attachment_count
+msgid "Attachment Count"
+msgstr "Comptador d'adjunts"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_added__attendance_sheet_id
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_expected__attendance_sheet_id
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_shift__attendance_sheet_id
+msgid "Attendance Sheet"
+msgstr "Full d'assistència"
+
+#. module: beesdoo_shift_attendance
+#: model:res.groups,name:beesdoo_shift_attendance.group_shift_attendance_sheet
+msgid "Attendance Sheet Generic Access"
+msgstr "Full d'assistència Accés genèric"
+
+#. module: beesdoo_shift_attendance
+#: model:res.groups,name:beesdoo_shift_attendance.group_shift_attendance_sheet_validation
+msgid "Attendance Sheet Validation"
+msgstr "Validació full d'assistència"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.ui.menu,name:beesdoo_shift_attendance.menu_sheet_top
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.res_config_settings_view_form
+msgid "Attendance Sheets"
+msgstr "Fulls d'assistència"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model,name:beesdoo_shift_attendance.model_beesdoo_shift_sheet
+msgid "Attendance sheet"
+msgstr "Full d'assistència"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_validate__barcode
+msgid "Barcode"
+msgstr "Codi de barres"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet___barcode_scanned
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_validate___barcode_scanned
+msgid "Barcode Scanned"
+msgstr "Codi de barres escanejat"
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.sheet_view_form
+msgid "Beware : a validated sheet cannot be edited anymore                             and you won't be able to add any latecomers.                             The counters of those who didn't attend will be updated                             and they will get warning emails."
+msgstr "Compte: un full validat ja no es pot editar                              i no podreu afegir-ne més.                              S’actualitzaran els comptadors dels que no hi van assistir                              i rebran correus electrònics d’advertència."
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.validate_attendance_sheet_form
+msgid "Cancel"
+msgstr "Cancel·lar"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_validate__card_support
+msgid "Card validation"
+msgstr "Validació de targeta"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.actions.server,name:beesdoo_shift_attendance.ir_cron_check_non_validated_sheet_ir_actions_server
+#: model:ir.cron,cron_name:beesdoo_shift_attendance.ir_cron_check_non_validated_sheet
+#: model:ir.cron,name:beesdoo_shift_attendance.ir_cron_check_non_validated_sheet
+msgid "Check for non-validated sheets"
+msgstr "Comproveu si hi ha fulls no validats"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model,name:beesdoo_shift_attendance.model_beesdoo_shift_sheet_validate
+msgid ""
+"Check the user name and validate sheet.\n"
+"    Useless for users in group_shift_attendance"
+msgstr ""
+"Comproveu el nom d'usuari i valideu el full.\n"
+"     Inútil per als usuaris de group_shift_attendance"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__feedback
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_validate__feedback
+msgid "Comments about the shift"
+msgstr "Comentaris sobre el torn"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_added__is_compensation
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_expected__is_compensation
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_shift__is_compensation
+msgid "Compensation shift ?"
+msgstr "Torn de compensació?"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_beesdoo_shift_sheet__week
+msgid "Computed from planning name"
+msgstr "Calculat a partir del nom de la planificació"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model,name:beesdoo_shift_attendance.model_res_config_settings
+msgid "Config Settings"
+msgstr "Configuració"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model,name:beesdoo_shift_attendance.model_beesdoo_shift_sheet_shift
+msgid "Copy of an actual shift into an attendance sheet"
+msgstr "Còpia d'un torn a un full d'assistència"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_generate_missing_attendance_sheets__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_added__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_expected__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_shift__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_validate__create_uid
+msgid "Created by"
+msgstr "Creat per"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_generate_missing_attendance_sheets__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_added__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_expected__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_shift__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_validate__create_date
+msgid "Created on"
+msgstr "Creat el"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.actions.act_window,name:beesdoo_shift_attendance.action_sheet_daily
+#: model:ir.ui.menu,name:beesdoo_shift_attendance.menu_sheet
+msgid "Daily attendance sheets"
+msgstr "Fulls d'assistència diària"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__day
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.sheet_view_search
+msgid "Day"
+msgstr "Dia"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__day_abbrevation
+msgid "Day Abbrevation"
+msgstr "Abreviatura del dia"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_res_config_settings__pre_filled_task_type_id
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.res_config_settings_view_form
+msgid "Default Task Type"
+msgstr "Tipus de tasca per defecte"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_res_config_settings__pre_filled_task_type_id
+msgid "Default task type for attendance sheet pre-filling"
+msgstr "Tipus de tasca predeterminat per al preompliment del full d'assistència"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_generate_missing_attendance_sheets__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_added__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_expected__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_shift__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_validate__display_name
+msgid "Display Name"
+msgstr "Mostrar Nom"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__end_time
+msgid "End Time"
+msgstr "Hora final"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_generate_missing_attendance_sheets__date_end
+msgid "End date"
+msgstr "Data final"
+
+#. module: beesdoo_shift_attendance
+#: selection:beesdoo.shift.sheet,worker_nb_feedback:0
+msgid "Enough workers"
+msgstr "Suficients sòcies actives"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model,name:beesdoo_shift_attendance.model_beesdoo_shift_sheet_expected
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.sheet_expected_view_form
+msgid "Expected Shift"
+msgstr "Torn previst"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__expected_shift_ids
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.sheet_view_form
+msgid "Expected Shifts"
+msgstr "Torns previstos"
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.sheet_view_form
+msgid "Feedback"
+msgstr "Opinió"
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.sheet_view_search
+msgid "Feedback on number of workers"
+msgstr "Opinió sobre el nombre de sòcies actives"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__message_follower_ids
+msgid "Followers"
+msgstr "Seguidors"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Seguidors (Canals)"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidors (Clients)"
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.res_config_settings_view_form
+msgid "For attendance sheets automatic pre-filling."
+msgstr "Per a omplir fulls d'assistència automàticament."
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.generate_attendance_sheet_form
+msgid "Generate"
+msgstr "Generar"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.actions.server,name:beesdoo_shift_attendance.ir_cron_generate_attendance_sheet_ir_actions_server
+#: model:ir.cron,cron_name:beesdoo_shift_attendance.ir_cron_generate_attendance_sheet
+#: model:ir.cron,name:beesdoo_shift_attendance.ir_cron_generate_attendance_sheet
+msgid "Generate Attendance Sheets"
+msgstr "Generar fulls d'assistència"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.actions.act_window,name:beesdoo_shift_attendance.action_missing_attendance_sheets
+msgid "Generate Missing Sheets"
+msgstr "Genarar fulls de falta d'assistència"
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.res_config_settings_view_form
+msgid "Generate attendance sheets before shifts start."
+msgstr "Generar fulls d'assistència abans que comencin els torns."
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.generate_attendance_sheet_form
+msgid "Generate missing attendance sheets in a given time interval"
+msgstr "Generar fulls de falta d'assistència en un interval de temps determinat"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.ui.menu,name:beesdoo_shift_attendance.menu_missing_attendance_sheets
+msgid "Generate missing past attendance sheets"
+msgstr "Generar fulls de falta d'assistència del passat"
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.sheet_view_search
+msgid "Group By"
+msgstr "Agrupar per"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_beesdoo_shift_sheet__is_read
+msgid "Has notes been read by an administrator ?"
+msgstr "Les notes han sigut llegides per un administrador?"
+
+#. module: beesdoo_shift_attendance
+#: selection:beesdoo.shift.sheet,worker_nb_feedback:0
+msgid "I was not there during the shift"
+msgstr "Jo no era allà durant el torn"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_generate_missing_attendance_sheets__id
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__id
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_added__id
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_expected__id
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_shift__id
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_validate__id
+msgid "ID"
+msgstr "ID"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_beesdoo_shift_sheet__message_unread
+msgid "If checked new messages require your attention."
+msgstr "Si està marcat, els nous missatges requereixen la vostra atenció."
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_beesdoo_shift_sheet__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si està marcat, els nous missatges requereixen la vostra atenció."
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_beesdoo_shift_sheet__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si està marcat, alguns missatges tenen un error d'entrega."
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.res_config_settings_view_form
+msgid ""
+"If not checked, user credentials are\n"
+"                                        asked."
+msgstr ""
+"Si no està marcat, les credencials d'usuari\n"
+"                                        es demanen."
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_beesdoo_shift_sheet__max_worker_no
+msgid "Indicative maximum number of workers."
+msgstr "Nombre màxim indicatiu de sòcies actives."
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.res_config_settings_view_form
+msgid "Interval (minutes)"
+msgstr "Interval (minuts)"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__message_is_follower
+msgid "Is Follower"
+msgstr "És seguidor"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__is_annotated
+msgid "Is annotated"
+msgstr "Està anotat"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_beesdoo_shift_sheet_validate__warning_regular_workers
+msgid "Is any regular worker doing its regular shift as an added one ?"
+msgstr "Hi ha alguna sòcia activa habitual que faci el seu torn habitual com a torn addicional?"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_generate_missing_attendance_sheets____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_added____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_expected____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_shift____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_validate____last_update
+msgid "Last Modified on"
+msgstr "Última modificació el"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_generate_missing_attendance_sheets__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_added__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_expected__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_shift__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_validate__write_uid
+msgid "Last Updated by"
+msgstr "Darrera Actualització per"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_generate_missing_attendance_sheets__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_added__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_expected__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_shift__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_validate__write_date
+msgid "Last Updated on"
+msgstr "Darrera Actualització el"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_validate__login
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.validate_attendance_sheet_form
+msgid "Login"
+msgstr "Entrada"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Adjunt principal"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__is_read
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.sheet_view_form
+msgid "Mark as read"
+msgstr "Marcar com llegit"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__max_worker_no
+msgid "Maximum number of workers"
+msgstr "Màxim nombre de sòcies actives"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__message_has_error
+msgid "Message Delivery error"
+msgstr "Missatge d'error de l'enviament"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__message_ids
+msgid "Messages"
+msgstr "Missatges"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__name
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_added__worker_name
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_expected__worker_name
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_shift__worker_name
+msgid "Name"
+msgstr "Nom"
+
+#. module: beesdoo_shift_attendance
+#: sql_constraint:beesdoo.shift.sheet:0
+msgid "Non-annotated sheets can't be marked as read."
+msgstr "Els fulls no anotats no poden ser marcats com a llegits."
+
+#. module: beesdoo_shift_attendance
+#: model:mail.template,subject:beesdoo_shift_attendance.email_template_non_attendance
+msgid "Non-attendance to your last shift."
+msgstr "No assistència al teu darrer torn."
+
+#. module: beesdoo_shift_attendance
+#: model:ir.actions.act_window,name:beesdoo_shift_attendance.action_sheet_admin_non_validated
+#: model:ir.ui.menu,name:beesdoo_shift_attendance.menu_sheet_admin_non_validated
+msgid "Non-validated sheets"
+msgstr "Fulls no validats"
+
+#. module: beesdoo_shift_attendance
+#: selection:beesdoo.shift.sheet,state:0
+msgid "Not Validated"
+msgstr "No validat"
+
+#. module: beesdoo_shift_attendance
+#: selection:beesdoo.shift.sheet,worker_nb_feedback:0
+msgid "Not enough workers"
+msgstr "No suficients sòcies actives"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__notes
+msgid "Notes"
+msgstr "Notes"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_validate__notes
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_beesdoo_shift_sheet__notes
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_beesdoo_shift_sheet_validate__notes
+msgid "Notes about the attendance for the Members Office"
+msgstr "Notes sobre assistència per a recursos humans"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Nombre d'accions"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__message_has_error_counter
+msgid "Number of error"
+msgstr "Número d'error"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_beesdoo_shift_sheet__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Nombre de missatges que requereixen una acció"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_beesdoo_shift_sheet__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Nombre de missatges amb error d'entrega"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_beesdoo_shift_sheet__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Nombre de missatges no llegits"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__attended_worker_no
+msgid "Number of workers present"
+msgstr "Nombre de sòcies actives presents"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_beesdoo_shift_sheet_added__is_compensation
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_beesdoo_shift_sheet_expected__is_compensation
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_beesdoo_shift_sheet_shift__is_compensation
+msgid "Only for regular workers"
+msgstr "Només per a sòcies actives habituals"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_validate__password
+msgid "Password"
+msgstr "Contrasenya"
+
+#. module: beesdoo_shift_attendance
+#: selection:beesdoo.shift.sheet.added,state:0
+#: selection:beesdoo.shift.sheet.expected,state:0
+#: selection:beesdoo.shift.sheet.shift,state:0
+msgid "Present"
+msgstr "Present"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_expected__replaced_id
+msgid "Replacement Worker"
+msgstr "Sòcia activa substituta"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_beesdoo_shift_sheet_expected__replaced_id
+msgid "Replacement Worker (must be regular)"
+msgstr "Sòcia activa substituta (ha de ser habitual)"
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.validate_attendance_sheet_form
+msgid "Save"
+msgstr "Desar"
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.res_config_settings_view_form
+msgid "Scan cards for validation"
+msgstr "Escaneja les targetes per validar-les"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_res_config_settings__card_support
+msgid "Scan cooperators cards instead of login for sheets validation"
+msgstr "Escanejar les targetes de les sòcies en lloc d’iniciar sessió per validar fulls"
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.validate_attendance_sheet_form
+msgid "Scan your card"
+msgstr "Escaneja la teva targeta"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.actions.act_window,name:beesdoo_shift_attendance.action_shift_settings
+msgid "Settings"
+msgstr "Configuració"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.ui.menu,name:beesdoo_shift_attendance.menu_shift_settings
+msgid "Shift Settings"
+msgstr "Configuració del torn"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_added__state
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_expected__state
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_shift__state
+msgid "Shift State"
+msgstr "Estat del torn"
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.res_config_settings_view_form
+msgid "Shifts Management"
+msgstr "Gestió dels torns"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__start_time
+msgid "Start Time"
+msgstr "Hora d'inici"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_generate_missing_attendance_sheets__date_start
+msgid "Start date"
+msgstr "Data d'inici"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__state
+msgid "State"
+msgstr "Estat"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_expected__super_coop_id
+msgid "Super Cooperative"
+msgstr ""
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_added__task_id
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_expected__task_id
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_shift__task_id
+msgid "Task"
+msgstr "Tasca"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_added__task_type_id
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_expected__task_type_id
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_shift__task_type_id
+msgid "Task Type"
+msgstr "Tipus de tasca"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__time_slot
+msgid "Time Slot"
+msgstr "Interval de temps"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_res_config_settings__attendance_sheet_generation_interval
+msgid "Time interval expressed in minutes"
+msgstr "Interval de temps expressat en minuts"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_res_config_settings__attendance_sheet_generation_interval
+msgid "Time interval for attendance sheet generation"
+msgstr "Interval de temps per a la generació del full d'assistència"
+
+#. module: beesdoo_shift_attendance
+#: selection:beesdoo.shift.sheet,worker_nb_feedback:0
+msgid "Too many workers"
+msgstr "Massa sòcies actives"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__message_unread
+msgid "Unread Messages"
+msgstr "Missatges sense llegir"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Comptador de missatges sense llegir"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.actions.act_window,name:beesdoo_shift_attendance.action_sheet_admin_annotated
+#: model:ir.ui.menu,name:beesdoo_shift_attendance.menu_sheet_admin_annotated
+msgid "Unread notes"
+msgstr "Notes sense llegir"
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.validate_attendance_sheet_form
+msgid "Validate"
+msgstr "Validar"
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.sheet_view_form
+msgid "Validate Sheet"
+msgstr "Full validat"
+
+#. module: beesdoo_shift_attendance
+#: selection:beesdoo.shift.sheet,state:0
+msgid "Validated"
+msgstr "Validat"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__validated_by
+msgid "Validated by"
+msgstr "Validat per"
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.validate_attendance_sheet_form
+msgid "Validation"
+msgstr "Validació"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_beesdoo_shift_sheet___barcode_scanned
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_beesdoo_shift_sheet_validate___barcode_scanned
+msgid "Value of the last barcode scanned."
+msgstr "Valor de l'últim codi de barres escanejat."
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_validate__warning_regular_workers
+msgid "Warning"
+msgstr "Avís"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__worker_nb_feedback
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_validate__worker_nb_feedback
+msgid "Was your team big enough ? *"
+msgstr "Era el teu equip prou gran ? *"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__website_message_ids
+msgid "Website Messages"
+msgstr "Missatges del web"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_beesdoo_shift_sheet__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicacions del lloc web"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__week
+msgid "Week"
+msgstr "Setmana"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_added__worker_id
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_expected__worker_id
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_shift__worker_id
+msgid "Worker"
+msgstr "Sòcia activa"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_added__working_mode
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_expected__working_mode
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_shift__working_mode
+msgid "Working Mode"
+msgstr "Mode de treball"
+
+#. module: beesdoo_shift_attendance
+#: model:mail.template,subject:beesdoo_shift_attendance.email_template_non_validated_sheet
+msgid "[${object.day}] Non-validated sheet ${object.time_slot} "
+msgstr "[${object.day}] Full no validat $ {object.time_slot} "
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model,name:beesdoo_shift_attendance.model_beesdoo_shift_generate_missing_attendance_sheets
+msgid "beesdoo.shift.generate_missing_attendance_sheets"
+msgstr ""
