@@ -73,39 +73,7 @@ header
                 border-bottom-style: solid;
             }
 
-            // Function to underline the active links
-            #menu-active()
-            {
-                padding-bottom: 6px;
-                border-bottom-width: 8px;
-                border-bottom-style: solid;
-            }
-
-            // Underline the link
-            a,
-            {
-                span:not(.caret)
-                {
-                    #menu
-                }
-
-                &:hover,
-                &:focus,
-                &.active
-                {
-                    span:not(.caret)
-                    {
-                        #menu-active
-                    }
-                }
-            }
-
-            > .open > a,
-            > .open > a:hover,
-            > .open > a:focus
-            {
-                background-color: transparent;
-            }
+           
 
             // Last element is the name of the logged user.
             // This should not be in the same font as other links
@@ -150,16 +118,6 @@ h1
     margin-bottom: 1em;
 }
 
-h1:after
-{
-    content: "";
-    background-color: extract(@colors, 1);
-    height: 6px;
-    width: 100px;
-    display: block;
-    margin: 0 auto;
-    margin-top: 0.5em;
-}
 
 h2, h3
 {
