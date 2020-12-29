@@ -216,10 +216,7 @@ class BeesdooProduct(models.Model):
                 return True
 
             elif len(taxes_included) > 1:
-                raise ValidationError(
-                    _("Several tax strategies (price_include) defined for %s")
-                    % product.name
-                )
+                taxes_included = list(taxes_included)[:1]
 
             elif taxes_included.pop():
                 product.total_with_vat = product.list_price
