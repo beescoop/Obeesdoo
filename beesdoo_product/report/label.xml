@@ -1,0 +1,79 @@
+<odoo>
+    <report id="report_product_label" string="Label " model="product.template"
+        report_type="qweb-pdf" file="beesdoo_product.product_label"
+        name="beesdoo_product.product_label"/>
+
+    <template id="product_label">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-foreach="docs" t-as="template">
+                    <t t-foreach="template.product_variant_ids" t-as="product">
+                        <t t-call="beesdoo_product.report_simple_label">
+                            <t t-set="product" t-value="product"/>
+                        </t>
+                    </t>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_simple_label">
+        <div style="width: 48%; display: inline-table; height:14rem;">
+            <table class="table table-bordered mb-0" style="border: 2px solid black;">
+                <tr>
+                    <th class="table-active text-left">
+                        <strong t-field="product.display_name"/>
+                    </th>
+                </tr>
+                <tr>
+                    <td style="height: 2rem">
+                        <strong style="font-size:1.5em" t-field="product.total_with_vat" t-options="{'widget': 'monetary', 'display_currency': product.company_id.currency_id}"/>
+                        <span style="margin-left:30px">
+                            <t t-esc="product.display_weight" />
+                            <t t-esc="product.display_unit.name" />
+                        </span>
+                        <span style="margin-left:30px">
+                            <span t-field="product.total_with_vat_by_unit" t-options="{'widget': 'monetary', 'display_currency': product.company_id.currency_id}" />
+                            /
+                            <t t-esc="product.default_reference_unit.name" />
+                        </span>
+                    </td>
+                </tr>
+                <tr t-if="product.main_seller_id">
+                    <td>
+                        <i class="fa fa-user" aria-hidden="true">
+                            <strong t-esc="product.main_seller_id.name" />
+                        </i>
+                    </td>
+                </tr>
+                <tr t-if="product.eco_label">
+                    <td>
+                        <i class="fa fa-leaf" aria-hidden="true" t-att-style="'color:%s' % product.eco_label.color_code" />
+                        <strong t-esc="product.eco_label.name" />
+                    </td>
+                </tr>
+
+                <tr t-if="product.local_label">
+                    <td>
+                        <i class="fa fa-map-marker" aria-hidden="true" t-att-style="'color:%s' % product.local_label.color_code" />
+                        <strong t-esc="product.local_label.name" />
+                    </td>
+                </tr>
+
+                <tr t-if="product.fair_label">
+                    <td>
+                        <i class="fa fa-balance-scale" aria-hidden="true" t-att-style="'color:%s' % product.fair_label.color_code" />
+                        <strong t-esc="product.fair_label.name" />
+                    </td>
+                </tr>
+
+                <tr t-if="product.origin_label">
+                    <td>
+                        <i class="fa fa-globe" aria-hidden="true" t-att-style="'color:%s' % product.origin_label.color_code" />
+                        <strong t-esc="product.origin_label.name" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </template>
+</odoo>
