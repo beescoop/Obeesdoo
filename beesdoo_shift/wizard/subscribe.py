@@ -164,7 +164,7 @@ class Subscribe(models.TransientModel):
     def subscribe(self):
         self = self._check()
         if self.shift_id and self.shift_id.remaining_worker <= 0:
-            raise UserError(_("There is no remaining space for this shift"))
+            raise UserError(_("There is no remaining spot in this shift"))
         if self.shift_id:
             # Remove existing shift then subscribe to the new shift
             self.cooperator_id.sudo().write(

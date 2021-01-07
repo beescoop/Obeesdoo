@@ -1748,8 +1748,8 @@ msgstr "Regular worker"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template_remaining_worker
-msgid "Remaining Place"
-msgstr "Remaining Place"
+msgid "Remaining Spot"
+msgstr "Remaining Spot"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_replaced_id
@@ -1898,8 +1898,8 @@ msgstr "Shifts"
 #. module: beesdoo_shift
 #: model:ir.ui.view,arch_db:beesdoo_shift.planning_view_form
 #: model:ir.ui.view,arch_db:beesdoo_shift.planning_view_tree
-msgid "Shifts Template"
-msgstr "Shifts Template"
+msgid "Shift Templates"
+msgstr "Shift Templates"
 
 #. module: beesdoo_shift
 #: model:res.groups,name:beesdoo_shift.group_shift_management
@@ -2101,8 +2101,8 @@ msgstr "De aanwezigheidslijst is al gevalideerd."
 #: code:addons/beesdoo_shift/wizard/subscribe.py:105
 #: code:addons/custom/obeesdoo/beesdoo_shift/wizard/subscribe.py:105
 #, python-format
-msgid "There is no remaining space for this shift"
-msgstr "There is no remaining space for this shift"
+msgid "There is no remaining spot in this shift"
+msgstr "There is no remaining spot in this shift"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,help:beesdoo_shift.field_res_users_property_delivery_carrier_id

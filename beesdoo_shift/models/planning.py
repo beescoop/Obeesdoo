@@ -59,10 +59,16 @@ class Planning(models.Model):
 
     sequence = fields.Integer()
     name = fields.Char()
+    periodicity = fields.Integer(
+        "Periodicity",
+        help="From 1 to N. This number specifies the periodicity for the automated generation of a planning. For a weekly planning, the periodicity would be 7, because the planning has to be generated every seven days.",
+        default=7
+    )
     task_template_ids = fields.One2many(
         "beesdoo.shift.template", "planning_id"
     )
 
+    # There can be multiple planning templates defined. When generating shifts automatically, one template has to be selected. The sequence number of the previously used template is stored, so that it can be bumped up in a cyclic fashion.
     @api.model
     def _get_next_planning(self, sequence):
         next_planning = self.search([("sequence", ">", sequence)])
@@ -70,11 +76,14 @@ class Planning(models.Model):
             return self.search([])[0]
         return next_planning[0]
 
+    # Get the start of the next planning/
     @api.multi
     def _get_next_planning_date(self, date):
         self.ensure_one()
-        nb_of_day = max(self.task_template_ids.mapped("day_nb_id.number"))
-        return date + timedelta(days=nb_of_day)
+        periodicity = self.periodicity
+        if not periodicity:
+            periodicity = max(self.task_template_ids.mapped("day_nb_id.number"))
+        return date + timedelta(days=periodicity)
 
     @api.model
     def _generate_next_planning(self):
@@ -133,7 +142,7 @@ class TaskTemplate(models.Model):
         domain=[("is_worker", "=", True)],
     )
     remaining_worker = fields.Integer(
-        compute="_compute_remaining", store=True, string="Remaining Place"
+        compute="_compute_remaining", store=True, string="Remaining Spot"
     )
     active = fields.Boolean(default=True)
     # For Kanban View Only
