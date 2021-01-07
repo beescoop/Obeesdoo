@@ -63,6 +63,7 @@
     <record id="beesdoo_shift_planning_1_demo" model="beesdoo.shift.planning">
         <field name="sequence">1</field>
         <field name="name">Semaine A</field>
+        <field name="periodicity">7</field>
     </record>
 
 </odoo>

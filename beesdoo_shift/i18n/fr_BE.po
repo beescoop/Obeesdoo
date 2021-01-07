@@ -660,7 +660,7 @@ msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_planning__date_start
-msgid "First Day of planning (should be monday)"
+msgid "First Day of planning (should be Monday)"
 msgstr ""
 
 #. module: beesdoo_shift
@@ -1396,7 +1396,7 @@ msgstr ""
 #. module: beesdoo_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.planning_view_form
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.planning_view_tree
-msgid "Shifts Template"
+msgid "Shift Templates"
 msgstr "Planning"
 
 #. module: beesdoo_shift
@@ -1544,8 +1544,8 @@ msgstr "Exemption temporaire"
 #. module: beesdoo_shift
 #: code:addons/beesdoo_shift/wizard/subscribe.py:167
 #, python-format
-msgid "There is no remaining space for this shift"
-msgstr "Il n'y a plus de places libres pour ce shift"
+msgid "There is no remaining spot for this shift"
+msgstr "Il n'y a plus aucune place libre dans ce shift"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_time_slot
