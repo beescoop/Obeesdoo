@@ -45,14 +45,14 @@ class CooperativeStatus(models.Model):
 
     def _get_status(self):
         return [
-            ("ok", "Up to Date"),
-            ("holiday", "Holidays"),
-            ("alert", "Alerte"),
-            ("extension", "Extension"),
-            ("suspended", "Suspended"),
-            ("exempted", "Exempted"),
-            ("unsubscribed", "Unsubscribed"),
-            ("resigning", "Resigning"),
+            ("ok", _("Up to Date")),
+            ("holiday", _("Holidays")),
+            ("alert", _("Warning")),
+            ("extension", _("Extension")),
+            ("suspended", _("Suspended")),
+            ("exempted", _("Exempted")),
+            ("unsubscribed", _("Unsubscribed")),
+            ("resigning", _("Resigning")),
         ]
 
     today = fields.Date(
