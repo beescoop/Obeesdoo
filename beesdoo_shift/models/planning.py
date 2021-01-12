@@ -61,8 +61,11 @@ class Planning(models.Model):
     name = fields.Char()
     periodicity = fields.Integer(
         "Periodicity",
-        help="From 1 to N. This number specifies the periodicity for the automated generation of a planning. For a weekly planning, the periodicity would be 7, because the planning has to be generated every seven days.",
-        default=7
+        help="""From 1 to N. This number specifies the periodicity for the
+        automated generation of a planning. For a weekly planning, the
+        periodicity would be 7, because the planning has to be generated
+        every seven days.""",
+        default=7,
     )
     task_template_ids = fields.One2many(
         "beesdoo.shift.template", "planning_id"
@@ -71,6 +74,11 @@ class Planning(models.Model):
     # There can be multiple planning templates defined. When generating shifts automatically, one template has to be selected. The sequence number of the previously used template is stored, so that it can be bumped up in a cyclic fashion.
     @api.model
     def _get_next_planning(self, sequence):
+          """There can be multiple planning templates defined. When
+          generating shifts automatically, one template has to be
+          selected. The sequence number of the previously used
+          template is stored, so that it can be bumped up in a
+          cyclic fashion."""
         next_planning = self.search([("sequence", ">", sequence)])
         if not next_planning:
             return self.search([])[0]
