@@ -71,26 +71,28 @@ class Planning(models.Model):
         "beesdoo.shift.template", "planning_id"
     )
 
-    # There can be multiple planning templates defined. When generating shifts automatically, one template has to be selected. The sequence number of the previously used template is stored, so that it can be bumped up in a cyclic fashion.
     @api.model
     def _get_next_planning(self, sequence):
-          """There can be multiple planning templates defined. When
-          generating shifts automatically, one template has to be
-          selected. The sequence number of the previously used
-          template is stored, so that it can be bumped up in a
-          cyclic fashion."""
+        """There can be multiple planning templates defined. When
+        generating shifts automatically, one template has to be
+        selected. The sequence number of the previously used
+        template is stored, so that it can be bumped up in a
+        cyclic fashion."""
         next_planning = self.search([("sequence", ">", sequence)])
         if not next_planning:
             return self.search([])[0]
         return next_planning[0]
 
-    # Get the start of the next planning/
     @api.multi
     def _get_next_planning_date(self, date):
         self.ensure_one()
         periodicity = self.periodicity
         if not periodicity:
-            periodicity = max(self.task_template_ids.mapped("day_nb_id.number"))
+            raise ValueError(
+                """Template periodicity is undefined although it
+                should have the default value or a value given by
+                the user."""
+            )
         return date + timedelta(days=periodicity)
 
     @api.model
