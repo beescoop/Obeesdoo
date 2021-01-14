@@ -45,6 +45,8 @@
                         domain="[('end_time','&gt;', context_today().strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  + datetime.timedelta(weeks=4)).strftime('%Y-%m-%d 23:59:59'))]"/>
                 <filter string="4 next days" name="nextweek"
                         domain="[('end_time','&gt;', context_today().strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  + datetime.timedelta(days=4)).strftime('%Y-%m-%d 23:59:59'))]"/>
+                <filter string="4 previous weeks" name="4previousweeks"
+                        domain="[('end_time','&gt;', (context_today() - datetime.timedelta(weeks=4)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', context_today().strftime('%Y-%m-%d 23:59:59'))]"/>
                 <filter string="J-5" name="jminus5"
                         domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=5)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=5)).strftime('%Y-%m-%d 23:59:59'))]"/>
                 <filter string="J-4" name="jminus4"
