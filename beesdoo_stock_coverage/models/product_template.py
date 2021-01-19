@@ -100,10 +100,12 @@ class ProductTemplate(models.Model):
             else:
                 template.effective_sale_price = esp
 
-            if avg != 0:
-                template.stock_coverage = template.virtual_available / avg
-            else:
+            if template.virtual_available == 0:
+                template.stock_coverage = 0
+            elif avg == 0:
                 template.stock_coverage = 9999
+            else:
+                template.stock_coverage = template.virtual_available / avg
 
     @api.model
     def cron_compute_stock_coverage(self):
