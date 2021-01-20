@@ -1,5 +1,6 @@
 # Copyright 2017-2020 Coop IT Easy SCRLfs (http://coopiteasy.be)
 #   Rémy Taymans <remy@coopiteasy.be>
+#   Robin Keunen <robin@coopiteasy.be>
 # Copyright 2017-2018 Thibault François
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -9,9 +10,12 @@ from itertools import groupby
 from pytz import timezone, utc
 
 from odoo import http
+from odoo.fields import Datetime
 from odoo.http import request
 
 from odoo.addons.beesdoo_shift.models.planning import float_to_time
+
+from .shift_grid_utils import DisplayedShift, build_shift_grid
 
 
 class WebsiteShiftController(http.Controller):
@@ -285,23 +289,22 @@ class WebsiteShiftController(http.Controller):
     ):
         """
         Return template variables for
-        'beesdoo_website_shift.available_shift_irregular_worker' template
+        'beesdoo_website_shift.available_shift_irregular_worker_grid'
         """
         # Get current user
         cur_user = request.env["res.users"].browse(request.uid)
 
         # Get all the shifts in the future with no worker
-        now = datetime.now()
         shifts = (
             request.env["beesdoo.shift.shift"]
             .sudo()
             .search(
                 [
-                    ("start_time", ">", now.strftime("%Y-%m-%d %H:%M:%S")),
+                    ("start_time", ">", Datetime.now()),
                     ("worker_id", "=", False),
                     ("state", "=", "open"),
                 ],
-                order="start_time, task_template_id, task_type_id",
+                order="task_template_id, start_time, task_type_id",
             )
         )
 
@@ -311,42 +314,30 @@ class WebsiteShiftController(http.Controller):
             .sudo()
             .search(
                 [
-                    ("start_time", ">", now.strftime("%Y-%m-%d %H:%M:%S")),
+                    ("start_time", ">", Datetime.now()),
                     ("worker_id", "=", cur_user.partner_id.id),
                 ],
-                order="start_time, task_template_id, task_type_id",
+                order="task_template_id, start_time, task_type_id",
             )
         )
 
         # Get config
-        irregular_shift_limit = request.website.irregular_shift_limit
+        # irregular_shift_limit = request.website.irregular_shift_limit
         highlight_rule_pc = request.website.highlight_rule_pc
         hide_rule = request.website.hide_rule / 100.0
 
-        # Grouby task_template_id, if no task_template_id is specified
-        # then group by start_time, if no start_time specified sort by
-        # task_type
-        groupby_iter = groupby(
-            shifts,
-            lambda s: (s.task_template_id, s.start_time, s.task_type_id),
-        )
+        # Grouby task_template_id, will be arranged by task type in the
+        # grid.
+        groupby_iter = groupby(shifts, lambda s: s.task_template_id)
 
-        shifts_count_subscribed = []
-        nb_displayed_shift = 0  # Number of shift displayed
-        for (keys, grouped_shifts) in groupby_iter:
-            (task_template, start_time, task_type) = keys
-            nb_displayed_shift = nb_displayed_shift + 1
+        displayed_shifts = []
+        for task_template, grouped_shifts in groupby_iter:
             shift_list = list(grouped_shifts)
             # Compute available space
             free_space = len(shift_list)
             # Is the current user subscribed to this task_template
             is_subscribed = any(
-                (
-                    sub_shift.task_template_id == task_template
-                    and sub_shift.start_time == start_time
-                    and sub_shift.task_type_id == task_type
-                )
-                for sub_shift in subscribed_shifts
+                shift.id in subscribed_shifts.ids for shift in shift_list
             )
             # Check the necessary number of worker based on the
             # highlight_rule_pc
@@ -355,23 +346,18 @@ class WebsiteShiftController(http.Controller):
                 <= (task_template.worker_nb * highlight_rule_pc) / 100
             )
             if free_space >= task_template.worker_nb * hide_rule:
-                shifts_count_subscribed.append(
-                    [
+                displayed_shifts.append(
+                    DisplayedShift(
                         shift_list[0],
                         free_space,
                         is_subscribed,
                         has_enough_workers,
-                    ]
+                    )
                 )
-            # Stop showing shifts if the limit is reached
-            if (
-                irregular_shift_limit > 0
-                and nb_displayed_shift >= irregular_shift_limit
-            ):
-                break
 
+        shift_weeks = build_shift_grid(displayed_shifts)
         return {
-            "shift_templates": shifts_count_subscribed,
+            "shift_weeks": shift_weeks,
             "nexturl": nexturl,
             "irregular_enable_sign_up": irregular_enable_sign_up,
         }
@@ -433,9 +419,9 @@ class WebsiteShiftController(http.Controller):
             # Get config
             regular_next_shift_limit = request.website.regular_next_shift_limit
             shift_period = int(
-                request.env["ir.config_parameter"].sudo().get_param(
-                    "beesdoo_website_shift.shift_period"
-                )
+                request.env["ir.config_parameter"]
+                .sudo()
+                .get_param("beesdoo_website_shift.shift_period")
             )
 
             for i in range(nb_subscribed_shifts, regular_next_shift_limit):

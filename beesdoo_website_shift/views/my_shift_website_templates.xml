@@ -234,103 +234,124 @@
     </template>
 
     <template
-            id="available_shift_irregular_worker"
+            id="available_shift_irregular_worker_card"
             name="Available Shift for Irregular Worker"
     >
+        <t t-set="shift" t-value="displayed_shift.shift"/>
+        <t t-set="count" t-value="displayed_shift.free_space"/>
+        <t t-set="is_subscribed" t-value="displayed_shift.is_subscribed"/>
+        <t t-set="has_enough_workers"
+           t-value="displayed_shift.has_enough_workers"/>
+        <t t-set="highlight_class"
+           t-value="'panel-warning' if not has_enough_workers else 'panel-default'"/>
 
-        <t t-foreach="shift_templates" t-as="shift_count_subscribed">
-            <t t-set="shift" t-value="shift_count_subscribed[0]"/>
-            <t t-set="count" t-value="shift_count_subscribed[1]"/>
-            <t t-set="is_subscribed" t-value="shift_count_subscribed[2]"/>
-            <t t-set="has_enough_workers" t-value="shift_count_subscribed[3]"/>
-            <t t-set="highlight_class"
-               t-value="'panel-warning' if not has_enough_workers else 'panel-default'"/>
-            <div t-att-class="'card mb-4 %s' % highlight_class">
-                <div t-att-class="'card-header %s clearfix' % highlight_header_class">
-                    <div class="pull-left">
-                        <span t-field="shift.start_time"/>
-                        -
-                        <span t-field="shift.end_time"
-                              t-options='{"format": "HH:mm"}'/>
-                    </div>
-                    <div class="badge badge-secondary pull-right"
-                         t-if="count > 0">
-                        <t t-esc="count"/>
-                        space(s)
-                    </div>
-                    <div class="badge badge-secondary pull-right"
-                         t-if="count == 0">
-                        full
-                    </div>
-                </div>
-                <div class="card-body clearfix">
-                    <t t-esc="shift.task_type_id.name"/>
-                    <div class="badge badge-success pull-right"
-                         t-if="is_subscribed">
-                        Subscribed
-                    </div>
-                    <button
-                            type="button"
-                            class="btn btn-default btn-sm pull-right"
-                            data-toggle="modal"
-                            t-att-data-target="'#subscribe-shift-%s' % shift.id"
-                            t-if="irregular_enable_sign_up and not is_subscribed"
-                    >
-                        <span class="fa fa-user-plus" aria-hidden="true"></span>
-                        Subscribe
-                    </button>
-                </div>
+        <div class="card highlight_class">
+            <div class="center m-1 font-weight-bold"
+                 t-esc="shift.task_type_id.name"/>
+            <div class="badge badge-secondary m-1"
+                 t-if="count > 0">
+                <t t-esc="count"/>
+                spot(s)
             </div>
+            <div class="badge badge-secondary m-1"
+                 t-if="count == 0">
+                full
+            </div>
+            <div class="badge badge-secondary m-1"
+                 t-if="is_subscribed">
+                Subscribed
+            </div>
+            <button
+                    type="button"
+                    class="btn btn-default btn-sm m-1"
+                    data-toggle="modal"
+                    t-att-data-target="'#subscribe-shift-%s' % shift.id"
+                    t-if="irregular_enable_sign_up and not is_subscribed"
+            >
+                <span class="fa fa-user-plus" aria-hidden="true"></span>
+                Subscribe
+            </button>
+        </div>
 
-            <!-- Subscribe check -->
-            <t t-foreach="shift_templates" t-as="shift_count_subscribed">
-                <t t-set="shift" t-value="shift_count_subscribed[0]"/>
-                <t t-set="count" t-value="shift_count_subscribed[1]"/>
-                <t t-set="is_subscribed" t-value="shift_count_subscribed[2]"/>
-                <div class="modal fade"
-                     t-att-id="'subscribe-shift-%s' % shift.id" tabindex="-1"
-                     role="dialog"
-                     t-att-aria-labelledby="'subscribe-shift-%s-label' % shift.id">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close"
-                                        data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                                <h4 class="modal-title"
-                                    t-att-id="'subscribe-shift-%s-label' % shift.id">
-                                    Please confirm subscription
-                                </h4>
-                            </div>
-                            <div class="modal-body">
-                                <span t-field="shift.start_time"/>
-                                -
-                                <span t-field="shift.end_time"
-                                      t-options='{"format": "HH:mm"}'/>
-                                <br/>
-                                <t t-esc="shift.task_type_id.name"/>
-                                <br/>
-                                <t t-esc="count"/>
-                                available space(s)
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default"
-                                        data-dismiss="modal">Close
-                                </button>
-                                <a class="btn btn-primary"
-                                   t-if="irregular_enable_sign_up"
-                                   t-att-href="'/shift/%s/subscribe?nexturl=%s' % (shift.id, nexturl)">
-                                    Subscribe
-                                </a>
-                            </div>
-                        </div>
+    </template>
+
+    <template id="available_shift_irregular_worker_row"
+              name="Available Shifts by Week Row">
+        <t t-set="headers" t-value="shift_by_week['headers']"/>
+        <t t-set="rows" t-value="shift_by_week['rows']"/>
+        <div class="table-responsive">
+            <table class="table text-center">
+                <thead>
+                    <th style="width: 9%"/>
+                    <t t-foreach="headers" t-as="header">
+                        <th style="width: 13%"
+                            t-esc="header.strftime('%d/%m')"/>
+                    </t>
+                </thead>
+                <tbody>
+                    <t t-foreach="rows" t-as="shift_row">
+                        <t t-set="start_time"
+                           t-value="shift_row[0][0]"/>
+                        <t t-set="end_time"
+                           t-value="shift_row[0][1]"/>
+                        <tr>
+                            <td class="text-center align-middle">
+                                <div>
+                                    <div t-esc="start_time"/>
+                                    <div>-</div>
+                                    <div t-esc="end_time"/>
+                                </div>
+                            </td>
+                            <t t-foreach="shift_row[1]" t-as="shift_by_day">
+                                <td class="align-middle">
+                                    <t t-if="shift_by_day">
+                                        <t t-foreach="shift_by_day"
+                                           t-as="shift">
+                                            <t t-call="beesdoo_website_shift.available_shift_irregular_worker_card">
+                                                <t t-set="displayed_shift"
+                                                   t-value="shift"/>
+                                            </t>
+                                        </t>
+                                    </t>
+                                </td>
+                            </t>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <template id="available_shift_irregular_worker_grid"
+              name="Available Shifts for Irregular Worker">
+        <!-- Renders week planning of schema:
+        [(datetime.date(2021, 1, 18),  # week
+            {'headers': [datetime.date(2021, 1, 18), ]  # week days
+             'rows': [(('07:00', '09:15'),  # start and end time
+                       [DisplayedShift(  # shifts by day or None (7 columns)
+                            shift=beesdoo.shift.shift(11950,),
+                            free_space=1,
+                            is_subscribed=False,
+                            has_enough_workers=False)), *
+                        ], *
+                      ), ...
+                     ],
+            }), ...
+        ]
+        -->
+        <div>
+            <t t-foreach="shift_weeks" t-as="shift_week_tuple">
+                <div class="card mb-2">
+                    <t t-set="week" t-value="shift_week_tuple[0]"/>
+                    <div class="card-body p-0">
+                        <t t-call="beesdoo_website_shift.available_shift_irregular_worker_row">
+                            <t t-set="shift_by_week"
+                               t-value="shift_week_tuple[1]"/>
+                        </t>
                     </div>
                 </div>
             </t>
-
-        </t>
-
+        </div>
     </template>
 
     <!-- Help Texts -->
@@ -775,7 +796,7 @@
                             </div>
                         </div>
 
-                        <t t-call="beesdoo_website_shift.available_shift_irregular_worker"/>
+                        <t t-call="beesdoo_website_shift.available_shift_irregular_worker_grid"/>
 
                         <t t-call="beesdoo_website_shift.my_shift_past_shifts"/>
 
