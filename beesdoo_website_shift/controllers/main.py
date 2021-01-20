@@ -322,7 +322,6 @@ class WebsiteShiftController(http.Controller):
         )
 
         # Get config
-        # irregular_shift_limit = request.website.irregular_shift_limit
         highlight_rule_pc = request.website.highlight_rule_pc
         hide_rule = request.website.hide_rule / 100.0
 
