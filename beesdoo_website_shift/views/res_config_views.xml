@@ -13,18 +13,6 @@
                 <h2>Shift: Irregular Worker</h2>
                 <div class="row mt16 o_settings_container"
                      id="shift_irregular_settings">
-                    <div id="irregular_shift_limit_settings"
-                         class="col-12 col-md-6 o_setting_box">
-                        <div class="o_setting_right_pane">
-                            <label for="irregular_shift_limit"/>
-                            <span class="fa fa-lg fa-globe"
-                                  title="Values set here are website-specific."
-                                  groups="website.group_multi_website"/>
-                            <div class="mt8">
-                                <field name="irregular_shift_limit"/>
-                            </div>
-                        </div>
-                    </div>
                     <div id="highlight_rule_pc_settings"
                          class="col-12 col-md-6 o_setting_box">
                         <div class="o_setting_right_pane">
