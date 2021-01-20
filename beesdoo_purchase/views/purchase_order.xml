@@ -48,6 +48,7 @@
                 <field name="price_subtotal" position="after">
                     <field name="adapt_purchase_price" string="Is Purchase Price"/>
                     <field name="adapt_selling_price" string="Is Selling Price"/>
+                    <field name="stock_coverage" string="Stock Coverage"/>
                 </field>
             </field>
         </record>

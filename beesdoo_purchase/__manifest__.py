@@ -7,8 +7,13 @@
     "author": "Beescoop - Cellule IT, " "Coop IT Easy SCRLfs",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Purchase",
-    "version": "12.0.1.3.0",
-    "depends": ["base", "purchase", "beesdoo_product"],
+    "version": "12.0.1.4.0",
+    "depends": [
+        "base",
+        "purchase",
+        "beesdoo_product",
+        "beesdoo_stock_coverage",
+    ],
     "data": [
         "security/invoice_security.xml",
         "views/purchase_order.xml",
