@@ -273,6 +273,47 @@
             </button>
         </div>
 
+        <!-- Subscribe modals -->
+        <div class="modal fade"
+             t-att-id="'subscribe-shift-%s' % shift.id" tabindex="-1"
+             role="dialog"
+             t-att-aria-labelledby="'subscribe-shift-%s-label' % shift.id">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close"
+                                data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title"
+                            t-att-id="'subscribe-shift-%s-label' % shift.id">
+                            Please confirm subscription
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <span t-field="shift.start_time"/>
+                        -
+                        <span t-field="shift.end_time"
+                              t-options='{"format": "HH:mm"}'/>
+                        <br/>
+                        <t t-esc="shift.task_type_id.name"/>
+                        <br/>
+                        <t t-esc="count"/>
+                        available space(s)
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">Close
+                        </button>
+                        <a class="btn btn-primary"
+                           t-if="irregular_enable_sign_up"
+                           t-att-href="'/shift/%s/subscribe?nexturl=%s' % (shift.id, nexturl)">
+                            Subscribe
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </template>
 
     <template id="available_shift_irregular_worker_row"
