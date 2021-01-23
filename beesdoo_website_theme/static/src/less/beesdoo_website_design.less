@@ -1,52 +1,52 @@
 /* Define fonts */
 @font-face
 {
-    font-family: Roboto;
-    src: url(/beesdoo_website_theme/static/src/font/Roboto-Regular.ttf);
+    font-family: cooper-hewitt;
+    src: url(/beesdoo_website_theme/static/src/font/CooperHewitt-Semibold.woff);
 }
 
 @font-face
 {
-    font-family: Roboto;
-    src: url(/beesdoo_website_theme/static/src/font/Roboto-Bold.ttf);
+    font-family: cooper-hewitt;
+    src: url(/beesdoo_website_theme/static/src/font/CooperHewitt-Heavy.woff);
     font-weight: bold;
 }
 
 @font-face
 {
-    font-family: Roboto;
-    src: url(/beesdoo_website_theme/static/src/font/Roboto-Italic.ttf);
+    font-family: cooper-hewitt;
+    src: url(/beesdoo_website_theme/static/src/font/CooperHewitt-BookItalic.woff);
     font-style: italic;
 }
 
 @font-face
 {
-    font-family: Roboto;
-    src: url(/beesdoo_website_theme/static/src/font/Roboto-BoldItalic.ttf);
+    font-family: cooper-hewitt;
+    src: url(/beesdoo_website_theme/static/src/font/CooperHewitt-SemiboldItalic.woff);
     font-weight: bold;
     font-style: italic;
 }
 
 @font-face
 {
-    font-family: BebasNeue;
-    src: url(/beesdoo_website_theme/static/src/font/BebasNeue-Bold.ttf);
+    font-family: CooperHewitt;
+    src: url(/beesdoo_website_theme/static/src/font/CooperHewitt-Bold.woff);
 }
 
 
 /* Defines variables */
-//       yellow , red    , blue   , beige  , orange ,turquoise, black
-@colors: #FCC300, #BD0926, #12235A, #D0B565, #E7511E, #5CBEC3, #1A171B;
+//       orange , lila    , red   , norange  , purple ,pink, black
+@colors:#eb6924, #9d746f, #cd1a1f , #fac8a9, #4e1616, #ef7a72, #110914;
 //@nbcolors: length(@colors); /* For less >= 1.6 */
 @nbcolors: 7; /* For less <=1.4 */
-@colors-light: #fee799, #e49da8, #b7c2dd, #ece1c1, #f5b9a5, #bee5e7;
+@colors-light: #f7d357, #cf6374, #b7c2dd, #ece1c1, #f5b9a5, #bee5e7;
 @nbcolors-light: 6;
 
 
 /* Main */
 body
 {
-    font-family: Roboto, sans;
+    font-family: cooper-hewitt, sans;
 }
 
 
@@ -56,7 +56,7 @@ header
 
     .navbar
     {
-        font-family: BebasNeue, sans;
+        font-family: cooper-hewitt, sans;
         // Enlarge the menu
         padding-top: 20px;
         padding-bottom: 20px;
@@ -73,45 +73,13 @@ header
                 border-bottom-style: solid;
             }
 
-            // Function to underline the active links
-            #menu-active()
-            {
-                padding-bottom: 6px;
-                border-bottom-width: 8px;
-                border-bottom-style: solid;
-            }
-
-            // Underline the link
-            a,
-            {
-                span:not(.caret)
-                {
-                    #menu
-                }
-
-                &:hover,
-                &:focus,
-                &.active
-                {
-                    span:not(.caret)
-                    {
-                        #menu-active
-                    }
-                }
-            }
-
-            > .open > a,
-            > .open > a:hover,
-            > .open > a:focus
-            {
-                background-color: transparent;
-            }
+           
 
             // Last element is the name of the logged user.
             // This should not be in the same font as other links
             > li:last-child
             {
-                font-family: Roboto;
+                font-family: cooper-hewitt;
                 font-size: 0.8em;
             }
 
@@ -143,27 +111,17 @@ header
 h1
 {
     color: black;
-    font-family: BebasNeue, sans;
+    font-family: cooper-hewitt, sans;
     text-align: center;
     position: relative;
     margin-top: 1em;
     margin-bottom: 1em;
 }
 
-h1:after
-{
-    content: "";
-    background-color: extract(@colors, 1);
-    height: 6px;
-    width: 100px;
-    display: block;
-    margin: 0 auto;
-    margin-top: 0.5em;
-}
 
 h2, h3
 {
-    font-family: BebasNeue, sans;
+    font-family: cooper-hewitt, sans;
     font-size: 25px;
 }
 
