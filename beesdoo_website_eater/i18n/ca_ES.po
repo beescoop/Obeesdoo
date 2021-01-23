@@ -1,1 +1,28 @@
-fxhjxf
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* beesdoo_website_eater
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-11 07:35+0000\n"
+"PO-Revision-Date: 2021-01-23 07:08+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: ca_ES\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#. module: beesdoo_website_eater
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_eater.website_eater_details_side
+msgid "You have no eaters"
+msgstr "No tens persones  vinculades"
+
+#. module: beesdoo_website_eater
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_eater.website_eater_details_side
+msgid "Your Eaters"
+msgstr "les teves persones vinculades"
