@@ -111,7 +111,7 @@ odoo.define("beesdoo_pos.screens", function(require) {
                     );
                 })
                 .fail(function(type, error) {
-                    loaded.reject(err);
+                    loaded.reject(error);
                 });
         },
 
