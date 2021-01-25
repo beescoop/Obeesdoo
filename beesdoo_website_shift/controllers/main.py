@@ -325,18 +325,25 @@ class WebsiteShiftController(http.Controller):
         highlight_rule_pc = request.website.highlight_rule_pc
         hide_rule = request.website.hide_rule / 100.0
 
-        # Grouby task_template_id, will be arranged by task type in the
-        # grid.
-        groupby_iter = groupby(shifts, lambda s: s.task_template_id)
+        groupby_iter = groupby(
+            shifts,
+            lambda s: (s.task_template_id, s.start_time, s.task_type_id),
+        )
 
         displayed_shifts = []
-        for task_template, grouped_shifts in groupby_iter:
+        for keys, grouped_shifts in groupby_iter:
+            task_template, start_time, task_type = keys
             shift_list = list(grouped_shifts)
             # Compute available space
             free_space = len(shift_list)
             # Is the current user subscribed to this task_template
             is_subscribed = any(
-                shift.id in subscribed_shifts.ids for shift in shift_list
+                (
+                    sub_shift.task_template_id == task_template
+                    and sub_shift.start_time == start_time
+                    and sub_shift.task_type_id == task_type
+                )
+                for sub_shift in subscribed_shifts
             )
             # Check the necessary number of worker based on the
             # highlight_rule_pc
