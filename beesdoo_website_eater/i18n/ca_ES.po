@@ -20,9 +20,9 @@ msgstr ""
 #. module: beesdoo_website_eater
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_eater.website_eater_details_side
 msgid "You have no eaters"
-msgstr "No tens persones  vinculades"
+msgstr "No tens persones vinculades al teu compte"
 
 #. module: beesdoo_website_eater
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_eater.website_eater_details_side
 msgid "Your Eaters"
-msgstr "les teves persones vinculades"
+msgstr "Persones vinculades al teu compte"
