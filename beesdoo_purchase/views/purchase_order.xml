@@ -34,6 +34,9 @@
                             class="oe_stat_button"
                             help="Select All Is Selling Price checkboxes to adapt the selling price on the product page when confirming Purchase Order"/>
                 </xpath>
+                <xpath expr="//form/sheet/notebook/page/field/form//field[@name='price_unit']" position="after">
+                    <field name="suggested_price"/>
+                </xpath>
                 <field name="date_order" position="after">
                     <field name="supervisor_id"/>
                     <field name="select_all_purchase_price" invisible="1"/>

@@ -134,3 +134,5 @@ class PurchaseOrderLine(models.Model):
                 )
             else:
                 purchase_order_line.stock_coverage = False
+
+    suggested_price = fields.Float(related="product_id.suggested_price")
