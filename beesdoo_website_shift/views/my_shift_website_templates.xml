@@ -243,9 +243,9 @@
         <t t-set="has_enough_workers"
            t-value="displayed_shift.has_enough_workers"/>
         <t t-set="highlight_class"
-           t-value="'panel-warning' if not has_enough_workers else 'panel-default'"/>
+           t-value="'bg-warning' if not has_enough_workers else 'bg-light'"/>
 
-        <div class="card highlight_class">
+        <div t-att-class="'card %s' % highlight_class">
             <div class="center m-1 font-weight-bold"
                  t-esc="shift.task_type_id.name"/>
             <div class="badge badge-secondary m-1"
