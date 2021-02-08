@@ -20,7 +20,7 @@ DisplayedShift = namedtuple(
 
 
 def _localize(timestamp: datetime) -> datetime:
-    tz_name = request.env.user.tz or pytz.utc
+    tz_name = request.env.user.tz or pytz.utc.zone
     utc_timestamp = pytz.utc.localize(timestamp, is_dst=False)  # UTC = no DST
     context_tz = pytz.timezone(tz_name)
     return utc_timestamp.astimezone(context_tz)
