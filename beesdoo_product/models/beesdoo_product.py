@@ -7,6 +7,7 @@ from datetime import date
 
 from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
+from odoo.tools import float_round
 from odoo.tools.translate import _
 
 _logger = logging.getLogger(__name__)
@@ -37,9 +38,7 @@ class BeesdooProductHazard(models.Model):
 class BeesdooProduct(models.Model):
     _inherit = "product.template"
 
-    eco_label = fields.Many2one(
-        "beesdoo.product.label", domain=[("type", "=", "eco")]
-    )
+    eco_label = fields.Many2one("beesdoo.product.label", domain=[("type", "=", "eco")])
     local_label = fields.Many2one(
         "beesdoo.product.label", domain=[("type", "=", "local")]
     )
@@ -72,9 +71,7 @@ class BeesdooProduct(models.Model):
 
     display_unit = fields.Many2one("uom.uom")
     default_reference_unit = fields.Many2one("uom.uom")
-    display_weight = fields.Float(
-        compute="_compute_display_weight", store=True
-    )
+    display_weight = fields.Float(compute="_compute_display_weight", store=True)
 
     total_with_vat = fields.Float(
         compute="_compute_total",
@@ -107,18 +104,14 @@ class BeesdooProduct(models.Model):
     )
 
     deadline_for_sale = fields.Integer(string="Deadline for sale(days)")
-    deadline_for_consumption = fields.Integer(
-        string="Deadline for consumption(days)"
-    )
+    deadline_for_consumption = fields.Integer(string="Deadline for consumption(days)")
     ingredients = fields.Char(string="Ingredient")
     scale_label_info_1 = fields.Char(string="Scale lable info 1")
     scale_label_info_2 = fields.Char(string="Scale lable info 2")
     scale_sale_unit = fields.Char(
         compute="_compute_scale_sale_uom", string="Scale sale unit", store=True
     )
-    scale_category = fields.Many2one(
-        "beesdoo.scale.category", string="Scale Category"
-    )
+    scale_category = fields.Many2one("beesdoo.scale.category", string="Scale Category")
     scale_category_code = fields.Integer(
         related="scale_category.code",
         string="Scale category code",
@@ -174,31 +167,22 @@ class BeesdooProduct(models.Model):
                     ]
                 )[0]
                 default_code = seq_internal_code.next_by_id()
-                while (
-                    self.search_count([("default_code", "=", default_code)])
-                    > 1
-                ):
+                while self.search_count([("default_code", "=", default_code)]) > 1:
                     default_code = seq_internal_code.next_by_id()
                 self.default_code = default_code
             ean = "02" + self.default_code[0:5] + "000000"
-            bc = ean[0:12] + str(
-                self.env["barcode.nomenclature"].ean_checksum(ean)
-            )
+            bc = ean[0:12] + str(self.env["barcode.nomenclature"].ean_checksum(ean))
         else:
             rule = self.env["barcode.rule"].search(
                 [("name", "=", "Beescoop Product Barcodes")]
             )[0]
             size = 13 - len(rule.pattern)
             ean = rule.pattern + str(uuid.uuid4().fields[-1])[:size]
-            bc = ean[0:12] + str(
-                self.env["barcode.nomenclature"].ean_checksum(ean)
-            )
+            bc = ean[0:12] + str(self.env["barcode.nomenclature"].ean_checksum(ean))
             # Make sure there is no other active member with the same barcode
             while self.search_count([("barcode", "=", bc)]) > 1:
                 ean = rule.pattern + str(uuid.uuid4().fields[-1])[:size]
-                bc = ean[0:12] + str(
-                    self.env["barcode.nomenclature"].ean_checksum(ean)
-                )
+                bc = ean[0:12] + str(self.env["barcode.nomenclature"].ean_checksum(ean))
         _logger.info("barcode :", bc)
         self.barcode = bc
 
@@ -209,9 +193,7 @@ class BeesdooProduct(models.Model):
             # Calcule le vendeur associé qui a la date de début la plus récente
             # et plus petite qu’aujourd’hui
             sellers_ids = product._get_main_supplier_info()
-            product.main_seller_id = (
-                sellers_ids and sellers_ids[0].name or False
-            )
+            product.main_seller_id = sellers_ids and sellers_ids[0].name or False
 
     @api.multi
     @api.depends(
@@ -243,9 +225,7 @@ class BeesdooProduct(models.Model):
                 product.total_with_vat = product.list_price
                 product.total_deposit = sum(
                     [
-                        tax._compute_amount(
-                            product.list_price, product.list_price
-                        )
+                        tax._compute_amount(product.list_price, product.list_price)
                         for tax in product.taxes_id
                         if tax.tax_group_id == consignes_group
                     ]
@@ -253,9 +233,7 @@ class BeesdooProduct(models.Model):
             else:
                 tax_amount_sum = sum(
                     [
-                        tax._compute_amount(
-                            product.list_price, product.list_price
-                        )
+                        tax._compute_amount(product.list_price, product.list_price)
                         for tax in product.taxes_id
                         if tax.tax_group_id != consignes_group
                     ]
@@ -271,17 +249,13 @@ class BeesdooProduct(models.Model):
             )
 
             if product.display_weight > 0:
-                product.total_with_vat_by_unit = (
-                    product.total_with_vat / product.weight
-                )
+                product.total_with_vat_by_unit = product.total_with_vat / product.weight
 
     @api.multi
     @api.depends("weight", "display_unit")
     def _compute_display_weight(self):
         for product in self:
-            product.display_weight = (
-                product.weight * product.display_unit.factor
-            )
+            product.display_weight = product.weight * product.display_unit.factor
 
     @api.multi
     @api.constrains("display_unit", "default_reference_unit")
@@ -324,9 +298,7 @@ class BeesdooProduct(models.Model):
                 profit_margin_product_category = suppliers[
                     0
                 ].product_tmpl_id.categ_id.profit_margin
-                profit_margin = (
-                    profit_margin_supplier or profit_margin_product_category
-                )
+                profit_margin = profit_margin_supplier or profit_margin_product_category
                 profit_margin_factor = (
                     1 / (1 - profit_margin / 100)
                     if suggested_price_reference == "sale_price"
@@ -339,6 +311,9 @@ class BeesdooProduct(models.Model):
                     * sale_taxes_factor
                     * profit_margin_factor
                 )
+
+                if suppliers[0].product_tmpl_id.categ_id.should_round_suggested_price:
+                    product.suggested_price = round_5c(product.suggested_price)
 
     @api.multi
     @api.depends("seller_ids")
@@ -399,6 +374,9 @@ class BeesdooProductCategory(models.Model):
     _inherit = "product.category"
 
     profit_margin = fields.Float(default="10.0", string="Product Margin [%]")
+    should_round_suggested_price = fields.Boolean(
+        default=False, string="Round suggested price to 5 cents?"
+    )
 
     @api.multi
     @api.constrains("profit_margin")
@@ -430,3 +408,7 @@ class BeesdooUOMCateg(models.Model):
         string="Category type",
         default="unit",
     )
+
+
+def round_5c(price):
+    return float_round(price, precision_rounding=0.05, rounding_method="HALF")
