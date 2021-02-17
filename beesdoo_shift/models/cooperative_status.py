@@ -245,7 +245,7 @@ class CooperativeStatus(models.Model):
 
     def get_status_value(self):
         """
-        Workararound to get translated selection value instead of key in mail
+        Workaround to get translated selection value instead of key in mail
         template.
         """
         state_list = (
