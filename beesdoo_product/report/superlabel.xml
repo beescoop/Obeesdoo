@@ -1,0 +1,34 @@
+<odoo>
+
+
+
+    <report id="report_beesproduct" string="Beesproduct" model="product.template"
+            report_type="qweb-pdf" file="beesdoo_product.report_beesproduct"
+            name="beesdoo_product.report_beesproduct"/>
+
+    <!-- Use paper format a4 low margin -->
+
+    <template id="report_beesproduct">
+      <t t-name="product_label_report.report_same_product_label_10x4">
+              <t t-call="web.basic_layout">
+                  <div class="page">
+                      <t t-call="product_label_report.report_style_10x4"/>
+                      <t t-foreach="docs" t-as="product">
+
+                          <t t-foreach="range(10)" t-as="l">
+                              <div class="row">
+                                  <t t-foreach="range(4)" t-as="c">
+                                      <div class="col-3 height-10 label">
+                                          <t t-call="product_label_report.product_label_content_barcode_and_name"/>
+                                      </div>
+                                  </t>
+                              </div>
+                          </t>
+
+                      </t>
+                  </div>
+              </t>
+          </t>
+    </template>
+
+</odoo>
