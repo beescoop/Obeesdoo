@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2021 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="view_product_information_read_only_form" model="ir.ui.view">
+        <field name="name">view_product_information_read_only_form</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <form string="Products">
+                <header name="product_info_header"/>
+                <sheet>
+                    <div class="oe_title">
+                        <label class="oe_edit_only" for="name" string="Product Name"/>
+                        <h1>
+                            <field name="name" placeholder="Product Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="default_code"/>
+                            <field name="list_price"/>
+                            <field name="main_seller_id"/>
+                            <field name="pos_categ_id"/>
+                            <field name="categ_id"/>
+                        </group>
+                        <group>
+                            <field name="qty_available"/>
+                            <field name="virtual_available"/>
+                            <field name="uom_id"/>
+                            <field name="uom_po_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_product_information_read_only_tree" model="ir.ui.view">
+        <field name="name">view_product_information_read_only_tree</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name"/>
+                <field name="uom_id"/>
+                <field name="uom_po_id"/>
+                <field name="qty_available"/>
+                <field name="virtual_available"/>
+                <field name="categ_id"/>
+                <field name="pos_categ_id"/>
+                <field name="default_code"/>
+                <field name="list_price"/>
+                <field name="main_seller_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_product_information_tree" model="ir.actions.act_window">
+        <field name="name">Product Information</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{}</field>
+        <field name="search_view_id" ref="product.product_template_search_view"/>
+        <field name="view_id" eval="view_product_information_read_only_tree"/>
+    </record>
+
+    <!-- menu item -->
+    <menuitem id="menu_purchase_product_info"
+              name="Product Info"
+              parent="purchase.menu_purchase_root"
+              sequence="200"
+              action="action_product_information_tree"/>
+
+    <menuitem id="menu_sale_product_info"
+              name="Product Info"
+              parent="sale.sale_menu_root"
+              sequence="200"
+              action="action_product_information_tree"/>
+
+</odoo>
