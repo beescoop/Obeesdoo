@@ -27,7 +27,7 @@ msgstr "Absent - 0 compensació"
 #: code:addons/beesdoo_worker_status/models/task.py:16
 #, python-format
 msgid "Absent - 1 compensation"
-msgstr "Absent - 1 compensatió"
+msgstr "Absent - 1 compensació"
 
 #. module: beesdoo_worker_status
 #: code:addons/beesdoo_worker_status/models/task.py:15
@@ -71,7 +71,7 @@ msgstr "Estat"
 #. module: beesdoo_worker_status
 #: model:ir.model,name:beesdoo_worker_status.model_beesdoo_shift_shift
 msgid "beesdoo.shift.shift"
-msgstr "supercoop.torn.torn"
+msgstr "beesdoo.shift.shift"
 
 #. module: beesdoo_worker_status
 #: model:ir.model,name:beesdoo_worker_status.model_cooperative_status
