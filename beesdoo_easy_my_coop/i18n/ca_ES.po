@@ -81,7 +81,7 @@ msgstr "Contacte"
 #. module: beesdoo_easy_my_coop
 #: model:ir.model.fields,field_description:beesdoo_easy_my_coop.field_res_company__display_info_session_confirmation
 msgid "Display Info Session Confirmation"
-msgstr "Mostra la confirmació de la sessió d'informació"
+msgstr "Mostra la confirmació de la sessió de benvinguda"
 
 #. module: beesdoo_easy_my_coop
 #: selection:product.template,eater:0
@@ -102,7 +102,7 @@ msgstr "Ha assistit a una sessió informativa"
 #. module: beesdoo_easy_my_coop
 #: model_terms:ir.ui.view,arch_db:beesdoo_easy_my_coop.becomecooperator
 msgid "Info Session"
-msgstr "Sessió d'informació"
+msgstr "Sessió de benvinguda"
 
 #. module: beesdoo_easy_my_coop
 #: model:ir.model.fields,field_description:beesdoo_easy_my_coop.field_res_company__info_session_confirmation_text
@@ -167,24 +167,24 @@ msgstr "Unitat(s)"
 #: model:ir.model.fields,field_description:beesdoo_easy_my_coop.field_res_partner__is_worker
 #: model:ir.model.fields,field_description:beesdoo_easy_my_coop.field_res_users__is_worker
 msgid "Worker"
-msgstr "Sòcia activa"
+msgstr "Sòcia amb torns"
 
 #. module: beesdoo_easy_my_coop
 #: selection:product.template,eater:0
 msgid "Worker and Eater"
-msgstr "Sòcia activa i dret per comprar"
+msgstr "Sòcia amb torns i dret per comprar"
 
 #. module: beesdoo_easy_my_coop
 #: code:addons/beesdoo_easy_my_coop/models/res_partner.py:109
 #: code:addons/beesdoo_easy_my_coop/models/res_partner.py:128
 #, python-format
 msgid "You can only set %d additional eaters per worker"
-msgstr "Només pots vincular %d persones amb dret per a comprar addicionals per sòcia actiuva"
+msgstr "Només pots vincular %d persones amb dret per a comprar addicionals per sòcia activa"
 
 #. module: beesdoo_easy_my_coop
 #: model:ir.model,name:beesdoo_easy_my_coop.model_beesdoo_shift_subscribe
 msgid "beesdoo.shift.subscribe"
-msgstr "supercoop.inscripcio.torn"
+msgstr "beesdoo.shift.subscribe"
 
 #. module: beesdoo_easy_my_coop
 #: model:product.product,weight_uom_name:beesdoo_easy_my_coop.share_a
