@@ -1,0 +1,90 @@
+msgid "Unread Messages Counter"
+msgstr "Comptador de missatges no llegits"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.actions.act_window,name:beesdoo_shift_attendance.action_sheet_admin_annotated
+#: model:ir.ui.menu,name:beesdoo_shift_attendance.menu_sheet_admin_annotated
+msgid "Unread notes"
+msgstr "Notes sense llegir"
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.validate_attendance_sheet_form
+msgid "Validate"
+msgstr "Validar"
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.sheet_view_form
+msgid "Validate Sheet"
+msgstr "Validar full de torn"
+
+#. module: beesdoo_shift_attendance
+#: selection:beesdoo.shift.sheet,state:0
+msgid "Validated"
+msgstr "Validat"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__validated_by
+msgid "Validated by"
+msgstr "Validat per"
+
+#. module: beesdoo_shift_attendance
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.validate_attendance_sheet_form
+msgid "Validation"
+msgstr "Validació"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_beesdoo_shift_sheet___barcode_scanned
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_beesdoo_shift_sheet_validate___barcode_scanned
+msgid "Value of the last barcode scanned."
+msgstr "Valor de l'últim codi de barres escanejat."
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_validate__warning_regular_workers
+msgid "Warning"
+msgstr "Avís"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__worker_nb_feedback
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_validate__worker_nb_feedback
+msgid "Was your team big enough ? *"
+msgstr "Era el teu equip prou gran ? *"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__website_message_ids
+msgid "Website Messages"
+msgstr "Missatges del lloc web"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,help:beesdoo_shift_attendance.field_beesdoo_shift_sheet__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicacions del lloc web"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet__week
+msgid "Week"
+msgstr "Setmana"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_added__worker_id
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_expected__worker_id
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_shift__worker_id
+msgid "Worker"
+msgstr "Sòcia amb torns"
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_added__working_mode
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_expected__working_mode
+#: model:ir.model.fields,field_description:beesdoo_shift_attendance.field_beesdoo_shift_sheet_shift__working_mode
+msgid "Working Mode"
+msgstr "Mode de treball"
+
+#. module: beesdoo_shift_attendance
+#: model:mail.template,subject:beesdoo_shift_attendance.email_template_non_validated_sheet
+msgid "[${object.day}] Non-validated sheet ${object.time_slot} "
+msgstr "[${object.day}] Full de torn sense validar ${object.time_slot} "
+
+#. module: beesdoo_shift_attendance
+#: model:ir.model,name:beesdoo_shift_attendance.model_beesdoo_shift_generate_missing_attendance_sheets
+msgid "beesdoo.shift.generate_missing_attendance_sheets"
+msgstr ""
+
