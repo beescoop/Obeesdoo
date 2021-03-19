@@ -6,6 +6,15 @@ from odoo.exceptions import UserError
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
+    # do not recompute date_due if already set
+    @api.onchange("payment_term_id", "date_invoice")
+    def _onchange_payment_term_date_invoice(self):
+        if self.date_due:
+            # needed dummy update
+            self.date_due = self.date_due
+        else:
+            super(AccountInvoice, self)._onchange_payment_term_date_invoice()
+
     @api.multi
     def action_invoice_open(self):
         to_open_invoices = self.filtered(lambda inv: inv.state != "open")

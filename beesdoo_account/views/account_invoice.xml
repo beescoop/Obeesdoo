@@ -18,9 +18,8 @@
             <field name="date_invoice" position="attributes">
                 <attribute name="required">True</attribute>
             </field>
-            <!-- doing it by using position="attributes" don't want to do the job.
-                 So I used with my muscles with replace.
-            -->
+            <!-- editable due date, event if payment_term is set;
+                 doing it by using position="attributes" does not do the job.-->
             <field name="date_due" position="replace">
                 <field name="date_due" attrs="{'readonly': [('state', 'in', ['open', 'in_payment', 'paid'])]}" force_save="1"/>
             </field>
