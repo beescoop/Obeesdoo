@@ -82,4 +82,19 @@
         <field name="act_window_id" ref="action_product_information"/>
     </record>
 
+    <record id="view_product_information_read_only_form_button" model="ir.ui.view">
+        <field name="name">view_product_information_read_only_form_button</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="view_product_information_read_only_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header[@name='product_info_header']" position="inside">
+                <button string="Back to product list"
+                        name="%(action_product_information)d"
+                        type="action"
+                        class="btn-primary"
+                />
+            </xpath>
+        </field>
+    </record>
+
 </odoo>
