@@ -41,7 +41,7 @@
         <field name="name">view_product_information_read_only_tree</field>
         <field name="model">product.template</field>
         <field name="arch" type="xml">
-            <tree string="">
+            <tree string="Products" edit="false">
                 <field name="name"/>
                 <field name="uom_id"/>
                 <field name="uom_po_id"/>
@@ -56,28 +56,30 @@
         </field>
     </record>
 
-    <record id="action_product_information_tree" model="ir.actions.act_window">
+    <record id="action_product_information" model="ir.actions.act_window">
         <field name="name">Product Information</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.template</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree</field>
-        <field name="context">{}</field>
+        <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="product.product_template_search_view"/>
-        <field name="view_id" eval="view_product_information_read_only_tree"/>
+        <field name="view_id" eval="False"/>
+        <field name="target">main</field>
+        <field name="view_id" eval="False"/>
     </record>
 
-    <!-- menu item -->
-    <menuitem id="menu_purchase_product_info"
-              name="Product Info"
-              parent="purchase.menu_purchase_root"
-              sequence="200"
-              action="action_product_information_tree"/>
+    <record id="action_product_information_tree" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_product_information_read_only_tree"/>
+        <field name="act_window_id" ref="action_product_information"/>
+    </record>
 
-    <menuitem id="menu_sale_product_info"
-              name="Product Info"
-              parent="sale.sale_menu_root"
-              sequence="200"
-              action="action_product_information_tree"/>
+    <record id="action_product_information_form" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_product_information_read_only_form"/>
+        <field name="act_window_id" ref="action_product_information"/>
+    </record>
 
 </odoo>

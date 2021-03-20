@@ -10,7 +10,12 @@
     "website": "https://www.coopiteasy.be",
     "license": "AGPL-3",
     "depends": ["beesdoo_product"],
-    "data": ["security/groups.xml", "security/ir.model.access.csv","views/product.xml"],
+    "data": [
+        "security/groups.xml",
+        "security/ir.model.access.csv",
+        "views/product.xml",
+        "views/menus.xml",
+    ],
     "installable": True,
     "application": False,
 }
