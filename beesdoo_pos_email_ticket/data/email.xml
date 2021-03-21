@@ -6,7 +6,7 @@
             <field name="default" eval="True"/>
             <field name="format">custom</field>
             <field name="page_height">150</field>
-            <field name="page_width">60</field>
+            <field name="page_width">65</field>
             <field name="orientation">Portrait</field>
             <field name="margin_top">3</field>
             <field name="margin_bottom">3</field>
@@ -14,12 +14,13 @@
             <field name="margin_right">3</field>
             <field name="header_line" eval="False" />
             <field name="header_spacing">3</field>
-            <field name="dpi">130</field>
+            <field name="dpi">140</field>
         </record>
 
         <template id="report_receipt">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
+                    <t t-set="unit" t-value="o.env.ref('uom.product_uom_unit')" />
                     <div class="page">
                         <div class="row">
                             <div class="col-xs-12 text-center">
@@ -39,6 +40,7 @@
                                 <tr>
                                     <th class="text-left">Product</th>
                                     <th class="text-right">Quantity</th>
+                                    <th class="test-right">Price Unit</th>
                                     <th class="text-right">Total</th>
                                 </tr>
                             </thead>
@@ -48,6 +50,14 @@
                                     <td class="text-right">
                                         <t t-if="o.state != 'cancel' and o.statement_ids">
                                             <span t-field="line.qty"/>
+                                        </t>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-if="o.state != 'cancel' and o.statement_ids">
+                                            <span t-field="line.price_unit"/> 
+                                              <t t-if="line.product_id.uom_id != unit">
+                                                / <span t-field="line.product_id.uom_id.name"/>
+                                              </t>
                                         </t>
                                     </td>
                                     <td class="text-right">
