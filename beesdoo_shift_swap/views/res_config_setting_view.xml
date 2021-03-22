@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+
+        <record id="res_config_settings_swap_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="50"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="///div[hasclass('settings')]" position="inside">
+                    <div class="app_settings_block"
+                         data-string="Shifts Swap"
+                         string="Shifts Swap" data-key="beesdoo_shift"
+                         groups="beesdoo_shift.group_cooperative_admin">
+                        <h2>Shift Swap</h2>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">
+                                        Limit of percentage of presence of underpopulated shift
+                                    </span>
+                                    <div class="text-muted">
+                                        Only timeslot under this limit will be display as underpopulated timeslot
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16 row">
+                                            <label for="percentage_presence"
+                                                   string="Percentage (%)"
+                                                   class="col-3 col-lg-3 o_light_label"/>
+                                            <field name="percentage_presence"
+                                                   class="oe_inline"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">
+                                        Limit of day to swap shift
+                                    </span>
+                                    <div class="text-muted">
+                                        Number of day cooperator can swap his shift after the one he doesn't want
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16 row">
+                                            <label for="day_limit_swap"
+                                                   string="Day"
+                                                   class="col-3 col-lg-3 o_light_label"/>
+                                            <field name="day_limit_swap"
+                                                   class="oe_inline"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

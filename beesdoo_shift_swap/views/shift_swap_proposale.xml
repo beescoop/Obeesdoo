@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="shift_exchange_view_form">
+        <field name="name">Shift Exchange Button</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="beesdoo_shift.super_coop_partner_inherited_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='temporary_exempt']" position="after">
+
+                   <button name="coop_exchange" string="Exchange your shift"
+                                class="oe_highlight"
+                                type="object"
+                                groups="beesdoo_shift.group_shift_management"
+                                attrs="{'invisible': [('working_mode','!=','regular')]}"/>
+
+            </xpath>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="shift_swap_request_view_tree">
+        <field name="name">Swap Shift Request</field>
+        <field name="model">beesdoo.shift.exchange_request</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="worker_id"/>
+                <field name="request_date"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="shift_swap_request_view">
+        <field name="name">Shift swap request</field>
+        <field name="model">beesdoo.shift.exchange_request</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="button_is_match" type="object" string ="check match"/>
+                </header>
+                <sheet>
+                    <group name="group_top">
+                        <field name="worker_id"/>
+                        <field name="request_date"/>
+                        <group name="group_left">
+                            <field name="exchanged_timeslot_id"/>
+                            <field name="asked_timeslot_ids"/>
+                        </group>
+                        <group name="group_right">
+                            <field name="validate_request_id" autocomplete="off"/>
+                            <field name="exchange_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

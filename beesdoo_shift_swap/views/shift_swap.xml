@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- Action to open swap shift -->
+
+    <record model="ir.actions.act_window" id="action_shift_swap">
+        <field name="name">shift swap</field>
+        <field name="res_model">beesdoo.shift.subscribed_underpopulated_shift</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record model="ir.actions.act_window" id="action_shift_swap_exchange">
+        <field name="name">shift exchange</field>
+        <field name="res_model">beesdoo.shift.exchange_request</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record model="ir.actions.act_window" id="action_shift_swap_exchange">
+        <field name="name">shift exchange</field>
+        <field name="res_model">beesdoo.shift.exchange</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Top menu item -->
+
+    <menuitem id="menu_swap_top"
+              name="Bourse au shift"
+              parent="beesdoo_shift.menu_root"
+    />
+    <menuitem id="menu_swap"
+              name="swap shift"
+              parent="menu_swap_top"
+              action="action_shift_swap"/>
+
+    <!--<menuitem id="menu_exchange_request"
+              name="exchange proposale"
+              parent="menu_swap_top"
+              action="action_shift_swap_exchange"/>
+
+    <menuitem id="menu_exchange"
+              name="exchange"
+              parent="menu_swap_top"
+              action="action_shift_swap_exchange"/> -->
+
+</odoo>
