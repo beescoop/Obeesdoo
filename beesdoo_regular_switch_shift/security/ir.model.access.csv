@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_beesdoo_regular_switch_shift_beesdoo_regular_switch_shift,beesdoo_regular_switch_shift.beesdoo_regular_switch_shift,model_beesdoo_regular_switch_shift_beesdoo_regular_switch_shift,,1,0,0,0
