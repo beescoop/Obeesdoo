@@ -146,7 +146,7 @@ class BeesdooRegularSwitchShift(http.Controller):
             nb_subscribed_shifts = len(subscribed_shifts)
             if nb_subscribed_shifts > 0:
                 main_shift = (
-                    request.env["beesdoo_bourse_shift.timeslots_date"]
+                    request.env["beesdoo.shift.timeslots_date"]
                         .sudo()
                         .new(
                         {
@@ -180,7 +180,7 @@ class BeesdooRegularSwitchShift(http.Controller):
                 )
                 date = my_shift.start_time
                 main_shift = (
-                    request.env["beesdoo_bourse_shift.timeslots_date"]
+                    request.env["beesdoo.shift.timeslots_date"]
                     .sudo()
                     .new(
                         {
