@@ -1,0 +1,19 @@
+<odoo>
+    <record model="ir.ui.view" id="validate_shift_exchange_wizard">
+        <field name="name">Validate Exchange Cooperator</field>
+        <field name="model">beesdoo.shift.validate.shift.exchange</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="match_proposition"/>
+                    <field name="my_proposition" invisible="True"/>
+                </group>
+                <footer>
+                    <button special="cancel" string="Cancel"/>
+                    <button type="object" name="validate_match"
+                            string="Confirm" class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

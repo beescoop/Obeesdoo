@@ -1,0 +1,25 @@
+<odoo>
+    <record model="ir.ui.view" id="subscribe_shift_exchange_wizard">
+        <field name="name">Subscribe Exchange Cooperator</field>
+        <field name="model">beesdoo.shift.subscribe.shift.exchange</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="worker_id"/>
+                    <field name="exchanged_timeslot_id"/>
+                    <field name="asked_timeslot_ids" widget="many2many_tags"/>
+                    <field name="possible_match"/>
+                </group>
+                <footer>
+                    <button type="object" name="make_change"
+                            string="Confirm" class="oe_highlight"/>
+                    or
+                    <button special="cancel" string="Cancel"/>
+                    or
+                    <button type="object" name="contact_coop_same_day_same_hour"
+                            string="Contact coop of other week"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
