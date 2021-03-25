@@ -14,6 +14,7 @@
     "data": [
         "security/groups.xml",
         "security/ir.model.access.csv",
+        "security/ir_rules.xml",
         "views/product.xml",
         "views/menus.xml",
     ],
