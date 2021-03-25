@@ -3,7 +3,7 @@
     <template id="my_shift_link" name="Link to frontend portal"
               inherit_id="portal.frontend_layout">
         <xpath expr="//a[@id='o_logout']" position="before">
-            <a href="/my/shift" class="dropdown-item" role="menuitem">bourse au shift
+            <a href="/my/timeslot" class="dropdown-item" role="menuitem">bourse au shift
             </a>
         </xpath>
     </template>
@@ -52,9 +52,9 @@
             <div t-att-class="'card mb-4 %s' % highlight_class">
                 <div t-att-class="'card-header %s clearfix' % highlight_header_class">
                     <div class="pull-left">
-                        <span t-field="shift.start_time"/>
+                        <span t-field="shift.template_id.start_time"/>
                         -
-                        <span t-field="shift.end_time"
+                        <span t-field="shift.template_id.end_time"
                               t-options='{"format": "HH:mm"}'/>
                     </div>
                     <t t-call="beesdoo_website_shift.shift_status_label">
