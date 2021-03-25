@@ -56,5 +56,21 @@
     <menuitem name="Server to list" id="beesdoo_regular_switch_shift" parent="beesdoo_regular_switch_shift.menu_2"
               action="beesdoo_regular_switch_shift.action_server"/>
     -->
+    <data>
+        <menuitem id="menu_swap_shift"
+                  name="swap shift" />
+
+        <act_window id ="action_swap_shift"
+                    name="swap shift"
+                    res_model = "beesdoo.shift.subscribed_underpopulated_shift"
+                    view_model = "tree,form"/>
+
+        <menuitem id = "menu_swap_shift_one"
+                  name = "underpopulated swap shift"
+                  parent = "menu_swap_shift"
+                  action = "action_swap_shift"/>
+
+
+    </data>
   </data>
 </odoo>

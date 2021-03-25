@@ -206,10 +206,7 @@ class BeesdooRegularSwitchShift(http.Controller):
                 shift.template_id = main_shift.template_id
                 # Set new date
                 shift.date = self.add_days(
-                    main_shift.start_time, days=i * shift_period
-                )
-                shift.end_time = self.add_days(
-                    main_shift.end_time, days=i * shift_period
+                    main_shift.date, days=i * shift_period
                 )
                 # Add the fictive shift to the list of shift
                 subscribed_shifts.append(shift)
