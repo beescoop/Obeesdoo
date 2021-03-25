@@ -27,7 +27,7 @@
                         </group>
                         <group>
                             <field name="qty_available"/>
-                            <field name="virtual_available"/>
+                            <field name="incoming_qty"/>
                             <field name="uom_id"/>
                             <field name="uom_po_id"/>
                         </group>
@@ -44,14 +44,12 @@
             <tree string="Products" edit="false">
                 <field name="name"/>
                 <field name="uom_id"/>
-                <field name="uom_po_id"/>
-                <field name="qty_available"/>
-                <field name="virtual_available"/>
-                <field name="categ_id"/>
-                <field name="pos_categ_id"/>
                 <field name="default_code"/>
-                <field name="list_price"/>
                 <field name="main_seller_id"/>
+                <field name="categ_id"/>
+                <field name="qty_available"/>
+                <field name="incoming_qty"/>
+                <field name="list_price"/>  <!-- TVAC -->
             </tree>
         </field>
     </record>
@@ -63,6 +61,7 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="product.product_template_search_view"/>
+        <field name="context">{"search_default_filter_to_sell":1}</field>
         <field name="view_id" eval="False"/>
         <field name="target">main</field>
         <field name="view_id" eval="False"/>
