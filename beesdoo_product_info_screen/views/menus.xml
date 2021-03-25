@@ -7,7 +7,9 @@
     <!-- menu items -->
     <menuitem name="Products" id="menu_main_product"
               sequence="40"
-              groups="group_product_info_user"/>
+              groups="group_product_info_user"
+              web_icon="beesdoo_product_info_screen,static/description/icon.png"
+    />
     <menuitem name="Product info" id="menu_product_info"
               parent="menu_main_product"
               sequence="10"
