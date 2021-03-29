@@ -67,18 +67,15 @@ ctrl + c pour tuer le processus odoo depuis la console
 
 ## Pour aller plus loin: init.d script
 
-
 ##### 1) créer un répertoire de log
 
     # su odoo
     $ mkdir /home/odoo/log
 
-
 ##### 2) créer fichier de config odoo
 
     $ cd /home/odoo/odoo
     $ ./odoo.py -s -c /home/odoo/odoo.conf --stop-after-init --logfile=/home/odoo/log/odoo.log
-
 
 ##### 3) Créer le fichier init.d
 
@@ -86,7 +83,6 @@ ctrl + c pour tuer le processus odoo depuis la console
     $ vim /etc/init.d/odoo
 
 copier le contenu dans le fichier (gedit va aussi bien que vim)
-
 
     #!/bin/sh
 
@@ -177,11 +173,9 @@ copier le contenu dans le fichier (gedit va aussi bien que vim)
 
     exit 0
 
-
 ##### 4) donner les bons droits au fichier
 
     # chmod 755 /etc/init.d/odoo
-
 
 ##### 5) tester le script
 
@@ -189,21 +183,17 @@ copier le contenu dans le fichier (gedit va aussi bien que vim)
 
 tester à nouveau sur localhost:8069
 
-
 ##### 6) faire en sorte que le script s'exécute au démarrage
 
     # update-rc.d odoo defaults
 
-
 ## Pour aller plus loin: proxy nginx
-
 
 ##### 1) installer nginx
 
     # apt-get install nginx
 
 vous pouvez tester l'installation réussie sur http://localhost
-
 
 ##### 2) configurer nginx pour odoo : editer le fichier de conf
 
@@ -233,7 +223,6 @@ supprimer le contenu et le remplacer par
 
             }
     }
-
 
 ##### 3) tester la config et relancer nginx
 

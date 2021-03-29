@@ -2,78 +2,107 @@
     <record model="ir.ui.view" id="super_coop_partner_inherited_view_form">
         <field name="name">Partner Super Coop</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="inherit_id" ref="base.view_partner_form" />
         <field name="priority">50</field>
         <field name="arch" type="xml">
             <xpath expr="//sheet" position="before">
                 <header>
-                    <button name="coop_subscribe" string="Subscribe to shift"
-                            class="oe_highlight"
-                            type="object"
-                            groups="beesdoo_shift.group_shift_management"
-                            attrs="{'invisible': [('is_worker', '=', False)]}"/>
-                    <button name="auto_extension" string="Auto Extension"
-                            class="oe_highlight"
-                            type="object"
-                            groups="beesdoo_shift.group_shift_attendance"
-                            attrs="{'invisible': ['|',
+                    <button
+            name="coop_subscribe"
+            string="Subscribe to shift"
+            class="oe_highlight"
+            type="object"
+            groups="beesdoo_shift.group_shift_management"
+            attrs="{'invisible': [('is_worker', '=', False)]}"
+          />
+                    <button
+            name="auto_extension"
+            string="Auto Extension"
+            class="oe_highlight"
+            type="object"
+            groups="beesdoo_shift.group_shift_attendance"
+            attrs="{'invisible': ['|',
                                                     ('is_worker', '=', False),
                                                     '|',
                                                         ('state', '!=', 'suspended'),
-                                                        ('extension_start_time', '!=', False)]}"/>
-                    <button name="manual_extension" string="Manual Extension"
-                            class="oe_highlight"
-                            type="object"
-                            groups="beesdoo_shift.group_shift_management"
-                            attrs="{'invisible': ['|',
+                                                        ('extension_start_time', '!=', False)]}"
+          />
+                    <button
+            name="manual_extension"
+            string="Manual Extension"
+            class="oe_highlight"
+            type="object"
+            groups="beesdoo_shift.group_shift_management"
+            attrs="{'invisible': ['|',
                                                     ('is_worker', '=', False),
                                                     '|',
                                                         ('state', '!=', 'suspended'),
-                                                        ('extension_start_time', '=', False)]}"/>
-                    <button name="coop_unsubscribe" string="Unsubscribe"
-                            class="oe_highlight"
-                            type="object"
-                            groups="beesdoo_shift.group_shift_management"
-                            attrs="{'invisible': [('is_worker', '=', False)]}"/>
-                    <button name="register_holiday" string="Register Holidays"
-                            class="oe_highlight"
-                            type="object"
-                            groups="beesdoo_shift.group_shift_management"
-                            attrs="{'invisible': ['|', ('is_worker', '=', False), ('state', '!=', 'ok')]}"/>
-                    <button name="temporary_exempt" string="Temporary Exemption"
-                            type="object"
-                            groups="beesdoo_shift.group_shift_management"
-                            attrs="{'invisible': ['|', ('is_worker', '=', False), ('state', '=', 'unsubscribed')]}"/>
-                    <field name="state" widget="statusbar"
-                           attrs="{'invisible': [('is_worker', '=', False)]}"/>
+                                                        ('extension_start_time', '=', False)]}"
+          />
+                    <button
+            name="coop_unsubscribe"
+            string="Unsubscribe"
+            class="oe_highlight"
+            type="object"
+            groups="beesdoo_shift.group_shift_management"
+            attrs="{'invisible': [('is_worker', '=', False)]}"
+          />
+                    <button
+            name="register_holiday"
+            string="Register Holidays"
+            class="oe_highlight"
+            type="object"
+            groups="beesdoo_shift.group_shift_management"
+            attrs="{'invisible': ['|', ('is_worker', '=', False), ('state', '!=', 'ok')]}"
+          />
+                    <button
+            name="temporary_exempt"
+            string="Temporary Exemption"
+            type="object"
+            groups="beesdoo_shift.group_shift_management"
+            attrs="{'invisible': ['|', ('is_worker', '=', False), ('state', '=', 'unsubscribed')]}"
+          />
+                    <field
+            name="state"
+            widget="statusbar"
+            attrs="{'invisible': [('is_worker', '=', False)]}"
+          />
                 </header>
             </xpath>
             <xpath expr="//field[@name='type']" position="before">
-                <field name="is_worker"/>
-                <field name="can_shop"/>
+                <field name="is_worker" />
+                <field name="can_shop" />
             </xpath>
             <xpath expr="//notebook" position="inside">
-                <page string="Worker information"
-                      attrs="{'invisible': [('is_worker', '=', False)]}"
-                      name="work">
-                    <group name="info_session"/>
+                <page
+          string="Worker information"
+          attrs="{'invisible': [('is_worker', '=', False)]}"
+          name="work"
+        >
+                    <group name="info_session" />
                     <group>
                         <group>
-                            <field name="info_session"/>
-                            <field name="info_session_date"
-                                   attrs="{'invisible': ['|', ('info_session', '=', False)]}"/>
-                            <field name="extension_start_time"
-                                   attrs="{'invisible': [('extension_start_time', '=', False)]}"/>
+                            <field name="info_session" />
+                            <field
+                name="info_session_date"
+                attrs="{'invisible': ['|', ('info_session', '=', False)]}"
+              />
+                            <field
+                name="extension_start_time"
+                attrs="{'invisible': [('extension_start_time', '=', False)]}"
+              />
                         </group>
                         <group>
-                            <field name="working_mode"/>
-                            <field name="exempt_reason_id"
-                                   attrs="{'invisible':[('working_mode', '!=', 'exempt')]}"/>
-                            <field name="super"/>
+                            <field name="working_mode" />
+                            <field
+                name="exempt_reason_id"
+                attrs="{'invisible':[('working_mode', '!=', 'exempt')]}"
+              />
+                            <field name="super" />
                         </group>
                     </group>
-                    <separator string="Subscribed Shift"/>
-                    <field name="subscribed_shift_ids"/>
+                    <separator string="Subscribed Shift" />
+                    <field name="subscribed_shift_ids" />
                 </page>
             </xpath>
         </field>
@@ -85,62 +114,79 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <field name="status" widget="statusbar"/>
+                    <field name="status" widget="statusbar" />
                 </header>
                 <group>
                     <group string="General information">
-                        <field name="cooperator_id"/>
-                        <field name="super"/>
-                        <field name="working_mode"/>
-                        <field name="irregular_start_date"
-                               attrs="{'invisible':[('working_mode', '!=', 'irregular')]}"/>
-                        <field name="irregular_absence_date"
-                               attrs="{'invisible':[('working_mode', '!=', 'irregular')]}"/>
+                        <field name="cooperator_id" />
+                        <field name="super" />
+                        <field name="working_mode" />
+                        <field
+              name="irregular_start_date"
+              attrs="{'invisible':[('working_mode', '!=', 'irregular')]}"
+            />
+                        <field
+              name="irregular_absence_date"
+              attrs="{'invisible':[('working_mode', '!=', 'irregular')]}"
+            />
 
-                        <field name="exempt_reason_id"
-                               attrs="{'invisible':[('working_mode', '!=', 'exempt')]}"/>
+                        <field
+              name="exempt_reason_id"
+              attrs="{'invisible':[('working_mode', '!=', 'exempt')]}"
+            />
                     </group>
                     <group string="Counter and Status">
-                        <field name="info_session"/>
-                        <field name="info_session_date"/>
-                        <field name="sr"/>
-                        <field name="sc"/>
-                        <field name="irregular_absence_counter"
-                               attrs="{'invisible':[('working_mode', '!=', 'irregular')]}"/>
-                        <field name="unsubscribed"/>
-                        <field name="resigning"/>
-                        <field name="can_shop"/>
+                        <field name="info_session" />
+                        <field name="info_session_date" />
+                        <field name="sr" />
+                        <field name="sc" />
+                        <field
+              name="irregular_absence_counter"
+              attrs="{'invisible':[('working_mode', '!=', 'irregular')]}"
+            />
+                        <field name="unsubscribed" />
+                        <field name="resigning" />
+                        <field name="can_shop" />
                     </group>
                     <group string="Timing information">
-                        <field name="next_countdown_date" readonly="1"
-                               attrs="{'invisible':[('working_mode', '!=', 'irregular')]}"/>
-                        <field name="future_alert_date" readonly="1"
-                               attrs="{'invisible':[('working_mode', '!=', 'irregular')]}"/>
-                        <field name="time_extension"/>
-                        <field name="holiday_start_time"/>
-                        <field name="holiday_end_time"/>
-                        <field name="alert_start_time"/>
-                        <field name="extension_start_time"/>
+                        <field
+              name="next_countdown_date"
+              readonly="1"
+              attrs="{'invisible':[('working_mode', '!=', 'irregular')]}"
+            />
+                        <field
+              name="future_alert_date"
+              readonly="1"
+              attrs="{'invisible':[('working_mode', '!=', 'irregular')]}"
+            />
+                        <field name="time_extension" />
+                        <field name="holiday_start_time" />
+                        <field name="holiday_end_time" />
+                        <field name="alert_start_time" />
+                        <field name="extension_start_time" />
                     </group>
                     <group string="Temporary Exemption">
-                        <field name="temporary_exempt_reason_id"/>
-                        <field name="temporary_exempt_start_date"/>
-                        <field name="temporary_exempt_end_date"/>
+                        <field name="temporary_exempt_reason_id" />
+                        <field name="temporary_exempt_start_date" />
+                        <field name="temporary_exempt_end_date" />
                     </group>
                 </group>
                 <group groups="base.group_no_one" col="3">
-                    <separator string="For testing purpose only" colspan="3"/>
-                    <field name="today"/>
-                    <button name="clear_history" type="object"
-                            string="Clear History"/>
+                    <separator string="For testing purpose only" colspan="3" />
+                    <field name="today" />
+                    <button
+            name="clear_history"
+            type="object"
+            string="Clear History"
+          />
                 </group>
-                <separator string="History" colspan="2"/>
+                <separator string="History" colspan="2" />
                 <field name="history_ids">
                     <tree>
-                        <field name="create_date" string="Date"/>
-                        <field name="type"/>
-                        <field name="change"/>
-                        <field name="user_id"/>
+                        <field name="create_date" string="Date" />
+                        <field name="type" />
+                        <field name="change" />
+                        <field name="user_id" />
                     </tree>
                 </field>
             </form>
@@ -152,16 +198,16 @@
         <field name="model">cooperative.status</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="cooperator_id"/>
-                <field name="super"/>
-                <field name="sr"/>
-                <field name="sc"/>
-                <field name="time_extension"/>
-                <field name="holiday_start_time"/>
-                <field name="holiday_end_time"/>
-                <field name="alert_start_time"/>
-                <field name="extension_start_time"/>
-                <field name="status" widget="statusbar"/>
+                <field name="cooperator_id" />
+                <field name="super" />
+                <field name="sr" />
+                <field name="sc" />
+                <field name="time_extension" />
+                <field name="holiday_start_time" />
+                <field name="holiday_end_time" />
+                <field name="alert_start_time" />
+                <field name="extension_start_time" />
+                <field name="status" widget="statusbar" />
             </tree>
         </field>
     </record>
@@ -172,18 +218,21 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="run" string="Run again for this day"
-                            type="object"/>
+                    <button
+            name="run"
+            string="Run again for this day"
+            type="object"
+          />
                 </header>
                 <group>
                     <group>
-                        <field name="date"/>
+                        <field name="date" />
                     </group>
                 </group>
-                <separator string="Assigned cooperator"/>
+                <separator string="Assigned cooperator" />
                 <field name="line_ids" readonly="1">
                     <tree>
-                        <field name="cooperator_id"/>
+                        <field name="cooperator_id" />
                     </tree>
                 </field>
             </form>

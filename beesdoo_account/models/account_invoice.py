@@ -1,6 +1,6 @@
-from odoo import api, fields, models, _
-from odoo.tools import float_compare
+from odoo import _, api, models
 from odoo.exceptions import UserError
+from odoo.tools import float_compare
 
 
 class AccountInvoice(models.Model):
@@ -24,11 +24,13 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def action_invoice_negative_amount_open(self, to_open_invoices):
-        """Similar to action_invoice_open without UserError on an invoice with a negative total amount"""
+        """Similar to action_invoice_open without UserError on an invoice
+        with a negative total amount """
         if to_open_invoices.filtered(lambda inv: not inv.partner_id):
             raise UserError(
                 _(
-                    "The field Vendor is required, please complete it to validate the Vendor Bill."
+                    "The field Vendor is required, please complete it to "
+                    "validate the Vendor Bill. "
                 )
             )
         if to_open_invoices.filtered(lambda inv: inv.state != "draft"):
@@ -38,7 +40,8 @@ class AccountInvoice(models.Model):
         if to_open_invoices.filtered(lambda inv: not inv.account_id):
             raise UserError(
                 _(
-                    "No account was found to create the invoice, be sure you have installed a chart of account."
+                    "No account was found to create the invoice, be sure you "
+                    "have installed a chart of account. "
                 )
             )
         to_open_invoices.action_date_assign()

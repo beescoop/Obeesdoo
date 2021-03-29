@@ -35,7 +35,9 @@ class PortalPosOrderAmount(CustomerPortal):
         values["posorder_amount_by_year"] = [
             {
                 "year": year,
-                "amount": sum(pos_order.amount_total for pos_order in grouped_pos_orders),
+                "amount": sum(
+                    pos_order.amount_total for pos_order in grouped_pos_orders
+                ),
             }
             for year, grouped_pos_orders in groupby(
                 owned_posorder, key=lambda pos_order: pos_order.date_order.year

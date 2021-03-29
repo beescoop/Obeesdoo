@@ -90,7 +90,9 @@ class PurchaseOrderGenerator(models.Model):
             )
 
             if not supplierinfo:
-                product_name = self.env["product.template"].browse(product_id).name
+                product_name = (
+                    self.env["product.template"].browse(product_id).name
+                )
                 raise ValidationError(
                     _("No supplier defined for product %s") % product_name
                 )

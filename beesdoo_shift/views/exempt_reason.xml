@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record model="ir.ui.view" id="exempt_reason_tree_view">
         <field name="name">Exempt Reason Tree view</field>
         <field name="model">cooperative.exempt.reason</field>
         <field name="arch" type="xml">
             <tree editable="top">
-                <field name="name"/>
+                <field name="name" />
             </tree>
         </field>
     </record>
