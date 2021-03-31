@@ -1,31 +1,11 @@
 <?xml version="1.0"?>
 <odoo>
-    <!-- Action to open swap shift
-    <act_window id="action_shift_swap"
-                name="Shift Swap"
-                res_model="beesdoo.shift.subscribed_underpopulated_shift"
-                view_mode="tree,form"  />
-    -->
-    <!-- Attendance Sheet Shifts Views -->
-
-    <record model="ir.ui.view" id="shift_swap_view">
-        <field name="name">Shift swap</field>
-        <field name="model">beesdoo.shift.subscribed_underpopulated_shift</field>
-        <field name="arch" type="xml">
-            <form string="swap">
-            <group>
-                <field name="exchanged_timeslot_id"/>
-                <field name="comfirmed_timeslot_id"/>
-                <field name="date"/>
-            </group>
-            </form>
-        </field>
-    </record>
+    <!-- Action to open swap shift -->
 
     <record model="ir.actions.act_window" id="action_shift_swap">
         <field name="name">shift swap</field>
         <field name="res_model">beesdoo.shift.subscribed_underpopulated_shift</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">tree,form</field>
     </record>
 
     <!-- Top menu item -->

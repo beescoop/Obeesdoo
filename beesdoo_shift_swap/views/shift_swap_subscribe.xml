@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="shift_swap_view_tree">
+        <field name="name">Swap Shift</field>
+        <field name="model">beesdoo.shift.subscribed_underpopulated_shift</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="exchanged_timeslot_id"/>
+                <field name="comfirmed_timeslot_id"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="shift_swap_view">
+        <field name="name">Shift swap</field>
+        <field name="model">beesdoo.shift.subscribed_underpopulated_shift</field>
+        <field name="arch" type="xml">
+            <form string="swap">
+                <header>
+                    <button name="button_check_shift_exchanged" type="object" string ="check exchange shift"/>
+                    <button name="button_check_shift_comfirmed" type="object" string ="check comfirme shift"/>
+                    <button name="button_unsubscribe" type="object" string ="Unsubscribe"/>
+                    <button name="button_subscribe_shift" type="object" string ="subscribe"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group name="group_top">
+                        <field name="worker_id"/>
+                        <field name="date"/>
+                        <group name="group_left">
+                            <field name="exchanged_timeslot_id"/>
+                            <field name="exchanged_shift_id"/>
+                        </group>
+                        <group name="group_right">
+                            <field name="comfirmed_timeslot_id"/>
+                            <field name="comfirmed_shift_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

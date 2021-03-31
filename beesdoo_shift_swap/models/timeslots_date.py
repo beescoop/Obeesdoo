@@ -5,6 +5,6 @@ class TimeslotsDate(models.Model):
 
     date = fields.Datetime(required = True)
     template_id = fields.Many2one("beesdoo.shift.template")
-    shift_id = fields.Integer(compute='compute_shift')
+    #shift_id = fields.Integer(compute='compute_shift')
 
     

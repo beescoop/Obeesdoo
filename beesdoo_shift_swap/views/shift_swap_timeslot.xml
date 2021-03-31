@@ -1,0 +1,21 @@
+<odoo>
+    <record model="ir.ui.view" id="shift_swap_timeslot_view">
+        <field name="name">Shift swap timeslot</field>
+        <field name="model">beesdoo.shift.timeslots_date</field>
+        <field name="arch" type="xml">
+            <form string="swap timeslot">
+                <tree>
+                    <field name="template_id"/>
+                    <field name="date"/>
+                </tree>
+            </form>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record model="ir.actions.act_window" id="action_timeslot">
+        <field name="name">Shifts Swap</field>
+        <field name="res_model">beesdoo.shift.timeslots_date</field>
+        <field name="view_mode">tree</field>
+    </record>
+</odoo>

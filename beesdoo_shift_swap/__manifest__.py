@@ -30,6 +30,8 @@
         'security/shift_swap_group.xml',
         'security/ir.model.access.csv',
         'views/shift_swap.xml',
+        'views/shift_swap_subscribe.xml',
+        'views/shift_swap_timeslot.xml'
     ],
     # only loaded in demonstration mode
     'demo': [
