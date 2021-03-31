@@ -1,10 +1,37 @@
 from odoo import models, fields, api
 from datetime import datetime
+from odoo.exceptions import Warning
 
 
 class subscribe_underpopulated_shift(models.Model):
     _name = 'beesdoo.shift.subscribed_underpopulated_shift'
 
+
+    def _get_selection_status(self):
+        return [
+            ("Level 1", "Confirmed"),
+            ("Level 2", "Unsubscribe Done"),
+            ("Level 3", "Subscribe Done"),
+            ("Level 4", "Exchange Done"),
+        ]
+
+    #state = fields.Selection(
+    #    selection=_get_selection_status,
+        #default="open",
+        #required=True,
+        #track_visibility="onchange",
+        #group_expand="_expand_states",
+    #)
+
+    state=fields.Selection([('l1','level 1'), ('l2','level 2')])
+    worker_id = fields.Many2one(
+        "res.partner",
+        domain=[
+            ("is_worker", "=", True),
+            ("working_mode", "in", ("regular", "irregular")),
+            ("state", "not in", ("unsubscribed", "resigning")),
+        ],
+    )
     exchanged_timeslot_id = fields.One2many(
         comodel_name='beesdoo.shift.timeslots_date',
         inverse_name='id',
@@ -29,9 +56,14 @@ class subscribe_underpopulated_shift(models.Model):
     date = fields.Datetime(required=True)
     status_generated_and_subscribed = fields.Char(compute='compute_status')
 
+
+    @api.multi
     def is_shift_exchanged_already_generated(self):
         # Get current user
-        cur_user = self.env["res.users"].browse(self.uid)
+        #cur_user = self.env["res.users"].browse(self.uid)
+
+        #if the supercooperateur make the exchange
+        cur_user = self.worker_id
 
         # Get current date
         now = datetime.now()
@@ -45,22 +77,32 @@ class subscribe_underpopulated_shift(models.Model):
                     .search(
                     [
                         ("start_time", ">", now.strftime("%Y-%m-%d %H:%M:%S")),
-                        ("worker_id", "=", cur_user.partner_id.id),
-                        ("task_template_id", "=", self.exchanged_timeslot_id.template_id)
+                        ('start_time', '=', self.exchanged_timeslot_id.date),
+                        ("worker_id", "=", cur_user.id),
+                        ("task_template_id", "=", self.exchanged_timeslot_id.template_id.id)
                     ],
+                    limit=1,
                 )
             )
 
             # check if is there a shift generated
             if subscribed_shifts_rec:
-                self.exchanged_shift_id == subscribed_shifts_rec
-                return 1
-            return 0
-        return 1
+                self.exchanged_shift_id = subscribed_shifts_rec
+                return True
+            return False
+        return True
 
+    @api.multi
+    def button_check_shift_exchanged(self):
+        for exchange in self :
+            if not exchange.exchanged_timeslot_id :
+                raise Warning('Please provide an exchange timeslot')
+            if exchange.exchanged_timeslot_id and not exchange.is_shift_exchanged_already_generated() :
+                raise Warning('The shift has not been generated')
+        return True
+
+    @api.multi
     def is_shift_comfirmed_already_generated(self):
-        # Get current user
-        cur_user = self.env["res.users"].browse(self.uid)
 
         # Get current date
         now = datetime.now()
@@ -72,18 +114,29 @@ class subscribe_underpopulated_shift(models.Model):
                     .search(
                     [
                         ("start_time", ">", now.strftime("%Y-%m-%d %H:%M:%S")),
-                        ("task_template_id", "=", self.exchanged_timeslot_id.template_id)
+                        ('start_time','=',self.exchanged_timeslot_id.date),
+                        ("task_template_id", "=", self.exchanged_timeslot_id.template_id.id),
+                        ("worker_id","=",None),
                     ],
-                    order="start_time, task_template_id, task_type_id",
+                    limit=1,
                 )
             )
 
             # check if is there a shift generated
             if future_subscribed_shifts_rec:
-                self.comfirmed_shift_id == future_subscribed_shifts_rec
-                return 1
-            return 0
-        return 1
+                self.comfirmed_shift_id = future_subscribed_shifts_rec
+                return True
+            return False
+        return True
+
+    @api.multi
+    def button_check_shift_comfirmed(self):
+        for exchange in self:
+            if not exchange.comfirmed_timeslot_id:
+                raise Warning('Please provide an exchange timeslot')
+            if exchange.comfirmed_timeslot_id and not exchange.is_shift_comfirmed_already_generated():
+                raise Warning('The shift has not been generated')
+        return True
 
     def compute_status(self):
         if self.is_shift_exchanged_already_generated() and self.is_shift_comfirmed_already_generated():
@@ -94,6 +147,50 @@ class subscribe_underpopulated_shift(models.Model):
             return 1
         if not self.is_shift_exchanged_already_generated() and not self.is_shift_comfirmed_already_generated():
             return 0
+
+    @api.multi
+    def unsubscribe_shift(self):
+        unsubscribed_shifts_rec =  self.exchanged_shift_id
+        unsubscribed_shifts_rec.write({
+           "worker_id" : False
+        })
+        if not self.exchanged_shift_id.worker_id :
+            return True
+        return False
+        # TODO : MAJ du statut de l'échange
+
+
+    @api.multi
+    def button_unsubscribe(self):
+        for exchange in self:
+            if not exchange.exchanged_shift_id:
+                raise Warning('Shift not generated')
+            if not exchange.unsubscribe_shift():
+                raise Warning('cannot unsubscribe')
+        return True
+
+
+    @api.multi
+    def subscribe_shift(self):
+        subscribed_shift_rec = self.comfirmed_shift_id
+        subscribed_shift_rec.is_regular = True
+        subscribed_shift_rec.worker_id = self.worker_id
+        #subscribed_shift_rec.write({
+        #    "worker_id" : self.worker_id,
+        #})
+        if not self.exchanged_shift_id.worker_id :
+            return False
+        return True
+
+    @api.multi
+    def button_subscribe_shift(self):
+        for exchange in self:
+            if not exchange.comfirmed_shift_id:
+                raise Warning('Shift not generated')
+            if not exchange.subscribe_shift():
+                raise Warning('cannot unsubscribe')
+        return True
+
 
 
     def make_the_exchange(self, exchange_id=-1, **kw):
