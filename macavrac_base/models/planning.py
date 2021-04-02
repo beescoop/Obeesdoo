@@ -272,6 +272,7 @@ class CooperativeStatus(models.Model):
         return [
             ("status", "not in", ["unsubscribed", "exempted", "resigning"]),
             ("irregular_start_date", "!=", False),
+            ("working_mode", "!=", "exempt"),
         ]
 
     def _change_irregular_counter(self):
