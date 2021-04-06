@@ -9,21 +9,15 @@ class subscribe_underpopulated_shift(models.Model):
 
     def _get_selection_status(self):
         return [
-            ("Level 1", "Confirmed"),
-            ("Level 2", "Unsubscribe Done"),
-            ("Level 3", "Subscribe Done"),
-            ("Level 4", "Exchange Done"),
+            ('draft','Draft'),
+            ('validate','Validate'),
+            ('done','Done')
         ]
 
-    #state = fields.Selection(
-    #    selection=_get_selection_status,
-        #default="open",
-        #required=True,
-        #track_visibility="onchange",
-        #group_expand="_expand_states",
-    #)
-
-    state=fields.Selection([('l1','level 1'), ('l2','level 2')])
+    state=fields.Selection(
+        selection=_get_selection_status,
+        default='draft'
+    )
     worker_id = fields.Many2one(
         "res.partner",
         domain=[
@@ -37,6 +31,7 @@ class subscribe_underpopulated_shift(models.Model):
         inverse_name='id',
         string='exchanged_shift'
     )
+    exchange_status = fields.Boolean(default=False, string="status exchange shift")
     exchanged_shift_id = fields.One2many(
         comodel_name='beesdoo.shift.shift',
         inverse_name='id',
@@ -52,10 +47,14 @@ class subscribe_underpopulated_shift(models.Model):
         inverse_name='id',
         compute='is_shift_comfirmed_already_generated'
     )
+    comfirme_status = fields.Boolean(default=False, string="status comfirme shift")
+    date = fields.Date(required=True)
 
-    date = fields.Datetime(required=True)
-    status_generated_and_subscribed = fields.Char(compute='compute_status')
-
+    def update_status(self):
+        if self.exchanged_timeslot_id and self.comfirmed_timeslot_id and self.worker_id and self.date:
+            self.write({"state" : "validate"})
+            if self.exchange_status and self.comfirme_status :
+                self.write({"state" : "done"})
 
     @api.multi
     def is_shift_exchanged_already_generated(self):
@@ -121,7 +120,6 @@ class subscribe_underpopulated_shift(models.Model):
                     limit=1,
                 )
             )
-
             # check if is there a shift generated
             if future_subscribed_shifts_rec:
                 self.comfirmed_shift_id = future_subscribed_shifts_rec
@@ -138,15 +136,6 @@ class subscribe_underpopulated_shift(models.Model):
                 raise Warning('The shift has not been generated')
         return True
 
-    def compute_status(self):
-        if self.is_shift_exchanged_already_generated() and self.is_shift_comfirmed_already_generated():
-            return 3
-        if not self.is_shift_exchanged_already_generated() and self.is_shift_comfirmed_already_generated():
-            return 2
-        if self.is_shift_exchanged_already_generated() and not self.is_shift_comfirmed_already_generated():
-            return 1
-        if not self.is_shift_exchanged_already_generated() and not self.is_shift_comfirmed_already_generated():
-            return 0
 
     @api.multi
     def unsubscribe_shift(self):
@@ -154,11 +143,11 @@ class subscribe_underpopulated_shift(models.Model):
         unsubscribed_shifts_rec.write({
            "worker_id" : False
         })
-        if not self.exchanged_shift_id.worker_id :
+        self.comfirme_status = 1
+        self.update_status()
+        if not self.exchanged_shift_id.worker_id and self.comfirme_status:
             return True
         return False
-        # TODO : MAJ du statut de l'échange
-
 
     @api.multi
     def button_unsubscribe(self):
@@ -172,13 +161,29 @@ class subscribe_underpopulated_shift(models.Model):
 
     @api.multi
     def subscribe_shift(self):
+        """
+        Subscribe the user into the given shift
+        this is done only if :
+            *the user can subscribe
+            *the given shift exist
+            *the shift status is open
+            *the user hasn't done another exchange 2month before
+        :return:
+        """
+        # Get the wanted shift
         subscribed_shift_rec = self.comfirmed_shift_id
+
         subscribed_shift_rec.is_regular = True
+
+        # Get the user
         subscribed_shift_rec.worker_id = self.worker_id
-        #subscribed_shift_rec.write({
-        #    "worker_id" : self.worker_id,
-        #})
-        if not self.exchanged_shift_id.worker_id :
+
+        # Subscribe done, change the status
+        self.exchange_status = 1
+
+        #update status
+        self.update_status()
+        if not self.exchanged_shift_id.worker_id and not self.exchange_status:
             return False
         return True
 
@@ -190,6 +195,27 @@ class subscribe_underpopulated_shift(models.Model):
             if not exchange.subscribe_shift():
                 raise Warning('cannot unsubscribe')
         return True
+
+    def display_underpopulated_shift(self):
+        now = datetime.now()
+        my_shift = self.exchanged_timeslot_id
+        shift_date = my_shift.date
+        template = self.env["beesdoo.shift.template"].search([])
+        #copier tout les templates, pas travailler sur ceux deja défini
+        exchange = self.en["beesdoo.shift.subscribed_underpopulated_shift"].search([])
+        for temp in template :
+            for ex in exchange :
+                if ex.exchange_timeslot_id.template_id == temp.id :
+                    #Enlever un worker
+                if ex.comfirme_timeslot_id.template_id == temp.id :
+                    #ajouter un worker
+            #retourner tout les templates modifier
+
+            #generer tout les timeslot entre now et +2mois du shift
+            # que le worker veut se séparer + ceux qui ont moins de
+            #30% de remplissage --> search ??
+
+
 
 
 

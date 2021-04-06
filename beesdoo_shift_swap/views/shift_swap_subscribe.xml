@@ -5,8 +5,7 @@
         <field name="model">beesdoo.shift.subscribed_underpopulated_shift</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="exchanged_timeslot_id"/>
-                <field name="comfirmed_timeslot_id"/>
+                <field name="worker_id"/>
                 <field name="date"/>
             </tree>
         </field>
@@ -17,7 +16,7 @@
         <field name="name">Shift swap</field>
         <field name="model">beesdoo.shift.subscribed_underpopulated_shift</field>
         <field name="arch" type="xml">
-            <form string="swap">
+            <form>
                 <header>
                     <button name="button_check_shift_exchanged" type="object" string ="check exchange shift"/>
                     <button name="button_check_shift_comfirmed" type="object" string ="check comfirme shift"/>
