@@ -7,6 +7,11 @@
         <field name="res_model">beesdoo.shift.subscribed_underpopulated_shift</field>
         <field name="view_mode">tree,form</field>
     </record>
+    <record model="ir.actions.act_window" id="action_shift_swap_exchange">
+        <field name="name">shift exchange</field>
+        <field name="res_model">beesdoo.shift.exchange_proposale</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 
     <!-- Top menu item -->
 
@@ -18,5 +23,10 @@
               name="swap shift"
               parent="menu_swap_top"
               action="action_shift_swap"/>
+
+    <menuitem id="menu_exchange"
+              name="exchange"
+              parent="menu_swap_top"
+              action="action_shift_swap_exchange"/>
 
 </odoo>

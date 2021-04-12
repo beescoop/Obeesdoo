@@ -1,6 +1,10 @@
 from odoo import models, fields, api
-from datetime import datetime
+from datetime import datetime, timedelta, date
 from odoo.exceptions import Warning
+
+def daterange(start_date, end_date):
+    for n in range(int ((end_date - start_date).days)) :
+        return start_date + timedelta(n)
 
 
 class subscribe_underpopulated_shift(models.Model):
@@ -196,29 +200,40 @@ class subscribe_underpopulated_shift(models.Model):
                 raise Warning('cannot unsubscribe')
         return True
 
+
     def display_underpopulated_shift(self):
-        now = datetime.now()
-        my_shift = self.exchanged_timeslot_id
-        shift_date = my_shift.date
+        start_date = datetime.now()
+        my_timeslot = self.exchanged_timeslot_id
+        timeslot_date = my_timeslot.date
+        end_date =  (timeslot_date +timedelta(7*8))
+        all_timeslot = []
         template = self.env["beesdoo.shift.template"].search([])
-        #copier tout les templates, pas travailler sur ceux deja défini
         exchange = self.en["beesdoo.shift.subscribed_underpopulated_shift"].search([])
         for temp in template :
             for ex in exchange :
+                nb_workers_change=0
                 if ex.exchange_timeslot_id.template_id == temp.id :
                     #Enlever un worker
+                    nb_workers_change -= 1
                 if ex.comfirme_timeslot_id.template_id == temp.id :
-                    #ajouter un worker
-            #retourner tout les templates modifier
+                    # ajouter un worker
+                    nb_workers_change += 1
+            # pour chaque template, générer timeslot avec new
+            timeslot = self.env["beesdoo.shift.timeslots_date"].new()
+            timeslot.template_id = temp
+            # prendre en compte inscriptions désinscriptions
+            all_timeslot.append((timeslot,nb_workers_change))
 
-            #generer tout les timeslot entre now et +2mois du shift
-            # que le worker veut se séparer + ceux qui ont moins de
+            #attribuer a tout les timeslot une date
+            # entre now et +2mois du shift
+            #que le worker veut se séparer + ceux qui ont moins de
             #30% de remplissage --> search ??
 
 
 
 
 
+'''
     def make_the_exchange(self, exchange_id=-1, **kw):
         """
         Subscribe the current connected user into the given shift
@@ -249,7 +264,7 @@ class subscribe_underpopulated_shift(models.Model):
 
 
 
-'''
+
     def register_exchange(self):
         #we recover the data previously stored in session
         old_timeslot = request.session['exchanged_timeslot']
