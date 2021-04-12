@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="shift_swap_set_view_tree">
+        <field name="name">Swap Shift Set</field>
+        <field name="model">beesdoo.shift.exchange_set</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="first_proposale_id"/>
+                <field name="second_proposale_id"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

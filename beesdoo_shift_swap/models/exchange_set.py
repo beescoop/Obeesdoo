@@ -15,5 +15,5 @@ class exchange_set(models.Model):
         inverse_name='exchange_set_id',
         string='second_proposale'
     )
-    status_generated=fields.Selection(['exchanged_generated', 'first_shift_not_generated', 'second_shift_not_generated', 'both_not_generated'])
+    status_generated=fields.Selection([('exchanged_generated','0'), ('first_shift_not_generated','1'), ('second_shift_not_generated','2'), ('both_not_generated','3')])
 
