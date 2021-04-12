@@ -26,7 +26,7 @@ class exchange_proposale(models.Model):
     )
     status = fields.Char(compute='compute_status')
 
-
+    @api.multi
     def is_match(self):
         worker = self.worker_id
         my_timeslot = self.exchanged_timeslot_id
@@ -42,6 +42,15 @@ class exchange_proposale(models.Model):
         if len(my_match)>0 :
             return True
         return False
+
+    @api.multi
+    def button_is_match(self):
+        for proposale in self :
+            if not proposale.asked_timeslot_ids:
+                raise Warning('Please provide wanted timeslot')
+            if not proposale.is_match() :
+                raise Warning('no match')
+        return True
 
 
 
