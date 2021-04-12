@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+        <!-- Add button to swap shift -->
+        <template
+            id="website_shift_swap_button"
+            name="shift swap button"
+            inherit_id="beesdoo_website_shift.my_shift_next_shifts">
+            <xpath expr="//div[@class='card-body clearfix']" position="inside">
+                <div class="button_right" style="margin-right:10px">
+                    <h1>test</h1>
+                </div>
+            </xpath>
+        </template>
+
+        <!-- Template display shift -->
+
+    </data>
+</odoo>
