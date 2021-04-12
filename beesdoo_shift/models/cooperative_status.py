@@ -44,15 +44,20 @@ class CooperativeStatus(models.Model):
     _period = 28
 
     def _get_status(self):
+        # since the terms of these status are translated as "code" type
+        # if they are already translated elsewhere, it won't be possible
+        # to translate them to a specific status.
+        # Hence these unique terms that have to be translated at module
+        # configuration.
         return [
-            ("ok", _("Up to Date")),
-            ("holiday", _("Holidays")),
-            ("alert", _("Warning")),
-            ("extension", _("Extension")),
-            ("suspended", _("Suspended")),
-            ("exempted", _("Exempted")),
-            ("unsubscribed", _("Unsubscribed")),
-            ("resigning", _("Resigning")),
+            ("ok", _("shift_status_up_to_date")),
+            ("holiday", _("shift_status_holidays")),
+            ("alert", _("shift_status_warning")),
+            ("extension", _("shift_status_extension")),
+            ("suspended", _("shift_status_suspended")),
+            ("exempted", _("shift_status_exempted")),
+            ("unsubscribed", _("shift_status_unsubscribed")),
+            ("resigning", _("shift_status_resigning")),
         ]
 
     today = fields.Date(
