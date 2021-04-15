@@ -7,7 +7,7 @@ from itertools import groupby
 from odoo.http import request
 
 from odoo.addons.portal.controllers.portal import CustomerPortal
-from odoo.tools import float_round
+from odoo.tools import float_repr
 
 class PortalPosOrderAmount(CustomerPortal):
     def _prepare_portal_layout_values(self):
@@ -29,15 +29,15 @@ class PortalPosOrderAmount(CustomerPortal):
                 ]
             )
         )
-        values["posorder_amount"] = float_round(sum(
+        values["posorder_amount"] = float_repr(sum(
             po.amount_total for po in owned_posorder
-        ), precision_digits=2)
+        ), 2)
         values["posorder_amount_by_year"] = [
             {
                 "year": year,
-                "amount": float_round(
+                "amount": float_repr(
                     sum(pos_order.amount_total for pos_order in grouped_pos_orders),
-                    precision_digits=2
+                    2,
                 ),
             }
             for year, grouped_pos_orders in groupby(
