@@ -93,7 +93,7 @@ class BeesdooProduct(models.Model):
     label_to_be_printed = fields.Boolean("Print label?")
     label_last_printed = fields.Datetime("Label last printed on")
 
-    note = fields.Text("Comments")
+    note = fields.Text("Comments", copy=False)
 
     suggested_price = fields.Float(
         string="Suggested Price",
