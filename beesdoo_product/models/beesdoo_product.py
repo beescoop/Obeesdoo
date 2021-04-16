@@ -93,7 +93,8 @@ class BeesdooProduct(models.Model):
     label_to_be_printed = fields.Boolean("Print label?")
     label_last_printed = fields.Datetime("Label last printed on")
     label_is_outdated = fields.Boolean("label_is_outdated",
-        compute="_compute_label_is_outdated")
+        compute="_compute_label_is_outdated",
+        search="_search_label_outdated")
 
 
     note = fields.Text("Comments")
@@ -365,9 +366,12 @@ class BeesdooProduct(models.Model):
                 )
 
     @api.multi
+    @api.depends('write_date', 'label_last_printed')
     def _compute_label_is_outdated(self):
         return self.write_date > self.label_last_printed
 
+    def _search_label_is_outdated(self, operator, value):
+        return [self._compute_label_is_outdated(), operator, value]
 
 class BeesdooScaleCategory(models.Model):
     _name = "beesdoo.scale.category"
