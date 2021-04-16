@@ -1,6 +1,6 @@
 from odoo import models, fields, api
 
-class exchange_set(models.Model):
+class Exchange(models.Model):
     _name = 'beesdoo.shift.exchange_set'
 
     first_shift = fields.Many2one('beesdoo.shift.shift', string='first_shift')

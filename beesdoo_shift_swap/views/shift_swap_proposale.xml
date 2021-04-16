@@ -12,4 +12,29 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="shift_swap_proposale_view">
+        <field name="name">Shift swap Proposale</field>
+        <field name="model">beesdoo.shift.exchange_proposale</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="button_is_match" type="object" string ="check match"/>
+                </header>
+                <sheet>
+                    <group name="group_top">
+                        <field name="worker_id"/>
+                        <field name="proposition_date"/>
+                        <group name="group_left">
+                            <field name="exchanged_timeslot_id"/>
+                            <field name="asked_timeslot_ids"/>
+                        </group>
+                        <group name="group_right">
+                            <field name="validate_proposale_id" autocomplete="off"/>
+                            <field name="exchange_set_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
 </odoo>

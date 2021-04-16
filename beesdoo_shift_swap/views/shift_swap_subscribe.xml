@@ -29,11 +29,11 @@
                         <field name="worker_id"/>
                         <field name="date"/>
                         <group name="group_left">
-                            <field name="exchanged_timeslot_id"/>
+                            <field name="exchanged_timeslot_id" autocomplete="off"/>
                             <field name="exchanged_shift_id"/>
                         </group>
                         <group name="group_right">
-                            <field name="comfirmed_timeslot_id"/>
+                            <field name="comfirmed_timeslot_id" autocomplete="off"/>
                             <field name="comfirmed_shift_id"/>
                         </group>
                     </group>
