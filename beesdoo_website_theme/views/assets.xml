@@ -1,10 +1,15 @@
 <odoo>
     <!-- We add the css stylesheet -->
-    <template id="assets_frontend" name="beesdoo_website_theme_website_assets"
-              inherit_id="website.assets_frontend">
+    <template
+    id="assets_frontend"
+    name="beesdoo_website_theme_website_assets"
+    inherit_id="website.assets_frontend"
+  >
         <xpath expr="." position="inside">
-            <link rel="stylesheet"
-                  href="/beesdoo_website_theme/static/src/less/beesdoo_website_design.less"/>
+            <link
+        rel="stylesheet"
+        href="/beesdoo_website_theme/static/src/less/beesdoo_website_design.less"
+      />
         </xpath>
     </template>
 </odoo>

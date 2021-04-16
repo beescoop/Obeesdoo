@@ -14,9 +14,12 @@ class ResConfigSettings(models.TransientModel):
         ],
         string="Suggested price reference for margin",
         help="""
-            Price on which the margin is applied when computing the suggested sale price. 
-            - Margin on Supplier Price : Suggested sale price = supplier price * (1 + margin / 100) (default)
-            - Margin on Sale Price: Suggested sale price = supplier price * (1 / (1 - margin / 100))
+            Price on which the margin is applied when computing the suggested
+                sale price.
+            - Margin on Supplier Price : Suggested sale price
+                = supplier price * (1 + margin / 100) (default)
+            - Margin on Sale Price: Suggested sale price
+                = supplier price * (1 / (1 - margin / 100))
         """,
         default="supplier_price",
     )

@@ -2,10 +2,9 @@
 
 > Tested on Ubuntu 18
 
-
 ##### 2) Install Python, postgresql and needed modules
 
-Python 2.7 and 3 come pre-installed  but you'll need to add pip
+Python 2.7 and 3 come pre-installed but you'll need to add pip
 
 ```
 sudo apt-get install python-pip
@@ -13,7 +12,6 @@ sudo apt-get install postgresql
 sudo apt-get install libxml2-dev libxslt1-dev libldap2-dev libsasl2-dev libssl-dev -y
 sudo apt-get install libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
 ```
-
 
 ##### 4) install less compiler
 
@@ -31,6 +29,7 @@ $ mkvirtualenv odoo -p /path/to/python2.7  # generally /usr/bin/python2.7
 $ which python  # should return:
 /Users/<user>/.virtualenvs/odoo/bin/python
 ```
+
 Use `deactivate` to get out of odoo environment, use `workon odoo` to activate the environment.
 
 ##### 6) clone odoo

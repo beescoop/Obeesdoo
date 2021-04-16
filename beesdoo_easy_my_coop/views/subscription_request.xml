@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2019 Coop IT Easy SCRLfs
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record model="ir.ui.view" id="subscription_request_form_view">
-        <field name="name">subscription.request.form (in beesdoo_easy_my_coop)</field>
+        <field
+      name="name"
+    >subscription.request.form (in beesdoo_easy_my_coop)</field>
         <field name="model">subscription.request</field>
-        <field name="inherit_id" ref="easy_my_coop.subscription_request_form"/>
+        <field name="inherit_id" ref="easy_my_coop.subscription_request_form" />
         <field name="arch" type="xml">
             <field name="internal_rules_approved" position="before">
-                <field name="info_session_confirmed"/>
+                <field name="info_session_confirmed" />
             </field>
         </field>
     </record>

@@ -23,6 +23,7 @@ $ brew install freetype jpeg libpng libtiff webp xz
 $ ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
 $ launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 ```
+
 ##### 4) install less compiler
 
 ```
@@ -39,6 +40,7 @@ $ mkvirtualenv odoo -p /path/to/python2.7  # generally /usr/bin/python2.7
 $ which python  # should return:
 /Users/<user>/.virtualenvs/odoo/bin/python
 ```
+
 Use `deactivate` to get out of odoo environment, use `workon odoo` to activate the environment.
 
 ##### 6) clone odoo
@@ -75,4 +77,5 @@ truncate table product_scale_log
 ```
 
 ## Source
+
 source: [setup-odoo-development-on-os-x-with-pycharm](http://bloopark.de/en_US/blog/the-bloopark-times-english-2/post/setup-odoo-development-on-os-x-with-pycharm-109)

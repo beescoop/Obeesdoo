@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <!-- views-->
 
@@ -8,11 +8,11 @@
         <field name="model">purchase.order.generator</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
-                <field name="supplier_id"/>
-                <field name="order_date"/>
-                <field name="date_planned"/>
-                <field name="total_amount"/>
+                <field name="name" />
+                <field name="supplier_id" />
+                <field name="order_date" />
+                <field name="date_planned" />
+                <field name="total_amount" />
             </tree>
         </field>
     </record>
@@ -24,52 +24,65 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button type="object"
-                            name="create_purchase_order"
-                            string="Create Purchase Order"
-                            class="oe_highlight"/>
+                    <button
+            type="object"
+            name="create_purchase_order"
+            string="Create Purchase Order"
+            class="oe_highlight"
+          />
                 </header>
 
                 <sheet>
                     <group>
                         <group>
-                            <field name="supplier_id"/>
-                            <field name="order_date"/>
-                            <field name="date_planned"/>
-                            <field name="total_amount"/>
-                            <field name="generated_purchase_order_ids"
-                                   invisible='1'/>
+                            <field name="supplier_id" />
+                            <field name="order_date" />
+                            <field name="date_planned" />
+                            <field name="total_amount" />
+                            <field
+                name="generated_purchase_order_ids"
+                invisible='1'
+              />
                         </group>
 
                         <div name="buttons" class="oe_right oe_button_box">
-                            <button class="oe_inline oe_stat_button"
-                                    type="object"
-                                    icon="fa-shopping-cart"
-                                    name="get_generated_po_action"
-                                    help="Generated Purchase Orders">
-                                <field string="Purchase orders"
-                                       name="generated_po_count"
-                                       widget="statinfo"/>
+                            <button
+                class="oe_inline oe_stat_button"
+                type="object"
+                icon="fa-shopping-cart"
+                name="get_generated_po_action"
+                help="Generated Purchase Orders"
+              >
+                                <field
+                  string="Purchase orders"
+                  name="generated_po_count"
+                  widget="statinfo"
+                />
                             </button>
                         </div>
 
                     </group>
 
-                    <field name="pog_line_ids"
-                           context="{'cpo_seller_id': supplier_id}">
-                        <tree name="order_lines" string="Order Lines"
-                              editable='bottom'>
-                            <field name="product_template_id"/>
-                            <field name="qty_available" readonly='1'/>
-                            <field name="virtual_available" readonly='1'/>
-                            <field name="uom_id" readonly='1'/>
-                            <field name="daily_sales" readonly='1'/>
-                            <field name="stock_coverage" readonly='1'/>
-                            <field name="virtual_coverage" readonly='1'/>
-                            <field name="product_price" readonly='1'/>
-                            <field name="uom_po_id" readonly='1'/>
-                            <field name="purchase_quantity"/>
-                            <field name="subtotal" readonly='1'/>
+                    <field
+            name="pog_line_ids"
+            context="{'cpo_seller_id': supplier_id}"
+          >
+                        <tree
+              name="order_lines"
+              string="Order Lines"
+              editable='bottom'
+            >
+                            <field name="product_template_id" />
+                            <field name="qty_available" readonly='1' />
+                            <field name="virtual_available" readonly='1' />
+                            <field name="uom_id" readonly='1' />
+                            <field name="daily_sales" readonly='1' />
+                            <field name="stock_coverage" readonly='1' />
+                            <field name="virtual_coverage" readonly='1' />
+                            <field name="product_price" readonly='1' />
+                            <field name="uom_po_id" readonly='1' />
+                            <field name="purchase_quantity" />
+                            <field name="subtotal" readonly='1' />
                         </tree>
                     </field>
                 </sheet>
@@ -84,7 +97,7 @@
         <field name="model">purchase.order.generator</field>
         <field name="arch" type="xml">
             <search>
-                <field name="supplier_id"/>
+                <field name="supplier_id" />
             </search>
         </field>
     </record>
@@ -96,16 +109,18 @@
         <field name="res_model">purchase.order.generator</field>
     </record>
 
-    <menuitem id="purchase_order_generator"
-              parent="purchase.menu_procurement_management"
-              action="action_purchase_order_generator"/>
+    <menuitem
+    id="purchase_order_generator"
+    parent="purchase.menu_procurement_management"
+    action="action_purchase_order_generator"
+  />
 
     <!-- Actions -->
 
     <record id="action_generate_pog" model="ir.actions.server">
         <field name="name">Generate Purchase Order</field>
-        <field name="model_id" ref="model_purchase_order_generator"/>
-        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="model_id" ref="model_purchase_order_generator" />
+        <field name="binding_model_id" ref="product.model_product_template" />
         <field name="state">code</field>
         <field name="code">
             action = model.test_generate_pog()

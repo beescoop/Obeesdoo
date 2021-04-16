@@ -14,7 +14,7 @@
     ],
     "data": [
         "views/res_company.xml",
-        'views/res_partner.xml',
+        "views/res_partner.xml",
         "views/subscription_request.xml",
         "views/subscription_templates.xml",
         "views/product.xml",

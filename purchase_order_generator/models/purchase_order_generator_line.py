@@ -122,12 +122,16 @@ class PurchaseOrderGeneratorLine(models.Model):
         default_supplier = self._context.get("cpo_seller_id")
         product_ids = []
         if default_supplier:
-            product_ids = self.env["product.template"].search(
-                [
-                    ("main_seller_id", "=", default_supplier),
-                    ("purchase_ok", "=", True),
-                ]
-            ).ids
+            product_ids = (
+                self.env["product.template"]
+                .search(
+                    [
+                        ("main_seller_id", "=", default_supplier),
+                        ("purchase_ok", "=", True),
+                    ]
+                )
+                .ids
+            )
         return {"domain": {"product_template_id": [("id", "in", product_ids)]}}
 
     @api.multi
