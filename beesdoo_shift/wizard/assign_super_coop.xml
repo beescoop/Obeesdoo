@@ -10,11 +10,11 @@
                 </group>
                 <footer>
                     <button
-            type="object"
-            name="write_super_coop"
-            string="Confirm"
-            class="oe_highlight"
-          />
+                        type="object"
+                        name="write_super_coop"
+                        string="Confirm"
+                        class="oe_highlight"
+                    />
                     or
                     <button special="cancel" string="Cancel" />
                 </footer>
@@ -24,13 +24,13 @@
 
 
     <act_window
-    id="act_assign_new_super_coop"
-    name="Change Super Coop"
-    src_model="beesdoo.shift.shift"
-    res_model="beesddoo.shift.assign_super_coop"
-    view_mode="form"
-    target="new"
-    key2="client_action_multi"
-  />
+        id="act_assign_new_super_coop"
+        name="Change Super Coop"
+        src_model="beesdoo.shift.shift"
+        res_model="beesddoo.shift.assign_super_coop"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"
+    />
 
 </odoo>

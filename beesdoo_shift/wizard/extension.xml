@@ -14,19 +14,19 @@
                 </group>
                 <footer>
                     <button
-            type="object"
-            name="extension"
-            string="Confirm"
-            class="oe_highlight"
-            attrs="{'invisible': [('auto', '=', True)]}"
-          />
+                        type="object"
+                        name="extension"
+                        string="Confirm"
+                        class="oe_highlight"
+                        attrs="{'invisible': [('auto', '=', True)]}"
+                    />
                     <button
-            type="object"
-            name="auto_ext"
-            string="Confirm"
-            class="oe_highlight"
-            attrs="{'invisible': [('auto', '=', False)]}"
-          />
+                        type="object"
+                        name="auto_ext"
+                        string="Confirm"
+                        class="oe_highlight"
+                        attrs="{'invisible': [('auto', '=', False)]}"
+                    />
                     or
                     <button special="cancel" string="Cancel" />
                 </footer>

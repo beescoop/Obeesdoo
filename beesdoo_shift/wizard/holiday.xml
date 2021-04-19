@@ -11,11 +11,11 @@
                 </group>
                 <footer>
                     <button
-            type="object"
-            name="holidays"
-            string="Confirm"
-            class="oe_highlight"
-          />
+                        type="object"
+                        name="holidays"
+                        string="Confirm"
+                        class="oe_highlight"
+                    />
                     <button special="cancel" string="Cancel" />
                 </footer>
             </form>
