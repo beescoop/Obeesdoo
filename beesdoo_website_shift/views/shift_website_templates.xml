@@ -24,9 +24,9 @@
 
     <!-- Help texts -->
     <template
-    id="help_text_public_shift_template_regular_worker"
-    name="Help text for public available shifts template for irregular worker"
-  >
+        id="help_text_public_shift_template_regular_worker"
+        name="Help text for public available shifts template for irregular worker"
+    >
         <p class="text-center">
             Help text or information text.
         </p>
@@ -34,9 +34,9 @@
 
 
     <template
-    id="help_text_public_shift_irregular_worker"
-    name="Help text for public Available Shifts for Irregular Worker"
-  >
+        id="help_text_public_shift_irregular_worker"
+        name="Help text for public Available Shifts for Irregular Worker"
+    >
         <p class="text-center">
             Help text or information text.
         </p>
@@ -45,9 +45,9 @@
 
     <!-- Public Available Tasks Templates for Regular Workers -->
     <template
-    id="public_shift_template_regular_worker"
-    name="Available Tasks Templates for Regular Workers"
-  >
+        id="public_shift_template_regular_worker"
+        name="Available Tasks Templates for Regular Workers"
+    >
         <t t-call="portal.portal_layout">
             <t t-set="no_breadcrumbs" t-value="True" />
 
@@ -65,8 +65,8 @@
                     <div class="row mt4">
                         <div class="col">
                             <t
-                t-call="beesdoo_website_shift.help_text_public_shift_template_regular_worker"
-              />
+                                t-call="beesdoo_website_shift.help_text_public_shift_template_regular_worker"
+                            />
                         </div>
                     </div>
                 </div>
@@ -76,66 +76,55 @@
                         <div class="col-12 col-lg-6">
 
                             <t t-foreach="task_tpls_data" t-as="template_data">
+                                <t t-set="template" t-value="template_data[0]" />
                                 <t
-                  t-set="template"
-                  t-value="template_data[0]"
-                />
+                                    t-set="has_enough_workers"
+                                    t-value="template_data[1]"
+                                />
                                 <t
-                  t-set="has_enough_workers"
-                  t-value="template_data[1]"
-                />
+                                    t-set="highlight_header_class"
+                                    t-value="'bg-warning' if not has_enough_workers else ''"
+                                />
                                 <t
-                  t-set="highlight_header_class"
-                  t-value="'bg-warning' if not has_enough_workers else ''"
-                />
-                                <t
-                  t-set="highlight_class"
-                  t-value="'border-warning' if not has_enough_workers else ''"
-                />
-                                <div
-                  t-att-class="'card mt-4 %s' % highlight_class"
-                >
+                                    t-set="highlight_class"
+                                    t-value="'border-warning' if not has_enough_workers else ''"
+                                />
+                                <div t-att-class="'card mt-4 %s' % highlight_class">
                                     <div
-                    t-att-class="'card-header %s clearfix' % highlight_header_class"
-                  >
+                                        t-att-class="'card-header %s clearfix' % highlight_header_class"
+                                    >
                                         <div class="pull-left">
-                                            <t
-                        t-esc="template.planning_id.name"
-                      />
+                                            <t t-esc="template.planning_id.name" />
                                             :
+                                            <t t-esc="template.day_nb_id.name" />
                                             <t
-                        t-esc="template.day_nb_id.name"
-                      />
-                                            <t
-                        t-esc='float_to_time(template.start_time)'
-                      />
+                                                t-esc='float_to_time(template.start_time)'
+                                            />
                                             -
                                             <t
-                        t-esc='float_to_time(template.end_time)'
-                      />
+                                                t-esc='float_to_time(template.end_time)'
+                                            />
                                         </div>
                                         <div
-                      class="badge badge-secondary pull-right"
-                      t-if="template.remaining_worker > 0"
-                    >
-                                            <t
-                        t-esc="template.remaining_worker"
-                      />
+                                            class="badge badge-secondary pull-right"
+                                            t-if="template.remaining_worker > 0"
+                                        >
+                                            <t t-esc="template.remaining_worker" />
                                             space(s)
                                         </div>
                                         <div
-                      class="badge badge-secondary pull-right"
-                      t-if="template.remaining_worker == 0"
-                    >
+                                            class="badge badge-secondary pull-right"
+                                            t-if="template.remaining_worker == 0"
+                                        >
                                             full
                                         </div>
                                     </div>
                                     <div class="card-body clearfix">
                                         <t t-esc="template.task_type_id.name" />
                                         <div
-                      class="badge badge-warning pull-right"
-                      t-if="not template.super_coop_id"
-                    >
+                                            class="badge badge-warning pull-right"
+                                            t-if="not template.super_coop_id"
+                                        >
                                             Need Super Co-operator
                                         </div>
                                     </div>
@@ -154,9 +143,9 @@
 
     <!-- Public Available Shifts for Irregular Workers -->
     <template
-    id="public_shift_irregular_worker"
-    name="Available Shifts for Irregular Workers"
-  >
+        id="public_shift_irregular_worker"
+        name="Available Shifts for Irregular Workers"
+    >
         <t t-call="portal.portal_layout">
             <t t-set="no_breadcrumbs" t-value="True" />
 
@@ -174,8 +163,8 @@
                     <div class="row mt4">
                         <div class="col">
                             <t
-                t-call="beesdoo_website_shift.help_text_public_shift_irregular_worker"
-              />
+                                t-call="beesdoo_website_shift.help_text_public_shift_irregular_worker"
+                            />
                         </div>
                     </div>
                 </div>
@@ -184,8 +173,8 @@
                     <div class="row mt4 justify-content-center">
                         <div class="col-12 col-lg-12">
                             <t
-                t-call="beesdoo_website_shift.available_shift_irregular_worker_grid"
-              />
+                                t-call="beesdoo_website_shift.available_shift_irregular_worker_grid"
+                            />
                         </div>
                     </div>
                 </div>
