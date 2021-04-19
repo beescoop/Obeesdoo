@@ -93,7 +93,9 @@ class Planning(models.Model):
             )
             return
 
-        planning.task_template_ids._generate_task_day()
+        task_recset = planning.task_template_ids._generate_task_day()
+        for rec in task_recset :
+            rec.update()
 
         next_date = planning._get_next_planning_date(date)
         config.set_param("last_planning_seq", planning.sequence)
@@ -231,7 +233,7 @@ class TaskTemplate(models.Model):
                         >= rec.end_date.date()
                     ):
                         worker_id = False
-                tasks |= tasks.create(
+                tasks |= tasks.new(
                     {
                         "name": "[%s] %s %s (%s - %s) [%s]"
                         % (
