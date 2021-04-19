@@ -104,10 +104,7 @@
     <record id="cooperative_status_1_demo" model="cooperative.status">
         <field name="cooperator_id" ref="res_partner_worker_1_demo" />
         <field name="info_session" eval="True" />
-        <field
-      name="info_session_date"
-      eval="datetime.now() - timedelta(days=58)"
-    />
+        <field name="info_session_date" eval="datetime.now() - timedelta(days=58)" />
         <field name="super" eval="True" />
         <field name="sr">2</field>
         <field name="working_mode">regular</field>
@@ -118,19 +115,13 @@
         <field name="info_session" eval="False" />
         <field name="sr">2</field>
         <field name="working_mode">irregular</field>
-        <field
-      name="irregular_start_date"
-      eval="datetime.now() - timedelta(days=3)"
-    />
+        <field name="irregular_start_date" eval="datetime.now() - timedelta(days=3)" />
     </record>
 
     <record id="cooperative_status_3_demo" model="cooperative.status">
         <field name="cooperator_id" ref="res_partner_worker_3_demo" />
         <field name="info_session" eval="True" />
-        <field
-      name="info_session_date"
-      eval="datetime.now() - timedelta(days=98)"
-    />
+        <field name="info_session_date" eval="datetime.now() - timedelta(days=98)" />
         <field name="sc">2</field>
         <field name="working_mode">regular</field>
     </record>
@@ -139,10 +130,7 @@
         <field name="cooperator_id" ref="res_partner_worker_4_demo" />
         <field name="sr">2</field>
         <field name="working_mode">irregular</field>
-        <field
-      name="irregular_start_date"
-      eval="datetime.now() - timedelta(days=6)"
-    />
+        <field name="irregular_start_date" eval="datetime.now() - timedelta(days=6)" />
     </record>
 
     <record id="cooperative_status_5_demo" model="cooperative.status">
@@ -154,10 +142,7 @@
     <record id="cooperative_status_6_demo" model="cooperative.status">
         <field name="cooperator_id" ref="res_partner_worker_6_demo" />
         <field name="info_session" eval="True" />
-        <field
-      name="info_session_date"
-      eval="datetime.now() - timedelta(days=36)"
-    />
+        <field name="info_session_date" eval="datetime.now() - timedelta(days=36)" />
         <field name="sc">2</field>
         <field name="working_mode">regular</field>
     </record>

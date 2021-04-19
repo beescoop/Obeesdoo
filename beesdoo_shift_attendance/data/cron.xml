@@ -23,9 +23,9 @@
             <field name="numbercall">-1</field>
             <field name="doall" eval="False" />
             <field
-        name="nextcall"
-        eval="datetime.now().replace(hour=00, minute=00, second=10)"
-      />
+                name="nextcall"
+                eval="datetime.now().replace(hour=00, minute=00, second=10)"
+            />
             <field name="active" eval="False" />
         </record>
     </data>

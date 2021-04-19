@@ -30,25 +30,25 @@
                 <field name="day_nb_id" />
                 <field name="worker_ids" />
                 <filter
-          string="My Team Shift"
-          name="my_team_shift"
-          domain="[('super_coop_id', '=', uid)]"
-        />
+                    string="My Team Shift"
+                    name="my_team_shift"
+                    domain="[('super_coop_id', '=', uid)]"
+                />
                 <filter
-          string="Planning"
-          name="planning"
-          context="{'group_by':'planning_id'}"
-        />
+                    string="Planning"
+                    name="planning"
+                    context="{'group_by':'planning_id'}"
+                />
                 <filter
-          string="Week Day"
-          name="week_day"
-          context="{'group_by':'day_nb_id'}"
-        />
+                    string="Week Day"
+                    name="week_day"
+                    context="{'group_by':'day_nb_id'}"
+                />
                 <filter
-          string="Place Available"
-          name="available"
-          domain="[('remaining_worker', '>', 0)]"
-        />
+                    string="Place Available"
+                    name="available"
+                    domain="[('remaining_worker', '>', 0)]"
+                />
             </search>
         </field>
     </record>
@@ -92,11 +92,11 @@
         <field name="model">beesdoo.shift.template</field>
         <field name="arch" type="xml">
             <calendar
-        string="Calendar View"
-        date_start="start_date"
-        date_stop="end_date"
-        color="task_type_id"
-      >
+                string="Calendar View"
+                date_start="start_date"
+                date_stop="end_date"
+                color="task_type_id"
+            >
                 <field name="name" />
                 <field name="super_coop_id" />
                 <field name="worker_ids" />
@@ -121,47 +121,47 @@
                 <templates>
                     <t t-name="kanban-box">
                         <div
-              t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click"
-            >
+                            t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click"
+                        >
                             <t t-if="widget.editable">
                                 <div
-                  class="o_dropdown_kanban dropdown"
-                  name="card_dropdown_menu"
-                >
+                                    class="o_dropdown_kanban dropdown"
+                                    name="card_dropdown_menu"
+                                >
                                     <a
-                    class="dropdown-toggle o-no-caret btn"
-                    role="button"
-                    data-toggle="dropdown"
-                    data-display="static"
-                    href="#"
-                    aria-label="Dropdown menu"
-                    title="Dropdown menu"
-                  >
+                                        class="dropdown-toggle o-no-caret btn"
+                                        role="button"
+                                        data-toggle="dropdown"
+                                        data-display="static"
+                                        href="#"
+                                        aria-label="Dropdown menu"
+                                        title="Dropdown menu"
+                                    >
                                         <span class="fa fa-ellipsis-v" />
                                     </a>
                                     <div class="dropdown-menu" role="menu">
                                         <t t-if="widget.editable">
                                             <a
-                        role="menuitem"
-                        type="edit"
-                        class="dropdown-item"
-                      >Edit Shift
+                                                role="menuitem"
+                                                type="edit"
+                                                class="dropdown-item"
+                                            >Edit Shift
                                                 Template
                                             </a>
                                         </t>
                                         <t t-if="widget.deletable">
                                             <a
-                        role="menuitem"
-                        type="delete"
-                        class="dropdown-item"
-                      >Delete
+                                                role="menuitem"
+                                                type="delete"
+                                                class="dropdown-item"
+                                            >Delete
                                             </a>
                                         </t>
                                         <ul
-                      role="menu"
-                      class="oe_kanban_colorpicker"
-                      data-field="color"
-                    />
+                                            role="menu"
+                                            class="oe_kanban_colorpicker"
+                                            data-field="color"
+                                        />
                                     </div>
                                 </div>
                             </t>
@@ -186,24 +186,18 @@
                                     <field name="worker_nb" />
                                 </div>
                                 <div>
-                                    <field
-                    name="start_time"
-                    widget="float_time"
-                  />
+                                    <field name="start_time" widget="float_time" />
                                     -
-                                    <field
-                    name="end_time"
-                    widget="float_time"
-                  />
+                                    <field name="end_time" widget="float_time" />
                                 </div>
                             </div>
                             <div>
                                 <br />
                                 <strong>Recurring Workers</strong>
                                 <t
-                  t-foreach="record.worker_name.raw_value.split(',')"
-                  t-as="worker"
-                >
+                                    t-foreach="record.worker_name.raw_value.split(',')"
+                                    t-as="worker"
+                                >
                                     <div>
                                         <t t-esc="worker" />
                                     </div>
@@ -216,10 +210,7 @@
         </field>
     </record>
 
-    <record
-    model="ir.actions.act_window"
-    id="action_generate_shift_template_wizard"
-  >
+    <record model="ir.actions.act_window" id="action_generate_shift_template_wizard">
         <field name="name">Generate Shift Template</field>
         <field name="res_model">beesddoo.shift.generate_shift_template</field>
         <field name="view_mode">form</field>
@@ -233,10 +224,10 @@
             <form>
                 <header>
                     <button
-            type="action"
-            name="%(action_generate_shift_template_wizard)d"
-            string="Generate shift Templates"
-          />
+                        type="action"
+                        name="%(action_generate_shift_template_wizard)d"
+                        string="Generate shift Templates"
+                    />
                 </header>
                 <sheet>
                     <group>

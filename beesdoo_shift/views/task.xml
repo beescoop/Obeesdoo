@@ -28,93 +28,93 @@
                 <field name="super_coop_id" />
                 <field name="worker_id" />
                 <filter
-          string="My Team Shift"
-          name="my_team_shift"
-          domain="[('super_coop_id', '=', uid)]"
-        />
+                    string="My Team Shift"
+                    name="my_team_shift"
+                    domain="[('super_coop_id', '=', uid)]"
+                />
                 <filter
-          string="My Shift"
-          name="my_shift"
-          domain="[('worker_id.user_ids', 'in', uid)]"
-        />
+                    string="My Shift"
+                    name="my_shift"
+                    domain="[('worker_id.user_ids', 'in', uid)]"
+                />
                 <separator />
                 <filter
-          string="Assigned"
-          name="assigned"
-          domain="[('worker_id', '!=', False)]"
-        />
+                    string="Assigned"
+                    name="assigned"
+                    domain="[('worker_id', '!=', False)]"
+                />
                 <filter
-          string="Unassigned"
-          name="unassigned"
-          domain="[('worker_id', '=', False)]"
-        />
+                    string="Unassigned"
+                    name="unassigned"
+                    domain="[('worker_id', '=', False)]"
+                />
                 <separator />
                 <filter
-          string="4 next weeks"
-          name="4nextweeks"
-          domain="[('end_time','&gt;', context_today().strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  + datetime.timedelta(weeks=4)).strftime('%Y-%m-%d 23:59:59'))]"
-        />
+                    string="4 next weeks"
+                    name="4nextweeks"
+                    domain="[('end_time','&gt;', context_today().strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  + datetime.timedelta(weeks=4)).strftime('%Y-%m-%d 23:59:59'))]"
+                />
                 <filter
-          string="4 next days"
-          name="nextweek"
-          domain="[('end_time','&gt;', context_today().strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  + datetime.timedelta(days=4)).strftime('%Y-%m-%d 23:59:59'))]"
-        />
+                    string="4 next days"
+                    name="nextweek"
+                    domain="[('end_time','&gt;', context_today().strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  + datetime.timedelta(days=4)).strftime('%Y-%m-%d 23:59:59'))]"
+                />
                 <filter
-          string="4 previous weeks"
-          name="4previousweeks"
-          domain="[('end_time','&gt;', (context_today() - datetime.timedelta(weeks=4)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', context_today().strftime('%Y-%m-%d 23:59:59'))]"
-        />
+                    string="4 previous weeks"
+                    name="4previousweeks"
+                    domain="[('end_time','&gt;', (context_today() - datetime.timedelta(weeks=4)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', context_today().strftime('%Y-%m-%d 23:59:59'))]"
+                />
                 <filter
-          string="J-5"
-          name="jminus5"
-          domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=5)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=5)).strftime('%Y-%m-%d 23:59:59'))]"
-        />
+                    string="J-5"
+                    name="jminus5"
+                    domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=5)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=5)).strftime('%Y-%m-%d 23:59:59'))]"
+                />
                 <filter
-          string="J-4"
-          name="jminus4"
-          domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=4)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=4)).strftime('%Y-%m-%d 23:59:59'))]"
-        />
+                    string="J-4"
+                    name="jminus4"
+                    domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=4)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=4)).strftime('%Y-%m-%d 23:59:59'))]"
+                />
                 <filter
-          string="J-3"
-          name="jminus3"
-          domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=3)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=3)).strftime('%Y-%m-%d 23:59:59'))]"
-        />
+                    string="J-3"
+                    name="jminus3"
+                    domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=3)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=3)).strftime('%Y-%m-%d 23:59:59'))]"
+                />
                 <filter
-          string="J-2"
-          name="jminus2"
-          domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=2)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=2)).strftime('%Y-%m-%d 23:59:59'))]"
-        />
+                    string="J-2"
+                    name="jminus2"
+                    domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=2)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=2)).strftime('%Y-%m-%d 23:59:59'))]"
+                />
                 <filter
-          string="J-1"
-          name="jminus1"
-          domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=1)).strftime('%Y-%m-%d 23:59:59'))]"
-        />
+                    string="J-1"
+                    name="jminus1"
+                    domain="[('end_time','&gt;', (context_today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', (context_today()  - datetime.timedelta(days=1)).strftime('%Y-%m-%d 23:59:59'))]"
+                />
                 <filter
-          string="Today"
-          name="today"
-          domain="[('end_time','&gt;', context_today().strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', context_today().strftime('%Y-%m-%d 23:59:59'))]"
-        />
+                    string="Today"
+                    name="today"
+                    domain="[('end_time','&gt;', context_today().strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', context_today().strftime('%Y-%m-%d 23:59:59'))]"
+                />
                 <group expand="1" string="Group By">
                     <filter
-            string="Shift Template"
-            name="template"
-            context="{'group_by' : 'task_template_id'}"
-          />
+                        string="Shift Template"
+                        name="template"
+                        context="{'group_by' : 'task_template_id'}"
+                    />
                     <filter
-            string="Type"
-            name="gb_type"
-            context="{'group_by' : 'task_type_id'}"
-          />
+                        string="Type"
+                        name="gb_type"
+                        context="{'group_by' : 'task_type_id'}"
+                    />
                     <filter
-            string="Status"
-            name="gb_status"
-            context="{'group_by' : 'state'}"
-          />
+                        string="Status"
+                        name="gb_status"
+                        context="{'group_by' : 'state'}"
+                    />
                     <filter
-            string="Day"
-            name="gb_day"
-            context="{'group_by' : 'start_time:day'}"
-          />
+                        string="Day"
+                        name="gb_day"
+                        context="{'group_by' : 'start_time:day'}"
+                    />
                 </group>
             </search>
         </field>
@@ -125,11 +125,11 @@
         <field name="model">beesdoo.shift.shift</field>
         <field name="arch" type="xml">
             <calendar
-        string="Calendar View"
-        date_start="start_time"
-        date_stop="end_time"
-        color="task_type_id"
-      >
+                string="Calendar View"
+                date_start="start_time"
+                date_stop="end_time"
+                color="task_type_id"
+            >
                 <field name="name" />
                 <field name="super_coop_id" />
                 <field name="worker_id" />
@@ -156,28 +156,28 @@
                             <field name="task_template_id" />
                             <field name="task_type_id" />
                             <field
-                name="super_coop_id"
-                domain="[('cooperative_status_ids.status', 'not in', ('unsubscribed', 'resigning'))]"
-              />
+                                name="super_coop_id"
+                                domain="[('cooperative_status_ids.status', 'not in', ('unsubscribed', 'resigning'))]"
+                            />
                             <field
-                name="worker_id"
-                options="{'no_create': True, 'no_open': True}"
-                domain="[('cooperative_status_ids.status', 'not in', ('unsubscribed', 'resigning'))]"
-              />
+                                name="worker_id"
+                                options="{'no_create': True, 'no_open': True}"
+                                domain="[('cooperative_status_ids.status', 'not in', ('unsubscribed', 'resigning'))]"
+                            />
                             <field
-                name="replaced_id"
-                options="{'no_create': True, 'no_open': True}"
-                domain="[('working_mode', '=', 'regular')]"
-                attrs="{'invisible': [('working_mode', '!=', 'regular')]}"
-              />
+                                name="replaced_id"
+                                options="{'no_create': True, 'no_open': True}"
+                                domain="[('working_mode', '=', 'regular')]"
+                                attrs="{'invisible': [('working_mode', '!=', 'regular')]}"
+                            />
                             <field
-                name="is_regular"
-                attrs="{'invisible': [('working_mode', '!=', 'regular')]}"
-              />
+                                name="is_regular"
+                                attrs="{'invisible': [('working_mode', '!=', 'regular')]}"
+                            />
                             <field
-                name="is_compensation"
-                attrs="{'invisible': [('working_mode', '!=', 'regular')]}"
-              />
+                                name="is_compensation"
+                                attrs="{'invisible': [('working_mode', '!=', 'regular')]}"
+                            />
                             <field name="working_mode" invisible="1" />
                         </group>
                         <group>
@@ -189,10 +189,7 @@
                 </sheet>
                 <!-- Solution Ex1 -->
                 <div class="oe_chatter">
-                    <field
-            name="message_follower_ids"
-            widget="mail_followers"
-          />
+                    <field name="message_follower_ids" widget="mail_followers" />
                     <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
@@ -215,39 +212,39 @@
                 <templates>
                     <t t-name="kanban-box">
                         <div
-              t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click"
-            >
+                            t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click"
+                        >
                             <div
-                class="o_dropdown_kanban dropdown"
-                name="card_dropdown_menu"
-                groups="base.group_user"
-              >
+                                class="o_dropdown_kanban dropdown"
+                                name="card_dropdown_menu"
+                                groups="base.group_user"
+                            >
                                 <a
-                  class="dropdown-toggle o-no-caret btn"
-                  role="button"
-                  data-toggle="dropdown"
-                  data-display="static"
-                  href="#"
-                  aria-label="Dropdown menu"
-                  title="Dropdown menu"
-                >
+                                    class="dropdown-toggle o-no-caret btn"
+                                    role="button"
+                                    data-toggle="dropdown"
+                                    data-display="static"
+                                    href="#"
+                                    aria-label="Dropdown menu"
+                                    title="Dropdown menu"
+                                >
                                     <span class="fa fa-ellipsis-v" />
                                 </a>
                                 <div class="dropdown-menu" role="menu">
                                     <t t-if="widget.editable">
                                         <a
-                      role="menuitem"
-                      type="edit"
-                      class="dropdown-item"
-                    >Edit Shift
+                                            role="menuitem"
+                                            type="edit"
+                                            class="dropdown-item"
+                                        >Edit Shift
                                         </a>
                                     </t>
                                     <t t-if="widget.deletable">
                                         <a
-                      role="menuitem"
-                      type="delete"
-                      class="dropdown-item"
-                    >Delete
+                                            role="menuitem"
+                                            type="delete"
+                                            class="dropdown-item"
+                                        >Delete
                                         </a>
                                     </t>
                                 </div>
@@ -257,10 +254,7 @@
                                     <field name="name" />
                                 </strong>
                                 <div>
-                                    <field
-                    name="start_time"
-                    widget="datetime"
-                  />
+                                    <field name="start_time" widget="datetime" />
                                     -
                                     <field name="end_time" widget="datetime" />
                                 </div>

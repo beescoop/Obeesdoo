@@ -7,52 +7,49 @@
             <field name="arch" type="xml">
                 <xpath expr="//header" position="inside">
                      <button
-            name="button_adapt_price"
-            states="draft,sent,purchase"
-            string="Adapt Prices"
-            type="object"
-          />
+                        name="button_adapt_price"
+                        states="draft,sent,purchase"
+                        string="Adapt Prices"
+                        type="object"
+                    />
                 </xpath>
-                <xpath
-          expr="//div[hasclass('oe_button_box')]"
-          position="inside"
-        >
+                <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
                     <button
-            name="action_select_deselect_adapt_purchase_price"
-            type="object"
-            attrs="{'invisible': [('select_all_purchase_price', '=', False)]}"
-            string="Deselect All Is Purchase Price"
-            icon="fa-square-o"
-            class="oe_stat_button"
-            help="Deselect All Is Purchase Price checkboxes to adapt the purchase price on the product page when confirming Purchase Order"
-          />
+                        name="action_select_deselect_adapt_purchase_price"
+                        type="object"
+                        attrs="{'invisible': [('select_all_purchase_price', '=', False)]}"
+                        string="Deselect All Is Purchase Price"
+                        icon="fa-square-o"
+                        class="oe_stat_button"
+                        help="Deselect All Is Purchase Price checkboxes to adapt the purchase price on the product page when confirming Purchase Order"
+                    />
                     <button
-            name="action_select_deselect_adapt_purchase_price"
-            type="object"
-            attrs="{'invisible': [('select_all_purchase_price', '=', True)]}"
-            string="Select All Is Purchase Price"
-            icon="fa-check-square"
-            class="oe_stat_button"
-            help="Select All Is Purchase Price checkboxes to adapt the purchase price on the product page when confirming Purchase Order"
-          />
+                        name="action_select_deselect_adapt_purchase_price"
+                        type="object"
+                        attrs="{'invisible': [('select_all_purchase_price', '=', True)]}"
+                        string="Select All Is Purchase Price"
+                        icon="fa-check-square"
+                        class="oe_stat_button"
+                        help="Select All Is Purchase Price checkboxes to adapt the purchase price on the product page when confirming Purchase Order"
+                    />
                     <button
-            name="action_select_deselect_adapt_selling_price"
-            type="object"
-            attrs="{'invisible': [('select_all_selling_price', '=', False)]}"
-            string="Deselect All Is Selling Price"
-            icon="fa-square-o"
-            class="oe_stat_button"
-            help="Deselect All Is Selling Price checkboxes to adapt the selling price on the product page when confirming Purchase Order"
-          />
+                        name="action_select_deselect_adapt_selling_price"
+                        type="object"
+                        attrs="{'invisible': [('select_all_selling_price', '=', False)]}"
+                        string="Deselect All Is Selling Price"
+                        icon="fa-square-o"
+                        class="oe_stat_button"
+                        help="Deselect All Is Selling Price checkboxes to adapt the selling price on the product page when confirming Purchase Order"
+                    />
                     <button
-            name="action_select_deselect_adapt_selling_price"
-            type="object"
-            attrs="{'invisible': [('select_all_selling_price', '=', True)]}"
-            string="Select All Is Selling Price"
-            icon="fa-check-square"
-            class="oe_stat_button"
-            help="Select All Is Selling Price checkboxes to adapt the selling price on the product page when confirming Purchase Order"
-          />
+                        name="action_select_deselect_adapt_selling_price"
+                        type="object"
+                        attrs="{'invisible': [('select_all_selling_price', '=', True)]}"
+                        string="Select All Is Selling Price"
+                        icon="fa-check-square"
+                        class="oe_stat_button"
+                        help="Select All Is Selling Price checkboxes to adapt the selling price on the product page when confirming Purchase Order"
+                    />
                 </xpath>
                 <field name="date_order" position="after">
                     <field name="supervisor_id" />
@@ -66,14 +63,8 @@
                     </attribute>
                 </field>
                 <field name="price_subtotal" position="after">
-                    <field
-            name="adapt_purchase_price"
-            string="Is Purchase Price"
-          />
-                    <field
-            name="adapt_selling_price"
-            string="Is Selling Price"
-          />
+                    <field name="adapt_purchase_price" string="Is Purchase Price" />
+                    <field name="adapt_selling_price" string="Is Selling Price" />
                     <field name="stock_coverage" string="Stock Coverage" />
                 </field>
             </field>
@@ -93,10 +84,7 @@
         <record model="ir.ui.view" id="beesdoo_purchase_order_search_view">
             <field name="name">beesdoo.purchase.order.search.view</field>
             <field name="model">purchase.order</field>
-            <field
-        name="inherit_id"
-        ref="purchase.view_purchase_order_filter"
-      />
+            <field name="inherit_id" ref="purchase.view_purchase_order_filter" />
             <field name="arch" type="xml">
                 <field name="create_uid" position="after">
                     <field name="supervisor_id" />

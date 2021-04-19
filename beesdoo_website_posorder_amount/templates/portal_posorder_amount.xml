@@ -7,11 +7,11 @@
 
     <!-- Add pos.order total amount -->
     <template
-    id="total_pos_order_amount"
-    name="Portal total POS order amount"
-    priority="40"
-    inherit_id="portal.portal_layout"
-  >
+        id="total_pos_order_amount"
+        name="Portal total POS order amount"
+        priority="40"
+        inherit_id="portal.portal_layout"
+    >
         <xpath expr="//div[hasclass('o_portal_my_details')]" position="after">
             <div class="o_my_details_eater mt-2">
                 <h4 class="page-header">Purchases</h4>
@@ -19,15 +19,12 @@
                 <p>
                     You have purchased a total amount of
                     <span
-            t-esc="posorder_amount"
-            t-esc-options='{"widget": "monetary", "display_currency": "company_currency"}'
-          />
+                        t-esc="posorder_amount"
+                        t-esc-options='{"widget": "monetary", "display_currency": "company_currency"}'
+                    />
                     .
                 </p>
-                <table
-          name="posorder_amount_by_year"
-          class="table table-striped"
-        >
+                <table name="posorder_amount_by_year" class="table table-striped">
                     <tr>
                         <th>
                             Year
@@ -42,9 +39,9 @@
                         </td>
                         <td>
                             <t
-                t-esc="row['amount']"
-                t-esc-options='{"widget": "monetary", "display_currency": "company_currency"}'
-              />
+                                t-esc="row['amount']"
+                                t-esc-options='{"widget": "monetary", "display_currency": "company_currency"}'
+                            />
                         </td>
                     </tr>
                 </table>

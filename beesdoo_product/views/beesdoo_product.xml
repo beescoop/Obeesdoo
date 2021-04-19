@@ -3,26 +3,23 @@
     <record model="ir.ui.view" id="beesdoo_product_form">
         <field name="name">bees.product.template.form</field>
         <field name="model">product.template</field>
-        <field
-      name="inherit_id"
-      ref="product.product_template_only_form_view"
-    />
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
         <field name="arch" type="xml">
             <field name="barcode" position="after">
                 <button
-          string="Generate Barcode"
-          name="generate_barcode"
-          type="object"
-          colspan="2"
-          attrs="{'invisible' : [('barcode','!=',False)]}"
-        />
+                    string="Generate Barcode"
+                    name="generate_barcode"
+                    type="object"
+                    colspan="2"
+                    attrs="{'invisible' : [('barcode','!=',False)]}"
+                />
             </field>
             <field name="list_price" position="after">
                 <field
-          name="suggested_price"
-          widget='monetary'
-          options="{'currency_field': 'currency_id'}"
-        />
+                    name="suggested_price"
+                    widget='monetary'
+                    options="{'currency_field': 'currency_id'}"
+                />
             </field>
             <field name="purchase_method" position="attributes">
                 <attribute name="invisible">1</attribute>
@@ -31,9 +28,9 @@
                 <attribute name="invisible">1</attribute>
             </field>
             <field
-        name="property_account_creditor_price_difference"
-        position="attributes"
-      >
+                name="property_account_creditor_price_difference"
+                position="attributes"
+            >
                 <attribute name="invisible">1</attribute>
             </field>
             <xpath expr="//group[@name='inventory']/.." position="after">
@@ -66,9 +63,9 @@
                     </group>
                 </page>
                 <page
-          string="Scale labels"
-          attrs="{'invisible':[('to_weight','=',False)]}"
-        >
+                    string="Scale labels"
+                    attrs="{'invisible':[('to_weight','=',False)]}"
+                >
                     <group>
                         <group name="scale_label">
                             <field name="deadline_for_sale" />
@@ -91,10 +88,7 @@
     <record model="ir.ui.view" id="beesdoo_product_sales_form">
         <field name="name">bees.product.sales.form</field>
         <field name="model">product.template</field>
-        <field
-      name="inherit_id"
-      ref="sale.product_template_form_view_invoice_policy"
-    />
+        <field name="inherit_id" ref="sale.product_template_form_view_invoice_policy" />
         <field name="arch" type="xml">
             <field name="invoice_policy" position="attributes">
                 <attribute name="invisible">1</attribute>
@@ -110,24 +104,24 @@
             <tree string="Product" editable="top" edit="true">
                 <field name="name" readonly="1" />
                 <field
-          name="main_seller_id"
-          string="Main Seller"
-          readonly="1"
-          options="{'no_open': True, 'no_create': True, 'no_create_edit': True }"
-        />
+                    name="main_seller_id"
+                    string="Main Seller"
+                    readonly="1"
+                    options="{'no_open': True, 'no_create': True, 'no_create_edit': True }"
+                />
                 <field name="purchase_price" />
                 <field
-          name="uom_po_id"
-          readonly="1"
-          options="{'no_open': True, 'no_create': True, 'no_create_edit':True }"
-        />
+                    name="uom_po_id"
+                    readonly="1"
+                    options="{'no_open': True, 'no_create': True, 'no_create_edit':True }"
+                />
                 <field name="suggested_price" readonly="1" />
                 <field name="list_price" readonly="1" />
                 <field
-          name="uom_id"
-          readonly="1"
-          options="{'no_open': True, 'no_create': True, 'no_create_edit':True }"
-        />
+                    name="uom_id"
+                    readonly="1"
+                    options="{'no_open': True, 'no_create': True, 'no_create_edit':True }"
+                />
             </tree>
         </field>
     </record>
@@ -232,20 +226,20 @@
     </record>
 
     <menuitem
-    id="label_configuration_menu"
-    name="Labels"
-    parent="sale.prod_config_main"
-    action="action_labels"
-    sequence="20"
-  />
+        id="label_configuration_menu"
+        name="Labels"
+        parent="sale.prod_config_main"
+        action="action_labels"
+        sequence="20"
+    />
 
     <menuitem
-    id="hazard_configuration_menu"
-    name="Hazards"
-    parent="sale.prod_config_main"
-    action="action_hazards"
-    sequence="30"
-  />
+        id="hazard_configuration_menu"
+        name="Hazards"
+        parent="sale.prod_config_main"
+        action="action_hazards"
+        sequence="30"
+    />
 
     <record id="beesdoo_product_uom_categ_form" model="ir.ui.view">
         <field name="name">uom.category.form</field>
@@ -300,10 +294,10 @@
     </record>
 
     <menuitem
-    id="scale_categories_configuration_menu"
-    name="Scale categories"
-    parent="sale.prod_config_main"
-    action="action_scale_categories"
-    sequence="15"
-  />
+        id="scale_categories_configuration_menu"
+        name="Scale categories"
+        parent="sale.prod_config_main"
+        action="action_scale_categories"
+        sequence="15"
+    />
 </odoo>

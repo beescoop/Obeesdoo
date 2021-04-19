@@ -25,11 +25,11 @@
             <form>
                 <header>
                     <button
-            type="object"
-            name="create_purchase_order"
-            string="Create Purchase Order"
-            class="oe_highlight"
-          />
+                        type="object"
+                        name="create_purchase_order"
+                        string="Create Purchase Order"
+                        class="oe_highlight"
+                    />
                 </header>
 
                 <sheet>
@@ -39,39 +39,29 @@
                             <field name="order_date" />
                             <field name="date_planned" />
                             <field name="total_amount" />
-                            <field
-                name="generated_purchase_order_ids"
-                invisible='1'
-              />
+                            <field name="generated_purchase_order_ids" invisible='1' />
                         </group>
 
                         <div name="buttons" class="oe_right oe_button_box">
                             <button
-                class="oe_inline oe_stat_button"
-                type="object"
-                icon="fa-shopping-cart"
-                name="get_generated_po_action"
-                help="Generated Purchase Orders"
-              >
+                                class="oe_inline oe_stat_button"
+                                type="object"
+                                icon="fa-shopping-cart"
+                                name="get_generated_po_action"
+                                help="Generated Purchase Orders"
+                            >
                                 <field
-                  string="Purchase orders"
-                  name="generated_po_count"
-                  widget="statinfo"
-                />
+                                    string="Purchase orders"
+                                    name="generated_po_count"
+                                    widget="statinfo"
+                                />
                             </button>
                         </div>
 
                     </group>
 
-                    <field
-            name="pog_line_ids"
-            context="{'cpo_seller_id': supplier_id}"
-          >
-                        <tree
-              name="order_lines"
-              string="Order Lines"
-              editable='bottom'
-            >
+                    <field name="pog_line_ids" context="{'cpo_seller_id': supplier_id}">
+                        <tree name="order_lines" string="Order Lines" editable='bottom'>
                             <field name="product_template_id" />
                             <field name="qty_available" readonly='1' />
                             <field name="virtual_available" readonly='1' />
@@ -110,10 +100,10 @@
     </record>
 
     <menuitem
-    id="purchase_order_generator"
-    parent="purchase.menu_procurement_management"
-    action="action_purchase_order_generator"
-  />
+        id="purchase_order_generator"
+        parent="purchase.menu_procurement_management"
+        action="action_purchase_order_generator"
+    />
 
     <!-- Actions -->
 

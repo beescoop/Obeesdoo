@@ -13,11 +13,11 @@
                 </group>
                 <footer>
                     <button
-            type="object"
-            name="create_new_eater"
-            string="Create"
-            class="oe_highlight"
-          />
+                        type="object"
+                        name="create_new_eater"
+                        string="Create"
+                        class="oe_highlight"
+                    />
                     <button special="cancel" string="Cancel" />
                 </footer>
             </form>

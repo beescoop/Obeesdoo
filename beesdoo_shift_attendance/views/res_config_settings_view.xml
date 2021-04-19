@@ -16,12 +16,12 @@
             <field name="arch" type="xml">
                 <xpath expr="//div[hasclass('settings')]" position="inside">
                     <div
-            class="app_settings_block"
-            data-string="Shifts Management"
-            string="Shifts Management"
-            data-key="beesdoo_shift"
-            groups="beesdoo_shift.group_cooperative_admin"
-          >
+                        class="app_settings_block"
+                        data-string="Shifts Management"
+                        string="Shifts Management"
+                        data-key="beesdoo_shift"
+                        groups="beesdoo_shift.group_cooperative_admin"
+                    >
                         <field name="has_accounting_entries" invisible="1" />
                         <h2>Attendance Sheets</h2>
                         <div class="row mt16 o_settings_container">
@@ -31,9 +31,9 @@
                                 </div>
                                 <div class="o_setting_right_pane">
                                     <label
-                    for="card_support"
-                    string="Scan cards for validation"
-                  />
+                                        for="card_support"
+                                        string="Scan cards for validation"
+                                    />
                                     <div class="text-muted">
                                         If not checked, user credentials are
                                         asked.
@@ -53,15 +53,15 @@
                                     <div class="content-group">
                                         <div class="mt16 row">
                                             <label
-                        for="attendance_sheet_generation_interval"
-                        string="Interval (minutes)"
-                        class="col-3 col-lg-3 o_light_label"
-                      />
+                                                for="attendance_sheet_generation_interval"
+                                                string="Interval (minutes)"
+                                                class="col-3 col-lg-3 o_light_label"
+                                            />
                                             <field
-                        name="attendance_sheet_generation_interval"
-                        class="oe_inline"
-                        required="1"
-                      />
+                                                name="attendance_sheet_generation_interval"
+                                                class="oe_inline"
+                                                required="1"
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -79,15 +79,15 @@
                                     <div class="content-group">
                                         <div class="mt16 row">
                                             <label
-                        for="pre_filled_task_type_id"
-                        string="Default Task Type"
-                        class="col-3 col-lg-3 o_light_label"
-                      />
+                                                for="pre_filled_task_type_id"
+                                                string="Default Task Type"
+                                                class="col-3 col-lg-3 o_light_label"
+                                            />
                                             <field
-                        name="pre_filled_task_type_id"
-                        class="oe_inline"
-                        required="1"
-                      />
+                                                name="pre_filled_task_type_id"
+                                                class="oe_inline"
+                                                required="1"
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -99,14 +99,11 @@
         </record>
 
 
-        <record
-      model="ir.actions.act_window"
-      id="action_missing_attendance_sheets"
-    >
+        <record model="ir.actions.act_window" id="action_missing_attendance_sheets">
             <field name="name">Generate missing past attendance sheets</field>
             <field
-        name="res_model"
-      >beesdoo.shift.generate_missing_attendance_sheets</field>
+                name="res_model"
+            >beesdoo.shift.generate_missing_attendance_sheets</field>
             <field name="view_mode">form</field>
         </record>
 
@@ -120,12 +117,12 @@
         </record>
 
         <menuitem
-      name="Shift Settings"
-      id="menu_shift_settings"
-      parent="beesdoo_shift.menu_configuration_top"
-      action="action_shift_settings"
-      groups="beesdoo_shift.group_cooperative_admin"
-    />
+            name="Shift Settings"
+            id="menu_shift_settings"
+            parent="beesdoo_shift.menu_configuration_top"
+            action="action_shift_settings"
+            groups="beesdoo_shift.group_cooperative_admin"
+        />
 
     </data>
 </odoo>

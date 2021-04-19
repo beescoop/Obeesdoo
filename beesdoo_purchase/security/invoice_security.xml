@@ -2,9 +2,7 @@
 <odoo>
 
     <record id="group_invert_po_ref_on_inv_line" model="res.groups">
-        <field
-      name="name"
-    >Invert Purchase Order Reference on invoice line</field>
+        <field name="name">Invert Purchase Order Reference on invoice line</field>
         <field name="category_id" ref="base.module_category_hidden" />
     </record>
 

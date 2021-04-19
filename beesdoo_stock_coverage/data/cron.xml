@@ -5,9 +5,7 @@
 -->
 <odoo noupdate="0">
     <record id="product_sale_statistics_cron" model="ir.cron">
-        <field
-      name="name"
-    >Stock Coverage - Update Article Sales Statistics</field>
+        <field name="name">Stock Coverage - Update Article Sales Statistics</field>
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
         <field name="numbercall">-1</field>
