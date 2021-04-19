@@ -1,6 +1,9 @@
 from odoo import models, fields, api
 from datetime import datetime, timedelta
 
+from odoo import _
+from odoo.exceptions import UserError
+
 class TimeslotsDate(models.Model):
     _name = 'beesdoo.shift.timeslots_date'
 
@@ -53,7 +56,7 @@ class TimeslotsDate(models.Model):
         #now we have to generate timeslot of the shift that aren't generated
 
         #Get parameters
-
+        '''
         #TODO : add system parameters of +2months
         shift_period = int(
             self.env["ir.config_parameter"]
@@ -61,6 +64,7 @@ class TimeslotsDate(models.Model):
                 .get_param("beesdoo_website_shift.shift_period")
         )
         end_date = my_timeslot.date + timedelta(days=2*shift_period)
+        #seulement la sequence sera a calculer puis get_next_planning
         last_sequence = int(
                 self.env["ir.config_parameter"]
                 .sudo()
@@ -69,9 +73,9 @@ class TimeslotsDate(models.Model):
         #change 4 en allant chercher le nombre de planning
         #utiliser get_next_planning
         next_planning_nb = (last_sequence % 4) + 1
-        next_planning = self.env["beesdoo.shift.planning"].search([
-            ("sequence" , "=" , next_planning_nb)
-        ])
+        #next_planning = self.env["beesdoo.shift.planning"].search([
+        #    ("sequence" , "=" , next_planning_nb)
+        #])
         #TODO :check if we have one records for last_planning
         templates = self.env["beesdoo.shift.template"].search(
             [
@@ -84,6 +88,41 @@ class TimeslotsDate(models.Model):
             self.env["ir.config_parameter"].sudo().get_param("next_planning_date"),
             '%Y-%m-%d'
         )
+        '''
+
+        #utiliser get_next_planning
+        #utiliser get_next_planning_date
+        #utiliser generate_task_day pour générer tout les shift d'un templates
+
+
+        #on recupere le planning souhaiter avec get_next_planning, on initialise get_next_planning_date
+        #on genere tout les shift de ce planning 'template_ids.generate_task_day'
+        #transforme shift en timeslot comme fait en haut
+        #on re initialise le planning et la nouvelle date et on recommebxe
+        last_sequence = int(
+            self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("last_planning_seq")
+        )
+        next_planning = self.env["beesdoo.shift.planning"]._get_next_planning(last_sequence)
+        date = fields.Date.from_string(
+            self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("next_planning_date", 0)
+        )
+        next_planning = next_planning.with_context(visualize_date=date)
+
+        '''
+        if not next_planning.task_template_ids:
+            _logger.error(
+                "Could not generate next planning: no task template defined."
+            )
+            return
+        '''
+
+        shift_recset = self.env["beesdoo.shift.shift"]
+        shift_recset |= next_planning.task_template_ids._generate_task_day()
+
 
         return timeslot_rec
 
