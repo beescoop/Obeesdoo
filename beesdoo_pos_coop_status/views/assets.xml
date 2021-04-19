@@ -4,17 +4,17 @@
     <template id="assets" inherit_id="point_of_sale.assets">
         <xpath expr="." position="inside">
             <script
-        type="text/javascript"
-        src="/beesdoo_pos_coop_status/static/src/js/models.js"
-      />
+                type="text/javascript"
+                src="/beesdoo_pos_coop_status/static/src/js/models.js"
+            />
             <script
-        type="text/javascript"
-        src="/beesdoo_pos_coop_status/static/src/js/screens.js"
-      />
+                type="text/javascript"
+                src="/beesdoo_pos_coop_status/static/src/js/screens.js"
+            />
             <link
-        rel="stylesheet"
-        href="/beesdoo_pos_coop_status/static/src/css/coop_status.css"
-      />
+                rel="stylesheet"
+                href="/beesdoo_pos_coop_status/static/src/css/coop_status.css"
+            />
         </xpath>
     </template>
 

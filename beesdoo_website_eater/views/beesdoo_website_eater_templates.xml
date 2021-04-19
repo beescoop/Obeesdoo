@@ -7,11 +7,11 @@
 
     <!-- Add eater information -->
     <template
-    id="website_eater_details_side"
-    name="Website Eater Details Side"
-    priority="50"
-    inherit_id="portal.portal_layout"
-  >
+        id="website_eater_details_side"
+        name="Website Eater Details Side"
+        priority="50"
+        inherit_id="portal.portal_layout"
+    >
         <xpath expr="//div[hasclass('o_portal_my_details')]" position="after">
             <div class="o_my_details_eater mt-2">
                 <h4 class="page-header">Your Eaters</h4>

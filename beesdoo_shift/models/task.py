@@ -1,7 +1,7 @@
 import json
 from datetime import datetime, time, timedelta
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.translate import _
 

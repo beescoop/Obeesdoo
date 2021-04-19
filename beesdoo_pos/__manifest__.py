@@ -15,17 +15,9 @@
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Point Of Sale",
     "version": "12.0.1.2.0",
-    "depends": [
-        "beesdoo_base",
-        "beesdoo_product"
-    ],
-    "data": [
-        "views/beesdoo_pos.xml",
-        "data/default_barcode_pattern.xml"
-    ],
-    "qweb": [
-        "static/src/xml/templates.xml"
-    ],
+    "depends": ["beesdoo_base", "beesdoo_product"],
+    "data": ["views/beesdoo_pos.xml", "data/default_barcode_pattern.xml"],
+    "qweb": ["static/src/xml/templates.xml"],
     "installable": True,
     "license": "AGPL-3",
 }

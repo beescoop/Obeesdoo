@@ -31,11 +31,11 @@
                 </group>
                 <footer>
                     <button
-            type="object"
-            name="generate"
-            string="Confirm"
-            class="oe_highlight"
-          />
+                        type="object"
+                        name="generate"
+                        string="Confirm"
+                        class="oe_highlight"
+                    />
                     or
                     <button special="cancel" string="Cancel" />
                 </footer>

@@ -20,20 +20,17 @@
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
             <field name="website" position="after">
+                <field name="eater" attrs="{'invisible': [('customer', '=', False)]}" />
                 <field
-          name="eater"
-          attrs="{'invisible': [('customer', '=', False)]}"
-        />
-                <field
-          name="parent_eater_id"
-          attrs="{'invisible' : [('eater', '!=', 'eater')]}"
-        />
+                    name="parent_eater_id"
+                    attrs="{'invisible' : [('eater', '!=', 'eater')]}"
+                />
             </field>
             <xpath expr="//notebook" position="inside">
                 <page
-          string="Member Card"
-          attrs="{'invisible': ['|', ('customer', '=', False), ('eater', 'not in', ('worker_eater', 'eater'))]}"
-        >
+                    string="Member Card"
+                    attrs="{'invisible': ['|', ('customer', '=', False), ('eater', 'not in', ('worker_eater', 'eater'))]}"
+                >
                     <group>
                         <group>
                             <field name="member_card_to_be_printed" />
@@ -42,21 +39,21 @@
                     </group>
 
                     <group
-            attrs="{'invisible': ['|', ('customer', '=', False), ('eater', '!=', 'worker_eater')]}"
-          >
+                        attrs="{'invisible': ['|', ('customer', '=', False), ('eater', '!=', 'worker_eater')]}"
+                    >
                         <separator string="Eaters" />
                         <field
-              name="child_eater_ids"
-              widget="many2many_tags"
-              options="{'no_create': True}"
-              context="{'default_eater' : 'eater', 'default_customer' : True}"
-            />
+                            name="child_eater_ids"
+                            widget="many2many_tags"
+                            options="{'no_create': True}"
+                            context="{'default_eater' : 'eater', 'default_customer' : True}"
+                        />
                         <group>
                             <button
-                string="New Eater"
-                name="%(action_eater_wizard)d"
-                type="action"
-              />
+                                string="New Eater"
+                                name="%(action_eater_wizard)d"
+                                type="action"
+                            />
                         </group>
                         <separator string="Cards" />
                         <field string="Cards" name="member_card_ids">
@@ -71,10 +68,10 @@
                         </field>
                         <group>
                             <button
-                string="New Card"
-                name="%(action_membercard_wizard)d"
-                type="action"
-              />
+                                string="New Card"
+                                name="%(action_membercard_wizard)d"
+                                type="action"
+                            />
                         </group>
                     </group>
                 </page>
@@ -88,9 +85,9 @@
             </field>
             <field name="barcode" position="after">
                 <field
-          name="parent_barcode"
-          attrs="{'invisible' : [('eater', '!=', 'eater')]}"
-        />
+                    name="parent_barcode"
+                    attrs="{'invisible' : [('eater', '!=', 'eater')]}"
+                />
             </field>
             <!-- Temporary fix for the partner_view -->
             <xpath expr="//field[@name='customer']" position='before'>
@@ -101,10 +98,7 @@
 
 
     <!-- S022 : By default a supplier should be a company -->
-    <record
-    id="base.action_partner_supplier_form"
-    model="ir.actions.act_window"
-  >
+    <record id="base.action_partner_supplier_form" model="ir.actions.act_window">
         <field name="context">{
             'search_default_supplier': 1,
             'default_customer': 0,

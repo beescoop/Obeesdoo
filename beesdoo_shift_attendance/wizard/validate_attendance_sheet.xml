@@ -17,31 +17,31 @@
                         <field name="worker_nb_feedback" />
                     </group>
                     <group
-            string="Login"
-            attrs="{'invisible': [('card_support', '=', True)]}"
-          >
+                        string="Login"
+                        attrs="{'invisible': [('card_support', '=', True)]}"
+                    >
                         <field name="login" />
                         <field name="password" password="True" />
                     </group>
                     <group
-            string="Scan your card"
-            attrs="{'invisible': [('card_support', '=', False)]}"
-          >
+                        string="Scan your card"
+                        attrs="{'invisible': [('card_support', '=', False)]}"
+                    >
                         <field name="barcode" />
                     </group>
                     <field
-            name="warning_regular_workers"
-            readonly="1"
-            attrs="{'invisible': [('warning_regular_workers', '=', False)]}"
-          />
+                        name="warning_regular_workers"
+                        readonly="1"
+                        attrs="{'invisible': [('warning_regular_workers', '=', False)]}"
+                    />
                 </sheet>
                 <footer>
                     <button
-            type="object"
-            name="validate_sheet"
-            string="Validate"
-            class="oe_highlight"
-          />
+                        type="object"
+                        name="validate_sheet"
+                        string="Validate"
+                        class="oe_highlight"
+                    />
                     <button type="object" name="save" string="Save" />
                     <button special="cancel" string="Cancel" />
                 </footer>

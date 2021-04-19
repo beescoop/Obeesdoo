@@ -8,24 +8,24 @@
                 <field name="product_ids" />
                 <footer>
                     <button
-            type="object"
-            name="adapt_sales_price"
-            string="Adapt Sales Price"
-            class="oe_highlight"
-          />
+                        type="object"
+                        name="adapt_sales_price"
+                        string="Adapt Sales Price"
+                        class="oe_highlight"
+                    />
                     <button special="cancel" string="Cancel" />
                 </footer>
             </form>
         </field>
     </record>
     <act_window
-    name="Adapt Sales Price"
-    res_model="adapt.sales.price.wizard"
-    src_model="product.template"
-    view_mode="form"
-    view_id="adapt_sales_price_wizard"
-    target="new"
-    key2="client_action_multi"
-    id="beesdoo_product_pricelist_action_adapt_sales_price"
-  />
+        name="Adapt Sales Price"
+        res_model="adapt.sales.price.wizard"
+        src_model="product.template"
+        view_mode="form"
+        view_id="adapt_sales_price_wizard"
+        target="new"
+        key2="client_action_multi"
+        id="beesdoo_product_pricelist_action_adapt_sales_price"
+    />
 </odoo>

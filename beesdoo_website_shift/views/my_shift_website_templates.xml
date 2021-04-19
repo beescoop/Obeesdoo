@@ -7,10 +7,10 @@
 
     <!-- Add menu entries -->
     <template
-    id="my_shift_link"
-    name="Link to frontend portal"
-    inherit_id="portal.frontend_layout"
-  >
+        id="my_shift_link"
+        name="Link to frontend portal"
+        inherit_id="portal.frontend_layout"
+    >
         <xpath expr="//a[@id='o_logout']" position="before">
             <a href="/my/shift" class="dropdown-item" role="menuitem">My Shift
             </a>
@@ -25,16 +25,13 @@
         </h1>
     </template>
 
-    <template
-    id="my_shift_worker_status_title"
-    name="My Shift Worker Status Title"
-  >
+    <template id="my_shift_worker_status_title" name="My Shift Worker Status Title">
 
         <h2>
             Worker status
             <span
-        t-att-class="'badge %s pull-right' % ('badge-success' if status.can_shop else 'badge-danger',)"
-      >
+                t-att-class="'badge %s pull-right' % ('badge-success' if status.can_shop else 'badge-danger',)"
+            >
                 <span class="fa fa-shopping-cart" />
                 <t t-if="status.can_shop">
                     <span class="fa fa-check" />
@@ -47,16 +44,13 @@
 
     </template>
 
-    <template
-    id="my_shift_worker_status_common"
-    name="My Shift Worker Status Common"
-  >
+    <template id="my_shift_worker_status_common" name="My Shift Worker Status Common">
 
         <p>
             <label class="font-weight-bold">Working Mode:</label>
             <t
-        t-esc="dict(status.fields_get(allfields=['working_mode'])['working_mode']['selection'])[status.working_mode]"
-      />
+                t-esc="dict(status.fields_get(allfields=['working_mode'])['working_mode']['selection'])[status.working_mode]"
+            />
         </p>
 
         <p t-if="status.super">
@@ -66,20 +60,20 @@
         <p>
             <label class="font-weight-bold">Status:</label>
             <t
-        t-esc="dict(status.fields_get(allfields=['status'])['status']['selection'])[status.status]"
-      />
+                t-esc="dict(status.fields_get(allfields=['status'])['status']['selection'])[status.status]"
+            />
         </p>
 
         <p
-      t-if="status.holiday_start_time and status.holiday_start_time > status.today or status.status == 'holiday'"
-    >
+            t-if="status.holiday_start_time and status.holiday_start_time > status.today or status.status == 'holiday'"
+        >
             <label class="font-weight-bold">Begin of Holiday:</label>
             <t t-esc="status.holiday_start_time" />
         </p>
 
         <p
-      t-if="status.holiday_end_time and status.holiday_end_time > status.today or status.status == 'holiday'"
-    >
+            t-if="status.holiday_end_time and status.holiday_end_time > status.today or status.status == 'holiday'"
+        >
             <label class="font-weight-bold">End of Holiday:</label>
             <t t-esc="status.holiday_end_time" />
         </p>
@@ -90,44 +84,44 @@
     <template id="shift_status_label" name="Shift Status Label">
 
         <span
-      t-if="shift.state == 'draft'"
-      t-attf-class="badge badge-default {{label_css}}"
-    >
+            t-if="shift.state == 'draft'"
+            t-attf-class="badge badge-default {{label_css}}"
+        >
             <t t-esc="shift.state" />
         </span>
 
         <span
-      t-if="shift.state == 'done'"
-      t-attf-class="badge badge-success {{label_css}}"
-    >
+            t-if="shift.state == 'done'"
+            t-attf-class="badge badge-success {{label_css}}"
+        >
             <t t-esc="shift.state" />
         </span>
 
         <span
-      t-if="shift.state == 'absent_2'"
-      t-attf-class="badge badge-warning {{label_css}}"
-    >
+            t-if="shift.state == 'absent_2'"
+            t-attf-class="badge badge-warning {{label_css}}"
+        >
             <t t-esc="shift.state" />
         </span>
 
         <span
-      t-if="shift.state == 'absent_1'"
-      t-attf-class="badge badge-info {{label_css}}"
-    >
+            t-if="shift.state == 'absent_1'"
+            t-attf-class="badge badge-info {{label_css}}"
+        >
             <t t-esc="shift.state" />
         </span>
 
         <span
-      t-if="shift.state == 'absent_0'"
-      t-attf-class="badge badge-info {{label_css}}"
-    >
+            t-if="shift.state == 'absent_0'"
+            t-attf-class="badge badge-info {{label_css}}"
+        >
             <t t-esc="shift.state" />
         </span>
 
         <span
-      t-if="shift.state == 'cancel'"
-      t-attf-class="badge badge-danger {{label_css}}"
-    >
+            t-if="shift.state == 'cancel'"
+            t-attf-class="badge badge-danger {{label_css}}"
+        >
             <t t-esc="shift.state" />
         </span>
 
@@ -149,16 +143,14 @@
 
         <t t-foreach="subscribed_shifts" t-as="shift">
             <div t-att-class="'card mb-4 %s' % highlight_class">
-                <div
-          t-att-class="'card-header %s clearfix' % highlight_header_class"
-        >
+                <div t-att-class="'card-header %s clearfix' % highlight_header_class">
                     <div class="pull-left">
                         <span t-field="shift.start_time" />
                         -
                         <span
-              t-field="shift.end_time"
-              t-options='{"format": "HH:mm"}'
-            />
+                            t-field="shift.end_time"
+                            t-options='{"format": "HH:mm"}'
+                        />
                     </div>
                     <t t-call="beesdoo_website_shift.shift_status_label">
                         <t t-set="label_css" t-value="'pull-right'" />
@@ -167,12 +159,12 @@
                 <div class="card-body clearfix">
                     <t t-esc="shift.task_type_id.name" />
                     <button
-            type="button"
-            class="btn btn-default btn-sm pull-right"
-            t-if="shift.super_coop_id.name"
-            data-toggle="modal"
-            t-att-data-target="'#super_coop-shift-%s' % shift_index"
-          >
+                        type="button"
+                        class="btn btn-default btn-sm pull-right"
+                        t-if="shift.super_coop_id.name"
+                        data-toggle="modal"
+                        t-att-data-target="'#super_coop-shift-%s' % shift_index"
+                    >
                         <span class="fa fa-info" aria-hidden="true" />
                         Super Cooperator Info
                     </button>
@@ -183,28 +175,28 @@
         <!-- Super Cooperator info modal -->
         <t t-foreach="subscribed_shifts" t-as="shift">
             <div
-        class="modal fade"
-        t-if="shift.super_coop_id.name"
-        t-att-id="'super_coop-shift-%s' % shift_index"
-        tabindex="-1"
-        role="dialog"
-        t-att-aria-labelledby="'super_coop-shift-%s-label' % shift_index"
-      >
+                class="modal fade"
+                t-if="shift.super_coop_id.name"
+                t-att-id="'super_coop-shift-%s' % shift_index"
+                tabindex="-1"
+                role="dialog"
+                t-att-aria-labelledby="'super_coop-shift-%s-label' % shift_index"
+            >
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                            >
                                 <span aria-hidden="true">×</span>
                             </button>
                             <h4
-                class="modal-title"
-                t-att-id="'super_coop-shift-%s-label' % shift_index"
-              >
+                                class="modal-title"
+                                t-att-id="'super_coop-shift-%s-label' % shift_index"
+                            >
                                 <t t-esc="shift.super_coop_id.name" />
                             </h4>
                         </div>
@@ -213,18 +205,16 @@
                             <t t-esc="shift.super_coop_id.phone" />
                             <br />
                             <i class="fa fa-envelope" aria-hidden="true" />
-                            <a
-                t-att-href="'mailto:%s' % shift.super_coop_id.email"
-              >
+                            <a t-att-href="'mailto:%s' % shift.super_coop_id.email">
                                 <t t-esc="shift.super_coop_id.email" />
                             </a>
                         </div>
                         <div class="modal-footer">
                             <button
-                type="button"
-                class="btn btn-primary"
-                data-dismiss="modal"
-              >Close
+                                type="button"
+                                class="btn btn-primary"
+                                data-dismiss="modal"
+                            >Close
                             </button>
                         </div>
                     </div>
@@ -247,16 +237,14 @@
 
         <t t-foreach="past_shifts" t-as="shift">
             <div t-att-class="'card mb-4 %s' % highlight_class">
-                <div
-          t-att-class="'card-header %s clearfix' % highlight_header_class"
-        >
+                <div t-att-class="'card-header %s clearfix' % highlight_header_class">
                     <div class="pull-left">
                         <span t-field="shift.start_time" />
                         -
                         <span
-              t-field="shift.end_time"
-              t-options='{"format": "HH:mm"}'
-            />
+                            t-field="shift.end_time"
+                            t-options='{"format": "HH:mm"}'
+                        />
                     </div>
                     <t t-call="beesdoo_website_shift.shift_status_label">
                         <t t-set="label_css" t-value="'pull-right'" />
@@ -276,26 +264,20 @@
     </template>
 
     <template
-    id="available_shift_irregular_worker_card"
-    name="Available Shift for Irregular Worker"
-  >
+        id="available_shift_irregular_worker_card"
+        name="Available Shift for Irregular Worker"
+    >
         <t t-set="shift" t-value="displayed_shift.shift" />
         <t t-set="count" t-value="displayed_shift.free_space" />
         <t t-set="is_subscribed" t-value="displayed_shift.is_subscribed" />
+        <t t-set="has_enough_workers" t-value="displayed_shift.has_enough_workers" />
         <t
-      t-set="has_enough_workers"
-      t-value="displayed_shift.has_enough_workers"
-    />
-        <t
-      t-set="highlight_class"
-      t-value="'bg-warning' if not has_enough_workers else 'bg-light'"
-    />
+            t-set="highlight_class"
+            t-value="'bg-warning' if not has_enough_workers else 'bg-light'"
+        />
 
         <div t-att-class="'card %s' % highlight_class">
-            <div
-        class="center m-1 font-weight-bold"
-        t-esc="shift.task_type_id.name"
-      />
+            <div class="center m-1 font-weight-bold" t-esc="shift.task_type_id.name" />
             <div class="badge badge-secondary m-1" t-if="count > 0">
                 <t t-esc="count" />
                 spot(s)
@@ -307,12 +289,12 @@
                 Subscribed
             </div>
             <button
-        type="button"
-        class="btn btn-default btn-sm m-1"
-        data-toggle="modal"
-        t-att-data-target="'#subscribe-shift-%s' % shift.id"
-        t-if="irregular_enable_sign_up and not is_subscribed"
-      >
+                type="button"
+                class="btn btn-default btn-sm m-1"
+                data-toggle="modal"
+                t-att-data-target="'#subscribe-shift-%s' % shift.id"
+                t-if="irregular_enable_sign_up and not is_subscribed"
+            >
                 <span class="fa fa-user-plus" aria-hidden="true" />
                 Subscribe
             </button>
@@ -320,27 +302,27 @@
 
         <!-- Subscribe modals -->
         <div
-      class="modal fade"
-      t-att-id="'subscribe-shift-%s' % shift.id"
-      tabindex="-1"
-      role="dialog"
-      t-att-aria-labelledby="'subscribe-shift-%s-label' % shift.id"
-    >
+            class="modal fade"
+            t-att-id="'subscribe-shift-%s' % shift.id"
+            tabindex="-1"
+            role="dialog"
+            t-att-aria-labelledby="'subscribe-shift-%s-label' % shift.id"
+        >
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
                             <span aria-hidden="true">×</span>
                         </button>
                         <h4
-              class="modal-title"
-              t-att-id="'subscribe-shift-%s-label' % shift.id"
-            >
+                            class="modal-title"
+                            t-att-id="'subscribe-shift-%s-label' % shift.id"
+                        >
                             Please confirm subscription
                         </h4>
                     </div>
@@ -348,9 +330,9 @@
                         <span t-field="shift.start_time" />
                         -
                         <span
-              t-field="shift.end_time"
-              t-options='{"format": "HH:mm"}'
-            />
+                            t-field="shift.end_time"
+                            t-options='{"format": "HH:mm"}'
+                        />
                         <br />
                         <t t-esc="shift.task_type_id.name" />
                         <br />
@@ -359,16 +341,16 @@
                     </div>
                     <div class="modal-footer">
                         <button
-              type="button"
-              class="btn btn-default"
-              data-dismiss="modal"
-            >Close
+                            type="button"
+                            class="btn btn-default"
+                            data-dismiss="modal"
+                        >Close
                         </button>
                         <a
-              class="btn btn-primary"
-              t-if="irregular_enable_sign_up"
-              t-att-href="'/shift/%s/subscribe?nexturl=%s' % (shift.id, nexturl)"
-            >
+                            class="btn btn-primary"
+                            t-if="irregular_enable_sign_up"
+                            t-att-href="'/shift/%s/subscribe?nexturl=%s' % (shift.id, nexturl)"
+                        >
                             Subscribe
                         </a>
                     </div>
@@ -378,9 +360,9 @@
     </template>
 
     <template
-    id="available_shift_irregular_worker_row"
-    name="Available Shifts by Week Row"
-  >
+        id="available_shift_irregular_worker_row"
+        name="Available Shifts by Week Row"
+    >
         <t t-set="headers" t-value="shift_by_week['headers']" />
         <t t-set="rows" t-value="shift_by_week['rows']" />
         <div class="table-responsive">
@@ -388,10 +370,7 @@
                 <thead>
                     <th style="width: 9%" />
                     <t t-foreach="headers" t-as="header">
-                        <th
-              style="width: 13%"
-              t-esc="header.strftime('%d/%m')"
-            />
+                        <th style="width: 13%" t-esc="header.strftime('%d/%m')" />
                     </t>
                 </thead>
                 <tbody>
@@ -409,17 +388,14 @@
                             <t t-foreach="shift_row[1]" t-as="shift_by_day">
                                 <td class="align-middle">
                                     <t t-if="shift_by_day">
-                                        <t
-                      t-foreach="shift_by_day"
-                      t-as="shift"
-                    >
+                                        <t t-foreach="shift_by_day" t-as="shift">
                                             <t
-                        t-call="beesdoo_website_shift.available_shift_irregular_worker_card"
-                      >
+                                                t-call="beesdoo_website_shift.available_shift_irregular_worker_card"
+                                            >
                                                 <t
-                          t-set="displayed_shift"
-                          t-value="shift"
-                        />
+                                                    t-set="displayed_shift"
+                                                    t-value="shift"
+                                                />
                                             </t>
                                         </t>
                                     </t>
@@ -433,9 +409,9 @@
     </template>
 
     <template
-    id="available_shift_irregular_worker_grid"
-    name="Available Shifts for Irregular Worker"
-  >
+        id="available_shift_irregular_worker_grid"
+        name="Available Shifts for Irregular Worker"
+    >
         <!-- Renders week planning of schema:
         [(datetime.date(2021, 1, 18),  # week
             {'headers': [datetime.date(2021, 1, 18), ]  # week days
@@ -457,12 +433,9 @@
                     <t t-set="week" t-value="shift_week_tuple[0]" />
                     <div class="card-body p-0">
                         <t
-              t-call="beesdoo_website_shift.available_shift_irregular_worker_row"
-            >
-                            <t
-                t-set="shift_by_week"
-                t-value="shift_week_tuple[1]"
-              />
+                            t-call="beesdoo_website_shift.available_shift_irregular_worker_row"
+                        >
+                            <t t-set="shift_by_week" t-value="shift_week_tuple[1]" />
                         </t>
                     </div>
                 </div>
@@ -544,10 +517,7 @@
         </p>
     </template>
 
-    <template
-    id="help_text_irregular_worker"
-    name="Help Text for Irregular Worker"
-  >
+    <template id="help_text_irregular_worker" name="Help Text for Irregular Worker">
         <p class="h_irreg_alert">
             <strong>Alert:</strong>
             If you are in alert status, that means you didn't anticipate enough
@@ -645,10 +615,7 @@
     </template>
 
     <!-- Shifts Exempted Workers -->
-    <template
-    id="my_shift_exempted_worker"
-    name="My Shifts for Exempted Workers"
-  >
+    <template id="my_shift_exempted_worker" name="My Shifts for Exempted Workers">
         <t t-call="portal.portal_layout">
             <t t-set="no_breadcrumbs" t-value="True" />
 
@@ -665,12 +632,12 @@
                     <div class="col-12 col-lg-6 m-auto text-justify">
 
                         <t
-              t-call="beesdoo_website_shift.my_shift_worker_status_title"
-            />
+                            t-call="beesdoo_website_shift.my_shift_worker_status_title"
+                        />
 
                         <t
-              t-call="beesdoo_website_shift.my_shift_worker_status_common"
-            />
+                            t-call="beesdoo_website_shift.my_shift_worker_status_common"
+                        />
 
                         <p t-if="status.exempt_reason_id">
                             <label class="font-weight-bold">Exempt Reason:
@@ -695,9 +662,9 @@
 
     <!-- Shifts regular worker without shift -->
     <template
-    id="my_shift_regular_worker_without_shift"
-    name="My Shifts for regular worker without shift"
-  >
+        id="my_shift_regular_worker_without_shift"
+        name="My Shifts for regular worker without shift"
+    >
         <t t-call="portal.portal_layout">
             <t t-set="no_breadcrumbs" t-value="True" />
 
@@ -712,12 +679,12 @@
                     <div class="col-12 col-lg-6 m-auto text-justify">
 
                         <t
-              t-call="beesdoo_website_shift.my_shift_worker_status_title"
-            />
+                            t-call="beesdoo_website_shift.my_shift_worker_status_title"
+                        />
 
                         <t
-              t-call="beesdoo_website_shift.my_shift_worker_status_common"
-            />
+                            t-call="beesdoo_website_shift.my_shift_worker_status_common"
+                        />
 
                     </div>
 
@@ -752,12 +719,12 @@
                     <div class="col-12 col-lg-6 m-auto text-justify">
 
                         <t
-              t-call="beesdoo_website_shift.my_shift_worker_status_title"
-            />
+                            t-call="beesdoo_website_shift.my_shift_worker_status_title"
+                        />
 
                         <t
-              t-call="beesdoo_website_shift.my_shift_worker_status_common"
-            />
+                            t-call="beesdoo_website_shift.my_shift_worker_status_common"
+                        />
 
                         <p t-if="status.sr != 0">
                             <label class="font-weight-bold">Shift in Advance:
@@ -789,13 +756,9 @@
 
                     <div class="col-12 col-lg-8">
 
-                        <t
-              t-call="beesdoo_website_shift.my_shift_next_shifts"
-            />
+                        <t t-call="beesdoo_website_shift.my_shift_next_shifts" />
 
-                        <t
-              t-call="beesdoo_website_shift.my_shift_past_shifts"
-            />
+                        <t t-call="beesdoo_website_shift.my_shift_past_shifts" />
 
                     </div>
 
@@ -803,9 +766,7 @@
 
                         <t t-call="beesdoo_website_shift.help_text_title" />
                         <t t-call="beesdoo_website_shift.help_text_common" />
-                        <t
-              t-call="beesdoo_website_shift.help_text_irregular_worker"
-            />
+                        <t t-call="beesdoo_website_shift.help_text_irregular_worker" />
 
                     </div>
                 </div>
@@ -815,10 +776,7 @@
     </template>
 
     <!-- Shifts for Irregular Workers -->
-    <template
-    id="my_shift_irregular_worker"
-    name="Shifts for Irregular Workers"
-  >
+    <template id="my_shift_irregular_worker" name="Shifts for Irregular Workers">
         <t t-call="portal.portal_layout">
             <t t-set="no_breadcrumbs" t-value="True" />
 
@@ -833,12 +791,12 @@
                     <div class="col-12 col-lg-6 m-auto text-justify">
 
                         <t
-              t-call="beesdoo_website_shift.my_shift_worker_status_title"
-            />
+                            t-call="beesdoo_website_shift.my_shift_worker_status_title"
+                        />
 
                         <t
-              t-call="beesdoo_website_shift.my_shift_worker_status_common"
-            />
+                            t-call="beesdoo_website_shift.my_shift_worker_status_common"
+                        />
 
                         <p>
                             <label class="font-weight-bold">Shift in Advance:
@@ -877,16 +835,16 @@
                     <div class="col-12 col-lg-8">
 
                         <div
-              t-if="back_from_subscription"
-              role="alert"
-              t-att-class="'alert alert-%s alert-dismissible' % ('success' if success else 'danger',)"
-            >
+                            t-if="back_from_subscription"
+                            role="alert"
+                            t-att-class="'alert alert-%s alert-dismissible' % ('success' if success else 'danger',)"
+                        >
                             <button
-                type="button"
-                class="close"
-                data-dismiss="alert"
-                aria-label="Close"
-              >
+                                type="button"
+                                class="close"
+                                data-dismiss="alert"
+                                aria-label="Close"
+                            >
                                 <span aria-hidden="true">×</span>
                             </button>
                             <t t-if="success">
@@ -906,9 +864,7 @@
                             </t>
                         </div>
 
-                        <t
-              t-call="beesdoo_website_shift.my_shift_next_shifts"
-            />
+                        <t t-call="beesdoo_website_shift.my_shift_next_shifts" />
 
                         <h2>
                             Available Shifts
@@ -929,12 +885,10 @@
                         </div>
 
                         <t
-              t-call="beesdoo_website_shift.available_shift_irregular_worker_grid"
-            />
+                            t-call="beesdoo_website_shift.available_shift_irregular_worker_grid"
+                        />
 
-                        <t
-              t-call="beesdoo_website_shift.my_shift_past_shifts"
-            />
+                        <t t-call="beesdoo_website_shift.my_shift_past_shifts" />
 
                     </div>
 
@@ -942,9 +896,7 @@
 
                         <t t-call="beesdoo_website_shift.help_text_title" />
                         <t t-call="beesdoo_website_shift.help_text_common" />
-                        <t
-              t-call="beesdoo_website_shift.help_text_irregular_worker"
-            />
+                        <t t-call="beesdoo_website_shift.help_text_irregular_worker" />
 
                     </div>
                 </div>
