@@ -33,7 +33,8 @@
         'views/shift_swap_subscribe.xml',
         'views/shift_swap_timeslot.xml',
         'views/shift_swap_proposale.xml',
-        'views/shift_swap_set.xml'
+        'views/shift_swap_set.xml',
+        'wizard/Subscribe_shift_swap.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
