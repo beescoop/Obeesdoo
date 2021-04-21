@@ -17,7 +17,9 @@ class BeesdooRegularSwitchShift(http.Controller):
         ],
             limit=1
         )
-        timeslot = request.env["beesdoo.shift.timeslots_date"].sudo().display_timeslot(my_timeslot)
+
+        timeslot = request.env["beesdoo.shift.subscribed_underpopulated_shift"].sudo().display_underpopulated_shift(my_timeslot)
+        #timeslot = request.env["beesdoo.shift.timeslots_date"].sudo().display_timeslot(my_timeslot)
         return str(timeslot)
 
 

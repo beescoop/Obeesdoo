@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from datetime import datetime, timedelta, date
 from odoo.exceptions import Warning
 
@@ -201,33 +201,38 @@ class subscribe_underpopulated_shift(models.Model):
         return True
 
 
-    def display_underpopulated_shift(self):
-        start_date = datetime.now()
-        my_timeslot = self.exchanged_timeslot_id
-        timeslot_date = my_timeslot.date
-        end_date =  (timeslot_date +timedelta(7*8))
+    def display_underpopulated_shift(self,my_timeslot):
+        #my_timeslot = self.exchanged_timeslot_id
         all_timeslot = []
-        template = self.env["beesdoo.shift.template"].search([])
-        exchange = self.en["beesdoo.shift.subscribed_underpopulated_shift"].search([])
-        for temp in template :
+        timeslots = self.env["beesdoo.shift.timeslots_date"].display_timeslot(my_timeslot)
+        exchange = self.env["beesdoo.shift.subscribed_underpopulated_shift"].search([])
+        #
+        for timeslot in timeslots :
             for ex in exchange :
                 nb_workers_change=0
-                if ex.exchange_timeslot_id.template_id == temp.id :
+                if ex.exchanged_timeslot_id.template_id == timeslot[0] and ex.exchanged_timeslot_id.date == timeslot[1]:
                     #Enlever un worker
                     nb_workers_change -= 1
-                if ex.comfirme_timeslot_id.template_id == temp.id :
+                if ex.comfirmed_timeslot_id.template_id == timeslot[0] and ex.comfirmed_timeslot_id.date == timeslot[1]:
                     # ajouter un worker
                     nb_workers_change += 1
-            # pour chaque template, générer timeslot avec new
-            timeslot = self.env["beesdoo.shift.timeslots_date"].new()
-            timeslot.template_id = temp
-            # prendre en compte inscriptions désinscriptions
             all_timeslot.append((timeslot,nb_workers_change))
 
-            #attribuer a tout les timeslot une date
-            # entre now et +2mois du shift
-            #que le worker veut se séparer + ceux qui ont moins de
-            #30% de remplissage --> search ??
+        return all_timeslot
+
+
+
+    @api.multi
+    def coop_swap(self) :
+        return {
+            "name": _("Subscribe Swap Cooperator"),
+            "type": "ir.actions.act_window",
+            "view_type": "form",
+            "view_mode": "form",
+            "res_model": "beesdoo.shift.subscribe.shift.swap",
+            "target": "new",
+        }
+
 
 
 
