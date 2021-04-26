@@ -11,6 +11,17 @@ class TimeslotsDate(models.Model):
     template_id = fields.Many2one("beesdoo.shift.template")
     #shift_id = fields.Integer(compute='compute_shift')
 
+    @api.multi
+    def name_get(self):
+        data = []
+        for timeslot in self:
+            display_name = ''
+            display_name += timeslot.template_id.name
+            display_name += ', '
+            display_name += str(timeslot.date)
+            data.append((timeslot.id, display_name))
+        return data
+
 
     def swap_shift_to_timeslot(self, list_shift):
         timeslot_rec = []

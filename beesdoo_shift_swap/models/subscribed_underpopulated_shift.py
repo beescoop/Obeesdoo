@@ -30,10 +30,15 @@ class subscribe_underpopulated_shift(models.Model):
             ("state", "not in", ("unsubscribed", "resigning")),
         ],
     )
+    '''
     exchanged_timeslot_id = fields.One2many(
         comodel_name='beesdoo.shift.timeslots_date',
         inverse_name='id',
         string='exchanged_shift'
+    )
+    '''
+    exchanged_timeslot_id = fields.Many2one(
+        "beesdoo.shift.timeslots_date"
     )
     exchange_status = fields.Boolean(default=False, string="status exchange shift")
     exchanged_shift_id = fields.One2many(
@@ -41,10 +46,15 @@ class subscribe_underpopulated_shift(models.Model):
         inverse_name='id',
         compute='is_shift_exchanged_already_generated'
     )
+    '''
     comfirmed_timeslot_id = fields.One2many(
         comodel_name='beesdoo.shift.timeslots_date',
         inverse_name='id',
         string='asked_shift'
+    )
+    '''
+    comfirmed_timeslot_id = fields.Many2one(
+        "beesdoo.shift.timeslots_date"
     )
     comfirmed_shift_id = fields.One2many(
         comodel_name='beesdoo.shift.shift',
@@ -53,6 +63,7 @@ class subscribe_underpopulated_shift(models.Model):
     )
     comfirme_status = fields.Boolean(default=False, string="status comfirme shift")
     date = fields.Date(required=True)
+
 
     def update_status(self):
         if self.exchanged_timeslot_id and self.comfirmed_timeslot_id and self.worker_id and self.date:
@@ -213,9 +224,11 @@ class subscribe_underpopulated_shift(models.Model):
                 if ex.exchanged_timeslot_id.template_id == timeslot[0] and ex.exchanged_timeslot_id.date == timeslot[1]:
                     #Enlever un worker
                     nb_workers_change -= 1
+                    nb = nb_workers_change
                 if ex.comfirmed_timeslot_id.template_id == timeslot[0] and ex.comfirmed_timeslot_id.date == timeslot[1]:
                     # ajouter un worker
                     nb_workers_change += 1
+
             all_timeslot.append((timeslot,nb_workers_change))
 
         return all_timeslot
