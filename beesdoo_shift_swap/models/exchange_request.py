@@ -12,6 +12,7 @@ class ExchangeRequest(models.Model):
         ],
         string="worker"
     )
+    #TODO : relational fields
     asked_timeslot_ids = fields.One2many(
         comodel_name='beesdoo.shift.timeslots_date',
         inverse_name='id',

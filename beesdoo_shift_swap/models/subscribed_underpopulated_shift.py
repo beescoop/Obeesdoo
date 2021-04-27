@@ -54,7 +54,8 @@ class subscribe_underpopulated_shift(models.Model):
     )
     '''
     comfirmed_timeslot_id = fields.Many2one(
-        "beesdoo.shift.timeslots_date"
+        "beesdoo.shift.timeslots_date",
+        string="asked_shift"
     )
     comfirmed_shift_id = fields.One2many(
         comodel_name='beesdoo.shift.shift',
@@ -224,7 +225,6 @@ class subscribe_underpopulated_shift(models.Model):
                 if ex.exchanged_timeslot_id.template_id == timeslot[0] and ex.exchanged_timeslot_id.date == timeslot[1]:
                     #Enlever un worker
                     nb_workers_change -= 1
-                    nb = nb_workers_change
                 if ex.comfirmed_timeslot_id.template_id == timeslot[0] and ex.comfirmed_timeslot_id.date == timeslot[1]:
                     # ajouter un worker
                     nb_workers_change += 1
@@ -244,11 +244,8 @@ class subscribe_underpopulated_shift(models.Model):
             "view_mode": "form",
             "res_model": "beesdoo.shift.subscribe.shift.swap",
             "target": "new",
+            "context" : {'parent_obj' : self.id}
         }
-
-
-
-
 
 
 '''
