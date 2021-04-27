@@ -1,20 +1,21 @@
 <?xml version="1.0"?>
 <odoo>
-    <!-- <record model="ir.ui.view" id="shift_swap_view_form">
+     <record model="ir.ui.view" id="shift_swap_view_form">
         <field name="name">Shift Swap Button</field>
-        <field name="model">beesdoo.shift.subscribed_underpopulated_shift</field>
+        <field name="model">res.partner</field>
         <field name="inherit_id" ref="beesdoo_shift.super_coop_partner_inherited_view_form"/>
-        <field name="priority">50</field>
         <field name="arch" type="xml">
             <xpath expr="//header/button[@name='temporary_exempt']" position="after">
-                <header>
-                    <button name="coop_swap" string="Swap to underpopulated shift"
+
+                   <button name="coop_swap" string="Swap to underpopulated shift"
                                 class="oe_highlight"
-                                type="object"/>
-                </header>
+                                type="object"
+                                groups="beesdoo_shift.group_shift_management"
+                                attrs="{'invisible': [('is_worker', '=', False)]}"/>
+
             </xpath>
         </field>
-    </record> -->
+    </record>
 
     <record model="ir.ui.view" id="shift_swap_view_tree">
         <field name="name">Swap Shift</field>

@@ -21,6 +21,7 @@
 
     # any module necessary for this one to work correctly
     'depends': [
+        "base",
         "beesdoo_base",
         "beesdoo_shift",
     ],
