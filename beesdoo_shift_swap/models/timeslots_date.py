@@ -24,15 +24,17 @@ class TimeslotsDate(models.Model):
 
 
     def swap_shift_to_timeslot(self, list_shift):
-        timeslot_rec = []
-        first_shift =list_shift[0]
+        #timeslot_rec = []
+        timeslot_rec = self.env["beesdoo.shift.timeslots_date"]
+        first_shift = list_shift[0]
         last_template = first_shift.task_template_id
         new_template = first_shift.task_template_id
 
         first_timeslot = self.env["beesdoo.shift.timeslots_date"].new()
         first_timeslot.template_id = first_shift.task_template_id
         first_timeslot.date = first_shift.start_time
-        timeslot_rec.append((first_timeslot.template_id, first_timeslot.date))
+        #timeslot_rec.append((first_timeslot.template_id, first_timeslot.date))
+        timeslot_rec |= first_timeslot
 
         shift_generated_list = []
         for shift_rec in list_shift:
@@ -43,7 +45,8 @@ class TimeslotsDate(models.Model):
                 timeslot = self.env["beesdoo.shift.timeslots_date"].new()
                 timeslot.template_id = shift_generated_list[i].task_template_id
                 timeslot.date = shift_generated_list[i].start_time
-                timeslot_rec.append((timeslot.template_id, timeslot.date))
+                #timeslot_rec.append((timeslot.template_id, timeslot.date))
+                timeslot_rec |= timeslot
                 new_template = shift_generated_list[i].task_template_id
             last_template = shift_generated_list[i].task_template_id
 
@@ -95,7 +98,8 @@ class TimeslotsDate(models.Model):
 
         while next_planning_date < end_date :
             shift_recset = next_planning.task_template_ids._generate_task_day()
-            timeslot_rec.extend(self.swap_shift_to_timeslot(shift_recset))
+            #timeslot_rec.extend(self.swap_shift_to_timeslot(shift_recset))
+            timeslot_rec |= self.swap_shift_to_timeslot(shift_recset)
             next_planning_date = next_planning._get_next_planning_date(next_planning_date)
             last_sequence = next_planning.sequence
             next_planning = self.env["beesdoo.shift.planning"]._get_next_planning(last_sequence)
