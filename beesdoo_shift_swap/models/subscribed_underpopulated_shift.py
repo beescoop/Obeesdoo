@@ -63,7 +63,7 @@ class subscribe_underpopulated_shift(models.Model):
         compute='is_shift_comfirmed_already_generated'
     )
     comfirme_status = fields.Boolean(default=False, string="status comfirme shift")
-    date = fields.Date(required=True)
+    date = fields.Date(required=True,default=datetime.now())
 
 
     def update_status(self):
@@ -215,38 +215,29 @@ class subscribe_underpopulated_shift(models.Model):
 
     def display_underpopulated_shift(self,my_timeslot):
         #my_timeslot = self.exchanged_timeslot_id
-        all_timeslot = []
+        #all_timeslot = []
+        available_timeslot = self.env["beesdoo.shift.timeslots_date"]
         timeslots = self.env["beesdoo.shift.timeslots_date"].display_timeslot(my_timeslot)
         exchange = self.env["beesdoo.shift.subscribed_underpopulated_shift"].search([])
-        #
+
         for timeslot in timeslots :
             for ex in exchange :
                 nb_workers_change=0
-                if ex.exchanged_timeslot_id.template_id == timeslot[0] and ex.exchanged_timeslot_id.date == timeslot[1]:
+
+                if ex.exchanged_timeslot_id.template_id == timeslot.template_id and ex.exchanged_timeslot_id.date == timeslot.date:
                     #Enlever un worker
                     nb_workers_change -= 1
-                if ex.comfirmed_timeslot_id.template_id == timeslot[0] and ex.comfirmed_timeslot_id.date == timeslot[1]:
+                if ex.comfirmed_timeslot_id.template_id == timeslot.template_id and ex.comfirmed_timeslot_id.date == timeslot.date:
                     # ajouter un worker
                     nb_workers_change += 1
+            nb_worker_wanted = timeslot.template_id.worker_nb
+            nb_worker_present = (nb_worker_wanted - timeslot.template_id.remaining_worker) + nb_workers_change
+            percentage_presence = (nb_worker_present/nb_worker_wanted) * 100
+            if percentage_presence <= 20 :
+                #all_timeslot.append((timeslot,percentage_presence))
+                available_timeslot |= timeslot
 
-            all_timeslot.append((timeslot,nb_workers_change))
-
-        return all_timeslot
-
-
-
-    @api.multi
-    def coop_swap(self) :
-        return {
-            "name": _("Subscribe Swap Cooperator"),
-            "type": "ir.actions.act_window",
-            "view_type": "form",
-            "view_mode": "form",
-            "res_model": "beesdoo.shift.subscribe.shift.swap",
-            "target": "new",
-            "context" : {'parent_obj' : self.id}
-        }
-
+        return available_timeslot
 
 '''
     def make_the_exchange(self, exchange_id=-1, **kw):
