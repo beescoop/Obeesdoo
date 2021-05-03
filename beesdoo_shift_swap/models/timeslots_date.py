@@ -106,3 +106,6 @@ class TimeslotsDate(models.Model):
             next_planning = next_planning.with_context(visualize_date=next_planning_date)
 
         return timeslot_rec
+
+    #TODO: show my next timeslot/use myshift_next_shift + swap_shift_to_timeslot
+    #def my_timeslot(self):

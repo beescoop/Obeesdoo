@@ -9,4 +9,21 @@
                 </tree>
         </field>
     </record>
+
+    <record model="ir.ui.view" id="shift_swap_view_search">
+        <field name="name">Shift Swap Search</field>
+        <field name="model">beesdoo.shift.timeslots_date</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="date"/>
+                <field name="template_id"/>
+
+                <group expand="1" string="Group By">
+                    <filter string="Date"
+                            name="gb_date"
+                            context="{'group_by' : 'date:week'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
 </odoo>
