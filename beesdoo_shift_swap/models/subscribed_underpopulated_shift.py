@@ -63,7 +63,7 @@ class subscribe_underpopulated_shift(models.Model):
         compute='is_shift_comfirmed_already_generated'
     )
     comfirme_status = fields.Boolean(default=False, string="status comfirme shift")
-    date = fields.Date(required=True,default=datetime.now())
+    date = fields.Date(required=True,default=datetime.date(datetime.now()))
 
 
     def update_status(self):

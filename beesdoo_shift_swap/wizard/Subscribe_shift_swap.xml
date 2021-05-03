@@ -7,10 +7,11 @@
                 <group>
                     <field name="worker_id"/>
                     <field name="exchanged_timeslot_id"/>
-                    <field name="available_timeslots"/>
+                    <!--<field name="available_timeslots"/> -->
                     <field name="comfirmed_timeslot_id">
                         <tree>
-
+                            <field name="template_id"/>
+                            <field name="date"/>
                         </tree>
                     </field>
                 </group>
