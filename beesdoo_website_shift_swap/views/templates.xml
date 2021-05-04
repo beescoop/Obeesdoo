@@ -13,6 +13,18 @@
         </template>
 
         <!-- Template display shift -->
+        <template
+            id="website_shift_swap_swap"
+            name="Shift Swap Page" >
+            <t t-call="portal.portal_layout">
+                    <t t-set="no_breadcrumbs" t-value="True" />
+                
+            </t>
+
+        </template>
+
+
+
 
     </data>
 </odoo>
