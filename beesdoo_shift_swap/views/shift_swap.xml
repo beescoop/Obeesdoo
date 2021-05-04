@@ -12,9 +12,9 @@
         <field name="res_model">beesdoo.shift.exchange_request</field>
         <field name="view_mode">tree,form</field>
     </record>
-    <record model="ir.actions.act_window" id="action_shift_swap_exchange_set">
+    <record model="ir.actions.act_window" id="action_shift_swap_exchange">
         <field name="name">shift exchange</field>
-        <field name="res_model">beesdoo.shift.exchange_set</field>
+        <field name="res_model">beesdoo.shift.exchange</field>
         <field name="view_mode">tree,form</field>
     </record>
 
@@ -34,9 +34,9 @@
               parent="menu_swap_top"
               action="action_shift_swap_exchange"/>
 
-    <menuitem id="menu_exchange_set"
-              name="exchange set"
+    <menuitem id="menu_exchange"
+              name="exchange"
               parent="menu_swap_top"
-              action="action_shift_swap_exchange_set"/>
+              action="action_shift_swap_exchange"/>
 
 </odoo>

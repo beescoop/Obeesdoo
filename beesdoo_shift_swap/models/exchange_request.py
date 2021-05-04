@@ -14,13 +14,13 @@ class ExchangeRequest(models.Model):
     )
     #TODO : relational fields
     asked_timeslot_ids = fields.One2many(
-        comodel_name='beesdoo.shift.timeslots_date',
+        comodel_name='beesdoo.shift.template.dated',
         inverse_name='id',
         string='asked_timeslots'
     )
-    exchanged_timeslot_id = fields.Many2one('beesdoo.shift.timeslots_date', string='exchanged_timeslot')
+    exchanged_timeslot_id = fields.Many2one('beesdoo.shift.template.dated', string='exchanged_timeslot')
     request_date = fields.Date(required = True, string='date')
-    exchange_set_id = fields.Many2one('beesdoo.shift.exchange_set',string = 'exchanged_set')
+    exchange_id = fields.Many2one('beesdoo.shift.exchange',string = 'exchange')
     validate_request_id = fields.One2many(
         comodel_name='beesdoo.shift.exchange_request',
         inverse_name='id',
@@ -36,6 +36,7 @@ class ExchangeRequest(models.Model):
         selection=_get_status,
         default='draft'
     )
+
 
     def matching_request(self):
         timeslot_wanted = self.asked_timeslot_ids

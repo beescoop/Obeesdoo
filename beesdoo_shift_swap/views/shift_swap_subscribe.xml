@@ -50,8 +50,8 @@
                             <field name="exchanged_shift_id"/>
                         </group>
                         <group name="group_right">
-                            <field name="comfirmed_timeslot_id" autocomplete="off"/>
-                            <field name="comfirmed_shift_id"/>
+                            <field name="confirmed_timeslot_id" autocomplete="off"/>
+                            <field name="confirmed_shift_id"/>
                         </group>
                     </group>
                 </sheet>
