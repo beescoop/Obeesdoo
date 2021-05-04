@@ -7,13 +7,13 @@ class SubscribeShiftSwap(models.TransientModel) :
     _name = 'beesdoo.shift.subscribe.shift.swap'
     _description = 'Subscribe swap shift'
 
-    '''@api.onchange('worker_id')
+    @api.onchange('worker_id')
     def onchange_exchanged_timeslot(self):
         for record in self:
             if not record.worker_id:
                 record.exchanged_timeslot_id = False
             else:
-                timeslots = self.env["beesdoo.shift.timeslots_date"].
+                timeslots = self.env["beesdoo.shift.timeslots_date"].my_timeslot(record.worker_id)
                 # record.available_timeslots = timeslots
                 temp = self.env["beesdoo.shift.timeslots_date"]
                 for rec in timeslots:
@@ -24,8 +24,8 @@ class SubscribeShiftSwap(models.TransientModel) :
                         'date': date
                     })
                 return {
-                    'domain' : {'comfirmed_timeslot_id' : [('id','in',temp.ids)]}
-                }'''
+                    'domain' : {'exchanged_timeslot_id' : [('id','in',temp.ids)]}
+                }
 
     worker_id = fields.Many2one(
         "res.partner",
