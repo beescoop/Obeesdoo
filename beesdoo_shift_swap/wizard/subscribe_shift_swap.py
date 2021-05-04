@@ -13,9 +13,9 @@ class SubscribeShiftSwap(models.TransientModel) :
             if not record.worker_id:
                 record.exchanged_timeslot_id = False
             else:
-                timeslots = self.env["beesdoo.shift.timeslots_date"].my_timeslot(record.worker_id)
+                timeslots = self.env["beesdoo.shift.template.dated"].my_timeslot(record.worker_id)
                 # record.available_timeslots = timeslots
-                temp = self.env["beesdoo.shift.timeslots_date"]
+                temp = self.env["beesdoo.shift.template.dated"]
                 for rec in timeslots:
                     template = rec.template_id
                     date = rec.date
@@ -45,7 +45,7 @@ class SubscribeShiftSwap(models.TransientModel) :
             else :
                 timeslots = self.env["beesdoo.shift.subscribed_underpopulated_shift"].display_underpopulated_shift(record.exchanged_timeslot_id)
                 #record.available_timeslots = timeslots
-                temp = self.env["beesdoo.shift.timeslots_date"]
+                temp = self.env["beesdoo.shift.template.dated"]
                 for rec in timeslots :
                     template=rec.template_id
                     date = rec.date
@@ -59,12 +59,12 @@ class SubscribeShiftSwap(models.TransientModel) :
     def _get_available_timeslot(self):
         for record in self:
             if not record.exchanged_timeslot_id:
-                record.comfirmed_timeslot_id = False
+                record.confirmed_timeslot_id = False
             else:
                 timeslots = self.env["beesdoo.shift.subscribed_underpopulated_shift"].display_underpopulated_shift(
                     record.exchanged_timeslot_id)
                 # record.available_timeslots = timeslots
-                temp = self.env["beesdoo.shift.timeslots_date"]
+                temp = self.env["beesdoo.shift.template.dated"]
                 for rec in timeslots:
                     template = rec.template_id
                     date = rec.date
@@ -73,24 +73,24 @@ class SubscribeShiftSwap(models.TransientModel) :
                         'date': date
                     })
                 return {
-                    'domain' : {'comfirmed_timeslot_id' : [('id','in',temp.ids)]}
+                    'domain' : {'confirmed_timeslot_id' : [('id','in',temp.ids)]}
                 }
 
 
     exchanged_timeslot_id = fields.Many2one(
-        'beesdoo.shift.timeslots_date',
+        'beesdoo.shift.template.dated',
         string='Unwanted Shift',
         #domain="[('template_id.worker_id.ids','=',worker_id.id)]"
     )
 
     '''available_timeslots = fields.Many2many(
-        comodel_name='beesdoo.shift.timeslots_date',
+        comodel_name='beesdoo.shift.template.dated',
         relation='available_timeslot',
         #compute='_get_available_timeslot',
     )'''
 
-    comfirmed_timeslot_id = fields.Many2one(
-        'beesdoo.shift.timeslots_date',
+    confirmed_timeslot_id = fields.Many2one(
+        'beesdoo.shift.template.dated',
         string='Underpopulated Shift',
         #domain="[('id','in',available_timeslots.ids)]"
     )
@@ -133,7 +133,7 @@ class SubscribeShiftSwap(models.TransientModel) :
             "date" : datetime.date(datetime.now()),
             "worker_id" : self.worker_id.id,
             "exchanged_timeslot_id" : self.exchanged_timeslot_id.id,
-            "comfirmed_timeslot_id" : self.comfirmed_timeslot_id.id,
+            "confirmed_timeslot_id" : self.confirmed_timeslot_id.id,
         }
         record = self.env["beesdoo.shift.subscribed_underpopulated_shift"].sudo().create(data)
         if record.is_shift_exchanged_already_generated() :
@@ -146,7 +146,7 @@ class SubscribeShiftSwap(models.TransientModel) :
 
 
 '''
-    @api.onchange('comfirmed_timeslot_id')
+    @api.onchange('confirmed_timeslot_id')
     def onchange_get_available_timeslot(self):
         available_timeslot = []
         my_shift = self.exchanged_timeslot_id

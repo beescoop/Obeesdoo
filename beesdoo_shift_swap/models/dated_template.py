@@ -133,8 +133,8 @@ class TaskTimeslot(models.Model):
 
 
 
-class TimeslotsDate(models.Model):
-    _name = 'beesdoo.shift.timeslots_date'
+class DatedTemplate(models.Model):
+    _name = 'beesdoo.shift.template.dated'
 
     date = fields.Datetime(required = True)
     template_id = fields.Many2one("beesdoo.shift.template")
@@ -154,14 +154,14 @@ class TimeslotsDate(models.Model):
 
     def swap_shift_to_timeslot(self, list_shift):
         #timeslot_rec = []
-        timeslot_rec = self.env["beesdoo.shift.timeslots_date"]
+        timeslot_rec = self.env["beesdoo.shift.template.dated"]
         first_shift = list_shift[0]
         last_template = first_shift.task_template_id
         new_template = first_shift.task_template_id
         last_date = first_shift.start_time
         new_date = first_shift.start_time
 
-        first_timeslot = self.env["beesdoo.shift.timeslots_date"].new()
+        first_timeslot = self.env["beesdoo.shift.template.dated"].new()
         first_timeslot.template_id = first_shift.task_template_id
         first_timeslot.date = first_shift.start_time
         #timeslot_rec.append((first_timeslot.template_id, first_timeslot.date))
@@ -173,7 +173,7 @@ class TimeslotsDate(models.Model):
 
         for i in range(0, len(shift_generated_list)):
             if last_template != new_template or last_date != new_date:
-                timeslot = self.env["beesdoo.shift.timeslots_date"].new()
+                timeslot = self.env["beesdoo.shift.template.dated"].new()
                 yo = shift_generated_list[i].task_template_id
                 timeslot.template_id = shift_generated_list[i].task_template_id
                 timeslot.date = shift_generated_list[i].start_time

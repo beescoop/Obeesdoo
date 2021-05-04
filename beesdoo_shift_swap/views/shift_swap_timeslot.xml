@@ -1,7 +1,7 @@
 <odoo>
     <record model="ir.ui.view" id="shift_swap_timeslot_view_tree">
         <field name="name">Shift swap timeslot</field>
-        <field name="model">beesdoo.shift.timeslots_date</field>
+        <field name="model">beesdoo.shift.template.dated</field>
         <field name="arch" type="xml">
                 <tree>
                     <field name="template_id"/>
@@ -12,7 +12,7 @@
 
     <record model="ir.ui.view" id="shift_swap_view_search">
         <field name="name">Shift Swap Search</field>
-        <field name="model">beesdoo.shift.timeslots_date</field>
+        <field name="model">beesdoo.shift.template.dated</field>
         <field name="arch" type="xml">
             <search>
                 <field name="date"/>
