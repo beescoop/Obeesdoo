@@ -36,25 +36,6 @@ class SubscribeShiftSwap(models.TransientModel) :
         string="Cooperator",
     )
 
-
-    '''@api.depends('exchanged_timeslot_id')
-    def _get_available_timeslot(self):
-        for record in self:
-            if not record.exchanged_timeslot_id :
-                record.available_timeslots = False
-            else :
-                timeslots = self.env["beesdoo.shift.subscribed_underpopulated_shift"].display_underpopulated_shift(record.exchanged_timeslot_id)
-                #record.available_timeslots = timeslots
-                temp = self.env["beesdoo.shift.template.dated"]
-                for rec in timeslots :
-                    template=rec.template_id
-                    date = rec.date
-                    temp |= record.available_timeslots.create({
-                        'template_id' : template.id,
-                        'date' : date
-                    })
-                record.available_timeslots = temp'''
-
     @api.onchange('exchanged_timeslot_id')
     def _get_available_timeslot(self):
         for record in self:
@@ -80,19 +61,11 @@ class SubscribeShiftSwap(models.TransientModel) :
     exchanged_timeslot_id = fields.Many2one(
         'beesdoo.shift.template.dated',
         string='Unwanted Shift',
-        #domain="[('template_id.worker_id.ids','=',worker_id.id)]"
     )
-
-    '''available_timeslots = fields.Many2many(
-        comodel_name='beesdoo.shift.template.dated',
-        relation='available_timeslot',
-        #compute='_get_available_timeslot',
-    )'''
 
     confirmed_timeslot_id = fields.Many2one(
         'beesdoo.shift.template.dated',
         string='Underpopulated Shift',
-        #domain="[('id','in',available_timeslots.ids)]"
     )
 
     def _check(self, group="beesdoo_shift.group_shift_management"):
@@ -140,31 +113,3 @@ class SubscribeShiftSwap(models.TransientModel) :
             record.unsubscribe_shift()
         if record.is_shift_comfirmed_already_generated() :
             record.subscribe_shift()
-
-
-
-
-
-'''
-    @api.onchange('confirmed_timeslot_id')
-    def onchange_get_available_timeslot(self):
-        available_timeslot = []
-        my_shift = self.exchanged_timeslot_id
-        my_possibility = self.env["beesdoo.shift.subscribed_underpopulated_shift"].display_underpopulated_shift(my_shift)
-        for timeslot in my_possibility :
-            #TODO : mettre 50 (pourcentage que l'on ne veut pas dépasser) en paramètre systeme
-            if timeslot[1] <= 50 :
-                available_timeslot.append(timeslot[0])
-
-        return {
-            'value' : {
-                'available_timeslots' : available_timeslot,
-            }
-        }
-
-'''
-
-
-
-
-
