@@ -138,7 +138,6 @@ class DatedTemplate(models.Model):
 
     date = fields.Datetime(required = True)
     template_id = fields.Many2one("beesdoo.shift.template")
-    #shift_id = fields.Integer(compute='compute_shift')
 
     @api.multi
     def name_get(self):
@@ -153,7 +152,6 @@ class DatedTemplate(models.Model):
 
 
     def swap_shift_to_timeslot(self, list_shift):
-        #timeslot_rec = []
         timeslot_rec = self.env["beesdoo.shift.template.dated"]
         first_shift = list_shift[0]
         last_template = first_shift.task_template_id
@@ -164,7 +162,6 @@ class DatedTemplate(models.Model):
         first_timeslot = self.env["beesdoo.shift.template.dated"].new()
         first_timeslot.template_id = first_shift.task_template_id
         first_timeslot.date = first_shift.start_time
-        #timeslot_rec.append((first_timeslot.template_id, first_timeslot.date))
         timeslot_rec |= first_timeslot
 
         shift_generated_list = []
@@ -174,10 +171,8 @@ class DatedTemplate(models.Model):
         for i in range(0, len(shift_generated_list)):
             if last_template != new_template or last_date != new_date:
                 timeslot = self.env["beesdoo.shift.template.dated"].new()
-                yo = shift_generated_list[i].task_template_id
                 timeslot.template_id = shift_generated_list[i].task_template_id
                 timeslot.date = shift_generated_list[i].start_time
-                #timeslot_rec.append((timeslot.template_id, timeslot.date))
                 timeslot_rec |= timeslot
                 new_template = shift_generated_list[i].task_template_id
                 new_date = shift_generated_list[i].start_time
@@ -200,8 +195,6 @@ class DatedTemplate(models.Model):
             ("start_time", ">", start_date.strftime("%Y-%m-%d %H:%M:%S"))
         ],
         order="start_time, task_template_id, task_type_id"))
-        #timeslot_rec = []
-        #timeslot_rec.append( self.swap_shift_to_timeslot(shift_generated))
 
         timeslot_rec = self.swap_shift_to_timeslot(shift_generated)
 
@@ -218,7 +211,6 @@ class DatedTemplate(models.Model):
                 .get_param("next_planning_date", 0)
         )
         #TODO : create system parameters for end_date
-        date = my_timeslot.date
         end_date = my_timeslot.date + timedelta(days=2*28)
         next_planning = next_planning.with_context(visualize_date=next_planning_date)
         shift_recset = self.env["beesdoo.shift.shift"]
@@ -233,7 +225,6 @@ class DatedTemplate(models.Model):
 
         while next_planning_date < end_date :
             shift_recset = next_planning.task_template_ids._generate_task_day()
-            #timeslot_rec.extend(self.swap_shift_to_timeslot(shift_recset))
             timeslot_rec |= self.swap_shift_to_timeslot(shift_recset)
             next_planning_date = next_planning._get_next_planning_date(next_planning_date)
             last_sequence = next_planning.sequence

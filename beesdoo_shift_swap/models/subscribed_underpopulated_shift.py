@@ -30,13 +30,7 @@ class SubscribeUnderpopulatedShift(models.Model):
             ("state", "not in", ("unsubscribed", "resigning")),
         ],
     )
-    '''
-    exchanged_timeslot_id = fields.One2many(
-        comodel_name='beesdoo.shift.template.dated',
-        inverse_name='id',
-        string='exchanged_shift'
-    )
-    '''
+
     exchanged_timeslot_id = fields.Many2one(
         "beesdoo.shift.template.dated"
     )
@@ -46,13 +40,7 @@ class SubscribeUnderpopulatedShift(models.Model):
         inverse_name='id',
         compute='_compute_exchanged_already_generated'
     )
-    '''
-    confirmed_timeslot_id = fields.One2many(
-        comodel_name='beesdoo.shift.template.dated',
-        inverse_name='id',
-        string='asked_shift'
-    )
-    '''
+
     confirmed_timeslot_id = fields.Many2one(
         "beesdoo.shift.template.dated",
         string="asked_shift"
@@ -74,8 +62,6 @@ class SubscribeUnderpopulatedShift(models.Model):
 
     @api.multi
     def _compute_exchanged_already_generated(self):
-        # Get current user
-        #cur_user = self.env["res.users"].browse(self.uid)
 
         #if the supercooperateur make the exchange
         current_worker = self.worker_id
@@ -213,8 +199,6 @@ class SubscribeUnderpopulatedShift(models.Model):
 
 
     def display_underpopulated_shift(self,my_timeslot):
-        #my_timeslot = self.exchanged_timeslot_id
-        #all_timeslot = []
         available_timeslot = self.env["beesdoo.shift.template.dated"]
         timeslots = self.env["beesdoo.shift.template.dated"].display_timeslot(my_timeslot)
         exchange = self.env["beesdoo.shift.subscribed_underpopulated_shift"].search([])
@@ -233,55 +217,6 @@ class SubscribeUnderpopulatedShift(models.Model):
             nb_worker_present = (nb_worker_wanted - timeslot.template_id.remaining_worker) + nb_workers_change
             percentage_presence = (nb_worker_present/nb_worker_wanted) * 100
             if percentage_presence <= 20 :
-                #all_timeslot.append((timeslot,percentage_presence))
                 available_timeslot |= timeslot
 
         return available_timeslot
-
-'''
-    def make_the_exchange(self, exchange_id=-1, **kw):
-        """
-        Subscribe the current connected user into the given shift
-        This is done only if :
-            * shift sign up is authorised via configuration panel
-            * the user can subscribe
-            * the given exchange exist
-            * the shift status is open
-            * the shift is free for subscription
-            * the shift is starting after the time interval
-            for attendance sheet generation defined in beesdoo_shift settings
-        """
-        # Get current user
-        cur_user = self.env["res.users"].browse(self.uid)
-        # Get the exchange
-        exchange = self.env["subscribe_underpopulated_shift"].sudo().brows(exchange_id)
-        start_time_limit = datetime.now()
-
-        if exchange:
-            if exchange.confirmed_shift_id :
-                comfirmed_shift = self.env["beesdoo.shift.shift"].browse(exchange.confirmed_shift_id)
-                if comfirmed_shift.state == "open" and comfirmed_shift.start_time > start_time_limit and not comfirmed_shift.worker_id :
-                    comfirmed_shift.worker_id = cur_user.partner_id
-            if exchange.exchanged_shift_id:
-                exchanged_shift = self.env["beesdoo.shift.shift"].browse(exchange.exchanged_shift_id)
-                if exchanged_shift.state == "close" and exchanged_shift.start_time > start_time_limit and exchanged_shift.worker_id == cur_user.partner_id :
-                    exchanged_shift.worker_id = None
-
-
-
-
-    def register_exchange(self):
-        #we recover the data previously stored in session
-        old_timeslot = request.session['exchanged_timeslot']
-        new_timeslot = request.session['comfirmed_timeslot']
-        date = str(datetime.now())
-
-        #we create a new object
-        exchange = self.env["beesdoo.shift.subscribed_underpopulated_shift"].sudo().create({
-                "exchanged_timeslot_id" : old_timeslot,
-                "confirmed_timeslot_id" : new_timeslot,
-                "date" : date
-            })
-        exchange.subscribe_the_exchange()
-        return exchange
-'''
