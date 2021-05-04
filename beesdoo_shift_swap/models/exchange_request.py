@@ -1,7 +1,7 @@
 from odoo import models, fields, api
 
 class ExchangeRequest(models.Model):
-    _name = 'beesdoo.shift.exchange_proposale'
+    _name = 'beesdoo.shift.exchange_request'
 
     worker_id = fields.Many2one(
         "res.partner",
@@ -19,12 +19,12 @@ class ExchangeRequest(models.Model):
         string='asked_timeslots'
     )
     exchanged_timeslot_id = fields.Many2one('beesdoo.shift.timeslots_date', string='exchanged_timeslot')
-    proposition_date = fields.Date(required = True, string='date')
+    request_date = fields.Date(required = True, string='date')
     exchange_set_id = fields.Many2one('beesdoo.shift.exchange_set',string = 'exchanged_set')
-    validate_proposale_id = fields.One2many(
-        comodel_name='beesdoo.shift.exchange_proposale',
+    validate_request_id = fields.One2many(
+        comodel_name='beesdoo.shift.exchange_request',
         inverse_name='id',
-        string='validate_proposale'
+        string='validate_request'
     )
     def _get_status(self):
         return [
@@ -39,10 +39,10 @@ class ExchangeRequest(models.Model):
 
     def matching_request(self):
         timeslot_wanted = self.asked_timeslot_ids
-        matches = self.env["beesdoo.shift.exchange.proposal"]  # Creates an empty recordset for proposals
+        matches = self.env["beesdoo.shift.exchange.request"]  # Creates an empty recordset for proposals
 
         for rec in timeslot_wanted :
-            match_exchange_rec = self.env["beesdoo.shift.exchange_proposale"]\
+            match_exchange_rec = self.env["beesdoo.shift.exchange_request"]\
                 .search([
                 ("exchanged_timeslot_id",'=', rec.id),
             ])

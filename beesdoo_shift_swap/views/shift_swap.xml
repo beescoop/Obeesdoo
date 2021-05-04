@@ -9,7 +9,7 @@
     </record>
     <record model="ir.actions.act_window" id="action_shift_swap_exchange">
         <field name="name">shift exchange</field>
-        <field name="res_model">beesdoo.shift.exchange_proposale</field>
+        <field name="res_model">beesdoo.shift.exchange_request</field>
         <field name="view_mode">tree,form</field>
     </record>
     <record model="ir.actions.act_window" id="action_shift_swap_exchange_set">
@@ -29,7 +29,7 @@
               parent="menu_swap_top"
               action="action_shift_swap"/>
 
-    <menuitem id="menu_exchange_proposale"
+    <menuitem id="menu_exchange_request"
               name="exchange proposale"
               parent="menu_swap_top"
               action="action_shift_swap_exchange"/>

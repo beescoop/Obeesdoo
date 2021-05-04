@@ -5,8 +5,8 @@
         <field name="model">beesdoo.shift.exchange_set</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="first_proposale_id"/>
-                <field name="second_proposale_id"/>
+                <field name="first_request_id"/>
+                <field name="second_request_id"/>
             </tree>
         </field>
     </record>
