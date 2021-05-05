@@ -9,6 +9,7 @@ class SubscribeShiftSwap(models.TransientModel) :
 
     @api.onchange('worker_id')
     def onchange_exchanged_timeslot(self):
+        #TODO : prendre en compte qd il est inscris a aucun shift
         for record in self:
             if not record.worker_id:
                 record.exchanged_timeslot_id = False
