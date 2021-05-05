@@ -109,7 +109,7 @@ class SubscribeShiftSwap(models.TransientModel) :
             "confirmed_timeslot_id" : self.confirmed_timeslot_id.id,
         }
         record = self.env["beesdoo.shift.subscribed_underpopulated_shift"].sudo().create(data)
-        if record.is_shift_exchanged_already_generated() :
+        if record._compute_exchanged_already_generated() :
             record.unsubscribe_shift()
-        if record.is_shift_comfirmed_already_generated() :
+        if record._conpute_comfirmed_already_generated() :
             record.subscribe_shift()

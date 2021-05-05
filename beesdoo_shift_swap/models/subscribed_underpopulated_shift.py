@@ -35,20 +35,81 @@ class SubscribeUnderpopulatedShift(models.Model):
         "beesdoo.shift.template.dated"
     )
     exchange_status = fields.Boolean(default=False, string="Status Exchange Shift")
-    exchanged_shift_id = fields.One2many(
-        comodel_name='beesdoo.shift.shift',
-        inverse_name='id',
+
+    @api.depends('exchanged_timeslot_id')
+    def _compute_exchanged_already_generated(self):
+        for record in self:
+            # if the supercooperateur make the exchange
+            current_worker = self.worker_id
+
+            # Get current date
+            now = datetime.now()
+
+            if not record.exchanged_timeslot_id:
+                record.exchanged_shift_id = False
+
+            elif self.exchange_status:
+                record.exchanged_shift_id = False
+            # check if the new_shift is already generated
+            else:
+                # Get the shift if it is already generated
+                subscribed_shifts_rec = (
+                    self.env["beesdoo.shift.shift"]
+                        .search(
+                        [
+                            ('start_time', '=', record.exchanged_timeslot_id.date),
+                            ("worker_id", "=", current_worker.id),
+                            ("task_template_id", "=", record.exchanged_timeslot_id.template_id.id)
+                        ],
+                        limit=1,
+                    )
+                )
+
+                # check if is there a shift generated
+                if subscribed_shifts_rec:
+                    record.exchanged_shift_id = subscribed_shifts_rec
+
+    exchanged_shift_id = fields.Many2one(
+        'beesdoo.shift.shift',
         compute='_compute_exchanged_already_generated'
     )
+
 
     confirmed_timeslot_id = fields.Many2one(
         "beesdoo.shift.template.dated",
         string="asked_shift"
     )
-    confirmed_shift_id = fields.One2many(
-        comodel_name='beesdoo.shift.shift',
-        inverse_name='id',
-        compute='_compute_comfirmed_already_generated'
+
+    @api.depends('confirmed_timeslot_id')
+    def _conpute_comfirmed_already_generated(self):
+        for record in self:
+            # Get current date
+            now = datetime.now()
+            if not record.confirmed_timeslot_id:
+                record.confirmed_shift_id = False
+            elif self.confirme_status:
+                record.confirmed_shift_id = False
+            else:
+                # Get the shift if it is already generated
+                future_subscribed_shifts_rec = (
+                    self.env["beesdoo.shift.shift"]
+                        .search(
+                        [
+                            ("start_time", ">", now.strftime("%Y-%m-%d %H:%M:%S")),
+                            ('start_time', '=', record.exchanged_timeslot_id.date),
+                            ("task_template_id", "=", record.exchanged_timeslot_id.template_id.id),
+                            ("worker_id", "=", None),
+                        ],
+                        limit=1,
+                    )
+                )
+                # check if is there a shift generated
+                if future_subscribed_shifts_rec:
+                    record.confirmed_shift_id = future_subscribed_shifts_rec
+
+    confirmed_shift_id = fields.Many2one(
+        'beesdoo.shift.shift',
+        compute='_conpute_comfirmed_already_generated'
     )
     confirme_status = fields.Boolean(default=False, string="status comfirme shift")
     date = fields.Date(required=True,default=datetime.date(datetime.now()))
@@ -59,84 +120,6 @@ class SubscribeUnderpopulatedShift(models.Model):
             self.write({"state" : "validate"})
             if self.exchange_status and self.confirme_status :
                 self.write({"state" : "done"})
-
-    @api.multi
-    def _compute_exchanged_already_generated(self):
-
-        #if the supercooperateur make the exchange
-        current_worker = self.worker_id
-
-        # Get current date
-        now = datetime.now()
-
-        # check if the old_shift is already generated
-        # check if the new_shift is already generated
-        if not self.exchanged_shift_id:
-            # Get the shift if it is already generated
-            subscribed_shifts_rec = (
-                self.env["beesdoo.shift.shift"]
-                    .search(
-                    [
-                        ('start_time', '=', self.exchanged_timeslot_id.date),
-                        ("worker_id", "=", current_worker.id),
-                        ("task_template_id", "=", self.exchanged_timeslot_id.template_id.id)
-                    ],
-                    limit=1,
-                )
-            )
-
-            # check if is there a shift generated
-            if subscribed_shifts_rec:
-                self.exchanged_shift_id = subscribed_shifts_rec
-                return True
-            return False
-        return True
-
-    @api.multi
-    def button_check_shift_exchanged(self):
-        for exchange in self :
-            if not exchange.exchanged_timeslot_id :
-                raise Warning('Please provide an exchange timeslot')
-            if exchange.exchanged_timeslot_id and not exchange._compute_exchanged_already_generated() :
-                raise Warning('The shift has not been generated')
-        return True
-
-    @api.multi
-    def _compute_comfirmed_already_generated(self):
-
-        # Get current date
-        now = datetime.now()
-
-        if not self.confirmed_shift_id:
-            # Get the shift if it is already generated
-            future_subscribed_shifts_rec = (
-                self.env["beesdoo.shift.shift"]
-                    .search(
-                    [
-                        ("start_time", ">", now.strftime("%Y-%m-%d %H:%M:%S")),
-                        ('start_time','=',self.exchanged_timeslot_id.date),
-                        ("task_template_id", "=", self.exchanged_timeslot_id.template_id.id),
-                        ("worker_id","=",None),
-                    ],
-                    limit=1,
-                )
-            )
-            # check if is there a shift generated
-            if future_subscribed_shifts_rec:
-                self.confirmed_shift_id = future_subscribed_shifts_rec
-                return True
-            return False
-        return True
-
-    @api.multi
-    def button_check_shift_comfirmed(self):
-        for exchange in self:
-            if not exchange.confirmed_timeslot_id:
-                raise Warning('Please provide an exchange timeslot')
-            if exchange.confirmed_timeslot_id and not exchange._compute_comfirmed_already_generated():
-                raise Warning('The shift has not been generated')
-        return True
-
 
     @api.multi
     def unsubscribe_shift(self):
