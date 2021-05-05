@@ -5,7 +5,7 @@ from pytz import timezone, utc
 from odoo import _
 from odoo.exceptions import UserError
 
-class TaskTimeslot(models.Model):
+'''class TaskTimeslot(models.Model):
     _inherit = "beesdoo.shift.shift"
 
     #TODO : mettre dans res.partner
@@ -129,7 +129,7 @@ class TaskTimeslot(models.Model):
                 # Add the fictive shift to the list of shift
                 subscribed_shifts |= shift
 
-        return subscribed_shifts
+        return subscribed_shifts'''
 
 
 
@@ -236,7 +236,7 @@ class DatedTemplate(models.Model):
 
     #TODO: show my next timeslot/use myshift_next_shift + swap_shift_to_timeslot
     @api.model
-    def my_timeslot(self,worker_id):
-        shift = self.env["beesdoo.shift.shift"].my_shift_next(worker_id)
+    def my_timeslot(self, worker_id):
+        shift = worker_id.my_shift_next()
         timeslot = self.swap_shift_to_timeslot(shift)
         return timeslot
