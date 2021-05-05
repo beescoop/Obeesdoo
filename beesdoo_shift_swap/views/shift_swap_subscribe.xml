@@ -11,13 +11,13 @@
                                 class="oe_highlight"
                                 type="object"
                                 groups="beesdoo_shift.group_shift_management"
-                                attrs="{'invisible': [('is_worker', '=', False)]}"/>
+                                attrs="{'invisible': [('working_mode', '!=', 'regular')]}"/>
 
             </xpath>
         </field>
     </record>
 
-    <record model="ir.ui.view" id="shift_swap_view_tree">
+    <record model="ir.ui.view" id="shift_swap_underpopulated_view_tree">
         <field name="name">Swap Shift</field>
         <field name="model">beesdoo.shift.subscribed_underpopulated_shift</field>
         <field name="arch" type="xml">
@@ -35,8 +35,8 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="button_check_shift_exchanged" type="object" string ="check exchange shift"/>
-                    <button name="button_check_shift_comfirmed" type="object" string ="check comfirme shift"/>
+                    <!-- <button name="button_check_shift_exchanged" type="object" string ="check exchange shift"/>
+                    <button name="button_check_shift_comfirmed" type="object" string ="check comfirme shift"/> -->
                     <button name="button_unsubscribe" type="object" string ="Unsubscribe"/>
                     <button name="button_subscribe_shift" type="object" string ="subscribe"/>
                     <field name="state" widget="statusbar"/>
@@ -46,11 +46,11 @@
                         <field name="worker_id"/>
                         <field name="date"/>
                         <group name="group_left">
-                            <field name="exchanged_timeslot_id" autocomplete="off"/>
+                            <field name="exchanged_timeslot_id"/>
                             <field name="exchanged_shift_id"/>
                         </group>
                         <group name="group_right">
-                            <field name="confirmed_timeslot_id" autocomplete="off"/>
+                            <field name="confirmed_timeslot_id" />
                             <field name="confirmed_shift_id"/>
                         </group>
                     </group>
