@@ -24,6 +24,7 @@
         "base",
         "beesdoo_base",
         "beesdoo_shift",
+        "mail",
     ],
 
     # always loaded

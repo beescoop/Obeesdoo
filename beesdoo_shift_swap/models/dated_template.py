@@ -2,12 +2,14 @@ from odoo import models, fields, api
 from datetime import datetime, timedelta
 from pytz import timezone, utc
 
-from odoo import _
 from odoo.exceptions import UserError
 
 '''class TaskTimeslot(models.Model):
-    _inherit = "beesdoo.shift.shift"
+    _inherit = "res.partner"
 
+    @api.multi
+    def my_shift_next(self):
+        return super(TaskTimeslot, self).my_shift_next()
     #TODO : mettre dans res.partner
 
     def add_days(self, datetime, days):
@@ -138,6 +140,15 @@ class DatedTemplate(models.Model):
 
     date = fields.Datetime(required = True)
     template_id = fields.Many2one("beesdoo.shift.template")
+    hour = fields.Char(string='Hour',compute='_compute_time', store=True)
+
+    @api.depends('date')
+    def _compute_time(self):
+        for record in self:
+            if not record.date :
+                record.hour = False
+            else :
+                record.date.strftime('%H:%M:%S')
 
     @api.multi
     def name_get(self):
