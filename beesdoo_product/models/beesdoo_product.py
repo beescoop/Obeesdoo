@@ -432,6 +432,7 @@ class BeesdooProductLabel(models.Model):
         ]
     )
     color_code = fields.Char()
+    logo = fields.Binary(string="Logo")
     active = fields.Boolean(default=True)
 
 
