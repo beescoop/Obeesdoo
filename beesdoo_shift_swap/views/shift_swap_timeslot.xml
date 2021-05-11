@@ -6,6 +6,7 @@
                 <tree>
                     <field name="template_id"/>
                     <field name="date"/>
+                    <field name="hour"/>
                 </tree>
         </field>
     </record>
@@ -17,7 +18,8 @@
             <search>
                 <field name="date"/>
                 <field name="template_id"/>
-
+                <filter string="Morning Shift" name="MorningShift"
+                        domain="[('hour','&gt;','07:00:00'),('hour','&lt;','12:00:00')]"/>
                 <group expand="1" string="Group By">
                     <filter string="Date"
                             name="gb_date"
