@@ -90,7 +90,9 @@ class BeesdooProduct(models.Model):
         compute="_compute_total", store=True, string="Deposit Price"
     )
 
+    # deprecated
     label_to_be_printed = fields.Boolean("Print label?")
+    # deprecated
     label_last_printed = fields.Datetime("Label last printed on")
 
     note = fields.Text("Comments")

@@ -35,7 +35,6 @@
         "views/assets.xml",
         "views/res_config_settings.xml",
         "wizard/views/adapt_sales_price_wizard_view.xml",
-        "wizard/views/label_printing_utils.xml",
         "security/ir.model.access.csv",
     ],
     "installable": True,
