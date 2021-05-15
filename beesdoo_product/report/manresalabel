@@ -1,0 +1,44 @@
+<odoo>
+<data>
+<template id="report_simple_label_shelf" inherit_id="product.report_simple_label">
+<xpath expr="." position="replace">
+<t t-name="product.report_simple_label">
+<div style="height: 4cm; width: 6cm; border: 2px solid black; text-align: center; margin: 0; padding: 0; position: relative; display: inline-table;">
+<div class="text-center" style="margin: 10px; font-size: 1em; text-align: center;">
+<strong t-field="product.name"/>
+</div>
+<div style="font-size: 1.9em; vertical-align:bottom; position: absolute; bottom: 15; left: 10;">
+<strong t-field="product.lst_price" t-options="{'widget': 'monetary', 'display_currency': product.company_id.currency_id}"/>
+</div>
+<t t-if="product.packaging_ids">
+<div style="vertical-align: bottom; position: absolute; bottom: 20; right: 10; font-size: 0.7em; text-align: left;">
+<t t-set="unit_price" t-value="round(product.list_price / product.packaging_ids[0].qty, 1)"/>
+<strong>
+<t t-esc="unit_price" t-options="{'widget': 'monetary', 'display_currency': product.company_id.currency_id}"/>
+</strong>
+<strong>/</strong>
+<strong t-field="product.packaging_ids[0].name"/>
+</div>
+</t>
+</div>
+</t>
+</xpath>
+</template>
+<template id="report_producttemplatelabel_shelf" inherit_id="product.report_producttemplatelabel">
+<xpath expr="." position="replace">
+<t t-name="product.report_producttemplatelabel">
+<t t-call="web.html_container">
+<div class="page" style="">
+<t t-set="page" t-value="0"/>
+<t t-foreach="docs" t-as="product">
+<t t-call="product.report_simple_label">
+<t t-set="product" t-value="product"/>
+</t>
+</t>
+</div>
+</t>
+</t>
+</xpath>
+</template>
+</data>
+</odoo>
