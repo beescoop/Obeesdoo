@@ -6,7 +6,7 @@
                 <tree>
                     <field name="template_id"/>
                     <field name="date"/>
-                    <field name="hour"/>
+                    <!--<field name="hour"/> -->
                 </tree>
         </field>
     </record>

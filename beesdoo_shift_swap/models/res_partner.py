@@ -1,4 +1,4 @@
-from odoo import _, api, fields, models
+from odoo import _, api, models
 
 
 class ResPartner(models.Model):

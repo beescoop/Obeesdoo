@@ -207,7 +207,7 @@ class TaskTemplate(models.Model):
         if self.start_time:
             self.end_time = self.start_time + self.duration
 
-    @api.model
+    @api.multi
     def _generate_task_day(self):
         tasks = self.env["beesdoo.shift.shift"]
         for rec in self:
