@@ -7,7 +7,7 @@ from odoo.fields import Datetime
 from odoo.http import request
 
 #from odoo.addons.beesdoo_shift.models.planning import float_to_time
-
+'''
 class BeesdooRegularSwitchShift(http.Controller):
 
     @http.route("/my/timeslot", type="http",auth="none")
@@ -24,8 +24,6 @@ class BeesdooRegularSwitchShift(http.Controller):
         #timeslot = request.env["beesdoo.shift.timeslots_date"].sudo().display_timeslot(my_timeslot)
         #timeslot = request.env["beesdoo.shift.timeslots_date"].sudo().my_timeslot(worker_id)
         return str(timeslot)
-
-
-
+'''
 
 

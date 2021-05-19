@@ -1,4 +1,4 @@
-from odoo import _, api, fields, models
+from odoo import  _,api, fields, models
 from pytz import timezone, utc
 from datetime import timedelta,datetime
 
@@ -136,6 +136,7 @@ class ResPartner(models.Model):
             "target": "new",
         }
 
+    @api.multi
     def add_days(self, datetime, days):
         """
         Add the number of days to datetime. This take the DST in
@@ -148,10 +149,11 @@ class ResPartner(models.Model):
         assert datetime.tzinfo is None
         # Get current user and user timezone
         # Take user tz, if empty use context tz, if empty use UTC
-        cur_user = self.env["res.users"].browse(self.uid)
+        #cur_user = self.env["res.users"].browse(self.uid)
+        #cur_user = self.id
         user_tz = utc
-        if cur_user.tz:
-            user_tz = timezone(cur_user.tz)
+        if self.tz:
+            user_tz = timezone(self.tz)
         elif self.env.context["tz"]:
             user_tz = timezone(self.env.context["tz"])
         # Convert to UTC
@@ -169,7 +171,7 @@ class ResPartner(models.Model):
         return newdt_utc.replace(tzinfo=None)
 
     @api.multi
-    def my_shift_next(self):
+    def my_next_shift(self):
         """
         Return template variables for
         'beesdoo_website_shift.my_shift_next_shifts' template
@@ -184,7 +186,7 @@ class ResPartner(models.Model):
                 .search(
                 [
                     ("start_time", ">", now.strftime("%Y-%m-%d %H:%M:%S")),
-                    ("worker_id", "=", cur_user.id),
+                    ("worker_id", "=", cur_user),
                 ],
                 order="start_time, task_template_id, task_type_id",
             )
@@ -223,20 +225,21 @@ class ResPartner(models.Model):
                         limit=1,
                     )
                 )
-
             # Get config
-            regular_next_shift_limit = self.website.regular_next_shift_limit
+            #regular_next_shift_limit = self.website.regular_next_shift_limit
+            regular_next_shift_limit = 13
             shift_period = int(
                 self.env["ir.config_parameter"]
                     .sudo()
-                    .get_param("beesdoo_website_shift.shift_period")
+                    .get_param("beesdoo_shift.shift_period")
             )
 
             for i in range(nb_subscribed_shifts, regular_next_shift_limit):
                 # Create the fictive shift
                 shift = main_shift.new()
                 shift.name = main_shift.name
-                shift.task_template_id = shift.task_template_id
+                #TODO : faire checker changement
+                shift.task_template_id = main_shift.task_template_id
                 shift.planning_id = main_shift.planning_id
                 shift.task_type_id = main_shift.task_type_id
                 shift.worker_id = main_shift.worker_id
