@@ -117,4 +117,3 @@ class DatedTemplate(models.Model):
         shifts = worker_id.my_next_shift()
         timeslots = self.swap_shift_to_timeslot(shifts)
         return timeslots
-
