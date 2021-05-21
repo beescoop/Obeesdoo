@@ -22,7 +22,8 @@ class SubscribeShiftSwap(models.TransientModel) :
                     date = rec.date
                     temp |= temp.create({
                         'template_id': template.id,
-                        'date': date
+                        'date': date,
+                        'store' : False,
                     })
                 return {
                     'domain' : {'exchanged_timeslot_id' : [('id','in',temp.ids)]}
@@ -52,7 +53,8 @@ class SubscribeShiftSwap(models.TransientModel) :
                     date = rec.date
                     temp |= temp.create({
                         'template_id': template.id,
-                        'date': date
+                        'date': date,
+                        'store' : False,
                     })
                 return {
                     'domain' : {'confirmed_timeslot_id' : [('id','in',temp.ids)]}
@@ -94,7 +96,7 @@ class SubscribeShiftSwap(models.TransientModel) :
             ("date", ">=",limit_date ),
         ])
         for swap in swaps :
-            if swap.worker_id == worker_id :
+            if swap.worker_id == worker_id and self.exchanged_timeslot_id == swap.confirmed_timeslot_id:
                 return True
             return False
 
@@ -103,12 +105,18 @@ class SubscribeShiftSwap(models.TransientModel) :
         self = self._check()
         if self.has_already_done_exchange() :
             raise UserError (_("You already swap your shift in the last 2months"))
+        self.exchanged_timeslot_id.store = True
+        self.confirmed_timeslot_id.store = True
         data = {
             "date" : datetime.date(datetime.now()),
             "worker_id" : self.worker_id.id,
             "exchanged_timeslot_id" : self.exchanged_timeslot_id.id,
             "confirmed_timeslot_id" : self.confirmed_timeslot_id.id,
         }
+        useless_timeslots = self.env["beesdoo.shift.template.dated"].search([
+            ("store",'=', False)
+        ])
+        useless_timeslots.unlink()
         record = self.env["beesdoo.shift.subscribed_underpopulated_shift"].sudo().create(data)
         if record._compute_exchanged_already_generated() :
             record.unsubscribe_shift()
