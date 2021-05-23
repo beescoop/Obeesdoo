@@ -26,6 +26,7 @@
 
     # always loaded
     'data': [
+        'data/system_parameter.xml',
         'security/shift_swap_group.xml',
         'security/ir.model.access.csv',
         'views/shift_swap.xml',
