@@ -8,15 +8,15 @@ class DatedTemplate(models.Model):
     date = fields.Datetime(required = True)
     template_id = fields.Many2one("beesdoo.shift.template")
     store = fields.Boolean(string="store", invisible=True)
-    #hour = fields.Char(string='Hour',compute='_compute_time', store=True)
+    hour = fields.Integer(string='Hour',compute='_compute_time', store=True)
 
-    '''@api.depends('date')
+    @api.depends('date')
     def _compute_time(self):
         for record in self:
             if not record.date :
                 record.hour = False
             else :
-                record.date.strftime('%H:%M:%S')'''
+                record.hour = int(record.date.strftime('%H:%M:%S').replace(":", ""))
 
     @api.multi
     def name_get(self):
