@@ -89,7 +89,12 @@ class DatedTemplate(models.Model):
                 .get_param("next_planning_date", 0)
         )
         #TODO : create system parameters for end_date
-        end_date = my_timeslot.date + timedelta(days=2*28)
+        next_swap_limit = int(
+            self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("beesdoo_shift.day_limit_swap")
+        )
+        end_date = my_timeslot.date + timedelta(days=next_swap_limit)
         next_planning = next_planning.with_context(visualize_date=next_planning_date)
         shift_recset = self.env["beesdoo.shift.shift"]
 
