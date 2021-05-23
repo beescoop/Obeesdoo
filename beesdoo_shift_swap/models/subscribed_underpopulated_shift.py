@@ -199,6 +199,7 @@ class SubscribeUnderpopulatedShift(models.Model):
             nb_worker_wanted = timeslot.template_id.worker_nb
             nb_worker_present = (nb_worker_wanted - timeslot.template_id.remaining_worker) + nb_workers_change
             percentage_presence = (nb_worker_present/nb_worker_wanted) * 100
+            #TODO mettre 20 en parameters system
             if percentage_presence <= 20 :
                 available_timeslot |= timeslot
 
