@@ -94,8 +94,19 @@ class Planning(models.Model):
             return
 
         task_recset = planning.task_template_ids._generate_task_day()
-        for rec in task_recset :
-            rec.update()
+        for rec in task_recset:
+            data = {
+                "name": rec.name,
+                "task_template_id": rec.task_template_id.id,
+                "task_type_id": rec.task_type_id.id,
+                "super_coop_id": rec.super_coop_id.id,
+                "worker_id": rec.worker_id.id,
+                "is_regular": rec.is_regular,
+                "start_time": rec.start_time,
+                "end_time": rec.end_time,
+                "state": "open",
+            }
+            task_recset |= rec.create(data)
 
         next_date = planning._get_next_planning_date(date)
         config.set_param("last_planning_seq", planning.sequence)
