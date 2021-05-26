@@ -373,7 +373,7 @@ class WebsiteShiftController(http.Controller):
         Return template variables for
         'beesdoo_website_shift.my_shift_next_shifts' template
         """
-        # Get current user
+        '''# Get current user
         cur_user = request.env["res.users"].browse(request.uid)
         # Get shifts where user is subscribed
         now = datetime.now()
@@ -452,7 +452,13 @@ class WebsiteShiftController(http.Controller):
                     main_shift.end_time, days=i * shift_period
                 )
                 # Add the fictive shift to the list of shift
-                subscribed_shifts.append(shift)
+                subscribed_shifts.append(shift)'''
+        # Get current user
+        cur_user = request.env["res.users"].browse(request.uid)
+        my_shifts = cur_user.sudo().partner_id.my_next_shift()
+        subscribed_shifts = []
+        for rec in my_shifts :
+            subscribed_shifts.append(rec)
 
         return {
             "is_regular": self.is_user_regular(),
