@@ -36,7 +36,7 @@ class WebsiteShiftController(http.Controller):
     def is_user_regular_without_shift(self):
         user = request.env["res.users"].browse(request.uid)
         return (
-            not user.partner_id.subscribed_shift_ids.id
+            not user.partner_id.subscribed_shift_ids.ids
             and self.is_user_regular()
         )
 
