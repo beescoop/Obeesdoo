@@ -2631,3 +2631,52 @@ msgstr "of"
 #: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_self
 msgid "unknown"
 msgstr "onbekend"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/cooperative_status.py:58
+#, python-format
+msgid "shift_status_exempted"
+msgstr "Vrijgesteld"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/cooperative_status.py:56
+#, python-format
+msgid "shift_status_extension"
+msgstr "Uitbreiding"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/cooperative_status.py:54
+#, python-format
+msgid "shift_status_holidays"
+msgstr "Pauze"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/cooperative_status.py:60
+#, python-format
+msgid "shift_status_resigning"
+msgstr "Ontslagnemend"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/cooperative_status.py:57
+#, python-format
+msgid "shift_status_suspended"
+msgstr "Rode alarm"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/cooperative_status.py:59
+#, python-format
+msgid "shift_status_unsubscribed"
+msgstr "Bevroren"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/cooperative_status.py:53
+#, python-format
+msgid "shift_status_up_to_date"
+msgstr "Up-to-date"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/cooperative_status.py:55
+#, python-format
+msgid "shift_status_warning"
+msgstr "Alarm"
+
