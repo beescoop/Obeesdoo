@@ -127,7 +127,7 @@ class SubscribeUnderpopulatedShift(models.Model):
         unsubscribed_shifts_rec.write({
            "worker_id" : False
         })
-        self.confirme_status = 1
+        self.exchange_status = 1
         self.update_status()
         if not self.exchanged_shift_id.worker_id and self.confirme_status:
             return True
@@ -160,10 +160,12 @@ class SubscribeUnderpopulatedShift(models.Model):
         subscribed_shift_rec.is_regular = True
 
         # Get the user
-        subscribed_shift_rec.worker_id = self.worker_id
+        subscribed_shift_rec.write({
+            "worker_id": self.worker_id
+        })
 
         # Subscribe done, change the status
-        self.exchange_status = 1
+        self.confirme_status = 1
 
         #update status
         self.update_status()
@@ -202,7 +204,7 @@ class SubscribeUnderpopulatedShift(models.Model):
             min_percentage_presence = int(
                 self.env["ir.config_parameter"]
                     .sudo()
-                    .get_param("beesdoo_shift.min_percentage_presence")
+                    .get_param("beesdoo_shift.percentage_presence")
             )
             if percentage_presence <= min_percentage_presence :
                 available_timeslot |= timeslot
