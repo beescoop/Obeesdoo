@@ -25,7 +25,7 @@ class DatedTemplate(models.Model):
             display_name = ''
             display_name += timeslot.template_id.name
             display_name += ', '
-            display_name += str(timeslot.date)
+            display_name += fields.Date.to_string(timeslot.date)
             data.append((timeslot.id, display_name))
         return data
 
@@ -123,3 +123,46 @@ class DatedTemplate(models.Model):
         shifts = worker_id.my_next_shift()
         timeslots = self.swap_shift_to_timeslot(shifts)
         return timeslots
+
+class TaskTemplate(models.Model):
+
+    _inherit = "beesdoo.shift.template"
+
+    @api.multi
+    def _generate_task_day(self):
+        shifts = super(TaskTemplate,self)._generate_task_day()
+        exchanges = self.env["beesdoo.shift.subscribed_underpopulated_shift"].search([])
+        for shift in shifts :
+            for exchange in exchanges :
+                if exchange.worker_id == shift.worker_id and shift.task_template_id == exchange.exchanged_timeslot_id.template_id and shift.start_time == exchange.exchanged_timeslot_id.date:
+                    '''updated_data = {
+                        "worker_id" : False,
+                    }
+                    shift.write(updated_data)'''
+                    exchange.exchanged_shift_id = shift
+                    exchange.unsubscribe_shift()
+                elif shift.worker_id == False and exchange.confirmed_timeslot_id.template_id == shift.task_template_id and shift.start_time == exchange.confirmed_timeslot_id.date :
+                    '''updated_data = {
+                        "worker_id" : exchange.worker_id.id,
+                    }
+                    shift.write(updated_data)'''
+                    exchange.confirmed_shift_id = shift
+                    exchange.subscribe_shift()
+        return shifts
+
+'''
+def test(slot):
+     last_sequence = int(self.env["ir.config_parameter"].sudo().get_param("last_planning_seq"))
+     next_planning = self.env["beesdoo.shift.planning"]._get_next_planning(last_sequence)
+     next_planning_date = fields.Datetime.from_string(self.env["ir.config_parameter"].sudo().get_param("next_planning_date",0))
+     next_swap_limit = int(self.env["ir.config_parameter"].sudo().get_param("beesdoo_shift.day_limit_swap"))
+     end_date = slot.date + timedelta(days=next_swap_limit)
+     shift_recset = self.env["beesdoo.shift.shift"]
+     while next_planning_date < end_date :
+             shift_recset |= next_planning.task_template_ids._generate_task_day()
+             next_planning_date = next_planning._get_next_planning_date(next_planning_date)
+             last_sequence = next_planning.sequence
+             next_planning = self.env["beesdoo.shift.planning"]._get_next_planning(last_sequence)
+             next_planning = next_planning.with_context(visualize_date=next_planning_date)
+     return shift_recset
+'''
