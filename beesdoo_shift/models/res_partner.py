@@ -225,7 +225,12 @@ class ResPartner(models.Model):
                 )
             # Get config
             #regular_next_shift_limit = self.website.regular_next_shift_limit
-            regular_next_shift_limit = 7
+            #regular_next_shift_limit = 7
+            regular_next_shift_limit=int(
+                self.env["ir.config_parameter"]
+                    .sudo()
+                    .get_param("beesdoo_shift.regular_next_shift_limit")
+            )
             shift_period = int(
                 self.env["ir.config_parameter"]
                     .sudo()
