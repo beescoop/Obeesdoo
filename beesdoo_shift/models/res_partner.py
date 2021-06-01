@@ -225,7 +225,7 @@ class ResPartner(models.Model):
                 )
             # Get config
             #regular_next_shift_limit = self.website.regular_next_shift_limit
-            regular_next_shift_limit = 13
+            regular_next_shift_limit = 7
             shift_period = int(
                 self.env["ir.config_parameter"]
                     .sudo()
