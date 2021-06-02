@@ -18,7 +18,7 @@ class ResPartner(models.Model):
             "target": "new",
         }
 
-    @api.multi
+'''    @api.multi
     def my_next_shift(self):
         shifts = super(ResPartner,self).my_next_shift()
         exchanges = self.env["beesdoo.shift.subscribed_underpopulated_shift"].search([])
@@ -35,4 +35,4 @@ class ResPartner(models.Model):
                         "end_time": exchange.confirmed_timeslot_id.date + timedelta(hours=exchange.confirmed_timeslot_id.template_id.duration)
                     }
                     shift.update(updated_data)
-        return shifts
+        return shifts'''

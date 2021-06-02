@@ -135,19 +135,16 @@ class TaskTemplate(models.Model):
         for shift in shifts :
             for exchange in exchanges :
                 if exchange.worker_id == shift.worker_id and shift.task_template_id == exchange.exchanged_timeslot_id.template_id and shift.start_time == exchange.exchanged_timeslot_id.date:
-                    '''updated_data = {
+                    updated_data = {
                         "worker_id" : False,
                     }
-                    shift.write(updated_data)'''
-                    exchange.exchanged_shift_id = shift
-                    exchange.unsubscribe_shift()
+                    shift.update(updated_data)
+
                 elif shift.worker_id == False and exchange.confirmed_timeslot_id.template_id == shift.task_template_id and shift.start_time == exchange.confirmed_timeslot_id.date :
-                    '''updated_data = {
+                    updated_data = {
                         "worker_id" : exchange.worker_id.id,
                     }
-                    shift.write(updated_data)'''
-                    exchange.confirmed_shift_id = shift
-                    exchange.subscribe_shift()
+                    shift.update(updated_data)
         return shifts
 
 '''
