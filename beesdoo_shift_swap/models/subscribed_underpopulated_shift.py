@@ -68,6 +68,8 @@ class SubscribeUnderpopulatedShift(models.Model):
                 # check if is there a shift generated
                 if subscribed_shifts_rec:
                     record.exchanged_shift_id = subscribed_shifts_rec
+                    return True
+                return False
 
     exchanged_shift_id = fields.Many2one(
         'beesdoo.shift.shift',
