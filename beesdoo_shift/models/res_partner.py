@@ -61,7 +61,9 @@ class ResPartner(models.Model):
         readonly=True,
         store=True,
     )
-    subscribed_shift_ids = fields.Many2many("beesdoo.shift.template")
+    subscribed_shift_ids = fields.Many2many(
+        comodel_name="beesdoo.shift.template", readonly=True
+    )
 
     @api.depends("cooperative_status_ids")
     def _compute_can_shop(self):
