@@ -31,6 +31,7 @@ class DatedTemplate(models.Model):
 
 
     def swap_shift_to_timeslot(self, list_shift):
+        #TODO : améliorer code
         timeslot_rec = self.env["beesdoo.shift.template.dated"]
         first_shift = list_shift[0]
         last_template = first_shift.task_template_id
@@ -132,17 +133,22 @@ class TaskTemplate(models.Model):
     def _generate_task_day(self):
         shifts = super(TaskTemplate,self)._generate_task_day()
         exchanges = self.env["beesdoo.shift.subscribed_underpopulated_shift"].search([])
+        template={"first":None,"second": None}
         for shift in shifts :
+            template["first"] = shift.task_template_id
             for exchange in exchanges :
+                if shift.worker_id.name == False and exchange.confirmed_timeslot_id.template_id == shift.task_template_id and shift.start_time == exchange.confirmed_timeslot_id.date :
+                    if template["first"] != template["second"] :
+                        updated_data = {
+                            "worker_id": exchange.worker_id.id,
+                            "is_regular": True,
+                        }
+                        shift.update(updated_data)
+                        template["second"]=shift.task_template_id
                 if exchange.worker_id == shift.worker_id and shift.task_template_id == exchange.exchanged_timeslot_id.template_id and shift.start_time == exchange.exchanged_timeslot_id.date:
                     updated_data = {
-                        "worker_id" : False,
-                    }
-                    shift.update(updated_data)
-
-                elif shift.worker_id == False and exchange.confirmed_timeslot_id.template_id == shift.task_template_id and shift.start_time == exchange.confirmed_timeslot_id.date :
-                    updated_data = {
-                        "worker_id" : exchange.worker_id.id,
+                        "worker_id": False,
+                        "is_regular": False,
                     }
                     shift.update(updated_data)
         return shifts
@@ -163,3 +169,7 @@ def test(slot):
              next_planning = next_planning.with_context(visualize_date=next_planning_date)
      return shift_recset
 '''
+
+class Planning(models.Model):
+
+    _inherit = "beesdoo.shift.planning"
