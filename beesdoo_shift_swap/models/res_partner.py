@@ -18,6 +18,17 @@ class ResPartner(models.Model):
             "target": "new",
         }
 
+    @api.multi
+    def coop_exchange(self):
+        return {
+            "name": _("Exchange Swap Cooperator"),
+            "type": "ir.actions.act_window",
+            "view_type": "form",
+            "view_mode": "form",
+            "res_model": "beesdoo.shift.subscribe.shift.exchange",
+            "target": "new",
+        }
+
 '''    @api.multi
     def my_next_shift(self):
         shifts = super(ResPartner,self).my_next_shift()

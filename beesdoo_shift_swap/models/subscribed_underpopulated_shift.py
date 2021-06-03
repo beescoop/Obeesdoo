@@ -108,6 +108,8 @@ class SubscribeUnderpopulatedShift(models.Model):
                 # check if is there a shift generated
                 if future_subscribed_shifts_rec:
                     record.confirmed_shift_id = future_subscribed_shifts_rec
+                    return True
+                return False
 
     confirmed_shift_id = fields.Many2one(
         'beesdoo.shift.shift',
@@ -156,23 +158,24 @@ class SubscribeUnderpopulatedShift(models.Model):
             *the user hasn't done another exchange 2month before
         :return:
         """
-        # Get the wanted shift
-        subscribed_shift_rec = self.confirmed_shift_id
+        if not self.confirme_status :
+            # Get the wanted shift
+            subscribed_shift_rec = self.confirmed_shift_id
 
-        subscribed_shift_rec.is_regular = True
+            subscribed_shift_rec.is_regular = True
 
-        # Get the user
-        subscribed_shift_rec.write({
-            "worker_id": self.worker_id
-        })
+            # Get the user
+            subscribed_shift_rec.write({
+                "worker_id": self.worker_id
+            })
 
-        # Subscribe done, change the status
-        self.confirme_status = 1
+            # Subscribe done, change the status
+            self.confirme_status = 1
 
-        #update status
-        self.update_status()
-        if not self.exchanged_shift_id.worker_id and not self.exchange_status:
-            return False
+            #update status
+            self.update_status()
+            if not self.exchanged_shift_id.worker_id and not self.confirme_status:
+                return False
         return True
 
     @api.multi
