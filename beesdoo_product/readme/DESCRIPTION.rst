@@ -7,6 +7,7 @@ Modification of product module for the needs of beescoop
   can be selected in the general settings.
 - Also, sale and supplier taxes that are of type 'percentage' and that are marked as 'included in price'
   are taken into account when computing the suggested price.
+- Round suggested price to 5 cents
 - Adds "Edit Price" submenu on Point Of Sale, Purchase and Sale modules.
   The user lands on an editable List View with the following columns :
 
