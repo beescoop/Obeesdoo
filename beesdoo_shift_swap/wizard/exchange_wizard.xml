@@ -7,7 +7,7 @@
                 <group>
                     <field name="worker_id"/>
                     <field name="exchanged_timeslot_id"/>
-                    <field name="asked_timeslot_ids"/>
+                    <field name="asked_timeslot_ids" widget="many2many_tags"/>
                 </group>
                 <footer>
                     <button type="object" name="make_change"
@@ -17,6 +17,5 @@
                 </footer>
             </form>
         </field>
-
     </record>
 </odoo>

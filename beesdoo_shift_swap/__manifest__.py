@@ -33,6 +33,9 @@
         'views/shift_swap_subscribe.xml',
         'views/shift_swap_timeslot.xml',
         'views/res_config_setting_view.xml',
+        'views/shift_swap_proposale.xml',
+        'views/shift_swap_set.xml',
+        'wizard/exchange_wizard.xml',
         'wizard/Subscribe_shift_swap.xml',
     ],
     # only loaded in demonstration mode

@@ -13,9 +13,10 @@ class ExchangeRequest(models.Model):
         string="worker"
     )
     #TODO : relational fields
-    asked_timeslot_ids = fields.One2many(
+    asked_timeslot_ids = fields.Many2many(
         comodel_name='beesdoo.shift.template.dated',
-        inverse_name='id',
+        #inverse_name='id',
+        relation='exchange_template_dated',
         string='asked_timeslots'
     )
     exchanged_timeslot_id = fields.Many2one('beesdoo.shift.template.dated', string='exchanged_timeslot')
@@ -36,6 +37,14 @@ class ExchangeRequest(models.Model):
         selection=_get_status,
         default='draft'
     )
+
+    '''def display_request(self):
+        my_timeslot = self.exchanged_timeslot_id
+        all_timeslot = self.env["beesdoo.shift.template.dated"].display_timeslot(my_timeslot)
+        requests = self.env["beesdoo.shift.exchange_request"].search([])
+        for request in requests :
+            if'''
+
 
 
     def matching_request(self):
