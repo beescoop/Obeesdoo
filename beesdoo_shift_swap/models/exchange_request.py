@@ -40,10 +40,10 @@ class ExchangeRequest(models.Model):
 
     def matching_request(self):
         timeslot_wanted = self.asked_timeslot_ids
-        matches = self.env["beesdoo.shift.exchange.request"]  # Creates an empty recordset for proposals
+        matches = self.env["beesdoo.shift.exchange_request"]  # Creates an empty recordset for proposals
 
         for rec in timeslot_wanted :
-            match_exchange_rec = self.env["beesdoo.shift.exchange_request"]\
+            match_exchange_rec = self.env["beesdoo.shift.exchange.request"]\
                 .search([
                 ("exchanged_timeslot_id",'=', rec.id),
             ])
