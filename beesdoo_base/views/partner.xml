@@ -96,6 +96,16 @@
         </field>
     </record>
 
+    <record id="view_beesdoo_res_partner_filter" model="ir.ui.view">
+        <field name="field_name">res.partner.select</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position='replace'>
+                <field name="name" filter_domain="['|','|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self),('barcode','ilike',self)]"/>
+            </xpath>
+        </field>
+    </record>
 
     <!-- S022 : By default a supplier should be a company -->
     <record id="base.action_partner_supplier_form" model="ir.actions.act_window">
