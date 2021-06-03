@@ -127,15 +127,17 @@ class SubscribeUnderpopulatedShift(models.Model):
 
     @api.multi
     def unsubscribe_shift(self):
-        unsubscribed_shifts_rec =  self.exchanged_shift_id
-        unsubscribed_shifts_rec.write({
-           "worker_id" : False
-        })
-        self.exchange_status = 1
-        self.update_status()
-        if not self.exchanged_shift_id.worker_id and self.confirme_status:
-            return True
-        return False
+        if not self.exchange_status :
+            unsubscribed_shifts_rec =  self.exchanged_shift_id
+            unsubscribed_shifts_rec.write({
+               "worker_id" : False
+            })
+            self.exchange_status = 1
+            self.update_status()
+            if not self.exchanged_shift_id.worker_id and self.confirme_status:
+                return True
+            return False
+        return True
 
     @api.multi
     def button_unsubscribe(self):
@@ -161,9 +163,7 @@ class SubscribeUnderpopulatedShift(models.Model):
         if not self.confirme_status :
             # Get the wanted shift
             subscribed_shift_rec = self.confirmed_shift_id
-
             subscribed_shift_rec.is_regular = True
-
             # Get the user
             subscribed_shift_rec.write({
                 "worker_id": self.worker_id
@@ -176,6 +176,7 @@ class SubscribeUnderpopulatedShift(models.Model):
             self.update_status()
             if not self.exchanged_shift_id.worker_id and not self.confirme_status:
                 return False
+            return True
         return True
 
     @api.multi
