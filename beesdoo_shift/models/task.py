@@ -161,21 +161,31 @@ class Task(models.Model):
     # TODO button to replaced someone
     @api.model
     def unsubscribe_from_today(
-        self, worker_ids, today=None, end_date=None, now=None
+        self,
+        worker_ids,
+        task_tmpl_ids=None,
+        today=None,
+        end_date=None,
+        now=None,
     ):
         """
         Unsubscribe workers from *worker_ids* from all shift that start
-          *today* and later.
+          *today* and later. If *task_tmpl_ids* is set, unsubscribe
+          *worker_ids* only from shift related to *task_tmpl_ids*.
+
         If *end_date* is given, unsubscribe workers from shift between *today*
           and *end_date*.
         If *now* is given workers are unsubscribed from all shifts starting
            *now* and later.
         If *now* is given, *end_date* is not taken into account.
 
+
         :type today: date
         :type end_date: date
         :type now: datetime
         """
+        if not worker_ids:
+            return
         if now:
             if not isinstance(now, datetime):
                 raise UserError(_("'Now' must be a datetime."))
@@ -190,9 +200,11 @@ class Task(models.Model):
                 )
                 date_domain.append(("end_time", "<=", end_date))
 
-        to_unsubscribe = self.search(
-            [("worker_id", "in", worker_ids)] + date_domain
-        )
+        domain = [("worker_id", "in", worker_ids)]
+        if task_tmpl_ids:
+            domain += [("task_template_id", "in", task_tmpl_ids)]
+
+        to_unsubscribe = self.search(domain + date_domain)
         to_unsubscribe.write({"worker_id": False})
 
         # Remove worker, replaced_id and regular
