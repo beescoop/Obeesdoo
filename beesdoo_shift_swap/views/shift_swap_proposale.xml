@@ -28,13 +28,14 @@
         </field>
     </record>
 
+
     <record model="ir.ui.view" id="shift_swap_request_view">
         <field name="name">Shift swap request</field>
         <field name="model">beesdoo.shift.exchange_request</field>
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="button_is_match" type="object" string ="check match"/>
+                    <button name="button_unsubscribe" type="object" string ="check match"/>
                 </header>
                 <sheet>
                     <group name="group_top">

@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.exceptions import Warning
 
 class ExchangeRequest(models.Model):
     _name = 'beesdoo.shift.exchange_request'
@@ -22,9 +23,8 @@ class ExchangeRequest(models.Model):
     exchanged_timeslot_id = fields.Many2one('beesdoo.shift.template.dated', string='exchanged_timeslot')
     request_date = fields.Date(required = True, string='date')
     exchange_id = fields.Many2one('beesdoo.shift.exchange',string = 'exchange')
-    validate_request_id = fields.One2many(
-        comodel_name='beesdoo.shift.exchange_request',
-        inverse_name='id',
+    validate_request_id = fields.Many2one(
+        'beesdoo.shift.exchange_request',
         string='validate_request'
     )
     def _get_status(self):
@@ -47,18 +47,22 @@ class ExchangeRequest(models.Model):
 
 
 
-    def matching_request(self):
-        timeslot_wanted = self.asked_timeslot_ids
+    def matching_request(self, timeslots_wanted, timeslot_exchanged):
+        #timeslot_wanted = self.asked_timeslot_ids
         matches = self.env["beesdoo.shift.exchange_request"]  # Creates an empty recordset for proposals
+        exchanges = self.env["beesdoo.shift.exchange_request"].search([])
 
-        for rec in timeslot_wanted :
-            match_exchange_rec = self.env["beesdoo.shift.exchange.request"]\
-                .search([
-                ("exchanged_timeslot_id",'=', rec.id),
-            ])
-            matches |= match_exchange_rec
+        for timeslot in timeslots_wanted :
+            for exchange in exchanges :
+                if timeslot.template_id == exchange.exchanged_timeslot_id.template_id and timeslot.date==exchange.exchanged_timeslot_id.date :
+                    for asked_timeslot in exchange.asked_timeslot_ids :
+                        if timeslot_exchanged.template_id == asked_timeslot.template_id and timeslot_exchanged.date ==asked_timeslot.date :
+                            matches |= exchange
         return matches
 
-
-
-
+    @api.multi
+    def button_unsubscribe(self):
+        for request in self:
+            if not request.matching_request(request.asked_timeslot_ids,request.exchanged_timeslot_id):
+                raise Warning('no match')
+        return True

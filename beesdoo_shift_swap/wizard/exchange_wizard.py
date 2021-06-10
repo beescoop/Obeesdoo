@@ -46,7 +46,7 @@ class SubscribeShiftSwap(models.TransientModel) :
             if not record.exchanged_timeslot_id:
                 record.confirmed_timeslot_id = False
             else:
-                timeslots = all_timeslot = self.env["beesdoo.shift.template.dated"].display_timeslot(record.exchanged_timeslot_id)
+                timeslots = self.env["beesdoo.shift.template.dated"].display_timeslot(record.exchanged_timeslot_id)
                 # record.available_timeslots = timeslots
                 temp = self.env["beesdoo.shift.template.dated"]
                 for rec in timeslots:
@@ -64,7 +64,91 @@ class SubscribeShiftSwap(models.TransientModel) :
     asked_timeslot_ids = fields.Many2many(
         comodel_name='beesdoo.shift.template.dated',
         #inverse_name='id',
-        relation='exchange_template_dated',
+        relation='wizard_exchange_template_dated',
         string='asked_timeslots',
     )
-    request_date = fields.Date(required=True, string='date')
+
+    @api.onchange('asked_timeslot_ids')
+    def get_possible_match(self):
+        for record in self :
+            if not record.exchanged_timeslot_id or not record.asked_timeslot_ids :
+                record.possible_match = False
+            else :
+                exchanges = self.env["beesdoo.shift.exchange_request"].matching_request(record.asked_timeslot_ids,record.exchanged_timeslot_id)
+                return {
+                    'domain': {'possible_match': [('id', 'in', exchanges.ids)]}
+                }
+
+
+    possible_match= fields.Many2one(
+        'beesdoo.shift.exchange_request',
+        string='possible match',
+    )
+
+    '''state=fields.Selection(
+        selection=[
+            ('step1', 'Step 1'),
+            ('step2', 'Step 2'),
+        ],
+        string="Current step",
+        default="step1",
+        readonly=True
+    )
+
+    @api.multi
+    def action_step1(self):
+        self.state = 'step1'
+        return {"type": "set_scrollTop"}
+
+    @api.multi
+    def action_step2(self):
+        self.state = 'step2'
+        return {"type": "set_scrollTop"}'''
+
+    def _check(self, group="beesdoo_shift.group_shift_management"):
+        self.ensure_one()
+        if not self.env.user.has_group(group):
+            raise UserError(
+                _("You don't have the required access for this operation.")
+            )
+        if (
+            self.worker_id == self.env.user.partner_id
+            and not self.env.user.has_group(
+                "beesdoo_shift.group_cooperative_admin"
+            )
+        ):
+            raise UserError(_("You cannot perform this operation on yourself"))
+        return self.with_context(real_uid=self._uid)
+
+    @api.multi
+    def make_change(self):
+        self = self._check()
+        self.exchanged_timeslot_id.store = True
+        #self.asked_timeslot_ids.store = True
+        for rec in self.asked_timeslot_ids :
+            rec.store = True
+        #for timeslot in self.asked_timeslot_ids.ids :
+
+        data = {
+            "request_date": datetime.date(datetime.now()),
+            "worker_id": self.worker_id.id,
+            "exchanged_timeslot_id": self.exchanged_timeslot_id.id,
+            "asked_timeslot_ids":[(6,False, self.asked_timeslot_ids.ids)],
+            "validate_request_id":self.possible_match,
+        }
+
+        useless_timeslots = self.env["beesdoo.shift.template.dated"].search([
+            ("store", '=', False)
+        ])
+        useless_timeslots.unlink()
+        record = self.env["beesdoo.shift.exchange_request"].sudo().create(data)
+        '''matching_request = record.matching_request()
+        if matching_request :
+            return {
+                "domain":"[('id,'in',matching_request.ids )]",
+                "type": "ir.actions.act_window",
+                "view_type": "form",
+                "view_mode": "form",
+                "res_model": "beesdoo.shift.exchange_request",
+                "target": "new",
+            }'''
