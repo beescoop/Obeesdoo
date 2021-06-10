@@ -134,7 +134,8 @@ class SubscribeShiftSwap(models.TransientModel) :
             "worker_id": self.worker_id.id,
             "exchanged_timeslot_id": self.exchanged_timeslot_id.id,
             "asked_timeslot_ids":[(6,False, self.asked_timeslot_ids.ids)],
-            "validate_request_id":self.possible_match,
+            "validate_request_id":self.possible_match.id,
+            "status": 'validate_match' if self.possible_match else 'no_match',
         }
 
         useless_timeslots = self.env["beesdoo.shift.template.dated"].search([
@@ -142,6 +143,10 @@ class SubscribeShiftSwap(models.TransientModel) :
         ])
         useless_timeslots.unlink()
         record = self.env["beesdoo.shift.exchange_request"].sudo().create(data)
+        if self.possible_match :
+            self.possible_match.write(
+                {'status': 'has_match'}
+            )
         '''matching_request = record.matching_request()
         if matching_request :
             return {

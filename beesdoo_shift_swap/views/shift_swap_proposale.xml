@@ -16,6 +16,7 @@
             </xpath>
         </field>
     </record>
+
     <record model="ir.ui.view" id="shift_swap_request_view_tree">
         <field name="name">Swap Shift Request</field>
         <field name="model">beesdoo.shift.exchange_request</field>
@@ -35,7 +36,15 @@
         <field name="arch" type="xml">
             <form>
                 <header>
+                    <button name="coop_validate_exchange" string="Validate exchange"
+                                class="oe_highlight"
+                                type="object"
+                                groups="beesdoo_shift.group_shift_management"
+                                attrs="{'invisible': [('status','!=','has_match')]}"/>
+
                     <button name="button_unsubscribe" type="object" string ="check match"/>
+
+                    <field name="status" widget="statusbar"/>
                 </header>
                 <sheet>
                     <group name="group_top">

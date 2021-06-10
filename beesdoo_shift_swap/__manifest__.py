@@ -37,6 +37,7 @@
         'views/shift_swap_set.xml',
         'wizard/exchange_wizard.xml',
         'wizard/Subscribe_shift_swap.xml',
+        'wizard/validate_exchange.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

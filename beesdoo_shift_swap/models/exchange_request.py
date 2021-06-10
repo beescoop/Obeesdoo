@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields, api,_
 from odoo.exceptions import Warning
 
 class ExchangeRequest(models.Model):
@@ -30,7 +30,9 @@ class ExchangeRequest(models.Model):
     def _get_status(self):
         return [
             ('draft', 'Draft'),
-            ('validate', 'Validate'),
+            ('no_match','No Match'),
+            ('has_match', 'Has Match'),
+            ('validate_match', 'validate Match'),
             ('done', 'Done')
         ]
     status = fields.Selection(
@@ -45,7 +47,32 @@ class ExchangeRequest(models.Model):
         for request in requests :
             if'''
 
+    @api.multi
+    def name_get(self):
+        data = []
+        for request in self:
+            display_name = 'Echange : '
+            display_name += str(request.exchanged_timeslot_id.template_id.name)
+            display_name += ', '
+            display_name += fields.Date.to_string(request.exchanged_timeslot_id.date)
+            display_name += ', Proposition : '
+            for asked_timeslot in request.asked_timeslot_ids :
+                display_name += str(asked_timeslot.template_id.name)
+                display_name += ', '
+                display_name += fields.Date.to_string(asked_timeslot.date)
+                display_name += ' & '
+            data.append((request.id, display_name))
+        return data
 
+    def coop_validate_exchange(self):
+        return {
+            "name": _("Validate Exchange"),
+            "type": "ir.actions.act_window",
+            "view_type": "form",
+            "view_mode": "form",
+            "res_model": "beesdoo.shift.validate.shift.exchange",
+            "target": "new",
+        }
 
     def matching_request(self, timeslots_wanted, timeslot_exchanged):
         #timeslot_wanted = self.asked_timeslot_ids
