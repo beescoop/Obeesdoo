@@ -1,6 +1,7 @@
 from odoo import models, fields, api,_
 from datetime import datetime, timedelta
 import logging
+from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
@@ -135,9 +136,9 @@ class DatedTemplate(models.Model):
             if timeslot.date.month == wanted_timeslot.date.month :
                 shift_in_month += 1
         if shift_in_day >= 2 :
-            raise Warning('You already have 2 shift in a day')
+            raise UserError(_('You already have 2 shift in a day'))
         if shift_in_month >= 5 :
-            raise Warning('You already have 5 shift in a month')
+            raise UserError(_('You already have 5 shift in a month'))
 
 class TaskTemplate(models.Model):
 

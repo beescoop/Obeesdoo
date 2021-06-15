@@ -105,6 +105,7 @@ class SubscribeShiftSwap(models.TransientModel) :
         self = self._check()
         if self.has_already_done_exchange() :
             raise UserError (_("You already swap your shift in the last 2months"))
+        self.env["beesdoo.shift.template.dated"].check_possibility_to_exchange(self.confirmed_timeslot_id,self.worker_id)
         self.exchanged_timeslot_id.store = True
         self.confirmed_timeslot_id.store = True
         data = {
