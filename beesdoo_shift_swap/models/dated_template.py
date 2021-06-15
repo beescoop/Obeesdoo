@@ -119,13 +119,25 @@ class DatedTemplate(models.Model):
 
         return timeslot_rec
 
-
-    #TODO: show my next timeslot/use myshift_next_shift + swap_shift_to_timeslot
     @api.multi
     def my_timeslot(self, worker_id):
         shifts = worker_id.my_next_shift()
         timeslots = self.swap_shift_to_timeslot(shifts)
         return timeslots
+
+    def check_possibility_to_exchange(self,wanted_timeslot,worker_id):
+        my_next_timeslots = self.my_timeslot(worker_id)
+        shift_in_day=0
+        shift_in_month=0
+        for timeslot in my_next_timeslots:
+            if timeslot.date == wanted_timeslot.date :
+                shift_in_day += 1
+            if timeslot.date.month == wanted_timeslot.date.month :
+                shift_in_month += 1
+        if shift_in_day >= 2 :
+            raise Warning('You already have 2 shift in a day')
+        if shift_in_month >= 5 :
+            raise Warning('You already have 5 shift in a month')
 
 class TaskTemplate(models.Model):
 
