@@ -31,6 +31,10 @@
         "wizard/holiday.xml",
         "wizard/temporary_exemption.xml",
     ],
-    "demo": ["demo/workers.xml", "demo/templates.xml"],
+    "demo": [
+        "demo/exempt_reason.xml",
+        "demo/workers.xml",
+        "demo/templates.xml",
+    ],
     "license": "AGPL-3",
 }

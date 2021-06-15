@@ -14,6 +14,7 @@ class TestBeesdooShift(TransactionCase):
         self.shift_template_model = self.env["beesdoo.shift.template"]
         self.subscribe_wizard = self.env["beesdoo.shift.subscribe"]
         self.holiday_wizard = self.env["beesdoo.shift.holiday"]
+        self.exemption_wizard = self.env["beesdoo.shift.temporary_exemption"]
 
         self.current_time = datetime.now()
         self.user_admin = self.env.ref("base.user_root")
@@ -43,6 +44,10 @@ class TestBeesdooShift(TransactionCase):
         )
         self.task_template_3 = self.env.ref(
             "beesdoo_shift.task_template_3_demo"
+        )
+
+        self.exempt_reason_1 = self.env.ref(
+            "beesdoo_shift.exempt_reason_1_demo"
         )
 
     def _generate_shifts(self, days=0, nb=1):
@@ -322,4 +327,157 @@ class TestBeesdooShift(TransactionCase):
             }
         )
         holiday_wiz.holidays()
+        self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 4)
+
+    def test_change_worker_temporary_exemption_1(self):
+        """
+        Change the temporary exemption start and end time on a cooperative_status.
+        Check that worker is correctly unsbscribed or subscribed again
+        to already generated shifts.
+        """
+        self._generate_shifts(days=7, nb=5)
+
+        # Check that initialisation works well
+        # two shift for this worker
+        self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 5)
+
+        status_id = self.worker_regular_1.cooperative_status_ids
+        status_id.today = date.today()
+
+        # Set exemption in the past do not change shift for worker_1
+        self.worker_regular_1.cooperative_status_ids.write(
+            {
+                "temporary_exempt_start_date": (
+                    date.today() - timedelta(days=7)
+                ).isoformat(),
+                "temporary_exempt_end_date": (
+                    date.today() - timedelta(days=1)
+                ).isoformat(),
+            }
+        )
+        self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 5)
+
+        # Set exemption in the future change shift for worker_1
+        self.worker_regular_1.cooperative_status_ids.write(
+            {
+                "temporary_exempt_start_date": (
+                    date.today() + timedelta(days=1)
+                ).isoformat(),
+                "temporary_exempt_end_date": (
+                    date.today() + timedelta(days=13)
+                ).isoformat(),
+            }
+        )
+        self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 4)
+
+        # Check that beginning exemption later in the future change shift
+        # for worker_1
+        self.worker_regular_1.cooperative_status_ids.write(
+            {
+                "temporary_exempt_start_date": (
+                    date.today() + timedelta(days=14)
+                ).isoformat(),
+                "temporary_exempt_end_date": (
+                    date.today() + timedelta(days=20)
+                ).isoformat(),
+            }
+        )
+        self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 4)
+
+        # Check that shorten the exemption in the future change shift
+        # for worker_1
+        self.worker_regular_1.cooperative_status_ids.write(
+            {
+                "temporary_exempt_start_date": (
+                    date.today() + timedelta(days=1)
+                ).isoformat(),
+                "temporary_exempt_end_date": (
+                    date.today() + timedelta(days=13)
+                ).isoformat(),
+            }
+        )
+        self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 4)
+
+    def test_change_worker_temporary_exemption_2(self):
+        """
+        Change the exemption start and end time on a cooperative_status.
+        Check that worker is correctly unsbscribed or subscribed again
+        to already generated shifts.
+
+        This test uses the wizard.
+        """
+        self._generate_shifts(days=7, nb=5)
+
+        # Check that initialisation works well
+        # two shift for this worker
+        self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 5)
+
+        exemption_wiz = self.exemption_wizard.with_context(
+            {"active_id": self.worker_regular_1.ids}
+        )
+        status_id = self.worker_regular_1.cooperative_status_ids
+        status_id.today = date.today()
+
+        # Set holiday in the past raise error and do not change shift
+        # for worker_1
+        exemption_wiz = exemption_wiz.create(
+            {
+                "temporary_exempt_reason_id": self.exempt_reason_1.id,
+                "temporary_exempt_start_date": (
+                    status_id.today - timedelta(days=7)
+                ).isoformat(),
+                "temporary_exempt_end_date": (
+                    status_id.today - timedelta(days=1)
+                ).isoformat(),
+            }
+        )
+        with self.assertRaises(ValidationError):
+            exemption_wiz.exempt()
+        self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 5)
+
+        # Set holiday in the future change shift for worker_1
+        exemption_wiz = exemption_wiz.create(
+            {
+                "temporary_exempt_reason_id": self.exempt_reason_1.id,
+                "temporary_exempt_start_date": (
+                    status_id.today + timedelta(days=1)
+                ).isoformat(),
+                "temporary_exempt_end_date": (
+                    status_id.today + timedelta(days=13)
+                ).isoformat(),
+            }
+        )
+        exemption_wiz.exempt()
+        self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 4)
+
+        # Check that beginning holiday later in the future change shift
+        # for worker_1
+        exemption_wiz = exemption_wiz.create(
+            {
+                "temporary_exempt_reason_id": self.exempt_reason_1.id,
+                "temporary_exempt_start_date": (
+                    status_id.today + timedelta(days=14)
+                ).isoformat(),
+                "temporary_exempt_end_date": (
+                    status_id.today + timedelta(days=20)
+                ).isoformat(),
+            }
+        )
+        exemption_wiz.exempt()
+        self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 4)
+
+        # Check that shorten the holiday in the future change shift
+        # for worker_1
+        exemption_wiz = exemption_wiz.create(
+            {
+                "temporary_exempt_reason_id": self.exempt_reason_1.id,
+                "temporary_exempt_start_date": (
+                    status_id.today + timedelta(days=1)
+                ).isoformat(),
+                "temporary_exempt_end_date": (
+                    status_id.today + timedelta(days=13)
+                ).isoformat(),
+            }
+        )
+        exemption_wiz.exempt()
         self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 4)

@@ -218,17 +218,32 @@ class CooperativeStatus(models.Model):
             previous_vals[rec] = {
                 "holiday_start_time": rec.holiday_start_time,
                 "holiday_end_time": rec.holiday_end_time,
+                "temporary_exempt_start_date": rec.temporary_exempt_start_date,
+                "temporary_exempt_end_date": rec.temporary_exempt_end_date,
             }
         result = super(CooperativeStatus, self).write(vals)
         if "holiday_start_time" in vals or "holiday_end_time" in vals:
             for rec in self:
-                rec._update_shifts_on_holiday_change(
-                    prev_holiday_start_time=previous_vals[rec][
-                        "holiday_start_time"
+                rec._update_shifts_based_on_dates(
+                    prev_start_date=previous_vals[rec]["holiday_start_time"],
+                    prev_end_date=previous_vals[rec]["holiday_end_time"],
+                    cur_start_date=self.holiday_start_time,
+                    cur_end_date=self.holiday_end_time,
+                )
+        if (
+            "temporary_exempt_start_date" in vals
+            or "temporary_exempt_end_date" in vals
+        ):
+            for rec in self:
+                rec._update_shifts_based_on_dates(
+                    prev_start_date=previous_vals[rec][
+                        "temporary_exempt_start_date"
                     ],
-                    prev_holiday_end_time=previous_vals[rec][
-                        "holiday_end_time"
+                    prev_end_date=previous_vals[rec][
+                        "temporary_exempt_end_date"
                     ],
+                    cur_start_date=self.temporary_exempt_start_date,
+                    cur_end_date=self.temporary_exempt_end_date,
                 )
         return result
 
@@ -265,12 +280,12 @@ class CooperativeStatus(models.Model):
                     rec._state_change(vals["status"])
         return super(CooperativeStatus, self)._write(vals)
 
-    def _update_shifts_on_holiday_change(
-        self, prev_holiday_start_time, prev_holiday_end_time
+    def _update_shifts_based_on_dates(
+        self, prev_start_date, prev_end_date, cur_start_date, cur_end_date
     ):
         """
-        Check for one record that the change in holiday start and end
-        time update correctly the already generated shifts.
+        Update already generated shifts according to previous start and
+        end date and to futur start and end date given in args.
 
         Shift in the past will not be changed !
         """
@@ -279,36 +294,34 @@ class CooperativeStatus(models.Model):
         self.env["beesdoo.shift.shift"].unsubscribe_from_today(
             worker_ids=self.cooperator_id.ids,
             task_tmpl_ids=self.cooperator_id.subscribed_shift_ids.ids,
-            today=self.holiday_start_time
-            if self.holiday_start_time >= today
-            else today,
-            end_date=self.holiday_end_time,
+            today=cur_start_date if cur_start_date >= today else today,
+            end_date=cur_end_date,
         )
         # If the previous holidays are in the future and that holiday
         # period changes, worker needs to be subscribed again to shifts
         if (
-            prev_holiday_start_time
-            and prev_holiday_start_time > today
-            and self.holiday_start_time > prev_holiday_start_time
+            prev_start_date
+            and prev_start_date > today
+            and cur_start_date > prev_start_date
         ):
             # subscribe worker from prev to current start_time
             self.env["beesdoo.shift.shift"].subscribe_from_today(
                 worker_ids=self.cooperator_id,
                 task_tmpl_ids=self.cooperator_id.subscribed_shift_ids,
-                today=prev_holiday_start_time,
-                end_date=self.holiday_start_time - timedelta(days=1),
+                today=prev_start_date,
+                end_date=cur_start_date - timedelta(days=1),
             )
         if (
-            prev_holiday_end_time
-            and prev_holiday_end_time > today
-            and self.holiday_end_time < prev_holiday_end_time
+            prev_end_date
+            and prev_end_date > today
+            and cur_end_date < prev_end_date
         ):
             # subscribe worker from current to prev end time
             self.env["beesdoo.shift.shift"].subscribe_from_today(
                 worker_ids=self.cooperator_id,
                 task_tmpl_ids=self.cooperator_id.subscribed_shift_ids,
-                today=self.holiday_end_time + timedelta(days=1),
-                end_date=prev_holiday_end_time,
+                today=cur_end_date + timedelta(days=1),
+                end_date=prev_end_date,
             )
 
     def get_status_value(self):
