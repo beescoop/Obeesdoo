@@ -3,6 +3,7 @@
 
 from datetime import date, datetime, timedelta
 
+from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
 
 
@@ -12,6 +13,7 @@ class TestBeesdooShift(TransactionCase):
         self.shift_model = self.env["beesdoo.shift.shift"]
         self.shift_template_model = self.env["beesdoo.shift.template"]
         self.subscribe_wizard = self.env["beesdoo.shift.subscribe"]
+        self.holiday_wizard = self.env["beesdoo.shift.holiday"]
 
         self.current_time = datetime.now()
         self.user_admin = self.env.ref("base.user_root")
@@ -240,4 +242,84 @@ class TestBeesdooShift(TransactionCase):
                 ).isoformat(),
             }
         )
+        self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 4)
+
+    def test_change_worker_holiday_2(self):
+        """
+        Change the holiday start and end time on a cooperative_status.
+        Check that worker is correctly unsbscribed or subscribed again
+        to already generated shifts.
+
+        This test uses the wizard.
+        """
+        self._generate_shifts(days=7, nb=5)
+
+        # Check that initialisation works well
+        # two shift for this worker
+        self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 5)
+
+        holiday_wiz = self.holiday_wizard.with_context(
+            {"active_id": self.worker_regular_1.ids}
+        )
+        status_id = self.worker_regular_1.cooperative_status_ids
+        status_id.today = date.today()
+
+        # Set holiday in the past raise error and do not change shift
+        # for worker_1
+        holiday_wiz = holiday_wiz.create(
+            {
+                "holiday_start_day": (
+                    status_id.today - timedelta(days=7)
+                ).isoformat(),
+                "holiday_end_day": (
+                    status_id.today - timedelta(days=1)
+                ).isoformat(),
+            }
+        )
+        with self.assertRaises(ValidationError):
+            holiday_wiz.holidays()
+        self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 5)
+
+        # Set holiday in the future change shift for worker_1
+        holiday_wiz = holiday_wiz.create(
+            {
+                "holiday_start_day": (
+                    status_id.today + timedelta(days=1)
+                ).isoformat(),
+                "holiday_end_day": (
+                    status_id.today + timedelta(days=13)
+                ).isoformat(),
+            }
+        )
+        holiday_wiz.holidays()
+        self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 4)
+
+        # Check that beginning holiday later in the future change shift
+        # for worker_1
+        holiday_wiz = holiday_wiz.create(
+            {
+                "holiday_start_day": (
+                    status_id.today + timedelta(days=14)
+                ).isoformat(),
+                "holiday_end_day": (
+                    status_id.today + timedelta(days=20)
+                ).isoformat(),
+            }
+        )
+        holiday_wiz.holidays()
+        self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 4)
+
+        # Check that shorten the holiday in the future change shift
+        # for worker_1
+        holiday_wiz = holiday_wiz.create(
+            {
+                "holiday_start_day": (
+                    status_id.today + timedelta(days=1)
+                ).isoformat(),
+                "holiday_end_day": (
+                    status_id.today + timedelta(days=13)
+                ).isoformat(),
+            }
+        )
+        holiday_wiz.holidays()
         self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 4)
