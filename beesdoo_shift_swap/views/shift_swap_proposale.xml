@@ -29,6 +29,23 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="shift_request_view_search">
+        <field name="name">Shift Request Search</field>
+        <field name="model">beesdoo.shift.exchange_request</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="worker_id"/>
+                <field name="request_date"/>
+                <field name="status"/>
+                <group expand="1" string="Group By">
+                    <filter string="Match state"
+                            name="Status"
+                            context="{'group_by' : 'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
 
     <record model="ir.ui.view" id="shift_swap_request_view">
         <field name="name">Shift swap request</field>

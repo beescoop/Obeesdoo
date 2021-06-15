@@ -85,25 +85,6 @@ class SubscribeShiftSwap(models.TransientModel) :
         string='possible match',
     )
 
-    '''state=fields.Selection(
-        selection=[
-            ('step1', 'Step 1'),
-            ('step2', 'Step 2'),
-        ],
-        string="Current step",
-        default="step1",
-        readonly=True
-    )
-
-    @api.multi
-    def action_step1(self):
-        self.state = 'step1'
-        return {"type": "set_scrollTop"}
-
-    @api.multi
-    def action_step2(self):
-        self.state = 'step2'
-        return {"type": "set_scrollTop"}'''
 
     def _check(self, group="beesdoo_shift.group_shift_management"):
         self.ensure_one()
@@ -147,13 +128,3 @@ class SubscribeShiftSwap(models.TransientModel) :
             self.possible_match.write(
                 {'status': 'has_match'}
             )
-        '''matching_request = record.matching_request()
-        if matching_request :
-            return {
-                "domain":"[('id,'in',matching_request.ids )]",
-                "type": "ir.actions.act_window",
-                "view_type": "form",
-                "view_mode": "form",
-                "res_model": "beesdoo.shift.exchange_request",
-                "target": "new",
-            }'''

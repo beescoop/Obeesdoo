@@ -5,15 +5,30 @@ class Exchange(models.Model):
 
     first_shift = fields.Many2one('beesdoo.shift.shift', string='first_shift')
     second_shift = fields.Many2one('beesdoo.shift.shift', string='second_shift')
-    first_request_id=fields.One2many(
-        comodel_name='beesdoo.shift.exchange_request',
-        inverse_name='exchange_id',
+    first_request_id=fields.Many2one(
+        'beesdoo.shift.exchange_request',
         string='first_request'
     )
-    second_request_id= fields.One2many(
-        comodel_name='beesdoo.shift.exchange_request',
-        inverse_name='exchange_id',
+    second_request_id= fields.Many2one(
+        'beesdoo.shift.exchange_request',
         string='second_request'
     )
-    status_generated=fields.Selection([('exchanged_generated','0'), ('first_shift_not_generated','1'), ('second_shift_not_generated','2'), ('both_not_generated','3')])
+    first_shift_status = fields.Boolean(default=False, string="status first shift")
+    second_shift_status = fields.Boolean(default=False, string="status second shift")
 
+
+    def is_shift_generated(self,request):
+        shift_data_search=[
+            ('start_time', '=', request.exchanged_timeslot_id.date),
+            ("task_template_id", "=", request.exchanged_timeslot_id.template_id.id),
+            ("worker_id", "=", request.worker_id.id),
+        ]
+        shift = self.env["beesdoo.shift.shift"].search(shift_data_search)
+        return shift
+
+    def subscribe_exchange_to_shift(self,request):
+        shift = self.env["beesdoo.shift.exchange"].is_shift_generated(request)
+        updated_data = {
+            "worker_id":request.worker_id.id,
+        }
+        shift.update(updated_data)

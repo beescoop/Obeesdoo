@@ -1,6 +1,8 @@
-from odoo import models, fields, api
+from odoo import models, fields, api,_
 from datetime import datetime, timedelta
+import logging
 
+_logger = logging.getLogger(__name__)
 
 class DatedTemplate(models.Model):
     _name = 'beesdoo.shift.template.dated'
@@ -69,12 +71,12 @@ class DatedTemplate(models.Model):
         start_date = datetime.now()
 
         #generate timeslot of the shift already generated
-
         shift_generated = (self.env["beesdoo.shift.shift"].sudo().search([
             ("start_time", ">", start_date.strftime("%Y-%m-%d %H:%M:%S"))
         ],
         order="start_time, task_template_id, task_type_id"))
 
+        #TODO : pb qd aucun shift généré dans le futur
         timeslot_rec = self.swap_shift_to_timeslot(shift_generated)
 
         # generate timeslot of the shift not generated
@@ -99,13 +101,13 @@ class DatedTemplate(models.Model):
         next_planning = next_planning.with_context(visualize_date=next_planning_date)
         shift_recset = self.env["beesdoo.shift.shift"]
 
-        '''
+
         if not next_planning.task_template_ids:
             _logger.error(
                 "Could not generate next planning: no task template defined."
             )
             return
-        '''
+
 
         while next_planning_date < end_date :
             shift_recset = next_planning.task_template_ids._generate_task_day()
@@ -133,6 +135,7 @@ class TaskTemplate(models.Model):
     def _generate_task_day(self):
         shifts = super(TaskTemplate,self)._generate_task_day()
         exchanges = self.env["beesdoo.shift.subscribed_underpopulated_shift"].search([])
+        people_exchanges = self.env["beesdoo.shift.exchange"].search([])
         template={"first":None,"second": None}
         for shift in shifts :
             template["first"] = shift.task_template_id
@@ -151,25 +154,17 @@ class TaskTemplate(models.Model):
                         "is_regular": False,
                     }
                     shift.update(updated_data)
+            for record in people_exchanges :
+                if shift.worker_id == record.first_request_id.worker_id and record.first_request_id.exchanged_timeslot_id.template_id == shift.task_template_id and shift.start_time == record.first_request_id.exchanged_timeslot_id.date :
+                    updated_data = {
+                        "worker_id": record.second_request_id.worker_id.id,
+                        "is_regular": True,
+                    }
+                    shift.update(updated_data)
+                if shift.worker_id == record.second_request_id.worker_id and shift.task_template_id == record.second_request_id.exchanged_timeslot_id.template_id and shift.start_time == record.second_request_id.exchanged_timeslot_id.date :
+                    updated_data = {
+                        "worker_id": record.first_request_id.worker_id.id,
+                        "is_regular": True,
+                    }
+                    shift.update(updated_data)
         return shifts
-
-'''
-def test(slot):
-     last_sequence = int(self.env["ir.config_parameter"].sudo().get_param("last_planning_seq"))
-     next_planning = self.env["beesdoo.shift.planning"]._get_next_planning(last_sequence)
-     next_planning_date = fields.Datetime.from_string(self.env["ir.config_parameter"].sudo().get_param("next_planning_date",0))
-     next_swap_limit = int(self.env["ir.config_parameter"].sudo().get_param("beesdoo_shift.day_limit_swap"))
-     end_date = slot.date + timedelta(days=next_swap_limit)
-     shift_recset = self.env["beesdoo.shift.shift"]
-     while next_planning_date < end_date :
-             shift_recset |= next_planning.task_template_ids._generate_task_day()
-             next_planning_date = next_planning._get_next_planning_date(next_planning_date)
-             last_sequence = next_planning.sequence
-             next_planning = self.env["beesdoo.shift.planning"]._get_next_planning(last_sequence)
-             next_planning = next_planning.with_context(visualize_date=next_planning_date)
-     return shift_recset
-'''
-
-class Planning(models.Model):
-
-    _inherit = "beesdoo.shift.planning"

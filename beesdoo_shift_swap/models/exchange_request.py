@@ -13,20 +13,31 @@ class ExchangeRequest(models.Model):
         ],
         string="worker"
     )
-    #TODO : relational fields
+
     asked_timeslot_ids = fields.Many2many(
         comodel_name='beesdoo.shift.template.dated',
-        #inverse_name='id',
         relation='exchange_template_dated',
         string='asked_timeslots'
     )
     exchanged_timeslot_id = fields.Many2one('beesdoo.shift.template.dated', string='exchanged_timeslot')
+
     request_date = fields.Date(required = True, string='date')
+
     exchange_id = fields.Many2one('beesdoo.shift.exchange',string = 'exchange')
+
     validate_request_id = fields.Many2one(
         'beesdoo.shift.exchange_request',
         string='validate_request'
     )
+
+    cancelled_request = fields.Many2many(
+        comodel_name='beesdoo.shift.exchange_request',
+        relation='cancelled_request',
+        column1='beesdoo_shift_request_id1',
+        column2='beesdoo_shift_request_id2',
+        string='Cancelled request'
+    )
+
     def _get_status(self):
         return [
             ('draft', 'Draft'),
@@ -39,13 +50,6 @@ class ExchangeRequest(models.Model):
         selection=_get_status,
         default='draft'
     )
-
-    '''def display_request(self):
-        my_timeslot = self.exchanged_timeslot_id
-        all_timeslot = self.env["beesdoo.shift.template.dated"].display_timeslot(my_timeslot)
-        requests = self.env["beesdoo.shift.exchange_request"].search([])
-        for request in requests :
-            if'''
 
     @api.multi
     def name_get(self):
@@ -81,9 +85,9 @@ class ExchangeRequest(models.Model):
 
         for timeslot in timeslots_wanted :
             for exchange in exchanges :
-                if timeslot.template_id == exchange.exchanged_timeslot_id.template_id and timeslot.date==exchange.exchanged_timeslot_id.date :
+                if timeslot.template_id == exchange.exchanged_timeslot_id.template_id and timeslot.date==exchange.exchanged_timeslot_id.date and not exchange.status == "done":
                     for asked_timeslot in exchange.asked_timeslot_ids :
-                        if timeslot_exchanged.template_id == asked_timeslot.template_id and timeslot_exchanged.date ==asked_timeslot.date :
+                        if timeslot_exchanged.template_id == asked_timeslot.template_id and timeslot_exchanged.date == asked_timeslot.date :
                             matches |= exchange
         return matches
 
