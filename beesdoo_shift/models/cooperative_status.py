@@ -51,12 +51,12 @@ class CooperativeStatus(models.Model):
         # configuration.
         return [
             ("ok", _("shift_status_up_to_date")),
-            ("holiday", _("shift_status_holidays")),
             ("alert", _("shift_status_warning")),
-            ("extension", _("shift_status_extension")),
             ("suspended", _("shift_status_suspended")),
-            ("exempted", _("shift_status_exempted")),
+            ("extension", _("shift_status_extension")),
             ("unsubscribed", _("shift_status_unsubscribed")),
+            ("exempted", _("shift_status_exempted")),
+            ("holiday", _("shift_status_holidays")),
             ("resigning", _("shift_status_resigning")),
         ]
 
