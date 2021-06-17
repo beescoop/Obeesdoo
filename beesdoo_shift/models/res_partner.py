@@ -144,26 +144,32 @@ class ResPartner(models.Model):
         result = super(ResPartner, self).write(vals)
         for rec in self:
             rec._update_shifts_on_subscribed_task_tmpl(
-                prev_subscribed_task_tmpl=saved_vals[rec]
+                prev_subscribed_task_tmpl=saved_vals[rec],
+                cur_subscribed_task_tmpl=rec.subscribed_shift_ids,
             )
         return result
 
     def _update_shifts_on_subscribed_task_tmpl(
-        self, prev_subscribed_task_tmpl
+        self, prev_subscribed_task_tmpl, cur_subscribed_task_tmpl,
     ):
         """
-        Unsubscribe current partner from already generated shifts when
-        subscribed_shift_ids changes.
+        Subscribe or unsubscribe current partner from already generated
+        shifts when subscribed_shift_ids changes.
         """
         self.ensure_one()
         shift_cls = self.env["beesdoo.shift.shift"]
-        removed_tmpl_ids = (
-            prev_subscribed_task_tmpl - self.subscribed_shift_ids
-        )
+        removed_tmpl_ids = prev_subscribed_task_tmpl - cur_subscribed_task_tmpl
+        added_tmpl_ids = cur_subscribed_task_tmpl - prev_subscribed_task_tmpl
         if removed_tmpl_ids:
             shift_cls.unsubscribe_from_today(
-                worker_ids=self.ids,
-                task_tmpl_ids=removed_tmpl_ids.ids,
+                worker_ids=self,
+                task_tmpl_ids=removed_tmpl_ids,
+                now=datetime.now(),
+            )
+        if added_tmpl_ids:
+            shift_cls.subscribe_from_today(
+                worker_ids=self,
+                task_tmpl_ids=added_tmpl_ids,
                 now=datetime.now(),
             )
 
