@@ -1,42 +1,24 @@
-# -*- coding: utf-8 -*-
 {
-    'name': "beesdoo_shift_swap",
-
-    'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
-
-    'description': """
-        Long description of module's purpose
+    "name": "BEES coop Shift Swap",
+    "summary": """
+    Allow workers to swap exchange shifts between each other.
     """,
-
-    'author': "Coop It Easy SCRLfs",
-    'website': "https://github.com/beescoop/Obeesdoo",
-
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
-    'category': 'Cooperative Management',
-    'version': '12.0.1.0.2',
-
-    # any module necessary for this one to work correctly
-    'depends': [
-        "beesdoo_shift",
+    "author": "Coop It Easy SCRLfs",
+    "website": "https://github.com/beescoop/Obeesdoo",
+    "category": "Cooperative Management",
+    "version": "12.0.1.0.2",
+    "license": "AGPL-3",
+    "depends": ["beesdoo_shift"],
+    "data": [
+        "data/system_parameter.xml",
+        "security/shift_swap_group.xml",
+        "security/ir.model.access.csv",
+        "views/shift_swap.xml",
+        "views/shift_swap_subscribe.xml",
+        "views/shift_swap_timeslot.xml",
+        "views/res_config_setting_view.xml",
+        "wizard/subscribe_shift_swap.xml",
+        "wizard/exchange_wizard.xml",
     ],
-
-    # always loaded
-    'data': [
-        'data/system_parameter.xml',
-        'security/shift_swap_group.xml',
-        'security/ir.model.access.csv',
-        'views/shift_swap.xml',
-        'views/shift_swap_subscribe.xml',
-        'views/shift_swap_timeslot.xml',
-        'views/res_config_setting_view.xml',
-        'wizard/Subscribe_shift_swap.xml',
-    ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
-    ],
+    "demo": ["demo/demo.xml"],
 }

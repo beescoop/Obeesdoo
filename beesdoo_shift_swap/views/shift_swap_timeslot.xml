@@ -4,8 +4,8 @@
         <field name="model">beesdoo.shift.template.dated</field>
         <field name="arch" type="xml">
                 <tree>
-                    <field name="template_id"/>
-                    <field name="date"/>
+                    <field name="template_id" />
+                    <field name="date" />
                     <!--<field name="hour"/> -->
                 </tree>
         </field>
@@ -16,18 +16,29 @@
         <field name="model">beesdoo.shift.template.dated</field>
         <field name="arch" type="xml">
             <search>
-                <field name="date"/>
-                <field name="template_id"/>
-                <filter string="Morning Shift" name="MorningShift"
-                        domain="[('hour','&gt;=', '70000'),('hour','&lt;','120000')]"/>
-                <filter string="Afternoon Shift" name="AfternoonShift"
-                        domain="[('hour','&gt;=', '120000'),('hour','&lt;','170000')]"/>
-                <filter string="Night Shift" name="NightShift"
-                        domain="[('hour','&gt;=', '170000'),('hour','&lt;','220000')]"/>
+                <field name="date" />
+                <field name="template_id" />
+                <filter
+                    string="Morning Shift"
+                    name="MorningShift"
+                    domain="[('hour','&gt;=', '70000'),('hour','&lt;','120000')]"
+                />
+                <filter
+                    string="Afternoon Shift"
+                    name="AfternoonShift"
+                    domain="[('hour','&gt;=', '120000'),('hour','&lt;','170000')]"
+                />
+                <filter
+                    string="Night Shift"
+                    name="NightShift"
+                    domain="[('hour','&gt;=', '170000'),('hour','&lt;','220000')]"
+                />
                 <group expand="1" string="Group By">
-                    <filter string="Date"
-                            name="gb_date"
-                            context="{'group_by' : 'date:week'}"/>
+                    <filter
+                        string="Date"
+                        name="gb_date"
+                        context="{'group_by' : 'date:week'}"
+                    />
                 </group>
             </search>
         </field>
