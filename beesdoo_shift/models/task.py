@@ -199,31 +199,29 @@ class Task(models.Model):
             )
             date_domain.append(("end_time", "<=", end_date))
 
-        domain = [("worker_id", "in", worker_ids)]
+        domain = [("worker_id", "in", worker_ids.ids)]
         if task_tmpl_ids:
-            domain += [("task_template_id", "in", task_tmpl_ids)]
+            domain += [("task_template_id", "in", task_tmpl_ids.ids)]
 
         to_unsubscribe = self.search(domain + date_domain)
         to_unsubscribe.write({"worker_id": False})
 
         # Remove worker, replaced_id and regular
         to_unsubscribe_replace = self.search(
-            [("replaced_id", "in", worker_ids)] + date_domain
+            [("replaced_id", "in", worker_ids.ids)] + date_domain
         )
         to_unsubscribe_replace.write(
             {"worker_id": False, "replaced_id": False}
         )
 
         # If worker is Super cooperator, remove it from planning
-        super_coop_ids = (
-            self.env["res.users"]
-            .search([("partner_id", "in", worker_ids), ("super", "=", True)])
-            .ids
+        super_coop_ids = self.env["res.users"].search(
+            [("partner_id", "in", worker_ids.ids), ("super", "=", True)]
         )
 
         if super_coop_ids:
             to_unsubscribe_super_coop = self.search(
-                [("super_coop_id", "in", super_coop_ids)] + date_domain
+                [("super_coop_id", "in", super_coop_ids.ids)] + date_domain
             )
             to_unsubscribe_super_coop.write({"super_coop_id": False})
 

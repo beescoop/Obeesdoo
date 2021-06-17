@@ -311,20 +311,27 @@ class TaskTemplate(models.Model):
         result = super(TaskTemplate, self).write(vals)
         for rec in self:
             rec._update_shifts_on_worker_change(
-                prev_worker_ids=saved_vals[rec]
+                prev_worker_ids=saved_vals[rec], cur_worker_ids=rec.worker_ids,
             )
         return result
 
-    def _update_shifts_on_worker_change(self, prev_worker_ids):
+    def _update_shifts_on_worker_change(self, prev_worker_ids, cur_worker_ids):
         """
-        Unsubscribe worker to already generated shifts
+        Subscribe or Unsubscribe worker to already generated shifts
         """
         self.ensure_one()
         shift_cls = self.env["beesdoo.shift.shift"]
-        removed_workers = prev_worker_ids - self.worker_ids
+        removed_workers = prev_worker_ids - cur_worker_ids
+        added_workers = cur_worker_ids - prev_worker_ids
         if removed_workers:
             shift_cls.unsubscribe_from_today(
-                worker_ids=removed_workers.ids,
-                task_tmpl_ids=self.ids,
+                worker_ids=removed_workers,
+                task_tmpl_ids=self,
+                now=datetime.now(),
+            )
+        if added_workers:
+            shift_cls.subscribe_from_today(
+                worker_ids=added_workers,
+                task_tmpl_ids=self,
                 now=datetime.now(),
             )

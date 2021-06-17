@@ -292,8 +292,8 @@ class CooperativeStatus(models.Model):
         self.ensure_one()
         today = self.today or fields.Date.today()
         self.env["beesdoo.shift.shift"].unsubscribe_from_today(
-            worker_ids=self.cooperator_id.ids,
-            task_tmpl_ids=self.cooperator_id.subscribed_shift_ids.ids,
+            worker_ids=self.cooperator_id,
+            task_tmpl_ids=self.cooperator_id.subscribed_shift_ids,
             today=cur_start_date if cur_start_date >= today else today,
             end_date=cur_end_date,
         )
