@@ -108,6 +108,8 @@ class SubscribeShiftSwap(models.TransientModel) :
         #self.asked_timeslot_ids.store = True
         for rec in self.asked_timeslot_ids :
             rec.store = True
+            self.env["beesdoo.shift.template.dated"].check_possibility_to_exchange(rec,
+                                                                                   self.worker_id)
         #for timeslot in self.asked_timeslot_ids.ids :
 
         data = {
