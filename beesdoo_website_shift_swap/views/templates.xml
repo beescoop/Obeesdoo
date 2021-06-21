@@ -6,9 +6,9 @@
             name="shift swap button"
             inherit_id="beesdoo_website_shift.my_shift_next_shifts">
             <xpath expr="//div[@class='card-body clearfix']" position="inside">
-                <div class="button_right" style="margin-right:10px">
-                    <h1>test</h1>
-                </div>
+                <p>
+                    <a t-attf-href="/my/shift/swapping/{{ my_shift }}" ><t t-esc="shift.id"/>Je ne peux réaliser ce Shift</a>
+                </p>
             </xpath>
         </template>
 
@@ -23,7 +23,12 @@
 
         </template>
 
-
+        <template id="website_shift_swap_matching_request">
+            <title>My Match</title>
+            <t t-foreach="match" t-as="match">
+                <p><t t-esc="match"/></p>
+            </t>
+        </template>
 
 
     </data>

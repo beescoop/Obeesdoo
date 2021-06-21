@@ -15,19 +15,56 @@ from odoo.http import request
 
 class WebsiteShiftSwapController(http.Controller):
 
-    @http.route("/my/shift/<string:my_shift>/choose/swap")
-    def my_available_shift(self,my_shift):
+    def shift_to_timeslot(self,my_shift):
+        list_shift = []
+        list_shift.append(my_shift)
+        my_timeslot = request.env["beesdoo.shift.template.dated"].sudo().swap_shift_to_timeslot(list_shift)
+        return my_timeslot
+
+    @http.route("/my/shift/swaping/<int:shift>")
+    def swaping_shift(self,shift):
+        return True
+
+    @http.route("/my/shift/<int:my_shift>/underpopulated/swap")
+    def get_underpopulated_shift(self,my_shift):
         """
         Personal page for swaping your shifts
         :return:
         """
+        my_timeslot = self.shift_to_timeslot(my_shift)
         my_available_shift = (
             request.env["beesdoo.shift.subscribed_underpopulated_shift"]
             .sudo()
-            .display_underpopulated_shift(my_shift)
+            .display_underpopulated_shift(my_timeslot)
         )
         return request.render ("beesdoo_website_shift_swap.website_shift_swap_swap",
             {
-            "available_shift" : my_available_shift
+                "underpopulated_shift" : my_available_shift
             }
         )
+
+    @http.route("/my/shift/<int:my_shift>/possible/shift")
+    def get_possible_shift(self,my_shift):
+
+        my_timeslot = self.shift_to_timeslot(my_shift)
+        possible_timeslot = request.env["beesdoo.shift.template.dated"].sudo().display_timeslot(my_timeslot)
+        return request.render ("beesdoo_website_shift_swap.website_shift_swap_possible_timeslot",
+                {
+                    "possible_timeslot": possible_timeslot
+               })
+
+    @http.route("/my/shift/matching/request")
+    def my_match(self):
+        # Get current user
+        cur_user = request.env["res.users"].browse(request.uid)
+        my_exchanges = request.env["beesdoo.shift.exchange_request"].sudo().search([
+            ('worker_id','=',cur_user.id)
+        ])
+        matchs = request.env["beesdoo.shift.exchange_request"]
+        for exchange in my_exchanges :
+            matchs |= request.env["beesdoo.shift.exchange_request"].matching_request(exchange.asked_timeslot_ids,exchange.exchanged_timeslot_id)
+
+        return request.render("beesdoo_website_shift_swap.website_shift_swap_matching_request",
+                              {
+                                  "matching_request":matchs
+                              })
