@@ -1,4 +1,7 @@
 from datetime import datetime, timedelta
+import logging
+
+_logger = logging.getLogger(__name__)
 
 from odoo import api, fields, models
 
@@ -117,7 +120,14 @@ class DatedTemplate(models.Model):
         )
         shift_recset = self.env["beesdoo.shift.shift"]
 
-        while next_planning_date < end_date:
+        if not next_planning.task_template_ids:
+            _logger.error(
+                "Could not generate next planning: no task template defined."
+            )
+            return
+
+
+        while next_planning_date < end_date :
             shift_recset = next_planning.task_template_ids._generate_task_day()
             timeslot_rec |= self.swap_shift_to_timeslot(shift_recset)
             next_planning_date = next_planning._get_next_planning_date(
@@ -136,7 +146,15 @@ class DatedTemplate(models.Model):
     # TODO: show my next timeslot/use myshift_next_shift + swap_shift_to_timeslot
     @api.multi
     def my_timeslot(self, worker_id):
-        shifts = worker_id.my_next_shift()
+        regular_next_shift_limit = int(
+                    self.env["ir.config_parameter"]
+                        .sudo()
+                        .get_param("beesdoo_shift.regular_next_shift_limit")
+                )
+        nb_days = 28 * regular_next_shift_limit
+        start_date = datetime.now()
+        end_date = start_date + timedelta(days=nb_days)
+        shifts = worker_id.get_next_shifts(end_date)
         timeslots = self.swap_shift_to_timeslot(shifts)
         return timeslots
 
@@ -156,7 +174,7 @@ class TaskTemplate(models.Model):
             template["first"] = shift.task_template_id
             for exchange in exchanges:
                 if (
-                    shift.worker_id.name is False
+                    not shift.worker_id
                     and exchange.confirmed_timeslot_id.template_id
                     == shift.task_template_id
                     and shift.start_time == exchange.confirmed_timeslot_id.date
