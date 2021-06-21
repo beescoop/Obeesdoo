@@ -24,7 +24,7 @@ class WebsiteShiftSwapController(http.Controller):
         my_available_shift = (
             request.env["beesdoo.shift.subscribed_underpopulated_shift"]
             .sudo()
-            .display_underpopulated_shift(my_shift)
+            .get_underpopulated_shift(my_shift)
         )
         return request.render ("beesdoo_website_shift_swap.website_shift_swap_swap",
             {
