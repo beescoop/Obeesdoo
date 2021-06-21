@@ -97,6 +97,24 @@ class Task(models.Model):
         for rec in self:
             rec.color = self._get_color_mapping(rec.state)
 
+    @api.multi
+    def store_in_database(self):
+        task_recset = self.env["beesdoo.shift.shift"]
+        for rec in self :
+            data = {
+                "name": rec.name,
+                "task_template_id": rec.task_template_id.id,
+                "task_type_id": rec.task_type_id.id,
+                "super_coop_id": rec.super_coop_id.id,
+                "worker_id": rec.worker_id.id,
+                "is_regular": rec.is_regular,
+                "start_time": rec.start_time,
+                "end_time": rec.end_time,
+                "state": "open",
+            }
+            task_recset |= rec.create(data)
+        return task_recset
+
     def _compensation_validation(self, task):
         """
         Raise a validation error if the fields is_regular and

@@ -137,7 +137,7 @@ class ResPartner(models.Model):
         }
 
     @api.multi
-    def display_future_shift(self, end_date):
+    def future_shifts(self, end_date):
 
         start_date = datetime.now()
 
@@ -167,23 +167,22 @@ class ResPartner(models.Model):
         return shift_recset
 
 
-    def my_next_shift(self):
-        # Get current user
-        cur_user = self.id
-        regular_next_shift_limit = int(
+    def get_next_shifts(self,end_date):
+        self.ensure_one()
+        '''regular_next_shift_limit = int(
             self.env["ir.config_parameter"]
                 .sudo()
                 .get_param("beesdoo_shift.regular_next_shift_limit")
-        )
-        nb_days = 28 * regular_next_shift_limit
-        start_date = datetime.now()
-        end_date = start_date + timedelta(days=nb_days)
+        )'''
+        #nb_days = 28 * regular_next_shift_limit
+        #start_date = datetime.now()
+        #end_date = start_date + timedelta(days=nb_days)
 
-        shifts = self.env["res.partner"].display_future_shift(end_date)
+        shifts = self.env["res.partner"].future_shifts(end_date)
 
         my_next_shifts=self.env["beesdoo.shift.shift"]
         for rec in shifts :
-            if rec.worker_id.id == cur_user :
+            if rec.worker_id.id == self.id :
                 my_next_shifts |= rec
 
         return my_next_shifts

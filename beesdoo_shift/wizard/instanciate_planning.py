@@ -22,19 +22,7 @@ class InstanciatePlanning(models.TransientModel):
             visualize_date=self.date_start, tracking_disable=True
         )
         shifts = self.planning_id.task_template_ids._generate_task_day()
-        for rec in shifts :
-            data = {
-                "name": rec.name,
-                "task_template_id": rec.task_template_id.id,
-                "task_type_id": rec.task_type_id.id,
-                "super_coop_id": rec.super_coop_id.id,
-                "worker_id": rec.worker_id.id,
-                "is_regular": rec.is_regular,
-                "start_time": rec.start_time,
-                "end_time": rec.end_time,
-                "state": "open",
-            }
-            shifts |= rec.create(data)
+        shifts = shifts.store_in_database()
 
         return {
             "name": _("Generated Shift"),
