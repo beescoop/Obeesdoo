@@ -13,7 +13,7 @@ from odoo import http
 from odoo.fields import Datetime
 from odoo.http import request
 
-from odoo.addons.beesdoo_shift.models.planning import float_to_time
+from Obeesdoo.beesdoo_shift.models.planning import float_to_time
 
 from .shift_grid_utils import DisplayedShift, build_shift_grid
 
@@ -375,7 +375,11 @@ class WebsiteShiftController(http.Controller):
         """
         # Get current user
         cur_user = request.env["res.users"].browse(request.uid)
-        my_shifts = cur_user.sudo().partner_id.my_next_shift()
+        regular_next_shift_limit = request.website.regular_next_shift_limit
+        nb_days = 28 * regular_next_shift_limit
+        start_date = datetime.now()
+        end_date = start_date + timedelta(days=nb_days)
+        my_shifts = cur_user.sudo().partner_id.get_next_shifts(end_date)
         subscribed_shifts = []
         for rec in my_shifts :
             subscribed_shifts.append(rec)
