@@ -189,7 +189,7 @@ class SubscribeUnderpopulatedShift(models.Model):
         return True
 
 
-    def display_underpopulated_shift(self,my_timeslot):
+    def get_underpopulated_shift(self, my_timeslot):
         available_timeslot = self.env["beesdoo.shift.template.dated"]
         timeslots = self.env["beesdoo.shift.template.dated"].display_timeslot(my_timeslot)
         exchange = self.env["beesdoo.shift.subscribed_underpopulated_shift"].search([])
