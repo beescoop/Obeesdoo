@@ -97,3 +97,14 @@ class ExchangeRequest(models.Model):
             if not request.matching_request(request.asked_timeslot_ids,request.exchanged_timeslot_id):
                 raise Warning('no match')
         return True
+
+    def get_possible_match(self,my_timeslot):
+        matches = self.env["beesdoo.shift.exchange_request"]  # Creates an empty recordset for proposals
+        exchanges = self.env["beesdoo.shift.exchange_request"].search([])
+
+        for exchange in exchanges :
+            if exchange.status != 'done' :
+                for asked_timeslot in exchange.asked_timeslot_ids:
+                    if my_timeslot.template_id == asked_timeslot.template_id and my_timeslot.date == asked_timeslot.date:
+                        matches |= exchange
+        return matches
