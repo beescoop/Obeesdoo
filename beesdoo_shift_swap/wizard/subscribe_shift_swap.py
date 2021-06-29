@@ -44,7 +44,7 @@ class SubscribeShiftSwap(models.TransientModel) :
             if not record.exchanged_timeslot_id:
                 record.confirmed_timeslot_id = False
             else:
-                timeslots = self.env["beesdoo.shift.subscribed_underpopulated_shift"].display_underpopulated_shift(
+                timeslots = self.env["beesdoo.shift.subscribed_underpopulated_shift"].get_underpopulated_shift(
                     record.exchanged_timeslot_id)
                 # record.available_timeslots = timeslots
                 temp = self.env["beesdoo.shift.template.dated"]
