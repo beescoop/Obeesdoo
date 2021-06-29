@@ -7,21 +7,76 @@
             inherit_id="beesdoo_website_shift.my_shift_next_shifts">
             <xpath expr="//div[@class='card-body clearfix']" position="inside">
                 <p>
-                    <a t-attf-href="/my/shift/swapping/{{ my_shift }}" ><t t-esc="shift.id"/>Je ne peux réaliser ce Shift</a>
+                    <a t-att-href="'/my/shift/swaping/%i/%s' % (shift.task_template_id,shift.start_time)">Je ne peux réaliser ce Shift</a>
                 </p>
             </xpath>
         </template>
 
         <!-- Template display shift -->
         <template
-            id="website_shift_swap_swap"
-            name="Shift Swap Page" >
-            <t t-call="portal.portal_layout">
-                    <t t-set="no_breadcrumbs" t-value="True" />
-                
+            id="website_shift_swap_swap_underpopulated"
+            name="Shift Swap Underpopulated Page" >
+            <title>Underpopulated Shift</title>
+            <t t-foreach="underpopulated_shift" t-as="timeslot">
+                <p>
+                    <t t-esc="timeslot.template_id.name"/>
+                    <t t-esc="timeslot.date"/>
+                    <a t-att-href="'/my/shift/underpopulated/swap/subscribe/%i/%s' % (timeslot.template_id,timeslot.date)">Je m'inscris à ce Shift</a>
+                </p>
             </t>
-
+            <p>
+                <a t-att-href="'/my/shift/possible/shift'">Aucun Shift me convient</a>
+            </p>
         </template>
+
+        <template
+            id="website_shift_swap_possible_match"
+            name="Shift Swap possible match Page" >
+            <title>Possible Match</title>
+            <t t-foreach="possible_matches" t-as="match">
+                <p>
+                    <t t-esc="match.exchanged_timeslot_id.template_id.name"/>
+                    <t t-esc="match.exchanged_timeslot_id.date"/>
+                </p>
+            </t>
+            <p>
+                <a t-att-href="'/my/shift/possible/shift'">Aucun Shift me convient</a>
+            </p>
+        </template>
+
+        <template
+            id="website_shift_swap_possible_timeslot"
+            name="Shift Swap possible timeslot Page">
+            <title>Possible timeslot</title>
+                <t t-foreach="possible_timeslot" t-as="timeslot">
+                    <p>
+                        <input type="checkbox" name="timeslot" multiple="multiple" t-att-value="timeslot">
+                            <t t-esc="timeslot.template_id.name"/></input>
+                            <t t-esc="timeslot.date"/>
+                    </p>
+                </t>
+                <p>
+                    <input type="submit" value="Valider l'échange avec ces shift"></input>
+                    <a t-att-href="'/my/shift/subscribe/request'">  Next Step </a>
+                </p>
+        </template>
+
+        <!--<template
+            id="website_shift_swap_possible_timeslot"
+            name="Shift Swap possible timeslot Page">
+            <title>Possible timeslot</title>
+            <select multiple="multiple" name="timeslot">
+                <t t-foreach="possible_timeslot" t-as="timeslot">
+                    <p>
+                            <t t-esc="timeslot.template_id.name"/>
+                            <t t-esc="timeslot.date"/>
+                    </p>
+                </t>
+            </select>
+                <p>
+                    <a t-att-href="'/my/shift/subscribe/request'">  Next Step </a>
+                </p>
+        </template>-->
 
         <template id="website_shift_swap_matching_request">
             <title>My Match</title>
