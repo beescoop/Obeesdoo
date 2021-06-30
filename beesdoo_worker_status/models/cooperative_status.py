@@ -311,7 +311,7 @@ class CooperativeStatus(models.Model):
             task_tpls.write({"super_coop_id": False})
             # Remove worker for future tasks (remove also supercoop)
             self.env["beesdoo.shift.shift"].sudo().unsubscribe_from_today(
-                [self.cooperator_id.id], now=fields.Datetime.now()
+                self.cooperator_id, now=fields.Datetime.now()
             )
 
     def _change_counter(self, data):
