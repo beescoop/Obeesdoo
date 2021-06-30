@@ -118,6 +118,43 @@ class TestBeesdooShift(TransactionCase):
 
         self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 2)
 
+    def test_subscribe_worker_from_task_template_with_shifts_1(self):
+        """
+        Check that adding a worker to a task_template via the
+        task_template add the worker to already generated shifts.
+
+        The task template has enough place. So there is empty generated
+        shift where the new worker can be subscribed.
+        """
+        self._generate_shifts(days=1, nb=2)
+
+        # Check that initialisation works well
+        self.assertEqual(self._count_number_of_shift(self.worker_regular_5), 2)
+
+        self.task_template_1.worker_ids += self.worker_regular_5
+
+        self.assertEqual(self._count_number_of_shift(self.worker_regular_5), 3)
+
+    def test_subscribe_worker_from_task_template_whitout_shifts_1(self):
+        """
+        Check that adding a worker to a task_template via the
+        task_template add the worker to already generated shifts.
+
+        The task template is full. So there is no empty generated
+        shift where the new worker can be subscribed.
+        """
+        self.task_template_1.worker_nb = 2
+        self._generate_shifts(days=1, nb=2)
+
+        # Check that initialisation works well
+        self.assertEqual(self._count_number_of_shift(self.worker_regular_5), 2)
+
+        # Open a place for the new worker
+        self.task_template_1.worker_nb = 3
+        self.task_template_1.worker_ids += self.worker_regular_5
+
+        self.assertEqual(self._count_number_of_shift(self.worker_regular_5), 3)
+
     def test_change_working_mode_1(self):
         """
         Check that changing a regular worker to irregular via the wizard

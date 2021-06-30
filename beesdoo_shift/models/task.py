@@ -268,6 +268,7 @@ class Task(models.Model):
             for _key, shifts in itertools.groupby(
                 shift_ids, lambda r: (r.start_time, r.end_time)
             ):
+                shifts = list(shifts)  # shifts will be used several times
                 empty_shifts = [
                     shift for shift in shifts if not shift.worker_id
                 ]
