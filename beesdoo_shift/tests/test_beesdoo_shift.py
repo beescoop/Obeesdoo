@@ -187,14 +187,17 @@ class TestBeesdooShift(TransactionCase):
         # Check that initialisation works well
         self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 5)
 
+        status_id = self.worker_regular_1.cooperative_status_ids
+        status_id.today = date.today()
+
         # Set holiday in the past do not change shift for worker_1
         self.worker_regular_1.cooperative_status_ids.write(
             {
                 "holiday_start_time": (
-                    date.today() - timedelta(days=7)
+                    status_id.today - timedelta(days=7)
                 ).isoformat(),
                 "holiday_end_time": (
-                    date.today() - timedelta(days=1)
+                    status_id.today - timedelta(days=1)
                 ).isoformat(),
             }
         )
@@ -204,10 +207,10 @@ class TestBeesdooShift(TransactionCase):
         self.worker_regular_1.cooperative_status_ids.write(
             {
                 "holiday_start_time": (
-                    date.today() + timedelta(days=1)
+                    status_id.today + timedelta(days=1)
                 ).isoformat(),
                 "holiday_end_time": (
-                    date.today() + timedelta(days=13)
+                    status_id.today + timedelta(days=13)
                 ).isoformat(),
             }
         )
@@ -218,10 +221,10 @@ class TestBeesdooShift(TransactionCase):
         self.worker_regular_1.cooperative_status_ids.write(
             {
                 "holiday_start_time": (
-                    date.today() + timedelta(days=14)
+                    status_id.today + timedelta(days=14)
                 ).isoformat(),
                 "holiday_end_time": (
-                    date.today() + timedelta(days=20)
+                    status_id.today + timedelta(days=20)
                 ).isoformat(),
             }
         )
@@ -232,10 +235,10 @@ class TestBeesdooShift(TransactionCase):
         self.worker_regular_1.cooperative_status_ids.write(
             {
                 "holiday_start_time": (
-                    date.today() + timedelta(days=1)
+                    status_id.today + timedelta(days=1)
                 ).isoformat(),
                 "holiday_end_time": (
-                    date.today() + timedelta(days=13)
+                    status_id.today + timedelta(days=13)
                 ).isoformat(),
             }
         )
