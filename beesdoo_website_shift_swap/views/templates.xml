@@ -48,35 +48,22 @@
             id="website_shift_swap_possible_timeslot"
             name="Shift Swap possible timeslot Page">
             <title>Possible timeslot</title>
+            <form method="post">
+                <t t-set="index" t-value="0"/>
                 <t t-foreach="possible_timeslot" t-as="timeslot">
                     <p>
-                        <input type="checkbox" name="timeslot" multiple="multiple" t-att-value="timeslot">
-                            <t t-esc="timeslot.template_id.name"/></input>
-                            <t t-esc="timeslot.date"/>
+                        <input type="checkbox" name="timeslot_index" multiple="multiple" t-att-value="index">
+                            <t t-esc="timeslot.template_id.name"/>
+                            <t t-esc="timeslot.date"/></input>
+                        <t t-set="index" t-value="index + 1"/>
                     </p>
                 </t>
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                 <p>
                     <input type="submit" value="Valider l'échange avec ces shift"></input>
-                    <a t-att-href="'/my/shift/subscribe/request'">  Next Step </a>
                 </p>
+            </form>
         </template>
-
-        <!--<template
-            id="website_shift_swap_possible_timeslot"
-            name="Shift Swap possible timeslot Page">
-            <title>Possible timeslot</title>
-            <select multiple="multiple" name="timeslot">
-                <t t-foreach="possible_timeslot" t-as="timeslot">
-                    <p>
-                            <t t-esc="timeslot.template_id.name"/>
-                            <t t-esc="timeslot.date"/>
-                    </p>
-                </t>
-            </select>
-                <p>
-                    <a t-att-href="'/my/shift/subscribe/request'">  Next Step </a>
-                </p>
-        </template>-->
 
         <template id="website_shift_swap_matching_request">
             <title>My Match</title>
