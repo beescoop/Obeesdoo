@@ -28,3 +28,22 @@ class ResPartner(models.Model):
             "res_model": "beesdoo.shift.subscribe.shift.exchange",
             "target": "new",
         }
+
+    '''def send_mail_coop_same_days_same_hour(self, my_timeslot,worker_id):
+        partner_rec = self.env["beesdoo.shift.exchange_request"].get_coop_same_days_same_hour(my_timeslot)
+        template_rec = self.env.ref("beesdoo_shift_swap.email_template_contact_coop", False)
+        email_values = {"my_timeslot":my_timeslot}
+        for rec in partner_rec:
+            template_rec.write({'partner_to': rec.id})
+            template_rec.with_context(email_values).send_mail(worker_id.id, False)'''
+
+    @api.multi
+    def send_mail_coop_same_days_same_hour(self, my_timeslot,partner_to):
+        template_rec = self.env.ref("beesdoo_shift_swap.email_template_contact_coop", False)
+        email_values = {
+            "my_timeslot": my_timeslot,
+            "worker_id":partner_to
+        }
+        template_rec.write({'partner_to': partner_to.id})
+        template_rec.with_context(email_values).send_mail(self.id, False)
+
