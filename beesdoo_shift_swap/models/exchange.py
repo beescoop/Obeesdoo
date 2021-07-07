@@ -32,3 +32,11 @@ class Exchange(models.Model):
             "worker_id":request.worker_id.id,
         }
         shift.update(updated_data)
+
+    @api.model
+    def create(self,vals):
+        subscr_exchange = super(Exchange, self).create(vals)
+        template_rec = self.env.ref("beesdoo_shift_swap.email_template_exchange_validation",False)
+        template_rec.send_mail(subscr_exchange.first_request_id.id,False)
+        template_rec.send_mail(subscr_exchange.second_request_id.id,False)
+        return subscr_exchange
