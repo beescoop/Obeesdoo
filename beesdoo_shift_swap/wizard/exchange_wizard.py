@@ -130,3 +130,9 @@ class SubscribeShiftSwap(models.TransientModel) :
             self.possible_match.write(
                 {'status': 'has_match'}
             )
+
+    @api.multi
+    def contact_coop_same_day_same_hour(self):
+        partner_rec = self.env["beesdoo.shift.exchange_request"].get_coop_same_days_same_hour(self.exchanged_timeslot_id)
+        for rec in partner_rec:
+            self.worker_id.send_mail_coop_same_days_same_hour(self.exchanged_timeslot_id,rec)
