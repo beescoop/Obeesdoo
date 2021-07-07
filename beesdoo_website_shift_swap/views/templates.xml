@@ -1,5 +1,26 @@
 <odoo>
     <data>
+        <!-- Reusable templates -->
+        <template id="swap_shift_title" name="Swap Shift Title">
+            <h1>
+                Swap Your Shift
+            </h1>
+        </template>
+
+        <!-- help text -->
+        <template id="help_text_swap_underpopulated_common" name="Help Text Swap Underpopulated Common">
+        <div class="alert alert-info">
+            <strong>Info!</strong>
+            The Shift that you want to swap is before the next 28 days.
+            To accelerate the process, we propose you to subscribe to an
+            underpopulated timeslot. It arranges the both of us and you
+            don't need to wait for an other cooperator.
+            However, if none shifts suits you, you can skip this step and
+            propose your own exchange.
+            (see link at the end of the page)
+        </div>
+        </template>
+
         <!-- Add button to swap shift -->
         <template
             id="website_shift_swap_button"
@@ -12,21 +33,82 @@
             </xpath>
         </template>
 
+
         <!-- Template display shift -->
         <template
-            id="website_shift_swap_swap_underpopulated"
-            name="Shift Swap Underpopulated Page" >
-            <title>Underpopulated Shift</title>
+            id="website_shift_swap_next_underpopulated_timeslot"
+            name="Shift Swap Next Underpopulated Page" >
+            <h2>
+            Swap Your Shift To Underpopulated Shift
+            </h2>
             <t t-foreach="underpopulated_shift" t-as="timeslot">
-                <p>
-                    <t t-esc="timeslot.template_id.name"/>
-                    <t t-esc="timeslot.date"/>
-                    <a t-att-href="'/my/shift/underpopulated/swap/subscribe/%i/%s' % (timeslot.template_id,timeslot.date)">Je m'inscris à ce Shift</a>
-                </p>
+                <div t-att-class="'card mb-4 %s' % highlight_class">
+                    <div t-att-class="'card-header %s clearfix' % highlight_header_class">
+                        <div class="pull-left">
+                            <p>
+                                <t t-esc="timeslot.template_id.name"/>
+                                <t t-esc="timeslot.date"/>
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card-body clearfix">
+                            <a t-att-href="'/my/shift/underpopulated/swap/subscribe/%i/%s' % (timeslot.template_id,timeslot.date)">Je m'inscris à ce Shift</a>
+                        </div>
+                    </div>
+                </div>
             </t>
             <p>
-                <a t-att-href="'/my/shift/possible/shift'">Aucun Shift me convient</a>
+                <div t-att-class="'card mb-4 %s' % highlight_class">
+                    <div t-att-class="'card-header %s clearfix' % highlight_header_class">
+                        <div class="pull-left">
+                            <a t-att-href="'/my/shift/possible/shift'"><h2>Aucun Shift me convient</h2></a>
+                        </div>
+                    </div>
+                </div>
             </p>
+        </template>
+
+        <template
+        id="website_shift_swap_summary"
+        name="Swap Summary">
+            <h2>
+                Swap Summary :
+            </h2>
+            <p>
+                <label class="font-weight-bold">Exchanged Shift : </label>
+                    <t t-esc="exchanged_timeslot.template_id.name"/>
+                    <t t-esc="exchanged_timeslot.date"/>
+            </p>
+
+        </template>
+
+        <template id="website_shift_swap_underpopulated_timeslot" name="Shift Swap Underpopulated Page">
+            <t t-call="portal.portal_layout">
+                <t t-set="no_breadcrumbs" t-value="True" />
+
+                <div class="container mt16">
+                    <div class="row">
+                        <div class="col text-center">
+                            <t t-call="beesdoo_website_shift_swap.swap_shift_title" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6 m-auto text-justify">
+                            <t t-call="beesdoo_website_shift_swap.website_shift_swap_summary"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-8">
+                            <t t-call="beesdoo_website_shift_swap.website_shift_swap_next_underpopulated_timeslot" />
+                        </div>
+                        <div class="col-12 col-lg-4 text-justify">
+                            <t t-call="beesdoo_website_shift.help_text_title" />
+                            <t t-call="beesdoo_website_shift_swap.help_text_swap_underpopulated_common" />
+                        </div>
+                    </div>
+                </div>
+            </t>
         </template>
 
         <template

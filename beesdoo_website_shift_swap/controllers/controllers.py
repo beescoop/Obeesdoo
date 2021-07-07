@@ -44,7 +44,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
 
 
-    @http.route("/my/shift/underpopulated/swap" )
+    @http.route("/my/shift/underpopulated/swap",website=True )
     def get_underpopulated_shift(self):
         """
         Personal page for swaping your shifts
@@ -58,9 +58,10 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             .sudo()
             .get_underpopulated_shift(my_timeslot)
         )
-        return request.render("beesdoo_website_shift_swap.website_shift_swap_swap_underpopulated",
+        return request.render("beesdoo_website_shift_swap.website_shift_swap_underpopulated_timeslot",
             {
-                "underpopulated_shift" : my_available_shift
+                "underpopulated_shift" : my_available_shift,
+                "exchanged_timeslot": my_timeslot
             }
         )
 
