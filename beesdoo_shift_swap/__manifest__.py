@@ -38,6 +38,7 @@
         'wizard/exchange_wizard.xml',
         'wizard/Subscribe_shift_swap.xml',
         'wizard/validate_exchange.xml',
+        'data/mail_template.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
