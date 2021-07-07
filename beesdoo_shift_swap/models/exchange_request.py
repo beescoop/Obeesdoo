@@ -108,3 +108,13 @@ class ExchangeRequest(models.Model):
                     if my_timeslot.template_id == asked_timeslot.template_id and my_timeslot.date == asked_timeslot.date:
                         matches |= exchange
         return matches
+
+    def get_coop_same_days_same_hour(self,my_timeslot):
+        exchange_request = self.env["beesdoo.shift.template"].search([])
+        worker_rec = self.env["res.partner"]
+        for rec in exchange_request :
+            if my_timeslot.template_id.day_nb_id == rec.day_nb_id and my_timeslot.template_id.start_time == rec.start_time and not my_timeslot.template_id.name == rec.name:
+                for record in rec.worker_ids :
+                    worker_rec |= record
+        return worker_rec
+
