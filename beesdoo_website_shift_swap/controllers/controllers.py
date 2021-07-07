@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from itertools import groupby
 
 from pytz import timezone, utc
+from odoo.exceptions import ValidationError
 
 from odoo import http
 from odoo.fields import Datetime
@@ -133,6 +134,8 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             list_index=[]
             for rec in timeslot_index :
                 list_index.append(int(rec))
+            '''if not len(list_index):
+                raise ValidationError('Please choose at least one timeslot')'''
             return request.render(
                 "beesdoo_website_shift.my_shift_regular_worker",
                 self.subscribe_request(list_index))
