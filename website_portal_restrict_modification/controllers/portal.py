@@ -11,8 +11,6 @@ _logger = logging.getLogger(__name__)
 
 
 class CustomerPortalRestrictModification(CustomerPortal):
-    # fixme move to portal.py
-
     def __init__(self, *args, **kwargs):
         super().__init__()
         # Class scope is accessible throughout the server even on
