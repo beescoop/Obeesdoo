@@ -3,35 +3,44 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 
+import logging
+
 from odoo.addons.portal.controllers.portal import CustomerPortal
+
+_logger = logging.getLogger(__name__)
 
 
 class CustomerPortalRestrictModification(CustomerPortal):
-    # override from `portal` module
-    CustomerPortal.MANDATORY_BILLING_FIELDS = [
-        "city",
-        "country_id",
-        "phone",
-        "street",
-        "zipcode",
-    ]
-    CustomerPortal.OPTIONAL_BILLING_FIELDS = ["state_id"]
+    # fixme move to portal.py
 
-    def details_form_validate(self, data):
-        error, error_message = super().details_form_validate(data)
+    def __init__(self, *args, **kwargs):
+        super().__init__()
+        # Class scope is accessible throughout the server even on
+        # odoo instances that do not install this module.
 
-        # since we override mandatory and optional billing fields, parent
-        # method will insert the following key/value in `error` dict and
-        # `error_message` list, preventing from saving the form. Workaround
-        # is to remove them from both dict and list.
-        if (
-            error.get("common")
-            and error["common"].lower() == "unknown field"
-            and any("unknown field" in s.lower() for s in error_message)
-        ):
-            error.pop("common")
-            error_message = [
-                s for s in error_message if "unknown field" not in s.lower()
-            ]
+        # Therefore : bring back to instance scope if not already
+        if "MANDATORY_BILLING_FIELDS" not in vars(self):
+            self.MANDATORY_BILLING_FIELDS = (
+                CustomerPortal.MANDATORY_BILLING_FIELDS.copy()
+            )
+        if "OPTIONAL_BILLING_FIELDS" not in vars(self):
+            self.OPTIONAL_BILLING_FIELDS = (
+                CustomerPortal.OPTIONAL_BILLING_FIELDS.copy()
+            )
 
-        return error, error_message
+        # move name and email to optional
+        if "name" in self.MANDATORY_BILLING_FIELDS:
+            self.MANDATORY_BILLING_FIELDS.remove("name")
+        if "name" not in self.OPTIONAL_BILLING_FIELDS:
+            self.OPTIONAL_BILLING_FIELDS.append("name")
+
+        if "email" in self.MANDATORY_BILLING_FIELDS:
+            self.MANDATORY_BILLING_FIELDS.remove("email")
+        if "email" not in self.OPTIONAL_BILLING_FIELDS:
+            self.OPTIONAL_BILLING_FIELDS.append("email")
+
+        # move zipcode to mandatory
+        if "zipcode" in self.OPTIONAL_BILLING_FIELDS:
+            self.OPTIONAL_BILLING_FIELDS.remove("zipcode")
+        if "zipcode" not in self.MANDATORY_BILLING_FIELDS:
+            self.MANDATORY_BILLING_FIELDS.append("zipcode")
