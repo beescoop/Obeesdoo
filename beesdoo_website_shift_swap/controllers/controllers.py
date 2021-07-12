@@ -143,7 +143,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         else :
             return request.render ("beesdoo_website_shift_swap.website_shift_swap_possible_timeslot",
                     {
-                        "possible_timeslot": possible_timeslot
+                        "possible_timeslot": possible_timeslot,
+                        "exchanged_timeslot": my_timeslot
+
                    })
 
 
@@ -198,7 +200,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                                   "matching_request":matchs
                               })
 
-    @http.route("/my/shift/possible/match")
+    @http.route("/my/shift/possible/match", website=True)
     def get_possible_match(self):
         template_id = request.session['template_id']
         date = request.session['date']
@@ -211,6 +213,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         return request.render("beesdoo_website_shift_swap.website_shift_swap_possible_match",
                               {
                                   "possible_matches":possible_match,
+                                  "exchanged_timeslot":my_timeslot,
                               })
 
 
@@ -222,3 +225,94 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         for rec in my_shifts:
             request.session['my_shifts'].append(rec)
         return data'''
+
+    @http.route("/my/request",website=True)
+    def my_request(self):
+        # Get current user
+        cur_user = request.env["res.users"].browse(request.uid)
+        my_requests = request.env["beesdoo.shift.exchange_request"].sudo().search([
+            ("worker_id","=", cur_user.partner_id.id)
+        ])
+        matching_request = request.env["beesdoo.shift.exchange_request"]
+        list=[]
+        for rec in my_requests :
+            list.append(
+                {
+                    "my_requests": rec,
+                    "matching_request": request.env["beesdoo.shift.exchange_request"].sudo().matching_request(rec.asked_timeslot_ids,rec.exchanged_timeslot_id)
+                }
+            )
+
+        return request.render("beesdoo_website_shift_swap.my_request",
+                              {
+                                  "my_requests": list,
+                              })
+
+    @http.route("/my/shift/validate/matching_request/<int:matching_request_id>",website=True)
+    def validate_matching_request(self,matching_request_id):
+        cur_user = request.env["res.users"].browse(request.uid)
+        template_id = request.session['template_id']
+        date = request.session['date']
+        my_timeslot = request.env["beesdoo.shift.template.dated"].sudo().create({
+            "template_id": template_id,
+            "date": date,
+            "store": True,
+        })
+        matching_request = request.env["beesdoo.shift.exchange_request"].sudo().search([
+            ('id','=',matching_request_id)
+        ])
+        data = {
+            "request_date": datetime.date(datetime.now()),
+            "worker_id": cur_user.partner_id.id,
+            "exchanged_timeslot_id": my_timeslot.id,
+            "asked_timeslot_ids": [(6,False, matching_request.exchanged_timeslot_id.ids)],
+            "validate_request_id": matching_request_id,
+            "status": 'validate_match',
+        }
+        new_request = request.env["beesdoo.shift.exchange_request"].sudo().create(data)
+        matching_request.write({
+            "status": 'has_match'
+        })
+        return request.render(
+            "beesdoo_website_shift.my_shift_regular_worker",
+            self.my_shift_regular_worker(),
+        )
+
+    @http.route("/my/shift/validate/matching/validate/request/<int:my_request_id>/<string:match_request_id>", website=True)
+    def validate_matching_validate_request(self, my_request_id, match_request_id):
+        user = request.env["res.users"].browse(request.uid)
+        exchange_data = {
+            "first_request_id": my_request_id,
+            "second_request_id": match_request_id,
+        }
+        exchange = request.env["beesdoo.shift.exchange"].sudo().create(exchange_data)
+
+        my_request = request.env["beesdoo.shift.exchange_request"].sudo().search([
+            ('id','=',my_request_id)
+        ])
+        match_request = request.env["beesdoo.shift.exchange_request"].sudo().search([
+            ('id','=',match_request_id)
+        ])
+        data = {
+            "validate_request": match_request_id,
+            "exchange_id": exchange.id,
+            "status": 'done'
+        }
+        my_request.write(data)
+        match_request.write(
+            {'status': 'done'}
+        )
+        if request.env["beesdoo.shift.exchange"].sudo().is_shift_generated(my_request):
+            request.env["beesdoo.shift.exchange"].sudo().subscribe_exchange_to_shift(my_request)
+            exchange.write({
+                "first_shift_status": True
+            })
+        if request.env["beesdoo.shift.exchange"].sudo().is_shift_generated(match_request):
+            request.env["beesdoo.shift.exchange"].sudo().subscribe_exchange_to_shift(match_request)
+            exchange.write({
+                "second_shift_status": True
+            })
+        return request.render(
+            "beesdoo_website_shift.my_shift_regular_worker",
+            self.my_shift_regular_worker(),
+        )

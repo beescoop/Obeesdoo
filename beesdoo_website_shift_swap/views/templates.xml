@@ -1,5 +1,14 @@
 <odoo>
     <data>
+        <!-- My request -->
+        <template id="my_request_link" name="Request Link to frontend portal"
+              inherit_id="portal.frontend_layout">
+        <xpath expr="//a[@id='o_logout']" position="before">
+            <a href="/my/request" class="dropdown-item" role="menuitem">My Request
+            </a>
+        </xpath>
+    </template>
+
         <!-- Reusable templates -->
         <template id="swap_shift_title" name="Swap Shift Title">
             <h1>
@@ -7,7 +16,7 @@
             </h1>
         </template>
 
-        <!-- help text -->
+        <!-- help text for underpopulated swap-->
         <template id="help_text_swap_underpopulated_common" name="Help Text Swap Underpopulated Common">
         <div class="alert alert-info">
             <strong>Info!</strong>
@@ -21,14 +30,14 @@
         </div>
         </template>
 
-        <!-- Add button to swap shift -->
+        <!-- Add link to swap shift -->
         <template
             id="website_shift_swap_button"
             name="shift swap button"
             inherit_id="beesdoo_website_shift.my_shift_next_shifts">
             <xpath expr="//div[@class='card-body clearfix']" position="inside">
                 <p>
-                    <a t-att-href="'/my/shift/swaping/%i/%s' % (shift.task_template_id,shift.start_time)">Je ne peux réaliser ce Shift</a>
+                    <a t-att-href="'/my/shift/swaping/%i/%s' % (shift.task_template_id,shift.start_time)">Swap Shift</a>
                 </p>
             </xpath>
         </template>
@@ -61,8 +70,8 @@
             <p>
                 <div t-att-class="'card mb-4 %s' % highlight_class">
                     <div t-att-class="'card-header %s clearfix' % highlight_header_class">
-                        <div class="pull-left">
-                            <a t-att-href="'/my/shift/possible/shift'"><h2>Aucun Shift me convient</h2></a>
+                        <div class="col text-center">
+                            <a t-att-href="'/my/shift/possible/shift'"><h2>None Shifts suits me</h2></a>
                         </div>
                     </div>
                 </div>
@@ -111,24 +120,71 @@
             </t>
         </template>
 
+        <!-- display timeslot that match with my exchanged timeslot -->
         <template
-            id="website_shift_swap_possible_match"
-            name="Shift Swap possible match Page" >
+        id="beesdoo_website_shift_swap.no_shift_match_explanation"
+        name="No shift Match Explanation">
+            <div class="alert alert-info">
+            <strong>Info!</strong>
+            There aren't any cooperator that propose to swap his/her shift with the one
+            that you try to exchange.
+            To create your own exchange, please click on the link below.
+        </div>
+
+        </template>
+
+        <template
+            id="website_shift_swap_my_possible_match"
+            name="Shift Swap My Possible Match Page" >
             <title>Possible Match</title>
+            <div t-if="not possible_matches">
+                <t t-call="beesdoo_website_shift_swap.no_shift_match_explanation" />
+            </div>
             <t t-foreach="possible_matches" t-as="match">
                 <p>
                     <t t-esc="match.exchanged_timeslot_id.template_id.name"/>
                     <t t-esc="match.exchanged_timeslot_id.date"/>
+                    <a t-att-href="'/my/shift/validate/matching_request/%i' % (match.id)">Accepter l'échange</a>
                 </p>
             </t>
+
             <p>
-                <a t-att-href="'/my/shift/possible/shift'">Aucun Shift me convient</a>
+                <div t-att-class="'card mb-4 %s' % highlight_class">
+                    <div t-att-class="'card-header %s clearfix' % highlight_header_class">
+                        <div class="col text-center">
+                            <a t-att-href="'/my/shift/possible/shift'">Aucun Shift me convient</a>
+                        </div>
+                    </div>
+                </div>
             </p>
         </template>
 
+        <template id="website_shift_swap_possible_match" name="Shift Swap possible Match Page">
+            <t t-call="portal.portal_layout">
+                <t t-set="no_breadcrumbs" t-value="True" />
+                <div class="container mt16">
+                    <div class="row">
+                        <div class="col text-center">
+                            <t t-call="beesdoo_website_shift_swap.swap_shift_title" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6 m-auto text-justify">
+                            <t t-call="beesdoo_website_shift_swap.website_shift_swap_summary"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <t t-call="beesdoo_website_shift_swap.website_shift_swap_my_possible_match"/>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+
+        <!-- display possible timeslot to create an exchange request -->
         <template
-            id="website_shift_swap_possible_timeslot"
-            name="Shift Swap possible timeslot Page">
+            id="website_shift_swap_next_possible_timeslot"
+            name="Shift Swap possible Next timeslot Page">
             <title>Possible timeslot</title>
             <form method="post">
                 <t t-set="index" t-value="0"/>
@@ -147,10 +203,77 @@
             </form>
         </template>
 
+        <template id="website_shift_swap_possible_timeslot" name="Shift Swap possible timeslot Page">
+            <t t-call="portal.portal_layout">
+                <t t-set="no_breadcrumbs" t-value="True" />
+
+                <div class="container mt16">
+                    <div class="row">
+                        <div class="col text-center">
+                            <t t-call="beesdoo_website_shift_swap.swap_shift_title" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6 m-auto text-justify">
+                            <t t-call="beesdoo_website_shift_swap.website_shift_swap_summary"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <t t-call="beesdoo_website_shift_swap.website_shift_swap_next_possible_timeslot" />
+                    </div>
+                </div>
+            </t>
+        </template>
+
+
+        <!-- display request that match with my request -->
         <template id="website_shift_swap_matching_request">
             <title>My Match</title>
             <t t-foreach="match" t-as="match">
                 <p><t t-esc="match"/></p>
+            </t>
+        </template>
+
+        <!-- display my request and (if got match) match-->
+        <template
+        id="my_request"
+        name="My Request">
+            <t t-foreach="my_requests" t-as="request">
+                <p>
+                    <div>
+                        <p>Shift non réalisable :
+                        <t t-esc="request['my_requests'].exchanged_timeslot_id.template_id.name"/>
+                            <t t-esc="request['my_requests'].exchanged_timeslot_id.date"/></p>
+                        <p>Mes propositions d'échange :
+                            <t t-foreach="request['my_requests'].asked_timeslot_ids" t-as="asked_timeslot">
+                                <t t-esc="asked_timeslot.template_id.name"/>
+                                <t t-esc="asked_timeslot.date"/>
+                            </t>
+                        </p>
+                    </div>
+                    <div>
+                        <p t-if="request['my_requests'].status == 'has_match'">
+                            <t t-foreach="request['matching_request']" t-as="match">
+                                <t t-esc="match.exchanged_timeslot_id.template_id.name"/>
+                                <t t-esc="match.exchanged_timeslot_id.date"/>
+                                 <div>
+                                    <div class="card-body clearfix">
+                                        <a t-att-href="'/my/shift/validate/matching/validate/request/%i/%i' % (request['my_requests'],match)">Valider cette échange</a>
+                                    </div>
+                                </div>
+                            </t>
+                        </p>
+                        <p t-elif="request['my_requests'].status == 'validate_match'">
+                            En attente de validation de l'autre coopérateur
+                        </p>
+                        <p t-elif="request['my_requests'].status == 'done'">
+                            Cette échange a été validé des deux cotés
+                        </p>
+                        <p t-else="">
+                            Aucun match n'a été trouvé sur votre demande
+                        </p>
+                    </div>
+                </p>
             </t>
         </template>
 
