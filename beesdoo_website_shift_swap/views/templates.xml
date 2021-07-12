@@ -236,8 +236,8 @@
 
         <!-- display my request and (if got match) match-->
         <template
-        id="my_request"
-        name="My Request">
+        id="my_request_template"
+        name="My Request Template">
             <t t-foreach="my_requests" t-as="request">
                 <p>
                     <div>
@@ -276,6 +276,18 @@
                 </p>
             </t>
         </template>
+
+        <template id="my_request" name="My Request">
+            <t t-call="portal.portal_layout">
+                <t t-set="no_breadcrumbs" t-value="True" />
+                <div class="container mt16">
+                    <div class="row">
+                        <t t-call="beesdoo_website_shift_swap.my_request_template" />
+                    </div>
+                </div>
+            </t>
+        </template>
+
 
 
     </data>

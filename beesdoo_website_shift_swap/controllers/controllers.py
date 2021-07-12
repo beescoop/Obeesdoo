@@ -97,17 +97,6 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             self.my_shift_regular_worker(),
         )
 
-    '''@http.route("/my/shift/subscribe/shift/request/<int:template_id>/<string:date>")
-    def validate_exchange_request(self,template_id,date):
-        user = request.env["res.users"].browse(request.uid)
-        template_id = request.session['template_id']
-        date = request.session['date']
-        my_timeslot = request.env["beesdoo.shift.template.dated"].sudo().create({
-            "template_id": template_id,
-            "date": date,
-            "store": True,
-        })'''
-
     @http.route("/my/shift/possible/shift", website=True)
     def get_possible_shift(self, **post):
         template_id = request.session['template_id']
@@ -215,16 +204,6 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                                   "possible_matches":possible_match,
                                   "exchanged_timeslot":my_timeslot,
                               })
-
-
-
-    '''def my_shift_next_shifts(self):
-        data = super(WebsiteShiftController,self).my_shift_next_shifts()
-        my_shifts = data["subscribed_shifts"]
-        request.session['my_shifts'] = []
-        for rec in my_shifts:
-            request.session['my_shifts'].append(rec)
-        return data'''
 
     @http.route("/my/request",website=True)
     def my_request(self):
