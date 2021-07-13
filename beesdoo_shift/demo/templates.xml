@@ -87,7 +87,7 @@
     </record>
 
     <record id="task_template_2_demo" model="beesdoo.shift.template">
-        <field name="name">A_WEN-14:00-16:00</field>
+        <field name="name">A_WED-14:00-16:00</field>
         <field name="planning_id" ref="beesdoo_shift.beesdoo_shift_planning_1_demo" />
         <field name="day_nb_id" ref="beesdoo_shift.beesdoo_shift_daynumber_3_demo" />
         <field name="task_type_id" ref="beesdoo_shift.beesdoo_shift_task_type_3_demo" />
