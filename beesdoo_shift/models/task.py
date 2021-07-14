@@ -310,18 +310,18 @@ class Task(models.Model):
             self._set_revert_info(data, status)
 
     @api.model
-    def _cron_send_weekly_emails(self):
+    def _cron_send_weekly_emails(self, notice=1, period=7):
         """
         Send a summary email for all workers
-        if they have a shift planned during the week.
+        if they have a shift planned between `notice` and `notice + period` days.
         """
         tasks = self.env["beesdoo.shift.shift"]
         shift_summary_mail_template = self.env.ref(
             "beesdoo_shift.email_template_shift_summary", False
         )
 
-        start_time = datetime.now() + timedelta(days=1)
-        end_time = datetime.now() + timedelta(days=7)
+        start_time = datetime.now() + timedelta(days=notice)
+        end_time = datetime.now() + timedelta(days=notice + period)
 
         confirmed_tasks = tasks.search(
             [

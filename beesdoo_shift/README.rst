@@ -40,6 +40,10 @@ Configuration
   - shift_status_unsubscribed,
   - shift_status_resigning.
 
+- Configure "Send weekly shift summary" cron:
+
+  - Its interval number (default = 7) should be consistent with notice (default = 1) and period (default = 7).
+
 Bug Tracker
 ===========
 
