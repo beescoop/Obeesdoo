@@ -252,6 +252,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         matching_request.write({
             "status": 'has_match'
         })
+        matching_request.sudo().send_mail_matching_request(new_request)
         return request.render(
             "beesdoo_website_shift.my_shift_regular_worker",
             self.my_shift_regular_worker(),
