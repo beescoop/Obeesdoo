@@ -118,3 +118,11 @@ class ExchangeRequest(models.Model):
                     worker_rec |= record
         return worker_rec
 
+    @api.multi
+    def send_mail_matching_request(self, matching_request):
+        template_rec = self.env.ref("beesdoo_shift_swap.email_template_contact_match_coop", False)
+        email_values = {
+            "matching_request": matching_request
+        }
+        template_rec.with_context(email_values).send_mail(self.id, False)
+
