@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
 from odoo import _, api, fields, models
-from odoo.exceptions import OdooWarning
+from odoo.exceptions import Warning
 
 
 def daterange(start_date, end_date):
@@ -134,9 +134,9 @@ class SubscribeUnderpopulatedShift(models.Model):
     def button_unsubscribe(self):
         for exchange in self:
             if not exchange.exchanged_shift_id:
-                raise OdooWarning(_("Shift not generated"))
+                raise Warning(_("Shift not generated"))
             if not exchange.unsubscribe_shift():
-                raise OdooWarning(_("cannot unsubscribe"))
+                raise Warning(_("cannot unsubscribe"))
         return True
 
     @api.multi
@@ -174,9 +174,9 @@ class SubscribeUnderpopulatedShift(models.Model):
     def button_subscribe_shift(self):
         for exchange in self:
             if not exchange.confirmed_shift_id:
-                raise OdooWarning(_("Shift not generated"))
+                raise Warning(_("Shift not generated"))
             if not exchange.subscribe_shift():
-                raise OdooWarning(_("cannot unsubscribe"))
+                raise Warning(_("cannot unsubscribe"))
         return True
 
     def display_underpopulated_shift(self, my_timeslot):
