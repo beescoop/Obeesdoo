@@ -1,7 +1,6 @@
 <?xml version="1.0" ?>
 <odoo>
     <!-- Action to open swap shift -->
-
     <record
         model="ir.actions.act_window"
         id="action_shift_swap_subscribe_underpopulated_shift"
@@ -32,7 +31,7 @@
         id="menu_swap"
         name="swap shift"
         parent="menu_swap_top"
-        action="action_shift_swap"
+        action="action_shift_swap_subscribe_underpopulated_shift"
     />
 
 </odoo>

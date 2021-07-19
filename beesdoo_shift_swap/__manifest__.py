@@ -18,7 +18,6 @@
         "views/shift_swap_timeslot.xml",
         "views/res_config_setting_view.xml",
         "wizard/subscribe_shift_swap.xml",
-        "wizard/exchange_wizard.xml",
     ],
     "demo": ["demo/demo.xml"],
 }
