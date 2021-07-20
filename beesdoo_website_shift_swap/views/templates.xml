@@ -4,8 +4,10 @@
         <template id="my_request_link" name="Request Link to frontend portal"
               inherit_id="portal.frontend_layout">
         <xpath expr="//a[@id='o_logout']" position="before">
-            <a href="/my/request" class="dropdown-item" role="menuitem">My Request
-            </a>
+            <div t-if="user_id.partner_id.working_mode == 'regular'">
+                <a href="/my/request" class="dropdown-item" role="menuitem" >My Request
+                </a>
+            </div>
         </xpath>
     </template>
 
