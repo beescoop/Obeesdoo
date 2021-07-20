@@ -35,7 +35,7 @@ class SubscribeUnderpopulatedShift(models.Model):
         "beesdoo.shift.template.dated", string="asked_shift"
     )
     confirmed_shift_id = fields.Many2one(
-        "beesdoo.shift.shift", compute="_compute_comfirmed_already_generated"
+        "beesdoo.shift.shift", compute="_compute_confirmed_already_generated"
     )
     confirme_status = fields.Boolean(
         default=False, string="status comfirme shift"

@@ -137,5 +137,5 @@ class SubscribeShiftSwap(models.TransientModel):
         )
         if record._compute_exchanged_already_generated():
             record.unsubscribe_shift()
-        if record._compute_confirmed_already_generated:
+        if record._compute_confirmed_already_generated():
             record.subscribe_shift()
