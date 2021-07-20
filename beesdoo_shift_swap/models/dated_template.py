@@ -77,8 +77,8 @@ class DatedTemplate(models.Model):
         ],
         order="start_time, task_template_id, task_type_id"))
 
-        #TODO : pb qd aucun shift généré dans le futur
-        timeslot_rec = self.swap_shift_to_timeslot(shift_generated)
+        if shift_generated :
+            timeslot_rec = self.swap_shift_to_timeslot(shift_generated)
 
         # generate timeslot of the shift not generated
         last_sequence = int(
@@ -123,7 +123,9 @@ class DatedTemplate(models.Model):
     @api.multi
     def my_timeslot(self, worker_id):
         shifts = worker_id.my_next_shift()
-        timeslots = self.swap_shift_to_timeslot(shifts)
+        timeslots = self.env["beesdoo.shift.template.dated"]
+        if shifts :
+            timeslots = self.swap_shift_to_timeslot(shifts)
         return timeslots
 
     def check_possibility_to_exchange(self,wanted_timeslot,worker_id):
