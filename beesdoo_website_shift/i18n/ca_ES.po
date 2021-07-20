@@ -225,9 +225,9 @@ msgid ""
 "            occures during a public holiday, you do not have to do it."
 msgstr ""
 "<strong>Atenció!</strong>\n"
-"            De moment no s'han registrat vacances en el teu compte. Si el teu torn\n"
+"            De moment no es tenen en compte els dies festius. \n"
 "  \n"
-"            és en un dia de vacances no has de fer-lo.."
+"            Si el vostre torn es produeix durant un dia festiu, no cal que ho feu"
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
