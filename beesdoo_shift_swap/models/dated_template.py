@@ -157,10 +157,10 @@ class TaskTemplate(models.Model):
             for exchange in exchanges:
                 if (
                     shift.worker_id.name is False
-                    and exchange.comfirmed_timeslot_id.template_id
+                    and exchange.confirmed_timeslot_id.template_id
                     == shift.task_template_id
-                    and shift.start_time == exchange.comfirmed_timeslot_id.date
-                    and not exchange.comfirme_status
+                    and shift.start_time == exchange.confirmed_timeslot_id.date
+                    and not exchange.confirme_status
                 ):
                     if template["first"] != template["second"]:
                         updated_data = {

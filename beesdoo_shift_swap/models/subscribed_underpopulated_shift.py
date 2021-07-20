@@ -31,13 +31,13 @@ class SubscribeUnderpopulatedShift(models.Model):
     exchanged_shift_id = fields.Many2one(
         "beesdoo.shift.shift", compute="_compute_exchanged_already_generated"
     )
-    comfirmed_timeslot_id = fields.Many2one(
+    confirmed_timeslot_id = fields.Many2one(
         "beesdoo.shift.template.dated", string="asked_shift"
     )
-    comfirmed_shift_id = fields.Many2one(
+    confirmed_shift_id = fields.Many2one(
         "beesdoo.shift.shift", compute="_compute_comfirmed_already_generated"
     )
-    comfirme_status = fields.Boolean(
+    confirme_status = fields.Boolean(
         default=False, string="status comfirme shift"
     )
     date = fields.Date(required=True, default=datetime.date(datetime.now()))
@@ -76,14 +76,14 @@ class SubscribeUnderpopulatedShift(models.Model):
                 return False
 
     @api.depends("confirmed_timeslot_id")
-    def _compute_comfirmed_already_generated(self):
+    def _compute_confirmed_already_generated(self):
         for record in self:
             # Get current date
             now = datetime.now()
-            if not record.comfirmed_timeslot_id:
-                record.comfirmed_shift_id = False
-            elif self.comfirme_status:
-                record.comfirmed_shift_id = False
+            if not record.confirmed_timeslot_id:
+                record.confirmed_shift_id = False
+            elif self.confirme_status:
+                record.confirmed_shift_id = False
             else:
                 # Get the shift if it is already generated
                 future_subscribed_shifts_rec = self.env[
@@ -103,19 +103,19 @@ class SubscribeUnderpopulatedShift(models.Model):
                 )
                 # check if is there a shift generated
                 if future_subscribed_shifts_rec:
-                    record.comfirmed_shift_id = future_subscribed_shifts_rec
+                    record.confirmed_shift_id = future_subscribed_shifts_rec
                     return True
                 return False
 
     def update_status(self):
         if (
             self.exchanged_timeslot_id
-            and self.comfirmed_timeslot_id
+            and self.confirmed_timeslot_id
             and self.worker_id
             and self.date
         ):
             self.write({"state": "validate"})
-            if self.exchange_status and self.comfirme_status:
+            if self.exchange_status and self.confirme_status:
                 self.write({"state": "done"})
 
     @api.multi
@@ -125,7 +125,7 @@ class SubscribeUnderpopulatedShift(models.Model):
             unsubscribed_shifts_rec.write({"worker_id": False})
             self.exchange_status = 1
             self.update_status()
-            if not self.exchanged_shift_id.worker_id and self.comfirme_status:
+            if not self.exchanged_shift_id.worker_id and self.confirme_status:
                 return True
             return False
         return True
@@ -150,21 +150,21 @@ class SubscribeUnderpopulatedShift(models.Model):
             *the user hasn't done another exchange 2month before
         :return:
         """
-        if not self.comfirme_status:
+        if not self.confirme_status:
             # Get the wanted shift
-            subscribed_shift_rec = self.comfirmed_shift_id
+            subscribed_shift_rec = self.confirmed_shift_id
             subscribed_shift_rec.is_regular = True
             # Get the user
             subscribed_shift_rec.write({"worker_id": self.worker_id})
 
             # Subscribe done, change the status
-            self.comfirme_status = 1
+            self.confirme_status = 1
 
             # update status
             self.update_status()
             if (
                 not self.exchanged_shift_id.worker_id
-                and not self.comfirme_status
+                and not self.confirme_status
             ):
                 return False
             return True
@@ -173,7 +173,7 @@ class SubscribeUnderpopulatedShift(models.Model):
     @api.multi
     def button_subscribe_shift(self):
         for exchange in self:
-            if not exchange.comfirmed_shift_id:
+            if not exchange.confirmed_shift_id:
                 raise Warning(_("Shift not generated"))
             if not exchange.subscribe_shift():
                 raise Warning(_("cannot unsubscribe"))
@@ -200,9 +200,9 @@ class SubscribeUnderpopulatedShift(models.Model):
                     # Enlever un worker
                     nb_workers_change -= 1
                 if (
-                    ex.comfirmed_timeslot_id.template_id
+                    ex.confirmed_timeslot_id.template_id
                     == timeslot.template_id
-                    and ex.comfirmed_timeslot_id.date == timeslot.date
+                    and ex.confirmed_timeslot_id.date == timeslot.date
                 ):
                     # ajouter un worker
                     nb_workers_change += 1

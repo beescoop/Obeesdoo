@@ -49,7 +49,7 @@ class SubscribeShiftSwap(models.TransientModel):
     def _get_available_timeslot(self):
         for record in self:
             if not record.exchanged_timeslot_id:
-                record.comfirmed_timeslot_id = False
+                record.confirmed_timeslot_id = False
             else:
                 timeslots = self.env[
                     "beesdoo.shift.subscribed_underpopulated_shift"
@@ -106,7 +106,7 @@ class SubscribeShiftSwap(models.TransientModel):
         for swap in swaps:
             if (
                 swap.worker_id == worker_id
-                and self.exchanged_timeslot_id == swap.comfirmed_timeslot_id
+                and self.exchanged_timeslot_id == swap.confirmed_timeslot_id
             ):
                 return True
             return False
@@ -119,12 +119,12 @@ class SubscribeShiftSwap(models.TransientModel):
                 _("You already swap your shift in the last 2months")
             )
         self.exchanged_timeslot_id.store = True
-        self.comfirmed_timeslot_id.store = True
+        self.confirmed_timeslot_id.store = True
         data = {
             "date": datetime.date(datetime.now()),
             "worker_id": self.worker_id.id,
             "exchanged_timeslot_id": self.exchanged_timeslot_id.id,
-            "confirmed_timeslot_id": self.comfirmed_timeslot_id.id,
+            "confirmed_timeslot_id": self.confirmed_timeslot_id.id,
         }
         useless_timeslots = self.env["beesdoo.shift.template.dated"].search(
             [("store", "=", False)]
@@ -137,5 +137,5 @@ class SubscribeShiftSwap(models.TransientModel):
         )
         if record._compute_exchanged_already_generated():
             record.unsubscribe_shift()
-        if record._compute_comfirmed_already_generated:
+        if record._compute_confirmed_already_generated:
             record.subscribe_shift()
