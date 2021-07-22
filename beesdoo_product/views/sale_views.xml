@@ -25,6 +25,7 @@
         id="menu_sale_edit_price"
         name="Edit Price"
         parent="sale.sale_menu_root"
+        groups="sales_team.group_sale_salesman"
         sequence="100"
         action="sale_product_edit_price"
     />

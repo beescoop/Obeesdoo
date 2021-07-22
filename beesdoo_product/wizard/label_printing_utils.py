@@ -1,6 +1,7 @@
 from odoo import api, fields, models
 
 
+# todo move printing functions to specific module
 class RequestLabelPrintingWizard(models.TransientModel):
     _name = "label.printing.wizard"
     _description = "label.printing.wizard"
