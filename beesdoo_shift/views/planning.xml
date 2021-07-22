@@ -36,7 +36,7 @@
                             type="action"
                             name="%(action_shift_template)d"
                             icon="fa-book"
-                            string="Shifts Template"
+                            string="Shift Template"
                         >
                         </button>
                     </div>
@@ -47,6 +47,7 @@
                     </div>
                     <group>
                         <field name="sequence" />
+                        <field name="periodicity" />
                     </group>
                 </sheet>
             </form>
@@ -63,7 +64,7 @@
                 <button
                     type="action"
                     name="%(action_shift_template)d"
-                    string="Shifts Template"
+                    string="Shift Template"
                 />
             </tree>
         </field>
