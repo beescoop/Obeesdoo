@@ -1,7 +1,7 @@
 # Copyright 2019 - Today Coop IT Easy SCRLfs (<http://www.coopiteasy.be>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 
 from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
@@ -17,22 +17,19 @@ class TestBeesdooShift(TransactionCase):
         self.user_admin = self.env.ref("base.user_root")
 
         self.worker_regular_1 = self.env.ref(
-            "beesdoo_base.res_partner_cooperator_6_demo"
+            "beesdoo_shift.res_partner_worker_1_demo"
         )
         self.worker_regular_2 = self.env.ref(
-            "beesdoo_base.res_partner_cooperator_5_demo"
+            "beesdoo_shift.res_partner_worker_3_demo"
         )
         self.worker_regular_3 = self.env.ref(
-            "beesdoo_base.res_partner_cooperator_3_demo"
-        )
-        self.worker_regular_super_1 = self.env.ref(
-            "beesdoo_base.res_partner_cooperator_1_demo"
+            "beesdoo_shift.res_partner_worker_5_demo"
         )
         self.worker_irregular_1 = self.env.ref(
-            "beesdoo_base.res_partner_cooperator_2_demo"
+            "beesdoo_shift.res_partner_worker_2_demo"
         )
         self.worker_irregular_2 = self.env.ref(
-            "beesdoo_base.res_partner_cooperator_4_demo"
+            "beesdoo_shift.res_partner_worker_4_demo"
         )
 
         self.task_type_1 = self.env.ref(
@@ -52,84 +49,8 @@ class TestBeesdooShift(TransactionCase):
             "beesdoo_worker_status.beesdoo_shift_task_template_2_demo"
         )
 
-        # Set time in and out of generation interval parameter
-        self.start_in_1 = self.current_time + timedelta(seconds=2)
-        self.end_in_1 = self.current_time + timedelta(minutes=10)
-        self.start_in_2 = self.current_time + timedelta(minutes=9)
-        self.end_in_2 = self.current_time + timedelta(minutes=21)
-        self.start_out_1 = self.current_time - timedelta(minutes=50)
-        self.end_out_1 = self.current_time - timedelta(minutes=20)
-        self.start_out_2 = self.current_time + timedelta(minutes=40)
-        self.end_out_2 = self.current_time + timedelta(minutes=50)
-
-        self.shift_regular_regular_1 = self.shift_model.create(
-            {
-                "task_template_id": self.task_template_1.id,
-                "task_type_id": self.task_type_1.id,
-                "worker_id": self.worker_regular_1.id,
-                "start_time": self.start_in_1,
-                "end_time": self.end_in_1,
-                "is_regular": True,
-                "is_compensation": False,
-            }
-        )
-        self.shift_regular_regular_2 = self.shift_model.create(
-            {
-                "task_type_id": self.task_type_2.id,
-                "worker_id": self.worker_regular_2.id,
-                "start_time": self.start_out_1,
-                "end_time": self.end_out_1,
-                "is_regular": True,
-                "is_compensation": False,
-            }
-        )
-        self.shift_regular_regular_replaced_1 = self.shift_model.create(
-            {
-                "task_template_id": self.task_template_1.id,
-                "task_type_id": self.task_type_3.id,
-                "worker_id": self.worker_regular_3.id,
-                "start_time": self.start_in_1,
-                "end_time": self.end_in_1,
-                "is_regular": True,
-                "is_compensation": False,
-                "replaced_id": self.worker_regular_2.id,
-            }
-        )
-        self.future_shift_regular = self.shift_model.create(
-            {
-                "task_template_id": self.task_template_2.id,
-                "task_type_id": self.task_type_1.id,
-                "worker_id": self.worker_regular_super_1.id,
-                "start_time": self.start_in_2,
-                "end_time": self.end_in_2,
-                "is_regular": False,
-                "is_compensation": True,
-            }
-        )
-        self.shift_irregular_1 = self.shift_model.create(
-            {
-                "task_template_id": self.task_template_1.id,
-                "task_type_id": self.task_type_2.id,
-                "worker_id": self.worker_irregular_1.id,
-                "start_time": self.start_in_1,
-                "end_time": self.end_in_1,
-            }
-        )
-        self.shift_irregular_2 = self.shift_model.create(
-            {
-                "task_type_id": self.task_type_3.id,
-                "worker_id": self.worker_irregular_2.id,
-                "start_time": self.start_out_2,
-                "end_time": self.end_out_2,
-            }
-        )
-        self.shift_empty_1 = self.shift_model.create(
-            {
-                "task_template_id": self.task_template_1.id,
-                "task_type_id": self.task_type_1.id,
-                "start_time": self.start_in_1,
-                "end_time": self.end_in_1,
-            }
+        self.exempt_reason_1 = self.env.ref(
+            "beesdoo_shift.exempt_reason_1_demo"
         )
 
     def test_shift_counters(self):
@@ -224,3 +145,142 @@ class TestBeesdooShift(TransactionCase):
         self.assertEqual(status_3.sr, 1)
         shift_irregular.state = "absent_2"
         self.assertEqual(status_3.sr, -1)
+
+    def test_postponed_alert_start_time_holiday_regular(self):
+        """
+        Check that alert_start_time is correctly postponed when
+        worker take holiday.
+        """
+        status_id = self.worker_regular_1.cooperative_status_ids
+        begin_date = date.today()
+        status_id.today = begin_date
+
+        status_id.sr = -1
+        status_id.sc = -1
+        first_alert_start_time = begin_date - timedelta(days=1)
+        status_id.alert_start_time = first_alert_start_time
+        self.assertEqual(status_id.status, "alert")
+
+        # Set holiday
+        status_id.write(
+            {
+                "holiday_start_time": begin_date + timedelta(days=5),
+                "holiday_end_time": begin_date + timedelta(days=10),
+            }
+        )
+        self.assertEqual(status_id.status, "alert")
+        # Alert start time should no change yet
+        self.assertEqual(status_id.alert_start_time, first_alert_start_time)
+
+        # Now go in the future during the holiday period
+        status_id.today = begin_date + timedelta(days=6)
+        self.assertEqual(status_id.status, "holiday")
+        # Alert start time should have changed
+        self.assertEqual(
+            status_id.alert_start_time, status_id.holiday_end_time,
+        )
+
+    def test_postponed_alert_start_time_holiday_irregular(self):
+        """
+        Check that alert_start_time is correctly postponed when
+        worker take holiday.
+        """
+        status_id = self.worker_irregular_1.cooperative_status_ids
+        begin_date = date.today()
+        status_id.today = begin_date
+
+        status_id.sr = -2
+        first_alert_start_time = begin_date - timedelta(days=1)
+        status_id.alert_start_time = first_alert_start_time
+        self.assertEqual(status_id.status, "alert")
+
+        # Set holiday
+        status_id.write(
+            {
+                "holiday_start_time": begin_date + timedelta(days=5),
+                "holiday_end_time": begin_date + timedelta(days=10),
+            }
+        )
+        # Alert start time should no change yet
+        self.assertEqual(
+            status_id.alert_start_time, begin_date - timedelta(days=1)
+        )
+
+        # Now go in the future during the holiday period
+        status_id.today = begin_date + timedelta(days=6)
+        self.assertEqual(status_id.status, "holiday")
+        # Alert start time should have changed
+        self.assertEqual(
+            status_id.alert_start_time, status_id.holiday_end_time,
+        )
+
+    def test_postponed_alert_start_time_exempted_regular(self):
+        """
+        Check that alert_start_time is correctly postponed when
+        worker is exempted.
+        """
+        status_id = self.worker_regular_1.cooperative_status_ids
+        begin_date = date.today()
+        status_id.today = begin_date
+
+        status_id.sr = -1
+        status_id.sc = -1
+        first_alert_start_time = begin_date - timedelta(days=1)
+        status_id.alert_start_time = first_alert_start_time
+        self.assertEqual(status_id.status, "alert")
+
+        # Set exemption
+        status_id.write(
+            {
+                "temporary_exempt_start_date": begin_date + timedelta(days=5),
+                "temporary_exempt_end_date": begin_date + timedelta(days=10),
+                "temporary_exempt_reason_id": self.exempt_reason_1.id,
+            }
+        )
+        # Alert start time should no change yet
+        self.assertEqual(
+            status_id.alert_start_time, begin_date - timedelta(days=1)
+        )
+
+        # Now go in the future during the holiday period
+        status_id.today = begin_date + timedelta(days=6)
+        self.assertEqual(status_id.status, "exempted")
+        # Alert start time should have changed
+        self.assertEqual(
+            status_id.alert_start_time, status_id.temporary_exempt_end_date,
+        )
+
+    def test_postponed_alert_start_time_exempted_irregular(self):
+        """
+        Check that alert_start_time is correctly postponed when
+        worker is exempted.
+        """
+        status_id = self.worker_irregular_1.cooperative_status_ids
+        begin_date = date.today()
+        status_id.today = begin_date
+
+        status_id.sr = -2
+        first_alert_start_time = begin_date - timedelta(days=1)
+        status_id.alert_start_time = first_alert_start_time
+        self.assertEqual(status_id.status, "alert")
+
+        # Set exemption
+        status_id.write(
+            {
+                "temporary_exempt_start_date": begin_date + timedelta(days=5),
+                "temporary_exempt_end_date": begin_date + timedelta(days=10),
+                "temporary_exempt_reason_id": self.exempt_reason_1.id,
+            }
+        )
+        # Alert start time should no change yet
+        self.assertEqual(
+            status_id.alert_start_time, begin_date - timedelta(days=1)
+        )
+
+        # Now go in the future during the holiday period
+        status_id.today = begin_date + timedelta(days=6)
+        self.assertEqual(status_id.status, "exempted")
+        # Alert start time should have changed
+        self.assertEqual(
+            status_id.alert_start_time, status_id.temporary_exempt_end_date,
+        )

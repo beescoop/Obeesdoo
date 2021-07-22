@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     Copyright 2021 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+
+    <!-- Exempt reason -->
+    <record id="exempt_reason_1_demo" model="cooperative.exempt.reason">
+        <field name="name">Pregnant</field>
+    </record>
+
+    <record id="exempt_reason_2_demo" model="cooperative.exempt.reason">
+        <field name="name">Retired</field>
+    </record>
+
+    <record id="exempt_reason_3_demo" model="cooperative.exempt.reason">
+        <field name="name">Sick</field>
+    </record>
+
+</odoo>

@@ -281,3 +281,38 @@ class TaskTemplate(models.Model):
                     "message": "\n".join(warnings),
                 }
             }
+
+    def write(self, vals):
+        """
+        Overwrite write() function to apply changes to already created shift.
+        """
+        saved_vals = {}
+        for rec in self:
+            saved_vals[rec] = rec.worker_ids
+        result = super(TaskTemplate, self).write(vals)
+        for rec in self:
+            rec._update_shifts_on_worker_change(
+                prev_worker_ids=saved_vals[rec], cur_worker_ids=rec.worker_ids,
+            )
+        return result
+
+    def _update_shifts_on_worker_change(self, prev_worker_ids, cur_worker_ids):
+        """
+        Subscribe or Unsubscribe worker to already generated shifts
+        """
+        self.ensure_one()
+        shift_cls = self.env["beesdoo.shift.shift"]
+        removed_workers = prev_worker_ids - cur_worker_ids
+        added_workers = cur_worker_ids - prev_worker_ids
+        if removed_workers:
+            shift_cls.unsubscribe_from_today(
+                worker_ids=removed_workers,
+                task_tmpl_ids=self,
+                now=datetime.now(),
+            )
+        if added_workers:
+            shift_cls.subscribe_from_today(
+                worker_ids=added_workers,
+                task_tmpl_ids=self,
+                now=datetime.now(),
+            )

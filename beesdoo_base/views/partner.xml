@@ -97,7 +97,7 @@
     </record>
 
     <record id="view_beesdoo_res_partner_filter" model="ir.ui.view">
-        <field name="field_name">res.partner.select</field>
+        <field name="name">res.partner.select</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_res_partner_filter" />
         <field name="arch" type="xml">

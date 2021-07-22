@@ -5,6 +5,7 @@
 -->
 <odoo>
 
+    <!-- Task Type -->
     <record id="beesdoo_shift_task_type_1_demo" model="beesdoo.shift.type">
         <field name="name">Inventaire</field>
         <field name="description">Inventaire frais et vrac.</field>
@@ -25,6 +26,7 @@
         <field name="description">Caisse, remplissage des rayons, accueil.</field>
     </record>
 
+    <!-- Days -->
     <record id="beesdoo_shift_daynumber_1_demo" model="beesdoo.shift.daynumber">
         <field name="name">Lundi</field>
         <field name="number">1</field>
@@ -60,9 +62,59 @@
         <field name="number">7</field>
     </record>
 
+    <!-- Planning -->
     <record id="beesdoo_shift_planning_1_demo" model="beesdoo.shift.planning">
         <field name="sequence">1</field>
         <field name="name">Semaine A</field>
+    </record>
+
+    <!-- Task Template -->
+    <record id="task_template_1_demo" model="beesdoo.shift.template">
+        <field name="name">A_MON-10:00-12:00</field>
+        <field name="planning_id" ref="beesdoo_shift.beesdoo_shift_planning_1_demo" />
+        <field name="day_nb_id" ref="beesdoo_shift.beesdoo_shift_daynumber_1_demo" />
+        <field name="task_type_id" ref="beesdoo_shift.beesdoo_shift_task_type_3_demo" />
+        <field name="start_time">10.0</field>
+        <field name="end_time">12.0</field>
+        <field name="duration">2</field>
+        <field name="worker_nb">5</field>
+        <field
+            name="worker_ids"
+            eval="[(6, 0, [ref('beesdoo_shift.res_partner_worker_1_demo'), ref('beesdoo_shift.res_partner_worker_3_demo')])]"
+        />
+        <field name="remaining_worker">3</field>
+    </record>
+
+    <record id="task_template_2_demo" model="beesdoo.shift.template">
+        <field name="name">A_WED-14:00-16:00</field>
+        <field name="planning_id" ref="beesdoo_shift.beesdoo_shift_planning_1_demo" />
+        <field name="day_nb_id" ref="beesdoo_shift.beesdoo_shift_daynumber_3_demo" />
+        <field name="task_type_id" ref="beesdoo_shift.beesdoo_shift_task_type_3_demo" />
+        <field name="start_time">14.0</field>
+        <field name="end_time">16.0</field>
+        <field name="duration">2</field>
+        <field name="worker_nb">5</field>
+        <field
+            name="worker_ids"
+            eval="[(6, 0, [ref('beesdoo_shift.res_partner_worker_5_demo')])]"
+        />
+        <field name="remaining_worker">4</field>
+    </record>
+
+    <record id="task_template_3_demo" model="beesdoo.shift.template">
+        <field name="name">A_SAT-14:00-16:00</field>
+        <field name="planning_id" ref="beesdoo_shift.beesdoo_shift_planning_1_demo" />
+        <field name="day_nb_id" ref="beesdoo_shift.beesdoo_shift_daynumber_6_demo" />
+        <field name="task_type_id" ref="beesdoo_shift.beesdoo_shift_task_type_1_demo" />
+        <field name="start_time">14.0</field>
+        <field name="end_time">16.0</field>
+        <field name="duration">2</field>
+        <field name="worker_nb">5</field>
+        <field
+            name="worker_ids"
+            eval="[(6, 0, [ref('beesdoo_shift.res_partner_worker_6_demo')])]"
+        />
+        <field name="remaining_worker">4</field>
     </record>
 
 </odoo>

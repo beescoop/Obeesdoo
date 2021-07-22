@@ -1,3 +1,4 @@
+import itertools
 import json
 from datetime import datetime, time, timedelta
 
@@ -161,21 +162,86 @@ class Task(models.Model):
     # TODO button to replaced someone
     @api.model
     def unsubscribe_from_today(
-        self, worker_ids, today=None, end_date=None, now=None
+        self,
+        worker_ids,
+        task_tmpl_ids=None,
+        today=None,
+        end_date=None,
+        now=None,
     ):
         """
         Unsubscribe workers from *worker_ids* from all shift that start
-          *today* and later.
+          *today* and later. If *task_tmpl_ids* is set, unsubscribe
+          *worker_ids* only from shift related to *task_tmpl_ids*.
+
         If *end_date* is given, unsubscribe workers from shift between *today*
           and *end_date*.
         If *now* is given workers are unsubscribed from all shifts starting
            *now* and later.
-        If *now* is given, *end_date* is not taken into account.
 
         :type today: date
         :type end_date: date
         :type now: datetime
         """
+        if not worker_ids:
+            return
+        if now:
+            if not isinstance(now, datetime):
+                raise UserError(_("'Now' must be a datetime."))
+            date_domain = [("start_time", ">", now)]
+        else:
+            today = today or fields.Date.today()
+            today = datetime.combine(today, time())
+            date_domain = [("start_time", ">=", today)]
+        if end_date:
+            end_date = datetime.combine(
+                end_date, time(hour=23, minute=59, second=59)
+            )
+            date_domain.append(("end_time", "<=", end_date))
+
+        domain = [("worker_id", "in", worker_ids.ids)]
+        if task_tmpl_ids:
+            domain += [("task_template_id", "in", task_tmpl_ids.ids)]
+
+        to_unsubscribe = self.search(domain + date_domain)
+        to_unsubscribe.write({"worker_id": False})
+
+        # Remove worker, replaced_id and regular
+        to_unsubscribe_replace = self.search(
+            [("replaced_id", "in", worker_ids.ids)] + date_domain
+        )
+        to_unsubscribe_replace.write(
+            {"worker_id": False, "replaced_id": False}
+        )
+
+        # If worker is Super cooperator, remove it from planning
+        super_coop_ids = self.env["res.users"].search(
+            [("partner_id", "in", worker_ids.ids), ("super", "=", True)]
+        )
+
+        if super_coop_ids:
+            to_unsubscribe_super_coop = self.search(
+                [("super_coop_id", "in", super_coop_ids.ids)] + date_domain
+            )
+            to_unsubscribe_super_coop.write({"super_coop_id": False})
+
+    @api.model
+    def subscribe_from_today(
+        self, worker_ids, task_tmpl_ids, today=None, end_date=None, now=None,
+    ):
+        """
+        Subscribe workers from *worker_ids* to a shift related to
+        *task_tmpl_ids* starting from *today* or *now*, and ending to
+        *end_date* (included) if specified.
+
+        :type worker_ids: res.partner
+        :type task_tmpl_ids: beesdoo.shift.template
+        :type today: date
+        :type end_date: date
+        :type now: datetime
+        """
+        if not worker_ids:
+            return
         if now:
             if not isinstance(now, datetime):
                 raise UserError(_("'Now' must be a datetime."))
@@ -184,37 +250,54 @@ class Task(models.Model):
             today = today or fields.Date.today()
             today = datetime.combine(today, time())
             date_domain = [("start_time", ">", today)]
-            if end_date:
-                end_date = datetime.combine(
-                    end_date, time(hour=23, minute=59, second=59)
-                )
-                date_domain.append(("end_time", "<=", end_date))
-
-        to_unsubscribe = self.search(
-            [("worker_id", "in", worker_ids)] + date_domain
-        )
-        to_unsubscribe.write({"worker_id": False})
-
-        # Remove worker, replaced_id and regular
-        to_unsubscribe_replace = self.search(
-            [("replaced_id", "in", worker_ids)] + date_domain
-        )
-        to_unsubscribe_replace.write(
-            {"worker_id": False, "replaced_id": False}
-        )
-
-        # If worker is Super cooperator, remove it from planning
-        super_coop_ids = (
-            self.env["res.users"]
-            .search([("partner_id", "in", worker_ids), ("super", "=", True)])
-            .ids
-        )
-
-        if super_coop_ids:
-            to_unsubscribe_super_coop = self.search(
-                [("super_coop_id", "in", super_coop_ids)] + date_domain
+        if end_date:
+            end_date = datetime.combine(
+                end_date, time(hour=23, minute=59, second=59)
             )
-            to_unsubscribe_super_coop.write({"super_coop_id": False})
+            date_domain.append(("end_time", "<=", end_date))
+
+        for task_tmpl_id in task_tmpl_ids:
+            domain = [
+                ("task_template_id", "=", task_tmpl_id.id),
+                ("state", "=", "open"),
+            ]
+            shift_ids = self.env["beesdoo.shift.shift"].search(
+                domain + date_domain, order="start_time"
+            )
+            # worker subscription
+            for _key, shifts in itertools.groupby(
+                shift_ids, lambda r: (r.start_time, r.end_time)
+            ):
+                shifts = list(shifts)  # shifts will be used several times
+                empty_shifts = [
+                    shift for shift in shifts if not shift.worker_id
+                ]
+                workers_not_already_subscribed = [
+                    worker_id
+                    for worker_id in worker_ids
+                    if worker_id
+                    not in (
+                        shift.worker_id for shift in shifts if shift.worker_id
+                    )
+                ]
+                for i, worker_id in enumerate(workers_not_already_subscribed):
+                    if i < len(empty_shifts):
+                        empty_shifts[i].write(
+                            {"is_regular": True, "worker_id": worker_id.id}
+                        )
+                    else:
+                        # TODO: it will be better to have a function
+                        # that generate a new shift with default
+                        # values and proper name instead of copying
+                        # a existing shift that may have modified
+                        # default values.
+                        shifts[0].copy(
+                            default={"is_regular": True}
+                        ).worker_id = worker_id
+            # Super coop subscription
+            for worker_id in worker_ids:
+                if task_tmpl_id.super_coop_id == worker_id:
+                    shift_ids.write({"super_coop_id": worker_id})
 
     @api.multi
     def write(self, vals):

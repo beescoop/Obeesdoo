@@ -140,6 +140,11 @@ class CooperativeStatus(models.Model):
     #####################################
     #   Status Change implementation    #
     #####################################
+
+    def write(self, vals):
+        super(CooperativeStatus, self).write(vals)
+        self._postpone_alert_start_time()
+
     def _get_regular_status(self):
         self.ensure_one()
         counter_unsubscribe = int(
@@ -311,7 +316,7 @@ class CooperativeStatus(models.Model):
             task_tpls.write({"super_coop_id": False})
             # Remove worker for future tasks (remove also supercoop)
             self.env["beesdoo.shift.shift"].sudo().unsubscribe_from_today(
-                [self.cooperator_id.id], now=fields.Datetime.now()
+                self.cooperator_id, now=fields.Datetime.now()
             )
 
     def _change_counter(self, data):
@@ -371,3 +376,24 @@ class CooperativeStatus(models.Model):
         if not delta % self._period:
             return today
         return add_days_delta(today, self._period - (delta % self._period))
+
+    def _postpone_alert_start_time(self):
+        """
+        Postpone the alert_start_time based on holiday_end_time or
+        temporary_exempt_end_date based on status.
+
+        If alert_start_time is not set then nothing changes.
+        """
+        for rec in self:
+            if (
+                rec.status == "holiday"
+                and rec.alert_start_time
+                and rec.alert_start_time != rec.holiday_end_time
+            ):
+                rec.alert_start_time = rec.holiday_end_time
+            elif (
+                rec.status == "exempted"
+                and rec.alert_start_time
+                and rec.alert_start_time != rec.temporary_exempt_end_date
+            ):
+                rec.alert_start_time = rec.temporary_exempt_end_date

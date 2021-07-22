@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from odoo import _, api, fields, models
 
 
@@ -134,5 +136,41 @@ class ResPartner(models.Model):
             "res_model": "beesdoo.shift.temporary_exemption",
             "target": "new",
         }
+
+    def write(self, vals):
+        saved_vals = {}
+        for rec in self:
+            saved_vals[rec] = rec.subscribed_shift_ids
+        result = super(ResPartner, self).write(vals)
+        for rec in self:
+            rec._update_shifts_on_subscribed_task_tmpl(
+                prev_subscribed_task_tmpl=saved_vals[rec],
+                cur_subscribed_task_tmpl=rec.subscribed_shift_ids,
+            )
+        return result
+
+    def _update_shifts_on_subscribed_task_tmpl(
+        self, prev_subscribed_task_tmpl, cur_subscribed_task_tmpl,
+    ):
+        """
+        Subscribe or unsubscribe current partner from already generated
+        shifts when subscribed_shift_ids changes.
+        """
+        self.ensure_one()
+        shift_cls = self.env["beesdoo.shift.shift"]
+        removed_tmpl_ids = prev_subscribed_task_tmpl - cur_subscribed_task_tmpl
+        added_tmpl_ids = cur_subscribed_task_tmpl - prev_subscribed_task_tmpl
+        if removed_tmpl_ids:
+            shift_cls.unsubscribe_from_today(
+                worker_ids=self,
+                task_tmpl_ids=removed_tmpl_ids,
+                now=datetime.now(),
+            )
+        if added_tmpl_ids:
+            shift_cls.subscribe_from_today(
+                worker_ids=self,
+                task_tmpl_ids=added_tmpl_ids,
+                now=datetime.now(),
+            )
 
     # TODO access right + vue on res.partner

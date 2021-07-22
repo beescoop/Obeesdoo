@@ -53,7 +53,7 @@
                         class="oe_highlight"
                         type="object"
                         groups="beesdoo_shift.group_shift_management"
-                        attrs="{'invisible': ['|', ('is_worker', '=', False), ('state', '!=', 'ok')]}"
+                        attrs="{'invisible': ['|', ('is_worker', '=', False), ('state', '=', 'resigning')]}"
                     />
                     <button
                         name="temporary_exempt"
