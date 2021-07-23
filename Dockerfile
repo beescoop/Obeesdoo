@@ -8,7 +8,7 @@ RUN ln -fs /usr/share/zoneinfo/Europe/Brussels /etc/localtime && \
     dpkg-reconfigure --frontend noninteractive tzdata
 
 # Install wkhtmltopdf 0.12.5
-RUN curl -L https://downloads.wkhtmltopdf.org/0.12/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb \
+RUN curl -L curl -L https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb \
     --output wkhtmltox_0.12.5-1.bionic_amd64.deb && \
     (dpkg -i wkhtmltox_0.12.5-1.bionic_amd64.deb || apt-get -f install -y) && \
     ln -s /usr/local/bin/wkhtmltoimage /usr/bin/wkhtmltoimage && \
