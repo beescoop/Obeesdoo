@@ -34,6 +34,12 @@ class DatedTemplate(models.Model):
 
 
     def swap_shift_to_timeslot(self, list_shift):
+        """
+        This function allow to swap "beesdoo.shift.shift" type into
+        "beesdoo.shift.template.dated" type.
+        :parameter beesdoo.shift.shift recordset,
+        :return beesdoo.shift.template.dated recordset
+        """
         #TODO : améliorer code
         timeslot_rec = self.env["beesdoo.shift.template.dated"]
         first_shift = list_shift[0]
@@ -68,7 +74,13 @@ class DatedTemplate(models.Model):
 
     @api.model
     def display_timeslot(self,my_timeslot):
-
+        """
+        This function return all the "timeslot_dated", between now
+        and "beesdoo_shift.day_limit_swap"(parametable) day after
+        "my_timeslot" date.
+        :param my_timeslot: beesdoo.shift.template.dated record,
+        :return: beesdoo.shift.template.dated recordset
+        """
         start_date = datetime.now()
 
         #generate timeslot of the shift already generated
@@ -122,6 +134,11 @@ class DatedTemplate(models.Model):
 
     @api.multi
     def my_timeslot(self, worker_id):
+        """
+        Works as my_next_shift() but return beesdoo.shift.template.dated
+        :param worker_id: res.partner record
+        :return: beesdoo.shift.template.dated recordset
+        """
         shifts = worker_id.my_next_shift()
         timeslots = self.env["beesdoo.shift.template.dated"]
         if shifts :
@@ -148,6 +165,11 @@ class TaskTemplate(models.Model):
 
     @api.multi
     def _generate_task_day(self):
+        """
+        Override _generate_task_day() function to take
+        into account all the exchange.
+        :return: beesdoo.shift.shift new() object (not save in db)
+        """
         shifts = super(TaskTemplate,self)._generate_task_day()
         exchanges = self.env["beesdoo.shift.subscribed_underpopulated_shift"].search([])
         people_exchanges = self.env["beesdoo.shift.exchange"].search([])

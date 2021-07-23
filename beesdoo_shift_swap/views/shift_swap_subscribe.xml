@@ -35,10 +35,6 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <!-- <button name="button_check_shift_exchanged" type="object" string ="check exchange shift"/>
-                    <button name="button_check_shift_comfirmed" type="object" string ="check comfirme shift"/> -->
-                    <button name="button_unsubscribe" type="object" string ="Unsubscribe"/>
-                    <button name="button_subscribe_shift" type="object" string ="subscribe"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>

@@ -139,15 +139,6 @@ class SubscribeUnderpopulatedShift(models.Model):
             return False
         return True
 
-    @api.multi
-    def button_unsubscribe(self):
-        for exchange in self:
-            if not exchange.exchanged_shift_id:
-                raise Warning('Shift not generated')
-            if not exchange.unsubscribe_shift():
-                raise Warning('cannot unsubscribe')
-        return True
-
 
     @api.multi
     def subscribe_shift(self):
@@ -177,15 +168,6 @@ class SubscribeUnderpopulatedShift(models.Model):
             if not self.exchanged_shift_id.worker_id and not self.confirme_status:
                 return False
             return True
-        return True
-
-    @api.multi
-    def button_subscribe_shift(self):
-        for exchange in self:
-            if not exchange.confirmed_shift_id:
-                raise Warning('Shift not generated')
-            if not exchange.subscribe_shift():
-                raise Warning('cannot unsubscribe')
         return True
 
 

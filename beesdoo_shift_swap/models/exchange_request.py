@@ -79,7 +79,15 @@ class ExchangeRequest(models.Model):
         }
 
     def matching_request(self, timeslots_wanted, timeslot_exchanged):
-        #timeslot_wanted = self.asked_timeslot_ids
+        """
+        This function check if there aren't any other request that match with
+        the request that the cooperator made. It check the timeslot that he
+        exchanged and timeslots that he wanted.
+
+        :param timeslots_wanted: beesdoo.shift.template.dated recordset
+        :param timeslot_exchanged: beesdoo.shift.template.dated  record
+        :return: beesdoo.shift.exchange_request recordset
+        """
         matches = self.env["beesdoo.shift.exchange_request"]  # Creates an empty recordset for proposals
         exchanges = self.env["beesdoo.shift.exchange_request"].search([])
 
@@ -91,14 +99,13 @@ class ExchangeRequest(models.Model):
                             matches |= exchange
         return matches
 
-    @api.multi
-    def button_unsubscribe(self):
-        for request in self:
-            if not request.matching_request(request.asked_timeslot_ids,request.exchanged_timeslot_id):
-                raise Warning('no match')
-        return True
-
     def get_possible_match(self,my_timeslot):
+        """
+        Check if there aren't any beesdoo.shift.exchange_request record that match
+        with "my_timeslot".
+        :param my_timeslot: beesdoo.shift.template.dated
+        :return: beesdoo.shift.exchange_request
+        """
         matches = self.env["beesdoo.shift.exchange_request"]  # Creates an empty recordset for proposals
         exchanges = self.env["beesdoo.shift.exchange_request"].search([])
 

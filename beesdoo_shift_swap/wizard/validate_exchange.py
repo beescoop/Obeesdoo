@@ -74,16 +74,3 @@ class SubscribeShiftSwap(models.TransientModel) :
             exchange.write({
                 "second_shift_status":True
             })
-
-
-    '''def cancel_match(self):
-        exchanges = self.env["beesdoo.shift.exchange_request"].matching_request(
-            self.my_proposition.asked_timeslot_ids,
-            self.my_proposition.exchanged_timeslot_id)
-        self.my_proposition.write({
-            "status": 'no_match'
-        })
-        for exchange in exchanges :
-            self.my_proposition.write({
-                "cancelled_request": [(4, exchange.id)],
-            })'''

@@ -35,6 +35,10 @@ class Exchange(models.Model):
 
     @api.model
     def create(self,vals):
+        """
+        Overriding create function to send mail to cooperator et supercooperator
+        when an exchange is set.
+        """
         subscr_exchange = super(Exchange, self).create(vals)
         template_rec = self.env.ref("beesdoo_shift_swap.email_template_exchange_validation",False)
         template_rec.send_mail(subscr_exchange.first_request_id.id,False)

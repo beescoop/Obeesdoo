@@ -59,8 +59,6 @@
                                 groups="beesdoo_shift.group_shift_management"
                                 attrs="{'invisible': [('status','!=','has_match')]}"/>
 
-                    <button name="button_unsubscribe" type="object" string ="check match"/>
-
                     <field name="status" widget="statusbar"/>
                 </header>
                 <sheet>
