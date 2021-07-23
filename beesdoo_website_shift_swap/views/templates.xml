@@ -45,7 +45,7 @@
         </template>
 
 
-        <!-- Template display shift -->
+        <!-- Template display underpopulated shift -->
         <template
             id="website_shift_swap_next_underpopulated_timeslot"
             name="Shift Swap Next Underpopulated Page" >
@@ -73,7 +73,7 @@
                 <div t-att-class="'card mb-4 %s' % highlight_class">
                     <div t-att-class="'card-header %s clearfix' % highlight_header_class">
                         <div class="col text-center">
-                            <a t-att-href="'/my/shift/possible/shift'"><h2>No Shifts suits me</h2></a>
+                            <a t-att-href="'/my/shift/possible/match'"><h2>No Shifts suits me</h2></a>
                         </div>
                     </div>
                 </div>
