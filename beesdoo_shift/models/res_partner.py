@@ -153,6 +153,8 @@ class ResPartner(models.Model):
         next_planning_date = fields.Datetime.from_string(
             self.env["ir.config_parameter"].sudo().get_param("next_planning_date", 0))
 
+        next_planning = next_planning.with_context(visualize_date=next_planning_date)
+
         shift_recset = self.env["beesdoo.shift.shift"]
 
         while next_planning_date < end_date:

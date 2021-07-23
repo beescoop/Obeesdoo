@@ -82,55 +82,16 @@ class DatedTemplate(models.Model):
         :param my_timeslot: beesdoo.shift.template.dated record,
         :return: beesdoo.shift.template.dated recordset
         """
-        start_date = datetime.now()
-
-        #generate timeslot of the shift already generated
-        shift_generated = (self.env["beesdoo.shift.shift"].sudo().search([
-            ("start_time", ">", start_date.strftime("%Y-%m-%d %H:%M:%S"))
-        ],
-        order="start_time, task_template_id, task_type_id"))
-
-        if shift_generated :
-            timeslot_rec = self.swap_shift_to_timeslot(shift_generated)
-
-        # generate timeslot of the shift not generated
-        #get parameter
-        last_sequence = int(
-            self.env["ir.config_parameter"]
-                .sudo()
-                .get_param("last_planning_seq")
-        )
-        next_planning = self.env["beesdoo.shift.planning"]._get_next_planning(last_sequence)
-        next_planning_date = fields.Datetime.from_string(
-            self.env["ir.config_parameter"]
-                .sudo()
-                .get_param("next_planning_date", 0)
-        )
         next_swap_limit = int(
             self.env["ir.config_parameter"]
                 .sudo()
                 .get_param("beesdoo_shift.day_limit_swap")
         )
         end_date = my_timeslot.date + timedelta(days=next_swap_limit)
-        next_planning = next_planning.with_context(visualize_date=next_planning_date)
-        shift_recset = self.env["beesdoo.shift.shift"]
 
+        shifts = self.env["res.partner"].display_future_shift(end_date)
 
-        if not next_planning.task_template_ids:
-            _logger.error(
-                "Could not generate next planning: no task template defined."
-            )
-            return
-
-
-        while next_planning_date < end_date :
-            shift_recset = next_planning.task_template_ids._generate_task_day()
-            timeslot_rec |= self.swap_shift_to_timeslot(shift_recset)
-            next_planning_date = next_planning._get_next_planning_date(next_planning_date)
-            last_sequence = next_planning.sequence
-            next_planning = self.env["beesdoo.shift.planning"]._get_next_planning(last_sequence)
-            next_planning = next_planning.with_context(visualize_date=next_planning_date)
-
+        timeslot_rec = self.swap_shift_to_timeslot(shifts)
         return timeslot_rec
 
     @api.multi
