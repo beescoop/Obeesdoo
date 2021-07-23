@@ -70,6 +70,19 @@
 <!--               eval="[(6, 0, [ref('beesdoo_shift.cooperative_status_4_demo')])]"/>-->
     </record>
 
+        <record id="res_partner_worker_4_demo" model="res.partner">
+        <field name="name">Eliot VAN GOETHEM</field>
+        <field name="customer" eval="True"/>
+        <field name="is_company" eval="False"/>
+        <field name="email">eliot_vangoethem@demode.net</field>
+        <field name="street">Parvis, 16</field>
+        <field name="city">Saint-Gilles</field>
+        <field name="zip">1060</field>
+        <field name="country_id" ref="base.be"/>
+        <field name="working_mode">regular</field>
+        <field name="is_worker" eval="True"/>
+    </record>
+
     <record id="res_partner_worker_5_demo" model="res.partner">
         <field name="name">Anne de Marchalo</field>
         <field name="customer" eval="True"/>
