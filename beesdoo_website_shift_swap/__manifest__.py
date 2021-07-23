@@ -1,15 +1,10 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "beesdoo_website_shift_swap",
+    'name': "Beesdoo Website Shift Swap",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
-
-    'description': """
-        Long description of module's purpose
-    """,
-
+        let workers to create exchange or swaping shift with an
+        easy web interface.""",
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "version": "12.0.1.0.1",
@@ -18,7 +13,6 @@
     "depends": ["portal", "website", "beesdoo_shift","beesdoo_shift_swap"],
     'data': [
         # 'security/ir.model.access.csv',
-        'views/views.xml',
         'views/templates.xml',
     ],
     # only loaded in demonstration mode
