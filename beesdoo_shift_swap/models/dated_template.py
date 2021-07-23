@@ -41,6 +41,7 @@ class DatedTemplate(models.Model):
         :return beesdoo.shift.template.dated recordset
         """
         #TODO : améliorer code
+
         timeslot_rec = self.env["beesdoo.shift.template.dated"]
         first_shift = list_shift[0]
         last_template = first_shift.task_template_id
@@ -93,6 +94,7 @@ class DatedTemplate(models.Model):
             timeslot_rec = self.swap_shift_to_timeslot(shift_generated)
 
         # generate timeslot of the shift not generated
+        #get parameter
         last_sequence = int(
             self.env["ir.config_parameter"]
                 .sudo()
@@ -104,7 +106,6 @@ class DatedTemplate(models.Model):
                 .sudo()
                 .get_param("next_planning_date", 0)
         )
-        #TODO : create system parameters for end_date
         next_swap_limit = int(
             self.env["ir.config_parameter"]
                 .sudo()
@@ -135,7 +136,7 @@ class DatedTemplate(models.Model):
     @api.multi
     def my_timeslot(self, worker_id):
         """
-        Works as my_next_shift() but return beesdoo.shift.template.dated
+        Same utility as my_next_shift() but return beesdoo.shift.template.dated
         :param worker_id: res.partner record
         :return: beesdoo.shift.template.dated recordset
         """
@@ -171,8 +172,11 @@ class TaskTemplate(models.Model):
         :return: beesdoo.shift.shift new() object (not save in db)
         """
         shifts = super(TaskTemplate,self)._generate_task_day()
+
+        #get all the exchanges
         exchanges = self.env["beesdoo.shift.subscribed_underpopulated_shift"].search([])
         people_exchanges = self.env["beesdoo.shift.exchange"].search([])
+
         template={"first":None,"second": None}
         for shift in shifts :
             template["first"] = shift.task_template_id

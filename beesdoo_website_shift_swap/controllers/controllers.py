@@ -30,11 +30,13 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
     @http.route("/my/shift/swaping/<int:template_id>/<string:date>", website=True)
     def swaping_shift(self,template_id,date):
-        # Get the shift
         now = datetime.now()
         shift_date = datetime.strptime(date,'%Y-%m-%d %H:%M:%S')
+
+        #save the swaping timeslot in the user session
         request.session['template_id'] = template_id
         request.session['date'] = date
+
         delta = shift_date - now
         if delta.days <= 28 :
             return request.redirect("/my/shift/underpopulated/swap")
@@ -47,12 +49,16 @@ class WebsiteShiftSwapController(WebsiteShiftController):
     @http.route("/my/shift/underpopulated/swap",website=True )
     def get_underpopulated_shift(self):
         """
-        Personal page for swaping your shifts
-        :return:
+        Personnal page to choose the underpopulated shift you want
         """
+        #Get unwanted timeslot save in the user session
+            #Get template and date from session
         template_id = request.session['template_id']
         date = request.session['date']
+            #create new timeslot
         my_timeslot = self.new_timeslot(template_id,date)
+
+        #get underpopulated shift
         my_available_shift = (
             request.env["beesdoo.shift.subscribed_underpopulated_shift"]
             .sudo()
