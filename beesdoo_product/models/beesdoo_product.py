@@ -299,6 +299,9 @@ class BeesdooProduct(models.Model):
                     )
                 )
 
+    # fixme rename to _compute_suggested_price
+    # fixme move to new module product_suggested_price
+    #  or sale_suggested_price
     @api.multi
     @api.depends(
         "seller_ids",
@@ -341,9 +344,13 @@ class BeesdooProduct(models.Model):
                     else (1 + profit_margin / 100)
                 )
 
+                # price of purchase is given for uom_po_id
+                #   suggested *sale* price must be adapted to uom_id
+                uom_factor = product.uom_po_id.factor / product.uom_id.factor
+
                 product.suggested_price = (
                     price
-                    * product.uom_po_id.factor
+                    * uom_factor
                     * supplier_taxes_factor
                     * sale_taxes_factor
                     * profit_margin_factor
