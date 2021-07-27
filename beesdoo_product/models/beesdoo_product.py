@@ -300,7 +300,14 @@ class BeesdooProduct(models.Model):
                 )
 
     @api.multi
-    @api.depends("seller_ids", "supplier_taxes_id", "taxes_id")
+    @api.depends(
+        "seller_ids",
+        "supplier_taxes_id",
+        "taxes_id",
+        "uom_id",
+        "uom_po_id",
+        "categ_id.should_round_suggested_price",
+    )
     def _compute_cost(self):
         suggested_price_reference = (
             self.env["ir.config_parameter"]
