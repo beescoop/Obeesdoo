@@ -315,9 +315,9 @@ class BeesdooProduct(models.Model):
             .get_param("beesdoo_product.suggested_price_reference")
         )
         for product in self:
-            suppliers = product._get_main_supplier_info()
-            if len(suppliers) > 0:
-                price = suppliers[0].price
+            supplier = product._get_main_supplier_info()
+            if supplier:
+                price = supplier.price
                 supplier_taxes = product.supplier_taxes_id.filtered(
                     lambda t: t.amount_type == "percent" and t.price_include
                 )
@@ -328,10 +328,10 @@ class BeesdooProduct(models.Model):
                     lambda t: t.amount_type == "percent" and t.price_include
                 )
                 sale_taxes_factor = 1 + sum(sale_taxes.mapped("amount")) / 100
-                profit_margin_supplier = suppliers[0].name.profit_margin
-                profit_margin_product_category = suppliers[
-                    0
-                ].product_tmpl_id.categ_id.profit_margin
+                profit_margin_supplier = supplier.name.profit_margin
+                profit_margin_product_category = (
+                    supplier.product_tmpl_id.categ_id.profit_margin
+                )
                 profit_margin = (
                     profit_margin_supplier or profit_margin_product_category
                 )
@@ -340,6 +340,7 @@ class BeesdooProduct(models.Model):
                     if suggested_price_reference == "sale_price"
                     else (1 + profit_margin / 100)
                 )
+
                 product.suggested_price = (
                     price
                     * product.uom_po_id.factor
@@ -347,10 +348,8 @@ class BeesdooProduct(models.Model):
                     * sale_taxes_factor
                     * profit_margin_factor
                 )
-
-                if suppliers[
-                    0
-                ].product_tmpl_id.categ_id.should_round_suggested_price:
+                product_category = supplier.product_tmpl_id.categ_id
+                if product_category.should_round_suggested_price:
                     product.suggested_price = round_5c(product.suggested_price)
 
     @api.multi
