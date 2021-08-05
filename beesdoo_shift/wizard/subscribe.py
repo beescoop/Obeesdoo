@@ -199,10 +199,6 @@ class Subscribe(models.TransientModel):
             # ,...
             status_id.sudo().write(data)
 
-        if self.working_mode:
-            self.cooperator_id.sudo().write({
-                "working_mode": self.working_mode
-            })
         if self.shift_id:
             # Remove existing shift then subscribe to the new shift
             self.cooperator_id.sudo().write(
