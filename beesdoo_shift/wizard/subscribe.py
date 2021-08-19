@@ -163,6 +163,10 @@ class Subscribe(models.TransientModel):
     @api.multi
     def subscribe(self):
         self = self._check()
+        # fixme pysi : when trying to change a cooperator from
+        #  regular to irregular, the following UserError is raised
+        #  if the shift is full. This check should not be done
+        #  when going to irregular.
         if self.shift_id and self.shift_id.remaining_worker <= 0:
             raise UserError(_("There is no remaining spot in this shift"))
         if self.shift_id:
