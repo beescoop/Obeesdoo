@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Mail template are declared in a NOUPDATE block
+         so users can freely customize/delete them -->
+    <data noupdate="1">
+        <record id="email_template_shift_subscribed" model="mail.template">
+            <field name="name">Shift Subscribed</field>
+            <field name="model_id" ref="model_beesdoo_shift_shift"/>
+        </record>
+
+        <record id="email_template_shift_unsubscribed" model="mail.template">
+            <field name="name">Shift Unsubscribed</field>
+            <field name="model_id" ref="model_beesdoo_shift_shift"/>
+        </record>
+    </data>
+</odoo>

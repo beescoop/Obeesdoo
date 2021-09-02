@@ -1,0 +1,106 @@
+<odoo>
+    <record model="ir.ui.view" id="coop_partner_inherited_view_form">
+        <field name="name">Polln Coop Form View</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="easy_my_coop.view_partner_form_easy_my_coop" />
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@id='action_view_update_partner_info']/.." position="replace" />
+            <field name="age" position="after">
+                <field name="gender" />
+            </field>
+            <xpath expr="//field[@name='member']/../.." position='replace' />
+            <page name="share" position="replace">
+                <page name="easy_my_coop_status" string="Coop Status">
+                    <group>
+                        <group>
+                            <field name="member" invisible="1"/>
+                            <field name="representative"
+                                   attrs="{'invisible':['|',('parent_id','=',False),('is_company','=',True)]}"/>
+                            <field name="cooperator_register_number"
+                                   readonly="True"
+                                   attrs="{'invisible':[('member','=',False)]}"/>
+                            <field name="company_register_number"
+                                   readonly="True"
+                                   attrs="{'invisible':[('is_company','=',False)]}"/>
+                            <field name="coop_candidate"
+                                   groups="easy_my_coop.group_easy_my_coop_user"/>
+                            <field name="cooperator" invisible="True"
+                                   groups="easy_my_coop.group_easy_my_coop_manager"/>
+                            <field name="member"
+                                   groups="easy_my_coop.group_easy_my_coop_manager"/>
+                            <field name="cooperator_type"
+                                   attrs="{'invisible':[('member','=',False)]}"/>
+                            <field name="effective_date"
+                                   attrs="{'invisible':[('member','=',False)]}"/>
+                        </group>
+                        <group name="approvals" attrs="{'invisible':[('cooperator','=',False)]}">
+                            <field name="internal_rules_approved"/>
+                            <field name="data_policy_approved"/>
+                            <field name="financial_risk_approved"/>
+                            <field name="generic_rules_approved"/>
+                        </group>
+                    </group>
+                    <separator string="Shares" />
+                    <group>
+                        <field name="number_of_share"/>
+                        <field name="total_value"/>
+                    </group>
+                    <field name="share_ids">
+                        <tree create="false">
+                            <field name="effective_date"/>
+                            <field name="share_short_name"/>
+                            <field name="share_number"
+                                    sum="Total of shares"/>
+                            <field name="share_unit_price"/>
+                            <field name="total_amount_line"
+                                    sum="Total subscribed amount"/>
+                        </tree>
+                    </field>
+                    <separator string="Share Subscriptions" />
+                    <field name="subscription_request_ids">
+                        <tree create="false" delete="false" edit="false">
+                            <field name="share_short_name"/>
+                            <field name="ordered_parts"
+                                    sum="Total of shares"/>
+                            <field name="share_unit_price"/>
+                            <field name="subscription_amount"
+                                    sum="Total subscribed amount"/>
+                            <field name="type"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
+                </page>
+            </page>
+            <page name="share_subscription" position="replace" />
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="coop_partner_inherited_view_form_eater">
+        <field name="name">Polln Coop Form View</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="beesdoo_shift.super_coop_partner_inherited_view_form" />
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <field name="eater" position="replace" />
+            <field name="parent_eater_id" position="replace" />
+            <field name="is_worker" position="after" >
+                <field name="eater" attrs="{'invisible': [('customer', '=', False)]}" />
+                <field name="parent_eater_id" attrs="{'invisible' : [('eater', '!=', 'eater')]}" />
+            </field>
+            <button name="temporary_exempt" position="after">
+                <button string="Create Subscription"
+                                name="%(easy_my_coop.action_view_create_subscription)d"
+                                type="action"
+                                context="{'default_active_id': active_id}"
+                                groups="easy_my_coop.group_easy_my_coop_user"/>
+                <button id="action_view_update_partner_info"
+                        string="Update info"
+                        name="%(easy_my_coop.action_view_update_partner_info)d"
+                        type="action"
+                        context="{'default_active_id': active_id}"
+                        groups="easy_my_coop.group_easy_my_coop_user"/>
+            </button>
+        </field>
+    </record>
+</odoo>

@@ -138,7 +138,7 @@ class Partner(models.Model):
         partner_data = {
             "lastname": name,
             "firstname": surname,
-            "is_customer": True,
+            "customer": True,
             "eater": "eater",
             "parent_eater_id": self.id,
             "email": email,
