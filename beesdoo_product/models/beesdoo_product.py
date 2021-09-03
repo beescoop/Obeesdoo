@@ -142,13 +142,15 @@ class BeesdooProduct(models.Model):
                 product.scale_sale_unit = "P"
 
     def _get_main_supplier_info(self):
-        far_future = date(3000, 1, 1)
+        # fixme this function either returns a supplier or a collection.
+        #  wouldn’t it be more logical to return a supplier or None?
 
+        # supplierinfo w/o date_start come first
         def sort_date_first(seller):
             if seller.date_start:
                 return seller.date_start
             else:
-                return far_future
+                return date.max
 
         suppliers = self.seller_ids.sorted(key=sort_date_first, reverse=True)
         if suppliers:
@@ -207,8 +209,11 @@ class BeesdooProduct(models.Model):
     @api.depends("seller_ids", "seller_ids.date_start")
     def _compute_main_seller_id(self):
         for product in self:
-            # Calcule le vendeur associé qui a la date de début la plus récente
-            # et plus petite qu’aujourd’hui
+            # todo english code Calcule le vendeur associé qui a la date de
+            #  début la plus récente et plus petite qu’aujourd’hui fixme
+            #   could product.main_seller_id be used instead? it seems that
+            #   “seller” and “supplier” are used interchangeably in this
+            #   class. is this on purpose?
             sellers_ids = product._get_main_supplier_info()
             product.main_seller_id = (
                 sellers_ids and sellers_ids[0].name or False
