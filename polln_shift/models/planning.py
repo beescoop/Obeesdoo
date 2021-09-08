@@ -1,7 +1,16 @@
+import re
+
 from datetime import datetime
 
 from odoo import api, models, fields, _
 from odoo.addons.beesdoo_shift.models.cooperative_status import add_days_delta
+from odoo.addons.beesdoo_shift.models.planning import float_to_time
+from odoo.osv import expression
+
+
+def time_to_float(t):
+    hour, minute = t.split(':')
+    return float(hour) + float(minute) / 60
 
 class TaskTemplate(models.Model):
     _inherit = 'beesdoo.shift.template'
@@ -31,6 +40,37 @@ class WizardSubscribe(models.TransientModel):
         self.cooperator_id.eater = 'worker_eater'
         return res
 
+class TaskTemplate(models.Model):
+    _inherit = "beesdoo.shift.template"
+
+    def name_get(self):
+        res = []
+        for rec in self:
+            name = "%s %s %s (%s-%s)" % (
+                rec.name,
+                rec.planning_id.name,
+                rec.day_nb_id.name,
+                float_to_time(rec.start_time),
+                float_to_time(rec.end_time)
+            )
+            res.append((rec.id, name))
+        return res
+
+    @api.model
+    def _name_search(self, name, args=None, operator='ilike', limit=100, name_get_uid=None):
+        domain = []
+        time_domain = []
+        FIELDS = ['planning_id', 'name', 'day_nb_id']
+        for n in name.split(" "):
+            if re.search(r"^\(\d{2}:\d{2}-\d{2}:\d{2}\)$", n):
+                start, end = n[1:-1].split('-')
+                start, end = time_to_float(start), time_to_float(end)
+                time_domain = [['&', ('start_time', '=', start), ('end_time', '=', end)]]
+            elif n.startswith('('): # Ignore missformed hour
+                continue
+            else:
+                domain.append(expression.OR([[(f, 'ilike', n)] for f in FIELDS]))
+        return self.search(expression.AND(domain + time_domain)).name_get()
 
 class Task(models.Model):
     _inherit = 'beesdoo.shift.shift'

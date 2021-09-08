@@ -16,7 +16,7 @@
             <field name="header_spacing">3</field>
             <field name="dpi">140</field>
         </record>
-
+<!-- TODO tare hasattr-->
         <template id="report_receipt">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
