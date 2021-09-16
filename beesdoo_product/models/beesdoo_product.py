@@ -210,23 +210,16 @@ class BeesdooProduct(models.Model):
                 "beesdoo_product.consignes_group_tax", raise_if_not_found=False
             )
 
-            taxes_included = set(product.taxes_id.mapped("price_include"))
+            taxes_included = set(product.taxes_id.filtered(lambda t: t.tax_group_id != consignes_group).mapped("price_include"))
             if len(taxes_included) == 0:
                 product.total_with_vat = product.list_price
                 return True
 
             elif len(taxes_included) > 1:
-                taxes_included = list(taxes_included)[:1]
+                return True
 
             elif taxes_included.pop():
                 product.total_with_vat = product.list_price
-                product.total_deposit = sum(
-                    [
-                        tax._compute_amount(product.list_price, product.list_price)
-                        for tax in product.taxes_id
-                        if tax.tax_group_id == consignes_group
-                    ]
-                )
             else:
                 tax_amount_sum = sum(
                     [
