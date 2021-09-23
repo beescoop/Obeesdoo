@@ -159,7 +159,7 @@ class Task(models.Model):
             worker = self.env["res.partner"].browse(vals["worker_id"])
             self.message_subscribe(partner_ids=worker.ids)
 
-    # TODO button to replaced someone
+    # TODO button to replace someone
     @api.model
     def unsubscribe_from_today(
         self,
