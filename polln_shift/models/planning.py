@@ -36,6 +36,9 @@ class WizardSubscribe(models.TransientModel):
             self.cooperator_id.sudo().write(
                 {"subscribed_shift_ids": [(6, 0, [self.shift_id.id])]}
             )
+        if self.shift_id and self.cooperator_id.super and not self.shift_id.super_coop_id and self.cooperator_id.user_ids:
+            self.shift_id.super_coop_id = self.cooperator_id.user_ids[0]
+
         # Should work with module beesdoo_easy_my_coop but don't
         self.cooperator_id.eater = 'worker_eater'
         return res

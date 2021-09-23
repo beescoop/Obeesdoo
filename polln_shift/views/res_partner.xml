@@ -85,8 +85,9 @@
             <field name="eater" position="replace" />
             <field name="parent_eater_id" position="replace" />
             <field name="is_worker" position="after" >
+                <field name="worker_store" readonly="0" string="Force Worker" />
                 <field name="eater" attrs="{'invisible': [('customer', '=', False)]}" />
-                <field name="parent_eater_id" attrs="{'invisible' : [('eater', '!=', 'eater')]}" />
+                <field name="parent_eater_id" attrs="{'invisible' : [('eater', '!=', 'eater')]}" readonly="0"/>
             </field>
             <button name="temporary_exempt" position="after">
                 <button string="Create Subscription"

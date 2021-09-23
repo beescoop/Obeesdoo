@@ -140,6 +140,7 @@ class Subscribe(models.TransientModel):
     resigning = fields.Boolean(
         default=False, help="Want to leave the beescoop"
     )
+    create_user = fields.Boolean(defaul=False, help="Create a portal user for the new worker")
 
     @api.multi
     def unsubscribe(self):
@@ -211,4 +212,13 @@ class Subscribe(models.TransientModel):
             # to a shift to keep information like "Worker mode, session info
             # ,...
             status_id.sudo().write(data)
+        if self.create_user:
+            self._create_user()
         return True
+
+    def _create_user(self):
+        PortalWizard = self.env['portal.wizard'].sudo()
+        wiz_values = PortalWizard.with_context(active_ids=self.cooperator_id.ids).default_get(['user_ids'])
+        wizard = PortalWizard.create(wiz_values)
+        wizard.user_ids.write({'in_portal': True})
+        wizard.action_apply()
