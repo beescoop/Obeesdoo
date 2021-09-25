@@ -143,5 +143,6 @@ class Partner(models.Model):
             "parent_eater_id": self.id,
             "email": email,
             "country_id": self.country_id.id,
+            "member_card_to_be_printed": True,
         }
         return self.env["res.partner"].create(partner_data)
