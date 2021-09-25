@@ -27,26 +27,38 @@
     </record>
 
     <template id="welcome_message" name="Welcome Message">
-        <t t-if="rec.partner_id">
+        <t t-if="partner">
 
             <div class="row align-items-center">
                 <div class="col-md-4">
-                    <img t-if="rec.partner_id.image" t-attf-src="data:image/*;base64,{{rec.partner_id.image}}"/>
+                    <img t-if="partner.image" t-attf-src="data:image/*;base64,{{partner.image}}"/>
                 </div>
                 <div class="col-md-8">
-                    <t t-if="rec.partner_id.can_shop">
+                    <t t-if="partner.can_shop">
                         <h1><font style="background-color: rgb(0, 255, 0); font-size: 24px;">Can shop</font></h1>
                     </t>
-                    <t t-if="not rec.partner_id.can_shop">
+                    <t t-if="not partner.can_shop">
                         <h1><font style="background-color: rgb(255, 0, 0); font-size: 24px;">Cannot shop</font></h1>
                     </t>
                     <br/>
-                    <h2><span t-field="rec.partner_id.name"/></h2>
+                    <h2><span t-field="partner.name"/></h2>
                     <br/>
-                    <t t-if="rec.partner_id.child_eater_ids"><h4>Eaters</h4></t>
-                    <t t-foreach="rec.partner_id.child_eater_ids" t-as="eater">
+                    <t t-if="partner.child_eater_ids"><h4>Eaters</h4></t>
+                    <t t-foreach="partner.child_eater_ids" t-as="eater">
                     <div>
                         <span t-field="eater.name" style="font-size: 1.2rem;"/>
+                    </div>
+                    </t>
+                    <br />
+                    <t t-if="next_shift"><h4>Next Shift</h4></t>
+                    <t t-foreach="next_shift" t-as="shift">
+                    <div>
+                        <strong>
+                            <span t-field="next_shift.start_time" t-options='{"format": "EEEE dd/MM/yyyy HH:mm"}' />
+                            -
+                            <span t-field="next_shift.end_time" t-options='{"format": "HH:mm"}' />
+                        </strong>
+                        : <span t-field="next_shift.name" style="font-size: 1.2rem;"/>
                     </div>
                     </t>
                 </div>

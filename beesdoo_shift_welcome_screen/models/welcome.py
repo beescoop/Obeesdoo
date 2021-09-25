@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
 
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
@@ -32,8 +33,21 @@ class TaskType(models.TransientModel):
 
     @api.onchange('partner_id')
     def _onchange_partner(self):
+        partner = self.partner_id
+        partner = partner.parent_eater_id if partner.parent_eater_id else partner
         values = {
-            'rec': self
+            'rec': self,
+            'partner': partner,
+            'next_shift': self._get_next_shift(partner),
         }
         html_res = self.env.ref("beesdoo_shift_welcome_screen.welcome_message").render(values)
         self.message = html_res
+
+    def _get_next_shift(self, partner):
+        if not partner:
+            return self.env["beesdoo.shift.shift"]
+        now = datetime.now()
+        return self.env["beesdoo.shift.shift"].search([
+                ("start_time", ">", now.strftime("%Y-%m-%d %H:%M:%S")),
+                ("worker_id", "=", partner.id),
+            ], order="start_time, task_template_id, task_type_id")
