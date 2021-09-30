@@ -105,8 +105,22 @@
         </field>
     </record>
 
+    <template id="my_shift_common" name="Worker Status common"
+        inherit_id="beesdoo_website_shift.my_shift_worker_status_common">
+        <xpath expr="//p[@id='working_mode']"
+               position="replace" />
+    </template>
+
+
+    <template id="my_shift_status" name="Worker Status"
+        inherit_id="beesdoo_website_shift.my_shift_irregular_worker">
+       <xpath expr="//p[@t-if='status.next_countdown_date']" position="replace" />
+
+    </template>
+
     <template id="my_shift" name="Shifts for Irregular Workers"
         inherit_id="beesdoo_website_shift.my_shift_next_shifts">
+
         <xpath expr="//t[@t-esc='shift.task_type_id.name']" position="after">
             <button type="button"
                 class="btn btn-danger btn-sm pull-right"

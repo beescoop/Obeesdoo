@@ -20,28 +20,28 @@ from .shift_grid_utils import DisplayedShift, build_shift_grid
 
 class WebsiteShiftController(http.Controller):
     def is_user_worker(self):
-        user = request.env["res.users"].browse(request.uid)
+        user = request.env["res.users"].browse(request.uid).sudo()
         return user.partner_id.is_worker
 
     def is_user_irregular(self):
-        user = request.env["res.users"].browse(request.uid)
+        user = request.env["res.users"].browse(request.uid).sudo()
         working_mode = user.partner_id.working_mode
         return working_mode == "irregular"
 
     def is_user_regular(self):
-        user = request.env["res.users"].browse(request.uid)
+        user = request.env["res.users"].browse(request.uid).sudo()
         working_mode = user.partner_id.working_mode
         return working_mode == "regular"
 
     def is_user_regular_without_shift(self):
-        user = request.env["res.users"].browse(request.uid)
+        user = request.env["res.users"].browse(request.uid).sudo()
         return (
             not user.partner_id.subscribed_shift_ids.ids
             and self.is_user_regular()
         )
 
     def is_user_exempted(self):
-        user = request.env["res.users"].browse(request.uid)
+        user = request.env["res.users"].browse(request.uid).sudo()
         working_mode = user.partner_id.working_mode
         return working_mode == "exempt"
 
@@ -53,7 +53,7 @@ class WebsiteShiftController(http.Controller):
             * the user is not resigning
         """
         if not user:
-            user = request.env["res.users"].browse(request.uid)
+            user = request.env["res.users"].browse(request.uid).sudo()
         return (
             user.partner_id.working_mode == "irregular"
             and user.partner_id.state != "unsubscribed"

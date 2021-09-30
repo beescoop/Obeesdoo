@@ -46,8 +46,8 @@
 
     <template id="my_shift_worker_status_common" name="My Shift Worker Status Common">
 
-        <p>
-            <label class="font-weight-bold">Working Mode:</label>
+        <p id="working_mode">
+            <label class="font-weight-bold" >Working Mode:</label>
             <t
                 t-esc="dict(status.fields_get(allfields=['working_mode'])['working_mode']['selection'])[status.working_mode]"
             />
