@@ -170,14 +170,6 @@ class Subscribe(models.TransientModel):
         #  when going to irregular.
         if self.shift_id and self.shift_id.remaining_worker <= 0:
             raise UserError(_("There is no remaining spot in this shift"))
-        if self.shift_id:
-            # Remove existing shift then subscribe to the new shift
-            self.cooperator_id.sudo().write(
-                {"subscribed_shift_ids": [(6, 0, [self.shift_id.id])]}
-            )
-        if self.working_mode != "regular":
-            # Remove existing shift then subscribe to the new shift
-            self.cooperator_id.sudo().write({"subscribed_shift_ids": [(5,)]})
 
         data = {
             "info_session": self.info_session,
@@ -214,6 +206,17 @@ class Subscribe(models.TransientModel):
             status_id.sudo().write(data)
         if self.create_user:
             self._create_user()
+        # Last step should be the shift subscription because we check working mode in shift
+        # It may raise an error you subscribe to a creanu with already existing shift
+        # and the coop is subscribed before have the proper working mode
+        if self.shift_id and self.working_mode == "regular":
+            # Remove existing shift then subscribe to the new shift
+            self.cooperator_id.sudo().write(
+                {"subscribed_shift_ids": [(6, 0, [self.shift_id.id])]}
+            )
+        if self.working_mode != "regular":
+            # Remove existing shift then subscribe to the new shift
+            self.cooperator_id.sudo().write({"subscribed_shift_ids": [(5,)]})
         return True
 
     def _create_user(self):

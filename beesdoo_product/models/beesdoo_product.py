@@ -6,6 +6,7 @@ import uuid
 from datetime import date
 
 from odoo import api, fields, models
+from odoo.addons import decimal_precision as dp
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import float_round
 from odoo.tools.translate import _
@@ -71,7 +72,7 @@ class BeesdooProduct(models.Model):
 
     display_unit = fields.Many2one("uom.uom")
     default_reference_unit = fields.Many2one("uom.uom")
-    display_weight = fields.Float(compute="_compute_display_weight", store=True)
+    display_weight = fields.Float(compute="_compute_display_weight", store=True, digits=dp.get_precision('Stock Weight'))
 
     total_with_vat = fields.Float(
         compute="_compute_total",
