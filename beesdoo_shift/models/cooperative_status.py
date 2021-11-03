@@ -185,19 +185,22 @@ class CooperativeStatus(models.Model):
                 _("Irregular workers must have an irregular start date.")
             )
 
-    @api.multi
-    def write(self, vals):
-        """
-            Overwrite write to historize the change
-        """
-        for field in [
+    def _get_watched_fields(self):
+        return [
             "sr",
             "sc",
             "time_extension",
             "extension_start_time",
             "alert_start_time",
             "unsubscribed",
-        ]:
+        ]
+
+    @api.multi
+    def write(self, vals):
+        """
+            Overwrite write to historize the change
+        """
+        for field in self._get_watched_fields():
             if field not in vals:
                 continue
             for rec in self:

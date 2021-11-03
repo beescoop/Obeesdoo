@@ -1,6 +1,6 @@
 import re
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from odoo import api, models, fields, _
 from odoo.addons.beesdoo_shift.models.cooperative_status import add_days_delta
@@ -150,9 +150,21 @@ class CooperativeStatus(models.Model):
             ("resigning", "Resigning"),
         ]
 
-    sr = fields.Float()
+    sr = fields.Float(compute='_get_sr', inverse="_set_sr")
+    # alter table cooperative_status add column sr_store double precision;
+    # update cooperative_status set sr_store = sr;
+    sr_store = fields.Float()
     future_alert_date = fields.Date(compute="_compute_future_alert_date")
     next_countdown_date = fields.Date(compute="_compute_next_countdown_date")
+
+    def _get_sr(self):
+        for record in self:
+            record.sr = record.sr_store
+
+    def _set_sr(self):
+        print("Set SR", self.mapped('sr'))
+        for record in self:
+            record.sr_store = record.sr
 
     ########################################################
     #                   Method to override                 #
@@ -310,6 +322,7 @@ class CooperativeStatus(models.Model):
         ICP = self.env["ir.config_parameter"].sudo()
         alert_count = int(ICP.get_param("alert_count", -2))
         unsubscribed_count = int(ICP.get_param("unsubscribed_count", -4))
+        default_alert_time = int(ICP.get_param("alert_time", 28))
         if (self.temporary_exempt_start_date and self.temporary_exempt_end_date and
                 self.today >= self.temporary_exempt_start_date and self.today <= self.temporary_exempt_end_date):
             return 'exempted'
@@ -321,10 +334,13 @@ class CooperativeStatus(models.Model):
 
         if self.sr <= unsubscribed_count:
             return 'unsubscribed'
-        if self.sr <= suspended_count:
-            return 'suspended'
-        if self.sr < 0:
+        if self.sr <= alert_count and not self.alert_start_time:
             return 'alert'
+        if self.alert_start_time:
+            if self.today < self.alert_start_time + timedelta(days=default_alert_time+self.time_extension):
+                return 'alert'
+            else:
+                return 'suspended'
         return 'ok'
 
     def _get_irregular_status(self):
@@ -388,6 +404,7 @@ class CooperativeStatus(models.Model):
             by default 28 days
         """
         self.sr -= 1
+
 
 
 

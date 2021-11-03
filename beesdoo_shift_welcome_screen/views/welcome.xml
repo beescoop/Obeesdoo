@@ -18,7 +18,7 @@
                     <field name="_barcode_scanned" widget="barcode_handler" />
                     <separator string="Cooperator" />
                     <h1>
-                        <field name="partner_id" />
+                        <field name="partner_id"  options="{'no_create': True}"  />
                     </h1>
                 <field name="message" readonly="1"/>
                 </sheet>
@@ -54,11 +54,11 @@
                     <t t-foreach="next_shift" t-as="shift">
                     <div>
                         <strong>
-                            <span t-field="next_shift.start_time" t-options='{"format": "EEEE dd/MM/yyyy HH:mm"}' />
+                            <span t-field="shift.start_time" t-options='{"format": "EEEE dd/MM/yyyy HH:mm"}' />
                             -
-                            <span t-field="next_shift.end_time" t-options='{"format": "HH:mm"}' />
+                            <span t-field="shift.end_time" t-options='{"format": "HH:mm"}' />
                         </strong>
-                        : <span t-field="next_shift.name" style="font-size: 1.2rem;"/>
+                        : <span t-field="shift.name" style="font-size: 1.2rem;"/>
                     </div>
                     </t>
                 </div>
