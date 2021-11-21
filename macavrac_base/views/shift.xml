@@ -28,11 +28,31 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="task_template_view_form_inherit">
+        <field name="name">Shift tree inherit</field>
+        <field name="model">beesdoo.shift.shift</field>
+        <field name="inherit_id" ref="beesdoo_shift.task_view_tree" />
+        <field name="arch" type="xml">
+            <field name="super_coop_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="replaced_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="worker_id" position="after">
+                <field name="function" />
+            </field>
+        </field>
+    </record>
+
     <record model="ir.ui.view" id="task_view_form_inherit">
         <field name="name">Task Form inherit</field>
         <field name="inherit_id" ref="beesdoo_shift.task_view_form" />
         <field name="model">beesdoo.shift.shift</field>
         <field name="arch" type="xml">
+            <field name="worker_id" position="after">
+                <field name="function" />
+            </field>
             <field name="super_coop_id" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>

@@ -31,6 +31,8 @@ class Partner(models.Model):
             ("share_b", "Part B"),
             ("share_c", "Part C"),
             ("share_d", "Part D"),
+            ("student", "Etudiant"),
+
         ],
         string="Type de Part",
     )
@@ -76,13 +78,17 @@ class Partner(models.Model):
     @api.depends("cooperator_type")
     def _compute_is_worker(self):
         for rec in self:
-            rec.is_worker = rec.cooperator_type in ('share_a', 'share_b') 
+            rec.is_worker = rec.cooperator_type in ('share_a', 'share_b', 'student')
 
     def _search_is_worker(self, operator, value):
         if (operator == '=' and value) or (operator == '!=' and not value):
-            return [('cooperator_type', 'in', ('share_a', 'share_b'))]
+            return [('cooperator_type', 'in', ('share_a', 'share_b', 'student'))]
         else:
-            return ['&', ('cooperator_type', '!=', 'share_a'), ('cooperator_type', '!=', 'share_b')]
+            return [
+                ('cooperator_type', '!=', 'share_a'),
+                ('cooperator_type', '!=', 'share_b'),
+                ('cooperator_type', '!=', 'student'),
+            ]
 
     @api.depends("super")
     def _compute_need_referent(self):

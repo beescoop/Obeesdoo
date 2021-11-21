@@ -29,6 +29,7 @@ class WizardSubscribe(models.TransientModel):
 class Task(models.Model):
     _inherit = 'beesdoo.shift.shift'
 
+    function = fields.Char(related="worker_id.function")
     can_unsubscribe = fields.Boolean(compute="_compute_can_unsubscribe")
     super_only = fields.Boolean(related="task_type_id.super_only")
 
