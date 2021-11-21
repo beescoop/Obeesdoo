@@ -42,6 +42,8 @@
                     </t>
                     <br/>
                     <h2><span t-field="partner.name"/></h2>
+                    <h3>Status: <span t-field="partner.state" /></h3>
+                    <h3>Compteur: <span t-field="partner.cooperative_status_ids[:1].sr" /></h3>
                     <br/>
                     <t t-if="partner.child_eater_ids"><h4>Eaters</h4></t>
                     <t t-foreach="partner.child_eater_ids" t-as="eater">

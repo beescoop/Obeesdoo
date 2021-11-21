@@ -141,13 +141,13 @@ class CooperativeStatus(models.Model):
 
     def _get_status(self):
         return [
-            ("ok", "Up to Date"),
-            ("alert", "Alerte"),
-            ("suspended", "Suspended"),
-            ("unsubscribed", "Unsubscribed"),
+            ("ok", _("Up to Date")),
+            ("alert", _("Alerte")),
+            ("suspended", _("Suspended")),
+            ("unsubscribed", _("Unsubscribed")),
             ("holiday", _("shift_status_holidays")),
-            ("exempted", "Exempted"),
-            ("resigning", "Resigning"),
+            ("exempted", _("Exempted")),
+            ("resigning", _("Resigning")),
         ]
 
     sr = fields.Float(compute='_get_sr', inverse="_set_sr")
