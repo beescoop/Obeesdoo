@@ -70,6 +70,11 @@ class BeesdooProduct(models.Model):
         compute="_compute_main_seller_id",
         store=True,
     )
+    main_seller_id_product_code = fields.Char(
+        string="Main Seller Product Code",
+        compute="_compute_main_seller_id",
+        store=True,
+    )
 
     display_unit = fields.Many2one("uom.uom")
     default_reference_unit = fields.Many2one("uom.uom")
@@ -210,7 +215,9 @@ class BeesdooProduct(models.Model):
         self.barcode = bc
 
     @api.multi
-    @api.depends("seller_ids", "seller_ids.date_start")
+    @api.depends(
+        "seller_ids", "seller_ids.date_start", "seller_ids.product_code"
+    )
     def _compute_main_seller_id(self):
         for product in self:
             # todo english code Calcule le vendeur associé qui a la date de
@@ -219,7 +226,12 @@ class BeesdooProduct(models.Model):
             #   “seller” and “supplier” are used interchangeably in this
             #   class. is this on purpose?
             sellers_ids = product._get_main_supplier_info()
-            product.main_seller_id = sellers_ids and sellers_ids[0].name or False
+            product.main_seller_id = (
+                sellers_ids and sellers_ids[0].name or False
+            )
+            product.main_seller_id_product_code = (
+                sellers_ids and sellers_ids[0].product_code or False
+            )
 
     @api.multi
     @api.depends(
