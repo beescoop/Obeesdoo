@@ -17,18 +17,6 @@ class TestSearchMainSellerProductCode(TransactionCase):
         for index, sup in enumerate(self.product2.seller_ids):
             sup.product_code = "BBB%d" % index
 
-        # Try not to use _get_main_supplier_info as it is a private
-        # function. I use main_seller_id instead, but main_seller_id
-        # does not contain the supplierinfo, just the res.partner.
-        def get_main_supplier_info(product):
-            for sup in product.seller_ids:
-                if sup.name == product.main_seller_id:
-                    return sup
-            return self.env["product.supplierinfo"]
-
-        self.product1_main_supplierinfo = get_main_supplier_info(self.product1)
-        self.product2_main_supplierinfo = get_main_supplier_info(self.product2)
-
     def test_search_product_by_main_seller_product_code(self):
         """
         Test searching a product giving the product_code of it's
@@ -39,7 +27,7 @@ class TestSearchMainSellerProductCode(TransactionCase):
                 (
                     "main_seller_id_product_code",
                     "=",
-                    self.product1_main_supplierinfo.product_code,
+                    self.product1.top_supplierinfo_id.product_code,
                 )
             ]
         )
@@ -49,7 +37,7 @@ class TestSearchMainSellerProductCode(TransactionCase):
                 (
                     "main_seller_id_product_code",
                     "=",
-                    self.product2_main_supplierinfo.product_code,
+                    self.product2.top_supplierinfo_id.product_code,
                 )
             ]
         )

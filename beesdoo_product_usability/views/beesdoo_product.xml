@@ -11,6 +11,10 @@
                 <field name="default_code" />
                 <field name="categ_id" />
                 <field name="main_seller_id" string="Main Seller" />
+                <field
+                    name="main_seller_id_product_code"
+                    string="Main Seller Product Code"
+                />
                 <field name="weight" />
                 <field name="main_price" />
                 <field name="main_minimum_qty" />
