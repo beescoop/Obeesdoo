@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <!-- New eater generation wizard -->
     <record id="Eater Wizard" model="ir.ui.view">
@@ -7,14 +7,18 @@
         <field name="arch" type="xml">
             <form string="Create a new eater">
                 <group>
-                    <field name="first_name"/>
-                    <field name="last_name"/>
-                    <field name="email"/>
+                    <field name="first_name" />
+                    <field name="last_name" />
+                    <field name="email" />
                 </group>
                 <footer>
-                    <button type="object" name="create_new_eater"
-                            string="Create" class="oe_highlight"/>
-                    <button special="cancel" string="Cancel"/>
+                    <button
+                        type="object"
+                        name="create_new_eater"
+                        string="Create"
+                        class="oe_highlight"
+                    />
+                    <button special="cancel" string="Cancel" />
                 </footer>
             </form>
         </field>

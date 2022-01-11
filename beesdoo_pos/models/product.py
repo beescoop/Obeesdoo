@@ -1,10 +1,10 @@
-from odoo import api, fields, models, _
+from odoo import api, models
 
 
 class ProductTemplate(models.Model):
-    _inherit = 'product.template'
+    _inherit = "product.template"
 
-    @api.onchange('sale_ok')
+    @api.onchange("sale_ok")
     def _onchange_sale_ok(self):
         """ Maintains the value of `available_in_pos` when unchecking `sale_ok`,
             by storing its value before calling parent's method,

@@ -13,7 +13,7 @@
     "author": "Beescoop - Cellule IT, Coop IT Easy SCRLfs",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Sales",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.0.1",
     "depends": ["point_of_sale", "purchase", "portal", "partner_firstname"],
     "data": [
         "security/groups.xml",

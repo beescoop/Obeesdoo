@@ -113,6 +113,27 @@ class PurchaseOrderGeneratorLine(models.Model):
         for cpol in self:
             cpol.purchase_quantity = cpol.minimum_purchase_qty
 
+    @api.onchange("product_template_id")
+    def _onchange_product_template_id(self):
+        """
+        Change domain on product_template_id based on supplier given
+        in the cpo.
+        """
+        default_supplier = self._context.get("cpo_seller_id")
+        product_ids = []
+        if default_supplier:
+            product_ids = (
+                self.env["product.template"]
+                .search(
+                    [
+                        ("main_seller_id", "=", default_supplier),
+                        ("purchase_ok", "=", True),
+                    ]
+                )
+                .ids
+            )
+        return {"domain": {"product_template_id": [("id", "in", product_ids)]}}
+
     @api.multi
     @api.depends("purchase_quantity")
     def _compute_coverage_and_subtotal(self):

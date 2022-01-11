@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <!-- Mail template are declared in a NOUPDATE block
          so users can freely customize/delete them -->
@@ -13,10 +13,12 @@
             <field name="partner_to">
                 ${object.replaced_id.id or object.worker_id.id|safe}
             </field>
-            <field name="model_id" ref="model_beesdoo_shift_shift"/>
-            <field name="auto_delete" eval="True"/>
+            <field name="model_id" ref="model_beesdoo_shift_shift" />
+            <field name="auto_delete" eval="True" />
             <field name="lang">${object.worker_id.lang}</field>
-            <field name="body_html"><![CDATA[
+            <field
+                name="body_html"
+            ><![CDATA[
 <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
 
     <p>Hello ${object.worker_id.name},</p>

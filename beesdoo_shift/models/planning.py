@@ -1,3 +1,4 @@
+import logging
 import math
 from datetime import datetime, time, timedelta
 
@@ -5,6 +6,8 @@ from pytz import UTC, timezone
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
+
+_logger = logging.getLogger(__name__)
 
 
 def float_to_time(f):
@@ -56,12 +59,25 @@ class Planning(models.Model):
 
     sequence = fields.Integer()
     name = fields.Char()
+    periodicity = fields.Integer(
+        "Periodicity",
+        help="""From 1 to N. This number specifies the periodicity for the
+        automated generation of a planning. For a weekly planning, the
+        periodicity would be 7, because the planning has to be generated
+        every seven days.""",
+        default=7,
+    )
     task_template_ids = fields.One2many(
         "beesdoo.shift.template", "planning_id"
     )
 
     @api.model
     def _get_next_planning(self, sequence):
+        """There can be multiple planning templates defined. When
+        generating shifts automatically, one template has to be
+        selected. The sequence number of the previously used
+        template is stored, so that it can be bumped up in a
+        cyclic fashion."""
         next_planning = self.search([("sequence", ">", sequence)])
         if not next_planning:
             return self.search([])[0]
@@ -70,8 +86,14 @@ class Planning(models.Model):
     @api.multi
     def _get_next_planning_date(self, date):
         self.ensure_one()
-        nb_of_day = max(self.task_template_ids.mapped("day_nb_id.number"))
-        return date + timedelta(days=nb_of_day)
+        periodicity = self.periodicity
+        if not periodicity:
+            raise ValueError(
+                """Template periodicity is undefined although it
+                should have the default value or a value given by
+                the user."""
+            )
+        return date + timedelta(days=periodicity)
 
     @api.model
     def _generate_next_planning(self):
@@ -83,6 +105,13 @@ class Planning(models.Model):
 
         planning = self._get_next_planning(last_seq)
         planning = planning.with_context(visualize_date=date)
+
+        if not planning.task_template_ids:
+            _logger.error(
+                "Could not generate next planning: no task template defined."
+            )
+            return
+
         planning.task_template_ids._generate_task_day()
 
         next_date = planning._get_next_planning_date(date)
@@ -123,7 +152,7 @@ class TaskTemplate(models.Model):
         domain=[("is_worker", "=", True)],
     )
     remaining_worker = fields.Integer(
-        compute="_compute_remaining", store=True, string="Remaining Place"
+        compute="_compute_remaining", store=True, string="Remaining Spot"
     )
     active = fields.Boolean(default=True)
     # For Kanban View Only
@@ -271,3 +300,38 @@ class TaskTemplate(models.Model):
                     "message": "\n".join(warnings),
                 }
             }
+
+    def write(self, vals):
+        """
+        Overwrite write() function to apply changes to already created shift.
+        """
+        saved_vals = {}
+        for rec in self:
+            saved_vals[rec] = rec.worker_ids
+        result = super(TaskTemplate, self).write(vals)
+        for rec in self:
+            rec._update_shifts_on_worker_change(
+                prev_worker_ids=saved_vals[rec], cur_worker_ids=rec.worker_ids,
+            )
+        return result
+
+    def _update_shifts_on_worker_change(self, prev_worker_ids, cur_worker_ids):
+        """
+        Subscribe or Unsubscribe worker to already generated shifts
+        """
+        self.ensure_one()
+        shift_cls = self.env["beesdoo.shift.shift"]
+        removed_workers = prev_worker_ids - cur_worker_ids
+        added_workers = cur_worker_ids - prev_worker_ids
+        if removed_workers:
+            shift_cls.unsubscribe_from_today(
+                worker_ids=removed_workers,
+                task_tmpl_ids=self,
+                now=datetime.now(),
+            )
+        if added_workers:
+            shift_cls.subscribe_from_today(
+                worker_ids=added_workers,
+                task_tmpl_ids=self,
+                now=datetime.now(),
+            )

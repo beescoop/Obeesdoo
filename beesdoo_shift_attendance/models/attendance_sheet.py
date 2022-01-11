@@ -1,7 +1,10 @@
+import logging
 from datetime import date, datetime, timedelta
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
+
+_logger = logging.getLogger(__name__)
 
 
 class AttendanceSheetShift(models.Model):
@@ -472,6 +475,23 @@ class AttendanceSheet(models.Model):
         # Expected shifts status update
         for expected_shift in self.expected_shift_ids:
             actual_shift = expected_shift.task_id
+            if not actual_shift:
+                _logger.warning(
+                    "The shift linked to the expected shift with id %s "
+                    "for the partner id %s does not exist anymore."
+                    "The expected shift is ignored during the validation "
+                    "process of the attendance sheet."
+                    % (expected_shift.id, expected_shift.worker_id.id)
+                )
+                self._message_log(
+                    body=_(
+                        "The shift linked to the expected shift of %s "
+                        "does exist anymore."
+                        "This expected shift is ignored in the "
+                        "validation process." % expected_shift.worker_id.name
+                    )
+                )
+                continue
             actual_shift.replaced_id = expected_shift.replaced_id
             actual_shift.state = expected_shift.state
 

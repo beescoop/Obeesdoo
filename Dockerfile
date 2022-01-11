@@ -1,3 +1,6 @@
+# This dockerfile is only a draft, it never worked and
+#  the dependencies are now outdated.
+
 FROM ubuntu:18.04
 
 ENV DEBIAN_FRONTEND=noninteractive

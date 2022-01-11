@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="purchase_product_edit_price" model="ir.actions.act_window">
+        <field name="name">Products</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{}</field>
+        <field name="search_view_id" ref="product.product_template_search_view" />
+        <field name="view_id" eval="product_template_edit_price_tree_view" />
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new product
+          </p><p>
+            You must define a product for everything you purchase,
+            whether it's a physical product, a consumable or services.
+          </p>
+        </field>
+    </record>
+
+    <!-- menu item -->
+    <menuitem
+        id="menu_purchase_edit_price"
+        name="Edit Price"
+        parent="purchase.menu_purchase_root"
+        sequence="100"
+        action="purchase_product_edit_price"
+    />
+
+</odoo>

@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <templates id="template">
     <t t-extend="ActionpadWidget">
         <t t-jquery="t[t-if='widget.pos.get_client()']" t-operation="after">
             <t t-if="widget.pos.get_client()">
                 <div class='customer-information-pay'>
-                    <span class='customer-delegate1'/>
-                    <br/>
-                    <span class='customer-delegate2'/>
-                    <br/>
-                    <span class='customer-delegate3'/>
+                    <span class='customer-delegate1' />
+                    <br />
+                    <span class='customer-delegate2' />
+                    <br />
+                    <span class='customer-delegate3' />
                 </div>
             </t>
         </t>
@@ -18,14 +18,14 @@
         <t t-jquery=".paymentmethods-container" t-operation="inner">
             <t t-if="widget.pos.get_client()">
                 <div class="customer-information">
-                    <span class='customer-name'/>
-                    <br/>
-                    <span class='customer-delegate1'/>
-                    <br/>
-                    <span class='customer-delegate2'/>
-                    <br/>
-                    <span class='customer-delegate3'/>
-                    <br/>
+                    <span class='customer-name' />
+                    <br />
+                    <span class='customer-delegate1' />
+                    <br />
+                    <span class='customer-delegate2' />
+                    <br />
+                    <span class='customer-delegate3' />
+                    <br />
                 </div>
             </t>
         </t>
@@ -54,7 +54,7 @@
         <t t-jquery=".client-line" t-operation="replace">
             <tr class='client-line' t-att-data-id='partner.id'>
                 <td>
-                    <t t-esc='partner.name'/>
+                    <t t-esc='partner.name' />
                 </td>
             </tr>
         </t>
@@ -62,10 +62,10 @@
 
     <t t-extend="ClientDetails">
         <t t-jquery=".client-details-left" t-operation="replace">
-            <div class='client-details-left'></div>
+            <div class='client-details-left' />
         </t>
         <t t-jquery=".edit-buttons" t-operation="replace">
-            <div class='edit-buttons'></div>
+            <div class='edit-buttons' />
         </t>
     </t>
 </templates>

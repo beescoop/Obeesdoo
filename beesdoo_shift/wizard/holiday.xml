@@ -4,15 +4,19 @@
         <field name="model">beesdoo.shift.holiday</field>
         <field name="arch" type="xml">
             <form>
-                <field name="cooperator_id" invisible="1"/>
+                <field name="cooperator_id" invisible="1" />
                 <group>
-                    <field name="holiday_start_day"/>
-                    <field name="holiday_end_day"/>
+                    <field name="holiday_start_day" />
+                    <field name="holiday_end_day" />
                 </group>
                 <footer>
-                    <button type="object" name="holidays"
-                            string="Confirm" class="oe_highlight"/>
-                    <button special="cancel" string="Cancel"/>
+                    <button
+                        type="object"
+                        name="holidays"
+                        string="Confirm"
+                        class="oe_highlight"
+                    />
+                    <button special="cancel" string="Cancel" />
                 </footer>
             </form>
         </field>

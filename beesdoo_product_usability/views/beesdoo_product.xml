@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record model="ir.ui.view" id="beesdoo_product_tree">
@@ -7,25 +7,26 @@
         <field name="priority">14</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
-                <field name="default_code"/>
-                <field name="categ_id"/>
-                <field name="main_seller_id" string="Main Seller"/>
-                <field name="weight"/>
-                <field name="main_price"/>
-                <field name="main_minimum_qty"/>
-                <field name="uom_po_id"/>
-                <field name="qty_available"/>
-                <field name="virtual_available"/>
-                <field name="stock_coverage"/>
-                <field name="daily_sales"/>
-                <field name="range_sales"/>
+                <field name="name" />
+                <field name="default_code" />
+                <field name="categ_id" />
+                <field name="main_seller_id" string="Main Seller" />
+                <field name="weight" />
+                <field name="main_price" />
+                <field name="main_minimum_qty" />
+                <field name="uom_po_id" />
+                <field name="qty_available" />
+                <field name="virtual_available" />
+                <field name="stock_coverage" />
+                <field name="daily_sales" />
+                <field name="range_sales" />
+                <field name="list_price" />
+                <field name="effective_sale_price" />
             </tree>
         </field>
     </record>
 
-    <record id="purchase.product_normal_action_puchased"
-            model="ir.actions.act_window">
+    <record id="purchase.product_normal_action_puchased" model="ir.actions.act_window">
         <field name="view_mode">tree,form,kanban</field>
     </record>
 
@@ -33,8 +34,7 @@
         <field name="view_mode">tree,form,kanban</field>
     </record>
 
-    <record id="stock.product_template_action_product"
-            model="ir.actions.act_window">
+    <record id="stock.product_template_action_product" model="ir.actions.act_window">
         <field name="view_mode">tree,form,kanban</field>
     </record>
 

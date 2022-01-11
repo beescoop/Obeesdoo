@@ -140,6 +140,11 @@ class CooperativeStatus(models.Model):
     #####################################
     #   Status Change implementation    #
     #####################################
+
+    def write(self, vals):
+        super(CooperativeStatus, self).write(vals)
+        self._postpone_alert_start_time()
+
     def _get_regular_status(self):
         self.ensure_one()
         counter_unsubscribe = int(
@@ -158,10 +163,18 @@ class CooperativeStatus(models.Model):
         ok = self.sr >= 0 and self.sc >= 0
         grace_delay = grace_delay + self.time_extension
 
-        if (self.sr + self.sc) <= counter_unsubscribe or self.unsubscribed:
-            return "unsubscribed"
-        # Check if exempted. Exempt end date is not required.
+        # check `holiday`
         if (
+            self.holiday_start_time
+            and self.holiday_end_time
+            and self.today >= self.holiday_start_time
+            and self.today <= self.holiday_end_time
+        ):
+            return "holiday"
+
+        # check `exempted`.
+        # Exempt end date is not required.
+        elif (
             # Start and end are defined
             self.temporary_exempt_start_date
             and self.temporary_exempt_end_date
@@ -175,9 +188,10 @@ class CooperativeStatus(models.Model):
         ):
             return "exempted"
 
+        # check `extension`
         # Transition to alert sr < 0 or stay in alert sr < 0 or sc < 0 and
         # thus alert time is defined
-        if (
+        elif (
             not ok
             and self.alert_start_time
             and self.extension_start_time
@@ -186,32 +200,29 @@ class CooperativeStatus(models.Model):
         ):
             return "extension"
 
-        if (
+        # check `unsubscribed`
+        elif (self.sr + self.sc) <= counter_unsubscribe or self.unsubscribed:
+            return "unsubscribed"
+
+        # check `suspended`
+        elif (
             not ok
             and self.alert_start_time
             and self.extension_start_time
             and self.today
             > add_days_delta(self.extension_start_time, grace_delay)
-        ):
-            return "suspended"
-
-        if (
+        ) or (
             not ok
             and self.alert_start_time
             and self.today > add_days_delta(self.alert_start_time, alert_delay)
         ):
             return "suspended"
 
-        if (self.sr < 0) or (not ok and self.alert_start_time):
+        # check `alert`
+        elif (self.sr < 0) or (not ok and self.alert_start_time):
             return "alert"
 
-        if (
-            self.holiday_start_time
-            and self.holiday_end_time
-            and self.today >= self.holiday_start_time
-            and self.today <= self.holiday_end_time
-        ):
-            return "holiday"
+        # check `ok`
         elif ok or (not self.alert_start_time and self.sr >= 0):
             return "ok"
 
@@ -232,22 +243,33 @@ class CooperativeStatus(models.Model):
         )
         ok = self.sr >= 0
         grace_delay = grace_delay + self.time_extension
-        if self.sr <= counter_unsubscribe or self.unsubscribed:
-            return "unsubscribed"
-        # Check if exempted. Exempt end date is not required.
+
+        # check `holiday`
+        if (
+            self.holiday_start_time
+            and self.holiday_end_time
+            and self.today >= self.holiday_start_time
+            and self.today <= self.holiday_end_time
+        ):
+            return "holiday"
+
+        # check `exempted`
+        # Exempt end date is not required.
         elif (
-            # Start and end are defined
-            self.temporary_exempt_start_date
-            and self.temporary_exempt_end_date
-            and self.today >= self.temporary_exempt_start_date
-            and self.today <= self.temporary_exempt_end_date
+             # Start and end are defined
+             self.temporary_exempt_start_date
+             and self.temporary_exempt_end_date
+             and self.today >= self.temporary_exempt_start_date
+             and self.today <= self.temporary_exempt_end_date
         ) or (
-            # Only start is defined
-            self.temporary_exempt_start_date
-            and not self.temporary_exempt_end_date
-            and self.today >= self.temporary_exempt_start_date
+             # Only start is defined
+             self.temporary_exempt_start_date
+             and not self.temporary_exempt_end_date
+             and self.today >= self.temporary_exempt_start_date
         ):
             return "exempted"
+
+        # check `extension`
         # Transition to alert sr < 0 or stay in alert sr < 0 or sc < 0 and
         # thus alert time is defined
         elif (
@@ -258,30 +280,29 @@ class CooperativeStatus(models.Model):
             <= add_days_delta(self.extension_start_time, grace_delay)
         ):
             return "extension"
+
+        # check `unsubscribed`
+        elif self.sr <= counter_unsubscribe or self.unsubscribed:
+            return "unsubscribed"
+
+        # check `suspended`
         elif (
             not ok
             and self.alert_start_time
             and self.extension_start_time
             and self.today
             > add_days_delta(self.extension_start_time, grace_delay)
-        ):
-            return "suspended"
-        elif (
+        ) or (
             not ok
             and self.alert_start_time
             and self.today > add_days_delta(self.alert_start_time, alert_delay)
         ):
             return "suspended"
+        # check `alert`
         elif (self.sr < 0) or (not ok and self.alert_start_time):
             return "alert"
 
-        elif (
-            self.holiday_start_time
-            and self.holiday_end_time
-            and self.today >= self.holiday_start_time
-            and self.today <= self.holiday_end_time
-        ):
-            return "holiday"
+        # check `ok`
         elif ok or (not self.alert_start_time and self.sr >= 0):
             return "ok"
 
@@ -311,7 +332,7 @@ class CooperativeStatus(models.Model):
             task_tpls.write({"super_coop_id": False})
             # Remove worker for future tasks (remove also supercoop)
             self.env["beesdoo.shift.shift"].sudo().unsubscribe_from_today(
-                [self.cooperator_id.id], now=fields.Datetime.now()
+                self.cooperator_id, now=fields.Datetime.now()
             )
 
     def _change_counter(self, data):
@@ -371,3 +392,24 @@ class CooperativeStatus(models.Model):
         if not delta % self._period:
             return today
         return add_days_delta(today, self._period - (delta % self._period))
+
+    def _postpone_alert_start_time(self):
+        """
+        Postpone the alert_start_time based on holiday_end_time or
+        temporary_exempt_end_date based on status.
+
+        If alert_start_time is not set then nothing changes.
+        """
+        for rec in self:
+            if (
+                rec.status == "holiday"
+                and rec.alert_start_time
+                and rec.alert_start_time != rec.holiday_end_time
+            ):
+                rec.alert_start_time = rec.holiday_end_time
+            elif (
+                rec.status == "exempted"
+                and rec.alert_start_time
+                and rec.alert_start_time != rec.temporary_exempt_end_date
+            ):
+                rec.alert_start_time = rec.temporary_exempt_end_date

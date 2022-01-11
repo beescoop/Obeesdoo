@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.form</field>
+        <field name="model">res.config.settings</field>
+        <field
+            name="inherit_id"
+            ref="purchase.res_config_settings_view_form_purchase"
+        />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='group_manage_vendor_price']/../../.."
+                position="inside"
+            >
+                <div class="col-xs-12 col-md-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="suggested_price_reference" />
+                        <div class="text-muted">
+                            Price on which the margin is applied when computing the suggested sale price.<br
+                            />
+                            - Margin on Supplier Price : Suggested sale price = supplier price * (1 + margin / 100) (default)<br
+                            />
+                            - Margin on Sale Price: Suggested sale price = supplier price * (1 / (1 - margin / 100))
+                        </div>
+                        <div class="content-group">
+                            <div class="mt16">
+                                <field
+                                    name="suggested_price_reference"
+                                    class="o_light_label"
+                                    widget="radio"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
