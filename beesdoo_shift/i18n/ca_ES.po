@@ -1,26 +1,23 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* beesdoo_shift
+#	* beesdoo_shift
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-11 07:33+0000\n"
-"PO-Revision-Date: 2020-12-13 09:14+0100\n"
+"POT-Creation-Date: 2022-01-12 17:52+0000\n"
+"PO-Revision-Date: 2022-01-12 17:52+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: ca\n"
-"X-Generator: Poedit 2.4.2\n"
 
 #. module: beesdoo_shift
 #: model:mail.template,body_html:beesdoo_shift.email_template_shift_summary
-msgid ""
-"\n"
+msgid "\n"
 "<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "\n"
 "    <p>Hello ${object.worker_id.name},</p>\n"
@@ -62,8 +59,7 @@ msgid ""
 "    %endif\n"
 "</div>\n"
 "            "
-msgstr ""
-"\n"
+msgstr "\n"
 "<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "\n"
 "    <p>Hola $ {object.worker_id.name} ,</p>\n"
@@ -104,11 +100,21 @@ msgid "4 next days"
 msgstr "4 propers dies"
 
 #. module: beesdoo_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_view_search
+msgid "4 next weeks"
+msgstr "4 properes setmanes"
+
+#. module: beesdoo_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_view_search
+msgid "4 previous weeks"
+msgstr "4 setmanes anteriors"
+
+#. module: beesdoo_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_view_kanban
-msgid ""
-"<br/>\n"
+msgid "<br/>\n"
 "                                <strong>Recurring Workers</strong>"
-msgstr ""
+msgstr "<br/>\n"
+"                                <strong>Treballadores regulars</strong>"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__message_needaction
@@ -352,11 +358,9 @@ msgstr "Creat el"
 
 #. module: beesdoo_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.subscribe_coop_wizard_view_form
-msgid ""
-"Current worker has more than one shift, subscribing him\n"
+msgid "Current worker has more than one shift, subscribing him\n"
 "                        to a new shift will erase all previous shifts."
-msgstr ""
-"El treballador actual té més d'un torn, donar-lo de baixa\n"
+msgstr "El treballador actual té més d'un torn, donar-lo de baixa\n"
 "                         a un nou torn esborrarà tots els torns anteriors."
 
 #. module: beesdoo_shift
@@ -445,11 +449,9 @@ msgstr "Editar torn"
 
 #. module: beesdoo_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_view_kanban
-msgid ""
-"Edit Shift\n"
+msgid "Edit Shift\n"
 "                                                Template"
-msgstr ""
-"Editar torn\n"
+msgstr "Editar torn\n"
 "                                                Plantilla"
 
 #. module: beesdoo_shift
@@ -510,8 +512,8 @@ msgstr "Camp que permet calcular els camps i emmagatzemar-los fins i tot si es b
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_planning__date_start
-msgid "First Day of planning (should be monday)"
-msgstr "Primer dia de la planificació (hauria de ser dilluns)"
+msgid "First Day of planning (should be Monday)"
+msgstr "Primer dia de planificació (hauria de ser dilluns)"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe__info_session
@@ -543,6 +545,16 @@ msgstr "Només a efectes de testeig"
 msgid "From 1 to N, When you will instanciate your planning, Day 1 will be the start date of the instance, Day 2 the second, etc..."
 msgstr "De l’1 al N, quan instancieu la vostra planificació, el dia 1 serà la data d’inici de la instància, el segon dia el segon, etc."
 
+#. module: beesdoo_shift
+#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_planning__periodicity
+msgid "From 1 to N. This number specifies the periodicity for the\n"
+"        automated generation of a planning. For a weekly planning, the\n"
+"        periodicity would be 7, because the planning has to be generated\n"
+"        every seven days."
+msgstr "De 1 a N. Aquest numero especifica la periodicitat per la\n"
+"        generació automàtica d'una planificació. Per a planificació setmanal, la\n"
+"        periodicitat ha de ser 7, perquè la planificació s'ha de generar cada 7\n"
+"        dies."
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__future_alert_date
 msgid "Future Alert Date"
@@ -729,7 +741,7 @@ msgstr "J-5"
 #: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status____last_update
 #: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history____last_update
 msgid "Last Modified on"
-msgstr "Última modificació el"
+msgstr "Última modificació el "
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_assign_super_coop__write_uid
@@ -750,7 +762,7 @@ msgstr "Última modificació el"
 #: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__write_uid
 #: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history__write_uid
 msgid "Last Updated by"
-msgstr "Darrera Actualització per"
+msgstr "Última actualització per"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_assign_super_coop__write_date
@@ -771,7 +783,7 @@ msgstr "Darrera Actualització per"
 #: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__write_date
 #: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history__write_date
 msgid "Last Updated on"
-msgstr "Darrera Actualització el"
+msgstr "Última actualització el"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template__line_ids
@@ -802,7 +814,7 @@ msgstr "Màxim nombre de sòcies actives per aquesta tasca"
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__message_has_error
 msgid "Message Delivery error"
-msgstr "Missatge d'error de l'enviament"
+msgstr "Missatge d'error de lliurament"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__message_ids
@@ -841,6 +853,16 @@ msgid "Next Countdown Date"
 msgstr "Inici del proper període"
 
 #. module: beesdoo_shift
+#: sql_constraint:cooperative.status:0
+msgid "Només es pot establir un estat de sòcia per sòcia"
+msgstr ""
+
+#. module: beesdoo_shift
+#: sql_constraint:beesdoo.shift.journal:0
+msgid "Només pots crear un informe per dia"
+msgstr ""
+
+#. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__message_needaction_counter
 msgid "Number of Actions"
 msgstr "Nombre d'accions"
@@ -848,7 +870,7 @@ msgstr "Nombre d'accions"
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__message_has_error_counter
 msgid "Number of error"
-msgstr "Número d'error"
+msgstr "Nº d'errors"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_shift__message_needaction_counter
@@ -874,6 +896,11 @@ msgstr "Nombre de missatges no llegits"
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template__worker_nb
 msgid "Number of worker"
 msgstr "Nombre de sòcies actives"
+
+#. module: beesdoo_shift
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_planning__periodicity
+msgid "Periodicity"
+msgstr "Periodicitat"
 
 #. module: beesdoo_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_view_search
@@ -944,8 +971,8 @@ msgstr "Sòcia activa regular"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template__remaining_worker
-msgid "Remaining Place"
-msgstr "Lloc pendent"
+msgid "Remaining Spot"
+msgstr "Lloc restant"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__replaced_id
@@ -1012,9 +1039,11 @@ msgid "Shift Management"
 msgstr "Gestió del torn"
 
 #. module: beesdoo_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.planning_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.planning_view_tree
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_view_search
 msgid "Shift Template"
-msgstr "Plantilla del torn"
+msgstr "Plantilla de torns"
 
 #. module: beesdoo_shift
 #: model:ir.actions.act_window,name:beesdoo_shift.action_type
@@ -1034,12 +1063,6 @@ msgid "Shifts"
 msgstr "Torns"
 
 #. module: beesdoo_shift
-#: model_terms:ir.ui.view,arch_db:beesdoo_shift.planning_view_form
-#: model_terms:ir.ui.view,arch_db:beesdoo_shift.planning_view_tree
-msgid "Shifts Template"
-msgstr "Plantilla dels torns"
-
-#. module: beesdoo_shift
 #: model:res.groups,name:beesdoo_shift.group_shift_management
 msgid "Shifts and Attendance Sheets Management"
 msgstr "Gestió de fulls d'assistència i torns"
@@ -1048,7 +1071,7 @@ msgstr "Gestió de fulls d'assistència i torns"
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe__irregular_start_date
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template__start_date
 msgid "Start Date"
-msgstr "Data inicial"
+msgstr "Data d'inici"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_line__start_time
@@ -1073,6 +1096,8 @@ msgid "State"
 msgstr "Estat"
 
 #. module: beesdoo_shift
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_holiday__status_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_temporary_exemption__status_id
 #: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history__status_id
 #: model:ir.ui.menu,name:beesdoo_shift.menu_status_top
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_view_search
@@ -1105,7 +1130,7 @@ msgstr "Apuntat al torn"
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_shift_view_kanban
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_view_kanban
 msgid "Super Coop:"
-msgstr "Super Coop:"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__super_coop_id
@@ -1114,7 +1139,7 @@ msgstr "Super Coop:"
 #: model:ir.model.fields,field_description:beesdoo_shift.field_res_partner__super
 #: model:ir.model.fields,field_description:beesdoo_shift.field_res_users__super
 msgid "Super Cooperative"
-msgstr ""
+msgstr "Cap de torn"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe__super
@@ -1293,23 +1318,11 @@ msgid "Working mode"
 msgstr "Mode de treball"
 
 #. module: beesdoo_shift
-#: sql_constraint:beesdoo.shift.journal:0
-msgid "You can only create one journal per day"
-msgstr "Només pots crear un informe per dia"
-
-#. module: beesdoo_shift
-#: sql_constraint:cooperative.status:0
-msgid "You can only set one cooperator status per cooperator"
-msgstr "Només es pot establir un estat de sòcia per sòcia"
-
-#. module: beesdoo_shift
 #: model:mail.template,subject:beesdoo_shift.email_template_shift_summary
-msgid ""
-"Your next shift\n"
+msgid "Your next shift\n"
 "                (${format_tz(object.start_time,object.worker_id.tz or 'Europe/Brussels','%d.%m.%Y - %H:%M')})\n"
 "            "
-msgstr ""
-"El teu proper torn\n"
+msgstr "El teu proper torn\n"
 "                (${format_tz(object.start_time,object.worker_id.tz or 'Europe/Brussels','%d.%m.%Y - %H:%M')})\n"
 "            "
 
@@ -1366,12 +1379,12 @@ msgstr ""
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_beesdoo_shift_shift
 msgid "beesdoo.shift.shift"
-msgstr "supercoop.torn.torn"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_beesdoo_shift_subscribe
 msgid "beesdoo.shift.subscribe"
-msgstr "supercoop.inscripcio.torn"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_beesdoo_shift_template
@@ -1396,7 +1409,7 @@ msgstr ""
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_cooperative_status
 msgid "cooperative.status"
-msgstr "estat sòcia"
+msgstr "Estat sòcia"
 
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_cooperative_status_history
@@ -1417,3 +1430,52 @@ msgstr "nom"
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_generation_view_form
 msgid "or"
 msgstr "o"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/cooperative_status.py:58
+#, python-format
+msgid "shift_status_exempted"
+msgstr "Exempt"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/cooperative_status.py:56
+#, python-format
+msgid "shift_status_extension"
+msgstr "Extès"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/cooperative_status.py:54
+#, python-format
+msgid "shift_status_holidays"
+msgstr "De vacances"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/cooperative_status.py:60
+#, python-format
+msgid "shift_status_resigning"
+msgstr "Dimitint"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/cooperative_status.py:57
+#, python-format
+msgid "shift_status_suspended"
+msgstr "Suspès"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/cooperative_status.py:59
+#, python-format
+msgid "shift_status_unsubscribed"
+msgstr "Donat de baixa"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/cooperative_status.py:53
+#, python-format
+msgid "shift_status_up_to_date"
+msgstr "Al dia"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/cooperative_status.py:55
+#, python-format
+msgid "shift_status_warning"
+msgstr "Alerta"
+
