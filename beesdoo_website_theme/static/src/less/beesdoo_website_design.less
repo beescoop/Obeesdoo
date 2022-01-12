@@ -58,35 +58,6 @@ header {
     .navbar-nav {
       font-size: 1.5em;
 
-      // Function to underline non active links
-      #menu() {
-        padding-bottom: 10px;
-        border-bottom-width: 4px;
-        border-bottom-style: solid;
-      }
-
-      // Function to underline the active links
-      #menu-active() {
-        padding-bottom: 6px;
-        border-bottom-width: 8px;
-        border-bottom-style: solid;
-      }
-
-      // Underline the link
-      a {
-        span:not(.caret) {
-          #menu;
-        }
-
-        &:hover,
-        &:focus,
-        &.active {
-          span:not(.caret) {
-            #menu-active;
-          }
-        }
-      }
-
       > .open > a,
       > .open > a:hover,
       > .open > a:focus {
@@ -127,16 +98,6 @@ h1 {
   position: relative;
   margin-top: 1em;
   margin-bottom: 1em;
-}
-
-h1:after {
-  content: "";
-  background-color: extract(@colors, 1);
-  height: 6px;
-  width: 100px;
-  display: block;
-  margin: 0 auto;
-  margin-top: 0.5em;
 }
 
 h2,
