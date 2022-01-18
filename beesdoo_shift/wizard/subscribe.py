@@ -164,15 +164,10 @@ class Subscribe(models.TransientModel):
     def subscribe(self):
         self = self._check()
         if self.shift_id and self.shift_id.remaining_worker <= 0:
-            raise UserError(_("There is no remaining space for this shift"))
-        if self.shift_id:
-            # Remove existing shift then subscribe to the new shift
-            self.cooperator_id.sudo().write(
-                {"subscribed_shift_ids": [(6, 0, [self.shift_id.id])]}
-            )
-        if self.working_mode != "regular":
-            # Remove existing shift then subscribe to the new shift
-            self.cooperator_id.sudo().write({"subscribed_shift_ids": [(5,)]})
+            raise UserError(_("There is no remaining spot in this shift"))
+
+        # cleanup previous shift template subscriptions
+        self.cooperator_id.sudo().write({"subscribed_shift_ids": [(5,)]})
 
         data = {
             "info_session": self.info_session,
@@ -207,4 +202,10 @@ class Subscribe(models.TransientModel):
             # to a shift to keep information like "Worker mode, session info
             # ,...
             status_id.sudo().write(data)
+
+        # add the new shift template
+        if self.shift_id and self.working_mode == "regular":
+            self.cooperator_id.sudo().write(
+                {"subscribed_shift_ids": [(4, self.shift_id.id, False)]}
+            )
         return True

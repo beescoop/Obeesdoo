@@ -4,213 +4,18 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0c\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-07 16:43+0000\n"
-"PO-Revision-Date: 2020-02-07 19:09+0100\n"
+"POT-Creation-Date: 2020-09-29 10:42+0000\n"
+"PO-Revision-Date: 2020-09-29 12:52+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"Language: fr_BE\n"
-"X-Generator: Poedit 2.0.6\n"
-
-#. module: beesdoo_shift
-#: model:mail.template,body_html:beesdoo_shift.email_template_non_attendance
-msgid ""
-"\n"
-"              <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"\n"
-"                  <p>Hello ${object.replaced_id.name or object.worker_id.name},\n"
-"\n"
-"                  <br><br>You have been recorded as non-attended during your last shift (${format_tz(object.start_time,object.replaced_id.tz or 'Europe/Brussels','%d.%m.%Y - %H:%M')}).\n"
-"\n"
-"                  % if object.worker_id.working_mode == 'regular':\n"
-"                    % if object.state == 'absent_0':\n"
-"                        <br><br>The supercooperator assigned you 0 compensation shift.\n"
-"                    % endif\n"
-"                    % if object.state == 'absent_1':\n"
-"                        <br><br>The supercooperator assigned you 1 compensation shift.\n"
-"                    % endif\n"
-"                    % if object.state == 'absent_2':\n"
-"                        <br><br>The supercooperator assigned you 2 compensation shifts.\n"
-"                    % endif\n"
-"\n"
-"                      % if object.replaced_id:\n"
-"                            You were supposed to replace ${object.worker_id.name}.\n"
-"                            You have to do ${(object.replaced_id.cooperative_status_ids.sr + object.replaced_id.cooperative_status_ids.sc) * -1 } shifts before your next regular shift.<br>\n"
-"                      % else:\n"
-"                            You have to do ${(object.worker_id.cooperative_status_ids.sr + object.worker_id.cooperative_status_ids.sc) * -1 } shifts before your next regular shift.<br>\n"
-"                      % endif\n"
-"                  % endif\n"
-"\n"
-"                  % if object.worker_id.working_mode == 'irregular':\n"
-"                        Your shift counter is at ${object.worker_id.cooperative_status_ids.sr}.\n"
-"\n"
-"                        % if object.worker_id.cooperative_status_ids.future_alert_date:\n"
-"                            It should be superior or equal to 1 before the\n"
-"                            ${object.worker_id.cooperative_status_ids.future_alert_date}.\n"
-"                        % endif\n"
-"                        <br>\n"
-"                  % endif\n"
-"\n"
-"                  % if object.replaced_id:\n"
-"                     Your current status is \"${object.replaced_id.cooperative_status_ids.get_status_value()}\".\n"
-"                  % else:\n"
-"                    <br><br>Your current status is \"${object.worker_id.cooperative_status_ids.get_status_value()}\".\n"
-"                  % endif\n"
-"\n"
-"                  <br>If you have any question regarding this non-attendance, just answer this e-mail.\n"
-"                  </p>\n"
-"                  <br>\n"
-"                  <p>Cooperatively yours,<br>\n"
-"                  The Members' office volunteers</p>\n"
-"                  <p>${object.worker_id.company_id.name}.</p>\n"
-"\n"
-"                  % if object.worker_id.company_id.street:\n"
-"                      ${object.worker_id.company_id.street}\n"
-"                  % endif\n"
-"                  % if object.worker_id.company_id.street2:\n"
-"                      ${object.worker_id.company_id.street2}<br>\n"
-"                  % endif\n"
-"                  % if object.worker_id.company_id.city or object.worker_id.company_id.zip:\n"
-"                      ${object.worker_id.company_id.zip} ${object.worker_id.company_id.city}<br>\n"
-"                  % endif\n"
-"                  % if object.worker_id.company_id.country_id:\n"
-"                      ${object.worker_id.company_id.state_id and ('%s, ' % object.worker_id.company_id.state_id.name) or ''} ${object.worker_id.company_id.country_id.name or ''}<br>\n"
-"                  % endif\n"
-"                  % if object.worker_id.company_id.phone:\n"
-"                      Phone:&nbsp; ${object.worker_id.company_id.phone}\n"
-"                  % endif\n"
-"\n"
-"                  % if object.worker_id.company_id.website:\n"
-"                      <div>\n"
-"                          Web :&nbsp;<a href=\"${object.worker_id.company_id.website}\">${object.worker_id.company_id.website}</a>\n"
-"                      </div>\n"
-"                  %endif\n"
-"                  % if object.worker_id.company_id.logo_url:\n"
-"                  <div>\n"
-"                      <img src=\"${object.worker_id.company_id.logo_url}\">\n"
-"                  </div>\n"
-"                  %endif\n"
-"              </div>\n"
-"            "
-msgstr ""
-"\n"
-"              <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"\n"
-"                  <p>Bonjour ${object.replaced_id.name or object.worker_id.name},\n"
-"\n"
-"                  <br><br>Tu as été encodé(e) comme absent(e) au shift du ${format_tz(object.start_time,object.replaced_id.tz or 'Europe/Brussels','%d.%m.%Y - %H:%M')}.\n"
-"\n"
-"                  % if object.worker_id.working_mode == 'regular':\n"
-"                    % if object.state == 'absent_0':\n"
-"                        <br><br>Le/La supercoop t'a attribué 0 compensation.\n"
-"                    % endif\n"
-"                    % if object.state == 'absent_1':\n"
-"                        <br><br>Le/La supercoop t'a attribué 1 compensation. \n"
-"                    % endif\n"
-"                    % if object.state == 'absent_2':\n"
-"                        <br><br>Le/La supercoop t'a attribué 2 compensations. \n"
-"                    % endif\n"
-"\n"
-"                      % if object.replaced_id:\n"
-"                            Tu devais remplacer ${object.worker_id.name}.\n"
-"                            Tu dois donc faire ${(object.replaced_id.cooperative_status_ids.sr + object.replaced_id.cooperative_status_ids.sc) * -1 } shifts avant ton prochain shift régulier.<br>\n"
-"                      % else:\n"
-"                            Tu dois donc faire ${(object.worker_id.cooperative_status_ids.sr + object.worker_id.cooperative_status_ids.sc) * -1 } shifts avant ton prochain shift régulier.<br>\n"
-"                      % endif\n"
-"                  % endif\n"
-"\n"
-"                  % if object.worker_id.working_mode == 'irregular':\n"
-"                        Ton compteur est à ${object.worker_id.cooperative_status_ids.sr}.\n"
-"\n"
-"                        % if object.worker_id.cooperative_status_ids.future_alert_date:\n"
-"                             Il devrait être supérieur ou égal à 1 avant le \n"
-"                            ${object.worker_id.cooperative_status_ids.future_alert_date}.\n"
-"                        % endif\n"
-"                        <br>\n"
-"                  % endif\n"
-"\n"
-"                  % if object.replaced_id:\n"
-"                     Ton statut est maintenant \"${object.replaced_id.cooperative_status_ids.get_status_value()}\".\n"
-"                  % else:\n"
-"                    <br><br>Ton statut est maintenant \"${object.worker_id.cooperative_status_ids.get_status_value()}\".\n"
-"                  % endif\n"
-"\n"
-"                  <br>Si tu as une question à propos de cette absence, réponds à cet e-mail.\n"
-"                  </p>\n"
-"                  <br>\n"
-"                  <p>Coopérativement,<br>\n"
-"                  Les bénévoles du Bureau des Membres</p>\n"
-"                  <p>${object.worker_id.company_id.name}.</p>\n"
-"\n"
-"                  % if object.worker_id.company_id.street:\n"
-"                      ${object.worker_id.company_id.street}\n"
-"                  % endif\n"
-"                  % if object.worker_id.company_id.street2:\n"
-"                      ${object.worker_id.company_id.street2}<br>\n"
-"                  % endif\n"
-"                  % if object.worker_id.company_id.city or object.worker_id.company_id.zip:\n"
-"                      ${object.worker_id.company_id.zip} ${object.worker_id.company_id.city}<br>\n"
-"                  % endif\n"
-"                  % if object.worker_id.company_id.country_id:\n"
-"                      ${object.worker_id.company_id.state_id and ('%s, ' % object.worker_id.company_id.state_id.name) or ''} ${object.worker_id.company_id.country_id.name or ''}<br>\n"
-"                  % endif\n"
-"                  % if object.worker_id.company_id.phone:\n"
-"                      Phone:&nbsp; ${object.worker_id.company_id.phone}\n"
-"                  % endif\n"
-"\n"
-"                  % if object.worker_id.company_id.website:\n"
-"                      <div>\n"
-"                          Web :&nbsp;<a href=\"${object.worker_id.company_id.website}\">${object.worker_id.company_id.website}</a>\n"
-"                      </div>\n"
-"                  %endif\n"
-"                  % if object.worker_id.company_id.logo_url:\n"
-"                  <div>\n"
-"                      <img src=\"${object.worker_id.company_id.logo_url}\">\n"
-"                  </div>\n"
-"                  %endif\n"
-"              </div>\n"
-"            "
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/wizard/validate_attendance_sheet.py:49
-#: code:addons/custom/obeesdoo/beesdoo_shift/wizard/validate_attendance_sheet.py:49
-#, python-format
-msgid ""
-"\n"
-"%s attended its shift as a normal one but was not expected. Something may be wrong in his/her personal informations.\n"
-msgstr ""
-"\n"
-"%s a effectué son shift comme un shift normal mais n'était pas attendu(e). Veuillez vérifier son inscription à ce créneau.\n"
-
-#. module: beesdoo_shift
-#: model:mail.template,body_html:beesdoo_shift.email_template_non_validated_sheet
-msgid ""
-"\n"
-"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"\n"
-"    <p>${object.day}\n"
-"    <br/><br/>The attendance sheet for ${object.time_slot} is not validated.\n"
-"    <br/><br/>Please, do it as soon as possible so as to update workers' status.\n"
-"    </p>\n"
-"\n"
-"</div>\n"
-"            "
-msgstr ""
-"\n"
-"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"\n"
-"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">${object.day}\n"
-"    <br><br>La feuille de présence pour ${object.time_slot} n'est pas validée.\n"
-"    <br><br>Veuillez la valider le plus rapidement possible pour que les statuts des travailleurs puissent être adaptés.\n"
-"    </p>\n"
-"\n"
-"</div>\n"
-"            "
+"Language: fr\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #. module: beesdoo_shift
 #: model:mail.template,body_html:beesdoo_shift.email_template_shift_summary
@@ -218,57 +23,15 @@ msgid ""
 "\n"
 "<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "\n"
-"    <p>Hello ${object.worker_id.name},</p>\n"
+"    <p style=\"margin:0px 0px 10px 0px;\">Hello ${object.worker_id.name},</p>\n"
 "\n"
-"    <p>You are awaited the ${format_tz(object.start_time,object.worker_id.tz or 'Europe/Brussels','%d.%m.%Y')}\n"
+"    <p style=\"margin:0px 0px 10px 0px;\">You are awaited the ${format_tz(object.start_time,object.worker_id.tz or 'Europe/Brussels','%d.%m.%Y')}\n"
 "    for the shift starting at ${format_tz(object.start_time,object.worker_id.tz or 'Europe/Brussels','%H:%M')}.\n"
 "\n"
-"    <br/><br/>Please contact us at ${object.worker_id.company_id.email} if you have any trouble attending the shift.\n"
-"    </p>\n"
-"    <br/>\n"
-"    <p>Sustainably yours,</p>\n"
-"    <p>${object.worker_id.company_id.name}.</p>\n"
-"\n"
-"    % if object.worker_id.company_id.street:\n"
-"        ${object.worker_id.company_id.street}\n"
-"    % endif\n"
-"    % if object.worker_id.company_id.street2:\n"
-"        ${object.worker_id.company_id.street2}<br/>\n"
-"    % endif\n"
-"    % if object.worker_id.company_id.city or object.worker_id.company_id.zip:\n"
-"        ${object.worker_id.company_id.zip} ${object.worker_id.company_id.city}<br/>\n"
-"    % endif\n"
-"    % if object.worker_id.company_id.country_id:\n"
-"        ${object.worker_id.company_id.state_id and ('%s, ' % object.worker_id.company_id.state_id.name) or ''} ${object.worker_id.company_id.country_id.name or ''}<br/>\n"
-"    % endif\n"
-"    % if object.worker_id.company_id.phone:\n"
-"        Phone:&nbsp; ${object.worker_id.company_id.phone}\n"
-"    % endif\n"
-"\n"
-"    % if object.worker_id.company_id.website:\n"
-"        <div>\n"
-"            Web :&nbsp;<a href=\"${object.worker_id.company_id.website}\">${object.worker_id.company_id.website}</a>\n"
-"        </div>\n"
-"    %endif\n"
-"    % if object.worker_id.company_id.logo_url:\n"
-"    <div>\n"
-"        <img src=${object.worker_id.company_id.logo_url}>\n"
-"    </div>\n"
-"    %endif\n"
-"</div>\n"
-"            "
-msgstr ""
-"\n"
-"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"\n"
-"    <p style=\"margin:0px 0px 10px 0px;\">Bonjour ${object.worker_id.name},</p>\n"
-"\n"
-"    <p style=\"margin:0px 0px 10px 0px;\">Vous êtes attendu·e au magasin le ${format_tz(object.start_time,object.worker_id.tz or 'Europe/Brussels','%d.%m.%Y')} à ${format_tz(object.start_time,object.worker_id.tz or 'Europe/Brussels','%H:%M')}.\n"
-"\n"
-"    <br><br>En cas d'indisponibilité, vous pouvez nous contacter à l'adresse suivante : ${object.worker_id.company_id.email}.\n"
+"    <br><br>Please contact us at ${object.worker_id.company_id.email} if you have any trouble attending the shift.\n"
 "    </p>\n"
 "    <br>\n"
-"    <p style=\"margin:0px 0px 10px 0px;\">Coopérativement vôtre,</p>\n"
+"    <p style=\"margin:0px 0px 10px 0px;\">Sustainably yours,</p>\n"
 "    <p style=\"margin:0px 0px 10px 0px;\">${object.worker_id.company_id.name}.</p>\n"
 "\n"
 "    % if object.worker_id.company_id.street:\n"
@@ -299,107 +62,62 @@ msgstr ""
 "    %endif\n"
 "</div>\n"
 "            "
+msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/planning.py:200
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/planning.py:200
+#: code:addons/beesdoo_shift/models/planning.py:263
 #, python-format
 msgid " is already assigned to "
-msgstr " is already assigned to "
+msgstr " est déjà assigné à "
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_issue_count
-msgid "# Issues"
-msgstr "Nb. d'incidents"
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/attendance_sheet.py:520
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/attendance_sheet.py:520
-#, python-format
-msgid "%s (added)"
-msgstr "%s (added)"
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/attendance_sheet.py:387
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/attendance_sheet.py:387
-#, python-format
-msgid "%s is registered as replaced."
-msgstr "%s devrait être remplacé."
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/attendance_sheet.py:373
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/attendance_sheet.py:373
-#, python-format
-msgid "%s's working mode is %s and should be regular or irregular."
-msgstr "Le régime de %s est %s et devrait être régulier ou volant."
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/task.py:145
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/task.py:145
+#: code:addons/beesdoo_shift/models/task.py:180
 #, python-format
 msgid "'Now' must be a datetime."
-msgstr "'Now' must be a datetime."
+msgstr "'Now' devrait être un datetime."
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_view_search
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_view_search
 msgid "4 next days"
 msgstr "4 prochains jours"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_template_view_kanban
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_view_kanban
 msgid ""
 "<br/>\n"
 "                                <strong>Recurring Workers</strong>"
 msgstr ""
-"<br/>\n"
-"                                <strong>Recurring Workers</strong>"
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/attendance_sheet.py:330
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/attendance_sheet.py:330
+#: code:addons/beesdoo_shift/models/task.py:147
 #, python-format
-msgid "A validated attendance sheet can't be modified"
-msgstr "Vous ne pouvez pas modifier une feuille de présence validée"
+msgid "A worker cannot replace himself."
+msgstr "Un travailleur ne peu pas se remplacer lui-même."
 
 #. module: beesdoo_shift
 #: selection:beesdoo.shift.sheet.added,state:0
 #: selection:beesdoo.shift.sheet.expected,state:0
 #: selection:beesdoo.shift.sheet.shift,state:0
 msgid "Absent - 0 Compensation"
-msgstr "Absent - 0 Compensation"
-
-#. module: beesdoo_shift
-#: selection:beesdoo.shift.shift,state:0
-msgid "Absent - 0 compensation"
-msgstr "Absent - 0 compensation"
+msgstr ""
 
 #. module: beesdoo_shift
 #: selection:beesdoo.shift.sheet.added,state:0
 #: selection:beesdoo.shift.sheet.expected,state:0
 #: selection:beesdoo.shift.sheet.shift,state:0
 msgid "Absent - 1 Compensation"
-msgstr "Absent - 1 Compensation"
-
-#. module: beesdoo_shift
-#: selection:beesdoo.shift.shift,state:0
-msgid "Absent - 1 compensation"
-msgstr "Absent - 1 compensation"
+msgstr ""
 
 #. module: beesdoo_shift
 #: selection:beesdoo.shift.sheet.added,state:0
 #: selection:beesdoo.shift.sheet.expected,state:0
 #: selection:beesdoo.shift.sheet.shift,state:0
 msgid "Absent - 2 Compensations"
-msgstr "Absent - 2 Compensations"
-
-#. module: beesdoo_shift
-#: selection:beesdoo.shift.shift,state:0
-msgid "Absent - 2 compensations"
-msgstr "Absent - 2 compensations"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_message_needaction
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_message_needaction
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__message_needaction
 msgid "Action Needed"
 msgstr "A besoin d'une action"
 
@@ -414,7 +132,7 @@ msgstr "Actif"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_validate_active_sheet
-msgid "Active sheet"
+msgid "Active Sheet"
 msgstr "Feuille de présence active"
 
 #. module: beesdoo_shift
@@ -424,60 +142,28 @@ msgstr "Shift ajouté"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_added_shift_ids
-#: model:ir.ui.view,arch_db:beesdoo_shift.sheet_view_form
 msgid "Added Shifts"
 msgstr "Shifts ajoutés"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,help:beesdoo_shift.field_cooperative_status_time_extension
+#: model:ir.model.fields,help:beesdoo_shift.field_cooperative_status__time_extension
 msgid "Addtional days to the automatic extension, 5 mean that you have a total of 15 extension days of default one is set to 10"
-msgstr "Addtional days to the automatic extension, 5 mean that you have a total of 15 extension days of default one is set to 10"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_age
 msgid "Age"
-msgstr "Age"
+msgstr ""
 
 #. module: beesdoo_shift
-#: selection:cooperative.status,status:0
-msgid "Alert"
-msgstr "Alerte"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_alert_start_time
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__alert_start_time
 msgid "Alert Start Day"
 msgstr "Jour de début d'alerte"
 
 #. module: beesdoo_shift
-#: model:ir.actions.act_window,name:beesdoo_shift.action_sheet_admin_list
-#: model:ir.ui.menu,name:beesdoo_shift.menu_sheet_admin_list
-msgid "All sheets"
-msgstr "Toutes les feuilles"
-
-#. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.sheet_view_search
-msgid "Annotated (read)"
-msgstr "Annotées (lues)"
-
-#. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.sheet_view_search
-msgid "Annotated (unread)"
-msgstr "Annotées (non-lues)"
-
-#. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.shift_settings_view_form
-msgid "Apply"
-msgstr "Appliquer"
-
-#. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_template_generation_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_generation_view_form
 msgid "Apply for Days"
-msgstr "Apply for Days"
-
-#. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.sheet_view_search
-msgid "Archived"
-msgstr "Archivé"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe_unsubscribed
@@ -485,42 +171,31 @@ msgid "Are you sure to remove this cooperator from his subscribed shift ?"
 msgstr "Etes-vous sûr de vouloir désinscrire ce coopérateur de son créneau ?"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.subscribe_coop_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.subscribe_coop_wizard_view_form
 msgid "Are you sure to unsubscribe this cooperator ?"
-msgstr "Etes-vous sûr de vouloir désinscrire ce coopérateur ?"
+msgstr "Êtes-vous sûr de vouloir désinscrire ce coopérateur ?"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_view_search
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_view_search
 msgid "Assigned"
 msgstr "Assigné"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.journal_form_view
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.journal_form_view
 msgid "Assigned cooperator"
 msgstr "Coopérateur affecté"
+
+#. module: beesdoo_shift
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__message_attachment_count
+msgid "Attachment Count"
+msgstr "Nombre de pièces jointes"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_added_attendance_sheet_id
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_expected_attendance_sheet_id
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_shift_attendance_sheet_id
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template_attendance_sheet_id
 msgid "Attendance Sheet"
 msgstr "Feuille de présence"
-
-#. module: beesdoo_shift
-#: model:res.groups,name:beesdoo_shift.group_shift_attendance_sheet
-msgid "Attendance Sheet Generic Access"
-msgstr "Feuilles de présence"
-
-#. module: beesdoo_shift
-#: model:res.groups,name:beesdoo_shift.group_shift_attendance_sheet_validation
-msgid "Attendance Sheet Validation"
-msgstr "Feuille de présence - Validation"
-
-#. module: beesdoo_shift
-#: model:ir.ui.menu,name:beesdoo_shift.menu_sheet_top
-msgid "Attendance Sheets"
-msgstr "Feuilles de présence"
 
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_beesdoo_shift_sheet
@@ -528,22 +203,10 @@ msgid "Attendance sheet"
 msgstr "Feuille de présence"
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/attendance_sheet.py:552
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/attendance_sheet.py:552
-#, python-format
-msgid "Attendance sheet can only be validated once the shifts have started."
-msgstr "Vous devez attendre que le créneau ait débuté pour valider la feuille de présence."
-
-#. module: beesdoo_shift
-#: selection:beesdoo.shift.shift,state:0
-msgid "Attended"
-msgstr "Présent"
-
-#. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_extension_auto
-#: model:ir.ui.view,arch_db:beesdoo_shift.super_coop_partner_inherited_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.super_coop_partner_inherited_view_form
 msgid "Auto Extension"
-msgstr "Extension auto"
+msgstr "Délai de grâce"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_validate_barcode
@@ -557,52 +220,35 @@ msgid "Barcode Scanned"
 msgstr "Code barre scanné"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.sheet_view_form
-msgid "Beware : a validated sheet cannot be edited anymore                                 and you won't be able to add any latecomers.                                 The counters of those who didn't attend will be updated                                 and they will get warning emails."
-msgstr "Attention : une feuille de présence validée ne peut plus être modifiée et tu ne pourras pas ajouter de retardataires. Le compteur des travailleurs absents sera mis à jour et ils recevront un e-mail d'avertissement."
+#: model:ir.cron,cron_name:beesdoo_shift.ir_cron_compute_shift_counter
+#: model:ir.cron,cron_name:beesdoo_shift.ir_cron_generate_attendance_sheet
+#: model:ir.cron,cron_name:beesdoo_shift.ir_cron_generate_next_planning
+#: model:ir.cron,cron_name:beesdoo_shift.ir_cron_send_weekly_emails
+#: model:ir.cron,cron_name:beesdoo_shift.ir_cron_update_today
+msgid "Base: Auto-vacuum internal data"
+msgstr "Base : données internes sur l'aspiration automatique"
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/attendance_sheet.py:366
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/attendance_sheet.py:366
-#, python-format
-msgid "Beware, you are recorded as resigning. Please contact member's office if this is incorrect. Thank you."
-msgstr "Attention, ton compte est \"en démission\". Contacte le Bureau des Membres si c'est incorrect. Merci"
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/attendance_sheet.py:356
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/attendance_sheet.py:356
-#, python-format
-msgid "Beware, your account is frozen because your shift counter is at %s. Please contact Members Office to unfreeze it. If you want to attend this shift, your supercoop can write your name in the notes field during validation."
-msgstr "Attention, ton compte est gelé parce que ton compteur est à %s. Contacte le Bureau des Membres pour dégeler ton compte. Si tu souhaites participer à ce shift, ton supercoop peut écrire ton nom dans la case \"Information concernant les présences\" au moment de la validation."
-
-#. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_template_view_calendar
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_view_calendar
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_view_calendar
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_view_calendar
 msgid "Calendar View"
 msgstr "Vue calendrier"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_can_shop
-msgid "Can shop"
-msgstr "Can shop"
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__can_shop
+msgid "Can Shop"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.assign_super_coop_view_form
-#: model:ir.ui.view,arch_db:beesdoo_shift.extension_coop_wizard_view_form
-#: model:ir.ui.view,arch_db:beesdoo_shift.holiday_coop_wizard_view_form
-#: model:ir.ui.view,arch_db:beesdoo_shift.planning_instanciate_view_form
-#: model:ir.ui.view,arch_db:beesdoo_shift.shift_settings_view_form
-#: model:ir.ui.view,arch_db:beesdoo_shift.subscribe_coop_wizard_view_form
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_template_generation_view_form
-#: model:ir.ui.view,arch_db:beesdoo_shift.temporary_exemption_wizard_view_form
-#: model:ir.ui.view,arch_db:beesdoo_shift.validate_attendance_sheet_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.assign_super_coop_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.extension_coop_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.holiday_coop_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.planning_instanciate_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.subscribe_coop_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_generation_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.temporary_exemption_wizard_view_form
 msgid "Cancel"
 msgstr "Annuler"
-
-#. module: beesdoo_shift
-#: selection:beesdoo.shift.shift,state:0
-msgid "Cancelled"
-msgstr "Annulé"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_validate_card_support
@@ -625,8 +271,6 @@ msgid ""
 "Check the user name and validate sheet.\n"
 "    Useless for users in group_shift_attendance"
 msgstr ""
-"Check the user name and validate sheet.\n"
-"    Useless for users in group_shift_attendance"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,help:beesdoo_shift.field_res_users_old_member
@@ -635,11 +279,11 @@ msgstr "Cocher cette case si le coopérateur n'est plus un membre effectif."
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_child_eater_ids
-msgid "Child eater ids"
-msgstr "Child eater ids"
+msgid "Child Eater"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.coop_status_form_view
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.coop_status_form_view
 msgid "Clear History"
 msgstr "Nettoyer l'historique"
 
@@ -654,27 +298,15 @@ msgid "Color Index"
 msgstr "Couleur"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.sheet_view_form
-msgid "Comment and validate"
-msgstr "Commenter et valider"
-
-#. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_feedback
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_validate_feedback
 msgid "Comments about the shift"
 msgstr "Commentaires à propos du shift"
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/attendance_sheet.py:598
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/attendance_sheet.py:598
-#, python-format
-msgid "Compensation number is missing for %s"
-msgstr "Veuillez entrer un nombre de compensations pour %s"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_is_compensation
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__is_compensation
 msgid "Compensation shift"
-msgstr "Compensation shift"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_added_is_compensation
@@ -686,7 +318,12 @@ msgstr "Shift de compensation ?"
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_sc
 msgid "Compensation shifts counter"
-msgstr "Compensation shifts counter"
+msgstr ""
+
+#. module: beesdoo_shift
+#: model:ir.cron,name:beesdoo_shift.ir_cron_compute_shift_counter
+msgid "Compute Shift Counter"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_sheet_week
@@ -696,23 +333,23 @@ msgstr "Calculé à partir du nom du planning"
 #. module: beesdoo_shift
 #: model:ir.ui.menu,name:beesdoo_shift.menu_configuration_top
 msgid "Configuration"
-msgstr "Configuration"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.assign_super_coop_view_form
-#: model:ir.ui.view,arch_db:beesdoo_shift.extension_coop_wizard_view_form
-#: model:ir.ui.view,arch_db:beesdoo_shift.holiday_coop_wizard_view_form
-#: model:ir.ui.view,arch_db:beesdoo_shift.planning_instanciate_view_form
-#: model:ir.ui.view,arch_db:beesdoo_shift.subscribe_coop_wizard_view_form
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_template_generation_view_form
-#: model:ir.ui.view,arch_db:beesdoo_shift.temporary_exemption_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.assign_super_coop_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.extension_coop_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.holiday_coop_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.planning_instanciate_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.subscribe_coop_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_generation_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.temporary_exemption_wizard_view_form
 msgid "Confirm"
 msgstr "Confirmer"
 
 #. module: beesdoo_shift
-#: selection:beesdoo.shift.shift,state:0
-msgid "Confirmed"
-msgstr "Confirmé"
+#: model:ir.model,name:beesdoo_shift.model_res_partner
+msgid "Contact"
+msgstr "<strong>Votre contact :</strong>"
 
 #. module: beesdoo_shift
 #: model:res.groups,name:beesdoo_shift.group_cooperative_admin
@@ -727,9 +364,21 @@ msgid "Cooperative Status"
 msgstr "Statut du coopérateur"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_res_partner_cooperative_status_ids
-msgid "Cooperative status ids"
-msgstr "Statut du coopérateur"
+#: model:ir.model.fields,field_description:beesdoo_shift.field_res_partner__cooperative_status_ids
+#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users__cooperative_status_ids
+msgid "Cooperative Statuses"
+msgstr ""
+
+#. module: beesdoo_shift
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_action_mixin__cooperator_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_extension__cooperator_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_holiday__cooperator_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe__cooperator_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_temporary_exemption__cooperator_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__cooperator_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history__cooperator_id
+msgid "Cooperator"
+msgstr "Coopérateur"
 
 #. module: beesdoo_shift
 #: model:ir.actions.act_window,name:beesdoo_shift.action_coop_status
@@ -740,17 +389,6 @@ msgstr "Statut du coopérateur"
 #: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_cooperator_type
 msgid "Cooperator Type"
 msgstr "Type de coopérateur"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_action_mixin_cooperator_id
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_extension_cooperator_id
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_holiday_cooperator_id
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe_cooperator_id
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_temporary_exemption_cooperator_id
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_cooperator_id
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history_cooperator_id
-msgid "Cooperator id"
-msgstr "Coopérateur"
 
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_beesdoo_shift_sheet_shift
@@ -773,100 +411,90 @@ msgid "Counter Update Journal"
 msgstr "Journal de mise à jour des compteurs"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.coop_status_form_view
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.coop_status_form_view
 msgid "Counter and Status"
-msgstr "Compteur et statut"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_assign_super_coop_create_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_planning_create_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_create_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_line_create_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_config_settings_create_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_daynumber_create_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_extension_create_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_holiday_create_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_journal_create_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_planning_create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_assign_super_coop__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_planning__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_line__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_daynumber__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_extension__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_holiday__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_journal__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_planning__create_uid
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_added_create_uid
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_create_uid
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_expected_create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_shift_create_uid
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_validate_create_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_create_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe_create_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template_create_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_temporary_exemption_create_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_type_create_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_exempt_reason_create_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_create_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history_create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_temporary_exemption__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_type__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_exempt_reason__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history__create_uid
 msgid "Created by"
 msgstr "Créé par"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_assign_super_coop_create_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_planning_create_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_create_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_line_create_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_config_settings_create_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_daynumber_create_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_extension_create_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_holiday_create_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_journal_create_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_planning_create_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_assign_super_coop__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_planning__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_line__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_daynumber__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_extension__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_holiday__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_journal__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_planning__create_date
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_added_create_date
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_create_date
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_expected_create_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_shift_create_date
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_validate_create_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_create_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe_create_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template_create_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_temporary_exemption_create_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_type_create_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_exempt_reason_create_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_create_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history_create_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_temporary_exemption__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_type__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_exempt_reason__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history__create_date
 msgid "Created on"
 msgstr "Créé le"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.subscribe_coop_wizard_view_form
-msgid "Current worker has more than one shift, subscribing him to a new shift will erase all previous shifts."
-msgstr "Le travailleur actual a plus d'un seul shift, l'inscription à un nouveau créneau supprimera tous ses shifts précédents."
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.subscribe_coop_wizard_view_form
+msgid ""
+"Current worker has more than one shift, subscribing him\n"
+"                        to a new shift will erase all previous shifts."
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_template_generation_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_generation_view_form
 msgid "Daily Schedule"
-msgstr "Agenda journalier"
-
-#. module: beesdoo_shift
-#: model:ir.actions.act_window,name:beesdoo_shift.action_sheet_daily
-#: model:ir.ui.menu,name:beesdoo_shift.menu_sheet
-msgid "Daily attendance sheets"
-msgstr "Feuilles de présence du jour"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_journal_date
-#: model:ir.ui.view,arch_db:beesdoo_shift.coop_status_form_view
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.coop_status_form_view
 msgid "Date"
 msgstr "Date"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe_info_session_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe__info_session_date
 msgid "Date of information session"
-msgstr "Date of information session"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_sheet_message_last_post
-#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_shift_message_last_post
-msgid "Date of the last message posted on the record."
-msgstr "Date du dernier message posté sur cet enregistrement"
-
-#. module: beesdoo_shift
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template__day_ids
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_day
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template_day_nb_id
-#: model:ir.ui.view,arch_db:beesdoo_shift.sheet_view_search
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_view_search
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template__day_nb_id
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_view_search
 msgid "Day"
 msgstr "Jour"
 
@@ -879,66 +507,52 @@ msgstr "Abbrévation du jour"
 #: model:ir.actions.act_window,name:beesdoo_shift.action_day_number
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_daynumber_number
 msgid "Day Number"
-msgstr "Day Number"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_day_ids
-msgid "Day ids"
-msgstr "Day ids"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_config_settings_pre_filled_task_type_id
-msgid "Default Task Type"
-msgstr "Type de tâche par défaut"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_config_settings_pre_filled_task_type_id
-msgid "Default task type for attendance sheet pre-filling"
-msgstr "Type de shift par défaut pour le remplissage automatique des feuilles de présence"
-
-#. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_template_view_kanban
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_shift_view_kanban
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_view_kanban
 msgid "Delete"
 msgstr "Supprimer"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_property_delivery_carrier_id
-msgid "Delivery Method"
-msgstr "Méthode de livraison"
-
-#. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_type_description
-#: model:ir.ui.view,arch_db:beesdoo_shift.type_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.type_view_form
 msgid "Description"
-msgstr "Description"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_assign_super_coop_display_name
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_planning_display_name
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_display_name
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_line_display_name
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_action_mixin_display_name
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_config_settings_display_name
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_daynumber_display_name
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_extension_display_name
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_holiday_display_name
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_journal_display_name
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_planning_display_name
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_assign_super_coop__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_planning__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_line__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_action_mixin__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_daynumber__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_extension__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_holiday__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_journal__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_planning__display_name
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_added_display_name
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_display_name
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_expected_display_name
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_shift_display_name
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_validate_display_name
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_display_name
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe_display_name
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template_display_name
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_temporary_exemption_display_name
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_type_display_name
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_exempt_reason_display_name
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_display_name
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history_display_name
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_temporary_exemption__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_type__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_exempt_reason__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history__display_name
 msgid "Display Name"
 msgstr "Nom affiché"
+
+#. module: beesdoo_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_shift_view_kanban
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_view_kanban
+msgid "Dropdown menu"
+msgstr "Menu déroulant"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template_duration
@@ -953,167 +567,139 @@ msgstr "Durée en heure"
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_eater
 msgid "Eater/Worker"
-msgstr "Mangeur/Travailleur"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_shift_view_kanban
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_shift_view_kanban
 msgid "Edit Shift"
-msgstr "Editer le shift"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_template_view_kanban
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_view_kanban
 msgid ""
 "Edit Shift\n"
-"                                                    Template"
+"                                                Template"
 msgstr ""
-"Modifier \n"
-"le modèle de shift"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_effective_date
-msgid "Effective date"
+msgid "Effective Date"
 msgstr "Date effective"
 
 #. module: beesdoo_shift
-#: model:ir.model,name:beesdoo_shift.model_beesdoo_shift_shift
-msgid "Email Thread"
-msgstr "Discussion par courriel"
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template__end_date
+msgid "End Date"
+msgstr "Date de fin"
 
 #. module: beesdoo_shift
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_line__end_time
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_end_time
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__end_time
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template__end_time
 msgid "End Time"
 msgstr "Date et horaire de fin"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template_end_date
-msgid "End date"
-msgstr "Date de fin\t"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_holiday_holiday_end_day
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_holiday__holiday_end_day
 msgid "End date for the holiday (included)"
 msgstr "Date de fin des vacances (inclue)"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_line_end_time
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_end_time
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template_end_time
-msgid "End time"
-msgstr "Fin"
-
-#. module: beesdoo_shift
 #: selection:beesdoo.shift.sheet,worker_nb_feedback:0
 msgid "Enough workers"
-msgstr " Assez de travailleurs"
+msgstr "Assez de travailleurs"
 
 #. module: beesdoo_shift
 #: model:ir.actions.act_window,name:beesdoo_shift.action_exempt_reason
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe_exempt_reason_id
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_temporary_exemption_temporary_exempt_reason_id
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_exempt_reason_id
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_temporary_exempt_reason_id
-#: model:ir.model.fields,field_description:beesdoo_shift.field_res_partner_exempt_reason_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe__exempt_reason_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_temporary_exemption__temporary_exempt_reason_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__exempt_reason_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_res_partner__exempt_reason_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users__exempt_reason_id
 #: model:ir.ui.menu,name:beesdoo_shift.menu_exempt_reason
 msgid "Exempt Reason"
 msgstr "Raison d'exemption"
 
 #. module: beesdoo_shift
 #: selection:beesdoo.shift.subscribe,working_mode:0
-#: selection:cooperative.status,status:0
 #: selection:cooperative.status,working_mode:0
 msgid "Exempted"
 msgstr "Exempté"
 
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_beesdoo_shift_sheet_expected
-#: model:ir.ui.view,arch_db:beesdoo_shift.sheet_expected_view_form
 msgid "Expected Shift"
 msgstr "Shift attendu"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_expected_shift_ids
-#: model:ir.ui.view,arch_db:beesdoo_shift.sheet_view_form
 msgid "Expected Shifts"
 msgstr "Shifts attendus"
 
 #. module: beesdoo_shift
-#: selection:cooperative.status,status:0
-msgid "Extension"
-msgstr "Extension"
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_extension__extension_days
+msgid "Extension Days"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_time_extension
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__time_extension
 msgid "Extension Days NB"
 msgstr "NB de jours d'extension"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_extension_start_time
-#: model:ir.model.fields,field_description:beesdoo_shift.field_res_partner_extension_start_time
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__extension_start_time
+#: model:ir.model.fields,field_description:beesdoo_shift.field_res_partner__extension_start_time
+#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users__extension_start_time
 msgid "Extension Start Day"
-msgstr "Jour de début d'extension"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_extension_extension_days
-msgid "Extension days"
-msgstr "Jours d'extension"
-
-#. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.sheet_view_form
-msgid "Feedback"
-msgstr "Retour d'information"
-
-#. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.sheet_view_search
-msgid "Feedback on number of workers"
-msgstr "Votre ressenti sur le nombre de travailleurs"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,help:beesdoo_shift.field_cooperative_status_today
 msgid "Field that allow to compute field and store them even if they are based on the current date"
-msgstr "Field that allow to compute field and store them even if they are based on the current date"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_planning_date_start
-msgid "First Day of planning"
-msgstr "Premier jour du planning"
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_planning__date_start
+msgid "First Day of planning (should be Monday)"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe_info_session
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe__info_session
 msgid "Followed an information session"
 msgstr "A suivi une session d'information"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_message_follower_ids
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_message_follower_ids
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__message_follower_ids
 msgid "Followers"
 msgstr "Abonnés"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_message_channel_ids
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_message_channel_ids
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__message_channel_ids
 msgid "Followers (Channels)"
 msgstr "Abonnés (Canaux)"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_message_partner_ids
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_message_partner_ids
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__message_partner_ids
 msgid "Followers (Partners)"
 msgstr "Abonnés (Partenaires)"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.coop_status_form_view
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.coop_status_form_view
 msgid "For testing purpose only"
-msgstr "Pour test"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_daynumber_number
 msgid "From 1 to N, When you will instanciate your planning, Day 1 will be the start date of the instance, Day 2 the second, etc..."
-msgstr "From 1 to N, When you will instanciate your planning, Day 1 will be the start date of the instance, Day 2 the second, etc..."
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_future_alert_date
-msgid "Future alert date"
-msgstr "Prochaine date d'alerte"
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__future_alert_date
+msgid "Future Alert Date"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_gender
@@ -1121,14 +707,19 @@ msgid "Gender"
 msgstr "Genre"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.shift_settings_view_form
-msgid "General Settings"
-msgstr "Paramètres Généraux"
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.coop_status_form_view
+msgid "General information"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.coop_status_form_view
-msgid "General information"
-msgstr "Informations générales"
+#: model:ir.cron,name:beesdoo_shift.ir_cron_generate_attendance_sheet
+msgid "Generate Attendance Sheets"
+msgstr ""
+
+#. module: beesdoo_shift
+#: model:ir.cron,name:beesdoo_shift.ir_cron_generate_next_planning
+msgid "Generate Next Planning"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.actions.act_window,name:beesdoo_shift.action_generate_shift_template_wizard
@@ -1136,32 +727,29 @@ msgid "Generate Shift Template"
 msgstr "Générer les templates de shift"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.type_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.type_view_form
 msgid "Generate shift Templates"
 msgstr "Générer les templates de shift"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.planning_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.planning_view_form
 msgid "Generate shifts"
-msgstr "Génerer les shifts"
+msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/wizard/instanciate_planning.py:20
-#: code:addons/custom/obeesdoo/beesdoo_shift/wizard/instanciate_planning.py:20
+#: code:addons/beesdoo_shift/wizard/instanciate_planning.py:26
 #, python-format
 msgid "Generated Shift"
-msgstr "Generated Shift"
+msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/wizard/batch_template.py:37
-#: code:addons/custom/obeesdoo/beesdoo_shift/wizard/batch_template.py:37
+#: code:addons/beesdoo_shift/wizard/batch_template.py:50
 #, python-format
 msgid "Generated Shift Template"
-msgstr "Generated Shift Template"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.sheet_view_search
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_view_search
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_view_search
 msgid "Group By"
 msgstr "Regrouper par"
 
@@ -1171,27 +759,18 @@ msgid "Has notes been read by an administrator ?"
 msgstr "La note a-t-elle été lue par un administrateur ?"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.coop_status_form_view
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__history_ids
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.coop_status_form_view
 msgid "History"
 msgstr "Historique"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history_ids
-msgid "History ids"
-msgstr "Historique"
-
-#. module: beesdoo_shift
-#: selection:cooperative.status,status:0
-msgid "Holidays"
-msgstr "Holidays"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_holiday_end_time
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__holiday_end_time
 msgid "Holidays End Day"
 msgstr "Fin des vacances"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_holiday_start_time
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__holiday_start_time
 msgid "Holidays Start Day"
 msgstr "Début des vacances"
 
@@ -1206,7 +785,6 @@ msgstr "Je n'étais pas là durant le shift"
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_id
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_line_id
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_action_mixin_id
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_config_settings_id
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_daynumber_id
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_extension_id
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_holiday_id
@@ -1226,19 +804,24 @@ msgstr "Je n'étais pas là durant le shift"
 #: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history_id
 #: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_sheet_message_unread
-#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_shift_message_unread
+#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_shift__message_unread
 msgid "If checked new messages require your attention."
 msgstr "Si coché, de nouveaux messages demandent votre attention."
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_sheet_message_needaction
-#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_shift_message_needaction
+#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_shift__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "si elle est cochée, de nouveaux messages requièrent votre attention."
+msgstr "Si elle est cochée, de nouveaux messages requièrent votre attention."
+
+#. module: beesdoo_shift
+#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_shift__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si actif, certains messages ont une erreur de livraison."
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_sheet_max_worker_no
@@ -1246,16 +829,18 @@ msgid "Indicative maximum number of workers."
 msgstr "Nombre de travailleurs maximal indicatif."
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_info_session
-#: model:ir.model.fields,field_description:beesdoo_shift.field_res_partner_info_session
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__info_session
+#: model:ir.model.fields,field_description:beesdoo_shift.field_res_partner__info_session
+#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users__info_session
 msgid "Information Session ?"
-msgstr "A suivi une session d'information ?"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_info_session_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_res_partner_info_session_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__info_session_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_res_partner__info_session_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users__info_session_date
 msgid "Information Session Date"
-msgstr "Date de la session d'information"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.actions.act_window,name:beesdoo_shift.action_generate_shift_wizard
@@ -1263,19 +848,19 @@ msgid "Instanciate Planning Action"
 msgstr "Instancier 'Planning Action'"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_irregular_absence_counter
-msgid "Irregular absence counter"
-msgstr "Compteur d'absences (volant)"
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__irregular_absence_counter
+msgid "Irregular Absence Counter"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_irregular_absence_date
-msgid "Irregular absence date"
-msgstr "Date d'absence (volant)"
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__irregular_absence_date
+msgid "Irregular Absence Date"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_irregular_start_date
-msgid "Irregular start date"
-msgstr "Date de début (volant)"
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__irregular_start_date
+msgid "Irregular Start Date"
+msgstr ""
 
 #. module: beesdoo_shift
 #: selection:beesdoo.shift.subscribe,working_mode:0
@@ -1284,15 +869,14 @@ msgid "Irregular worker"
 msgstr "Volant"
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/cooperative_status.py:217
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/cooperative_status.py:217
+#: code:addons/beesdoo_shift/models/cooperative_status.py:179
 #, python-format
 msgid "Irregular workers must have an irregular start date."
 msgstr "Les travailleurs volants doivent avoir une date de début."
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_message_is_follower
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_message_is_follower
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__message_is_follower
 msgid "Is Follower"
 msgstr "Est un abonné"
 
@@ -1307,140 +891,142 @@ msgid "Is any regular worker doing its regular shift as an added one ?"
 msgstr "Est-ce que le travailleur régulier réalise son shift habituel sans être attendu ?"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_view_search
+#: model:ir.model.fields,field_description:beesdoo_shift.field_res_partner__can_shop
+#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users__can_shop
+msgid "Is worker allowed to shop?"
+msgstr ""
+
+#. module: beesdoo_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_view_search
 msgid "J-1"
-msgstr "J-1"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_view_search
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_view_search
 msgid "J-2"
-msgstr "J-2"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_view_search
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_view_search
 msgid "J-3"
-msgstr "J-3"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_view_search
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_view_search
 msgid "J-4"
-msgstr "J-4"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_view_search
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_view_search
 msgid "J-5"
-msgstr "J-5"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_message_last_post
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_message_last_post
-msgid "Last Message Date"
-msgstr "Date du dernier message"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_assign_super_coop___last_update
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_planning___last_update
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template___last_update
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_line___last_update
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_action_mixin___last_update
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_config_settings___last_update
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_daynumber___last_update
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_extension___last_update
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_holiday___last_update
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_journal___last_update
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_planning___last_update
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_assign_super_coop____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_planning____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_line____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_action_mixin____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_daynumber____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_extension____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_holiday____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_journal____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_planning____last_update
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet___last_update
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_added___last_update
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_expected___last_update
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_shift___last_update
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_validate___last_update
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift___last_update
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe___last_update
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template___last_update
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_temporary_exemption___last_update
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_type___last_update
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_exempt_reason___last_update
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status___last_update
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history___last_update
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_temporary_exemption____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_type____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_exempt_reason____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history____last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_assign_super_coop_write_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_planning_write_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_line_write_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_write_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_config_settings_write_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_daynumber_write_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_extension_write_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_holiday_write_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_journal_write_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_planning_write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_assign_super_coop__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_planning__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_line__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_daynumber__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_extension__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_holiday__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_journal__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_planning__write_uid
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_added_write_uid
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_expected_write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_shift_write_uid
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_validate_write_uid
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_write_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_write_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe_write_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template_write_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_temporary_exemption_write_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_type_write_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_exempt_reason_write_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history_write_uid
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_temporary_exemption__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_type__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_exempt_reason__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history__write_uid
 msgid "Last Updated by"
 msgstr "Mis à jour par"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_assign_super_coop_write_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_planning_write_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_line_write_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_write_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_config_settings_write_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_daynumber_write_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_extension_write_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_holiday_write_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_journal_write_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_planning_write_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_assign_super_coop__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_planning__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_line__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_daynumber__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_extension__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_holiday__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_journal__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_planning__write_date
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_added_write_date
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_expected_write_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_shift_write_date
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_validate_write_date
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_write_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_write_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe_write_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template_write_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_temporary_exemption_write_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_type_write_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_exempt_reason_write_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history_write_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_write_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_temporary_exemption__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_type__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_exempt_reason__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history__write_date
 msgid "Last Updated on"
 msgstr "Mis à jour le"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_last_printed
 msgid "Last printed on"
-msgstr "Last printed on"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_line_ids
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_journal_line_ids
-msgid "Line ids"
-msgstr "Line ids"
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template__line_ids
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_journal__line_ids
+msgid "Line"
+msgstr "Ligne"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_validate_login
-#: model:ir.ui.view,arch_db:beesdoo_shift.validate_attendance_sheet_form
 msgid "Login"
 msgstr "Identifiant"
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/cooperative_status.py:471
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/cooperative_status.py:471
-#: model:ir.ui.view,arch_db:beesdoo_shift.super_coop_partner_inherited_view_form
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Pièce jointe principale"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/res_partner.py:99
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.super_coop_partner_inherited_view_form
 #, python-format
 msgid "Manual Extension"
-msgstr "Extension manuelle"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,help:beesdoo_shift.field_cooperative_status_unsubscribed
@@ -1449,12 +1035,11 @@ msgstr "Désinscrit manuellement"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_is_read
-#: model:ir.ui.view,arch_db:beesdoo_shift.sheet_view_form
 msgid "Mark as read"
 msgstr "Marquer comme lu"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_template_worker_nb
+#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_template__worker_nb
 msgid "Max number of worker for this task"
 msgstr "Nombre maximum de travailleurs pour ce shift"
 
@@ -1465,34 +1050,28 @@ msgstr "Nombre de travailleurs maximal"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_member_card_ids
-msgid "Member card ids"
-msgstr "Carte de membre"
+msgid "Member Card"
+msgstr ""
+
+#. module: beesdoo_shift
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__message_has_error
+msgid "Message Delivery error"
+msgstr "Erreur d'envoi du message"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_message_ids
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_message_ids
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__message_ids
 msgid "Messages"
-msgstr "Messages"
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/attendance_sheet.py:344
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/attendance_sheet.py:344
-#, python-format
-msgid ""
-"Multiple workers are corresponding this barcode. \n"
-"Barcode : %s"
 msgstr ""
-"Plusieurs travailleurs correspondent à ce code-barre. \n"
-"Code-barre : %s"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_view_search
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_view_search
 msgid "My Shift"
 msgstr "Mes shifts"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_template_view_search
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_view_search
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_view_search
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_view_search
 msgid "My Team Shift"
 msgstr "Les shifts de mon équipe"
 
@@ -1511,33 +1090,14 @@ msgid "Name"
 msgstr "Nom"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_assign_super_coop_super_coop_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_assign_super_coop__super_coop_id
 msgid "New Super Cooperative"
 msgstr "Nouveau supercoopérateur"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_next_countdown_date
-msgid "Next countdown date"
-msgstr "Prochaine date de décompte"
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/attendance_sheet.py:219
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/attendance_sheet.py:219
-#: sql_constraint:beesdoo.shift.sheet:0
-#, python-format
-msgid "Non-annotated sheets can't be marked as read."
-msgstr "Les feuilles de présences non-annotées ne peuvent pas êtres marquées comme lues."
-
-#. module: beesdoo_shift
-#: model:mail.template,subject:beesdoo_shift.email_template_non_attendance
-msgid "Non-attendance to your last shift."
-msgstr "Absence à votre dernier shift."
-
-#. module: beesdoo_shift
-#: model:ir.actions.act_window,name:beesdoo_shift.action_sheet_admin_non_validated
-#: model:ir.ui.menu,name:beesdoo_shift.menu_sheet_admin_non_validated
-msgid "Non-validated sheets"
-msgstr "Non-validées"
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__next_countdown_date
+msgid "Next Countdown Date"
+msgstr ""
 
 #. module: beesdoo_shift
 #: selection:beesdoo.shift.sheet,state:0
@@ -1551,11 +1111,11 @@ msgstr "Pas assez de travailleurs"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_notes
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_validate_notes
 msgid "Notes"
-msgstr "Notes pour le Bureau des Membres"
+msgstr ""
 
 #. module: beesdoo_shift
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_validate_notes
 #: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_sheet_notes
 #: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_sheet_validate_notes
 msgid "Notes about the attendance for the Members Office"
@@ -1563,29 +1123,39 @@ msgstr "Information importante à transmettre au bureau des membres"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_message_needaction_counter
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_message_needaction_counter
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__message_needaction_counter
 msgid "Number of Actions"
 msgstr "Nombre d'Actions"
 
 #. module: beesdoo_shift
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__message_has_error_counter
+msgid "Number of error"
+msgstr "Nombre d'erreurs"
+
+#. module: beesdoo_shift
 #: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_sheet_message_needaction_counter
-#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_shift_message_needaction_counter
+#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_shift__message_needaction_counter
 msgid "Number of messages which requires an action"
 msgstr "Nombre de messages demandant une action"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe_nb_shifts
+#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_shift__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Nombre de messages avec des erreurs d'envoi"
+
+#. module: beesdoo_shift
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe__nb_shifts
 msgid "Number of shifts"
 msgstr "Nombre de shifts"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_sheet_message_unread_counter
-#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_shift_message_unread_counter
+#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_shift__message_unread_counter
 msgid "Number of unread messages"
 msgstr "Nombre de messages non lus"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template_worker_nb
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template__worker_nb
 msgid "Number of worker"
 msgstr "Nombre de travailleurs"
 
@@ -1597,7 +1167,7 @@ msgstr "Nombre de travailleurs présents"
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_old_member
 msgid "Old cooperator"
-msgstr "Ancien cooperateur"
+msgstr "Ancien coopérateur"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_sheet_added_is_compensation
@@ -1607,13 +1177,6 @@ msgid "Only for regular workers"
 msgstr "Seulement pour les travailleurs réguliers"
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/wizard/validate_attendance_sheet.py:114
-#: code:addons/custom/obeesdoo/beesdoo_shift/wizard/validate_attendance_sheet.py:114
-#, python-format
-msgid "Only super-cooperators and administrators can validate attendance sheets."
-msgstr "Seuls les supercoopérateurs et les administrateurs peuvent valider les feuilles de présence."
-
-#. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_parent_barcode
 msgid "Parent Barcode"
 msgstr "Code-barre du parent"
@@ -1621,12 +1184,7 @@ msgstr "Code-barre du parent"
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_parent_eater_id
 msgid "Parent Worker"
-msgstr "Parent Worker"
-
-#. module: beesdoo_shift
-#: model:ir.model,name:beesdoo_shift.model_res_partner
-msgid "Partner"
-msgstr "Partenaire"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_validate_password
@@ -1634,67 +1192,35 @@ msgid "Password"
 msgstr "Mot de passe"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_template_view_search
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_view_search
 msgid "Place Available"
-msgstr "Place disponible"
+msgstr ""
 
 #. module: beesdoo_shift
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_planning__planning_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template__planning_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__planning_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template__planning_id
 #: model:ir.ui.menu,name:beesdoo_shift.menu_task_top
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_template_view_search
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_view_search
 msgid "Planning"
-msgstr "Planning"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.actions.act_window,name:beesdoo_shift.action_planning
 #: model:ir.actions.act_window,name:beesdoo_shift.action_shift_template
 msgid "Planning Action"
-msgstr "Planning Action"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:res.groups,name:beesdoo_shift.group_planning_management
 msgid "Planning Management"
-msgstr "Shifts - Planning"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.ui.menu,name:beesdoo_shift.menu_planning
 msgid "Planning Week"
 msgstr "Planning (par semaine)"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_planning_planning_id
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_planning_id
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_planning_id
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template_planning_id
-msgid "Planning id"
-msgstr "Planning id"
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/wizard/validate_attendance_sheet.py:103
-#: code:addons/custom/obeesdoo/beesdoo_shift/wizard/validate_attendance_sheet.py:103
-#, python-format
-msgid "Please enter your login."
-msgstr "Veuillez entrer votre login."
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/attendance_sheet.py:606
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/attendance_sheet.py:606
-#, python-format
-msgid "Please give your feedback about the number of workers."
-msgstr "Veuillez remplir votre retour concernant le nombre de travailleurs."
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/wizard/validate_attendance_sheet.py:90
-#: code:addons/custom/obeesdoo/beesdoo_shift/wizard/validate_attendance_sheet.py:90
-#, python-format
-msgid "Please give your feedback on the number of workers."
-msgstr "Veuillez remplir votre retour concernant le nombre de travailleurs."
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/wizard/validate_attendance_sheet.py:98
-#: code:addons/custom/obeesdoo/beesdoo_shift/wizard/validate_attendance_sheet.py:98
-#, python-format
-msgid "Please set a correct barcode."
-msgstr "Veuillez entrer un code-barre valide."
 
 #. module: beesdoo_shift
 #: selection:beesdoo.shift.sheet.added,state:0
@@ -1706,47 +1232,41 @@ msgstr "Présent"
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_member_card_to_be_printed
 msgid "Print BEES card?"
-msgstr "Print BEES card?"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_website_private
-msgid "Private Profile"
-msgstr "Profil privé"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:res.groups,comment:beesdoo_shift.group_shift_attendance
 msgid "Read only sur worker.info "
-msgstr "Read only sur worker.info  + Delay de Grâce"
+msgstr "Read only sur worker.info  + Delay de Grâce "
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template_worker_ids
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template__worker_ids
 msgid "Recurrent worker assigned"
 msgstr "Travailleur récurrent assigné"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_template_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_view_form
 msgid "Recurring Workers"
-msgstr "Travailleurs récurrents"
+msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/cooperative_status.py:489
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/cooperative_status.py:489
+#: code:addons/beesdoo_shift/models/res_partner.py:117
 #, python-format
 msgid "Register Holiday"
-msgstr "Enregistrer des vacances"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.super_coop_partner_inherited_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.super_coop_partner_inherited_view_form
 msgid "Register Holidays"
-msgstr "Enregistrer des vacances"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_shift_view_kanban
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_shift_view_kanban
 msgid "Regular Shift"
-msgstr "Shift régulier"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_is_regular
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__is_regular
 msgid "Regular shift"
 msgstr "Shift régulier"
 
@@ -1762,14 +1282,14 @@ msgid "Regular worker"
 msgstr "Travailleur régulier"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template_remaining_worker
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template__remaining_worker
 msgid "Remaining Place"
 msgstr "Places restantes"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_replaced_id
-msgid "Replaced id"
-msgstr "Remplaçant"
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__replaced_id
+msgid "Replaced"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_expected_replaced_id
@@ -1782,51 +1302,40 @@ msgid "Replacement Worker (must be regular)"
 msgstr "Travailleur remplaçant (doit être régulier)"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_shift_view_kanban
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_shift_view_kanban
 msgid "Replacement worker:"
-msgstr "Travailleur remplaçant:"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe_reset_compensation_counter
-msgid "Reset compensation counter"
-msgstr "Reset compensation counter"
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe__reset_compensation_counter
+msgid "Reset Compensation Counter"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe_reset_counter
-msgid "Reset counter"
-msgstr "Reset counter"
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe__reset_counter
+msgid "Reset Counter"
+msgstr ""
 
 #. module: beesdoo_shift
-#: selection:cooperative.status,status:0
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe_resigning
 #: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_resigning
 msgid "Resigning"
-msgstr "Resigning"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_revert_info
-msgid "Revert info"
-msgstr "Revert info"
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__revert_info
+msgid "Revert Info"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.journal_form_view
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.journal_form_view
 msgid "Run again for this day"
-msgstr "Lancer à nouveau pour aujourd'hui"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.validate_attendance_sheet_form
-msgid "Save"
-msgstr "Sauvegarder"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_config_settings_card_support
-msgid "Scan cooperators cards instead of login for sheets validation"
-msgstr "Scanner les cartes de membres à la place du login pour la validation des feuilles de présence."
-
-#. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.validate_attendance_sheet_form
-msgid "Scan your card"
-msgstr "Scannez votre carte"
+#: model:ir.cron,name:beesdoo_shift.ir_cron_send_weekly_emails
+msgid "Send weekly shift summary"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_planning_sequence
@@ -1834,11 +1343,10 @@ msgid "Sequence"
 msgstr "Séquence"
 
 #. module: beesdoo_shift
-#: model:ir.actions.act_window,name:beesdoo_shift.action_shift_settings
-#: model:ir.ui.menu,name:beesdoo_shift.menu_shift_settings
-#: model:ir.ui.view,arch_db:beesdoo_shift.shift_settings_view_form
-msgid "Settings"
-msgstr "Configuration"
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_assign_super_coop__shift_ids
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe__shift_id
+msgid "Shift"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.ui.menu,name:beesdoo_shift.menu_configuration_day
@@ -1858,23 +1366,9 @@ msgid "Shift State"
 msgstr "État du shift"
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/attendance_sheet.py:590
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/attendance_sheet.py:590
-#, python-format
-msgid "Shift State is missing for %s"
-msgstr "État du shift manquant pour %s"
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/attendance_sheet.py:565
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/attendance_sheet.py:565
-#, python-format
-msgid "Shift State is missing or wrong for %s"
-msgstr "État du shift manquant ou incorrect pour %s"
-
-#. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_view_search
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_view_search
 msgid "Shift Template"
-msgstr "Template de shifts"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.actions.act_window,name:beesdoo_shift.action_type
@@ -1888,18 +1382,7 @@ msgid "Shift and Worker Read Access"
 msgstr "Shifts - Présences"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe_shift_id
-msgid "Shift id"
-msgstr "Shift id"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_assign_super_coop_shift_ids
-msgid "Shift ids"
-msgstr "Shift ids"
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/task.py:89
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/task.py:89
+#: code:addons/beesdoo_shift/models/task.py:119
 #, python-format
 msgid "Shift state of a future shift can't be set to 'present' or 'absent'."
 msgstr "Vous ne pouvez inscrire un shift futur comme 'present' ou 'absent'."
@@ -1908,12 +1391,12 @@ msgstr "Vous ne pouvez inscrire un shift futur comme 'present' ou 'absent'."
 #: model:ir.actions.act_window,name:beesdoo_shift.action_task
 #: model:ir.ui.menu,name:beesdoo_shift.menu_task
 msgid "Shifts"
-msgstr "Shifts"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.planning_view_form
-#: model:ir.ui.view,arch_db:beesdoo_shift.planning_view_tree
-msgid "Shifts Template"
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.planning_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.planning_view_tree
+msgid "Shift Templates"
 msgstr "Planning"
 
 #. module: beesdoo_shift
@@ -1922,36 +1405,28 @@ msgid "Shifts and Attendance Sheets Management"
 msgstr "Shifts et feuilles de présence - Gestion"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe_irregular_start_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe__irregular_start_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template__start_date
 msgid "Start Date"
 msgstr "Date de début"
 
 #. module: beesdoo_shift
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_line__start_time
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_start_time
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__start_time
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template__start_time
 msgid "Start Time"
 msgstr "Date et horaire de début"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template_start_date
-msgid "Start date"
-msgstr "Date de début"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_extension_extension_start_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_extension__extension_start_date
 msgid "Start date for the extension"
 msgstr "Date de début d'extension"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_holiday_holiday_start_day
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_holiday__holiday_start_day
 msgid "Start date for the holiday"
 msgstr "Date de début de vacances"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_line_start_time
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_start_time
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template_start_time
-msgid "Start time"
-msgstr "Début"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_state
@@ -1960,58 +1435,50 @@ msgid "State"
 msgstr "État"
 
 #. module: beesdoo_shift
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history__status_id
 #: model:ir.ui.menu,name:beesdoo_shift.menu_status_top
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_view_search
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_view_search
 msgid "Status"
 msgstr "Statut"
 
 #. module: beesdoo_shift
 #: selection:cooperative.status.history,type:0
 msgid "Status Change"
-msgstr "Changement de statut\t"
+msgstr "Changement de statutt"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history_status_id
-msgid "Status id"
-msgstr "Statut"
-
-#. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_shift_view_kanban
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_shift_view_kanban
 msgid "Status:"
-msgstr "Statut :"
+msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/cooperative_status.py:454
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/cooperative_status.py:454
+#: code:addons/beesdoo_shift/models/res_partner.py:82
 #, python-format
 msgid "Subscribe Cooperator"
-msgstr "Inscrire le coopérateur"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.super_coop_partner_inherited_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.super_coop_partner_inherited_view_form
 msgid "Subscribe to shift"
-msgstr "Inscription à un régime de travail ou à un créneau"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.super_coop_partner_inherited_view_form
+#: model:ir.model.fields,field_description:beesdoo_shift.field_res_partner__subscribed_shift_ids
+#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users__subscribed_shift_ids
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.super_coop_partner_inherited_view_form
 msgid "Subscribed Shift"
-msgstr "Shifts inscrits"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_res_partner_subscribed_shift_ids
-msgid "Subscribed shift ids"
-msgstr "Shifts inscrits"
-
-#. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_shift_view_kanban
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_template_view_kanban
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_shift_view_kanban
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_view_kanban
 msgid "Super Coop:"
-msgstr "Supercoopérateur :"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_expected_super_coop_id
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_super_coop_id
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template_super_coop_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__super_coop_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template__super_coop_id
 #: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_super
 #: model:ir.model.fields,field_description:beesdoo_shift.field_res_partner_super
 #: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_super
@@ -2024,11 +1491,6 @@ msgid "Super Cooperator"
 msgstr "Supercoopérateur"
 
 #. module: beesdoo_shift
-#: selection:cooperative.status,status:0
-msgid "Suspended"
-msgstr "Suspendu"
-
-#. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_added_task_id
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_expected_task_id
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_shift_task_id
@@ -2036,29 +1498,18 @@ msgid "Task"
 msgstr "Tâche"
 
 #. module: beesdoo_shift
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_planning__task_template_ids
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__task_template_id
+msgid "Task Template"
+msgstr ""
+
+#. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_added_task_type_id
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_expected_task_type_id
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_shift_task_type_id
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_task_type_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__task_type_id
 msgid "Task Type"
 msgstr "Type de tâche"
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/attendance_sheet.py:570
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/attendance_sheet.py:570
-#, python-format
-msgid "Task Type is missing for %s"
-msgstr "Le type de tâche est manquant pour %s"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_task_template_id
-msgid "Task template id"
-msgstr "Modèle de tâche"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_planning_task_template_ids
-msgid "Task template ids"
-msgstr "Modèle de tâche"
 
 #. module: beesdoo_shift
 #: model:ir.ui.menu,name:beesdoo_shift.menu_template_top
@@ -2066,63 +1517,35 @@ msgid "Templates"
 msgstr "Modèles"
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/cooperative_status.py:500
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/cooperative_status.py:500
-#: model:ir.ui.view,arch_db:beesdoo_shift.coop_status_form_view
-#: model:ir.ui.view,arch_db:beesdoo_shift.super_coop_partner_inherited_view_form
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_temporary_exemption__temporary_exempt_end_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__temporary_exempt_end_date
+msgid "Temporary Exempt End Date"
+msgstr "Date de fin d'exemption temporaire"
+
+#. module: beesdoo_shift
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__temporary_exempt_reason_id
+msgid "Temporary Exempt Reason"
+msgstr "Raison de l'exemption temporaire"
+
+#. module: beesdoo_shift
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_temporary_exemption__temporary_exempt_start_date
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__temporary_exempt_start_date
+msgid "Temporary Exempt Start Date"
+msgstr "Date de début de l'exemption temporaire"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/res_partner.py:128
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.coop_status_form_view
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.super_coop_partner_inherited_view_form
 #, python-format
 msgid "Temporary Exemption"
 msgstr "Exemption temporaire"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_temporary_exemption_temporary_exempt_end_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_temporary_exempt_end_date
-msgid "Temporary exempt end date"
-msgstr "Date de fin d'exemption temporaire"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_temporary_exemption_temporary_exempt_start_date
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_temporary_exempt_start_date
-msgid "Temporary exempt start date"
-msgstr "Date de début d'exemption temporaire"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,help:beesdoo_shift.field_res_users_website_url
-msgid "The full URL to access the document through the website."
-msgstr "L'URL complète afin d'accéder au document à travers le site web."
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/attendance_sheet.py:455
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/attendance_sheet.py:455
+#: code:addons/beesdoo_shift/wizard/subscribe.py:167
 #, python-format
-msgid "The sheet has already been marked as read."
-msgstr "La feuille de présence a déjà été marquée comme lue."
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/attendance_sheet.py:318
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/attendance_sheet.py:318
-#, python-format
-msgid "The sheet has already been validated and can't be edited."
-msgstr "La feuille de présence a déjà été validée et ne peut plus être modifiée."
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/attendance_sheet.py:549
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/attendance_sheet.py:549
-#, python-format
-msgid "The sheet has already been validated."
-msgstr "La feuille de présence a déjà été validée."
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/wizard/subscribe.py:105
-#: code:addons/custom/obeesdoo/beesdoo_shift/wizard/subscribe.py:105
-#, python-format
-msgid "There is no remaining space for this shift"
-msgstr "Il n'y a plus de places libres pour ce shift"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,help:beesdoo_shift.field_res_users_property_delivery_carrier_id
-msgid "This delivery method will be used when invoicing from picking."
-msgstr "Cette méthode de livraison sera utilisée lorsqu'on facturera sur base du colisage."
+msgid "There is no remaining spot for this shift"
+msgstr "Il n'y a plus aucune place libre dans ce shift"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_time_slot
@@ -2130,23 +1553,13 @@ msgid "Time Slot"
 msgstr "Horaire"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_config_settings_attendance_sheet_generation_interval
-msgid "Time interval expressed in minutes"
-msgstr "Intervalle de temps exprimé en minutes"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_config_settings_attendance_sheet_generation_interval
-msgid "Time interval for attendance sheet generation"
-msgstr "Générer les feuilles de présences ... minutes avant le début des shifts"
-
-#. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.coop_status_form_view
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.coop_status_form_view
 msgid "Timing information"
-msgstr "Informations sur le timing"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_today
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_view_search
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_view_search
 msgid "Today"
 msgstr "Aujourd'hui"
 
@@ -2156,76 +1569,59 @@ msgid "Too many workers"
 msgstr "Trop de travailleurs"
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/cooperative_status.py:483
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/cooperative_status.py:483
+#: code:addons/beesdoo_shift/models/res_partner.py:111
 #, python-format
 msgid "Trigger Grace Delay"
-msgstr "Déclencher le délai de grâce"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template_task_type_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template__type_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template__task_type_id
 #: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history_type
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_view_search
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_view_search
 msgid "Type"
-msgstr "Type"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_type_id
-msgid "Type id"
-msgstr "Type id"
-
-#. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_shift_view_kanban
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_template_view_kanban
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_shift_view_kanban
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_view_kanban
 msgid "Type:"
 msgstr "Type :"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_view_search
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_view_search
 msgid "Unassigned"
 msgstr "Non assigné"
 
 #. module: beesdoo_shift
-#: selection:beesdoo.shift.shift,state:0
-msgid "Unconfirmed"
-msgstr "Non confirmé"
-
-#. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_message_unread
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_message_unread
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__message_unread
 msgid "Unread Messages"
 msgstr "Messages non lus"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_message_unread_counter
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_message_unread_counter
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__message_unread_counter
 msgid "Unread Messages Counter"
 msgstr "Compteur de messages non lus"
 
 #. module: beesdoo_shift
-#: model:ir.actions.act_window,name:beesdoo_shift.action_sheet_admin_annotated
-#: model:ir.ui.menu,name:beesdoo_shift.menu_sheet_admin_annotated
-msgid "Unread notes"
-msgstr "Notes non lues"
-
-#. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.super_coop_partner_inherited_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.super_coop_partner_inherited_view_form
 msgid "Unsubscribe"
 msgstr "Se désabonner"
 
 #. module: beesdoo_shift
-#: selection:cooperative.status,status:0
 #: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_unsubscribed
 msgid "Unsubscribed"
 msgstr "Gelé"
 
 #. module: beesdoo_shift
-#: selection:cooperative.status,status:0
-msgid "Up to Date"
-msgstr "A jour"
+#: model:ir.cron,name:beesdoo_shift.ir_cron_update_today
+msgid "Update Cooperatoor status base on the date"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history_user_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_history__user_id
 msgid "User"
 msgstr "Utilisateur"
 
@@ -2233,11 +1629,6 @@ msgstr "Utilisateur"
 #: model:ir.model,name:beesdoo_shift.model_res_users
 msgid "Users"
 msgstr "Utilisateurs"
-
-#. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.validate_attendance_sheet_form
-msgid "Validate"
-msgstr "Valider"
 
 #. module: beesdoo_shift
 #: selection:beesdoo.shift.sheet,state:0
@@ -2250,41 +1641,28 @@ msgid "Validated by"
 msgstr "Validée par"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.validate_attendance_sheet_form
-msgid "Validation"
-msgstr "Validation"
-
-#. module: beesdoo_shift
 #: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_sheet__barcode_scanned
 #: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_sheet_validate__barcode_scanned
 msgid "Value of the last barcode scanned."
-msgstr "Valeur du dernier code-barres scanné"
+msgstr "Valeur du dernier code-barres scanné."
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_website_published
-msgid "Visible in Website"
-msgstr "Visible sur le site web"
+#: sql_constraint:cooperative.status:0
+msgid "Vous ne pouvez assigner qu'un statut de coopérateur par coopérateur"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_subscribe_resigning
 #: model:ir.model.fields,help:beesdoo_shift.field_cooperative_status_resigning
 msgid "Want to leave the beescoop"
-msgstr "Want to leave the beescoop"
+msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/planning.py:205
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/planning.py:205
+#: code:addons/beesdoo_shift/models/planning.py:270
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_validate_warning_regular_workers
 #, python-format
 msgid "Warning"
 msgstr "Avertissement"
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/attendance_sheet.py:580
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/attendance_sheet.py:580
-#, python-format
-msgid "Warning : Working mode for %s is %s"
-msgstr "Attention : Le mode de travail de %s est %s"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_validate_worker_nb_feedback
@@ -2299,40 +1677,10 @@ msgid "Website Messages"
 msgstr "Messages du site web"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_website_description
-msgid "Website Partner Full Description"
-msgstr "Description complète du site web partenaire"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_website_short_description
-msgid "Website Partner Short Description"
-msgstr "Description courte du site web partenaire"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_website_url
-msgid "Website URL"
-msgstr "URL du site"
-
-#. module: beesdoo_shift
 #: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_sheet_website_message_ids
 #: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_shift_website_message_ids
 msgid "Website communication history"
 msgstr "Historique de communication du site web"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_website_meta_description
-msgid "Website meta description"
-msgstr "Méta description du site web"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_website_meta_keywords
-msgid "Website meta keywords"
-msgstr "Mots clefs du site web"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_website_meta_title
-msgid "Website meta title"
-msgstr "Titre du site web"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_week
@@ -2340,193 +1688,153 @@ msgid "Week"
 msgstr "Semaine"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_template_view_search
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_view_search
 msgid "Week Day"
-msgstr "Jour de la semaine"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_line_wizard_id
-msgid "Wizard id"
-msgstr "Wizard id"
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_line__wizard_id
+msgid "Wizard"
+msgstr "Assistant"
 
 #. module: beesdoo_shift
 #: model:ir.actions.act_window,name:beesdoo_shift.action_worker
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_added_worker_id
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_expected_worker_id
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_shift_worker_id
-msgid "Worker"
-msgstr "Travailleur"
-
-#. module: beesdoo_shift
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__worker_id
+#: model:ir.model.fields,field_description:beesdoo_shift.field_res_partner__is_worker
+#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users__is_worker
 #: model:ir.ui.menu,name:beesdoo_shift.menu_worker
 #: model:ir.ui.menu,name:beesdoo_shift.menu_worker_top
 msgid "Worker"
-msgstr "Travailleurs"
-
-#. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_template_view_kanban
-msgid "Worker Number:"
-msgstr "Nombre de travailleurs :"
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_worker_id
-msgid "Worker id"
 msgstr "Travailleur"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template_worker_name
-msgid "Worker name"
-msgstr "Nom du travailleur"
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/attendance_sheet.py:561
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/attendance_sheet.py:561
-#, python-format
-msgid "Worker name is missing for an added shift."
-msgstr "Le nom d'un des travailleurs manque pour un shift ajouté."
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_line_worker_nb
-msgid "Worker nb"
-msgstr "Nombre de travailleurs"
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/attendance_sheet.py:337
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/attendance_sheet.py:337
-#, python-format
-msgid ""
-"Worker not found (invalid barcode or status). \n"
-"Barcode : %s"
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template__worker_name
+msgid "Worker Name"
 msgstr ""
-"Aucun travailleur ne correspond (statut ou code-barre invalide). \n"
-"Code-barre : %s"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_shift_view_kanban
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template_line__worker_nb
+msgid "Worker Nb"
+msgstr ""
+
+#. module: beesdoo_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_view_kanban
+msgid "Worker Number:"
+msgstr ""
+
+#. module: beesdoo_shift
+#: model:ir.model.fields,field_description:beesdoo_shift.field_res_partner__worker_store
+#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users__worker_store
+msgid "Worker Store"
+msgstr ""
+
+#. module: beesdoo_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.super_coop_partner_inherited_view_form
+msgid "Worker information"
+msgstr ""
+
+#. module: beesdoo_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_shift_view_kanban
 msgid "Worker:"
-msgstr "Travailleur :"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_added_working_mode
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_expected_working_mode
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_sheet_shift_working_mode
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe__working_mode
 msgid "Working Mode"
 msgstr "Régime de travail"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift_working_mode
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe_working_mode
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status_working_mode
-#: model:ir.model.fields,field_description:beesdoo_shift.field_res_partner_working_mode
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__working_mode
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__working_mode
+#: model:ir.model.fields,field_description:beesdoo_shift.field_res_partner__working_mode
+#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users__working_mode
 msgid "Working mode"
-msgstr "Régime de travail"
+msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/attendance_sheet.py:575
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/attendance_sheet.py:575
+#: code:addons/beesdoo_shift/models/task.py:300
 #, python-format
-msgid "Working mode is missing for %s"
-msgstr "Le régime de travail n'est pas indiqué pour %s"
+msgid "Working mode is not properly defined. Please check if the worker is subscribed "
+msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/task.py:266
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/task.py:266
-#, python-format
-msgid "Working mode is not properly defined. Please check if the worker is subscribed"
-msgstr "Le régime de travail n'est pas défini. Veuillez regarder si le travailleur est inscrit."
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/cooperative_status.py:428
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/cooperative_status.py:428
+#: code:addons/beesdoo_shift/models/cooperative_status.py:396
 #: sql_constraint:beesdoo.shift.journal:0
 #, python-format
 msgid "You can only create one journal per day"
-msgstr "You can only create one journal per day"
+msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/cooperative_status.py:373
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/cooperative_status.py:373
-#: sql_constraint:cooperative.status:0
+#: code:addons/beesdoo_shift/models/cooperative_status.py:171
 #, python-format
 msgid "You can only set one cooperator status per cooperator"
 msgstr "Vous ne pouvez assigner qu'un statut de coopérateur par coopérateur"
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/attendance_sheet.py:303
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/attendance_sheet.py:303
+#: code:addons/beesdoo_shift/models/planning.py:182
 #, python-format
-msgid "You can't add the same worker more than once to an attendance sheet."
-msgstr "Vous ne pouvez pas ajouter le même travailleur plus d'une fois à une feuille de présence."
+msgid "You cannot assign more workers than the maximal number defined on template. "
+msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/planning.py:142
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/planning.py:142
+#: code:addons/beesdoo_shift/models/task.py:283
 #, python-format
-msgid "You cannot assign more workers than the maximal number defined on template."
-msgstr "You cannot assign more workers than the maximal number defined on template."
+msgid "You cannot change to the status %s if no worker is defined for the shift "
+msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/task.py:225
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/task.py:225
+#: code:addons/beesdoo_shift/wizard/holiday.py:26
 #, python-format
-msgid "You cannot change to the status %s if no worker is defined for the shift"
-msgstr "Vous ne pouvez encoder le statut %s si aucun travailleur n'est défini pour le shift."
+msgid "You cannot encode new holidays since the previous holidays encoded are not over yet "
+msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/wizard/holiday.py:17
-#: code:addons/custom/obeesdoo/beesdoo_shift/wizard/holiday.py:17
+#: code:addons/beesdoo_shift/wizard/temporary_exemption.py:29
 #, python-format
-msgid "You cannot encode new holidays since the previous holidays encoded are not over yet"
-msgstr "You cannot encode new holidays since the previous holidays encoded are not over yet"
+msgid "You cannot encode new temporary exemption since the previous one are not over yet "
+msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/wizard/temporary_exemption.py:18
-#: code:addons/custom/obeesdoo/beesdoo_shift/wizard/temporary_exemption.py:18
-#, python-format
-msgid "You cannot encode new temporary exemptuon since the previous one are not over yet"
-msgstr "You cannot encode new temporary exemptuon since the previous one are not over yet"
-
-#. module: beesdoo_shift
-#: code:addons/beesdoo_shift/wizard/subscribe.py:15
-#: code:addons/custom/obeesdoo/beesdoo_shift/wizard/subscribe.py:15
+#: code:addons/beesdoo_shift/wizard/subscribe.py:29
 #, python-format
 msgid "You cannot perform this operation on yourself"
-msgstr "You cannot perform this operation on yourself"
+msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/cooperative_status.py:435
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/cooperative_status.py:435
+#: code:addons/beesdoo_shift/models/cooperative_status.py:405
 #, python-format
 msgid "You don't have the access to perform this action"
-msgstr "You don't have the access to perform this action"
+msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/wizard/subscribe.py:13
-#: code:addons/custom/obeesdoo/beesdoo_shift/wizard/subscribe.py:13
+#: code:addons/beesdoo_shift/wizard/subscribe.py:21
 #, python-format
 msgid "You don't have the required access for this operation."
-msgstr "You don't have the required access for this operation."
+msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/attendance_sheet.py:324
-#: code:addons/custom/obeesdoo/beesdoo_shift/models/attendance_sheet.py:324
+#: code:addons/beesdoo_shift/models/task.py:108
 #, python-format
-msgid "You must be logged as 'Attendance Sheet Generic Access'  if you want to scan cards."
-msgstr "Vous devez être loggé comme 'Attendance Sheet Generic Access'  si vous voulez scanner des cartes."
+msgid "You must choose between Regular Shift or Compensation Shift."
+msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/wizard/extension.py:29
-#: code:addons/custom/obeesdoo/beesdoo_shift/wizard/extension.py:29
+#: code:addons/beesdoo_shift/wizard/extension.py:48
 #, python-format
-msgid "You should not make a manual extension when the grace delay has not been triggered yet"
-msgstr "You should not make a manual extension when the grace delay has not been triggered yet"
+msgid "You should not make a manual extension when the grace delay has not been triggered yet "
+msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/wizard/extension.py:34
-#: code:addons/custom/obeesdoo/beesdoo_shift/wizard/extension.py:34
+#: code:addons/beesdoo_shift/wizard/extension.py:58
 #, python-format
-msgid "You should not start a manual extension during the grace delay"
-msgstr "You should not start a manual extension during the grace delay"
+msgid "You should not start a manual extension during the grace delay "
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:mail.template,subject:beesdoo_shift.email_template_shift_summary
@@ -2534,121 +1842,155 @@ msgid "Your next shift (${format_tz(object.start_time,object.worker_id.tz or 'Eu
 msgstr "Votre prochain shift (${format_tz(object.start_time,object.worker_id.tz or 'Europe/Brussels','%d.%m.%Y - %H:%M')})"
 
 #. module: beesdoo_shift
-#: model:mail.template,subject:beesdoo_shift.email_template_non_validated_sheet
-msgid "[${object.day}] Non-validated sheet ${object.time_slot}"
-msgstr "[${object.day}] Feuille de présence non-validée ${object.time_slot}"
-
-#. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_beesddoo_shift_assign_super_coop
 msgid "beesddoo.shift.assign_super_coop"
-msgstr "beesddoo.shift.assign_super_coop"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_beesddoo_shift_generate_planning
 msgid "beesddoo.shift.generate_planning"
-msgstr "beesddoo.shift.generate_planning"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_beesddoo_shift_generate_shift_template
 msgid "beesddoo.shift.generate_shift_template"
-msgstr "beesddoo.shift.generate_shift_template"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_beesddoo_shift_generate_shift_template_line
 msgid "beesddoo.shift.generate_shift_template.line"
-msgstr "beesddoo.shift.generate_shift_template.line"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_beesdoo_shift_action_mixin
 msgid "beesdoo.shift.action_mixin"
-msgstr "beesdoo.shift.action_mixin"
-
-#. module: beesdoo_shift
-#: model:ir.model,name:beesdoo_shift.model_beesdoo_shift_config_settings
-msgid "beesdoo.shift.config.settings"
-msgstr "beesdoo.shift.config.settings"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_beesdoo_shift_daynumber
 msgid "beesdoo.shift.daynumber"
-msgstr "beesdoo.shift.daynumber"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_beesdoo_shift_extension
 msgid "beesdoo.shift.extension"
-msgstr "beesdoo.shift.extension"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_beesdoo_shift_holiday
 msgid "beesdoo.shift.holiday"
-msgstr "beesdoo.shift.holiday"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_beesdoo_shift_journal
 msgid "beesdoo.shift.journal"
-msgstr "beesdoo.shift.journal"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_beesdoo_shift_planning
 msgid "beesdoo.shift.planning"
-msgstr "beesdoo.shift.planning"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model,name:beesdoo_shift.model_beesdoo_shift_stage
-msgid "beesdoo.shift.stage"
-msgstr "beesdoo.shift.stage"
+#: model:ir.model,name:beesdoo_shift.model_beesdoo_shift_shift
+msgid "beesdoo.shift.shift"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_beesdoo_shift_subscribe
 msgid "beesdoo.shift.subscribe"
-msgstr "beesdoo.shift.subscribe"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_beesdoo_shift_template
 msgid "beesdoo.shift.template"
-msgstr "beesdoo.shift.template"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_beesdoo_shift_temporary_exemption
 msgid "beesdoo.shift.temporary_exemption"
-msgstr "beesdoo.shift.temporary_exemption"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_beesdoo_shift_type
 msgid "beesdoo.shift.type"
-msgstr "beesdoo.shift.type"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_cooperative_exempt_reason
 msgid "cooperative.exempt.reason"
-msgstr "cooperative.exempt.reason"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_cooperative_status
 msgid "cooperative.status"
-msgstr "cooperative.status"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model,name:beesdoo_shift.model_cooperative_status_history
 msgid "cooperative.status.history"
-msgstr "cooperative.status.history"
+msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.planning_view_form
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_template_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.planning_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_view_form
 msgid "name"
 msgstr "nom"
 
 #. module: beesdoo_shift
-#: model:ir.ui.view,arch_db:beesdoo_shift.assign_super_coop_view_form
-#: model:ir.ui.view,arch_db:beesdoo_shift.extension_coop_wizard_view_form
-#: model:ir.ui.view,arch_db:beesdoo_shift.planning_instanciate_view_form
-#: model:ir.ui.view,arch_db:beesdoo_shift.subscribe_coop_wizard_view_form
-#: model:ir.ui.view,arch_db:beesdoo_shift.task_template_generation_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.assign_super_coop_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.extension_coop_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.planning_instanciate_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.subscribe_coop_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_generation_view_form
 msgid "or"
 msgstr "ou"
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_self
-msgid "unknown"
-msgstr "inconnu"
+#: code:addons/beesdoo_shift/models/cooperative_status.py:58
+#, python-format
+msgid "shift_status_exempted"
+msgstr "Exempté(e)"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/cooperative_status.py:56
+#, python-format
+msgid "shift_status_extension"
+msgstr "Extension"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/cooperative_status.py:54
+#, python-format
+msgid "shift_status_holidays"
+msgstr "Pause"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/cooperative_status.py:60
+#, python-format
+msgid "shift_status_resigning"
+msgstr "En démission"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/cooperative_status.py:57
+#, python-format
+msgid "shift_status_suspended"
+msgstr "Alerte rouge"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/cooperative_status.py:59
+#, python-format
+msgid "shift_status_unsubscribed"
+msgstr "Gelé(e)"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/cooperative_status.py:53
+#, python-format
+msgid "shift_status_up_to_date"
+msgstr "A jour"
+
+#. module: beesdoo_shift
+#: code:addons/beesdoo_shift/models/cooperative_status.py:55
+#, python-format
+msgid "shift_status_warning"
+msgstr "Alerte"
+

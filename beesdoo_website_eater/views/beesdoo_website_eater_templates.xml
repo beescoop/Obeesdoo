@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
      Copyright 2018 Rémy Taymans <remytaymans@gmail.com>
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
@@ -7,18 +7,19 @@
 
     <!-- Add eater information -->
     <template
-            id="website_eater_details_side"
-            name="Website Eater Details Side"
-            priority="50"
-            inherit_id="portal.portal_layout">
+        id="website_eater_details_side"
+        name="Website Eater Details Side"
+        priority="50"
+        inherit_id="portal.portal_layout"
+    >
         <xpath expr="//div[hasclass('o_portal_my_details')]" position="after">
             <div class="o_my_details_eater mt-2">
                 <h4 class="page-header">Your Eaters</h4>
-                <hr class="mt-1 mb-0"/>
+                <hr class="mt-1 mb-0" />
                 <p>
                     <ul t-if="eaters">
                         <li t-foreach="eaters" t-as="eater">
-                            <t t-esc="eater.name"/>
+                            <t t-esc="eater.name" />
                         </li>
                     </ul>
                     <span t-if="not eaters">

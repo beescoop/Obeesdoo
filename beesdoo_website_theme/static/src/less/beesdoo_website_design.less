@@ -33,7 +33,6 @@
     src: url(/beesdoo_website_theme/static/src/font/CooperHewitt-Bold.woff);
 }
 
-
 /* Defines variables */
 //       orange , lila    , red   , norange  , purple ,pink, black
 @colors:#eb6924, #9d746f, #cd1a1f , #fac8a9, #4e1616, #ef7a72, #110914;
@@ -42,111 +41,89 @@
 @colors-light: #f7d357, #cf6374, #b7c2dd, #ece1c1, #f5b9a5, #bee5e7;
 @nbcolors-light: 6;
 
-
 /* Main */
 body
 {
     font-family: cooper-hewitt, sans;
 }
 
-
 /* Header menu */
-header
-{
+header {
+  .navbar {
+    font-family: cooper-hewitt, sans;
+    // Enlarge the menu
+    padding-top: 20px;
+    padding-bottom: 20px;
 
-    .navbar
-    {
+    .navbar-nav {
+      font-size: 1.5em;
+
+      > .open > a,
+      > .open > a:hover,
+      > .open > a:focus {
+        background-color: transparent;
+      }
+
+      // Last element is the name of the logged user.
+      // This should not be in the same font as other links
+      > li:last-child {
         font-family: cooper-hewitt, sans;
-        // Enlarge the menu
-        padding-top: 20px;
-        padding-bottom: 20px;
+        font-size: 0.8em;
+      }
 
-        .navbar-nav
-        {
-            font-size: 1.5em;
+      // Put different colors on each link of the menu
+      .menu-color-loop(@i) when (@i > 0) {
+        .menu-color-loop((@i - 1));
 
-            // Function to underline non active links
-            #menu()
-            {
-                padding-bottom: 10px;
-                border-bottom-width: 4px;
-                border-bottom-style: solid;
+        > li:nth-child(@{nbcolors}n + @{i}) {
+          a {
+            span:not(.caret) {
+              border-bottom-color: extract(@colors, @i);
             }
-
-           
-
-            // Last element is the name of the logged user.
-            // This should not be in the same font as other links
-            > li:last-child
-            {
-                font-family: cooper-hewitt;
-                font-size: 0.8em;
-            }
-
-            // Put different colors on each link of the menu
-            .menu-color-loop(@i) when (@i > 0)
-            {
-                .menu-color-loop((@i - 1));
-
-                > li:nth-child(@{nbcolors}n+@{i})
-                {
-                    a
-                    {
-                        span:not(.caret)
-                        {
-                            border-bottom-color: extract(@colors, @i);
-                        }
-                    }
-                }
-            }
-
-            .menu-color-loop(@nbcolors);
+          }
         }
-    }
-}
+      }
 
+      .menu-color-loop(@nbcolors);
+    }
+  }
+}
 
 /* Titles */
 // Underline the title with colored bar
-h1
-{
-    color: black;
-    font-family: cooper-hewitt, sans;
-    text-align: center;
-    position: relative;
-    margin-top: 1em;
-    margin-bottom: 1em;
+h1 {
+  color: black;
+  font-family: cooper-hewitt, sans;
+  text-align: center;
+  position: relative;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
-
-h2, h3
-{
-    font-family: cooper-hewitt, sans;
-    font-size: 25px;
+h2,
+h3 {
+  font-family: cooper-hewitt, sans;
+  font-size: 25px;
 }
 
-.alert-info
-{
-    background-color: extract(@colors-light, 3);
-    border-color: extract(@colors-light, 3);
-    color: extract(@colors, 3);
+.alert-info {
+  background-color: extract(@colors-light, 3);
+  border-color: extract(@colors-light, 3);
+  color: extract(@colors, 3);
 }
 
-.alert-warning
-{
-    background-color: extract(@colors-light, 1);
-    border-color: extract(@colors-light, 1);
+.alert-warning {
+  background-color: extract(@colors-light, 1);
+  border-color: extract(@colors-light, 1);
 }
 
-.alert-danger
-{
-    background-color: extract(@colors-light, 2);
-    border-color: extract(@colors-light, 2);
+.alert-danger {
+  background-color: extract(@colors-light, 2);
+  border-color: extract(@colors-light, 2);
 }
 
-.panel-warning
-{
-    background-color: extract(@colors-light, 1);
+.panel-warning {
+  background-color: extract(@colors-light, 1);
 }
 
 .table > thead > tr > td.warning,
@@ -160,7 +137,6 @@ h2, h3
 .table > tfoot > tr.warning > td,
 .table > thead > tr.warning > th,
 .table > tbody > tr.warning > th,
-.table > tfoot > tr.warning > th
-{
-    background-color: extract(@colors-light, 1);
+.table > tfoot > tr.warning > th {
+  background-color: extract(@colors-light, 1);
 }

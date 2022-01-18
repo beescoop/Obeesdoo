@@ -8,9 +8,6 @@ class Website(models.Model):
     _inherit = "website"
 
     # Irregular worker settings
-    irregular_shift_limit = fields.Integer(
-        default=0, help="Maximum shift that will be shown"
-    )
     highlight_rule_pc = fields.Integer(
         string="Percentage threshold highlight rule",
         default=30,

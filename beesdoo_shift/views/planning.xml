@@ -22,24 +22,32 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button type="action"
-                            name="%(action_generate_shift_wizard)d"
-                            string="Generate shifts" colspan="2"/>
+                    <button
+                        type="action"
+                        name="%(action_generate_shift_wizard)d"
+                        string="Generate shifts"
+                        colspan="2"
+                    />
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button class="oe_stat_button" type="action"
-                                name="%(action_shift_template)d" icon="fa-book"
-                                string="Shifts Template">
+                        <button
+                            class="oe_stat_button"
+                            type="action"
+                            name="%(action_shift_template)d"
+                            icon="fa-book"
+                            string="Shift Template"
+                        >
                         </button>
                     </div>
                     <div class="oe_title">
                         <h1>
-                            <field name="name" placeholder="name"/>
+                            <field name="name" placeholder="name" />
                         </h1>
                     </div>
                     <group>
-                        <field name="sequence"/>
+                        <field name="sequence" />
+                        <field name="periodicity" />
                     </group>
                 </sheet>
             </form>
@@ -51,10 +59,13 @@
         <field name="model">beesdoo.shift.planning</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="sequence"/>
-                <field name="name"/>
-                <button type="action" name="%(action_shift_template)d"
-                        string="Shifts Template"/>
+                <field name="sequence" />
+                <field name="name" />
+                <button
+                    type="action"
+                    name="%(action_shift_template)d"
+                    string="Shift Template"
+                />
             </tree>
         </field>
     </record>
@@ -64,9 +75,9 @@
         <field name="model">beesdoo.shift.daynumber</field>
         <field name="arch" type="xml">
             <tree editable="top">
-                <field name="name"/>
-                <field name="number"/>
-                <field name="active"/>
+                <field name="name" />
+                <field name="number" />
+                <field name="active" />
             </tree>
         </field>
     </record>
@@ -76,9 +87,9 @@
         <field name="model">beesdoo.shift.type</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
-                <field name="description"/>
-                <field name="active"/>
+                <field name="name" />
+                <field name="description" />
+                <field name="active" />
             </tree>
         </field>
     </record>

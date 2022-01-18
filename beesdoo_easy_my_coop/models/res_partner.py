@@ -52,14 +52,14 @@ class Partner(models.Model):
                 rec.is_worker = False
 
     def _search_worker(self, operator, value):
-        lines = self.env['share.line'].search(
-            [('share_product_id.allow_working', '=', 'True')]
+        lines = self.env["share.line"].search(
+            [("share_product_id.allow_working", "=", "True")]
         )
-        partner_ids = lines.mapped('partner_id').ids
-        if (operator, value) in [('=', True), ('!=', False)]:
-            return [('id', 'in', partner_ids)]
+        partner_ids = lines.mapped("partner_id").ids
+        if (operator, value) in [("=", True), ("!=", False)]:
+            return [("id", "in", partner_ids)]
         else:
-            return [('id', 'not in', partner_ids)]
+            return [("id", "not in", partner_ids)]
 
     @api.depends(
         "cooperative_status_ids",
@@ -88,6 +88,15 @@ class Partner(models.Model):
                     if rec.is_worker and rec.cooperative_status_ids
                     else False
                 )
+
+    def _check_number_of_eaters(self):
+        """
+        This function has been splitted into two functions:
+            - _check_max_parent_eaters()
+            - _check_max_child_eaters()
+        The purpose of this function is to overwrite the function
+        defined in beesdoo_base/models/partner.py.
+        """
 
     @api.constrains("parent_eater_id")
     def _check_max_parent_eaters(self):

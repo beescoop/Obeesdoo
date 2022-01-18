@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
      Copyright 2017-2018 Rémy Taymans <remytaymans@gmail.com>
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
@@ -7,109 +7,123 @@
     <record id="view_website_shift_config_irregular" model="ir.ui.view">
         <field name="name">Website Shift Settings Irregular Worker</field>
         <field name="model">res.config.settings</field>
-        <field name="inherit_id" ref="website.res_config_settings_view_form"/>
+        <field name="inherit_id" ref="website.res_config_settings_view_form" />
         <field name="arch" type="xml">
             <div id="webmaster_settings" position="after">
                 <h2>Shift: Irregular Worker</h2>
-                <div class="row mt16 o_settings_container"
-                     id="shift_irregular_settings">
-                    <div id="irregular_shift_limit_settings"
-                         class="col-12 col-md-6 o_setting_box">
+                <div
+                    class="row mt16 o_settings_container"
+                    id="shift_irregular_settings"
+                >
+                    <div
+                        id="highlight_rule_pc_settings"
+                        class="col-12 col-md-6 o_setting_box"
+                    >
                         <div class="o_setting_right_pane">
-                            <label for="irregular_shift_limit"/>
-                            <span class="fa fa-lg fa-globe"
-                                  title="Values set here are website-specific."
-                                  groups="website.group_multi_website"/>
+                            <label for="highlight_rule_pc" />
+                            <span
+                                class="fa fa-lg fa-globe"
+                                title="Values set here are website-specific."
+                                groups="website.group_multi_website"
+                            />
                             <div class="mt8">
-                                <field name="irregular_shift_limit"/>
+                                <field name="highlight_rule_pc" />
                             </div>
                         </div>
                     </div>
-                    <div id="highlight_rule_pc_settings"
-                         class="col-12 col-md-6 o_setting_box">
+                    <div id="hide_rule_settings" class="col-12 col-md-6 o_setting_box">
                         <div class="o_setting_right_pane">
-                            <label for="highlight_rule_pc"/>
-                            <span class="fa fa-lg fa-globe"
-                                  title="Values set here are website-specific."
-                                  groups="website.group_multi_website"/>
+                            <label for="hide_rule" />
+                            <span
+                                class="fa fa-lg fa-globe"
+                                title="Values set here are website-specific."
+                                groups="website.group_multi_website"
+                            />
                             <div class="mt8">
-                                <field name="highlight_rule_pc"/>
+                                <field name="hide_rule" />
                             </div>
                         </div>
                     </div>
-                    <div id="hide_rule_settings"
-                         class="col-12 col-md-6 o_setting_box">
-                        <div class="o_setting_right_pane">
-                            <label for="hide_rule"/>
-                            <span class="fa fa-lg fa-globe"
-                                  title="Values set here are website-specific."
-                                  groups="website.group_multi_website"/>
-                            <div class="mt8">
-                                <field name="hide_rule"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="irregular_enable_sign_up_settings"
-                         class="col-12 col-md-6 o_setting_box">
+                    <div
+                        id="irregular_enable_sign_up_settings"
+                        class="col-12 col-md-6 o_setting_box"
+                    >
                         <div class="o_setting_left_pane">
-                            <field name="irregular_enable_sign_up"/>
+                            <field name="irregular_enable_sign_up" />
                         </div>
                         <div class="o_setting_right_pane">
-                            <label for="irregular_enable_sign_up"/>
-                            <span class="fa fa-lg fa-globe"
-                                  title="Values set here are website-specific."
-                                  groups="website.group_multi_website"/>
+                            <label for="irregular_enable_sign_up" />
+                            <span
+                                class="fa fa-lg fa-globe"
+                                title="Values set here are website-specific."
+                                groups="website.group_multi_website"
+                            />
                         </div>
                     </div>
-                    <div id="irregular_past_shift_limit_settings"
-                         class="col-12 col-md-6 o_setting_box">
+                    <div
+                        id="irregular_past_shift_limit_settings"
+                        class="col-12 col-md-6 o_setting_box"
+                    >
                         <div class="o_setting_right_pane">
-                            <label for="irregular_past_shift_limit"/>
-                            <span class="fa fa-lg fa-globe"
-                                  title="Values set here are website-specific."
-                                  groups="website.group_multi_website"/>
+                            <label for="irregular_past_shift_limit" />
+                            <span
+                                class="fa fa-lg fa-globe"
+                                title="Values set here are website-specific."
+                                groups="website.group_multi_website"
+                            />
                             <div class="mt8">
-                                <field name="irregular_past_shift_limit"/>
+                                <field name="irregular_past_shift_limit" />
                             </div>
                         </div>
                     </div>
                 </div>
                 <h2>Shift: Regular Worker</h2>
-                <div class="row mt16 o_settings_container"
-                     id="shift_regular_settings">
-                    <div id="regular_past_shift_limit_settings"
-                         class="col-12 col-md-6 o_setting_box">
+                <div class="row mt16 o_settings_container" id="shift_regular_settings">
+                    <div
+                        id="regular_past_shift_limit_settings"
+                        class="col-12 col-md-6 o_setting_box"
+                    >
                         <div class="o_setting_right_pane">
-                            <label for="regular_past_shift_limit"/>
-                            <span class="fa fa-lg fa-globe"
-                                  title="Values set here are website-specific."
-                                  groups="website.group_multi_website"/>
+                            <label for="regular_past_shift_limit" />
+                            <span
+                                class="fa fa-lg fa-globe"
+                                title="Values set here are website-specific."
+                                groups="website.group_multi_website"
+                            />
                             <div class="mt8">
-                                <field name="regular_past_shift_limit"/>
+                                <field name="regular_past_shift_limit" />
                             </div>
                         </div>
                     </div>
-                    <div id="regular_next_shift_limit_settings"
-                         class="col-12 col-md-6 o_setting_box">
+                    <div
+                        id="regular_next_shift_limit_settings"
+                        class="col-12 col-md-6 o_setting_box"
+                    >
                         <div class="o_setting_right_pane">
-                            <label for="regular_next_shift_limit"/>
-                            <span class="fa fa-lg fa-globe"
-                                  title="Values set here are website-specific."
-                                  groups="website.group_multi_website"/>
+                            <label for="regular_next_shift_limit" />
+                            <span
+                                class="fa fa-lg fa-globe"
+                                title="Values set here are website-specific."
+                                groups="website.group_multi_website"
+                            />
                             <div class="mt8">
-                                <field name="regular_next_shift_limit"/>
+                                <field name="regular_next_shift_limit" />
                             </div>
                         </div>
                     </div>
-                    <div id="regular_highlight_rule_settings"
-                         class="col-12 col-md-6 o_setting_box">
+                    <div
+                        id="regular_highlight_rule_settings"
+                        class="col-12 col-md-6 o_setting_box"
+                    >
                         <div class="o_setting_right_pane">
-                            <label for="regular_highlight_rule"/>
-                            <span class="fa fa-lg fa-globe"
-                                  title="Values set here are website-specific."
-                                  groups="website.group_multi_website"/>
+                            <label for="regular_highlight_rule" />
+                            <span
+                                class="fa fa-lg fa-globe"
+                                title="Values set here are website-specific."
+                                groups="website.group_multi_website"
+                            />
                             <div class="mt8">
-                                <field name="regular_highlight_rule"/>
+                                <field name="regular_highlight_rule" />
                             </div>
                         </div>
                     </div>

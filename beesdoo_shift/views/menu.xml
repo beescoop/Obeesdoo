@@ -1,70 +1,123 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <!-- Root menu -->
-    <menuitem name="Shift Management" id="menu_root"
-              groups="beesdoo_shift.group_shift_attendance"
-              web_icon="beesdoo_shift,static/description/icon.png" />
+    <menuitem
+        name="Shift Management"
+        id="menu_root"
+        groups="beesdoo_shift.group_shift_attendance"
+        web_icon="beesdoo_shift,static/description/icon.png"
+    />
 
 
     <!-- Planning -->
-    <menuitem name="Planning" id="menu_task_top" parent="menu_root"
-              sequence="1" groups="beesdoo_shift.group_shift_attendance"/>
+    <menuitem
+        name="Planning"
+        id="menu_task_top"
+        parent="menu_root"
+        sequence="1"
+        groups="beesdoo_shift.group_shift_attendance"
+    />
 
-    <menuitem name="Shifts" id="menu_task" parent="menu_task_top"
-              action="action_task"
-              groups="beesdoo_shift.group_shift_attendance"/>
+    <menuitem
+        name="Shifts"
+        id="menu_task"
+        parent="menu_task_top"
+        action="action_task"
+        groups="beesdoo_shift.group_shift_attendance"
+    />
 
 
     <!-- Worker -->
-    <menuitem name="Worker" id="menu_worker_top" parent="menu_root"
-              groups="beesdoo_shift.group_shift_attendance" sequence="1"/>
+    <menuitem
+        name="Worker"
+        id="menu_worker_top"
+        parent="menu_root"
+        groups="beesdoo_shift.group_shift_attendance"
+        sequence="1"
+    />
 
-    <menuitem name="Worker" id="menu_worker" parent="menu_worker_top"
-              action="action_worker"/>
+    <menuitem
+        name="Worker"
+        id="menu_worker"
+        parent="menu_worker_top"
+        action="action_worker"
+    />
 
 
     <!-- Templates -->
-    <menuitem name="Templates" id="menu_template_top" parent="menu_root"
-              groups="beesdoo_shift.group_shift_management"
-              sequence="20"/>
+    <menuitem
+        name="Templates"
+        id="menu_template_top"
+        parent="menu_root"
+        groups="beesdoo_shift.group_shift_management"
+        sequence="20"
+    />
 
-    <menuitem name="Planning Week" id="menu_planning" parent="menu_template_top"
-              sequence="20" action="action_planning"/>
+    <menuitem
+        name="Planning Week"
+        id="menu_planning"
+        parent="menu_template_top"
+        sequence="20"
+        action="action_planning"
+    />
 
 
     <!-- Status -->
-    <menuitem name="Status" id="menu_status_top" parent="menu_root"
-              groups="beesdoo_shift.group_shift_management" sequence="20"/>
+    <menuitem
+        name="Status"
+        id="menu_status_top"
+        parent="menu_root"
+        groups="beesdoo_shift.group_shift_management"
+        sequence="20"
+    />
 
-    <menuitem name="Cooperative Status" id="menu_status"
-              parent="menu_status_top"
-              action="action_coop_status"
-              groups="beesdoo_shift.group_cooperative_admin"/>
+    <menuitem
+        name="Cooperative Status"
+        id="menu_status"
+        parent="menu_status_top"
+        action="action_coop_status"
+        groups="beesdoo_shift.group_cooperative_admin"
+    />
 
-    <menuitem name="Exempt Reason" id="menu_exempt_reason"
-              parent="menu_status_top"
-              action="action_exempt_reason"
-              groups="beesdoo_shift.group_cooperative_admin"/>
+    <menuitem
+        name="Exempt Reason"
+        id="menu_exempt_reason"
+        parent="menu_status_top"
+        action="action_exempt_reason"
+        groups="beesdoo_shift.group_cooperative_admin"
+    />
 
-    <menuitem name="Counter Update Journal" id="menu_journal"
-              parent="menu_status_top"
-              action="action_journal"
-              groups="beesdoo_shift.group_cooperative_admin"/>
+    <menuitem
+        name="Counter Update Journal"
+        id="menu_journal"
+        parent="menu_status_top"
+        action="action_journal"
+        groups="beesdoo_shift.group_cooperative_admin"
+    />
 
 
     <!-- Configuration / Settings -->
-    <menuitem name="Configuration"
-              id="menu_configuration_top"
-              parent="beesdoo_shift.menu_root"
-              groups="beesdoo_shift.group_planning_management"
-              sequence="21"
+    <menuitem
+        name="Configuration"
+        id="menu_configuration_top"
+        parent="beesdoo_shift.menu_root"
+        groups="beesdoo_shift.group_planning_management"
+        sequence="21"
     />
 
-    <menuitem name="Shift Day" id="menu_configuration_day"
-              parent="menu_configuration_top" action="action_day_number"/>
+    <menuitem
+        name="Shift Day"
+        id="menu_configuration_day"
+        parent="menu_configuration_top"
+        action="action_day_number"
+    />
 
-    <menuitem name="Shift Type" id="menu_configuration_type"
-              parent="menu_configuration_top" action="action_type"/>
+    <menuitem
+        name="Shift Type"
+        id="menu_configuration_type"
+        parent="menu_configuration_top"
+        action="action_type"
+    />
 
 </odoo>

@@ -1,16 +1,19 @@
 {
     "name": "Bees Purchase",
     "summary": """
-        - Adds a 'Responsible' field to purchase orders
-        - A filter w.r.t. the mail sellers is placed on the products field of a
-        purchase order
-        - Allow inverting the Purchase Order Reference on the invoice lines
+        Enhancements related to Purchase module :
+        field, filter, PO reference, product's purchase and/or selling price
     """,
     "author": "Beescoop - Cellule IT, " "Coop IT Easy SCRLfs",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Purchase",
-    "version": "12.0.1.2.0",
-    "depends": ["base", "purchase", "beesdoo_product"],
+    "version": "12.0.1.4.0",
+    "depends": [
+        "base",
+        "purchase",
+        "beesdoo_product",
+        "beesdoo_stock_coverage",
+    ],
     "data": [
         "security/invoice_security.xml",
         "views/purchase_order.xml",

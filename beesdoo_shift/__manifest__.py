@@ -9,7 +9,7 @@
     "author": "Thibault Francois, Elouan Le Bars, Coop IT Easy SCRLfs",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
-    "version": "12.0.1.0.1",
+    "version": "12.0.1.1.0",
     "depends": ["mail"],
     "data": [
         "data/system_parameter.xml",
@@ -31,6 +31,10 @@
         "wizard/holiday.xml",
         "wizard/temporary_exemption.xml",
     ],
-    "demo": ["demo/templates.xml", "demo/workers.xml"],
+    "demo": [
+        "demo/exempt_reason.xml",
+        "demo/workers.xml",
+        "demo/templates.xml",
+    ],
     "license": "AGPL-3",
 }

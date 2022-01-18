@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record model="beesdoo.product.hazard" id="fds_required">
+            <field name="name">Required</field>
+            <field name="type">fds</field>
+        </record>
+        <record model="beesdoo.product.hazard" id="fds_not_required">
+            <field name="name">Not required</field>
+            <field name="type">fds</field>
+        </record>
+        <record model="beesdoo.product.hazard" id="fds_present">
+            <field name="name">Present</field>
+            <field name="type">fds</field>
+        </record>
+        <record model="beesdoo.product.hazard" id="hazard_none">
+            <field name="name">No</field>
+            <field name="type">hazard</field>
+        </record>
+        <record model="beesdoo.product.hazard" id="hazard_acid">
+            <field name="name">Acid</field>
+            <field name="type">hazard</field>
+        </record>
+        <record model="beesdoo.product.hazard" id="hazard_base">
+            <field name="name">Base</field>
+            <field name="type">hazard</field>
+        </record>
+        <record model="beesdoo.product.hazard" id="hazard_other">
+            <field name="name">Other danger</field>
+            <field name="type">hazard</field>
+        </record>
+    </data>
+</odoo>

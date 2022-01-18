@@ -1,4 +1,5 @@
-version: '3'
+# this is only a draft, it never worked.
+version: "3"
 services:
   odoo:
     build: .

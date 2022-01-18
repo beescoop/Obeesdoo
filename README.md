@@ -1,5 +1,45 @@
+![Licence](https://img.shields.io/badge/licence-AGPL--3-blue.svg)
+[![Build Status](https://travis-ci.com/beescoop/Obeesdoo.svg?branch=12.0)](https://travis-ci.com/beescoop/Obeesdoo?branch=12.0)
+
 # Obeesdoo
 Specific module for the Beescoop
+The (french) documentation can be found here. 
+Contact Coop IT Easy or Coopdevs to contibute to the documentation.
+
+<!-- prettier-ignore-start -->
+[//]: # (addons)
+
+Available addons
+----------------
+addon | version | summary
+--- | --- | ---
+[beesdoo_account](beesdoo_account/) | 12.0.1.1.0 | - Makes date_invoice field required in account.invoice_form and account.invoice_supplier_form - Allow validating an invoice with a negative total amount
+[beesdoo_base](beesdoo_base/) | 12.0.1.0.1 | Module that customize the base module and contains some python tools
+[beesdoo_crelan_csv](beesdoo_crelan_csv/) | 12.0.1.0.0 | Import Crelan CSV Wizard
+[beesdoo_easy_my_coop](beesdoo_easy_my_coop/) | 12.0.1.0.2 | Link between beesdoo customization and easy_my_coop
+[beesdoo_inventory](beesdoo_inventory/) | 12.0.1.0.0 | Adds a responsible, a max shipping date and a button to copy quantity to stock pickings.
+[beesdoo_pos](beesdoo_pos/) | 12.0.1.1.0 | This module adds the eaters of the customer to the POS ActionpadWidget and PaymentScreenWidget.
+[beesdoo_pos_coop_status](beesdoo_pos_coop_status/) | 12.0.1.0.0 | POS Support for cooperator status.
+[beesdoo_pos_reporting](beesdoo_pos_reporting/) | 12.0.1.0.0 | Enhance POS with features allowing statistics and reporting.
+[beesdoo_product](beesdoo_product/) | 12.0.1.1.1 | Modification of product module for the needs of beescoop
+[beesdoo_product_info_screen](beesdoo_product_info_screen/) | 12.0.0.0.1 | Adds a read-only screen to display product information
+[beesdoo_product_usability](beesdoo_product_usability/) | 12.0.1.0.0 | Adapt the product views.
+[beesdoo_purchase](beesdoo_purchase/) | 12.0.1.4.0 | Enhancements related to Purchase module : field, filter, PO reference, product's purchase and/or selling price
+[beesdoo_shift](beesdoo_shift/) | 12.0.1.0.2 | Generate and manage shifts for cooperators.
+[beesdoo_shift_attendance](beesdoo_shift_attendance/) | 12.0.1.0.2 | Volonteer Timetable Management Attendance Sheet for BEES coop
+[beesdoo_stock](beesdoo_stock/) | 12.0.1.0.0 | Enable action on multiple products of a stock receipt
+[beesdoo_stock_coverage](beesdoo_stock_coverage/) | 12.0.0.0.1 | Compute estimated stock coverage based on product sales over a date range.
+[beesdoo_website_eater](beesdoo_website_eater/) | 12.0.1.0.0 | Show the eaters of a cooperator in the website portal.
+[beesdoo_website_posorder_amount](beesdoo_website_posorder_amount/) | 12.0.1.0.0 | Show the total amount of pos order in the website portal.
+[beesdoo_website_shift](beesdoo_website_shift/) | 12.0.1.0.1 | Show available shifts for regular and irregular workers on the website and let workers manage their shifts with an easy web interface.
+[beesdoo_website_theme](beesdoo_website_theme/) | 12.0.0.0.1 | Apply BEES coop design rules.
+[beesdoo_worker_status](beesdoo_worker_status/) | 12.0.1.0.0 | Worker status management specific to beescoop.
+[macavrac_base](macavrac_base/) | 12.0.1.0.0 | Module with basic customizations for the Macavrac cooperative.
+[purchase_order_generator](purchase_order_generator/) | 12.0.2.1.0 | Generate purchase order from a product selection
+[website_portal_restrict_modification](website_portal_restrict_modification/) | 12.0.1.0.0 | Portal extension preventing modification of sensible data by the users
+
+[//]: # (end addons)
+<!-- prettier-ignore-end -->
 
 
 ## Migration to 12.0
@@ -30,7 +70,6 @@ $ git clone https://github.com/beescoop/Obeesdoo.git obeesdoo -b 12.0 --depth 1
 $ git clone https://github.com/coopiteasy/vertical-cooperative.git vertical-cooperative -b 12.0 --depth 1
 $ git clone https://github.com/coopiteasy/addons.git addons -b 12.0 --depth 1
 $ git clone https://github.com/OCA/partner-contact.git partner-contact -b 12.0 --depth 1
-# $ git clone https://github.com/coopiteasy/procurement-addons procurement-addons -b 12.0 --depth 1
 $ git clone https://github.com/OCA/l10n-belgium -b 12.0 --depth 1
 $ git clone https://github.com/OCA/mis-builder -b 12.0 --depth 1
 $ git clone https://github.com/OCA/account-financial-tools -b 12.0 --depth 1
@@ -89,7 +128,6 @@ addons_path=addons,openerp/addons,
     $ODOO_HOME/vertical-cooperative,
     $ODOO_HOME/addons,
     $ODOO_HOME/partner-contact,
-#    $ODOO_HOME/procurement-addons,
     $ODOO_HOME/l10n-belgium,
     $ODOO_HOME/mis-builder,
     $ODOO_HOME/web,
