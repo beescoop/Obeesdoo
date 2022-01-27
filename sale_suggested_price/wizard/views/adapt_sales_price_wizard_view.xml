@@ -26,6 +26,6 @@
         view_id="adapt_sales_price_wizard"
         target="new"
         key2="client_action_multi"
-        id="beesdoo_product_pricelist_action_adapt_sales_price"
+        id="pricelist_action_adapt_sales_price"
     />
 </odoo>

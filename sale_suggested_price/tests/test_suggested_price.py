@@ -15,7 +15,7 @@ class TestSuggestedPrice(TransactionCase):
             self.env["ir.config_parameter"]
             .sudo()
             .set_param(
-                "beesdoo_product.suggested_price_reference", "sale_price"
+                "sale_suggested_price.suggested_price_reference", "sale_price"
             )
         )
         self.account_type_ass = self.env.ref(
@@ -95,5 +95,6 @@ class TestSuggestedPrice(TransactionCase):
             }
         )
         self.assertEqual(
-            float_compare(product.suggested_price, 5.3, precision_digits=3), 0,
+            float_compare(product.suggested_price, 5.3, precision_digits=3),
+            0,
         )

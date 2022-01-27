@@ -29,7 +29,7 @@ class ResConfigSettings(models.TransientModel):
         res = super(ResConfigSettings, self).get_values()
         select_type = self.env["ir.config_parameter"].sudo()
         suggested_price_reference = select_type.get_param(
-            "beesdoo_product.suggested_price_reference"
+            "sale_suggested_price.suggested_price_reference"
         )
         res.update({"suggested_price_reference": suggested_price_reference})
         return res
@@ -39,6 +39,6 @@ class ResConfigSettings(models.TransientModel):
         super(ResConfigSettings, self).set_values()
         select_type = self.env["ir.config_parameter"].sudo()
         select_type.set_param(
-            "beesdoo_product.suggested_price_reference",
+            "sale_suggested_price.suggested_price_reference",
             self.suggested_price_reference,
         )
