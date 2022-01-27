@@ -30,8 +30,6 @@
         "data/product_sequence.xml",
         "views/beesdoo_product.xml",
         "views/point_of_sale_view.xml",
-        "views/purchase_views.xml",
-        "views/sale_views.xml",
         "views/assets.xml",
         "wizard/views/label_printing_utils.xml",
         "security/ir.model.access.csv",
