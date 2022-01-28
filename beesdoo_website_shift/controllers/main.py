@@ -429,8 +429,8 @@ class WebsiteShiftController(http.Controller):
                 .sudo()
                 .get_param("beesdoo_website_shift.shift_period")
             )
-
-            for i in range(nb_subscribed_shifts, regular_next_shift_limit):
+            
+            for i in range(1, regular_next_shift_limit - nb_subscribed_shifts + 1):
                 # Create the fictive shift
                 shift = main_shift.new()
                 shift.name = main_shift.name
