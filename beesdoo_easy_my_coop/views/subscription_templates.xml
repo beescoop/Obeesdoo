@@ -32,9 +32,9 @@
                             t-att-required="info_session_required"
                             t-att-checked="info_session_confirmed"
                         />
-                        <div class="form-check-label">
+                        <label>
                             <t t-raw="info_session_text" />
-                        </div>
+                        </label>
                     </div>
                 </div>
             </div>
