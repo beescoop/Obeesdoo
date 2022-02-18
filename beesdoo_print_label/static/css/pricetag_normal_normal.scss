@@ -1,0 +1,32 @@
+.normal_pricetag_normal {
+    width: 7.4cm;
+    height: 4.7cm;
+
+    .pricetag_left {
+        width: 2cm;
+        padding-left: 0.3cm;
+    }
+    .pricetag_right {
+        width: 4.9cm;
+        text-align: right;
+        padding-right: 0.3cm;
+    }
+    .product_informations {
+        font-size: 8px;
+    }
+    .product_price {
+        height: 1.1cm;
+        line-height: 1cm;
+    }
+    .product_labels {
+        height: 1.0cm;
+    }
+    img.product_label {
+        width: 0.5cm;
+        height: 0.5cm;
+        margin: 0.1cm 0.1cm 0.1cm -0.05cm;
+    }
+    span.product_label {
+        margin: 0.1cm 0.1cm 0.1cm -0.05cm;
+    }
+}

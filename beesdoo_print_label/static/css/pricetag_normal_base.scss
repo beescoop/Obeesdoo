@@ -1,0 +1,53 @@
+.normal_pricetag {
+    border: 1px solid grey;
+    background-color: white;
+    margin: 0 -0.14cm -0.03cm 0;
+    padding: 5px;
+
+    .pricetag_right {
+        overflow: hidden;
+    }
+    .product_informations {
+        text-align: left;
+        overflow: hidden;
+    }
+    .product_name {
+        font-size: 15px;
+        font-weight: bold;
+        height: 1.3cm;
+        padding-bottom: 5px;
+        padding-top: 5px;
+        overflow: hidden;
+    }
+    .deposit {
+        font-size: 7px;
+
+        img {
+            width: 0.5cm;
+            margin-right: 0.1cm;
+        }
+    }
+    .product_price {
+        font-size: 26px;
+        font-weight: bold;
+        height: 1cm;
+        line-height: 1cm;
+        overflow: hidden;
+    }
+    .product_price_per_uom_qty,
+    .product_price_per_uom_price {
+        position: relative;
+        bottom: 1em;
+        font-size: 7px;
+        overflow: hidden;
+        word-wrap: normal;
+        vertical-align: top;
+        text-align: center;
+        padding-left: 0.3cm;
+    }
+    .product_labels {
+        padding: 2px 0 0 2px;
+        overflow: hidden;
+        font-size: 9px;
+    }
+}
