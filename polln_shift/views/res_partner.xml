@@ -89,6 +89,10 @@
                 <field name="eater" attrs="{'invisible': [('customer', '=', False)]}" />
                 <field name="parent_eater_id" attrs="{'invisible' : [('eater', '!=', 'eater')]}" readonly="0"/>
             </field>
+            <field name="subscribed_shift_ids" position="after">
+                <separator string="Shifts" />
+                <field name="shift_task_ids" />
+            </field>
             <button name="temporary_exempt" position="after">
                 <button string="Create Subscription"
                                 name="%(easy_my_coop.action_view_create_subscription)d"

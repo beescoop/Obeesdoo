@@ -8,6 +8,7 @@ class Partner(models.Model):
         selection="_get_share_type",
         compute="_compute_cooperator_type",
     )
+    shift_task_ids = fields.One2many( 'beesdoo.shift.shift', 'worker_id', string="Shifts")
 
     @api.depends(
         "share_ids",

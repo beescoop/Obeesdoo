@@ -120,6 +120,11 @@ class Task(models.Model):
                 delta = delta.seconds / 3600.0 + delta.days * 24
                 rec.can_unsubscribe = delta >= max_hours
 
+    def _get_final_state(self):
+        """ Disable constrains on shift that cannot be changed 
+        """
+        return []
+
 
     # def write(self, vals):
     #     if 'worker_id' in vals:

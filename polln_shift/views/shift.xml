@@ -134,8 +134,8 @@
 
     <template id="my_shift" name="Shifts for Irregular Workers"
         inherit_id="beesdoo_website_shift.my_shift_next_shifts">
-
-        <xpath expr="//t[@t-esc='shift.task_type_id.name']" position="after">
+        <xpath expr="//t[@t-esc='shift.task_type_id.name']" position="replace">
+            <t t-esc="shift.task_template_id.name or shift.task_type_id.name" />
             <button type="button"
                 class="btn btn-danger btn-sm pull-right"
                 data-toggle="modal"
