@@ -56,9 +56,9 @@
                     <t t-foreach="next_shift" t-as="shift">
                     <div>
                         <strong>
-                            <span t-field="shift.start_time" t-options='{"format": "EEEE dd/MM/yyyy HH:mm"}' />
+                            <span t-field="shift.start_time" t-options='{"format": "EEEE dd/MM/yyyy HH:mm"}' style="font-size: 1.5rem;" />
                             -
-                            <span t-field="shift.end_time" t-options='{"format": "HH:mm"}' />
+                            <span t-field="shift.end_time" t-options='{"format": "HH:mm"}' style="font-size: 1.5rem;" />
                         </strong>
                         : <span t-field="shift.name" style="font-size: 1.5rem;"/>
                     </div>
