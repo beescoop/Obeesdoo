@@ -273,8 +273,9 @@ class BeesdooProduct(models.Model):
         )
         for product in self:
             suppliers = product._get_main_supplier_info()
-            if len(suppliers) > 0:
-                price = suppliers[0].price
+            if suppliers:
+                category = suppliers.product_tmpl_id.categ_id
+                price = suppliers.price
                 supplier_taxes = product.supplier_taxes_id.filtered(
                     lambda t: t.amount_type == "percent" and t.price_include
                 )
@@ -285,10 +286,8 @@ class BeesdooProduct(models.Model):
                     lambda t: t.amount_type == "percent" and t.price_include
                 )
                 sale_taxes_factor = 1 + sum(sale_taxes.mapped("amount")) / 100
-                profit_margin_supplier = suppliers[0].name.profit_margin
-                profit_margin_product_category = suppliers[
-                    0
-                ].product_tmpl_id.categ_id.profit_margin
+                profit_margin_supplier = suppliers.name.profit_margin
+                profit_margin_product_category = category.profit_margin
                 profit_margin = profit_margin_supplier or profit_margin_product_category
                 profit_margin_factor = (
                     1 / (1 - profit_margin / 100)
@@ -303,8 +302,8 @@ class BeesdooProduct(models.Model):
                     * profit_margin_factor
                 )
 
-                if suppliers[0].product_tmpl_id.categ_id.should_round_suggested_price:
-                    product.suggested_price = round_5c(product.suggested_price)
+                if category.should_round_suggested_price:
+                    product.suggested_price = category._round(product.suggested_price)
 
     @api.multi
     @api.depends("seller_ids")
@@ -380,8 +379,14 @@ class BeesdooProductCategory(models.Model):
 
     profit_margin = fields.Float(default="10.0", string="Product Margin [%]")
     should_round_suggested_price = fields.Boolean(
-        default=False, string="Round suggested price to 5 cents?"
+        string="Round suggested price to 5 cents?"
     )
+    rounding_method = fields.Selection([
+        ("HALF-UP", "Half"),
+        ("UP", "up"),
+        ("DOWN", "down"),
+    ])
+    rounding_precision = fields.Float()
 
     @api.multi
     @api.constrains("profit_margin")
@@ -389,6 +394,15 @@ class BeesdooProductCategory(models.Model):
         for product in self:
             if product.profit_margin < 0.0:
                 raise UserError(_("Percentages for Profit Margin must >= 0."))
+
+    def _round(self, price):
+        self.ensure_one()
+        return float_round(
+            price,
+            precision_rounding=self.rounding_precision or 0.05,
+            rounding_method=self.rounding_method or "HALF_UP",
+        )
+
 
 
 class BeesdooProductSupplierInfo(models.Model):
@@ -413,7 +427,3 @@ class BeesdooUOMCateg(models.Model):
         string="Category type",
         default="unit",
     )
-
-
-def round_5c(price):
-    return float_round(price, precision_rounding=0.05, rounding_method="HALF")

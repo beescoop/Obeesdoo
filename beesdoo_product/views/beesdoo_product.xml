@@ -198,8 +198,13 @@
         <field name="inherit_id" ref="product.product_category_form_view" />
         <field name="arch" type="xml">
             <field name="parent_id" position="after">
+                <separator string="Suggested Price Configuration" />
                 <field name="profit_margin" />
                 <field name="should_round_suggested_price" />
+                <field name="rounding_method"
+                    attrs="{'invisible': [('should_round_suggested_price', '=', False)]}"/>
+                <field name="rounding_precision"
+                    attrs="{'invisible': [('should_round_suggested_price', '=', False)]}"/>
             </field>
         </field>
     </record>
