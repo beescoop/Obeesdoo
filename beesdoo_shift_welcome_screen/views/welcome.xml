@@ -48,7 +48,7 @@
                     <t t-if="partner.child_eater_ids"><h4>Eaters</h4></t>
                     <t t-foreach="partner.child_eater_ids" t-as="eater">
                     <div>
-                        <span t-field="eater.name" style="font-size: 1.2rem;"/>
+                        <span t-field="eater.name" style="font-size: 2rem;"/>
                     </div>
                     </t>
                     <br />
@@ -60,7 +60,7 @@
                             -
                             <span t-field="shift.end_time" t-options='{"format": "HH:mm"}' />
                         </strong>
-                        : <span t-field="shift.name" style="font-size: 1.2rem;"/>
+                        : <span t-field="shift.name" style="font-size: 1.5rem;"/>
                     </div>
                     </t>
                 </div>
