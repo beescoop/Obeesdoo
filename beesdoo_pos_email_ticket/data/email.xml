@@ -21,58 +21,76 @@
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
                     <t t-set="unit" t-value="o.env.ref('uom.product_uom_unit')" />
+                    <t t-set="taxes" t-value="[t for t in o._get_taxes_amount() if 'Consigne' not in t['name']]" />
+                    <t t-set="consignes" t-value="[t for t in o._get_taxes_amount() if 'Consigne' in t['name']]" />
                     <div class="page">
                         <div class="row">
                             <div class="col-xs-12 text-center">
                                 <h2 t-esc="o.user_id.company_id.name"/>
-                                Customer: <span t-field="o.partner_id" /><br /><br />
+                                Customer: <span t-field="o.partner_id"/><br/><br/>
                                 Cashier: <span t-field="o.user_id"/><br/>
                                 Date: <span t-field="o.date_order"/><br/>
                             </div>
                         </div>
 
                         <div class="row">
-                            <br />
+                            <br/>
                         </div>
 
                         <table class="table table-condensed">
                             <thead>
                                 <tr>
                                     <th class="text-left">Product</th>
-                                    <th class="text-right">Quantity</th>
-                                    <th class="test-right">Price Unit</th>
                                     <th class="text-right">Total</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr t-foreach="o.lines" t-as="line">
-                                    <td class="text-left"><span t-field="line.product_id"/></td>
-                                    <td class="text-right">
-                                        <t t-if="o.state != 'cancel' and o.statement_ids">
-                                            <span t-field="line.qty"/>
-                                        </t>
-                                    </td>
-                                    <td class="text-right">
-                                        <t t-if="o.state != 'cancel' and o.statement_ids">
-                                            <span t-field="line.price_unit"/> 
+                                    <td class="text-left">
+                                      <span t-field="line.product_id"/>
+                                      <t t-if="line.discount != 0.0 or line.qty != 1 or line.product_id.uom_id != unit">
+                                        <br />
+                                      </t>
+                                      <t t-if="o.state != 'cancel' and (o.statement_ids and line.qty != 1 or line.product_id.uom_id != unit or line.discount != 0.0)">
+                                             <span style="margin-left:10px"> <span t-field="line.qty"/> *
+                                             <span t-field="line.price_unit"/>
                                               <t t-if="line.product_id.uom_id != unit">
                                                 / <span t-field="line.product_id.uom_id.name"/>
                                               </t>
-                                        </t>
+                                             </span>
+                                      </t>
+                                      <t t-if="line.discount != 0.0">
+                                             <span style="margin-left:10px">-<span t-esc="line.discount"/>%</span>
+                                      </t>
                                     </td>
                                     <td class="text-right">
                                         <t t-if="o.state != 'cancel' and o.statement_ids">
-                                            <span t-esc="line.qty*line.price_unit" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
-                                        </t>
-                                        <t t-if="line.discount != 0.0">
-                                            <span t-esc="line.discount"/>%
+                                            <span t-esc="line.qty*line.price_unit * (1 - (line.discount / 100))" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
                                         </t>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+                        <div class="row" t-if="consignes">
+                            <div class="col-xs-12 pull-right">
+                                <h4>Consignes</h4>
+                                <table class="table table-condensed">
+                                    <tr t-foreach="consignes" t-as="t">
+                                        <td style="width:60%">
+                                            <t t-esc="t['name']"/>
+                                        </td>
+                                        <td class="text-right" style="width:30%">
+                                            <strong t-esc="t['amount']" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                         <div class="row">
-                          <br />
+                          <br/>
+                        </div>
+                        <div class="row">
+                          <br/>
                         </div>
                         <div class="row">
                             <div class="col-xs-12 pull-right">
@@ -87,29 +105,23 @@
                             </div>
                         </div>
                         <div class="row">
-                          <br />
+                          <br/>
                         </div>
                         <div class="row">
                             <div class="col-xs-12 pull-right">
                                 <h4>Taxes</h4>
                                 <table class="table table-condensed">
-                                    <tr t-foreach="o._get_taxes_amount()" t-as="t">
-                                        <td style="width:60%"><t t-esc="t['name']"></t></td>
+                                    <tr t-foreach="taxes" t-as="t">
+                                        <td style="width:60%"><t t-esc="t['name']"/></td>
                                         <td class="text-right" style="width:30%">
                                             <strong t-esc="t['amount']" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
                                         </td>
                                     </tr>
-                                    <!-- <tr>
-                                        <td style="width:60%"><strong>Total Taxes</strong></td>
-                                        <td style="width:30%" class="text-right">
-                                            <strong t-esc="o.amount_tax" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
-                                        </td>
-                                    </tr> -->
                                 </table>
                             </div>
                         </div>
                         <div class="row">
-                          <br />
+                          <br/>
                         </div>
                         <table class="table table-condensed">
                             <thead>
