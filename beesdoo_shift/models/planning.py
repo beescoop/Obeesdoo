@@ -144,7 +144,7 @@ class TaskTemplate(models.Model):
         domain=[("is_worker", "=", True)],
     )
     remaining_worker = fields.Integer(
-        compute="_compute_remaining", store=True, string="Remaining Spot"
+        compute="_compute_remaining", store=True, string="Remaining Place"
     )
     active = fields.Boolean(default=True)
     # For Kanban View Only

@@ -367,22 +367,9 @@ class WebsiteShiftController(http.Controller):
         """
         # Get current user
         cur_user = request.env["res.users"].browse(request.uid)
-        # Get shifts where user is subscribed
-        now = datetime.now()
-        subscribed_shifts_rec = (
-            request.env["beesdoo.shift.shift"]
-            .sudo()
-            .search(
-                [
-                    ("start_time", ">", now.strftime("%Y-%m-%d %H:%M:%S")),
-                    ("worker_id", "=", cur_user.partner_id.id),
-                ],
-                order="start_time, task_template_id, task_type_id",
-            )
-        )
-        # Create a list of record in order to add new record to it later
+        my_shifts = cur_user.sudo().partner_id.my_next_shift()
         subscribed_shifts = []
-        for rec in subscribed_shifts_rec:
+        for rec in my_shifts:
             subscribed_shifts.append(rec)
 
         # In case of regular worker, we compute his fictive next shifts
@@ -439,7 +426,6 @@ class WebsiteShiftController(http.Controller):
                 )
                 # Add the fictive shift to the list of shift
                 subscribed_shifts.append(shift)
-
         return {
             "is_regular": self.is_user_regular(),
             "subscribed_shifts": subscribed_shifts,
