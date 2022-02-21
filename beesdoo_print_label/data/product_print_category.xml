@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="print_category_pricetag_normal" model="product.print.category">
+        <field name="name">Normal pricetag - 60x38mm</field>
+        <field name="qweb_view_id" ref="qweb_template_pricetag_normal"/>
+        <field name="field_ids" eval="[
+            (4, ref('product.field_product_template__name')),
+            (4, ref('beesdoo_product.field_product_template__main_seller_id')),
+            (4, ref('beesdoo_product.field_product_template__eco_label')),
+            (4, ref('beesdoo_product.field_product_template__local_label')),
+            (4, ref('beesdoo_product.field_product_template__fair_label')),
+            (4, ref('beesdoo_product.field_product_template__origin_label')),
+            (4, ref('beesdoo_product.field_product_template__total_deposit')),
+            (4, ref('beesdoo_product.field_product_template__total_with_vat')),
+            (4, ref('beesdoo_product.field_product_template__display_weight')),
+            (4, ref('product.field_product_template__volume')),
+            (4, ref('beesdoo_product.field_product_template__display_unit')),
+            (4, ref('beesdoo_product.field_product_template__default_reference_unit')),
+            (4, ref('beesdoo_product.field_product_template__total_with_vat_by_unit')),]"/>
+    </record>
+
+</odoo>
