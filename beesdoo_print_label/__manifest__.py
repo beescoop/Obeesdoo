@@ -14,7 +14,8 @@
         "product_print_category",
     ],
     "data": [
-        "views/report_pricetag_normal.xml"
+        "views/report_pricetag_normal.xml",
+        "data/product_print_category.xml",
     ],
     "installable": True,
 }
