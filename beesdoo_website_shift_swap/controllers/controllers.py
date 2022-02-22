@@ -11,8 +11,8 @@ from odoo import http
 from odoo.fields import Datetime
 from odoo.http import request
 
-#from Obeesdoo.beesdoo_shift.models.planning import float_to_time
-from Obeesdoo.beesdoo_website_shift.controllers.main import WebsiteShiftController
+#from odoo.addons.beesdoo_shift.models.planning import float_to_time
+from odoo.addons.beesdoo_website_shift.controllers.main import WebsiteShiftController
 
 class WebsiteShiftSwapController(WebsiteShiftController):
 
