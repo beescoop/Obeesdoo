@@ -5,7 +5,7 @@
     <record id="view_partner_form_easy_my_coop" model="ir.ui.view">
         <field name="name">res.partner.form.easy_my_coop</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="easy_my_coop.view_partner_form_easy_my_coop" />
+        <field name="inherit_id" ref="cooperator.view_partner_form_easy_my_coop" />
         <field name="arch" type="xml">
             <field name="internal_rules_approved" position="before">
                 <field
