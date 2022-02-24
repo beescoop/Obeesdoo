@@ -17,7 +17,6 @@
     "category": "Sales",
     "version": "12.0.1.2.0",
     "depends": [
-        "beesdoo_base",
         "product",
         "sale",
         "point_of_sale",
