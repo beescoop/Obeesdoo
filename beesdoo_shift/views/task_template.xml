@@ -9,9 +9,9 @@
                 <field name="day_nb_id" />
                 <field name="name" />
                 <field name="super_coop_id" />
-                <field name="start_time" />
-                <field name="end_time" />
-                <field name="duration" />
+                <field name="start_time" widget="float_time" />
+                <field name="end_time" widget="float_time" />
+                <field name="duration" widget="float_time" />
                 <field name="worker_nb" />
                 <field name="remaining_worker" />
             </tree>
