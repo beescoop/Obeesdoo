@@ -1,0 +1,50 @@
+# Copyright 2021 Odoo Community Association
+# Copyright 2022 Coop IT Easy SCRLfs
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+name: tests
+
+on:
+  pull_request:
+    branches:
+      - "12.0*"
+  push:
+    branches:
+      - "12.0"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: ${{ matrix.container }}
+    name: ${{ matrix.name }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - container: ghcr.io/oca/oca-ci/py3.6-ocb12.0:latest
+            name: test with OCB
+    services:
+      postgres:
+        image: postgres:9.6
+        env:
+          POSTGRES_USER: odoo
+          POSTGRES_PASSWORD: odoo
+          POSTGRES_DB: odoo
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - name: Install addons and dependencies
+        run: oca_install_addons
+      - name: Check licenses
+        run: manifestoo -d . check-licenses
+      - name: Check development status
+        run: manifestoo -d . check-dev-status --default-dev-status=Beta
+      - name: Initialize test db
+        run: oca_init_test_database
+      - name: Run tests
+        run: oca_run_tests
+      - uses: codecov/codecov-action@v1
