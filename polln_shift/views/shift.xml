@@ -1,0 +1,141 @@
+<odoo>
+    <record model="ir.ui.view" id="task_template_view_form_inherit">
+        <field name="name">Task Template Form Inherit</field>
+        <field name="model">beesdoo.shift.template</field>
+        <field name="inherit_id" ref="beesdoo_shift.task_template_view_form" />
+        <field name="arch" type="xml">
+            <field name="worker_ids" position="attributes">
+                <attribute name="domain">[("is_worker", "=", True)]</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="task_view_form_inherit">
+        <field name="name">Task Form inherit</field>
+        <field name="inherit_id" ref="beesdoo_shift.task_view_form" />
+        <field name="model">beesdoo.shift.shift</field>
+        <field name="arch" type="xml">
+            <field name="replaced_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="is_regular" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="is_compensation" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="worker_id" position="attributes">
+                <attribute
+                    name="domain"
+                >[('cooperative_status_ids.status', 'not in', ('unsubscribed', 'resigning')), ('cooperative_status_ids.working_mode', '=', 'irregular')]</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="coop_status_form_view_inherit">
+        <field name="name">Coop Status Form View Inherit</field>
+        <field name="inherit_id" ref="beesdoo_shift.coop_status_form_view" />
+        <field name="model">cooperative.status</field>
+        <field name="arch" type="xml">
+            <field name="irregular_start_date" position="attributes">
+                <attribute name="attrs" />
+                <attribute name="string">Start date</attribute>
+            </field>
+            <field name="sc" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="irregular_absence_counter" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="irregular_absence_date" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="coop_status_tree_view_inherit">
+        <field name="name">Coop Status Tree View Inherit</field>
+        <field name="inherit_id" ref="beesdoo_shift.coop_status_tree_view" />
+        <field name="model">cooperative.status</field>
+        <field name="arch" type="xml">
+            <field name="sr" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="sr" position="after">
+                <field name="sr_store" />
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="task_shift_view_kanban_inherited">
+        <field name="name">Shift Kanban</field>
+        <field name="model">beesdoo.shift.shift</field>
+        <field name="inherit_id" ref="beesdoo_shift.task_shift_view_kanban" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//templates//field[@name='worker_id']/.."
+                position="replace"
+                priority="100"
+            />
+            <xpath expr="//templates//field[@name='name']/.." position="before">
+                <h2><field name="worker_id" /></h2>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Wizard view modification -->
+    <record model="ir.ui.view" id="subscribe_coop_wizard_view_form_inherit">
+        <field name="name">Subscribe Cooperator</field>
+        <field name="model">beesdoo.shift.subscribe</field>
+        <field name="inherit_id" ref="beesdoo_shift.subscribe_coop_wizard_view_form" />
+        <field name="arch" type="xml">
+            <field name="cooperator_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="reset_compensation_counter" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+
+    <template
+        id="my_shift_common"
+        name="Worker Status common"
+        inherit_id="beesdoo_website_shift.my_shift_worker_status_common"
+    >
+        <xpath expr="//p[@id='working_mode']" position="replace" />
+    </template>
+
+
+    <template
+        id="my_shift_status"
+        name="Worker Status"
+        inherit_id="beesdoo_website_shift.my_shift_irregular_worker"
+    >
+       <xpath expr="//p[@t-if='status.next_countdown_date']" position="replace" />
+
+    </template>
+
+    <template
+        id="help_text_irregular_worker_polln"
+        name="Worker help text"
+        inherit_id="beesdoo_website_shift.help_text_irregular_worker"
+    >
+        <xpath expr="//p[hasclass('h_irreg_autoextension')]" position="replace" />
+    </template>
+
+    <record model="ir.ui.view" id="subscribe_coop_wizard_view_form">
+        <field name="name">Subscribe Cooperator</field>
+        <field name="model">beesdoo.shift.subscribe</field>
+        <field name="inherit_id" ref="beesdoo_shift.subscribe_coop_wizard_view_form" />
+        <field name="arch" type="xml">
+            <field name="shift_id" position="replace">
+                <field
+                    name="shift_id"
+                    domain="['|', ('remaining_worker', '&gt;', 1), ('worker_nb', '&lt;', 2)]"
+                    attrs="{'invisible': [('working_mode', '=', 'exempt')]}"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
