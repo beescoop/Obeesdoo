@@ -61,7 +61,7 @@ class Task(models.Model):
     )
     end_time = fields.Datetime(track_visibility="always", required=True)
     state = fields.Selection(
-        selection=_get_selection_status,
+        selection=lambda x: x._get_selection_status(),
         default="open",
         required=True,
         track_visibility="onchange",
