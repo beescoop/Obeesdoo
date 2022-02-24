@@ -31,6 +31,7 @@
                         name="irregular_start_date"
                         attrs="{'invisible': [('working_mode', '!=', 'irregular')]}"
                     />
+                    <field name="create_user" />
                     <field name="super" />
                     <field name="reset_counter" />
                     <field
