@@ -23,7 +23,7 @@ class Partner(models.Model):
         Return the share.type that correspond to the cooperator_type.
         """
         self.ensure_one()
-        share_type = None
+        share_type = self.env["product.template"]
         if self.cooperator_type:
             share_type = (
                 self.env["product.template"].search(
