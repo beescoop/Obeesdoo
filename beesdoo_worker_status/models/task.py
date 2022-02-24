@@ -1,9 +1,49 @@
-from odoo import fields, models
+from odoo import api, fields, models
+from odoo.exceptions import UserError, ValidationError
 from odoo.tools.translate import _
 
 
 class Task(models.Model):
     _inherit = "beesdoo.shift.shift"
+
+    def _compensation_validation(self, task):
+        """
+        Raise a validation error if the fields is_regular and
+        is_compensation are not properly set.
+        """
+        if task.is_regular == task.is_compensation or not (
+            task.is_regular or task.is_compensation
+        ):
+            raise ValidationError(
+                _(
+                    "You must choose between Regular Shift or "
+                    "Compensation Shift."
+                )
+            )
+
+    @api.constrains("is_regular", "is_compensation")
+    def _check_compensation(self):
+        for task in self:
+            if task.working_mode == "regular":
+                self._compensation_validation(task)
+
+    @api.constrains("worker_id")
+    def _check_worker_id(self):
+        """
+        When worker_id changes we need to check whether is_regular
+        and is_compensation are set correctly.
+        When worker_id is set to a worker that doesn't need field
+        is_regular and is_compensation, these two fields are set to
+        False.
+        """
+        for task in self:
+            if task.working_mode == "regular":
+                self._compensation_validation(task)
+            else:
+                task.write({"is_regular": False, "is_compensation": False})
+            if task.worker_id:
+                if task.worker_id == task.replaced_id:
+                    raise UserError(_("A worker cannot replace himself."))
 
     #################################
     #       State Definition        #
