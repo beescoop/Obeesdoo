@@ -6,8 +6,7 @@
         <field name="code">model._send_order_cron()</field>
         <field name="interval_number">1</field>
         <field name="interval_type">minutes</field>
-        <field name="numbercall">-1</field>
-        <field name="active" eval="True"/>
+        <field name="active" eval="True" />
         <field name="numbercall">-1</field>
         <field name="doall" eval="False" />
     </record>
