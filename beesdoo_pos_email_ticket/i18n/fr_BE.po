@@ -1,0 +1,157 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* beesdoo_pos_email_ticket
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-20 20:24+0000\n"
+"PO-Revision-Date: 2021-01-20 20:24+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: beesdoo_pos_email_ticket
+#: model:mail.template,body_html:beesdoo_pos_email_ticket.email_send_ticket
+msgid "\n"
+"Votre Ticket ${object.pos_reference}\n"
+"            "
+msgstr "\n"
+"Votre Ticket ${object.pos_reference}\n"
+"            </p>"
+
+#. module: beesdoo_pos_email_ticket
+#: model:mail.template,subject:beesdoo_pos_email_ticket.email_send_ticket
+msgid "${object.pos_reference}"
+msgstr "${object.pos_reference}"
+
+#. module: beesdoo_pos_email_ticket
+#: model_terms:ir.ui.view,arch_db:beesdoo_pos_email_ticket.report_receipt
+msgid "<br/>\n"
+"                                Date:"
+msgstr "<br/>\n"
+"                                Date:"
+
+#. module: beesdoo_pos_email_ticket
+#: model_terms:ir.ui.view,arch_db:beesdoo_pos_email_ticket.report_receipt
+msgid "<br/><br/>\n"
+"                                Cashier:"
+msgstr "<br/><br/>\n"
+"                                Servi par:"
+
+#. module: beesdoo_pos_email_ticket
+#: model_terms:ir.ui.view,arch_db:beesdoo_pos_email_ticket.report_receipt
+msgid "<strong>Total</strong>"
+msgstr "<strong>Total</strong>"
+
+#. module: beesdoo_pos_email_ticket
+#: model_terms:ir.ui.view,arch_db:beesdoo_pos_email_ticket.report_receipt
+msgid "Amount"
+msgstr "Montant"
+
+#. module: beesdoo_pos_email_ticket
+#: code:addons/beesdoo_pos_email_ticket/models/beesdoo_pos.py:23
+#, python-format
+msgid "Cannot send the ticket, no email address found on the client"
+msgstr "Le ticket ne peut pas être envoyer, aucune adresse email trouvée sur le client"
+
+#. module: beesdoo_pos_email_ticket
+#: model_terms:ir.ui.view,arch_db:beesdoo_pos_email_ticket.report_receipt
+msgid "Change"
+msgstr "Change"
+
+#. module: beesdoo_pos_email_ticket
+#: model_terms:ir.ui.view,arch_db:beesdoo_pos_email_ticket.report_receipt
+msgid "Customer:"
+msgstr "Client:"
+
+#. module: beesdoo_pos_email_ticket
+#: selection:pos.order,print_status:0
+msgid "Do not Print"
+msgstr "Ne pas Imprimmer"
+
+#. module: beesdoo_pos_email_ticket
+#: code:addons/beesdoo_pos_email_ticket/models/beesdoo_pos.py:21
+#, python-format
+msgid "Error: no order found"
+msgstr "Erreur: Commande non trouvée"
+
+#. module: beesdoo_pos_email_ticket
+#: model_terms:ir.ui.view,arch_db:beesdoo_pos_email_ticket.report_receipt
+msgid "Payment Mode"
+msgstr "Mode de Payement"
+
+#. module: beesdoo_pos_email_ticket
+#: model:ir.model,name:beesdoo_pos_email_ticket.model_pos_order
+msgid "Point of Sale Orders"
+msgstr "Commandes du point de vente"
+
+#. module: beesdoo_pos_email_ticket
+#: model:ir.model.fields,field_description:beesdoo_pos_email_ticket.field_pos_order__print_status
+msgid "Print Status"
+msgstr "Status D'impression"
+
+#. module: beesdoo_pos_email_ticket
+#: selection:pos.order,print_status:0
+msgid "Printed"
+msgstr "Imprimmé"
+
+#. module: beesdoo_pos_email_ticket
+#: model_terms:ir.ui.view,arch_db:beesdoo_pos_email_ticket.report_receipt
+msgid "Product"
+msgstr "Article"
+
+#. module: beesdoo_pos_email_ticket
+#: model_terms:ir.ui.view,arch_db:beesdoo_pos_email_ticket.report_receipt
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: beesdoo_pos_email_ticket
+#: model:ir.actions.report,name:beesdoo_pos_email_ticket.action_report_pos_receipt
+msgid "Receipt"
+msgstr "Reçu"
+
+#. module: beesdoo_pos_email_ticket
+#. openerp-web
+#: code:addons/beesdoo_pos_email_ticket/static/src/xml/templates.xml:6
+#, python-format
+msgid "Send Receipt By Mail"
+msgstr "Envoyer Reçu par Email"
+
+#. module: beesdoo_pos_email_ticket
+#: model_terms:ir.ui.view,arch_db:beesdoo_pos_email_ticket.report_receipt
+msgid "Taxes"
+msgstr "Taxes"
+
+#. module: beesdoo_pos_email_ticket
+#: model:mail.template,report_name:beesdoo_pos_email_ticket.email_send_ticket
+msgid "Ticket ${object.pos_reference}"
+msgstr "Reçu ${object.pos_reference}"
+
+#. module: beesdoo_pos_email_ticket
+#: code:addons/beesdoo_pos_email_ticket/models/beesdoo_pos.py:26
+#, python-format
+msgid "Ticket will be sent"
+msgstr "Reçu sera envoyé"
+
+#. module: beesdoo_pos_email_ticket
+#: selection:pos.order,print_status:0
+msgid "To print"
+msgstr "A Imprimmer"
+
+#. module: beesdoo_pos_email_ticket
+#: model_terms:ir.ui.view,arch_db:beesdoo_pos_email_ticket.report_receipt
+msgid "Total"
+msgstr "Total"
+
+#. module: beesdoo_pos_email_ticket
+#: model:ir.actions.server,name:beesdoo_pos_email_ticket.ir_cron_sent_pos_ticket_ir_actions_server
+#: model:ir.cron,cron_name:beesdoo_pos_email_ticket.ir_cron_sent_pos_ticket
+#: model:ir.cron,name:beesdoo_pos_email_ticket.ir_cron_sent_pos_ticket
+msgid "send ticket"
+msgstr "envoyé reçu"
+
