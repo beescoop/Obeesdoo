@@ -5,7 +5,7 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-                    <field name="planning_id" />
+                    <field name="planning_ids" widget="many2many_tags" />
                     <field name="type_id" invisible="1" />
                 </group>
                 <group>
