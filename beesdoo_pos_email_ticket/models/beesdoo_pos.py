@@ -44,6 +44,10 @@ class BeescoopPosOrder(models.Model):
             mail_template.send_mail(order.id, force_send=True)
             order.print_status = "printed"
             # Make sure we commit the change to not send ticket twice
+            # pylint: disable=invalid-commit
+            # it would be better to create a separate cursor
+            # but it's ok here since the commit is called from
+            # a cron job.
             self.env.cr.commit()
 
     def _get_taxes_amount(self):
@@ -63,7 +67,7 @@ class BeescoopPosOrder(models.Model):
                 product=l.product_id,
                 partner=self.partner_id,
             )
-            print(taxes)
+            _logger.debug(taxes)
             for t in taxes["taxes"]:
                 taxe = result.get(t["id"], {})
                 taxe["name"] = t["name"]
