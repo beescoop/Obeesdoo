@@ -96,7 +96,7 @@ class CooperativeStatus(models.Model):
         comodel_name="cooperative.exempt.reason", string="Exempt Reason"
     )
     status = fields.Selection(
-        selection=_get_status,
+        selection=lambda x: x._get_status(),
         compute="_compute_status",
         string="Cooperative Status",
         translate=True,
@@ -186,19 +186,26 @@ class CooperativeStatus(models.Model):
                 _("Irregular workers must have an irregular start date.")
             )
 
-    @api.multi
-    def write(self, vals):
+    def _get_watched_fields(self):
         """
-            Overwrite write to historize the change
+            Make the list of field use
+            to trigger history tracking configurable
         """
-        for field in [
+        return [
             "sr",
             "sc",
             "time_extension",
             "extension_start_time",
             "alert_start_time",
             "unsubscribed",
-        ]:
+        ]
+
+    @api.multi
+    def write(self, vals):
+        """
+            Overwrite write to historize the change
+        """
+        for field in self._get_watched_fields():
             if field not in vals:
                 continue
             for rec in self:
@@ -356,7 +363,7 @@ class CooperativeStatus(models.Model):
         if not journal:
             journal = self.env["beesdoo.shift.journal"].create({"date": today})
 
-        domain = self._get_irregular_worker_domain(today=today)
+        domain = self._get_irregular_worker_domain(today)
         irregular = self.search(domain)
         for status in irregular:
             delta = (today - status.irregular_start_date).days
@@ -445,7 +452,7 @@ class CooperativeStatus(models.Model):
     #        Irregular Cron implementation        #
     ###############################################
 
-    def _get_irregular_worker_domain(self):
+    def _get_irregular_worker_domain(self, today):
         """
             return the domain the give the list
             of valid irregular worker that should
