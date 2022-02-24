@@ -203,7 +203,7 @@
                 <field name="holiday_end_time" />
                 <field name="alert_start_time" />
                 <field name="extension_start_time" />
-                <field name="status" widget="statusbar" />
+                <field name="status" />
             </tree>
         </field>
     </record>
