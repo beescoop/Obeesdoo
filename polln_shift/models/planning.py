@@ -1,28 +1,32 @@
-import re
+# Copyright 2021 Coop IT Easy SCRL fs
+#   Thibault François
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from datetime import datetime, timedelta
+from datetime import timedelta
 
-from odoo import api, models, fields, _
+from odoo import _, api, fields, models
+
 from odoo.addons.beesdoo_shift.models.cooperative_status import add_days_delta
-from odoo.addons.beesdoo_shift.models.planning import float_to_time
-from odoo.osv import expression
 
 
 def time_to_float(t):
-    hour, minute = t.split(':')
+    hour, minute = t.split(":")
     return float(hour) + float(minute) / 60
 
+
 class WizardSubscribe(models.TransientModel):
-    _inherit = 'beesdoo.shift.subscribe'
+    _inherit = "beesdoo.shift.subscribe"
 
     def _get_mode(self):
-        partner = self.env["res.partner"].browse(self._context.get("active_id"))
-        return partner.working_mode or 'irregular'
+        partner = self.env["res.partner"].browse(
+            self._context.get("active_id")
+        )
+        return partner.working_mode or "irregular"
 
-    working_mode = fields.Selection(selection=[
-            ("irregular", "worker"),
-            ("exempt", "Exempted"),
-        ], default=_get_mode)
+    working_mode = fields.Selection(
+        selection=[("irregular", "worker"), ("exempt", "Exempted")],
+        default=_get_mode,
+    )
 
     def subscribe(self):
         res = super().subscribe()
@@ -33,12 +37,12 @@ class WizardSubscribe(models.TransientModel):
             )
 
         # Should work with module beesdoo_easy_my_coop but don't
-        self.cooperator_id.eater = 'worker_eater'
+        self.cooperator_id.eater = "worker_eater"
         return res
 
 
 class Task(models.Model):
-    _inherit = 'beesdoo.shift.shift'
+    _inherit = "beesdoo.shift.shift"
 
     _period = 28
 
@@ -63,19 +67,19 @@ class Task(models.Model):
         data = {}
         status = self.worker_id.cooperative_status_ids[0]
         if new_state == "done":
-            data['sr'] = 1.0
+            data["sr"] = 1.0
         if new_state == "absent":
-            data['sr'] = -1.0
+            data["sr"] = -1.0
         return data, status
 
     def _get_final_state(self):
-        """ Disable constrains on shift that cannot be changed 
+        """ Disable constrains on shift that cannot be changed
         """
         return []
 
 
 class CooperativeStatus(models.Model):
-    _inherit = 'cooperative.status'
+    _inherit = "cooperative.status"
 
     def _get_status(self):
         return [
@@ -88,7 +92,7 @@ class CooperativeStatus(models.Model):
             ("resigning", _("Resigning")),
         ]
 
-    sr = fields.Float(compute='_get_sr', inverse="_set_sr")
+    sr = fields.Float(compute="_get_sr", inverse="_set_sr")
     # alter table cooperative_status add column sr_store double precision;
     # update cooperative_status set sr_store = sr;
     sr_store = fields.Float()
@@ -138,10 +142,7 @@ class CooperativeStatus(models.Model):
         """Compute date before which the worker is up to date"""
         for rec in self:
             # Only for subscribed irregular worker
-            if (
-                rec.working_mode != "irregular"
-                or not rec.irregular_start_date
-            ):
+            if rec.working_mode != "irregular" or not rec.irregular_start_date:
                 rec.future_alert_date = False
             # Alert start time already set
             elif rec.alert_start_time:
@@ -260,25 +261,35 @@ class CooperativeStatus(models.Model):
         alert_count = int(ICP.get_param("alert_count", -2))
         unsubscribed_count = int(ICP.get_param("unsubscribed_count", -4))
         default_alert_time = int(ICP.get_param("alert_time", 28))
-        if (self.temporary_exempt_start_date and self.temporary_exempt_end_date and
-                self.today >= self.temporary_exempt_start_date and self.today <= self.temporary_exempt_end_date):
-            return 'exempted'
-        if (self.holiday_start_time and self.holiday_end_time and
-                self.today >= self.holiday_start_time and self.today <= self.holiday_end_time):
-            return 'holiday'
+        if (
+            self.temporary_exempt_start_date
+            and self.temporary_exempt_end_date
+            and self.today >= self.temporary_exempt_start_date
+            and self.today <= self.temporary_exempt_end_date
+        ):
+            return "exempted"
+        if (
+            self.holiday_start_time
+            and self.holiday_end_time
+            and self.today >= self.holiday_start_time
+            and self.today <= self.holiday_end_time
+        ):
+            return "holiday"
         if self.sr >= 0:
-            return 'ok'
+            return "ok"
 
         if self.sr <= unsubscribed_count:
-            return 'unsubscribed'
+            return "unsubscribed"
         if self.sr <= alert_count and not self.alert_start_time:
-            return 'alert'
+            return "alert"
         if self.alert_start_time:
-            if self.today < self.alert_start_time + timedelta(days=default_alert_time+self.time_extension):
-                return 'alert'
+            if self.today < self.alert_start_time + timedelta(
+                days=default_alert_time + self.time_extension
+            ):
+                return "alert"
             else:
-                return 'suspended'
-        return 'ok'
+                return "suspended"
+        return "ok"
 
     def _get_irregular_status(self):
         """
@@ -316,10 +327,9 @@ class CooperativeStatus(models.Model):
         """
         self.sr += data.get("sr", 0)
 
-
-    ###############################################
-    ###### Irregular Cron implementation ##########
-    ###############################################
+    ############################################### # noqa
+    ###### Irregular Cron implementation ########## # noqa
+    ############################################### # noqa
 
     def _get_irregular_worker_domain(self, today):
         """
@@ -341,8 +351,6 @@ class CooperativeStatus(models.Model):
             by default 28 days
         """
         self.sr -= 1
-
-
 
 
 # TODO: nombre de coop nécessaire pour remplir le planning

@@ -1,10 +1,12 @@
-from odoo import api, fields, models, _
+from odoo import api, fields, models
 
 
 class Partner(models.Model):
     _inherit = "res.partner"
 
-    cooperator_type = fields.Selection(string="Cooperator Type", store=True,
+    cooperator_type = fields.Selection(
+        string="Cooperator Type",
+        store=True,
         selection="_get_share_type",
         compute="_compute_cooperator_type",
     )

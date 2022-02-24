@@ -25,7 +25,9 @@
                 <attribute name="invisible">1</attribute>
             </field>
             <field name="worker_id" position="attributes">
-                <attribute name="domain">[('cooperative_status_ids.status', 'not in', ('unsubscribed', 'resigning')), ('cooperative_status_ids.working_mode', '=', 'irregular')]</attribute>
+                <attribute
+                    name="domain"
+                >[('cooperative_status_ids.status', 'not in', ('unsubscribed', 'resigning')), ('cooperative_status_ids.working_mode', '=', 'irregular')]</attribute>
             </field>
         </field>
     </record>
@@ -36,17 +38,17 @@
         <field name="model">cooperative.status</field>
         <field name="arch" type="xml">
             <field name="irregular_start_date" position="attributes">
-                <attribute name="attrs" ></attribute>
+                <attribute name="attrs" />
                 <attribute name="string">Start date</attribute>
             </field>
             <field name="sc" position="attributes">
-                <attribute name="invisible" >1</attribute>
+                <attribute name="invisible">1</attribute>
             </field>
             <field name="irregular_absence_counter" position="attributes">
-                <attribute name="invisible" >1</attribute>
+                <attribute name="invisible">1</attribute>
             </field>
             <field name="irregular_absence_date" position="attributes">
-                <attribute name="invisible" >1</attribute>
+                <attribute name="invisible">1</attribute>
             </field>
         </field>
     </record>
@@ -57,7 +59,7 @@
         <field name="model">cooperative.status</field>
         <field name="arch" type="xml">
             <field name="sr" position="attributes">
-                <attribute name="invisible" >1</attribute>
+                <attribute name="invisible">1</attribute>
             </field>
             <field name="sr" position="after">
                 <field name="sr_store" />
@@ -71,7 +73,7 @@
         <field name="inherit_id" ref="beesdoo_shift.task_shift_view_kanban" />
         <field name="arch" type="xml">
             <xpath expr="//templates//field[@name='worker_id']/.." position="replace" />
-            <xpath expr="//templates//field[@name='name']/.." position="before" >
+            <xpath expr="//templates//field[@name='name']/.." position="before">
                 <h2><field name="worker_id" /></h2>
             </xpath>
         </field>
@@ -92,22 +94,29 @@
         </field>
     </record>
 
-    <template id="my_shift_common" name="Worker Status common"
-        inherit_id="beesdoo_website_shift.my_shift_worker_status_common">
-        <xpath expr="//p[@id='working_mode']"
-               position="replace" />
+    <template
+        id="my_shift_common"
+        name="Worker Status common"
+        inherit_id="beesdoo_website_shift.my_shift_worker_status_common"
+    >
+        <xpath expr="//p[@id='working_mode']" position="replace" />
     </template>
 
 
-    <template id="my_shift_status" name="Worker Status"
-        inherit_id="beesdoo_website_shift.my_shift_irregular_worker">
+    <template
+        id="my_shift_status"
+        name="Worker Status"
+        inherit_id="beesdoo_website_shift.my_shift_irregular_worker"
+    >
        <xpath expr="//p[@t-if='status.next_countdown_date']" position="replace" />
 
     </template>
 
-    <template id="help_text_irregular_worker_polln"
+    <template
+        id="help_text_irregular_worker_polln"
         name="Worker help text"
-        inherit_id="beesdoo_website_shift.help_text_irregular_worker" >
+        inherit_id="beesdoo_website_shift.help_text_irregular_worker"
+    >
         <xpath expr="//p[hasclass('h_irreg_autoextension')]" position="replace" />
     </template>
 
@@ -117,9 +126,11 @@
         <field name="inherit_id" ref="beesdoo_shift.subscribe_coop_wizard_view_form" />
         <field name="arch" type="xml">
             <field name="shift_id" position="replace">
-                <field name="shift_id"
-                        domain="['|', ('remaining_worker', '&gt;', 1), ('worker_nb', '&lt;', 2)]"
-                        attrs="{'invisible': [('working_mode', '=', 'exempt')]}" />
+                <field
+                    name="shift_id"
+                    domain="['|', ('remaining_worker', '&gt;', 1), ('worker_nb', '&lt;', 2)]"
+                    attrs="{'invisible': [('working_mode', '=', 'exempt')]}"
+                />
             </field>
         </field>
     </record>

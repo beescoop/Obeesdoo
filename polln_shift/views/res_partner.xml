@@ -2,10 +2,13 @@
     <record model="ir.ui.view" id="coop_partner_inherited_view_form_eater">
         <field name="name">Polln Coop Form View</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="beesdoo_shift.super_coop_partner_inherited_view_form" />
+        <field
+            name="inherit_id"
+            ref="beesdoo_shift.super_coop_partner_inherited_view_form"
+        />
         <field name="priority">99</field>
         <field name="arch" type="xml">
-            <field name="is_worker" position="after" >
+            <field name="is_worker" position="after">
                 <field name="worker_store" readonly="0" string="Force Worker" />
             </field>
         </field>

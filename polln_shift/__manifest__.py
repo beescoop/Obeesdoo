@@ -7,7 +7,12 @@
     "author": "Patricia Daloze, Thibault Francois",
     "category": "Sales",
     "version": "12.0.1.0.0",
-    "depends": ["beesdoo_shift", "beesdoo_website_shift", "contacts", "beesdoo_easy_my_coop"],
+    "depends": [
+        "beesdoo_shift",
+        "beesdoo_website_shift",
+        "contacts",
+        "beesdoo_easy_my_coop",
+    ],
     "data": [
         # "data/mail_template.xml",
         "views/res_partner.xml",
