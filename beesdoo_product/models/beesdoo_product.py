@@ -379,14 +379,15 @@ class BeesdooProductCategory(models.Model):
 
     profit_margin = fields.Float(default="10.0", string="Product Margin [%]")
     should_round_suggested_price = fields.Boolean(
-        string="Round suggested price to 5 cents?"
+        string="Round suggested price ?"
     )
     rounding_method = fields.Selection([
         ("HALF-UP", "Half"),
         ("UP", "up"),
         ("DOWN", "down"),
+        default="HALF-UP"
     ])
-    rounding_precision = fields.Float()
+    rounding_precision = fields.Float(default=0.05)
 
     @api.multi
     @api.constrains("profit_margin")

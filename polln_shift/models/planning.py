@@ -36,6 +36,8 @@ class WizardSubscribe(models.TransientModel):
             self.cooperator_id.sudo().write(
                 {"subscribed_shift_ids": [(6, 0, [self.shift_id.id])]}
             )
+
+        # TODO put in beesdoo_shift + Doc
         if self.shift_id and self.cooperator_id.super and not self.shift_id.super_coop_id and self.cooperator_id.user_ids:
             self.shift_id.super_coop_id = self.cooperator_id.user_ids[0]
 

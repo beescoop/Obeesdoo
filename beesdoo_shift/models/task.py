@@ -342,7 +342,6 @@ class Task(models.Model):
             return
 
         if not (self.worker_id.working_mode in ["regular", "irregular"]):
-            import traceback; traceback.print_stack()
             raise UserError(
                 _(
                     "Working mode is not properly defined. Please check if "
