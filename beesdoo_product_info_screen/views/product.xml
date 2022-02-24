@@ -62,7 +62,6 @@
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="product.product_template_search_view" />
         <field name="context">{"search_default_filter_to_sell":1}</field>
-        <field name="view_id" eval="False" />
         <field name="target">main</field>
         <field name="view_id" eval="False" />
     </record>
