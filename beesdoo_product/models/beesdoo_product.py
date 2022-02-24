@@ -10,6 +10,8 @@ from odoo.exceptions import UserError, ValidationError
 from odoo.tools import float_round
 from odoo.tools.translate import _
 
+from odoo.addons import decimal_precision as dp
+
 _logger = logging.getLogger(__name__)
 
 
@@ -74,7 +76,9 @@ class BeesdooProduct(models.Model):
     display_unit = fields.Many2one("uom.uom")
     default_reference_unit = fields.Many2one("uom.uom")
     display_weight = fields.Float(
-        compute="_compute_display_weight", store=True
+        compute="_compute_display_weight",
+        store=True,
+        digits=dp.get_precision("Stock Weight"),
     )
 
     total_with_vat = fields.Float(
