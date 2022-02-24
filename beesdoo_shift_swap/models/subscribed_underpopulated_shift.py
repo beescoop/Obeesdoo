@@ -157,7 +157,7 @@ class SubscribeUnderpopulatedShift(models.Model):
             subscribed_shift_rec.is_regular = True
             # Get the user
             subscribed_shift_rec.write({
-                "worker_id": self.worker_id
+                "worker_id": self.worker_id.id
             })
 
             # Subscribe done, change the status
