@@ -92,18 +92,18 @@ class CooperativeStatus(models.Model):
             ("resigning", _("Resigning")),
         ]
 
-    sr = fields.Float(compute="_get_sr", inverse="_set_sr")
+    sr = fields.Float(compute="_compute_sr", inverse="_inverse_sr")
     # alter table cooperative_status add column sr_store double precision;
     # update cooperative_status set sr_store = sr;
     sr_store = fields.Float()
     future_alert_date = fields.Date(compute="_compute_future_alert_date")
     next_countdown_date = fields.Date(compute="_compute_next_countdown_date")
 
-    def _get_sr(self):
+    def _compute_sr(self):
         for record in self:
             record.sr = record.sr_store
 
-    def _set_sr(self):
+    def _inverse_sr(self):
         for record in self:
             record.sr_store = record.sr
 
