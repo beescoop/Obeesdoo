@@ -46,6 +46,20 @@ class Task(models.Model):
 
     _period = 28
 
+    can_unsubscribe = fields.Boolean(compute="_compute_can_unsubscribe")
+
+    def _compute_can_unsubscribe(self):
+        now = datetime.now()
+        ICP = self.env["ir.config_parameter"].sudo()
+        max_hours = int(ICP.get_param("max_hours_to_unsubscribe", 2))
+        for rec in self:
+            if now > rec.start_time or rec.state != 'open':
+                rec.can_unsubscribe = False
+            else:
+                delta = (rec.start_time - now)
+                delta = delta.seconds / 3600.0 + delta.days * 24
+                rec.can_unsubscribe = delta >= max_hours
+
     def _get_selection_status(self):
         return [
             ("open", _("Confirmed")),

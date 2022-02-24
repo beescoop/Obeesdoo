@@ -124,6 +124,58 @@
         <xpath expr="//p[hasclass('h_irreg_autoextension')]" position="replace" />
     </template>
 
+    <template id="my_shift" name="Shifts for Irregular Workers"
+        inherit_id="beesdoo_website_shift.my_shift_next_shifts">
+        <xpath expr="//t[@t-esc='shift.task_type_id.name']" position="replace">
+            <t t-esc="shift.task_template_id.name or shift.task_type_id.name" />
+            <button type="button"
+                class="btn btn-danger btn-sm pull-right"
+                data-toggle="modal"
+                t-att-data-target="'#unsubscribe-shift-%s' % shift.id"
+                t-if="shift.can_unsubscribe" >
+                <span class="fa fa-user-plus" aria-hidden="true"></span>
+                Unsubscribe
+            </button>
+        </xpath>
+        <xpath expr="//div[@t-if='shift.super_coop_id.name']/.." position="after">
+            <t t-foreach="subscribed_shifts" t-as="shift">
+                <div class="modal fade"
+                        t-att-id="'unsubscribe-shift-%s' % shift.id" tabindex="-1"
+                        role="dialog"
+                        t-att-aria-labelledby="'unsubscribe-shift-%s-label' % shift.id">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title"
+                                    t-att-id="'subscribe-shift-%s-label' % shift.id">
+                                    Please confirm unsubscriptions
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <span t-field="shift.start_time"/>
+                                -
+                                <span t-field="shift.end_time"
+                                        t-options='{"format": "HH:mm"}'/>
+                                <br/>
+                                <t t-esc="shift.task_type_id.name"/>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default"
+                                        data-dismiss="modal">Close
+                                </button>
+                                <a class="btn btn-primary"
+                                    t-if="irregular_enable_sign_up"
+                                    t-att-href="'/shift/%s/unsubscribe?nexturl=%s' % (shift.id, nexturl)">
+                                    Unsubscribe
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
     <record model="ir.ui.view" id="subscribe_coop_wizard_view_form">
         <field name="name">Subscribe Cooperator</field>
         <field name="model">beesdoo.shift.subscribe</field>
