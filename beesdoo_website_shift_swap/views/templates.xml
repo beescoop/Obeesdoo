@@ -1,6 +1,6 @@
 <odoo>
     <data>
-        <!-- My request -->
+        <!-- My request menu item -->
         <template id="my_request_link" name="Request Link to frontend portal"
               inherit_id="portal.frontend_layout">
         <xpath expr="//a[@id='o_logout']" position="before">
@@ -240,43 +240,66 @@
         <template
         id="my_request_template"
         name="My Request Template">
-            <t t-foreach="my_requests" t-as="request">
-                <p>
-                    <div>
-                        <p>Unwanted Shift :
-                        <t t-esc="request['my_requests'].exchanged_timeslot_id.template_id.name"/>
-                            <t t-esc="request['my_requests'].exchanged_timeslot_id.date"/></p>
-                        <p>My exchange proposition :
-                            <t t-foreach="request['my_requests'].asked_timeslot_ids" t-as="asked_timeslot">
-                                <t t-esc="asked_timeslot.template_id.name"/>
-                                <t t-esc="asked_timeslot.date"/>
-                            </t>
-                        </p>
-                    </div>
-                    <div>
-                        <p t-if="request['my_requests'].status == 'has_match'">
-                            <t t-foreach="request['matching_request']" t-as="match">
-                                <t t-esc="match.exchanged_timeslot_id.template_id.name"/>
-                                <t t-esc="match.exchanged_timeslot_id.date"/>
-                                 <div>
-                                    <div class="card-body clearfix">
-                                        <a t-att-href="'/my/shift/validate/matching/validate/request/%i/%i' % (request['my_requests'],match)">Validate this exchange</a>
-                                    </div>
-                                </div>
-                            </t>
-                        </p>
-                        <p t-elif="request['my_requests'].status == 'validate_match'">
-                            Waiting for validation of the other cooperator
-                        </p>
-                        <p t-elif="request['my_requests'].status == 'done'">
-                            This exchange has been validated by both side
-                        </p>
-                        <p t-else="">
-                            No match has been found on your proposition.
-                        </p>
-                    </div>
-                </p>
-            </t>
+          <h1>
+            My shift exchange requests
+          </h1>
+          <table class="table table-hover">
+            <thead class="thead-dark">
+              <tr>
+                <th>Unwanted shifts</th>
+                <th>My exchange offers</th>
+                <th>Exchange status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <t t-foreach="my_requests" t-as="request">
+                <tr>
+                  <td>
+                    <t t-esc="request['my_requests'].exchanged_timeslot_id.date.strftime('%B %d, %Y')"/>
+                    <t t-esc="'|'"/>
+                    <t t-esc="str(datetime.timedelta(hours=request['my_requests'].exchanged_timeslot_id.template_id.start_time)).rsplit(':', 1)[0]"/>
+                    -
+                    <t t-esc="str(datetime.timedelta(hours=request['my_requests'].exchanged_timeslot_id.template_id.end_time)).rsplit(':', 1)[0]"/>
+                  </td>
+                  <td>
+                    <t t-foreach="request['my_requests'].asked_timeslot_ids" t-as="asked_timeslot">
+                      <t t-esc="asked_timeslot.date.strftime('%B %d, %Y')"/>
+                      <t t-esc="'|'"/>
+                      <t t-esc="str(datetime.timedelta(hours=asked_timeslot.template_id.start_time)).rsplit(':', 1)[0]"/>
+                      -
+                      <t t-esc="str(datetime.timedelta(hours=asked_timeslot.template_id.end_time)).rsplit(':', 1)[0]"/>
+                      <br/>
+                    </t>
+                  </td>
+                  <td>
+                    <t t-if="request['my_requests'].status == 'has_match'">
+                      <t t-foreach="request['matching_request']" t-as="match">
+                        <b>Exchange offer :</b>
+                        <br/>
+                        <t t-esc="match.exchanged_timeslot_id.date.strftime('%B %d, %Y')"/>
+                        <t t-esc="'|'"/>
+                        <t t-esc="str(datetime.timedelta(hours=match.exchanged_timeslot_id.template_id.start_time)).rsplit(':', 1)[0]"/>
+                        -
+                        <t t-esc="str(datetime.timedelta(hours=match.exchanged_timeslot_id.template_id.end_time)).rsplit(':', 1)[0]"/>
+                        <br/>
+                        <a class="btn btn-success btn-sm" t-att-href="'/my/shift/validate/matching/validate/request/%i/%i' % (request['my_requests'],match)">Validate this exchange</a>
+                        <br/>
+                      </t>
+                    </t>
+                    <t t-elif="request['my_requests'].status == 'validate_match'">
+                      Waiting for validation of the other cooperator.
+                    </t>
+                    <t t-elif="request['my_requests'].status == 'done'">
+                      This exchange has been validated by both side.
+                    </t>
+                    <t t-else="">
+                      No match has been found on your proposition.
+                    </t>
+                  </td>
+                </tr>
+              </t>
+            </tbody>
+          </table>
         </template>
 
         <template id="my_request" name="My Request">

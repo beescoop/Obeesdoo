@@ -132,4 +132,3 @@ class ExchangeRequest(models.Model):
             "matching_request": matching_request
         }
         template_rec.with_context(email_values).send_mail(self.id, False)
-
