@@ -103,6 +103,8 @@
                     </group>
                     <separator string="Subscribed Shift" />
                     <field name="subscribed_shift_ids" />
+                    <separator string="Shifts" />
+                    <field name="shift_task_ids" />
                 </page>
             </xpath>
         </field>
