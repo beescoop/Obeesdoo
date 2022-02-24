@@ -14,6 +14,12 @@ def time_to_float(t):
     return float(hour) + float(minute) / 60
 
 
+class TaskTemplate(models.Model):
+    _inherit = "beesdoo.shift.template"
+
+    shift_presence_value = fields.Float(default=1.0)
+
+
 class WizardSubscribe(models.TransientModel):
     _inherit = "beesdoo.shift.subscribe"
 
@@ -65,9 +71,9 @@ class Task(models.Model):
         data = {}
         status = self.worker_id.cooperative_status_ids[0]
         if new_state == "done":
-            data["sr"] = 1.0
+            data["sr"] = self.task_template_id.shift_presence_value or 1.0
         if new_state == "absent":
-            data["sr"] = -1.0
+            data["sr"] = -self.task_template_id.shift_presence_value or -1.0
         return data, status
 
     def _get_final_state(self):
