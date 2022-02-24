@@ -1,6 +1,4 @@
 def migrate(cr, version):
-    print("version:", version)
-    print("migrating beesdoo shift module")
     cr.execute(
         "update "
         "    beesdoo_shift_planning "
