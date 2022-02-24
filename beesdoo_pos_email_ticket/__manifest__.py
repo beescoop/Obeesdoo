@@ -15,8 +15,9 @@
     "category": "Point Of Sale",
     "version": "12.0.1.1.0",
     "depends": ["point_of_sale"],
-    "data": ["views/beesdoo_pos.xml", "data/cron.xml", "data/email.xml",],
+    "data": ["views/beesdoo_pos.xml", "data/cron.xml", "data/email.xml"],
     "qweb": ["static/src/xml/templates.xml"],
     "installable": True,
     "license": "AGPL-3",
+    "development_status": "Beta",
 }
