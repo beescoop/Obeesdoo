@@ -72,7 +72,11 @@
         <field name="model">beesdoo.shift.shift</field>
         <field name="inherit_id" ref="beesdoo_shift.task_shift_view_kanban" />
         <field name="arch" type="xml">
-            <xpath expr="//templates//field[@name='worker_id']/.." position="replace" />
+            <xpath
+                expr="//templates//field[@name='worker_id']/.."
+                position="replace"
+                priority="100"
+            />
             <xpath expr="//templates//field[@name='name']/.." position="before">
                 <h2><field name="worker_id" /></h2>
             </xpath>
