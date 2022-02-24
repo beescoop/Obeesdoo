@@ -8,6 +8,13 @@ from odoo.exceptions import ValidationError
 class Partner(models.Model):
     _inherit = "res.partner"
 
+    # this field is not displayed in the view
+    # cf issue https://github.com/beescoop/Obeesdoo/issues/374
+    worker_store = fields.Boolean(
+        string="Force Worker",
+        help="Check to subscribe member to their shift even"
+        " if they are not yet effective cooperator.",
+    )
     info_session_confirmed = fields.Boolean(
         string="Confirmed presence to info session", default=False
     )
@@ -58,7 +65,7 @@ class Partner(models.Model):
             [("share_product_id.allow_working", "=", "True")]
         )
         partner_ids = lines.mapped("partner_id")
-        partner_ids |= self.search([('worker_store', '=', True)])
+        partner_ids |= self.search([("worker_store", "=", True)])
         if (operator, value) in [("=", True), ("!=", False)]:
             return [("id", "in", partner_ids.ids)]
         else:
