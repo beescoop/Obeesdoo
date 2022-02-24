@@ -1,10 +1,14 @@
 <odoo>
     <template id="assets" inherit_id="point_of_sale.assets">
         <xpath expr="." position="inside">
-            <script type="text/javascript"
-                    src="/beesdoo_pos_email_ticket/static/src/js/beesdoo.js"></script>
-            <link rel='stylesheet'
-                  href="/beesdoo_pos_email_ticket/static/src/css/beesdoo.css"/>
+            <script
+                type="text/javascript"
+                src="/beesdoo_pos_email_ticket/static/src/js/beesdoo.js"
+            />
+            <link
+                rel='stylesheet'
+                href="/beesdoo_pos_email_ticket/static/src/css/beesdoo.css"
+            />
         </xpath>
     </template>
 </odoo>

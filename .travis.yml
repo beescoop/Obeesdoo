@@ -21,7 +21,8 @@ env:
     - TESTS="1" ODOO_REPO="OCA/OCB" UNIT_TEST="1"
 
 install:
-  - git clone --depth=1 https://github.com/coopiteasy/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
+  - git clone --depth=1 https://github.com/coopiteasy/maintainer-quality-tools.git
+    ${HOME}/maintainer-quality-tools
   # Disable manifest-required-author for this repository
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly

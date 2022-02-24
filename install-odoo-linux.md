@@ -22,7 +22,8 @@ $ sudo npm install -g less less-plugin-clean-css
 
 ##### 5) setup odoo environment
 
-I recommend using [virtualenvwrapper](http://virtualenvwrapper.readthedocs.io/en/latest/index.html)
+I recommend using
+[virtualenvwrapper](http://virtualenvwrapper.readthedocs.io/en/latest/index.html)
 
 ```
 $ mkvirtualenv odoo -p /path/to/python2.7  # generally /usr/bin/python2.7
@@ -30,7 +31,8 @@ $ which python  # should return:
 /Users/<user>/.virtualenvs/odoo/bin/python
 ```
 
-Use `deactivate` to get out of odoo environment, use `workon odoo` to activate the environment.
+Use `deactivate` to get out of odoo environment, use `workon odoo` to activate the
+environment.
 
 ##### 6) clone odoo
 
