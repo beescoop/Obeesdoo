@@ -33,7 +33,8 @@ $ npm install -g less
 
 ##### 5) setup odoo environment
 
-I recommend using [virtualenvwrapper](http://virtualenvwrapper.readthedocs.io/en/latest/index.html)
+I recommend using
+[virtualenvwrapper](http://virtualenvwrapper.readthedocs.io/en/latest/index.html)
 
 ```
 $ mkvirtualenv odoo -p /path/to/python2.7  # generally /usr/bin/python2.7
@@ -41,7 +42,8 @@ $ which python  # should return:
 /Users/<user>/.virtualenvs/odoo/bin/python
 ```
 
-Use `deactivate` to get out of odoo environment, use `workon odoo` to activate the environment.
+Use `deactivate` to get out of odoo environment, use `workon odoo` to activate the
+environment.
 
 ##### 6) clone odoo
 
@@ -78,4 +80,5 @@ truncate table product_scale_log
 
 ## Source
 
-source: [setup-odoo-development-on-os-x-with-pycharm](http://bloopark.de/en_US/blog/the-bloopark-times-english-2/post/setup-odoo-development-on-os-x-with-pycharm-109)
+source:
+[setup-odoo-development-on-os-x-with-pycharm](http://bloopark.de/en_US/blog/the-bloopark-times-english-2/post/setup-odoo-development-on-os-x-with-pycharm-109)

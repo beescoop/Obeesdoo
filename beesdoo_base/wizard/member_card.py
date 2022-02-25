@@ -3,9 +3,9 @@ from odoo import api, fields, models
 
 class NewMemberCardWizard(models.TransientModel):
     """
-        A transient model for the creation of a new card.
-        The user can only define the raison why a new card is
-        needed and the eater/worker that is concerned.
+    A transient model for the creation of a new card.
+    The user can only define the raison why a new card is
+    needed and the eater/worker that is concerned.
     """
 
     _name = "membercard.new.wizard"

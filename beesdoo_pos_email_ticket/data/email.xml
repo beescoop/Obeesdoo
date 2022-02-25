@@ -1,9 +1,8 @@
-
 <odoo>
     <data noupdate="1">
         <record id="paperformat_posreceipt" model="report.paperformat">
             <field name="name">Point Of Sale Receipt</field>
-            <field name="default" eval="True"/>
+            <field name="default" eval="True" />
             <field name="format">custom</field>
             <field name="page_height">150</field>
             <field name="page_width">65</field>
@@ -21,20 +20,26 @@
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
                     <t t-set="unit" t-value="o.env.ref('uom.product_uom_unit')" />
-                    <t t-set="taxes" t-value="[t for t in o._get_taxes_amount() if 'Consigne' not in t['name']]" />
-                    <t t-set="consignes" t-value="[t for t in o._get_taxes_amount() if 'Consigne' in t['name']]" />
+                    <t
+                        t-set="taxes"
+                        t-value="[t for t in o._get_taxes_amount() if 'Consigne' not in t['name']]"
+                    />
+                    <t
+                        t-set="consignes"
+                        t-value="[t for t in o._get_taxes_amount() if 'Consigne' in t['name']]"
+                    />
                     <div class="page">
                         <div class="row">
                             <div class="col-xs-12 text-center">
-                                <h2 t-esc="o.user_id.company_id.name"/>
-                                Customer: <span t-field="o.partner_id"/><br/><br/>
-                                Cashier: <span t-field="o.user_id"/><br/>
-                                Date: <span t-field="o.date_order"/><br/>
+                                <h2 t-esc="o.user_id.company_id.name" />
+                                Customer: <span t-field="o.partner_id" /><br /><br />
+                                Cashier: <span t-field="o.user_id" /><br />
+                                Date: <span t-field="o.date_order" /><br />
                             </div>
                         </div>
 
                         <div class="row">
-                            <br/>
+                            <br />
                         </div>
 
                         <table class="table table-condensed">
@@ -47,25 +52,40 @@
                             <tbody>
                                 <tr t-foreach="o.lines" t-as="line">
                                     <td class="text-left">
-                                      <span t-field="line.product_id"/>
-                                      <t t-if="line.discount != 0.0 or line.qty != 1 or line.product_id.uom_id != unit">
+                                      <span t-field="line.product_id" />
+                                      <t
+                                            t-if="line.discount != 0.0 or line.qty != 1 or line.product_id.uom_id != unit"
+                                        >
                                         <br />
                                       </t>
-                                      <t t-if="o.state != 'cancel' and (o.statement_ids and line.qty != 1 or line.product_id.uom_id != unit or line.discount != 0.0)">
-                                             <span style="margin-left:10px"> <span t-field="line.qty"/> *
-                                             <span t-field="line.price_unit"/>
+                                      <t
+                                            t-if="o.state != 'cancel' and (o.statement_ids and line.qty != 1 or line.product_id.uom_id != unit or line.discount != 0.0)"
+                                        >
+                                             <span style="margin-left:10px"> <span
+                                                    t-field="line.qty"
+                                                /> *
+                                             <span t-field="line.price_unit" />
                                               <t t-if="line.product_id.uom_id != unit">
-                                                / <span t-field="line.product_id.uom_id.name"/>
+                                                / <span
+                                                        t-field="line.product_id.uom_id.name"
+                                                    />
                                               </t>
                                              </span>
                                       </t>
                                       <t t-if="line.discount != 0.0">
-                                             <span style="margin-left:10px">-<span t-esc="line.discount"/>%</span>
+                                             <span style="margin-left:10px">-<span
+                                                    t-esc="line.discount"
+                                                />%</span>
                                       </t>
                                     </td>
                                     <td class="text-right">
-                                        <t t-if="o.state != 'cancel' and o.statement_ids">
-                                            <span t-esc="line.qty*line.price_unit * (1 - (line.discount / 100))" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
+                                        <t
+                                            t-if="o.state != 'cancel' and o.statement_ids"
+                                        >
+                                            <span
+                                                t-esc="line.qty*line.price_unit * (1 - (line.discount / 100))"
+                                                t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"
+                                            />
                                         </t>
                                     </td>
                                 </tr>
@@ -77,20 +97,23 @@
                                 <table class="table table-condensed">
                                     <tr t-foreach="consignes" t-as="t">
                                         <td style="width:60%">
-                                            <t t-esc="t['name']"/>
+                                            <t t-esc="t['name']" />
                                         </td>
                                         <td class="text-right" style="width:30%">
-                                            <strong t-esc="t['amount']" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
+                                            <strong
+                                                t-esc="t['amount']"
+                                                t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"
+                                            />
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
                         <div class="row">
-                          <br/>
+                          <br />
                         </div>
                         <div class="row">
-                          <br/>
+                          <br />
                         </div>
                         <div class="row">
                             <div class="col-xs-12 pull-right">
@@ -98,30 +121,38 @@
                                     <tr>
                                         <td><strong>Total</strong></td>
                                         <td class="text-right">
-                                            <strong t-esc="o.amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
+                                            <strong
+                                                t-esc="o.amount_total"
+                                                t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"
+                                            />
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
                         <div class="row">
-                          <br/>
+                          <br />
                         </div>
                         <div class="row">
                             <div class="col-xs-12 pull-right">
                                 <h4>Taxes</h4>
                                 <table class="table table-condensed">
                                     <tr t-foreach="taxes" t-as="t">
-                                        <td style="width:60%"><t t-esc="t['name']"/></td>
+                                        <td style="width:60%"><t
+                                                t-esc="t['name']"
+                                            /></td>
                                         <td class="text-right" style="width:30%">
-                                            <strong t-esc="t['amount']" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
+                                            <strong
+                                                t-esc="t['amount']"
+                                                t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"
+                                            />
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
                         <div class="row">
-                          <br/>
+                          <br />
                         </div>
                         <table class="table table-condensed">
                             <thead>
@@ -131,20 +162,32 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr t-foreach="o.statement_ids.filtered(lambda x: x.amount &gt; 0)" t-as="st">
+                                <tr
+                                    t-foreach="o.statement_ids.filtered(lambda x: x.amount &gt; 0)"
+                                    t-as="st"
+                                >
                                     <td>
-                                        <span t-esc="st.journal_id.name"/>
+                                        <span t-esc="st.journal_id.name" />
                                     </td>
                                     <td>
-                                        <span t-esc="st.amount" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
+                                        <span
+                                            t-esc="st.amount"
+                                            t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"
+                                        />
                                     </td>
                                 </tr>
-                                <tr t-foreach="o.statement_ids.filtered(lambda x: x.amount &lt; 0)" t-as="st">
+                                <tr
+                                    t-foreach="o.statement_ids.filtered(lambda x: x.amount &lt; 0)"
+                                    t-as="st"
+                                >
                                     <td>
                                         Change
                                     </td>
                                     <td>
-                                        <span t-esc="-st.amount" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
+                                        <span
+                                            t-esc="-st.amount"
+                                            t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"
+                                        />
                                     </td>
                                 </tr>
                             </tbody>
@@ -166,7 +209,9 @@
         <!--Email template -->
         <record id="email_send_ticket" model="mail.template">
             <field name="name">Envoyer Reçu</field>
-            <field name="email_from">${(object.user_id.email and '%s &lt;%s&gt;' % (object.user_id.name, object.user_id.email) or '')|safe}</field>
+            <field
+                name="email_from"
+            >${(object.user_id.email and '%s &lt;%s&gt;' % (object.user_id.name, object.user_id.email) or '')|safe}</field>
             <field name="subject">${object.pos_reference}</field>
             <field name="partner_to">${object.partner_id.id}</field>
             <field name="model_id" ref="point_of_sale.model_pos_order" />
@@ -174,7 +219,9 @@
             <field name="report_template" ref="action_report_pos_receipt" />
             <field name="report_name">Ticket ${object.pos_reference}</field>
             <field name="lang">${object.partner_id.lang}</field>
-            <field name="body_html"><![CDATA[
+            <field
+                name="body_html"
+            ><![CDATA[
 Votre Ticket ${object.pos_reference}
             ]]></field>
         </record>

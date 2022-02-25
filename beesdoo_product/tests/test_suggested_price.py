@@ -95,5 +95,6 @@ class TestSuggestedPrice(TransactionCase):
             }
         )
         self.assertEqual(
-            float_compare(product.suggested_price, 5.3, precision_digits=3), 0,
+            float_compare(product.suggested_price, 5.3, precision_digits=3),
+            0,
         )

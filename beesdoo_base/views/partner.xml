@@ -104,9 +104,14 @@
         <field name="name">res.partner.select</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <!-- todo check if possible to extend the domain rather than replace -->
+        <field name="priority">100</field>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='name']" position='replace'>
-                <field name="name" filter_domain="['|','|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self),('barcode','ilike',self)]"/>
+            <xpath expr="//field[@name='name']">
+                <field
+                    name="name"
+                    filter_domain="['|','|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self),('barcode','ilike',self)]"
+                />
             </xpath>
         </field>
     </record>

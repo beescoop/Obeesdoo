@@ -71,12 +71,9 @@
         <field name="name">Shift Kanban</field>
         <field name="model">beesdoo.shift.shift</field>
         <field name="inherit_id" ref="beesdoo_shift.task_shift_view_kanban" />
+        <field name="priority">100</field>
         <field name="arch" type="xml">
-            <xpath
-                expr="//templates//field[@name='worker_id']/.."
-                position="replace"
-                priority="100"
-            />
+            <xpath expr="//templates//field[@name='worker_id']/.." position="replace" />
             <xpath expr="//templates//field[@name='name']/.." position="before">
                 <h2><field name="worker_id" /></h2>
             </xpath>
@@ -102,6 +99,7 @@
         id="my_shift_common"
         name="Worker Status common"
         inherit_id="beesdoo_website_shift.my_shift_worker_status_common"
+        priority="100"
     >
         <xpath expr="//p[@id='working_mode']" position="replace" />
     </template>
@@ -111,6 +109,7 @@
         id="my_shift_status"
         name="Worker Status"
         inherit_id="beesdoo_website_shift.my_shift_irregular_worker"
+        priority="100"
     >
        <xpath expr="//p[@t-if='status.next_countdown_date']" position="replace" />
 
@@ -120,6 +119,7 @@
         id="help_text_irregular_worker_polln"
         name="Worker help text"
         inherit_id="beesdoo_website_shift.help_text_irregular_worker"
+        priority="100"
     >
         <xpath expr="//p[hasclass('h_irreg_autoextension')]" position="replace" />
     </template>
@@ -128,6 +128,7 @@
         <field name="name">Subscribe Cooperator</field>
         <field name="model">beesdoo.shift.subscribe</field>
         <field name="inherit_id" ref="beesdoo_shift.subscribe_coop_wizard_view_form" />
+        <field name="b">100</field>
         <field name="arch" type="xml">
             <field name="shift_id" position="replace">
                 <field

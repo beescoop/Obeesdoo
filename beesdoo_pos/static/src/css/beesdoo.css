@@ -1,33 +1,33 @@
 .message-send {
-  margin: 16px;
-  text-align: center;
+    margin: 16px;
+    text-align: center;
 }
 
 .customer-information {
-  margin: 16px 24px 16px 24px;
-  font-weight: bold;
-  font-size: 16px;
+    margin: 16px 24px 16px 24px;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 .customer-name {
-  font-size: 18px;
+    font-size: 18px;
 }
 
 .pos .actionpad .button.set-customer {
-  height: 108px;
+    height: 108px;
 }
 
 .pos .actionpad .button .fa-user {
-  left: 5px;
-  top: 38px;
+    left: 5px;
+    top: 38px;
 }
 
 .customer-information-pay {
-  font-weight: normal;
-  font-size: 12px;
-  text-align: left;
+    font-weight: normal;
+    font-size: 12px;
+    text-align: left;
 }
 
 .pos .actionpad .button.pay {
-  height: 108px;
+    height: 108px;
 }

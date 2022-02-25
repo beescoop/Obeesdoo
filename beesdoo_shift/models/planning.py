@@ -311,7 +311,8 @@ class TaskTemplate(models.Model):
         result = super(TaskTemplate, self).write(vals)
         for rec in self:
             rec._update_shifts_on_worker_change(
-                prev_worker_ids=saved_vals[rec], cur_worker_ids=rec.worker_ids,
+                prev_worker_ids=saved_vals[rec],
+                cur_worker_ids=rec.worker_ids,
             )
         return result
 

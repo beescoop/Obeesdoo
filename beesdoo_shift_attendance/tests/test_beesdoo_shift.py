@@ -228,8 +228,8 @@ class TestBeesdooShift(TransactionCase):
 
     def test_attendance_sheet_barcode_scan(self):
         """
-            Edition of an attendance sheet
-            with barcode scanner, as a generic user"
+        Edition of an attendance sheet
+        with barcode scanner, as a generic user"
         """
 
         # Attendance sheet generation

@@ -3,7 +3,7 @@ from odoo import api, fields, models
 
 class NewEaterWizard(models.TransientModel):
     """
-        A transient model for the creation of a eater related to a worker.
+    A transient model for the creation of a eater related to a worker.
     """
 
     _name = "eater.new.wizard"

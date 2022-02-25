@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <templates id="template">
     <t t-extend="ReceiptScreenWidget">
         <t t-jquery='.pos-receipt-container' t-operation='before'>
             <div class="button send">
-                <i class='fa fa-envelope'></i>
+                <i class='fa fa-envelope' />
                 Send Receipt By Mail
             </div>
             <div class="message-send">

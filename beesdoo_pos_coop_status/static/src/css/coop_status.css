@@ -1,9 +1,9 @@
 .pos .coop_status.can_shop {
-  background: lightgreen;
-  border-radius: 20px;
+    background: lightgreen;
+    border-radius: 20px;
 }
 
 .pos .coop_status.cannot_shop {
-  background: red;
-  border-radius: 20px;
+    background: red;
+    border-radius: 20px;
 }
