@@ -175,7 +175,6 @@ class SubscribeUnderpopulatedShift(models.Model):
         available_timeslot = self.env["beesdoo.shift.template.dated"]
         timeslots = self.env["beesdoo.shift.template.dated"].display_timeslot(my_timeslot)
         exchange = self.env["beesdoo.shift.subscribed_underpopulated_shift"].search([])
-
         for timeslot in timeslots :
             nb_workers_change = 0
             for ex in exchange :
@@ -194,7 +193,8 @@ class SubscribeUnderpopulatedShift(models.Model):
                     .sudo()
                     .get_param("beesdoo_shift.percentage_presence")
             )
-            if percentage_presence <= min_percentage_presence :
+            already_subscribed = False
+            if percentage_presence <= min_percentage_presence:
                 available_timeslot |= timeslot
 
         return available_timeslot

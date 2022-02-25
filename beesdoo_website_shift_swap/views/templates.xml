@@ -189,12 +189,21 @@
             <form method="post">
                 <t t-set="index" t-value="0"/>
                 <t t-foreach="possible_timeslot" t-as="timeslot">
-                    <p>
-                        <input type="checkbox" name="timeslot_index" multiple="multiple" t-att-value="index">
-                            <t t-esc="timeslot.template_id.name"/>
-                            <t t-esc="timeslot.date"/></input>
-                        <t t-set="index" t-value="index + 1"/>
-                    </p>
+                  <tr>
+                    <td>
+                      <t t-esc="timeslot.date.strftime('%B %d, %Y')"/>
+                    </td>
+                    <td>
+                      <t t-esc="str(datetime.timedelta(hours=timeslot.template_id.start_time)).rsplit(':', 1)[0]"/>
+                      -
+                      <t t-esc="str(datetime.timedelta(hours=timeslot.template_id.end_time)).rsplit(':', 1)[0]"/>
+                    </td>
+                    <td>
+                      <!-- t-att-value is "str(index)" instead of "index" to avoid 1st iteration being None instead of "0" -->
+                      <input type="checkbox" name="timeslot_index" multiple="multiple" t-att-value="str(index)"/>
+                    </td>
+                    <t t-set="index" t-value="index + 1"/>
+                  </tr>
                 </t>
                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                 <p>

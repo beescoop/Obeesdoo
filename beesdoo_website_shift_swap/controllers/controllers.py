@@ -64,10 +64,24 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             .sudo()
             .get_underpopulated_shift(my_timeslot)
         )
+
+        # Get the user's future shifts
+        user = request.env["res.users"].sudo().browse(request.uid)
+        my_shifts = user.sudo().partner_id.my_next_shift()
+        subscribed_shifts = []
+        for rec in my_shifts:
+            subscribed_shifts.append(rec)
+
+        # Remove the already subscribed shifts from the propositions
+        for available_shift in my_available_shift:
+            for timeslot_dated in request.env["beesdoo.shift.template.dated"].swap_shift_to_timeslot(subscribed_shifts):
+                if available_shift.date == timeslot_dated.date:
+                    my_available_shift -= available_shift
+
         return request.render("beesdoo_website_shift_swap.website_shift_swap_underpopulated_timeslot",
             {
                 "underpopulated_shift" : my_available_shift,
-                "exchanged_timeslot": my_timeslot
+                "exchanged_timeslot" : my_timeslot
             }
         )
 
