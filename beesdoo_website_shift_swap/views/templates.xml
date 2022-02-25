@@ -41,7 +41,7 @@
           inherit_id="beesdoo_website_shift.my_shift_next_shifts">
           <xpath expr="//div[@class='card-body clearfix']" position="inside">
             <p>
-              <a t-att-href="'/my/shift/swaping/%i/%s' % (shift.task_template_id,shift.start_time)">Swap Shift</a>
+              <a class="btn btn-success btn-sm" t-att-href="'/my/shift/swaping/%i/%s' % (shift.task_template_id,shift.start_time)">Swap Shift</a>
             </p>
           </xpath>
         </template>
@@ -182,12 +182,19 @@
 
 
         <!-- display possible timeslot to create an exchange request -->
-        <template
-            id="website_shift_swap_next_possible_timeslot"
-            name="Shift Swap possible Next timeslot Page">
-            <title>Possible timeslot</title>
-            <form method="post">
-                <t t-set="index" t-value="0"/>
+        <template id="website_shift_swap_next_possible_timeslot" name="Shift Swap possible next timeslot Page">
+          <title>Possible timeslot</title>
+          <form method="post">
+            <t t-set="index" t-value="0"/>
+            <table class="table table-hover">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Date</th>
+                  <th>Time slot</th>
+                  <th>Select</th>
+                </tr>
+              </thead>
+              <tbody>
                 <t t-foreach="possible_timeslot" t-as="timeslot">
                   <tr>
                     <td>
@@ -199,39 +206,40 @@
                       <t t-esc="str(datetime.timedelta(hours=timeslot.template_id.end_time)).rsplit(':', 1)[0]"/>
                     </td>
                     <td>
-                      <!-- t-att-value is "str(index)" instead of "index" to avoid 1st iteration being None instead of "0" -->
                       <input type="checkbox" name="timeslot_index" multiple="multiple" t-att-value="str(index)"/>
                     </td>
                     <t t-set="index" t-value="index + 1"/>
                   </tr>
                 </t>
                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                <p>
-                    <input type="submit" value="Validate the exchange with this Shifts"></input>
-                </p>
-            </form>
+              </tbody>
+            </table>
+            <div class="text-center">
+              <input class="btn btn-primary" type="submit" value="Validate the exchange request with selected shifts"></input>
+            </div>
+          </form>
         </template>
 
         <template id="website_shift_swap_possible_timeslot" name="Shift Swap possible timeslot Page">
-            <t t-call="portal.portal_layout">
-                <t t-set="no_breadcrumbs" t-value="True" />
-
-                <div class="container mt16">
-                    <div class="row">
-                        <div class="col text-center">
-                            <t t-call="beesdoo_website_shift_swap.swap_shift_title" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-lg-6 m-auto text-justify">
-                            <t t-call="beesdoo_website_shift_swap.website_shift_swap_summary"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <t t-call="beesdoo_website_shift_swap.website_shift_swap_next_possible_timeslot" />
-                    </div>
+          <t t-call="portal.portal_layout">
+            <div class="container mt16">
+              <div class="row">
+                <div class="col text-center">
+                  <t t-call="beesdoo_website_shift_swap.swap_shift_title" />
                 </div>
-            </t>
+              </div>
+              <div class="row">
+                <div class="col-12 col-lg-6 m-auto text-justify">
+                  <t t-call="beesdoo_website_shift_swap.website_shift_swap_summary"/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-lg-6 m-auto">
+                  <t t-call="beesdoo_website_shift_swap.website_shift_swap_next_possible_timeslot" />
+                </div>
+              </div>
+            </div>
+          </t>
         </template>
 
 
