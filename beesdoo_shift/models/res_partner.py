@@ -150,7 +150,9 @@ class ResPartner(models.Model):
         return result
 
     def _update_shifts_on_subscribed_task_tmpl(
-        self, prev_subscribed_task_tmpl, cur_subscribed_task_tmpl,
+        self,
+        prev_subscribed_task_tmpl,
+        cur_subscribed_task_tmpl,
     ):
         """
         Subscribe or unsubscribe current partner from already generated

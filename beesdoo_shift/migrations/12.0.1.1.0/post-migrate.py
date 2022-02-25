@@ -12,4 +12,5 @@ def migrate(cr, version):
         "            MAX(day_nb_id) "
         "        from "
         "            beesdoo_shift_template "
-        "    ) as templates;")
+        "    ) as templates;"
+    )
