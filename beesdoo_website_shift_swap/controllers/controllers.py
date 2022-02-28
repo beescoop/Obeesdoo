@@ -38,7 +38,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         request.session['date'] = date
 
         delta = shift_date - now
-        if delta.days <= 28 :
+        if delta.days <= int(request.env["ir.config_parameter"].sudo().get_param("beesdoo_shift.day_limit_swap")):
             return request.redirect("/my/shift/underpopulated/swap")
         else :
             return request.redirect('/my/shift/possible/match')
