@@ -3,13 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.15.1: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils: http://docutils.sourceforge.net/" />
 <title>beesdoo_product</title>
 <style type="text/css">
 
 /*
 :Author: David Goodger (goodger@python.org)
-:Id: $Id: html4css1.css 7952 2016-07-26 18:15:59Z milde $
+:Id: $Id: html4css1.css 7614 2013-02-21 15:55:51Z milde $
 :Copyright: This stylesheet has been placed in the public domain.
 
 Default cascading style sheet for the HTML output of Docutils.
@@ -36,14 +36,6 @@ table.borderless td, table.borderless th {
 
 .hidden {
   display: none }
-
-.subscript {
-  vertical-align: sub;
-  font-size: smaller }
-
-.superscript {
-  vertical-align: super;
-  font-size: smaller }
 
 a.toc-backref {
   text-decoration: none ;
@@ -169,23 +161,18 @@ h2.subtitle {
 hr.docutils {
   width: 75% }
 
-img.align-left, .figure.align-left, object.align-left, table.align-left {
+img.align-left, .figure.align-left, object.align-left {
   clear: left ;
   float: left ;
   margin-right: 1em }
 
-img.align-right, .figure.align-right, object.align-right, table.align-right {
+img.align-right, .figure.align-right, object.align-right {
   clear: right ;
   float: right ;
   margin-left: 1em }
 
 img.align-center, .figure.align-center, object.align-center {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-table.align-center {
   margin-left: auto;
   margin-right: auto;
 }
@@ -206,15 +193,6 @@ div.align-right {
 
 /* div.align-center * { */
 /*   text-align: left } */
-
-.align-top    {
-  vertical-align: top }
-
-.align-middle {
-  vertical-align: middle }
-
-.align-bottom {
-  vertical-align: bottom }
 
 ol.simple, ul.simple {
   margin-bottom: 1em }
@@ -370,9 +348,27 @@ ul.auto-toc {
 <p><a class="reference external" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external" href="https://github.com/beescoop/obeesdoo/tree/12.0/beesdoo_product"><img alt="beescoop/obeesdoo" src="https://img.shields.io/badge/github-beescoop%2Fobeesdoo-lightgray.png?logo=github" /></a></p>
 <p>Modification of product module for the needs of beescoop</p>
 <ul>
-<li><p class="first">Adds the label bio/ethique/provenance</p>
+<li><p class="first">Adds the label bio/ethique/provenance.</p>
 </li>
-<li><p class="first">Add a ‘Suggested Price’ field on products, and a ‘Product Margin’ field on Partners (Vendors) and Product Categories.
+<li><p class="first">Adds hazard and FDS labels.</p>
+</li>
+<li><p class="first">Adds a main seller.</p>
+</li>
+<li><p class="first">Calculates total price with VAT and deposit price.</p>
+</li>
+<li><p class="first">Contains some facilitation for label printing.</p>
+</li>
+<li><p class="first">Adds a ‘Comments’ field for use on labels.</p>
+</li>
+<li><p class="first">Adds deadline for sale and consumption.</p>
+</li>
+<li><p class="first">Adds an ‘Ingredients’ field.</p>
+</li>
+<li><p class="first">Adds scale labels, sale units, and categories.</p>
+</li>
+<li><p class="first">Generates barcodes.</p>
+</li>
+<li><p class="first">Adds a ‘Suggested Price’ field on products, and a ‘Product Margin’ field on Partners (Vendors) and Product Categories.
 The first margin is used if set, otherwise the second margin (which has a default value) is used.</p>
 </li>
 <li><p class="first">The reference price on which this margin is applied (supplier price or sale price)
@@ -380,6 +376,8 @@ can be selected in the general settings.</p>
 </li>
 <li><p class="first">Also, sale and supplier taxes that are of type ‘percentage’ and that are marked as ‘included in price’
 are taken into account when computing the suggested price.</p>
+</li>
+<li><p class="first">Round suggested price to 5 cents</p>
 </li>
 <li><p class="first">Adds “Edit Price” submenu on Point Of Sale, Purchase and Sale modules.
 The user lands on an editable List View with the following columns :</p>
@@ -400,7 +398,7 @@ adapt the Sales Price according to the Suggested Price.</p>
 <p>Please note that this model makes assumptions when computing the suggested price:</p>
 <ul class="simple">
 <li>It supposes that each product has only one supplier and that products coming from multiple suppliers
-occure as duplicated products with one supplier each.</li>
+occur as duplicated products with one supplier each.</li>
 </ul>
 <p><strong>Table of contents</strong></p>
 <div class="contents local topic" id="contents">
