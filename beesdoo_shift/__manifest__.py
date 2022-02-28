@@ -10,7 +10,7 @@
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
     "version": "12.0.1.1.0",
-    "depends": ["mail"],
+    "depends": ["beesdoo_base", "mail"],
     "data": [
         "data/system_parameter.xml",
         "data/cron.xml",
