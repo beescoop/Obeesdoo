@@ -1,7 +1,16 @@
 Modification of product module for the needs of beescoop
 
-- Adds the label bio/ethique/provenance
-- Add a 'Suggested Price' field on products, and a 'Product Margin' field on Partners (Vendors) and Product Categories.
+- Adds the label bio/ethique/provenance.
+- Adds hazard and FDS labels.
+- Adds a main seller.
+- Calculates total price with VAT and deposit price.
+- Contains some facilitation for label printing.
+- Adds a 'Comments' field for use on labels.
+- Adds deadline for sale and consumption.
+- Adds an 'Ingredients' field.
+- Adds scale labels, sale units, and categories.
+- Generates barcodes.
+- Adds a 'Suggested Price' field on products, and a 'Product Margin' field on Partners (Vendors) and Product Categories.
   The first margin is used if set, otherwise the second margin (which has a default value) is used.
 - The reference price on which this margin is applied (supplier price or sale price)
   can be selected in the general settings.
@@ -26,4 +35,4 @@ Modification of product module for the needs of beescoop
 Please note that this model makes assumptions when computing the suggested price:
 
 - It supposes that each product has only one supplier and that products coming from multiple suppliers
-  occure as duplicated products with one supplier each.
+  occur as duplicated products with one supplier each.
