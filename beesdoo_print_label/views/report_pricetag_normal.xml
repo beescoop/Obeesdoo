@@ -42,12 +42,12 @@
                         <div class="pricetag_left floating_box deposit">
                             <t t-if="product_tmpl_id.total_deposit">
                                 <img src="/beesdoo_print_label/static/img/deposit.gif"/>
-                                <b><t t-esc="product_tmpl_id.total_deposit"/> <t t-esc="res_company.currency_id.name"/></b>
+                                <b><t t-esc="product_tmpl_id.total_deposit"/> <t t-esc="res_company.currency_id.symbol"/></b>
                             </t>
                         </div>
                         <div class="pricetag_right floating_box">
                             <div class="product_price">
-                                <t t-esc="'%0.2f %s' % (product_tmpl_id.total_with_vat, res_company.currency_id.name)"/>
+                                <t t-esc="'%0.2f %s' % (product_tmpl_id.total_with_vat, res_company.currency_id.symbol)"/>
                             </div>
                             <div class="product_price_per_uom_qty floating_box">
                                 <t t-if="product_tmpl_id.volume">Volume<br/>
@@ -60,7 +60,7 @@
                             <div class="product_price_per_uom_price floating_box">
                                 <t t-if="product_tmpl_id.total_with_vat_by_unit">
                                     Price / <t t-esc="product_tmpl_id.default_reference_unit.name"/><br/>
-                                    <b><t t-esc="'%0.2f %s' % (product_tmpl_id.total_with_vat_by_unit, res_company.currency_id.name)"/></b>
+                                    <b><t t-esc="'%0.2f %s' % (product_tmpl_id.total_with_vat_by_unit, res_company.currency_id.symbol)"/></b>
                                 </t>
                             </div>
                         </div>
