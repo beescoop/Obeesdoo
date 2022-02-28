@@ -240,12 +240,12 @@ class TestBeesdooShift(TransactionCase):
         sheet_1 = sheet_1.sudo(self.user_generic)
 
         # Expected workers are :
-        #     worker_regular_1 (barcode : 421457731745)
-        #     worker_regular_3 replaced by worker_regular_2 (barcode : 421457731744))
-        #     worker_irregular_1 (barcode : 429919251493)
+        #     worker_regular_1 (barcode : 521457731745)
+        #     worker_regular_3 replaced by worker_regular_2 (barcode : 521457731744))
+        #     worker_irregular_1 (barcode : 529919251493)
 
         # Scan barcode for expected workers
-        for barcode in [421457731745, 421457731744, 429919251493]:
+        for barcode in [521457731745, 521457731744, 529919251493]:
             sheet_1.on_barcode_scanned(barcode)
 
         # Check expected shifts update
@@ -254,19 +254,19 @@ class TestBeesdooShift(TransactionCase):
             self.assertEqual(shift.state, "done")
 
         # Added workers are :
-        #     worker_regular_super_1 (barcode : 421457731741)
-        #     worker_irregular_2 (barcode : 421457731743)
+        #     worker_regular_super_1 (barcode : 521457731741)
+        #     worker_irregular_2 (barcode : 521457731743)
 
         # Workararound for _onchange method
         # (not applying on temporary object in tests)
         sheet_1._origin = sheet_1
 
         # Scan barcode for added workers
-        sheet_1.on_barcode_scanned(421457731741)
+        sheet_1.on_barcode_scanned(521457731741)
         self.assertEqual(len(sheet_1.added_shift_ids), 1)
-        sheet_1.on_barcode_scanned(421457731743)
+        sheet_1.on_barcode_scanned(521457731743)
         # Scan an already added worker should not change anything
-        sheet_1.on_barcode_scanned(421457731743)
+        sheet_1.on_barcode_scanned(521457731743)
         self.assertEqual(len(sheet_1.added_shift_ids), 2)
 
         # Check added shifts fields
@@ -285,7 +285,7 @@ class TestBeesdooShift(TransactionCase):
 
         # Add a worker that should be replaced
         with self.assertRaises(UserError):
-            sheet_1.on_barcode_scanned(421457731742)
+            sheet_1.on_barcode_scanned(521457731742)
         # Wrong barcode
         with self.assertRaises(UserError):
             sheet_1.on_barcode_scanned(101010)
@@ -294,7 +294,7 @@ class TestBeesdooShift(TransactionCase):
         self.worker_regular_1.cooperative_status_ids.sr = -2
         self.worker_regular_1.cooperative_status_ids.sc = -2
         with self.assertRaises(UserError):
-            sheet_1.on_barcode_scanned(421457731745)
+            sheet_1.on_barcode_scanned(521457731745)
 
     def test_attendance_sheet_edition(self):
 
