@@ -74,7 +74,7 @@ class DatedTemplate(models.Model):
         return timeslot_rec
 
     @api.model
-    def display_timeslot(self,my_timeslot):
+    def display_timeslot(self):
         """
         This function return all the "timeslot_dated", between now
         and "beesdoo_shift.day_limit_swap"(parametable) day after
@@ -87,7 +87,7 @@ class DatedTemplate(models.Model):
                 .sudo()
                 .get_param("beesdoo_shift.day_limit_swap")
         )
-        end_date = my_timeslot.date + timedelta(days=next_swap_limit)
+        end_date = datetime.now() + timedelta(days=next_swap_limit)
 
         shifts = self.env["res.partner"].display_future_shift(end_date)
 

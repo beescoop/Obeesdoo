@@ -125,7 +125,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         #enregistrer information
         #indentifier case coché avec index
         my_timeslot = self.new_timeslot(template_id, date)
-        possible_timeslot = request.env["beesdoo.shift.template.dated"].sudo().display_timeslot(my_timeslot)
+        possible_timeslot = request.env["beesdoo.shift.template.dated"].sudo().display_timeslot()
 
         #register into session
         timeslots =[]

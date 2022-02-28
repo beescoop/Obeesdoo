@@ -206,7 +206,7 @@
                       <t t-esc="str(datetime.timedelta(hours=timeslot.template_id.end_time)).rsplit(':', 1)[0]"/>
                     </td>
                     <td>
-                      <input type="checkbox" name="timeslot_index" multiple="multiple" t-att-value="str(index)"/>
+                      <input type="checkbox" name="timeslot_index" multiple="multiple" t-attf-value="{{ index }}"/>
                     </td>
                     <t t-set="index" t-value="index + 1"/>
                   </tr>
