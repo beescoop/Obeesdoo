@@ -3,6 +3,7 @@ from odoo.exceptions import Warning
 
 class ExchangeRequest(models.Model):
     _name = 'beesdoo.shift.exchange_request'
+    _description = 'A model to track a shift exchange request'
 
     worker_id = fields.Many2one(
         "res.partner",

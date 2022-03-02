@@ -9,7 +9,7 @@ def daterange(start_date, end_date):
 
 class SubscribeUnderpopulatedShift(models.Model):
     _name = 'beesdoo.shift.subscribed_underpopulated_shift'
-
+    _description = 'A model to track an exchange with an underpopulated shift'
 
     def _get_selection_status(self):
         return [

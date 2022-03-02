@@ -2,6 +2,7 @@ from odoo import models, fields, api
 
 class Exchange(models.Model):
     _name = 'beesdoo.shift.exchange'
+    _description = 'A module to track a shift exchange between two cooperators'
 
     first_shift = fields.Many2one('beesdoo.shift.shift', string='first_shift')
     second_shift = fields.Many2one('beesdoo.shift.shift', string='second_shift')

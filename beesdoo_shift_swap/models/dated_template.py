@@ -7,6 +7,7 @@ _logger = logging.getLogger(__name__)
 
 class DatedTemplate(models.Model):
     _name = 'beesdoo.shift.template.dated'
+    _description = 'A shift template with a date and an hour'
 
     date = fields.Datetime(required = True)
     template_id = fields.Many2one("beesdoo.shift.template")
