@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
      Copyright 2021 Coop IT Easy
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
@@ -9,27 +9,27 @@
         <field name="model">product.template</field>
         <field name="arch" type="xml">
             <form string="Products">
-                <header name="product_info_header"/>
+                <header name="product_info_header" />
                 <sheet>
                     <div class="oe_title">
-                        <label class="oe_edit_only" for="name" string="Product Name"/>
+                        <label class="oe_edit_only" for="name" string="Product Name" />
                         <h1>
-                            <field name="name" placeholder="Product Name"/>
+                            <field name="name" placeholder="Product Name" />
                         </h1>
                     </div>
                     <group>
                         <group>
-                            <field name="default_code"/>
-                            <field name="total_with_vat"/>
-                            <field name="main_seller_id"/>
-                            <field name="pos_categ_id"/>
-                            <field name="categ_id"/>
+                            <field name="default_code" />
+                            <field name="total_with_vat" />
+                            <field name="main_seller_id" />
+                            <field name="pos_categ_id" />
+                            <field name="categ_id" />
                         </group>
                         <group>
-                            <field name="qty_available"/>
-                            <field name="incoming_qty"/>
-                            <field name="uom_id"/>
-                            <field name="uom_po_id"/>
+                            <field name="qty_available" />
+                            <field name="incoming_qty" />
+                            <field name="uom_id" />
+                            <field name="uom_po_id" />
                         </group>
                     </group>
                 </sheet>
@@ -42,14 +42,14 @@
         <field name="model">product.template</field>
         <field name="arch" type="xml">
             <tree string="Products" edit="false">
-                <field name="name"/>
-                <field name="uom_id"/>
-                <field name="default_code"/>
-                <field name="main_seller_id"/>
-                <field name="categ_id"/>
-                <field name="qty_available"/>
-                <field name="incoming_qty"/>
-                <field name="total_with_vat"/>  <!-- TVAC -->
+                <field name="name" />
+                <field name="uom_id" />
+                <field name="default_code" />
+                <field name="main_seller_id" />
+                <field name="categ_id" />
+                <field name="qty_available" />
+                <field name="incoming_qty" />
+                <field name="total_with_vat" />  <!-- TVAC -->
             </tree>
         </field>
     </record>
@@ -60,37 +60,37 @@
         <field name="res_model">product.template</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="search_view_id" ref="product.product_template_search_view"/>
+        <field name="search_view_id" ref="product.product_template_search_view" />
         <field name="context">{"search_default_filter_to_sell":1}</field>
-        <field name="view_id" eval="False"/>
         <field name="target">main</field>
-        <field name="view_id" eval="False"/>
+        <field name="view_id" eval="False" />
     </record>
 
     <record id="action_product_information_tree" model="ir.actions.act_window.view">
-        <field eval="1" name="sequence"/>
+        <field eval="1" name="sequence" />
         <field name="view_mode">tree</field>
-        <field name="view_id" ref="view_product_information_read_only_tree"/>
-        <field name="act_window_id" ref="action_product_information"/>
+        <field name="view_id" ref="view_product_information_read_only_tree" />
+        <field name="act_window_id" ref="action_product_information" />
     </record>
 
     <record id="action_product_information_form" model="ir.actions.act_window.view">
-        <field eval="2" name="sequence"/>
+        <field eval="2" name="sequence" />
         <field name="view_mode">form</field>
-        <field name="view_id" ref="view_product_information_read_only_form"/>
-        <field name="act_window_id" ref="action_product_information"/>
+        <field name="view_id" ref="view_product_information_read_only_form" />
+        <field name="act_window_id" ref="action_product_information" />
     </record>
 
     <record id="view_product_information_read_only_form_button" model="ir.ui.view">
         <field name="name">view_product_information_read_only_form_button</field>
         <field name="model">product.template</field>
-        <field name="inherit_id" ref="view_product_information_read_only_form"/>
+        <field name="inherit_id" ref="view_product_information_read_only_form" />
         <field name="arch" type="xml">
             <xpath expr="//header[@name='product_info_header']" position="inside">
-                <button string="Back to product list"
-                        name="%(action_product_information)d"
-                        type="action"
-                        class="btn-primary"
+                <button
+                    string="Back to product list"
+                    name="%(action_product_information)d"
+                    type="action"
+                    class="btn-primary"
                 />
             </xpath>
         </field>

@@ -161,7 +161,14 @@ class TestResPartner(TransactionCase):
         """
         Test that a cooperator can shop based on his share type.
         """
+        # using self.env.ref("beesdoo_shift.res_partner_worker_1_demo")
+        # does not work because the is_worker field is overiden by
+        # beesdoo_easy_my_coop's `_compute_is_worker`
+
         coop1 = self.env.ref("beesdoo_base.res_partner_cooperator_1_demo")
+        coop1.cooperative_status_ids = self.env.ref(
+            "beesdoo_shift.cooperative_status_1_demo"
+        )
         # Run computed field
         coop1._compute_can_shop()
         self.assertEqual(coop1.can_shop, True)

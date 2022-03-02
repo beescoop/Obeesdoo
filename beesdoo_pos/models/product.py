@@ -6,9 +6,9 @@ class ProductTemplate(models.Model):
 
     @api.onchange("sale_ok")
     def _onchange_sale_ok(self):
-        """ Maintains the value of `available_in_pos` when unchecking `sale_ok`,
-            by storing its value before calling parent's method,
-            then assigning the stored value.
+        """Maintains the value of `available_in_pos` when unchecking `sale_ok`,
+        by storing its value before calling parent's method,
+        then assigning the stored value.
         """
         was_available = self.available_in_pos
         super(ProductTemplate, self)._onchange_sale_ok()

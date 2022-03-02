@@ -38,7 +38,9 @@
             <field name="name">Send weekly shift summary</field>
             <field name="model_id" ref="model_beesdoo_shift_shift" />
             <field name="state">code</field>
-            <field name="code">model._cron_send_weekly_emails(notice=1, period=7)</field>
+            <field
+                name="code"
+            >model._cron_send_weekly_emails(notice=1, period=7)</field>
             <field name="interval_number">7</field>
             <field name="interval_type">days</field>
             <field name="numbercall">-1</field>

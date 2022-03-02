@@ -1,31 +1,31 @@
 /* Define fonts */
 @font-face {
-  font-family: Roboto;
-  src: url(/beesdoo_website_theme/static/src/font/Roboto-Regular.ttf);
+    font-family: Roboto;
+    src: url(/beesdoo_website_theme/static/src/font/Roboto-Regular.ttf);
 }
 
 @font-face {
-  font-family: Roboto;
-  src: url(/beesdoo_website_theme/static/src/font/Roboto-Bold.ttf);
-  font-weight: bold;
+    font-family: Roboto;
+    src: url(/beesdoo_website_theme/static/src/font/Roboto-Bold.ttf);
+    font-weight: bold;
 }
 
 @font-face {
-  font-family: Roboto;
-  src: url(/beesdoo_website_theme/static/src/font/Roboto-Italic.ttf);
-  font-style: italic;
+    font-family: Roboto;
+    src: url(/beesdoo_website_theme/static/src/font/Roboto-Italic.ttf);
+    font-style: italic;
 }
 
 @font-face {
-  font-family: Roboto;
-  src: url(/beesdoo_website_theme/static/src/font/Roboto-BoldItalic.ttf);
-  font-weight: bold;
-  font-style: italic;
+    font-family: Roboto;
+    src: url(/beesdoo_website_theme/static/src/font/Roboto-BoldItalic.ttf);
+    font-weight: bold;
+    font-style: italic;
 }
 
 @font-face {
-  font-family: BebasNeue;
-  src: url(/beesdoo_website_theme/static/src/font/BebasNeue-Bold.ttf);
+    font-family: BebasNeue;
+    src: url(/beesdoo_website_theme/static/src/font/BebasNeue-Bold.ttf);
 }
 
 /* Defines variables */
@@ -38,125 +38,125 @@
 
 /* Main */
 body {
-  font-family: Roboto, sans;
+    font-family: Roboto, sans;
 }
 
 /* Header menu */
 header {
-  .navbar {
-    font-family: BebasNeue, sans;
-    // Enlarge the menu
-    padding-top: 20px;
-    padding-bottom: 20px;
+    .navbar {
+        font-family: BebasNeue, sans;
+        // Enlarge the menu
+        padding-top: 20px;
+        padding-bottom: 20px;
 
-    .navbar-nav {
-      font-size: 1.5em;
+        .navbar-nav {
+            font-size: 1.5em;
 
-      // Function to underline non active links
-      #menu() {
-        padding-bottom: 10px;
-        border-bottom-width: 4px;
-        border-bottom-style: solid;
-      }
-
-      // Function to underline the active links
-      #menu-active() {
-        padding-bottom: 6px;
-        border-bottom-width: 8px;
-        border-bottom-style: solid;
-      }
-
-      // Underline the link
-      a {
-        span:not(.caret) {
-          #menu;
-        }
-
-        &:hover,
-        &:focus,
-        &.active {
-          span:not(.caret) {
-            #menu-active;
-          }
-        }
-      }
-
-      > .open > a,
-      > .open > a:hover,
-      > .open > a:focus {
-        background-color: transparent;
-      }
-
-      // Last element is the name of the logged user.
-      // This should not be in the same font as other links
-      > li:last-child {
-        font-family: Roboto;
-        font-size: 0.8em;
-      }
-
-      // Put different colors on each link of the menu
-      .menu-color-loop(@i) when (@i > 0) {
-        .menu-color-loop((@i - 1));
-
-        > li:nth-child(@{nbcolors}n + @{i}) {
-          a {
-            span:not(.caret) {
-              border-bottom-color: extract(@colors, @i);
+            // Function to underline non active links
+            #menu() {
+                padding-bottom: 10px;
+                border-bottom-width: 4px;
+                border-bottom-style: solid;
             }
-          }
-        }
-      }
 
-      .menu-color-loop(@nbcolors);
+            // Function to underline the active links
+            #menu-active() {
+                padding-bottom: 6px;
+                border-bottom-width: 8px;
+                border-bottom-style: solid;
+            }
+
+            // Underline the link
+            a {
+                span:not(.caret) {
+                    #menu;
+                }
+
+                &:hover,
+                &:focus,
+                &.active {
+                    span:not(.caret) {
+                        #menu-active;
+                    }
+                }
+            }
+
+            > .open > a,
+            > .open > a:hover,
+            > .open > a:focus {
+                background-color: transparent;
+            }
+
+            // Last element is the name of the logged user.
+            // This should not be in the same font as other links
+            > li:last-child {
+                font-family: Roboto;
+                font-size: 0.8em;
+            }
+
+            // Put different colors on each link of the menu
+            .menu-color-loop(@i) when (@i > 0) {
+                .menu-color-loop((@i - 1));
+
+                > li:nth-child(@{nbcolors}n + @{i}) {
+                    a {
+                        span:not(.caret) {
+                            border-bottom-color: extract(@colors, @i);
+                        }
+                    }
+                }
+            }
+
+            .menu-color-loop(@nbcolors);
+        }
     }
-  }
 }
 
 /* Titles */
 // Underline the title with colored bar
 h1 {
-  color: black;
-  font-family: BebasNeue, sans;
-  text-align: center;
-  position: relative;
-  margin-top: 1em;
-  margin-bottom: 1em;
+    color: black;
+    font-family: BebasNeue, sans;
+    text-align: center;
+    position: relative;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 h1:after {
-  content: "";
-  background-color: extract(@colors, 1);
-  height: 6px;
-  width: 100px;
-  display: block;
-  margin: 0 auto;
-  margin-top: 0.5em;
+    content: "";
+    background-color: extract(@colors, 1);
+    height: 6px;
+    width: 100px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 0.5em;
 }
 
 h2,
 h3 {
-  font-family: BebasNeue, sans;
-  font-size: 25px;
+    font-family: BebasNeue, sans;
+    font-size: 25px;
 }
 
 .alert-info {
-  background-color: extract(@colors-light, 3);
-  border-color: extract(@colors-light, 3);
-  color: extract(@colors, 3);
+    background-color: extract(@colors-light, 3);
+    border-color: extract(@colors-light, 3);
+    color: extract(@colors, 3);
 }
 
 .alert-warning {
-  background-color: extract(@colors-light, 1);
-  border-color: extract(@colors-light, 1);
+    background-color: extract(@colors-light, 1);
+    border-color: extract(@colors-light, 1);
 }
 
 .alert-danger {
-  background-color: extract(@colors-light, 2);
-  border-color: extract(@colors-light, 2);
+    background-color: extract(@colors-light, 2);
+    border-color: extract(@colors-light, 2);
 }
 
 .panel-warning {
-  background-color: extract(@colors-light, 1);
+    background-color: extract(@colors-light, 1);
 }
 
 .table > thead > tr > td.warning,
@@ -171,5 +171,5 @@ h3 {
 .table > thead > tr.warning > th,
 .table > tbody > tr.warning > th,
 .table > tfoot > tr.warning > th {
-  background-color: extract(@colors-light, 1);
+    background-color: extract(@colors-light, 1);
 }

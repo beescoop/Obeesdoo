@@ -177,7 +177,8 @@ class TestBeesdooShift(TransactionCase):
         self.assertEqual(status_id.status, "holiday")
         # Alert start time should have changed
         self.assertEqual(
-            status_id.alert_start_time, status_id.holiday_end_time,
+            status_id.alert_start_time,
+            status_id.holiday_end_time,
         )
 
     def test_postponed_alert_start_time_holiday_irregular(self):
@@ -211,7 +212,8 @@ class TestBeesdooShift(TransactionCase):
         self.assertEqual(status_id.status, "holiday")
         # Alert start time should have changed
         self.assertEqual(
-            status_id.alert_start_time, status_id.holiday_end_time,
+            status_id.alert_start_time,
+            status_id.holiday_end_time,
         )
 
     def test_postponed_alert_start_time_exempted_regular(self):
@@ -247,7 +249,8 @@ class TestBeesdooShift(TransactionCase):
         self.assertEqual(status_id.status, "exempted")
         # Alert start time should have changed
         self.assertEqual(
-            status_id.alert_start_time, status_id.temporary_exempt_end_date,
+            status_id.alert_start_time,
+            status_id.temporary_exempt_end_date,
         )
 
     def test_postponed_alert_start_time_exempted_irregular(self):
@@ -282,5 +285,6 @@ class TestBeesdooShift(TransactionCase):
         self.assertEqual(status_id.status, "exempted")
         # Alert start time should have changed
         self.assertEqual(
-            status_id.alert_start_time, status_id.temporary_exempt_end_date,
+            status_id.alert_start_time,
+            status_id.temporary_exempt_end_date,
         )

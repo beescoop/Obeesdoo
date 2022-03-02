@@ -61,7 +61,8 @@
     $ cd /home/odoo/odoo
     $ ./odoo.py
 
-lancer le navigateur http://localhost:8069 la page de création de base de donnée d'odoo devrait s'ouvrir, essayé de créer une base de donnée
+lancer le navigateur http://localhost:8069 la page de création de base de donnée d'odoo
+devrait s'ouvrir, essayé de créer une base de donnée
 
 ctrl + c pour tuer le processus odoo depuis la console
 
@@ -231,7 +232,8 @@ supprimer le contenu et le remplacer par
 
 tester http://localhost
 
-devrait conduire à odoo (ne pas oublier de vider le cache de son navigateur au cas ou ca ne marche pas tout de suite)
+devrait conduire à odoo (ne pas oublier de vider le cache de son navigateur au cas ou ca
+ne marche pas tout de suite)
 
 ## Sécurité
 

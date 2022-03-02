@@ -25,7 +25,7 @@ class AccountInvoice(models.Model):
     @api.multi
     def action_invoice_negative_amount_open(self, to_open_invoices):
         """Similar to action_invoice_open without UserError on an invoice
-        with a negative total amount """
+        with a negative total amount"""
         if to_open_invoices.filtered(lambda inv: not inv.partner_id):
             raise UserError(
                 _(

@@ -227,7 +227,12 @@ class Task(models.Model):
 
     @api.model
     def subscribe_from_today(
-        self, worker_ids, task_tmpl_ids, today=None, end_date=None, now=None,
+        self,
+        worker_ids,
+        task_tmpl_ids,
+        today=None,
+        end_date=None,
+        now=None,
     ):
         """
         Subscribe workers from *worker_ids* to a shift related to
@@ -302,11 +307,11 @@ class Task(models.Model):
     @api.multi
     def write(self, vals):
         """
-            Overwrite write to track state change
-            If worker is changer:
-               Revert for the current worker
-               Change the worker info
-               Compute state change for the new worker
+        Overwrite write to track state change
+        If worker is changer:
+           Revert for the current worker
+           Change the worker info
+           Compute state change for the new worker
         """
         if "worker_id" in vals:
             for rec in self:

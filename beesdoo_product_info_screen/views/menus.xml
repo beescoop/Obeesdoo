@@ -1,19 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
      Copyright 2021 Coop IT Easy
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
 <odoo>
     <!-- menu items -->
-    <menuitem name="Products" id="menu_main_product"
-              sequence="40"
-              groups="group_product_info_user"
-              web_icon="beesdoo_product_info_screen,static/description/icon.png"
+    <menuitem
+        name="Products"
+        id="menu_main_product"
+        sequence="40"
+        groups="group_product_info_user"
+        web_icon="beesdoo_product_info_screen,static/description/icon.png"
     />
-    <menuitem name="Product info" id="menu_product_info"
-              parent="menu_main_product"
-              sequence="10"
-              action="action_product_information"
-              groups="group_product_info_user"
+    <menuitem
+        name="Product info"
+        id="menu_product_info"
+        parent="menu_main_product"
+        sequence="10"
+        action="action_product_information"
+        groups="group_product_info_user"
     />
 </odoo>
