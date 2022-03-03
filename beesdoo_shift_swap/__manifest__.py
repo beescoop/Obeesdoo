@@ -22,7 +22,7 @@
         'security/ir.model.access.csv',
         'views/shift_swap.xml',
         'views/shift_swap_subscribe.xml',
-        'views/shift_swap_timeslot.xml',
+        'views/shift_swap_tmpl_dated.xml',
         'views/res_config_setting_view.xml',
         'views/shift_swap_proposale.xml',
         'views/shift_swap_set.xml',

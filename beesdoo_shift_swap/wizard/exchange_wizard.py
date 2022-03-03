@@ -8,16 +8,16 @@ class SubscribeShiftSwap(models.TransientModel) :
     _description = 'Subscribe Exchange shift'
 
     @api.onchange('worker_id')
-    def onchange_exchanged_timeslot(self):
+    def onchange_exchanged_tmpl_dated(self):
         # TODO : prendre en compte qd il est inscris a aucun shift
         for record in self:
             if not record.worker_id:
-                record.exchanged_timeslot_id = False
+                record.exchanged_tmpl_dated_id = False
             else:
-                timeslots = self.env["beesdoo.shift.template.dated"].my_timeslot(record.worker_id)
-                # record.available_timeslots = timeslots
+                tmpl_dated = self.env["beesdoo.shift.template.dated"].my_tmpl_dated(record.worker_id)
+                # record.available_tmpl_dated = tmpl_dated
                 temp = self.env["beesdoo.shift.template.dated"]
-                for rec in timeslots:
+                for rec in tmpl_dated:
                     template = rec.template_id
                     date = rec.date
                     temp |= temp.create({
@@ -26,7 +26,7 @@ class SubscribeShiftSwap(models.TransientModel) :
                         'store': False,
                     })
                 return {
-                    'domain': {'exchanged_timeslot_id': [('id', 'in', temp.ids)]}
+                    'domain': {'exchanged_tmpl_dated_id': [('id', 'in', temp.ids)]}
                 }
 
     worker_id = fields.Many2one(
@@ -38,18 +38,18 @@ class SubscribeShiftSwap(models.TransientModel) :
         string="Cooperator",
     )
 
-    exchanged_timeslot_id = fields.Many2one('beesdoo.shift.template.dated', string='exchanged_timeslot')
+    exchanged_tmpl_dated_id = fields.Many2one('beesdoo.shift.template.dated', string='exchanged_tmpl_dated')
 
-    @api.onchange('exchanged_timeslot_id')
-    def _get_available_timeslot(self):
+    @api.onchange('exchanged_tmpl_dated_id')
+    def _get_available_tmpl_dated(self):
         for record in self:
-            if not record.exchanged_timeslot_id:
-                record.confirmed_timeslot_id = False
+            if not record.exchanged_tmpl_dated_id:
+                record.confirmed_tmpl_dated_id = False
             else:
-                timeslots = self.env["beesdoo.shift.template.dated"].display_timeslot()
-                # record.available_timeslots = timeslots
+                tmpl_dated = self.env["beesdoo.shift.template.dated"].display_tmpl_dated()
+                # record.available_tmpl_dated = tmpl_dated
                 temp = self.env["beesdoo.shift.template.dated"]
-                for rec in timeslots:
+                for rec in tmpl_dated:
                     template = rec.template_id
                     date = rec.date
                     temp |= temp.create({
@@ -58,23 +58,23 @@ class SubscribeShiftSwap(models.TransientModel) :
                         'store': False,
                     })
                 return {
-                    'domain': {'asked_timeslot_ids': [('id', 'in', temp.ids)]}
+                    'domain': {'asked_tmpl_dated_ids': [('id', 'in', temp.ids)]}
                 }
     # TODO : relational fields
-    asked_timeslot_ids = fields.Many2many(
+    asked_tmpl_dated_ids = fields.Many2many(
         comodel_name='beesdoo.shift.template.dated',
         #inverse_name='id',
         relation='wizard_exchange_template_dated',
-        string='asked_timeslots',
+        string='asked_tmpl_dated',
     )
 
-    @api.onchange('asked_timeslot_ids')
+    @api.onchange('asked_tmpl_dated_ids')
     def get_possible_match(self):
         for record in self :
-            if not record.exchanged_timeslot_id or not record.asked_timeslot_ids :
+            if not record.exchanged_tmpl_dated_id or not record.asked_tmpl_dated_ids :
                 record.possible_match = False
             else :
-                exchanges = self.env["beesdoo.shift.exchange_request"].matching_request(record.asked_timeslot_ids,record.exchanged_timeslot_id)
+                exchanges = self.env["beesdoo.shift.exchange_request"].matching_request(record.asked_tmpl_dated_ids,record.exchanged_tmpl_dated_id)
                 return {
                     'domain': {'possible_match': [('id', 'in', exchanges.ids)]}
                 }
@@ -104,27 +104,27 @@ class SubscribeShiftSwap(models.TransientModel) :
     @api.multi
     def make_change(self):
         self = self._check()
-        self.exchanged_timeslot_id.store = True
-        #self.asked_timeslot_ids.store = True
-        for rec in self.asked_timeslot_ids :
+        self.exchanged_tmpl_dated_id.store = True
+        #self.asked_tmpl_dated_ids.store = True
+        for rec in self.asked_tmpl_dated_ids :
             rec.store = True
             self.env["beesdoo.shift.template.dated"].check_possibility_to_exchange(rec,
                                                                                    self.worker_id)
-        #for timeslot in self.asked_timeslot_ids.ids :
+        #for tmpl_dated in self.asked_tmpl_dated_ids.ids :
 
         data = {
             "request_date": datetime.date(datetime.now()),
             "worker_id": self.worker_id.id,
-            "exchanged_timeslot_id": self.exchanged_timeslot_id.id,
-            "asked_timeslot_ids":[(6,False, self.asked_timeslot_ids.ids)],
+            "exchanged_tmpl_dated_id": self.exchanged_tmpl_dated_id.id,
+            "asked_tmpl_dated_ids":[(6,False, self.asked_tmpl_dated_ids.ids)],
             "validate_request_id":self.possible_match.id,
             "status": 'validate_match' if self.possible_match else 'no_match',
         }
 
-        useless_timeslots = self.env["beesdoo.shift.template.dated"].search([
+        useless_tmpl_dated = self.env["beesdoo.shift.template.dated"].search([
             ("store", '=', False)
         ])
-        useless_timeslots.unlink()
+        useless_tmpl_dated.unlink()
         record = self.env["beesdoo.shift.exchange_request"].sudo().create(data)
         if self.possible_match :
             self.possible_match.write(
@@ -133,6 +133,6 @@ class SubscribeShiftSwap(models.TransientModel) :
 
     @api.multi
     def contact_coop_same_day_same_hour(self):
-        partner_rec = self.env["beesdoo.shift.exchange_request"].get_coop_same_days_same_hour(self.exchanged_timeslot_id)
+        partner_rec = self.env["beesdoo.shift.exchange_request"].get_coop_same_days_same_hour(self.exchanged_tmpl_dated_id)
         for rec in partner_rec:
-            self.worker_id.send_mail_coop_same_days_same_hour(self.exchanged_timeslot_id,rec)
+            self.worker_id.send_mail_coop_same_days_same_hour(self.exchanged_tmpl_dated_id,rec)

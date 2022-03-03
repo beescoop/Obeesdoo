@@ -16,24 +16,24 @@ from odoo.addons.beesdoo_website_shift.controllers.main import WebsiteShiftContr
 
 class WebsiteShiftSwapController(WebsiteShiftController):
 
-    def shift_to_timeslot(self,my_shift):
+    def shift_to_tmpl_dated(self,my_shift):
         list_shift = []
         list_shift.append(my_shift)
-        my_timeslot = request.env["beesdoo.shift.template.dated"].sudo().swap_shift_to_timeslot(list_shift)
-        return my_timeslot
+        my_tmpl_dated = request.env["beesdoo.shift.template.dated"].sudo().swap_shift_to_tmpl_dated(list_shift)
+        return my_tmpl_dated
 
-    def new_timeslot(self,template_id,date):
-        timeslot = request.env["beesdoo.shift.template.dated"].new()
-        timeslot.template_id = template_id
-        timeslot.date = date
-        return timeslot
+    def new_tmpl_dated(self,template_id,date):
+        tmpl_dated = request.env["beesdoo.shift.template.dated"].new()
+        tmpl_dated.template_id = template_id
+        tmpl_dated.date = date
+        return tmpl_dated
 
     @http.route("/my/shift/swaping/<int:template_id>/<string:date>", website=True)
     def swaping_shift(self,template_id,date):
         now = datetime.now()
         shift_date = datetime.strptime(date,'%Y-%m-%d %H:%M:%S')
 
-        #save the swaping timeslot in the user session
+        #save the swaping tmpl_dated in the user session
         request.session['template_id'] = template_id
         request.session['date'] = date
 
@@ -51,18 +51,18 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         """
         Personnal page to choose the underpopulated shift you want
         """
-        #Get unwanted timeslot save in the user session
+        #Get unwanted tmpl_dated save in the user session
             #Get template and date from session
         template_id = request.session['template_id']
         date = request.session['date']
-            #create new timeslot
-        my_timeslot = self.new_timeslot(template_id,date)
+            #create new tmpl_dated
+        my_tmpl_dated = self.new_tmpl_dated(template_id,date)
 
         #get underpopulated shift
         my_available_shift = (
             request.env["beesdoo.shift.subscribed_underpopulated_shift"]
             .sudo()
-            .get_underpopulated_shift(my_timeslot)
+            .get_underpopulated_shift(my_tmpl_dated)
         )
 
         # Get the user's future shifts
@@ -74,14 +74,14 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
         # Remove the already subscribed shifts from the propositions
         for available_shift in my_available_shift:
-            for timeslot_dated in request.env["beesdoo.shift.template.dated"].swap_shift_to_timeslot(subscribed_shifts):
-                if available_shift.date == timeslot_dated.date:
+            for tmpl_dated in request.env["beesdoo.shift.template.dated"].swap_shift_to_tmpl_dated(subscribed_shifts):
+                if available_shift.date == tmpl_dated.date:
                     my_available_shift -= available_shift
 
-        return request.render("beesdoo_website_shift_swap.website_shift_swap_underpopulated_timeslot",
+        return request.render("beesdoo_website_shift_swap.website_shift_swap_underpopulated_tmpl_dated",
             {
                 "underpopulated_shift" : my_available_shift,
-                "exchanged_timeslot" : my_timeslot
+                "exchanged_tmpl_dated" : my_tmpl_dated
             }
         )
 
@@ -90,13 +90,13 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         user = request.env["res.users"].browse(request.uid)
         template_id = request.session['template_id']
         date = request.session['date']
-        my_timeslot = request.env["beesdoo.shift.template.dated"].sudo().create({
+        my_tmpl_dated = request.env["beesdoo.shift.template.dated"].sudo().create({
             "template_id":template_id,
             "date":date,
             "store": True,
         })
 
-        timeslot_wanted = request.env["beesdoo.shift.template.dated"].sudo().create({
+        tmpl_dated_wanted = request.env["beesdoo.shift.template.dated"].sudo().create({
             "template_id":template_wanted,
             "date":date_wanted,
             "store":True,
@@ -104,8 +104,8 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         data = {
             "date": datetime.date(datetime.now()),
             "worker_id": user.partner_id.id,
-            "exchanged_timeslot_id": my_timeslot.id,
-            "confirmed_timeslot_id": timeslot_wanted.id,
+            "exchanged_tmpl_dated_id": my_tmpl_dated.id,
+            "confirmed_tmpl_dated_id": tmpl_dated_wanted.id,
         }
         record = request.env["beesdoo.shift.subscribed_underpopulated_shift"].sudo().create(data)
         if record._compute_exchanged_already_generated() :
@@ -124,36 +124,36 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         #liste de dictionaire
         #enregistrer information
         #indentifier case coché avec index
-        my_timeslot = self.new_timeslot(template_id, date)
-        possible_timeslot = request.env["beesdoo.shift.template.dated"].sudo().display_timeslot()
+        my_tmpl_dated = self.new_tmpl_dated(template_id, date)
+        possible_tmpl_dated = request.env["beesdoo.shift.template.dated"].sudo().display_tmpl_dated()
 
         #register into session
-        timeslots =[]
-        for rec in possible_timeslot:
-            timeslots.append({
+        tmpl_dated =[]
+        for rec in possible_tmpl_dated:
+            tmpl_dated.append({
                 "template_id" : rec.template_id.id,
                 "date" : rec.date,
             })
-        request.session['timeslots_checked'] = timeslots
+        request.session['tmpl_dated_checked'] = tmpl_dated
 
         if request.httprequest.method == 'POST' :
             #une fois appuyer sur submit
             #TODO : first checkbox return 'on'
             print(post)
-            timeslot_index = request.httprequest.form.getlist('timeslot_index')
+            tmpl_dated_index = request.httprequest.form.getlist('tmpl_dated_index')
             list_index=[]
-            for rec in timeslot_index :
+            for rec in tmpl_dated_index :
                 list_index.append(int(rec))
             '''if not len(list_index):
-                raise ValidationError('Please choose at least one timeslot')'''
+                raise ValidationError('Please choose at least one tmpl_dated')'''
             return request.render(
                 "beesdoo_website_shift.my_shift_regular_worker",
                 self.subscribe_request(list_index))
         else :
-            return request.render ("beesdoo_website_shift_swap.website_shift_swap_possible_timeslot",
+            return request.render ("beesdoo_website_shift_swap.website_shift_swap_possible_tmpl_dated",
                     {
-                        "possible_timeslot": possible_timeslot,
-                        "exchanged_timeslot": my_timeslot
+                        "possible_tmpl_dated": possible_tmpl_dated,
+                        "exchanged_tmpl_dated": my_tmpl_dated
 
                    })
 
@@ -163,30 +163,30 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
         template_id = request.session['template_id']
         date = request.session['date']
-        my_timeslot = request.env["beesdoo.shift.template.dated"].sudo().create({
+        my_tmpl_dated = request.env["beesdoo.shift.template.dated"].sudo().create({
             "template_id": template_id,
             "date": date,
             "store": True,
         })
 
-        timeslots = request.session['timeslots_checked']
-        asked_timeslots = request.env["beesdoo.shift.template.dated"]
-        for x in range(len(timeslots)):
+        tmpl_dated = request.session['tmpl_dated_checked']
+        asked_tmpl_dated = request.env["beesdoo.shift.template.dated"]
+        for x in range(len(tmpl_dated)):
             for i in range(len(list_index)):
                 if list_index[i] == x:
                     data = {
-                        "date":timeslots[x]["date"],
-                        "template_id":timeslots[x]["template_id"],
+                        "date":tmpl_dated[x]["date"],
+                        "template_id":tmpl_dated[x]["template_id"],
                         "store":True,
                     }
-                    create_timeslot = request.env["beesdoo.shift.template.dated"].sudo().create(data)
-                    #request.env["beesdoo.shift.template.dated"].sudo().check_possibility_to_exchange(create_timeslot,user.partner_id)
-                    asked_timeslots |= create_timeslot
+                    create_tmpl_dated = request.env["beesdoo.shift.template.dated"].sudo().create(data)
+                    #request.env["beesdoo.shift.template.dated"].sudo().check_possibility_to_exchange(create_tmpl_dated,user.partner_id)
+                    asked_tmpl_dated |= create_tmpl_dated
         data = {
             "request_date": datetime.date(datetime.now()),
             "worker_id": user.partner_id.id,
-            "exchanged_timeslot_id": my_timeslot.id,
-            "asked_timeslot_ids": [(6, False, asked_timeslots.ids)],
+            "exchanged_tmpl_dated_id": my_tmpl_dated.id,
+            "asked_tmpl_dated_ids": [(6, False, asked_tmpl_dated.ids)],
             "status": 'no_match',
         }
         request.env["beesdoo.shift.exchange_request"].sudo().create(data)
@@ -202,7 +202,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         ])
         matchs = request.env["beesdoo.shift.exchange_request"]
         for exchange in my_exchanges :
-            matchs |= request.env["beesdoo.shift.exchange_request"].matching_request(exchange.asked_timeslot_ids,exchange.exchanged_timeslot_id)
+            matchs |= request.env["beesdoo.shift.exchange_request"].matching_request(exchange.asked_tmpl_dated_ids,exchange.exchanged_tmpl_dated_id)
 
         return request.render("beesdoo_website_shift_swap.website_shift_swap_matching_request",
                               {
@@ -213,16 +213,16 @@ class WebsiteShiftSwapController(WebsiteShiftController):
     def get_possible_match(self):
         template_id = request.session['template_id']
         date = request.session['date']
-        my_timeslot = self.new_timeslot(template_id, date)
+        my_tmpl_dated = self.new_tmpl_dated(template_id, date)
         possible_match = (
             request.env["beesdoo.shift.exchange_request"]
                 .sudo()
-                .get_possible_match(my_timeslot)
+                .get_possible_match(my_tmpl_dated)
         )
         return request.render("beesdoo_website_shift_swap.website_shift_swap_possible_match",
                               {
                                   "possible_matches":possible_match,
-                                  "exchanged_timeslot":my_timeslot,
+                                  "exchanged_tmpl_dated":my_tmpl_dated,
                               })
 
     @http.route("/my/request",website=True)
@@ -238,7 +238,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             list.append(
                 {
                     "my_requests": rec,
-                    "matching_request": request.env["beesdoo.shift.exchange_request"].sudo().matching_request(rec.asked_timeslot_ids,rec.exchanged_timeslot_id)
+                    "matching_request": request.env["beesdoo.shift.exchange_request"].sudo().matching_request(rec.asked_tmpl_dated_ids,rec.exchanged_tmpl_dated_id)
                 }
             )
 
@@ -252,7 +252,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         cur_user = request.env["res.users"].browse(request.uid)
         template_id = request.session['template_id']
         date = request.session['date']
-        my_timeslot = request.env["beesdoo.shift.template.dated"].sudo().create({
+        my_tmpl_dated = request.env["beesdoo.shift.template.dated"].sudo().create({
             "template_id": template_id,
             "date": date,
             "store": True,
@@ -263,8 +263,8 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         data = {
             "request_date": datetime.date(datetime.now()),
             "worker_id": cur_user.partner_id.id,
-            "exchanged_timeslot_id": my_timeslot.id,
-            "asked_timeslot_ids": [(6,False, matching_request.exchanged_timeslot_id.ids)],
+            "exchanged_tmpl_dated_id": my_tmpl_dated.id,
+            "asked_tmpl_dated_ids": [(6,False, matching_request.exchanged_tmpl_dated_id.ids)],
             "validate_request_id": matching_request_id,
             "status": 'validate_match',
         }

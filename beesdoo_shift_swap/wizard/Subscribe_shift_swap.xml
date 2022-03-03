@@ -6,8 +6,8 @@
             <form>
                 <group>
                     <field name="worker_id"/>
-                    <field name="exchanged_timeslot_id"/>
-                    <field name="confirmed_timeslot_id">
+                    <field name="exchanged_tmpl_dated_id"/>
+                    <field name="confirmed_tmpl_dated_id">
                         <tree>
                             <field name="template_id"/>
                             <field name="date"/>

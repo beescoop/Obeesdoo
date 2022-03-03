@@ -20,8 +20,8 @@ class Exchange(models.Model):
 
     def is_shift_generated(self,request):
         shift_data_search=[
-            ('start_time', '=', request.exchanged_timeslot_id.date),
-            ("task_template_id", "=", request.exchanged_timeslot_id.template_id.id),
+            ('start_time', '=', request.exchanged_tmpl_dated_id.date),
+            ("task_template_id", "=", request.exchanged_tmpl_dated_id.template_id.id),
             ("worker_id", "=", request.worker_id.id),
         ]
         shift = self.env["beesdoo.shift.shift"].search(shift_data_search)

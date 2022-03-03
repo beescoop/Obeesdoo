@@ -6,7 +6,7 @@
             <field name="model_id" ref="beesdoo_shift_swap.model_beesdoo_shift_exchange_request"/>
             <field name="auto_delete" eval="False"/>
             <field name="partner_to">${object.worker_id.id}</field>
-            <field name="email_cc">${(object.exchanged_timeslot_id.template_id.super_coop_id or '')}</field>
+            <field name="email_cc">${(object.exchanged_tmpl_dated_id.template_id.super_coop_id or '')}</field>
             <field name="subject">Exchange Validation</field>
             <field name="body_html"><![CDATA[
             <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
@@ -14,8 +14,8 @@
                  <br/><br/>
                     You comfirmed an exchange between your Shift and another one:
                         Here is a summary of the exchange :
-                        <li> Your old Shift : ${(object.exchanged_timeslot_id.template_id.name)} ${(object.exchanged_timeslot_id.date)}</li>
-                        <li> Your new Shift : ${(object.validate_request_id.exchanged_timeslot_id.template_id.name)} ${(object.validate_request_id.exchanged_timeslot_id.date)}</li>
+                        <li> Your old Shift : ${(object.exchanged_tmpl_dated_id.template_id.name)} ${(object.exchanged_tmpl_dated_id.date)}</li>
+                        <li> Your new Shift : ${(object.validate_request_id.exchanged_tmpl_dated_id.template_id.name)} ${(object.validate_request_id.exchanged_tmpl_dated_id.date)}</li>
                  <br/></p>
                       Regards,<br/>
                       ]]></field>
@@ -31,7 +31,7 @@
             <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
             <p>Hello, ${ctx.get('worker_id').name}
             <br/><br/>
-            <p>A cooperator working on the shift from the ${ctx.get('my_timeslot').template_id.name}, ${ctx.get('my_timeslot').date} want to swap his shift </p>
+            <p>A cooperator working on the shift from the ${ctx.get('my_tmpl_dated').template_id.name}, ${ctx.get('my_tmpl_dated').date} want to swap his shift </p>
             <p>We know by experience that cooperator who are more likely to exchange his/her shift with him, is the cooperator that are working on the same day and same hour but different week.
             The purpose of this e-mail is to warm you about that exchange request and to count on your flexibility to make this exchange possible</p>
 
@@ -53,9 +53,9 @@
             <p>Hello, ${(object.worker_id.name)}
             <br/><br/>
                 You asked to exchange your following shift :
-                    ${(object.exchanged_timeslot_id.template_id.name)} ${(object.exchanged_timeslot_id.date)}
+                    ${(object.exchanged_tmpl_dated_id.template_id.name)} ${(object.exchanged_tmpl_dated_id.date)}
                 An other cooperator request match with yours :
-                    ${ctx.get('matching_request').exchanged_timeslot_id.template_id.name}, ${ctx.get('matching_request').exchanged_timeslot_id.date}
+                    ${ctx.get('matching_request').exchanged_tmpl_dated_id.template_id.name}, ${ctx.get('matching_request').exchanged_tmpl_dated_id.date}
                 To confirm this match please go to :
                 <a href="/my/request">Confirm Match</a>
             <br/></p>

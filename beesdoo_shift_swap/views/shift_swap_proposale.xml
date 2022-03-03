@@ -66,8 +66,8 @@
                         <field name="worker_id"/>
                         <field name="request_date"/>
                         <group name="group_left">
-                            <field name="exchanged_timeslot_id"/>
-                            <field name="asked_timeslot_ids"/>
+                            <field name="exchanged_tmpl_dated_id"/>
+                            <field name="asked_tmpl_dated_ids"/>
                         </group>
                         <group name="group_right">
                             <field name="validate_request_id" autocomplete="off"/>

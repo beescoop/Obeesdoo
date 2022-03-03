@@ -19,11 +19,11 @@ class SubscribeShiftSwap(models.TransientModel) :
     @api.onchange('my_proposition')
     def get_possible_match(self):
         for record in self:
-            if not record.my_proposition.exchanged_timeslot_id or not record.my_proposition.asked_timeslot_ids:
+            if not record.my_proposition.exchanged_tmpl_dated_id or not record.my_proposition.asked_tmpl_dated_ids:
                 record.match_proposition = False
             else:
-                exchanges = self.env["beesdoo.shift.exchange_request"].matching_request(record.my_proposition.asked_timeslot_ids,
-                                                                                        record.my_proposition.exchanged_timeslot_id)
+                exchanges = self.env["beesdoo.shift.exchange_request"].matching_request(record.my_proposition.asked_tmpl_dated_ids,
+                                                                                        record.my_proposition.exchanged_tmpl_dated_id)
                 return {
                     'domain': {'match_proposition': [('id', 'in', exchanges.ids)]}
                 }

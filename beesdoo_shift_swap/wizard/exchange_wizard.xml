@@ -6,8 +6,8 @@
             <form>
                 <group>
                     <field name="worker_id"/>
-                    <field name="exchanged_timeslot_id"/>
-                    <field name="asked_timeslot_ids" widget="many2many_tags"/>
+                    <field name="exchanged_tmpl_dated_id"/>
+                    <field name="asked_tmpl_dated_ids" widget="many2many_tags"/>
                     <field name="possible_match"/>
                 </group>
                 <footer>
