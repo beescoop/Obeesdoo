@@ -42,25 +42,34 @@
                         <div class="pricetag_left floating_box deposit">
                             <t t-if="product_tmpl_id.total_deposit">
                                 <img src="/beesdoo_print_label/static/img/deposit.gif"/>
-                                <b><t t-esc="product_tmpl_id.total_deposit"/> <t t-esc="res_company.currency_id.symbol"/></b>
+                                <b>
+                                    <t t-esc="product_tmpl_id.total_deposit"
+                                       t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                </b>
                             </t>
                         </div>
                         <div class="pricetag_right floating_box">
                             <div class="product_price">
-                                <t t-esc="'%0.2f %s' % (product_tmpl_id.total_with_vat, res_company.currency_id.symbol)"/>
+                                <t t-esc="product_tmpl_id.total_with_vat"
+                                   t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                             </div>
                             <div class="product_price_per_uom_qty floating_box">
                                 <t t-if="product_tmpl_id.volume">Volume<br/>
                                     <b><t t-esc="product_tmpl_id.volume"/> <t t-esc="product_tmpl_id.display_unit.name"/></b>
                                 </t>
                                 <t t-elif="product_tmpl_id.display_weight">Weight<br/>
-                                    <b><t t-esc="product_tmpl_id.display_weight"/> <t t-esc="product_tmpl_id.display_unit.name"/></b>
+                                    <b>
+                                        <t t-esc="product_tmpl_id.display_weight"/> <t t-esc="product_tmpl_id.display_unit.name"/>
+                                    </b>
                                 </t>
                             </div>
                             <div class="product_price_per_uom_price floating_box">
                                 <t t-if="product_tmpl_id.total_with_vat_by_unit">
                                     Price / <t t-esc="product_tmpl_id.default_reference_unit.name"/><br/>
-                                    <b><t t-esc="'%0.2f %s' % (product_tmpl_id.total_with_vat_by_unit, res_company.currency_id.symbol)"/></b>
+                                    <b>
+                                        <t t-esc="product_tmpl_id.total_with_vat_by_unit"
+                                           t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                    </b>
                                 </t>
                             </div>
                         </div>
