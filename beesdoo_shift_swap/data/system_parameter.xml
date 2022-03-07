@@ -7,6 +7,11 @@
     <record id="day_limit_swap"
             model="ir.config_parameter">
         <field name="key">beesdoo_shift.day_limit_swap</field>
+        <field name="value">28</field>
+    </record>
+    <record id="day_limit_ask_for_exchange"
+            model="ir.config_parameter">
+        <field name="key">beesdoo_shift.day_limit_ask_for_exchange</field>
         <field name="value">56</field>
     </record>
 </odoo>

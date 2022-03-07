@@ -78,16 +78,16 @@ class DatedTemplate(models.Model):
     def display_tmpl_dated(self):
         """
         This function return all the "template_dated", between now
-        and "beesdoo_shift.day_limit_swap"(parametable) day after
+        and "beesdoo_shift.day_limit_ask_for_exchange"(parametable) day after
         current date.
         :return: beesdoo.shift.template.dated recordset
         """
-        next_swap_limit = int(
+        ask_date_limit = int(
             self.env["ir.config_parameter"]
                 .sudo()
-                .get_param("beesdoo_shift.day_limit_swap")
+                .get_param("beesdoo_shift.day_limit_ask_for_exchange")
         )
-        end_date = datetime.now() + timedelta(days=next_swap_limit)
+        end_date = datetime.now() + timedelta(days=ask_date_limit)
 
         shifts = self.env["res.partner"].display_future_shift(end_date)
 
