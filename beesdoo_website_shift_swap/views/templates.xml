@@ -53,27 +53,56 @@
             <h2>
             Swap Your Shift To Underpopulated Shift
             </h2>
+            <t t-set="count" t-value="1"/>
             <t t-foreach="underpopulated_shift" t-as="tmpl_dated">
-                <div t-att-class="'card mb-4 %s' % highlight_class">
-                    <div t-att-class="'card-header %s clearfix' % highlight_header_class">
-                        <div class="pull-left">
-                            <p>
-                              <t t-esc="tmpl_dated.date.strftime('%B %d, %Y')"/>
-                              <t t-esc="'|'"/>
-                              <t t-esc="str(datetime.timedelta(hours=tmpl_dated.template_id.start_time)).rsplit(':', 1)[0]"/>
-                              -
-                              <t t-esc="str(datetime.timedelta(hours=tmpl_dated.template_id.end_time)).rsplit(':', 1)[0]"/>
-                              <br/>
-                              <t t-esc="tmpl_dated.template_id.task_type_id.name"/>
-                            </p>
-                        </div>
+              <div t-att-class="'card mb-4 %s' % highlight_class">
+                  <div t-att-class="'card-header %s clearfix' % highlight_header_class">
+                      <div class="pull-left">
+                          <p>
+                            <t t-esc="tmpl_dated.date.strftime('%B %d, %Y')"/>
+                            <t t-esc="'|'"/>
+                            <t t-esc="str(datetime.timedelta(hours=tmpl_dated.template_id.start_time)).rsplit(':', 1)[0]"/>
+                            -
+                            <t t-esc="str(datetime.timedelta(hours=tmpl_dated.template_id.end_time)).rsplit(':', 1)[0]"/>
+                            <br/>
+                            <t t-esc="tmpl_dated.template_id.task_type_id.name"/>
+                          </p>
+                      </div>
+                  </div>
+                  <div>
+                      <div class="card-body clearfix">
+                          <t t-if="tmpl_dated.template_id.task_type_id != exchanged_tmpl_dated.template_id.task_type_id">
+                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" t-att-data-target="'#warning-task-type-popup-%s' % count">
+                              Subscribe to this Shift
+                            </button>
+                          </t>
+                          <t t-else="">
+                            <a class="btn btn-success btn-sm" t-att-href="'/my/shift/underpopulated/swap/subscribe/%i/%s' % (tmpl_dated.template_id,tmpl_dated.date)">Subscribe to this Shift</a>
+                          </t>
+                      </div>
+                  </div>
+              </div>
+              <!-- Modal popup to warn user if task type is different in the new shift -->
+              <div class="modal fade" t-att-id="'warning-task-type-popup-%s' % count" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="warning-task-type-popup-label" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="warning-task-type-popup-label">Warning !</h5>
                     </div>
-                    <div>
-                        <div class="card-body clearfix">
-                            <a t-att-href="'/my/shift/underpopulated/swap/subscribe/%i/%s' % (tmpl_dated.template_id,tmpl_dated.date)">Subscribe to this Shift</a>
-                        </div>
+                    <div class="modal-body">
+                      The shifts that tou want to exchange don't have the same task type.<br/>
+                      Old shift : <b><t t-esc="exchanged_tmpl_dated.template_id.task_type_id.name"/></b><br/>
+                      New shift : <b><t t-esc="tmpl_dated.template_id.task_type_id.name"/></b><br/>
+                      Do you want to continue ?
                     </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                      <a class="btn btn-success" t-att-href="'/my/shift/underpopulated/swap/subscribe/%i/%s' % (tmpl_dated.template_id,tmpl_dated.date)">Exchange anyway</a>
+                    </div>
+                  </div>
                 </div>
+              </div>
+              <t t-set="count" t-value="count + 1"/>
             </t>
             <p>
               <t t-call="beesdoo_website_shift_swap.no_shifts_suits_me_button"/>
@@ -130,13 +159,12 @@
         <template
         id="beesdoo_website_shift_swap.no_shift_match_explanation"
         name="No shift Match Explanation">
-            <div class="alert alert-info">
+          <div class="alert alert-info">
             <strong>Info!</strong>
             There aren't any cooperator that propose to swap his/her shift with the one
             that you try to exchange.
             To create your own exchange, please click on the link below.
-        </div>
-
+          </div>
         </template>
 
         <template id="website_shift_swap_my_possible_match" name="Shift Swap My Possible Match Page">
@@ -146,6 +174,7 @@
           </div>
           <div t-else="">
             <label class="font-weight-bold">Shifts available for exchange :</label>
+            <t t-set="count" t-value="1"/>
             <t t-foreach="possible_matches" t-as="match">
               <p>
                 <t t-esc="match.exchanged_tmpl_dated_id.date.strftime('%B %d, %Y')"/>
@@ -153,8 +182,36 @@
                 <t t-esc="str(datetime.timedelta(hours=match.exchanged_tmpl_dated_id.template_id.start_time)).rsplit(':', 1)[0]"/>
                 -
                 <t t-esc="str(datetime.timedelta(hours=match.exchanged_tmpl_dated_id.template_id.end_time)).rsplit(':', 1)[0]"/>
-                <a class="btn btn-success btn-sm" t-att-href="'/my/shift/validate/matching_request/%i' % (match.id)">Accept Exchange</a>
+                <t t-if="match.exchanged_tmpl_dated_id.template_id.task_type_id != exchanged_tmpl_dated.template_id.task_type_id">
+                  <button type="button" class="btn btn-success btn-sm" data-toggle="modal" t-att-data-target="'#warning-task-type-popup-%s' % count">
+                    Accept exchange
+                  </button>
+                </t>
+                <t t-else="">
+                  <a class="btn btn-success btn-sm" t-att-href="'/my/shift/validate/matching_request/%i' % (match.id)">Accept exchange</a>
+                </t>
               </p>
+              <!-- Modal popup to warn user if task type is different in the new shift -->
+              <div class="modal fade" t-att-id="'warning-task-type-popup-%s' % count" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="warning-task-type-popup-label" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="warning-task-type-popup-label">Warning !</h5>
+                    </div>
+                    <div class="modal-body">
+                      The shifts that tou want to exchange don't have the same task type.<br/>
+                      Old shift : <b><t t-esc="exchanged_tmpl_dated.template_id.task_type_id.name"/></b><br/>
+                      New shift : <b><t t-esc="match.exchanged_tmpl_dated_id.template_id.task_type_id.name"/></b><br/>
+                      Do you want to continue ?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                      <a class="btn btn-success" t-att-href="'/my/shift/validate/matching_request/%i' % (match.id)">Exchange anyway</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <t t-set="count" t-value="count + 1"/>
             </t>
           </div>
           <p>
@@ -297,6 +354,7 @@
                   </td>
                   <td>
                     <t t-if="request['my_requests'].status == 'has_match'">
+                      <t t-set="count" t-value="1"/>
                       <t t-foreach="request['matching_request']" t-as="match">
                         <b>Exchange offer :</b>
                         <br/>
@@ -306,8 +364,36 @@
                         -
                         <t t-esc="str(datetime.timedelta(hours=match.exchanged_tmpl_dated_id.template_id.end_time)).rsplit(':', 1)[0]"/>
                         <br/>
-                        <a class="btn btn-success btn-sm" t-att-href="'/my/shift/validate/matching/validate/request/%i/%i' % (request['my_requests'],match)">Validate this exchange</a>
+                        <t t-if="match.exchanged_tmpl_dated_id.template_id.task_type_id != request['my_requests'].exchanged_tmpl_dated_id.template_id.task_type_id">
+                          <button type="button" class="btn btn-success btn-sm" data-toggle="modal" t-att-data-target="'#warning-task-type-popup-%s' % count">
+                            Validate this exchange
+                          </button>
+                        </t>
+                        <t t-else="">
+                          <a class="btn btn-success btn-sm" t-att-href="'/my/shift/validate/matching/validate/request/%i/%i' % (request['my_requests'],match)">Validate this exchange</a>
+                        </t>
                         <br/>
+                        <!-- Modal popup to warn user if task type is different in the new shift -->
+                        <div class="modal fade" t-att-id="'warning-task-type-popup-%s' % count" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="warning-task-type-popup-label" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="warning-task-type-popup-label">Warning !</h5>
+                              </div>
+                              <div class="modal-body">
+                                The shifts that tou want to exchange don't have the same task type.<br/>
+                                Old shift : <b><t t-esc="request['my_requests'].exchanged_tmpl_dated_id.template_id.task_type_id.name"/></b><br/>
+                                New shift : <b><t t-esc="match.exchanged_tmpl_dated_id.template_id.task_type_id.name"/></b><br/>
+                                Do you want to continue ?
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                <a class="btn btn-success" t-att-href="'/my/shift/validate/matching/validate/request/%i/%i' % (request['my_requests'],match)">Exchange anyway</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <t t-set="count" t-value="count + 1"/>
                       </t>
                     </t>
                     <t t-elif="request['my_requests'].status == 'validate_match'">
