@@ -5,7 +5,7 @@
     "name": "Beesdoo Print Label",
     "summary": """Product labels""",
     "version": "12.0.1.1.1",
-    'license': 'AGPL-3',
+    "license": "AGPL-3",
     "category": "Sales",
     "author": "Coop IT Easy SCRLfs <https://coopiteasy.be>",
     "website": "https://github.com/beescoop/Obeesdoo",

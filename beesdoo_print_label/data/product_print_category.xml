@@ -1,10 +1,12 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <odoo>
 
     <record id="print_category_pricetag_normal" model="product.print.category">
         <field name="name">Normal pricetag - 60x38mm</field>
-        <field name="qweb_view_id" ref="qweb_template_pricetag_normal"/>
-        <field name="field_ids" eval="[(6, 0, [
+        <field name="qweb_view_id" ref="qweb_template_pricetag_normal" />
+        <field
+            name="field_ids"
+            eval="[(6, 0, [
             ref('product.field_product_template__name'),
             ref('beesdoo_product.field_product_template__main_seller_id'),
             ref('beesdoo_product.field_product_template__eco_label'),
@@ -17,7 +19,8 @@
             ref('product.field_product_template__volume'),
             ref('beesdoo_product.field_product_template__display_unit'),
             ref('beesdoo_product.field_product_template__default_reference_unit'),
-            ref('beesdoo_product.field_product_template__total_with_vat_by_unit')])]"/>
+            ref('beesdoo_product.field_product_template__total_with_vat_by_unit')])]"
+        />
     </record>
 
 </odoo>
