@@ -5,3 +5,4 @@ from . import exchange
 from . import planning
 from . import dated_template
 from . import res_config_settings
+from . import solidarity_shift_offer

@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<odoo>
+
+  <record model="ir.ui.view" id="solidarity_shift_offer_view_tree">
+    <field name="name">Solidarity shift offers</field>
+    <field name="model">beesdoo.shift.solidarity.offer</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="worker_id" />
+        <field name="tmpl_dated_id" />
+        <field name="state" />
+      </tree>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="shift_swap_offer_view">
+      <field name="name">Shift swap offer</field>
+      <field name="model">beesdoo.shift.solidarity.offer</field>
+      <field name="arch" type="xml">
+          <form>
+              <header>
+                  <field name="state" widget="statusbar" />
+              </header>
+              <sheet>
+                <group name="group_top">
+                  <field name="worker_id" />
+                  <field name="tmpl_dated_id" />
+                </group>
+              </sheet>
+          </form>
+      </field>
+  </record>
+
+</odoo>

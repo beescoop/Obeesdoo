@@ -26,6 +26,7 @@
         "views/res_config_setting_view.xml",
         "views/shift_swap_proposale.xml",
         "views/shift_swap_set.xml",
+        "views/solidarity_shift_offer.xml",
         "wizard/exchange_wizard.xml",
         "wizard/Subscribe_shift_swap.xml",
         "wizard/validate_exchange.xml",

@@ -17,6 +17,11 @@
         <field name="res_model">beesdoo.shift.exchange</field>
         <field name="view_mode">tree,form</field>
     </record>
+    <record model="ir.actions.act_window" id="action_solidarity_shift_offer">
+        <field name="name">Solidarity shift offers</field>
+        <field name="res_model">beesdoo.shift.solidarity.offer</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 
     <!-- Top menu item -->
 
@@ -44,6 +49,13 @@
         name="exchange"
         parent="menu_swap_top"
         action="action_shift_swap_exchange"
+    />
+
+    <menuitem
+        id="menu_solidarity"
+        name="Solidarity shift offers"
+        parent="menu_swap_top"
+        action="action_solidarity_shift_offer"
     />
 
 </odoo>
