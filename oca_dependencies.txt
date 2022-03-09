@@ -4,4 +4,3 @@
 partner-contact
 addons https://github.com/coopiteasy/addons
 vertical-cooperative https://github.com/coopiteasy/vertical-cooperative
-grap-odoo-incubator https://github.com/grap/grap-odoo-incubator
