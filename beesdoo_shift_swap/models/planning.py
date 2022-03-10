@@ -16,8 +16,13 @@ class TaskTemplate(models.Model):
         # get all the exchanges
         exchanges = self.env["beesdoo.shift.subscribed_underpopulated_shift"].search([])
         people_exchanges = self.env["beesdoo.shift.exchange"].search([])
+        solidarity_offers = self.env["beesdoo.shift.solidarity.offer"].search([])
 
-        template = {"initial": None, "modified": None}
+        template = {
+            "initial": None,
+            "exchange_modified": None,
+            "solidarity_modified": None,
+        }
         for shift in shifts:
             template["initial"] = shift["task_template_id"]
             for exchange in exchanges:
@@ -27,10 +32,10 @@ class TaskTemplate(models.Model):
                     == shift["task_template_id"]
                     and shift["start_time"] == exchange.confirmed_tmpl_dated_id.date
                 ):
-                    if template["initial"] != template["modified"]:
+                    if template["initial"] != template["exchange_modified"]:
                         shift["worker_id"] = exchange.worker_id.id
                         shift["is_regular"] = True
-                        template["modified"] = shift["task_template_id"]
+                        template["exchange_modified"] = shift["task_template_id"]
                 if (
                     exchange.worker_id.id == shift["worker_id"]
                     and shift["task_template_id"]
@@ -58,4 +63,14 @@ class TaskTemplate(models.Model):
                 ):
                     shift["worker_id"] = record.first_request_id.worker_id.id
                     shift["is_regular"] = True
+            for offer in solidarity_offers:
+                if (
+                    not shift["worker_id"]
+                    and shift["task_template_id"] == offer.tmpl_dated_id.template_id.id
+                    and shift["start_time"] == offer.tmpl_dated_id.date
+                ):
+                    if template["initial"] != template["solidarity_modified"]:
+                        shift["worker_id"] = offer.worker_id.id
+                        shift["is_regular"] = True
+                        template["solidarity_modified"] = shift["task_template_id"]
         return shifts

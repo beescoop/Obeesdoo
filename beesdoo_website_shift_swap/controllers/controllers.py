@@ -59,7 +59,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         my_available_shift = (
             request.env["beesdoo.shift.subscribed_underpopulated_shift"]
             .sudo()
-            .get_underpopulated_shift(my_tmpl_dated)
+            .get_underpopulated_shift()
         )
 
         # Get the user's future shifts
@@ -370,4 +370,67 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 match_request
             )
             exchange.write({"second_shift_status": True})
+        return request.redirect("/my/shift")
+
+    # Solidarity shift offer
+    @http.route("/my/shift/solidarity/offer", website=True)
+    def get_underpopulated_shift_for_solidarity(self):
+        """
+        Page to choose an underpopulated shift to subscribe for solidarity
+        """
+        # Get underpopulated shifts
+        next_underpopulated_shifts = (
+            request.env["beesdoo.shift.subscribed_underpopulated_shift"]
+            .sudo()
+            .get_underpopulated_shift()
+        )
+
+        # Get the user's future shifts
+        user = request.env["res.users"].sudo().browse(request.uid)
+        my_future_shifts = user.sudo().partner_id.my_next_shift()
+        subscribed_shifts = []
+        for rec in my_future_shifts:
+            subscribed_shifts.append(rec)
+
+        # Remove the already subscribed shifts from the propositions
+        for available_shift in next_underpopulated_shifts:
+            for tmpl_dated in request.env[
+                "beesdoo.shift.template.dated"
+            ].swap_shift_to_tmpl_dated(subscribed_shifts):
+                if available_shift.date == tmpl_dated.date:
+                    next_underpopulated_shifts -= available_shift
+
+        return request.render(
+            "beesdoo_website_shift_swap."
+            "website_shift_swap_select_solidarity_underpopulated",
+            {"underpopulated_shift": next_underpopulated_shifts},
+        )
+
+    @http.route(
+        "/my/shift/solidarity/offer/select/<int:template_wanted>/<string:date_wanted>",
+        website=True,
+    )
+    def subscribe_to_underpopulated_shift_for_solidarity(
+        self, template_wanted, date_wanted
+    ):
+        user = request.env["res.users"].browse(request.uid)
+
+        tmpl_dated_wanted = (
+            request.env["beesdoo.shift.template.dated"]
+            .sudo()
+            .create(
+                {
+                    "template_id": template_wanted,
+                    "date": date_wanted,
+                    "store": True,
+                }
+            )
+        )
+        data = {
+            "worker_id": user.partner_id.id,
+            "tmpl_dated_id": tmpl_dated_wanted.id,
+        }
+        record = request.env["beesdoo.shift.solidarity.offer"].sudo().create(data)
+        if record._compute_shift_already_generated():
+            record.subscribe_shift()
         return request.redirect("/my/shift")

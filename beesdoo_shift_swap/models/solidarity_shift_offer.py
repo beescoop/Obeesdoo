@@ -34,8 +34,10 @@ class SolidarityShiftOffer(models.Model):
         "beesdoo.shift.shift", compute="_compute_shift_already_generated"
     )
 
+    date = fields.Date(required=True, default=datetime.date(datetime.now()))
+
     @api.depends("tmpl_dated_id")
-    def _conpute_shift_already_generated(self):
+    def _compute_shift_already_generated(self):
         for record in self:
             # Get current date
             now = datetime.now()
@@ -66,3 +68,32 @@ class SolidarityShiftOffer(models.Model):
             if record.state == "validated":
                 counter += 1
         return counter
+
+    def update_status(self):
+        if self.tmpl_dated_id and self.worker_id:
+            self.write({"state": "validated"})
+
+    @api.multi
+    def subscribe_shift(self):
+        """
+        Subscribe the user into the given shift
+        this is done only if :
+            *the user can subscribe
+            *the given shift exist
+            *the shift status is open (it isn't already subscribed)
+            *the user hasn't done another exchange 2month before
+        :return:
+        """
+        if self.state != "validated":
+            # Get the wanted shift
+            shift_rec = self.shift_id
+            shift_rec.is_regular = True
+            # Get the user
+            shift_rec.write({"worker_id": self.worker_id.id})
+
+            # update status
+            self.update_status()
+            if not self.shift_id.worker_id:
+                return False
+            return True
+        return True
