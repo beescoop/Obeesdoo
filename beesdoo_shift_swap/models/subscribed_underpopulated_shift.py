@@ -98,8 +98,8 @@ class SubscribeUnderpopulatedShift(models.Model):
                         .search(
                         [
                             ("start_time", ">", now.strftime("%Y-%m-%d %H:%M:%S")),
-                            ('start_time', '=', record.exchanged_tmpl_dated_id.date),
-                            ("task_template_id", "=", record.exchanged_tmpl_dated_id.template_id.id),
+                            ('start_time', '=', record.confirmed_tmpl_dated_id.date),
+                            ("task_template_id", "=", record.confirmed_tmpl_dated_id.template_id.id),
                             ("worker_id", "=", None),
                         ],
                         limit=1,
@@ -134,7 +134,7 @@ class SubscribeUnderpopulatedShift(models.Model):
             })
             self.exchange_status = 1
             self.update_status()
-            if not self.exchanged_shift_id.worker_id and self.confirme_status:
+            if not self.exchanged_shift_id.worker_id and self.exchange_status:
                 return True
             return False
         return True
