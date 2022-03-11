@@ -112,10 +112,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             record.unsubscribe_shift()
         if record._conpute_comfirmed_already_generated() :
             record.subscribe_shift()
-        return request.render(
-            "beesdoo_website_shift.my_shift_regular_worker",
-            self.my_shift_regular_worker(),
-        )
+        return request.redirect("/my/shift")
 
     @http.route("/my/shift/possible/shift", website=True)
     def get_possible_shift(self, **post):
@@ -273,10 +270,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             "status": 'has_match'
         })
         matching_request.sudo().send_mail_matching_request(new_request)
-        return request.render(
-            "beesdoo_website_shift.my_shift_regular_worker",
-            self.my_shift_regular_worker(),
-        )
+        return request.redirect("/my/shift")
 
     @http.route("/my/shift/validate/matching/validate/request/<int:my_request_id>/<string:match_request_id>", website=True)
     def validate_matching_validate_request(self, my_request_id, match_request_id):
@@ -312,7 +306,4 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             exchange.write({
                 "second_shift_status": True
             })
-        return request.render(
-            "beesdoo_website_shift.my_shift_regular_worker",
-            self.my_shift_regular_worker(),
-        )
+        return request.redirect("/my/shift")
