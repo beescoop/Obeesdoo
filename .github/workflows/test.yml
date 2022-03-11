@@ -23,6 +23,7 @@ jobs:
       matrix:
         include:
           - container: ghcr.io/oca/oca-ci/py3.6-ocb12.0:latest
+            makepot: "true"
             name: test with OCB
     services:
       postgres:
