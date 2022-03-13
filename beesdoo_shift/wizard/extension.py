@@ -28,17 +28,13 @@ class Subscribe(models.TransientModel):
         status_id = self.env["cooperative.status"].search(
             [("cooperator_id", "=", self.cooperator_id.id)]
         )
-        status_id.sudo().write(
-            {"extension_start_time": self.extension_start_date}
-        )
+        status_id.sudo().write({"extension_start_time": self.extension_start_date})
 
     @api.multi
     def extension(self):
         self = self._check()  # maybe a different group
         grace_delay = int(
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("default_grace_delay", 10)
+            self.env["ir.config_parameter"].sudo().get_param("default_grace_delay", 10)
         )
         status_id = self.env["cooperative.status"].search(
             [("cooperator_id", "=", self.cooperator_id.id)]
@@ -55,11 +51,6 @@ class Subscribe(models.TransientModel):
         ).days - grace_delay
         if today_delay < 0:
             raise UserError(
-                _(
-                    "You should not start a manual extension during the grace "
-                    "delay "
-                )
+                _("You should not start a manual extension during the grace delay ")
             )
-        status_id.sudo().write(
-            {"time_extension": self.extension_days + today_delay}
-        )
+        status_id.sudo().write({"time_extension": self.extension_days + today_delay})
