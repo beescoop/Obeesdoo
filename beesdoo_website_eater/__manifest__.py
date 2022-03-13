@@ -9,7 +9,7 @@
     "author": "Rémy Taymans, Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "version": "12.0.1.0.0",
-    "website": "https://github.com/beescoop/Obeesdoo",
+    "website": "https://coopiteasy.be",
     "category": "Website",
     "depends": ["website", "portal", "beesdoo_base"],
     "data": ["views/beesdoo_website_eater_templates.xml"],
