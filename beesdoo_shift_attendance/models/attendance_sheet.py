@@ -227,6 +227,12 @@ class AttendanceSheet(models.Model):
         )
     ]
 
+    # True if there are one or more missing workers
+    has_missing_worker = fields.Boolean(
+        string="Has missing worker ?",
+        compute="_compute_has_missing_worker",
+    )
+
     @api.depends("start_time", "end_time")
     def _compute_time_slot(self):
         for rec in self:
@@ -283,6 +289,17 @@ class AttendanceSheet(models.Model):
         for rec in self:
             if rec.notes:
                 rec.is_annotated = bool(rec.notes.strip())
+
+    @api.depends("expected_shift_ids.state", "added_shift_ids.state")
+    def _compute_has_missing_worker(self):
+        for rec in self:
+            rec.has_missing_worker = False
+            if any(s.state != "done" for s in rec.expected_shift_ids):
+                rec.has_missing_worker = True
+                continue
+            if any(s.state != "done" for s in rec.added_shift_ids):
+                rec.has_missing_worker = True
+                continue
 
     @api.constrains("expected_shift_ids", "added_shift_ids")
     def _constrain_unique_worker(self):
