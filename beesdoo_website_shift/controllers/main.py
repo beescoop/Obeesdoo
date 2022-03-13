@@ -35,10 +35,7 @@ class WebsiteShiftController(http.Controller):
 
     def is_user_regular_without_shift(self):
         user = request.env["res.users"].browse(request.uid)
-        return (
-            not user.partner_id.subscribed_shift_ids.ids
-            and self.is_user_regular()
-        )
+        return not user.partner_id.subscribed_shift_ids.ids and self.is_user_regular()
 
     def is_user_exempted(self):
         user = request.env["res.users"].browse(request.uid)
@@ -119,9 +116,7 @@ class WebsiteShiftController(http.Controller):
                 self.my_shift_exempted_worker(),
             )
         if self.is_user_worker():
-            return request.render(
-                "beesdoo_website_shift.my_shift_new_worker", {}
-            )
+            return request.render("beesdoo_website_shift.my_shift_new_worker", {})
 
         return request.render("beesdoo_website_shift.my_shift_non_worker", {})
 
@@ -174,9 +169,7 @@ class WebsiteShiftController(http.Controller):
         # Create template context
         template_context = {}
         template_context.update(
-            self.available_shift_irregular_worker(
-                irregular_enable_sign_up, nexturl
-            )
+            self.available_shift_irregular_worker(irregular_enable_sign_up, nexturl)
         )
 
         return request.render(
@@ -348,8 +341,7 @@ class WebsiteShiftController(http.Controller):
             # Check the necessary number of worker based on the
             # highlight_rule_pc
             has_enough_workers = (
-                free_space
-                <= (task_template.worker_nb * highlight_rule_pc) / 100
+                free_space <= (task_template.worker_nb * highlight_rule_pc) / 100
             )
             if free_space >= task_template.worker_nb * hide_rule:
                 displayed_shifts.append(
@@ -404,9 +396,7 @@ class WebsiteShiftController(http.Controller):
                 task_template = (
                     request.env["beesdoo.shift.template"]
                     .sudo()
-                    .search(
-                        [("worker_ids", "in", cur_user.partner_id.id)], limit=1
-                    )
+                    .search([("worker_ids", "in", cur_user.partner_id.id)], limit=1)
                 )
                 main_shift = (
                     request.env["beesdoo.shift.shift"]
