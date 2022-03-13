@@ -58,14 +58,15 @@ repos:
           - "prettier@2.4.1"
           - "@prettier/plugin-xml@1.1.0"
         files: \.(css|htm|html|js|json|jsx|less|md|scss|toml|ts|xml|yaml|yml)$
-  - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v6.8.0
-    hooks:
-      - id: eslint
-        verbose: true
-        args:
-          - --color
-          - --fix
+  # TODO: Re-enable this.
+  # - repo: https://github.com/pre-commit/mirrors-eslint
+  #   rev: v6.8.0
+  #   hooks:
+  #     - id: eslint
+  #       verbose: true
+  #       args:
+  #         - --color
+  #         - --fix
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v2.4.0
     hooks:
