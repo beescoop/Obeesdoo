@@ -46,9 +46,7 @@ def _group_by_day(shifts: Iterable[DisplayedShift], monday: date) -> List:
 
 
 def _group_by_time(shifts: Iterable[DisplayedShift], monday: date) -> Dict:
-    groupby_iter = groupby(
-        sorted(shifts, key=_start_end_tuple), key=_start_end_tuple
-    )
+    groupby_iter = groupby(sorted(shifts, key=_start_end_tuple), key=_start_end_tuple)
     shifts_by_time = [
         ((start, end), _group_by_day(grouped_shifts, monday))
         for (start, end), grouped_shifts in groupby_iter
