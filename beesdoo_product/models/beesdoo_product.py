@@ -296,51 +296,11 @@ class BeesdooProduct(models.Model):
         "categ_id.should_round_suggested_price",
     )
     def _compute_cost(self):
-        suggested_price_reference = (
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("beesdoo_product.suggested_price_reference")
-        )
         for product in self:
-            supplier = product._get_main_supplier_info()
-            if supplier:
-                price = supplier.price
-                product_category = supplier.product_tmpl_id.categ_id
-                supplier_taxes = product.supplier_taxes_id.filtered(
-                    lambda t: t.amount_type == "percent" and t.price_include
-                )
-                supplier_taxes_factor = 1 / (
-                    1 + sum(supplier_taxes.mapped("amount")) / 100
-                )
-                sale_taxes = product.taxes_id.filtered(
-                    lambda t: t.amount_type == "percent" and t.price_include
-                )
-                sale_taxes_factor = 1 + sum(sale_taxes.mapped("amount")) / 100
-                profit_margin_supplier = supplier.name.profit_margin
-                profit_margin_product_category = product_category.profit_margin
-                profit_margin = profit_margin_supplier or profit_margin_product_category
-                profit_margin_factor = (
-                    1 / (1 - profit_margin / 100)
-                    if suggested_price_reference == "sale_price"
-                    else (1 + profit_margin / 100)
-                )
-
-                # price of purchase is given for uom_po_id
-                #   suggested *sale* price must be adapted to uom_id
-                uom_factor = product.uom_po_id.factor / product.uom_id.factor
-
-                product.suggested_price = (
-                    price
-                    * uom_factor
-                    * supplier_taxes_factor
-                    * sale_taxes_factor
-                    * profit_margin_factor
-                )
-
-                if product_category.should_round_suggested_price:
-                    product.suggested_price = product_category._round(
-                        product.suggested_price
-                    )
+            try:
+                product.suggested_price = product.calculate_suggested_price()
+            except ValueError:
+                pass
 
     @api.multi
     @api.depends("seller_ids")
@@ -362,6 +322,80 @@ class BeesdooProduct(models.Model):
                 raise ValidationError(
                     _("No Vendor defined for product '%s'") % product.name
                 )
+
+    def write(self, vals):
+        purchase_price = vals.get("purchase_price")
+        if purchase_price and purchase_price != self.purchase_price:
+            try:
+                # We could write suggested_price to vals _now_, but the compute
+                # function is going to run regardless. It's a bit useless to run
+                # 'calculate_suggested_price' twice, but that's just how it is.
+                suggested_price = self.calculate_suggested_price(price=purchase_price)
+
+                # Important note: The list price is _only_ changed here if the
+                # `purchase_price` field of the product is changed. If the
+                # `price` field of the supplierinfo changes, the list price here
+                # is NOT automatically affected.
+                self.adapt_list_price(vals, suggested_price=suggested_price)
+            except ValueError:
+                pass
+
+        super().write(vals)
+
+    @api.multi
+    def adapt_list_price(self, vals, suggested_price=None):
+        self.ensure_one()
+        if suggested_price is None:
+            suggested_price = self.suggested_price
+        vals.setdefault("list_price", suggested_price)
+
+    @api.multi
+    def calculate_suggested_price(self, price=None):
+        self.ensure_one()
+        suggested_price_reference = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_product.suggested_price_reference")
+        )
+        supplier = self._get_main_supplier_info()
+        if not supplier:
+            raise ValueError(_("No supplier found for product {}").format(self.id))
+        if price is None:
+            price = supplier.price
+        product_category = supplier.product_tmpl_id.categ_id
+        supplier_taxes = self.supplier_taxes_id.filtered(
+            lambda t: t.amount_type == "percent" and t.price_include
+        )
+        supplier_taxes_factor = 1 / (1 + sum(supplier_taxes.mapped("amount")) / 100)
+        sale_taxes = self.taxes_id.filtered(
+            lambda t: t.amount_type == "percent" and t.price_include
+        )
+        sale_taxes_factor = 1 + sum(sale_taxes.mapped("amount")) / 100
+        profit_margin_supplier = supplier.name.profit_margin
+        profit_margin_product_category = product_category.profit_margin
+        profit_margin = profit_margin_supplier or profit_margin_product_category
+        profit_margin_factor = (
+            1 / (1 - profit_margin / 100)
+            if suggested_price_reference == "sale_price"
+            else (1 + profit_margin / 100)
+        )
+
+        # price of purchase is given for uom_po_id
+        #   suggested *sale* price must be adapted to uom_id
+        uom_factor = self.uom_po_id.factor / self.uom_id.factor
+
+        suggested_price = (
+            price
+            * uom_factor
+            * supplier_taxes_factor
+            * sale_taxes_factor
+            * profit_margin_factor
+        )
+
+        if product_category.should_round_suggested_price:
+            suggested_price = product_category._round(suggested_price)
+
+        return suggested_price
 
     @api.multi
     def create_request_label_printing_wizard(self):

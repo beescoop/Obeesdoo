@@ -14,4 +14,6 @@ class AdaptSalesPriceWizard(models.TransientModel):
     def adapt_sales_price(self):
         self.ensure_one()
         for product in self.product_ids:
-            product.write({"list_price": product.suggested_price})
+            vals = {}
+            product.adapt_list_price(vals)
+            product.write(vals)
