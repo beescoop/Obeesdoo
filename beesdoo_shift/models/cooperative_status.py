@@ -66,9 +66,7 @@ class CooperativeStatus(models.Model):
         default=fields.Date.today,
     )
     cooperator_id = fields.Many2one("res.partner")
-    active = fields.Boolean(
-        related="cooperator_id.active", store=True, index=True
-    )
+    active = fields.Boolean(related="cooperator_id.active", store=True, index=True)
     info_session = fields.Boolean("Information Session ?")
     info_session_date = fields.Date("Information Session Date")
     super = fields.Boolean("Super Cooperative")
@@ -107,16 +105,12 @@ class CooperativeStatus(models.Model):
         "cooperative.status.history", "status_id", readonly=True
     )
     unsubscribed = fields.Boolean(default=False, help="Manually unsubscribed")
-    resigning = fields.Boolean(
-        default=False, help="Want to leave the beescoop"
-    )
+    resigning = fields.Boolean(default=False, help="Want to leave the beescoop")
 
     # Specific to irregular
     irregular_start_date = fields.Date()  # TODO migration script
     irregular_absence_date = fields.Date()
-    irregular_absence_counter = (
-        fields.Integer()
-    )  # TODO unsubscribe when reach -2
+    irregular_absence_counter = fields.Integer()  # TODO unsubscribe when reach -2
     future_alert_date = fields.Date(compute="_compute_future_alert_date")
     next_countdown_date = fields.Date(compute="_compute_next_countdown_date")
 
@@ -152,9 +146,7 @@ class CooperativeStatus(models.Model):
     )
     def _compute_status(self):
         update = int(
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("always_update", False)
+            self.env["ir.config_parameter"].sudo().get_param("always_update", False)
         )
         for rec in self:
             if update or not rec.today:
@@ -182,9 +174,7 @@ class CooperativeStatus(models.Model):
     @api.constrains("working_mode", "irregular_start_date")
     def _constrains_irregular_start_date(self):
         if self.working_mode == "irregular" and not self.irregular_start_date:
-            raise UserError(
-                _("Irregular workers must have an irregular start date.")
-            )
+            raise UserError(_("Irregular workers must have an irregular start date."))
 
     def _get_watched_fields(self):
         """
@@ -237,18 +227,11 @@ class CooperativeStatus(models.Model):
                     cur_start_date=self.holiday_start_time,
                     cur_end_date=self.holiday_end_time,
                 )
-        if (
-            "temporary_exempt_start_date" in vals
-            or "temporary_exempt_end_date" in vals
-        ):
+        if "temporary_exempt_start_date" in vals or "temporary_exempt_end_date" in vals:
             for rec in self:
                 rec._update_shifts_based_on_dates(
-                    prev_start_date=previous_vals[rec][
-                        "temporary_exempt_start_date"
-                    ],
-                    prev_end_date=previous_vals[rec][
-                        "temporary_exempt_end_date"
-                    ],
+                    prev_start_date=previous_vals[rec]["temporary_exempt_start_date"],
+                    prev_end_date=previous_vals[rec]["temporary_exempt_end_date"],
                     cur_start_date=self.temporary_exempt_start_date,
                     cur_end_date=self.temporary_exempt_end_date,
                 )
@@ -262,8 +245,7 @@ class CooperativeStatus(models.Model):
         """
         if "status" in vals:
             self._cr.execute(
-                'select id, status, sr, sc from "%s" where id in %%s'
-                % self._table,
+                'select id, status, sr, sc from "%s" where id in %%s' % self._table,
                 (self._ids,),
             )
             result = self._cr.dictfetchall()
@@ -279,9 +261,7 @@ class CooperativeStatus(models.Model):
                             old_status_per_id[rec.id]["status"],
                             vals["status"],
                         ),
-                        "user_id": self.env.context.get(
-                            "real_uid", self.env.uid
-                        ),
+                        "user_id": self.env.context.get("real_uid", self.env.uid),
                     }
                     self.env["cooperative.status.history"].sudo().create(data)
                     rec._state_change(vals["status"])
@@ -318,11 +298,7 @@ class CooperativeStatus(models.Model):
                 today=prev_start_date,
                 end_date=cur_start_date - timedelta(days=1),
             )
-        if (
-            prev_end_date
-            and prev_end_date > today
-            and cur_end_date < prev_end_date
-        ):
+        if prev_end_date and prev_end_date > today and cur_end_date < prev_end_date:
             # subscribe worker from current to prev end time
             self.env["beesdoo.shift.shift"].subscribe_from_today(
                 worker_ids=self.cooperator_id,
@@ -357,9 +333,7 @@ class CooperativeStatus(models.Model):
         once per day
         """
         today = today or fields.Date.today()
-        journal = self.env["beesdoo.shift.journal"].search(
-            [("date", "=", today)]
-        )
+        journal = self.env["beesdoo.shift.journal"].search([("date", "=", today)])
         if not journal:
             journal = self.env["beesdoo.shift.journal"].create({"date": today})
 
@@ -367,11 +341,7 @@ class CooperativeStatus(models.Model):
         irregular = self.search(domain)
         for status in irregular:
             delta = (today - status.irregular_start_date).days
-            if (
-                delta
-                and delta % self._period == 0
-                and status not in journal.line_ids
-            ):
+            if delta and delta % self._period == 0 and status not in journal.line_ids:
                 status._change_irregular_counter()
                 journal.line_ids |= status
 
@@ -439,14 +409,12 @@ class CooperativeStatus(models.Model):
         """
         Hook to watch change in the state
         """
-        pass
 
     def _change_counter(self, data):
         """
         Call when a shift state is changed
         use data generated by _get_counter_date_state_change
         """
-        pass
 
     ###############################################
     #        Irregular Cron implementation        #
@@ -467,7 +435,6 @@ class CooperativeStatus(models.Model):
         where today - start_date is a multiple of the period
         by default 28 days
         """
-        pass
 
 
 class ShiftCronJournal(models.Model):
@@ -491,9 +458,7 @@ class ShiftCronJournal(models.Model):
     def run(self):
         self.ensure_one()
         if not self.user_has_groups("beesdoo_shift.group_cooperative_admin"):
-            raise ValidationError(
-                _("You don't have the access to perform this action")
-            )
+            raise ValidationError(_("You don't have the access to perform this action"))
         self.sudo().env["cooperative.status"]._cron_compute_counter_irregular(
             today=self.date
         )

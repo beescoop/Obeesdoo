@@ -25,9 +25,7 @@ class NewMemberCardWizard(models.TransientModel):
         self.ensure_one()
         client = self.partner_id.sudo()
         client._deactivate_active_cards()
-        client._new_card(
-            self.new_comment, self.env.uid, barcode=self.force_barcode
-        )
+        client._new_card(self.new_comment, self.env.uid, barcode=self.force_barcode)
         client.member_card_to_be_printed = True
 
 
@@ -38,9 +36,7 @@ class RequestMemberCardPrintingWizard(models.TransientModel):
     def _get_selected_partners(self):
         return self.env.context["active_ids"]
 
-    partner_ids = fields.Many2many(
-        "res.partner", default=_get_selected_partners
-    )
+    partner_ids = fields.Many2many("res.partner", default=_get_selected_partners)
 
     @api.multi
     def request_printing(self):
@@ -55,9 +51,7 @@ class SetAsPrintedWizard(models.TransientModel):
     def _get_selected_partners(self):
         return self.env.context["active_ids"]
 
-    partner_ids = fields.Many2many(
-        "res.partner", default=_get_selected_partners
-    )
+    partner_ids = fields.Many2many("res.partner", default=_get_selected_partners)
 
     @api.multi
     def set_as_printed(self):

@@ -25,17 +25,13 @@ class BeescoopPosOrder(models.Model):
         if not order:
             return _("Error: no order found")
         if not order.partner_id.email:
-            return _(
-                "Cannot send the ticket, no email address found on the client"
-            )
+            return _("Cannot send the ticket, no email address found on the client")
         order.print_status = "to_print"
 
         return _("Ticket will be sent")
 
     def _send_order_cron(self):
-        mail_template = self.env.ref(
-            "beesdoo_pos_email_ticket.email_send_ticket"
-        )
+        mail_template = self.env.ref("beesdoo_pos_email_ticket.email_send_ticket")
         _logger.info("Start to send ticket")
         for order in self.search([("print_status", "=", "to_print")]):
             if not order.partner_id.email:

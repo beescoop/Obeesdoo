@@ -14,13 +14,9 @@ class TestSuggestedPrice(TransactionCase):
         (
             self.env["ir.config_parameter"]
             .sudo()
-            .set_param(
-                "beesdoo_product.suggested_price_reference", "sale_price"
-            )
+            .set_param("beesdoo_product.suggested_price_reference", "sale_price")
         )
-        self.account_type_ass = self.env.ref(
-            "account.data_account_type_current_assets"
-        )
+        self.account_type_ass = self.env.ref("account.data_account_type_current_assets")
         self.a_debit_vat = self.env["account.account"].create(
             {
                 "code": "debvat_acc",

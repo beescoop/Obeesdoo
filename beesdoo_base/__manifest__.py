@@ -11,7 +11,7 @@
     Module that customize the base module and contains some python tools
      """,
     "author": "Beescoop - Cellule IT, Coop IT Easy SCRLfs",
-    "website": "https://github.com/beescoop/Obeesdoo",
+    "website": "https://coopiteasy.be",
     "category": "Sales",
     "version": "12.0.1.0.1",
     "depends": ["point_of_sale", "purchase", "portal", "partner_firstname"],

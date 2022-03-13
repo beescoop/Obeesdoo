@@ -8,7 +8,7 @@
     "category": "Purchase Order",
     "summary": "Generate purchase order from a product selection",
     "author": "Coop IT Easy SCRLfs",
-    "website": "https://github.com/beescoop/obeesdoo/",
+    "website": "https://coopiteasy.be",
     "license": "AGPL-3",
     "depends": ["purchase", "beesdoo_stock_coverage"],
     "data": [

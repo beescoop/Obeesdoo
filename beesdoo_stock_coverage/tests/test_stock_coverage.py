@@ -34,9 +34,7 @@ class TestModule(TransactionCase):
         self.pos_template._compute_stock_coverage()
         self.assertEquals(1.0, self.pos_template.range_sales)
         self.assertEqual(
-            float_compare(
-                0.0714, self.pos_template.daily_sales, precision_digits=2
-            ),
+            float_compare(0.0714, self.pos_template.daily_sales, precision_digits=2),
             0,
         )
         self.assertEquals(210.0, self.pos_template.stock_coverage)

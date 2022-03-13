@@ -67,9 +67,7 @@ class Planning(models.Model):
         every seven days.""",
         default=7,
     )
-    task_template_ids = fields.One2many(
-        "beesdoo.shift.template", "planning_id"
-    )
+    task_template_ids = fields.One2many("beesdoo.shift.template", "planning_id")
 
     @api.model
     def _get_next_planning(self, sequence):
@@ -99,17 +97,13 @@ class Planning(models.Model):
     def _generate_next_planning(self):
         config = self.env["ir.config_parameter"].sudo()
         last_seq = int(config.get_param("last_planning_seq", 0))
-        date = fields.Date.from_string(
-            config.get_param("next_planning_date", 0)
-        )
+        date = fields.Date.from_string(config.get_param("next_planning_date", 0))
 
         planning = self._get_next_planning(last_seq)
         planning = planning.with_context(visualize_date=date)
 
         if not planning.task_template_ids:
-            _logger.error(
-                "Could not generate next planning: no task template defined."
-            )
+            _logger.error("Could not generate next planning: no task template defined.")
             return
 
         planning.task_template_ids._generate_task_day()
@@ -126,9 +120,7 @@ class TaskTemplate(models.Model):
 
     name = fields.Char(required=True)
     planning_id = fields.Many2one("beesdoo.shift.planning", required=True)
-    day_nb_id = fields.Many2one(
-        "beesdoo.shift.daynumber", string="Day", required=True
-    )
+    day_nb_id = fields.Many2one("beesdoo.shift.daynumber", string="Day", required=True)
     task_type_id = fields.Many2one("beesdoo.shift.type", string="Type")
     # FIXME removed because beesdoo.shift.sheet is from another module.
     # attendance_sheet_id = fields.Many2one('beesdoo.shift.sheet', string="Attendance Sheet")  # noqa
@@ -159,12 +151,8 @@ class TaskTemplate(models.Model):
     color = fields.Integer("Color Index")
     worker_name = fields.Char(compute="_compute_worker_name")
     # For calendar View
-    start_date = fields.Datetime(
-        compute="_compute_fake_date", search="_search_dummy"
-    )
-    end_date = fields.Datetime(
-        compute="_compute_fake_date", search="_search_dummy"
-    )
+    start_date = fields.Datetime(compute="_compute_fake_date", search="_search_dummy")
+    end_date = fields.Datetime(compute="_compute_fake_date", search="_search_dummy")
 
     def _get_utc_date(self, day, hour, minute):
         """Combine day number, hours and minutes to save
@@ -228,9 +216,7 @@ class TaskTemplate(models.Model):
         tasks = self.env["beesdoo.shift.shift"]
         for rec in self:
             for i in range(0, rec.worker_nb):
-                worker_id = (
-                    rec.worker_ids[i] if len(rec.worker_ids) > i else False
-                )
+                worker_id = rec.worker_ids[i] if len(rec.worker_ids) > i else False
                 # remove worker in holiday and temporary exempted
                 if worker_id and worker_id.cooperative_status_ids:
                     status = worker_id.cooperative_status_ids[0]
@@ -244,10 +230,8 @@ class TaskTemplate(models.Model):
                     if (
                         status.temporary_exempt_start_date
                         and status.temporary_exempt_end_date
-                        and status.temporary_exempt_start_date
-                        <= rec.start_date.date()
-                        and status.temporary_exempt_end_date
-                        >= rec.end_date.date()
+                        and status.temporary_exempt_start_date <= rec.start_date.date()
+                        and status.temporary_exempt_end_date >= rec.end_date.date()
                     ):
                         worker_id = False
                 tasks |= tasks.create(
@@ -288,9 +272,7 @@ class TaskTemplate(models.Model):
                 ]
                 if shifts:
                     warnings.append(
-                        worker.name
-                        + _(" is already assigned to ")
-                        + ", ".join(shifts)
+                        worker.name + _(" is already assigned to ") + ", ".join(shifts)
                     )
 
         if warnings:

@@ -4,8 +4,9 @@
     "summary": """
     Module with basic customizations for the Polln cooperative.
      """,
-    "author": "Patricia Daloze, Thibault Francois",
+    "author": "Patricia Daloze, Thibault Francois, Coop IT Easy SCRLfs",
     "category": "Sales",
+    "website": "https://coopiteasy.be",
     "version": "12.0.1.0.0",
     "depends": [
         "beesdoo_shift",

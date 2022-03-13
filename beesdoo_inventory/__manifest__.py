@@ -10,7 +10,7 @@
         Adds a responsible, a max shipping date and a button to copy quantity to
         stock pickings.""",
     "author": "Beescoop - Cellule IT, Coop IT Easy SCRLfs",
-    "website": "https://github.com/beescoop/Obeesdoo",
+    "website": "https://coopiteasy.be",
     "category": "Inventory",
     "version": "12.0.1.0.1",
     "depends": ["delivery", "beesdoo_base", "beesdoo_product"],

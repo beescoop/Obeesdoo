@@ -30,17 +30,11 @@ class PurchaseOrder(models.Model):
     def write(self, vals):
         if "supervisor_id" in vals:
             new_partner = (
-                self.env["res.users"]
-                .browse(vals["supervisor_id"])
-                .partner_id.id
+                self.env["res.users"].browse(vals["supervisor_id"]).partner_id.id
             )
             for rec in self:
-                rec.message_unsubscribe(
-                    partner_ids=rec.supervisor_id.partner_id.ids
-                )
-                rec.message_subscribe(
-                    partner_ids=[new_partner], subtype_ids=[]
-                )
+                rec.message_unsubscribe(partner_ids=rec.supervisor_id.partner_id.ids)
+                rec.message_subscribe(partner_ids=[new_partner], subtype_ids=[])
         return super(PurchaseOrder, self).write(vals)
 
     @api.multi
@@ -69,16 +63,15 @@ class PurchaseOrder(models.Model):
                 seller = product_id._select_seller(
                     partner_id=line.partner_id,
                     quantity=line.product_qty,
-                    date=line.order_id.date_order
-                    and line.order_id.date_order.date(),
+                    date=line.order_id.date_order and line.order_id.date_order.date(),
                     uom_id=line.product_uom,
                     params={"order_id": line.order_id},
                 )
                 if seller:
                     price = line.price_unit
-                    suggested_price = (
-                        price * product_tmpl_id.uom_po_id.factor
-                    ) * (1 + product_tmpl_id.categ_id.profit_margin / 100)
+                    suggested_price = (price * product_tmpl_id.uom_po_id.factor) * (
+                        1 + product_tmpl_id.categ_id.profit_margin / 100
+                    )
                     if line.adapt_purchase_price and line.adapt_selling_price:
                         # will asynchronously trigger _compute_cost()
                         # on `product.template` in `beesdoo_product`
@@ -121,9 +114,7 @@ class PurchaseOrderLine(models.Model):
         "on the product page when confirming Purchase Order",
     )
 
-    stock_coverage = fields.Float(
-        compute="_compute_stock_coverage", store=True
-    )
+    stock_coverage = fields.Float(compute="_compute_stock_coverage", store=True)
 
     @api.depends("product_id")
     def _compute_stock_coverage(self):

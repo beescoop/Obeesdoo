@@ -37,9 +37,7 @@ class ValidateAttendanceSheet(models.TransientModel):
         warning_message = ""
         if sheet:
             for added_shift in sheet.added_shift_ids:
-                is_regular_worker = (
-                    added_shift.worker_id.working_mode == "regular"
-                )
+                is_regular_worker = added_shift.worker_id.working_mode == "regular"
                 is_compensation = added_shift.is_compensation
 
                 if is_regular_worker and not is_compensation:
@@ -53,9 +51,7 @@ class ValidateAttendanceSheet(models.TransientModel):
                     )
         return warning_message
 
-    active_sheet = fields.Many2one(
-        "beesdoo.shift.sheet", default=_get_active_sheet
-    )
+    active_sheet = fields.Many2one("beesdoo.shift.sheet", default=_get_active_sheet)
     card_support = fields.Boolean(
         default=_get_card_support_setting, string="Card validation"
     )
@@ -98,15 +94,11 @@ class ValidateAttendanceSheet(models.TransientModel):
         sheet = self.active_sheet
 
         if not self.worker_nb_feedback:
-            raise UserError(
-                _("Please give your feedback on the number of workers.")
-            )
+            raise UserError(_("Please give your feedback on the number of workers."))
 
         if self.card_support:
             # Login with barcode
-            card = self.env["member.card"].search(
-                [("barcode", "=", self.barcode)]
-            )
+            card = self.env["member.card"].search([("barcode", "=", self.barcode)])
             if not len(card):
                 raise UserError(_("Please set a correct barcode."))
             partner = card[0].partner_id

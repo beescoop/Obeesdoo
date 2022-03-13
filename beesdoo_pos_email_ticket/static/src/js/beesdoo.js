@@ -1,11 +1,11 @@
-odoo.define("beescoop.pos.ticket", function(require) {
+odoo.define("beescoop.pos.ticket", function (require) {
     "use strict";
     console.log("loading pos ticket");
     var module = require("point_of_sale.screens");
     var rpc = require("web.rpc");
 
     module.ReceiptScreenWidget = module.ReceiptScreenWidget.include({
-        send: function() {
+        send: function () {
             var self = this;
             var loaded = new $.Deferred();
             var order = this.pos.get_order().name;
@@ -21,27 +21,27 @@ odoo.define("beescoop.pos.ticket", function(require) {
                     shadow: false,
                 }
             )
-                .then(function(message) {
+                .then(function (message) {
                     var el = self.$(".message-send");
                     el.empty();
                     el.append("<h2>" + message + "</h2>");
                 })
-                .fail(function(type, error) {
+                .fail(function (type, error) {
                     var el = self.$(".message-send");
                     el.empty();
                     el.append("<h2>" + "Could not send ticket" + "</h2>");
                 });
         },
-        renderElement: function() {
+        renderElement: function () {
             var self = this;
             this._super();
-            this.$(".button.send").click(function() {
+            this.$(".button.send").click(function () {
                 if (!self._locked) {
                     self.send();
                 }
             });
         },
-        show: function() {
+        show: function () {
             this._super();
             var self = this;
             this.$(".message-send").empty();

@@ -14,22 +14,20 @@
     <template id="beescard_template_cm">
         <head>
             <style type="text/css">
-                /* Roboto Regular */
-                @font-face {
-                font-family: 'Roboto-Regular';
-                font-style: normal;
-                src: local('Roboto Regular'),
-                url('/beesdoo_base/static/font/Roboto-Regular.ttf')
-                format('truetype');
-                }
-                /* Roboto Bold */
-                @font-face {
-                font-family: 'Roboto-Bold';
-                font-style: normal;
-                src: local('Roboto Bold'),
-                url('/beesdoo_base/static/font/Roboto-Bold.ttf')
-                format('truetype');
-                }
+/* Roboto Regular */
+@font-face {
+    font-family: "Roboto-Regular";
+    font-style: normal;
+    src: local("Roboto Regular"),
+        url("/beesdoo_base/static/font/Roboto-Regular.ttf") format("truetype");
+}
+/* Roboto Bold */
+@font-face {
+    font-family: "Roboto-Bold";
+    font-style: normal;
+    src: local("Roboto Bold"),
+        url("/beesdoo_base/static/font/Roboto-Bold.ttf") format("truetype");
+}
             </style>
         </head>
 

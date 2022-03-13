@@ -14,9 +14,7 @@ class TestBeesdooShift(TransactionCase):
         self.shift_model = self.env["beesdoo.shift.shift"]
         self.shift_template_model = self.env["beesdoo.shift.template"]
         self.attendance_sheet_model = self.env["beesdoo.shift.sheet"]
-        self.attendance_sheet_shift_model = self.env[
-            "beesdoo.shift.sheet.shift"
-        ]
+        self.attendance_sheet_shift_model = self.env["beesdoo.shift.sheet.shift"]
         self.shift_expected_model = self.env["beesdoo.shift.sheet.expected"]
         self.shift_added_model = self.env["beesdoo.shift.sheet.added"]
         self.pre_filled_task_type_id = (
@@ -34,19 +32,11 @@ class TestBeesdooShift(TransactionCase):
             "beesdoo_shift_attendance.beesdoo_shift_user_2_demo"
         )
 
-        self.setting_wizard = self.env["res.config.settings"].sudo(
-            self.user_admin
-        )
+        self.setting_wizard = self.env["res.config.settings"].sudo(self.user_admin)
 
-        self.worker_regular_1 = self.env.ref(
-            "beesdoo_shift.res_partner_worker_6_demo"
-        )
-        self.worker_regular_2 = self.env.ref(
-            "beesdoo_shift.res_partner_worker_5_demo"
-        )
-        self.worker_regular_3 = self.env.ref(
-            "beesdoo_shift.res_partner_worker_3_demo"
-        )
+        self.worker_regular_1 = self.env.ref("beesdoo_shift.res_partner_worker_6_demo")
+        self.worker_regular_2 = self.env.ref("beesdoo_shift.res_partner_worker_5_demo")
+        self.worker_regular_3 = self.env.ref("beesdoo_shift.res_partner_worker_3_demo")
         self.worker_regular_super_1 = self.env.ref(
             "beesdoo_shift.res_partner_worker_1_demo"
         )
@@ -57,15 +47,9 @@ class TestBeesdooShift(TransactionCase):
             "beesdoo_shift.res_partner_worker_4_demo"
         )
 
-        self.task_type_1 = self.env.ref(
-            "beesdoo_shift.beesdoo_shift_task_type_1_demo"
-        )
-        self.task_type_2 = self.env.ref(
-            "beesdoo_shift.beesdoo_shift_task_type_2_demo"
-        )
-        self.task_type_3 = self.env.ref(
-            "beesdoo_shift.beesdoo_shift_task_type_3_demo"
-        )
+        self.task_type_1 = self.env.ref("beesdoo_shift.beesdoo_shift_task_type_1_demo")
+        self.task_type_2 = self.env.ref("beesdoo_shift.beesdoo_shift_task_type_2_demo")
+        self.task_type_3 = self.env.ref("beesdoo_shift.beesdoo_shift_task_type_3_demo")
 
         self.task_template_1 = self.env.ref(
             "beesdoo_worker_status.beesdoo_shift_task_template_1_demo"
@@ -175,18 +159,10 @@ class TestBeesdooShift(TransactionCase):
         # Test attendance sheets creation
         self.attendance_sheet_model._generate_attendance_sheet()
 
-        self.assertEqual(
-            len(self.search_sheets(self.start_in_1, self.end_in_1)), 1
-        )
-        self.assertEqual(
-            len(self.search_sheets(self.start_in_2, self.end_in_2)), 1
-        )
-        self.assertEqual(
-            len(self.search_sheets(self.start_out_1, self.end_out_1)), 0
-        )
-        self.assertEqual(
-            len(self.search_sheets(self.start_out_2, self.end_out_2)), 0
-        )
+        self.assertEqual(len(self.search_sheets(self.start_in_1, self.end_in_1)), 1)
+        self.assertEqual(len(self.search_sheets(self.start_in_2, self.end_in_2)), 1)
+        self.assertEqual(len(self.search_sheets(self.start_out_1, self.end_out_1)), 0)
+        self.assertEqual(len(self.search_sheets(self.start_out_2, self.end_out_2)), 0)
 
         # Test expected shifts creation
         # Sheet 1 starts at current time + 2 secs, ends at current time + 10 min
@@ -233,9 +209,7 @@ class TestBeesdooShift(TransactionCase):
         """
 
         # Attendance sheet generation
-        self.attendance_sheet_model.sudo(
-            self.user_generic
-        )._generate_attendance_sheet()
+        self.attendance_sheet_model.sudo(self.user_generic)._generate_attendance_sheet()
         sheet_1 = self.search_sheets(self.start_in_1, self.end_in_1)
         sheet_1 = sheet_1.sudo(self.user_generic)
 
@@ -299,9 +273,7 @@ class TestBeesdooShift(TransactionCase):
     def test_attendance_sheet_edition(self):
 
         # Attendance sheet generation
-        self.attendance_sheet_model.sudo(
-            self.user_generic
-        )._generate_attendance_sheet()
+        self.attendance_sheet_model.sudo(self.user_generic)._generate_attendance_sheet()
         sheet_1 = self.search_sheets(self.start_in_1, self.end_in_1)
 
         # Expected shifts edition
@@ -345,9 +317,7 @@ class TestBeesdooShift(TransactionCase):
         if waiting_time > 0:
             with self.assertRaises(UserError) as econtext:
                 sheet_1.validate_with_checks()
-            self.assertIn(
-                "once the shifts have started", str(econtext.exception)
-            )
+            self.assertIn("once the shifts have started", str(econtext.exception))
             time.sleep(waiting_time)
 
         sheet_1.worker_nb_feedback = "enough"
@@ -370,19 +340,13 @@ class TestBeesdooShift(TransactionCase):
             "worker_id"
         ) | sheet_1.added_shift_ids.mapped("worker_id")
         self.assertEqual(len(workers), 5)
-        self.assertEqual(
-            sheet_1.expected_shift_ids[0].task_id.state, "absent_2"
-        )
+        self.assertEqual(sheet_1.expected_shift_ids[0].task_id.state, "absent_2")
         self.assertEqual(sheet_1.expected_shift_ids[1].task_id.state, "done")
-        self.assertEqual(
-            sheet_1.expected_shift_ids[2].task_id.state, "absent_1"
-        )
+        self.assertEqual(sheet_1.expected_shift_ids[2].task_id.state, "absent_1")
         self.assertEqual(sheet_1.added_shift_ids[0].task_id.state, "done")
         self.assertEqual(sheet_1.added_shift_ids[1].task_id.state, "done")
 
         # Empty shift should have been updated
-        self.assertEqual(
-            sheet_1.added_shift_ids[0].task_id, self.shift_empty_1
-        )
+        self.assertEqual(sheet_1.added_shift_ids[0].task_id, self.shift_empty_1)
 
         # sheet_1.expected_shift_ids[0].worker_id

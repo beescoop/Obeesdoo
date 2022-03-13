@@ -16,9 +16,7 @@ class BeesdooWizard(models.TransientModel):
                 # make sure that each contact appears at most once in the list
                 if contact.id not in contact_ids:
                     contact_ids.add(contact.id)
-                    in_portal = self.portal_id in contact.user_ids.mapped(
-                        "groups_id"
-                    )
+                    in_portal = self.portal_id in contact.user_ids.mapped("groups_id")
                     self.user_ids |= self.env["portal.wizard.user"].new(
                         {
                             "partner_id": contact.id,

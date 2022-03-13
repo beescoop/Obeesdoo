@@ -9,34 +9,25 @@ class Subscribe(models.TransientModel):
 
     def _get_cooperative_status(self):
         partner_id = (
-            self.env["res.partner"]
-            .browse(self._context.get("active_id"))
-            .exists()
+            self.env["res.partner"].browse(self._context.get("active_id")).exists()
         )
         return partner_id.cooperative_status_ids
 
     def _get_holiday_start_day(self):
         partner_id = (
-            self.env["res.partner"]
-            .browse(self._context.get("active_id"))
-            .exists()
+            self.env["res.partner"].browse(self._context.get("active_id")).exists()
         )
         return (
-            partner_id.cooperative_status_ids.holiday_start_time
-            or fields.Date.today()
+            partner_id.cooperative_status_ids.holiday_start_time or fields.Date.today()
         )
 
     def _get_holiday_end_day(self):
         partner_id = (
-            self.env["res.partner"]
-            .browse(self._context.get("active_id"))
-            .exists()
+            self.env["res.partner"].browse(self._context.get("active_id")).exists()
         )
         return partner_id.cooperative_status_ids.holiday_end_time
 
-    status_id = fields.Many2one(
-        "cooperative.status", default=_get_cooperative_status
-    )
+    status_id = fields.Many2one("cooperative.status", default=_get_cooperative_status)
     holiday_start_day = fields.Date(
         string="Start date for the holiday", default=_get_holiday_start_day
     )
@@ -56,10 +47,7 @@ class Subscribe(models.TransientModel):
             and self.status_id.holiday_end_time >= self.status_id.today
         ):
             raise ValidationError(
-                _(
-                    "You cannot edit start date of an holiday that is "
-                    "not over yet."
-                )
+                _("You cannot edit start date of an holiday that is not over yet.")
             )
         if (
             self.holiday_start_day != self.status_id.holiday_start_time

@@ -22,9 +22,7 @@ class CustomerPortalRestrictModification(CustomerPortal):
                 CustomerPortal.MANDATORY_BILLING_FIELDS.copy()
             )
         if "OPTIONAL_BILLING_FIELDS" not in vars(self):
-            self.OPTIONAL_BILLING_FIELDS = (
-                CustomerPortal.OPTIONAL_BILLING_FIELDS.copy()
-            )
+            self.OPTIONAL_BILLING_FIELDS = CustomerPortal.OPTIONAL_BILLING_FIELDS.copy()
 
         # move name and email to optional
         if "name" in self.MANDATORY_BILLING_FIELDS:

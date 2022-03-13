@@ -21,9 +21,7 @@ class SubscriptionRequest(models.Model):
     def validate_subscription_request(self):
         self.ensure_one()
 
-        invoice = super(
-            SubscriptionRequest, self
-        ).validate_subscription_request()[0]
+        invoice = super(SubscriptionRequest, self).validate_subscription_request()[0]
         partner = invoice.partner_id
 
         vals = self.get_eater_vals(partner, self.share_product_id)

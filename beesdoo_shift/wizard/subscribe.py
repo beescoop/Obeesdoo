@@ -17,14 +17,10 @@ class StatusActionMixin(models.AbstractModel):
     def _check(self, group="beesdoo_shift.group_shift_management"):
         self.ensure_one()
         if not self.env.user.has_group(group):
-            raise UserError(
-                _("You don't have the required access for this operation.")
-            )
+            raise UserError(_("You don't have the required access for this operation."))
         if (
             self.cooperator_id == self.env.user.partner_id
-            and not self.env.user.has_group(
-                "beesdoo_shift.group_cooperative_admin"
-            )
+            and not self.env.user.has_group("beesdoo_shift.group_cooperative_admin")
         ):
             raise UserError(_("You cannot perform this operation on yourself"))
         return self.with_context(real_uid=self._uid)
@@ -59,9 +55,7 @@ class Subscribe(models.TransientModel):
 
     def _get_info_session_followed(self):
         session_followed = (
-            self.env["res.partner"]
-            .browse(self._context.get("active_id"))
-            .info_session
+            self.env["res.partner"].browse(self._context.get("active_id")).info_session
         )
         return session_followed
 
@@ -83,27 +77,16 @@ class Subscribe(models.TransientModel):
         )
 
     def _get_super(self):
-        return (
-            self.env["res.partner"]
-            .browse(self._context.get("active_id"))
-            .super
-        )
+        return self.env["res.partner"].browse(self._context.get("active_id")).super
 
     def _get_mode(self):
         return (
-            self.env["res.partner"]
-            .browse(self._context.get("active_id"))
-            .working_mode
+            self.env["res.partner"].browse(self._context.get("active_id")).working_mode
         )
 
     def _get_reset_counter_default(self):
-        partner = self.env["res.partner"].browse(
-            self._context.get("active_id")
-        )
-        return (
-            partner.state == "unsubscribed"
-            and partner.working_mode == "regular"
-        )
+        partner = self.env["res.partner"].browse(self._context.get("active_id"))
+        return partner.state == "unsubscribed" and partner.working_mode == "regular"
 
     info_session = fields.Boolean(
         string="Followed an information session",
@@ -121,25 +104,17 @@ class Subscribe(models.TransientModel):
         ],
         default=_get_mode,
     )
-    exempt_reason_id = fields.Many2one(
-        "cooperative.exempt.reason", "Exempt Reason"
-    )
+    exempt_reason_id = fields.Many2one("cooperative.exempt.reason", "Exempt Reason")
     shift_id = fields.Many2one("beesdoo.shift.template", default=_get_shift)
-    nb_shifts = fields.Integer(
-        string="Number of shifts", default=_get_nb_shifts
-    )
+    nb_shifts = fields.Integer(string="Number of shifts", default=_get_nb_shifts)
     reset_counter = fields.Boolean(default=_get_reset_counter_default)
     reset_compensation_counter = fields.Boolean(default=False)
     unsubscribed = fields.Boolean(
         default=False,
         string="Are you sure to remove this cooperator from his subscribed shift ?",
     )
-    irregular_start_date = fields.Date(
-        string="Start Date", default=fields.Date.today
-    )
-    resigning = fields.Boolean(
-        default=False, help="Want to leave the beescoop"
-    )
+    irregular_start_date = fields.Date(string="Start Date", default=fields.Date.today)
+    resigning = fields.Boolean(default=False, help="Want to leave the beescoop")
 
     @api.multi
     def unsubscribe(self):

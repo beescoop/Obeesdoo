@@ -11,7 +11,7 @@
     """,
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
-    "website": "https://coopiteasy.be/",
+    "website": "https://coopiteasy.be",
     "category": "Cooperative Management",
     "data": ["views/portal_website_templates.xml"],
     "installable": True,

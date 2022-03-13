@@ -8,7 +8,7 @@
     "summary": "Compute estimated stock coverage based on product sales over "
     "a date range.",
     "author": "Coop IT Easy SCRLfs",
-    "website": "https://www.coopiteasy.be",
+    "website": "https://coopiteasy.be",
     "license": "AGPL-3",
     "depends": ["point_of_sale", "sale_stock"],
     "data": ["views/product_template_view.xml", "data/cron.xml"],

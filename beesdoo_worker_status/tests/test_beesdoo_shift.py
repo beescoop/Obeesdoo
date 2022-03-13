@@ -16,15 +16,9 @@ class TestBeesdooShift(TransactionCase):
         self.current_time = datetime.now()
         self.user_admin = self.env.ref("base.user_root")
 
-        self.worker_regular_1 = self.env.ref(
-            "beesdoo_shift.res_partner_worker_1_demo"
-        )
-        self.worker_regular_2 = self.env.ref(
-            "beesdoo_shift.res_partner_worker_3_demo"
-        )
-        self.worker_regular_3 = self.env.ref(
-            "beesdoo_shift.res_partner_worker_5_demo"
-        )
+        self.worker_regular_1 = self.env.ref("beesdoo_shift.res_partner_worker_1_demo")
+        self.worker_regular_2 = self.env.ref("beesdoo_shift.res_partner_worker_3_demo")
+        self.worker_regular_3 = self.env.ref("beesdoo_shift.res_partner_worker_5_demo")
         self.worker_irregular_1 = self.env.ref(
             "beesdoo_shift.res_partner_worker_2_demo"
         )
@@ -32,15 +26,9 @@ class TestBeesdooShift(TransactionCase):
             "beesdoo_shift.res_partner_worker_4_demo"
         )
 
-        self.task_type_1 = self.env.ref(
-            "beesdoo_shift.beesdoo_shift_task_type_1_demo"
-        )
-        self.task_type_2 = self.env.ref(
-            "beesdoo_shift.beesdoo_shift_task_type_2_demo"
-        )
-        self.task_type_3 = self.env.ref(
-            "beesdoo_shift.beesdoo_shift_task_type_3_demo"
-        )
+        self.task_type_1 = self.env.ref("beesdoo_shift.beesdoo_shift_task_type_1_demo")
+        self.task_type_2 = self.env.ref("beesdoo_shift.beesdoo_shift_task_type_2_demo")
+        self.task_type_3 = self.env.ref("beesdoo_shift.beesdoo_shift_task_type_3_demo")
 
         self.task_template_1 = self.env.ref(
             "beesdoo_worker_status.beesdoo_shift_task_template_1_demo"
@@ -49,9 +37,7 @@ class TestBeesdooShift(TransactionCase):
             "beesdoo_worker_status.beesdoo_shift_task_template_2_demo"
         )
 
-        self.exempt_reason_1 = self.env.ref(
-            "beesdoo_shift.exempt_reason_1_demo"
-        )
+        self.exempt_reason_1 = self.env.ref("beesdoo_shift.exempt_reason_1_demo")
 
     def test_shift_counters(self):
         "Test shift counters calculation and cooperative status update"
@@ -203,9 +189,7 @@ class TestBeesdooShift(TransactionCase):
             }
         )
         # Alert start time should no change yet
-        self.assertEqual(
-            status_id.alert_start_time, begin_date - timedelta(days=1)
-        )
+        self.assertEqual(status_id.alert_start_time, begin_date - timedelta(days=1))
 
         # Now go in the future during the holiday period
         status_id.today = begin_date + timedelta(days=6)
@@ -240,9 +224,7 @@ class TestBeesdooShift(TransactionCase):
             }
         )
         # Alert start time should no change yet
-        self.assertEqual(
-            status_id.alert_start_time, begin_date - timedelta(days=1)
-        )
+        self.assertEqual(status_id.alert_start_time, begin_date - timedelta(days=1))
 
         # Now go in the future during the holiday period
         status_id.today = begin_date + timedelta(days=6)
@@ -276,9 +258,7 @@ class TestBeesdooShift(TransactionCase):
             }
         )
         # Alert start time should no change yet
-        self.assertEqual(
-            status_id.alert_start_time, begin_date - timedelta(days=1)
-        )
+        self.assertEqual(status_id.alert_start_time, begin_date - timedelta(days=1))
 
         # Now go in the future during the holiday period
         status_id.today = begin_date + timedelta(days=6)
