@@ -1,4 +1,4 @@
-'''
+"""
 def test(slot):
      last_sequence = int(self.env["ir.config_parameter"].sudo().get_param("last_planning_seq"))
      next_planning = self.env["beesdoo.shift.planning"]._get_next_planning(last_sequence)
@@ -13,4 +13,4 @@ def test(slot):
              next_planning = self.env["beesdoo.shift.planning"]._get_next_planning(last_sequence)
              next_planning = next_planning.with_context(visualize_date=next_planning_date)
      return shift_recset
-'''
+"""

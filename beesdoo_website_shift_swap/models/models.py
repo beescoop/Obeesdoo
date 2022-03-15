@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-
-from odoo import models, fields, api
-
 # class beesdoo_website_shift_swap(models.Model):
 #     _name = 'beesdoo_website_shift_swap.beesdoo_website_shift_swap'
 

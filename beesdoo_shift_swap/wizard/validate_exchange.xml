@@ -5,13 +5,17 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-                    <field name="match_proposition"/>
-                    <field name="my_proposition" invisible="True"/>
+                    <field name="match_proposition" />
+                    <field name="my_proposition" invisible="True" />
                 </group>
                 <footer>
-                    <button special="cancel" string="Cancel"/>
-                    <button type="object" name="validate_match"
-                            string="Confirm" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel" />
+                    <button
+                        type="object"
+                        name="validate_match"
+                        string="Confirm"
+                        class="oe_highlight"
+                    />
                 </footer>
             </form>
         </field>

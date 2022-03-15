@@ -1,27 +1,21 @@
-from odoo import models, fields, api, _
-from datetime import datetime, timedelta, date
-from odoo.exceptions import Warning
+from datetime import datetime, timedelta
+
+from odoo import api, fields, models
+
 
 def daterange(start_date, end_date):
-    for n in range(int ((end_date - start_date).days)) :
+    for n in range(int((end_date - start_date).days)):
         return start_date + timedelta(n)
 
 
 class SubscribeUnderpopulatedShift(models.Model):
-    _name = 'beesdoo.shift.subscribed_underpopulated_shift'
-    _description = 'A model to track an exchange with an underpopulated shift'
+    _name = "beesdoo.shift.subscribed_underpopulated_shift"
+    _description = "A model to track an exchange with an underpopulated shift"
 
     def _get_selection_status(self):
-        return [
-            ('draft','Draft'),
-            ('validate','Validate'),
-            ('done','Done')
-        ]
+        return [("draft", "Draft"), ("validate", "Validate"), ("done", "Done")]
 
-    state=fields.Selection(
-        selection=_get_selection_status,
-        default='draft'
-    )
+    state = fields.Selection(selection=_get_selection_status, default="draft")
     worker_id = fields.Many2one(
         "res.partner",
         domain=[
@@ -31,19 +25,17 @@ class SubscribeUnderpopulatedShift(models.Model):
         ],
     )
 
-    exchanged_tmpl_dated_id = fields.Many2one(
-        "beesdoo.shift.template.dated"
-    )
+    exchanged_tmpl_dated_id = fields.Many2one("beesdoo.shift.template.dated")
     exchange_status = fields.Boolean(default=False, string="Status Exchange Shift")
 
-    @api.depends('exchanged_tmpl_dated_id')
+    @api.depends("exchanged_tmpl_dated_id")
     def _compute_exchanged_already_generated(self):
         for record in self:
             # if the supercooperateur make the exchange
             current_worker = self.worker_id
 
             # Get current date
-            now = datetime.now()
+            datetime.now()
 
             if not record.exchanged_tmpl_dated_id:
                 record.exchanged_shift_id = False
@@ -53,16 +45,17 @@ class SubscribeUnderpopulatedShift(models.Model):
             # check if the new_shift is already generated
             else:
                 # Get the shift if it is already generated
-                subscribed_shifts_rec = (
-                    self.env["beesdoo.shift.shift"]
-                        .search(
-                        [
-                            ('start_time', '=', record.exchanged_tmpl_dated_id.date),
-                            ("worker_id", "=", current_worker.id),
-                            ("task_template_id", "=", record.exchanged_tmpl_dated_id.template_id.id)
-                        ],
-                        limit=1,
-                    )
+                subscribed_shifts_rec = self.env["beesdoo.shift.shift"].search(
+                    [
+                        ("start_time", "=", record.exchanged_tmpl_dated_id.date),
+                        ("worker_id", "=", current_worker.id),
+                        (
+                            "task_template_id",
+                            "=",
+                            record.exchanged_tmpl_dated_id.template_id.id,
+                        ),
+                    ],
+                    limit=1,
                 )
 
                 # check if is there a shift generated
@@ -72,17 +65,14 @@ class SubscribeUnderpopulatedShift(models.Model):
                 return False
 
     exchanged_shift_id = fields.Many2one(
-        'beesdoo.shift.shift',
-        compute='_compute_exchanged_already_generated'
+        "beesdoo.shift.shift", compute="_compute_exchanged_already_generated"
     )
-
 
     confirmed_tmpl_dated_id = fields.Many2one(
-        "beesdoo.shift.template.dated",
-        string="asked_shift"
+        "beesdoo.shift.template.dated", string="asked_shift"
     )
 
-    @api.depends('confirmed_tmpl_dated_id')
+    @api.depends("confirmed_tmpl_dated_id")
     def _conpute_comfirmed_already_generated(self):
         for record in self:
             # Get current date
@@ -93,17 +83,18 @@ class SubscribeUnderpopulatedShift(models.Model):
                 record.confirmed_shift_id = False
             else:
                 # Get the shift if it is already generated
-                future_subscribed_shifts_rec = (
-                    self.env["beesdoo.shift.shift"]
-                        .search(
-                        [
-                            ("start_time", ">", now.strftime("%Y-%m-%d %H:%M:%S")),
-                            ('start_time', '=', record.confirmed_tmpl_dated_id.date),
-                            ("task_template_id", "=", record.confirmed_tmpl_dated_id.template_id.id),
-                            ("worker_id", "=", None),
-                        ],
-                        limit=1,
-                    )
+                future_subscribed_shifts_rec = self.env["beesdoo.shift.shift"].search(
+                    [
+                        ("start_time", ">", now.strftime("%Y-%m-%d %H:%M:%S")),
+                        ("start_time", "=", record.confirmed_tmpl_dated_id.date),
+                        (
+                            "task_template_id",
+                            "=",
+                            record.confirmed_tmpl_dated_id.template_id.id,
+                        ),
+                        ("worker_id", "=", None),
+                    ],
+                    limit=1,
                 )
                 # check if is there a shift generated
                 if future_subscribed_shifts_rec:
@@ -112,33 +103,33 @@ class SubscribeUnderpopulatedShift(models.Model):
                 return False
 
     confirmed_shift_id = fields.Many2one(
-        'beesdoo.shift.shift',
-        compute='_conpute_comfirmed_already_generated'
+        "beesdoo.shift.shift", compute="_conpute_comfirmed_already_generated"
     )
     confirme_status = fields.Boolean(default=False, string="status comfirme shift")
-    date = fields.Date(required=True,default=datetime.date(datetime.now()))
-
+    date = fields.Date(required=True, default=datetime.date(datetime.now()))
 
     def update_status(self):
-        if self.exchanged_tmpl_dated_id and self.confirmed_tmpl_dated_id and self.worker_id and self.date:
-            self.write({"state" : "validate"})
-            if self.exchange_status and self.confirme_status :
-                self.write({"state" : "done"})
+        if (
+            self.exchanged_tmpl_dated_id
+            and self.confirmed_tmpl_dated_id
+            and self.worker_id
+            and self.date
+        ):
+            self.write({"state": "validate"})
+            if self.exchange_status and self.confirme_status:
+                self.write({"state": "done"})
 
     @api.multi
     def unsubscribe_shift(self):
-        if not self.exchange_status :
-            unsubscribed_shifts_rec =  self.exchanged_shift_id
-            unsubscribed_shifts_rec.write({
-               "worker_id" : False
-            })
+        if not self.exchange_status:
+            unsubscribed_shifts_rec = self.exchanged_shift_id
+            unsubscribed_shifts_rec.write({"worker_id": False})
             self.exchange_status = 1
             self.update_status()
             if not self.exchanged_shift_id.worker_id and self.exchange_status:
                 return True
             return False
         return True
-
 
     @api.multi
     def subscribe_shift(self):
@@ -151,49 +142,53 @@ class SubscribeUnderpopulatedShift(models.Model):
             *the user hasn't done another exchange 2month before
         :return:
         """
-        if not self.confirme_status :
+        if not self.confirme_status:
             # Get the wanted shift
             subscribed_shift_rec = self.confirmed_shift_id
             subscribed_shift_rec.is_regular = True
             # Get the user
-            subscribed_shift_rec.write({
-                "worker_id": self.worker_id.id
-            })
+            subscribed_shift_rec.write({"worker_id": self.worker_id.id})
 
             # Subscribe done, change the status
             self.confirme_status = 1
 
-            #update status
+            # update status
             self.update_status()
             if not self.exchanged_shift_id.worker_id and not self.confirme_status:
                 return False
             return True
         return True
 
-
     def get_underpopulated_shift(self, my_tmpl_dated):
         available_tmpl_dated = self.env["beesdoo.shift.template.dated"]
         tmpl_dated = self.env["beesdoo.shift.template.dated"].display_tmpl_dated()
         exchange = self.env["beesdoo.shift.subscribed_underpopulated_shift"].search([])
-        for template in tmpl_dated :
+        for template in tmpl_dated:
             nb_workers_change = 0
-            for ex in exchange :
+            for ex in exchange:
 
-                if ex.exchanged_tmpl_dated_id.template_id == template.template_id and ex.exchanged_tmpl_dated_id.date == template.date:
-                    #Enlever un worker
+                if (
+                    ex.exchanged_tmpl_dated_id.template_id == template.template_id
+                    and ex.exchanged_tmpl_dated_id.date == template.date
+                ):
+                    # Enlever un worker
                     nb_workers_change -= 1
-                if ex.confirmed_tmpl_dated_id.template_id == template.template_id and ex.confirmed_tmpl_dated_id.date == template.date:
+                if (
+                    ex.confirmed_tmpl_dated_id.template_id == template.template_id
+                    and ex.confirmed_tmpl_dated_id.date == template.date
+                ):
                     # ajouter un worker
                     nb_workers_change += 1
             nb_worker_wanted = template.template_id.worker_nb
-            nb_worker_present = (nb_worker_wanted - template.template_id.remaining_worker) + nb_workers_change
-            percentage_presence = (nb_worker_present/nb_worker_wanted) * 100
+            nb_worker_present = (
+                nb_worker_wanted - template.template_id.remaining_worker
+            ) + nb_workers_change
+            percentage_presence = (nb_worker_present / nb_worker_wanted) * 100
             min_percentage_presence = int(
                 self.env["ir.config_parameter"]
-                    .sudo()
-                    .get_param("beesdoo_shift.percentage_presence")
+                .sudo()
+                .get_param("beesdoo_shift.percentage_presence")
             )
-            already_subscribed = False
             if percentage_presence <= min_percentage_presence:
                 available_tmpl_dated |= template
 

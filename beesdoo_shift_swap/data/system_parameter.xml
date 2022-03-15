@@ -1,16 +1,13 @@
 <odoo>
-    <record id="min_percentage_presence"
-            model="ir.config_parameter">
+    <record id="min_percentage_presence" model="ir.config_parameter">
         <field name="key">beesdoo_shift.percentage_presence</field>
         <field name="value">20</field>
     </record>
-    <record id="day_limit_swap"
-            model="ir.config_parameter">
+    <record id="day_limit_swap" model="ir.config_parameter">
         <field name="key">beesdoo_shift.day_limit_swap</field>
         <field name="value">28</field>
     </record>
-    <record id="day_limit_ask_for_exchange"
-            model="ir.config_parameter">
+    <record id="day_limit_ask_for_exchange" model="ir.config_parameter">
         <field name="key">beesdoo_shift.day_limit_ask_for_exchange</field>
         <field name="value">56</field>
     </record>

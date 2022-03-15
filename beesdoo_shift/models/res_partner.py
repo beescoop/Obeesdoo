@@ -1,5 +1,5 @@
-from datetime import timedelta, datetime
-from pytz import timezone, utc
+from datetime import datetime, timedelta
+
 from odoo import _, api, fields, models
 
 
@@ -202,17 +202,26 @@ class ResPartner(models.Model):
 
         shift_recset = self.env["beesdoo.shift.shift"]
 
-        shift_recset |= (self.env["beesdoo.shift.shift"].sudo().search([
-            ("start_time", ">", start_date.strftime("%Y-%m-%d %H:%M:%S"))
-        ],
-            order="start_time, task_template_id, task_type_id"))
+        shift_recset |= (
+            self.env["beesdoo.shift.shift"]
+            .sudo()
+            .search(
+                [("start_time", ">", start_date.strftime("%Y-%m-%d %H:%M:%S"))],
+                order="start_time, task_template_id, task_type_id",
+            )
+        )
 
-        last_sequence = int(self.env["ir.config_parameter"].sudo().get_param("last_planning_seq"))
+        last_sequence = int(
+            self.env["ir.config_parameter"].sudo().get_param("last_planning_seq")
+        )
 
-        next_planning = self.env["beesdoo.shift.planning"]._get_next_planning(last_sequence)
+        next_planning = self.env["beesdoo.shift.planning"]._get_next_planning(
+            last_sequence
+        )
 
         next_planning_date = fields.Datetime.from_string(
-            self.env["ir.config_parameter"].sudo().get_param("next_planning_date", 0))
+            self.env["ir.config_parameter"].sudo().get_param("next_planning_date", 0)
+        )
 
         next_planning = next_planning.with_context(visualize_date=next_planning_date)
 
@@ -220,10 +229,16 @@ class ResPartner(models.Model):
 
         while next_planning_date < end_date:
             shift_recset |= next_planning.task_template_ids._generate_task_day()
-            next_planning_date = next_planning._get_next_planning_date(next_planning_date)
+            next_planning_date = next_planning._get_next_planning_date(
+                next_planning_date
+            )
             last_sequence = next_planning.sequence
-            next_planning = self.env["beesdoo.shift.planning"]._get_next_planning(last_sequence)
-            next_planning = next_planning.with_context(visualize_date=next_planning_date)
+            next_planning = self.env["beesdoo.shift.planning"]._get_next_planning(
+                last_sequence
+            )
+            next_planning = next_planning.with_context(
+                visualize_date=next_planning_date
+            )
 
         return shift_recset
 
@@ -232,8 +247,8 @@ class ResPartner(models.Model):
         cur_user = self.id
         regular_next_shift_limit = int(
             self.env["ir.config_parameter"]
-                .sudo()
-                .get_param("beesdoo_shift.regular_next_shift_limit")
+            .sudo()
+            .get_param("beesdoo_shift.regular_next_shift_limit")
         )
         nb_days = 28 * regular_next_shift_limit
         start_date = datetime.now()
@@ -241,9 +256,9 @@ class ResPartner(models.Model):
 
         shifts = self.env["res.partner"].display_future_shift(end_date)
 
-        my_next_shifts=self.env["beesdoo.shift.shift"]
-        for rec in shifts :
-            if rec.worker_id.id == cur_user :
+        my_next_shifts = self.env["beesdoo.shift.shift"]
+        for rec in shifts:
+            if rec.worker_id.id == cur_user:
                 my_next_shifts |= rec
 
         return my_next_shifts

@@ -5,20 +5,24 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-                    <field name="worker_id"/>
-                    <field name="exchanged_tmpl_dated_id"/>
+                    <field name="worker_id" />
+                    <field name="exchanged_tmpl_dated_id" />
                     <field name="confirmed_tmpl_dated_id">
                         <tree>
-                            <field name="template_id"/>
-                            <field name="date"/>
+                            <field name="template_id" />
+                            <field name="date" />
                         </tree>
                     </field>
                 </group>
                 <footer>
-                    <button type="object" name="make_change"
-                            string="Confirm" class="oe_highlight"/>
+                    <button
+                        type="object"
+                        name="make_change"
+                        string="Confirm"
+                        class="oe_highlight"
+                    />
                     or
-                    <button special="cancel" string="Cancel"/>
+                    <button special="cancel" string="Cancel" />
                 </footer>
             </form>
         </field>
