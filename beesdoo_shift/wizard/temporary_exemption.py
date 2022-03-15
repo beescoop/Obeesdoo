@@ -9,25 +9,19 @@ class TemporaryExemption(models.TransientModel):
 
     def _get_cooperative_status(self):
         partner_id = (
-            self.env["res.partner"]
-            .browse(self._context.get("active_id"))
-            .exists()
+            self.env["res.partner"].browse(self._context.get("active_id")).exists()
         )
         return partner_id.cooperative_status_ids
 
     def _get_temporary_exempt_reason_id(self):
         partner_id = (
-            self.env["res.partner"]
-            .browse(self._context.get("active_id"))
-            .exists()
+            self.env["res.partner"].browse(self._context.get("active_id")).exists()
         )
         return partner_id.cooperative_status_ids.temporary_exempt_reason_id
 
     def _get_temporary_exempt_start_date(self):
         partner_id = (
-            self.env["res.partner"]
-            .browse(self._context.get("active_id"))
-            .exists()
+            self.env["res.partner"].browse(self._context.get("active_id")).exists()
         )
         return (
             partner_id.cooperative_status_ids.temporary_exempt_start_date
@@ -36,15 +30,11 @@ class TemporaryExemption(models.TransientModel):
 
     def _get_temporary_exempt_end_date(self):
         partner_id = (
-            self.env["res.partner"]
-            .browse(self._context.get("active_id"))
-            .exists()
+            self.env["res.partner"].browse(self._context.get("active_id")).exists()
         )
         return partner_id.cooperative_status_ids.temporary_exempt_end_date
 
-    status_id = fields.Many2one(
-        "cooperative.status", default=_get_cooperative_status
-    )
+    status_id = fields.Many2one("cooperative.status", default=_get_cooperative_status)
     temporary_exempt_reason_id = fields.Many2one(
         "cooperative.exempt.reason",
         "Exempt Reason",
@@ -65,17 +55,12 @@ class TemporaryExemption(models.TransientModel):
             self.temporary_exempt_start_date
             != self.status_id.temporary_exempt_start_date
             and self.status_id.temporary_exempt_start_date
-            and self.status_id.temporary_exempt_start_date
-            <= self.status_id.today
+            and self.status_id.temporary_exempt_start_date <= self.status_id.today
             and self.status_id.temporary_exempt_end_date
-            and self.status_id.temporary_exempt_end_date
-            >= self.status_id.today
+            and self.status_id.temporary_exempt_end_date >= self.status_id.today
         ):
             raise ValidationError(
-                _(
-                    "You cannot edit start date of an holiday that is "
-                    "not over yet."
-                )
+                _("You cannot edit start date of an holiday that is not over yet.")
             )
         if (
             self.temporary_exempt_start_date
@@ -89,8 +74,7 @@ class TemporaryExemption(models.TransientModel):
                 )
             )
         if (
-            self.temporary_exempt_end_date
-            != self.status_id.temporary_exempt_end_date
+            self.temporary_exempt_end_date != self.status_id.temporary_exempt_end_date
             and self.temporary_exempt_end_date <= self.status_id.today
         ):
             raise ValidationError(
@@ -103,8 +87,6 @@ class TemporaryExemption(models.TransientModel):
             {
                 "temporary_exempt_start_date": self.temporary_exempt_start_date,
                 "temporary_exempt_end_date": self.temporary_exempt_end_date,
-                "temporary_exempt_reason_id": (
-                    self.temporary_exempt_reason_id.id
-                ),
+                "temporary_exempt_reason_id": (self.temporary_exempt_reason_id.id),
             }
         )

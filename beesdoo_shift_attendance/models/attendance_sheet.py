@@ -85,9 +85,7 @@ class AttendanceSheetShiftExpected(models.Model):
     _description = "Expected Shift"
     _inherit = ["beesdoo.shift.sheet.shift"]
 
-    super_coop_id = fields.Many2one(
-        related="task_id.super_coop_id", store=True
-    )
+    super_coop_id = fields.Many2one(related="task_id.super_coop_id", store=True)
     replaced_id = fields.Many2one(
         "res.partner",
         string="Replacement Worker",
@@ -144,9 +142,7 @@ class AttendanceSheet(models.Model):
         default="not_validated",
         track_visibility="onchange",
     )
-    start_time = fields.Datetime(
-        string="Start Time", required=True, readonly=True
-    )
+    start_time = fields.Datetime(string="Start Time", required=True, readonly=True)
     end_time = fields.Datetime(string="End Time", required=True, readonly=True)
     day = fields.Date(string="Day", compute="_compute_day", store=True)
     day_abbrevation = fields.Char(
@@ -221,8 +217,7 @@ class AttendanceSheet(models.Model):
     _sql_constraints = [
         (
             "check_not_annotated_mark_as_read",
-            "CHECK"
-            " ((is_annotated=FALSE AND is_read=FALSE) OR is_annotated=TRUE)",
+            "CHECK ((is_annotated=FALSE AND is_read=FALSE) OR is_annotated=TRUE)",
             _("Non-annotated sheets can't be marked as read."),
         )
     ]
@@ -263,9 +258,7 @@ class AttendanceSheet(models.Model):
         for rec in self:
             for shift in rec.expected_shift_ids:
                 if shift.task_id.task_template_id.day_nb_id.name:
-                    rec.day_abbrevation = (
-                        shift.task_id.task_template_id.day_nb_id.name
-                    )
+                    rec.day_abbrevation = shift.task_id.task_template_id.day_nb_id.name
 
     @api.depends("expected_shift_ids")
     def _compute_week(self):
@@ -290,9 +283,7 @@ class AttendanceSheet(models.Model):
         added_ids = [s.worker_id.id for s in self.added_shift_ids]
         expected_ids = [s.worker_id.id for s in self.expected_shift_ids]
         replacement_ids = [
-            s.replaced_id.id
-            for s in self.expected_shift_ids
-            if s.replaced_id.id
+            s.replaced_id.id for s in self.expected_shift_ids if s.replaced_id.id
         ]
         ids = added_ids + expected_ids + replacement_ids
 
@@ -318,9 +309,7 @@ class AttendanceSheet(models.Model):
             )
 
     def on_barcode_scanned(self, barcode):
-        if self.env.user.has_group(
-            "beesdoo_shift_attendance.group_shift_attendance"
-        ):
+        if self.env.user.has_group("beesdoo_shift_attendance.group_shift_attendance"):
             raise UserError(
                 _(
                     "You must be logged as 'Attendance Sheet Generic Access' "
@@ -329,33 +318,24 @@ class AttendanceSheet(models.Model):
             )
 
         if self.state == "validated":
-            raise UserError(
-                _("A validated attendance sheet can't be modified")
-            )
+            raise UserError(_("A validated attendance sheet can't be modified"))
 
         worker = self.env["res.partner"].search([("barcode", "=", barcode)])
 
         if not len(worker):
             raise UserError(
-                _(
-                    "Worker not found (invalid barcode or status). \n"
-                    "Barcode : %s"
-                )
+                _("Worker not found (invalid barcode or status). \nBarcode : %s")
                 % barcode
             )
         if len(worker) > 1:
             raise UserError(
-                _(
-                    "Multiple workers are corresponding this barcode. \n"
-                    "Barcode : %s"
-                )
+                _("Multiple workers are corresponding this barcode. \nBarcode : %s")
                 % barcode
             )
 
         if worker.state == "unsubscribed":
             shift_counter = (
-                worker.cooperative_status_ids.sc
-                + worker.cooperative_status_ids.sr
+                worker.cooperative_status_ids.sc + worker.cooperative_status_ids.sr
             )
             raise UserError(
                 _(
@@ -376,10 +356,7 @@ class AttendanceSheet(models.Model):
             )
         if worker.working_mode not in ("regular", "irregular"):
             raise UserError(
-                _(
-                    "%s's working mode is %s and should be regular or "
-                    "irregular. "
-                )
+                _("%s's working mode is %s and should be regular or irregular. ")
                 % (worker.name, worker.working_mode)
             )
 
@@ -392,9 +369,7 @@ class AttendanceSheet(models.Model):
                 shift.state = "done"
                 return
             if shift.worker_id == worker and shift.replaced_id:
-                raise UserError(
-                    _("%s is registered as replaced.") % worker.name
-                )
+                raise UserError(_("%s is registered as replaced.") % worker.name)
 
         is_compensation = worker.working_mode == "regular"
 
@@ -404,9 +379,7 @@ class AttendanceSheet(models.Model):
             # Added shift creation
             self.added_shift_ids |= self.added_shift_ids.new(
                 {
-                    "task_type_id": (
-                        self.added_shift_ids.pre_filled_task_type_id()
-                    ),
+                    "task_type_id": (self.added_shift_ids.pre_filled_task_type_id()),
                     "state": "done",
                     "attendance_sheet_id": self._origin.id,
                     "worker_id": worker.id,
@@ -573,9 +546,7 @@ class AttendanceSheet(models.Model):
         # Fields validation
         for added_shift in self.added_shift_ids:
             if not added_shift.worker_id:
-                raise UserError(
-                    _("Worker name is missing for an added shift.")
-                )
+                raise UserError(_("Worker name is missing for an added shift."))
             if added_shift.state != "done":
                 raise UserError(
                     _("Shift State is missing or wrong for %s")
@@ -583,13 +554,11 @@ class AttendanceSheet(models.Model):
                 )
             if not added_shift.task_type_id:
                 raise UserError(
-                    _("Task Type is missing for %s")
-                    % added_shift.worker_id.name
+                    _("Task Type is missing for %s") % added_shift.worker_id.name
                 )
             if not added_shift.working_mode:
                 raise UserError(
-                    _("Working mode is missing for %s")
-                    % added_shift.worker_id.name
+                    _("Working mode is missing for %s") % added_shift.worker_id.name
                 )
             if added_shift.working_mode not in ["regular", "irregular"]:
                 raise UserError(
@@ -603,13 +572,9 @@ class AttendanceSheet(models.Model):
         for expected_shift in self.expected_shift_ids:
             if not expected_shift.state:
                 raise UserError(
-                    _("Shift State is missing for %s")
-                    % expected_shift.worker_id.name
+                    _("Shift State is missing for %s") % expected_shift.worker_id.name
                 )
-            if (
-                expected_shift.state == "absent"
-                and not expected_shift.compensation_no
-            ):
+            if expected_shift.state == "absent" and not expected_shift.compensation_no:
                 raise UserError(
                     _("Compensation number is missing for %s")
                     % expected_shift.worker_id.name
@@ -645,9 +610,7 @@ class AttendanceSheet(models.Model):
         generation_interval_setting = int(
             self.env["ir.config_parameter"]
             .sudo()
-            .get_param(
-                "beesdoo_shift_attendance.attendance_sheet_generation_interval"
-            )
+            .get_param("beesdoo_shift_attendance.attendance_sheet_generation_interval")
         )
 
         allowed_time_range = timedelta(minutes=generation_interval_setting)

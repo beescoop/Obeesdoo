@@ -38,8 +38,6 @@ class PurchaseOrderLine(models.Model):
             taxes_id = fpos.map_tax(taxes) if fpos else taxes
 
             if taxes_id:
-                taxes_id = taxes_id.filtered(
-                    lambda t: t.company_id.id == company_id
-                )
+                taxes_id = taxes_id.filtered(lambda t: t.company_id.id == company_id)
 
             pol.taxes_id = taxes_id

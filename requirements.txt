@@ -1,2 +1,1 @@
-pycoda
-openerp-client-lib
+# generated from manifests external_dependencies

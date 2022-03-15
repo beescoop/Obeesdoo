@@ -186,8 +186,7 @@ class PurchaseOrderGeneratorLine(models.Model):
             if cpol.purchase_quantity < 0:
                 raise ValidationError(
                     _(
-                        "Purchase quantity for {product_name} "
-                        "must be greater than 0"
+                        "Purchase quantity for {product_name} must be greater than 0"
                     ).format(product_name=cpol.product_template_id.name)
                 )
             elif 0 < cpol.purchase_quantity < cpol.minimum_purchase_qty:

@@ -20,9 +20,7 @@ class Partner(models.Model):
     parent_eater_id = fields.Many2one(
         "res.partner", string="Parent Worker", readonly=True
     )
-    barcode = fields.Char(
-        compute="_compute_bar_code", string="Barcode", store=True
-    )
+    barcode = fields.Char(compute="_compute_bar_code", string="Barcode", store=True)
     parent_barcode = fields.Char(
         compute="_compute_bar_code", string="Parent Barcode", store=True
     )
@@ -70,18 +68,13 @@ class Partner(models.Model):
             share_type_code = partner.cooperator_type
             parent_share_type_code = partner.parent_eater_id.cooperator_type
             # Raise exception
-            if (
-                share_type_code == "share_b"
-                or parent_share_type_code == "share_b"
-            ):
+            if share_type_code == "share_b" or parent_share_type_code == "share_b":
                 if (
                     len(partner.child_eater_ids) > 3
                     or len(partner.parent_eater_id.child_eater_ids) > 3
                 ):
                     raise ValidationError(
-                        _(
-                            "You can only set three additional eaters per worker"
-                        )
+                        _("You can only set three additional eaters per worker")
                     )
             else:
                 if (

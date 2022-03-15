@@ -19,9 +19,7 @@ class PurchaseOrderGenerator(models.Model):
         help="Date at which the Quotation should be validated and "
         "converted into a purchase order.",
     )
-    date_planned = fields.Datetime(
-        string="Date Planned", default=fields.Datetime.now
-    )
+    date_planned = fields.Datetime(string="Date Planned", default=fields.Datetime.now)
     supplier_id = fields.Many2one(
         comodel_name="res.partner",
         string="Supplier",
@@ -60,15 +58,11 @@ class PurchaseOrderGenerator(models.Model):
         suppliers = products.mapped("main_supplier_id")
 
         if not suppliers:
-            raise ValidationError(
-                _("No supplier is set for selected articles.")
-            )
+            raise ValidationError(_("No supplier is set for selected articles."))
         elif len(suppliers) == 1:
             return suppliers
         else:
-            raise ValidationError(
-                _("You must select article from a single supplier.")
-            )
+            raise ValidationError(_("You must select article from a single supplier."))
 
     @api.model
     def test_generate_pog(self):
@@ -90,9 +84,7 @@ class PurchaseOrderGenerator(models.Model):
             )
 
             if not supplierinfo:
-                product_name = (
-                    self.env["product.template"].browse(product_id).name
-                )
+                product_name = self.env["product.template"].browse(product_id).name
                 raise ValidationError(
                     _("No supplier defined for product %s") % product_name
                 )
@@ -121,10 +113,7 @@ class PurchaseOrderGenerator(models.Model):
 
         if sum(self.pog_line_ids.mapped("purchase_quantity")) == 0:
             raise ValidationError(
-                _(
-                    "You need at least a product to generate "
-                    "a Purchase Order"
-                )
+                _("You need at least a product to generate a Purchase Order")
             )
 
         purchase_order = self.env["purchase.order"].create(

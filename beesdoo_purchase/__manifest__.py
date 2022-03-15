@@ -4,8 +4,8 @@
         Enhancements related to Purchase module :
         field, filter, PO reference, product's purchase and/or selling price
     """,
-    "author": "Beescoop - Cellule IT, " "Coop IT Easy SCRLfs",
-    "website": "https://github.com/beescoop/Obeesdoo",
+    "author": "Beescoop - Cellule IT, Coop IT Easy SCRLfs",
+    "website": "https://coopiteasy.be",
     "category": "Purchase",
     "version": "12.0.1.4.0",
     "depends": [

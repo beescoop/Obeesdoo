@@ -12,7 +12,7 @@
     "summary": """This module adds the eaters of the customer to the POS
     ActionpadWidget and PaymentScreenWidget.""",
     "author": "Beescoop - Cellule IT, Coop IT Easy SCRLfs",
-    "website": "https://github.com/beescoop/Obeesdoo",
+    "website": "https://coopiteasy.be",
     "category": "Point Of Sale",
     "version": "12.0.1.2.0",
     "depends": ["beesdoo_base", "beesdoo_product"],

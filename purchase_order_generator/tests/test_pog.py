@@ -78,7 +78,5 @@ class TestCPO(TransactionCase):
             po.order_line.sorted(lambda l: l.product_id.product_tmpl_id),
         )
         for cpol, pol in lines:
-            self.assertEquals(
-                cpol.product_template_id, pol.product_id.product_tmpl_id
-            )
+            self.assertEquals(cpol.product_template_id, pol.product_id.product_tmpl_id)
             self.assertEquals(cpol.purchase_quantity, pol.product_qty)

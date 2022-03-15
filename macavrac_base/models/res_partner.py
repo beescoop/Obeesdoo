@@ -10,16 +10,12 @@ class Partner(models.Model):
     birthdate = fields.Date(string="Date d'anniversaire")
     payment_date = fields.Date(string="Date de paiement")
     certificate_sent_date = fields.Date(string="Certificat envoyé le")
-    fiscal_certificate_sent_date = fields.Date(
-        string="Attestation fiscale envoyée le"
-    )
+    fiscal_certificate_sent_date = fields.Date(string="Attestation fiscale envoyée le")
 
     coop_number = fields.Integer(string="Coop N°")
     share_qty = fields.Integer(string="Nombre de part")
 
-    share_amount = fields.Float(
-        string="Montant", compute="_compute_share_amount"
-    )
+    share_amount = fields.Float(string="Montant", compute="_compute_share_amount")
 
     gender = fields.Selection(
         [("female", "Féminin"), ("male", "Masculin"), ("other", "Autre")],

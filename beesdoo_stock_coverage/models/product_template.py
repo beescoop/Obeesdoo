@@ -14,9 +14,7 @@ class ProductTemplate(models.Model):
     def _check_computation_range(self):
         for template in self:
             if template.computation_range <= 0:
-                raise ValidationError(
-                    _("Computation range must be greater than 0.")
-                )
+                raise ValidationError(_("Computation range must be greater than 0."))
 
     computation_range = fields.Integer("Computation range (days)", default=14)
     range_sales = fields.Float(

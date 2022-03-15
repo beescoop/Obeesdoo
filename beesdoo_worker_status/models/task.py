@@ -15,10 +15,7 @@ class Task(models.Model):
             task.is_regular or task.is_compensation
         ):
             raise ValidationError(
-                _(
-                    "You must choose between Regular Shift or "
-                    "Compensation Shift."
-                )
+                _("You must choose between Regular Shift or Compensation Shift.")
             )
 
     @api.constrains("is_regular", "is_compensation")

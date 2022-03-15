@@ -1,15 +1,10 @@
-# Copyright 2021 Odoo Community Association
-# Copyright 2022 Coop IT Easy SCRLfs
-#
-# SPDX-License-Identifier: AGPL-3.0-or-later
-
 name: pre-commit
 
 on:
+  pull_request:
   push:
     branches:
-      - 12.0
-  pull_request:
+      - "12.0"
 
 jobs:
   pre-commit:

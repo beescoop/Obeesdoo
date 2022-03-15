@@ -6,7 +6,7 @@
     "summary": "Enhance POS with features allowing statistics and reporting.",
     "version": "12.0.1.0.0",
     "category": "Point of Sale",
-    "website": "https://github.com/beescoop/Obeesdoo",
+    "website": "https://coopiteasy.be",
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "depends": ["point_of_sale"],

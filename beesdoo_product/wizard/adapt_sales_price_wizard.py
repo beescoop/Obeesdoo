@@ -8,9 +8,7 @@ class AdaptSalesPriceWizard(models.TransientModel):
     def _get_selected_products(self):
         return self.env.context["active_ids"]
 
-    product_ids = fields.Many2many(
-        "product.template", default=_get_selected_products
-    )
+    product_ids = fields.Many2many("product.template", default=_get_selected_products)
 
     @api.multi
     def adapt_sales_price(self):

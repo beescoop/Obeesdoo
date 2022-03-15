@@ -1,12 +1,21 @@
-![Licence](https://img.shields.io/badge/licence-AGPL--3-blue.svg)
-[![Build Status](https://travis-ci.com/beescoop/Obeesdoo.svg?branch=12.0)](https://travis-ci.com/beescoop/Obeesdoo?branch=12.0)
+
+[![Pre-commit Status](https://github.com/coopiteasy/obeesdoo/actions/workflows/pre-commit.yml/badge.svg?branch=12.0)](https://github.com/coopiteasy/obeesdoo/actions/workflows/pre-commit.yml?query=branch%3A12.0)
+[![Build Status](https://github.com/coopiteasy/obeesdoo/actions/workflows/test.yml/badge.svg?branch=12.0)](https://github.com/coopiteasy/obeesdoo/actions/workflows/test.yml?query=branch%3A12.0)
+[![codecov](https://codecov.io/gh/coopiteasy/obeesdoo/branch/12.0/graph/badge.svg)](https://codecov.io/gh/coopiteasy/obeesdoo)
+
+<!-- /!\ do not modify above this line -->
 
 # Obeesdoo
+
 Specific module for the Beescoop
-The (french) documentation can be found here. 
+The (french) documentation can be found here.
 Contact Coop IT Easy or Coopdevs to contibute to the documentation.
 
+
+<!-- /!\ do not modify below this line -->
+
 <!-- prettier-ignore-start -->
+
 [//]: # (addons)
 
 Available addons
@@ -36,10 +45,12 @@ addon | version | maintainers | summary
 [beesdoo_website_theme](beesdoo_website_theme/) | 12.0.0.0.1 |  | Apply BEES coop design rules.
 [beesdoo_worker_status](beesdoo_worker_status/) | 12.0.1.0.0 |  | Worker status management specific to beescoop.
 [macavrac_base](macavrac_base/) | 12.0.1.0.0 |  | Module with basic customizations for the Macavrac cooperative.
+[polln_shift](polln_shift/) | 12.0.1.0.0 |  | Module with basic customizations for the Polln cooperative.
 [purchase_order_generator](purchase_order_generator/) | 12.0.2.1.0 |  | Generate purchase order from a product selection
 [website_portal_restrict_modification](website_portal_restrict_modification/) | 12.0.1.0.0 |  | Portal extension preventing modification of sensible data by the users
 
 [//]: # (end addons)
+
 <!-- prettier-ignore-end -->
 
 
@@ -170,3 +181,12 @@ $ python odoo.py -c $ODOO_HOME/odoo.conf -u all -d beescoop --stop-after-init
 insert into member_card (active, barcode, partner_id, responsible_id, activation_date) select 't', barcode, id, 1, '2016-01-01' from res_partner where barcode is not null;
 update res_partner set eater = 'worker_eater' where barcode is not null;
 ```
+
+
+## Licenses
+
+This repository is licensed under [AGPL-3.0](LICENSE).
+
+However, each module can have a totally different license. Consult each module's
+`__manifest__.py` file, which contains a `license` key that explains its
+license.

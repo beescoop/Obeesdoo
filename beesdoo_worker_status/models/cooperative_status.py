@@ -29,10 +29,7 @@ class CooperativeStatus(models.Model):
         """Compute date before which the worker is up to date"""
         for rec in self:
             # Only for irregular worker
-            if (
-                rec.working_mode != "irregular"
-                and not rec.irregular_start_date
-            ):
+            if rec.working_mode != "irregular" and not rec.irregular_start_date:
                 rec.future_alert_date = False
             # Alert start time already set
             elif rec.alert_start_time:
@@ -50,9 +47,7 @@ class CooperativeStatus(models.Model):
                 counter = rec.sr
                 # Simulate the countdown
                 while counter > 0:
-                    date = self._next_countdown_date(
-                        rec.irregular_start_date, date
-                    )
+                    date = self._next_countdown_date(rec.irregular_start_date, date)
                     # Check holidays
                     if (
                         rec.holiday_start_time
@@ -95,10 +90,7 @@ class CooperativeStatus(models.Model):
         """
         for rec in self:
             # Only for irregular worker
-            if (
-                rec.working_mode != "irregular"
-                and not rec.irregular_start_date
-            ):
+            if rec.working_mode != "irregular" and not rec.irregular_start_date:
                 rec.next_countdown_date = False
             # Holidays are not set properly
             elif bool(rec.holiday_start_time) != bool(rec.holiday_end_time):
@@ -112,9 +104,7 @@ class CooperativeStatus(models.Model):
                 date = rec.today
                 next_countdown_date = False
                 while not next_countdown_date:
-                    date = self._next_countdown_date(
-                        rec.irregular_start_date, date
-                    )
+                    date = self._next_countdown_date(rec.irregular_start_date, date)
                     # Check holidays
                     if (
                         rec.holiday_start_time
@@ -156,9 +146,7 @@ class CooperativeStatus(models.Model):
             self.env["ir.config_parameter"].sudo().get_param("alert_delay", 28)
         )
         grace_delay = int(
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("default_grace_delay", 10)
+            self.env["ir.config_parameter"].sudo().get_param("default_grace_delay", 10)
         )
         ok = self.sr >= 0 and self.sc >= 0
         grace_delay = grace_delay + self.time_extension
@@ -195,8 +183,7 @@ class CooperativeStatus(models.Model):
             not ok
             and self.alert_start_time
             and self.extension_start_time
-            and self.today
-            <= add_days_delta(self.extension_start_time, grace_delay)
+            and self.today <= add_days_delta(self.extension_start_time, grace_delay)
         ):
             return "extension"
 
@@ -209,8 +196,7 @@ class CooperativeStatus(models.Model):
             not ok
             and self.alert_start_time
             and self.extension_start_time
-            and self.today
-            > add_days_delta(self.extension_start_time, grace_delay)
+            and self.today > add_days_delta(self.extension_start_time, grace_delay)
         ) or (
             not ok
             and self.alert_start_time
@@ -237,9 +223,7 @@ class CooperativeStatus(models.Model):
             self.env["ir.config_parameter"].sudo().get_param("alert_delay", 28)
         )
         grace_delay = int(
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("default_grace_delay", 10)
+            self.env["ir.config_parameter"].sudo().get_param("default_grace_delay", 10)
         )
         ok = self.sr >= 0
         grace_delay = grace_delay + self.time_extension
@@ -276,8 +260,7 @@ class CooperativeStatus(models.Model):
             not ok
             and self.alert_start_time
             and self.extension_start_time
-            and self.today
-            <= add_days_delta(self.extension_start_time, grace_delay)
+            and self.today <= add_days_delta(self.extension_start_time, grace_delay)
         ):
             return "extension"
 
@@ -290,8 +273,7 @@ class CooperativeStatus(models.Model):
             not ok
             and self.alert_start_time
             and self.extension_start_time
-            and self.today
-            > add_days_delta(self.extension_start_time, grace_delay)
+            and self.today > add_days_delta(self.extension_start_time, grace_delay)
         ) or (
             not ok
             and self.alert_start_time
@@ -322,9 +304,7 @@ class CooperativeStatus(models.Model):
             self.write(data)
         if new_state == "unsubscribed" or new_state == "resigning":
             # Remove worker from task_templates
-            self.cooperator_id.sudo().write(
-                {"subscribed_shift_ids": [(5, 0, 0)]}
-            )
+            self.cooperator_id.sudo().write({"subscribed_shift_ids": [(5, 0, 0)]})
             # Remove worker from supercoop in task_templates
             task_tpls = self.env["beesdoo.shift.template"].search(
                 [("super_coop_id", "in", self.cooperator_id.user_ids.ids)]
@@ -342,9 +322,7 @@ class CooperativeStatus(models.Model):
         """
         self.sc += data.get("sc", 0)
         self.sr += data.get("sr", 0)
-        self.irregular_absence_counter += data.get(
-            "irregular_absence_counter", 0
-        )
+        self.irregular_absence_counter += data.get("irregular_absence_counter", 0)
         self.irregular_absence_date = data.get("irregular_absence_date", False)
 
     ###############################################

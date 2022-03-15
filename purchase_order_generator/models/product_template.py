@@ -33,9 +33,7 @@ class ProductTemplate(models.Model):
                 return far_future
 
         for pt in self:
-            sellers_ids = pt.seller_ids.sorted(
-                key=sort_date_first, reverse=True
-            )
+            sellers_ids = pt.seller_ids.sorted(key=sort_date_first, reverse=True)
             if sellers_ids:
                 pt.main_supplier_id = sellers_ids[0].name
             else:

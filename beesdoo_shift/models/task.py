@@ -43,9 +43,7 @@ class Task(models.Model):
 
     name = fields.Char(track_visibility="always")
     task_template_id = fields.Many2one("beesdoo.shift.template")
-    planning_id = fields.Many2one(
-        related="task_template_id.planning_id", store=True
-    )
+    planning_id = fields.Many2one(related="task_template_id.planning_id", store=True)
     task_type_id = fields.Many2one("beesdoo.shift.type", string="Task Type")
     worker_id = fields.Many2one(
         "res.partner",
@@ -56,9 +54,7 @@ class Task(models.Model):
             ("state", "not in", ("unsubscribed", "resigning")),
         ],
     )
-    start_time = fields.Datetime(
-        track_visibility="always", index=True, required=True
-    )
+    start_time = fields.Datetime(track_visibility="always", index=True, required=True)
     end_time = fields.Datetime(track_visibility="always", required=True)
     state = fields.Selection(
         selection=lambda x: x._get_selection_status(),
@@ -75,9 +71,7 @@ class Task(models.Model):
         track_visibility="onchange",
     )
     is_regular = fields.Boolean(default=False, string="Regular shift")
-    is_compensation = fields.Boolean(
-        default=False, string="Compensation shift"
-    )
+    is_compensation = fields.Boolean(default=False, string="Compensation shift")
     replaced_id = fields.Many2one(
         "res.partner",
         track_visibility="onchange",
@@ -111,9 +105,7 @@ class Task(models.Model):
 
     def message_auto_subscribe(self, updated_fields, values=None):
         self._add_follower(values)
-        return super(Task, self).message_auto_subscribe(
-            updated_fields, values=values
-        )
+        return super(Task, self).message_auto_subscribe(updated_fields, values=values)
 
     def _add_follower(self, vals):
         if vals.get("worker_id"):
@@ -155,9 +147,7 @@ class Task(models.Model):
             today = datetime.combine(today, time())
             date_domain = [("start_time", ">=", today)]
         if end_date:
-            end_date = datetime.combine(
-                end_date, time(hour=23, minute=59, second=59)
-            )
+            end_date = datetime.combine(end_date, time(hour=23, minute=59, second=59))
             date_domain.append(("end_time", "<=", end_date))
 
         domain = [("worker_id", "in", worker_ids.ids)]
@@ -171,9 +161,7 @@ class Task(models.Model):
         to_unsubscribe_replace = self.search(
             [("replaced_id", "in", worker_ids.ids)] + date_domain
         )
-        to_unsubscribe_replace.write(
-            {"worker_id": False, "replaced_id": False}
-        )
+        to_unsubscribe_replace.write({"worker_id": False, "replaced_id": False})
 
         # If worker is Super cooperator, remove it from planning
         super_coop_ids = self.env["res.users"].search(
@@ -217,9 +205,7 @@ class Task(models.Model):
             today = datetime.combine(today, time())
             date_domain = [("start_time", ">", today)]
         if end_date:
-            end_date = datetime.combine(
-                end_date, time(hour=23, minute=59, second=59)
-            )
+            end_date = datetime.combine(end_date, time(hour=23, minute=59, second=59))
             date_domain.append(("end_time", "<=", end_date))
 
         for task_tmpl_id in task_tmpl_ids:
@@ -235,16 +221,12 @@ class Task(models.Model):
                 shift_ids, lambda r: (r.start_time, r.end_time)
             ):
                 shifts = list(shifts)  # shifts will be used several times
-                empty_shifts = [
-                    shift for shift in shifts if not shift.worker_id
-                ]
+                empty_shifts = [shift for shift in shifts if not shift.worker_id]
                 workers_not_already_subscribed = [
                     worker_id
                     for worker_id in worker_ids
                     if worker_id
-                    not in (
-                        shift.worker_id for shift in shifts if shift.worker_id
-                    )
+                    not in (shift.worker_id for shift in shifts if shift.worker_id)
                 ]
                 for i, worker_id in enumerate(workers_not_already_subscribed):
                     if i < len(empty_shifts):
@@ -284,9 +266,7 @@ class Task(models.Model):
                     super(Task, rec).write(
                         {
                             "worker_id": vals["worker_id"],
-                            "is_regular": vals.get(
-                                "is_regular", rec.is_regular
-                            ),
+                            "is_regular": vals.get("is_regular", rec.is_regular),
                             "is_compensation": vals.get(
                                 "is_compensation", rec.is_compensation
                             ),
@@ -316,9 +296,9 @@ class Task(models.Model):
         if not self.revert_info:
             return
         data = json.loads(self.revert_info)
-        self.env["cooperative.status"].browse(
-            data["status_id"]
-        ).sudo()._change_counter(data["data"])
+        self.env["cooperative.status"].browse(data["status_id"]).sudo()._change_counter(
+            data["data"]
+        )
         self.revert_info = False
 
     def _update_state(self, new_state):
@@ -338,9 +318,7 @@ class Task(models.Model):
             )
 
         always_update = int(
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("always_update", False)
+            self.env["ir.config_parameter"].sudo().get_param("always_update", False)
         )
         if always_update or not (self.worker_id or self.replaced_id):
             return

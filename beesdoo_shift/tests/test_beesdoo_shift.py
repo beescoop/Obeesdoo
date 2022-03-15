@@ -19,36 +19,18 @@ class TestBeesdooShift(TransactionCase):
         self.current_time = datetime.now()
         self.user_admin = self.env.ref("base.user_root")
 
-        self.worker_regular_1 = self.env.ref(
-            "beesdoo_shift.res_partner_worker_1_demo"
-        )
-        self.worker_regular_3 = self.env.ref(
-            "beesdoo_shift.res_partner_worker_3_demo"
-        )
-        self.worker_regular_5 = self.env.ref(
-            "beesdoo_shift.res_partner_worker_5_demo"
-        )
-        self.worker_regular_6 = self.env.ref(
-            "beesdoo_shift.res_partner_worker_6_demo"
-        )
+        self.worker_regular_1 = self.env.ref("beesdoo_shift.res_partner_worker_1_demo")
+        self.worker_regular_3 = self.env.ref("beesdoo_shift.res_partner_worker_3_demo")
+        self.worker_regular_5 = self.env.ref("beesdoo_shift.res_partner_worker_5_demo")
+        self.worker_regular_6 = self.env.ref("beesdoo_shift.res_partner_worker_6_demo")
 
-        self.planning_1 = self.env.ref(
-            "beesdoo_shift.beesdoo_shift_planning_1_demo"
-        )
+        self.planning_1 = self.env.ref("beesdoo_shift.beesdoo_shift_planning_1_demo")
 
-        self.task_template_1 = self.env.ref(
-            "beesdoo_shift.task_template_1_demo"
-        )
-        self.task_template_2 = self.env.ref(
-            "beesdoo_shift.task_template_2_demo"
-        )
-        self.task_template_3 = self.env.ref(
-            "beesdoo_shift.task_template_3_demo"
-        )
+        self.task_template_1 = self.env.ref("beesdoo_shift.task_template_1_demo")
+        self.task_template_2 = self.env.ref("beesdoo_shift.task_template_2_demo")
+        self.task_template_3 = self.env.ref("beesdoo_shift.task_template_3_demo")
 
-        self.exempt_reason_1 = self.env.ref(
-            "beesdoo_shift.exempt_reason_1_demo"
-        )
+        self.exempt_reason_1 = self.env.ref("beesdoo_shift.exempt_reason_1_demo")
 
     def _generate_shifts(self, days=0, nb=1):
         """
@@ -72,9 +54,7 @@ class TestBeesdooShift(TransactionCase):
 
     def _count_number_of_shift(self, worker_id):
         """Count number of shift for a worker."""
-        return self.shift_model.search_count(
-            [("worker_id", "=", worker_id.id)]
-        )
+        return self.shift_model.search_count([("worker_id", "=", worker_id.id)])
 
     def test_unsubscribe_worker_from_task_template_1(self):
         """
@@ -171,9 +151,7 @@ class TestBeesdooShift(TransactionCase):
         subscribe_wiz = subscribe_wiz.create({"working_mode": "irregular"})
         subscribe_wiz.subscribe()
 
-        self.assertTrue(
-            self.worker_regular_1 not in self.task_template_1.worker_ids
-        )
+        self.assertTrue(self.worker_regular_1 not in self.task_template_1.worker_ids)
         self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 1)
 
     def test_change_worker_holiday_1(self):
@@ -193,12 +171,8 @@ class TestBeesdooShift(TransactionCase):
         # Set holiday in the past do not change shift for worker_1
         self.worker_regular_1.cooperative_status_ids.write(
             {
-                "holiday_start_time": (
-                    status_id.today - timedelta(days=7)
-                ).isoformat(),
-                "holiday_end_time": (
-                    status_id.today - timedelta(days=1)
-                ).isoformat(),
+                "holiday_start_time": (status_id.today - timedelta(days=7)).isoformat(),
+                "holiday_end_time": (status_id.today - timedelta(days=1)).isoformat(),
             }
         )
         self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 5)
@@ -206,12 +180,8 @@ class TestBeesdooShift(TransactionCase):
         # Set holiday in the future change shift for worker_1
         self.worker_regular_1.cooperative_status_ids.write(
             {
-                "holiday_start_time": (
-                    status_id.today + timedelta(days=1)
-                ).isoformat(),
-                "holiday_end_time": (
-                    status_id.today + timedelta(days=13)
-                ).isoformat(),
+                "holiday_start_time": (status_id.today + timedelta(days=1)).isoformat(),
+                "holiday_end_time": (status_id.today + timedelta(days=13)).isoformat(),
             }
         )
         self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 4)
@@ -223,9 +193,7 @@ class TestBeesdooShift(TransactionCase):
                 "holiday_start_time": (
                     status_id.today + timedelta(days=14)
                 ).isoformat(),
-                "holiday_end_time": (
-                    status_id.today + timedelta(days=20)
-                ).isoformat(),
+                "holiday_end_time": (status_id.today + timedelta(days=20)).isoformat(),
             }
         )
         self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 4)
@@ -234,12 +202,8 @@ class TestBeesdooShift(TransactionCase):
         # for worker_1
         self.worker_regular_1.cooperative_status_ids.write(
             {
-                "holiday_start_time": (
-                    status_id.today + timedelta(days=1)
-                ).isoformat(),
-                "holiday_end_time": (
-                    status_id.today + timedelta(days=13)
-                ).isoformat(),
+                "holiday_start_time": (status_id.today + timedelta(days=1)).isoformat(),
+                "holiday_end_time": (status_id.today + timedelta(days=13)).isoformat(),
             }
         )
         self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 4)
@@ -267,12 +231,8 @@ class TestBeesdooShift(TransactionCase):
         # for worker_1
         holiday_wiz = holiday_wiz.create(
             {
-                "holiday_start_day": (
-                    status_id.today - timedelta(days=7)
-                ).isoformat(),
-                "holiday_end_day": (
-                    status_id.today - timedelta(days=1)
-                ).isoformat(),
+                "holiday_start_day": (status_id.today - timedelta(days=7)).isoformat(),
+                "holiday_end_day": (status_id.today - timedelta(days=1)).isoformat(),
             }
         )
         with self.assertRaises(ValidationError):
@@ -282,12 +242,8 @@ class TestBeesdooShift(TransactionCase):
         # Set holiday in the future change shift for worker_1
         holiday_wiz = holiday_wiz.create(
             {
-                "holiday_start_day": (
-                    status_id.today + timedelta(days=1)
-                ).isoformat(),
-                "holiday_end_day": (
-                    status_id.today + timedelta(days=13)
-                ).isoformat(),
+                "holiday_start_day": (status_id.today + timedelta(days=1)).isoformat(),
+                "holiday_end_day": (status_id.today + timedelta(days=13)).isoformat(),
             }
         )
         holiday_wiz.holidays()
@@ -297,12 +253,8 @@ class TestBeesdooShift(TransactionCase):
         # for worker_1
         holiday_wiz = holiday_wiz.create(
             {
-                "holiday_start_day": (
-                    status_id.today + timedelta(days=14)
-                ).isoformat(),
-                "holiday_end_day": (
-                    status_id.today + timedelta(days=20)
-                ).isoformat(),
+                "holiday_start_day": (status_id.today + timedelta(days=14)).isoformat(),
+                "holiday_end_day": (status_id.today + timedelta(days=20)).isoformat(),
             }
         )
         holiday_wiz.holidays()
@@ -312,12 +264,8 @@ class TestBeesdooShift(TransactionCase):
         # for worker_1
         holiday_wiz = holiday_wiz.create(
             {
-                "holiday_start_day": (
-                    status_id.today + timedelta(days=1)
-                ).isoformat(),
-                "holiday_end_day": (
-                    status_id.today + timedelta(days=13)
-                ).isoformat(),
+                "holiday_start_day": (status_id.today + timedelta(days=1)).isoformat(),
+                "holiday_end_day": (status_id.today + timedelta(days=13)).isoformat(),
             }
         )
         holiday_wiz.holidays()

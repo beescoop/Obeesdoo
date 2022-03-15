@@ -18,9 +18,7 @@ class WizardSubscribe(models.TransientModel):
     _inherit = "beesdoo.shift.subscribe"
 
     def _get_mode(self):
-        partner = self.env["res.partner"].browse(
-            self._context.get("active_id")
-        )
+        partner = self.env["res.partner"].browse(self._context.get("active_id"))
         return partner.working_mode or "irregular"
 
     working_mode = fields.Selection(
@@ -159,9 +157,7 @@ class CooperativeStatus(models.Model):
                 counter = rec.sr
                 # Simulate the countdown
                 while counter > -2:
-                    date = self._next_countdown_date(
-                        rec.irregular_start_date, date
-                    )
+                    date = self._next_countdown_date(rec.irregular_start_date, date)
                     # Check holidays
                     if (
                         rec.holiday_start_time
@@ -204,10 +200,7 @@ class CooperativeStatus(models.Model):
         """
         for rec in self:
             # Only for irregular worker
-            if (
-                rec.working_mode != "irregular"
-                and not rec.irregular_start_date
-            ):
+            if rec.working_mode != "irregular" and not rec.irregular_start_date:
                 rec.next_countdown_date = False
             # Holidays are not set properly
             elif bool(rec.holiday_start_time) != bool(rec.holiday_end_time):
@@ -221,9 +214,7 @@ class CooperativeStatus(models.Model):
                 date = rec.today
                 next_countdown_date = False
                 while not next_countdown_date:
-                    date = self._next_countdown_date(
-                        rec.irregular_start_date, date
-                    )
+                    date = self._next_countdown_date(rec.irregular_start_date, date)
                     # Check holidays
                     if (
                         rec.holiday_start_time
@@ -304,9 +295,7 @@ class CooperativeStatus(models.Model):
         self.ensure_one()
         if new_state == "unsubscribed" or new_state == "resigning":
             # Remove worker from task_templates
-            self.cooperator_id.sudo().write(
-                {"subscribed_shift_ids": [(5, 0, 0)]}
-            )
+            self.cooperator_id.sudo().write({"subscribed_shift_ids": [(5, 0, 0)]})
             # Remove worker from supercoop in task_templates
             task_tpls = self.env["beesdoo.shift.template"].search(
                 [("super_coop_id", "in", self.cooperator_id.user_ids.ids)]

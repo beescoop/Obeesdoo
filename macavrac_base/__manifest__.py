@@ -6,6 +6,7 @@
      """,
     "author": "Patricia Daloze, Coop IT Easy SCRLfs",
     "category": "Sales",
+    "website": "https://coopiteasy.be",
     "version": "12.0.1.0.0",
     "depends": ["beesdoo_shift", "contacts"],
     "data": ["views/res_partner.xml"],

@@ -6,7 +6,7 @@
     "summary": """
         Worker status management specific to beescoop.""",
     "author": "Thibault Francois, Elouan Le Bars, Coop IT Easy SCRLfs",
-    "website": "https://github.com/beescoop/Obeesdoo",
+    "website": "https://coopiteasy.be",
     "category": "Cooperative management",
     "version": "12.0.1.0.0",
     "depends": ["beesdoo_base", "beesdoo_shift"],

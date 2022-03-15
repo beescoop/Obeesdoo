@@ -37,13 +37,9 @@ class CodaBankStatementImport(models.TransientModel):
 
     def _generate_note_crelan(self, move):
         notes = []
+        notes.append("{}: {}".format(_("Counter Party Name"), move[COUNTERPART_NAME]))
         notes.append(
-            "{}: {}".format(_("Counter Party Name"), move[COUNTERPART_NAME])
-        )
-        notes.append(
-            "{}: {}".format(
-                _("Counter Party Account"), move[COUNTERPART_NUMBER]
-            )
+            "{}: {}".format(_("Counter Party Account"), move[COUNTERPART_NUMBER])
         )
         notes.append("{}: {}".format(_("Communication"), move[COMMUNICATION]))
         return "\n".join(notes)
@@ -111,9 +107,7 @@ class CodaBankStatementImport(models.TransientModel):
         else:
             lang = self._context.get("lang", "en_US")
             lang = self.env["res.lang"].search([("code", "=", lang)])
-            balance = journal.get_journal_dashboard_datas()["last_balance"][
-                :-1
-            ]
+            balance = journal.get_journal_dashboard_datas()["last_balance"][:-1]
             self.init_balance = float(
                 balance.replace(currency.symbol, "")
                 .strip()

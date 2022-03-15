@@ -12,9 +12,7 @@ from odoo.addons.portal.controllers.portal import CustomerPortal
 
 class PortalPosOrderAmount(CustomerPortal):
     def _prepare_portal_layout_values(self):
-        values = super(
-            PortalPosOrderAmount, self
-        )._prepare_portal_layout_values()
+        values = super(PortalPosOrderAmount, self)._prepare_portal_layout_values()
         user = request.env.user
         owned_posorder = (
             request.env["pos.order"]
@@ -37,10 +35,7 @@ class PortalPosOrderAmount(CustomerPortal):
             {
                 "year": year,
                 "amount": float_repr(
-                    sum(
-                        pos_order.amount_total
-                        for pos_order in grouped_pos_orders
-                    ),
+                    sum(pos_order.amount_total for pos_order in grouped_pos_orders),
                     2,
                 ),
             }

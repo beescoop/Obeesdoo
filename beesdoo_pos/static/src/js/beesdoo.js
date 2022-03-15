@@ -1,11 +1,11 @@
-odoo.define("beesdoo_pos.screens", function(require) {
+odoo.define("beesdoo_pos.screens", function (require) {
     "use strict";
     var screens = require("point_of_sale.screens");
     var models = require("point_of_sale.models");
 
     models.load_fields("res.partner", "is_company");
 
-    var set_customer_info = function(el_class, value, prefix) {
+    var set_customer_info = function (el_class, value, prefix) {
         var el = this.$(el_class);
         el.empty();
         if (prefix && value) {
@@ -17,7 +17,7 @@ odoo.define("beesdoo_pos.screens", function(require) {
     };
 
     screens.ActionpadWidget.include({
-        renderElement: function() {
+        renderElement: function () {
             var self = this;
             var loaded = new $.Deferred();
             this._super();
@@ -38,7 +38,7 @@ odoo.define("beesdoo_pos.screens", function(require) {
                     timeout: 1000,
                 }
             )
-                .then(function(result) {
+                .then(function (result) {
                     set_customer_info.call(
                         self,
                         ".customer-delegate1",
@@ -58,14 +58,14 @@ odoo.define("beesdoo_pos.screens", function(require) {
                         "Eater 3: "
                     );
                 })
-                .fail(function(type, error) {
+                .fail(function (type, error) {
                     loaded.reject(error);
                 });
         },
     });
 
     screens.PaymentScreenWidget.include({
-        render_customer_info: function() {
+        render_customer_info: function () {
             var self = this;
             var loaded = new $.Deferred();
             if (!this.pos.get_client()) {
@@ -85,7 +85,7 @@ odoo.define("beesdoo_pos.screens", function(require) {
                     timeout: 1000,
                 }
             )
-                .then(function(result) {
+                .then(function (result) {
                     set_customer_info.call(
                         self,
                         ".customer-name",
@@ -110,12 +110,12 @@ odoo.define("beesdoo_pos.screens", function(require) {
                         "Eater 3: "
                     );
                 })
-                .fail(function(type, error) {
+                .fail(function (type, error) {
                     loaded.reject(err);
                 });
         },
 
-        auto_invoice: function() {
+        auto_invoice: function () {
             var self = this;
             var customer = this.pos.get_client();
             var order = this.pos.get_order();
@@ -127,12 +127,12 @@ odoo.define("beesdoo_pos.screens", function(require) {
             }
         },
 
-        renderElement: function() {
+        renderElement: function () {
             this._super();
             this.render_customer_info();
         },
 
-        customer_changed: function() {
+        customer_changed: function () {
             this._super();
             if (this.pos.config.module_account) {
                 this.auto_invoice();
