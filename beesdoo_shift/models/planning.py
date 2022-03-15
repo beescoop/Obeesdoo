@@ -213,6 +213,10 @@ class TaskTemplate(models.Model):
             self.end_time = self.start_time + self.duration
 
     def _prepare_task_day(self):
+        """
+        Generates a list of dict objects containing the informations
+        for the shifts to generate based on the template data
+        """
         tasks = []
         for rec in self:
             for i in range(0, rec.worker_nb):
@@ -260,6 +264,12 @@ class TaskTemplate(models.Model):
 
     @api.multi
     def get_task_day(self):
+        """
+        Creates the shifts according to the template without saving
+        them into the database.
+        To adapt the behaviour, function _prepare_task_day()
+        should be overwritten.
+        """
         tasks = self.env["beesdoo.shift.shift"]
         task_list = self._prepare_task_day()
         for task in task_list:
@@ -268,6 +278,12 @@ class TaskTemplate(models.Model):
 
     @api.multi
     def generate_task_day(self):
+        """
+        Creates the shifts according to the template and saves
+        them into the database.
+        To adapt the behaviour, function _prepare_task_day()
+        should be overwritten.
+        """
         tasks = self.env["beesdoo.shift.shift"]
         task_list = self._prepare_task_day()
         for task in task_list:
