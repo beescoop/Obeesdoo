@@ -129,6 +129,16 @@ class BeesdooProduct(models.Model):
         compute="_compute_purchase_price",
         inverse="_inverse_purchase_price",
     )
+    purchase_price_write_date = fields.Datetime(
+        string="Purchase Price Last Updated On",
+        compute="_compute_purchase_price_write_date",
+        readonly=True,
+    )
+    list_price_write_date = fields.Datetime(
+        string="Sales Price Last Updated On",
+        default=fields.Datetime.now,
+        readonly=True,
+    )
 
     @api.depends("uom_id", "uom_id.category_id", "uom_id.category_id.type")
     @api.multi
@@ -323,6 +333,13 @@ class BeesdooProduct(models.Model):
                     _("No Vendor defined for product '%s'") % product.name
                 )
 
+    @api.multi
+    @api.depends("purchase_price", "seller_ids")
+    def _compute_purchase_price_write_date(self):
+        for product in self:
+            supplierinfo = product._get_main_supplier_info()
+            product.purchase_price_write_date = supplierinfo.price_write_date
+
     def write(self, vals):
         purchase_price = vals.get("purchase_price")
         if purchase_price and purchase_price != self.purchase_price:
@@ -339,6 +356,10 @@ class BeesdooProduct(models.Model):
                 self.adapt_list_price(vals, suggested_price=suggested_price)
             except ValueError:
                 pass
+
+        list_price = vals.get("list_price")
+        if list_price and list_price != self.list_price:
+            vals["list_price_write_date"] = fields.Datetime.now()
 
         super().write(vals)
 
@@ -482,6 +503,17 @@ class BeesdooProductSupplierInfo(models.Model):
     _inherit = "product.supplierinfo"
 
     price = fields.Float("Price")
+    price_write_date = fields.Datetime(
+        string="Price Last Updated On",
+        default=fields.Datetime.now,
+        readonly=True,
+    )
+
+    def write(self, vals):
+        price = vals.get("price")
+        if price and price != self.price:
+            vals["price_write_date"] = fields.Datetime.now()
+        super().write(vals)
 
 
 class BeesdooUOMCateg(models.Model):
