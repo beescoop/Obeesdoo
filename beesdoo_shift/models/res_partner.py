@@ -228,7 +228,7 @@ class ResPartner(models.Model):
         shift_recset = self.env["beesdoo.shift.shift"]
 
         while next_planning_date < end_date:
-            shift_recset |= next_planning.task_template_ids._generate_task_day()
+            shift_recset |= next_planning.task_template_ids.get_task_day()
             next_planning_date = next_planning._get_next_planning_date(
                 next_planning_date
             )
