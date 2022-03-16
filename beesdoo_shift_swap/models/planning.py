@@ -23,7 +23,7 @@ class TaskTemplate(models.Model):
             template["initial"] = shift.task_template_id
             for exchange in exchanges:
                 if (
-                    shift.worker_id.name == False
+                    not shift.worker_id.name
                     and exchange.confirmed_tmpl_dated_id.template_id
                     == shift.task_template_id
                     and shift.start_time == exchange.confirmed_tmpl_dated_id.date

@@ -1,11 +1,13 @@
 {
     "name": "Beesdoo Shift Swap",
     "summary": """
-        Module to allow cooperator to swap his/her shift when he/she can't attend it.""",
-    "author": "Coop It Easy SCRLfs",
+        Module to allow cooperator to swap his/her shift
+        when he/she can't attend it.""",
+    "author": "Coop IT Easy SCRLfs",
     "website": "https://coopiteasy.be",
     # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_module_category_data.xml
+    # Check https://github.com/odoo/odoo/blob/12.0/
+    #   odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     "category": "Cooperative Management",
     "version": "12.0.1.0.2",
@@ -33,4 +35,5 @@
     "demo": [
         "demo/demo.xml",
     ],
+    "license": "AGPL-3",
 }

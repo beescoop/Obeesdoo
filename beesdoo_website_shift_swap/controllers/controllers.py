@@ -86,7 +86,8 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         )
 
     @http.route(
-        "/my/shift/underpopulated/swap/subscribe/<int:template_wanted>/<string:date_wanted>",
+        "/my/shift/underpopulated/swap/subscribe/"
+        "<int:template_wanted>/<string:date_wanted>",
         website=True,
     )
     def subscribe_to_underpopulated_swap(self, template_wanted, date_wanted):
@@ -129,7 +130,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         )
         if record._compute_exchanged_already_generated():
             record.unsubscribe_shift()
-        if record._conpute_comfirmed_already_generated():
+        if record._compute_comfirmed_already_generated():
             record.subscribe_shift()
         return request.redirect("/my/shift")
 
@@ -159,13 +160,12 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         if request.httprequest.method == "POST":
             # une fois appuyer sur submit
             # TODO : first checkbox return 'on'
-            print(post)
             tmpl_dated_index = request.httprequest.form.getlist("tmpl_dated_index")
             list_index = []
             for rec in tmpl_dated_index:
                 list_index.append(int(rec))
-            """if not len(list_index):
-                raise ValidationError('Please choose at least one tmpl_dated')"""
+            # if not len(list_index):
+            #    raise ValidationError('Please choose at least one tmpl_dated')
             return request.render(
                 "beesdoo_website_shift.my_shift_regular_worker",
                 self.subscribe_request(list_index),
@@ -268,7 +268,6 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             .sudo()
             .search([("worker_id", "=", cur_user.partner_id.id)])
         )
-        request.env["beesdoo.shift.exchange_request"]
         list = []
         for rec in my_requests:
             list.append(
@@ -328,7 +327,8 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         return request.redirect("/my/shift")
 
     @http.route(
-        "/my/shift/validate/matching/validate/request/<int:my_request_id>/<string:match_request_id>",
+        "/my/shift/validate/matching/validate/request/"
+        "<int:my_request_id>/<string:match_request_id>",
         website=True,
     )
     def validate_matching_validate_request(self, my_request_id, match_request_id):

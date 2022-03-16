@@ -34,9 +34,6 @@ class SubscribeUnderpopulatedShift(models.Model):
             # if the supercooperateur make the exchange
             current_worker = self.worker_id
 
-            # Get current date
-            datetime.now()
-
             if not record.exchanged_tmpl_dated_id:
                 record.exchanged_shift_id = False
 
@@ -73,7 +70,7 @@ class SubscribeUnderpopulatedShift(models.Model):
     )
 
     @api.depends("confirmed_tmpl_dated_id")
-    def _conpute_comfirmed_already_generated(self):
+    def _compute_comfirmed_already_generated(self):
         for record in self:
             # Get current date
             now = datetime.now()
@@ -103,7 +100,7 @@ class SubscribeUnderpopulatedShift(models.Model):
                 return False
 
     confirmed_shift_id = fields.Many2one(
-        "beesdoo.shift.shift", compute="_conpute_comfirmed_already_generated"
+        "beesdoo.shift.shift", compute="_compute_comfirmed_already_generated"
     )
     confirme_status = fields.Boolean(default=False, string="status comfirme shift")
     date = fields.Date(required=True, default=datetime.date(datetime.now()))

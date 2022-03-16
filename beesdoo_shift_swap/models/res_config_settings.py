@@ -9,6 +9,7 @@ class ResConfigSettings(models.TransientModel):
         config_parameter="beesdoo_shift.percentage_presence",
     )
     day_limit_swap = fields.Integer(
-        string="Number of day cooperator can swap his shift after the one he doesn't want",
+        string="Number of day cooperator can swap his shift "
+        "after the one he doesn't want",
         config_parameter="beesdoo_shift.day_limit_swap",
     )
