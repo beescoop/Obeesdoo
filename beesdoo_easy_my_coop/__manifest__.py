@@ -8,7 +8,7 @@
     "depends": [
         "beesdoo_base",
         "beesdoo_shift",
-        "easy_my_coop",
+        "cooperator",
         "easy_my_coop_website",
         "partner_age",
     ],

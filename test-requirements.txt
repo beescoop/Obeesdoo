@@ -1,6 +1,6 @@
-git+https://github.com/coopiteasy/vertical-cooperative@12.0#subdirectory=setup/easy_my_coop
-git+https://github.com/coopiteasy/vertical-cooperative@12.0#subdirectory=setup/easy_my_coop_website
-git+https://github.com/coopiteasy/vertical-cooperative@12.0#subdirectory=setup/website_recaptcha_reloaded
-git+https://github.com/coopiteasy/vertical-cooperative@12.0#subdirectory=setup/partner_age
+git+https://github.com/coopiteasy/vertical-cooperative@12.0-rename-easy_my_coop#subdirectory=setup/cooperator
+git+https://github.com/coopiteasy/vertical-cooperative@12.0-rename-easy_my_coop#subdirectory=setup/easy_my_coop_website
+git+https://github.com/coopiteasy/vertical-cooperative@12.0-rename-easy_my_coop#subdirectory=setup/website_recaptcha_reloaded
+git+https://github.com/coopiteasy/vertical-cooperative@12.0-rename-easy_my_coop#subdirectory=setup/partner_age
 git+https://github.com/coopiteasy/addons@12.0#subdirectory=setup/email_template_config
 git+https://github.com/coopiteasy/addons@12.0#subdirectory=setup/partner_contact_address

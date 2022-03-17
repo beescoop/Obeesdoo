@@ -6,7 +6,7 @@
     <record model="ir.ui.view" id="subscription_request_form_view">
         <field name="name">subscription.request.form (in beesdoo_easy_my_coop)</field>
         <field name="model">subscription.request</field>
-        <field name="inherit_id" ref="easy_my_coop.subscription_request_form" />
+        <field name="inherit_id" ref="cooperator.subscription_request_form" />
         <field name="arch" type="xml">
             <field name="internal_rules_approved" position="before">
                 <field name="info_session_confirmed" />
