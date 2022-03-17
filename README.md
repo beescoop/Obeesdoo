@@ -65,14 +65,14 @@ addon | version | maintainers | summary
 - `pos_price_to_weigth` Attention il y a eu des modification de Houssine.
 - `web_environment_ribbon`
 
-## Install odoo
+## Install odoo (deprecrated)
 
 - cf. [install-odoo-linux-server.md](install-odoo-linux-server.md) (review)
 - cf. [install-odoo-linux.md](install-odoo.md) (review)
 - cf. [install-odoo-mac.md](install-odoo-mac.md)
 - cf. [install-odoo-docker.md](install-odoo-docker.md)
 
-## Setup obeesdoo
+## Setup obeesdoo (deprecrated)
 
 ##### 1) clone repos
 
