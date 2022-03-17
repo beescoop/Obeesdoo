@@ -431,6 +431,5 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             "tmpl_dated_id": tmpl_dated_wanted.id,
         }
         record = request.env["beesdoo.shift.solidarity.offer"].sudo().create(data)
-        if record._compute_shift_already_generated():
-            record.subscribe_shift()
+        record._compute_shift_id()
         return request.redirect("/my/shift")

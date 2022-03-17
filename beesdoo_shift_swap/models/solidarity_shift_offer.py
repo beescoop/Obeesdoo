@@ -31,23 +31,19 @@ class SolidarityShiftOffer(models.Model):
     )
 
     shift_id = fields.Many2one(
-        "beesdoo.shift.shift", compute="_compute_shift_already_generated"
+        "beesdoo.shift.shift",
+        compute="_compute_shift_id",
     )
 
     date = fields.Date(required=True, default=datetime.date(datetime.now()))
 
     @api.depends("tmpl_dated_id")
-    def _compute_shift_already_generated(self):
+    def _compute_shift_id(self):
         for record in self:
-            # Get current date
-            now = datetime.now()
-            if not record.tmpl_dated_id:
-                record.shift_id = False
-            elif self.state == "validated":
-                record.shift_id = False
-            else:
+            if record.tmpl_dated_id and record.state != "validated":
+                now = datetime.now()
                 # Get the shift if it is already generated
-                future_subscribed_shifts_rec = self.env["beesdoo.shift.shift"].search(
+                future_subscribed_shift = self.env["beesdoo.shift.shift"].search(
                     [
                         ("start_time", ">", now.strftime("%Y-%m-%d %H:%M:%S")),
                         ("start_time", "=", record.tmpl_dated_id.date),
@@ -56,17 +52,20 @@ class SolidarityShiftOffer(models.Model):
                     ],
                     limit=1,
                 )
-                # check if is there a shift generated
-                if future_subscribed_shifts_rec:
-                    record.shift_id = future_subscribed_shifts_rec
-                    return True
-                return False
+                if future_subscribed_shift:
+                    record.shift_id = future_subscribed_shift
+                    record.shift_id.is_regular = True
+                    record.shift_id.worker_id = record.worker_id
+                    record.state = "validated"
+                else:
+                    record.shift_id = None
 
     def counter(self):
         counter = 0
         for record in self:
-            if record.state == "validated":
-                counter += 1
+            if record.shift_id:
+                if record.shift_id.state == "done":
+                    counter += 1
         return counter
 
     def update_status(self):
@@ -97,3 +96,14 @@ class SolidarityShiftOffer(models.Model):
                 return False
             return True
         return True
+
+    @api.multi
+    def unsubscribe_shift(self):
+        if self.state == "cancelled":
+            shift_rec = self.shift_id
+            shift_rec.is_regular = False
+            shift_rec.worker_id = False
+            if not self.shift_id.worker_id:
+                return True
+            return False
+        return False

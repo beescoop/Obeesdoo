@@ -68,6 +68,7 @@ class TaskTemplate(models.Model):
                     not shift["worker_id"]
                     and shift["task_template_id"] == offer.tmpl_dated_id.template_id.id
                     and shift["start_time"] == offer.tmpl_dated_id.date
+                    and offer.state != "cancelled"
                 ):
                     if template["initial"] != template["solidarity_modified"]:
                         shift["worker_id"] = offer.worker_id.id

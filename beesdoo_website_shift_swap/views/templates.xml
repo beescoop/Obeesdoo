@@ -70,6 +70,31 @@
           </xpath>
         </template>
 
+        <template
+            id="solidarity_info"
+            name="solidarity info"
+            inherit_id="beesdoo_website_shift.my_shift_regular_worker"
+        >
+          <xpath expr="//div[@class='col-12 col-lg-4 text-justify']" position="inside">
+              <h2>Solidarity shifts status</h2>
+              <p>
+                <label class="font-weight-bold">Counter:</label>
+              </p>
+              <p>
+                <div class="m-auto text_center">
+                  <a
+                            class="btn btn-primary"
+                            href="/my/shift/solidarity/offer"
+                        >Offer a solidarity shift</a>
+                  <a
+                            class="btn btn-secondary"
+                            href="/my/shift/"
+                        >Request a solidarity shift</a>
+                </div>
+              </p>
+          </xpath>
+        </template>
+
         <!-- Template display underpopulated shift to swap -->
         <template
             id="website_shift_swap_next_underpopulated_tmpl_dated"
