@@ -38,25 +38,15 @@ odoo.define("beesdoo_pos.screens", function (require) {
                     timeout: 1000,
                 }
             )
-                .then(function (result) {
-                    set_customer_info.call(
-                        self,
-                        ".customer-delegate1",
-                        result[0],
-                        "Eater 1: "
-                    );
-                    set_customer_info.call(
-                        self,
-                        ".customer-delegate2",
-                        result[1],
-                        "Eater 2: "
-                    );
-                    set_customer_info.call(
-                        self,
-                        ".customer-delegate3",
-                        result[2],
-                        "Eater 3: "
-                    );
+                .then(function(result) {
+                    for (let i = 0; i < result.length; i++) {
+                        set_customer_info.call(
+                            self,
+                            ".customer-delegate".concat(i + 1),
+                            result[i],
+                            "Eater".concat(i + 1, ": ")
+                        );
+                    }
                 })
                 .fail(function (type, error) {
                     loaded.reject(error);
@@ -91,24 +81,14 @@ odoo.define("beesdoo_pos.screens", function (require) {
                         ".customer-name",
                         self.pos.get_client().name
                     );
-                    set_customer_info.call(
-                        self,
-                        ".customer-delegate1",
-                        result[0],
-                        "Eater 1: "
-                    );
-                    set_customer_info.call(
-                        self,
-                        ".customer-delegate2",
-                        result[1],
-                        "Eater 2: "
-                    );
-                    set_customer_info.call(
-                        self,
-                        ".customer-delegate3",
-                        result[2],
-                        "Eater 3: "
-                    );
+                    for (let i = 0; i < result.length; i++) {
+                        set_customer_info.call(
+                            self,
+                            ".customer-delegate".concat(i + 1),
+                            result[i],
+                            "Eater".concat(i + 1, ": ")
+                        );
+                    }
                 })
                 .fail(function (type, error) {
                     loaded.reject(err);
