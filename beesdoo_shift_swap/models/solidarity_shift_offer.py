@@ -63,9 +63,8 @@ class SolidarityShiftOffer(models.Model):
     def counter(self):
         counter = 0
         for record in self:
-            if record.shift_id:
-                if record.shift_id.state == "done":
-                    counter += 1
+            if record.shift_id and record.shift_id.state == "done":
+                counter += 1
         return counter
 
     def update_status(self):

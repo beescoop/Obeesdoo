@@ -453,3 +453,49 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             solidarity_offer.unsubscribe_shift()
         solidarity_offer.state = "cancelled"
         return request.redirect("/my/shift")
+
+    @http.route(
+        "/my/shift/solidarity/request/<int:template_id>/<string:date>", website=True
+    )
+    def prepare_request_solidarity_shift(self, template_id, date):
+        request.session["template_id"] = template_id
+        request.session["date"] = date
+        return request.redirect("/my/shift/solidarity/request")
+
+    @http.route("/my/shift/solidarity/request", website=True)
+    def request_solidarity_shift(self, **post):
+        template_id = request.session["template_id"]
+        date = request.session["date"]
+
+        if request.httprequest.method == "POST":
+            user = request.env["res.users"].browse(request.uid)
+            non_realisable_tmpl_dated = (
+                request.env["beesdoo.shift.template.dated"]
+                .sudo()
+                .create(
+                    {
+                        "template_id": template_id,
+                        "date": date,
+                        "store": True,
+                    }
+                )
+            )
+            data = {
+                "worker_id": user.partner_id.id,
+                "tmpl_dated_id": non_realisable_tmpl_dated.id,
+            }
+            solidarity_request = (
+                request.env["beesdoo.shift.solidarity.request"].sudo().create(data)
+            )
+            reason = request.httprequest.form.get("reason")
+            solidarity_request.reason = reason
+            solidarity_request._compute_shift_id()
+            return request.redirect("/my/shift")
+
+        tmpl_dated = self.new_tmpl_dated(template_id, date)
+        return request.render(
+            "beesdoo_website_shift_swap.website_shift_swap_request_solidarity",
+            {
+                "tmpl_dated": tmpl_dated,
+            },
+        )

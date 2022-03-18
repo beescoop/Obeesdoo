@@ -54,10 +54,10 @@
           </div>
         </template>
 
-        <!-- Add link to swap shift -->
+        <!-- Add buttons to swap shift or to request solidarity -->
         <template
-            id="website_shift_swap_button"
-            name="shift swap button"
+            id="website_shift_option_buttons"
+            name="shift option buttons"
             inherit_id="beesdoo_website_shift.my_shift_next_shifts"
         >
           <xpath expr="//div[@class='card-body clearfix']" position="inside">
@@ -66,6 +66,10 @@
                         class="btn btn-success btn-sm"
                         t-att-href="'/my/shift/swaping/%i/%s' % (shift.task_template_id,shift.start_time)"
                     >Swap Shift</a>
+              <a
+                        class="btn btn-secondary btn-sm"
+                        t-att-href="'/my/shift/solidarity/request/%i/%s' % (shift.task_template_id,shift.start_time)"
+                    >Request solidarity</a>
             </p>
           </xpath>
         </template>
@@ -80,18 +84,11 @@
               <p>
                 <label class="font-weight-bold">Counter:</label>
               </p>
-              <p>
-                <div class="m-auto text_center">
-                  <a
-                            class="btn btn-primary"
-                            href="/my/shift/solidarity/offer"
-                        >Offer a solidarity shift</a>
-                  <a
-                            class="btn btn-secondary"
-                            href="/my/shift/"
-                        >Request a solidarity shift</a>
-                </div>
-              </p>
+              <div>
+                <a class="btn btn-primary" href="/my/shift/solidarity/offer">
+                  Offer a solidarity shift
+                </a>
+              </div>
           </xpath>
         </template>
 
@@ -708,6 +705,54 @@
                   <t
                                 t-call="beesdoo_website_shift_swap.help_text_swap_underpopulated_common"
                             />
+                </div>
+              </div>
+            </div>
+          </t>
+        </template>
+
+        <!-- Form for a solidarity shift request -->
+        <template
+            id="website_shift_swap_request_solidarity"
+            name="Request a solidarity shift"
+        >
+          <t t-call="portal.portal_layout">
+            <t t-set="no_breadcrumbs" t-value="True" />
+            <div class="container mt16">
+              <div class="row">
+                <div class="col text-center">
+                  <h1 class="text-center">Request a solidarity shift</h1>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-lg-6 m-auto text-justify">
+                  <form method="POST">
+                    <div class="form-group">
+                      <label class="font-weight-bold">Non realisable shift :</label>
+                      <t t-esc="tmpl_dated.date.strftime('%A %d %b, %Y')" />
+                      <t t-esc="'|'" />
+                      <t
+                                        t-esc="str(datetime.timedelta(hours=tmpl_dated.template_id.start_time)).rsplit(':', 1)[0]"
+                                    />
+                      -
+                      <t
+                                        t-esc="str(datetime.timedelta(hours=tmpl_dated.template_id.end_time)).rsplit(':', 1)[0]"
+                                    />
+                    </div>
+                    <div class="form-group">
+                      <label for="reason">Reason :</label>
+                      <textarea class="form-control" name="reason" rows="5" />
+                    </div>
+                    <button
+                                    type="submit"
+                                    class="btn btn-success"
+                                >Validate request</button>
+                    <input
+                                    type="hidden"
+                                    name="csrf_token"
+                                    t-att-value="request.csrf_token()"
+                                />
+                  </form>
                 </div>
               </div>
             </div>

@@ -1,21 +1,22 @@
 <?xml version="1.0" ?>
 <odoo>
 
-  <record model="ir.ui.view" id="solidarity_shift_offer_view_tree">
-    <field name="name">Solidarity shift offers</field>
-    <field name="model">beesdoo.shift.solidarity.offer</field>
+  <record model="ir.ui.view" id="solidarity_shift_request_view_tree">
+    <field name="name">Solidarity shift requests</field>
+    <field name="model">beesdoo.shift.solidarity.request</field>
     <field name="arch" type="xml">
       <tree>
         <field name="worker_id" />
         <field name="tmpl_dated_id" />
+        <field name="reason" />
         <field name="state" />
       </tree>
     </field>
   </record>
 
   <record model="ir.ui.view" id="shift_swap_offer_view">
-      <field name="name">Solidarity shift offer</field>
-      <field name="model">beesdoo.shift.solidarity.offer</field>
+      <field name="name">Solidarity shift request</field>
+      <field name="model">beesdoo.shift.solidarity.request</field>
       <field name="arch" type="xml">
           <form>
               <header>
@@ -25,6 +26,7 @@
                 <group name="group_top">
                   <field name="worker_id" />
                   <field name="tmpl_dated_id" />
+                  <field name="reason" />
                 </group>
               </sheet>
           </form>

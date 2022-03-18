@@ -17,6 +17,7 @@ class TaskTemplate(models.Model):
         exchanges = self.env["beesdoo.shift.subscribed_underpopulated_shift"].search([])
         people_exchanges = self.env["beesdoo.shift.exchange"].search([])
         solidarity_offers = self.env["beesdoo.shift.solidarity.offer"].search([])
+        solidarity_requests = self.env["beesdoo.shift.solidarity.request"].search([])
 
         template = {
             "initial": None,
@@ -74,4 +75,13 @@ class TaskTemplate(models.Model):
                         shift["worker_id"] = offer.worker_id.id
                         shift["is_regular"] = True
                         template["solidarity_modified"] = shift["task_template_id"]
+            for request in solidarity_requests:
+                if (
+                    shift["worker_id"] == request.worker_id.id
+                    and shift["task_template_id"]
+                    == request.tmpl_dated_id.template_id.id
+                    and shift["start_time"] == request.tmpl_dated_id.date
+                ):
+                    shift["worker_id"] = False
+                    shift["is_regular"] = False
         return shifts
