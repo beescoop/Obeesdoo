@@ -40,7 +40,7 @@ class SolidarityShiftOffer(models.Model):
     @api.depends("tmpl_dated_id")
     def _compute_shift_id(self):
         for record in self:
-            if record.tmpl_dated_id and record.state != "validated":
+            if record.tmpl_dated_id and record.state == "draft":
                 now = datetime.now()
                 # Get the shift if it is already generated
                 future_subscribed_shift = self.env["beesdoo.shift.shift"].search(
@@ -99,11 +99,19 @@ class SolidarityShiftOffer(models.Model):
 
     @api.multi
     def unsubscribe_shift(self):
-        if self.state == "cancelled":
-            shift_rec = self.shift_id
-            shift_rec.is_regular = False
-            shift_rec.worker_id = False
-            if not self.shift_id.worker_id:
+        if self.state == "validated":
+            subscribed_solidarity_shift = self.env["beesdoo.shift.shift"].search(
+                [
+                    ("start_time", "=", self.tmpl_dated_id.date),
+                    ("task_template_id", "=", self.tmpl_dated_id.template_id.id),
+                    ("worker_id", "=", self.worker_id.id),
+                ],
+                limit=1,
+            )
+            if subscribed_solidarity_shift:
+                subscribed_solidarity_shift.write(
+                    {"is_regular": False, "worker_id": False}
+                )
                 return True
             return False
         return False

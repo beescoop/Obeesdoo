@@ -433,3 +433,23 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         record = request.env["beesdoo.shift.solidarity.offer"].sudo().create(data)
         record._compute_shift_id()
         return request.redirect("/my/shift")
+
+    @http.route(
+        "/my/shift/solidarity/offer/cancel/<int:solidarity_offer_id>",
+        website=True,
+    )
+    def cancel_solidarity_offer(self, solidarity_offer_id):
+        solidarity_offer = (
+            request.env["beesdoo.shift.solidarity.offer"]
+            .sudo()
+            .search(
+                [
+                    ("id", "=", solidarity_offer_id),
+                ],
+                limit=1,
+            )
+        )
+        if solidarity_offer.state == "validated":
+            solidarity_offer.unsubscribe_shift()
+        solidarity_offer.state = "cancelled"
+        return request.redirect("/my/shift")
