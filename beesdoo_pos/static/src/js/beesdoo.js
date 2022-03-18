@@ -38,7 +38,7 @@ odoo.define("beesdoo_pos.screens", function (require) {
                     timeout: 1000,
                 }
             )
-                .then(function(result) {
+                .then(function (result) {
                     for (let i = 0; i < result.length; i++) {
                         set_customer_info.call(
                             self,
