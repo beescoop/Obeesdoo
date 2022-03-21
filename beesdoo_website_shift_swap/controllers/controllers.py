@@ -221,26 +221,6 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         request.env["beesdoo.shift.exchange_request"].sudo().create(data)
         return self.my_shift_regular_worker()
 
-    @http.route("/my/shift/matching/request")
-    def my_match(self):
-        # Get current user
-        cur_user = request.env["res.users"].browse(request.uid)
-        my_exchanges = (
-            request.env["beesdoo.shift.exchange_request"]
-            .sudo()
-            .search([("worker_id", "=", cur_user.partner_id.id)])
-        )
-        matchs = request.env["beesdoo.shift.exchange_request"]
-        for exchange in my_exchanges:
-            matchs |= request.env["beesdoo.shift.exchange_request"].matching_request(
-                exchange.asked_tmpl_dated_ids, exchange.exchanged_tmpl_dated_id
-            )
-
-        return request.render(
-            "beesdoo_website_shift_swap.website_shift_swap_matching_request",
-            {"matching_request": matchs},
-        )
-
     @http.route("/my/shift/possible/match", website=True)
     def get_possible_match(self):
         template_id = request.session["template_id"]
