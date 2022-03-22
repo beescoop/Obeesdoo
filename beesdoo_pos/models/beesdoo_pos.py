@@ -6,6 +6,7 @@ class BeescoopPosPartner(models.Model):
 
     @api.multi
     def get_eater(self):
+        self.ensure_one()
         eaters = [False] * self._get_max_nb_eater_allowed()
         for i, eater in enumerate(self.child_eater_ids):
             eaters[i] = eater.name
@@ -17,7 +18,5 @@ class BeescoopPosPartner(models.Model):
                 self.parent_eater_id._cooperator_share_type().max_nb_eater_allowed
             )
         else:
-            max_nb_eater_allowed = (
-                self._cooperator_share_type().max_nb_eater_allowed
-            )
+            max_nb_eater_allowed = self._cooperator_share_type().max_nb_eater_allowed
         return max_nb_eater_allowed
