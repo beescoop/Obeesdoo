@@ -9,7 +9,7 @@ class SolidarityShiftOffer(models.Model):
 
     def _get_selection_status(self):
         return [
-            ("draft", "Draft"),
+            ("saved", "Saved"),
             ("validated", "Validated"),
             ("cancelled", "Cancelled"),
         ]
@@ -24,7 +24,7 @@ class SolidarityShiftOffer(models.Model):
         string="worker",
     )
 
-    state = fields.Selection(selection=_get_selection_status, default="draft")
+    state = fields.Selection(selection=_get_selection_status, default="saved")
 
     tmpl_dated_id = fields.Many2one(
         "beesdoo.shift.template.dated", string="Solidarity shift"
@@ -37,64 +37,48 @@ class SolidarityShiftOffer(models.Model):
 
     date = fields.Date(required=True, default=datetime.date(datetime.now()))
 
-    @api.depends("tmpl_dated_id")
+    @api.depends("tmpl_dated_id", "state")
     def _compute_shift_id(self):
         for record in self:
-            if record.tmpl_dated_id and record.state == "draft":
-                now = datetime.now()
-                # Get the shift if it is already generated
-                future_subscribed_shift = self.env["beesdoo.shift.shift"].search(
+            if record.tmpl_dated_id and record.state == "validated":
+                shift = self.env["beesdoo.shift.shift"].search(
                     [
-                        ("start_time", ">", now.strftime("%Y-%m-%d %H:%M:%S")),
                         ("start_time", "=", record.tmpl_dated_id.date),
                         ("task_template_id", "=", record.tmpl_dated_id.template_id.id),
-                        ("worker_id", "=", None),
+                        ("worker_id", "=", self.worker_id.id),
                     ],
                     limit=1,
                 )
-                if future_subscribed_shift:
-                    record.shift_id = future_subscribed_shift
-                    record.shift_id.is_regular = True
-                    record.shift_id.worker_id = record.worker_id
-                    record.state = "validated"
+                if shift:
+                    record.shift_id = shift
                 else:
                     record.shift_id = None
+            else:
+                record.shift_id = None
+
+    def subscribe_shift_if_generated(self):
+        if self.tmpl_dated_id and self.state == "saved":
+            future_subscribed_shift = self.env["beesdoo.shift.shift"].search(
+                [
+                    ("start_time", "=", self.tmpl_dated_id.date),
+                    ("task_template_id", "=", self.tmpl_dated_id.template_id.id),
+                    ("worker_id", "=", None),
+                ],
+                limit=1,
+            )
+            if future_subscribed_shift:
+                future_subscribed_shift.is_regular = True
+                future_subscribed_shift.worker_id = self.worker_id
+                self.state = "validated"
+                return True
+        return False
 
     def counter(self):
         counter = 0
         for record in self:
-            if record.shift_id and record.shift_id.state == "done":
+            if record.shift_id and record.shift_id.state == "validated":
                 counter += 1
         return counter
-
-    def update_status(self):
-        if self.tmpl_dated_id and self.worker_id:
-            self.write({"state": "validated"})
-
-    @api.multi
-    def subscribe_shift(self):
-        """
-        Subscribe the user into the given shift
-        this is done only if :
-            *the user can subscribe
-            *the given shift exist
-            *the shift status is open (it isn't already subscribed)
-            *the user hasn't done another exchange 2month before
-        :return:
-        """
-        if self.state != "validated":
-            # Get the wanted shift
-            shift_rec = self.shift_id
-            shift_rec.is_regular = True
-            # Get the user
-            shift_rec.write({"worker_id": self.worker_id.id})
-
-            # update status
-            self.update_status()
-            if not self.shift_id.worker_id:
-                return False
-            return True
-        return True
 
     @api.multi
     def unsubscribe_shift(self):
