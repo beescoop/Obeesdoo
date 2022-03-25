@@ -5,14 +5,11 @@ odoo.define("beesdoo_pos.screens", function (require) {
 
     models.load_fields("res.partner", "is_company");
 
-    var set_customer_info = function (el_class, value, prefix) {
-        var el = this.$(el_class);
-        el.empty();
-        if (prefix && value) {
-            value = prefix + value;
-        }
+    var set_customer_info = function (parent_class, value) {
+        var parent = this.$(parent_class);
+        var info_div = $("<div></div>").text(value);
         if (value) {
-            el.append(value);
+            parent.append(info_div[0]);
         }
     };
 
@@ -39,14 +36,13 @@ odoo.define("beesdoo_pos.screens", function (require) {
                 }
             )
                 .then(function (result) {
-                    for (let i = 0; i < result.length; i++) {
+                    result.forEach((element) =>
                         set_customer_info.call(
                             self,
-                            ".customer-delegate".concat(i + 1),
-                            result[i],
-                            "Eater".concat(i + 1, ": ")
-                        );
-                    }
+                            ".customer-information-pay",
+                            element
+                        )
+                    );
                 })
                 .fail(function (type, error) {
                     loaded.reject(error);
@@ -81,14 +77,9 @@ odoo.define("beesdoo_pos.screens", function (require) {
                         ".customer-name",
                         self.pos.get_client().name
                     );
-                    for (let i = 0; i < result.length; i++) {
-                        set_customer_info.call(
-                            self,
-                            ".customer-delegate".concat(i + 1),
-                            result[i],
-                            "Eater".concat(i + 1, ": ")
-                        );
-                    }
+                    result.forEach((element) =>
+                        set_customer_info.call(self, ".customer-delegates", element)
+                    );
                 })
                 .fail(function (type, error) {
                     loaded.reject(err);
