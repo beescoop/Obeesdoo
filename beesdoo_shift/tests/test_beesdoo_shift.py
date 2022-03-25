@@ -20,6 +20,9 @@ class TestBeesdooShift(TransactionCase):
         self.user_admin = self.env.ref("base.user_root")
 
         self.worker_regular_1 = self.env.ref("beesdoo_shift.res_partner_worker_1_demo")
+        self.worker_irregular_2 = self.env.ref(
+            "beesdoo_shift.res_partner_worker_2_demo"
+        )
         self.worker_regular_3 = self.env.ref("beesdoo_shift.res_partner_worker_3_demo")
         self.worker_regular_5 = self.env.ref("beesdoo_shift.res_partner_worker_5_demo")
         self.worker_regular_6 = self.env.ref("beesdoo_shift.res_partner_worker_6_demo")
@@ -421,3 +424,67 @@ class TestBeesdooShift(TransactionCase):
         )
         exemption_wiz.exempt()
         self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 4)
+
+    def test_irregular_worker_subscribed_to_shift_before_alert(self):
+        self._generate_shifts(days=1, nb=2)
+        self.assertFalse(self.worker_irregular_2.cooperative_status_ids.next_shift_id)
+
+        some_empty_shift = self.shift_model.search(
+            [("start_time", ">=", datetime.now()), ("worker_id", "=", False)],
+            limit=1,
+        )
+
+        some_empty_shift.worker_id = self.worker_irregular_2
+        self.assertEqual(
+            self.worker_irregular_2.cooperative_status_ids.next_shift_id,
+            some_empty_shift,
+        )
+
+        some_empty_shift.worker_id = False
+        self.assertFalse(self.worker_irregular_2.cooperative_status_ids.next_shift_id)
+
+    def test_unsubscribe_worker_from_task_template_computes_next_shift(self):
+        self._generate_shifts(days=1, nb=2)
+        datetime.now()
+        # Check that initialisation works well
+        next_shift = self.shift_model.search(
+            [
+                ("state", "=", "open"),
+                ("worker_id", "=", self.worker_regular_1.id),
+            ],
+            order="start_time",
+            limit=1,
+        )
+        self.assertEqual(
+            self.worker_regular_1.cooperative_status_ids.next_shift_id,
+            next_shift,
+        )
+
+        # Unsubscribe a worker from the task template
+        self.task_template_1.worker_ids -= self.worker_regular_1
+        next_shift = self.shift_model.search(
+            [
+                ("state", "=", "open"),
+                ("worker_id", "=", self.worker_regular_1.id),
+            ],
+            order="start_time",
+            limit=1,
+        )
+        self.assertEqual(
+            self.worker_regular_1.cooperative_status_ids.next_shift_id,
+            next_shift,
+        )
+        # Subscribe a worker from the task template
+        self.task_template_1.worker_ids += self.worker_regular_1
+        next_shift = self.shift_model.search(
+            [
+                ("state", "=", "open"),
+                ("worker_id", "=", self.worker_regular_1.id),
+            ],
+            order="start_time",
+            limit=1,
+        )
+        self.assertEqual(
+            self.worker_regular_1.cooperative_status_ids.next_shift_id,
+            next_shift,
+        )
