@@ -14,7 +14,7 @@
     </field>
   </record>
 
-  <record model="ir.ui.view" id="shift_swap_offer_view">
+  <record model="ir.ui.view" id="solidarity_shift_request_view_form">
       <field name="name">Solidarity shift request</field>
       <field name="model">beesdoo.shift.solidarity.request</field>
       <field name="arch" type="xml">

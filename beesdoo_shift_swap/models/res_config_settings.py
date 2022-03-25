@@ -13,3 +13,7 @@ class ResConfigSettings(models.TransientModel):
         "after the one he doesn't want",
         config_parameter="beesdoo_shift.day_limit_swap",
     )
+    hours_limit_cancel_solidarity_offer = fields.Integer(
+        string="Limit of hours to cancel a solidarity shift",
+        config_parameter="beesdoo_shift.hours_limit_cancel_solidarity_offer",
+    )

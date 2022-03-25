@@ -74,6 +74,7 @@ class TaskTemplate(models.Model):
                     if template["initial"] != template["solidarity_modified"]:
                         shift["worker_id"] = offer.worker_id.id
                         shift["is_regular"] = True
+                        shift["solidarity_offer_ids"] = [(6, 0, offer.ids)]
                         template["solidarity_modified"] = shift["task_template_id"]
             for request in solidarity_requests:
                 if (
@@ -81,6 +82,7 @@ class TaskTemplate(models.Model):
                     and shift["task_template_id"]
                     == request.tmpl_dated_id.template_id.id
                     and shift["start_time"] == request.tmpl_dated_id.date
+                    and request.state != "cancelled"
                 ):
                     shift["worker_id"] = False
                     shift["is_regular"] = False

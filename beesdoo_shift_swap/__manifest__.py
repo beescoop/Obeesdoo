@@ -28,6 +28,7 @@
         "views/shift_swap_set.xml",
         "views/solidarity_shift_offer.xml",
         "views/solidarity_shift_request.xml",
+        "views/task.xml",
         "wizard/exchange_wizard.xml",
         "wizard/Subscribe_shift_swap.xml",
         "wizard/validate_exchange.xml",

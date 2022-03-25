@@ -13,7 +13,7 @@
     </field>
   </record>
 
-  <record model="ir.ui.view" id="shift_swap_offer_view">
+  <record model="ir.ui.view" id="solidarity_shift_offer_view_form">
       <field name="name">Solidarity shift offer</field>
       <field name="model">beesdoo.shift.solidarity.offer</field>
       <field name="arch" type="xml">
@@ -25,6 +25,7 @@
                 <group name="group_top">
                   <field name="worker_id" />
                   <field name="tmpl_dated_id" />
+                  <field name="shift_id" />
                 </group>
               </sheet>
           </form>

@@ -69,6 +69,32 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">
+                                        Limit of hours to cancel a solidarity shift
+                                    </span>
+                                    <div class="text-muted">
+                                        Number of hours before a solidarity shift after which it can't be cancelled
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16 row">
+                                            <label
+                                                for="hours_limit_cancel_solidarity_offer"
+                                                string="Hours"
+                                                class="col-3 col-lg-3 o_light_label"
+                                            />
+                                            <field
+                                                name="hours_limit_cancel_solidarity_offer"
+                                                class="oe_inline"
+                                                required="1"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </xpath>
             </field>

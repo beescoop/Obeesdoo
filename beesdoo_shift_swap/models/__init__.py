@@ -7,3 +7,4 @@ from . import dated_template
 from . import res_config_settings
 from . import solidarity_shift_offer
 from . import solidarity_shift_request
+from . import task

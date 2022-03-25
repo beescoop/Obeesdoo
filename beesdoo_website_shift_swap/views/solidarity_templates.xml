@@ -20,6 +20,48 @@
         </xpath>
       </template>
 
+      <!-- Display error message if can't offer solidarity shift -->
+      <template
+            id="website_shift_swap_offer_solidarity_impossible"
+            name="Error message if can't offer solidarity shift"
+        >
+        <t t-call="portal.portal_layout">
+          <t t-set="no_breadcrumbs" t-value="True" />
+          <div class="container mt16">
+            <div class="row">
+              <div class="col text-center">
+                <div class="alert alert-warning">
+                  <strong>Warning !</strong>
+                  Your current status does not allow you to offer solidarity shifts.
+                </div>
+                <a class="btn btn-primary" href="/my/shift">Go back</a>
+              </div>
+            </div>
+          </div>
+        </t>
+      </template>
+
+      <!-- Display error message if can't cancel solidarity offer -->
+      <template
+            id="website_shift_swap_cancel_solidarity_offer_impossible"
+            name="Error message if can't cancel solidarity offer"
+        >
+        <t t-call="portal.portal_layout">
+          <t t-set="no_breadcrumbs" t-value="True" />
+          <div class="container mt16">
+            <div class="row">
+              <div class="col text-center">
+                <div class="alert alert-warning">
+                  <strong>Warning !</strong>
+                  Your can't cancel this solidarity shift, because it is too close in time.
+                </div>
+                <a class="btn btn-primary" href="/my/shift">Go back</a>
+              </div>
+            </div>
+          </div>
+        </t>
+      </template>
+
       <!-- Template display underpopulated shift for solidarity-->
       <template
             id="website_shift_swap_underpopulated_tmpl_dated_solidarity"

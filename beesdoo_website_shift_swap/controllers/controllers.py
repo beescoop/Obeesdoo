@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from odoo import http
 from odoo.http import request
@@ -358,6 +358,15 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         """
         Page to choose an underpopulated shift to subscribe for solidarity
         """
+        user = request.env["res.users"].sudo().browse(request.uid)
+
+        # Check if user can offer solidarity shifts
+        if user.cooperative_status_ids.sr < 0 or user.cooperative_status_ids.sc < 0:
+            return request.render(
+                "beesdoo_website_shift_swap."
+                "website_shift_swap_offer_solidarity_impossible"
+            )
+
         # Get underpopulated shifts
         next_underpopulated_shifts = (
             request.env["beesdoo.shift.subscribed_underpopulated_shift"]
@@ -366,7 +375,6 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         )
 
         # Get the user's future shifts
-        user = request.env["res.users"].sudo().browse(request.uid)
         my_future_shifts = user.sudo().partner_id.my_next_shift()
         subscribed_shifts = []
         for rec in my_future_shifts:
@@ -422,16 +430,28 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         solidarity_offer = (
             request.env["beesdoo.shift.solidarity.offer"]
             .sudo()
-            .search(
-                [
-                    ("id", "=", solidarity_offer_id),
-                ],
-                limit=1,
-            )
+            .browse(solidarity_offer_id)
         )
+
+        # Check if the offer is not too close in time
+        now = datetime.now()
+        shift_date = solidarity_offer.tmpl_dated_id.date
+        delta = shift_date - now
+        limit_hours = int(
+            request.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_shift.hours_limit_cancel_solidarity_offer")
+        )
+        if delta <= timedelta(hours=limit_hours):
+            return request.render(
+                "beesdoo_website_shift_swap."
+                "website_shift_swap_cancel_solidarity_offer_impossible"
+            )
+
         if solidarity_offer.state == "validated":
-            solidarity_offer.unsubscribe_shift()
-        solidarity_offer.state = "cancelled"
+            solidarity_offer.unsubscribe_shift_if_generated()
+            solidarity_offer.state = "cancelled"
+
         return request.redirect("/my/shift")
 
     @http.route(
@@ -469,7 +489,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             )
             reason = request.httprequest.form.get("reason")
             solidarity_request.reason = reason
-            solidarity_request._compute_shift_id()
+            solidarity_request.unsubscribe_shift_if_generated()
             return request.redirect("/my/shift")
 
         tmpl_dated = self.new_tmpl_dated(template_id, date)
@@ -479,3 +499,20 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 "tmpl_dated": tmpl_dated,
             },
         )
+
+    @http.route(
+        "/my/shift/solidarity/request/cancel/<int:solidarity_request_id>",
+        website=True,
+    )
+    def cancel_solidarity_request(self, solidarity_request_id):
+        solidarity_request = (
+            request.env["beesdoo.shift.solidarity.request"]
+            .sudo()
+            .browse(solidarity_request_id)
+        )
+
+        if solidarity_request.state == "validated":
+            solidarity_request.subscribe_shift_if_generated()
+            solidarity_request.state = "cancelled"
+
+        return request.redirect("/my/shift")
