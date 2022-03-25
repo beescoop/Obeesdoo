@@ -18,6 +18,8 @@ class ResPartner(models.Model):
         compute="_compute_can_shop",
         store=True,
     )
+    # todo implement as delegated inheritance ?
+    #  resolve as part of migration to OCA
     cooperative_status_ids = fields.One2many(
         string="Cooperative Statuses",
         comodel_name="cooperative.status",
@@ -64,8 +66,23 @@ class ResPartner(models.Model):
     subscribed_shift_ids = fields.Many2many(
         comodel_name="beesdoo.shift.template", readonly=True
     )
-    shift_task_ids = fields.One2many(
-        "beesdoo.shift.shift", "worker_id", string="Shifts"
+    shift_shift_ids = fields.One2many(
+        comodel_name="beesdoo.shift.shift",
+        inverse_name="worker_id",
+        string="Shifts",
+        help="All the shifts the worker is subscribed to.",
+    )
+    next_shift_id = fields.Many2one(
+        related="cooperative_status_ids.next_shift_id",
+        store=True,
+    )
+    is_subscribed_to_shift = fields.Boolean(
+        related="cooperative_status_ids.is_subscribed_to_shift",
+        store=True,
+    )
+    next_shift_date = fields.Datetime(
+        related="cooperative_status_ids.next_shift_date",
+        store=True,
     )
 
     @api.depends("cooperative_status_ids")

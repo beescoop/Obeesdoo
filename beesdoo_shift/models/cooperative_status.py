@@ -1,5 +1,5 @@
 import logging
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
@@ -65,7 +65,7 @@ class CooperativeStatus(models.Model):
         "are based on the current date",
         default=fields.Date.today,
     )
-    cooperator_id = fields.Many2one("res.partner")
+    cooperator_id = fields.Many2one("res.partner")  # todo rename to worker_id
     active = fields.Boolean(related="cooperator_id.active", store=True, index=True)
     info_session = fields.Boolean("Information Session ?")
     info_session_date = fields.Date("Information Session Date")
@@ -113,7 +113,23 @@ class CooperativeStatus(models.Model):
     irregular_absence_counter = fields.Integer()  # TODO unsubscribe when reach -2
     future_alert_date = fields.Date(compute="_compute_future_alert_date")
     next_countdown_date = fields.Date(compute="_compute_next_countdown_date")
-
+    next_shift_id = fields.Many2one(
+        comodel_name="beesdoo.shift.shift",
+        string="Earliest Open Shift",
+        compute="_compute_next_shift",
+        store=True,
+        help="Earliest open shift the worker is subscribed to.",
+    )
+    next_shift_date = fields.Datetime(
+        related="next_shift_id.start_time",
+        string="Next Shift Date",
+        store=True,
+    )
+    is_subscribed_to_shift = fields.Boolean(
+        string="Subscribed before Alert Date",
+        compute="_compute_next_shift",
+        store=True,
+    )
     temporary_exempt_reason_id = fields.Many2one(
         comodel_name="cooperative.exempt.reason",
         string="Temporary Exempt Reason",
@@ -379,6 +395,50 @@ class CooperativeStatus(models.Model):
         """
         for rec in self:
             rec.next_countdown_date = False
+
+    @api.multi
+    @api.depends(
+        "cooperator_id.shift_shift_ids",
+        "cooperator_id.shift_shift_ids.state",
+        "future_alert_date",
+        "today",
+    )
+    def _compute_next_shift(self):
+        # avoid searching for shift in loop
+        cooperator_ids = self.mapped("cooperator_id").ids
+        # rather take earliest "open" (confirmed) shift
+        # in order to take into account partners for which
+        # the counter was not incremented (happens when passing to "done")
+        next_shifts = self.env["beesdoo.shift.shift"].search(
+            [("state", "=", "open"), ("worker_id", "in", cooperator_ids)],
+            order="worker_id, start_time",
+        )
+
+        next_shift_by_worker = {}
+        for shift in next_shifts:
+            #  take first shift for each worker
+            next_shift_by_worker.setdefault(shift.worker_id.id, shift)
+
+        # what happens when no future shift ?
+        for rec in self:
+            rec.next_shift_id = next_shift_by_worker.get(rec.cooperator_id.id)
+
+            if not rec.next_shift_id:
+                rec.is_subscribed_to_shift = False
+                continue
+
+            if not rec.future_alert_date:
+                rec.is_subscribed_to_shift = True
+                continue
+
+            future_alert_date_time = datetime(
+                rec.future_alert_date.year,
+                rec.future_alert_date.month,
+                rec.future_alert_date.day,
+            )
+            rec.is_subscribed_to_shift = (
+                rec.next_shift_id.start_time < future_alert_date_time
+            )
 
     def _can_shop_status(self):
         """
