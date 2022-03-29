@@ -7,7 +7,7 @@
     "name": "Beescoop Shift Management",
     "summary": """Generate and manage shifts for cooperators.""",
     "author": "Thibault Francois, Elouan Le Bars, Coop IT Easy SCRLfs",
-    "website": "https://coopiteasy.be",
+    "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
     "version": "12.0.1.1.0",
     "depends": ["mail"],
