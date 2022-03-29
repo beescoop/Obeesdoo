@@ -7,7 +7,7 @@
     "name": "Beescoop Point of sale - Cooperator Status",
     "summary": """POS Support for cooperator status.""",
     "author": "Coop IT Easy SCRLfs",
-    "website": "https://coopiteasy.be",
+    "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Point Of Sale",
     "version": "12.0.1.0.0",
     "depends": ["beesdoo_pos", "beesdoo_shift"],

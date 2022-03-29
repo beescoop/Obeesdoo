@@ -12,7 +12,7 @@
         - Allow validating an invoice with a negative total amount
              """,
     "author": "Beescoop - Cellule IT, Coop IT Easy SCRLfs",
-    "website": "https://coopiteasy.be",
+    "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Account Module",
     "version": "12.0.1.1.0",
     "depends": ["account", "beesdoo_base"],
