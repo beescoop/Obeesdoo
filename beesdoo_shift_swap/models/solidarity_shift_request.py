@@ -1,6 +1,14 @@
+import math
 from datetime import datetime
 
 from odoo import fields, models
+
+
+def float_to_time(f):
+    decimal, integer = math.modf(f)
+    return "{}:{}".format(
+        str(int(integer)).zfill(2), str(int(round(decimal * 60))).zfill(2)
+    )
 
 
 class SolidarityShiftRequest(models.Model):
@@ -61,10 +69,11 @@ class SolidarityShiftRequest(models.Model):
 
     def subscribe_shift_if_generated(self):
         if self.tmpl_dated_id and self.state == "validated":
+            template_id = self.tmpl_dated_id.template_id
             unsubscribed_shift = self.env["beesdoo.shift.shift"].search(
                 [
                     ("start_time", "=", self.tmpl_dated_id.date),
-                    ("task_template_id", "=", self.tmpl_dated_id.template_id.id),
+                    ("task_template_id", "=", template_id.id),
                     ("worker_id", "=", None),
                 ],
                 limit=1,
@@ -76,6 +85,34 @@ class SolidarityShiftRequest(models.Model):
                         "worker_id": self.worker_id.id,
                     }
                 )
+                return True
+            nb_shift = self.env["beesdoo.shift.shift"].search_count(
+                [
+                    ("start_time", "=", self.tmpl_dated_id.date),
+                    ("task_template_id", "=", template_id.id),
+                ],
+            )
+            if nb_shift > 0:
+                data = {
+                    "name": "[%s] %s %s (%s - %s) [%s]"
+                    % (
+                        template_id.start_date.date(),
+                        template_id.planning_id.name,
+                        template_id.day_nb_id.name,
+                        float_to_time(template_id.start_time),
+                        float_to_time(template_id.end_time),
+                        nb_shift,
+                    ),
+                    "task_template_id": template_id.id,
+                    "task_type_id": template_id.task_type_id.id,
+                    "super_coop_id": template_id.super_coop_id.id,
+                    "worker_id": self.worker_id and self.worker_id.id or False,
+                    "is_regular": True if self.worker_id else False,
+                    "start_time": template_id.start_date,
+                    "end_time": template_id.end_date,
+                    "state": "open",
+                }
+                self.env["beesdoo.shift.shift"].create(data)
                 return True
         return False
 

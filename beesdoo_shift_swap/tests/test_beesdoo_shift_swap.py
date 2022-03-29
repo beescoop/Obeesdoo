@@ -26,10 +26,9 @@ class TestBeesdooShiftSwap(TransactionCase):
 
         self.task_template_1 = self.env.ref("beesdoo_shift_swap.task_template_1_demo")
         self.task_template_2 = self.env.ref("beesdoo_shift_swap.task_template_2_demo")
+        self.task_template_3 = self.env.ref("beesdoo_shift_swap.task_template_3_demo")
 
         self.task_type_1 = self.env.ref("beesdoo_shift.beesdoo_shift_task_type_1_demo")
-        self.task_type_2 = self.env.ref("beesdoo_shift.beesdoo_shift_task_type_2_demo")
-        self.task_type_3 = self.env.ref("beesdoo_shift.beesdoo_shift_task_type_3_demo")
 
         self.exempt_reason_1 = self.env.ref("beesdoo_shift.exempt_reason_1_demo")
 
@@ -302,3 +301,51 @@ class TestBeesdooShiftSwap(TransactionCase):
         self.worker_irregular_1.cooperative_status_ids.sr = 1
         solidarity_request_irregular.update_personal_counter()
         self.assertEqual(self.worker_irregular_1.cooperative_status_ids.sr, 0)
+
+    def test_shift_creation_when_cancelling_solidarity_request(self):
+        """
+        Test the shift creation in the (unusual) case where a worker wants to
+        cancel a solidarity request but all the shifts in the timeslot were
+        taken in the meantime
+        """
+        template_dated = self.shift_template_dated_model.create(
+            {
+                "template_id": self.task_template_3.id,
+                "date": self.task_template_3.start_date,
+                "store": True,
+            }
+        )
+
+        # Generate a shift
+        shifts = self.task_template_3.generate_task_day()
+        shift = shifts[0]
+
+        solidarity_request = self.shift_solidarity_request_model.create(
+            {
+                "worker_id": self.worker_regular_1.id,
+                "tmpl_dated_id": template_dated.id,
+                "reason": "A good reason",
+            }
+        )
+        solidarity_request.unsubscribe_shift_if_generated()
+
+        self.assertFalse(shift.worker_id)
+        self.assertFalse(shift.is_regular)
+
+        # Fill the shift with another worker
+        shift.write(
+            {
+                "is_regular": True,
+                "worker_id": self.worker_irregular_1.id,
+            }
+        )
+
+        self.assertTrue(solidarity_request.subscribe_shift_if_generated())
+        shifts = self.env["beesdoo.shift.shift"].search(
+            [
+                ("start_time", "=", template_dated.date),
+                ("task_template_id", "=", self.task_template_3.id),
+            ],
+        )
+        self.assertEqual(shifts[1].worker_id.id, self.worker_regular_1.id)
+        self.assertTrue(shifts[1].is_regular)

@@ -49,7 +49,7 @@ class SubscribeShiftSwap(models.TransientModel):
             else:
                 tmpl_dated = self.env[
                     "beesdoo.shift.subscribed_underpopulated_shift"
-                ].get_underpopulated_shift(record.exchanged_tmpl_dated_id)
+                ].get_underpopulated_shift()
                 # record.available_tmpl_dated = tmpl_dated
                 temp = self.env["beesdoo.shift.template.dated"]
                 for rec in tmpl_dated:
