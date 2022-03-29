@@ -53,7 +53,7 @@ class TaskType(models.TransientModel):
         now = datetime.now()
         return self.env["beesdoo.shift.shift"].search(
             [
-                ("start_time", ">", now.strftime("%Y-%m-%d %H:%M:%S")),
+                ("start_time", ">", now),
                 ("worker_id", "=", partner.id),
             ],
             order="start_time, task_template_id, task_type_id",
