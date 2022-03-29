@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from odoo import fields, models
 
@@ -74,6 +74,19 @@ class SolidarityShiftOffer(models.Model):
                 )
                 subscribed_solidarity_shift.solidarity_offer_ids = None
                 return True
+        return False
+
+    def check_offer_date_too_close(self):
+        now = datetime.now()
+        shift_date = self.tmpl_dated_id.date
+        delta = shift_date - now
+        limit_hours = int(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_shift.hours_limit_cancel_solidarity_offer")
+        )
+        if delta <= timedelta(hours=limit_hours):
+            return True
         return False
 
     def counter(self):

@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from odoo import http
 from odoo.http import request
@@ -434,15 +434,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         )
 
         # Check if the offer is not too close in time
-        now = datetime.now()
-        shift_date = solidarity_offer.tmpl_dated_id.date
-        delta = shift_date - now
-        limit_hours = int(
-            request.env["ir.config_parameter"]
-            .sudo()
-            .get_param("beesdoo_shift.hours_limit_cancel_solidarity_offer")
-        )
-        if delta <= timedelta(hours=limit_hours):
+        if solidarity_offer.check_offer_date_too_close():
             return request.render(
                 "beesdoo_website_shift_swap."
                 "website_shift_swap_cancel_solidarity_offer_impossible"
@@ -490,6 +482,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             reason = request.httprequest.form.get("reason")
             solidarity_request.reason = reason
             solidarity_request.unsubscribe_shift_if_generated()
+            solidarity_request.update_personal_counter()
             return request.redirect("/my/shift")
 
         tmpl_dated = self.new_tmpl_dated(template_id, date)
@@ -514,5 +507,6 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         if solidarity_request.state == "validated":
             solidarity_request.subscribe_shift_if_generated()
             solidarity_request.state = "cancelled"
+            solidarity_request.update_personal_counter()
 
         return request.redirect("/my/shift")
