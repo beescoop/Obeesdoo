@@ -472,15 +472,15 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                     }
                 )
             )
+            reason = request.httprequest.form.get("reason")
             data = {
                 "worker_id": user.partner_id.id,
                 "tmpl_dated_id": non_realisable_tmpl_dated.id,
+                "reason": reason,
             }
             solidarity_request = (
                 request.env["beesdoo.shift.solidarity.request"].sudo().create(data)
             )
-            reason = request.httprequest.form.get("reason")
-            solidarity_request.reason = reason
             solidarity_request.unsubscribe_shift_if_generated()
             solidarity_request.update_personal_counter()
             return request.redirect("/my/shift")

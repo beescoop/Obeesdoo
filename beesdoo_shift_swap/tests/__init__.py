@@ -1,1 +1,1 @@
-from . import test_shift_swap
+from . import test_beesdoo_shift_swap
