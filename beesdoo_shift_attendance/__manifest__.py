@@ -9,7 +9,7 @@
         Volonteer Timetable Management
         Attendance Sheet for BEES coop""",
     "author": "Elouan Le Bars, Coop IT Easy SCRLfs",
-    "website": "https://coopiteasy.be",
+    "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
     "version": "12.0.1.0.2",
     "depends": [

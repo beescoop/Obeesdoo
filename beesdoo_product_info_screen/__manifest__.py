@@ -8,7 +8,7 @@
     "category": "Product",
     "summary": "Adds a read-only screen to display product information",
     "author": "Coop IT Easy SCRLfs",
-    "website": "https://coopiteasy.be",
+    "website": "https://github.com/beescoop/Obeesdoo",
     "license": "AGPL-3",
     "depends": ["beesdoo_product"],
     "data": [
