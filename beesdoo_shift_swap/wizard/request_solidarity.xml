@@ -1,18 +1,19 @@
 <?xml version="1.0" ?>
 <odoo>
-  <record id="offer_solidarity_shift_wizard" model="ir.ui.view">
-    <field name="name">Solidarity shift offer wizard</field>
-    <field name="model">beesdoo.shift.offer.solidarity.shift</field>
+  <record id="request_solidarity_shift_wizard" model="ir.ui.view">
+    <field name="name">Solidarity shift request wizard</field>
+    <field name="model">beesdoo.shift.request.solidarity.shift</field>
     <field name="arch" type="xml">
       <form>
         <group>
           <field name="worker_id" />
           <field name="tmpl_dated_id" />
+          <field name="reason" />
         </group>
         <footer>
           <button
                         type="object"
-                        name="create_offer"
+                        name="create_request"
                         string="Confirm"
                         class="oe_highlight"
                     />

@@ -39,6 +39,24 @@ class ResPartner(models.Model):
         }
 
     @api.multi
+    def coop_request_solidarity(self):
+        return {
+            "name": _("Solidarity shift request wizard"),
+            "type": "ir.actions.act_window",
+            "view_type": "form",
+            "view_mode": "form",
+            "res_model": "beesdoo.shift.request.solidarity.shift",
+            "target": "new",
+        }
+
+    def my_next_shift_list(self):
+        my_future_shifts = self.my_next_shift()
+        next_shift_list = []
+        for rec in my_future_shifts:
+            next_shift_list.append(rec)
+        return next_shift_list
+
+    @api.multi
     def send_mail_coop_same_days_same_hour(self, my_tmpl_dated, partner_to):
         template_rec = self.env.ref(
             "beesdoo_shift_swap.email_template_contact_coop", False

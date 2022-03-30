@@ -4,9 +4,9 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
-class OfferSolidarityShift(models.TransientModel):
-    _name = "beesdoo.shift.offer.solidarity.shift"
-    _description = "Offer solidarity shift"
+class RequestSolidarityShift(models.TransientModel):
+    _name = "beesdoo.shift.request.solidarity.shift"
+    _description = "Request solidarity shift"
 
     worker_id = fields.Many2one(
         "res.partner",
@@ -25,6 +25,8 @@ class OfferSolidarityShift(models.TransientModel):
         ],
     )
 
+    reason = fields.Text(string="Reason", default="")
+
     def _check(self, group="beesdoo_shift.group_shift_management"):
         self.ensure_one()
         if not self.env.user.has_group(group):
@@ -38,9 +40,9 @@ class OfferSolidarityShift(models.TransientModel):
     @api.onchange("worker_id")
     def _get_template_dated(self):
         for record in self:
-            tmpl_dated = self.env["beesdoo.shift.template.dated"].display_tmpl_dated()
-            user = self.env["res.partner"].sudo().browse(self.worker_id.id)
-            tmpl_dated_possible = tmpl_dated.remove_already_subscribed_shifts(user)
+            tmpl_dated_possible = self.env[
+                "beesdoo.shift.template.dated"
+            ].swap_shift_to_tmpl_dated(self.worker_id.my_next_shift_list())
             tmpl_dated_wanted = self.env["beesdoo.shift.template.dated"]
             for template in tmpl_dated_possible:
                 tmpl_dated_wanted |= tmpl_dated_wanted.create(
@@ -53,11 +55,13 @@ class OfferSolidarityShift(models.TransientModel):
             return {"domain": {"tmpl_dated_id": [("id", "in", tmpl_dated_wanted.ids)]}}
 
     @api.multi
-    def create_offer(self):
+    def create_request(self):
         self._check()
         data = {
             "worker_id": self.worker_id.id,
             "tmpl_dated_id": self.tmpl_dated_id.id,
+            "reason": self.reason,
         }
-        offer = self.env["beesdoo.shift.solidarity.offer"].sudo().create(data)
-        offer.subscribe_shift_if_generated()
+        request = self.env["beesdoo.shift.solidarity.request"].sudo().create(data)
+        request.unsubscribe_shift_if_generated()
+        request.update_personal_counter()
