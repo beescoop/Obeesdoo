@@ -121,3 +121,20 @@ class DatedTemplate(models.Model):
             raise UserError(_("You already have 2 shift in a day"))
         if shift_in_month >= 5:
             raise UserError(_("You already have 5 shift in a month"))
+
+    def remove_already_subscribed_shifts(self, user):
+        # Get the user's future shifts
+        my_future_shifts = user.sudo().my_next_shift()
+        subscribed_shifts = []
+        for rec in my_future_shifts:
+            subscribed_shifts.append(rec)
+
+        # Remove the already subscribed shifts from the propositions
+        for rec in self:
+            for tmpl_dated in self.env[
+                "beesdoo.shift.template.dated"
+            ].swap_shift_to_tmpl_dated(subscribed_shifts):
+                if rec.date == tmpl_dated.date:
+                    self -= rec
+
+        return self

@@ -62,25 +62,17 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             .get_underpopulated_shift()
         )
 
-        # Get the user's future shifts
         user = request.env["res.users"].sudo().browse(request.uid)
-        my_shifts = user.sudo().partner_id.my_next_shift()
-        subscribed_shifts = []
-        for rec in my_shifts:
-            subscribed_shifts.append(rec)
 
-        # Remove the already subscribed shifts from the propositions
-        for available_shift in my_available_shift:
-            for tmpl_dated in request.env[
-                "beesdoo.shift.template.dated"
-            ].swap_shift_to_tmpl_dated(subscribed_shifts):
-                if available_shift.date == tmpl_dated.date:
-                    my_available_shift -= available_shift
+        # Remove the already subscribed shifts
+        possible_underpopulated_shifts = (
+            my_available_shift.remove_already_subscribed_shifts(user.partner_id)
+        )
 
         return request.render(
             "beesdoo_website_shift_swap.website_shift_swap_underpopulated_tmpl_dated",
             {
-                "underpopulated_shift": my_available_shift,
+                "underpopulated_shift": possible_underpopulated_shifts,
                 "exchanged_tmpl_dated": my_tmpl_dated,
             },
         )
@@ -367,31 +359,22 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 "website_shift_swap_offer_solidarity_impossible"
             )
 
-        # Get underpopulated shifts
+        # Get the next underpopulated shifts
         next_underpopulated_shifts = (
             request.env["beesdoo.shift.subscribed_underpopulated_shift"]
             .sudo()
             .get_underpopulated_shift()
         )
 
-        # Get the user's future shifts
-        my_future_shifts = user.sudo().partner_id.my_next_shift()
-        subscribed_shifts = []
-        for rec in my_future_shifts:
-            subscribed_shifts.append(rec)
-
-        # Remove the already subscribed shifts from the propositions
-        for available_shift in next_underpopulated_shifts:
-            for tmpl_dated in request.env[
-                "beesdoo.shift.template.dated"
-            ].swap_shift_to_tmpl_dated(subscribed_shifts):
-                if available_shift.date == tmpl_dated.date:
-                    next_underpopulated_shifts -= available_shift
+        # Remove the already subscribed shifts
+        next_possible_underpopulated_shifts = (
+            next_underpopulated_shifts.remove_already_subscribed_shifts(user.partner_id)
+        )
 
         return request.render(
             "beesdoo_website_shift_swap."
             "website_shift_swap_select_solidarity_underpopulated",
-            {"underpopulated_shift": next_underpopulated_shifts},
+            {"underpopulated_shift": next_possible_underpopulated_shifts},
         )
 
     @http.route(

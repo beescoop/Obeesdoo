@@ -28,6 +28,17 @@ class ResPartner(models.Model):
         }
 
     @api.multi
+    def coop_offer_solidarity(self):
+        return {
+            "name": _("Solidarity shift offer wizard"),
+            "type": "ir.actions.act_window",
+            "view_type": "form",
+            "view_mode": "form",
+            "res_model": "beesdoo.shift.offer.solidarity.shift",
+            "target": "new",
+        }
+
+    @api.multi
     def send_mail_coop_same_days_same_hour(self, my_tmpl_dated, partner_to):
         template_rec = self.env.ref(
             "beesdoo_shift_swap.email_template_contact_coop", False

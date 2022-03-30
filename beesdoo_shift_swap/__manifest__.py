@@ -30,6 +30,7 @@
         "views/solidarity_shift_request.xml",
         "views/task.xml",
         "wizard/exchange_wizard.xml",
+        "wizard/offer_solidarity.xml",
         "wizard/Subscribe_shift_swap.xml",
         "wizard/validate_exchange.xml",
         "data/mail_template.xml",
