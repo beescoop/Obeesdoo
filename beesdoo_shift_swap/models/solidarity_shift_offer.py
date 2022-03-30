@@ -89,6 +89,11 @@ class SolidarityShiftOffer(models.Model):
             return True
         return False
 
+    def button_cancel_solidarity_offer(self):
+        if self.state == "validated":
+            self.unsubscribe_shift_if_generated()
+            self.state = "cancelled"
+
     def counter(self):
         counter = 0
         for record in self:

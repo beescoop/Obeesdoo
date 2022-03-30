@@ -135,6 +135,12 @@ class SolidarityShiftRequest(models.Model):
             return True
         return False
 
+    def button_cancel_solidarity_request(self):
+        if self.state == "validated":
+            self.subscribe_shift_if_generated()
+            self.state = "cancelled"
+            self.update_personal_counter()
+
     def counter(self):
         counter = 0
         for record in self:
