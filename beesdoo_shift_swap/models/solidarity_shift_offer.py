@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class SolidarityShiftOffer(models.Model):
@@ -94,9 +94,10 @@ class SolidarityShiftOffer(models.Model):
             self.unsubscribe_shift_if_generated()
             self.state = "cancelled"
 
+    @api.multi
     def counter(self):
         counter = 0
         for record in self:
-            if record.shift_id and record.shift_id.state == "validated":
+            if record.shift_id and record.shift_id.state == "done":
                 counter += 1
         return counter

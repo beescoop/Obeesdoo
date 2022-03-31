@@ -17,3 +17,7 @@ class ResConfigSettings(models.TransientModel):
         string="Limit of hours to cancel a solidarity shift",
         config_parameter="beesdoo_shift.hours_limit_cancel_solidarity_offer",
     )
+    solidarity_counter_start_value = fields.Integer(
+        string="Start value of the global solidarity counter",
+        config_parameter="beesdoo_shift.solidarity_counter_start_value",
+    )

@@ -349,3 +349,76 @@ class TestBeesdooShiftSwap(TransactionCase):
         )
         self.assertEqual(shifts[1].worker_id.id, self.worker_regular_1.id)
         self.assertTrue(shifts[1].is_regular)
+
+    def test_solidarity_counter(self):
+        template_dated = self.shift_template_dated_model.create(
+            {
+                "template_id": self.task_template_1.id,
+                "date": datetime.now() - timedelta(minutes=30),
+                "store": True,
+            }
+        )
+
+        shift = self.shift_model.create(
+            {
+                "task_template_id": self.task_template_1.id,
+                "task_type_id": self.task_type_1.id,
+                "worker_id": None,
+                "start_time": template_dated.date,
+                "end_time": template_dated.date + timedelta(minutes=10),
+                "is_regular": False,
+                "is_compensation": False,
+            }
+        )
+
+        # Solidarity offer creation
+        solidarity_offer = self.shift_solidarity_offer_model.create(
+            {
+                "worker_id": self.worker_regular_1.id,
+                "tmpl_dated_id": template_dated.id,
+            }
+        )
+
+        self.assertTrue(solidarity_offer.subscribe_shift_if_generated())
+
+        start_value = int(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_shift.solidarity_counter_start_value")
+        )
+
+        self.assertEqual(
+            self.env["res.company"]._company_default_get().solidarity_counter(),
+            start_value,
+        )
+        shift.state = "done"
+        self.assertEqual(
+            self.env["res.company"]._company_default_get().solidarity_counter(),
+            start_value + 1,
+        )
+
+        template_dated_2 = self.shift_template_dated_model.create(
+            {
+                "template_id": self.task_template_2.id,
+                "date": datetime.now() + timedelta(minutes=20),
+                "store": True,
+            }
+        )
+
+        solidarity_request = self.shift_solidarity_request_model.create(
+            {
+                "worker_id": self.worker_regular_1.id,
+                "tmpl_dated_id": template_dated_2.id,
+                "reason": "A good reason",
+            }
+        )
+
+        self.assertEqual(
+            self.env["res.company"]._company_default_get().solidarity_counter(),
+            start_value,
+        )
+        solidarity_request.state = "cancelled"
+        self.assertEqual(
+            self.env["res.company"]._company_default_get().solidarity_counter(),
+            start_value + 1,
+        )

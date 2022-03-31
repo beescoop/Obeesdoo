@@ -44,15 +44,26 @@
             inherit_id="beesdoo_website_shift.my_shift_next_shifts"
         >
           <xpath expr="//div[@class='card-body clearfix']" position="inside">
+            <t
+                    t-set="solidarity_counter"
+                    t-value="request.env['res.company']._company_default_get().solidarity_counter()"
+                />
             <p>
               <a
                         class="btn btn-success btn-sm"
                         t-att-href="'/my/shift/swaping/%i/%s' % (shift.task_template_id,shift.start_time)"
                     >Swap Shift</a>
-              <a
-                        class="btn btn-secondary btn-sm"
-                        t-att-href="'/my/shift/solidarity/request/%i/%s' % (shift.task_template_id,shift.start_time)"
-                    >Request solidarity</a>
+              <t t-if="solidarity_counter > 0">
+                <a
+                            class="btn btn-secondary btn-sm"
+                            t-att-href="'/my/shift/solidarity/request/%i/%s' % (shift.task_template_id,shift.start_time)"
+                        >Request solidarity</a>
+              </t>
+              <t t-else="">
+                <a class="btn btn-secondary btn-sm disabled" aria-disabled="true">
+                  Request solidarity
+                </a>
+              </t>
             </p>
           </xpath>
         </template>

@@ -11,6 +11,9 @@
             <h2>Solidarity shifts status</h2>
             <p>
               <label class="font-weight-bold">Counter:</label>
+              <t
+                        t-esc="request.env['res.company']._company_default_get().solidarity_counter()"
+                    />
             </p>
             <div>
               <a class="btn btn-primary" href="/my/shift/solidarity/offer">
