@@ -44,7 +44,7 @@
           <form>
               <header>
                   <button
-                        name="button_cancel_solidarity_request"
+                        name="cancel_solidarity_request"
                         string="Cancel request"
                         class="oe_highlight"
                         type="object"

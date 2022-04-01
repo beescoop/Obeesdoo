@@ -21,13 +21,6 @@ class SolidarityShiftRequest(models.Model):
             ("cancelled", "Cancelled"),
         ]
 
-    def _get_personal_counter_status(self):
-        return [
-            ("not_modified", "Not modified"),
-            ("request_ok", "Request OK"),
-            ("cancel_ok", "Cancel OK"),
-        ]
-
     worker_id = fields.Many2one(
         "res.partner",
         domain=[
@@ -45,10 +38,6 @@ class SolidarityShiftRequest(models.Model):
     )
 
     reason = fields.Text(string="Reason", default="")
-
-    personal_counter_status = fields.Selection(
-        selection=_get_personal_counter_status, default="not_modified"
-    )
 
     date = fields.Date(required=True, default=datetime.date(datetime.now()))
 
@@ -116,30 +105,12 @@ class SolidarityShiftRequest(models.Model):
                 return True
         return False
 
-    def update_personal_counter(self):
-        worker = self.worker_id
-        if worker:
-            if worker.working_mode == "irregular":
-                if (
-                    self.state == "validated"
-                    and self.personal_counter_status == "not_modified"
-                ):
-                    worker.cooperative_status_ids[0].sr += 1
-                    self.personal_counter_status = "request_ok"
-                elif (
-                    self.state == "cancelled"
-                    and self.personal_counter_status == "request_ok"
-                ):
-                    worker.cooperative_status_ids[0].sr -= 1
-                    self.personal_counter_status = "cancel_ok"
-            return True
-        return False
-
-    def button_cancel_solidarity_request(self):
+    def cancel_solidarity_request(self):
         if self.state == "validated":
             self.subscribe_shift_if_generated()
             self.state = "cancelled"
-            self.update_personal_counter()
+            return True
+        return False
 
     def counter(self):
         counter = 0

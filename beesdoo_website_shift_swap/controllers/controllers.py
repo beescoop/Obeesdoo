@@ -465,7 +465,6 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 request.env["beesdoo.shift.solidarity.request"].sudo().create(data)
             )
             solidarity_request.unsubscribe_shift_if_generated()
-            solidarity_request.update_personal_counter()
             return request.redirect("/my/shift")
 
         tmpl_dated = self.new_tmpl_dated(template_id, date)
@@ -487,9 +486,6 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             .browse(solidarity_request_id)
         )
 
-        if solidarity_request.state == "validated":
-            solidarity_request.subscribe_shift_if_generated()
-            solidarity_request.state = "cancelled"
-            solidarity_request.update_personal_counter()
+        solidarity_request.cancel_solidarity_request()
 
         return request.redirect("/my/shift")
