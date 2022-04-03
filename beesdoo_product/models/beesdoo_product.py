@@ -74,7 +74,8 @@ class BeesdooProduct(models.Model):
     display_unit = fields.Many2one("uom.uom")
     default_reference_unit = fields.Many2one("uom.uom")
     display_weight = fields.Float(
-        compute="_compute_display_weight", store=True
+        string="Net Quantity",
+        store=True
     )
 
     total_with_vat = fields.Float(
@@ -278,16 +279,9 @@ class BeesdooProduct(models.Model):
 
             if product.display_weight > 0:
                 product.total_with_vat_by_unit = (
-                    product.total_with_vat / product.weight
+                    product.total_with_vat / product.display_weight
                 )
 
-    @api.multi
-    @api.depends("weight", "display_unit")
-    def _compute_display_weight(self):
-        for product in self:
-            product.display_weight = (
-                product.weight * product.display_unit.factor
-            )
 
     @api.multi
     @api.constrains("display_unit", "default_reference_unit")
