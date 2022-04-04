@@ -389,28 +389,24 @@ class WebsiteShiftController(http.Controller):
         # according to the regular_next_shift_limit
         if self.is_user_regular():
             # Compute main shift
-            nb_subscribed_shifts = len(subscribed_shifts)
-            if nb_subscribed_shifts > 0:
-                main_shift = subscribed_shifts[-1]
-            else:
-                task_template = (
-                    request.env["beesdoo.shift.template"]
-                    .sudo()
-                    .search([("worker_ids", "in", cur_user.partner_id.id)], limit=1)
+            task_template = (
+                request.env["beesdoo.shift.template"]
+                .sudo()
+                .search([("worker_ids", "in", cur_user.partner_id.id)], limit=1)
+            )
+            main_shift = (
+                request.env["beesdoo.shift.shift"]
+                .sudo()
+                .search(
+                    [
+                        ("task_template_id", "=", task_template[0].id),
+                        ("start_time", "!=", False),
+                        ("end_time", "!=", False),
+                    ],
+                    order="start_time desc",
+                    limit=1,
                 )
-                main_shift = (
-                    request.env["beesdoo.shift.shift"]
-                    .sudo()
-                    .search(
-                        [
-                            ("task_template_id", "=", task_template[0].id),
-                            ("start_time", "!=", False),
-                            ("end_time", "!=", False),
-                        ],
-                        order="start_time desc",
-                        limit=1,
-                    )
-                )
+            )
 
             # Get config
             regular_next_shift_limit = request.website.regular_next_shift_limit
@@ -420,7 +416,7 @@ class WebsiteShiftController(http.Controller):
                 .get_param("beesdoo_website_shift.shift_period")
             )
 
-            for i in range(nb_subscribed_shifts, regular_next_shift_limit):
+            for i in range(len(subscribed_shifts), regular_next_shift_limit):
                 # Create the fictive shift
                 shift = main_shift.new()
                 shift.name = main_shift.name
