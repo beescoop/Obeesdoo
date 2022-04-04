@@ -9,11 +9,11 @@ class TaskTemplate(models.Model):
     def _prepare_task_day(self):
         """
         Override _prepare_task_day() function to take
-        into account all the exchanges.
+        into account all the changes.
         """
         shifts = super(TaskTemplate, self)._prepare_task_day()
 
-        # get all the exchanges
+        # Get all the changes
         exchanges = self.env["beesdoo.shift.subscribed_underpopulated_shift"].search([])
         people_exchanges = self.env["beesdoo.shift.exchange"].search([])
         solidarity_offers = self.env["beesdoo.shift.solidarity.offer"].search([])

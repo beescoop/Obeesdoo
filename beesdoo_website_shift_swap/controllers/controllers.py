@@ -423,9 +423,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 "website_shift_swap_cancel_solidarity_offer_impossible"
             )
 
-        if solidarity_offer.state == "validated":
-            solidarity_offer.unsubscribe_shift_if_generated()
-            solidarity_offer.state = "cancelled"
+        solidarity_offer.cancel_solidarity_offer()
 
         return request.redirect("/my/shift")
 

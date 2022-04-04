@@ -34,6 +34,11 @@ class SolidarityShiftOffer(models.Model):
     date = fields.Date(required=True, default=datetime.date(datetime.now()))
 
     def subscribe_shift_if_generated(self):
+        """
+        Search an empty shift matching the data of the offer. If found,
+        overwrite it with the worker id and the offer id.
+        :return: Boolean
+        """
         if self.tmpl_dated_id:
             future_subscribed_shift = self.env["beesdoo.shift.shift"].search(
                 [
@@ -55,6 +60,11 @@ class SolidarityShiftOffer(models.Model):
         return False
 
     def unsubscribe_shift_if_generated(self):
+        """
+        Search a shift matching the data of the offer. If found,
+        remove the worker and the offer from it.
+        :return: Boolean
+        """
         if self.tmpl_dated_id and self.state == "validated":
             subscribed_solidarity_shift = self.env["beesdoo.shift.shift"].search(
                 [
@@ -77,6 +87,11 @@ class SolidarityShiftOffer(models.Model):
         return False
 
     def check_offer_date_too_close(self):
+        """
+        Checks if the time delta between the current date and the shift date
+        is under a limit, defined in parameter 'hours_limit_cancel_solidarity_offer'.
+        :return: Boolean
+        """
         now = datetime.now()
         shift_date = self.tmpl_dated_id.date
         delta = shift_date - now
@@ -89,13 +104,20 @@ class SolidarityShiftOffer(models.Model):
             return True
         return False
 
-    def button_cancel_solidarity_offer(self):
+    def cancel_solidarity_offer(self):
         if self.state == "validated":
             self.unsubscribe_shift_if_generated()
             self.state = "cancelled"
+            return True
+        return False
 
     @api.multi
     def counter(self):
+        """
+        Count the number of solidarity shifts that have been attended.
+        Used in method solidarity_counter() in res.company.
+        :return: Integer
+        """
         counter = 0
         for record in self:
             if record.shift_id and record.shift_id.state == "done":

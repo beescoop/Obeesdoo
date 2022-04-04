@@ -5,6 +5,11 @@ class ResCompany(models.Model):
     _inherit = "res.company"
 
     def solidarity_counter(self):
+        """
+        Calculate the value of the solidarity counter. The initial value is
+        stored in parameter 'solidarity_counter_start_value'.
+        :return: Integer
+        """
         offers = self.env["beesdoo.shift.solidarity.offer"].search([])
         requests = self.env["beesdoo.shift.solidarity.request"].search([])
         start_value = int(
@@ -12,4 +17,4 @@ class ResCompany(models.Model):
             .sudo()
             .get_param("beesdoo_shift.solidarity_counter_start_value")
         )
-        return start_value + offers.counter() + requests.counter()
+        return start_value + offers.counter() - requests.counter()

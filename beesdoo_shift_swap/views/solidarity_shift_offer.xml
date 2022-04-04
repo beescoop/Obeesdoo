@@ -43,7 +43,7 @@
           <form>
               <header>
                   <button
-                        name="button_cancel_solidarity_offer"
+                        name="cancel_solidarity_offer"
                         string="Cancel offer"
                         class="oe_highlight"
                         type="object"

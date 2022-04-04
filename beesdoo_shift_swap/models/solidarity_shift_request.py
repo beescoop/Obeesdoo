@@ -42,6 +42,11 @@ class SolidarityShiftRequest(models.Model):
     date = fields.Date(required=True, default=datetime.date(datetime.now()))
 
     def unsubscribe_shift_if_generated(self):
+        """
+        Search a shift matching the data of the request. If found,
+        remove the worker from it.
+        :return: Boolean
+        """
         if self.tmpl_dated_id:
             non_realisable_shift = self.env["beesdoo.shift.shift"].search(
                 [
@@ -57,6 +62,12 @@ class SolidarityShiftRequest(models.Model):
         return False
 
     def subscribe_shift_if_generated(self):
+        """
+        Search an empty shift matching the data of the request. If found,
+        overwrite it with the worker id and the offer id. If not, create a
+        new one with the data.
+        :return: Boolean
+        """
         if self.tmpl_dated_id and self.state == "validated":
             template_id = self.tmpl_dated_id.template_id
             unsubscribed_shift = self.env["beesdoo.shift.shift"].search(
@@ -113,8 +124,13 @@ class SolidarityShiftRequest(models.Model):
         return False
 
     def counter(self):
+        """
+        Count the number of solidarity requests that have been validated.
+        Used in method solidarity_counter() in res.company.
+        :return: Integer
+        """
         counter = 0
         for record in self:
             if record.state == "validated":
-                counter -= 1
+                counter += 1
         return counter
