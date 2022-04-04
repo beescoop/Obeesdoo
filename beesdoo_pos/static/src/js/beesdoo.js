@@ -7,9 +7,10 @@ odoo.define("beesdoo_pos.screens", function (require) {
 
     var set_customer_info = function (parent_class, value) {
         var parent = this.$(parent_class);
-        var info_div = $("<div></div>").text(value);
+        var info_div = document.createElement("div");
+        info_div.textContent = value;
         if (value) {
-            parent.append(info_div[0]);
+            parent.append(info_div);
         }
     };
 
@@ -36,11 +37,11 @@ odoo.define("beesdoo_pos.screens", function (require) {
                 }
             )
                 .then(function (result) {
-                    result.forEach((element) =>
+                    result.forEach((client_name) =>
                         set_customer_info.call(
                             self,
                             ".customer-information-pay",
-                            element
+                            client_name
                         )
                     );
                 })
@@ -77,8 +78,8 @@ odoo.define("beesdoo_pos.screens", function (require) {
                         ".customer-name",
                         self.pos.get_client().name
                     );
-                    result.forEach((element) =>
-                        set_customer_info.call(self, ".customer-delegates", element)
+                    result.forEach((client_name) =>
+                        set_customer_info.call(self, ".customer-delegates", client_name)
                     );
                 })
                 .fail(function (type, error) {

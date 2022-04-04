@@ -7,8 +7,5 @@ class BeescoopPosPartner(models.Model):
     @api.multi
     def get_eater(self):
         self.ensure_one()
-        eaters = []
         # todo check for max eater
-        for eater in self.child_eater_ids:
-            eaters.append(eater.name)
-        return eaters
+        return [eater.name for eater in self.child_eater_ids]
