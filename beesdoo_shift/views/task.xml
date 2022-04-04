@@ -183,7 +183,7 @@
                         <group>
                             <field name="start_time" />
                             <field name="end_time" />
-                            <field name="revert_info" invisible="0" />
+                            <field name="revert_info" invisible="0" readonly="1" />
                         </group>
                     </group>
                 </sheet>
