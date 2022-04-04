@@ -235,14 +235,16 @@ class WebsiteShiftSwapController(WebsiteShiftController):
     def my_request(self):
         # Get current user
         cur_user = request.env["res.users"].browse(request.uid)
-        my_requests = (
+
+        # Get exchange requests
+        exchange_request_list = (
             request.env["beesdoo.shift.exchange_request"]
             .sudo()
             .search([("worker_id", "=", cur_user.partner_id.id)])
         )
-        list = []
-        for rec in my_requests:
-            list.append(
+        exchange_requests = []
+        for rec in exchange_request_list:
+            exchange_requests.append(
                 {
                     "my_requests": rec,
                     "matching_request": request.env["beesdoo.shift.exchange_request"]
@@ -253,10 +255,18 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 }
             )
 
+        # Get solidarity requests
+        solidarity_requests = (
+            request.env["beesdoo.shift.solidarity.request"]
+            .sudo()
+            .search([("worker_id", "=", cur_user.partner_id.id)])
+        )
+
         return request.render(
             "beesdoo_website_shift_swap.my_request",
             {
-                "my_requests": list,
+                "exchange_requests": exchange_requests,
+                "solidarity_requests": solidarity_requests,
             },
         )
 

@@ -91,5 +91,33 @@
           </p>
         </template>
 
+        <!-- Template for page /my/request -->
+        <template id="my_request" name="My Request">
+            <t t-call="portal.portal_layout">
+                <t t-set="no_breadcrumbs" t-value="True" />
+                <div class="container mt16">
+                    <div class="row">
+                        <div class="col text-center">
+                            <h1>
+                                My requests
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <t
+                                t-call="beesdoo_website_shift_swap.my_exchange_request_template"
+                            />
+                        </div>
+                        <div class="col-12">
+                            <t
+                                t-call="beesdoo_website_shift_swap.my_solidarity_request_template"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
     </data>
 </odoo>

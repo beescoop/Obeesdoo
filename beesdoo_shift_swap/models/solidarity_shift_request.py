@@ -15,12 +15,6 @@ class SolidarityShiftRequest(models.Model):
     _name = "beesdoo.shift.solidarity.request"
     _description = "beesdoo.shift.solidarity.request"
 
-    def _get_selection_status(self):
-        return [
-            ("validated", "Validated"),
-            ("cancelled", "Cancelled"),
-        ]
-
     worker_id = fields.Many2one(
         "res.partner",
         domain=[
@@ -31,7 +25,13 @@ class SolidarityShiftRequest(models.Model):
         string="worker",
     )
 
-    state = fields.Selection(selection=_get_selection_status, default="validated")
+    state = fields.Selection(
+        [
+            ("validated", "Validated"),
+            ("cancelled", "Cancelled"),
+        ],
+        default="validated",
+    )
 
     tmpl_dated_id = fields.Many2one(
         "beesdoo.shift.template.dated", string="Solidarity shift"
