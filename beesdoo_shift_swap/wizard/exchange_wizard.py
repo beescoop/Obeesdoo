@@ -15,9 +15,9 @@ class SubscribeShiftSwap(models.TransientModel):
             if not record.worker_id:
                 record.exchanged_tmpl_dated_id = False
             else:
-                tmpl_dated = self.env["beesdoo.shift.template.dated"].my_tmpl_dated(
-                    record.worker_id
-                )
+                tmpl_dated = self.env[
+                    "beesdoo.shift.template.dated"
+                ].get_next_tmpl_dated(record.worker_id)
                 # record.available_tmpl_dated = tmpl_dated
                 temp = self.env["beesdoo.shift.template.dated"]
                 for rec in tmpl_dated:

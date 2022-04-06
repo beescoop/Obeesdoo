@@ -367,7 +367,7 @@ class WebsiteShiftController(http.Controller):
         """
         # Get current user
         cur_user = request.env["res.users"].browse(request.uid)
-        my_shifts = cur_user.sudo().partner_id.my_next_shift()
+        my_shifts = cur_user.sudo().partner_id.get_next_shifts()
         subscribed_shifts = []
         for rec in my_shifts:
             subscribed_shifts.append(rec)

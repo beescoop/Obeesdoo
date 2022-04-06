@@ -195,7 +195,7 @@
           Solidarity requests
         </h2>
         <t t-if="solidarity_requests">
-          <table class="table table-hover table-responsive text-justify">
+          <table class="table table-hover text-justify">
             <thead class="thead-dark">
               <tr>
                 <th class="col-3">Non realisable shift</th>

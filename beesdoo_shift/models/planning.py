@@ -112,6 +112,54 @@ class Planning(models.Model):
         config.set_param("last_planning_seq", planning.sequence)
         config.set_param("next_planning_date", next_date)
 
+    @api.model
+    def get_future_shifts(self, end_date):
+        """
+        Calculates shifts between now and end_date without
+        storing them in the database
+        Uses a list of shifts instead of a recordset because
+        of issues occuring when copying records
+        :param end_date: Datetime
+        :return: beesdoo.shift.shift list
+        """
+        start_date = datetime.now()
+
+        shift_recset = list(
+            self.env["beesdoo.shift.shift"]
+            .sudo()
+            .search(
+                [("start_time", ">", start_date.strftime("%Y-%m-%d %H:%M:%S"))],
+                order="start_time, task_template_id, task_type_id",
+            )
+        )
+
+        last_sequence = int(
+            self.env["ir.config_parameter"].sudo().get_param("last_planning_seq")
+        )
+
+        next_planning = self._get_next_planning(last_sequence)
+
+        next_planning_date = fields.Datetime.from_string(
+            self.env["ir.config_parameter"].sudo().get_param("next_planning_date", 0)
+        )
+
+        next_planning = next_planning.with_context(visualize_date=next_planning_date)
+
+        while next_planning_date < end_date:
+            for shift in next_planning.task_template_ids.get_task_day():
+                if shift.start_time > start_date:
+                    shift_recset.append(shift)
+            next_planning_date = next_planning._get_next_planning_date(
+                next_planning_date
+            )
+            last_sequence = next_planning.sequence
+            next_planning = self._get_next_planning(last_sequence)
+            next_planning = next_planning.with_context(
+                visualize_date=next_planning_date
+            )
+
+        return shift_recset
+
 
 class TaskTemplate(models.Model):
     _name = "beesdoo.shift.template"

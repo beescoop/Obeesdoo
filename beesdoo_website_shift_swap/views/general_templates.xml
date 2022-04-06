@@ -49,20 +49,30 @@
                     t-value="request.env['res.company']._company_default_get().solidarity_counter()"
                 />
             <p>
-              <a
-                        class="btn btn-success btn-sm"
-                        t-att-href="'/my/shift/swaping/%i/%s' % (shift.task_template_id,shift.start_time)"
-                    >Swap Shift</a>
-              <t t-if="solidarity_counter > 0">
+              <t t-if="shift.solidarity_offer_ids">
                 <a
-                            class="btn btn-secondary btn-sm"
-                            t-att-href="'/my/shift/solidarity/request/%i/%s' % (shift.task_template_id,shift.start_time)"
-                        >Request solidarity</a>
+                            class="btn btn-danger btn-sm"
+                            t-att-href="'/my/shift/solidarity/offer/cancel/%i' % shift.solidarity_offer_ids[0]"
+                        >
+                  Cancel solidarity offer
+                </a>
               </t>
               <t t-else="">
-                <a class="btn btn-secondary btn-sm disabled" aria-disabled="true">
-                  Request solidarity
-                </a>
+                <a
+                            class="btn btn-success btn-sm"
+                            t-att-href="'/my/shift/swaping/%i/%s' % (shift.task_template_id,shift.start_time)"
+                        >Swap Shift</a>
+                <t t-if="solidarity_counter > 0">
+                  <a
+                                class="btn btn-secondary btn-sm"
+                                t-att-href="'/my/shift/solidarity/request/%i/%s' % (shift.task_template_id,shift.start_time)"
+                            >Request solidarity</a>
+                </t>
+                <t t-else="">
+                  <a class="btn btn-secondary btn-sm disabled" aria-disabled="true">
+                    Request solidarity
+                  </a>
+                </t>
               </t>
             </p>
           </xpath>

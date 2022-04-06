@@ -42,7 +42,7 @@ class RequestSolidarityShift(models.TransientModel):
         for record in self:
             tmpl_dated_possible = self.env[
                 "beesdoo.shift.template.dated"
-            ].swap_shift_to_tmpl_dated(self.worker_id.my_next_shift_list())
+            ].swap_shift_to_tmpl_dated(self.worker_id.get_next_shifts())
             tmpl_dated_wanted = self.env["beesdoo.shift.template.dated"]
             for template in tmpl_dated_possible:
                 tmpl_dated_wanted |= tmpl_dated_wanted.create(
