@@ -4,9 +4,12 @@
 from datetime import date, datetime, timedelta
 
 from odoo.exceptions import ValidationError
+from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
 
 
+# https://github.com/beescoop/Obeesdoo/pull/297#issuecomment-1050845390
+@tagged("post_install", "-at_install")
 class TestBeesdooShift(TransactionCase):
     def setUp(self):
         super(TestBeesdooShift, self).setUp()

@@ -44,9 +44,6 @@ jobs:
         run: manifestoo -d . check-dev-status --default-dev-status=Beta
       - name: Initialize test db
         run: oca_init_test_database
-      # Fixes problem in https://github.com/beescoop/Obeesdoo/pull/297
-      - name: Install beesdoo_shift
-        run: odoo -d ${PGDATABASE} -i beesdoo_shift --stop-after-init
       - name: Run tests
         run: oca_run_tests
       - uses: codecov/codecov-action@v1
