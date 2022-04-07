@@ -65,7 +65,11 @@ class SolidarityShiftOffer(models.Model):
         remove the worker and the offer from it.
         :return: Boolean
         """
-        if self.tmpl_dated_id and self.state == "validated":
+        if (
+            self.tmpl_dated_id
+            and self.tmpl_dated_id.date > datetime.now()
+            and self.state == "validated"
+        ):
             subscribed_solidarity_shift = self.env["beesdoo.shift.shift"].search(
                 [
                     ("start_time", "=", self.tmpl_dated_id.date),
@@ -105,7 +109,7 @@ class SolidarityShiftOffer(models.Model):
         return False
 
     def cancel_solidarity_offer(self):
-        if self.state == "validated":
+        if self.state == "validated" and not self.check_offer_date_too_close():
             self.unsubscribe_shift_if_generated()
             self.state = "cancelled"
             return True

@@ -68,7 +68,11 @@ class SolidarityShiftRequest(models.Model):
         new one with the data.
         :return: Boolean
         """
-        if self.tmpl_dated_id and self.state == "validated":
+        if (
+            self.tmpl_dated_id
+            and self.tmpl_dated_id.date > datetime.now()
+            and self.state == "validated"
+        ):
             template_id = self.tmpl_dated_id.template_id
             unsubscribed_shift = self.env["beesdoo.shift.shift"].search(
                 [
@@ -117,7 +121,7 @@ class SolidarityShiftRequest(models.Model):
         return False
 
     def cancel_solidarity_request(self):
-        if self.state == "validated":
+        if self.state == "validated" and self.tmpl_dated_id.date > datetime.now():
             self.subscribe_shift_if_generated()
             self.state = "cancelled"
             return True
