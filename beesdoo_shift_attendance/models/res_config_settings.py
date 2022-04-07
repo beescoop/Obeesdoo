@@ -12,7 +12,7 @@ class ResConfigSettings(models.TransientModel):
         config_parameter="beesdoo_shift_attendance.card_support",
     )
     pre_filled_task_type_id = fields.Many2one(
-        "beesdoo.shift.type",
+        comodel_name="beesdoo.shift.type",
         string="Default Task Type",
         help="Default task type for attendance sheet pre-filling",
         required=True,
@@ -26,7 +26,22 @@ class ResConfigSettings(models.TransientModel):
             "beesdoo_shift_attendance.attendance_sheet_generation_interval"
         ),
     )
+    attendance_sheet_default_shift_state = fields.Selection(
+        [
+            ("done", "Present"),
+            ("absent_0", "Absent - 0 Compensation"),
+            ("absent_1", "Absent - 1 Compensation"),
+            ("absent_2", "Absent - 2 Compensations"),
+        ],
+        string="Default Shift State",
+        required=True,
+        config_parameter=(
+            "beesdoo_shift_attendance.attendance_sheet_default_shift_state"
+        ),
+        help="Default state set for shifts on attendance sheets",
+    )
 
+    # todo remove get and set functions, part of odoo base
     @api.multi
     def set_values(self):
         super(ResConfigSettings, self).set_values()

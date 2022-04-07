@@ -93,6 +93,32 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">
+                                        Default Shift Attendance Status
+                                    </span>
+                                    <div class="text-muted">
+                                        For attendance sheets automatic pre-filling.
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16 row">
+                                            <label
+                                                for="attendance_sheet_default_shift_state"
+                                                string="State"
+                                                class="col-3 col-lg-3 o_light_label"
+                                            />
+                                            <field
+                                                name="attendance_sheet_default_shift_state"
+                                                class="oe_inline"
+                                                required="1"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </xpath>
             </field>
