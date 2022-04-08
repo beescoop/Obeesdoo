@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from odoo import _, api, fields, models
 
@@ -176,4 +176,26 @@ class ResPartner(models.Model):
                 now=datetime.now(),
             )
 
-    # TODO access right + vue on res.partner
+    def get_next_shifts(self):
+        """
+        Get the shifts of the user between now and an end_date,
+        with end_date = 4 weeks * regular_next_shift_limit
+        :return: beesdoo.shift.shift list
+        """
+        regular_next_shift_limit = int(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_shift.regular_next_shift_limit")
+        )
+        nb_days = 28 * regular_next_shift_limit
+        start_date = datetime.now()
+        end_date = start_date + timedelta(days=nb_days)
+
+        shifts = self.env["beesdoo.shift.planning"].get_future_shifts(end_date)
+
+        next_shifts = []
+        for rec in shifts:
+            if rec.worker_id.id == self.id:
+                next_shifts.append(rec)
+
+        return next_shifts

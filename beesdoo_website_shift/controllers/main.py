@@ -367,83 +367,10 @@ class WebsiteShiftController(http.Controller):
         """
         # Get current user
         cur_user = request.env["res.users"].browse(request.uid)
-        # Get shifts where user is subscribed
-        now = datetime.now()
-        subscribed_shifts_rec = (
-            request.env["beesdoo.shift.shift"]
-            .sudo()
-            .search(
-                [
-                    ("start_time", ">", now.strftime("%Y-%m-%d %H:%M:%S")),
-                    ("worker_id", "=", cur_user.partner_id.id),
-                ],
-                order="start_time, task_template_id, task_type_id",
-            )
-        )
-        # Create a list of record in order to add new record to it later
+        my_shifts = cur_user.sudo().partner_id.get_next_shifts()
         subscribed_shifts = []
-        for rec in subscribed_shifts_rec:
+        for rec in my_shifts:
             subscribed_shifts.append(rec)
-
-        # In case of regular worker, we compute his fictive next shifts
-        # according to the regular_next_shift_limit
-        if self.is_user_regular():
-            # Compute main shift
-            nb_subscribed_shifts = len(subscribed_shifts)
-            if nb_subscribed_shifts > 0:
-                main_shift = subscribed_shifts[-1]
-            else:
-                task_template = (
-                    request.env["beesdoo.shift.template"]
-                    .sudo()
-                    .search([("worker_ids", "in", cur_user.partner_id.id)], limit=1)
-                )
-                main_shift = (
-                    request.env["beesdoo.shift.shift"]
-                    .sudo()
-                    .search(
-                        [
-                            ("task_template_id", "=", task_template[0].id),
-                            ("start_time", "!=", False),
-                            ("end_time", "!=", False),
-                        ],
-                        order="start_time desc",
-                        limit=1,
-                    )
-                )
-
-            # Get config
-            regular_next_shift_limit = request.website.regular_next_shift_limit
-            shift_period = int(
-                request.env["ir.config_parameter"]
-                .sudo()
-                .get_param("beesdoo_website_shift.shift_period")
-            )
-
-            for i in range(nb_subscribed_shifts, regular_next_shift_limit):
-                # Create the fictive shift
-                shift = main_shift.new()
-                shift.name = main_shift.name
-                shift.task_template_id = shift.task_template_id
-                shift.planning_id = main_shift.planning_id
-                shift.task_type_id = main_shift.task_type_id
-                shift.worker_id = main_shift.worker_id
-                shift.state = "open"
-                shift.super_coop_id = main_shift.super_coop_id
-                shift.color = main_shift.color
-                shift.is_regular = main_shift.is_regular
-                shift.replaced_id = main_shift.replaced_id
-                shift.revert_info = main_shift.revert_info
-                # Set new date
-                shift.start_time = self.add_days(
-                    main_shift.start_time, days=i * shift_period
-                )
-                shift.end_time = self.add_days(
-                    main_shift.end_time, days=i * shift_period
-                )
-                # Add the fictive shift to the list of shift
-                subscribed_shifts.append(shift)
-
         return {
             "is_regular": self.is_user_regular(),
             "subscribed_shifts": subscribed_shifts,
