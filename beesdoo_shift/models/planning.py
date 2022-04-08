@@ -260,6 +260,7 @@ class TaskTemplate(models.Model):
                     }
                 )
 
+        tasks.sort(key=lambda item: item.get("start_time"))
         return tasks
 
     @api.multi
