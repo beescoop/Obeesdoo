@@ -199,7 +199,13 @@
                             and you won't be able to add any latecomers.
                             The counters of those who didn't attend will be updated
                             and they will get warning emails."
-                        attrs="{'invisible': [('state', '=', 'validated')]}"
+                        attrs="{'invisible': ['|',('state', '=', 'validated'),('has_missing_worker', '=', False)]}"
+                    />
+                    <button
+                        type="object"
+                        name="validate_with_checks"
+                        string="Validate Sheet"
+                        attrs="{'invisible': ['|',('state', '=', 'validated'),('has_missing_worker', '=', True)]}"
                     />
                 </header>
                 <sheet>
@@ -243,6 +249,7 @@
                         <field name="worker_nb_feedback" />
                         <field name="validated_by" readonly="True" />
                     </group>
+                    <field name="has_missing_worker" invisible="1" />
                 </sheet>
                 <div class="oe_chatter">
                     <field
