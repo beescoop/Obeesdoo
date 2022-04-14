@@ -224,7 +224,9 @@
                     <t
                                         t-esc="dict(request.fields_get(allfields=['state'])['state']['selection'])[request.state]"
                                     />
-                    <t t-if="request.state == 'validated'">
+                    <t
+                                        t-if="request.state == 'validated' and request.tmpl_dated_id.date > now"
+                                    >
                       <br />
                       <a
                                             class="btn btn-danger btn-sm"

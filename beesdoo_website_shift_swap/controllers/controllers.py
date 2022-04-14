@@ -267,6 +267,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             {
                 "exchange_requests": exchange_requests,
                 "solidarity_requests": solidarity_requests,
+                "now": datetime.now(),
             },
         )
 
