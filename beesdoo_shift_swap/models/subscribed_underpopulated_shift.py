@@ -156,7 +156,7 @@ class SubscribeUnderpopulatedShift(models.Model):
             return True
         return True
 
-    def get_underpopulated_shift(self):
+    def get_underpopulated_shift(self, sort_date_desc=False):
         available_tmpl_dated = self.env["beesdoo.shift.template.dated"]
         tmpl_dated = self.env["beesdoo.shift.template.dated"].display_tmpl_dated()
         exchange = self.env["beesdoo.shift.subscribed_underpopulated_shift"].search([])
@@ -188,5 +188,8 @@ class SubscribeUnderpopulatedShift(models.Model):
             )
             if percentage_presence <= min_percentage_presence:
                 available_tmpl_dated |= template
+
+        if sort_date_desc:
+            available_tmpl_dated = available_tmpl_dated.sorted(key=lambda r: r.date)
 
         return available_tmpl_dated
