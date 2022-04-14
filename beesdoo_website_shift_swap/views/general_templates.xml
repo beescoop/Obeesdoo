@@ -81,7 +81,7 @@
         <!-- Summary of the shift being exchanged -->
         <template id="website_shift_swap_summary" name="Swap Summary">
           <h2>
-            Swap Summary :
+            Swap Summary
           </h2>
           <br />
           <p>

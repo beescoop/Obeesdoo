@@ -143,62 +143,66 @@
             id="website_shift_swap_next_possible_tmpl_dated"
             name="Shift Swap possible next tmpl_dated Page"
         >
-          <title>Possible timeslot</title>
-          <form method="post">
-            <t t-set="index" t-value="0" />
-            <table class="table table-hover">
-              <thead class="thead-dark">
-                <tr>
-                  <th>Date</th>
-                  <th>Time slot</th>
-                  <th>Task</th>
-                  <th>Select</th>
-                </tr>
-              </thead>
-              <tbody>
-                <t t-foreach="possible_tmpl_dated" t-as="tmpl_dated">
+          <h2>Select shifts</h2>
+          <p>
+            <form method="post">
+              <t t-set="index" t-value="0" />
+              <table class="table table-hover interactive">
+                <thead class="thead-dark">
                   <tr>
-                    <td>
-                      <t t-esc="tmpl_dated.date.strftime('%A %d %b, %Y')" />
-                    </td>
-                    <td>
-                      <t
-                                        t-esc="str(datetime.timedelta(hours=tmpl_dated.template_id.start_time)).rsplit(':', 1)[0]"
-                                    />
-                      -
-                      <t
-                                        t-esc="str(datetime.timedelta(hours=tmpl_dated.template_id.end_time)).rsplit(':', 1)[0]"
-                                    />
-                    </td>
-                    <td>
-                      <t t-esc="tmpl_dated.template_id.task_type_id.name" />
-                    </td>
-                    <td>
-                      <input
-                                        type="checkbox"
-                                        name="tmpl_dated_index"
-                                        multiple="multiple"
-                                        t-attf-value="{{ index }}"
-                                    />
-                    </td>
-                    <t t-set="index" t-value="index + 1" />
+                    <th>Date</th>
+                    <th>Time slot</th>
+                    <th>Task</th>
+                    <th class="non_orderable">Select</th>
                   </tr>
-                </t>
-                <input
-                            type="hidden"
-                            name="csrf_token"
-                            t-att-value="request.csrf_token()"
-                        />
-              </tbody>
-            </table>
-            <div class="text-center">
-              <input
-                        class="btn btn-primary"
-                        type="submit"
-                        value="Validate the exchange request with selected shifts"
-                    />
-            </div>
-          </form>
+                </thead>
+                <tbody>
+                  <t t-foreach="possible_tmpl_dated" t-as="tmpl_dated">
+                    <tr>
+                      <td>
+                        <t t-esc="tmpl_dated.date.strftime('%A %d %b, %Y')" />
+                      </td>
+                      <td>
+                        <t
+                                            t-esc="str(datetime.timedelta(hours=tmpl_dated.template_id.start_time)).rsplit(':', 1)[0]"
+                                        />
+                        -
+                        <t
+                                            t-esc="str(datetime.timedelta(hours=tmpl_dated.template_id.end_time)).rsplit(':', 1)[0]"
+                                        />
+                      </td>
+                      <td>
+                        <t t-esc="tmpl_dated.template_id.task_type_id.name" />
+                      </td>
+                      <td>
+                        <input
+                                            type="checkbox"
+                                            name="tmpl_dated_index"
+                                            multiple="multiple"
+                                            t-attf-value="{{ index }}"
+                                        />
+                      </td>
+                      <t t-set="index" t-value="index + 1" />
+                    </tr>
+                  </t>
+                  <input
+                                type="hidden"
+                                name="csrf_token"
+                                t-att-value="request.csrf_token()"
+                            />
+                </tbody>
+              </table>
+              <p>
+                <div class="text-center">
+                  <input
+                                class="btn btn-primary"
+                                type="submit"
+                                value="Validate the exchange request with selected shifts"
+                            />
+                </div>
+              </p>
+            </form>
+          </p>
         </template>
 
         <!-- Template for page /my/shift/possible/shift -->
@@ -214,12 +218,12 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 col-lg-6 m-auto text-justify">
+                <div class="col-12 col-lg-8 m-auto text-justify">
                   <t t-call="beesdoo_website_shift_swap.website_shift_swap_summary" />
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 col-lg-6 m-auto">
+                <div class="col-12 col-lg-8 m-auto">
                   <t
                                 t-call="beesdoo_website_shift_swap.website_shift_swap_next_possible_tmpl_dated"
                             />

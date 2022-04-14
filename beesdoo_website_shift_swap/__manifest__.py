@@ -11,6 +11,7 @@
     "depends": ["portal", "website", "beesdoo_shift", "beesdoo_shift_swap"],
     "data": [
         # 'security/ir.model.access.csv',
+        "views/assets.xml",
         "views/exchange_templates.xml",
         "views/general_templates.xml",
         "views/solidarity_templates.xml",
