@@ -7,7 +7,7 @@
     "version": "12.0.1.1.1",
     "license": "AGPL-3",
     "category": "Sales",
-    "author": "Coop IT Easy SCRLfs <https://coopiteasy.be>",
+    "author": "Coop IT Easy SCRLfs",
     "website": "https://github.com/beescoop/Obeesdoo",
     "depends": [
         "beesdoo_product",
