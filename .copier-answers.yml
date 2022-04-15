@@ -1,14 +1,17 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: v2.0.0
+_commit: v2.0.10
 _src_path: gh:coopiteasy/oca-addons-repo-template
 ci: GitHub
 dependency_installation_mode: OCA
 generate_requirements_txt: true
 include_wkhtmltopdf: false
 odoo_version: 12.0
+org_name: Coop IT Easy SCRLfs
+org_slug: beescoop
 rebel_module_groups: []
 repo_description: Specific module for the Beescoop
 repo_name: Obeesdoo
 repo_slug: obeesdoo
+repo_website: https://coopiteasy.be
 travis_apt_packages: []
 travis_apt_sources: []
