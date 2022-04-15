@@ -10,8 +10,9 @@ class ResPartner(models.Model):
     """
 
     _inherit = "res.partner"
-
     worker_store = fields.Boolean(default=False)
+    # is_worker will be overriden in depending module
+    # implementing the specific processes
     is_worker = fields.Boolean(related="worker_store", string="Worker", readonly=False)
     can_shop = fields.Boolean(
         string="Is worker allowed to shop?",
