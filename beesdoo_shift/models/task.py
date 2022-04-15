@@ -9,9 +9,7 @@ from odoo.tools.translate import _
 
 class Task(models.Model):
     _name = "beesdoo.shift.shift"
-
     _inherit = ["mail.thread"]
-
     _order = "start_time asc"
 
     ##################################

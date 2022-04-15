@@ -20,7 +20,7 @@ class TestBeesdooShift(TransactionCase):
         self.pre_filled_task_type_id = (
             self.env["ir.config_parameter"]
             .sudo()
-            .get_param("beesdoo_shift.pre_filled_task_type_id")
+            .get_param("beesdoo_shift_attendance.pre_filled_task_type_id")
         )
 
         self.current_time = datetime.now()
@@ -152,6 +152,7 @@ class TestBeesdooShift(TransactionCase):
             {
                 "pre_filled_task_type_id": self.task_type_1.id,
                 "attendance_sheet_generation_interval": 15,
+                "attendance_sheet_default_shift_state": "done",
             }
         )
         setting_wizard_1.execute()
@@ -181,14 +182,12 @@ class TestBeesdooShift(TransactionCase):
 
         # Test consistency with actual shift for sheet 1
         for shift in sheet_1.expected_shift_ids:
-            self.assertEquals(shift.worker_id, shift.task_id.worker_id)
-            self.assertEquals(shift.replaced_id, shift.task_id.replaced_id)
+            self.assertEqual(shift.worker_id, shift.task_id.worker_id)
+            self.assertEqual(shift.replaced_id, shift.task_id.replaced_id)
             self.assertEqual(shift.task_type_id, shift.task_id.task_type_id)
             self.assertEqual(shift.super_coop_id, shift.task_id.super_coop_id)
             self.assertEqual(shift.working_mode, shift.task_id.working_mode)
-
-            # Status should be "absent" for all shifts
-            self.assertEquals(shift.state, "absent_2")
+            self.assertEqual(shift.state, "done")  # cf settings
 
         # Empty shift should be considered in max worker number calculation
         self.assertEqual(sheet_1.max_worker_no, 4)

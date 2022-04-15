@@ -13,11 +13,10 @@
         Modification of product module for the needs of beescoop
         """,
     "author": "Beescoop - Cellule IT, Coop IT Easy SCRLfs",
-    "website": "https://coopiteasy.be",
+    "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Sales",
     "version": "12.0.1.2.0",
     "depends": [
-        "beesdoo_base",
         "product",
         "sale",
         "point_of_sale",

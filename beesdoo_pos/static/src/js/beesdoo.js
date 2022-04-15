@@ -5,14 +5,12 @@ odoo.define("beesdoo_pos.screens", function (require) {
 
     models.load_fields("res.partner", "is_company");
 
-    var set_customer_info = function (el_class, value, prefix) {
-        var el = this.$(el_class);
-        el.empty();
-        if (prefix && value) {
-            value = prefix + value;
-        }
+    var set_customer_info = function (parent_class, value) {
+        var parent = this.$(parent_class);
+        var info_div = document.createElement("div");
+        info_div.textContent = value;
         if (value) {
-            el.append(value);
+            parent.append(info_div);
         }
     };
 
@@ -39,23 +37,12 @@ odoo.define("beesdoo_pos.screens", function (require) {
                 }
             )
                 .then(function (result) {
-                    set_customer_info.call(
-                        self,
-                        ".customer-delegate1",
-                        result[0],
-                        "Eater 1: "
-                    );
-                    set_customer_info.call(
-                        self,
-                        ".customer-delegate2",
-                        result[1],
-                        "Eater 2: "
-                    );
-                    set_customer_info.call(
-                        self,
-                        ".customer-delegate3",
-                        result[2],
-                        "Eater 3: "
+                    result.forEach((client_name) =>
+                        set_customer_info.call(
+                            self,
+                            ".customer-information-pay",
+                            client_name
+                        )
                     );
                 })
                 .fail(function (type, error) {
@@ -91,23 +78,8 @@ odoo.define("beesdoo_pos.screens", function (require) {
                         ".customer-name",
                         self.pos.get_client().name
                     );
-                    set_customer_info.call(
-                        self,
-                        ".customer-delegate1",
-                        result[0],
-                        "Eater 1: "
-                    );
-                    set_customer_info.call(
-                        self,
-                        ".customer-delegate2",
-                        result[1],
-                        "Eater 2: "
-                    );
-                    set_customer_info.call(
-                        self,
-                        ".customer-delegate3",
-                        result[2],
-                        "Eater 3: "
+                    result.forEach((client_name) =>
+                        set_customer_info.call(self, ".customer-delegates", client_name)
                     );
                 })
                 .fail(function (type, error) {

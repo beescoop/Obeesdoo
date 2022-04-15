@@ -2,7 +2,7 @@
     "name": "Beescoop link with easy my coop",
     "summary": """Link between beesdoo customization and easy_my_coop""",
     "author": "BEES coop, Coop IT Easy SCRLfs",
-    "website": "https://coopiteasy.be",
+    "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
     "version": "12.0.1.0.2",
     "depends": [

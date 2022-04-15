@@ -20,25 +20,25 @@ from .shift_grid_utils import DisplayedShift, build_shift_grid
 
 class WebsiteShiftController(http.Controller):
     def is_user_worker(self):
-        user = request.env["res.users"].browse(request.uid)
+        user = request.env["res.users"].browse(request.uid).sudo()
         return user.partner_id.is_worker
 
     def is_user_irregular(self):
-        user = request.env["res.users"].browse(request.uid)
+        user = request.env["res.users"].browse(request.uid).sudo()
         working_mode = user.partner_id.working_mode
         return working_mode == "irregular"
 
     def is_user_regular(self):
-        user = request.env["res.users"].browse(request.uid)
+        user = request.env["res.users"].browse(request.uid).sudo()
         working_mode = user.partner_id.working_mode
         return working_mode == "regular"
 
     def is_user_regular_without_shift(self):
-        user = request.env["res.users"].browse(request.uid)
+        user = request.env["res.users"].browse(request.uid).sudo()
         return not user.partner_id.subscribed_shift_ids.ids and self.is_user_regular()
 
     def is_user_exempted(self):
-        user = request.env["res.users"].browse(request.uid)
+        user = request.env["res.users"].browse(request.uid).sudo()
         working_mode = user.partner_id.working_mode
         return working_mode == "exempt"
 
@@ -50,7 +50,7 @@ class WebsiteShiftController(http.Controller):
             * the user is not resigning
         """
         if not user:
-            user = request.env["res.users"].browse(request.uid)
+            user = request.env["res.users"].browse(request.uid).sudo()
         return (
             user.partner_id.working_mode == "irregular"
             and user.partner_id.state != "unsubscribed"
@@ -389,28 +389,24 @@ class WebsiteShiftController(http.Controller):
         # according to the regular_next_shift_limit
         if self.is_user_regular():
             # Compute main shift
-            nb_subscribed_shifts = len(subscribed_shifts)
-            if nb_subscribed_shifts > 0:
-                main_shift = subscribed_shifts[-1]
-            else:
-                task_template = (
-                    request.env["beesdoo.shift.template"]
-                    .sudo()
-                    .search([("worker_ids", "in", cur_user.partner_id.id)], limit=1)
+            task_template = (
+                request.env["beesdoo.shift.template"]
+                .sudo()
+                .search([("worker_ids", "in", cur_user.partner_id.id)], limit=1)
+            )
+            main_shift = (
+                request.env["beesdoo.shift.shift"]
+                .sudo()
+                .search(
+                    [
+                        ("task_template_id", "=", task_template[0].id),
+                        ("start_time", "!=", False),
+                        ("end_time", "!=", False),
+                    ],
+                    order="start_time desc",
+                    limit=1,
                 )
-                main_shift = (
-                    request.env["beesdoo.shift.shift"]
-                    .sudo()
-                    .search(
-                        [
-                            ("task_template_id", "=", task_template[0].id),
-                            ("start_time", "!=", False),
-                            ("end_time", "!=", False),
-                        ],
-                        order="start_time desc",
-                        limit=1,
-                    )
-                )
+            )
 
             # Get config
             regular_next_shift_limit = request.website.regular_next_shift_limit
@@ -420,7 +416,7 @@ class WebsiteShiftController(http.Controller):
                 .get_param("beesdoo_website_shift.shift_period")
             )
 
-            for i in range(nb_subscribed_shifts, regular_next_shift_limit):
+            for i in range(1, regular_next_shift_limit - len(subscribed_shifts) + 1):
                 # Create the fictive shift
                 shift = main_shift.new()
                 shift.name = main_shift.name

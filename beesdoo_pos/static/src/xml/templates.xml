@@ -3,13 +3,7 @@
     <t t-extend="ActionpadWidget">
         <t t-jquery="t[t-if='widget.pos.get_client()']" t-operation="after">
             <t t-if="widget.pos.get_client()">
-                <div class='customer-information-pay'>
-                    <span class='customer-delegate1' />
-                    <br />
-                    <span class='customer-delegate2' />
-                    <br />
-                    <span class='customer-delegate3' />
-                </div>
+                <div class='customer-information-pay' />
             </t>
         </t>
     </t>
@@ -17,16 +11,8 @@
     <t t-extend="PaymentScreenWidget">
         <t t-jquery=".paymentmethods-container" t-operation="inner">
             <t t-if="widget.pos.get_client()">
-                <div class="customer-information">
-                    <span class='customer-name' />
-                    <br />
-                    <span class='customer-delegate1' />
-                    <br />
-                    <span class='customer-delegate2' />
-                    <br />
-                    <span class='customer-delegate3' />
-                    <br />
-                </div>
+                <div class="customer-name" />
+                <div class="customer-delegates" />
             </t>
         </t>
     </t>

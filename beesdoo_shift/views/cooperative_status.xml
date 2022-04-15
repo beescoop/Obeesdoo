@@ -104,7 +104,7 @@
                     <separator string="Subscribed Shift" />
                     <field name="subscribed_shift_ids" />
                     <separator string="Shifts" />
-                    <field name="shift_task_ids" />
+                    <field name="shift_shift_ids" />
                 </page>
             </xpath>
         </field>
@@ -151,6 +151,8 @@
                         <field name="can_shop" />
                     </group>
                     <group string="Timing information">
+                        <field name="next_shift_id" />
+                        <field name="next_shift_date" />
                         <field
                             name="next_countdown_date"
                             readonly="1"
@@ -158,6 +160,11 @@
                         />
                         <field
                             name="future_alert_date"
+                            readonly="1"
+                            attrs="{'invisible':[('working_mode', '!=', 'irregular')]}"
+                        />
+                        <field
+                            name="is_subscribed_to_shift"
                             readonly="1"
                             attrs="{'invisible':[('working_mode', '!=', 'irregular')]}"
                         />

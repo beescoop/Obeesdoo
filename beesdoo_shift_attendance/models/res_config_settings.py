@@ -1,7 +1,7 @@
 # Copyright 2019-2020 Elouan Le Bars <elouan@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class ResConfigSettings(models.TransientModel):
@@ -12,10 +12,11 @@ class ResConfigSettings(models.TransientModel):
         config_parameter="beesdoo_shift_attendance.card_support",
     )
     pre_filled_task_type_id = fields.Many2one(
-        "beesdoo.shift.type",
+        comodel_name="beesdoo.shift.type",
         string="Default Task Type",
         help="Default task type for attendance sheet pre-filling",
         required=True,
+        config_parameter="beesdoo_shift_attendance.pre_filled_task_type_id",
         default=False,
     )
     attendance_sheet_generation_interval = fields.Integer(
@@ -26,24 +27,17 @@ class ResConfigSettings(models.TransientModel):
             "beesdoo_shift_attendance.attendance_sheet_generation_interval"
         ),
     )
-
-    @api.multi
-    def set_values(self):
-        super(ResConfigSettings, self).set_values()
-        parameters = self.env["ir.config_parameter"].sudo()
-        parameters.set_param(
-            "beesdoo_shift_attendance.pre_filled_task_type_id",
-            str(self.pre_filled_task_type_id.id),
-        )
-
-    @api.multi
-    def get_values(self):
-        res = super(ResConfigSettings, self).get_values()
-        res.update(
-            pre_filled_task_type_id=int(
-                self.env["ir.config_parameter"].get_param(
-                    "beesdoo_shift_attendance.pre_filled_task_type_id"
-                )
-            )
-        )
-        return res
+    attendance_sheet_default_shift_state = fields.Selection(
+        [
+            ("done", "Present"),
+            ("absent_0", "Absent - 0 Compensation"),
+            ("absent_1", "Absent - 1 Compensation"),
+            ("absent_2", "Absent - 2 Compensations"),
+        ],
+        string="Default Shift State",
+        required=True,
+        config_parameter=(
+            "beesdoo_shift_attendance.attendance_sheet_default_shift_state"
+        ),
+        help="Default state set for shifts on attendance sheets",
+    )

@@ -33,6 +33,14 @@ class AttendanceSheetShift(models.Model):
         task_types = self.env["beesdoo.shift.type"]
         return task_types.browse(tasktype_id)
 
+    @api.model
+    def _default_attendance_sheet_shift_sheet(self):
+        parameters = self.env["ir.config_parameter"].sudo()
+        return parameters.get_param(
+            "beesdoo_shift_attendance.attendance_sheet_default_shift_state",
+            default="absent_2",
+        )
+
     # Related actual shift
     task_id = fields.Many2one("beesdoo.shift.shift", string="Task")
     attendance_sheet_id = fields.Many2one(
@@ -50,6 +58,7 @@ class AttendanceSheetShift(models.Model):
         ],
         string="Shift State",
         required=True,
+        default=lambda self: self._default_attendance_sheet_shift_sheet(),
     )
     worker_id = fields.Many2one(
         "res.partner",
@@ -111,8 +120,6 @@ class AttendanceSheetShiftAdded(models.Model):
     _name = "beesdoo.shift.sheet.added"
     _description = "Added Shift"
     _inherit = ["beesdoo.shift.sheet.shift"]
-
-    state = fields.Selection(default="done")
 
     @api.onchange("working_mode")
     def on_change_working_mode(self):
@@ -222,6 +229,12 @@ class AttendanceSheet(models.Model):
         )
     ]
 
+    # True if there are one or more missing workers
+    has_missing_worker = fields.Boolean(
+        string="Has missing worker ?",
+        compute="_compute_has_missing_worker",
+    )
+
     @api.depends("start_time", "end_time")
     def _compute_time_slot(self):
         for rec in self:
@@ -276,6 +289,17 @@ class AttendanceSheet(models.Model):
         for rec in self:
             if rec.notes:
                 rec.is_annotated = bool(rec.notes.strip())
+
+    @api.depends("expected_shift_ids.state", "added_shift_ids.state")
+    def _compute_has_missing_worker(self):
+        for rec in self:
+            rec.has_missing_worker = False
+            if any(s.state != "done" for s in rec.expected_shift_ids):
+                rec.has_missing_worker = True
+                continue
+            if any(s.state != "done" for s in rec.added_shift_ids):
+                rec.has_missing_worker = True
+                continue
 
     @api.constrains("expected_shift_ids", "added_shift_ids")
     def _constrain_unique_worker(self):
@@ -396,7 +420,7 @@ class AttendanceSheet(models.Model):
         tasks = self.env["beesdoo.shift.shift"]
         expected_shift = self.env["beesdoo.shift.sheet.expected"]
         # Fix issues with equality check on datetime
-        # by searching on a small intervall instead
+        # by searching on a small interval instead
         delta = timedelta(minutes=1)
 
         tasks = tasks.search(
@@ -424,7 +448,6 @@ class AttendanceSheet(models.Model):
                         "worker_id": task.worker_id.id,
                         "replaced_id": task.replaced_id.id,
                         "task_type_id": task.task_type_id.id,
-                        "state": "absent_2",
                         "working_mode": task.working_mode,
                         "is_compensation": task.is_compensation,
                     }

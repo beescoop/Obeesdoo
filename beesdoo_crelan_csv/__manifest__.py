@@ -8,7 +8,7 @@
         Import Crelan CSV Wizard
     """,
     "author": "Beescoop - Cellule IT, Coop IT Easy SCRLfs",
-    "website": "https://coopiteasy.be",
+    "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Accounting & Finance",
     "version": "12.0.1.0.0",
     "depends": ["account_bank_statement_import"],
