@@ -23,6 +23,34 @@
         </xpath>
       </template>
 
+      <!-- Help text for selection among underpopulated shifts -->
+      <template
+            id="help_text_underpopulated_solidarity_offer"
+            name="Help text underpopulated solidarity offer"
+        >
+        <div class="alert alert-info">
+          <strong>Info!</strong>
+          On this page you can choose to subscribe to a shift that is
+          underpopulated, as a solidarity shift. If you select one of them, you
+          will have to attend it or to cancel it soon enough, via the "My shifts"
+          page. If you cannot attend any of those on this list, please click on
+          the button at the bottom of the page to see all available shifts.
+        </div>
+      </template>
+
+      <!-- Help text for selection among all shifts -->
+      <template
+            id="help_text_all_shifts_solidarity_offer"
+            name="Help text all shifts solidarity offer"
+        >
+        <div class="alert alert-info">
+          <strong>Info!</strong>
+          On this page you can choose to subscribe to a shift as a solidarity
+          shift. If you select one of them, you will have to attend it or to
+          cancel it soon enough, via the "My shifts" page.
+        </div>
+      </template>
+
       <!-- Display error message if can't offer solidarity shift -->
       <template
             id="website_shift_swap_offer_solidarity_impossible"
@@ -143,9 +171,16 @@
               </div>
               <div class="col-12 col-lg-4 text-justify">
                 <t t-call="beesdoo_website_shift.help_text_title" />
-                <t
-                                t-call="beesdoo_website_shift_swap.help_text_swap_underpopulated_common"
-                            />
+                <t t-if="not all_shifts">
+                  <t
+                                    t-call="beesdoo_website_shift_swap.help_text_underpopulated_solidarity_offer"
+                                />
+                </t>
+                <t t-else="">
+                  <t
+                                    t-call="beesdoo_website_shift_swap.help_text_all_shifts_solidarity_offer"
+                                />
+                </t>
               </div>
             </div>
           </div>
@@ -199,6 +234,7 @@
             <textarea class="form-control" name="reason" rows="5" />
           </div>
           <button type="submit" class="btn btn-success">Validate request</button>
+          <a href="/my/shift" class="btn btn-danger">Cancel</a>
           <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
         </form>
       </template>
