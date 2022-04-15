@@ -36,102 +36,21 @@
             <h2 t-else="">
                 Swap your shift with another one
             </h2>
-            <t t-foreach="underpopulated_shift" t-as="tmpl_dated">
-                <div t-att-class="'card mb-4 %s' % highlight_class">
-                    <div
-                        t-att-class="'card-header %s clearfix' % highlight_header_class"
-                    >
-                        <div class="pull-left">
-                            <p>
-                                <t t-esc="tmpl_dated.date.strftime('%A %d %b, %Y')" />
-                                <t t-esc="'|'" />
+            <div>
+                <t t-foreach="shift_weeks" t-as="shift_week_tuple">
+                    <div class="card mb-2">
+                        <t t-set="week" t-value="shift_week_tuple[0]" />
+                        <div class="card-body p-0">
+                            <t t-call="beesdoo_website_shift_swap.available_shift_row">
                                 <t
-                                    t-esc="str(datetime.timedelta(hours=tmpl_dated.template_id.start_time)).rsplit(':', 1)[0]"
+                                    t-set="shift_by_week"
+                                    t-value="shift_week_tuple[1]"
                                 />
-                                -
-                                <t
-                                    t-esc="str(datetime.timedelta(hours=tmpl_dated.template_id.end_time)).rsplit(':', 1)[0]"
-                                />
-                                <br />
-                                <t t-esc="tmpl_dated.template_id.task_type_id.name" />
-                            </p>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="card-body clearfix">
-                            <t
-                                t-if="tmpl_dated.template_id.task_type_id != exchanged_tmpl_dated.template_id.task_type_id"
-                            >
-                                <button
-                                    type="button"
-                                    class="btn btn-success btn-sm"
-                                    data-toggle="modal"
-                                    t-att-data-target="'#warning-task-type-popup-%s' % tmpl_dated_index"
-                                >
-                                    Subscribe to this Shift
-                                </button>
-                            </t>
-                            <t t-else="">
-                                <a
-                                    class="btn btn-success btn-sm"
-                                    t-att-href="'/my/shift/underpopulated/swap/subscribe/%i/%s' % (tmpl_dated.template_id,tmpl_dated.date)"
-                                >Subscribe to this Shift</a>
                             </t>
                         </div>
                     </div>
-                </div>
-                <!-- Modal popup to warn user if task type is different in the new shift -->
-                <div
-                    class="modal fade"
-                    t-att-id="'warning-task-type-popup-%s' % tmpl_dated_index"
-                    data-backdrop="static"
-                    data-keyboard="false"
-                    tabindex="-1"
-                    aria-labelledby="warning-task-type-popup-label"
-                    aria-hidden="true"
-                >
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5
-                                    class="modal-title"
-                                    id="warning-task-type-popup-label"
-                                >Warning !</h5>
-                            </div>
-                            <div class="modal-body">
-                                The shifts that tou want to exchange don't have the same task type.
-                                <br />
-                                Old shift :
-                                <b>
-                                    <t
-                                        t-esc="exchanged_tmpl_dated.template_id.task_type_id.name"
-                                    />
-                                </b>
-                                <br />
-                                New shift :
-                                <b>
-                                    <t
-                                        t-esc="tmpl_dated.template_id.task_type_id.name"
-                                    />
-                                </b>
-                                <br />
-                                Do you want to continue ?
-                            </div>
-                            <div class="modal-footer">
-                                <button
-                                    type="button"
-                                    class="btn btn-danger"
-                                    data-dismiss="modal"
-                                >Cancel</button>
-                                <a
-                                    class="btn btn-success"
-                                    t-att-href="'/my/shift/underpopulated/swap/subscribe/%i/%s' % (tmpl_dated.template_id,tmpl_dated.date)"
-                                >Exchange anyway</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </t>
+                </t>
+            </div>
             <p t-if="not all_shifts">
                 <a
                     class="btn btn-secondary btn-dark btn-block"
@@ -140,6 +59,138 @@
                     No shifts suits me
                 </a>
             </p>
+        </template>
+
+        <template id="available_shift_row" name="Available Shifts by Week Row">
+            <t t-set="headers" t-value="shift_by_week['headers']" />
+            <t t-set="rows" t-value="shift_by_week['rows']" />
+            <div class="table-responsive">
+                <table class="table text-center">
+                    <thead>
+                        <th style="width: 9%" />
+                        <t t-foreach="headers" t-as="header">
+                            <th style="width: 13%" t-esc="header.strftime('%d/%m')" />
+                        </t>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="rows" t-as="shift_row">
+                            <t t-set="start_time" t-value="shift_row[0][0]" />
+                            <t t-set="end_time" t-value="shift_row[0][1]" />
+                            <tr>
+                                <td class="text-center align-middle">
+                                    <div>
+                                        <div t-esc="start_time" />
+                                        <div>-</div>
+                                        <div t-esc="end_time" />
+                                    </div>
+                                </td>
+                                <t t-foreach="shift_row[1]" t-as="shift_by_day">
+                                    <td class="align-middle">
+                                        <t t-if="shift_by_day">
+                                            <t t-foreach="shift_by_day" t-as="shift">
+                                                <t t-if="exchanged_tmpl_dated">
+                                                    <t
+                                                        t-call="beesdoo_website_shift_swap.available_shift_card_swap_underpopulated"
+                                                    >
+                                                        <t
+                                                            t-set="displayed_shift"
+                                                            t-value="shift"
+                                                        />
+                                                    </t>
+                                                </t>
+                                                <t t-else="">
+                                                    <t
+                                                        t-call="beesdoo_website_shift_swap.available_shift_card_offer_solidarity"
+                                                    >
+                                                        <t
+                                                            t-set="displayed_shift"
+                                                            t-value="shift"
+                                                        />
+                                                    </t>
+                                                </t>
+                                            </t>
+                                        </t>
+                                    </td>
+                                </t>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </template>
+
+        <template
+            id="available_shift_card_swap_underpopulated"
+            name="Available underpopulated shift card"
+        >
+            <div class="card bg-light">
+                <div
+                    class="center m-1 font-weight-bold"
+                    t-esc="shift.template_id.task_type_id.name"
+                />
+                <t
+                    t-if="shift.template_id.task_type_id != exchanged_tmpl_dated.template_id.task_type_id"
+                >
+                    <button
+                        type="button"
+                        class="btn btn-success btn-sm"
+                        data-toggle="modal"
+                        t-att-data-target="'#warning-task-type-popup-%s' % shift_index"
+                    >
+                      Subscribe
+                    </button>
+                </t>
+                <t t-else="">
+                    <a
+                        class="btn btn-success btn-sm"
+                        t-att-href="'/my/shift/underpopulated/swap/subscribe/%i/%s' % (shift.template_id,shift.date)"
+                    >Subscribe</a>
+                </t>
+            </div>
+
+            <!-- Modal popup to warn user if task type is different in the new shift -->
+            <div
+                class="modal fade"
+                t-att-id="'warning-task-type-popup-%s' % shift_index"
+                data-backdrop="static"
+                data-keyboard="false"
+                tabindex="-1"
+                aria-labelledby="warning-task-type-popup-label"
+                aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5
+                                class="modal-title"
+                                id="warning-task-type-popup-label"
+                            >Warning !</h5>
+                  </div>
+                  <div class="modal-body">
+                    The shifts that you want to exchange don't have the same task type.<br
+                            />
+                    Old shift : <b><t
+                                    t-esc="exchanged_tmpl_dated.template_id.task_type_id.name"
+                                /></b><br />
+                    New shift : <b><t
+                                    t-esc="shift.template_id.task_type_id.name"
+                                /></b><br />
+                    Do you want to continue ?
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                                type="button"
+                                class="btn btn-danger"
+                                data-dismiss="modal"
+                            >Cancel</button>
+                    <a
+                                class="btn btn-success"
+                                t-att-href="'/my/shift/underpopulated/swap/subscribe/%i/%s' % (shift.template_id,shift.date)"
+                            >Exchange anyway</a>
+                  </div>
+                </div>
+              </div>
+            </div>
         </template>
 
         <!-- Template for page /my/shift/underpopulated/swap -->
