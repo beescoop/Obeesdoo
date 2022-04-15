@@ -67,13 +67,20 @@
 
       <!-- Template display underpopulated shift for solidarity-->
       <template
-            id="website_shift_swap_underpopulated_tmpl_dated_solidarity"
-            name="Next underpopulated shifts for solidarity"
+            id="website_shift_swap_tmpl_dated_solidarity"
+            name="Next shifts for solidarity"
         >
-        <h2>
-        Select an underpopulated shift
-        </h2>
-        <t t-foreach="underpopulated_shift" t-as="tmpl_dated">
+        <t t-if="all_shifts">
+          <h2>
+            Select a shift
+          </h2>
+        </t>
+        <t t-else="">
+          <h2>
+            Select an underpopulated shift
+          </h2>
+        </t>
+        <t t-foreach="shifts" t-as="tmpl_dated">
           <div t-att-class="'card mb-4 %s' % highlight_class">
             <div t-att-class="'card-header %s clearfix' % highlight_header_class">
               <div class="pull-left">
@@ -102,26 +109,36 @@
             </div>
           </div>
         </t>
+        <t t-if="not all_shifts">
+          <p>
+            <a
+                        class="btn btn-secondary btn-dark btn-block"
+                        t-att-href="'/my/shift/solidarity/offer/all'"
+                    >No shifts suits me</a>
+          </p>
+        </t>
       </template>
 
-      <!-- Solidarity underpopulated shift selection page -->
-      <!-- Template for page /my/shift/solidarity/offer -->
+      <!-- Solidarity shift selection page -->
+      <!-- Template for page /my/shift/solidarity/offer and /my/shift/solidarity/offer/all -->
       <template
-            id="website_shift_swap_select_solidarity_underpopulated"
-            name="Select an underpopulated shift for solidarity"
+            id="website_shift_swap_select_solidarity"
+            name="Select a shift for solidarity"
         >
         <t t-call="portal.portal_layout">
           <t t-set="no_breadcrumbs" t-value="True" />
           <div class="container mt16">
             <div class="row">
               <div class="col text-center">
-                <t t-call="beesdoo_website_shift_swap.select_shift_title" />
+                <h1>
+                  Offer a solidarity shift
+                </h1>
               </div>
             </div>
             <div class="row">
               <div class="col-12 col-lg-8">
                 <t
-                                t-call="beesdoo_website_shift_swap.website_shift_swap_underpopulated_tmpl_dated_solidarity"
+                                t-call="beesdoo_website_shift_swap.website_shift_swap_tmpl_dated_solidarity"
                             />
               </div>
               <div class="col-12 col-lg-4 text-justify">

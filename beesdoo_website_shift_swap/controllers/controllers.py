@@ -355,7 +355,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             exchange.write({"second_shift_status": True})
         return request.redirect("/my/shift")
 
-    # Solidarity shift offer
+    # Solidarity shift offer (underpopulated shifts)
     @http.route("/my/shift/solidarity/offer", website=True)
     def get_underpopulated_shift_for_solidarity(self):
         """
@@ -383,18 +383,47 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         )
 
         return request.render(
-            "beesdoo_website_shift_swap."
-            "website_shift_swap_select_solidarity_underpopulated",
-            {"underpopulated_shift": next_possible_underpopulated_shifts},
+            "beesdoo_website_shift_swap." "website_shift_swap_select_solidarity",
+            {"shifts": next_possible_underpopulated_shifts, "all_shifts": False},
+        )
+
+    # Solidarity shift offer (all shifts)
+    @http.route("/my/shift/solidarity/offer/all", website=True)
+    def get_regular_shift_for_solidarity(self):
+        """
+        Page to choose a shift to subscribe for solidarity
+        """
+        user = request.env["res.users"].sudo().browse(request.uid)
+
+        # Check if user can offer solidarity shifts
+        if user.cooperative_status_ids.sr < 0 or user.cooperative_status_ids.sc < 0:
+            return request.render(
+                "beesdoo_website_shift_swap."
+                "website_shift_swap_offer_solidarity_impossible"
+            )
+
+        # Get the next shifts
+        next_shifts = (
+            request.env["beesdoo.shift.template.dated"]
+            .sudo()
+            .get_available_shifts(sort_date_desc=True)
+        )
+
+        # Remove the already subscribed shifts
+        next_possible_shifts = next_shifts.remove_already_subscribed_shifts(
+            user.partner_id
+        )
+
+        return request.render(
+            "beesdoo_website_shift_swap." "website_shift_swap_select_solidarity",
+            {"shifts": next_possible_shifts, "all_shifts": True},
         )
 
     @http.route(
         "/my/shift/solidarity/offer/select/<int:template_wanted>/<string:date_wanted>",
         website=True,
     )
-    def subscribe_to_underpopulated_shift_for_solidarity(
-        self, template_wanted, date_wanted
-    ):
+    def subscribe_to_shift_for_solidarity(self, template_wanted, date_wanted):
         user = request.env["res.users"].browse(request.uid)
 
         tmpl_dated_wanted = (

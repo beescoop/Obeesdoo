@@ -159,27 +159,9 @@ class SubscribeUnderpopulatedShift(models.Model):
     def get_underpopulated_shift(self, sort_date_desc=False):
         available_tmpl_dated = self.env["beesdoo.shift.template.dated"]
         tmpl_dated = self.env["beesdoo.shift.template.dated"].display_tmpl_dated()
-        exchange = self.env["beesdoo.shift.subscribed_underpopulated_shift"].search([])
         for template in tmpl_dated:
-            nb_workers_change = 0
-            for ex in exchange:
-
-                if (
-                    ex.exchanged_tmpl_dated_id.template_id == template.template_id
-                    and ex.exchanged_tmpl_dated_id.date == template.date
-                ):
-                    # Enlever un worker
-                    nb_workers_change -= 1
-                if (
-                    ex.confirmed_tmpl_dated_id.template_id == template.template_id
-                    and ex.confirmed_tmpl_dated_id.date == template.date
-                ):
-                    # ajouter un worker
-                    nb_workers_change += 1
             nb_worker_wanted = template.template_id.worker_nb
-            nb_worker_present = (
-                nb_worker_wanted - template.template_id.remaining_worker
-            ) + nb_workers_change
+            nb_worker_present = nb_worker_wanted - template.template_id.remaining_worker
             percentage_presence = (nb_worker_present / nb_worker_wanted) * 100
             min_percentage_presence = int(
                 self.env["ir.config_parameter"]

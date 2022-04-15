@@ -133,3 +133,13 @@ class DatedTemplate(models.Model):
                     self -= rec
 
         return self
+
+    def get_available_shifts(self, sort_date_desc=False):
+        available_tmpl_dated = self.env["beesdoo.shift.template.dated"]
+        next_tmpl_dated = self.env["beesdoo.shift.template.dated"].display_tmpl_dated()
+        for template in next_tmpl_dated:
+            if template.template_id.remaining_worker > 0:
+                available_tmpl_dated |= template
+        if sort_date_desc:
+            available_tmpl_dated = available_tmpl_dated.sorted(key=lambda r: r.date)
+        return available_tmpl_dated
