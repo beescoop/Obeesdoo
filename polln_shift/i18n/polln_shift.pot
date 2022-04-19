@@ -1,0 +1,154 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* polln_shift
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: polln_shift
+#: code:addons/polln_shift/models/planning.py:51
+#, python-format
+msgid "Absent (-1)"
+msgstr ""
+
+#. module: polln_shift
+#: code:addons/polln_shift/models/planning.py:84
+#, python-format
+msgid "Alerte"
+msgstr ""
+
+#. module: polln_shift
+#: code:addons/polln_shift/models/planning.py:50
+#, python-format
+msgid "Attended (+1)"
+msgstr ""
+
+#. module: polln_shift
+#: code:addons/polln_shift/models/planning.py:53
+#, python-format
+msgid "Cancelled"
+msgstr ""
+
+#. module: polln_shift
+#: code:addons/polln_shift/models/planning.py:49
+#, python-format
+msgid "Confirmed"
+msgstr ""
+
+#. module: polln_shift
+#: model:ir.model,name:polln_shift.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: polln_shift
+#: model:ir.model.fields,field_description:polln_shift.field_res_partner__cooperator_type
+#: model:ir.model.fields,field_description:polln_shift.field_res_users__cooperator_type
+msgid "Cooperator Type"
+msgstr ""
+
+#. module: polln_shift
+#: code:addons/polln_shift/models/planning.py:52
+#, python-format
+msgid "Excused (+0)"
+msgstr ""
+
+#. module: polln_shift
+#: code:addons/polln_shift/models/planning.py:88
+#: selection:beesdoo.shift.subscribe,working_mode:0
+#, python-format
+msgid "Exempted"
+msgstr ""
+
+#. module: polln_shift
+#: model_terms:ir.ui.view,arch_db:polln_shift.coop_partner_inherited_view_form_eater
+msgid "Force Worker"
+msgstr ""
+
+#. module: polln_shift
+#: model:ir.model.fields,field_description:polln_shift.field_cooperative_status__future_alert_date
+msgid "Future Alert Date"
+msgstr ""
+
+#. module: polln_shift
+#: model:ir.model.fields,field_description:polln_shift.field_cooperative_status__next_countdown_date
+msgid "Next Countdown Date"
+msgstr ""
+
+#. module: polln_shift
+#: code:addons/polln_shift/models/planning.py:89
+#, python-format
+msgid "Resigning"
+msgstr ""
+
+#. module: polln_shift
+#: model:ir.model.fields,field_description:polln_shift.field_cooperative_status__sr
+msgid "Sr"
+msgstr ""
+
+#. module: polln_shift
+#: model:ir.model.fields,field_description:polln_shift.field_cooperative_status__sr_store
+msgid "Sr Store"
+msgstr ""
+
+#. module: polln_shift
+#: model_terms:ir.ui.view,arch_db:polln_shift.coop_status_form_view_inherit
+msgid "Start date"
+msgstr ""
+
+#. module: polln_shift
+#: code:addons/polln_shift/models/planning.py:85
+#, python-format
+msgid "Suspended"
+msgstr ""
+
+#. module: polln_shift
+#: code:addons/polln_shift/models/planning.py:86
+#, python-format
+msgid "Unsubscribed"
+msgstr ""
+
+#. module: polln_shift
+#: code:addons/polln_shift/models/planning.py:83
+#, python-format
+msgid "Up to Date"
+msgstr ""
+
+#. module: polln_shift
+#: model:ir.model.fields,field_description:polln_shift.field_beesdoo_shift_subscribe__working_mode
+msgid "Working Mode"
+msgstr ""
+
+#. module: polln_shift
+#: model:ir.model,name:polln_shift.model_beesdoo_shift_shift
+msgid "beesdoo.shift.shift"
+msgstr ""
+
+#. module: polln_shift
+#: model:ir.model,name:polln_shift.model_beesdoo_shift_subscribe
+msgid "beesdoo.shift.subscribe"
+msgstr ""
+
+#. module: polln_shift
+#: model:ir.model,name:polln_shift.model_cooperative_status
+msgid "cooperative.status"
+msgstr ""
+
+#. module: polln_shift
+#: code:addons/polln_shift/models/planning.py:87
+#, python-format
+msgid "shift_status_holidays"
+msgstr ""
+
+#. module: polln_shift
+#: selection:beesdoo.shift.subscribe,working_mode:0
+msgid "worker"
+msgstr ""
+
