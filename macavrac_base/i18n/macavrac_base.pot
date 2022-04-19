@@ -1,0 +1,174 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* macavrac_base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: macavrac_base
+#: model:ir.model.fields,field_description:macavrac_base.field_res_partner__fiscal_certificate_sent_date
+#: model:ir.model.fields,field_description:macavrac_base.field_res_users__fiscal_certificate_sent_date
+msgid "Attestation fiscale envoyée le"
+msgstr ""
+
+#. module: macavrac_base
+#: selection:res.partner,gender:0
+msgid "Autre"
+msgstr ""
+
+#. module: macavrac_base
+#: model:ir.model.fields,field_description:macavrac_base.field_res_partner__certificate_sent_date
+#: model:ir.model.fields,field_description:macavrac_base.field_res_users__certificate_sent_date
+msgid "Certificat envoyé le"
+msgstr ""
+
+#. module: macavrac_base
+#: selection:res.partner,state_request:0
+msgid "Certificat à envoyer"
+msgstr ""
+
+#. module: macavrac_base
+#: model:ir.model.fields,field_description:macavrac_base.field_res_partner__comment_request
+#: model:ir.model.fields,field_description:macavrac_base.field_res_users__comment_request
+msgid "Commentaire"
+msgstr ""
+
+#. module: macavrac_base
+#: model:ir.model,name:macavrac_base.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: macavrac_base
+#: model:ir.model.fields,field_description:macavrac_base.field_res_partner__coop_number
+#: model:ir.model.fields,field_description:macavrac_base.field_res_users__coop_number
+msgid "Coop N°"
+msgstr ""
+
+#. module: macavrac_base
+#: model:ir.model.fields,field_description:macavrac_base.field_res_partner__cooperator_type
+#: model:ir.model.fields,field_description:macavrac_base.field_res_users__cooperator_type
+msgid "Cooperator Type"
+msgstr ""
+
+#. module: macavrac_base
+#: model:ir.model.fields,field_description:macavrac_base.field_res_partner__birthdate
+#: model:ir.model.fields,field_description:macavrac_base.field_res_users__birthdate
+msgid "Date d'anniversaire"
+msgstr ""
+
+#. module: macavrac_base
+#: model:ir.model.fields,field_description:macavrac_base.field_res_partner__payment_date
+#: model:ir.model.fields,field_description:macavrac_base.field_res_users__payment_date
+msgid "Date de paiement"
+msgstr ""
+
+#. module: macavrac_base
+#: model:ir.model.fields,help:macavrac_base.field_res_partner__date_stamp
+#: model:ir.model.fields,help:macavrac_base.field_res_users__date_stamp
+msgid "Date de remplissage du formulaire"
+msgstr ""
+
+#. module: macavrac_base
+#: model:ir.model.fields,field_description:macavrac_base.field_res_partner__payment_details
+#: model:ir.model.fields,field_description:macavrac_base.field_res_users__payment_details
+msgid "Détail de paiement"
+msgstr ""
+
+#. module: macavrac_base
+#: model:ir.model.fields,field_description:macavrac_base.field_res_partner__email_sent
+#: model:ir.model.fields,field_description:macavrac_base.field_res_users__email_sent
+msgid "Email envoyé"
+msgstr ""
+
+#. module: macavrac_base
+#: selection:res.partner,state_request:0
+msgid "En attente de paiement"
+msgstr ""
+
+#. module: macavrac_base
+#: selection:res.partner,state_request:0
+msgid "En ordre"
+msgstr ""
+
+#. module: macavrac_base
+#: selection:res.partner,gender:0
+msgid "Féminin"
+msgstr ""
+
+#. module: macavrac_base
+#: model:ir.model.fields,field_description:macavrac_base.field_res_partner__gender
+#: model:ir.model.fields,field_description:macavrac_base.field_res_users__gender
+msgid "Genre"
+msgstr ""
+
+#. module: macavrac_base
+#: model_terms:ir.ui.view,arch_db:macavrac_base.macavrac_coop_partner_inherited_view_form
+msgid "Google Sheet Infos"
+msgstr ""
+
+#. module: macavrac_base
+#: model:ir.model.fields,field_description:macavrac_base.field_res_partner__iban
+#: model:ir.model.fields,field_description:macavrac_base.field_res_users__iban
+msgid "IBAN"
+msgstr ""
+
+#. module: macavrac_base
+#: selection:res.partner,gender:0
+msgid "Masculin"
+msgstr ""
+
+#. module: macavrac_base
+#: model:ir.model.fields,field_description:macavrac_base.field_res_partner__share_amount
+#: model:ir.model.fields,field_description:macavrac_base.field_res_users__share_amount
+msgid "Montant"
+msgstr ""
+
+#. module: macavrac_base
+#: model:ir.model.fields,field_description:macavrac_base.field_res_partner__share_qty
+#: model:ir.model.fields,field_description:macavrac_base.field_res_users__share_qty
+msgid "Nombre de part"
+msgstr ""
+
+#. module: macavrac_base
+#: model:ir.model.fields,field_description:macavrac_base.field_res_partner__share_numbers
+#: model:ir.model.fields,field_description:macavrac_base.field_res_users__share_numbers
+msgid "Numéro de parts"
+msgstr ""
+
+#. module: macavrac_base
+#: model:ir.model.fields,field_description:macavrac_base.field_res_partner__national_register_number
+#: model:ir.model.fields,field_description:macavrac_base.field_res_users__national_register_number
+msgid "Numéro de registre national"
+msgstr ""
+
+#. module: macavrac_base
+#: selection:res.partner,state_request:0
+msgid "Parts revendues"
+msgstr ""
+
+#. module: macavrac_base
+#: model:ir.model.fields,field_description:macavrac_base.field_res_partner__state_request
+#: model:ir.model.fields,field_description:macavrac_base.field_res_users__state_request
+msgid "State Request"
+msgstr ""
+
+#. module: macavrac_base
+#: model:ir.model.fields,field_description:macavrac_base.field_res_partner__date_stamp
+#: model:ir.model.fields,field_description:macavrac_base.field_res_users__date_stamp
+msgid "Timestamp"
+msgstr ""
+
+#. module: macavrac_base
+#: model:ir.model.fields,field_description:macavrac_base.field_res_partner__is_worker
+#: model:ir.model.fields,field_description:macavrac_base.field_res_users__is_worker
+msgid "is Worker"
+msgstr ""
+
