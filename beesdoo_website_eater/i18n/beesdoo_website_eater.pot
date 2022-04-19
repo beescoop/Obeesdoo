@@ -1,0 +1,25 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* beesdoo_website_eater
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: beesdoo_website_eater
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_eater.website_eater_details_side
+msgid "You have no eaters"
+msgstr ""
+
+#. module: beesdoo_website_eater
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_eater.website_eater_details_side
+msgid "Your Eaters"
+msgstr ""
+
