@@ -1,0 +1,345 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* purchase_order_generator
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator_line__daily_sales
+msgid "Average Consumption"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model_terms:ir.ui.view,arch_db:purchase_order_generator.purchase_order_generator_form
+msgid "Create Purchase Order"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator__create_uid
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator_line__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator__create_date
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator__date_planned
+msgid "Date Planned"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,help:purchase_order_generator.field_purchase_order_generator__order_date
+msgid "Date at which the Quotation should be validated and converted into a purchase order."
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,help:purchase_order_generator.field_purchase_order_generator_line__uom_id
+#: model:ir.model.fields,help:purchase_order_generator.field_purchase_order_generator_line__uom_po_id
+msgid "Default Unit of Measure used for all stock operation."
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator__display_name
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator_line__virtual_coverage
+msgid "Expected Stock Coverage"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,help:purchase_order_generator.field_purchase_order_generator_line__virtual_coverage
+msgid "Expected stock coverage (in days) based on current stocks and average daily consumption"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator_line__virtual_available
+msgid "Forecast Quantity"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.actions.server,name:purchase_order_generator.action_generate_pog
+msgid "Generate Purchase Order"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator__generated_po_count
+msgid "Generated Purchase Order count"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator__generated_purchase_order_ids
+#: model_terms:ir.ui.view,arch_db:purchase_order_generator.purchase_order_generator_form
+msgid "Generated Purchase Orders"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator__id
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator_line__id
+msgid "ID"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator_line__category_id
+msgid "Internal Category"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator____last_update
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator_line____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator__write_uid
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator_line__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator__write_date
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator_line__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator_line__product_template_id
+msgid "Linked Product Template"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_product_product__main_supplier_id
+#: model:ir.model.fields,field_description:purchase_order_generator.field_product_template__main_supplier_id
+msgid "Main Supplier"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator_line__minimum_purchase_qty
+msgid "Minimum Purchase Quantity"
+msgstr ""
+
+#. module: purchase_order_generator
+#: code:addons/purchase_order_generator/models/purchase_order_generator.py:89
+#, python-format
+msgid "No supplier defined for product %s"
+msgstr ""
+
+#. module: purchase_order_generator
+#: code:addons/purchase_order_generator/models/purchase_order_generator.py:61
+#, python-format
+msgid "No supplier is set for selected articles."
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator__pog_line_ids
+#: model_terms:ir.ui.view,arch_db:purchase_order_generator.purchase_order_generator_form
+msgid "Order Lines"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order__original_cpo_id
+msgid "Original POG"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator__name
+msgid "POG Reference"
+msgstr ""
+
+#. module: purchase_order_generator
+#: code:addons/purchase_order_generator/models/purchase_order_generator_line.py:170
+#, python-format
+msgid "POG supplier does not sell product {name}"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,help:purchase_order_generator.field_purchase_order__original_cpo_id
+msgid "POG used to generate this Purchase Order"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,help:purchase_order_generator.field_purchase_order_generator_line__product_template_id
+msgid "Product"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator_line__name
+msgid "Product Name"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator_line__product_price
+msgid "Product Price (w/o VAT)"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model,name:purchase_order_generator.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model,name:purchase_order_generator.model_purchase_order
+msgid "Purchase Order"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator__order_date
+msgid "Purchase Order Date"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model,name:purchase_order_generator.model_purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator_line__cpo_id
+msgid "Purchase Order Generator"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model,name:purchase_order_generator.model_purchase_order_generator_line
+msgid "Purchase Order Generator Line"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.actions.act_window,name:purchase_order_generator.action_purchase_order_generator
+#: model:ir.ui.menu,name:purchase_order_generator.purchase_order_generator
+msgid "Purchase Order Generators"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model,name:purchase_order_generator.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator_line__purchase_quantity
+msgid "Purchase Quantity"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator_line__uom_po_id
+msgid "Purchase Unit of Measure"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model_terms:ir.ui.view,arch_db:purchase_order_generator.purchase_order_generator_form
+msgid "Purchase orders"
+msgstr ""
+
+#. module: purchase_order_generator
+#: code:addons/purchase_order_generator/models/purchase_order_generator_line.py:188
+#, python-format
+msgid "Purchase quantity for {product_name} must be greater than 0"
+msgstr ""
+
+#. module: purchase_order_generator
+#: code:addons/purchase_order_generator/models/purchase_order_generator_line.py:194
+#, python-format
+msgid "Purchase quantity for {product_name} must be greater than {min_qty}"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,help:purchase_order_generator.field_purchase_order_generator_line__qty_available
+msgid "Quantity currently in stock. Does not take into account incoming orders."
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,help:purchase_order_generator.field_purchase_order_generator_line__category_id
+msgid "Select category for the current product"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_product_supplierinfo__date_start
+msgid "Start Date"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,help:purchase_order_generator.field_product_supplierinfo__date_start
+msgid "Start date for this vendor price"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator_line__stock_coverage
+msgid "Stock Coverage"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator_line__qty_available
+msgid "Stock Quantity"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator_line__subtotal
+msgid "Subtotal (w/o VAT)"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator__supplier_id
+msgid "Supplier"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model,name:purchase_order_generator.model_product_supplierinfo
+msgid "Supplier Pricelist"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,help:purchase_order_generator.field_purchase_order_generator_line__product_price
+msgid "Supplier Product Price by buying unit. Price is  without VAT"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator_line__supplierinfo_id
+msgid "Supplier information"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,help:purchase_order_generator.field_purchase_order_generator__supplier_id
+msgid "Supplier of the purchase order."
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,help:purchase_order_generator.field_purchase_order_generator_line__minimum_purchase_qty
+msgid "The minimal quantity to purchase from this vendor, expressed in the vendor Product Unit of Measure if not any, in the default unit of measure of the product otherwise."
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator__total_amount
+msgid "Total Amount (w/o VAT)"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,field_description:purchase_order_generator.field_purchase_order_generator_line__uom_id
+msgid "Unit of Measure"
+msgstr ""
+
+#. module: purchase_order_generator
+#: model:ir.model.fields,help:purchase_order_generator.field_purchase_order_generator_line__virtual_available
+msgid "Virtual quantity taking into account current stock, incoming orders and outgoing sales."
+msgstr ""
+
+#. module: purchase_order_generator
+#: code:addons/purchase_order_generator/models/purchase_order_generator.py:65
+#, python-format
+msgid "You must select article from a single supplier."
+msgstr ""
+
+#. module: purchase_order_generator
+#: code:addons/purchase_order_generator/models/purchase_order_generator.py:116
+#, python-format
+msgid "You need at least a product to generate a Purchase Order"
+msgstr ""
+
