@@ -1,0 +1,134 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* beesdoo_shift_welcome_screen
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: beesdoo_shift_welcome_screen
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_welcome_screen.welcome_message
+msgid "<font style=\"background-color: rgb(0, 255, 0); font-size: 24px;\">Can shop</font>"
+msgstr ""
+
+#. module: beesdoo_shift_welcome_screen
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_welcome_screen.welcome_message
+msgid "<font style=\"background-color: rgb(255, 0, 0); font-size: 24px;\">Cannot shop</font>"
+msgstr ""
+
+#. module: beesdoo_shift_welcome_screen
+#: model:ir.model.fields,field_description:beesdoo_shift_welcome_screen.field_beesdoo_shift_welcome___barcode_scanned
+msgid "Barcode Scanned"
+msgstr ""
+
+#. module: beesdoo_shift_welcome_screen
+#: model:ir.model.fields,field_description:beesdoo_shift_welcome_screen.field_beesdoo_shift_welcome__partner_id
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_welcome_screen.shift_welcome_screen_view_form
+msgid "Cooperator"
+msgstr ""
+
+#. module: beesdoo_shift_welcome_screen
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_welcome_screen.welcome_message
+msgid "Counter:"
+msgstr ""
+
+#. module: beesdoo_shift_welcome_screen
+#: model:ir.model.fields,field_description:beesdoo_shift_welcome_screen.field_beesdoo_shift_welcome__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: beesdoo_shift_welcome_screen
+#: model:ir.model.fields,field_description:beesdoo_shift_welcome_screen.field_beesdoo_shift_welcome__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: beesdoo_shift_welcome_screen
+#: model:ir.model.fields,field_description:beesdoo_shift_welcome_screen.field_beesdoo_shift_welcome__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: beesdoo_shift_welcome_screen
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_welcome_screen.welcome_message
+msgid "Eaters"
+msgstr ""
+
+#. module: beesdoo_shift_welcome_screen
+#: model:ir.model.fields,field_description:beesdoo_shift_welcome_screen.field_beesdoo_shift_welcome__id
+msgid "ID"
+msgstr ""
+
+#. module: beesdoo_shift_welcome_screen
+#: code:addons/beesdoo_shift_welcome_screen/models/welcome.py:25
+#, python-format
+msgid "Invalid barcode"
+msgstr ""
+
+#. module: beesdoo_shift_welcome_screen
+#: model:ir.model.fields,field_description:beesdoo_shift_welcome_screen.field_beesdoo_shift_welcome____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: beesdoo_shift_welcome_screen
+#: model:ir.model.fields,field_description:beesdoo_shift_welcome_screen.field_beesdoo_shift_welcome__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: beesdoo_shift_welcome_screen
+#: model:ir.model.fields,field_description:beesdoo_shift_welcome_screen.field_beesdoo_shift_welcome__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: beesdoo_shift_welcome_screen
+#: code:addons/beesdoo_shift_welcome_screen/models/welcome.py:30
+#, python-format
+msgid "Member does not exist"
+msgstr ""
+
+#. module: beesdoo_shift_welcome_screen
+#: model:ir.model.fields,field_description:beesdoo_shift_welcome_screen.field_beesdoo_shift_welcome__message
+msgid "Message"
+msgstr ""
+
+#. module: beesdoo_shift_welcome_screen
+#: code:addons/beesdoo_shift_welcome_screen/models/welcome.py:32
+#, python-format
+msgid "More then one member found with this barcode"
+msgstr ""
+
+#. module: beesdoo_shift_welcome_screen
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_welcome_screen.welcome_message
+msgid "Next Shift"
+msgstr ""
+
+#. module: beesdoo_shift_welcome_screen
+#: model:ir.actions.act_window,name:beesdoo_shift_welcome_screen.action_welcome
+msgid "Shift Type"
+msgstr ""
+
+#. module: beesdoo_shift_welcome_screen
+#: model:ir.ui.menu,name:beesdoo_shift_welcome_screen.menu_root
+msgid "Shift Welcome"
+msgstr ""
+
+#. module: beesdoo_shift_welcome_screen
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_welcome_screen.welcome_message
+msgid "Status:"
+msgstr ""
+
+#. module: beesdoo_shift_welcome_screen
+#: model:ir.model.fields,help:beesdoo_shift_welcome_screen.field_beesdoo_shift_welcome___barcode_scanned
+msgid "Value of the last barcode scanned."
+msgstr ""
+
+#. module: beesdoo_shift_welcome_screen
+#: model:ir.model,name:beesdoo_shift_welcome_screen.model_beesdoo_shift_welcome
+msgid "beesdoo.shift.welcome"
+msgstr ""
+
