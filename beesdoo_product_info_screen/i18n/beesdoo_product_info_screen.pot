@@ -1,0 +1,47 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* beesdoo_product_info_screen
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: beesdoo_product_info_screen
+#: model_terms:ir.ui.view,arch_db:beesdoo_product_info_screen.view_product_information_read_only_form_button
+msgid "Back to product list"
+msgstr ""
+
+#. module: beesdoo_product_info_screen
+#: model:res.groups,name:beesdoo_product_info_screen.group_product_info_user
+msgid "Product Info User"
+msgstr ""
+
+#. module: beesdoo_product_info_screen
+#: model:ir.actions.act_window,name:beesdoo_product_info_screen.action_product_information
+msgid "Product Information"
+msgstr ""
+
+#. module: beesdoo_product_info_screen
+#: model_terms:ir.ui.view,arch_db:beesdoo_product_info_screen.view_product_information_read_only_form
+msgid "Product Name"
+msgstr ""
+
+#. module: beesdoo_product_info_screen
+#: model:ir.ui.menu,name:beesdoo_product_info_screen.menu_product_info
+msgid "Product info"
+msgstr ""
+
+#. module: beesdoo_product_info_screen
+#: model:ir.ui.menu,name:beesdoo_product_info_screen.menu_main_product
+#: model_terms:ir.ui.view,arch_db:beesdoo_product_info_screen.view_product_information_read_only_form
+#: model_terms:ir.ui.view,arch_db:beesdoo_product_info_screen.view_product_information_read_only_tree
+msgid "Products"
+msgstr ""
+
