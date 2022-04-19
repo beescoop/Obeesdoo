@@ -1,16 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* beesdoo_product
+#	* beesdoo_product
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 09:47+0000\n"
-"PO-Revision-Date: 2020-08-03 09:47+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -18,10 +15,8 @@ msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.model.fields,help:beesdoo_product.field_res_config_settings__suggested_price_reference
-msgid ""
-"\n"
-"            Price on which the margin is applied when computing the "
-"suggested\n"
+msgid "\n"
+"            Price on which the margin is applied when computing the suggested\n"
 "                sale price.\n"
 "            - Margin on Supplier Price : Suggested sale price\n"
 "                = supplier price * (1 + margin / 100) (default)\n"
@@ -33,11 +28,9 @@ msgstr ""
 #. module: beesdoo_product
 #: model:ir.model.fields,help:beesdoo_product.field_product_product__suggested_price
 #: model:ir.model.fields,help:beesdoo_product.field_product_template__suggested_price
-msgid ""
-"\n"
+msgid "\n"
 "        This field computes a suggested price based on the 'Product Margin'\n"
-"        field on Partners (Vendors), if it's set, or otherwise on the "
-"'Product\n"
+"        field on Partners (Vendors), if it's set, or otherwise on the 'Product\n"
 "        Margin' field in Product Categories (which has a default value).\n"
 "        "
 msgstr ""
@@ -46,7 +39,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_hazard__active
 #: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_label__active
 msgid "Active"
-msgstr "Actif"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.actions.act_window,name:beesdoo_product.beesdoo_product_pricelist_action_adapt_sales_price
@@ -59,28 +52,28 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:beesdoo_product.printing_label_request_wizard
 #: model_terms:ir.ui.view,arch_db:beesdoo_product.set_label_as_printed_wizard
 msgid "Cancel"
-msgstr "Annuler"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_scale_category__code
 msgid "Category code"
-msgstr "Code de catégorie"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_uom_category__type
 msgid "Category type"
-msgstr "Type de catégorie"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_label__color_code
 msgid "Color Code"
-msgstr "Code couleur"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_product__note
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template__note
 msgid "Comments"
-msgstr "Commentaires"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.model,name:beesdoo_product.model_res_config_settings
@@ -111,7 +104,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_scale_category__create_uid
 #: model:ir.model.fields,field_description:beesdoo_product.field_label_printing_wizard__create_uid
 msgid "Created by"
-msgstr "Créé par"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_adapt_sales_price_wizard__create_date
@@ -120,25 +113,25 @@ msgstr "Créé par"
 #: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_scale_category__create_date
 #: model:ir.model.fields,field_description:beesdoo_product.field_label_printing_wizard__create_date
 msgid "Created on"
-msgstr "Créé le"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_product__deadline_for_consumption
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template__deadline_for_consumption
 msgid "Deadline for consumption(days)"
-msgstr "Date limite de consommation(jours)"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_product__deadline_for_sale
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template__deadline_for_sale
 msgid "Deadline for sale(days)"
-msgstr "Date limite de vente(jours)"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_product__default_reference_unit
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template__default_reference_unit
 msgid "Default Reference Unit"
-msgstr "Unité de référence par défaut"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_product__total_deposit
@@ -153,7 +146,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_scale_category__display_name
 #: model:ir.model.fields,field_description:beesdoo_product.field_label_printing_wizard__display_name
 msgid "Display Name"
-msgstr "Nom affiché"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_product__display_unit
@@ -198,9 +191,8 @@ msgstr ""
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_product__fds_label
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template__fds_label
-#, fuzzy
 msgid "FDS label"
-msgstr "Libellé FDS"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_product__fair_label
@@ -221,14 +213,13 @@ msgstr ""
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_product__hazard_label
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template__hazard_label
-#, fuzzy
 msgid "Hazard label"
-msgstr "Libellé de dangerosité"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.ui.menu,name:beesdoo_product.hazard_configuration_menu
 msgid "Hazards"
-msgstr "Dangers"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_adapt_sales_price_wizard__id
@@ -243,12 +234,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_product__ingredients
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template__ingredients
 msgid "Ingredient"
-msgstr "Ingrédient "
+msgstr ""
 
 #. module: beesdoo_product
 #: model_terms:ir.ui.view,arch_db:beesdoo_product.beesdoo_product_form
 msgid "Label"
-msgstr "Libellé"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_product__label_last_printed
@@ -259,7 +250,7 @@ msgstr ""
 #. module: beesdoo_product
 #: model:ir.ui.menu,name:beesdoo_product.label_configuration_menu
 msgid "Labels"
-msgstr "Libellés"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_adapt_sales_price_wizard____last_update
@@ -268,7 +259,7 @@ msgstr "Libellés"
 #: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_scale_category____last_update
 #: model:ir.model.fields,field_description:beesdoo_product.field_label_printing_wizard____last_update
 msgid "Last Modified on"
-msgstr "Dernière modification le"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_adapt_sales_price_wizard__write_uid
@@ -277,7 +268,7 @@ msgstr "Dernière modification le"
 #: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_scale_category__write_uid
 #: model:ir.model.fields,field_description:beesdoo_product.field_label_printing_wizard__write_uid
 msgid "Last Updated by"
-msgstr "Dernière mise à jour par"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_adapt_sales_price_wizard__write_date
@@ -286,7 +277,7 @@ msgstr "Dernière mise à jour par"
 #: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_scale_category__write_date
 #: model:ir.model.fields,field_description:beesdoo_product.field_label_printing_wizard__write_date
 msgid "Last Updated on"
-msgstr "Dernière mise à jour le"
+msgstr ""
 
 #. module: beesdoo_product
 #: selection:beesdoo.product.label,type:0
@@ -315,7 +306,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_hazard__name
 #: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_label__name
 msgid "Name"
-msgstr "Nom"
+msgstr ""
 
 #. module: beesdoo_product
 #: code:addons/beesdoo_product/models/beesdoo_product.py:363
@@ -330,9 +321,8 @@ msgstr ""
 
 #. module: beesdoo_product
 #: selection:res.config.settings,suggested_price_reference:0
-#, fuzzy
 msgid "On Supplier Price"
-msgstr "Liste de prix du fournisseur"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_product__origin_label
@@ -343,7 +333,7 @@ msgstr ""
 #. module: beesdoo_product
 #: selection:uom.category,type:0
 msgid "Other"
-msgstr "Autre"
+msgstr ""
 
 #. module: beesdoo_product
 #: code:addons/beesdoo_product/models/beesdoo_product.py:28
@@ -359,13 +349,9 @@ msgstr ""
 
 #. module: beesdoo_product
 #: model_terms:ir.ui.view,arch_db:beesdoo_product.res_config_settings_view_form
-msgid ""
-"Price on which the margin is applied when computing the suggested sale price."
-"<br/>\n"
-"                            - Margin on Supplier Price : Suggested sale "
-"price = supplier price * (1 + margin / 100) (default)<br/>\n"
-"                            - Margin on Sale Price: Suggested sale price = "
-"supplier price * (1 / (1 - margin / 100))"
+msgid "Price on which the margin is applied when computing the suggested sale price.<br/>\n"
+"                            - Margin on Supplier Price : Suggested sale price = supplier price * (1 + margin / 100) (default)<br/>\n"
+"                            - Margin on Sale Price: Suggested sale price = supplier price * (1 / (1 - margin / 100))"
 msgstr ""
 
 #. module: beesdoo_product
@@ -379,17 +365,17 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_product.field_label_printing_wizard__product_ids
 #: model_terms:ir.ui.view,arch_db:beesdoo_product.product_template_edit_price_tree_view
 msgid "Product"
-msgstr "Article"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.model,name:beesdoo_product.model_product_category
 msgid "Product Category"
-msgstr "Catégorie d'article"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.actions.act_window,name:beesdoo_product.action_hazards
 msgid "Product Hazards"
-msgstr "Dangers d'article"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.actions.act_window,name:beesdoo_product.action_labels
@@ -406,20 +392,19 @@ msgstr ""
 #. module: beesdoo_product
 #: model:ir.model,name:beesdoo_product.model_product_template
 msgid "Product Template"
-msgstr "Modèle d'article"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.model,name:beesdoo_product.model_uom_category
 msgid "Product UoM Categories"
-msgstr "Catégorie d'UdM"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.actions.act_window,name:beesdoo_product.pos_product_edit_price
 #: model:ir.actions.act_window,name:beesdoo_product.purchase_product_edit_price
 #: model:ir.actions.act_window,name:beesdoo_product.sale_product_edit_price
-#, fuzzy
 msgid "Products"
-msgstr "Article"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_product__purchase_price
@@ -519,7 +504,7 @@ msgstr ""
 #. module: beesdoo_product
 #: selection:beesdoo.product.hazard,type:0
 msgid "Specific hazard"
-msgstr "Danger spécifique"
+msgstr ""
 
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_product__suggested_price
@@ -540,7 +525,7 @@ msgstr ""
 #. module: beesdoo_product
 #: model:ir.model,name:beesdoo_product.model_product_supplierinfo
 msgid "Supplier Pricelist"
-msgstr "Liste de prix du fournisseur"
+msgstr ""
 
 #. module: beesdoo_product
 #: selection:uom.category,type:0
@@ -555,7 +540,7 @@ msgstr ""
 #. module: beesdoo_product
 #: model:ir.model.fields,help:beesdoo_product.field_product_supplierinfo__price
 msgid "The price to purchase a product"
-msgstr "Le prix pour l'achat d'un article"
+msgstr ""
 
 #. module: beesdoo_product
 #: selection:uom.category,type:0
@@ -583,7 +568,7 @@ msgstr ""
 #. module: beesdoo_product
 #: selection:uom.category,type:0
 msgid "Unit"
-msgstr "Unité"
+msgstr ""
 
 #. module: beesdoo_product
 #: selection:uom.category,type:0
@@ -593,14 +578,13 @@ msgstr ""
 #. module: beesdoo_product
 #: selection:uom.category,type:0
 msgid "Weight"
-msgstr "Poids"
+msgstr ""
 
 #. module: beesdoo_product
 #: model_terms:ir.actions.act_window,help:beesdoo_product.pos_product_edit_price
 #: model_terms:ir.actions.act_window,help:beesdoo_product.purchase_product_edit_price
 #: model_terms:ir.actions.act_window,help:beesdoo_product.sale_product_edit_price
-msgid ""
-"You must define a product for everything you purchase,\n"
+msgid "You must define a product for everything you purchase,\n"
 "            whether it's a physical product, a consumable or services."
 msgstr ""
 
@@ -649,5 +633,3 @@ msgstr ""
 msgid "Équitable"
 msgstr ""
 
-#~ msgid "Price at which the product is sold to customers."
-#~ msgstr "Prix auquel l'article est vendu aux clients."
