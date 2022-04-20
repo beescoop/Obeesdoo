@@ -116,7 +116,9 @@ class Subscribe(models.TransientModel):
     irregular_start_date = fields.Date(string="Start Date", default=fields.Date.today)
     resigning = fields.Boolean(default=False, help="Want to leave the beescoop")
     create_user = fields.Boolean(
-        defaul=False, help="Create a portal user for the new worker"
+        default=False,
+        help="Create a portal user for the new worker."
+        " If a user exists, nothing is done.",
     )
 
     @api.multi
