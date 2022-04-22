@@ -32,7 +32,9 @@
                         t-set="product_tmpl_id"
                         t-value="line.product_id.product_tmpl_id"
                     />
-                    <div class="normal_pricetag normal_pricetag_normal floating_box">
+                    <div
+                        class="bpl-normal_pricetag bpl-normal_pricetag_normal bpl-floating_box"
+                    >
                         <div class="product_name">
                             <t t-esc="product_tmpl_id.name" />
                         </div>

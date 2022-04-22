@@ -1,4 +1,4 @@
-.normal_pricetag {
+.bpl-normal_pricetag {
     border: 1px solid grey;
     background-color: white;
     margin: 0 -0.14cm -0.03cm 0;
@@ -49,5 +49,9 @@
         padding: 2px 0 0 2px;
         overflow: hidden;
         font-size: 9px;
+    }
+    .floating_box {
+        display: inline-block;
+        vertical-align: middle;
     }
 }
