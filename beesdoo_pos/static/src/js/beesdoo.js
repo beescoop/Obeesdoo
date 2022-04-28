@@ -5,9 +5,7 @@ odoo.define("beesdoo_pos.screens", function (require) {
 
     models.load_fields("res.partner", "is_company");
 
-    var set_customer_info = function (el_class, value, prefix) {
-        var el = this.$(el_class);
-        el.empty();
+    var set_customer_info = function (el, value, prefix) {
         if (prefix && value) {
             value = prefix + value;
         }
@@ -20,15 +18,15 @@ odoo.define("beesdoo_pos.screens", function (require) {
             var self = this;
             var loaded = new $.Deferred();
             this._super();
-            if (!this.pos.get_client()) {
+            var client = this.pos.get_client();
+            if (!client) {
                 return;
             }
-            var customer_id = this.pos.get_client().id;
             this._rpc(
                 {
                     model: "res.partner",
                     method: "get_eater",
-                    args: [customer_id],
+                    args: [client.id],
                 },
                 {
                     shadow: true,
@@ -38,17 +36,17 @@ odoo.define("beesdoo_pos.screens", function (require) {
                 }
             )
                 .then(function (result) {
+                    var element = self.$(".customer-information-pay");
+                    element.empty();
                     result.forEach((client_name) =>
-                        set_customer_info.call(
-                            self,
-                            ".customer-information-pay",
-                            client_name
-                        )
+                        set_customer_info.call(self, element, client_name)
                     );
+                    loaded.resolve();
                 })
                 .fail(function (type, error) {
                     loaded.reject(error);
                 });
+            return loaded;
         },
     });
 
