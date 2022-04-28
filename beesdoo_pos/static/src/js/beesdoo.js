@@ -19,15 +19,15 @@ odoo.define("beesdoo_pos.screens", function (require) {
             var self = this;
             var loaded = new $.Deferred();
             this._super();
-            if (!this.pos.get_client()) {
+            var client = this.pos.get_client();
+            if (!client) {
                 return;
             }
-            var customer_id = this.pos.get_client().id;
             this._rpc(
                 {
                     model: "res.partner",
                     method: "get_eater",
-                    args: [customer_id],
+                    args: [client.id],
                 },
                 {
                     shadow: true,
@@ -44,10 +44,12 @@ odoo.define("beesdoo_pos.screens", function (require) {
                             client_name
                         )
                     );
+                    loaded.resolve();
                 })
                 .fail(function (type, error) {
                     loaded.reject(error);
                 });
+            return loaded;
         },
     });
 
@@ -55,15 +57,15 @@ odoo.define("beesdoo_pos.screens", function (require) {
         render_customer_info: function () {
             var self = this;
             var loaded = new $.Deferred();
-            if (!this.pos.get_client()) {
+            var client = this.pos.get_client();
+            if (!client) {
                 return;
             }
-            var customer_id = this.pos.get_client().id;
             this._rpc(
                 {
                     model: "res.partner",
                     method: "get_eater",
-                    args: [customer_id],
+                    args: [client.id],
                 },
                 {
                     shadow: true,
@@ -73,18 +75,16 @@ odoo.define("beesdoo_pos.screens", function (require) {
                 }
             )
                 .then(function (result) {
-                    set_customer_info.call(
-                        self,
-                        ".customer-name",
-                        self.pos.get_client().name
-                    );
+                    set_customer_info.call(self, ".customer-name", client.name);
                     result.forEach((client_name) =>
                         set_customer_info.call(self, ".customer-delegates", client_name)
                     );
+                    loaded.resolve();
                 })
                 .fail(function (type, error) {
                     loaded.reject(err);
                 });
+            return loaded;
         },
 
         auto_invoice: function () {
