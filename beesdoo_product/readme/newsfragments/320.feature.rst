@@ -1,0 +1,2 @@
+When purchase price is changed in the 'Edit Price' menu, the sales price is now
+automatically updated to the suggested price.
