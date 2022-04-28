@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 from itertools import groupby
 
 from pytz import timezone, utc
+from werkzeug.exceptions import Forbidden
 
 from odoo import http
 from odoo.fields import Datetime
@@ -203,6 +204,15 @@ class WebsiteShiftController(http.Controller):
             "beesdoo_website_shift.public_shift_template_regular_worker",
             {"task_tpls_data": task_tpls_data, "float_to_time": float_to_time},
         )
+
+    @http.route("/shift/<int:shift_id>/unsubscribe", auth="user", website=True)
+    def unsubscribe_to_shift(self, shift_id=-1, **kw):
+        shift = request.env["beesdoo.shift.shift"].sudo().browse(shift_id)
+        # Get current user
+        if request.env.user.partner_id != shift.worker_id or not shift.can_unsubscribe:
+            raise Forbidden()
+        shift.worker_id = False
+        return request.redirect(kw["nexturl"])
 
     def my_shift_irregular_worker(self, nexturl=""):
         """
