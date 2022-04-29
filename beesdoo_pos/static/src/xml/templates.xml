@@ -8,14 +8,6 @@
         </t>
     </t>
 
-    <t t-extend="PaymentScreenWidget">
-        <t t-jquery=".paymentmethods-container" t-operation="inner">
-            <t t-if="widget.pos.get_client()">
-                <div class="customer-name" />
-                <div class="customer-delegates" />
-            </t>
-        </t>
-    </t>
 
     <t t-extend="ClientListScreenWidget">
         <t t-jquery='.new-customer' t-operation='replace'>

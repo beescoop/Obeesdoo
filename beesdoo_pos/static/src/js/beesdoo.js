@@ -53,41 +53,6 @@ odoo.define("beesdoo_pos.screens", function (require) {
     });
 
     screens.PaymentScreenWidget.include({
-        render_customer_info: function () {
-            var self = this;
-            var loaded = new $.Deferred();
-            if (!this.pos.get_client()) {
-                return;
-            }
-            var customer_id = this.pos.get_client().id;
-            this._rpc(
-                {
-                    model: "res.partner",
-                    method: "get_eater",
-                    args: [customer_id],
-                },
-                {
-                    shadow: true,
-                },
-                {
-                    timeout: 1000,
-                }
-            )
-                .then(function (result) {
-                    set_customer_info.call(
-                        self,
-                        ".customer-name",
-                        self.pos.get_client().name
-                    );
-                    result.forEach((client_name) =>
-                        set_customer_info.call(self, ".customer-delegates", client_name)
-                    );
-                })
-                .fail(function (type, error) {
-                    loaded.reject(err);
-                });
-        },
-
         auto_invoice: function () {
             var self = this;
             var customer = this.pos.get_client();
@@ -100,17 +65,11 @@ odoo.define("beesdoo_pos.screens", function (require) {
             }
         },
 
-        renderElement: function () {
-            this._super();
-            this.render_customer_info();
-        },
-
         customer_changed: function () {
             this._super();
             if (this.pos.config.module_account) {
                 this.auto_invoice();
             }
-            this.render_customer_info();
         },
     });
 });
