@@ -5,15 +5,16 @@ odoo.define("beesdoo_pos.screens", function (require) {
 
     models.load_fields("res.partner", "is_company");
 
-    var set_customer_info = function (parent_class, value) {
-        var parent = this.$(parent_class);
-        var info_div = document.createElement("div");
-        info_div.textContent = value;
+    var set_customer_info = function (el_class, value, prefix) {
+        var el = this.$(el_class);
+        el.empty();
+        if (prefix && value) {
+            value = prefix + value;
+        }
         if (value) {
-            parent.append(info_div);
+            el.append(value + "<br />");
         }
     };
-
     screens.ActionpadWidget.include({
         renderElement: function () {
             var self = this;
