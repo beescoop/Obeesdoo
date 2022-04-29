@@ -46,6 +46,10 @@
                                     t-set="shift_by_week"
                                     t-value="shift_week_tuple[1]"
                                 />
+                                <t
+                                    t-set="week_count"
+                                    t-value="shift_week_tuple_index"
+                                />
                             </t>
                         </div>
                     </div>
@@ -96,6 +100,18 @@
                                                             t-set="displayed_shift"
                                                             t-value="shift"
                                                         />
+                                                        <t
+                                                            t-set="shift_row_count"
+                                                            t-value="shift_row_index"
+                                                        />
+                                                        <t
+                                                            t-set="shift_by_day_count"
+                                                            t-value="shift_by_day_index"
+                                                        />
+                                                        <t
+                                                            t-set="shift_count"
+                                                            t-value="shift_index"
+                                                        />
                                                     </t>
                                                 </t>
                                                 <t t-else="">
@@ -135,7 +151,7 @@
                         type="button"
                         class="btn btn-success btn-sm"
                         data-toggle="modal"
-                        t-att-data-target="'#warning-task-type-popup-%s' % shift_index"
+                        t-att-data-target="'#warning-task-type-popup-%s-%s-%s-%s' % (week_count,shift_row_count,shift_by_day_count,shift_count)"
                     >
                       Subscribe
                     </button>
@@ -151,7 +167,7 @@
             <!-- Modal popup to warn user if task type is different in the new shift -->
             <div
                 class="modal fade"
-                t-att-id="'warning-task-type-popup-%s' % shift_index"
+                t-att-id="'warning-task-type-popup-%s-%s-%s-%s' % (week_count,shift_row_count,shift_by_day_count,shift_count)"
                 data-backdrop="static"
                 data-keyboard="false"
                 tabindex="-1"
