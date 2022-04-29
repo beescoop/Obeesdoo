@@ -894,7 +894,7 @@
                         <div
                             t-if="back_from_subscription"
                             role="alert"
-                            t-att-class="'alert alert-%s alert-dismissible' % ('success' if success else 'danger',)"
+                            t-att-class="'alert alert-%s alert-dismissible' % ('success' if (success or unsubscribe_success) else 'danger',)"
                         >
                             <button
                                 type="button"
@@ -908,7 +908,11 @@
                                 <strong>Success!</strong>
                                 Your subscription has succeded.
                             </t>
-                            <t t-if="not success">
+                            <t t-elif="unsubscribe_success">
+                                <strong>Success!</strong>
+                                You have been successfully unsubscribed.
+                            </t>
+                            <t t-else="">
                                 <strong>Failed!</strong>
                                 Your subscription has failed. Someone
                                 subscribed before you or the shift was deleted.

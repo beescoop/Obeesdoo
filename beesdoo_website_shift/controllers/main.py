@@ -212,6 +212,7 @@ class WebsiteShiftController(http.Controller):
         if request.env.user.partner_id != shift.worker_id or not shift.can_unsubscribe:
             raise Forbidden()
         shift.worker_id = False
+        request.session["unsubscribe_success"] = True
         return request.redirect(kw["nexturl"])
 
     def my_shift_irregular_worker(self, nexturl=""):
@@ -240,6 +241,12 @@ class WebsiteShiftController(http.Controller):
             template_context["back_from_subscription"] = True
             template_context["success"] = request.session.get("success")
             del request.session["success"]
+        if "unsubscribe_success" in request.session:
+            template_context["back_from_subscription"] = True
+            template_context["unsubscribe_success"] = request.session.get(
+                "unsubscribe_success"
+            )
+            del request.session["unsubscribe_success"]
 
         # Add setting for subscription allowed time
         # TODO: move this to the attendance_sheet module
