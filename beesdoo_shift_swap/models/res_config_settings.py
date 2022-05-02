@@ -20,4 +20,5 @@ class ResConfigSettings(models.TransientModel):
     solidarity_counter_start_value = fields.Integer(
         string="Start value of the global solidarity counter",
         config_parameter="beesdoo_shift.solidarity_counter_start_value",
+        default=0,
     )

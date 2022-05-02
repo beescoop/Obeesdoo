@@ -6,9 +6,15 @@
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "version": "12.0.1.0.1",
-    "website": "https://coopiteasy.be",
+    "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
-    "depends": ["portal", "website", "beesdoo_shift", "beesdoo_shift_swap"],
+    "depends": [
+        "portal",
+        "website",
+        "beesdoo_shift",
+        "beesdoo_shift_swap",
+        "beesdoo_website_shift",
+    ],
     "data": [
         # 'security/ir.model.access.csv',
         "views/assets.xml",
