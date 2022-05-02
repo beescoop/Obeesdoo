@@ -5,12 +5,10 @@ odoo.define("beesdoo_pos.screens", function (require) {
 
     models.load_fields("res.partner", "is_company");
 
-    var set_customer_info = function (el, value, prefix) {
-        if (prefix && value) {
-            value = prefix + value;
-        }
+    var set_customer_info = function (el, value) {
+        el.empty();
         if (value) {
-            el.append(value + "<br />");
+            el.append(value);
         }
     };
     screens.ActionpadWidget.include({
@@ -36,11 +34,9 @@ odoo.define("beesdoo_pos.screens", function (require) {
                 }
             )
                 .then(function (result) {
+                    var eaters_name = result.join("<br />");
                     var element = self.$(".customer-information-pay");
-                    element.empty();
-                    result.forEach((client_name) =>
-                        set_customer_info.call(self, element, client_name)
-                    );
+                    set_customer_info.call(self, element, eaters_name);
                     loaded.resolve();
                 })
                 .fail(function (type, error) {
