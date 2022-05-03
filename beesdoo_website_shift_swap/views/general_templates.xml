@@ -62,16 +62,18 @@
                             class="btn btn-success btn-sm"
                             t-att-href="'/my/shift/swaping/%i/%s' % (shift.task_template_id,shift.start_time)"
                         >Swap Shift</a>
-                <t t-if="solidarity_counter > 0">
-                  <a
-                                class="btn btn-secondary btn-sm"
-                                t-att-href="'/my/shift/solidarity/request/%i/%s' % (shift.task_template_id,shift.start_time)"
-                            >Request solidarity</a>
-                </t>
-                <t t-else="">
-                  <a class="btn btn-secondary btn-sm disabled" aria-disabled="true">
-                    Request solidarity
-                  </a>
+                <t t-if="request_solidarity">
+                  <t t-if="solidarity_counter > 0">
+                    <a
+                                    class="btn btn-secondary btn-sm"
+                                    t-att-href="'/my/shift/solidarity/request/%i/%s' % (shift.task_template_id,shift.start_time)"
+                                >Request solidarity</a>
+                  </t>
+                  <t t-else="">
+                    <a class="btn btn-secondary btn-sm disabled" aria-disabled="true">
+                      Request solidarity
+                    </a>
+                  </t>
                 </t>
               </t>
             </p>

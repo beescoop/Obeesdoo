@@ -24,6 +24,40 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         tmpl_dated.date = date
         return tmpl_dated
 
+    # Override /my/shift webpage controller
+    @http.route("/my/shift", auth="user", website=True)
+    def my_shift(self, **kw):
+        res = super(WebsiteShiftSwapController, self).my_shift()
+        template_context = res.qcontext
+
+        template_context["request_solidarity"] = False
+        if "request_solidarity" in kw:
+            template_context["request_solidarity"] = kw["request_solidarity"]
+
+        # Add feedback about the success of solidarity offer/request
+        template_context["back_from_solidarity"] = False
+        if "offer_success" in request.session:
+            template_context["back_from_solidarity"] = True
+            template_context["offer_success"] = request.session.get("offer_success")
+            del request.session["offer_success"]
+
+        elif "offer_cancel" in request.session:
+            template_context["back_from_solidarity"] = True
+            template_context["offer_cancel"] = request.session.get("offer_cancel")
+            del request.session["offer_cancel"]
+
+        elif "request_success" in request.session:
+            template_context["back_from_solidarity"] = True
+            template_context["request_success"] = request.session.get("request_success")
+            del request.session["request_success"]
+
+        elif "request_cancel" in request.session:
+            template_context["back_from_solidarity"] = True
+            template_context["request_cancel"] = request.session.get("request_cancel")
+            del request.session["request_cancel"]
+
+        return request.render(res.template, template_context)
+
     @http.route("/my/shift/swaping/<int:template_id>/<string:date>", website=True)
     def swaping_shift(self, template_id, date):
         now = datetime.now()
@@ -383,7 +417,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         )
 
         return request.render(
-            "beesdoo_website_shift_swap." "website_shift_swap_select_solidarity",
+            "beesdoo_website_shift_swap.website_shift_swap_select_solidarity",
             {"shifts": next_possible_underpopulated_shifts, "all_shifts": False},
         )
 
@@ -415,7 +449,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         )
 
         return request.render(
-            "beesdoo_website_shift_swap." "website_shift_swap_select_solidarity",
+            "beesdoo_website_shift_swap.website_shift_swap_select_solidarity",
             {"shifts": next_possible_shifts, "all_shifts": True},
         )
 
@@ -443,6 +477,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         }
         record = request.env["beesdoo.shift.solidarity.offer"].sudo().create(data)
         record.subscribe_shift_if_generated()
+        request.session["offer_success"] = True
         return request.redirect("/my/shift")
 
     @http.route(
@@ -464,7 +499,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             )
 
         solidarity_offer.cancel_solidarity_offer()
-
+        request.session["offer_cancel"] = True
         return request.redirect("/my/shift")
 
     @http.route(
@@ -503,6 +538,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 request.env["beesdoo.shift.solidarity.request"].sudo().create(data)
             )
             solidarity_request.unsubscribe_shift_if_generated()
+            request.session["request_success"] = True
             return request.redirect("/my/shift")
 
         tmpl_dated = self.new_tmpl_dated(template_id, date)
@@ -525,5 +561,5 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         )
 
         solidarity_request.cancel_solidarity_request()
-
+        request.session["request_cancel"] = True
         return request.redirect("/my/shift")

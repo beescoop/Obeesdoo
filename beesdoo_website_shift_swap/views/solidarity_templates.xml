@@ -1,25 +1,111 @@
 <odoo>
   <data>
 
-      <!-- Solidarity general status and offer button -->
+      <!-- Solidarity counter -->
       <template
-            id="solidarity_info"
-            name="solidarity info"
+            id="solidarity_counter"
+            name="solidarity counter"
             inherit_id="beesdoo_website_shift.my_shift_regular_worker"
         >
-        <xpath expr="//div[@class='col-12 col-lg-4 text-justify']" position="inside">
-            <h2>Solidarity shifts status</h2>
-            <p>
-              <label class="font-weight-bold">Counter:</label>
-              <t
-                        t-esc="request.env['res.company']._company_default_get().solidarity_counter()"
-                    />
-            </p>
-            <div>
-              <a class="btn btn-primary" href="/my/shift/solidarity/offer">
-                Offer a solidarity shift
-              </a>
+        <xpath
+                expr="//t[@t-call='beesdoo_website_shift.help_text_title']"
+                position="before"
+            >
+          <div class="card">
+            <div class="card-header text-center">
+              <h2> Solidarity shifts counter:
+                <t
+                                t-esc="request.env['res.company']._company_default_get().solidarity_counter()"
+                            />
+              </h2>
             </div>
+          </div>
+          <br />
+        </xpath>
+      </template>
+
+      <!-- Solidarity offer and request buttons -->
+      <template id="solidarity_buttons" name="Solidarity offer and request buttons">
+        <h2>
+          Solidarity
+        </h2>
+        <p>
+          <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-toggle="modal"
+                    data-target="#warning_request_solidarity_popup"
+                >
+            I need help
+          </button>
+          <a class="btn btn-primary" href="/my/shift/solidarity/offer">
+            Offer a solidarity shift
+          </a>
+        </p>
+        <div
+                class="modal fade"
+                id="warning_request_solidarity_popup"
+                data-backdrop="static"
+                data-keyboard="false"
+                tabindex="-1"
+                aria-labelledby="warning_request_solidarity_popup_label"
+                aria-hidden="true"
+            >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5
+                                class="modal-title"
+                                id="warning_request_solidarity_popup_label"
+                            >Requesting solidarity</h5>
+              </div>
+              <div class="modal-body">
+                <t t-call="beesdoo_website_shift_swap.solidarity_request_help_text" />
+              </div>
+              <div class="modal-footer">
+                <button
+                                type="button"
+                                class="btn btn-danger"
+                                data-dismiss="modal"
+                            >Cancel</button>
+                <a class="btn btn-success" href="/my/shift?request_solidarity=1">
+                  Select a shift
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <!-- Solidarity request help text -->
+      <template id="solidarity_request_help_text" name="Solidarity request help text">
+        *Warning text here*
+      </template>
+
+      <!-- Display solidarity related buttons after the worker status -->
+      <template
+            id="solidarity_buttons_regular_worker"
+            name="Solidarity offer and request buttons for regular workers"
+            inherit_id="beesdoo_website_shift.my_shift_regular_worker"
+        >
+        <xpath
+                expr="//div[t[@t-call='beesdoo_website_shift.my_shift_worker_status_title']]/*[last()]"
+                position="after"
+            >
+          <t t-call="beesdoo_website_shift_swap.solidarity_buttons" />
+        </xpath>
+      </template>
+
+      <template
+            id="solidarity_buttons_irregular_worker"
+            name="Solidarity offer and request buttons for irregular workers"
+            inherit_id="beesdoo_website_shift.my_shift_irregular_worker"
+        >
+        <xpath
+                expr="//div[t[@t-call='beesdoo_website_shift.my_shift_worker_status_title']]/*[last()]"
+                position="after"
+            >
+          <t t-call="beesdoo_website_shift_swap.solidarity_buttons" />
         </xpath>
       </template>
 
@@ -300,6 +386,42 @@
             You don't have any solidarity request.
           </div>
         </t>
+      </template>
+
+      <template
+            id="solidarity_feedback_alert"
+            name="Success or error alert for solidarity related operations"
+            inherit_id="beesdoo_website_shift.my_shift_next_shifts"
+        >
+        <xpath expr="//h2[1]" position="after">
+          <div
+                    t-if="back_from_solidarity"
+                    role="alert"
+                    class="alert alert-success alert-dismissible"
+                >
+              <button
+                        type="button"
+                        class="close"
+                        data-dismiss="alert"
+                        aria-label="Close"
+                    >
+                  <span>×</span>
+              </button>
+              <strong>Success!</strong>
+              <t t-if="offer_success">
+                Your have been subscribed to a solidarity shift.
+              </t>
+              <t t-if="offer_cancel">
+                Your solidarity shift have been cancelled.
+              </t>
+              <t t-if="request_success">
+                Your have been unsubscribed from your shift. Your counter will not be decreased.
+              </t>
+              <t t-if="request_cancel">
+                Your have successfully cancelled your solidarity request. You have been subscribed back to your shift.
+              </t>
+          </div>
+        </xpath>
       </template>
 
   </data>
