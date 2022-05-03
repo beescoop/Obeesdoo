@@ -446,11 +446,19 @@
     <!-- Help Texts -->
     <template id="help_text_title" name="Help Text Title">
         <h2>
-            Help
+            Help <button
+                id="toggle_help_button"
+                class="btn btn-primary btn-sm"
+                type="button"
+                data-toggle="collapse"
+                data-target="#collapseHelp"
+                aria-expanded="true"
+                aria-controls="collapseHelp"
+            >Hide</button>
         </h2>
     </template>
 
-    <template id="help_text_common" name="Help Text Common">
+    <template id="help_text_info" name="Help Text Info">
         <div class="alert alert-info">
             <strong>Info!</strong>
             If you do not agree with your status, please contact the members
@@ -458,7 +466,9 @@
             office (Monday 5PM to 7:30PM, Wednesday 5PM to 7:30 PM and Friday
             2:30PM to 5 PM).
         </div>
+    </template>
 
+    <template id="help_text_common" name="Help Text Common">
         <p>
             Explanation of the status:
         </p>
@@ -752,6 +762,8 @@
                             <t t-esc="status.extension_start_time" />
                         </p>
 
+                        <t t-call="beesdoo_website_shift.help_text_info" />
+
                     </div>
 
                     <div class="col-12 col-lg-8">
@@ -765,8 +777,12 @@
                     <div class="col-12 col-lg-4 text-justify">
 
                         <t t-call="beesdoo_website_shift.help_text_title" />
-                        <t t-call="beesdoo_website_shift.help_text_common" />
-                        <t t-call="beesdoo_website_shift.help_text_irregular_worker" />
+                        <div class="collapse show" id="collapseHelp">
+                            <t t-call="beesdoo_website_shift.help_text_common" />
+                            <t
+                                t-call="beesdoo_website_shift.help_text_irregular_worker"
+                            />
+                        </div>
 
                     </div>
                 </div>
@@ -829,6 +845,8 @@
                             </label>
                             <t t-esc="status.irregular_absence_counter" />
                         </p>
+
+                        <t t-call="beesdoo_website_shift.help_text_info" />
 
                     </div>
 
@@ -895,8 +913,12 @@
                     <div class="col-12 col-lg-4 text-justify">
 
                         <t t-call="beesdoo_website_shift.help_text_title" />
-                        <t t-call="beesdoo_website_shift.help_text_common" />
-                        <t t-call="beesdoo_website_shift.help_text_irregular_worker" />
+                        <div class="collapse show" id="collapseHelp">
+                            <t t-call="beesdoo_website_shift.help_text_common" />
+                            <t
+                                t-call="beesdoo_website_shift.help_text_irregular_worker"
+                            />
+                        </div>
 
                     </div>
                 </div>
