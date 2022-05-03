@@ -29,7 +29,7 @@ odoo.define("beesdoo_pos.screens", function (require) {
             )
                 .then(function (result) {
                     var eaters = result.join("<br />");
-                    self.$(".customer-information-pay").text(eaters);
+                    self.$(".customer-information-pay").html(eaters);
                     loaded.resolve();
                 })
                 .fail(function (type, error) {
