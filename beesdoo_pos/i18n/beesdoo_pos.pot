@@ -20,7 +20,7 @@ msgstr ""
 
 #. module: beesdoo_pos
 #. openerp-web
-#: code:addons/beesdoo_pos/static/src/xml/templates.xml:29
+#: code:addons/beesdoo_pos/static/src/xml/templates.xml:21
 #, python-format
 msgid "Name"
 msgstr ""
