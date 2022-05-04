@@ -5,7 +5,8 @@
     <field name="inherit_id" ref="beesdoo_shift.task_view_form" />
     <field name="arch" type="xml">
       <field name="is_compensation" position="after">
-        <field name="solidarity_offer_ids" />
+        <field name="is_solidarity" />
+        <field name="solidarity_offer_ids" invisible="1" />
       </field>
     </field>
   </record>
