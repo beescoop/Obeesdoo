@@ -2,26 +2,17 @@
   <data>
 
       <!-- Solidarity counter -->
-      <template
-            id="solidarity_counter"
-            name="solidarity counter"
-            inherit_id="beesdoo_website_shift.my_shift_regular_worker"
-        >
-        <xpath
-                expr="//t[@t-call='beesdoo_website_shift.help_text_title']"
-                position="before"
-            >
+      <template id="solidarity_counter" name="solidarity counter">
           <div class="card">
             <div class="card-header text-center">
               <h2> Solidarity shifts counter:
                 <t
-                                t-esc="request.env['res.company']._company_default_get().solidarity_counter()"
-                            />
+                            t-esc="request.env['res.company']._company_default_get().solidarity_counter()"
+                        />
               </h2>
             </div>
           </div>
           <br />
-        </xpath>
       </template>
 
       <!-- Solidarity offer and request buttons -->
@@ -82,10 +73,10 @@
         *Warning text here*
       </template>
 
-      <!-- Display solidarity related buttons after the worker status -->
+      <!-- Display solidarity related buttons and solidarity counter -->
       <template
-            id="solidarity_buttons_regular_worker"
-            name="Solidarity offer and request buttons for regular workers"
+            id="solidarity_elements_regular_worker"
+            name="Solidarity related elements for regular workers"
             inherit_id="beesdoo_website_shift.my_shift_regular_worker"
         >
         <xpath
@@ -94,11 +85,17 @@
             >
           <t t-call="beesdoo_website_shift_swap.solidarity_buttons" />
         </xpath>
+        <xpath
+                expr="//t[@t-call='beesdoo_website_shift.help_text_title']"
+                position="before"
+            >
+          <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
+        </xpath>
       </template>
 
       <template
-            id="solidarity_buttons_irregular_worker"
-            name="Solidarity offer and request buttons for irregular workers"
+            id="solidarity_elements_irregular_worker"
+            name="Solidarity related elements for irregular workers"
             inherit_id="beesdoo_website_shift.my_shift_irregular_worker"
         >
         <xpath
@@ -106,6 +103,68 @@
                 position="after"
             >
           <t t-call="beesdoo_website_shift_swap.solidarity_buttons" />
+        </xpath>
+        <xpath
+                expr="//t[@t-call='beesdoo_website_shift.help_text_title']"
+                position="before"
+            >
+          <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
+        </xpath>
+      </template>
+
+      <template
+            id="solidarity_elements_non_worker"
+            name="Solidarity related elements for non workers"
+            inherit_id="beesdoo_website_shift.my_shift_non_worker"
+        >
+        <xpath expr="//div[@class='container mt16']/*[last()]" position="after">
+          <div class="row">
+            <div class="col">
+              <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
+            </div>
+          </div>
+        </xpath>
+      </template>
+
+      <template
+            id="solidarity_elements_new_worker"
+            name="Solidarity related elements for new workers"
+            inherit_id="beesdoo_website_shift.my_shift_new_worker"
+        >
+        <xpath expr="//div[@class='container mt6']/*[last()]" position="after">
+          <div class="row">
+            <div class="col">
+              <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
+            </div>
+          </div>
+        </xpath>
+      </template>
+
+      <template
+            id="solidarity_elements_exempted_worker"
+            name="Solidarity related elements for exempted workers"
+            inherit_id="beesdoo_website_shift.my_shift_exempted_worker"
+        >
+        <xpath expr="//div[@class='container mt16']/*[last()]" position="after">
+          <div class="row">
+            <div class="col">
+              <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
+            </div>
+          </div>
+        </xpath>
+      </template>
+
+      <template
+            id="solidarity_elements_regular_worker_without_shift"
+            name="Solidarity related elements for regular workers without shifts"
+            inherit_id="beesdoo_website_shift.my_shift_regular_worker_without_shift"
+        >
+        <xpath expr="//div[@class='container mt16']/*[last()]" position="after">
+          <div class="row">
+            <div class="col">
+              <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
+            </div>
+          </div>
         </xpath>
       </template>
 
