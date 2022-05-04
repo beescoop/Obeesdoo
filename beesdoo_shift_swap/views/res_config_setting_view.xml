@@ -123,6 +123,35 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">
+                                        Limit value of the solidarity counter
+                                    </span>
+                                    <div class="text-muted">
+                                        Value of the solidarity counter below which
+                                        it cannot drop. If this value is reached,
+                                        requesting solidarity becomes impossible until
+                                        a solidarity shift is done.
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16 row">
+                                            <label
+                                                for="solidarity_counter_limit"
+                                                string="Value"
+                                                class="col-3 col-lg-3 o_light_label"
+                                            />
+                                            <field
+                                                name="solidarity_counter_limit"
+                                                class="oe_inline"
+                                                required="1"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </xpath>
             </field>

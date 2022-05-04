@@ -20,5 +20,9 @@
             <field name="key">beesdoo_shift.solidarity_counter_start_value</field>
             <field name="value">0</field>
         </record>
+        <record id="solidarity_counter_limit" model="ir.config_parameter">
+            <field name="key">beesdoo_shift.solidarity_counter_limit</field>
+            <field name="value">0</field>
+        </record>
     </data>
 </odoo>

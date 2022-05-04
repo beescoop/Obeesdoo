@@ -63,7 +63,9 @@
                             t-att-href="'/my/shift/swaping/%i/%s' % (shift.task_template_id,shift.start_time)"
                         >Swap Shift</a>
                 <t t-if="request_solidarity">
-                  <t t-if="solidarity_counter > 0">
+                  <t
+                                t-if="solidarity_counter > int(request.env['ir.config_parameter'].sudo().get_param('beesdoo_shift.solidarity_counter_limit'))"
+                            >
                     <a
                                     class="btn btn-secondary btn-sm"
                                     t-att-href="'/my/shift/solidarity/request/%i/%s' % (shift.task_template_id,shift.start_time)"
