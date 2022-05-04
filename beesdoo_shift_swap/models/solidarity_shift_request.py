@@ -1,5 +1,5 @@
 import math
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from odoo import fields, models
 
@@ -126,6 +126,20 @@ class SolidarityShiftRequest(models.Model):
             self.state = "cancelled"
             return True
         return False
+
+    def check_solidarity_requests_number(self, worker_id):
+        nb_requests = self.sudo().search_count(
+            [
+                ("worker_id", "=", worker_id),
+                ("state", "=", "validated"),
+                ("tmpl_dated_id.date", ">", datetime.now() - timedelta(days=365)),
+            ],
+        )
+        return nb_requests < int(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_shift.max_solidarity_requests_number")
+        )
 
     def counter(self):
         """

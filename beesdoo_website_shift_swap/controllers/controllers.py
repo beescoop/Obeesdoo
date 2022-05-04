@@ -514,9 +514,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
     def request_solidarity_shift(self, **post):
         template_id = request.session["template_id"]
         date = request.session["date"]
+        user = request.env["res.users"].browse(request.uid)
 
         if request.httprequest.method == "POST":
-            user = request.env["res.users"].browse(request.uid)
             non_realisable_tmpl_dated = (
                 request.env["beesdoo.shift.template.dated"]
                 .sudo()
@@ -542,12 +542,20 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             return request.redirect("/my/shift")
 
         tmpl_dated = self.new_tmpl_dated(template_id, date)
-        return request.render(
-            "beesdoo_website_shift_swap.website_shift_swap_request_solidarity",
-            {
-                "tmpl_dated": tmpl_dated,
-            },
-        )
+        if request.env[
+            "beesdoo.shift.solidarity.request"
+        ].check_solidarity_requests_number(user.partner_id.id):
+            return request.render(
+                "beesdoo_website_shift_swap.website_shift_swap_request_solidarity",
+                {
+                    "tmpl_dated": tmpl_dated,
+                },
+            )
+        else:
+            return request.render(
+                "beesdoo_website_shift_swap"
+                ".website_shift_swap_request_solidarity_impossible"
+            )
 
     @http.route(
         "/my/shift/solidarity/request/cancel/<int:solidarity_request_id>",

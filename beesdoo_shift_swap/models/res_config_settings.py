@@ -27,3 +27,7 @@ class ResConfigSettings(models.TransientModel):
         config_parameter="beesdoo_shift.solidarity_counter_limit",
         default=0,
     )
+    max_solidarity_requests_number = fields.Integer(
+        string="Max number of solidarity requests per year",
+        config_parameter="beesdoo_shift.max_solidarity_requests_number",
+    )

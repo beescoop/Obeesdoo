@@ -228,8 +228,33 @@
             <div class="row">
               <div class="col text-center">
                 <div class="alert alert-warning">
-                  <strong>Warning !</strong>
+                  <strong>Warning!</strong>
                   Your can't cancel this solidarity shift, because it is too close in time.
+                </div>
+                <a class="btn btn-primary" href="/my/shift">Go back</a>
+              </div>
+            </div>
+          </div>
+        </t>
+      </template>
+
+      <!-- Display error message if can't request solidarity -->
+      <template
+            id="website_shift_swap_request_solidarity_impossible"
+            name="Error message if you can't request solidarity"
+        >
+        <t t-call="portal.portal_layout">
+          <t t-set="no_breadcrumbs" t-value="True" />
+          <div class="container mt16">
+            <div class="row">
+              <div class="col text-center">
+                <div class="alert alert-warning">
+                  <strong>Error!</strong>
+                  Your can't request solidarity more than
+                  <t
+                                    t-esc="request.env['ir.config_parameter'].sudo().get_param('beesdoo_shift.max_solidarity_requests_number')"
+                                />
+                  times over a 12 month period.
                 </div>
                 <a class="btn btn-primary" href="/my/shift">Go back</a>
               </div>
