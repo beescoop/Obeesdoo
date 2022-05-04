@@ -51,7 +51,14 @@
                             >Requesting solidarity</h5>
               </div>
               <div class="modal-body">
-                <t t-call="beesdoo_website_shift_swap.solidarity_request_help_text" />
+                <t
+                                t-if="regular"
+                                t-call="beesdoo_website_shift_swap.solidarity_request_help_text_regular"
+                            />
+                <t
+                                t-else=""
+                                t-call="beesdoo_website_shift_swap.solidarity_request_help_text_irregular"
+                            />
               </div>
               <div class="modal-footer">
                 <button
@@ -59,9 +66,19 @@
                                 class="btn btn-danger"
                                 data-dismiss="modal"
                             >Cancel</button>
-                <a class="btn btn-success" href="/my/shift?request_solidarity=1">
-                  Select a shift
-                </a>
+                <t t-if="regular">
+                  <a class="btn btn-success" href="/my/shift?request_solidarity=1">
+                    Select a shift
+                  </a>
+                </t>
+                <t t-else="">
+                  <a
+                                    class="btn btn-success"
+                                    href="/my/shift/solidarity/request/irregular"
+                                >
+                    Request solidarity
+                  </a>
+                </t>
               </div>
             </div>
           </div>
@@ -69,8 +86,18 @@
       </template>
 
       <!-- Solidarity request help text -->
-      <template id="solidarity_request_help_text" name="Solidarity request help text">
-        *Warning text here*
+      <template
+            id="solidarity_request_help_text_regular"
+            name="Solidarity request help text for regular workers"
+        >
+        *Warning text regular*
+      </template>
+
+      <template
+            id="solidarity_request_help_text_irregular"
+            name="Solidarity request help text for irregular workers"
+        >
+        *Warning text irregular*
       </template>
 
       <!-- Display solidarity related buttons and solidarity counter -->
@@ -83,7 +110,9 @@
                 expr="//div[t[@t-call='beesdoo_website_shift.my_shift_worker_status_title']]/*[last()]"
                 position="after"
             >
-          <t t-call="beesdoo_website_shift_swap.solidarity_buttons" />
+          <t t-call="beesdoo_website_shift_swap.solidarity_buttons">
+            <t t-set="regular" t-value="True" />
+          </t>
         </xpath>
         <xpath
                 expr="//t[@t-call='beesdoo_website_shift.help_text_title']"
@@ -102,7 +131,9 @@
                 expr="//div[t[@t-call='beesdoo_website_shift.my_shift_worker_status_title']]/*[last()]"
                 position="after"
             >
-          <t t-call="beesdoo_website_shift_swap.solidarity_buttons" />
+          <t t-call="beesdoo_website_shift_swap.solidarity_buttons">
+            <t t-set="regular" t-value="False" />
+          </t>
         </xpath>
         <xpath
                 expr="//t[@t-call='beesdoo_website_shift.help_text_title']"
@@ -357,7 +388,7 @@
         </t>
       </template>
 
-      <!-- Template for page /my/shift/solidarity/request -->
+      <!-- Template for page /my/shift/solidarity/request and /my/shift/solidarity/request/irregular -->
       <template
             id="website_shift_swap_request_solidarity"
             name="Request a solidarity shift"
@@ -372,6 +403,18 @@
             </div>
             <div class="row">
               <div class="col-12 col-lg-6 m-auto text-justify">
+                <p t-if="tmpl_dated">
+                  <label class="font-weight-bold">Non realisable shift :</label>
+                  <t t-esc="tmpl_dated.date.strftime('%A %d %b, %Y')" />
+                  <t t-esc="'|'" />
+                  <t
+                                    t-esc="str(datetime.timedelta(hours=tmpl_dated.template_id.start_time)).rsplit(':', 1)[0]"
+                                />
+                  -
+                  <t
+                                    t-esc="str(datetime.timedelta(hours=tmpl_dated.template_id.end_time)).rsplit(':', 1)[0]"
+                                />
+                </p>
                 <t
                                 t-call="beesdoo_website_shift_swap.website_shift_swap_request_solidarity_form"
                             />
@@ -387,18 +430,6 @@
             name="Form to request a solidarity shift"
         >
         <form method="POST">
-          <div class="form-group">
-            <label class="font-weight-bold">Non realisable shift :</label>
-            <t t-esc="tmpl_dated.date.strftime('%A %d %b, %Y')" />
-            <t t-esc="'|'" />
-            <t
-                        t-esc="str(datetime.timedelta(hours=tmpl_dated.template_id.start_time)).rsplit(':', 1)[0]"
-                    />
-            -
-            <t
-                        t-esc="str(datetime.timedelta(hours=tmpl_dated.template_id.end_time)).rsplit(':', 1)[0]"
-                    />
-          </div>
           <div class="form-group">
             <label for="reason">Reason :</label>
             <textarea class="form-control" name="reason" rows="5" />
@@ -421,7 +452,12 @@
           <table class="table table-hover text-justify">
             <thead class="thead-dark">
               <tr>
-                <th class="col-3">Non realisable shift</th>
+                <t t-if="regular">
+                  <th class="col-3">Non realisable shift</th>
+                </t>
+                <t t-else="">
+                  <th class="col-3">Request date</th>
+                </t>
                 <th class="col-7">Reason</th>
                 <th class="col-2">Request status</th>
               </tr>
@@ -429,17 +465,24 @@
             <tbody>
               <t t-foreach="solidarity_requests" t-as="request">
                 <tr>
-                  <td>
-                    <t t-esc="request.tmpl_dated_id.date.strftime('%A %d %b, %Y')" />
-                    |
-                    <t
-                                        t-esc="str(datetime.timedelta(hours=request.tmpl_dated_id.template_id.start_time)).rsplit(':', 1)[0]"
-                                    />
-                    -
-                    <t
-                                        t-esc="str(datetime.timedelta(hours=request.tmpl_dated_id.template_id.end_time)).rsplit(':', 1)[0]"
-                                    />
-                  </td>
+                  <t t-if="regular">
+                    <td>
+                      <t t-esc="request.tmpl_dated_id.date.strftime('%A %d %b, %Y')" />
+                      |
+                      <t
+                                            t-esc="str(datetime.timedelta(hours=request.tmpl_dated_id.template_id.start_time)).rsplit(':', 1)[0]"
+                                        />
+                      -
+                      <t
+                                            t-esc="str(datetime.timedelta(hours=request.tmpl_dated_id.template_id.end_time)).rsplit(':', 1)[0]"
+                                        />
+                    </td>
+                  </t>
+                  <t t-else="">
+                    <td>
+                      <t t-esc="request.create_date.strftime('%A %d %b, %Y')" />
+                    </td>
+                  </t>
                   <td>
                     <t t-esc="request.reason" />
                   </td>
@@ -448,7 +491,7 @@
                                         t-esc="dict(request.fields_get(allfields=['state'])['state']['selection'])[request.state]"
                                     />
                     <t
-                                        t-if="request.state == 'validated' and request.tmpl_dated_id.date > now"
+                                        t-if="(regular and request.state == 'validated' and request.tmpl_dated_id.date > now) or (not regular and request.state == 'validated')"
                                     >
                       <br />
                       <a
@@ -493,16 +536,22 @@
               </button>
               <strong>Success!</strong>
               <t t-if="offer_success">
-                Your have been subscribed to a solidarity shift.
+                You have been subscribed to a solidarity shift.
               </t>
               <t t-if="offer_cancel">
-                Your solidarity shift have been cancelled.
+                Your solidarity shift has been cancelled.
               </t>
               <t t-if="request_success">
-                Your have been unsubscribed from your shift. Your counter will not be decreased.
+                You have been unsubscribed from your shift. Your counter will not be decreased.
+              </t>
+              <t t-if="request_success_irregular">
+                Your request has been taken into account. Your counter has been incremented.
               </t>
               <t t-if="request_cancel">
-                Your have successfully cancelled your solidarity request. You have been subscribed back to your shift.
+                You have successfully cancelled your solidarity request. You have been subscribed back to your shift.
+              </t>
+              <t t-if="request_cancel_irregular">
+                You have successfully cancelled your solidarity request. Your counter has been decremented.
               </t>
           </div>
         </xpath>

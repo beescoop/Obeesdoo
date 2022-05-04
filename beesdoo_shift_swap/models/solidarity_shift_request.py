@@ -121,7 +121,9 @@ class SolidarityShiftRequest(models.Model):
         return False
 
     def cancel_solidarity_request(self):
-        if self.state == "validated" and self.tmpl_dated_id.date > datetime.now():
+        if self.state == "validated" and (
+            not self.tmpl_dated_id or self.tmpl_dated_id.date > datetime.now()
+        ):
             self.subscribe_shift_if_generated()
             self.state = "cancelled"
             return True

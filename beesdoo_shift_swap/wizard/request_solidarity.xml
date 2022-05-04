@@ -7,7 +7,11 @@
       <form>
         <group>
           <field name="worker_id" />
-          <field name="tmpl_dated_id" />
+          <field name="working_mode" invisible="1" />
+          <field
+                        name="tmpl_dated_id"
+                        attrs="{'invisible': [('working_mode','=','irregular')], 'required': [('working_mode','=','regular')]}"
+                    />
           <field name="reason" />
         </group>
         <footer>

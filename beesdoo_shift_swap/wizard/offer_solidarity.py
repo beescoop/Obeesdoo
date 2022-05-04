@@ -13,13 +13,14 @@ class OfferSolidarityShift(models.TransientModel):
         default=lambda self: self.env["res.partner"].browse(
             self._context.get("active_id")
         ),
-        required=True,
         string="Cooperator",
+        required=True,
     )
 
     tmpl_dated_id = fields.Many2one(
         "beesdoo.shift.template.dated",
         string="Shift",
+        required=True,
         domain=[
             ("date", ">", datetime.now()),
         ],

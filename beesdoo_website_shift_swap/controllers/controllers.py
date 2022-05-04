@@ -51,10 +51,24 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             template_context["request_success"] = request.session.get("request_success")
             del request.session["request_success"]
 
+        elif "request_success_irregular" in request.session:
+            template_context["back_from_solidarity"] = True
+            template_context["request_success_irregular"] = request.session.get(
+                "request_success_irregular"
+            )
+            del request.session["request_success_irregular"]
+
         elif "request_cancel" in request.session:
             template_context["back_from_solidarity"] = True
             template_context["request_cancel"] = request.session.get("request_cancel")
             del request.session["request_cancel"]
+
+        elif "request_cancel_irregular" in request.session:
+            template_context["back_from_solidarity"] = True
+            template_context["request_cancel_irregular"] = request.session.get(
+                "request_cancel_irregular"
+            )
+            del request.session["request_cancel_irregular"]
 
         return request.render(res.template, template_context)
 
@@ -301,6 +315,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             {
                 "exchange_requests": exchange_requests,
                 "solidarity_requests": solidarity_requests,
+                "regular": True
+                if cur_user.partner_id.working_mode == "regular"
+                else False,
                 "now": datetime.now(),
             },
         )
@@ -557,6 +574,36 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 ".website_shift_swap_request_solidarity_impossible"
             )
 
+    @http.route("/my/shift/solidarity/request/irregular", website=True)
+    def request_solidarity_shift_irregular_worker(self, **post):
+        user = request.env["res.users"].browse(request.uid)
+
+        if request.httprequest.method == "POST":
+            reason = request.httprequest.form.get("reason")
+            data = {
+                "worker_id": user.partner_id.id,
+                "tmpl_dated_id": False,
+                "reason": reason,
+            }
+            request.env["beesdoo.shift.solidarity.request"].sudo().create(data)
+            request.session["request_success_irregular"] = True
+            return request.redirect("/my/shift")
+
+        if request.env[
+            "beesdoo.shift.solidarity.request"
+        ].check_solidarity_requests_number(user.partner_id.id):
+            return request.render(
+                "beesdoo_website_shift_swap.website_shift_swap_request_solidarity",
+                {
+                    "tmpl_dated": False,
+                },
+            )
+        else:
+            return request.render(
+                "beesdoo_website_shift_swap"
+                ".website_shift_swap_request_solidarity_impossible"
+            )
+
     @http.route(
         "/my/shift/solidarity/request/cancel/<int:solidarity_request_id>",
         website=True,
@@ -569,5 +616,8 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         )
 
         solidarity_request.cancel_solidarity_request()
-        request.session["request_cancel"] = True
+        if solidarity_request.worker_id.working_mode == "regular":
+            request.session["request_cancel"] = True
+        else:
+            request.session["request_cancel_irregular"] = True
         return request.redirect("/my/shift")

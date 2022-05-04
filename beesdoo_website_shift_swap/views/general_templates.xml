@@ -7,7 +7,7 @@
             inherit_id="portal.frontend_layout"
         >
           <xpath expr="//a[@id='o_logout']" position="before">
-            <div t-if="user_id.partner_id.working_mode == 'regular'">
+            <div t-if="user_id.partner_id.working_mode in ['regular','irregular']">
               <a
                         href="/my/request"
                         class="dropdown-item"
@@ -57,7 +57,9 @@
                   Cancel solidarity shift
                 </a>
               </t>
-              <t t-else="">
+              <t
+                        t-elif="request.env['res.users'].browse(request.uid).partner_id.working_mode == 'regular'"
+                    >
                 <a
                             class="btn btn-success btn-sm"
                             t-att-href="'/my/shift/swaping/%i/%s' % (shift.task_template_id,shift.start_time)"
@@ -118,7 +120,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12">
+                        <div t-if="regular" class="col-12">
                             <t
                                 t-call="beesdoo_website_shift_swap.my_exchange_request_template"
                             />

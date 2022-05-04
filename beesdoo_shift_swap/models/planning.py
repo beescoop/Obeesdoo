@@ -67,6 +67,7 @@ class TaskTemplate(models.Model):
             for request in solidarity_requests:
                 if (
                     shift["worker_id"] == request.worker_id.id
+                    and request.tmpl_dated_id
                     and shift["task_template_id"]
                     == request.tmpl_dated_id.template_id.id
                     and shift["start_time"] == request.tmpl_dated_id.date
