@@ -6,7 +6,7 @@
     <template
         id="beesdoo_easy_my_coop.rules_template"
         name="Become Cooperator (in beesdoo_easy_my_coop)"
-        inherit_id="easy_my_coop_website.rules_template"
+        inherit_id="cooperator_website.rules_template"
     >
         <xpath expr="//div[@id='internal_rules_approved']" position="before">
             <div

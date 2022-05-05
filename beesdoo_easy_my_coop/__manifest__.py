@@ -9,7 +9,7 @@
         "beesdoo_base",
         "beesdoo_shift",
         "cooperator",
-        "easy_my_coop_website",
+        "cooperator_website",
         "partner_age",
     ],
     "data": [
