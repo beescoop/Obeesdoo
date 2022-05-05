@@ -142,7 +142,9 @@
         </div>
 
         <t t-foreach="subscribed_shifts" t-as="shift">
-            <div t-att-class="'card mb-4 %s' % highlight_class">
+            <div
+                t-att-class="'card mb-4 %s%s' % (highlight_class, ' collapse multi-collapse' if shift_index > 4 else '')"
+            >
                 <div t-att-class="'card-header %s clearfix' % highlight_header_class">
                     <div class="pull-left">
                         <span t-field="shift.start_time" />
@@ -170,6 +172,18 @@
                     </button>
                 </div>
             </div>
+            <t t-if="shift_last">
+                <p>
+                    <button
+                        id="toggle_shifts_button"
+                        class="btn btn-primary btn-block"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target=".multi-collapse"
+                        aria-expanded="true"
+                    >Show next shifts</button>
+                </p>
+            </t>
         </t>
 
         <!-- Super Cooperator info modal -->
