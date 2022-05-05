@@ -5,4 +5,4 @@ git+https://github.com/coopiteasy/vertical-cooperative@12.0-komunigi#subdirector
 git+https://github.com/coopiteasy/addons@12.0#subdirectory=setup/email_template_config
 git+https://github.com/coopiteasy/addons@12.0#subdirectory=setup/partner_contact_address
 git+https://github.com/grap/grap-odoo-incubator@12.0#subdirectory=setup/product_print_category
-git+https://github.com/coopiteasy/addons@12.0#subdirectory=setup/portal_recaptcha
+git+https://github.com/coopiteasy/vertical-cooperative@12.0#subdirectory=setup/portal_recaptcha
