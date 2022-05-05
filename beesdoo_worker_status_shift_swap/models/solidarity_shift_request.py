@@ -33,13 +33,3 @@ class SolidarityShiftRequest(models.Model):
                     self.personal_counter_status = "cancel_ok"
             return True
         return False
-
-    def cancel_solidarity_request(self):
-        result = super(SolidarityShiftRequest, self).cancel_solidarity_request()
-        if result:
-            self.update_personal_counter()
-        return result
-
-    def unsubscribe_shift_if_generated(self):
-        self.update_personal_counter()
-        return super(SolidarityShiftRequest, self).unsubscribe_shift_if_generated()

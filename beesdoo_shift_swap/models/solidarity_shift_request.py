@@ -41,6 +41,17 @@ class SolidarityShiftRequest(models.Model):
 
     date = fields.Date(required=True, default=datetime.date(datetime.now()))
 
+    def create(self, vals_list):
+        """
+        Override create() method to unsubscribe the worker
+        from the shift and update the counters
+        """
+        res = super(SolidarityShiftRequest, self).create(vals_list)
+        if res.worker_id.working_mode == "regular":
+            res.unsubscribe_shift_if_generated()
+        res.update_personal_counter()
+        return res
+
     def unsubscribe_shift_if_generated(self):
         """
         Search a shift matching the data of the request. If found,
@@ -126,6 +137,7 @@ class SolidarityShiftRequest(models.Model):
         ):
             self.subscribe_shift_if_generated()
             self.state = "cancelled"
+            self.update_personal_counter()
             return True
         return False
 
@@ -142,6 +154,13 @@ class SolidarityShiftRequest(models.Model):
             .sudo()
             .get_param("beesdoo_shift.max_solidarity_requests_number")
         )
+
+    def update_personal_counter(self):
+        """
+        Override this method to define the counters behaviour when
+        creating and cancelling a solidarity request
+        """
+        return True
 
     def counter(self):
         """

@@ -551,10 +551,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 "tmpl_dated_id": non_realisable_tmpl_dated.id,
                 "reason": reason,
             }
-            solidarity_request = (
-                request.env["beesdoo.shift.solidarity.request"].sudo().create(data)
-            )
-            solidarity_request.unsubscribe_shift_if_generated()
+            request.env["beesdoo.shift.solidarity.request"].sudo().create(data)
             request.session["request_success"] = True
             return request.redirect("/my/shift")
 
