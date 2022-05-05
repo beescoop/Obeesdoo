@@ -28,5 +28,9 @@
             <field name="key">beesdoo_shift.max_solidarity_requests_number</field>
             <field name="value">2</field>
         </record>
+        <record id="enable_solidarity" model="ir.config_parameter">
+            <field name="key">beesdoo_shift.enable_solidarity</field>
+            <field name="value">True</field>
+        </record>
     </data>
 </odoo>

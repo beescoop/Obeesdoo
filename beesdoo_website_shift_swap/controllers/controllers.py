@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from werkzeug.exceptions import Forbidden
+
 from odoo import http
 from odoo.http import request
 
@@ -24,15 +26,26 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         tmpl_dated.date = date
         return tmpl_dated
 
+    def solidarity_enabled(self):
+        return (
+            request.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_shift.enable_solidarity")
+        )
+
     # Override /my/shift webpage controller
     @http.route("/my/shift", auth="user", website=True)
     def my_shift(self, **kw):
         res = super(WebsiteShiftSwapController, self).my_shift()
         template_context = res.qcontext
 
-        template_context["request_solidarity"] = False
-        if "request_solidarity" in kw:
-            template_context["request_solidarity"] = kw["request_solidarity"]
+        if self.solidarity_enabled():
+            template_context["solidarity_enabled"] = True
+            template_context["request_solidarity"] = False
+            if "request_solidarity" in kw:
+                template_context["request_solidarity"] = kw["request_solidarity"]
+        else:
+            template_context["solidarity_enabled"] = False
 
         # Add feedback about the success of solidarity offer/request
         template_context["back_from_solidarity"] = False
@@ -319,6 +332,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 if cur_user.partner_id.working_mode == "regular"
                 else False,
                 "now": datetime.now(),
+                "solidarity_enabled": True if self.solidarity_enabled() else False,
             },
         )
 
@@ -412,6 +426,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         """
         Page to choose an underpopulated shift to subscribe for solidarity
         """
+        if not self.solidarity_enabled():
+            raise Forbidden("Solidarity is not enabled")
+
         user = request.env["res.users"].sudo().browse(request.uid)
 
         # Check if user can offer solidarity shifts
@@ -444,6 +461,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         """
         Page to choose a shift to subscribe for solidarity
         """
+        if not self.solidarity_enabled():
+            raise Forbidden("Solidarity is not enabled")
+
         user = request.env["res.users"].sudo().browse(request.uid)
 
         # Check if user can offer solidarity shifts
@@ -475,6 +495,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         website=True,
     )
     def subscribe_to_shift_for_solidarity(self, template_wanted, date_wanted):
+        if not self.solidarity_enabled():
+            raise Forbidden("Solidarity is not enabled")
+
         user = request.env["res.users"].browse(request.uid)
 
         tmpl_dated_wanted = (
@@ -502,6 +525,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         website=True,
     )
     def cancel_solidarity_offer(self, solidarity_offer_id):
+        if not self.solidarity_enabled():
+            raise Forbidden("Solidarity is not enabled")
+
         solidarity_offer = (
             request.env["beesdoo.shift.solidarity.offer"]
             .sudo()
@@ -523,12 +549,18 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         "/my/shift/solidarity/request/<int:template_id>/<string:date>", website=True
     )
     def prepare_request_solidarity_shift(self, template_id, date):
+        if not self.solidarity_enabled():
+            raise Forbidden("Solidarity is not enabled")
+
         request.session["template_id"] = template_id
         request.session["date"] = date
         return request.redirect("/my/shift/solidarity/request")
 
     @http.route("/my/shift/solidarity/request", website=True)
     def request_solidarity_shift(self, **post):
+        if not self.solidarity_enabled():
+            raise Forbidden("Solidarity is not enabled")
+
         template_id = request.session["template_id"]
         date = request.session["date"]
         user = request.env["res.users"].browse(request.uid)
@@ -573,6 +605,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
     @http.route("/my/shift/solidarity/request/irregular", website=True)
     def request_solidarity_shift_irregular_worker(self, **post):
+        if not self.solidarity_enabled():
+            raise Forbidden("Solidarity is not enabled")
+
         user = request.env["res.users"].browse(request.uid)
 
         if request.httprequest.method == "POST":
@@ -606,6 +641,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         website=True,
     )
     def cancel_solidarity_request(self, solidarity_request_id):
+        if not self.solidarity_enabled():
+            raise Forbidden("Solidarity is not enabled")
+
         solidarity_request = (
             request.env["beesdoo.shift.solidarity.request"]
             .sudo()

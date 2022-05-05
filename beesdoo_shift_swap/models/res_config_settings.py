@@ -4,6 +4,10 @@ from odoo import fields, models
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
+    enable_solidarity = fields.Boolean(
+        string="Activate solidarity offers and requests",
+        config_parameter="beesdoo_shift.enable_solidarity",
+    )
     percentage_presence = fields.Integer(
         string="Limit of percentage of presence of underpopulated shift",
         config_parameter="beesdoo_shift.percentage_presence",

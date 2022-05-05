@@ -43,7 +43,7 @@
             name="shift option buttons"
             inherit_id="beesdoo_website_shift.my_shift_next_shifts"
         >
-          <xpath expr="//div[@class='card-body clearfix']" position="inside">
+          <xpath expr="//div[hasclass('card-body', 'clearfix')]" position="inside">
             <t
                     t-set="solidarity_counter"
                     t-value="request.env['res.company']._company_default_get().solidarity_counter()"
@@ -120,16 +120,26 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div t-if="regular" class="col-12">
-                            <t
-                                t-call="beesdoo_website_shift_swap.my_exchange_request_template"
-                            />
-                        </div>
-                        <div class="col-12">
-                            <t
-                                t-call="beesdoo_website_shift_swap.my_solidarity_request_template"
-                            />
-                        </div>
+                        <t t-if="regular or solidarity_enabled">
+                            <div t-if="regular" class="col-12">
+                                <t
+                                    t-call="beesdoo_website_shift_swap.my_exchange_request_template"
+                                />
+                            </div>
+                            <div t-if="solidarity_enabled" class="col-12">
+                                <t
+                                    t-call="beesdoo_website_shift_swap.my_solidarity_request_template"
+                                />
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <div class="col-12">
+                                <div class="alert alert-info">
+                                    <strong>Info!</strong>
+                                    You don't have any requests.
+                                </div>
+                            </div>
+                        </t>
                     </div>
                 </div>
             </t>

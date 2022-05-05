@@ -110,7 +110,10 @@
                 expr="//div[t[@t-call='beesdoo_website_shift.my_shift_worker_status_title']]/*[last()]"
                 position="after"
             >
-          <t t-call="beesdoo_website_shift_swap.solidarity_buttons">
+          <t
+                    t-if="solidarity_enabled"
+                    t-call="beesdoo_website_shift_swap.solidarity_buttons"
+                >
             <t t-set="regular" t-value="True" />
           </t>
         </xpath>
@@ -118,7 +121,10 @@
                 expr="//t[@t-call='beesdoo_website_shift.help_text_title']"
                 position="before"
             >
-          <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
+          <t
+                    t-if="solidarity_enabled"
+                    t-call="beesdoo_website_shift_swap.solidarity_counter"
+                />
         </xpath>
       </template>
 
@@ -131,7 +137,10 @@
                 expr="//div[t[@t-call='beesdoo_website_shift.my_shift_worker_status_title']]/*[last()]"
                 position="after"
             >
-          <t t-call="beesdoo_website_shift_swap.solidarity_buttons">
+          <t
+                    t-if="solidarity_enabled"
+                    t-call="beesdoo_website_shift_swap.solidarity_buttons"
+                >
             <t t-set="regular" t-value="False" />
           </t>
         </xpath>
@@ -139,7 +148,10 @@
                 expr="//t[@t-call='beesdoo_website_shift.help_text_title']"
                 position="before"
             >
-          <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
+          <t
+                    t-if="solidarity_enabled"
+                    t-call="beesdoo_website_shift_swap.solidarity_counter"
+                />
         </xpath>
       </template>
 
@@ -148,8 +160,8 @@
             name="Solidarity related elements for non workers"
             inherit_id="beesdoo_website_shift.my_shift_non_worker"
         >
-        <xpath expr="//div[@class='container mt16']/*[last()]" position="after">
-          <div class="row">
+        <xpath expr="//div[hasclass('container', 'mt16')]/*[last()]" position="after">
+          <div t-if="solidarity_enabled" class="row">
             <div class="col">
               <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
             </div>
@@ -162,8 +174,8 @@
             name="Solidarity related elements for new workers"
             inherit_id="beesdoo_website_shift.my_shift_new_worker"
         >
-        <xpath expr="//div[@class='container mt6']/*[last()]" position="after">
-          <div class="row">
+        <xpath expr="//div[hasclass('container', 'mt6')]/*[last()]" position="after">
+          <div t-if="solidarity_enabled" class="row">
             <div class="col">
               <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
             </div>
@@ -176,8 +188,8 @@
             name="Solidarity related elements for exempted workers"
             inherit_id="beesdoo_website_shift.my_shift_exempted_worker"
         >
-        <xpath expr="//div[@class='container mt16']/*[last()]" position="after">
-          <div class="row">
+        <xpath expr="//div[hasclass('container', 'mt16')]/*[last()]" position="after">
+          <div t-if="solidarity_enabled" class="row">
             <div class="col">
               <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
             </div>
@@ -190,8 +202,8 @@
             name="Solidarity related elements for regular workers without shifts"
             inherit_id="beesdoo_website_shift.my_shift_regular_worker_without_shift"
         >
-        <xpath expr="//div[@class='container mt16']/*[last()]" position="after">
-          <div class="row">
+        <xpath expr="//div[hasclass('container', 'mt16')]/*[last()]" position="after">
+          <div t-if="solidarity_enabled" class="row">
             <div class="col">
               <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
             </div>
