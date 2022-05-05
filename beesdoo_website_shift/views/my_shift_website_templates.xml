@@ -766,7 +766,10 @@
 
                     </div>
 
-                    <div class="col-12 col-lg-8">
+                  </div>
+                  <div class="row">
+
+                    <div class="col-12 col-lg-8 order-2 order-lg-1">
 
                         <t t-call="beesdoo_website_shift.my_shift_next_shifts" />
 
@@ -774,7 +777,7 @@
 
                     </div>
 
-                    <div class="col-12 col-lg-4 text-justify">
+                    <div class="col-12 col-lg-4 text-justify order-1 order-lg-2">
 
                         <t t-call="beesdoo_website_shift.help_text_title" />
                         <div class="collapse show" id="collapseHelp">
