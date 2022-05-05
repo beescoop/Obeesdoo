@@ -32,4 +32,4 @@ def migrate(env, version):
         [("name", "=", "account_invoice_negative_total"), ("state", "=", "uninstalled")]
     )
     if module_ids:
-        module_ids.button_immediate_install()
+        module_ids.button_install()

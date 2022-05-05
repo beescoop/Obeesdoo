@@ -14,12 +14,10 @@
     "author": "Beescoop - Cellule IT, Coop IT Easy SCRLfs",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Account Module",
-    "version": "12.0.1.1.0",
+    "version": "12.0.2.0.0",
     "depends": ["account", "beesdoo_base"],
     "data": [
-        "security/invoice_security.xml",
         "views/account_invoice.xml",
-        "views/res_config_view.xml",
     ],
     "license": "AGPL-3",
 }
