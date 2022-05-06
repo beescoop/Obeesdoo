@@ -10,11 +10,14 @@ Beescoop Shift Management - Welcome Screen
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/github-beescoop%2Fobeesdoo-lightgray.png?logo=github
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+    :alt: License: AGPL-3
+.. |badge3| image:: https://img.shields.io/badge/github-beescoop%2Fobeesdoo-lightgray.png?logo=github
     :target: https://github.com/beescoop/obeesdoo/tree/12.0/beesdoo_shift_welcome_screen
     :alt: beescoop/obeesdoo
 
-|badge1| |badge2| 
+|badge1| |badge2| |badge3| 
 
 Add a module for cooperator welcome screen
 
@@ -46,6 +49,7 @@ Authors
 ~~~~~~~
 
 * Thibault Francois
+* Coop IT Easy SCRLfs
 
 Contributors
 ~~~~~~~~~~~~
