@@ -19,7 +19,8 @@ Beescoop  Account Module
 
 |badge1| |badge2| |badge3| 
 
-Module that customize account module for Beescoop.
+- Makes date_invoice field required in account.invoice_form and account.invoice_supplier_form
+- Allow validating an invoice with a negative total amount
 
 **Table of contents**
 
