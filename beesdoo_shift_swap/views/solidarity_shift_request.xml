@@ -1,17 +1,16 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
-  <record model="ir.ui.view" id="solidarity_request_button">
-      <field name="name">Solidarity request button</field>
-      <field name="model">res.partner</field>
-      <field
+    <record model="ir.ui.view" id="solidarity_request_button">
+        <field name="name">Solidarity request button</field>
+        <field name="model">res.partner</field>
+        <field
             name="inherit_id"
             ref="beesdoo_shift.super_coop_partner_inherited_view_form"
         />
-      <field name="arch" type="xml">
-          <xpath expr="//header/button[@name='temporary_exempt']" position="after">
-
-                 <button
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='temporary_exempt']" position="after">
+                <button
                     name="coop_request_solidarity"
                     string="Request a solidarity shift"
                     class="oe_highlight"
@@ -19,31 +18,30 @@
                     groups="beesdoo_shift.group_shift_management"
                     attrs="{'invisible': ['|','|',('state','=','unsubscribed'),('state','=','exempted'),('state','=','resigning')]}"
                 />
+            </xpath>
+        </field>
+    </record>
 
-          </xpath>
-      </field>
-  </record>
+    <record model="ir.ui.view" id="solidarity_shift_request_view_tree">
+        <field name="name">Solidarity shift requests</field>
+        <field name="model">beesdoo.shift.solidarity.request</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="worker_id" />
+                <field name="tmpl_dated_id" />
+                <field name="reason" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
 
-  <record model="ir.ui.view" id="solidarity_shift_request_view_tree">
-    <field name="name">Solidarity shift requests</field>
-    <field name="model">beesdoo.shift.solidarity.request</field>
-    <field name="arch" type="xml">
-      <tree>
-        <field name="worker_id" />
-        <field name="tmpl_dated_id" />
-        <field name="reason" />
-        <field name="state" />
-      </tree>
-    </field>
-  </record>
-
-  <record model="ir.ui.view" id="solidarity_shift_request_view_form">
-      <field name="name">Solidarity shift request</field>
-      <field name="model">beesdoo.shift.solidarity.request</field>
-      <field name="arch" type="xml">
-          <form>
-              <header>
-                  <button
+    <record model="ir.ui.view" id="solidarity_shift_request_view_form">
+        <field name="name">Solidarity shift request</field>
+        <field name="model">beesdoo.shift.solidarity.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
                         name="cancel_solidarity_request"
                         string="Cancel request"
                         class="oe_highlight"
@@ -51,17 +49,17 @@
                         groups="beesdoo_shift.group_shift_management"
                         attrs="{'invisible': [('state','=','cancelled')]}"
                     />
-                  <field name="state" widget="statusbar" />
-              </header>
-              <sheet>
-                <group name="group_top">
-                  <field name="worker_id" />
-                  <field name="tmpl_dated_id" />
-                  <field name="reason" />
-                </group>
-              </sheet>
-          </form>
-      </field>
-  </record>
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group name="group_top">
+                        <field name="worker_id" />
+                        <field name="tmpl_dated_id" />
+                        <field name="reason" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
 </odoo>

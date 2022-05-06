@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
   <record model="ir.ui.view" id="solidarity_offer_button">
@@ -25,15 +25,15 @@
   </record>
 
   <record model="ir.ui.view" id="solidarity_shift_offer_view_tree">
-    <field name="name">Solidarity shift offers</field>
-    <field name="model">beesdoo.shift.solidarity.offer</field>
-    <field name="arch" type="xml">
-      <tree>
-        <field name="worker_id" />
-        <field name="tmpl_dated_id" />
-        <field name="state" />
-      </tree>
-    </field>
+      <field name="name">Solidarity shift offers</field>
+      <field name="model">beesdoo.shift.solidarity.offer</field>
+      <field name="arch" type="xml">
+          <tree>
+              <field name="worker_id" />
+              <field name="tmpl_dated_id" />
+              <field name="state" />
+          </tree>
+      </field>
   </record>
 
   <record model="ir.ui.view" id="solidarity_shift_offer_view_form">
@@ -53,11 +53,11 @@
                   <field name="state" widget="statusbar" />
               </header>
               <sheet>
-                <group name="group_top">
-                  <field name="worker_id" />
-                  <field name="tmpl_dated_id" />
-                  <field name="shift_id" />
-                </group>
+                  <group name="group_top">
+                      <field name="worker_id" />
+                      <field name="tmpl_dated_id" />
+                      <field name="shift_id" />
+                  </group>
               </sheet>
           </form>
       </field>

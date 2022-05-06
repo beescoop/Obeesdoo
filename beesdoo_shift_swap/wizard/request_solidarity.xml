@@ -1,30 +1,30 @@
 <?xml version="1.0" ?>
 <odoo>
-  <record id="request_solidarity_shift_wizard" model="ir.ui.view">
-    <field name="name">Solidarity shift request wizard</field>
-    <field name="model">beesdoo.shift.request.solidarity.shift</field>
-    <field name="arch" type="xml">
-      <form>
-        <group>
-          <field name="worker_id" />
-          <field name="working_mode" invisible="1" />
-          <field
+    <record id="request_solidarity_shift_wizard" model="ir.ui.view">
+        <field name="name">Solidarity shift request wizard</field>
+        <field name="model">beesdoo.shift.request.solidarity.shift</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="worker_id" />
+                    <field name="working_mode" invisible="1" />
+                    <field
                         name="tmpl_dated_id"
                         attrs="{'invisible': [('working_mode','=','irregular')], 'required': [('working_mode','=','regular')]}"
                     />
-          <field name="reason" />
-        </group>
-        <footer>
-          <button
+                    <field name="reason" />
+                </group>
+                <footer>
+                    <button
                         type="object"
                         name="create_request"
                         string="Confirm"
                         class="oe_highlight"
                     />
-          or
-          <button special="cancel" string="Cancel" />
-        </footer>
-      </form>
-    </field>
-  </record>
+                    or
+                    <button special="cancel" string="Cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
 </odoo>

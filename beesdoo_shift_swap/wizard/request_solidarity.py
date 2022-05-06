@@ -82,6 +82,4 @@ class RequestSolidarityShift(models.TransientModel):
             "tmpl_dated_id": self.tmpl_dated_id.id,
             "reason": self.reason,
         }
-        request = self.env["beesdoo.shift.solidarity.request"].sudo().create(data)
-        request.unsubscribe_shift_if_generated()
-        request.update_personal_counter()
+        self.env["beesdoo.shift.solidarity.request"].sudo().create(data)

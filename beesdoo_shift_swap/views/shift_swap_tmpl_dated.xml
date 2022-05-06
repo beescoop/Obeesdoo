@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record model="ir.ui.view" id="shift_swap_tmpl_dated_view_tree">
         <field name="name">Shift swap template dated</field>

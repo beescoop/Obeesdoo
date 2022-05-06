@@ -33,7 +33,16 @@ class SolidarityShiftOffer(models.Model):
 
     date = fields.Date(required=True, default=datetime.date(datetime.now()))
 
-    def subscribe_shift_if_generated(self):
+    def create(self, vals_list):
+        """
+        Override create() method to subscribe the worker
+        to the shift if it is generated
+        """
+        res = super(SolidarityShiftOffer, self).create(vals_list)
+        res._subscribe_shift_if_generated()
+        return res
+
+    def _subscribe_shift_if_generated(self):
         """
         Search an empty shift matching the data of the offer. If found,
         overwrite it with the worker id and the offer id.
@@ -59,7 +68,7 @@ class SolidarityShiftOffer(models.Model):
                 return True
         return False
 
-    def unsubscribe_shift_if_generated(self):
+    def _unsubscribe_shift_if_generated(self):
         """
         Search a shift matching the data of the offer. If found,
         remove the worker and the offer from it.
@@ -86,7 +95,6 @@ class SolidarityShiftOffer(models.Model):
                         "solidarity_offer_ids": [(5,)],
                     }
                 )
-                subscribed_solidarity_shift.solidarity_offer_ids = None
                 return True
         return False
 
@@ -94,6 +102,7 @@ class SolidarityShiftOffer(models.Model):
         """
         Checks if the time delta between the current date and the shift date
         is under a limit, defined in parameter 'hours_limit_cancel_solidarity_offer'.
+        Returns True if the date is too close.
         :return: Boolean
         """
         now = datetime.now()
@@ -110,7 +119,7 @@ class SolidarityShiftOffer(models.Model):
 
     def cancel_solidarity_offer(self):
         if self.state == "validated" and not self.check_offer_date_too_close():
-            self.unsubscribe_shift_if_generated()
+            self._unsubscribe_shift_if_generated()
             self.state = "cancelled"
             return True
         return False

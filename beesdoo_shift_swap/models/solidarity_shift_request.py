@@ -48,11 +48,11 @@ class SolidarityShiftRequest(models.Model):
         """
         res = super(SolidarityShiftRequest, self).create(vals_list)
         if res.worker_id.working_mode == "regular":
-            res.unsubscribe_shift_if_generated()
+            res._unsubscribe_shift_if_generated()
         res.update_personal_counter()
         return res
 
-    def unsubscribe_shift_if_generated(self):
+    def _unsubscribe_shift_if_generated(self):
         """
         Search a shift matching the data of the request. If found,
         remove the worker from it.
@@ -72,7 +72,7 @@ class SolidarityShiftRequest(models.Model):
                 return True
         return False
 
-    def subscribe_shift_if_generated(self):
+    def _subscribe_shift_if_generated(self):
         """
         Search an empty shift matching the data of the request. If found,
         overwrite it with the worker id and the offer id. If not, create a
@@ -101,6 +101,8 @@ class SolidarityShiftRequest(models.Model):
                     }
                 )
                 return True
+
+            # If there are no empty shift corresponding
             nb_shift = self.env["beesdoo.shift.shift"].search_count(
                 [
                     ("start_time", "=", self.tmpl_dated_id.date),
@@ -135,20 +137,44 @@ class SolidarityShiftRequest(models.Model):
         if self.state == "validated" and (
             not self.tmpl_dated_id or self.tmpl_dated_id.date > datetime.now()
         ):
-            self.subscribe_shift_if_generated()
+            self._subscribe_shift_if_generated()
             self.state = "cancelled"
             self.update_personal_counter()
             return True
         return False
 
-    def check_solidarity_requests_number(self, worker_id):
-        nb_requests = self.sudo().search_count(
-            [
-                ("worker_id", "=", worker_id),
-                ("state", "=", "validated"),
-                ("tmpl_dated_id.date", ">", datetime.now() - timedelta(days=365)),
-            ],
-        )
+    def check_solidarity_requests_number(self, worker_id, requested_shift_date=False):
+        """
+        Check if the worker has reached the limit of solidarity requests,
+        defined in parameter 'max_solidarity_requests_number'.
+        Return True if the limit is not reached.
+        :param worker_id: res.partner id
+        :param requested_shift_date: datetime (should be provided if worker is regular)
+        :return: Boolean
+        """
+        if worker_id.working_mode == "regular" and requested_shift_date:
+            # Count the requests in the 365 days before the date of the shift
+            nb_requests = self.sudo().search_count(
+                [
+                    ("worker_id", "=", worker_id),
+                    ("state", "=", "validated"),
+                    (
+                        "tmpl_dated_id.date",
+                        ">",
+                        requested_shift_date - timedelta(days=365),
+                    ),
+                ],
+            )
+        else:
+            # Count the requests created in the last 365 days
+            nb_requests = self.sudo().search_count(
+                [
+                    ("worker_id", "=", worker_id),
+                    ("state", "=", "validated"),
+                    ("create_date", ">", datetime.now() - timedelta(days=365)),
+                ],
+            )
+
         return nb_requests < int(
             self.env["ir.config_parameter"]
             .sudo()

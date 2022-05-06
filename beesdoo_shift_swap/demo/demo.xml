@@ -2,36 +2,14 @@
 <odoo>
 
   <!-- Worker -->
-  <record id="res_partner_worker_1_demo" model="res.partner">
-      <field name="name">Fernand Peso</field>
-      <field name="customer" eval="True" />
-<!--        <field name="eater">worker_eater</field>-->
-      <field name="is_company" eval="False" />
-      <field name="email">fernand_peso@demode.net</field>
-      <field name="street">Avenue des Bas-de-Callanques, 15</field>
-      <field name="city">Etterbeek</field>
-      <field name="zip">1040</field>
-      <field name="country_id" ref="base.be" />
-      <field name="working_mode">regular</field>
-      <field name="is_worker" eval="True" />
+  <record id="beesdoo_shift.res_partner_worker_1_demo" model="res.partner">
       <field
             name="cooperative_status_ids"
             eval="[(6, 0, [ref('beesdoo_shift.cooperative_status_1_demo')])]"
         />
   </record>
 
-  <record id="res_partner_worker_2_demo" model="res.partner">
-      <field name="name">Dupont Dupont</field>
-      <field name="customer" eval="True" />
-<!--        <field name="eater">worker_eater</field>-->
-      <field name="is_company" eval="False" />
-      <field name="email">d_dupont@demode.net</field>
-      <field name="street">Rue des sables, 20</field>
-      <field name="city">Bruxelles</field>
-      <field name="zip">10000</field>
-      <field name="country_id" ref="base.be" />
-      <field name="working_mode">irregular</field>
-      <field name="is_worker" eval="True" />
+  <record id="beesdoo_shift.res_partner_worker_2_demo" model="res.partner">
       <field
             name="cooperative_status_ids"
             eval="[(6, 0, [ref('beesdoo_shift.cooperative_status_2_demo')])]"
@@ -40,9 +18,9 @@
 
   <!-- Task Template -->
   <record id="task_template_1_demo" model="beesdoo.shift.template">
-      <field name="name">A_MON-10:00-12:00</field>
+      <field name="name">A_TUE-10:00-12:00</field>
       <field name="planning_id" ref="beesdoo_shift.beesdoo_shift_planning_1_demo" />
-      <field name="day_nb_id" ref="beesdoo_shift.beesdoo_shift_daynumber_1_demo" />
+      <field name="day_nb_id" ref="beesdoo_shift.beesdoo_shift_daynumber_2_demo" />
       <field name="task_type_id" ref="beesdoo_shift.beesdoo_shift_task_type_3_demo" />
       <field name="start_time">10.0</field>
       <field name="end_time">12.0</field>
@@ -53,9 +31,9 @@
   </record>
 
   <record id="task_template_2_demo" model="beesdoo.shift.template">
-      <field name="name">A_MON-10:00-12:00</field>
+      <field name="name">A_WED-10:00-12:00</field>
       <field name="planning_id" ref="beesdoo_shift.beesdoo_shift_planning_1_demo" />
-      <field name="day_nb_id" ref="beesdoo_shift.beesdoo_shift_daynumber_1_demo" />
+      <field name="day_nb_id" ref="beesdoo_shift.beesdoo_shift_daynumber_3_demo" />
       <field name="task_type_id" ref="beesdoo_shift.beesdoo_shift_task_type_3_demo" />
       <field name="start_time">10.0</field>
       <field name="end_time">12.0</field>
@@ -63,15 +41,15 @@
       <field name="worker_nb">5</field>
       <field
             name="worker_ids"
-            eval="[(6, 0, [ref('beesdoo_shift_swap.res_partner_worker_1_demo'), ref('beesdoo_shift_swap.res_partner_worker_2_demo')])]"
+            eval="[(6, 0, [ref('beesdoo_shift.res_partner_worker_1_demo'), ref('beesdoo_shift.res_partner_worker_2_demo')])]"
         />
       <field name="remaining_worker">4</field>
   </record>
 
   <record id="task_template_3_demo" model="beesdoo.shift.template">
-      <field name="name">A_MON-10:00-12:00</field>
+      <field name="name">A_THU-10:00-12:00</field>
       <field name="planning_id" ref="beesdoo_shift.beesdoo_shift_planning_1_demo" />
-      <field name="day_nb_id" ref="beesdoo_shift.beesdoo_shift_daynumber_1_demo" />
+      <field name="day_nb_id" ref="beesdoo_shift.beesdoo_shift_daynumber_4_demo" />
       <field name="task_type_id" ref="beesdoo_shift.beesdoo_shift_task_type_3_demo" />
       <field name="start_time">10.0</field>
       <field name="end_time">12.0</field>
@@ -79,7 +57,7 @@
       <field name="worker_nb">1</field>
       <field
             name="worker_ids"
-            eval="[(6, 0, [ref('beesdoo_shift_swap.res_partner_worker_1_demo')])]"
+            eval="[(6, 0, [ref('beesdoo_shift.res_partner_worker_1_demo')])]"
         />
       <field name="remaining_worker">0</field>
   </record>

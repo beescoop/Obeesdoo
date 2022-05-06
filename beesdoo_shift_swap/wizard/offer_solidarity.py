@@ -60,5 +60,4 @@ class OfferSolidarityShift(models.TransientModel):
             "worker_id": self.worker_id.id,
             "tmpl_dated_id": self.tmpl_dated_id.id,
         }
-        offer = self.env["beesdoo.shift.solidarity.offer"].sudo().create(data)
-        offer.subscribe_shift_if_generated()
+        self.env["beesdoo.shift.solidarity.offer"].sudo().create(data)

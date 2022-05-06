@@ -427,7 +427,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         Page to choose an underpopulated shift to subscribe for solidarity
         """
         if not self.solidarity_enabled():
-            raise Forbidden("Solidarity is not enabled")
+            raise Forbidden("Solidarity related features are not enabled")
 
         user = request.env["res.users"].sudo().browse(request.uid)
 
@@ -462,7 +462,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         Page to choose a shift to subscribe for solidarity
         """
         if not self.solidarity_enabled():
-            raise Forbidden("Solidarity is not enabled")
+            raise Forbidden("Solidarity related features are not enabled")
 
         user = request.env["res.users"].sudo().browse(request.uid)
 
@@ -496,7 +496,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
     )
     def subscribe_to_shift_for_solidarity(self, template_wanted, date_wanted):
         if not self.solidarity_enabled():
-            raise Forbidden("Solidarity is not enabled")
+            raise Forbidden("Solidarity related features are not enabled")
 
         user = request.env["res.users"].browse(request.uid)
 
@@ -515,8 +515,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             "worker_id": user.partner_id.id,
             "tmpl_dated_id": tmpl_dated_wanted.id,
         }
-        record = request.env["beesdoo.shift.solidarity.offer"].sudo().create(data)
-        record.subscribe_shift_if_generated()
+        request.env["beesdoo.shift.solidarity.offer"].sudo().create(data)
         request.session["offer_success"] = True
         return request.redirect("/my/shift")
 
@@ -526,7 +525,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
     )
     def cancel_solidarity_offer(self, solidarity_offer_id):
         if not self.solidarity_enabled():
-            raise Forbidden("Solidarity is not enabled")
+            raise Forbidden("Solidarity related features are not enabled")
 
         solidarity_offer = (
             request.env["beesdoo.shift.solidarity.offer"]
@@ -550,7 +549,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
     )
     def prepare_request_solidarity_shift(self, template_id, date):
         if not self.solidarity_enabled():
-            raise Forbidden("Solidarity is not enabled")
+            raise Forbidden("Solidarity related features are not enabled")
 
         request.session["template_id"] = template_id
         request.session["date"] = date
@@ -559,7 +558,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
     @http.route("/my/shift/solidarity/request", website=True)
     def request_solidarity_shift(self, **post):
         if not self.solidarity_enabled():
-            raise Forbidden("Solidarity is not enabled")
+            raise Forbidden("Solidarity related features are not enabled")
 
         template_id = request.session["template_id"]
         date = request.session["date"]
@@ -590,7 +589,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         tmpl_dated = self.new_tmpl_dated(template_id, date)
         if request.env[
             "beesdoo.shift.solidarity.request"
-        ].check_solidarity_requests_number(user.partner_id.id):
+        ].check_solidarity_requests_number(user.partner_id.id, date):
             return request.render(
                 "beesdoo_website_shift_swap.website_shift_swap_request_solidarity",
                 {
@@ -606,7 +605,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
     @http.route("/my/shift/solidarity/request/irregular", website=True)
     def request_solidarity_shift_irregular_worker(self, **post):
         if not self.solidarity_enabled():
-            raise Forbidden("Solidarity is not enabled")
+            raise Forbidden("Solidarity related features are not enabled")
 
         user = request.env["res.users"].browse(request.uid)
 
@@ -642,7 +641,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
     )
     def cancel_solidarity_request(self, solidarity_request_id):
         if not self.solidarity_enabled():
-            raise Forbidden("Solidarity is not enabled")
+            raise Forbidden("Solidarity related features are not enabled")
 
         solidarity_request = (
             request.env["beesdoo.shift.solidarity.request"]

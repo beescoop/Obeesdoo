@@ -1,21 +1,19 @@
+# Copyright 2022 Coop IT Easy SCRLfs
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+
 {
     "name": "Beesdoo Shift Swap",
     "summary": """
         Module to allow cooperator to swap his/her shift
-        when he/she can't attend it.""",
+        when he/she can't attend it, to do solidarity
+        shifts, and to request solidarity if needed.""",
     "author": "Coop IT Easy SCRLfs",
     "website": "https://github.com/beescoop/Obeesdoo",
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/12.0/
-    #   odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
     "category": "Cooperative Management",
     "version": "12.0.1.0.2",
-    # any module necessary for this one to work correctly
     "depends": [
         "beesdoo_shift",
     ],
-    # always loaded
     "data": [
         "data/system_parameter.xml",
         "security/shift_swap_group.xml",
@@ -36,7 +34,6 @@
         "wizard/validate_exchange.xml",
         "data/mail_template.xml",
     ],
-    # only loaded in demonstration mode
     "demo": [
         "demo/demo.xml",
     ],

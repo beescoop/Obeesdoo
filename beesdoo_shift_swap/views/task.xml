@@ -1,13 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-  <record model="ir.ui.view" id="task_view_form_extended">
-    <field name="name">Add solidarity_offer field</field>
-    <field name="model">beesdoo.shift.shift</field>
-    <field name="inherit_id" ref="beesdoo_shift.task_view_form" />
-    <field name="arch" type="xml">
-      <field name="is_compensation" position="after">
-        <field name="is_solidarity" />
-        <field name="solidarity_offer_ids" invisible="1" />
-      </field>
-    </field>
-  </record>
+    <record model="ir.ui.view" id="task_view_form_extended">
+        <field name="name">Add solidarity_offer field</field>
+        <field name="model">beesdoo.shift.shift</field>
+        <field name="inherit_id" ref="beesdoo_shift.task_view_form" />
+        <field name="arch" type="xml">
+            <field name="is_compensation" position="after">
+                <field
+                    name="is_solidarity"
+                    attrs="{'invisible': [('working_mode', 'not in', ('regular', 'irregular'))]}"
+                />
+                <field name="solidarity_offer_ids" invisible="1" />
+            </field>
+        </field>
+    </record>
 </odoo>
