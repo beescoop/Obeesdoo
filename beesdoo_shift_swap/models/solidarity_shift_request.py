@@ -156,7 +156,7 @@ class SolidarityShiftRequest(models.Model):
             # Count the requests in the 365 days before the date of the shift
             nb_requests = self.sudo().search_count(
                 [
-                    ("worker_id", "=", worker_id),
+                    ("worker_id", "=", worker_id.id),
                     ("state", "=", "validated"),
                     (
                         "tmpl_dated_id.date",
@@ -169,7 +169,7 @@ class SolidarityShiftRequest(models.Model):
             # Count the requests created in the last 365 days
             nb_requests = self.sudo().search_count(
                 [
-                    ("worker_id", "=", worker_id),
+                    ("worker_id", "=", worker_id.id),
                     ("state", "=", "validated"),
                     ("create_date", ">", datetime.now() - timedelta(days=365)),
                 ],

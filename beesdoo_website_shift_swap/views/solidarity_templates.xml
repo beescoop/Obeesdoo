@@ -72,10 +72,7 @@
                   </a>
                 </t>
                 <t t-else="">
-                  <a
-                                    class="btn btn-success"
-                                    href="/my/shift/solidarity/request/irregular"
-                                >
+                  <a class="btn btn-success" href="/my/shift/solidarity/request">
                     Request solidarity
                   </a>
                 </t>
@@ -354,14 +351,14 @@
           <p>
             <a
                         class="btn btn-secondary btn-dark btn-block"
-                        t-att-href="'/my/shift/solidarity/offer/all'"
+                        href="/my/shift/solidarity/offer?display_all=1"
                     >No shifts suits me</a>
           </p>
         </t>
       </template>
 
       <!-- Solidarity shift selection page -->
-      <!-- Template for page /my/shift/solidarity/offer and /my/shift/solidarity/offer/all -->
+      <!-- Template for page /my/shift/solidarity/offer -->
       <template
             id="website_shift_swap_select_solidarity"
             name="Select a shift for solidarity"
@@ -400,7 +397,7 @@
         </t>
       </template>
 
-      <!-- Template for page /my/shift/solidarity/request and /my/shift/solidarity/request/irregular -->
+      <!-- Template for page /my/shift/solidarity/request -->
       <template
             id="website_shift_swap_request_solidarity"
             name="Request a solidarity shift"
