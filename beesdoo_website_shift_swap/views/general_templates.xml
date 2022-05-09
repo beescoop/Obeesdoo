@@ -6,32 +6,38 @@
             name="Request Link to frontend portal"
             inherit_id="portal.frontend_layout"
         >
-          <xpath expr="//a[@id='o_logout']" position="before">
-            <div t-if="user_id.partner_id.working_mode in ['regular','irregular']">
-              <a
+            <xpath expr="//a[@id='o_logout']" position="before">
+                <div t-if="user_id.partner_id.working_mode in ['regular','irregular']">
+                    <a
                         href="/my/request"
                         class="dropdown-item"
                         role="menuitem"
                     >My Requests</a>
-            </div>
-          </xpath>
+                </div>
+            </xpath>
         </template>
 
         <!-- Reusable templates -->
         <template id="swap_shift_title" name="Swap Shift Title">
-          <h1>
-            Swap Your Shift
-          </h1>
+            <h1>
+                Swap Your Shift
+            </h1>
         </template>
 
         <template id="select_shift_title" name="Select shift title">
-          <h1>
-            Select a shift
-          </h1>
+            <h1>
+                Select a shift
+            </h1>
+        </template>
+
+        <template id="help_text_title" name="Help Text Title">
+            <h2>
+                Help
+            </h2>
         </template>
 
         <template id="no_shifts_suits_me_button" name="No shifts suits me">
-          <a
+            <a
                 class="btn btn-secondary btn-dark btn-block"
                 t-att-href="'/my/shift/possible/shift'"
             >No shifts suits me</a>
@@ -43,68 +49,71 @@
             name="shift option buttons"
             inherit_id="beesdoo_website_shift.my_shift_next_shifts"
         >
-          <xpath expr="//div[hasclass('card-body', 'clearfix')]" position="inside">
-            <t
+            <xpath expr="//div[hasclass('card-body', 'clearfix')]" position="inside">
+                <t
                     t-set="solidarity_counter"
                     t-value="request.env['res.company']._company_default_get().solidarity_counter()"
                 />
-            <p>
-              <t t-if="shift.solidarity_offer_ids">
-                <a
+                <p>
+                    <t t-if="shift.solidarity_offer_ids">
+                        <a
                             class="btn btn-danger btn-sm"
                             t-att-href="'/my/shift/solidarity/offer/cancel/%i' % shift.solidarity_offer_ids[0]"
                         >
-                  Cancel solidarity shift
-                </a>
-              </t>
-              <t
+                            Cancel solidarity shift
+                        </a>
+                    </t>
+                    <t
                         t-elif="request.env['res.users'].browse(request.uid).partner_id.working_mode == 'regular'"
                     >
-                <a
+                        <a
                             class="btn btn-success btn-sm"
                             t-att-href="'/my/shift/swaping/%i/%s' % (shift.task_template_id,shift.start_time)"
                         >Swap Shift</a>
-                <t t-if="request_solidarity">
-                  <t
+                        <t t-if="request_solidarity">
+                            <t
                                 t-if="solidarity_counter > int(request.env['ir.config_parameter'].sudo().get_param('beesdoo_shift.solidarity_counter_limit'))"
                             >
-                    <a
+                                <a
                                     class="btn btn-secondary btn-sm"
                                     t-att-href="'/my/shift/solidarity/request/%i/%s' % (shift.task_template_id,shift.start_time)"
                                 >Request solidarity</a>
-                  </t>
-                  <t t-else="">
-                    <a class="btn btn-secondary btn-sm disabled" aria-disabled="true">
-                      Request solidarity
-                    </a>
-                  </t>
-                </t>
-              </t>
-            </p>
-          </xpath>
+                            </t>
+                            <t t-else="">
+                                <a
+                                    class="btn btn-secondary btn-sm disabled"
+                                    aria-disabled="true"
+                                >
+                                  Request solidarity
+                                </a>
+                            </t>
+                        </t>
+                    </t>
+                </p>
+            </xpath>
         </template>
 
         <!-- Summary of the shift being exchanged -->
         <template id="website_shift_swap_summary" name="Swap Summary">
-          <h2>
-            Swap Summary
-          </h2>
-          <br />
-          <p>
-            <label class="font-weight-bold">Exchanged Shift :</label>
-            <t t-esc="exchanged_tmpl_dated.date.strftime('%A %d %b, %Y')" />
-            <t t-esc="'|'" />
-            <t
+            <h2>
+                Swap Summary
+            </h2>
+            <br />
+            <p>
+                <label class="font-weight-bold">Exchanged Shift :</label>
+                <t t-esc="exchanged_tmpl_dated.date.strftime('%A %d %b, %Y')" />
+                <t t-esc="'|'" />
+                <t
                     t-esc="str(datetime.timedelta(hours=exchanged_tmpl_dated.template_id.start_time)).rsplit(':', 1)[0]"
                 />
-            -
-            <t
+                -
+                <t
                     t-esc="str(datetime.timedelta(hours=exchanged_tmpl_dated.template_id.end_time)).rsplit(':', 1)[0]"
                 />
-            <br />
-            <label class="font-weight-bold">Task :</label>
-            <t t-esc="exchanged_tmpl_dated.template_id.task_type_id.name" />
-          </p>
+                <br />
+                <label class="font-weight-bold">Task :</label>
+                <t t-esc="exchanged_tmpl_dated.template_id.task_type_id.name" />
+            </p>
         </template>
 
         <!-- Template for page /my/request -->
