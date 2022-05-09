@@ -41,28 +41,24 @@
         parent="menu_swap_top"
         action="action_shift_swap"
     />
-
     <menuitem
         id="menu_exchange_request"
         name="exchange proposale"
         parent="menu_swap_top"
         action="action_shift_swap_exchange_request"
     />
-
     <menuitem
         id="menu_exchange"
         name="exchange"
         parent="menu_swap_top"
         action="action_shift_swap_exchange"
     />
-
     <menuitem
         id="menu_solidarity_offer"
         name="Solidarity shift offers"
         parent="menu_swap_top"
         action="action_solidarity_shift_offer"
     />
-
     <menuitem
         id="menu_solidarity_requests"
         name="Solidarity shift requests"

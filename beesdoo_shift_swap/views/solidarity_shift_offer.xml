@@ -10,8 +10,7 @@
         />
       <field name="arch" type="xml">
           <xpath expr="//header/button[@name='temporary_exempt']" position="after">
-
-                 <button
+              <button
                     name="coop_offer_solidarity"
                     string="Offer a solidarity shift"
                     class="oe_highlight"
@@ -19,7 +18,6 @@
                     groups="beesdoo_shift.group_shift_management"
                     attrs="{'invisible': [('state','!=','ok'),('state','!=','holiday')]}"
                 />
-
           </xpath>
       </field>
   </record>

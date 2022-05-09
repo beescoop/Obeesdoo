@@ -4,10 +4,10 @@
         <field name="name">Shift swap template dated</field>
         <field name="model">beesdoo.shift.template.dated</field>
         <field name="arch" type="xml">
-                <tree>
-                    <field name="template_id" />
-                    <field name="date" />
-                </tree>
+            <tree>
+                <field name="template_id" />
+                <field name="date" />
+            </tree>
         </field>
     </record>
 
