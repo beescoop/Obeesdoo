@@ -30,7 +30,7 @@
         "wizard/exchange_wizard.xml",
         "wizard/offer_solidarity.xml",
         "wizard/request_solidarity.xml",
-        "wizard/Subscribe_shift_swap.xml",
+        "wizard/subscribe_shift_swap.xml",
         "wizard/validate_exchange.xml",
         "data/mail_template.xml",
     ],
