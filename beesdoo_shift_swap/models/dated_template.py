@@ -28,10 +28,10 @@ class DatedTemplate(models.Model):
     def name_get(self):
         data = []
         for tmpl_dated in self:
-            display_name = ""
-            display_name += tmpl_dated.template_id.name
-            display_name += ", "
-            display_name += fields.Date.to_string(tmpl_dated.date)
+            display_name = "%s, %s" % (
+                tmpl_dated.template_id.name,
+                fields.Date.to_string(tmpl_dated.date),
+            )
             data.append((tmpl_dated.id, display_name))
         return data
 
@@ -42,42 +42,24 @@ class DatedTemplate(models.Model):
         :parameter beesdoo.shift.shift recordset,
         :return beesdoo.shift.template.dated recordset
         """
-        # TODO : améliorer code
+        tmpl_dated_list = self.env["beesdoo.shift.template.dated"]
 
-        tmpl_dated_rec = self.env["beesdoo.shift.template.dated"]
+        last_date = None
+        last_template = None
+        for shift in list_shift:
+            cur_date = shift.start_time
+            cur_template = shift.task_template_id
+            if cur_date != last_date or cur_template != last_template:
+                tmpl_dated_list |= self.new(
+                    {
+                        "template_id": cur_template,
+                        "date": cur_date,
+                    }
+                )
+                last_date = cur_date
+                last_template = cur_template
 
-        if list_shift != []:
-            first_shift = list_shift[0]
-            last_template = first_shift.task_template_id
-            new_template = first_shift.task_template_id
-            last_date = first_shift.start_time
-            new_date = first_shift.start_time
-
-            first_tmpl_dated = self.env["beesdoo.shift.template.dated"].new()
-            first_tmpl_dated.template_id = first_shift.task_template_id
-            first_tmpl_dated.date = first_shift.start_time
-            tmpl_dated_rec |= first_tmpl_dated
-
-            shift_generated_list = []
-            for shift_rec in list_shift:
-                shift_generated_list.append(shift_rec)
-
-            for i in range(1, len(shift_generated_list)):
-                if last_template != new_template or last_date != new_date:
-                    tmpl_dated = self.env["beesdoo.shift.template.dated"].new()
-                    tmpl_dated.template_id = shift_generated_list[
-                        i - 1
-                    ].task_template_id
-                    tmpl_dated.date = shift_generated_list[i - 1].start_time
-                    tmpl_dated_rec |= tmpl_dated
-                    new_template = shift_generated_list[i - 1].task_template_id
-                    new_date = shift_generated_list[i - 1].start_time
-                last_template = shift_generated_list[i].task_template_id
-                last_date = shift_generated_list[i].start_time
-
-            shift_generated_list.clear()
-
-        return tmpl_dated_rec
+        return tmpl_dated_list
 
     @api.model
     def display_tmpl_dated(self):
