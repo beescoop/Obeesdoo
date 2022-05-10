@@ -32,6 +32,15 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             .get_param("beesdoo_shift.enable_solidarity")
         )
 
+    def solidarity_counter_too_low(self):
+        return request.env[
+            "res.company"
+        ]._company_default_get().solidarity_counter() <= int(
+            request.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_shift.solidarity_counter_limit")
+        )
+
     # Override /my/shift webpage controller
     @http.route("/my/shift", auth="user", website=True)
     def my_shift(self, **kw):
@@ -537,6 +546,10 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         """
         if not self.solidarity_enabled():
             raise Forbidden("Solidarity related features are not enabled")
+        if self.solidarity_counter_too_low():
+            raise Forbidden(
+                "Solidarity counter is too low, requesting solidarity is impossible"
+            )
 
         request.session["template_id"] = template_id
         request.session["date"] = date
@@ -549,6 +562,10 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         """
         if not self.solidarity_enabled():
             raise Forbidden("Solidarity related features are not enabled")
+        if self.solidarity_counter_too_low():
+            raise Forbidden(
+                "Solidarity counter is too low, requesting solidarity is impossible"
+            )
 
         user = request.env["res.users"].browse(request.uid)
         regular = False

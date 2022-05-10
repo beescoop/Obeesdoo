@@ -21,14 +21,40 @@
                 Solidarity
             </h2>
             <p>
-                <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-toggle="modal"
-                    data-target="#warning_request_solidarity_popup"
+                <t
+                    t-set="solidarity_counter"
+                    t-value="request.env['res.company']._company_default_get().solidarity_counter()"
+                />
+                <t
+                    t-if="solidarity_counter > int(request.env['ir.config_parameter'].sudo().get_param('beesdoo_shift.solidarity_counter_limit'))"
                 >
-                    I need help
-                </button>
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#warning_request_solidarity_popup"
+                    >
+                        I need help
+                    </button>
+                </t>
+                <t t-else="">
+                    <div
+                        id="solidarity_disabled_popover"
+                        class="d-inline-block"
+                        data-toggle="popover"
+                        data-placement="top"
+                        data-trigger="hover"
+                        data-content="Solidarity counter is too low. Requesting solidarity is unavailable."
+                    >
+                        <button
+                            type="button"
+                            class="btn btn-primary disabled"
+                            style="pointer-events: none;"
+                        >
+                            I need help
+                        </button>
+                    </div>
+                </t>
                 <a class="btn btn-primary" href="/my/shift/solidarity/offer">
                     Offer a solidarity shift
                 </a>
@@ -117,7 +143,7 @@
                     t-if="solidarity_enabled"
                     t-call="beesdoo_website_shift_swap.solidarity_buttons"
                 >
-                <t t-set="regular" t-value="True" />
+                    <t t-set="regular" t-value="True" />
                 </t>
             </xpath>
             <xpath

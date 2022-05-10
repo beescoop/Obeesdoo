@@ -1,34 +1,58 @@
 <odoo>
     <data noupdate="1">
-        <record id="min_percentage_presence" model="ir.config_parameter">
+        <record
+            id="min_percentage_presence"
+            model="ir.config_parameter"
+            forcecreate="False"
+        >
             <field name="key">beesdoo_shift.percentage_presence</field>
             <field name="value">20</field>
         </record>
-        <record id="day_limit_swap" model="ir.config_parameter">
+        <record id="day_limit_swap" model="ir.config_parameter" forcecreate="False">
             <field name="key">beesdoo_shift.day_limit_swap</field>
             <field name="value">28</field>
         </record>
-        <record id="day_limit_ask_for_exchange" model="ir.config_parameter">
+        <record
+            id="day_limit_ask_for_exchange"
+            model="ir.config_parameter"
+            forcecreate="False"
+        >
             <field name="key">beesdoo_shift.day_limit_ask_for_exchange</field>
             <field name="value">56</field>
         </record>
-        <record id="hours_limit_cancel_solidarity_offer" model="ir.config_parameter">
+        <record
+            id="hours_limit_cancel_solidarity_offer"
+            model="ir.config_parameter"
+            forcecreate="False"
+        >
             <field name="key">beesdoo_shift.hours_limit_cancel_solidarity_offer</field>
             <field name="value">24</field>
         </record>
-        <record id="solidarity_counter_start_value" model="ir.config_parameter">
+        <record
+            id="solidarity_counter_start_value"
+            model="ir.config_parameter"
+            forcecreate="False"
+        >
             <field name="key">beesdoo_shift.solidarity_counter_start_value</field>
             <field name="value">0</field>
         </record>
-        <record id="solidarity_counter_limit" model="ir.config_parameter">
+        <record
+            id="solidarity_counter_limit"
+            model="ir.config_parameter"
+            forcecreate="False"
+        >
             <field name="key">beesdoo_shift.solidarity_counter_limit</field>
             <field name="value">0</field>
         </record>
-        <record id="max_solidarity_requests_number" model="ir.config_parameter">
+        <record
+            id="max_solidarity_requests_number"
+            model="ir.config_parameter"
+            forcecreate="False"
+        >
             <field name="key">beesdoo_shift.max_solidarity_requests_number</field>
             <field name="value">2</field>
         </record>
-        <record id="enable_solidarity" model="ir.config_parameter">
+        <record id="enable_solidarity" model="ir.config_parameter" forcecreate="False">
             <field name="key">beesdoo_shift.enable_solidarity</field>
             <field name="value">True</field>
         </record>
