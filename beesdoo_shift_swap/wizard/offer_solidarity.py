@@ -15,6 +15,11 @@ class OfferSolidarityShift(models.TransientModel):
         ),
         string="Cooperator",
         required=True,
+        domain=[
+            ("is_worker", "=", True),
+            ("working_mode", "in", ("regular", "irregular")),
+            ("state", "not in", ("unsubscribed", "resigning")),
+        ],
     )
 
     tmpl_dated_id = fields.Many2one(

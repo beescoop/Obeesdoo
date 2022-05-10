@@ -15,6 +15,11 @@ class RequestSolidarityShift(models.TransientModel):
         ),
         required=True,
         string="Cooperator",
+        domain=[
+            ("is_worker", "=", True),
+            ("working_mode", "in", ("regular", "irregular")),
+            ("state", "not in", ("unsubscribed", "resigning")),
+        ],
     )
 
     working_mode = fields.Selection(

@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 
 class Task(models.Model):
@@ -17,6 +17,17 @@ class Task(models.Model):
         readonly=True,
         compute="_compute_is_solidarity",
     )
+
+    @api.multi
+    def subscribe_shift_as_solidarity(self):
+        return {
+            "name": _("Solidarity shift offer wizard based on shift"),
+            "type": "ir.actions.act_window",
+            "view_type": "form",
+            "view_mode": "form",
+            "res_model": "beesdoo.shift.subscribe.shift.solidarity",
+            "target": "new",
+        }
 
     @api.depends("solidarity_offer_ids")
     def _compute_is_solidarity(self):
