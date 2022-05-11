@@ -583,9 +583,9 @@
         <template
             id="solidarity_feedback_alert"
             name="Success or error alert for solidarity related operations"
-            inherit_id="beesdoo_website_shift.my_shift_next_shifts"
+            inherit_id="beesdoo_website_shift.my_shift_title"
         >
-            <xpath expr="//h2[1]" position="after">
+            <xpath expr="//h1[1]" position="before">
                 <div
                     t-if="back_from_solidarity"
                     role="alert"
