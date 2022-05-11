@@ -35,7 +35,7 @@ class DatedTemplate(models.Model):
             data.append((tmpl_dated.id, display_name))
         return data
 
-    def swap_shift_to_tmpl_dated(self, list_shift):
+    def swap_shift_to_tmpl_dated(self, shift_list):
         """
         This function allow to swap "beesdoo.shift.shift" type into
         "beesdoo.shift.template.dated" type.
@@ -46,7 +46,7 @@ class DatedTemplate(models.Model):
 
         last_date = None
         last_template = None
-        for shift in list_shift:
+        for shift in shift_list:
             cur_date = shift.start_time
             cur_template = shift.task_template_id
             if cur_date != last_date or cur_template != last_template:
@@ -62,40 +62,20 @@ class DatedTemplate(models.Model):
         return tmpl_dated_list
 
     @api.model
-    def display_tmpl_dated(self):
+    def get_next_tmpl_dated(self, nb_days=60):
         """
-        This function return all the "template_dated", between now
-        and "beesdoo_shift.day_limit_ask_for_exchange"(parametable) day after
-        current date.
+        This function return all the template_dated between now
+        and nb_days days after current date.
+        :param nb_days: int
         :return: beesdoo.shift.template.dated recordset
         """
-        ask_date_limit = int(
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("beesdoo_shift.day_limit_ask_for_exchange")
-        )
-        end_date = datetime.now() + timedelta(days=ask_date_limit)
-
+        end_date = datetime.now() + timedelta(days=nb_days)
         shifts = self.env["beesdoo.shift.planning"].get_future_shifts(end_date)
-
         tmpl_dated_rec = self.swap_shift_to_tmpl_dated(shifts)
         return tmpl_dated_rec
 
-    @api.multi
-    def get_next_tmpl_dated(self, worker_id):
-        """
-        Same utility as get_next_shifts() but return beesdoo.shift.template.dated
-        :param worker_id: res.partner record
-        :return: beesdoo.shift.template.dated recordset
-        """
-        shifts = worker_id.get_next_shifts()
-        tmpl_dated = self.env["beesdoo.shift.template.dated"]
-        if shifts:
-            tmpl_dated = self.swap_shift_to_tmpl_dated(shifts)
-        return tmpl_dated
-
     def check_possibility_to_exchange(self, wanted_tmpl_dated, worker_id):
-        my_next_tmpl_dated = self.get_next_tmpl_dated(worker_id)
+        my_next_tmpl_dated = worker_id.get_next_tmpl_dated()
         shift_in_day = 0
         shift_in_month = 0
         for tmpl_dated in my_next_tmpl_dated:
@@ -109,20 +89,17 @@ class DatedTemplate(models.Model):
             raise UserError(_("You already have 5 shift in a month"))
 
     def remove_already_subscribed_shifts(self, user):
-        # Get the user's future shifts
         subscribed_shifts = user.get_next_shifts()
-
-        # Remove the already subscribed shifts from the propositions
+        result = self
         for rec in self:
             for tmpl_dated in self.swap_shift_to_tmpl_dated(subscribed_shifts):
                 if rec.date == tmpl_dated.date:
-                    self -= rec
+                    result -= rec
+        return result
 
-        return self
-
-    def get_available_shifts(self, sort_date_desc=False):
+    def get_available_tmpl_dated(self, sort_date_desc=False):
         available_tmpl_dated = self.env["beesdoo.shift.template.dated"]
-        next_tmpl_dated = self.env["beesdoo.shift.template.dated"].display_tmpl_dated()
+        next_tmpl_dated = self.get_next_tmpl_dated()
         for template in next_tmpl_dated:
             if template.template_id.remaining_worker > 0:
                 available_tmpl_dated |= template

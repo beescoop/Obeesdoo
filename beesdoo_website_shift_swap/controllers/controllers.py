@@ -20,10 +20,12 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         return my_tmpl_dated
 
     def new_tmpl_dated(self, template_id, date):
-        tmpl_dated = request.env["beesdoo.shift.template.dated"].new()
-        tmpl_dated.template_id = template_id
-        tmpl_dated.date = date
-        return tmpl_dated
+        return request.env["beesdoo.shift.template.dated"].new(
+            {
+                "template_id": template_id,
+                "date": date,
+            }
+        )
 
     def solidarity_enabled(self):
         return (
@@ -96,14 +98,12 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
     @http.route("/my/shift/swaping/<int:template_id>/<string:date>", website=True)
     def swaping_shift(self, template_id, date):
-        now = datetime.now()
-        shift_date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
-
-        # save the swaping tmpl_dated in the user session
+        # Save the swaping tmpl_dated in the user session
         request.session["template_id"] = template_id
         request.session["date"] = date
 
-        delta = shift_date - now
+        shift_date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
+        delta = shift_date - datetime.now()
         if delta.days <= int(
             request.env["ir.config_parameter"]
             .sudo()
@@ -116,13 +116,12 @@ class WebsiteShiftSwapController(WebsiteShiftController):
     @http.route("/my/shift/underpopulated/swap", website=True)
     def get_underpopulated_shift(self):
         """
-        Personnal page to choose the underpopulated shift you want
+        Personnal page to choose an underpopulated shift
         """
-        # Get unwanted tmpl_dated save in the user session
         # Get template and date from session
         template_id = request.session["template_id"]
         date = request.session["date"]
-        # create new tmpl_dated
+        # Create new tmpl_dated
         my_tmpl_dated = self.new_tmpl_dated(template_id, date)
 
         # get underpopulated shift
@@ -204,8 +203,15 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         # enregistrer information
         # indentifier case coché avec index
         my_tmpl_dated = self.new_tmpl_dated(template_id, date)
+        delay = int(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_shift.day_limit_ask_for_exchange")
+        )
         possible_tmpl_dated = (
-            request.env["beesdoo.shift.template.dated"].sudo().display_tmpl_dated()
+            request.env["beesdoo.shift.template.dated"]
+            .sudo()
+            .get_next_tmpl_dated(delay)
         )
 
         # register into session
@@ -454,7 +460,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             next_shifts = (
                 request.env["beesdoo.shift.template.dated"]
                 .sudo()
-                .get_available_shifts(sort_date_desc=True)
+                .get_available_tmpl_dated(sort_date_desc=True)
             )
             display_all = True
         else:

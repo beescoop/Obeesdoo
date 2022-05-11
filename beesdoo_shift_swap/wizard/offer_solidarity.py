@@ -44,7 +44,7 @@ class OfferSolidarityShift(models.TransientModel):
     @api.onchange("worker_id")
     def _get_template_dated(self):
         for record in self:
-            tmpl_dated = self.env["beesdoo.shift.template.dated"].display_tmpl_dated()
+            tmpl_dated = self.env["beesdoo.shift.template.dated"].get_next_tmpl_dated()
             user = self.env["res.partner"].sudo().browse(self.worker_id.id)
             tmpl_dated_possible = tmpl_dated.remove_already_subscribed_shifts(user)
             tmpl_dated_wanted = self.env["beesdoo.shift.template.dated"]

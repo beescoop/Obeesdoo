@@ -55,16 +55,15 @@ class ExchangeRequest(models.Model):
     def name_get(self):
         data = []
         for request in self:
-            display_name = "Echange : "
-            display_name += str(request.exchanged_tmpl_dated_id.template_id.name)
-            display_name += ", "
-            display_name += fields.Date.to_string(request.exchanged_tmpl_dated_id.date)
-            display_name += ", Proposition : "
+            display_name = "Echange : %s, %s, Proposition : " % (
+                str(request.exchanged_tmpl_dated_id.template_id.name),
+                fields.Date.to_string(request.exchanged_tmpl_dated_id.date),
+            )
             for asked_tmpl_dated in request.asked_tmpl_dated_ids:
-                display_name += str(asked_tmpl_dated.template_id.name)
-                display_name += ", "
-                display_name += fields.Date.to_string(asked_tmpl_dated.date)
-                display_name += " & "
+                display_name += "%s, %s & " % (
+                    str(asked_tmpl_dated.template_id.name),
+                    fields.Date.to_string(asked_tmpl_dated.date),
+                )
             data.append((request.id, display_name))
         return data
 
@@ -81,17 +80,15 @@ class ExchangeRequest(models.Model):
     def matching_request(self, tmpl_dated_wanted, tmpl_dated_exchanged):
         """
         This function check if there aren't any other request that match with
-        the request that the cooperator made. It check the dated template that he
-        exchanged and dated templates that he wanted.
+        the request that the cooperator made. It checks the dated template that he
+        exchanged and the dated templates that he wanted.
 
         :param tmpl_dated_wanted: beesdoo.shift.template.dated recordset
         :param tmpl_dated_exchanged: beesdoo.shift.template.dated  record
         :return: beesdoo.shift.exchange_request recordset
         """
-        matches = self.env[
-            "beesdoo.shift.exchange_request"
-        ]  # Creates an empty recordset for proposals
-        exchanges = self.env["beesdoo.shift.exchange_request"].search([])
+        matches = self.env["beesdoo.shift.exchange_request"]
+        exchanges = self.search([])
 
         for tmpl_dated in tmpl_dated_wanted:
             for exchange in exchanges:
@@ -117,10 +114,8 @@ class ExchangeRequest(models.Model):
         :param my_tmpl_dated: beesdoo.shift.template.dated
         :return: beesdoo.shift.exchange_request
         """
-        matches = self.env[
-            "beesdoo.shift.exchange_request"
-        ]  # Creates an empty recordset for proposals
-        exchanges = self.env["beesdoo.shift.exchange_request"].search([])
+        matches = self.env["beesdoo.shift.exchange_request"]
+        exchanges = self.search([])
 
         for exchange in exchanges:
             if exchange.status != "done":
@@ -133,16 +128,17 @@ class ExchangeRequest(models.Model):
         return matches
 
     def get_coop_same_days_same_hour(self, my_tmpl_dated):
-        exchange_request = self.env["beesdoo.shift.template"].search([])
+        templates = self.env["beesdoo.shift.template"].search(
+            [
+                ("day_nb_id", "=", my_tmpl_dated.template_id.day_nb_id),
+                ("start_time", "=", my_tmpl_dated.template_id.start_time),
+                ("planning_id", "!=", my_tmpl_dated.template_id.planning_id.id),
+            ],
+        )
         worker_rec = self.env["res.partner"]
-        for rec in exchange_request:
-            if (
-                my_tmpl_dated.template_id.day_nb_id == rec.day_nb_id
-                and my_tmpl_dated.template_id.start_time == rec.start_time
-                and not my_tmpl_dated.template_id.name == rec.name
-            ):
-                for record in rec.worker_ids:
-                    worker_rec |= record
+        for template in templates:
+            for worker_id in template.worker_ids:
+                worker_rec |= worker_id
         return worker_rec
 
     @api.multi
