@@ -1,6 +1,10 @@
 odoo.define("beesdoo_website_shift.script", function (require) {
     "use strict";
     $(document).ready(function () {
+        if ($(window).width() < 992) {
+            $("#collapseHelp").collapse("hide");
+        }
+
         $("#collapseHelp").on("hidden.bs.collapse", function () {
             $("#toggle_help_button").text("Show");
         });

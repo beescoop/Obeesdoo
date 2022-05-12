@@ -29,3 +29,9 @@ class WebsiteShiftConfigSettings(models.TransientModel):
     regular_highlight_rule = fields.Integer(
         related="website_id.regular_highlight_rule", readonly=False
     )
+
+    # General settings
+    next_shifts_display_number = fields.Integer(
+        string="Number of next shifts displayed on page 'My Shifts' by default",
+        config_parameter="beesdoo_website_shift.next_shifts_display_number",
+    )

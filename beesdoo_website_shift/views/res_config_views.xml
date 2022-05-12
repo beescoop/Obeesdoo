@@ -128,6 +128,22 @@
                         </div>
                     </div>
                 </div>
+                <h2>General settings</h2>
+                <div class="row mt16 o_settings_container" id="shift_general_settings">
+                    <div class="col-12 col-md-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="next_shifts_display_number" />
+                            <span
+                                class="fa fa-lg fa-globe"
+                                title="Values set here are website-specific."
+                                groups="website.group_multi_website"
+                            />
+                            <div class="mt8">
+                                <field name="next_shifts_display_number" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </field>
     </record>

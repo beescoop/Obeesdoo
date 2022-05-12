@@ -141,9 +141,14 @@
             occures during a public holiday, you do not have to do it.
         </div>
 
+        <t
+            t-set="shift_display_number"
+            t-value="int(request.env['ir.config_parameter'].sudo().get_param('beesdoo_website_shift.next_shifts_display_number'))"
+        />
+
         <t t-foreach="subscribed_shifts" t-as="shift">
             <div
-                t-att-class="'card mb-4 %s%s' % (highlight_class, ' collapse multi-collapse' if shift_index > 4 else '')"
+                t-att-class="'card mb-4 %s%s' % (highlight_class, ' collapse multi-collapse' if shift_index >= shift_display_number else '')"
             >
                 <div t-att-class="'card-header %s clearfix' % highlight_header_class">
                     <div class="pull-left">
