@@ -84,9 +84,13 @@ class SubscribeShiftAsSolidarity(models.TransientModel):
         return {
             "name": _("Shifts"),
             "type": "ir.actions.act_window",
-            "view_type": "form",
-            "view_mode": "tree",
-            "view_id": self.env.ref("beesdoo_shift.task_view_tree").id,
             "res_model": "beesdoo.shift.shift",
+            "views": [
+                [False, "kanban"],
+                [False, "calendar"],
+                [False, "tree"],
+                [False, "form"],
+                [False, "pivot"],
+            ],
             "target": "main",
         }
