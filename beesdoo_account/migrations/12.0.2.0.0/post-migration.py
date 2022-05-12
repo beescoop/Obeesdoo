@@ -17,7 +17,17 @@ renamed_view_xml_ids = (
         "beesdoo_account.res_config_settings_view_form",
         "account_invoice_negative_total.res_config_settings_view_form",
     ),
+    (
+        "beesdoo_account.account_invoice_form_view",
+        "account_invoice_date_required.account_invoice_form_view",
+    ),
+    (
+        "beesdoo_account.account_invoice_form_view",
+        "account_invoice_date_required.account_invoice_form_view",
+    ),
 )
+
+modules_to_install = ["account_invoice_negative_total", "account_invoice_date_required"]
 
 
 @openupgrade.migrate()
@@ -28,8 +38,9 @@ def migrate(env, version):
     _logger.info("renaming group xml ids")
     openupgrade.rename_xmlids(env.cr, renamed_group_xml_ids)
 
-    module_ids = env["ir.module.module"].search(
-        [("name", "=", "account_invoice_negative_total"), ("state", "=", "uninstalled")]
-    )
-    if module_ids:
-        module_ids.button_install()
+    for module in modules_to_install:
+        module_ids = env["ir.module.module"].search(
+            [("name", "=", module), ("state", "=", "uninstalled")]
+        )
+        if module_ids:
+            module_ids.button_install()
