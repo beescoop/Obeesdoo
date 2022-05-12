@@ -9,16 +9,6 @@ from odoo.addons.beesdoo_website_shift.controllers.main import WebsiteShiftContr
 
 
 class WebsiteShiftSwapController(WebsiteShiftController):
-    def shift_to_tmpl_dated(self, my_shift):
-        list_shift = []
-        list_shift.append(my_shift)
-        my_tmpl_dated = (
-            request.env["beesdoo.shift.template.dated"]
-            .sudo()
-            .swap_shift_to_tmpl_dated(list_shift)
-        )
-        return my_tmpl_dated
-
     def new_tmpl_dated(self, template_id, date):
         return (
             request.env["beesdoo.shift.template.dated"]
@@ -128,7 +118,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         # Create new tmpl_dated
         my_tmpl_dated = self.new_tmpl_dated(template_id, date)
 
-        # get underpopulated shift
+        # Get underpopulated shift
         my_available_shift = (
             request.env["beesdoo.shift.subscribed_underpopulated_shift"]
             .sudo()
@@ -182,21 +172,14 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 }
             )
         )
-        data = {
-            "date": datetime.date(datetime.now()),
-            "worker_id": user.partner_id.id,
-            "exchanged_tmpl_dated_id": my_tmpl_dated.id,
-            "confirmed_tmpl_dated_id": tmpl_dated_wanted.id,
-        }
-        record = (
-            request.env["beesdoo.shift.subscribed_underpopulated_shift"]
-            .sudo()
-            .create(data)
+        request.env["beesdoo.shift.subscribed_underpopulated_shift"].sudo().create(
+            {
+                "worker_id": user.partner_id.id,
+                "exchanged_tmpl_dated_id": my_tmpl_dated.id,
+                "confirmed_tmpl_dated_id": tmpl_dated_wanted.id,
+            }
         )
-        if record._compute_exchanged_already_generated():
-            record.unsubscribe_shift()
-        if record._compute_comfirmed_already_generated():
-            record.subscribe_shift()
+
         return request.redirect("/my/shift")
 
     @http.route("/my/shift/possible/shift", website=True)

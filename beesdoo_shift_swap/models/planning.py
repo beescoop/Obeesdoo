@@ -45,6 +45,7 @@ class TaskTemplate(models.Model):
                 ):
                     shift["worker_id"] = False
                     shift["is_regular"] = False
+                    shift["is_compensation"] = False
             for record in people_exchanges:
                 if (
                     shift["worker_id"] == record.first_request_id.worker_id.id

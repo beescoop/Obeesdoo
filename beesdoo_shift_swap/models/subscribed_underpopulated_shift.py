@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 def daterange(start_date, end_date):
@@ -27,16 +27,10 @@ class SubscribeUnderpopulatedShift(models.Model):
     )
 
     exchanged_tmpl_dated_id = fields.Many2one("beesdoo.shift.template.dated")
-    exchanged_shift_id = fields.Many2one(
-        "beesdoo.shift.shift", compute="_compute_exchanged_already_generated"
-    )
+    exchanged_shift_id = fields.Many2one("beesdoo.shift.shift")
 
-    confirmed_tmpl_dated_id = fields.Many2one(
-        "beesdoo.shift.template.dated", string="asked_shift"
-    )
-    confirmed_shift_id = fields.Many2one(
-        "beesdoo.shift.shift", compute="_compute_comfirmed_already_generated"
-    )
+    confirmed_tmpl_dated_id = fields.Many2one("beesdoo.shift.template.dated")
+    confirmed_shift_id = fields.Many2one("beesdoo.shift.shift")
 
     # True if worker has been unsubscribed from exchanged_shift
     exchange_status = fields.Boolean(default=False, string="Status Exchange Shift")
@@ -46,115 +40,76 @@ class SubscribeUnderpopulatedShift(models.Model):
 
     date = fields.Date(required=True, default=datetime.date(datetime.now()))
 
-    @api.depends("exchanged_tmpl_dated_id")
-    def _compute_exchanged_already_generated(self):
-        for rec in self:
-            if not rec.exchanged_tmpl_dated_id:
-                rec.exchanged_shift_id = False
-            elif self.exchange_status:
-                rec.exchanged_shift_id = False
-            # check if the new_shift is already generated
-            else:
-                # Get the shift if it is already generated
-                subscribed_shifts_rec = self.env["beesdoo.shift.shift"].search(
-                    [
-                        ("start_time", "=", rec.exchanged_tmpl_dated_id.date),
-                        ("worker_id", "=", rec.worker_id.id),
-                        (
-                            "task_template_id",
-                            "=",
-                            rec.exchanged_tmpl_dated_id.template_id.id,
-                        ),
-                    ],
-                    limit=1,
-                )
-
-                # check if is there a shift generated
-                if subscribed_shifts_rec:
-                    rec.exchanged_shift_id = subscribed_shifts_rec
-                    return True
-                return False
-
-    @api.depends("confirmed_tmpl_dated_id")
-    def _compute_comfirmed_already_generated(self):
-        for record in self:
-            # Get current date
-            now = datetime.now()
-            if not record.confirmed_tmpl_dated_id:
-                record.confirmed_shift_id = False
-            elif self.confirme_status:
-                record.confirmed_shift_id = False
-            else:
-                # Get the shift if it is already generated
-                future_subscribed_shifts_rec = self.env["beesdoo.shift.shift"].search(
-                    [
-                        ("start_time", ">", now.strftime("%Y-%m-%d %H:%M:%S")),
-                        ("start_time", "=", record.confirmed_tmpl_dated_id.date),
-                        (
-                            "task_template_id",
-                            "=",
-                            record.confirmed_tmpl_dated_id.template_id.id,
-                        ),
-                        ("worker_id", "=", None),
-                    ],
-                    limit=1,
-                )
-                # Check if there is a shift generated
-                if future_subscribed_shifts_rec:
-                    record.confirmed_shift_id = future_subscribed_shifts_rec
-                    return True
-                return False
-
-    def update_status(self):
-        if (
-            self.exchanged_tmpl_dated_id
-            and self.confirmed_tmpl_dated_id
-            and self.worker_id
-            and self.date
-        ):
-            self.write({"state": "validate"})
-            if self.exchange_status and self.confirme_status:
-                self.write({"state": "done"})
-
-    @api.multi
-    def unsubscribe_shift(self):
-        if not self.exchange_status:
-            unsubscribed_shifts_rec = self.exchanged_shift_id
-            unsubscribed_shifts_rec.write({"worker_id": False})
-            self.exchange_status = True
-            self.update_status()
-            if not self.exchanged_shift_id.worker_id and self.exchange_status:
-                return True
-            return False
-        return True
-
-    @api.multi
-    def subscribe_shift(self):
+    def create(self, vals_list):
         """
-        Subscribe the user into the given shift
-        this is done only if :
-            *the user can subscribe
-            *the given shift exist
-            *the shift status is open
-            *the user hasn't done another exchange 2month before
-        :return:
+        Override create() method to unsubscribe the worker
+        to the old shift and subscribe him/her to the new one
         """
-        if not self.confirme_status:
-            if not self.confirmed_shift_id:
-                return False
-            # Get the wanted shift
-            subscribed_shift_rec = self.confirmed_shift_id
-            # Subscribe the worker
-            subscribed_shift_rec.write(
-                {"worker_id": self.worker_id.id, "is_regular": True}
+        res = super(SubscribeUnderpopulatedShift, self).create(vals_list)
+        res._unsubscribe_old_shift_if_generated()
+        res._subscribe_new_shift_if_generated()
+        return res
+
+    def _unsubscribe_old_shift_if_generated(self):
+        if self.exchanged_tmpl_dated_id and not self.exchanged_shift_id:
+            exchanged_shift = self.env["beesdoo.shift.shift"].search(
+                [
+                    ("start_time", "=", self.exchanged_tmpl_dated_id.date),
+                    ("worker_id", "=", self.worker_id.id),
+                    (
+                        "task_template_id",
+                        "=",
+                        self.exchanged_tmpl_dated_id.template_id.id,
+                    ),
+                ],
+                limit=1,
             )
-            # Change the status
-            self.confirme_status = True
-            # Update status
-            self.update_status()
-            if not self.exchanged_shift_id.worker_id and not self.confirme_status:
-                return False
-        return True
+            if exchanged_shift:
+                exchanged_shift.write(
+                    {
+                        "worker_id": False,
+                        "is_regular": False,
+                        "is_compensation": False,
+                    }
+                )
+                self.exchanged_shift_id = exchanged_shift
+                self.exchange_status = True
+                if self.confirme_status:
+                    self.state = "done"
+                return True
+        return False
+
+    def _subscribe_new_shift_if_generated(self):
+        if self.confirmed_tmpl_dated_id and not self.confirmed_shift_id:
+            wanted_shift = self.env["beesdoo.shift.shift"].search(
+                [
+                    ("start_time", "=", self.confirmed_tmpl_dated_id.date),
+                    (
+                        "task_template_id",
+                        "=",
+                        self.confirmed_tmpl_dated_id.template_id.id,
+                    ),
+                    ("worker_id", "=", None),
+                ],
+                limit=1,
+            )
+            if wanted_shift:
+                is_compensation = False
+                if self.exchanged_shift_id and self.exchanged_shift_id.is_compensation:
+                    is_compensation = True
+                wanted_shift.write(
+                    {
+                        "worker_id": self.worker_id.id,
+                        "is_regular": False if is_compensation else True,
+                        "is_compensation": True if is_compensation else False,
+                    }
+                )
+                self.confirmed_shift_id = wanted_shift
+                self.confirme_status = True
+                if self.exchange_status:
+                    self.state = "done"
+                return True
+        return False
 
     def get_underpopulated_shift(self, sort_date_desc=False):
         available_tmpl_dated = self.env["beesdoo.shift.template.dated"]
