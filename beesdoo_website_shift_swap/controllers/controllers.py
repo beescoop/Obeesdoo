@@ -20,11 +20,15 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         return my_tmpl_dated
 
     def new_tmpl_dated(self, template_id, date):
-        return request.env["beesdoo.shift.template.dated"].new(
-            {
-                "template_id": template_id,
-                "date": date,
-            }
+        return (
+            request.env["beesdoo.shift.template.dated"]
+            .sudo()
+            .new(
+                {
+                    "template_id": template_id,
+                    "date": date,
+                }
+            )
         )
 
     def solidarity_enabled(self):
@@ -199,95 +203,76 @@ class WebsiteShiftSwapController(WebsiteShiftController):
     def get_possible_shift(self, **post):
         template_id = request.session["template_id"]
         date = request.session["date"]
-        # liste de dictionaire
-        # enregistrer information
-        # indentifier case coché avec index
+
+        if request.httprequest.method == "POST":
+            tmpl_dated_index = request.httprequest.form.getlist("selected_tmpl_dated")
+            wanted_index_list = []
+            for index in tmpl_dated_index:
+                wanted_index_list.append(int(index))
+            # if not len(list_index):
+            #    raise ValidationError('Please choose at least one tmpl_dated')
+            exchanged_tmpl_dated = (
+                request.env["beesdoo.shift.template.dated"]
+                .sudo()
+                .create(
+                    {
+                        "template_id": template_id,
+                        "date": date,
+                        "store": True,
+                    }
+                )
+            )
+            asked_tmpl_dated = request.env["beesdoo.shift.template.dated"]
+            for index, template in enumerate(
+                request.session["possible_tmpl_dated_list"]
+            ):
+                if index in wanted_index_list:
+                    asked_tmpl_dated |= asked_tmpl_dated.sudo().create(
+                        {
+                            "date": template["date"],
+                            "template_id": template["template_id"],
+                            "store": True,
+                        }
+                    )
+            user = request.env["res.users"].browse(request.uid)
+            request.env["beesdoo.shift.exchange_request"].sudo().create(
+                {
+                    "worker_id": user.partner_id.id,
+                    "exchanged_tmpl_dated_id": exchanged_tmpl_dated.id,
+                    "asked_tmpl_dated_ids": [(6, False, asked_tmpl_dated.ids)],
+                    "status": "no_match",
+                }
+            )
+            return request.redirect("/my/shift")
+
         my_tmpl_dated = self.new_tmpl_dated(template_id, date)
-        delay = int(
-            self.env["ir.config_parameter"]
+        period = int(
+            request.env["ir.config_parameter"]
             .sudo()
             .get_param("beesdoo_shift.day_limit_ask_for_exchange")
         )
         possible_tmpl_dated = (
             request.env["beesdoo.shift.template.dated"]
             .sudo()
-            .get_next_tmpl_dated(delay)
+            .get_next_tmpl_dated(period)
         )
-
-        # register into session
-        tmpl_dated = []
-        for rec in possible_tmpl_dated:
-            tmpl_dated.append(
+        possible_tmpl_dated_list = []
+        for template in possible_tmpl_dated:
+            possible_tmpl_dated_list.append(
                 {
-                    "template_id": rec.template_id.id,
-                    "date": rec.date,
+                    "template_id": template.template_id.id,
+                    "date": template.date,
                 }
             )
-        request.session["tmpl_dated_checked"] = tmpl_dated
+        request.session["possible_tmpl_dated_list"] = possible_tmpl_dated_list
 
-        if request.httprequest.method == "POST":
-            # une fois appuyer sur submit
-            # TODO : first checkbox return 'on'
-            tmpl_dated_index = request.httprequest.form.getlist("tmpl_dated_index")
-            list_index = []
-            for rec in tmpl_dated_index:
-                list_index.append(int(rec))
-            # if not len(list_index):
-            #    raise ValidationError('Please choose at least one tmpl_dated')
-            return request.render(
-                "beesdoo_website_shift.my_shift_regular_worker",
-                self.subscribe_request(list_index),
-            )
-        else:
-            return request.render(
-                "beesdoo_website_shift_swap.website_shift_swap_possible_tmpl_dated",
-                {
-                    "possible_tmpl_dated": possible_tmpl_dated,
-                    "exchanged_tmpl_dated": my_tmpl_dated,
-                },
-            )
-
-    def subscribe_request(self, list_index):
-        user = request.env["res.users"].browse(request.uid)
-
-        template_id = request.session["template_id"]
-        date = request.session["date"]
-        my_tmpl_dated = (
-            request.env["beesdoo.shift.template.dated"]
-            .sudo()
-            .create(
-                {
-                    "template_id": template_id,
-                    "date": date,
-                    "store": True,
-                }
-            )
+        return request.render(
+            "beesdoo_website_shift_swap.website_shift_swap_possible_tmpl_dated",
+            {
+                "possible_tmpl_dated": possible_tmpl_dated,
+                "exchanged_tmpl_dated": my_tmpl_dated,
+            },
         )
-
-        tmpl_dated = request.session["tmpl_dated_checked"]
-        asked_tmpl_dated = request.env["beesdoo.shift.template.dated"]
-        for x in range(len(tmpl_dated)):
-            for i in range(len(list_index)):
-                if list_index[i] == x:
-                    data = {
-                        "date": tmpl_dated[x]["date"],
-                        "template_id": tmpl_dated[x]["template_id"],
-                        "store": True,
-                    }
-                    create_tmpl_dated = (
-                        request.env["beesdoo.shift.template.dated"].sudo().create(data)
-                    )
-                    # request.env["beesdoo.shift.template.dated"].sudo().check_possibility_to_exchange(create_tmpl_dated,user.partner_id)
-                    asked_tmpl_dated |= create_tmpl_dated
-        data = {
-            "request_date": datetime.date(datetime.now()),
-            "worker_id": user.partner_id.id,
-            "exchanged_tmpl_dated_id": my_tmpl_dated.id,
-            "asked_tmpl_dated_ids": [(6, False, asked_tmpl_dated.ids)],
-            "status": "no_match",
-        }
-        request.env["beesdoo.shift.exchange_request"].sudo().create(data)
-        return self.my_shift_regular_worker()
 
     @http.route("/my/shift/possible/match", website=True)
     def get_possible_match(self):

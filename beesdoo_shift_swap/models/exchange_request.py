@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from odoo import _, api, fields, models
 
 
@@ -24,7 +26,9 @@ class ExchangeRequest(models.Model):
         "beesdoo.shift.template.dated", string="exchanged_tmpl_dated"
     )
 
-    request_date = fields.Date(required=True, string="date")
+    request_date = fields.Date(
+        required=True, string="Date", default=datetime.date(datetime.now())
+    )
 
     exchange_id = fields.Many2one("beesdoo.shift.exchange", string="exchange")
 

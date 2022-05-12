@@ -49,14 +49,14 @@ class SubscribeShiftSwap(models.TransientModel):
             if not record.exchanged_tmpl_dated_id:
                 record.confirmed_tmpl_dated_id = False
             else:
-                delay = int(
+                period = int(
                     self.env["ir.config_parameter"]
                     .sudo()
                     .get_param("beesdoo_shift.day_limit_ask_for_exchange")
                 )
                 tmpl_dated = self.env[
                     "beesdoo.shift.template.dated"
-                ].get_next_tmpl_dated(delay)
+                ].get_next_tmpl_dated(period)
                 # record.available_tmpl_dated = tmpl_dated
                 temp = self.env["beesdoo.shift.template.dated"]
                 for rec in tmpl_dated:

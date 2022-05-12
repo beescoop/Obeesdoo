@@ -25,92 +25,100 @@
             </div>
             <div t-else="">
                 <label class="font-weight-bold">Shifts available for exchange :</label>
-                <t t-set="count" t-value="1" />
-                <t t-foreach="possible_matches" t-as="match">
-                    <p>
-                        <t
-                            t-esc="match.exchanged_tmpl_dated_id.date.strftime('%A %d %b, %Y')"
-                        />
-                        <t t-esc="'|'" />
-                        <t
-                            t-esc="str(datetime.timedelta(hours=match.exchanged_tmpl_dated_id.template_id.start_time)).rsplit(':', 1)[0]"
-                        />
-                        -
-                        <t
-                            t-esc="str(datetime.timedelta(hours=match.exchanged_tmpl_dated_id.template_id.end_time)).rsplit(':', 1)[0]"
-                        />
-                        <t
-                            t-if="match.exchanged_tmpl_dated_id.template_id.task_type_id != exchanged_tmpl_dated.template_id.task_type_id"
-                        >
-                            <button
-                                type="button"
-                                class="btn btn-success btn-sm"
-                                data-toggle="modal"
-                                t-att-data-target="'#warning-task-type-popup-%s' % count"
-                            >
-                            Accept exchange
-                            </button>
-                        </t>
-                        <t t-else="">
-                            <a
-                                class="btn btn-success btn-sm"
-                                t-att-href="'/my/shift/validate/matching_request/%i' % (match.id)"
-                            >Accept exchange</a>
-                        </t>
-                    </p>
-                    <!-- Modal popup to warn user if task type is different in the new shift -->
-                    <div
-                        class="modal fade"
-                        t-att-id="'warning-task-type-popup-%s' % count"
-                        data-backdrop="static"
-                        data-keyboard="false"
-                        tabindex="-1"
-                        aria-labelledby="warning-task-type-popup-label"
-                        aria-hidden="true"
-                    >
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5
-                                        class="modal-title"
-                                        id="warning-task-type-popup-label"
-                                    >Warning !</h5>
-                                </div>
-                                <div class="modal-body">
-                                    The shifts that tou want to exchange don't have the same task type.
-                                    <br />
-                                    Old shift :
-                                    <b>
-                                        <t
-                                            t-esc="exchanged_tmpl_dated.template_id.task_type_id.name"
-                                        />
-                                    </b>
-                                    <br />
-                                    New shift :
-                                    <b>
-                                        <t
-                                            t-esc="match.exchanged_tmpl_dated_id.template_id.task_type_id.name"
-                                        />
-                                    </b>
-                                    <br />
-                                    Do you want to continue ?
-                                </div>
-                                <div class="modal-footer">
+                <table>
+                    <t t-foreach="possible_matches" t-as="match">
+                        <tr>
+                            <td class="pr-2 py-2">
+                                <t
+                                    t-esc="match.exchanged_tmpl_dated_id.date.strftime('%A %d %b, %Y')"
+                                />
+                                <t t-esc="'|'" />
+                                <t
+                                    t-esc="str(datetime.timedelta(hours=match.exchanged_tmpl_dated_id.template_id.start_time)).rsplit(':', 1)[0]"
+                                />
+                                -
+                                <t
+                                    t-esc="str(datetime.timedelta(hours=match.exchanged_tmpl_dated_id.template_id.end_time)).rsplit(':', 1)[0]"
+                                />
+                                <br />
+                                <t
+                                    t-esc="match.exchanged_tmpl_dated_id.template_id.task_type_id.name"
+                                />
+                            </td>
+                            <td class="px-2 py-2">
+                                <t
+                                    t-if="match.exchanged_tmpl_dated_id.template_id.task_type_id != exchanged_tmpl_dated.template_id.task_type_id"
+                                >
                                     <button
                                         type="button"
-                                        class="btn btn-danger"
-                                        data-dismiss="modal"
-                                    >Cancel</button>
+                                        class="btn btn-success btn-sm"
+                                        data-toggle="modal"
+                                        t-att-data-target="'#warning-task-type-popup-%s' % match_index"
+                                    >
+                                    Accept exchange
+                                    </button>
+                                </t>
+                                <t t-else="">
                                     <a
-                                        class="btn btn-success"
+                                        class="btn btn-success btn-sm"
                                         t-att-href="'/my/shift/validate/matching_request/%i' % (match.id)"
-                                    >Exchange anyway</a>
+                                    >Accept exchange</a>
+                                </t>
+                                <!-- Modal popup to warn user if task type is different in the new shift -->
+                                <div
+                                    class="modal fade"
+                                    t-att-id="'warning-task-type-popup-%s' % match_index"
+                                    data-backdrop="static"
+                                    data-keyboard="false"
+                                    tabindex="-1"
+                                    aria-labelledby="warning-task-type-popup-label"
+                                    aria-hidden="true"
+                                >
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5
+                                                    class="modal-title"
+                                                    id="warning-task-type-popup-label"
+                                                >Warning !</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                The shifts that tou want to exchange don't have the same task type.
+                                                <br />
+                                                Old shift :
+                                                <b>
+                                                    <t
+                                                        t-esc="exchanged_tmpl_dated.template_id.task_type_id.name"
+                                                    />
+                                                </b>
+                                                <br />
+                                                New shift :
+                                                <b>
+                                                    <t
+                                                        t-esc="match.exchanged_tmpl_dated_id.template_id.task_type_id.name"
+                                                    />
+                                                </b>
+                                                <br />
+                                                Do you want to continue ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-danger"
+                                                    data-dismiss="modal"
+                                                >Cancel</button>
+                                                <a
+                                                    class="btn btn-success"
+                                                    t-att-href="'/my/shift/validate/matching_request/%i' % (match.id)"
+                                                >Exchange anyway</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <t t-set="count" t-value="count + 1" />
-                </t>
+                            </td>
+                        </tr>
+                    </t>
+                </table>
             </div>
             <p>
                 <t t-call="beesdoo_website_shift_swap.no_shifts_suits_me_button" />
@@ -155,7 +163,7 @@
         >
             <h2>Select shifts</h2>
             <p>
-                <form method="post">
+                <form method="post" id="select_available_shifts_form">
                     <t t-set="index" t-value="0" />
                     <table class="table table-hover interactive">
                         <thead class="thead-dark">
@@ -191,7 +199,7 @@
                                     <td>
                                         <input
                                             type="checkbox"
-                                            name="tmpl_dated_index"
+                                            name="selected_tmpl_dated"
                                             multiple="multiple"
                                             t-attf-value="{{ index }}"
                                         />
@@ -199,11 +207,6 @@
                                     <t t-set="index" t-value="index + 1" />
                                 </tr>
                             </t>
-                            <input
-                                type="hidden"
-                                name="csrf_token"
-                                t-att-value="request.csrf_token()"
-                            />
                         </tbody>
                     </table>
                     <p>
@@ -215,6 +218,11 @@
                             />
                         </div>
                     </p>
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        t-att-value="request.csrf_token()"
+                    />
                 </form>
             </p>
         </template>
@@ -302,48 +310,48 @@
                                     <t
                                         t-if="request['my_requests'].status == 'has_match'"
                                     >
-                                        <t t-set="count" t-value="1" />
                                         <t
                                             t-foreach="request['matching_request']"
                                             t-as="match"
                                         >
-                                            <b>Exchange offer :</b>
-                                            <br />
-                                            <t
-                                                t-esc="match.exchanged_tmpl_dated_id.date.strftime('%A %d %b, %Y')"
-                                            />
-                                            <t t-esc="'|'" />
-                                            <t
-                                                t-esc="str(datetime.timedelta(hours=match.exchanged_tmpl_dated_id.template_id.start_time)).rsplit(':', 1)[0]"
-                                            />
-                                            -
-                                            <t
-                                                t-esc="str(datetime.timedelta(hours=match.exchanged_tmpl_dated_id.template_id.end_time)).rsplit(':', 1)[0]"
-                                            />
-                                            <br />
-                                            <t
-                                                t-if="match.exchanged_tmpl_dated_id.template_id.task_type_id != request['my_requests'].exchanged_tmpl_dated_id.template_id.task_type_id"
-                                            >
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-success btn-sm"
-                                                    data-toggle="modal"
-                                                    t-att-data-target="'#warning-task-type-popup-%s' % count"
+                                            <p>
+                                                <b>Exchange offer :</b>
+                                                <br />
+                                                <t
+                                                    t-esc="match.exchanged_tmpl_dated_id.date.strftime('%A %d %b, %Y')"
+                                                />
+                                                <t t-esc="'|'" />
+                                                <t
+                                                    t-esc="str(datetime.timedelta(hours=match.exchanged_tmpl_dated_id.template_id.start_time)).rsplit(':', 1)[0]"
+                                                />
+                                                -
+                                                <t
+                                                    t-esc="str(datetime.timedelta(hours=match.exchanged_tmpl_dated_id.template_id.end_time)).rsplit(':', 1)[0]"
+                                                />
+                                                <br />
+                                                <t
+                                                    t-if="match.exchanged_tmpl_dated_id.template_id.task_type_id != request['my_requests'].exchanged_tmpl_dated_id.template_id.task_type_id"
                                                 >
-                                                    Validate this exchange
-                                                </button>
-                                            </t>
-                                            <t t-else="">
-                                                <a
-                                                    class="btn btn-success btn-sm"
-                                                    t-att-href="'/my/shift/validate/matching/validate/request/%i/%i' % (request['my_requests'],match)"
-                                                >Validate this exchange</a>
-                                            </t>
-                                            <br />
+                                                    <button
+                                                        type="button"
+                                                        class="btn btn-success btn-sm"
+                                                        data-toggle="modal"
+                                                        t-att-data-target="'#warning-task-type-popup-%s' % match_index"
+                                                    >
+                                                        Validate this exchange
+                                                    </button>
+                                                </t>
+                                                <t t-else="">
+                                                    <a
+                                                        class="btn btn-success btn-sm"
+                                                        t-att-href="'/my/shift/validate/matching/validate/request/%i/%i' % (request['my_requests'],match)"
+                                                    >Validate this exchange</a>
+                                                </t>
+                                            </p>
                                             <!-- Modal popup to warn user if task type is different in the new shift -->
                                             <div
                                                 class="modal fade"
-                                                t-att-id="'warning-task-type-popup-%s' % count"
+                                                t-att-id="'warning-task-type-popup-%s' % match_index"
                                                 data-backdrop="static"
                                                 data-keyboard="false"
                                                 tabindex="-1"
@@ -391,7 +399,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <t t-set="count" t-value="count + 1" />
                                         </t>
                                     </t>
                                     <t

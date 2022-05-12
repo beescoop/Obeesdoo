@@ -25,7 +25,6 @@
             <h2>
                 Swap your shift to an underpopulated one
             </h2>
-            <t t-set="count" t-value="1" />
             <t t-foreach="underpopulated_shift" t-as="tmpl_dated">
                 <div t-att-class="'card mb-4 %s' % highlight_class">
                     <div
@@ -56,7 +55,7 @@
                                     type="button"
                                     class="btn btn-success btn-sm"
                                     data-toggle="modal"
-                                    t-att-data-target="'#warning-task-type-popup-%s' % count"
+                                    t-att-data-target="'#warning-task-type-popup-%s' % tmpl_dated_index"
                                 >
                                     Subscribe to this Shift
                                 </button>
@@ -73,7 +72,7 @@
                 <!-- Modal popup to warn user if task type is different in the new shift -->
                 <div
                     class="modal fade"
-                    t-att-id="'warning-task-type-popup-%s' % count"
+                    t-att-id="'warning-task-type-popup-%s' % tmpl_dated_index"
                     data-backdrop="static"
                     data-keyboard="false"
                     tabindex="-1"
@@ -121,7 +120,6 @@
                         </div>
                     </div>
                 </div>
-                <t t-set="count" t-value="count + 1" />
             </t>
             <p>
                 <t t-call="beesdoo_website_shift_swap.no_shifts_suits_me_button" />
