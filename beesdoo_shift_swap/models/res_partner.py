@@ -55,10 +55,7 @@ class ResPartner(models.Model):
         :return: beesdoo.shift.template.dated recordset
         """
         shifts = self.get_next_shifts()
-        tmpl_dated = self.env["beesdoo.shift.template.dated"]
-        if shifts:
-            tmpl_dated = tmpl_dated.swap_shift_to_tmpl_dated(shifts)
-        return tmpl_dated
+        return self.env["beesdoo.shift.template.dated"].swap_shift_to_tmpl_dated(shifts)
 
     @api.multi
     def send_mail_coop_same_days_same_hour(self, my_tmpl_dated, partner_to):

@@ -50,8 +50,8 @@
                             <field name="exchanged_shift_id" />
                         </group>
                         <group name="group_right">
-                            <field name="confirmed_tmpl_dated_id" />
-                            <field name="confirmed_shift_id" />
+                            <field name="wanted_tmpl_dated_id" />
+                            <field name="wanted_shift_id" />
                         </group>
                     </group>
                 </sheet>

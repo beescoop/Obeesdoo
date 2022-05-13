@@ -43,7 +43,7 @@ class SubscribeShiftSwap(models.TransientModel):
     def _get_available_tmpl_dated(self):
         for record in self:
             if not record.exchanged_tmpl_dated_id:
-                record.confirmed_tmpl_dated_id = False
+                record.wanted_tmpl_dated_id = False
             else:
                 tmpl_dated = self.env[
                     "beesdoo.shift.subscribed_underpopulated_shift"
@@ -60,14 +60,14 @@ class SubscribeShiftSwap(models.TransientModel):
                             "store": False,
                         }
                     )
-                return {"domain": {"confirmed_tmpl_dated_id": [("id", "in", temp.ids)]}}
+                return {"domain": {"wanted_tmpl_dated_id": [("id", "in", temp.ids)]}}
 
     exchanged_tmpl_dated_id = fields.Many2one(
         "beesdoo.shift.template.dated",
         string="Unwanted Shift",
     )
 
-    confirmed_tmpl_dated_id = fields.Many2one(
+    wanted_tmpl_dated_id = fields.Many2one(
         "beesdoo.shift.template.dated",
         string="Underpopulated Shift",
     )
@@ -96,7 +96,7 @@ class SubscribeShiftSwap(models.TransientModel):
         for swap in swaps:
             if (
                 swap.worker_id == worker_id
-                and self.exchanged_tmpl_dated_id == swap.confirmed_tmpl_dated_id
+                and self.exchanged_tmpl_dated_id == swap.wanted_tmpl_dated_id
             ):
                 return True
             return False
@@ -107,15 +107,15 @@ class SubscribeShiftSwap(models.TransientModel):
         if self.has_already_done_exchange():
             raise UserError(_("You already swap your shift in the last 2months"))
         self.env["beesdoo.shift.template.dated"].check_possibility_to_exchange(
-            self.confirmed_tmpl_dated_id, self.worker_id
+            self.wanted_tmpl_dated_id, self.worker_id
         )
         self.exchanged_tmpl_dated_id.store = True
-        self.confirmed_tmpl_dated_id.store = True
+        self.wanted_tmpl_dated_id.store = True
         data = {
             "date": datetime.date(datetime.now()),
             "worker_id": self.worker_id.id,
             "exchanged_tmpl_dated_id": self.exchanged_tmpl_dated_id.id,
-            "confirmed_tmpl_dated_id": self.confirmed_tmpl_dated_id.id,
+            "wanted_tmpl_dated_id": self.wanted_tmpl_dated_id.id,
         }
         useless_tmpl_dated = self.env["beesdoo.shift.template.dated"].search(
             [("store", "=", False)]

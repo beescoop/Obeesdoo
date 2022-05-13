@@ -29,14 +29,14 @@ class SubscribeUnderpopulatedShift(models.Model):
     exchanged_tmpl_dated_id = fields.Many2one("beesdoo.shift.template.dated")
     exchanged_shift_id = fields.Many2one("beesdoo.shift.shift")
 
-    confirmed_tmpl_dated_id = fields.Many2one("beesdoo.shift.template.dated")
-    confirmed_shift_id = fields.Many2one("beesdoo.shift.shift")
+    wanted_tmpl_dated_id = fields.Many2one("beesdoo.shift.template.dated")
+    wanted_shift_id = fields.Many2one("beesdoo.shift.shift")
 
     # True if worker has been unsubscribed from exchanged_shift
     exchange_status = fields.Boolean(default=False, string="Status Exchange Shift")
 
-    # True if worker has been subscribed to confirmed_shift
-    confirme_status = fields.Boolean(default=False, string="status comfirme shift")
+    # True if worker has been subscribed to wanted_shift
+    wanted_status = fields.Boolean(default=False, string="status comfirme shift")
 
     date = fields.Date(required=True, default=datetime.date(datetime.now()))
 
@@ -74,20 +74,20 @@ class SubscribeUnderpopulatedShift(models.Model):
                 )
                 self.exchanged_shift_id = exchanged_shift
                 self.exchange_status = True
-                if self.confirme_status:
+                if self.wanted_status:
                     self.state = "done"
                 return True
         return False
 
     def _subscribe_new_shift_if_generated(self):
-        if self.confirmed_tmpl_dated_id and not self.confirmed_shift_id:
+        if self.wanted_tmpl_dated_id and not self.wanted_shift_id:
             wanted_shift = self.env["beesdoo.shift.shift"].search(
                 [
-                    ("start_time", "=", self.confirmed_tmpl_dated_id.date),
+                    ("start_time", "=", self.wanted_tmpl_dated_id.date),
                     (
                         "task_template_id",
                         "=",
-                        self.confirmed_tmpl_dated_id.template_id.id,
+                        self.wanted_tmpl_dated_id.template_id.id,
                     ),
                     ("worker_id", "=", None),
                 ],
@@ -104,8 +104,8 @@ class SubscribeUnderpopulatedShift(models.Model):
                         "is_compensation": True if is_compensation else False,
                     }
                 )
-                self.confirmed_shift_id = wanted_shift
-                self.confirme_status = True
+                self.wanted_shift_id = wanted_shift
+                self.wanted_status = True
                 if self.exchange_status:
                     self.state = "done"
                 return True

@@ -176,7 +176,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             {
                 "worker_id": user.partner_id.id,
                 "exchanged_tmpl_dated_id": my_tmpl_dated.id,
-                "confirmed_tmpl_dated_id": tmpl_dated_wanted.id,
+                "wanted_tmpl_dated_id": tmpl_dated_wanted.id,
             }
         )
 

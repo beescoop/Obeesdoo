@@ -16,7 +16,7 @@
                     class="oe_highlight"
                     type="object"
                     groups="beesdoo_shift.group_shift_management"
-                    attrs="{'invisible': ['|','|',('state','=','unsubscribed'),('state','=','exempted'),('state','=','resigning')]}"
+                    attrs="{'invisible': ['|',('state','in',['unsubscribed','exempted','resigning']),('working_mode','not in',['regular','irregular'])]}"
                 />
             </xpath>
         </field>
