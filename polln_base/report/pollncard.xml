@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <report
+        id="report_pollncard_cm"
+        string="Pollncard"
+        model="res.partner"
+        report_type="qweb-pdf"
+        name="polln_base.pollncard_template_cm"
+        file="polln_base.pollncard_template_cm"
+        print_report_name="'Polln Card Members'"
+    />
+
+    <template id="pollncard_template_cm">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-foreach="docs" t-as="partner">
+                    <div style="width: 48%; display: inline-table; height:6.7cm;">
+                        <table style="width:10.7cm; height:6.7cm; border: 1pt solid black; border-collapse:separate; margin:1pt;">
+                            <tr>
+                                <td align="left" rowspan="3" style="width:10%">
+                                    <img alt="barcode"
+                                          t-if="partner.barcode or partner.parent_eater_id.barcode"
+                                          t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' % ('EAN13', partner.barcode or partner.parent_eater_id.barcode, 230, 80)"
+                                          style="-webkit-transform: rotate(270deg);margin-top:77px;margin-left:-65px;margin-right:-85px"/>
+                                </td>
+                                <td align="center" valign="top">
+                                    <img src="/polln_base/static/src/img/logo-polln.png" style="display:table; margin: 3pt;width:55%;height:4.0cm;"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                  <div align="center" style="font-size:14pt;font-weight: bold;">
+                                    <t t-esc="partner.name[:36]"/>
+                                  </div>
+                                  <t t-if="partner.parent_eater_id.name">
+                                    <div align="center" style="font-size:10pt">
+                                      <t t-esc="'Travailleuse' if partner.parent_eater_id.gender == 'female' else 'Travailleur'" />: <t t-esc="partner.parent_eater_id.name[:36]"/></div>
+                                  </t>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+</odoo>
