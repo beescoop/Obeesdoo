@@ -11,9 +11,7 @@
     "category": "Sales",
     "version": "12.0.1.0.1",
     "depends": ["beesdoo_base"],
-    "data": [
-        "report/pollncard.xml",
-    ],
+    "data": ["report/pollncard.xml"],
     "installable": True,
     "license": "AGPL-3",
 }
