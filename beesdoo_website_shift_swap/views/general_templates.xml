@@ -64,7 +64,7 @@
                         </a>
                     </t>
                     <t
-                        t-elif="request.env['res.users'].browse(request.uid).partner_id.working_mode == 'regular'"
+                        t-elif="request.env['res.users'].browse(request.uid).partner_id.working_mode == 'regular' and shift.state != 'cancel'"
                     >
                         <a
                             class="btn btn-success btn-sm"
