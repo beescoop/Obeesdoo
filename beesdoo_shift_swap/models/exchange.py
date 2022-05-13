@@ -16,8 +16,8 @@ class Exchange(models.Model):
     first_shift_status = fields.Boolean(default=False, string="First shift status")
     second_shift_status = fields.Boolean(default=False, string="Second shift status")
 
-    def is_shift_generated(self, request):
-        shift = self.env["beesdoo.shift.shift"].search(
+    def is_exchanged_shift_generated(self, request):
+        return self.env["beesdoo.shift.shift"].search(
             [
                 ("start_time", "=", request.exchanged_tmpl_dated_id.date),
                 (
@@ -28,25 +28,45 @@ class Exchange(models.Model):
                 ("worker_id", "=", request.worker_id.id),
             ],
         )
-        return shift
 
-    def subscribe_exchange_to_shift(self, request):
-        shift = self.is_shift_generated(request)
-        updated_data = {
-            "worker_id": request.worker_id.id,
-        }
-        shift.update(updated_data)
+    def exchange_shifts(self):
+        if not self.first_shift_status:
+            first_shift = self.is_exchanged_shift_generated(self.first_request_id)
+            if first_shift:
+                first_shift.update(
+                    {
+                        "worker_id": self.second_request_id.worker_id.id,
+                    }
+                )
+        if not self.second_shift_status:
+            second_shift = self.is_exchanged_shift_generated(self.second_request_id)
+            if second_shift:
+                second_shift.update({"worker_id": self.first_request_id.worker_id.id})
 
     @api.model
     def create(self, vals):
         """
-        Overriding create function to send mail to cooperator et supercooperator
-        when an exchange is set.
+        Overriding create function to exchange workers in shifts and send mail
+        to cooperator et supercooperator when an exchange is set.
         """
-        subscr_exchange = super(Exchange, self).create(vals)
+        exchange = super(Exchange, self).create(vals)
+        exchange.exchange_shifts()
+        exchange.first_request_id.write(
+            {
+                "validate_request_id": exchange.second_request_id.id,
+                "exchange_id": exchange.id,
+                "status": "done",
+            }
+        )
+        exchange.second_request_id.write(
+            {
+                "exchange_id": exchange.id,
+                "status": "done",
+            }
+        )
         template_rec = self.env.ref(
             "beesdoo_shift_swap.email_template_exchange_validation", False
         )
-        template_rec.send_mail(subscr_exchange.first_request_id.id, False)
-        template_rec.send_mail(subscr_exchange.second_request_id.id, False)
-        return subscr_exchange
+        template_rec.send_mail(exchange.first_request_id.id, False)
+        template_rec.send_mail(exchange.second_request_id.id, False)
+        return exchange

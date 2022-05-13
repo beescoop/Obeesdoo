@@ -228,7 +228,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             )
             return request.redirect("/my/shift")
 
-        my_tmpl_dated = self.new_tmpl_dated(template_id, date)
+        exchanged_tmpl_dated = self.new_tmpl_dated(template_id, date)
         period = int(
             request.env["ir.config_parameter"]
             .sudo()
@@ -253,7 +253,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             "beesdoo_website_shift_swap.website_shift_swap_possible_tmpl_dated",
             {
                 "possible_tmpl_dated": possible_tmpl_dated,
-                "exchanged_tmpl_dated": my_tmpl_dated,
+                "exchanged_tmpl_dated": exchanged_tmpl_dated,
             },
         )
 
@@ -261,17 +261,17 @@ class WebsiteShiftSwapController(WebsiteShiftController):
     def get_possible_match(self):
         template_id = request.session["template_id"]
         date = request.session["date"]
-        my_tmpl_dated = self.new_tmpl_dated(template_id, date)
-        possible_match = (
+        exchanged_tmpl_dated = self.new_tmpl_dated(template_id, date)
+        possible_matches = (
             request.env["beesdoo.shift.exchange_request"]
             .sudo()
-            .get_possible_match(my_tmpl_dated)
+            .get_possible_match(exchanged_tmpl_dated)
         )
         return request.render(
             "beesdoo_website_shift_swap.website_shift_swap_possible_match",
             {
-                "possible_matches": possible_match,
-                "exchanged_tmpl_dated": my_tmpl_dated,
+                "possible_matches": possible_matches,
+                "exchanged_tmpl_dated": exchanged_tmpl_dated,
             },
         )
 
@@ -350,7 +350,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 (6, False, matching_request.exchanged_tmpl_dated_id.ids)
             ],
             "validate_request_id": matching_request_id,
-            "status": "validate_match",
+            "status": "awaiting_validation",
         }
         new_request = request.env["beesdoo.shift.exchange_request"].sudo().create(data)
         matching_request.write({"status": "has_match"})
@@ -368,39 +368,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             "first_request_id": my_request_id,
             "second_request_id": match_request_id,
         }
-        exchange = request.env["beesdoo.shift.exchange"].sudo().create(exchange_data)
-
-        my_request = (
-            request.env["beesdoo.shift.exchange_request"]
-            .sudo()
-            .search([("id", "=", my_request_id)])
-        )
-        match_request = (
-            request.env["beesdoo.shift.exchange_request"]
-            .sudo()
-            .search([("id", "=", match_request_id)])
-        )
-        data = {
-            "validate_request": match_request_id,
-            "exchange_id": exchange.id,
-            "status": "done",
-        }
-        my_request.write(data)
-        match_request.write({"status": "done"})
-        if request.env["beesdoo.shift.exchange"].sudo().is_shift_generated(my_request):
-            request.env["beesdoo.shift.exchange"].sudo().subscribe_exchange_to_shift(
-                my_request
-            )
-            exchange.write({"first_shift_status": True})
-        if (
-            request.env["beesdoo.shift.exchange"]
-            .sudo()
-            .is_shift_generated(match_request)
-        ):
-            request.env["beesdoo.shift.exchange"].sudo().subscribe_exchange_to_shift(
-                match_request
-            )
-            exchange.write({"second_shift_status": True})
+        request.env["beesdoo.shift.exchange"].sudo().create(exchange_data)
         return request.redirect("/my/shift")
 
     # Solidarity shift offer

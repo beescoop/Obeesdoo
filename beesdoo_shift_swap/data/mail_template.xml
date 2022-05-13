@@ -19,7 +19,7 @@
             <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
                  <p>Hello ${(object.worker_id.name)} ,
                  <br/><br/>
-                    You comfirmed an exchange between your Shift and another one:
+                    You confirmed an exchange between your Shift and another one:
                         Here is a summary of the exchange :
                         <li> Your old Shift : ${(object.exchanged_tmpl_dated_id.template_id.name)} ${(object.exchanged_tmpl_dated_id.date)}</li>
                         <li> Your new Shift : ${(object.validate_request_id.exchanged_tmpl_dated_id.template_id.name)} ${(object.validate_request_id.exchanged_tmpl_dated_id.date)}</li>

@@ -123,7 +123,7 @@ class SubscribeShiftSwap(models.TransientModel):
             "exchanged_tmpl_dated_id": self.exchanged_tmpl_dated_id.id,
             "asked_tmpl_dated_ids": [(6, False, self.asked_tmpl_dated_ids.ids)],
             "validate_request_id": self.possible_match.id,
-            "status": "validate_match" if self.possible_match else "no_match",
+            "status": "awaiting_validation" if self.possible_match else "no_match",
         }
 
         useless_tmpl_dated = self.env["beesdoo.shift.template.dated"].search(

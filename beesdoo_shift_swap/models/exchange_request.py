@@ -47,9 +47,9 @@ class ExchangeRequest(models.Model):
     def _get_status(self):
         return [
             ("draft", "Draft"),
-            ("no_match", "No Match"),
-            ("has_match", "Has Match"),
-            ("validate_match", "validate Match"),
+            ("no_match", "No match"),
+            ("has_match", "Has match"),
+            ("awaiting_validation", "Awaiting validation"),
             ("done", "Done"),
         ]
 

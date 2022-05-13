@@ -57,7 +57,7 @@ class ResPartner(models.Model):
         shifts = self.get_next_shifts()
         tmpl_dated = self.env["beesdoo.shift.template.dated"]
         if shifts:
-            tmpl_dated = self.swap_shift_to_tmpl_dated(shifts)
+            tmpl_dated = tmpl_dated.swap_shift_to_tmpl_dated(shifts)
         return tmpl_dated
 
     @api.multi

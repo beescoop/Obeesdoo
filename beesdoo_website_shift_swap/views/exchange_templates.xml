@@ -402,7 +402,7 @@
                                         </t>
                                     </t>
                                     <t
-                                        t-elif="request['my_requests'].status == 'validate_match'"
+                                        t-elif="request['my_requests'].status == 'awaiting_validation'"
                                     >
                                         Waiting for validation of the other cooperator.
                                     </t>
