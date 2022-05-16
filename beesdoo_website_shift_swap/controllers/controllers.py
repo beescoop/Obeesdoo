@@ -343,7 +343,6 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             .search([("id", "=", matching_request_id)])
         )
         data = {
-            "request_date": datetime.date(datetime.now()),
             "worker_id": cur_user.partner_id.id,
             "exchanged_tmpl_dated_id": my_tmpl_dated.id,
             "asked_tmpl_dated_ids": [

@@ -152,7 +152,7 @@
                             />
                         </div>
                         <div class="col-12 col-lg-4 text-justify">
-                            <t t-call="beesdoo_website_shift.help_text_title" />
+                            <t t-call="beesdoo_website_shift_swap.help_text_title" />
                             <t
                                 t-call="beesdoo_website_shift_swap.help_text_swap_underpopulated_common"
                             />

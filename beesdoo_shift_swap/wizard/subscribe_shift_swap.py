@@ -8,28 +8,6 @@ class SubscribeShiftSwap(models.TransientModel):
     _name = "beesdoo.shift.subscribe.shift.swap"
     _description = "Subscribe swap shift"
 
-    @api.onchange("worker_id")
-    def onchange_exchanged_tmpl_dated(self):
-        # TODO : prendre en compte qd il est inscris a aucun shift
-        for record in self:
-            if not record.worker_id:
-                record.exchanged_tmpl_dated_id = False
-            else:
-                tmpl_dated = record.worker_id.get_next_tmpl_dated()
-                # record.available_tmpl_dated = tmpl_dated
-                temp = self.env["beesdoo.shift.template.dated"]
-                for rec in tmpl_dated:
-                    template = rec.template_id
-                    date = rec.date
-                    temp |= temp.create(
-                        {
-                            "template_id": template.id,
-                            "date": date,
-                            "store": False,
-                        }
-                    )
-                return {"domain": {"exchanged_tmpl_dated_id": [("id", "in", temp.ids)]}}
-
     worker_id = fields.Many2one(
         "res.partner",
         default=lambda self: self.env["res.partner"].browse(
@@ -38,6 +16,35 @@ class SubscribeShiftSwap(models.TransientModel):
         required=True,
         string="Cooperator",
     )
+
+    exchanged_tmpl_dated_id = fields.Many2one(
+        "beesdoo.shift.template.dated",
+        string="Unwanted Shift",
+    )
+
+    wanted_tmpl_dated_id = fields.Many2one(
+        "beesdoo.shift.template.dated",
+        string="Underpopulated Shift",
+    )
+
+    @api.onchange("worker_id")
+    def _get_template_dated(self):
+        for record in self:
+            tmpl_dated = record.worker_id.get_next_tmpl_dated()
+            tmpl_dated_possible = self.env["beesdoo.shift.template.dated"]
+            for template in tmpl_dated:
+                tmpl_dated_possible |= tmpl_dated_possible.create(
+                    {
+                        "template_id": template.template_id.id,
+                        "date": template.date,
+                        "store": False,
+                    }
+                )
+            return {
+                "domain": {
+                    "exchanged_tmpl_dated_id": [("id", "in", tmpl_dated_possible.ids)]
+                }
+            }
 
     @api.onchange("exchanged_tmpl_dated_id")
     def _get_available_tmpl_dated(self):
@@ -61,16 +68,6 @@ class SubscribeShiftSwap(models.TransientModel):
                         }
                     )
                 return {"domain": {"wanted_tmpl_dated_id": [("id", "in", temp.ids)]}}
-
-    exchanged_tmpl_dated_id = fields.Many2one(
-        "beesdoo.shift.template.dated",
-        string="Unwanted Shift",
-    )
-
-    wanted_tmpl_dated_id = fields.Many2one(
-        "beesdoo.shift.template.dated",
-        string="Underpopulated Shift",
-    )
 
     def _check(self, group="beesdoo_shift.group_shift_management"):
         self.ensure_one()

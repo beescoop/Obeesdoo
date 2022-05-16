@@ -5,18 +5,15 @@ class Exchange(models.Model):
     _name = "beesdoo.shift.exchange"
     _description = "A module to track a shift exchange between two cooperators"
 
-    first_shift = fields.Many2one("beesdoo.shift.shift", string="First shift")
-    second_shift = fields.Many2one("beesdoo.shift.shift", string="Second shift")
     first_request_id = fields.Many2one(
-        "beesdoo.shift.exchange_request", string="First request"
+        "beesdoo.shift.exchange_request", string="First exchange request"
     )
-    second_request_id = fields.Many2one(
-        "beesdoo.shift.exchange_request", string="Second request"
-    )
-    first_shift_status = fields.Boolean(default=False, string="First shift status")
-    second_shift_status = fields.Boolean(default=False, string="Second shift status")
 
-    def is_exchanged_shift_generated(self, request):
+    second_request_id = fields.Many2one(
+        "beesdoo.shift.exchange_request", string="Second exchange request"
+    )
+
+    def search_shift_generated(self, request):
         return self.env["beesdoo.shift.shift"].search(
             [
                 ("start_time", "=", request.exchanged_tmpl_dated_id.date),
@@ -27,19 +24,20 @@ class Exchange(models.Model):
                 ),
                 ("worker_id", "=", request.worker_id.id),
             ],
+            limit=1,
         )
 
-    def exchange_shifts(self):
-        if not self.first_shift_status:
-            first_shift = self.is_exchanged_shift_generated(self.first_request_id)
+    def update_shifts_if_generated(self):
+        if self.first_request_id:
+            first_shift = self.search_shift_generated(self.first_request_id)
             if first_shift:
                 first_shift.update(
                     {
                         "worker_id": self.second_request_id.worker_id.id,
                     }
                 )
-        if not self.second_shift_status:
-            second_shift = self.is_exchanged_shift_generated(self.second_request_id)
+        if self.second_request_id:
+            second_shift = self.search_shift_generated(self.second_request_id)
             if second_shift:
                 second_shift.update({"worker_id": self.first_request_id.worker_id.id})
 
@@ -47,10 +45,10 @@ class Exchange(models.Model):
     def create(self, vals):
         """
         Overriding create function to exchange workers in shifts and send mail
-        to cooperator et supercooperator when an exchange is set.
+        to cooperator and supercooperator when an exchange is set.
         """
         exchange = super(Exchange, self).create(vals)
-        exchange.exchange_shifts()
+        exchange.update_shifts_if_generated()
         exchange.first_request_id.write(
             {
                 "validate_request_id": exchange.second_request_id.id,

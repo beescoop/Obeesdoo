@@ -29,7 +29,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="worker_id" />
-                <field name="request_date" />
+                <field name="create_date" />
                 <field name="status" />
             </tree>
         </field>
@@ -41,7 +41,7 @@
         <field name="arch" type="xml">
             <search>
                 <field name="worker_id" />
-                <field name="request_date" />
+                <field name="create_date" />
                 <field name="status" />
                 <group expand="1" string="Group By">
                     <filter
@@ -75,7 +75,7 @@
                 <sheet>
                     <group name="group_top">
                         <field name="worker_id" />
-                        <field name="request_date" />
+                        <field name="create_date" />
                         <group name="group_left">
                             <field name="exchanged_tmpl_dated_id" />
                             <field name="asked_tmpl_dated_ids" />

@@ -1,11 +1,6 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from odoo import fields, models
-
-
-def daterange(start_date, end_date):
-    for n in range(int((end_date - start_date).days)):
-        return start_date + timedelta(n)
 
 
 class SubscribeUnderpopulatedShift(models.Model):
@@ -13,7 +8,7 @@ class SubscribeUnderpopulatedShift(models.Model):
     _description = "A model to track an exchange with an underpopulated shift"
 
     def _get_selection_status(self):
-        return [("draft", "Draft"), ("validate", "Validate"), ("done", "Done")]
+        return [("draft", "Draft"), ("validated", "Validated")]
 
     state = fields.Selection(selection=_get_selection_status, default="draft")
 
@@ -27,16 +22,9 @@ class SubscribeUnderpopulatedShift(models.Model):
     )
 
     exchanged_tmpl_dated_id = fields.Many2one("beesdoo.shift.template.dated")
-    exchanged_shift_id = fields.Many2one("beesdoo.shift.shift")
+    is_exchanged_shift_compensation = fields.Boolean(default=False)
 
     wanted_tmpl_dated_id = fields.Many2one("beesdoo.shift.template.dated")
-    wanted_shift_id = fields.Many2one("beesdoo.shift.shift")
-
-    # True if worker has been unsubscribed from exchanged_shift
-    exchange_status = fields.Boolean(default=False, string="Status Exchange Shift")
-
-    # True if worker has been subscribed to wanted_shift
-    wanted_status = fields.Boolean(default=False, string="status comfirme shift")
 
     date = fields.Date(required=True, default=datetime.date(datetime.now()))
 
@@ -48,10 +36,11 @@ class SubscribeUnderpopulatedShift(models.Model):
         res = super(SubscribeUnderpopulatedShift, self).create(vals_list)
         res._unsubscribe_old_shift_if_generated()
         res._subscribe_new_shift_if_generated()
+        res.state = "validated"
         return res
 
     def _unsubscribe_old_shift_if_generated(self):
-        if self.exchanged_tmpl_dated_id and not self.exchanged_shift_id:
+        if self.exchanged_tmpl_dated_id:
             exchanged_shift = self.env["beesdoo.shift.shift"].search(
                 [
                     ("start_time", "=", self.exchanged_tmpl_dated_id.date),
@@ -65,6 +54,7 @@ class SubscribeUnderpopulatedShift(models.Model):
                 limit=1,
             )
             if exchanged_shift:
+                self.is_exchanged_shift_compensation = exchanged_shift.is_compensation
                 exchanged_shift.write(
                     {
                         "worker_id": False,
@@ -72,15 +62,11 @@ class SubscribeUnderpopulatedShift(models.Model):
                         "is_compensation": False,
                     }
                 )
-                self.exchanged_shift_id = exchanged_shift
-                self.exchange_status = True
-                if self.wanted_status:
-                    self.state = "done"
                 return True
         return False
 
     def _subscribe_new_shift_if_generated(self):
-        if self.wanted_tmpl_dated_id and not self.wanted_shift_id:
+        if self.wanted_tmpl_dated_id:
             wanted_shift = self.env["beesdoo.shift.shift"].search(
                 [
                     ("start_time", "=", self.wanted_tmpl_dated_id.date),
@@ -94,20 +80,17 @@ class SubscribeUnderpopulatedShift(models.Model):
                 limit=1,
             )
             if wanted_shift:
-                is_compensation = False
-                if self.exchanged_shift_id and self.exchanged_shift_id.is_compensation:
-                    is_compensation = True
                 wanted_shift.write(
                     {
                         "worker_id": self.worker_id.id,
-                        "is_regular": False if is_compensation else True,
-                        "is_compensation": True if is_compensation else False,
+                        "is_regular": False
+                        if self.is_exchanged_shift_compensation
+                        else True,
+                        "is_compensation": True
+                        if self.is_exchanged_shift_compensation
+                        else False,
                     }
                 )
-                self.wanted_shift_id = wanted_shift
-                self.wanted_status = True
-                if self.exchange_status:
-                    self.state = "done"
                 return True
         return False
 
