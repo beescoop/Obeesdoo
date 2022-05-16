@@ -8,8 +8,10 @@ from odoo.exceptions import UserError
 from odoo.http import request
 
 from odoo.addons.beesdoo_website_shift.controllers.main import WebsiteShiftController
-
-from .shift_grid_utils import build_shift_grid
+from odoo.addons.beesdoo_website_shift.controllers.shift_grid_utils import (
+    DisplayedShift,
+    build_shift_grid,
+)
 
 
 class WebsiteShiftSwapController(WebsiteShiftController):
@@ -800,7 +802,14 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         for keys, grouped_shifts in groupby_iter:
             task_template, start_time, task_type = keys
             shift_list = list(grouped_shifts)
-            displayed_shifts.append(shift_list[0])
+            displayed_shifts.append(
+                DisplayedShift(
+                    shift_list[0],
+                    None,
+                    None,
+                    None,
+                )
+            )
 
         shift_weeks = build_shift_grid(displayed_shifts)
         return {
