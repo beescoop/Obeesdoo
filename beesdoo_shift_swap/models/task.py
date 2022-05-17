@@ -15,6 +15,7 @@ class Task(models.Model):
     is_solidarity = fields.Boolean(
         string="Solidarity shift",
         readonly=True,
+        store=True,
         compute="_compute_is_solidarity",
     )
 

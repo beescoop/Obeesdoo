@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+
     <record model="ir.ui.view" id="task_view_form_extended">
-        <field name="name">Add solidarity_offer field</field>
+        <field name="name">Shift form extended</field>
         <field name="model">beesdoo.shift.shift</field>
         <field name="inherit_id" ref="beesdoo_shift.task_view_form" />
         <field name="arch" type="xml">
@@ -26,4 +27,24 @@
             </field>
         </field>
     </record>
+
+    <record model="ir.ui.view" id="task_shift_view_kanban_extended">
+        <field name="name">Shift kanban extended</field>
+        <field name="model">beesdoo.shift.shift</field>
+        <field name="inherit_id" ref="beesdoo_shift.task_shift_view_kanban" />
+        <field name="arch" type="xml">
+            <field name="is_regular" position="after">
+                <field name="is_solidarity" />
+            </field>
+            <xpath expr="//div[@t-if='record.is_regular.raw_value']" position="replace">
+                <div t-if="record.is_solidarity.raw_value">
+                    Solidarity shift
+                </div>
+                <div t-elif="record.is_regular.raw_value">
+                    Regular Shift
+                </div>
+            </xpath>
+        </field>
+    </record>
+
 </odoo>
