@@ -1,5 +1,5 @@
 # This module is, for now, specific to the BEES coop.
-# Therefore, this module depends on `beesdo_worker_status`.
+# Therefore, this module depends on `beesdoo_worker_status`.
 # If someone needs this module but has another worker_status rules
 # this module can be splitted into a generic part, and a specific part
 # that implement the worker_status rules.
@@ -30,6 +30,9 @@
         "wizard/generate_missing_attendance_sheets.xml",
         "views/attendance_sheet.xml",
     ],
-    "demo": ["demo/users.xml"],
+    "demo": [
+        "demo/users.xml",
+        "demo/workers.xml",
+    ],
     "license": "AGPL-3",
 }
