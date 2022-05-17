@@ -1352,16 +1352,6 @@ msgid "Warning"
 msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__website_message_ids
-msgid "Website Messages"
-msgstr ""
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_shift__website_message_ids
-msgid "Website communication history"
-msgstr ""
-
-#. module: beesdoo_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_view_search
 msgid "Week Day"
 msgstr ""
