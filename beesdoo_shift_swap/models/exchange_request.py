@@ -95,7 +95,7 @@ class ExchangeRequest(models.Model):
                     tmpl_dated.template_id
                     == exchange.exchanged_tmpl_dated_id.template_id
                     and tmpl_dated.date == exchange.exchanged_tmpl_dated_id.date
-                    and not exchange.status == "done"
+                    and exchange.status != "done"
                 ):
                     for asked_tmpl_dated in exchange.asked_tmpl_dated_ids:
                         if (
@@ -111,7 +111,7 @@ class ExchangeRequest(models.Model):
         Check if there aren't any beesdoo.shift.exchange_request record that match
         with "my_tmpl_dated".
         :param my_tmpl_dated: beesdoo.shift.template.dated
-        :return: beesdoo.shift.exchange_request
+        :return: beesdoo.shift.exchange_request recordset
         """
         matches = self.env["beesdoo.shift.exchange_request"]
         exchanges = self.search([])

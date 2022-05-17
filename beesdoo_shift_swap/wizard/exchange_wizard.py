@@ -81,14 +81,21 @@ class SubscribeShiftSwap(models.TransientModel):
             }
 
     @api.onchange("exchanged_tmpl_dated_id", "asked_tmpl_dated_ids")
-    def get_possible_match(self):
+    def _get_possible_match(self):
         for record in self:
-            if not record.exchanged_tmpl_dated_id or not record.asked_tmpl_dated_ids:
+            if not record.exchanged_tmpl_dated_id:
                 record.possible_match = False
             else:
-                matches = self.env["beesdoo.shift.exchange_request"].matching_request(
-                    record.asked_tmpl_dated_ids, record.exchanged_tmpl_dated_id
-                )
+                if record.asked_tmpl_dated_ids:
+                    matches = self.env[
+                        "beesdoo.shift.exchange_request"
+                    ].matching_request(
+                        record.asked_tmpl_dated_ids, record.exchanged_tmpl_dated_id
+                    )
+                else:
+                    matches = self.env[
+                        "beesdoo.shift.exchange_request"
+                    ].get_possible_match(record.exchanged_tmpl_dated_id)
                 return {"domain": {"possible_match": [("id", "in", matches.ids)]}}
 
     def _check(self, group="beesdoo_shift.group_shift_management"):
@@ -111,15 +118,18 @@ class SubscribeShiftSwap(models.TransientModel):
                 rec, self.worker_id
             )
 
-        useless_tmpl_dated = self.env["beesdoo.shift.template.dated"].search(
+        self.env["beesdoo.shift.template.dated"].search(
             [("store", "=", False)]
-        )
-        useless_tmpl_dated.unlink()
+        ).unlink()
 
         data = {
             "worker_id": self.worker_id.id,
             "exchanged_tmpl_dated_id": self.exchanged_tmpl_dated_id.id,
-            "asked_tmpl_dated_ids": [(6, False, self.asked_tmpl_dated_ids.ids)],
+            "asked_tmpl_dated_ids": [
+                (6, False, self.possible_match.exchanged_tmpl_dated_id.ids)
+            ]
+            if self.possible_match
+            else [(6, False, self.asked_tmpl_dated_ids.ids)],
             "validate_request_id": self.possible_match.id
             if self.possible_match
             else False,
