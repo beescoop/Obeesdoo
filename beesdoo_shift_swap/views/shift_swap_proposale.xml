@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record model="ir.ui.view" id="shift_exchange_view_form">
-        <field name="name">Shift Exchange Button</field>
+    <record model="ir.ui.view" id="add_exchange_button">
+        <field name="name">Add shift exchange button</field>
         <field name="model">res.partner</field>
         <field
             name="inherit_id"

@@ -18,6 +18,7 @@ class SubscribeShiftSwap(models.TransientModel):
     match_proposition = fields.Many2one(
         "beesdoo.shift.exchange_request",
         string="Match proposition",
+        required=True,
     )
 
     @api.onchange("my_proposition")

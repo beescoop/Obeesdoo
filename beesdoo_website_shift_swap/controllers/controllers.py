@@ -591,3 +591,10 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         else:
             request.session["request_cancel_irregular"] = True
         return request.redirect("/my/shift")
+
+    def my_shift_next_shifts(self):
+        res = super(WebsiteShiftSwapController, self).my_shift_next_shifts()
+        res["subscribed_shifts"] = sorted(
+            res["subscribed_shifts"], key=lambda r: r.start_time
+        )
+        return res

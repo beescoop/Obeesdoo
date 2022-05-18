@@ -14,6 +14,45 @@
             </div>
         </template>
 
+        <!-- Help text for shift selection table -->
+        <template
+            id="help_text_select_shifts_for_exchange"
+            name="Help text select shifts for exchange"
+        >
+            <p>
+                This table enables you to save your availability by selecting shifts that
+                you can attend. To select a shift, tick the corresponding box in the "Select"
+                column. You can select as many shifts as you want.
+            </p>
+            <h5>Functionalities</h5>
+                <ul>
+                    <li>
+                        Move from page to page using the navigation bar at the bottom of the table.
+                    </li>
+                    <li>
+                        Sort shifts by date or task by clicking on the arrows on top of the columns.
+                    </li>
+                    <li>
+                        Search for specific shifts by using the search bar above the table. The search
+                        works by lines, you can see examples below.
+                    </li>
+                </ul>
+            <h5>Search examples</h5>
+                <ul class="text-left">
+                    <li>
+                        <b>wednesday</b> : search all lines containing wednesday
+                    </li>
+                    <li>
+                        <b
+                    >friday 10</b> : search all lines containing friday and 10, for example "Friday 08 April, 10:00 - 12:00"
+                    </li>
+                    <li>
+                        <b
+                    >"friday 10"</b> : search all lines containing exactly "friday 10", for example "Friday 10 June"
+                    </li>
+                </ul>
+        </template>
+
         <!-- Display tmpl_dated that match with my exchanged tmpl_dated -->
         <template
             id="website_shift_swap_my_possible_match"
@@ -169,7 +208,7 @@
                         <thead class="thead-dark">
                             <tr>
                                 <th>Date</th>
-                                <th>Time slot</th>
+                                <th class="non_orderable">Time slot</th>
                                 <th>Task</th>
                                 <th class="non_orderable">Select</th>
                             </tr>
@@ -233,6 +272,7 @@
             name="Shift Swap possible tmpl_dated Page"
         >
             <t t-call="portal.portal_layout">
+                <t t-set="no_breadcrumbs" t-value="True" />
                 <div class="container mt16">
                     <div class="row">
                         <div class="col text-center">
@@ -240,16 +280,22 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 col-lg-8 m-auto text-justify">
+                        <div class="col-12 col-lg-6 m-auto text-justify">
                             <t
                                 t-call="beesdoo_website_shift_swap.website_shift_swap_summary"
                             />
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 col-lg-8 m-auto">
+                        <div class="col-12 col-lg-8">
                             <t
                                 t-call="beesdoo_website_shift_swap.website_shift_swap_next_possible_tmpl_dated"
+                            />
+                        </div>
+                        <div class="col-12 col-lg-4 text-justify">
+                            <t t-call="beesdoo_website_shift_swap.help_text_title" />
+                            <t
+                                t-call="beesdoo_website_shift_swap.help_text_select_shifts_for_exchange"
                             />
                         </div>
                     </div>

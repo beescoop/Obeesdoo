@@ -20,11 +20,13 @@ class SubscribeShiftSwap(models.TransientModel):
     exchanged_tmpl_dated_id = fields.Many2one(
         "beesdoo.shift.template.dated",
         string="Unwanted Shift",
+        required=True,
     )
 
     wanted_tmpl_dated_id = fields.Many2one(
         "beesdoo.shift.template.dated",
         string="Underpopulated Shift",
+        required=True,
     )
 
     @api.onchange("worker_id")

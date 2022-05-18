@@ -16,13 +16,13 @@ class SubscribeShiftSwap(models.TransientModel):
     )
 
     exchanged_tmpl_dated_id = fields.Many2one(
-        "beesdoo.shift.template.dated", string="exchanged_tmpl_dated"
+        "beesdoo.shift.template.dated",
+        string="exchanged_tmpl_dated",
+        required=True,
     )
 
-    # TODO : relational fields
     asked_tmpl_dated_ids = fields.Many2many(
         comodel_name="beesdoo.shift.template.dated",
-        # inverse_name='id',
         relation="wizard_exchange_template_dated",
         string="asked_tmpl_dated",
     )
