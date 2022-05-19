@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 
 from odoo.tests.common import TransactionCase
 
@@ -92,7 +92,10 @@ class TestBeesdooShiftSwap(TransactionCase):
         Test solidarity shift offer creation and cancellation if the
         related shift is not already generated
         """
-        template_dated = self.shift_template_dated_model.create(
+        # Setting "visualize_date" to avoid generating a shift in the past
+        template_dated = self.shift_template_dated_model.with_context(
+            {"visualize_date": date.today()}
+        ).create(
             {
                 "template_id": self.task_template_1.id,
                 "date": self.task_template_1.start_date,
@@ -123,6 +126,11 @@ class TestBeesdooShiftSwap(TransactionCase):
         self.assertTrue(shift.is_solidarity)
 
         # Solidarity offer cancellation
+        self.assertTrue(solidarity_offer.check_offer_date_too_close())
+        template_dated.date = self.now + timedelta(days=30)
+        shift.start_time = template_dated.date
+        shift.end_time = template_dated.date + timedelta(minutes=10)
+        self.assertFalse(solidarity_offer.check_offer_date_too_close())
         self.assertTrue(solidarity_offer.cancel_solidarity_offer())
 
         self.assertFalse(solidarity_offer.shift_id)
@@ -210,16 +218,19 @@ class TestBeesdooShiftSwap(TransactionCase):
 
         # Generate the shifts
         shifts = self.task_template_2.generate_task_day()
-        shift_regular = shifts[0]
 
-        self.assertFalse(shift_regular.worker_id)
-        self.assertFalse(shift_regular.is_regular)
+        self.assertNotIn(self.worker_regular_1.id, self.get_worker_ids(shifts))
 
-        # Solidarity offer cancellation
+        # Set template and shift date in the future to enable cancellation
+        template_dated.date = self.now + timedelta(days=30)
+        for s in shifts:
+            s.start_time = template_dated.date
+            s.end_time = template_dated.date + timedelta(minutes=10)
+
+        # Solidarity request cancellation
         self.assertTrue(solidarity_request_regular.cancel_solidarity_request())
         self.assertEqual(solidarity_request_regular.state, "cancelled")
-        self.assertEqual(shift_regular.worker_id.id, self.worker_regular_1.id)
-        self.assertTrue(shift_regular.is_regular)
+        self.assertIn(self.worker_regular_1.id, self.get_worker_ids(shifts))
         self.assertFalse(solidarity_request_regular.cancel_solidarity_request())
 
         self.assertTrue(solidarity_request_irregular.cancel_solidarity_request())
@@ -263,15 +274,20 @@ class TestBeesdooShiftSwap(TransactionCase):
             }
         )
 
+        # Set template and shift date in the future to enable cancellation
+        template_dated.date = self.now + timedelta(days=30)
+        for s in shifts:
+            s.start_time = template_dated.date
+            s.end_time = template_dated.date + timedelta(minutes=10)
+
         self.assertTrue(solidarity_request.cancel_solidarity_request())
-        shifts = self.env["beesdoo.shift.shift"].search(
+        shifts = self.shift_model.search(
             [
                 ("start_time", "=", template_dated.date),
                 ("task_template_id", "=", self.task_template_3.id),
             ],
         )
-        self.assertEqual(shifts[1].worker_id.id, self.worker_regular_1.id)
-        self.assertTrue(shifts[1].is_regular)
+        self.assertIn(self.worker_regular_1.id, self.get_worker_ids(shifts))
 
     def test_solidarity_counter(self):
         """
@@ -346,3 +362,9 @@ class TestBeesdooShiftSwap(TransactionCase):
             self.env["res.company"]._company_default_get().solidarity_counter(),
             start_value + 1,
         )
+
+    def get_worker_ids(self, shifts):
+        shifts_worker_ids = []
+        for s in shifts:
+            shifts_worker_ids.append(s.worker_id.id)
+        return shifts_worker_ids

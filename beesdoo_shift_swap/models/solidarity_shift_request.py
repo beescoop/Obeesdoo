@@ -113,7 +113,7 @@ class SolidarityShiftRequest(models.Model):
                 data = {
                     "name": "[%s] %s %s (%s - %s) [%s]"
                     % (
-                        template_id.start_date.date(),
+                        self.tmpl_dated_id.date.date(),
                         template_id.planning_id.name,
                         template_id.day_nb_id.name,
                         float_to_time(template_id.start_time),
@@ -125,8 +125,9 @@ class SolidarityShiftRequest(models.Model):
                     "super_coop_id": template_id.super_coop_id.id,
                     "worker_id": self.worker_id and self.worker_id.id or False,
                     "is_regular": True if self.worker_id else False,
-                    "start_time": template_id.start_date,
-                    "end_time": template_id.end_date,
+                    "start_time": self.tmpl_dated_id.date,
+                    "end_time": self.tmpl_dated_id.date
+                    + timedelta(hours=template_id.end_time - template_id.start_time),
                     "state": "open",
                 }
                 self.env["beesdoo.shift.shift"].create(data)
