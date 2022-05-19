@@ -100,21 +100,25 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         return request.render(res.template, template_context)
 
     @http.route("/my/shift/swaping/<int:template_id>/<string:date>", website=True)
-    def swaping_shift(self, template_id, date):
+    def swaping_shift(self, template_id, date, **kw):
         # Save the swaping tmpl_dated in the user session
         request.session["template_id"] = template_id
         request.session["date"] = date
 
         shift_date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
         delta = shift_date - datetime.now()
-        if delta.days <= int(
-            request.env["ir.config_parameter"]
-            .sudo()
-            .get_param("beesdoo_shift.day_limit_swap")
+        if (
+            delta.days
+            > int(
+                request.env["ir.config_parameter"]
+                .sudo()
+                .get_param("beesdoo_shift.day_limit_swap")
+            )
+            or "planned" in kw
         ):
-            return request.redirect("/my/shift/underpopulated/swap")
-        else:
             return request.redirect("/my/shift/possible/match")
+        else:
+            return request.redirect("/my/shift/underpopulated/swap")
 
     @http.route("/my/shift/underpopulated/swap", website=True)
     def get_underpopulated_shift(self):

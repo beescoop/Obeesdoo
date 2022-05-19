@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from odoo import _, api, fields, models
 
 
@@ -110,16 +112,20 @@ class ExchangeRequest(models.Model):
         :return: beesdoo.shift.exchange_request recordset
         """
         matches = self.env["beesdoo.shift.exchange_request"]
-        exchanges = self.search([])
+        exchange_requests = self.search(
+            [
+                ("status", "!=", "done"),
+                ("exchanged_tmpl_dated_id.date", ">", datetime.now()),
+            ],
+        )
 
-        for exchange in exchanges:
-            if exchange.status != "done":
-                for asked_tmpl_dated in exchange.asked_tmpl_dated_ids:
-                    if (
-                        my_tmpl_dated.template_id == asked_tmpl_dated.template_id
-                        and my_tmpl_dated.date == asked_tmpl_dated.date
-                    ):
-                        matches |= exchange
+        for request in exchange_requests:
+            for asked_tmpl_dated in request.asked_tmpl_dated_ids:
+                if (
+                    my_tmpl_dated.template_id == asked_tmpl_dated.template_id
+                    and my_tmpl_dated.date == asked_tmpl_dated.date
+                ):
+                    matches |= request
         return matches
 
     def get_coop_same_days_same_hour(self, my_tmpl_dated):
