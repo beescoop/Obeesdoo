@@ -9,7 +9,7 @@
             eval="[(6, 0, [
             ref('product.field_product_template__list_price'),
             ref('product.field_product_template__name'),
-            ref('beesdoo_product.field_product_template__main_seller_id'),
+            ref('product_main_supplier.field_product_template__main_seller_id'),
             ref('beesdoo_product.field_product_template__eco_label'),
             ref('beesdoo_product.field_product_template__local_label'),
             ref('beesdoo_product.field_product_template__fair_label'),
