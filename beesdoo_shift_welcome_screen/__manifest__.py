@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "Beescoop Shift Management - Welcome Screen",
+    "name": "BEES coop Shift Management - Welcome Screen",
     "summary": """
         Volunteer Timetable Management""",
     "author": "Thibault Francois, Coop IT Easy SC",
