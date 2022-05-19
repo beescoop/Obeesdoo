@@ -21,6 +21,7 @@
         "sale",
         "point_of_sale",
         "purchase",
+        "sale_suggested_price",
     ],
     "data": [
         "data/product_label.xml",
@@ -28,7 +29,6 @@
         "data/barcode_rule.xml",
         "data/product_sequence.xml",
         "views/beesdoo_product.xml",
-        "views/point_of_sale_view.xml",
         "views/assets.xml",
         "wizard/views/label_printing_utils.xml",
         "security/ir.model.access.csv",

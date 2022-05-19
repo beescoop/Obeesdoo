@@ -21,13 +21,7 @@
         <field name="arch" type="xml">
             <tree string="Product" editable="top" edit="true">
                 <field name="name" readonly="1" />
-                <!-- TODO: main_seller_id is not a part of this module -->
-                <!-- <field
-                    name="main_seller_id"
-                    string="Main Seller"
-                    readonly="1"
-                    options="{'no_open': True, 'no_create': True, 'no_create_edit': True }"
-                /> -->
+
                 <field name="purchase_price" />
                 <field
                     name="uom_po_id"
