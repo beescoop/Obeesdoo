@@ -7,7 +7,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Eater Member Card",
-    "author": "Beescoop - Cellule IT, Coop IT Easy SC",
+    "author": "BEES coop - Cellule IT, Coop IT Easy SC",
     "summary": "Compute barcode based on eaters",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Sales",

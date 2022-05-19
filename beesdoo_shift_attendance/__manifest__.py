@@ -4,7 +4,7 @@
 # this module can be splitted into a generic part, and a specific part
 # that implement the worker_status rules.
 {
-    "name": "Beescoop Shift Attendance Sheet",
+    "name": "BEES coop Shift Attendance Sheet",
     "summary": """
         Volonteer Timetable Management
         Attendance Sheet for BEES coop""",

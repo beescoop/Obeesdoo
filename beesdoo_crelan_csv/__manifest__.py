@@ -3,11 +3,11 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Beescoop Crelan Import module",
+    "name": "BEES coop Crelan Import module",
     "summary": """
         Import Crelan CSV Wizard
     """,
-    "author": "Beescoop - Cellule IT, Coop IT Easy SC",
+    "author": "BEES coop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Accounting & Finance",
     "version": "12.0.1.0.0",

@@ -1,3 +1,3 @@
-* Beescoop - Cellule IT
+* BEES coop - Cellule IT
 * Coop IT Easy SC
 * Thibault Francois

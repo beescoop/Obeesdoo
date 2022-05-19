@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "Beescoop Worker Status manager for beesdoo_shift_swap",
+    "name": "BEES coop Worker Status manager for beesdoo_shift_swap",
     "summary": """Worker status management specific to shift exchanges.""",
     "author": "Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",

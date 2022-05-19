@@ -11,7 +11,7 @@ org_slug: beescoop
 rebel_module_groups:
 - macavrac_base
 - polln_shift
-repo_description: Specific module for the Beescoop
+repo_description: Specific module for the BEES coop
 repo_name: Obeesdoo
 repo_slug: obeesdoo
 repo_website: https://coopiteasy.be

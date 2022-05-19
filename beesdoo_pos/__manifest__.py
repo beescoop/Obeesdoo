@@ -8,10 +8,10 @@
 #   - Houssine Bakkali <houssine@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
-    "name": "Beescoop Point of sale",
+    "name": "BEES coop Point of sale",
     "summary": """This module adds the eaters of the customer to the POS
     ActionpadWidget and PaymentScreenWidget.""",
-    "author": "Beescoop - Cellule IT, Coop IT Easy SC",
+    "author": "BEES coop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Point Of Sale",
     "version": "12.0.2.0.0",

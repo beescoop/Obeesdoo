@@ -5,7 +5,7 @@
 #   - Augustin Borsu
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
-    "name": "Beescoop  Account Module",
+    "name": "BEES coop  Account Module",
     "summary": "Emptied.",
     "author": "Beescoop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",

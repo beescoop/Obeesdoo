@@ -16,7 +16,7 @@ class SupplierInfo(models.Model):
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
-
+    # fixme : already present in product_main_supplier
     main_supplier_id = fields.Many2one(
         "res.partner", compute="_compute_main_supplier_id", store=True
     )

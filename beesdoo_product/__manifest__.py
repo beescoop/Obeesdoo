@@ -12,15 +12,18 @@
     "summary": """
         Modification of product module for the needs of beescoop
         """,
-    "author": "Beescoop - Cellule IT, Coop IT Easy SC",
+    "author": "BEES coop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Sales",
-    "version": "12.0.1.4.1",
+    "version": "12.0.2.0.0",
     "depends": [
         "product",
         "sale",
         "point_of_sale",
         "purchase",
+        "product_main_supplier",
+        "sale_suggested_price",
+        "sale_adapt_price_wizard",
     ],
     "data": [
         "data/product_label.xml",
@@ -28,12 +31,7 @@
         "data/barcode_rule.xml",
         "data/product_sequence.xml",
         "views/beesdoo_product.xml",
-        "views/point_of_sale_view.xml",
-        "views/purchase_views.xml",
-        "views/sale_views.xml",
         "views/assets.xml",
-        "views/res_config_settings.xml",
-        "wizard/views/adapt_sales_price_wizard_view.xml",
         "wizard/views/label_printing_utils.xml",
         "security/ir.model.access.csv",
     ],
