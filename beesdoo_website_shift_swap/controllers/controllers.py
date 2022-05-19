@@ -3,6 +3,7 @@ from datetime import datetime
 from werkzeug.exceptions import Forbidden
 
 from odoo import http
+from odoo.exceptions import UserError
 from odoo.http import request
 
 from odoo.addons.beesdoo_website_shift.controllers.main import WebsiteShiftController
@@ -88,6 +89,14 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             )
             del request.session["request_cancel_irregular"]
 
+        elif "shift_number_limit" in request.session:
+            template_context["back_from_solidarity"] = True
+            template_context["fail"] = True
+            template_context["shift_number_limit"] = request.session.get(
+                "shift_number_limit"
+            )
+            del request.session["shift_number_limit"]
+
         return request.render(res.template, template_context)
 
     @http.route("/my/shift/swaping/<int:template_id>/<string:date>", website=True)
@@ -172,6 +181,13 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 }
             )
         )
+        # Check if the shift limit is not reached
+        try:
+            user.partner_id.sudo().check_shift_number_limit(tmpl_dated_wanted)
+        except UserError:
+            request.session["shift_number_limit"] = True
+            return request.redirect("/my/shift")
+
         request.env["beesdoo.shift.subscribed_underpopulated_shift"].sudo().create(
             {
                 "worker_id": user.partner_id.id,
@@ -340,8 +356,17 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         matching_request = (
             request.env["beesdoo.shift.exchange_request"]
             .sudo()
-            .search([("id", "=", matching_request_id)])
+            .browse(matching_request_id)
         )
+        # Check if the shift limit is not reached
+        try:
+            cur_user.partner_id.sudo().check_shift_number_limit(
+                matching_request.exchanged_tmpl_dated_id
+            )
+        except UserError:
+            request.session["shift_number_limit"] = True
+            return request.redirect("/my/shift")
+
         data = {
             "worker_id": cur_user.partner_id.id,
             "exchanged_tmpl_dated_id": my_tmpl_dated.id,
@@ -362,7 +387,16 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         website=True,
     )
     def validate_matching_validate_request(self, my_request_id, match_request_id):
-        request.env["res.users"].browse(request.uid)
+        user = request.env["res.users"].browse(request.uid)
+        # Check if the shift limit is not reached
+        try:
+            user.partner_id.sudo().check_shift_number_limit(
+                match_request_id.exchanged_tmpl_dated_id
+            )
+        except UserError:
+            request.session["shift_number_limit"] = True
+            return request.redirect("/my/shift")
+
         exchange_data = {
             "first_request_id": my_request_id,
             "second_request_id": match_request_id,
@@ -440,6 +474,11 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 }
             )
         )
+        try:
+            user.partner_id.sudo().check_shift_number_limit(tmpl_dated_wanted)
+        except UserError:
+            request.session["shift_number_limit"] = True
+            return request.redirect("/my/shift")
         data = {
             "worker_id": user.partner_id.id,
             "tmpl_dated_id": tmpl_dated_wanted.id,

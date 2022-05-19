@@ -43,7 +43,7 @@
     />
     <menuitem
         id="menu_exchange_request"
-        name="Exchange offers"
+        name="Exchange requests"
         parent="menu_swap_top"
         action="action_shift_swap_exchange_request"
     />

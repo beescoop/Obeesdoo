@@ -114,9 +114,7 @@ class SubscribeShiftSwap(models.TransientModel):
         self.exchanged_tmpl_dated_id.store = True
         for rec in self.asked_tmpl_dated_ids:
             rec.store = True
-            self.env["beesdoo.shift.template.dated"].check_possibility_to_exchange(
-                rec, self.worker_id
-            )
+            self.worker_id.check_shift_number_limit(rec)
 
         self.env["beesdoo.shift.template.dated"].search(
             [("store", "=", False)]

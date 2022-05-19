@@ -589,7 +589,7 @@
                 <div
                     t-if="back_from_solidarity"
                     role="alert"
-                    class="alert alert-success alert-dismissible"
+                    t-att-class="'alert alert-%s alert-dismissible' % ('danger' if fail else 'success')"
                 >
                     <button
                         type="button"
@@ -599,24 +599,32 @@
                     >
                         <span>×</span>
                     </button>
-                    <strong>Success!</strong>
-                    <t t-if="offer_success">
-                        You have been subscribed to a solidarity shift.
+                    <t t-if="fail">
+                        <strong>Error!</strong>
+                        <t t-if="shift_number_limit">
+                            You have reached the maximum number of shifts per day or month.
+                        </t>
                     </t>
-                    <t t-if="offer_cancel">
-                        Your solidarity shift has been cancelled.
-                    </t>
-                    <t t-if="request_success">
-                        You have been unsubscribed from your shift. Your counter will not be decreased.
-                    </t>
-                    <t t-if="request_success_irregular">
-                        Your request has been taken into account. Your counter has been incremented.
-                    </t>
-                    <t t-if="request_cancel">
-                        You have successfully cancelled your solidarity request. You have been subscribed back to your shift.
-                    </t>
-                    <t t-if="request_cancel_irregular">
-                        You have successfully cancelled your solidarity request. Your counter has been decremented.
+                    <t t-else="">
+                        <strong>Success!</strong>
+                        <t t-if="offer_success">
+                            You have been subscribed to a solidarity shift.
+                        </t>
+                        <t t-if="offer_cancel">
+                            Your solidarity shift has been cancelled.
+                        </t>
+                        <t t-if="request_success">
+                            You have been unsubscribed from your shift. Your counter will not be decreased.
+                        </t>
+                        <t t-if="request_success_irregular">
+                            Your request has been taken into account. Your counter has been incremented.
+                        </t>
+                        <t t-if="request_cancel">
+                            You have successfully cancelled your solidarity request. You have been subscribed back to your shift.
+                        </t>
+                        <t t-if="request_cancel_irregular">
+                            You have successfully cancelled your solidarity request. Your counter has been decremented.
+                        </t>
                     </t>
                 </div>
             </xpath>

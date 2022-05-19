@@ -1,8 +1,7 @@
 import logging
 from datetime import datetime, timedelta
 
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -73,20 +72,6 @@ class DatedTemplate(models.Model):
         shifts = self.env["beesdoo.shift.planning"].get_future_shifts(end_date)
         tmpl_dated_rec = self.swap_shift_to_tmpl_dated(shifts)
         return tmpl_dated_rec
-
-    def check_possibility_to_exchange(self, wanted_tmpl_dated, worker_id):
-        my_next_tmpl_dated = worker_id.get_next_tmpl_dated()
-        shift_in_day = 0
-        shift_in_month = 0
-        for tmpl_dated in my_next_tmpl_dated:
-            if tmpl_dated.date == wanted_tmpl_dated.date:
-                shift_in_day += 1
-            if tmpl_dated.date.month == wanted_tmpl_dated.date.month:
-                shift_in_month += 1
-        if shift_in_day >= 2:
-            raise UserError(_("You already have 2 shift in a day"))
-        if shift_in_month >= 5:
-            raise UserError(_("You already have 5 shift in a month"))
 
     def remove_already_subscribed_shifts(self, user):
         subscribed_shifts = user.get_next_shifts()

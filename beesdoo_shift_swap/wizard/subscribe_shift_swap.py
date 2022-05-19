@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
@@ -81,33 +81,10 @@ class SubscribeShiftSwap(models.TransientModel):
             raise UserError(_("You cannot perform this operation on yourself"))
         return self.with_context(real_uid=self._uid)
 
-    # TODO : check si il a pas fais un échange 2mois avant
-    def has_already_done_exchange(self):
-        worker_id = self.worker_id
-        cur_date = datetime.now()
-        limit_date = cur_date - timedelta(2 * 28)
-        swaps = self.env["beesdoo.shift.subscribed_underpopulated_shift"].search(
-            [
-                ("date", "<=", cur_date),
-                ("date", ">=", limit_date),
-            ]
-        )
-        for swap in swaps:
-            if (
-                swap.worker_id == worker_id
-                and self.exchanged_tmpl_dated_id == swap.wanted_tmpl_dated_id
-            ):
-                return True
-            return False
-
     @api.multi
     def make_change(self):
         self = self._check()
-        if self.has_already_done_exchange():
-            raise UserError(_("You already swap your shift in the last 2months"))
-        self.env["beesdoo.shift.template.dated"].check_possibility_to_exchange(
-            self.wanted_tmpl_dated_id, self.worker_id
-        )
+        self.worker_id.check_shift_number_limit(self.wanted_tmpl_dated_id)
         self.exchanged_tmpl_dated_id.store = True
         self.wanted_tmpl_dated_id.store = True
         data = {

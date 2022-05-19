@@ -1,4 +1,5 @@
 from odoo import _, api, models
+from odoo.exceptions import UserError
 
 
 class ResPartner(models.Model):
@@ -65,3 +66,22 @@ class ResPartner(models.Model):
         email_values = {"my_tmpl_dated": my_tmpl_dated, "worker_id": partner_to}
         template_rec.write({"partner_to": partner_to.id})
         template_rec.with_context(email_values).send_mail(self.id, False)
+
+    def check_shift_number_limit(self, wanted_tmpl_dated):
+        """
+        Check if subscribing to a shift would exceed the daily and
+        monthly shift number limit
+        :param wanted_tmpl_dated: the tmpl_dated matching the shift to subscribe
+        """
+        my_next_tmpl_dated = self.get_next_tmpl_dated()
+        shift_in_day = 0
+        shift_in_month = 0
+        for tmpl_dated in my_next_tmpl_dated:
+            if tmpl_dated.date.date() == wanted_tmpl_dated.date.date():
+                shift_in_day += 1
+            if tmpl_dated.date.month == wanted_tmpl_dated.date.month:
+                shift_in_month += 1
+        if shift_in_day >= 2:
+            raise UserError(_("You already have 2 shifts in a day"))
+        if shift_in_month >= 5:
+            raise UserError(_("You already have 5 shifts in a month"))

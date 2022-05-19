@@ -62,6 +62,7 @@ class OfferSolidarityShift(models.TransientModel):
     @api.multi
     def create_offer(self):
         self._check()
+        self.worker_id.check_shift_number_limit(self.tmpl_dated_id)
         data = {
             "worker_id": self.worker_id.id,
             "tmpl_dated_id": self.tmpl_dated_id.id,
