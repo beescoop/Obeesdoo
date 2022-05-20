@@ -321,18 +321,21 @@ class Task(models.Model):
         if always_update or not (self.worker_id or self.replaced_id):
             return
 
-        if not (self.worker_id.working_mode in ["regular", "irregular"]):
+        if self.worker_id and self.worker_id.working_mode not in [
+            "regular",
+            "irregular",
+        ]:
             raise UserError(
                 _(
                     "Working mode is not properly defined. Please check if "
                     "the worker is subscribed "
                 )
             )
-
-        data, status = self._get_counter_date_state_change(new_state)
-        if status:
-            status.sudo()._change_counter(data)
-            self._set_revert_info(data, status)
+        if self.worker_id:
+            data, status = self._get_counter_date_state_change(new_state)
+            if status:
+                status.sudo()._change_counter(data)
+                self._set_revert_info(data, status)
 
     @api.model
     def _cron_send_weekly_emails(self, notice=1, period=7):
