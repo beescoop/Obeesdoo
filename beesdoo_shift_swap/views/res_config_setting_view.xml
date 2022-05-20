@@ -16,6 +16,59 @@
                         data-key="beesdoo_shift"
                         groups="beesdoo_shift.group_cooperative_admin"
                     >
+                        <h2>General settings</h2>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">
+                                        Maximum number of shifts per day for one cooperator
+                                    </span>
+                                    <div class="text-muted">
+                                        This limit is checked on each exchange or solidarity offer
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16 row">
+                                            <label
+                                                for="max_shift_per_day"
+                                                string="Value"
+                                                class="col-3 col-lg-3 o_light_label"
+                                            />
+                                            <field
+                                                name="max_shift_per_day"
+                                                class="oe_inline"
+                                                required="1"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">
+                                        Maximum number of shifts per month for one cooperator
+                                    </span>
+                                    <div class="text-muted">
+                                        This limit is checked on each exchange or solidarity offer
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16 row">
+                                            <label
+                                                for="max_shift_per_month"
+                                                string="Value"
+                                                class="col-3 col-lg-3 o_light_label"
+                                            />
+                                            <field
+                                                name="max_shift_per_month"
+                                                class="oe_inline"
+                                                required="1"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <h2>Shift Swap</h2>
                         <div class="row mt16 o_settings_container">
                             <div class="col-12 col-lg-6 o_setting_box">
@@ -47,20 +100,74 @@
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <div class="o_setting_right_pane">
                                     <span class="o_form_label">
-                                        Limit of day to swap shift
+                                        Limit of days to swap shift
                                     </span>
                                     <div class="text-muted">
-                                        Number of day cooperator can swap his shift after the one he doesn't want
+                                        Number of days above which a cooperator cannot swap his shift
                                     </div>
                                     <div class="content-group">
                                         <div class="mt16 row">
                                             <label
                                                 for="day_limit_swap"
-                                                string="Day"
+                                                string="Days"
                                                 class="col-3 col-lg-3 o_light_label"
                                             />
                                             <field
                                                 name="day_limit_swap"
+                                                class="oe_inline"
+                                                required="1"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">
+                                        Limit of days to request an exchange
+                                    </span>
+                                    <div class="text-muted">
+                                        Number of days below which a cooperator cannot
+                                        request an exchange with another cooperator
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16 row">
+                                            <label
+                                                for="day_limit_request_exchange"
+                                                string="Days"
+                                                class="col-3 col-lg-3 o_light_label"
+                                            />
+                                            <field
+                                                name="day_limit_request_exchange"
+                                                class="oe_inline"
+                                                required="1"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">
+                                        Limit of days to select shifts for an exchange
+                                    </span>
+                                    <div class="text-muted">
+                                        Number of days above which a cooperator cannot
+                                        select shifts to exchange with one of his/hers
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16 row">
+                                            <label
+                                                for="day_limit_ask_for_exchange"
+                                                string="Days"
+                                                class="col-3 col-lg-3 o_light_label"
+                                            />
+                                            <field
+                                                name="day_limit_ask_for_exchange"
                                                 class="oe_inline"
                                                 required="1"
                                             />

@@ -76,12 +76,22 @@ class ResPartner(models.Model):
         my_next_tmpl_dated = self.get_next_tmpl_dated()
         shift_in_day = 0
         shift_in_month = 0
+        max_shift_per_day = int(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_shift.max_shift_per_day")
+        )
+        max_shift_per_month = int(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_shift.max_shift_per_month")
+        )
         for tmpl_dated in my_next_tmpl_dated:
             if tmpl_dated.date.date() == wanted_tmpl_dated.date.date():
                 shift_in_day += 1
             if tmpl_dated.date.month == wanted_tmpl_dated.date.month:
                 shift_in_month += 1
-        if shift_in_day >= 2:
-            raise UserError(_("You already have 2 shifts in a day"))
-        if shift_in_month >= 5:
-            raise UserError(_("You already have 5 shifts in a month"))
+        if shift_in_day >= max_shift_per_day:
+            raise UserError(_("Maximum number of shifts per day reached"))
+        if shift_in_month >= max_shift_per_month:
+            raise UserError(_("Maximum number of shifts per month reached"))

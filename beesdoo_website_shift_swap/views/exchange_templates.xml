@@ -160,7 +160,10 @@
                 </table>
             </div>
             <p>
-                <t t-call="beesdoo_website_shift_swap.no_shifts_suits_me_button" />
+                <a
+                    class="btn btn-secondary btn-dark btn-block"
+                    href="/my/shift/possible/shift"
+                >No exchange suits me</a>
             </p>
         </template>
 
@@ -218,7 +221,7 @@
                                 <tr>
                                     <td>
                                         <t
-                                            t-esc="tmpl_dated.date.strftime('%A %d %b, %Y')"
+                                            t-esc="tmpl_dated.date.strftime('%A %d %B, %Y')"
                                         />
                                     </td>
                                     <td>

@@ -121,7 +121,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             return request.redirect("/my/shift/underpopulated/swap")
 
     @http.route("/my/shift/underpopulated/swap", website=True)
-    def get_underpopulated_shift(self):
+    def get_underpopulated_shift(self, **kw):
         """
         Personnal page to choose an underpopulated shift
         """
@@ -132,17 +132,28 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         my_tmpl_dated = self.new_tmpl_dated(template_id, date)
 
         # Get underpopulated shift
-        my_available_shift = (
-            request.env["beesdoo.shift.subscribed_underpopulated_shift"]
-            .sudo()
-            .get_underpopulated_shift(sort_date_desc=True)
-        )
+        display_all = False
+        if "display_all" in kw and kw["display_all"]:
+            # Get all next shifts
+            next_shifts = (
+                request.env["beesdoo.shift.template.dated"]
+                .sudo()
+                .get_available_tmpl_dated(sort_date_desc=True)
+            )
+            display_all = True
+        else:
+            # Get only underpopulated shifts
+            next_shifts = (
+                request.env["beesdoo.shift.subscribed_underpopulated_shift"]
+                .sudo()
+                .get_underpopulated_shift(sort_date_desc=True)
+            )
 
         user = request.env["res.users"].sudo().browse(request.uid)
 
         # Remove the already subscribed shifts
-        possible_underpopulated_shifts = (
-            my_available_shift.remove_already_subscribed_shifts(user.partner_id)
+        possible_underpopulated_shifts = next_shifts.remove_already_subscribed_shifts(
+            user.partner_id
         )
 
         return request.render(
@@ -150,6 +161,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             {
                 "underpopulated_shift": possible_underpopulated_shifts,
                 "exchanged_tmpl_dated": my_tmpl_dated,
+                "all_shifts": display_all,
             },
         )
 
@@ -202,6 +214,20 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
         return request.redirect("/my/shift")
 
+    @http.route("/my/shift/underpopulated/no_result", website=True)
+    def no_result_underpopulated_swap(self):
+        date = request.session["date"]
+        shift_date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
+        delta = shift_date - datetime.now()
+        if delta.days > int(
+            request.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_shift.day_limit_request_exchange")
+        ):
+            return request.redirect("/my/shift/possible/match")
+        else:
+            return request.redirect("/my/shift/underpopulated/swap?display_all=1")
+
     @http.route("/my/shift/possible/shift", website=True)
     def get_possible_shift(self, **post):
         template_id = request.session["template_id"]
@@ -252,7 +278,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         period = int(
             request.env["ir.config_parameter"]
             .sudo()
-            .get_param("beesdoo_shift.day_limit_ask_for_exchange")
+            .get_param("beesdoo_shift.day_limit_request_exchange")
         )
         possible_tmpl_dated = (
             request.env["beesdoo.shift.template.dated"]

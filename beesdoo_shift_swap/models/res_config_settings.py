@@ -4,6 +4,14 @@ from odoo import fields, models
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
+    max_shift_per_day = fields.Integer(
+        string="Maximum number of shifts per day for one cooperator",
+        config_parameter="beesdoo_shift.max_shift_per_day",
+    )
+    max_shift_per_month = fields.Integer(
+        string="Maximum number of shifts per month for one cooperator",
+        config_parameter="beesdoo_shift.max_shift_per_month",
+    )
     enable_solidarity = fields.Boolean(
         string="Activate solidarity offers and requests",
         config_parameter="beesdoo_shift.enable_solidarity",
@@ -13,9 +21,18 @@ class ResConfigSettings(models.TransientModel):
         config_parameter="beesdoo_shift.percentage_presence",
     )
     day_limit_swap = fields.Integer(
-        string="Number of day cooperator can swap his shift "
-        "after the one he doesn't want",
+        string="Number of days above which a cooperator cannot swap his shift",
         config_parameter="beesdoo_shift.day_limit_swap",
+    )
+    day_limit_request_exchange = fields.Integer(
+        string="Number of days below which a cooperator cannot request"
+        "an exchange with another cooperator",
+        config_parameter="beesdoo_shift.day_limit_request_exchange",
+    )
+    day_limit_ask_for_exchange = fields.Integer(
+        string="Number of days above which a cooperator cannot select shifts"
+        "to exchange with one of his/hers",
+        config_parameter="beesdoo_shift.day_limit_ask_for_exchange",
     )
     hours_limit_cancel_solidarity_offer = fields.Integer(
         string="Limit of hours to cancel a solidarity shift",

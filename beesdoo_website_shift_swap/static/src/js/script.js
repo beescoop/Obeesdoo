@@ -3,7 +3,7 @@ odoo.define("beesdoo_website_shift_swap.shift_table", function (require) {
     $(document).ready(function () {
         // Interactive html tables
         // Documentation: https://datatables.net/, https://momentjs.com/
-        $.fn.dataTable.moment("dddd DD MMM, YYYY");
+        $.fn.dataTable.moment("dddd DD MMMM, YYYY");
         var table = $(".interactive").DataTable({
             columnDefs: [{orderable: false, targets: "non_orderable"}],
         });

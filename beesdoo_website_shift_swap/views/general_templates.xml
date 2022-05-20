@@ -36,13 +36,6 @@
             </h2>
         </template>
 
-        <template id="no_shifts_suits_me_button" name="No shifts suits me">
-            <a
-                class="btn btn-secondary btn-dark btn-block"
-                t-att-href="'/my/shift/possible/shift'"
-            >No shifts suits me</a>
-        </template>
-
         <!-- Add buttons to swap shift or to request solidarity -->
         <template
             id="website_shift_option_buttons"
@@ -70,15 +63,15 @@
                             type="button"
                             class="btn btn-success btn-sm"
                             data-toggle="modal"
-                            data-target="#ask_planned_exchange_popup"
+                            t-att-data-target="'#ask_planned_exchange_popup-%s' % shift_index"
                         >
                             Swap Shift
                         </button>
                         <div
                             class="modal fade"
-                            id="ask_planned_exchange_popup"
+                            t-att-id="'ask_planned_exchange_popup-%s' % shift_index"
                             tabindex="-1"
-                            aria-labelledby="warning-task-type-popup-label"
+                            aria-labelledby="ask_planned_exchange_popup_label"
                             aria-hidden="true"
                         >
                             <div class="modal-dialog">
@@ -88,6 +81,14 @@
                                             class="modal-title"
                                             id="ask_planned_exchange_popup_label"
                                         >Swap your shift</h5>
+                                        <button
+                                            type="button"
+                                            class="close"
+                                            data-dismiss="modal"
+                                            aria-label="Close"
+                                        >
+                                            <span><![CDATA[&times;]]></span>
+                                        </button>
                                     </div>
                                     <div class="modal-body">
                                         Have you already agreed on an exchange with
