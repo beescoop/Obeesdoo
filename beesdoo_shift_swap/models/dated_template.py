@@ -74,8 +74,8 @@ class DatedTemplate(models.Model):
 
     def get_tmpl_dated_same_timeslot(self, nb_days=60):
         """
-        Return all the template_dated matching time and day of self
-        between now and nb_days days after current date.
+        Return all the template_dated matching time and day of self but on
+        another planning, between now and nb_days days after current date.
         :param nb_days: int
         :return: beesdoo.shift.template.dated recordset
         """
@@ -90,6 +90,26 @@ class DatedTemplate(models.Model):
             ):
                 same_timeslot_tmpl_dated |= template
         return same_timeslot_tmpl_dated
+
+    def get_worker_same_day_same_hour(self):
+        """
+        Return all regular workers that are subscribed to the timeslot
+        matching the template_dated (self) but on another planning
+        :return: res.partner recordset
+        """
+        self.ensure_one()
+        templates = self.env["beesdoo.shift.template"].search(
+            [
+                ("day_nb_id", "=", self.template_id.day_nb_id.id),
+                ("start_time", "=", self.template_id.start_time),
+                ("planning_id", "!=", self.template_id.planning_id.id),
+            ],
+        )
+        workers = self.env["res.partner"]
+        for template in templates:
+            for worker_id in template.worker_ids:
+                workers |= worker_id
+        return workers
 
     def remove_already_subscribed_shifts(self, user):
         subscribed_shifts = user.get_next_shifts()

@@ -59,11 +59,15 @@ class ResPartner(models.Model):
         return self.env["beesdoo.shift.template.dated"].swap_shift_to_tmpl_dated(shifts)
 
     @api.multi
-    def send_mail_coop_same_days_same_hour(self, my_tmpl_dated, partner_to):
+    def send_mail_for_exchange(self, my_tmpl_dated, asked_tmpl_dated, partner_to):
         template_rec = self.env.ref(
             "beesdoo_shift_swap.email_template_contact_coop", False
         )
-        email_values = {"my_tmpl_dated": my_tmpl_dated, "worker_id": partner_to}
+        email_values = {
+            "my_tmpl_dated": my_tmpl_dated,
+            "asked_tmpl_dated": asked_tmpl_dated,
+            "worker_id": partner_to,
+        }
         template_rec.write({"partner_to": partner_to.id})
         template_rec.with_context(email_values).send_mail(self.id, False)
 

@@ -137,12 +137,13 @@ class SubscribeShiftSwap(models.TransientModel):
         if self.possible_match:
             self.possible_match.write({"status": "has_match"})
 
-    @api.multi
     def contact_coop_same_day_same_hour(self):
-        partner_rec = self.env[
-            "beesdoo.shift.exchange_request"
-        ].get_coop_same_days_same_hour(self.exchanged_tmpl_dated_id)
-        for rec in partner_rec:
-            self.worker_id.send_mail_coop_same_days_same_hour(
-                self.exchanged_tmpl_dated_id, rec
-            )
+        """
+        Send a mail to workers that are subscribed to timesolts with same
+        date and hour as self but on another planning
+        """
+        self.ensure_one()
+        matching_workers = self.exchanged_tmpl_dated_id.get_worker_same_day_same_hour()
+        for worker in matching_workers:
+            self.worker_id.send_mail_for_exchange(self.exchanged_tmpl_dated_id, worker)
+        return True

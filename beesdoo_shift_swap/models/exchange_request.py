@@ -114,7 +114,7 @@ class ExchangeRequest(models.Model):
         matches = self.env["beesdoo.shift.exchange_request"]
         exchange_requests = self.search(
             [
-                ("status", "!=", "done"),
+                ("status", "=", "no_match"),
                 ("exchanged_tmpl_dated_id.date", ">", datetime.now()),
             ],
         )
@@ -128,19 +128,14 @@ class ExchangeRequest(models.Model):
                     matches |= request
         return matches
 
-    def get_coop_same_days_same_hour(self, my_tmpl_dated):
-        templates = self.env["beesdoo.shift.template"].search(
-            [
-                ("day_nb_id", "=", my_tmpl_dated.template_id.day_nb_id.id),
-                ("start_time", "=", my_tmpl_dated.template_id.start_time),
-                ("planning_id", "!=", my_tmpl_dated.template_id.planning_id.id),
-            ],
-        )
-        worker_rec = self.env["res.partner"]
-        for template in templates:
-            for worker_id in template.worker_ids:
-                worker_rec |= worker_id
-        return worker_rec
+    def send_mail_wanted_tmpl_dated(self):
+        self.ensure_one()
+        for asked_tmpl in self.asked_tmpl_dated_ids:
+            for worker in asked_tmpl.template_id.worker_ids:
+                self.worker_id.send_mail_for_exchange(
+                    self.exchanged_tmpl_dated_id, asked_tmpl, worker
+                )
+        return True
 
     @api.multi
     def send_mail_matching_request(self, matching_request):

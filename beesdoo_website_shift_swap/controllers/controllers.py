@@ -149,7 +149,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 .get_underpopulated_shift(sort_date_desc=True)
             )
 
-        user = request.env["res.users"].sudo().browse(request.uid)
+        user = request.env["res.users"].browse(request.uid)
 
         # Remove the already subscribed shifts
         possible_underpopulated_shifts = next_shifts.remove_already_subscribed_shifts(
@@ -356,7 +356,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                     }
                 )
             )
-            asked_tmpl_dated = request.env["beesdoo.shift.template.dated"]
+            asked_tmpl_dated = request.env["beesdoo.shift.template.dated"].sudo()
             for index, template in enumerate(
                 request.session["possible_tmpl_dated_list"]
             ):
@@ -369,14 +369,22 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                         }
                     )
             user = request.env["res.users"].browse(request.uid)
-            request.env["beesdoo.shift.exchange_request"].sudo().create(
-                {
-                    "worker_id": user.partner_id.id,
-                    "exchanged_tmpl_dated_id": exchanged_tmpl_dated.id,
-                    "asked_tmpl_dated_ids": [(6, False, asked_tmpl_dated.ids)],
-                    "status": "no_match",
-                }
+            exchange_request = (
+                request.env["beesdoo.shift.exchange_request"]
+                .sudo()
+                .create(
+                    {
+                        "worker_id": user.partner_id.id,
+                        "exchanged_tmpl_dated_id": exchanged_tmpl_dated.id,
+                        "asked_tmpl_dated_ids": [(6, False, asked_tmpl_dated.ids)],
+                        "status": "no_match",
+                    }
+                )
             )
+
+            # Contact the workers of the wanted timeslots
+            exchange_request.send_mail_wanted_tmpl_dated()
+
             return request.redirect("/my/shift")
 
         exchanged_tmpl_dated = self.new_tmpl_dated(template_id, date)
@@ -528,7 +536,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         if not self.solidarity_enabled():
             raise Forbidden("Solidarity related features are not enabled")
 
-        user = request.env["res.users"].sudo().browse(request.uid)
+        user = request.env["res.users"].browse(request.uid)
 
         # Check if user can offer solidarity shifts
         if user.state == "ok" and self.working_mode != "exempt":
