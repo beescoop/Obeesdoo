@@ -15,13 +15,12 @@
     "author": "Beescoop - Cellule IT, Coop IT Easy SCRLfs",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Sales",
-    "version": "12.0.1.2.0",
+    "version": "12.0.2.0.0",
     "depends": [
         "product",
         "sale",
         "point_of_sale",
         "purchase",
-        "sale_suggested_price",
     ],
     "data": [
         "data/product_label.xml",

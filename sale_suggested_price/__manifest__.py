@@ -17,7 +17,6 @@
         "product",
         "purchase",
         "sale",
-        "product_main_seller",
     ],
     "excludes": [],
     "data": [
