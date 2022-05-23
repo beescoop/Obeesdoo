@@ -138,7 +138,11 @@ class Subscribe(models.TransientModel):
     @api.multi
     def subscribe(self):
         self = self._check()
-        if self.shift_id and self.shift_id.remaining_worker <= 0:
+        if (
+            self.shift_id
+            and self.working_mode == "regular"
+            and self.shift_id.remaining_worker <= 0
+        ):
             raise UserError(_("There is no remaining spot in this shift"))
 
         # cleanup previous shift template subscriptions
