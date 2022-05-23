@@ -1,0 +1,2 @@
+No longer raise an error when unsubscribing a replacement worker using the
+wizard.
