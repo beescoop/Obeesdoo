@@ -9,13 +9,14 @@
             ref="sale_suggested_price.product_template_edit_price_tree_view"
         />
         <field name="arch" type="xml">
-                <field name="name" position="after" />
-                 <field
-                name="main_seller_id"
-                string="Main Seller"
-                readonly="1"
-                options="{'no_open': True, 'no_create': True, 'no_create_edit': True }"
-            />
+                <field name="name" position="after">
+                    <field
+                    name="main_seller_id"
+                    string="Main Seller"
+                    readonly="1"
+                    options="{'no_open': True, 'no_create': True, 'no_create_edit': True }"
+                />
+                </field>
         </field>
     </record>
 </odoo>

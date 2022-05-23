@@ -2,10 +2,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "sale_suggested_price",
-    "summary": """
-        Add a suggested price to products, dependent on a product margin in
-        partners and product categories.""",
+    "name": "Product Main Supplier",
+    "summary": "Add a main supplier",
     "version": "12.0.1.0.0",
     "category": "Sales",
     "website": "https://github.com/beescoop/Obeesdoo",
@@ -13,20 +11,13 @@
     "license": "AGPL-3",
     "application": False,
     "depends": [
-        "account",
         "product",
-        "purchase",
-        "sale",
+        "beesdoo_product",  # a remplacer
+        "sale_suggested_price",
     ],
     "excludes": [],
     "data": [
-        "views/product_category_views.xml",
-        "views/product_supplierinfo_views.xml",
         "views/product_template_views.xml",
-        "views/purchase_views.xml",
-        "views/res_config_settings_views.xml",
-        "views/res_partner_views.xml",
-        "views/sale_views.xml",
     ],
     "demo": [],
     "qweb": [],
