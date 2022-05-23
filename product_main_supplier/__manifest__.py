@@ -17,7 +17,6 @@
         "product",
         "purchase",
         "sale",
-        "sale_suggested_price",
     ],
     "excludes": [],
     "data": [
@@ -28,7 +27,6 @@
         "views/res_config_settings_views.xml",
         "views/res_partner_views.xml",
         "views/sale_views.xml",
-        "wizard/views/adapt_sales_price_wizard_view.xml",
     ],
     "demo": [],
     "qweb": [],
