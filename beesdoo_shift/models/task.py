@@ -72,6 +72,7 @@ class Task(models.Model):
     is_compensation = fields.Boolean(default=False, string="Compensation shift")
     replaced_id = fields.Many2one(
         "res.partner",
+        string="Replaced By",
         track_visibility="onchange",
         domain=[
             ("eater", "=", "worker_eater"),
