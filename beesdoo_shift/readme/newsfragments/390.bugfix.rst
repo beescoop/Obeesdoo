@@ -1,0 +1,2 @@
+When changing a regular worker to an irregular worker via the wizard, no longer
+give an error when their (former) shift is full.
