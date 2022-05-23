@@ -162,7 +162,7 @@
             <p>
                 <a
                     class="btn btn-secondary btn-dark btn-block"
-                    href="/my/shift/possible/shift"
+                    href="/my/shift/possible/match/no_result"
                 >No exchange suits me</a>
             </p>
         </template>

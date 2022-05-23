@@ -40,6 +40,16 @@
             <field name="key">beesdoo_shift.day_limit_ask_for_exchange</field>
             <field name="value">56</field>
         </record>
+        <record
+            id="day_limit_exchange_with_same_timeslot"
+            model="ir.config_parameter"
+            forcecreate="False"
+        >
+            <field
+                name="key"
+            >beesdoo_shift.day_limit_exchange_with_same_timeslot</field>
+            <field name="value">54</field>
+        </record>
         <record id="enable_solidarity" model="ir.config_parameter" forcecreate="False">
             <field name="key">beesdoo_shift.enable_solidarity</field>
             <field name="value">True</field>

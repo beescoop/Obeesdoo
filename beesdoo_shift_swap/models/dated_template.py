@@ -70,8 +70,26 @@ class DatedTemplate(models.Model):
         """
         end_date = datetime.now() + timedelta(days=nb_days)
         shifts = self.env["beesdoo.shift.planning"].get_future_shifts(end_date)
-        tmpl_dated_rec = self.swap_shift_to_tmpl_dated(shifts)
-        return tmpl_dated_rec
+        return self.swap_shift_to_tmpl_dated(shifts)
+
+    def get_tmpl_dated_same_timeslot(self, nb_days=60):
+        """
+        Return all the template_dated matching time and day of self
+        between now and nb_days days after current date.
+        :param nb_days: int
+        :return: beesdoo.shift.template.dated recordset
+        """
+        self.ensure_one()
+        next_tmpl_dated = self.get_next_tmpl_dated(nb_days)
+        same_timeslot_tmpl_dated = self.env["beesdoo.shift.template.dated"]
+        for template in next_tmpl_dated:
+            if (
+                template.template_id.day_nb_id == self.template_id.day_nb_id
+                and template.template_id.start_time == self.template_id.start_time
+                and template.template_id.planning_id != self.template_id.planning_id
+            ):
+                same_timeslot_tmpl_dated |= template
+        return same_timeslot_tmpl_dated
 
     def remove_already_subscribed_shifts(self, user):
         subscribed_shifts = user.get_next_shifts()

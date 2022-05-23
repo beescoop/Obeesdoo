@@ -131,7 +131,7 @@ class ExchangeRequest(models.Model):
     def get_coop_same_days_same_hour(self, my_tmpl_dated):
         templates = self.env["beesdoo.shift.template"].search(
             [
-                ("day_nb_id", "=", my_tmpl_dated.template_id.day_nb_id),
+                ("day_nb_id", "=", my_tmpl_dated.template_id.day_nb_id.id),
                 ("start_time", "=", my_tmpl_dated.template_id.start_time),
                 ("planning_id", "!=", my_tmpl_dated.template_id.planning_id.id),
             ],

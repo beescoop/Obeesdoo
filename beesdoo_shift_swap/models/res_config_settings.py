@@ -34,6 +34,11 @@ class ResConfigSettings(models.TransientModel):
         "to exchange with one of his/hers",
         config_parameter="beesdoo_shift.day_limit_ask_for_exchange",
     )
+    day_limit_exchange_with_same_timeslot = fields.Integer(
+        string="Number of days below which a cooperator can only request exchanges"
+        "with cooperators from the same timesolt in other weeks",
+        config_parameter="beesdoo_shift.day_limit_exchange_with_same_timeslot",
+    )
     hours_limit_cancel_solidarity_offer = fields.Integer(
         string="Limit of hours to cancel a solidarity shift",
         config_parameter="beesdoo_shift.hours_limit_cancel_solidarity_offer",

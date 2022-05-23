@@ -228,6 +228,38 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         else:
             return request.redirect("/my/shift/underpopulated/swap?display_all=1")
 
+    @http.route("/my/shift/possible/match", website=True)
+    def get_possible_match(self):
+        template_id = request.session["template_id"]
+        date = request.session["date"]
+        exchanged_tmpl_dated = self.new_tmpl_dated(template_id, date)
+        possible_matches = (
+            request.env["beesdoo.shift.exchange_request"]
+            .sudo()
+            .get_possible_match(exchanged_tmpl_dated)
+        )
+        return request.render(
+            "beesdoo_website_shift_swap.website_shift_swap_possible_match",
+            {
+                "possible_matches": possible_matches,
+                "exchanged_tmpl_dated": exchanged_tmpl_dated,
+            },
+        )
+
+    @http.route("/my/shift/possible/match/no_result", website=True)
+    def no_result_possible_match(self):
+        date = request.session["date"]
+        shift_date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
+        delta = shift_date - datetime.now()
+        if delta.days > int(
+            request.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_shift.day_limit_exchange_with_same_timeslot")
+        ):
+            return request.redirect("/my/shift/possible/shift")
+        else:
+            return request.redirect("/my/shift/select/same_timeslot")
+
     @http.route("/my/shift/possible/shift", website=True)
     def get_possible_shift(self, **post):
         template_id = request.session["template_id"]
@@ -238,8 +270,6 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             wanted_index_list = []
             for index in tmpl_dated_index:
                 wanted_index_list.append(int(index))
-            # if not len(list_index):
-            #    raise ValidationError('Please choose at least one tmpl_dated')
             exchanged_tmpl_dated = (
                 request.env["beesdoo.shift.template.dated"]
                 .sudo()
@@ -275,16 +305,18 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             return request.redirect("/my/shift")
 
         exchanged_tmpl_dated = self.new_tmpl_dated(template_id, date)
+
         period = int(
             request.env["ir.config_parameter"]
             .sudo()
-            .get_param("beesdoo_shift.day_limit_request_exchange")
+            .get_param("beesdoo_shift.day_limit_ask_for_exchange")
         )
         possible_tmpl_dated = (
             request.env["beesdoo.shift.template.dated"]
             .sudo()
             .get_next_tmpl_dated(period)
         )
+
         possible_tmpl_dated_list = []
         for template in possible_tmpl_dated:
             possible_tmpl_dated_list.append(
@@ -303,20 +335,73 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             },
         )
 
-    @http.route("/my/shift/possible/match", website=True)
-    def get_possible_match(self):
+    @http.route("/my/shift/select/same_timeslot", website=True)
+    def select_same_timeslot_other_weeks(self, **post):
         template_id = request.session["template_id"]
         date = request.session["date"]
+
+        if request.httprequest.method == "POST":
+            tmpl_dated_index = request.httprequest.form.getlist("selected_tmpl_dated")
+            wanted_index_list = []
+            for index in tmpl_dated_index:
+                wanted_index_list.append(int(index))
+            exchanged_tmpl_dated = (
+                request.env["beesdoo.shift.template.dated"]
+                .sudo()
+                .create(
+                    {
+                        "template_id": template_id,
+                        "date": date,
+                        "store": True,
+                    }
+                )
+            )
+            asked_tmpl_dated = request.env["beesdoo.shift.template.dated"]
+            for index, template in enumerate(
+                request.session["possible_tmpl_dated_list"]
+            ):
+                if index in wanted_index_list:
+                    asked_tmpl_dated |= asked_tmpl_dated.sudo().create(
+                        {
+                            "date": template["date"],
+                            "template_id": template["template_id"],
+                            "store": True,
+                        }
+                    )
+            user = request.env["res.users"].browse(request.uid)
+            request.env["beesdoo.shift.exchange_request"].sudo().create(
+                {
+                    "worker_id": user.partner_id.id,
+                    "exchanged_tmpl_dated_id": exchanged_tmpl_dated.id,
+                    "asked_tmpl_dated_ids": [(6, False, asked_tmpl_dated.ids)],
+                    "status": "no_match",
+                }
+            )
+            return request.redirect("/my/shift")
+
         exchanged_tmpl_dated = self.new_tmpl_dated(template_id, date)
-        possible_matches = (
-            request.env["beesdoo.shift.exchange_request"]
+
+        period = int(
+            request.env["ir.config_parameter"]
             .sudo()
-            .get_possible_match(exchanged_tmpl_dated)
+            .get_param("beesdoo_shift.day_limit_ask_for_exchange")
         )
+        possible_tmpl_dated = exchanged_tmpl_dated.get_tmpl_dated_same_timeslot(period)
+
+        possible_tmpl_dated_list = []
+        for template in possible_tmpl_dated:
+            possible_tmpl_dated_list.append(
+                {
+                    "template_id": template.template_id.id,
+                    "date": template.date,
+                }
+            )
+        request.session["possible_tmpl_dated_list"] = possible_tmpl_dated_list
+
         return request.render(
-            "beesdoo_website_shift_swap.website_shift_swap_possible_match",
+            "beesdoo_website_shift_swap.website_shift_swap_possible_tmpl_dated",
             {
-                "possible_matches": possible_matches,
+                "possible_tmpl_dated": possible_tmpl_dated,
                 "exchanged_tmpl_dated": exchanged_tmpl_dated,
             },
         )
