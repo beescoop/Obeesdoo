@@ -238,9 +238,10 @@ class Task(models.Model):
                         # values and proper name instead of copying
                         # a existing shift that may have modified
                         # default values.
-                        shifts[0].copy(
-                            default={"is_regular": True}
-                        ).worker_id = worker_id
+                        copied_shift = shifts[0].copy()
+                        copied_shift.write(
+                            {"is_regular": True, "worker_id": worker_id.id}
+                        )
             # Super coop subscription
             for worker_id in worker_ids:
                 if task_tmpl_id.super_coop_id == worker_id:
