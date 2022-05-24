@@ -14,6 +14,17 @@
             </div>
         </template>
 
+        <!-- Warning displayed if the shift mentionned in a mail has already been exchanged -->
+        <template
+            id="beesdoo_website_shift_swap.no_shift_from_mail_explanation"
+            name="No shift from mail explanation"
+        >
+            <div class="alert alert-info">
+                <strong>Info!</strong>
+                This exchange request has already been accepted by someone else.
+            </div>
+        </template>
+
         <!-- Help text for shift selection table -->
         <template
             id="help_text_select_shifts_for_exchange"
@@ -60,7 +71,14 @@
         >
             <title>Possible Match</title>
             <div t-if="not possible_matches">
-                <t t-call="beesdoo_website_shift_swap.no_shift_match_explanation" />
+                <t
+                    t-if="from_mail"
+                    t-call="beesdoo_website_shift_swap.no_shift_from_mail_explanation"
+                />
+                <t
+                    t-else=""
+                    t-call="beesdoo_website_shift_swap.no_shift_match_explanation"
+                />
             </div>
             <div t-else="">
                 <label class="font-weight-bold">Shifts available for exchange :</label>
@@ -159,12 +177,6 @@
                     </t>
                 </table>
             </div>
-            <p>
-                <a
-                    class="btn btn-secondary btn-dark btn-block"
-                    href="/my/shift/possible/match/no_result"
-                >No exchange suits me</a>
-            </p>
         </template>
 
         <!-- Template for page /my/shift/possible/match -->
@@ -192,6 +204,12 @@
                             <t
                                 t-call="beesdoo_website_shift_swap.website_shift_swap_my_possible_match"
                             />
+                            <p t-if="not from_mail">
+                                <a
+                                    class="btn btn-secondary btn-dark btn-block"
+                                    href="/my/shift/possible/match/no_result"
+                                >No exchange suits me</a>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -315,30 +333,31 @@
                 <table class="table table-hover">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Unwanted shifts</th>
-                            <th>My exchange offers</th>
+                            <th>Exchanged shifts</th>
+                            <th>Availabilities</th>
                             <th>Exchange status</th>
                         </tr>
                     </thead>
                     <tbody>
                         <t t-foreach="exchange_requests" t-as="request">
+                            <t t-set="my_request" t-value="request['my_request']" />
                             <tr>
                                 <td>
                                     <t
-                                        t-esc="request['my_requests'].exchanged_tmpl_dated_id.date.strftime('%A %d %b, %Y')"
+                                        t-esc="my_request.exchanged_tmpl_dated_id.date.strftime('%A %d %b, %Y')"
                                     />
                                     <t t-esc="'|'" />
                                     <t
-                                        t-esc="str(datetime.timedelta(hours=request['my_requests'].exchanged_tmpl_dated_id.template_id.start_time)).rsplit(':', 1)[0]"
+                                        t-esc="str(datetime.timedelta(hours=my_request.exchanged_tmpl_dated_id.template_id.start_time)).rsplit(':', 1)[0]"
                                     />
                                     -
                                     <t
-                                        t-esc="str(datetime.timedelta(hours=request['my_requests'].exchanged_tmpl_dated_id.template_id.end_time)).rsplit(':', 1)[0]"
+                                        t-esc="str(datetime.timedelta(hours=my_request.exchanged_tmpl_dated_id.template_id.end_time)).rsplit(':', 1)[0]"
                                     />
                                 </td>
                                 <td>
                                     <t
-                                        t-foreach="request['my_requests'].asked_tmpl_dated_ids"
+                                        t-foreach="my_request.asked_tmpl_dated_ids"
                                         t-as="asked_tmpl_dated"
                                     >
                                         <t
@@ -356,9 +375,7 @@
                                     </t>
                                 </td>
                                 <td>
-                                    <t
-                                        t-if="request['my_requests'].status == 'has_match'"
-                                    >
+                                    <t t-if="my_request.status == 'has_match'">
                                         <t
                                             t-foreach="request['matching_request']"
                                             t-as="match"
@@ -379,7 +396,7 @@
                                                 />
                                                 <br />
                                                 <t
-                                                    t-if="match.exchanged_tmpl_dated_id.template_id.task_type_id != request['my_requests'].exchanged_tmpl_dated_id.template_id.task_type_id"
+                                                    t-if="match.exchanged_tmpl_dated_id.template_id.task_type_id != my_request.exchanged_tmpl_dated_id.template_id.task_type_id"
                                                 >
                                                     <button
                                                         type="button"
@@ -393,7 +410,7 @@
                                                 <t t-else="">
                                                     <a
                                                         class="btn btn-success btn-sm"
-                                                        t-att-href="'/my/shift/validate/matching/validate/request/%i/%i' % (request['my_requests'],match)"
+                                                        t-att-href="'/my/shift/validate/matching/validate/request/%i/%i' % (my_request,match)"
                                                     >Validate this exchange</a>
                                                 </t>
                                             </p>
@@ -421,7 +438,7 @@
                                                             Old shift :
                                                             <b>
                                                                 <t
-                                                                    t-esc="request['my_requests'].exchanged_tmpl_dated_id.template_id.task_type_id.name"
+                                                                    t-esc="my_request.exchanged_tmpl_dated_id.template_id.task_type_id.name"
                                                                 />
                                                             </b>
                                                             <br />
@@ -442,7 +459,7 @@
                                                             >Cancel</button>
                                                             <a
                                                                 class="btn btn-success"
-                                                                t-att-href="'/my/shift/validate/matching/validate/request/%i/%i' % (request['my_requests'],match)"
+                                                                t-att-href="'/my/shift/validate/matching/validate/request/%i/%i' % (my_request,match)"
                                                             >Exchange anyway</a>
                                                         </div>
                                                     </div>
@@ -451,12 +468,25 @@
                                         </t>
                                     </t>
                                     <t
-                                        t-elif="request['my_requests'].status == 'awaiting_validation'"
+                                        t-elif="my_request.status == 'awaiting_validation'"
                                     >
                                         Waiting for validation of the other cooperator.
                                     </t>
-                                    <t t-elif="request['my_requests'].status == 'done'">
-                                        This exchange has been validated by both side.
+                                    <t t-elif="my_request.status == 'done'">
+                                        This exchange has been validated by both side. <br
+                                        />
+                                        <strong>New shift :</strong>
+                                        <t
+                                            t-esc="my_request.validate_request_id.exchanged_tmpl_dated_id.date.strftime('%A %d %b, %Y')"
+                                        />
+                                        <t t-esc="'|'" />
+                                        <t
+                                            t-esc="str(datetime.timedelta(hours=my_request.validate_request_id.exchanged_tmpl_dated_id.template_id.start_time)).rsplit(':', 1)[0]"
+                                        />
+                                        -
+                                        <t
+                                            t-esc="str(datetime.timedelta(hours=my_request.validate_request_id.exchanged_tmpl_dated_id.template_id.end_time)).rsplit(':', 1)[0]"
+                                        />
                                     </t>
                                     <t t-else="">
                                         No match has been found on your proposition.

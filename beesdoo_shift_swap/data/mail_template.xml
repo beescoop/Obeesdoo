@@ -2,30 +2,45 @@
     <data>
         <!-- Summary Exchange -->
         <record id="email_template_exchange_validation" model="mail.template">
-            <field name="name">Exchange Validation</field>
+            <field name="name">Exchange validation</field>
             <field
                 name="model_id"
                 ref="beesdoo_shift_swap.model_beesdoo_shift_exchange_request"
             />
             <field name="auto_delete" eval="False" />
             <field name="partner_to">${object.worker_id.id}</field>
-            <field
-                name="email_cc"
-            >${(object.exchanged_tmpl_dated_id.template_id.super_coop_id or '')}</field>
-            <field name="subject">Exchange Validation</field>
-            <field
-                name="body_html"
-            ><![CDATA[
-            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
-                 <p>Hello ${(object.worker_id.name)} ,
-                 <br/><br/>
-                    You confirmed an exchange between your Shift and another one:
+            <field name="email_cc">
+                ${(object.exchanged_tmpl_dated_id.template_id.super_coop_id or '')}
+            </field>
+            <field name="subject">Exchange validation</field>
+            <field name="body_html">
+                <![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    Hello ${(object.worker_id.name)},
+                    <br/><br/>
+                    <p>
+                        You shift exchange has been confirmed.
+                    </p>
+                    <p>
                         Here is a summary of the exchange :
-                        <li> Your old Shift : ${(object.exchanged_tmpl_dated_id.template_id.name)} ${(object.exchanged_tmpl_dated_id.date)}</li>
-                        <li> Your new Shift : ${(object.validate_request_id.exchanged_tmpl_dated_id.template_id.name)} ${(object.validate_request_id.exchanged_tmpl_dated_id.date)}</li>
-                 <br/></p>
-                      Regards,<br/>
-                      ]]></field>
+                        <ul>
+                            <li>
+                                Your old Shift : ${(object.exchanged_tmpl_dated_id.template_id.name)},
+                                ${(object.exchanged_tmpl_dated_id.date.date())},
+                                ${(object.exchanged_tmpl_dated_id.template_id.task_type_id.name)}
+                            </li>
+                            <li>
+                                Your new Shift : ${(object.validate_request_id.exchanged_tmpl_dated_id.template_id.name)},
+                                ${(object.validate_request_id.exchanged_tmpl_dated_id.date.date())},
+                                ${(object.validate_request_id.exchanged_tmpl_dated_id.template_id.task_type_id.name)}
+                            </li>
+                        </ul>
+                    </p>
+                    <br/><br/>
+                    Regards,
+                </div>
+                ]]>
+            </field>
         </record>
 
         <!--Send mail to coop same days of the week same hours-->
@@ -45,9 +60,9 @@
                     </p>
                     <p>
                         If you are willing to help by accepting this exchange, please
-                        <a href="/my/shift/swaping/${ctx.get('asked_tmpl_dated').template_id.id}/${ctx.get('asked_tmpl_dated').date.strftime('%Y-%m-%d %H:%M:%S')}?planned=1">
-                            click here.
-                        </a>
+                        <a href="/my/shift/swaping/${ctx.get('asked_tmpl_dated').template_id.id}/${ctx.get('asked_tmpl_dated').date.strftime('%Y-%m-%d %H:%M:%S')}?from_mail=1">
+                            click here
+                        </a>.
                     </p>
                     <br/><br/>
                     Regards,
@@ -66,21 +81,31 @@
             <field name="auto_delete" eval="False" />
             <field name="partner_to">${object.worker_id.id}</field>
             <field name="subject">Match with your exchange request !</field>
-            <field
-                name="body_html"
-            ><![CDATA[
-            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
-            <p>Hello, ${(object.worker_id.name)}
-            <br/><br/>
-                You asked to exchange your following shift :
-                    ${(object.exchanged_tmpl_dated_id.template_id.name)} ${(object.exchanged_tmpl_dated_id.date)}
-                An other cooperator request match with yours :
-                    ${ctx.get('matching_request').exchanged_tmpl_dated_id.template_id.name}, ${ctx.get('matching_request').exchanged_tmpl_dated_id.date}
-                To confirm this match please go to :
-                <a href="/my/request">Confirm Match</a>
-            <br/></p>
-
-                       Regards,<br/>]]></field>
+            <field name="body_html">
+                <![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    Hello ${(object.worker_id.name)},
+                    <br/><br/>
+                    <p>
+                        You asked to exchange your following shift :
+                        ${(object.exchanged_tmpl_dated_id.template_id.name)},
+                        ${(object.exchanged_tmpl_dated_id.date.date())},
+                        ${(object.exchanged_tmpl_dated_id.template_id.task_type_id.name)}
+                    </p>
+                    <p>
+                        Another cooperator offered to exchange it with his/her shift :
+                        ${ctx.get('matching_request').exchanged_tmpl_dated_id.template_id.name},
+                        ${ctx.get('matching_request').exchanged_tmpl_dated_id.date.date()},
+                        ${ctx.get('matching_request').exchanged_tmpl_dated_id.template_id.task_type_id.name}
+                    </p>
+                    <p>
+                        To confirm this match, please <a href="/my/request">click here</a> and validate the exchange.
+                    </p>
+                    <br/><br/>
+                    Regards,
+                </div>
+                ]]>
+            </field>
         </record>
 
     </data>

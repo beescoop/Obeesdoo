@@ -107,7 +107,10 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
         shift_date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
         delta = shift_date - datetime.now()
-        if (
+        if "from_mail" in kw:
+            request.session["from_mail"] = kw["from_mail"]
+            return request.redirect("/my/shift/possible/match")
+        elif (
             delta.days
             > int(
                 request.env["ir.config_parameter"]
@@ -238,12 +241,19 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             .sudo()
             .get_possible_match(exchanged_tmpl_dated)
         )
+
+        template_context = {
+            "possible_matches": possible_matches,
+            "exchanged_tmpl_dated": exchanged_tmpl_dated,
+            "from_mail": False,
+        }
+        if "from_mail" in request.session:
+            template_context["from_mail"] = request.session["from_mail"]
+            del request.session["from_mail"]
+
         return request.render(
             "beesdoo_website_shift_swap.website_shift_swap_possible_match",
-            {
-                "possible_matches": possible_matches,
-                "exchanged_tmpl_dated": exchanged_tmpl_dated,
-            },
+            template_context,
         )
 
     @http.route("/my/shift/possible/match/no_result", website=True)
@@ -429,7 +439,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         for rec in exchange_request_list:
             exchange_requests.append(
                 {
-                    "my_requests": rec,
+                    "my_request": rec,
                     "matching_request": request.env["beesdoo.shift.exchange_request"]
                     .sudo()
                     .matching_request(
@@ -502,19 +512,24 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         new_request = request.env["beesdoo.shift.exchange_request"].sudo().create(data)
         matching_request.write({"status": "has_match"})
         matching_request.sudo().send_mail_matching_request(new_request)
-        return request.redirect("/my/shift")
+        return request.redirect("/my/request")
 
     @http.route(
         "/my/shift/validate/matching/validate/request/"
-        "<int:my_request_id>/<string:match_request_id>",
+        "<int:my_request_id>/<int:match_request_id>",
         website=True,
     )
     def validate_matching_validate_request(self, my_request_id, match_request_id):
         user = request.env["res.users"].browse(request.uid)
+        match_request = (
+            request.env["beesdoo.shift.exchange_request"]
+            .sudo()
+            .browse(match_request_id)
+        )
         # Check if the shift limit is not reached
         try:
             user.partner_id.sudo().check_shift_number_limit(
-                match_request_id.exchanged_tmpl_dated_id
+                match_request.exchanged_tmpl_dated_id
             )
         except UserError:
             request.session["shift_number_limit"] = True
