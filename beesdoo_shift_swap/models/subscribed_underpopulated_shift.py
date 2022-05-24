@@ -22,7 +22,6 @@ class SubscribeUnderpopulatedShift(models.Model):
     )
 
     exchanged_tmpl_dated_id = fields.Many2one("beesdoo.shift.template.dated")
-    is_exchanged_shift_compensation = fields.Boolean(default=False)
 
     wanted_tmpl_dated_id = fields.Many2one("beesdoo.shift.template.dated")
 
@@ -54,12 +53,10 @@ class SubscribeUnderpopulatedShift(models.Model):
                 limit=1,
             )
             if exchanged_shift:
-                self.is_exchanged_shift_compensation = exchanged_shift.is_compensation
                 exchanged_shift.write(
                     {
                         "worker_id": False,
                         "is_regular": False,
-                        "is_compensation": False,
                     }
                 )
                 return True
@@ -83,12 +80,7 @@ class SubscribeUnderpopulatedShift(models.Model):
                 wanted_shift.write(
                     {
                         "worker_id": self.worker_id.id,
-                        "is_regular": False
-                        if self.is_exchanged_shift_compensation
-                        else True,
-                        "is_compensation": True
-                        if self.is_exchanged_shift_compensation
-                        else False,
+                        "is_regular": True,
                     }
                 )
                 return True

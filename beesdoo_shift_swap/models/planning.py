@@ -35,10 +35,7 @@ class TaskTemplate(models.Model):
                 ):
                     if template["initial"] != template["exchange_modified"]:
                         shift["worker_id"] = exchange.worker_id.id
-                        if exchange.is_exchanged_shift_compensation:
-                            shift["is_compensation"] = True
-                        else:
-                            shift["is_regular"] = True
+                        shift["is_regular"] = True
                         template["exchange_modified"] = shift["task_template_id"]
                 if (
                     exchange.worker_id.id == shift["worker_id"]
@@ -48,7 +45,6 @@ class TaskTemplate(models.Model):
                 ):
                     shift["worker_id"] = False
                     shift["is_regular"] = False
-                    shift["is_compensation"] = False
             for record in people_exchanges:
                 if (
                     shift["worker_id"] == record.first_request_id.worker_id.id
