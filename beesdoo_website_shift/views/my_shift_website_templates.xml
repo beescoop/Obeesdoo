@@ -157,7 +157,7 @@
                     </t>
                 </div>
                 <div class="card-body clearfix">
-                    <t t-esc="shift.task_template_id.name or shift.task_type_id.name" />
+                    <t t-esc="shift.task_type_id.name" />
                     <button
                         type="button"
                         class="btn btn-danger btn-sm pull-right"
@@ -245,7 +245,7 @@
                                     class="modal-title"
                                     t-att-id="'subscribe-shift-%s-label' % shift.id"
                                 >
-                                    Please confirm unsubscriptions
+                                    Please confirm unsubscription
                                 </h4>
                             </div>
                             <div class="modal-body">
@@ -267,8 +267,7 @@
                                 </button>
                                 <a
                                     class="btn btn-primary"
-                                    t-if="irregular_enable_sign_up"
-                                    t-att-href="'/shift/%s/unsubscribe?nexturl=%s' % (shift.id, nexturl)"
+                                    t-att-href="'/shift/%s/unsubscribe?nexturl=%s' % (shift.id, nexturl or '/my/shift')"
                                 >
                                     Unsubscribe
                                 </a>

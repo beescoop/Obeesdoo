@@ -211,7 +211,7 @@ class WebsiteShiftController(http.Controller):
         # Get current user
         if request.env.user.partner_id != shift.worker_id or not shift.can_unsubscribe:
             raise Forbidden()
-        shift.worker_id = False
+        shift.write({"is_regular": False, "is_compensation": False, "worker_id": False})
         request.session["unsubscribe_success"] = True
         return request.redirect(kw["nexturl"])
 

@@ -99,12 +99,19 @@ class Task(models.Model):
             ICP.get_param("beesdoo_website_shift.max_hours_to_unsubscribe", 2)
         )
         for rec in self:
-            if now > rec.start_time or rec.state != "open":
-                rec.can_unsubscribe = False
-            else:
+            if (
+                rec.start_time > now
+                and rec.state == "open"
+                and (
+                    (rec.worker_id and rec.worker_id.working_mode == "irregular")
+                    or rec.is_compensation
+                )
+            ):
                 delta = rec.start_time - now
                 delta = delta.seconds / 3600.0 + delta.days * 24
                 rec.can_unsubscribe = delta >= max_hours
+            else:
+                rec.can_unsubscribe = False
 
     @api.constrains("state")
     def _lock_future_task(self):
