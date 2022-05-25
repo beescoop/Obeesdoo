@@ -152,7 +152,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 .get_underpopulated_shift(sort_date_desc=True)
             )
 
-        user = request.env["res.users"].browse(request.uid)
+        user = request.env["res.users"].sudo().browse(request.uid)
 
         # Remove the already subscribed shifts
         possible_underpopulated_shifts = next_shifts.remove_already_subscribed_shifts(
@@ -174,7 +174,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         website=True,
     )
     def subscribe_to_underpopulated_swap(self, template_wanted, date_wanted):
-        user = request.env["res.users"].browse(request.uid)
+        user = request.env["res.users"].sudo().browse(request.uid)
         template_id = request.session["template_id"]
         date = request.session["date"]
         my_tmpl_dated = (
@@ -303,7 +303,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                             "store": True,
                         }
                     )
-            user = request.env["res.users"].browse(request.uid)
+            user = request.env["res.users"].sudo().browse(request.uid)
             request.env["beesdoo.shift.exchange_request"].sudo().create(
                 {
                     "worker_id": user.partner_id.id,
@@ -378,7 +378,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                             "store": True,
                         }
                     )
-            user = request.env["res.users"].browse(request.uid)
+            user = request.env["res.users"].sudo().browse(request.uid)
             exchange_request = (
                 request.env["beesdoo.shift.exchange_request"]
                 .sudo()
@@ -427,7 +427,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
     @http.route("/my/request", website=True)
     def my_request(self):
         # Get current user
-        cur_user = request.env["res.users"].browse(request.uid)
+        cur_user = request.env["res.users"].sudo().browse(request.uid)
 
         # Get exchange requests
         exchange_request_list = (
@@ -472,7 +472,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         "/my/shift/validate/matching_request/<int:matching_request_id>", website=True
     )
     def validate_matching_request(self, matching_request_id):
-        cur_user = request.env["res.users"].browse(request.uid)
+        cur_user = request.env["res.users"].sudo().browse(request.uid)
         template_id = request.session["template_id"]
         date = request.session["date"]
         my_tmpl_dated = (
@@ -520,7 +520,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         website=True,
     )
     def validate_matching_validate_request(self, my_request_id, match_request_id):
-        user = request.env["res.users"].browse(request.uid)
+        user = request.env["res.users"].sudo().browse(request.uid)
         match_request = (
             request.env["beesdoo.shift.exchange_request"]
             .sudo()
@@ -551,10 +551,10 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         if not self.solidarity_enabled():
             raise Forbidden("Solidarity related features are not enabled")
 
-        user = request.env["res.users"].browse(request.uid)
+        user = request.env["res.users"].sudo().browse(request.uid)
 
         # Check if user can offer solidarity shifts
-        if user.state == "ok" and self.working_mode != "exempt":
+        if user.cooperative_status_ids.sr < 0 or user.cooperative_status_ids.sc < 0:
             return request.render(
                 "beesdoo_website_shift_swap."
                 "website_shift_swap_offer_solidarity_impossible"
@@ -599,7 +599,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         if not self.solidarity_enabled():
             raise Forbidden("Solidarity related features are not enabled")
 
-        user = request.env["res.users"].browse(request.uid)
+        user = request.env["res.users"].sudo().browse(request.uid)
 
         tmpl_dated_wanted = (
             request.env["beesdoo.shift.template.dated"]
@@ -685,7 +685,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 "Solidarity counter is too low, requesting solidarity is impossible"
             )
 
-        user = request.env["res.users"].browse(request.uid)
+        user = request.env["res.users"].sudo().browse(request.uid)
         regular = False
         if user.partner_id.working_mode == "regular":
             regular = True
