@@ -1266,7 +1266,7 @@ msgid "Temporary Exemption"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/wizard/subscribe.py:142
+#: code:addons/beesdoo_shift/wizard/subscribe.py:146
 #, python-format
 msgid "There is no remaining spot in this shift"
 msgstr ""
