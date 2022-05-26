@@ -44,6 +44,15 @@ Configuration
 
   - Its interval number (default = 7) should be consistent with notice (default = 1) and period (default = 7).
 
+Changelog
+=========
+
+12.0.1.1.1 (2022-05-26)
+**Bugfixes**
+
+- No longer raise an error when unsubscribing a replacement worker using the
+  wizard. (`#389 <https://github.com/beescoop/obeesdoo/issues/389>`_)
+
 Bug Tracker
 ===========
 
