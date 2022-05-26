@@ -105,7 +105,7 @@
                     <field name="subscribed_shift_ids" />
                     <separator
                         string="Shifts"
-                        group="beesdoo_shift.group_shift_attendance"
+                        groups="beesdoo_shift.group_shift_attendance"
                     />
                     <field name="shift_shift_ids" />
                 </page>
