@@ -72,6 +72,7 @@ class Task(models.Model):
     is_compensation = fields.Boolean(default=False, string="Compensation shift")
     replaced_id = fields.Many2one(
         "res.partner",
+        string="Replaced By",
         track_visibility="onchange",
         domain=[
             ("eater", "=", "worker_eater"),
@@ -237,9 +238,10 @@ class Task(models.Model):
                         # values and proper name instead of copying
                         # a existing shift that may have modified
                         # default values.
-                        shifts[0].copy(
-                            default={"is_regular": True}
-                        ).worker_id = worker_id
+                        copied_shift = shifts[0].copy()
+                        copied_shift.write(
+                            {"is_regular": True, "worker_id": worker_id.id}
+                        )
             # Super coop subscription
             for worker_id in worker_ids:
                 if task_tmpl_id.super_coop_id == worker_id:
@@ -321,18 +323,21 @@ class Task(models.Model):
         if always_update or not (self.worker_id or self.replaced_id):
             return
 
-        if not (self.worker_id.working_mode in ["regular", "irregular"]):
+        if self.worker_id and self.worker_id.working_mode not in [
+            "regular",
+            "irregular",
+        ]:
             raise UserError(
                 _(
                     "Working mode is not properly defined. Please check if "
                     "the worker is subscribed "
                 )
             )
-
-        data, status = self._get_counter_date_state_change(new_state)
-        if status:
-            status.sudo()._change_counter(data)
-            self._set_revert_info(data, status)
+        if self.worker_id:
+            data, status = self._get_counter_date_state_change(new_state)
+            if status:
+                status.sudo()._change_counter(data)
+                self._set_revert_info(data, status)
 
     @api.model
     def _cron_send_weekly_emails(self, notice=1, period=7):
