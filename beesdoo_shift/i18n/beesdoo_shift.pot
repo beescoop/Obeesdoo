@@ -66,8 +66,8 @@ msgid " is already assigned to "
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/task.py:141
-#: code:addons/beesdoo_shift/models/task.py:199
+#: code:addons/beesdoo_shift/models/task.py:142
+#: code:addons/beesdoo_shift/models/task.py:200
 #, python-format
 msgid "'Now' must be a datetime."
 msgstr ""
@@ -1027,7 +1027,7 @@ msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__replaced_id
-msgid "Replaced"
+msgid "Replaced By"
 msgstr ""
 
 #. module: beesdoo_shift
@@ -1108,7 +1108,7 @@ msgid "Shift and Worker Read Access"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/task.py:98
+#: code:addons/beesdoo_shift/models/task.py:99
 #, python-format
 msgid "Shift state of a future shift can't be set to 'present' or 'absent'."
 msgstr ""
@@ -1408,7 +1408,7 @@ msgid "Working mode"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/task.py:326
+#: code:addons/beesdoo_shift/models/task.py:331
 #, python-format
 msgid "Working mode is not properly defined. Please check if the worker is subscribed "
 msgstr ""
@@ -1434,7 +1434,7 @@ msgid "You cannot assign more workers than the maximal number defined on templat
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/task.py:311
+#: code:addons/beesdoo_shift/models/task.py:313
 #, python-format
 msgid "You cannot change to the status %s if no worker is defined for the shift "
 msgstr ""
