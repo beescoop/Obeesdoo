@@ -849,7 +849,7 @@ msgid "Main Attachment"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/res_partner.py:122
+#: code:addons/beesdoo_shift/models/res_partner.py:123
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.super_coop_partner_inherited_view_form
 #, python-format
 msgid "Manual Extension"
@@ -995,7 +995,7 @@ msgid "Recurring Workers"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/res_partner.py:140
+#: code:addons/beesdoo_shift/models/res_partner.py:141
 #, python-format
 msgid "Register Holiday"
 msgstr ""
@@ -1180,7 +1180,7 @@ msgid "Status:"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/res_partner.py:105
+#: code:addons/beesdoo_shift/models/res_partner.py:106
 #, python-format
 msgid "Subscribe Cooperator"
 msgstr ""
@@ -1258,7 +1258,7 @@ msgid "Temporary Exempt Start Date"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/res_partner.py:151
+#: code:addons/beesdoo_shift/models/res_partner.py:152
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.coop_status_form_view
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.super_coop_partner_inherited_view_form
 #, python-format
@@ -1283,7 +1283,7 @@ msgid "Today"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/res_partner.py:134
+#: code:addons/beesdoo_shift/models/res_partner.py:135
 #, python-format
 msgid "Trigger Grace Delay"
 msgstr ""
