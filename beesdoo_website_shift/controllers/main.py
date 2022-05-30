@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 from itertools import groupby
 
 from pytz import timezone, utc
+from werkzeug.exceptions import Forbidden
 
 from odoo import http
 from odoo.fields import Datetime
@@ -204,6 +205,91 @@ class WebsiteShiftController(http.Controller):
             {"task_tpls_data": task_tpls_data, "float_to_time": float_to_time},
         )
 
+    @http.route("/shift/compensation", auth="user", website=True)
+    def get_next_shifts_for_compensation(self, **kw):
+        """
+        Display underpopulated available shifts for a regular worker to
+        subscribe to a compensation shift.
+        If argument "display_all" is provided in the URL, display all available
+        shifts.
+        """
+        cur_user = request.env["res.users"].browse(request.uid)
+        if not self.can_subscribe_compensation(cur_user.partner_id):
+            raise Forbidden()
+
+        display_all = False
+        next_shifts = (
+            request.env["beesdoo.shift.shift"]
+            .sudo()
+            .search(
+                [
+                    ("start_time", ">", datetime.now()),
+                    ("worker_id", "=", False),
+                    ("state", "=", "open"),
+                ],
+                order="start_time desc, task_template_id, task_type_id",
+            )
+        )
+        if "display_all" not in kw:
+            # Get only underpopulated shifts
+            displayed_shifts = request.env["beesdoo.shift.shift"].sudo()
+            min_percentage_presence = int(
+                request.env["ir.config_parameter"]
+                .sudo()
+                .get_param("beesdoo_shift.min_percentage_presence")
+            )
+            for shift in next_shifts:
+                nb_worker_wanted = shift.task_template_id.worker_nb
+                nb_worker_present = (
+                    nb_worker_wanted - shift.task_template_id.remaining_worker
+                )
+                percentage_presence = (nb_worker_present / nb_worker_wanted) * 100
+                if percentage_presence <= min_percentage_presence:
+                    displayed_shifts |= shift
+        else:
+            displayed_shifts = next_shifts
+            display_all = True
+
+        # Create template context
+        template_context = {}
+        template_context.update(self.get_compensation_shift_grid(displayed_shifts))
+        template_context["all_shifts"] = display_all
+
+        return request.render(
+            "beesdoo_website_shift.choose_compensation_shift",
+            template_context,
+        )
+
+    @http.route(
+        "/shift/compensation/<int:shift_id>/subscribe", auth="user", website=True
+    )
+    def subscribe_to_compensation_shift(self, shift_id=-1, **kw):
+        # Get current user
+        cur_user = request.env["res.users"].browse(request.uid)
+        if not self.can_subscribe_compensation(cur_user.partner_id):
+            raise Forbidden()
+
+        # Get the shift
+        shift = request.env["beesdoo.shift.shift"].sudo().browse(shift_id)
+
+        request.session["success"] = False
+
+        if (
+            shift
+            and shift.state == "open"
+            and shift.start_time > datetime.now()
+            and not shift.worker_id
+        ):
+            shift.write(
+                {
+                    "worker_id": cur_user.partner_id.id,
+                    "is_compensation": True,
+                }
+            )
+            request.session["success"] = True
+
+        return request.redirect("/my/shift")
+
     def my_shift_irregular_worker(self, nexturl=""):
         """
         Return template variables for
@@ -262,12 +348,27 @@ class WebsiteShiftController(http.Controller):
             [], order="planning_id, day_nb_id, start_time"
         )
 
+        cur_user = request.env["res.users"].browse(request.uid)
+
         template_context.update(self.my_shift_worker_status())
         template_context.update(self.my_shift_next_shifts())
         template_context.update(self.my_shift_past_shifts())
         template_context.update(
-            {"task_templates": task_templates, "float_to_time": float_to_time}
+            {
+                "task_templates": task_templates,
+                "float_to_time": float_to_time,
+                "compensation_ok": self.can_subscribe_compensation(cur_user.partner_id),
+            }
         )
+
+        # Add feedback about the success or the fail of the subscription
+        # to a compensation shift
+        template_context["back_from_subscription"] = False
+        if "success" in request.session:
+            template_context["back_from_subscription"] = True
+            template_context["success"] = request.session.get("success")
+            del request.session["success"]
+
         return template_context
 
     def my_shift_exempted_worker(self):
@@ -503,3 +604,57 @@ class WebsiteShiftController(http.Controller):
         """
         cur_user = request.env["res.users"].browse(request.uid)
         return {"status": cur_user.partner_id.cooperative_status_ids}
+
+    def get_compensation_shift_grid(self, shifts):
+        cur_user = request.env["res.users"].browse(request.uid)
+
+        groupby_iter = groupby(
+            shifts,
+            lambda s: (s.task_template_id, s.start_time, s.task_type_id),
+        )
+
+        # Get shifts where user is subscribed
+        subscribed_shifts = (
+            request.env["beesdoo.shift.shift"]
+            .sudo()
+            .search(
+                [
+                    ("start_time", ">", Datetime.now()),
+                    ("worker_id", "=", cur_user.partner_id.id),
+                ],
+                order="task_template_id, start_time, task_type_id",
+            )
+        )
+
+        displayed_shifts = []
+        for keys, grouped_shifts in groupby_iter:
+            task_template, start_time, task_type = keys
+            shift_list = list(grouped_shifts)
+            is_subscribed = any(
+                (
+                    sub_shift.task_template_id == task_template
+                    and sub_shift.start_time == start_time
+                    and sub_shift.task_type_id == task_type
+                )
+                for sub_shift in subscribed_shifts
+            )
+            if not is_subscribed:
+                displayed_shifts.append(
+                    DisplayedShift(
+                        shift_list[0],
+                        None,
+                        None,
+                        None,
+                    )
+                )
+
+        shift_weeks = build_shift_grid(displayed_shifts)
+        return {
+            "shift_weeks": shift_weeks,
+        }
+
+    def can_subscribe_compensation(self, worker_id):
+        return worker_id.working_mode == "regular" and (
+            worker_id.cooperative_status_ids.sr < 0
+            or worker_id.cooperative_status_ids.sc < 0
+        )
