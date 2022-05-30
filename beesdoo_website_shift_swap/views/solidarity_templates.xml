@@ -624,7 +624,7 @@
                     t-esc="displayed_shift.shift.template_id.task_type_id.name"
                 />
                 <a
-                    class="btn btn-success btn-sm"
+                    class="btn btn-primary btn-sm m-1"
                     t-att-href="'/my/shift/solidarity/offer/select/%i/%s' % (displayed_shift.shift.template_id,displayed_shift.shift.date)"
                 >Subscribe</a>
             </div>
