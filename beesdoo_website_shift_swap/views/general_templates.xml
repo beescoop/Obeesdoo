@@ -57,7 +57,9 @@
                         </a>
                     </t>
                     <t
-                        t-elif="request.env['res.users'].browse(request.uid).partner_id.working_mode == 'regular' and shift.state != 'cancel' and not shift.is_compensation"
+                        t-elif="request.env['res.users'].browse(request.uid).partner_id.working_mode == 'regular'
+                            and shift.state != 'cancel'
+                            and not shift.is_compensation"
                     >
                         <button
                             type="button"

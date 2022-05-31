@@ -1,12 +1,10 @@
-from datetime import datetime
-
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
 class SubscribeShiftSwap(models.TransientModel):
     _name = "beesdoo.shift.subscribe.shift.swap"
-    _description = "Subscribe swap shift"
+    _description = "Swap shift wizard"
 
     worker_id = fields.Many2one(
         "res.partner",
@@ -25,7 +23,7 @@ class SubscribeShiftSwap(models.TransientModel):
 
     wanted_tmpl_dated_id = fields.Many2one(
         "beesdoo.shift.template.dated",
-        string="Underpopulated Shift",
+        string="Wanted Shift",
         required=True,
     )
 
@@ -84,18 +82,13 @@ class SubscribeShiftSwap(models.TransientModel):
         self.worker_id.check_shift_number_limit(self.wanted_tmpl_dated_id)
         self.exchanged_tmpl_dated_id.store = True
         self.wanted_tmpl_dated_id.store = True
-        data = {
-            "date": datetime.date(datetime.now()),
-            "worker_id": self.worker_id.id,
-            "exchanged_tmpl_dated_id": self.exchanged_tmpl_dated_id.id,
-            "wanted_tmpl_dated_id": self.wanted_tmpl_dated_id.id,
-        }
         useless_tmpl_dated = self.env["beesdoo.shift.template.dated"].search(
             [("store", "=", False)]
         )
         useless_tmpl_dated.unlink()
-        record = self.env["beesdoo.shift.swap"].sudo().create(data)
-        if record._compute_exchanged_already_generated():
-            record.unsubscribe_shift()
-        if record._compute_comfirmed_already_generated():
-            record.subscribe_shift()
+        data = {
+            "worker_id": self.worker_id.id,
+            "exchanged_tmpl_dated_id": self.exchanged_tmpl_dated_id.id,
+            "wanted_tmpl_dated_id": self.wanted_tmpl_dated_id.id,
+        }
+        self.env["beesdoo.shift.swap"].sudo().create(data)
