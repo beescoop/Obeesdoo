@@ -9,9 +9,5 @@
             <field name="key">beesdoo_website_shift.shift_period</field>
             <field name="value">28</field>
         </record>
-        <record id="max_hours_to_unsubscribe" model="ir.config_parameter">
-            <field name="key">beesdoo_website_shift.max_hours_to_unsubscribe</field>
-            <field name="value">2</field>
-        </record>
     </data>
 </odoo>

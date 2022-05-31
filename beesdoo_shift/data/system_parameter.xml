@@ -31,4 +31,8 @@
         <field name="key">regular_counter_to_unsubscribe</field>
         <field name="value">-4</field>
     </record>
+    <record id="min_hours_to_unsubscribe" model="ir.config_parameter">
+        <field name="key">min_hours_to_unsubscribe</field>
+        <field name="value">2</field>
+    </record>
 </odoo>
