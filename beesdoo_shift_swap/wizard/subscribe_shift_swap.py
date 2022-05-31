@@ -30,7 +30,7 @@ class SubscribeShiftSwap(models.TransientModel):
     )
 
     @api.onchange("worker_id")
-    def _get_template_dated(self):
+    def _get_exchangeable_template_dated(self):
         for record in self:
             tmpl_dated = record.worker_id.get_next_tmpl_dated()
             tmpl_dated_possible = self.env["beesdoo.shift.template.dated"]
@@ -54,9 +54,7 @@ class SubscribeShiftSwap(models.TransientModel):
             if not record.exchanged_tmpl_dated_id:
                 record.wanted_tmpl_dated_id = False
             else:
-                tmpl_dated = self.env[
-                    "beesdoo.shift.subscribed_underpopulated_shift"
-                ].get_underpopulated_shift()
+                tmpl_dated = self.env["beesdoo.shift.swap"].get_underpopulated_shift()
                 temp = self.env["beesdoo.shift.template.dated"]
                 for rec in tmpl_dated:
                     template = rec.template_id
@@ -96,11 +94,7 @@ class SubscribeShiftSwap(models.TransientModel):
             [("store", "=", False)]
         )
         useless_tmpl_dated.unlink()
-        record = (
-            self.env["beesdoo.shift.subscribed_underpopulated_shift"]
-            .sudo()
-            .create(data)
-        )
+        record = self.env["beesdoo.shift.swap"].sudo().create(data)
         if record._compute_exchanged_already_generated():
             record.unsubscribe_shift()
         if record._compute_comfirmed_already_generated():

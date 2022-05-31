@@ -15,7 +15,7 @@
         "views/exchange_templates.xml",
         "views/general_templates.xml",
         "views/solidarity_templates.xml",
-        "views/swap_underpopulated_templates.xml",
+        "views/swap_templates.xml",
     ],
     # only loaded in demonstration mode
     "demo": [

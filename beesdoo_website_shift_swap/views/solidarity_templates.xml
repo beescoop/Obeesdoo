@@ -347,7 +347,7 @@
             </t>
         </template>
 
-        <!-- Template display underpopulated shift for solidarity-->
+        <!-- Template display next shift for solidarity-->
         <template
             id="website_shift_swap_tmpl_dated_solidarity"
             name="Next shifts for solidarity"

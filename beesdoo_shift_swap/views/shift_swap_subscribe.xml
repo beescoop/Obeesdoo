@@ -23,7 +23,7 @@
 
     <record model="ir.ui.view" id="shift_swap_underpopulated_view_tree">
         <field name="name">Swap Shift</field>
-        <field name="model">beesdoo.shift.subscribed_underpopulated_shift</field>
+        <field name="model">beesdoo.shift.swap</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="worker_id" />
@@ -35,7 +35,7 @@
 
     <record model="ir.ui.view" id="shift_swap_view">
         <field name="name">Shift swap</field>
-        <field name="model">beesdoo.shift.subscribed_underpopulated_shift</field>
+        <field name="model">beesdoo.shift.swap</field>
         <field name="arch" type="xml">
             <form>
                 <header>

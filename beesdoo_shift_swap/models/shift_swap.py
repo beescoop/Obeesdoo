@@ -3,8 +3,8 @@ from datetime import datetime
 from odoo import fields, models
 
 
-class SubscribeUnderpopulatedShift(models.Model):
-    _name = "beesdoo.shift.subscribed_underpopulated_shift"
+class ShiftSwap(models.Model):
+    _name = "beesdoo.shift.swap"
     _description = "A model to track an exchange with an underpopulated shift"
 
     def _get_selection_status(self):
@@ -32,7 +32,7 @@ class SubscribeUnderpopulatedShift(models.Model):
         Override create() method to unsubscribe the worker
         to the old shift and subscribe him/her to the new one
         """
-        res = super(SubscribeUnderpopulatedShift, self).create(vals_list)
+        res = super(ShiftSwap, self).create(vals_list)
         res._unsubscribe_old_shift_if_generated()
         res._subscribe_new_shift_if_generated()
         res.state = "validated"

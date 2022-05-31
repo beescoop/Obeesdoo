@@ -1,5 +1,5 @@
 from . import res_partner
-from . import subscribed_underpopulated_shift
+from . import shift_swap
 from . import exchange_request
 from . import exchange
 from . import planning

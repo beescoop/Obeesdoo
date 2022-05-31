@@ -25,18 +25,15 @@
             </div>
         </template>
 
-        <!-- Template display underpopulated shifts to swap -->
-        <template
-            id="website_shift_swap_next_underpopulated_tmpl_dated"
-            name="Shift Swap Next Underpopulated Page"
-        >
+        <!-- Template display shifts to swap -->
+        <template id="website_shift_swap_next_tmpl_dated" name="Next shifts to swap">
             <h2 t-if="not all_shifts">
                 Swap your shift with an underpopulated one
             </h2>
             <h2 t-else="">
                 Swap your shift with another one
             </h2>
-            <t t-foreach="underpopulated_shift" t-as="tmpl_dated">
+            <t t-foreach="displayed_shifts" t-as="tmpl_dated">
                 <div t-att-class="'card mb-4 %s' % highlight_class">
                     <div
                         t-att-class="'card-header %s clearfix' % highlight_header_class"
@@ -74,7 +71,7 @@
                             <t t-else="">
                                 <a
                                     class="btn btn-success btn-sm"
-                                    t-att-href="'/my/shift/underpopulated/swap/subscribe/%i/%s' % (tmpl_dated.template_id,tmpl_dated.date)"
+                                    t-att-href="'/my/shift/swap/subscribe/%i/%s' % (tmpl_dated.template_id,tmpl_dated.date)"
                                 >Subscribe to this Shift</a>
                             </t>
                         </div>
@@ -125,7 +122,7 @@
                                 >Cancel</button>
                                 <a
                                     class="btn btn-success"
-                                    t-att-href="'/my/shift/underpopulated/swap/subscribe/%i/%s' % (tmpl_dated.template_id,tmpl_dated.date)"
+                                    t-att-href="'/my/shift/swap/subscribe/%i/%s' % (tmpl_dated.template_id,tmpl_dated.date)"
                                 >Exchange anyway</a>
                             </div>
                         </div>
@@ -135,18 +132,15 @@
             <p t-if="not all_shifts">
                 <a
                     class="btn btn-secondary btn-dark btn-block"
-                    href="/my/shift/underpopulated/no_result"
+                    href="/my/shift/swap/no_result"
                 >
                     No shifts suits me
                 </a>
             </p>
         </template>
 
-        <!-- Template for page /my/shift/underpopulated/swap -->
-        <template
-            id="website_shift_swap_underpopulated_tmpl_dated"
-            name="Shift Swap Underpopulated Page"
-        >
+        <!-- Template for page /my/shift/swap -->
+        <template id="website_shift_swap_tmpl_dated" name="Shift Swap Page">
             <t t-call="portal.portal_layout">
                 <t t-set="no_breadcrumbs" t-value="True" />
                 <div class="container mt16">
@@ -165,7 +159,7 @@
                     <div class="row">
                         <div class="col-12 col-lg-8">
                             <t
-                                t-call="beesdoo_website_shift_swap.website_shift_swap_next_underpopulated_tmpl_dated"
+                                t-call="beesdoo_website_shift_swap.website_shift_swap_next_tmpl_dated"
                             />
                         </div>
                         <div class="col-12 col-lg-4 text-justify">

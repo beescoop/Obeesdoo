@@ -14,7 +14,7 @@ class TaskTemplate(models.Model):
         shifts = super(TaskTemplate, self)._prepare_task_day()
 
         # Get all the changes
-        exchanges = self.env["beesdoo.shift.subscribed_underpopulated_shift"].search([])
+        exchanges = self.env["beesdoo.shift.swap"].search([])
         people_exchanges = self.env["beesdoo.shift.exchange"].search([])
         solidarity_offers = self.env["beesdoo.shift.solidarity.offer"].search([])
         solidarity_requests = self.env["beesdoo.shift.solidarity.request"].search([])
