@@ -7,6 +7,14 @@ class ExchangeRequest(models.Model):
     _name = "beesdoo.shift.exchange_request"
     _description = "A model to track a shift exchange request"
 
+    def _get_status(self):
+        return [
+            ("no_match", "No match"),
+            ("has_match", "Has match"),
+            ("awaiting_validation", "Awaiting validation"),
+            ("done", "Done"),
+        ]
+
     worker_id = fields.Many2one(
         "res.partner",
         domain=[
@@ -16,6 +24,8 @@ class ExchangeRequest(models.Model):
         ],
         string="worker",
     )
+
+    status = fields.Selection(selection=_get_status, default="no_match")
 
     exchanged_tmpl_dated_id = fields.Many2one(
         "beesdoo.shift.template.dated", string="exchanged_tmpl_dated"
@@ -41,17 +51,6 @@ class ExchangeRequest(models.Model):
         string="Cancelled request",
     )
 
-    def _get_status(self):
-        return [
-            ("draft", "Draft"),
-            ("no_match", "No match"),
-            ("has_match", "Has match"),
-            ("awaiting_validation", "Awaiting validation"),
-            ("done", "Done"),
-        ]
-
-    status = fields.Selection(selection=_get_status, default="draft")
-
     @api.multi
     def name_get(self):
         data = []
@@ -63,6 +62,17 @@ class ExchangeRequest(models.Model):
             )
             data.append((request.id, display_name))
         return data
+
+    @api.model
+    def create(self, vals):
+        """
+        Overriding create function to update the status
+        """
+        request = super(ExchangeRequest, self).create(vals)
+        if request.validate_request_id:
+            request.status = "awaiting_validation"
+            request.validate_request_id.status = "has_match"
+        return request
 
     def coop_validate_exchange(self):
         return {

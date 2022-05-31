@@ -13,11 +13,15 @@ class TestBeesdooShiftSwap(TransactionCase):
         self.shift_solidarity_request_model = self.env[
             "beesdoo.shift.solidarity.request"
         ]
+        self.shift_swap_model = self.env["beesdoo.shift.swap"]
+        self.exchange_request_model = self.env["beesdoo.shift.exchange_request"]
+        self.exchange_model = self.env["beesdoo.shift.exchange"]
 
         self.now = datetime.now()
         self.user_admin = self.env.ref("base.user_root")
 
         self.worker_regular_1 = self.env.ref("beesdoo_shift.res_partner_worker_1_demo")
+        self.worker_regular_2 = self.env.ref("beesdoo_shift.res_partner_worker_3_demo")
         self.worker_irregular_1 = self.env.ref(
             "beesdoo_shift.res_partner_worker_2_demo"
         )
@@ -362,6 +366,142 @@ class TestBeesdooShiftSwap(TransactionCase):
             self.env["res.company"]._company_default_get().solidarity_counter(),
             start_value + 1,
         )
+
+    def test_shift_swap(self):
+        exchanged_tmpl_dated = self.shift_template_dated_model.create(
+            {
+                "template_id": self.task_template_1.id,
+                "date": self.now + timedelta(minutes=20),
+                "store": True,
+            }
+        )
+
+        wanted_tmpl_dated = self.shift_template_dated_model.create(
+            {
+                "template_id": self.task_template_2.id,
+                "date": self.now + timedelta(minutes=20),
+                "store": True,
+            }
+        )
+
+        exchanged_shift = self.shift_model.create(
+            {
+                "task_template_id": self.task_template_1.id,
+                "task_type_id": self.task_template_1.task_type_id.id,
+                "worker_id": self.worker_regular_1.id,
+                "start_time": exchanged_tmpl_dated.date,
+                "end_time": exchanged_tmpl_dated.date + timedelta(minutes=10),
+                "is_regular": True,
+                "is_compensation": False,
+            }
+        )
+
+        wanted_shift = self.shift_model.create(
+            {
+                "task_template_id": self.task_template_2.id,
+                "task_type_id": self.task_template_2.task_type_id.id,
+                "worker_id": None,
+                "start_time": wanted_tmpl_dated.date,
+                "end_time": wanted_tmpl_dated.date + timedelta(minutes=10),
+                "is_regular": False,
+                "is_compensation": False,
+            }
+        )
+
+        self.shift_swap_model.create(
+            {
+                "worker_id": self.worker_regular_1.id,
+                "exchanged_tmpl_dated_id": exchanged_tmpl_dated.id,
+                "wanted_tmpl_dated_id": wanted_tmpl_dated.id,
+            }
+        )
+
+        self.assertFalse(exchanged_shift.worker_id)
+        self.assertFalse(exchanged_shift.is_regular)
+
+        self.assertEqual(wanted_shift.worker_id, self.worker_regular_1)
+        self.assertTrue(wanted_shift.is_regular)
+
+    def test_shift_exchange(self):
+        tmpl_dated_1 = self.shift_template_dated_model.create(
+            {
+                "template_id": self.task_template_1.id,
+                "date": self.now + timedelta(minutes=20),
+                "store": True,
+            }
+        )
+
+        tmpl_dated_2 = self.shift_template_dated_model.create(
+            {
+                "template_id": self.task_template_2.id,
+                "date": self.now + timedelta(minutes=20),
+                "store": True,
+            }
+        )
+
+        shift_1 = self.shift_model.create(
+            {
+                "task_template_id": self.task_template_1.id,
+                "task_type_id": self.task_template_1.task_type_id.id,
+                "worker_id": self.worker_regular_1.id,
+                "start_time": tmpl_dated_1.date,
+                "end_time": tmpl_dated_1.date + timedelta(minutes=10),
+                "is_regular": True,
+                "is_compensation": False,
+            }
+        )
+
+        shift_2 = self.shift_model.create(
+            {
+                "task_template_id": self.task_template_2.id,
+                "task_type_id": self.task_template_2.task_type_id.id,
+                "worker_id": self.worker_regular_2.id,
+                "start_time": tmpl_dated_2.date,
+                "end_time": tmpl_dated_2.date + timedelta(minutes=10),
+                "is_regular": False,
+                "is_compensation": False,
+            }
+        )
+
+        exchange_request_1 = self.exchange_request_model.create(
+            {
+                "worker_id": self.worker_regular_1.id,
+                "exchanged_tmpl_dated_id": tmpl_dated_1.id,
+                "asked_tmpl_dated_ids": [(6, False, tmpl_dated_2.ids)],
+            }
+        )
+
+        self.assertEqual(exchange_request_1.status, "no_match")
+
+        exchange_request_2 = self.exchange_request_model.create(
+            {
+                "worker_id": self.worker_regular_2.id,
+                "exchanged_tmpl_dated_id": tmpl_dated_2.id,
+                "asked_tmpl_dated_ids": [(6, False, tmpl_dated_1.ids)],
+                "validate_request_id": exchange_request_1.id,
+            }
+        )
+
+        self.assertEqual(exchange_request_2.status, "awaiting_validation")
+        self.assertEqual(exchange_request_1.status, "has_match")
+
+        exchange = self.exchange_model.create(
+            {
+                "first_request_id": exchange_request_1.id,
+                "second_request_id": exchange_request_2.id,
+            }
+        )
+
+        self.assertEqual(exchange_request_1.status, "done")
+        self.assertEqual(exchange_request_1.validate_request_id, exchange_request_2)
+        self.assertEqual(exchange_request_1.exchange_id, exchange)
+
+        self.assertEqual(exchange_request_2.status, "done")
+        self.assertEqual(exchange_request_2.validate_request_id, exchange_request_1)
+        self.assertEqual(exchange_request_2.exchange_id, exchange)
+
+        self.assertEqual(shift_1.worker_id, self.worker_regular_2)
+        self.assertEqual(shift_2.worker_id, self.worker_regular_1)
 
     def get_worker_ids(self, shifts):
         shifts_worker_ids = []

@@ -306,7 +306,6 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                     "worker_id": user.partner_id.id,
                     "exchanged_tmpl_dated_id": exchanged_tmpl_dated.id,
                     "asked_tmpl_dated_ids": [(6, False, asked_tmpl_dated.ids)],
-                    "status": "no_match",
                 }
             )
             return request.redirect("/my/shift")
@@ -384,7 +383,6 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                         "worker_id": user.partner_id.id,
                         "exchanged_tmpl_dated_id": exchanged_tmpl_dated.id,
                         "asked_tmpl_dated_ids": [(6, False, asked_tmpl_dated.ids)],
-                        "status": "no_match",
                     }
                 )
             )
@@ -504,10 +502,8 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 (6, False, matching_request.exchanged_tmpl_dated_id.ids)
             ],
             "validate_request_id": matching_request_id,
-            "status": "awaiting_validation",
         }
         new_request = request.env["beesdoo.shift.exchange_request"].sudo().create(data)
-        matching_request.write({"status": "has_match"})
         matching_request.sudo().send_mail_matching_request(new_request)
         return request.redirect("/my/request")
 

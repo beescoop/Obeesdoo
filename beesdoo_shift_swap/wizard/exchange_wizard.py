@@ -131,11 +131,8 @@ class SubscribeShiftSwap(models.TransientModel):
             "validate_request_id": self.possible_match.id
             if self.possible_match
             else False,
-            "status": "awaiting_validation" if self.possible_match else "no_match",
         }
         self.env["beesdoo.shift.exchange_request"].sudo().create(data)
-        if self.possible_match:
-            self.possible_match.write({"status": "has_match"})
 
     def contact_coop_same_day_same_hour(self):
         """

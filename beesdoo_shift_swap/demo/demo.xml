@@ -16,6 +16,13 @@
         />
   </record>
 
+  <record id="beesdoo_shift.res_partner_worker_3_demo" model="res.partner">
+      <field
+            name="cooperative_status_ids"
+            eval="[(6, 0, [ref('beesdoo_shift.cooperative_status_3_demo')])]"
+        />
+  </record>
+
   <!-- Task Template -->
   <record id="task_template_1_demo" model="beesdoo.shift.template">
       <field name="name">A_TUE-10:00-12:00</field>
