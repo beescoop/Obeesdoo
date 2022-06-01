@@ -302,6 +302,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
         template_id = request.session["template_id"]
         date = request.session["date"]
+        user = request.env["res.users"].sudo().browse(request.uid)
 
         if request.httprequest.method == "POST":
             tmpl_dated_index = request.httprequest.form.getlist("selected_tmpl_dated")
@@ -318,7 +319,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                     }
                 )
             )
-            asked_tmpl_dated = request.env["beesdoo.shift.template.dated"]
+            asked_tmpl_dated = request.env["beesdoo.shift.template.dated"].sudo()
             for index, template in enumerate(
                 request.session["possible_tmpl_dated_list"]
             ):
@@ -329,7 +330,23 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                             "template_id": template["template_id"],
                         }
                     )
-            user = request.env["res.users"].sudo().browse(request.uid)
+
+            # Check that the shift number limit is not reached
+            impossible_tmpl_dated = []
+            for template in asked_tmpl_dated:
+                try:
+                    user.partner_id.sudo().check_shift_number_limit(template)
+                except UserError:
+                    impossible_tmpl_dated.append(template)
+            if impossible_tmpl_dated:
+                return request.render(
+                    "beesdoo_website_shift_swap"
+                    ".website_shift_swap_impossible_exchange_request",
+                    {
+                        "tmpl_dated": impossible_tmpl_dated,
+                    },
+                )
+
             request.env["beesdoo.shift.exchange_request"].sudo().create(
                 {
                     "worker_id": user.partner_id.id,
@@ -346,10 +363,15 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             .sudo()
             .get_param("beesdoo_shift.day_limit_ask_for_exchange")
         )
-        possible_tmpl_dated = (
+        next_tmpl_dated = (
             request.env["beesdoo.shift.template.dated"]
             .sudo()
             .get_next_tmpl_dated(period)
+        )
+
+        # Remove the already subscribed shifts
+        possible_tmpl_dated = next_tmpl_dated.remove_already_subscribed_shifts(
+            user.partner_id
         )
 
         possible_tmpl_dated_list = []
