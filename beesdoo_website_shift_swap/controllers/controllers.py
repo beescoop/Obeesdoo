@@ -22,6 +22,13 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             )
         )
 
+    def exchanges_enabled(self):
+        return (
+            request.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_shift.enable_exchanges")
+        )
+
     def solidarity_enabled(self):
         return (
             request.env["ir.config_parameter"]
@@ -44,6 +51,11 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         res = super(WebsiteShiftSwapController, self).my_shift()
         template_context = res.qcontext
         template_context["request_solidarity"] = False
+
+        if self.exchanges_enabled():
+            template_context["exchanges_enabled"] = True
+        else:
+            template_context["exchanges_enabled"] = False
 
         if self.solidarity_enabled():
             template_context["solidarity_enabled"] = True
@@ -101,6 +113,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
     @http.route("/my/shift/swaping/<int:template_id>/<string:date>", website=True)
     def swaping_shift(self, template_id, date, **kw):
+        if not self.exchanges_enabled():
+            raise Forbidden("Shift exchanges are not enabled")
+
         # Save the swaping tmpl_dated in the user session
         request.session["template_id"] = template_id
         request.session["date"] = date
@@ -128,6 +143,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         """
         Personnal page to choose a shift to swap
         """
+        if not self.exchanges_enabled():
+            raise Forbidden("Shift exchanges are not enabled")
+
         # Get template and date from session
         template_id = request.session["template_id"]
         date = request.session["date"]
@@ -171,6 +189,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         website=True,
     )
     def swap_shift(self, template_wanted, date_wanted):
+        if not self.exchanges_enabled():
+            raise Forbidden("Shift exchanges are not enabled")
+
         user = request.env["res.users"].sudo().browse(request.uid)
         template_id = request.session["template_id"]
         date = request.session["date"]
@@ -181,7 +202,6 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 {
                     "template_id": template_id,
                     "date": date,
-                    "store": True,
                 }
             )
         )
@@ -193,7 +213,6 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 {
                     "template_id": template_wanted,
                     "date": date_wanted,
-                    "store": True,
                 }
             )
         )
@@ -216,6 +235,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
     @http.route("/my/shift/swap/no_result", website=True)
     def no_result_shift_swap(self):
+        if not self.exchanges_enabled():
+            raise Forbidden("Shift exchanges are not enabled")
+
         date = request.session["date"]
         shift_date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
         delta = shift_date - datetime.now()
@@ -230,6 +252,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
     @http.route("/my/shift/possible/match", website=True)
     def get_possible_match(self):
+        if not self.exchanges_enabled():
+            raise Forbidden("Shift exchanges are not enabled")
+
         template_id = request.session["template_id"]
         date = request.session["date"]
         exchanged_tmpl_dated = self.new_tmpl_dated(template_id, date)
@@ -255,6 +280,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
     @http.route("/my/shift/possible/match/no_result", website=True)
     def no_result_possible_match(self):
+        if not self.exchanges_enabled():
+            raise Forbidden("Shift exchanges are not enabled")
+
         date = request.session["date"]
         shift_date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
         delta = shift_date - datetime.now()
@@ -269,6 +297,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
     @http.route("/my/shift/possible/shift", website=True)
     def get_possible_shift(self, **post):
+        if not self.exchanges_enabled():
+            raise Forbidden("Shift exchanges are not enabled")
+
         template_id = request.session["template_id"]
         date = request.session["date"]
 
@@ -284,7 +315,6 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                     {
                         "template_id": template_id,
                         "date": date,
-                        "store": True,
                     }
                 )
             )
@@ -297,7 +327,6 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                         {
                             "date": template["date"],
                             "template_id": template["template_id"],
-                            "store": True,
                         }
                     )
             user = request.env["res.users"].sudo().browse(request.uid)
@@ -343,6 +372,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
     @http.route("/my/shift/select/same_timeslot", website=True)
     def select_same_timeslot_other_weeks(self, **post):
+        if not self.exchanges_enabled():
+            raise Forbidden("Shift exchanges are not enabled")
+
         template_id = request.session["template_id"]
         date = request.session["date"]
 
@@ -358,7 +390,6 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                     {
                         "template_id": template_id,
                         "date": date,
-                        "store": True,
                     }
                 )
             )
@@ -371,7 +402,6 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                         {
                             "date": template["date"],
                             "template_id": template["template_id"],
-                            "store": True,
                         }
                     )
             user = request.env["res.users"].sudo().browse(request.uid)
@@ -459,6 +489,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 if cur_user.partner_id.working_mode == "regular"
                 else False,
                 "now": datetime.now(),
+                "exchanges_enabled": True if self.exchanges_enabled() else False,
                 "solidarity_enabled": True if self.solidarity_enabled() else False,
             },
         )
@@ -467,6 +498,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         "/my/shift/validate/matching_request/<int:matching_request_id>", website=True
     )
     def validate_matching_request(self, matching_request_id):
+        if not self.exchanges_enabled():
+            raise Forbidden("Shift exchanges are not enabled")
+
         cur_user = request.env["res.users"].sudo().browse(request.uid)
         template_id = request.session["template_id"]
         date = request.session["date"]
@@ -477,7 +511,6 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 {
                     "template_id": template_id,
                     "date": date,
-                    "store": True,
                 }
             )
         )
@@ -513,6 +546,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         website=True,
     )
     def validate_matching_validate_request(self, my_request_id, match_request_id):
+        if not self.exchanges_enabled():
+            raise Forbidden("Shift exchanges are not enabled")
+
         user = request.env["res.users"].sudo().browse(request.uid)
         match_request = (
             request.env["beesdoo.shift.exchange_request"]
@@ -601,7 +637,6 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 {
                     "template_id": template_wanted,
                     "date": date_wanted,
-                    "store": True,
                 }
             )
         )
@@ -694,7 +729,6 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                         {
                             "template_id": template_id,
                             "date": date,
-                            "store": True,
                         }
                     )
                 )
@@ -763,6 +797,10 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         return request.redirect("/my/shift")
 
     def my_shift_next_shifts(self):
+        """
+        Override my_shift_next_shifts method to sort shifts by date
+        after taking into account exchanges and solidarity
+        """
         res = super(WebsiteShiftSwapController, self).my_shift_next_shifts()
         res["subscribed_shifts"] = sorted(
             res["subscribed_shifts"], key=lambda r: r.start_time

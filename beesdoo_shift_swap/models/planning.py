@@ -14,8 +14,8 @@ class TaskTemplate(models.Model):
         shifts = super(TaskTemplate, self)._prepare_task_day()
 
         # Get all the changes
-        exchanges = self.env["beesdoo.shift.swap"].search([])
-        people_exchanges = self.env["beesdoo.shift.exchange"].search([])
+        swaps = self.env["beesdoo.shift.swap"].search([])
+        exchanges = self.env["beesdoo.shift.exchange"].search([])
         solidarity_offers = self.env["beesdoo.shift.solidarity.offer"].search([])
         solidarity_requests = self.env["beesdoo.shift.solidarity.request"].search([])
 
@@ -26,43 +26,43 @@ class TaskTemplate(models.Model):
         }
         for shift in shifts:
             template["initial"] = shift["task_template_id"]
-            for exchange in exchanges:
+            for swap in swaps:
                 if (
                     not shift["worker_id"]
-                    and exchange.wanted_tmpl_dated_id.template_id.id
+                    and swap.wanted_tmpl_dated_id.template_id.id
                     == shift["task_template_id"]
-                    and shift["start_time"] == exchange.wanted_tmpl_dated_id.date
+                    and shift["start_time"] == swap.wanted_tmpl_dated_id.date
                 ):
                     if template["initial"] != template["exchange_modified"]:
-                        shift["worker_id"] = exchange.worker_id.id
+                        shift["worker_id"] = swap.worker_id.id
                         shift["is_regular"] = True
                         template["exchange_modified"] = shift["task_template_id"]
                 if (
-                    exchange.worker_id.id == shift["worker_id"]
+                    swap.worker_id.id == shift["worker_id"]
                     and shift["task_template_id"]
-                    == exchange.exchanged_tmpl_dated_id.template_id.id
-                    and shift["start_time"] == exchange.exchanged_tmpl_dated_id.date
+                    == swap.exchanged_tmpl_dated_id.template_id.id
+                    and shift["start_time"] == swap.exchanged_tmpl_dated_id.date
                 ):
                     shift["worker_id"] = False
                     shift["is_regular"] = False
-            for record in people_exchanges:
+            for exchange in exchanges:
                 if (
-                    shift["worker_id"] == record.first_request_id.worker_id.id
-                    and record.first_request_id.exchanged_tmpl_dated_id.template_id.id
+                    shift["worker_id"] == exchange.first_request_id.worker_id.id
+                    and exchange.first_request_id.exchanged_tmpl_dated_id.template_id.id
                     == shift["task_template_id"]
                     and shift["start_time"]
-                    == record.first_request_id.exchanged_tmpl_dated_id.date
+                    == exchange.first_request_id.exchanged_tmpl_dated_id.date
                 ):
-                    shift["worker_id"] = record.second_request_id.worker_id.id
+                    shift["worker_id"] = exchange.second_request_id.worker_id.id
                     shift["is_regular"] = True
                 if (
-                    shift["worker_id"] == record.second_request_id.worker_id.id
+                    shift["worker_id"] == exchange.second_request_id.worker_id.id
                     and shift["task_template_id"]
-                    == record.second_request_id.exchanged_tmpl_dated_id.template_id.id
+                    == exchange.second_request_id.exchanged_tmpl_dated_id.template_id.id
                     and shift["start_time"]
-                    == record.second_request_id.exchanged_tmpl_dated_id.date
+                    == exchange.second_request_id.exchanged_tmpl_dated_id.date
                 ):
-                    shift["worker_id"] = record.first_request_id.worker_id.id
+                    shift["worker_id"] = exchange.first_request_id.worker_id.id
                     shift["is_regular"] = True
             for request in solidarity_requests:
                 if (

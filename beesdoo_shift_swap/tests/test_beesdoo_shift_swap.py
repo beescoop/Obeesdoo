@@ -44,7 +44,6 @@ class TestBeesdooShiftSwap(TransactionCase):
             {
                 "template_id": self.task_template_1.id,
                 "date": self.now + timedelta(minutes=20),
-                "store": True,
             }
         )
 
@@ -103,7 +102,6 @@ class TestBeesdooShiftSwap(TransactionCase):
             {
                 "template_id": self.task_template_1.id,
                 "date": self.task_template_1.start_date,
-                "store": True,
             }
         )
 
@@ -152,7 +150,6 @@ class TestBeesdooShiftSwap(TransactionCase):
             {
                 "template_id": self.task_template_1.id,
                 "date": self.now + timedelta(minutes=20),
-                "store": True,
             }
         )
 
@@ -196,7 +193,6 @@ class TestBeesdooShiftSwap(TransactionCase):
             {
                 "template_id": self.task_template_2.id,
                 "date": self.task_template_2.start_date,
-                "store": True,
             }
         )
 
@@ -251,7 +247,6 @@ class TestBeesdooShiftSwap(TransactionCase):
             {
                 "template_id": self.task_template_3.id,
                 "date": self.task_template_3.start_date,
-                "store": True,
             }
         )
 
@@ -301,7 +296,6 @@ class TestBeesdooShiftSwap(TransactionCase):
             {
                 "template_id": self.task_template_1.id,
                 "date": self.now - timedelta(minutes=30),
-                "store": True,
             }
         )
 
@@ -345,7 +339,6 @@ class TestBeesdooShiftSwap(TransactionCase):
             {
                 "template_id": self.task_template_2.id,
                 "date": datetime.now() + timedelta(minutes=20),
-                "store": True,
             }
         )
 
@@ -372,7 +365,6 @@ class TestBeesdooShiftSwap(TransactionCase):
             {
                 "template_id": self.task_template_1.id,
                 "date": self.now + timedelta(minutes=20),
-                "store": True,
             }
         )
 
@@ -380,7 +372,6 @@ class TestBeesdooShiftSwap(TransactionCase):
             {
                 "template_id": self.task_template_2.id,
                 "date": self.now + timedelta(minutes=20),
-                "store": True,
             }
         )
 
@@ -427,7 +418,6 @@ class TestBeesdooShiftSwap(TransactionCase):
             {
                 "template_id": self.task_template_1.id,
                 "date": self.now + timedelta(minutes=20),
-                "store": True,
             }
         )
 
@@ -435,7 +425,6 @@ class TestBeesdooShiftSwap(TransactionCase):
             {
                 "template_id": self.task_template_2.id,
                 "date": self.now + timedelta(minutes=20),
-                "store": True,
             }
         )
 

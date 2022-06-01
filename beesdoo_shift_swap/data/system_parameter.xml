@@ -12,6 +12,10 @@
             <field name="key">beesdoo_shift.max_shift_per_month</field>
             <field name="value">5</field>
         </record>
+        <record id="enable_exchanges" model="ir.config_parameter" forcecreate="False">
+            <field name="key">beesdoo_shift.enable_exchanges</field>
+            <field name="value">True</field>
+        </record>
         <record
             id="min_percentage_presence"
             model="ir.config_parameter"

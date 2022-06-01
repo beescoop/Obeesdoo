@@ -12,7 +12,7 @@ class DatedTemplate(models.Model):
 
     date = fields.Datetime(required=True)
     template_id = fields.Many2one("beesdoo.shift.template")
-    store = fields.Boolean(string="store", invisible=True)
+    store = fields.Boolean(string="store", invisible=True, default=True)
     hour = fields.Integer(string="Hour", compute="_compute_time", store=True)
 
     @api.depends("date")

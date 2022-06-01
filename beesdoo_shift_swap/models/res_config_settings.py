@@ -12,9 +12,9 @@ class ResConfigSettings(models.TransientModel):
         string="Maximum number of shifts per month for one cooperator",
         config_parameter="beesdoo_shift.max_shift_per_month",
     )
-    enable_solidarity = fields.Boolean(
-        string="Activate solidarity offers and requests",
-        config_parameter="beesdoo_shift.enable_solidarity",
+    enable_exchanges = fields.Boolean(
+        string="Activate shift swaps and exchanges",
+        config_parameter="beesdoo_shift.enable_exchanges",
     )
     percentage_presence = fields.Integer(
         string="Limit of percentage of presence of underpopulated shift",
@@ -38,6 +38,10 @@ class ResConfigSettings(models.TransientModel):
         string="Number of days below which a cooperator can only request exchanges"
         "with cooperators from the same timesolt in other weeks",
         config_parameter="beesdoo_shift.day_limit_exchange_with_same_timeslot",
+    )
+    enable_solidarity = fields.Boolean(
+        string="Activate solidarity offers and requests",
+        config_parameter="beesdoo_shift.enable_solidarity",
     )
     hours_limit_cancel_solidarity_offer = fields.Integer(
         string="Limit of hours to cancel a solidarity shift",

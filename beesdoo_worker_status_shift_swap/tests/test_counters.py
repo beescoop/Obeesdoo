@@ -39,7 +39,6 @@ class TestBeesdooWorkerStatusShiftSwap(TransactionCase):
             {
                 "template_id": self.task_template_1.id,
                 "date": datetime.now() + timedelta(minutes=20),
-                "store": True,
             }
         )
 
@@ -102,7 +101,6 @@ class TestBeesdooWorkerStatusShiftSwap(TransactionCase):
             {
                 "template_id": self.task_template_1.id,
                 "date": datetime.now() - timedelta(minutes=30),
-                "store": True,
             }
         )
 

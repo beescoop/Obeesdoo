@@ -61,54 +61,56 @@
                             and shift.state != 'cancel'
                             and not shift.is_compensation"
                     >
-                        <button
-                            type="button"
-                            class="btn btn-success btn-sm"
-                            data-toggle="modal"
-                            t-att-data-target="'#ask_planned_exchange_popup-%s' % shift_index"
-                        >
-                            Swap Shift
-                        </button>
-                        <div
-                            class="modal fade"
-                            t-att-id="'ask_planned_exchange_popup-%s' % shift_index"
-                            tabindex="-1"
-                            aria-labelledby="ask_planned_exchange_popup_label"
-                            aria-hidden="true"
-                        >
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5
-                                            class="modal-title"
-                                            id="ask_planned_exchange_popup_label"
-                                        >Swap your shift</h5>
-                                        <button
-                                            type="button"
-                                            class="close"
-                                            data-dismiss="modal"
-                                            aria-label="Close"
-                                        >
-                                            <span><![CDATA[&times;]]></span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Have you already agreed on an exchange with
-                                        another cooperator for this shift?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <a
-                                            class="btn btn-success"
-                                            t-att-href="'/my/shift/swaping/%i/%s?planned' % (shift.task_template_id,shift.start_time)"
-                                        >Yes</a>
-                                        <a
-                                            class="btn btn-danger"
-                                            t-att-href="'/my/shift/swaping/%i/%s' % (shift.task_template_id,shift.start_time)"
-                                        >No</a>
+                        <t t-if="exchanges_enabled">
+                            <button
+                                type="button"
+                                class="btn btn-success btn-sm"
+                                data-toggle="modal"
+                                t-att-data-target="'#ask_planned_exchange_popup-%s' % shift_index"
+                            >
+                                Swap Shift
+                            </button>
+                            <div
+                                class="modal fade"
+                                t-att-id="'ask_planned_exchange_popup-%s' % shift_index"
+                                tabindex="-1"
+                                aria-labelledby="ask_planned_exchange_popup_label"
+                                aria-hidden="true"
+                            >
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5
+                                                class="modal-title"
+                                                id="ask_planned_exchange_popup_label"
+                                            >Swap your shift</h5>
+                                            <button
+                                                type="button"
+                                                class="close"
+                                                data-dismiss="modal"
+                                                aria-label="Close"
+                                            >
+                                                <span><![CDATA[&times;]]></span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Have you already agreed on an exchange with
+                                            another cooperator for this shift?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a
+                                                class="btn btn-success"
+                                                t-att-href="'/my/shift/swaping/%i/%s?planned' % (shift.task_template_id,shift.start_time)"
+                                            >Yes</a>
+                                            <a
+                                                class="btn btn-danger"
+                                                t-att-href="'/my/shift/swaping/%i/%s' % (shift.task_template_id,shift.start_time)"
+                                            >No</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </t>
 
                         <t t-if="request_solidarity">
                             <t
@@ -169,8 +171,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <t t-if="regular or solidarity_enabled">
-                            <div t-if="regular" class="col-12">
+                        <t t-if="(regular and exchanges_enabled) or solidarity_enabled">
+                            <div t-if="regular and exchanges_enabled" class="col-12">
                                 <t
                                     t-call="beesdoo_website_shift_swap.my_exchange_request_template"
                                 />
