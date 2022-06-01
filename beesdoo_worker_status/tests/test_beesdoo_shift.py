@@ -142,8 +142,6 @@ class TestBeesdooShift(TransactionCase):
         given again until sr has reached 1.
         """
         worker = self.worker_irregular_1
-        # No idea why this is needed.
-        worker.working_mode = "irregular"
         worker.cooperative_status_ids.sr = 0
         worker.cooperative_status_ids._change_irregular_counter()
         self.assertEqual(worker.cooperative_status_ids.sr, -2)
