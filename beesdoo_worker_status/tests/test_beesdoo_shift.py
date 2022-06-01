@@ -132,6 +132,51 @@ class TestBeesdooShift(TransactionCase):
         shift_irregular.state = "absent_2"
         self.assertEqual(status_3.sr, -1)
 
+    def test_shift_no_double_penalty(self):
+        """Imagine the following 'sr' of an irregular worker:
+
+        0 -> -2 (cron, penalty) -> -1 (work a shift) -> 0 (work another shift)
+        -> ??? (cron)
+
+        The last step should go to -1 instead of -2. The penalty should not be
+        given again until sr has reached 1.
+        """
+        worker = self.worker_irregular_1
+        # No idea why this is needed.
+        worker.working_mode = "irregular"
+        worker.cooperative_status_ids.sr = 0
+        worker.cooperative_status_ids._change_irregular_counter()
+        self.assertEqual(worker.cooperative_status_ids.sr, -2)
+        shift_irregular_1 = self.shift_model.create(
+            {
+                "task_template_id": self.task_template_1.id,
+                "task_type_id": self.task_type_3.id,
+                "worker_id": worker.id,
+                "start_time": datetime.now() - timedelta(days=7, minutes=15),
+                "end_time": datetime.now() - timedelta(days=7, minutes=10),
+            }
+        )
+        shift_irregular_1.state = "done"
+        self.assertEqual(worker.cooperative_status_ids.sr, -1)
+        shift_irregular_2 = self.shift_model.create(
+            {
+                "task_template_id": self.task_template_2.id,
+                "task_type_id": self.task_type_3.id,
+                "worker_id": worker.id,
+                "start_time": datetime.now() - timedelta(days=6, minutes=15),
+                "end_time": datetime.now() - timedelta(days=6, minutes=10),
+            }
+        )
+        shift_irregular_2.state = "done"
+        self.assertEqual(worker.cooperative_status_ids.sr, 0)
+        worker.cooperative_status_ids._change_irregular_counter()
+        self.assertEqual(worker.cooperative_status_ids.sr, -1)
+        worker.cooperative_status_ids.sr = 1
+        worker.cooperative_status_ids._change_irregular_counter()
+        self.assertEqual(worker.cooperative_status_ids.sr, 0)
+        worker.cooperative_status_ids._change_irregular_counter()
+        self.assertEqual(worker.cooperative_status_ids.sr, -2)
+
     def test_postponed_alert_start_time_holiday_regular(self):
         """
         Check that alert_start_time is correctly postponed when

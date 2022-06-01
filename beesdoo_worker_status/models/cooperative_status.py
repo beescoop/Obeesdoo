@@ -351,7 +351,7 @@ class CooperativeStatus(models.Model):
 
     def _change_irregular_counter(self):
         if self.sr > 0:
-            if self.sr > 1:
+            if self.sr >= 1:
                 self.irregular_skip_penalty = False
             self.sr -= 1
         elif self.alert_start_time or self.irregular_skip_penalty:
