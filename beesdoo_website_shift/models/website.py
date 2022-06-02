@@ -27,6 +27,9 @@ class Website(models.Model):
         default=10,
         help="Maximum past shift that will be shown for irregular worker",
     )
+    irregular_enable_unsubscribe = fields.Boolean(
+        default=True, help="Enable irregular workers to unsubscribe from their shifts"
+    )
 
     # Regular worker settings
     regular_past_shift_limit = fields.Integer(
@@ -40,4 +43,8 @@ class Website(models.Model):
         default=20,
         help="Treshold (in %) of available space in a shift that trigger the "
         "the highlight of a shift template.",
+    )
+    enable_unsubscribe_compensation = fields.Boolean(
+        default=True,
+        help="Enable regular workers to unsubscribe from compensation shifts",
     )

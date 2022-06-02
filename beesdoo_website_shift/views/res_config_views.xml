@@ -45,19 +45,38 @@
                         </div>
                     </div>
                     <div
-                        id="irregular_enable_sign_up_settings"
+                        id="irregular_enable_sign_up_unsubscribe_settings"
                         class="col-12 col-md-6 o_setting_box"
                     >
-                        <div class="o_setting_left_pane">
-                            <field name="irregular_enable_sign_up" />
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="o_setting_left_pane">
+                                    <field name="irregular_enable_sign_up" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="irregular_enable_sign_up" />
+                                    <span
+                                        class="fa fa-lg fa-globe"
+                                        title="Values set here are website-specific."
+                                        groups="website.group_multi_website"
+                                    />
+                                </div>
+                            </div>
                         </div>
-                        <div class="o_setting_right_pane">
-                            <label for="irregular_enable_sign_up" />
-                            <span
-                                class="fa fa-lg fa-globe"
-                                title="Values set here are website-specific."
-                                groups="website.group_multi_website"
-                            />
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="o_setting_left_pane">
+                                    <field name="irregular_enable_unsubscribe" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="irregular_enable_unsubscribe" />
+                                    <span
+                                        class="fa fa-lg fa-globe"
+                                        title="Values set here are website-specific."
+                                        groups="website.group_multi_website"
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div
@@ -125,6 +144,22 @@
                             <div class="mt8">
                                 <field name="regular_highlight_rule" />
                             </div>
+                        </div>
+                    </div>
+                    <div
+                        id="regular_enable_unsubscribe_compensation_settings"
+                        class="col-12 col-md-6 o_setting_box"
+                    >
+                        <div class="o_setting_left_pane">
+                            <field name="enable_unsubscribe_compensation" />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="enable_unsubscribe_compensation" />
+                            <span
+                                class="fa fa-lg fa-globe"
+                                title="Values set here are website-specific."
+                                groups="website.group_multi_website"
+                            />
                         </div>
                     </div>
                 </div>

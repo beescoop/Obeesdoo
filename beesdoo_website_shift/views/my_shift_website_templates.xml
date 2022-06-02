@@ -173,6 +173,16 @@
                     <t t-esc="shift.task_type_id.name" />
                     <button
                         type="button"
+                        class="btn btn-danger btn-sm pull-right"
+                        data-toggle="modal"
+                        t-att-data-target="'#unsubscribe-shift-%s' % shift.id"
+                        t-if="shift.can_unsubscribe and ((shift.is_compensation and request.website.enable_unsubscribe_compensation) or (not shift.is_compensation and request.website.irregular_enable_unsubscribe))"
+                    >
+                        <span class="fa fa-user-plus" aria-hidden="true" />
+                        Unsubscribe
+                    </button>
+                    <button
+                        type="button"
                         class="btn btn-default btn-sm pull-right"
                         t-if="shift.super_coop_id.name"
                         data-toggle="modal"
@@ -245,6 +255,52 @@
                     </div>
                 </div>
             </div>
+            <t t-foreach="subscribed_shifts" t-as="shift">
+                <div
+                    class="modal fade"
+                    t-att-id="'unsubscribe-shift-%s' % shift.id"
+                    tabindex="-1"
+                    role="dialog"
+                    t-att-aria-labelledby="'unsubscribe-shift-%s-label' % shift.id"
+                >
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4
+                                    class="modal-title"
+                                    t-att-id="'subscribe-shift-%s-label' % shift.id"
+                                >
+                                    Please confirm unsubscription
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <span t-field="shift.start_time" />
+                                -
+                                <span
+                                    t-field="shift.end_time"
+                                    t-options='{"format": "HH:mm"}'
+                                />
+                                <br />
+                                <t t-esc="shift.task_type_id.name" />
+                            </div>
+                            <div class="modal-footer">
+                                <button
+                                    type="button"
+                                    class="btn btn-default"
+                                    data-dismiss="modal"
+                                >Close
+                                </button>
+                                <a
+                                    class="btn btn-primary"
+                                    t-att-href="'/shift/%s/unsubscribe?nexturl=%s' % (shift.id, nexturl or '/my/shift')"
+                                >
+                                    Unsubscribe
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
         </t>
 
         <div class="alert alert-warning" t-if="not subscribed_shifts">
@@ -1055,7 +1111,7 @@
                         <div
                             t-if="back_from_subscription"
                             role="alert"
-                            t-att-class="'alert alert-%s alert-dismissible' % ('success' if success else 'danger',)"
+                            t-att-class="'alert alert-%s alert-dismissible' % ('success' if (success or unsubscribe_success) else 'danger',)"
                         >
                             <button
                                 type="button"
@@ -1069,7 +1125,11 @@
                                 <strong>Success!</strong>
                                 Your subscription has succeded.
                             </t>
-                            <t t-if="not success">
+                            <t t-elif="unsubscribe_success">
+                                <strong>Success!</strong>
+                                You have been successfully unsubscribed.
+                            </t>
+                            <t t-else="">
                                 <strong>Failed!</strong>
                                 Your subscription has failed. Someone
                                 subscribed before you or the shift was deleted.

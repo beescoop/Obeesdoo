@@ -290,6 +290,27 @@ class WebsiteShiftController(http.Controller):
 
         return request.redirect("/my/shift")
 
+    @http.route("/shift/<int:shift_id>/unsubscribe", auth="user", website=True)
+    def unsubscribe_to_shift(self, shift_id=-1, **kw):
+        shift = request.env["beesdoo.shift.shift"].sudo().browse(shift_id)
+        cur_user = request.env["res.users"].browse(request.uid)
+        if (
+            cur_user.partner_id != shift.worker_id
+            or not shift.can_unsubscribe
+            or (
+                shift.is_compensation
+                and not request.website.enable_unsubscribe_compensation
+            )
+            or (
+                cur_user.partner_id.working_mode == "irregular"
+                and not request.website.irregular_enable_unsubscribe
+            )
+        ):
+            raise Forbidden()
+        shift.write({"is_regular": False, "is_compensation": False, "worker_id": False})
+        request.session["unsubscribe_success"] = True
+        return request.redirect(kw["nexturl"])
+
     def my_shift_irregular_worker(self, nexturl=""):
         """
         Return template variables for
@@ -316,6 +337,12 @@ class WebsiteShiftController(http.Controller):
             template_context["back_from_subscription"] = True
             template_context["success"] = request.session.get("success")
             del request.session["success"]
+        if "unsubscribe_success" in request.session:
+            template_context["back_from_subscription"] = True
+            template_context["unsubscribe_success"] = request.session.get(
+                "unsubscribe_success"
+            )
+            del request.session["unsubscribe_success"]
 
         # Add setting for subscription allowed time
         # TODO: move this to the attendance_sheet module
