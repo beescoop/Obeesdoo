@@ -1,4 +1,5 @@
 from datetime import datetime
+from itertools import groupby
 
 from werkzeug.exceptions import Forbidden
 
@@ -7,6 +8,10 @@ from odoo.exceptions import UserError
 from odoo.http import request
 
 from odoo.addons.beesdoo_website_shift.controllers.main import WebsiteShiftController
+from odoo.addons.beesdoo_website_shift.controllers.shift_grid_utils import (
+    DisplayedShift,
+    build_shift_grid,
+)
 
 
 class WebsiteShiftSwapController(WebsiteShiftController):
@@ -175,13 +180,15 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         # Remove the already subscribed shifts
         possible_shifts = next_shifts.remove_already_subscribed_shifts(user.partner_id)
 
+        # Create template context
+        template_context = {}
+        template_context.update(self.get_shift_grid(possible_shifts))
+        template_context["exchanged_tmpl_dated"] = my_tmpl_dated
+        template_context["all_shifts"] = display_all
+
         return request.render(
             "beesdoo_website_shift_swap.website_shift_swap_tmpl_dated",
-            {
-                "displayed_shifts": possible_shifts,
-                "exchanged_tmpl_dated": my_tmpl_dated,
-                "all_shifts": display_all,
-            },
+            template_context,
         )
 
     @http.route(
@@ -634,9 +641,14 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             user.partner_id
         )
 
+        # Create template context
+        template_context = {}
+        template_context.update(self.get_shift_grid(next_possible_shifts))
+        template_context["all_shifts"] = display_all
+
         return request.render(
             "beesdoo_website_shift_swap.website_shift_swap_select_solidarity",
-            {"shifts": next_possible_shifts, "all_shifts": display_all},
+            template_context,
         )
 
     @http.route(
@@ -828,3 +840,31 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             res["subscribed_shifts"], key=lambda r: r.start_time
         )
         return res
+
+    def get_shift_grid(self, shifts):
+        """
+        Return template variables for
+        'beesdoo_website_shift_swap.available_underpopulated_shifts_grid'
+        """
+        groupby_iter = groupby(
+            shifts,
+            lambda s: (s.template_id, s.date, s.template_id.task_type_id),
+        )
+
+        displayed_shifts = []
+        for keys, grouped_shifts in groupby_iter:
+            task_template, start_time, task_type = keys
+            shift_list = list(grouped_shifts)
+            displayed_shifts.append(
+                DisplayedShift(
+                    shift_list[0],
+                    None,
+                    None,
+                    None,
+                )
+            )
+
+        shift_weeks = build_shift_grid(displayed_shifts)
+        return {
+            "shift_weeks": shift_weeks,
+        }

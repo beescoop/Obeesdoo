@@ -362,37 +362,21 @@
                     Select an underpopulated shift
                 </h2>
             </t>
-            <t t-foreach="shifts" t-as="tmpl_dated">
-                <div t-att-class="'card mb-4 %s' % highlight_class">
-                    <div
-                        t-att-class="'card-header %s clearfix' % highlight_header_class"
-                    >
-                        <div class="pull-left">
-                            <p>
-                                <t t-esc="tmpl_dated.date.strftime('%A %d %b, %Y')" />
-                                <t t-esc="'|'" />
+            <div>
+                <t t-foreach="shift_weeks" t-as="shift_week_tuple">
+                    <div class="card mb-2">
+                        <t t-set="week" t-value="shift_week_tuple[0]" />
+                        <div class="card-body p-0">
+                            <t t-call="beesdoo_website_shift_swap.available_shift_row">
                                 <t
-                                    t-esc="str(datetime.timedelta(hours=tmpl_dated.template_id.start_time)).rsplit(':', 1)[0]"
+                                    t-set="shift_by_week"
+                                    t-value="shift_week_tuple[1]"
                                 />
-                                -
-                                <t
-                                    t-esc="str(datetime.timedelta(hours=tmpl_dated.template_id.end_time)).rsplit(':', 1)[0]"
-                                />
-                                <br />
-                                <t t-esc="tmpl_dated.template_id.task_type_id.name" />
-                            </p>
+                            </t>
                         </div>
                     </div>
-                    <div>
-                        <div class="card-body clearfix">
-                            <a
-                                class="btn btn-success btn-sm"
-                                t-att-href="'/my/shift/solidarity/offer/select/%i/%s' % (tmpl_dated.template_id,tmpl_dated.date)"
-                            >Subscribe to this Shift</a>
-                        </div>
-                    </div>
-                </div>
-            </t>
+                </t>
+            </div>
             <t t-if="not all_shifts">
                 <p>
                     <a
@@ -628,6 +612,22 @@
                     </t>
                 </div>
             </xpath>
+        </template>
+
+        <template
+            id="available_shift_card_offer_solidarity"
+            name="Available shift card to offer solidarity"
+        >
+            <div class="card bg-light">
+                <div
+                    class="center m-1 font-weight-bold"
+                    t-esc="displayed_shift.shift.template_id.task_type_id.name"
+                />
+                <a
+                    class="btn btn-primary btn-sm m-1"
+                    t-att-href="'/my/shift/solidarity/offer/select/%i/%s' % (displayed_shift.shift.template_id,displayed_shift.shift.date)"
+                >Subscribe</a>
+            </div>
         </template>
 
     </data>
