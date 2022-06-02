@@ -1,7 +1,7 @@
 import math
 from datetime import datetime, timedelta
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 def float_to_time(f):
@@ -135,6 +135,7 @@ class SolidarityShiftRequest(models.Model):
         return False
 
     def cancel_solidarity_request(self):
+        self.ensure_one()
         if self.state == "validated" and (
             not self.tmpl_dated_id or self.tmpl_dated_id.date > datetime.now()
         ):
@@ -144,6 +145,7 @@ class SolidarityShiftRequest(models.Model):
             return True
         return False
 
+    @api.model
     def check_solidarity_requests_number(self, worker_id, requested_shift_date=False):
         """
         Check if the worker has reached the limit of solidarity requests,
@@ -189,9 +191,10 @@ class SolidarityShiftRequest(models.Model):
         """
         return True
 
+    @api.multi
     def counter(self):
         """
-        Count the number of solidarity requests that have been validated.
+        Count the number of solidarity requests that have been validated in self.
         Used in method solidarity_counter() in res.company.
         :return: Integer
         """

@@ -27,19 +27,26 @@ class Exchange(models.Model):
             limit=1,
         )
 
+    @api.multi
     def update_shifts_if_generated(self):
-        if self.first_request_id:
-            first_shift = self.search_shift_generated(self.first_request_id)
-            if first_shift:
-                first_shift.update(
-                    {
-                        "worker_id": self.second_request_id.worker_id.id,
-                    }
-                )
-        if self.second_request_id:
-            second_shift = self.search_shift_generated(self.second_request_id)
-            if second_shift:
-                second_shift.update({"worker_id": self.first_request_id.worker_id.id})
+        """
+        Exchange the worker_id of the 2 shifts if they are generated
+        """
+        for rec in self:
+            if rec.first_request_id:
+                first_shift = rec.search_shift_generated(rec.first_request_id)
+                if first_shift:
+                    first_shift.update(
+                        {
+                            "worker_id": rec.second_request_id.worker_id.id,
+                        }
+                    )
+            if rec.second_request_id:
+                second_shift = rec.search_shift_generated(rec.second_request_id)
+                if second_shift:
+                    second_shift.update(
+                        {"worker_id": rec.first_request_id.worker_id.id}
+                    )
 
     @api.model
     def create(self, vals):

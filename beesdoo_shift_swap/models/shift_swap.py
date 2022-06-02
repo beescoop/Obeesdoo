@@ -39,6 +39,12 @@ class ShiftSwap(models.Model):
         return res
 
     def _unsubscribe_old_shift_if_generated(self):
+        """
+        Unsubscribe self.worker_id to the shift matching
+        exchanged_tmpl_dated_id if it is generated.
+        Return True is unsubscription is successful.
+        :return: Boolean
+        """
         if self.exchanged_tmpl_dated_id:
             exchanged_shift = self.env["beesdoo.shift.shift"].search(
                 [
@@ -63,6 +69,12 @@ class ShiftSwap(models.Model):
         return False
 
     def _subscribe_new_shift_if_generated(self):
+        """
+        Subscribe self.worker_id to the shift matching
+        wanted_tmpl_dated_id if it is generated.
+        Return True is subscription is successful.
+        :return: Boolean
+        """
         if self.wanted_tmpl_dated_id:
             wanted_shift = self.env["beesdoo.shift.shift"].search(
                 [
@@ -85,23 +97,3 @@ class ShiftSwap(models.Model):
                 )
                 return True
         return False
-
-    def get_underpopulated_shift(self, sort_date_desc=False):
-        available_tmpl_dated = self.env["beesdoo.shift.template.dated"]
-        tmpl_dated = self.env["beesdoo.shift.template.dated"].get_next_tmpl_dated()
-        min_percentage_presence = int(
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("beesdoo_shift.percentage_presence")
-        )
-        for template in tmpl_dated:
-            nb_worker_wanted = template.template_id.worker_nb
-            nb_worker_present = nb_worker_wanted - template.template_id.remaining_worker
-            percentage_presence = (nb_worker_present / nb_worker_wanted) * 100
-            if percentage_presence <= min_percentage_presence:
-                available_tmpl_dated |= template
-
-        if sort_date_desc:
-            available_tmpl_dated = available_tmpl_dated.sorted(key=lambda r: r.date)
-
-        return available_tmpl_dated

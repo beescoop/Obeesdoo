@@ -105,9 +105,9 @@ class SolidarityShiftOffer(models.Model):
         Returns True if the date is too close.
         :return: Boolean
         """
-        now = datetime.now()
+        self.ensure_one()
         shift_date = self.tmpl_dated_id.date
-        delta = shift_date - now
+        delta = shift_date - datetime.now()
         limit_hours = int(
             self.env["ir.config_parameter"]
             .sudo()
@@ -118,6 +118,7 @@ class SolidarityShiftOffer(models.Model):
         return False
 
     def cancel_solidarity_offer(self):
+        self.ensure_one()
         if self.state == "validated" and not self.check_offer_date_too_close():
             self._unsubscribe_shift_if_generated()
             self.state = "cancelled"

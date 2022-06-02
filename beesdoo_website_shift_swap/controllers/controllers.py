@@ -165,9 +165,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         else:
             # Get only underpopulated shifts
             next_shifts = (
-                request.env["beesdoo.shift.swap"]
+                request.env["beesdoo.shift.template.dated"]
                 .sudo()
-                .get_underpopulated_shift(sort_date_desc=True)
+                .get_underpopulated_tmpl_dated(sort_date_desc=True)
             )
 
         user = request.env["res.users"].sudo().browse(request.uid)
@@ -366,7 +366,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         next_tmpl_dated = (
             request.env["beesdoo.shift.template.dated"]
             .sudo()
-            .get_next_tmpl_dated(period)
+            .get_available_tmpl_dated(nb_days=period)
         )
 
         # Remove the already subscribed shifts
@@ -624,9 +624,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         else:
             # Get only underpopulated shifts
             next_shifts = (
-                request.env["beesdoo.shift.swap"]
+                request.env["beesdoo.shift.template.dated"]
                 .sudo()
-                .get_underpopulated_shift(sort_date_desc=True)
+                .get_underpopulated_tmpl_dated(sort_date_desc=True)
             )
 
         # Remove the already subscribed shifts

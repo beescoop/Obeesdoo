@@ -361,6 +361,9 @@ class TestBeesdooShiftSwap(TransactionCase):
         )
 
     def test_shift_swap(self):
+        """
+        Test swapping between generated shifts
+        """
         exchanged_tmpl_dated = self.shift_template_dated_model.create(
             {
                 "template_id": self.task_template_1.id,
@@ -414,6 +417,9 @@ class TestBeesdooShiftSwap(TransactionCase):
         self.assertTrue(wanted_shift.is_regular)
 
     def test_shift_exchange(self):
+        """
+        Test a shift exchange between generated shifts
+        """
         tmpl_dated_1 = self.shift_template_dated_model.create(
             {
                 "template_id": self.task_template_1.id,

@@ -43,14 +43,6 @@ class ExchangeRequest(models.Model):
         "beesdoo.shift.exchange_request", string="validate_request"
     )
 
-    cancelled_request = fields.Many2many(
-        comodel_name="beesdoo.shift.exchange_request",
-        relation="cancelled_request",
-        column1="beesdoo_shift_request_id1",
-        column2="beesdoo_shift_request_id2",
-        string="Cancelled request",
-    )
-
     @api.multi
     def name_get(self):
         data = []
@@ -86,9 +78,9 @@ class ExchangeRequest(models.Model):
 
     def matching_request(self, tmpl_dated_wanted, tmpl_dated_exchanged):
         """
-        This function check if there aren't any other request that match with
-        the request that the cooperator made. It checks the dated template that he
-        exchanged and the dated templates that he wanted.
+        This function checks if there aren't any other request that matches with
+        the request that the cooperator made. It checks the dated template that he/she
+        exchanged and the dated templates that he/she wants.
 
         :param tmpl_dated_wanted: beesdoo.shift.template.dated recordset
         :param tmpl_dated_exchanged: beesdoo.shift.template.dated  record
@@ -114,6 +106,7 @@ class ExchangeRequest(models.Model):
                             matches |= exchange
         return matches
 
+    @api.model
     def get_possible_match(self, my_tmpl_dated):
         """
         Check if there aren't any beesdoo.shift.exchange_request record that match
@@ -139,6 +132,10 @@ class ExchangeRequest(models.Model):
         return matches
 
     def send_mail_wanted_tmpl_dated(self):
+        """
+        Send a mail to all workers that are subscribed to a shift matching
+        one of asked_tmpl_dated_ids to offer them the exchange
+        """
         self.ensure_one()
         for asked_tmpl in self.asked_tmpl_dated_ids:
             for worker in asked_tmpl.template_id.worker_ids:
@@ -149,6 +146,9 @@ class ExchangeRequest(models.Model):
 
     @api.multi
     def send_mail_matching_request(self, matching_request):
+        """
+        Send a mail in case of a match between 2 exchange requests
+        """
         template_rec = self.env.ref(
             "beesdoo_shift_swap.email_template_contact_match_coop", False
         )

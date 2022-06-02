@@ -59,10 +59,10 @@ class SubscribeShiftSwap(models.TransientModel):
                 .sudo()
                 .get_param("beesdoo_shift.day_limit_ask_for_exchange")
             )
-            tmpl_dated = self.env["beesdoo.shift.template.dated"].get_next_tmpl_dated(
-                period
-            )
-            tmpl_dated_possible = tmpl_dated.remove_already_subscribed_shifts(
+            available_tmpl_dated = self.env[
+                "beesdoo.shift.template.dated"
+            ].get_available_tmpl_dated(nb_days=period)
+            tmpl_dated_possible = available_tmpl_dated.remove_already_subscribed_shifts(
                 record.worker_id
             )
             tmpl_dated_wanted = self.env["beesdoo.shift.template.dated"]

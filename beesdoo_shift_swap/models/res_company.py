@@ -1,9 +1,10 @@
-from odoo import models
+from odoo import api, models
 
 
 class ResCompany(models.Model):
     _inherit = "res.company"
 
+    @api.model
     def solidarity_counter(self):
         """
         Calculate the value of the solidarity counter. The initial value is

@@ -34,12 +34,13 @@ class DatedTemplate(models.Model):
             data.append((tmpl_dated.id, display_name))
         return data
 
+    @api.model
     def swap_shift_to_tmpl_dated(self, shift_list):
         """
         This function allow to swap "beesdoo.shift.shift" type into
         "beesdoo.shift.template.dated" type.
-        :parameter beesdoo.shift.shift recordset,
-        :return beesdoo.shift.template.dated recordset
+        :parameter shift_list: beesdoo.shift.shift recordset,
+        :return: beesdoo.shift.template.dated recordset
         """
         tmpl_dated_list = self.env["beesdoo.shift.template.dated"]
 
@@ -111,7 +112,14 @@ class DatedTemplate(models.Model):
                 workers |= worker_id
         return workers
 
+    @api.multi
     def remove_already_subscribed_shifts(self, user):
+        """
+        Remove from a list of dated templates the ones that matches
+        a timeslot where user is already subscribed
+        :param user: res.partner
+        :return: beesdoo.shift.template.dated recordset
+        """
         subscribed_shifts = user.get_next_shifts()
         result = self
         for rec in self:
@@ -120,12 +128,49 @@ class DatedTemplate(models.Model):
                     result -= rec
         return result
 
-    def get_available_tmpl_dated(self, sort_date_desc=False):
+    @api.model
+    def get_available_tmpl_dated(self, sort_date_desc=False, nb_days=60):
+        """
+        Return all tmpl_dated with free space between now and nb_days days
+        after current date. Sort them by date if sort_date_desc is True.
+        :param sort_date_desc: Boolean
+        :param nb_days: Integer
+        :return: beesdoo.shift.template.dated recordset
+        """
         available_tmpl_dated = self.env["beesdoo.shift.template.dated"]
-        next_tmpl_dated = self.get_next_tmpl_dated()
+        next_tmpl_dated = self.get_next_tmpl_dated(nb_days)
         for template in next_tmpl_dated:
             if template.template_id.remaining_worker > 0:
                 available_tmpl_dated |= template
         if sort_date_desc:
             available_tmpl_dated = available_tmpl_dated.sorted(key=lambda r: r.date)
+        return available_tmpl_dated
+
+    @api.model
+    def get_underpopulated_tmpl_dated(self, sort_date_desc=False, nb_days=60):
+        """
+        Return all the template_dated that are underpopulated between now
+        and nb_days days after current date.
+        Sort them by date if sort_date_desc is True.
+        :param sort_date_desc: Boolean
+        :param nb_days: Integer
+        :return: beesdoo.shift.template.dated recordset
+        """
+        available_tmpl_dated = self.env["beesdoo.shift.template.dated"]
+        next_tmpl_dated = self.get_next_tmpl_dated(nb_days)
+        min_percentage_presence = int(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_shift.percentage_presence")
+        )
+        for template in next_tmpl_dated:
+            nb_worker_wanted = template.template_id.worker_nb
+            nb_worker_present = nb_worker_wanted - template.template_id.remaining_worker
+            percentage_presence = (nb_worker_present / nb_worker_wanted) * 100
+            if percentage_presence <= min_percentage_presence:
+                available_tmpl_dated |= template
+
+        if sort_date_desc:
+            available_tmpl_dated = available_tmpl_dated.sorted(key=lambda r: r.date)
+
         return available_tmpl_dated

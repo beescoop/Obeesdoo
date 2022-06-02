@@ -60,6 +60,12 @@ class ResPartner(models.Model):
 
     @api.multi
     def send_mail_for_exchange(self, my_tmpl_dated, asked_tmpl_dated, partner_to):
+        """
+        Send a mail to partner_to asking for an exchange
+        :param my_tmpl_dated: beesdoo.shift.template.dated
+        :param asked_tmpl_dated: beesdoo.shift.template.dated
+        :param partner_to: res.partner
+        """
         template_rec = self.env.ref(
             "beesdoo_shift_swap.email_template_contact_coop", False
         )
