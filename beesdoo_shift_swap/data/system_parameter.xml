@@ -16,14 +16,6 @@
             <field name="key">beesdoo_shift.enable_exchanges</field>
             <field name="value">True</field>
         </record>
-        <record
-            id="min_percentage_presence"
-            model="ir.config_parameter"
-            forcecreate="False"
-        >
-            <field name="key">beesdoo_shift.percentage_presence</field>
-            <field name="value">20</field>
-        </record>
         <record id="day_limit_swap" model="ir.config_parameter" forcecreate="False">
             <field name="key">beesdoo_shift.day_limit_swap</field>
             <field name="value">28</field>

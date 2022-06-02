@@ -31,6 +31,10 @@
         <field name="key">regular_counter_to_unsubscribe</field>
         <field name="value">-4</field>
     </record>
+    <record id="min_percentage_presence" model="ir.config_parameter">
+        <field name="key">beesdoo_shift.min_percentage_presence</field>
+        <field name="value">20</field>
+    </record>
     <record id="shift_period" model="ir.config_parameter">
         <field name="key">beesdoo_shift.shift_period</field>
         <field name="value">28</field>

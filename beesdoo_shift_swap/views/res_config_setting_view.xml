@@ -98,12 +98,12 @@
                                     <div class="content-group">
                                         <div class="mt16 row">
                                             <label
-                                                for="percentage_presence"
+                                                for="min_percentage_presence"
                                                 string="Percentage (%)"
                                                 class="col-3 col-lg-3 o_light_label"
                                             />
                                             <field
-                                                name="percentage_presence"
+                                                name="min_percentage_presence"
                                                 class="oe_inline"
                                                 required="1"
                                             />
