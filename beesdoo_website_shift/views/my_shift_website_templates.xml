@@ -62,6 +62,12 @@
             <t
                 t-esc="dict(status.fields_get(allfields=['status'])['status']['selection'])[status.status]"
             />
+            <br />
+            <t t-if="compensation_ok">
+                <a href="/shift/compensation" class="btn btn-primary btn-sm">
+                    Subscribe to a compensation shift
+                </a>
+            </t>
         </p>
 
         <p
@@ -379,6 +385,79 @@
     </template>
 
     <template
+        id="available_shift_compensation_card"
+        name="Available Shift for compensation"
+    >
+        <t t-set="shift" t-value="displayed_shift.shift" />
+        <div t-att-class="'card %s' % highlight_class">
+            <div class="center m-1 font-weight-bold" t-esc="shift.task_type_id.name" />
+            <button
+                type="button"
+                class="btn btn-default btn-sm m-1"
+                data-toggle="modal"
+                t-att-data-target="'#subscribe-shift-%s' % shift.id"
+            >
+                <span class="fa fa-user-plus" aria-hidden="true" />
+                Subscribe
+            </button>
+        </div>
+
+        <!-- Subscribe modals -->
+        <div
+            class="modal fade"
+            t-att-id="'subscribe-shift-%s' % shift.id"
+            tabindex="-1"
+            role="dialog"
+            t-att-aria-labelledby="'subscribe-shift-%s-label' % shift.id"
+        >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <h4
+                            class="modal-title"
+                            t-att-id="'subscribe-shift-%s-label' % shift.id"
+                        >
+                            Please confirm subscription
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <span t-field="shift.start_time" />
+                        -
+                        <span
+                            t-field="shift.end_time"
+                            t-options='{"format": "HH:mm"}'
+                        />
+                        <br />
+                        <t t-esc="shift.task_type_id.name" />
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-default"
+                            data-dismiss="modal"
+                        >Close
+                        </button>
+                        <a
+                            class="btn btn-primary"
+                            t-att-href="'/shift/compensation/%s/subscribe' % (shift.id)"
+                        >
+                            Subscribe
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template
         id="available_shift_irregular_worker_row"
         name="Available Shifts by Week Row"
     >
@@ -428,6 +507,55 @@
     </template>
 
     <template
+        id="available_shift_compensation_row"
+        name="Available Shifts for compensation by Week Row"
+    >
+        <t t-set="headers" t-value="shift_by_week['headers']" />
+        <t t-set="rows" t-value="shift_by_week['rows']" />
+        <div class="table-responsive">
+            <table class="table text-center">
+                <thead>
+                    <th style="width: 9%" />
+                    <t t-foreach="headers" t-as="header">
+                        <th style="width: 13%" t-esc="header.strftime('%d/%m')" />
+                    </t>
+                </thead>
+                <tbody>
+                    <t t-foreach="rows" t-as="shift_row">
+                        <t t-set="start_time" t-value="shift_row[0][0]" />
+                        <t t-set="end_time" t-value="shift_row[0][1]" />
+                        <tr>
+                            <td class="text-center align-middle">
+                                <div>
+                                    <div t-esc="start_time" />
+                                    <div>-</div>
+                                    <div t-esc="end_time" />
+                                </div>
+                            </td>
+                            <t t-foreach="shift_row[1]" t-as="shift_by_day">
+                                <td class="align-middle">
+                                    <t t-if="shift_by_day">
+                                        <t t-foreach="shift_by_day" t-as="shift">
+                                            <t
+                                                t-call="beesdoo_website_shift.available_shift_compensation_card"
+                                            >
+                                                <t
+                                                    t-set="displayed_shift"
+                                                    t-value="shift"
+                                                />
+                                            </t>
+                                        </t>
+                                    </t>
+                                </td>
+                            </t>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <template
         id="available_shift_irregular_worker_grid"
         name="Available Shifts for Irregular Worker"
     >
@@ -453,6 +581,26 @@
                     <div class="card-body p-0">
                         <t
                             t-call="beesdoo_website_shift.available_shift_irregular_worker_row"
+                        >
+                            <t t-set="shift_by_week" t-value="shift_week_tuple[1]" />
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </template>
+
+    <template
+        id="available_shift_compensation_grid"
+        name="Available Shifts for compensation"
+    >
+        <div>
+            <t t-foreach="shift_weeks" t-as="shift_week_tuple">
+                <div class="card mb-2">
+                    <t t-set="week" t-value="shift_week_tuple[0]" />
+                    <div class="card-body p-0">
+                        <t
+                            t-call="beesdoo_website_shift.available_shift_compensation_row"
                         >
                             <t t-set="shift_by_week" t-value="shift_week_tuple[1]" />
                         </t>
@@ -790,6 +938,36 @@
 
                     <div class="col-12 col-lg-8 order-2 order-lg-1">
 
+                        <div
+                            t-if="back_from_subscription"
+                            role="alert"
+                            t-att-class="'alert alert-%s alert-dismissible' % ('success' if success else 'danger',)"
+                        >
+                            <button
+                                type="button"
+                                class="close"
+                                data-dismiss="alert"
+                                aria-label="Close"
+                            >
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <t t-if="success">
+                                <strong>Success!</strong>
+                                Your subscription has succeded.
+                            </t>
+                            <t t-if="not success">
+                                <strong>Failed!</strong>
+                                Your subscription has failed. Someone
+                                subscribed before you or the shift was deleted.
+                                Try again in a
+                                moment.
+
+                                Please note that you can't subscribe
+                                <t t-esc="subscription_time_limit" />
+                                minutes before the shift.
+                            </t>
+                        </div>
+
                         <t t-call="beesdoo_website_shift.my_shift_next_shifts" />
 
                         <t t-call="beesdoo_website_shift.my_shift_past_shifts" />
@@ -946,6 +1124,42 @@
                 </div>
             </div>
 
+        </t>
+    </template>
+
+    <!-- Page to choose a compensation shift -->
+    <template id="choose_compensation_shift" name="Choose a compensation shift">
+        <t t-call="portal.portal_layout">
+            <t t-set="no_breadcrumbs" t-value="True" />
+            <div class="container mt16">
+                <div class="row">
+                    <div class="col text-center">
+                        <h1>
+                            Compensation
+                        </h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h2 t-if="all_shifts">
+                            Choose among all shifts
+                        </h2>
+                        <h2 t-else="">
+                            Choose among underpopulated shifts
+                        </h2>
+                        <t
+                            t-call="beesdoo_website_shift.available_shift_compensation_grid"
+                        />
+                        <a
+                            t-if="not all_shifts"
+                            class="btn btn-dark btn-block"
+                            href="/shift/compensation?display_all=1"
+                        >
+                            No shifts suits me
+                        </a>
+                    </div>
+                </div>
+            </div>
         </t>
     </template>
 
