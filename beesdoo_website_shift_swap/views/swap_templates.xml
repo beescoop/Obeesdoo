@@ -95,7 +95,7 @@
                                                     >
                                                         <t
                                                             t-set="displayed_shift"
-                                                            t-value="shift"
+                                                            t-value="shift.shift"
                                                         />
                                                         <t
                                                             t-set="shift_row_count"
@@ -117,7 +117,7 @@
                                                     >
                                                         <t
                                                             t-set="displayed_shift"
-                                                            t-value="shift"
+                                                            t-value="shift.shift"
                                                         />
                                                     </t>
                                                 </t>
@@ -136,10 +136,10 @@
             <div class="card bg-light">
                 <div
                     class="center m-1 font-weight-bold"
-                    t-esc="shift.template_id.task_type_id.name"
+                    t-esc="displayed_shift.template_id.task_type_id.name"
                 />
                 <t
-                    t-if="shift.template_id.task_type_id != exchanged_tmpl_dated.template_id.task_type_id"
+                    t-if="displayed_shift.template_id.task_type_id != exchanged_tmpl_dated.template_id.task_type_id"
                 >
                     <button
                         type="button"
@@ -153,7 +153,7 @@
                 <t t-else="">
                     <a
                         class="btn btn-success btn-sm"
-                        t-att-href="'/my/shift/swap/subscribe/%i/%s' % (shift.template_id,shift.date)"
+                        t-att-href="'/my/shift/swap/subscribe/%i/%s' % (displayed_shift.template_id,displayed_shift.date)"
                     >Subscribe</a>
                 </t>
             </div>
@@ -188,7 +188,9 @@
                             <br />
                             New shift :
                             <b>
-                                <t t-esc="shift.template_id.task_type_id.name" />
+                                <t
+                                    t-esc="displayed_shift.template_id.task_type_id.name"
+                                />
                             </b>
                             <br />
                             Do you want to continue ?
@@ -201,7 +203,7 @@
                             >Cancel</button>
                             <a
                                 class="btn btn-success"
-                                t-att-href="'/my/shift/swap/subscribe/%i/%s' % (shift.template_id,shift.date)"
+                                t-att-href="'/my/shift/swap/subscribe/%i/%s' % (displayed_shift.template_id,displayed_shift.date)"
                             >Exchange anyway</a>
                         </div>
                     </div>

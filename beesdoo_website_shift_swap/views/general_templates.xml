@@ -111,7 +111,6 @@
                                 </div>
                             </div>
                         </t>
-
                         <t t-if="request_solidarity">
                             <t
                                 t-if="solidarity_counter > int(request.env['ir.config_parameter'].sudo().get_param('beesdoo_shift.solidarity_counter_limit'))"

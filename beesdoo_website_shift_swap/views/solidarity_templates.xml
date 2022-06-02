@@ -621,11 +621,11 @@
             <div class="card bg-light">
                 <div
                     class="center m-1 font-weight-bold"
-                    t-esc="displayed_shift.shift.template_id.task_type_id.name"
+                    t-esc="displayed_shift.template_id.task_type_id.name"
                 />
                 <a
                     class="btn btn-primary btn-sm m-1"
-                    t-att-href="'/my/shift/solidarity/offer/select/%i/%s' % (displayed_shift.shift.template_id,displayed_shift.shift.date)"
+                    t-att-href="'/my/shift/solidarity/offer/select/%i/%s' % (displayed_shift.template_id,displayed_shift.date)"
                 >Subscribe</a>
             </div>
         </template>
