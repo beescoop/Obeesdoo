@@ -33,4 +33,4 @@ class Task(models.Model):
     @api.depends("solidarity_offer_ids")
     def _compute_is_solidarity(self):
         for rec in self:
-            rec.is_solidarity = True if rec.solidarity_offer_ids else False
+            rec.is_solidarity = bool(rec.solidarity_offer_ids)

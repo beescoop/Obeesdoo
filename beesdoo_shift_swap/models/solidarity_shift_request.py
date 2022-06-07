@@ -110,6 +110,7 @@ class SolidarityShiftRequest(models.Model):
                 ],
             )
             if nb_shift > 0:
+                # Create a new shift
                 data = {
                     "name": "[%s] %s %s (%s - %s) [%s]"
                     % (
@@ -124,7 +125,7 @@ class SolidarityShiftRequest(models.Model):
                     "task_type_id": template_id.task_type_id.id,
                     "super_coop_id": template_id.super_coop_id.id,
                     "worker_id": self.worker_id and self.worker_id.id or False,
-                    "is_regular": True if self.worker_id else False,
+                    "is_regular": bool(self.worker_id),
                     "start_time": self.tmpl_dated_id.date,
                     "end_time": self.tmpl_dated_id.date
                     + timedelta(hours=template_id.end_time - template_id.start_time),
@@ -198,8 +199,4 @@ class SolidarityShiftRequest(models.Model):
         Used in method solidarity_counter() in res.company.
         :return: Integer
         """
-        counter = 0
-        for record in self:
-            if record.state == "validated":
-                counter += 1
-        return counter
+        return self.search_count([("state", "=", "validated")])

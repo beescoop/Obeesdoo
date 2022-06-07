@@ -667,7 +667,9 @@ class WebsiteShiftController(http.Controller):
         }
 
     def can_subscribe_compensation(self, worker_id):
-        return worker_id.working_mode == "regular" and (
-            worker_id.cooperative_status_ids.sr < 0
-            or worker_id.cooperative_status_ids.sc < 0
-        )
+        """
+        Return True if the user is regular and the sum of
+        his/her counters is negative
+        """
+        status = worker_id.cooperative_status_ids
+        return worker_id.working_mode == "regular" and (status.sr + status.sc < 0)

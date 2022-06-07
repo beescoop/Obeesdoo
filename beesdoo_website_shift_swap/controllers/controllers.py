@@ -518,8 +518,8 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 if cur_user.partner_id.working_mode == "regular"
                 else False,
                 "now": datetime.now(),
-                "exchanges_enabled": True if self.exchanges_enabled() else False,
-                "solidarity_enabled": True if self.solidarity_enabled() else False,
+                "exchanges_enabled": self.exchanges_enabled(),
+                "solidarity_enabled": self.solidarity_enabled(),
             },
         )
 
@@ -612,7 +612,8 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         user = request.env["res.users"].sudo().browse(request.uid)
 
         # Check if user can offer solidarity shifts
-        if user.cooperative_status_ids.sr < 0 or user.cooperative_status_ids.sc < 0:
+        status = user.cooperative_status_ids
+        if (status.sr + status.sc) < 0:
             return request.render(
                 "beesdoo_website_shift_swap."
                 "website_shift_swap_offer_solidarity_impossible"
