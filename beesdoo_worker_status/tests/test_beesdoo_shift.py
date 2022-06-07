@@ -143,8 +143,10 @@ class TestBeesdooShift(TransactionCase):
         """
         worker = self.worker_irregular_1
         worker.cooperative_status_ids.sr = 0
+        self.assertFalse(worker.cooperative_status_ids.is_penalised_irregular)
         worker.cooperative_status_ids._change_irregular_counter()
         self.assertEqual(worker.cooperative_status_ids.sr, -2)
+        self.assertTrue(worker.cooperative_status_ids.is_penalised_irregular)
         shift_irregular_1 = self.shift_model.create(
             {
                 "task_template_id": self.task_template_1.id,
@@ -156,6 +158,7 @@ class TestBeesdooShift(TransactionCase):
         )
         shift_irregular_1.state = "done"
         self.assertEqual(worker.cooperative_status_ids.sr, -1)
+        self.assertTrue(worker.cooperative_status_ids.is_penalised_irregular)
         shift_irregular_2 = self.shift_model.create(
             {
                 "task_template_id": self.task_template_2.id,
@@ -167,13 +170,17 @@ class TestBeesdooShift(TransactionCase):
         )
         shift_irregular_2.state = "done"
         self.assertEqual(worker.cooperative_status_ids.sr, 0)
+        self.assertTrue(worker.cooperative_status_ids.is_penalised_irregular)
         worker.cooperative_status_ids._change_irregular_counter()
         self.assertEqual(worker.cooperative_status_ids.sr, -1)
+        self.assertTrue(worker.cooperative_status_ids.is_penalised_irregular)
         worker.cooperative_status_ids.sr = 1
         worker.cooperative_status_ids._change_irregular_counter()
         self.assertEqual(worker.cooperative_status_ids.sr, 0)
+        self.assertFalse(worker.cooperative_status_ids.is_penalised_irregular)
         worker.cooperative_status_ids._change_irregular_counter()
         self.assertEqual(worker.cooperative_status_ids.sr, -2)
+        self.assertTrue(worker.cooperative_status_ids.is_penalised_irregular)
 
     def test_postponed_alert_start_time_holiday_regular(self):
         """
