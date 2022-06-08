@@ -14,9 +14,7 @@
         "product",
     ],
     "excludes": [],
-    "data": [
-        "views/product_template_views.xml",
-    ],
+    "data": [],
     "demo": [],
     "qweb": [],
 }

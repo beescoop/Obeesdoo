@@ -2,10 +2,9 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "sale_suggested_price",
+    "name": "Edit Price Wizard",
     "summary": """
-        Add a suggested price to products, dependent on a product margin in
-        partners and product categories.""",
+        Add "Edit Price" submenu on Point Of Sale, Purchase and Sale modules.""",
     "version": "12.0.1.0.0",
     "category": "Sales",
     "website": "https://github.com/beescoop/Obeesdoo",
@@ -13,22 +12,21 @@
     "license": "AGPL-3",
     "application": False,
     "depends": [
-        "product_main_supplier",
-        "account",
         "product",
         "purchase",
         "sale",
+        "sale_suggested_price",
+        "product_main_supplier",
     ],
     "external_dependencies": {
         "python": ["openupgradelib"],
     },
     "excludes": [],
     "data": [
-        "views/product_category_views.xml",
-        "views/product_supplierinfo_views.xml",
         "views/product_template_views.xml",
-        "views/res_config_settings_views.xml",
-        "views/res_partner_views.xml",
+        "views/purchase_views.xml",
+        "views/sale_views.xml",
+        "wizard/views/adapt_sales_price_wizard_view.xml",
     ],
     "demo": [],
     "qweb": [],
