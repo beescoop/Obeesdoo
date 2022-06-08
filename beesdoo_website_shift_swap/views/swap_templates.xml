@@ -60,6 +60,60 @@
                     No shifts suits me
                 </a>
             </p>
+            <p t-else="">
+                <button
+                    type="button"
+                    class="btn btn-secondary btn-dark btn-block"
+                    data-toggle="modal"
+                    data-target="#swap_not_found_popup"
+                >
+                    I can't find a shift to swap
+                </button>
+                <div
+                    class="modal fade"
+                    id="swap_not_found_popup"
+                    tabindex="-1"
+                    aria-labelledby="swap_not_found_popup_label"
+                    aria-hidden="true"
+                >
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5
+                                    class="modal-title"
+                                    id="swap_not_found_popup_label"
+                                >Unsubscription</h5>
+                                <button
+                                    type="button"
+                                    class="close"
+                                    data-dismiss="modal"
+                                    aria-label="Close"
+                                >
+                                    <span><![CDATA[&times;]]></span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                    If you can't find a shift to swap with yours,
+                                    you can be unsubscribed from your shift. Your
+                                    counter will be decreased by 1, so you will have
+                                    to do a compensation shift before the next one.
+                                </p>
+                                <p>
+                                    Do you want to be unsubscribed from your shift?
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <a class="btn btn-danger" href="/my/shift">No</a>
+                                <a
+                                    class="btn btn-success"
+                                    href="/my/shift/swap/not_found"
+                                >Yes</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </p>
         </template>
 
         <template id="available_shift_row" name="Available Shifts by Week Row">
@@ -253,6 +307,41 @@
                     </div>
                 </div>
             </t>
+        </template>
+
+        <template
+            id="swap_feedback_alert"
+            name="Success or error alert for swap related operations"
+            inherit_id="beesdoo_website_shift.my_shift_title"
+        >
+            <xpath expr="//h1[1]" position="before">
+                <div
+                    t-if="back_from_swap"
+                    role="alert"
+                    t-att-class="'alert alert-%s alert-dismissible' % ('danger' if fail else 'success')"
+                >
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="alert"
+                        aria-label="Close"
+                    >
+                        <span>×</span>
+                    </button>
+                    <t t-if="fail">
+                        <strong>Error!</strong>
+                        <t t-if="swap_not_found_error">
+                            This shift is not generated. Unsubscription impossible.
+                        </t>
+                    </t>
+                    <t t-else="">
+                        <strong>Success!</strong>
+                        <t t-if="swap_not_found">
+                            You have been unsubscribed to this shift.
+                        </t>
+                    </t>
+                </div>
+            </xpath>
         </template>
 
     </data>

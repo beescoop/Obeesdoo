@@ -69,7 +69,23 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         else:
             template_context["solidarity_enabled"] = False
 
-        # Add feedback about the success of solidarity offer/request
+        # Add feedback about the success or failure of swaps
+        template_context["back_from_swap"] = False
+
+        if "swap_not_found" in request.session:
+            template_context["back_from_swap"] = True
+            template_context["swap_not_found"] = request.session.get("swap_not_found")
+            del request.session["swap_not_found"]
+
+        elif "swap_not_found_error" in request.session:
+            template_context["back_from_swap"] = True
+            template_context["fail"] = True
+            template_context["swap_not_found_error"] = request.session.get(
+                "swap_not_found_error"
+            )
+            del request.session["swap_not_found_error"]
+
+        # Add feedback about the success or failure of solidarity offer/request
         template_context["back_from_solidarity"] = False
 
         if "offer_success" in request.session:
@@ -256,6 +272,39 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             return request.redirect("/my/shift/possible/match")
         else:
             return request.redirect("/my/shift/swap?display_all=1")
+
+    @http.route("/my/shift/swap/not_found", website=True)
+    def not_found_shift_swap(self):
+        if not self.exchanges_enabled():
+            raise Forbidden("Shift exchanges are not enabled")
+
+        user = request.env["res.users"].sudo().browse(request.uid)
+        template_id = request.session["template_id"]
+        date = request.session["date"]
+
+        shift = (
+            request.env["beesdoo.shift.shift"]
+            .sudo()
+            .search(
+                [
+                    ("worker_id", "=", user.partner_id.id),
+                    ("task_template_id", "=", template_id),
+                    ("start_time", "=", date),
+                ],
+                limit=1,
+            )
+        )
+
+        if shift:
+            shift.write(
+                {"worker_id": False, "is_regular": False, "is_compensation": False}
+            )
+            user.partner_id.cooperative_status_ids.sc -= 1
+            request.session["swap_not_found"] = True
+        else:
+            request.session["swap_not_found_error"] = True
+
+        return request.redirect("/my/shift")
 
     @http.route("/my/shift/possible/match", website=True)
     def get_possible_match(self):
