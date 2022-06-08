@@ -128,7 +128,7 @@
         <field name="name">Subscribe Cooperator</field>
         <field name="model">beesdoo.shift.subscribe</field>
         <field name="inherit_id" ref="beesdoo_shift.subscribe_coop_wizard_view_form" />
-        <field name="b">100</field>
+        <field name="priority" eval="100" />
         <field name="arch" type="xml">
             <field name="shift_id" position="replace">
                 <field
