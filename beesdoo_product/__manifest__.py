@@ -21,6 +21,8 @@
         "sale",
         "point_of_sale",
         "purchase",
+        "product_main_supplier",
+        "sale_suggested_price",
     ],
     "data": [
         "data/product_label.xml",

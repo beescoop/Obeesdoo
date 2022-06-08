@@ -12,8 +12,6 @@
     "application": False,
     "depends": [
         "product",
-        "beesdoo_product",  # a remplacer
-        "sale_suggested_price",
     ],
     "excludes": [],
     "data": [

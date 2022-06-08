@@ -18,6 +18,9 @@
         "purchase",
         "sale",
     ],
+    "external_dependencies": {
+        "python": ["openupgradelib"],
+    },
     "excludes": [],
     "data": [
         "views/product_category_views.xml",
@@ -31,4 +34,5 @@
     ],
     "demo": [],
     "qweb": [],
+    "pre_init_hook": "rename_xml_ids",
 }
