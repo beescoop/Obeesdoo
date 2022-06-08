@@ -13,6 +13,7 @@
     "license": "AGPL-3",
     "application": False,
     "depends": [
+        "product_main_supplier",
         "account",
         "product",
         "purchase",
