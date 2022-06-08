@@ -868,4 +868,5 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         shift_weeks = build_shift_grid(displayed_shifts)
         return {
             "shift_weeks": shift_weeks,
+            "week_days": self.get_week_days(),
         }

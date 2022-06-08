@@ -10,7 +10,7 @@ from itertools import groupby
 from pytz import timezone, utc
 from werkzeug.exceptions import Forbidden
 
-from odoo import http
+from odoo import _, http
 from odoo.fields import Datetime
 from odoo.http import request
 
@@ -484,6 +484,7 @@ class WebsiteShiftController(http.Controller):
         shift_weeks = build_shift_grid(displayed_shifts)
         return {
             "shift_weeks": shift_weeks,
+            "week_days": self.get_week_days(),
             "nexturl": nexturl,
             "irregular_enable_sign_up": irregular_enable_sign_up,
         }
@@ -664,6 +665,7 @@ class WebsiteShiftController(http.Controller):
         shift_weeks = build_shift_grid(displayed_shifts)
         return {
             "shift_weeks": shift_weeks,
+            "week_days": self.get_week_days(),
         }
 
     def can_subscribe_compensation(self, worker_id):
@@ -673,3 +675,14 @@ class WebsiteShiftController(http.Controller):
         """
         status = worker_id.cooperative_status_ids
         return worker_id.working_mode == "regular" and (status.sr + status.sc < 0)
+
+    def get_week_days(self):
+        return [
+            _("Monday"),
+            _("Tuesday"),
+            _("Wednesday"),
+            _("Thursday"),
+            _("Friday"),
+            _("Saturday"),
+            _("Sunday"),
+        ]

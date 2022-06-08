@@ -524,7 +524,12 @@
                 <thead>
                     <th style="width: 9%" />
                     <t t-foreach="headers" t-as="header">
-                        <th style="width: 13%" t-esc="header.strftime('%d/%m')" />
+                        <th style="width: 13%">
+                            <!-- Using array of week days instead of strftime to enable translation -->
+                            <t t-esc="week_days[header_index]" />
+                            <br />
+                            <t t-esc="header.strftime('%d/%m')" />
+                        </th>
                     </t>
                 </thead>
                 <tbody>
@@ -573,7 +578,12 @@
                 <thead>
                     <th style="width: 9%" />
                     <t t-foreach="headers" t-as="header">
-                        <th style="width: 13%" t-esc="header.strftime('%d/%m')" />
+                        <th style="width: 13%">
+                            <!-- Using array of week days instead of strftime to enable translation -->
+                            <t t-esc="week_days[header_index]" />
+                            <br />
+                            <t t-esc="header.strftime('%d/%m')" />
+                        </th>
                     </t>
                 </thead>
                 <tbody>
