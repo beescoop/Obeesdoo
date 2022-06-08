@@ -47,90 +47,88 @@
                     t-set="solidarity_counter"
                     t-value="request.env['res.company']._company_default_get().solidarity_counter()"
                 />
-                <p>
-                    <t t-if="shift.is_solidarity">
-                        <a
-                            class="btn btn-danger btn-sm"
-                            t-att-href="'/my/shift/solidarity/offer/cancel/%i' % shift.solidarity_offer_ids[0]"
-                        >
-                            Cancel solidarity shift
-                        </a>
-                    </t>
-                    <t
-                        t-elif="request.env['res.users'].browse(request.uid).partner_id.working_mode == 'regular'
-                            and shift.state != 'cancel'
-                            and not shift.is_compensation"
+                <t t-if="shift.is_solidarity">
+                    <a
+                        class="btn btn-danger btn-sm pull-right"
+                        t-att-href="'/my/shift/solidarity/offer/cancel/%i' % shift.solidarity_offer_ids[0]"
                     >
-                        <t t-if="exchanges_enabled">
-                            <button
-                                type="button"
-                                class="btn btn-success btn-sm"
-                                data-toggle="modal"
-                                t-att-data-target="'#ask_planned_exchange_popup-%s' % shift_index"
-                            >
-                                Swap Shift
-                            </button>
-                            <div
-                                class="modal fade"
-                                t-att-id="'ask_planned_exchange_popup-%s' % shift_index"
-                                tabindex="-1"
-                                aria-labelledby="ask_planned_exchange_popup_label"
-                                aria-hidden="true"
-                            >
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5
-                                                class="modal-title"
-                                                id="ask_planned_exchange_popup_label"
-                                            >Swap your shift</h5>
-                                            <button
-                                                type="button"
-                                                class="close"
-                                                data-dismiss="modal"
-                                                aria-label="Close"
-                                            >
-                                                <span><![CDATA[&times;]]></span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Have you already agreed on an exchange with
-                                            another cooperator for this shift?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <a
-                                                class="btn btn-success"
-                                                t-att-href="'/my/shift/swaping/%i/%s?planned' % (shift.task_template_id,shift.start_time)"
-                                            >Yes</a>
-                                            <a
-                                                class="btn btn-danger"
-                                                t-att-href="'/my/shift/swaping/%i/%s' % (shift.task_template_id,shift.start_time)"
-                                            >No</a>
-                                        </div>
+                        Cancel solidarity shift
+                    </a>
+                </t>
+                <t
+                    t-elif="request.env['res.users'].browse(request.uid).partner_id.working_mode == 'regular'
+                        and shift.state != 'cancel'
+                        and not shift.is_compensation"
+                >
+                    <t t-if="exchanges_enabled">
+                        <button
+                            type="button"
+                            class="btn btn-primary btn-sm pull-right"
+                            data-toggle="modal"
+                            t-att-data-target="'#ask_planned_exchange_popup-%s' % shift_index"
+                        >
+                            Swap Shift
+                        </button>
+                        <div
+                            class="modal fade"
+                            t-att-id="'ask_planned_exchange_popup-%s' % shift_index"
+                            tabindex="-1"
+                            aria-labelledby="ask_planned_exchange_popup_label"
+                            aria-hidden="true"
+                        >
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5
+                                            class="modal-title"
+                                            id="ask_planned_exchange_popup_label"
+                                        >Swap your shift</h5>
+                                        <button
+                                            type="button"
+                                            class="close"
+                                            data-dismiss="modal"
+                                            aria-label="Close"
+                                        >
+                                            <span><![CDATA[&times;]]></span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Have you already agreed on an exchange with
+                                        another cooperator for this shift?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a
+                                            class="btn btn-success"
+                                            t-att-href="'/my/shift/swaping/%i/%s?planned' % (shift.task_template_id,shift.start_time)"
+                                        >Yes</a>
+                                        <a
+                                            class="btn btn-danger"
+                                            t-att-href="'/my/shift/swaping/%i/%s' % (shift.task_template_id,shift.start_time)"
+                                        >No</a>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </t>
+                    <t t-if="request_solidarity">
+                        <t
+                            t-if="solidarity_counter > int(request.env['ir.config_parameter'].sudo().get_param('beesdoo_shift.solidarity_counter_limit'))"
+                        >
+                            <a
+                                class="btn btn-secondary btn-sm pull-right"
+                                t-att-href="'/my/shift/solidarity/request/%i/%s' % (shift.task_template_id,shift.start_time)"
+                            >Request solidarity</a>
                         </t>
-                        <t t-if="request_solidarity">
-                            <t
-                                t-if="solidarity_counter > int(request.env['ir.config_parameter'].sudo().get_param('beesdoo_shift.solidarity_counter_limit'))"
+                        <t t-else="">
+                            <a
+                                class="btn btn-secondary btn-sm pull-right disabled"
+                                aria-disabled="true"
                             >
-                                <a
-                                    class="btn btn-secondary btn-sm"
-                                    t-att-href="'/my/shift/solidarity/request/%i/%s' % (shift.task_template_id,shift.start_time)"
-                                >Request solidarity</a>
-                            </t>
-                            <t t-else="">
-                                <a
-                                    class="btn btn-secondary btn-sm disabled"
-                                    aria-disabled="true"
-                                >
-                                  Request solidarity
-                                </a>
-                            </t>
+                                Request solidarity
+                            </a>
                         </t>
                     </t>
-                </p>
+                </t>
             </xpath>
         </template>
 

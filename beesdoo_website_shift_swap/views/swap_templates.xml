@@ -143,7 +143,7 @@
                 >
                     <button
                         type="button"
-                        class="btn btn-success btn-sm"
+                        class="btn btn-primary btn-sm m-1"
                         data-toggle="modal"
                         t-att-data-target="'#warning-task-type-popup-%s-%s-%s-%s' % (week_count,shift_row_count,shift_by_day_count,shift_count)"
                     >
@@ -152,7 +152,7 @@
                 </t>
                 <t t-else="">
                     <a
-                        class="btn btn-success btn-sm"
+                        class="btn btn-primary btn-sm"
                         t-att-href="'/my/shift/swap/subscribe/%i/%s' % (displayed_shift.template_id,displayed_shift.date)"
                     >Subscribe</a>
                 </t>

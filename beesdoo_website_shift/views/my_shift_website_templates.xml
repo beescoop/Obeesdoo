@@ -449,7 +449,7 @@
             <div class="center m-1 font-weight-bold" t-esc="shift.task_type_id.name" />
             <button
                 type="button"
-                class="btn btn-default btn-sm m-1"
+                class="btn btn-primary btn-sm m-1"
                 data-toggle="modal"
                 t-att-data-target="'#subscribe-shift-%s' % shift.id"
             >
