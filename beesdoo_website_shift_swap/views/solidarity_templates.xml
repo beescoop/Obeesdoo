@@ -11,6 +11,9 @@
                         />
                     </h2>
                 </div>
+                <div class="card-body text-justify">
+                    *Explanatory text solidarity counter*
+                </div>
             </div>
             <br />
         </template>
@@ -498,13 +501,13 @@
                     <thead class="thead-dark">
                         <tr>
                             <t t-if="regular">
-                                <th class="col-3">Non realisable shift</th>
+                                <th class="col-4">Non realisable shift</th>
                             </t>
                             <t t-else="">
-                                <th class="col-3">Request date</th>
+                                <th class="col-4">Request date</th>
                             </t>
-                            <th class="col-7">Reason</th>
-                            <th class="col-2">Request status</th>
+                            <th class="col-6">Reason</th>
+                            <th class="col-2">Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -515,7 +518,7 @@
                                         <t
                                             t-esc="request.tmpl_dated_id.date.strftime('%A %d %b, %Y')"
                                         />
-                                        |
+                                        <br />
                                         <t
                                             t-esc="str(datetime.timedelta(hours=request.tmpl_dated_id.template_id.start_time)).rsplit(':', 1)[0]"
                                         />

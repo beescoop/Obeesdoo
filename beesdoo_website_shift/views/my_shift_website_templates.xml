@@ -173,7 +173,7 @@
                     <t t-esc="shift.task_type_id.name" />
                     <button
                         type="button"
-                        class="btn btn-danger btn-sm pull-right"
+                        class="btn btn-danger btn-sm ml-2 pull-right"
                         data-toggle="modal"
                         t-att-data-target="'#unsubscribe-shift-%s' % shift.id"
                         t-if="shift.can_unsubscribe and ((shift.is_compensation and request.website.enable_unsubscribe_compensation) or (not shift.is_compensation and request.website.irregular_enable_unsubscribe))"
@@ -183,7 +183,7 @@
                     </button>
                     <button
                         type="button"
-                        class="btn btn-default btn-sm pull-right"
+                        class="btn btn-default btn-sm ml-2 pull-right"
                         t-if="shift.super_coop_id.name"
                         data-toggle="modal"
                         t-att-data-target="'#super_coop-shift-%s' % shift_index"
@@ -679,7 +679,8 @@
     <!-- Help Texts -->
     <template id="help_text_title" name="Help Text Title">
         <h2>
-            Help <button
+            Help
+            <button
                 id="toggle_help_button"
                 class="btn btn-primary btn-sm"
                 type="button"
@@ -687,7 +688,9 @@
                 data-target="#collapseHelp"
                 aria-expanded="true"
                 aria-controls="collapseHelp"
-            >Hide</button>
+            >
+                Hide
+            </button>
         </h2>
     </template>
 
@@ -999,8 +1002,8 @@
 
                     </div>
 
-                  </div>
-                  <div class="row">
+                </div>
+                <div class="row">
 
                     <div class="col-12 col-lg-8 order-2 order-lg-1">
 

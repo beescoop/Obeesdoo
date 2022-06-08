@@ -17,6 +17,15 @@
             </xpath>
         </template>
 
+        <!-- Help texts -->
+        <template id="my_request_help_text" name="Help text for My requests page">
+            <div class="text-justify">
+                On this page you can see all your requests and their statuses.
+                You can cancel solidarity requests, and if you are a regular
+                worker you can also validate exchanges.
+            </div>
+        </template>
+
         <!-- Reusable templates -->
         <template id="swap_shift_title" name="Swap Shift Title">
             <h1>
@@ -49,7 +58,7 @@
                 />
                 <t t-if="shift.is_solidarity">
                     <a
-                        class="btn btn-danger btn-sm pull-right"
+                        class="btn btn-danger btn-sm ml-2 pull-right"
                         t-att-href="'/my/shift/solidarity/offer/cancel/%i' % shift.solidarity_offer_ids[0]"
                     >
                         Cancel solidarity shift
@@ -63,7 +72,7 @@
                     <t t-if="exchanges_enabled">
                         <button
                             type="button"
-                            class="btn btn-primary btn-sm pull-right"
+                            class="btn btn-primary btn-sm ml-2 pull-right"
                             data-toggle="modal"
                             t-att-data-target="'#ask_planned_exchange_popup-%s' % shift_index"
                         >
@@ -115,13 +124,13 @@
                             t-if="solidarity_counter > int(request.env['ir.config_parameter'].sudo().get_param('beesdoo_shift.solidarity_counter_limit'))"
                         >
                             <a
-                                class="btn btn-secondary btn-sm pull-right"
+                                class="btn btn-secondary btn-sm ml-2 pull-right"
                                 t-att-href="'/my/shift/solidarity/request/%i/%s' % (shift.task_template_id,shift.start_time)"
                             >Request solidarity</a>
                         </t>
                         <t t-else="">
                             <a
-                                class="btn btn-secondary btn-sm pull-right disabled"
+                                class="btn btn-secondary btn-sm ml-2 pull-right disabled"
                                 aria-disabled="true"
                             >
                                 Request solidarity
@@ -161,33 +170,46 @@
                 <t t-set="no_breadcrumbs" t-value="True" />
                 <div class="container mt16">
                     <div class="row">
-                        <div class="col text-center">
-                            <h1>
+
+                        <div class="col-12 col-lg-8">
+                            <h1 class="text-center">
                                 My requests
                             </h1>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <t t-if="(regular and exchanges_enabled) or solidarity_enabled">
-                            <div t-if="regular and exchanges_enabled" class="col-12">
-                                <t
-                                    t-call="beesdoo_website_shift_swap.my_exchange_request_template"
-                                />
-                            </div>
-                            <div t-if="solidarity_enabled" class="col-12">
-                                <t
-                                    t-call="beesdoo_website_shift_swap.my_solidarity_request_template"
-                                />
-                            </div>
-                        </t>
-                        <t t-else="">
-                            <div class="col-12">
-                                <div class="alert alert-info">
-                                    <strong>Info!</strong>
-                                    You don't have any requests.
+                            <t
+                                t-if="(regular and exchanges_enabled) or solidarity_enabled"
+                            >
+                                <div
+                                    t-if="regular and exchanges_enabled"
+                                    class="col-12"
+                                >
+                                    <t
+                                        t-call="beesdoo_website_shift_swap.my_exchange_request_template"
+                                    />
                                 </div>
-                            </div>
-                        </t>
+                                <div t-if="solidarity_enabled" class="col-12">
+                                    <t
+                                        t-call="beesdoo_website_shift_swap.my_solidarity_request_template"
+                                    />
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <div class="col-12">
+                                    <div class="alert alert-info">
+                                        <strong>Info!</strong>
+                                        You don't have any requests.
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+
+                        <div class="col-12 col-lg-4">
+                            <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
+                            <t t-call="beesdoo_website_shift_swap.help_text_title" />
+                            <t
+                                t-call="beesdoo_website_shift_swap.my_request_help_text"
+                            />
+                        </div>
+
                     </div>
                 </div>
             </t>

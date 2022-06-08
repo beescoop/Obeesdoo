@@ -373,9 +373,9 @@
                 <table class="table table-hover">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Exchanged shifts</th>
-                            <th>Availabilities</th>
-                            <th>Exchange status</th>
+                            <th class="col-4">Exchanged shifts</th>
+                            <th class="col-4">Availabilities</th>
+                            <th class="col-4">Exchange status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -386,7 +386,7 @@
                                     <t
                                         t-esc="my_request.exchanged_tmpl_dated_id.date.strftime('%A %d %b, %Y')"
                                     />
-                                    <t t-esc="'|'" />
+                                    <br />
                                     <t
                                         t-esc="str(datetime.timedelta(hours=my_request.exchanged_tmpl_dated_id.template_id.start_time)).rsplit(':', 1)[0]"
                                     />
@@ -396,14 +396,14 @@
                                     />
                                 </td>
                                 <td>
-                                    <t
+                                    <p
                                         t-foreach="my_request.asked_tmpl_dated_ids"
                                         t-as="asked_tmpl_dated"
                                     >
                                         <t
                                             t-esc="asked_tmpl_dated.date.strftime('%A %d %b, %Y')"
                                         />
-                                        <t t-esc="'|'" />
+                                        <br />
                                         <t
                                             t-esc="str(datetime.timedelta(hours=asked_tmpl_dated.template_id.start_time)).rsplit(':', 1)[0]"
                                         />
@@ -412,7 +412,7 @@
                                             t-esc="str(datetime.timedelta(hours=asked_tmpl_dated.template_id.end_time)).rsplit(':', 1)[0]"
                                         />
                                         <br />
-                                    </t>
+                                    </p>
                                 </td>
                                 <td>
                                     <t t-if="my_request.status == 'has_match'">
@@ -426,7 +426,7 @@
                                                 <t
                                                     t-esc="match.exchanged_tmpl_dated_id.date.strftime('%A %d %b, %Y')"
                                                 />
-                                                <t t-esc="'|'" />
+                                                <br />
                                                 <t
                                                     t-esc="str(datetime.timedelta(hours=match.exchanged_tmpl_dated_id.template_id.start_time)).rsplit(':', 1)[0]"
                                                 />
