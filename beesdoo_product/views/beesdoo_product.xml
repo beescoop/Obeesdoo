@@ -218,6 +218,7 @@
     <record model="ir.ui.view" id="beesdoo_product_supplierinfo_tree_view">
         <field name="name">beesdoo.product.supplierinfo.tree</field>
         <field name="model">product.supplierinfo</field>
+        <field name="priority" eval="100" />
         <field name="inherit_id" ref="product.product_supplierinfo_tree_view" />
         <field name="arch" type="xml">
             <field name="price" position="replace">

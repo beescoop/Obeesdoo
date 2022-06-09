@@ -115,6 +115,11 @@ class Subscribe(models.TransientModel):
     )
     irregular_start_date = fields.Date(string="Start Date", default=fields.Date.today)
     resigning = fields.Boolean(default=False, help="Want to leave the beescoop")
+    create_user = fields.Boolean(
+        default=False,
+        help="Create a portal user for the new worker."
+        " If a user exists, nothing is done.",
+    )
 
     @api.multi
     def unsubscribe(self):
@@ -182,9 +187,21 @@ class Subscribe(models.TransientModel):
             # ,...
             status_id.sudo().write(data)
 
+        if self.create_user:
+            self._create_user()
+
         # add the new shift template
         if self.shift_id and self.working_mode == "regular":
             self.cooperator_id.sudo().write(
                 {"subscribed_shift_ids": [(4, self.shift_id.id, False)]}
             )
         return True
+
+    def _create_user(self):
+        PortalWizard = self.env["portal.wizard"].sudo()
+        wiz_values = PortalWizard.with_context(
+            active_ids=self.cooperator_id.ids
+        ).default_get(["user_ids"])
+        wizard = PortalWizard.create(wiz_values)
+        wizard.user_ids.write({"in_portal": True})
+        wizard.action_apply()
