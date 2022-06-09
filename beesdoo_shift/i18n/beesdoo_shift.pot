@@ -328,6 +328,16 @@ msgid "Counter and Status"
 msgstr ""
 
 #. module: beesdoo_shift
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_subscribe__create_user
+msgid "Create User"
+msgstr ""
+
+#. module: beesdoo_shift
+#: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_subscribe__create_user
+msgid "Create a portal user for the new worker. If a user exists, nothing is done."
+msgstr ""
+
+#. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_assign_super_coop__create_uid
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_planning__create_uid
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesddoo_shift_generate_shift_template__create_uid
@@ -1266,7 +1276,7 @@ msgid "Temporary Exemption"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/wizard/subscribe.py:146
+#: code:addons/beesdoo_shift/wizard/subscribe.py:151
 #, python-format
 msgid "There is no remaining spot in this shift"
 msgstr ""
