@@ -64,7 +64,7 @@
                 />
                 <t t-if="shift.is_solidarity">
                     <a
-                        class="btn btn-danger btn-sm ml-2 pull-right"
+                        class="btn btn-primary btn-sm ml-2 pull-right"
                         t-att-href="'/my/shift/solidarity/offer/cancel/%i' % shift.solidarity_offer_ids[0]"
                     >
                         Cancel solidarity shift

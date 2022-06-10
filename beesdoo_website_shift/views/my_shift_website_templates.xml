@@ -173,7 +173,7 @@
                     <t t-esc="shift.task_type_id.name" />
                     <button
                         type="button"
-                        class="btn btn-danger btn-sm ml-2 pull-right"
+                        class="btn btn-primary btn-sm ml-2 pull-right"
                         data-toggle="modal"
                         t-att-data-target="'#unsubscribe-shift-%s' % shift.id"
                         t-if="shift.can_unsubscribe and ((shift.is_compensation and request.website.enable_unsubscribe_compensation) or (not shift.is_compensation and request.website.irregular_enable_unsubscribe))"
@@ -286,12 +286,12 @@
                         <div class="modal-footer">
                             <button
                                 type="button"
-                                class="btn btn-default"
+                                class="btn btn-danger"
                                 data-dismiss="modal"
-                            >Close
+                            >Cancel
                             </button>
                             <a
-                                class="btn btn-primary"
+                                class="btn btn-success"
                                 t-att-href="'/shift/%s/unsubscribe?nexturl=%s' % (shift.id, nexturl or '/my/shift')"
                             >
                                 Unsubscribe
@@ -496,12 +496,12 @@
                     <div class="modal-footer">
                         <button
                             type="button"
-                            class="btn btn-default"
+                            class="btn btn-danger"
                             data-dismiss="modal"
-                        >Close
+                        >Cancel
                         </button>
                         <a
-                            class="btn btn-primary"
+                            class="btn btn-success"
                             t-att-href="'/shift/compensation/%s/subscribe' % (shift.id)"
                         >
                             Subscribe
@@ -1224,7 +1224,7 @@
                         />
                         <a
                             t-if="not all_shifts"
-                            class="btn btn-dark btn-block"
+                            class="btn btn-primary btn-block"
                             href="/shift/compensation?display_all=1"
                         >
                             No shifts suits me

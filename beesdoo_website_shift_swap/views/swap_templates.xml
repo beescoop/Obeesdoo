@@ -53,17 +53,14 @@
                 </t>
             </div>
             <p t-if="not all_shifts">
-                <a
-                    class="btn btn-secondary btn-dark btn-block"
-                    href="/my/shift/swap/no_result"
-                >
+                <a class="btn btn-primary btn-block" href="/my/shift/swap/no_result">
                     No shifts suits me
                 </a>
             </p>
             <p t-else="">
                 <button
                     type="button"
-                    class="btn btn-secondary btn-dark btn-block"
+                    class="btn btn-primary btn-block"
                     data-toggle="modal"
                     data-target="#swap_not_found_popup"
                 >

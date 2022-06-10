@@ -246,7 +246,7 @@
                             />
                             <p t-if="not from_mail">
                                 <a
-                                    class="btn btn-secondary btn-dark btn-block"
+                                    class="btn btn-primary btn-block"
                                     href="/my/shift/possible/match/no_result"
                                 >No exchange suits me</a>
                             </p>
@@ -699,7 +699,7 @@
                         >
                             <button
                                 type="button"
-                                class="btn btn-success btn-sm"
+                                class="btn btn-primary btn-sm ml-2 pull-right"
                                 data-toggle="modal"
                                 t-att-data-target="'#warning-task-type-popup-%s' % shift_index"
                             >

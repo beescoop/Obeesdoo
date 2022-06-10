@@ -383,7 +383,7 @@
             <t t-if="not all_shifts">
                 <p>
                     <a
-                        class="btn btn-secondary btn-dark btn-block"
+                        class="btn btn-primary btn-block"
                         href="/my/shift/solidarity/offer?display_all=1"
                     >No shifts suits me</a>
                 </p>
@@ -547,7 +547,7 @@
                                     >
                                         <br />
                                         <a
-                                            class="btn btn-danger btn-sm"
+                                            class="btn btn-primary btn-sm"
                                             t-att-href="'/my/shift/solidarity/request/cancel/%i' % request.id"
                                         >
                                             Cancel request
