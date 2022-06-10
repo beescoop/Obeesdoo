@@ -545,5 +545,265 @@
             </t>
         </template>
 
+        <!-- Template for page /my/shift/exchange/<int:template_id>/<string:date>/contact -->
+        <template
+            id="contact_coop_for_planned_exchange"
+            name="Contact coop for planned exchange"
+        >
+            <t t-call="portal.portal_layout">
+                <t t-set="no_breadcrumbs" t-value="True" />
+                <div class="container mt16">
+                    <div class="row">
+                        <div class="col text-center">
+                            <t
+                                t-call="beesdoo_website_shift_swap.exchange_shift_title"
+                            />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6 m-auto text-justify">
+                            <t
+                                t-call="beesdoo_website_shift_swap.website_shift_swap_summary"
+                            />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6 m-auto text-justify">
+                            <form method="post" id="enter_coop_mail_form">
+                                <h3>Please provide the following informations</h3>
+                                <div class="form-group">
+                                    <label
+                                        for="coop_mail"
+                                    >Email address of the other cooperator</label>
+                                    <input
+                                        type="email"
+                                        class="form-control"
+                                        name="coop_mail"
+                                        placeholder="name@example.be"
+                                        required="true"
+                                    />
+                                </div>
+                                <div class="form-group">
+                                    <label
+                                        for="shift_date"
+                                    >Date of the other cooperator's shift</label>
+                                    <input
+                                        type="date"
+                                        class="form-control"
+                                        name="shift_date"
+                                        placeholder="dd/mm/yyyy"
+                                        required="true"
+                                    />
+                                </div>
+                                <input
+                                    type="hidden"
+                                    name="csrf_token"
+                                    t-att-value="request.csrf_token()"
+                                />
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary"
+                                >Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- Template for page /my/shift/exchange/<int:partner_id>/<int:template_id>/<string:date>/validate -->
+        <template id="validate_planned_exchange" name="Validate planned exchange">
+            <t t-call="portal.portal_layout">
+                <t t-set="no_breadcrumbs" t-value="True" />
+                <div class="container mt16">
+                    <div class="row">
+                        <div class="col text-center">
+                            <t
+                                t-call="beesdoo_website_shift_swap.exchange_shift_title"
+                            />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6 m-auto text-justify">
+                            <t
+                                t-call="beesdoo_website_shift_swap.planned_exchange_summary"
+                            />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6 m-auto text-justify">
+                            <t
+                                t-call="beesdoo_website_shift_swap.select_shift_planned_exchange"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- Summary of the shift planned to be exchanged -->
+        <template id="planned_exchange_summary" name="Planned exchange summary">
+            <h2>
+                Your future shift
+            </h2>
+            <p>
+                <label class="font-weight-bold">Current worker :</label>
+                <t t-esc="partner_id.name" />
+                <br />
+                <label class="font-weight-bold">Exchanged Shift :</label>
+                <t t-esc="exchanged_tmpl_dated.date.strftime('%A %d %b, %Y')" />
+                <t t-esc="'|'" />
+                <t
+                    t-esc="str(datetime.timedelta(hours=exchanged_tmpl_dated.template_id.start_time)).rsplit(':', 1)[0]"
+                />
+                -
+                <t
+                    t-esc="str(datetime.timedelta(hours=exchanged_tmpl_dated.template_id.end_time)).rsplit(':', 1)[0]"
+                />
+                <br />
+                <label class="font-weight-bold">Task :</label>
+                <t t-esc="exchanged_tmpl_dated.template_id.task_type_id.name" />
+            </p>
+        </template>
+
+        <!-- Select a personal shift for a planned exchanged -->
+        <template
+            id="select_shift_planned_exchange"
+            name="Select shift planned exchange"
+        >
+            <h2>
+                Select the shift you want to exchange
+            </h2>
+
+            <t t-foreach="subscribed_shifts" t-as="shift">
+                <div t-att-class="'card mb-4 %s' % highlight_class">
+                    <div
+                        t-att-class="'card-header %s clearfix' % highlight_header_class"
+                    >
+                        <div class="pull-left">
+                            <span t-field="shift.start_time" />
+                            -
+                            <span
+                                t-field="shift.end_time"
+                                t-options='{"format": "HH:mm"}'
+                            />
+                        </div>
+                        <t t-call="beesdoo_website_shift.shift_status_label">
+                            <t t-set="label_css" t-value="'pull-right'" />
+                        </t>
+                    </div>
+                    <div class="card-body clearfix">
+                        <t t-esc="shift.task_type_id.name" />
+                        <t
+                            t-if="exchanged_tmpl_dated.template_id.task_type_id != shift.task_template_id.task_type_id"
+                        >
+                            <button
+                                type="button"
+                                class="btn btn-success btn-sm"
+                                data-toggle="modal"
+                                t-att-data-target="'#warning-task-type-popup-%s' % shift_index"
+                            >
+                                Exchange this shift
+                            </button>
+                        </t>
+                        <t t-else="">
+                            <a
+                                class="btn btn-primary btn-sm ml-2 pull-right"
+                                t-att-href="'/my/shift/exchange/validate/select/%i/%s' % (shift.task_template_id, shift.start_time)"
+                            >
+                                Exchange this shift
+                            </a>
+                        </t>
+                    </div>
+                </div>
+                <!-- Modal popup to warn user if task type is different in the new shift -->
+                <div
+                    class="modal fade"
+                    t-att-id="'warning-task-type-popup-%s' % shift_index"
+                    data-backdrop="static"
+                    data-keyboard="false"
+                    tabindex="-1"
+                    aria-labelledby="warning-task-type-popup-label"
+                    aria-hidden="true"
+                >
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5
+                                    class="modal-title"
+                                    id="warning-task-type-popup-label"
+                                >Warning !</h5>
+                            </div>
+                            <div class="modal-body">
+                                The shifts that tou want to exchange don't have the same task type.
+                                <br />
+                                Old shift :
+                                <b>
+                                    <t
+                                        t-esc="exchanged_tmpl_dated.template_id.task_type_id.name"
+                                    />
+                                </b>
+                                <br />
+                                New shift :
+                                <b>
+                                    <t
+                                        t-esc="shift.task_template_id.task_type_id.name"
+                                    />
+                                </b>
+                                <br />
+                                Do you want to continue ?
+                            </div>
+                            <div class="modal-footer">
+                                <button
+                                    type="button"
+                                    class="btn btn-danger"
+                                    data-dismiss="modal"
+                                >Cancel</button>
+                                <a
+                                    class="btn btn-success"
+                                    t-att-href="'/my/shift/exchange/validate/select/%i/%s' % (shift.task_template_id, shift.start_time)"
+                                >Exchange anyway</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template
+            id="exchange_feedback_alert"
+            name="Success or error alert for exchange related operations"
+            inherit_id="beesdoo_website_shift.my_shift_title"
+        >
+            <xpath expr="//h1[1]" position="before">
+                <div
+                    t-if="back_from_exchange"
+                    role="alert"
+                    t-att-class="'alert alert-%s alert-dismissible' % ('danger' if fail else 'success')"
+                >
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="alert"
+                        aria-label="Close"
+                    >
+                        <span>×</span>
+                    </button>
+                    <t t-if="fail">
+                        <strong>Error!</strong>
+                        <t t-if="wrong_contact_info">
+                            The information you provided does not match any existing shift.
+                        </t>
+                    </t>
+                    <t t-else="">
+                        <strong>Success!</strong>
+                        <t t-if="contact_planned_exchange_success">
+                            The cooperator has been contacted. You will be notified if he/she accepts your exchange.
+                        </t>
+                    </t>
+                </div>
+            </xpath>
+        </template>
+
     </data>
 </odoo>

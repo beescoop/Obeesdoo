@@ -1,7 +1,7 @@
 from datetime import datetime
 from itertools import groupby
 
-from werkzeug.exceptions import Forbidden
+from werkzeug.exceptions import Forbidden, ImATeapot
 
 from odoo import http
 from odoo.exceptions import UserError
@@ -69,6 +69,16 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         else:
             template_context["solidarity_enabled"] = False
 
+        # Clear session
+        if "template_id" in request.session:
+            del request.session["template_id"]
+        if "date" in request.session:
+            del request.session["date"]
+        if "exchanged_tmpl_dated" in request.session:
+            del request.session["exchanged_tmpl_dated"]
+        if "partner_id" in request.session:
+            del request.session["partner_id"]
+
         # Add feedback about the success or failure of swaps
         template_context["back_from_swap"] = False
 
@@ -84,6 +94,23 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 "swap_not_found_error"
             )
             del request.session["swap_not_found_error"]
+
+        # Add feedback about the success or failure of exchanges
+        template_context["back_from_exchange"] = False
+
+        if "wrong_contact_info" in request.session:
+            template_context["back_from_exchange"] = True
+            template_context["fail"] = True
+            template_context["wrong_contact_info"] = request.session.get(
+                "wrong_contact_info"
+            )
+            del request.session["wrong_contact_info"]
+        elif "contact_planned_exchange_success" in request.session:
+            template_context["back_from_exchange"] = True
+            template_context["contact_planned_exchange_success"] = request.session.get(
+                "contact_planned_exchange_success"
+            )
+            del request.session["contact_planned_exchange_success"]
 
         # Add feedback about the success or failure of solidarity offer/request
         template_context["back_from_solidarity"] = False
@@ -132,7 +159,192 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
         return request.render(res.template, template_context)
 
-    @http.route("/my/shift/swaping/<int:template_id>/<string:date>", website=True)
+    @http.route(
+        "/my/shift/exchange/<int:template_id>/<string:date>/contact",
+        auth="user",
+        website=True,
+    )
+    def contact_coop_planned_exchange(self, template_id, date, **post):
+        if not self.exchanges_enabled():
+            raise Forbidden("Shift exchanges are not enabled")
+
+        if request.httprequest.method == "POST":
+            user = request.env["res.users"].sudo().browse(request.uid)
+            email = request.httprequest.form.get("coop_mail")
+            asked_shift_date = request.httprequest.form.get("shift_date")
+
+            asked_worker = (
+                request.env["res.partner"]
+                .sudo()
+                .search([("email", "=", email)], limit=1)
+            )
+
+            if not asked_worker:
+                request.session["wrong_contact_info"] = True
+                return request.redirect("/my/shift")
+
+            next_shifts_other_coop = self.my_shift_next_shifts(asked_worker)
+
+            if not any(
+                shift.start_time.strftime("%Y-%m-%d") == asked_shift_date
+                for shift in next_shifts_other_coop["subscribed_shifts"]
+            ):
+                request.session["wrong_contact_info"] = True
+                return request.redirect("/my/shift")
+
+            exchanged_shift_date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
+            asked_shift_date = datetime.strptime(asked_shift_date, "%Y-%m-%d")
+
+            # Send a mail to the asked_worker
+            template = request.env.ref(
+                "beesdoo_shift_swap.planned_exchange_contact_coop", False
+            ).sudo()
+            email_values = {
+                "partner_to": asked_worker,
+                "template_id": request.env["beesdoo.shift.template"]
+                .sudo()
+                .browse(template_id),
+                "exchanged_shift_date": exchanged_shift_date,
+                "asked_shift_date": asked_shift_date,
+            }
+            template.with_context(email_values).send_mail(user.partner_id.id)
+
+            request.session["contact_planned_exchange_success"] = True
+            return request.redirect("/my/shift")
+
+        # Create new tmpl_dated
+        exchanged_tmpl_dated = self.new_tmpl_dated(template_id, date)
+
+        return request.render(
+            "beesdoo_website_shift_swap.contact_coop_for_planned_exchange",
+            {
+                "exchanged_tmpl_dated": exchanged_tmpl_dated,
+            },
+        )
+
+    @http.route(
+        "/my/shift/exchange/<int:partner_id>/<int:template_id>/<string:exchanged_date>"
+        "/validate/<string:personal_date>",
+        auth="user",
+        website=True,
+    )
+    def validate_planned_exchange(
+        self, partner_id, template_id, exchanged_date, personal_date
+    ):
+        if not self.exchanges_enabled():
+            raise Forbidden("Shift exchanges are not enabled")
+
+        request.session["partner_id"] = partner_id
+        request.session["template_id"] = template_id
+        request.session["date"] = exchanged_date
+
+        # Create new tmpl_dated
+        exchanged_tmpl_dated = self.new_tmpl_dated(template_id, exchanged_date)
+
+        # Get the shifts to exchange
+        subscribed_shifts = self.my_shift_next_shifts()["subscribed_shifts"]
+        possible_shifts = []
+        for shift in subscribed_shifts:
+            if shift.start_time.strftime("%Y-%m-%d") == personal_date:
+                possible_shifts.append(shift)
+
+        # Create template context
+        template_context = {
+            "partner_id": request.env["res.partner"].sudo().browse(partner_id),
+            "exchanged_tmpl_dated": exchanged_tmpl_dated,
+            "subscribed_shifts": possible_shifts,
+        }
+
+        return request.render(
+            "beesdoo_website_shift_swap.validate_planned_exchange",
+            template_context,
+        )
+
+    @http.route(
+        "/my/shift/exchange/validate/select/<int:template_id>/<string:date>",
+        auth="user",
+        website=True,
+    )
+    def validate_planned_exchange_select(self, template_id, date):
+        if not self.exchanges_enabled():
+            raise Forbidden("Shift exchanges are not enabled")
+        if (
+            "partner_id" not in request.session
+            or "template_id" not in request.session
+            or "date" not in request.session
+        ):
+            raise ImATeapot()
+
+        user = request.env["res.users"].sudo().browse(request.uid)
+
+        wanted_template_id = request.session["template_id"]
+        wanted_date = request.session["date"]
+        wanted_tmpl_dated = (
+            request.env["beesdoo.shift.template.dated"]
+            .sudo()
+            .create(
+                {
+                    "template_id": wanted_template_id,
+                    "date": wanted_date,
+                }
+            )
+        )
+
+        # Check shift number limit
+        try:
+            user.partner_id.sudo().check_shift_number_limit(wanted_tmpl_dated)
+        except UserError:
+            request.session["shift_number_limit"] = True
+            return request.redirect("/my/shift")
+
+        exchanged_tmpl_dated = (
+            request.env["beesdoo.shift.template.dated"]
+            .sudo()
+            .create(
+                {
+                    "template_id": template_id,
+                    "date": date,
+                }
+            )
+        )
+
+        first_request = (
+            request.env["beesdoo.shift.exchange_request"]
+            .sudo()
+            .create(
+                {
+                    "worker_id": request.session["partner_id"],
+                    "exchanged_tmpl_dated_id": wanted_tmpl_dated.id,
+                    "asked_tmpl_dated_ids": [(6, False, exchanged_tmpl_dated.ids)],
+                }
+            )
+        )
+
+        new_request = (
+            request.env["beesdoo.shift.exchange_request"]
+            .sudo()
+            .create(
+                {
+                    "worker_id": user.partner_id.id,
+                    "exchanged_tmpl_dated_id": exchanged_tmpl_dated.id,
+                    "asked_tmpl_dated_ids": [(6, False, wanted_tmpl_dated.ids)],
+                    "validate_request_id": first_request.id,
+                }
+            )
+        )
+
+        first_request.sudo().send_mail_matching_request(new_request)
+
+        # Clear session
+        del request.session["partner_id"]
+        del request.session["template_id"]
+        del request.session["date"]
+
+        return request.redirect("/my/request")
+
+    @http.route(
+        "/my/shift/swaping/<int:template_id>/<string:date>", auth="user", website=True
+    )
     def swaping_shift(self, template_id, date, **kw):
         if not self.exchanges_enabled():
             raise Forbidden("Shift exchanges are not enabled")
@@ -159,7 +371,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         else:
             return request.redirect("/my/shift/swap")
 
-    @http.route("/my/shift/swap", website=True)
+    @http.route("/my/shift/swap", auth="user", website=True)
     def get_next_shifts_to_swap(self, **kw):
         """
         Personnal page to choose a shift to swap
@@ -167,9 +379,13 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         if not self.exchanges_enabled():
             raise Forbidden("Shift exchanges are not enabled")
 
+        if "template_id" not in request.session or "date" not in request.session:
+            raise ImATeapot()
+
         # Get template and date from session
         template_id = request.session["template_id"]
         date = request.session["date"]
+
         # Create new tmpl_dated
         my_tmpl_dated = self.new_tmpl_dated(template_id, date)
 
@@ -209,11 +425,14 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
     @http.route(
         "/my/shift/swap/subscribe/<int:template_wanted>/<string:date_wanted>",
+        auth="user",
         website=True,
     )
     def swap_shift(self, template_wanted, date_wanted):
         if not self.exchanges_enabled():
             raise Forbidden("Shift exchanges are not enabled")
+        if "template_id" not in request.session or "date" not in request.session:
+            raise ImATeapot()
 
         user = request.env["res.users"].sudo().browse(request.uid)
         template_id = request.session["template_id"]
@@ -239,6 +458,11 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 }
             )
         )
+
+        # Clear session
+        del request.session["template_id"]
+        del request.session["date"]
+
         # Check if the shift limit is not reached
         try:
             user.partner_id.sudo().check_shift_number_limit(tmpl_dated_wanted)
@@ -256,7 +480,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
         return request.redirect("/my/shift")
 
-    @http.route("/my/shift/swap/no_result", website=True)
+    @http.route("/my/shift/swap/no_result", auth="user", website=True)
     def no_result_shift_swap(self):
         if not self.exchanges_enabled():
             raise Forbidden("Shift exchanges are not enabled")
@@ -273,10 +497,12 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         else:
             return request.redirect("/my/shift/swap?display_all=1")
 
-    @http.route("/my/shift/swap/not_found", website=True)
+    @http.route("/my/shift/swap/not_found", auth="user", website=True)
     def not_found_shift_swap(self):
         if not self.exchanges_enabled():
             raise Forbidden("Shift exchanges are not enabled")
+        if "template_id" not in request.session or "date" not in request.session:
+            raise ImATeapot()
 
         user = request.env["res.users"].sudo().browse(request.uid)
         template_id = request.session["template_id"]
@@ -304,12 +530,18 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         else:
             request.session["swap_not_found_error"] = True
 
+        # Clear session
+        del request.session["template_id"]
+        del request.session["date"]
+
         return request.redirect("/my/shift")
 
-    @http.route("/my/shift/possible/match", website=True)
+    @http.route("/my/shift/possible/match", auth="user", website=True)
     def get_possible_match(self):
         if not self.exchanges_enabled():
             raise Forbidden("Shift exchanges are not enabled")
+        if "template_id" not in request.session or "date" not in request.session:
+            raise ImATeapot()
 
         template_id = request.session["template_id"]
         date = request.session["date"]
@@ -334,7 +566,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             template_context,
         )
 
-    @http.route("/my/shift/possible/match/no_result", website=True)
+    @http.route("/my/shift/possible/match/no_result", auth="user", website=True)
     def no_result_possible_match(self):
         if not self.exchanges_enabled():
             raise Forbidden("Shift exchanges are not enabled")
@@ -351,10 +583,12 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         else:
             return request.redirect("/my/shift/select/same_timeslot")
 
-    @http.route("/my/shift/possible/shift", website=True)
+    @http.route("/my/shift/possible/shift", auth="user", website=True)
     def get_possible_shift(self, **post):
         if not self.exchanges_enabled():
             raise Forbidden("Shift exchanges are not enabled")
+        if "template_id" not in request.session or "date" not in request.session:
+            raise ImATeapot()
 
         template_id = request.session["template_id"]
         date = request.session["date"]
@@ -410,6 +644,12 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                     "asked_tmpl_dated_ids": [(6, False, asked_tmpl_dated.ids)],
                 }
             )
+
+            # Clear session
+            del request.session["template_id"]
+            del request.session["date"]
+            del request.session["possible_tmpl_dated_list"]
+
             return request.redirect("/my/shift")
 
         exchanged_tmpl_dated = self.new_tmpl_dated(template_id, date)
@@ -448,10 +688,12 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             },
         )
 
-    @http.route("/my/shift/select/same_timeslot", website=True)
+    @http.route("/my/shift/select/same_timeslot", auth="user", website=True)
     def select_same_timeslot_other_weeks(self, **post):
         if not self.exchanges_enabled():
             raise Forbidden("Shift exchanges are not enabled")
+        if "template_id" not in request.session or "date" not in request.session:
+            raise ImATeapot()
 
         template_id = request.session["template_id"]
         date = request.session["date"]
@@ -498,6 +740,10 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             # Contact the workers of the wanted timeslots
             exchange_request.send_mail_wanted_tmpl_dated()
 
+            # Clear session
+            del request.session["template_id"]
+            del request.session["date"]
+
             return request.redirect("/my/shift")
 
         exchanged_tmpl_dated = self.new_tmpl_dated(template_id, date)
@@ -527,7 +773,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             },
         )
 
-    @http.route("/my/request", website=True)
+    @http.route("/my/request", auth="user", website=True)
     def my_request(self):
         # Get current user
         cur_user = request.env["res.users"].sudo().browse(request.uid)
@@ -573,11 +819,15 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         )
 
     @http.route(
-        "/my/shift/validate/matching_request/<int:matching_request_id>", website=True
+        "/my/shift/validate/matching_request/<int:matching_request_id>",
+        auth="user",
+        website=True,
     )
     def validate_matching_request(self, matching_request_id):
         if not self.exchanges_enabled():
             raise Forbidden("Shift exchanges are not enabled")
+        if "template_id" not in request.session or "date" not in request.session:
+            raise ImATeapot()
 
         cur_user = request.env["res.users"].sudo().browse(request.uid)
         template_id = request.session["template_id"]
@@ -597,6 +847,11 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             .sudo()
             .browse(matching_request_id)
         )
+
+        # Clear session
+        del request.session["template_id"]
+        del request.session["date"]
+
         # Check if the shift limit is not reached
         try:
             cur_user.partner_id.sudo().check_shift_number_limit(
@@ -621,6 +876,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
     @http.route(
         "/my/shift/validate/matching/validate/request/"
         "<int:my_request_id>/<int:match_request_id>",
+        auth="user",
         website=True,
     )
     def validate_matching_validate_request(self, my_request_id, match_request_id):
@@ -650,7 +906,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         return request.redirect("/my/shift")
 
     # Solidarity shift offer
-    @http.route("/my/shift/solidarity/offer", website=True)
+    @http.route("/my/shift/solidarity/offer", auth="user", website=True)
     def get_next_shift_for_solidarity(self, **kw):
         """
         Page to choose a shift to subscribe for solidarity
@@ -703,6 +959,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
     @http.route(
         "/my/shift/solidarity/offer/select/<int:template_wanted>/<string:date_wanted>",
+        auth="user",
         website=True,
     )
     def subscribe_to_shift_for_solidarity(self, template_wanted, date_wanted):
@@ -739,6 +996,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
     @http.route(
         "/my/shift/solidarity/offer/cancel/<int:solidarity_offer_id>",
+        auth="user",
         website=True,
     )
     def cancel_solidarity_offer(self, solidarity_offer_id):
@@ -767,7 +1025,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
     # Solidarity shift request
     @http.route(
-        "/my/shift/solidarity/request/<int:template_id>/<string:date>", website=True
+        "/my/shift/solidarity/request/<int:template_id>/<string:date>",
+        auth="user",
+        website=True,
     )
     def prepare_request_solidarity_shift(self, template_id, date):
         """
@@ -785,13 +1045,14 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         request.session["date"] = date
         return request.redirect("/my/shift/solidarity/request")
 
-    @http.route("/my/shift/solidarity/request", website=True)
+    @http.route("/my/shift/solidarity/request", auth="user", website=True)
     def request_solidarity_shift(self, **post):
         """
         Page to give the reason for a solidarity request
         """
         if not self.solidarity_enabled():
             raise Forbidden("Solidarity related features are not enabled")
+
         if self.solidarity_counter_too_low():
             raise Forbidden(
                 "Solidarity counter is too low, requesting solidarity is impossible"
@@ -800,6 +1061,8 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         user = request.env["res.users"].sudo().browse(request.uid)
         regular = False
         if user.partner_id.working_mode == "regular":
+            if "template_id" not in request.session or "date" not in request.session:
+                raise ImATeapot()
             regular = True
             template_id = request.session["template_id"]
             date = request.session["date"]
@@ -825,8 +1088,12 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             request.env["beesdoo.shift.solidarity.request"].sudo().create(data)
             if regular:
                 request.session["request_success"] = True
+                # Clear session
+                del request.session["template_id"]
+                del request.session["date"]
             else:
                 request.session["request_success_irregular"] = True
+
             return request.redirect("/my/shift")
 
         if regular:
@@ -858,6 +1125,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
     @http.route(
         "/my/shift/solidarity/request/cancel/<int:solidarity_request_id>",
+        auth="user",
         website=True,
     )
     def cancel_solidarity_request(self, solidarity_request_id):
@@ -880,12 +1148,12 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             request.session["request_cancel_irregular"] = True
         return request.redirect("/my/shift")
 
-    def my_shift_next_shifts(self):
+    def my_shift_next_shifts(self, partner=None):
         """
         Override my_shift_next_shifts method to sort shifts by date
         after taking into account exchanges and solidarity
         """
-        res = super(WebsiteShiftSwapController, self).my_shift_next_shifts()
+        res = super(WebsiteShiftSwapController, self).my_shift_next_shifts(partner)
         res["subscribed_shifts"] = sorted(
             res["subscribed_shifts"], key=lambda r: r.start_time
         )

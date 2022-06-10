@@ -207,8 +207,8 @@
             </t>
         </t>
 
-        <!-- Super Cooperator info modal -->
         <t t-foreach="subscribed_shifts" t-as="shift">
+            <!-- Super Cooperator info modal -->
             <div
                 class="modal fade"
                 t-if="shift.super_coop_id.name"
@@ -255,52 +255,51 @@
                     </div>
                 </div>
             </div>
-            <t t-foreach="subscribed_shifts" t-as="shift">
-                <div
-                    class="modal fade"
-                    t-att-id="'unsubscribe-shift-%s' % shift.id"
-                    tabindex="-1"
-                    role="dialog"
-                    t-att-aria-labelledby="'unsubscribe-shift-%s-label' % shift.id"
-                >
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4
-                                    class="modal-title"
-                                    t-att-id="'subscribe-shift-%s-label' % shift.id"
-                                >
-                                    Please confirm unsubscription
-                                </h4>
-                            </div>
-                            <div class="modal-body">
-                                <span t-field="shift.start_time" />
-                                -
-                                <span
-                                    t-field="shift.end_time"
-                                    t-options='{"format": "HH:mm"}'
-                                />
-                                <br />
-                                <t t-esc="shift.task_type_id.name" />
-                            </div>
-                            <div class="modal-footer">
-                                <button
-                                    type="button"
-                                    class="btn btn-default"
-                                    data-dismiss="modal"
-                                >Close
-                                </button>
-                                <a
-                                    class="btn btn-primary"
-                                    t-att-href="'/shift/%s/unsubscribe?nexturl=%s' % (shift.id, nexturl or '/my/shift')"
-                                >
-                                    Unsubscribe
-                                </a>
-                            </div>
+            <!-- Unsubscription confirmation modal -->
+            <div
+                class="modal fade"
+                t-att-id="'unsubscribe-shift-%s' % shift.id"
+                tabindex="-1"
+                role="dialog"
+                t-att-aria-labelledby="'unsubscribe-shift-%s-label' % shift.id"
+            >
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4
+                                class="modal-title"
+                                t-att-id="'subscribe-shift-%s-label' % shift.id"
+                            >
+                                Please confirm unsubscription
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <span t-field="shift.start_time" />
+                            -
+                            <span
+                                t-field="shift.end_time"
+                                t-options='{"format": "HH:mm"}'
+                            />
+                            <br />
+                            <t t-esc="shift.task_type_id.name" />
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-default"
+                                data-dismiss="modal"
+                            >Close
+                            </button>
+                            <a
+                                class="btn btn-primary"
+                                t-att-href="'/shift/%s/unsubscribe?nexturl=%s' % (shift.id, nexturl or '/my/shift')"
+                            >
+                                Unsubscribe
+                            </a>
                         </div>
                     </div>
                 </div>
-            </t>
+            </div>
         </t>
 
         <div class="alert alert-warning" t-if="not subscribed_shifts">

@@ -492,14 +492,17 @@ class WebsiteShiftController(http.Controller):
             "irregular_enable_sign_up": irregular_enable_sign_up,
         }
 
-    def my_shift_next_shifts(self):
+    def my_shift_next_shifts(self, partner=None):
         """
         Return template variables for
         'beesdoo_website_shift.my_shift_next_shifts' template
         """
-        # Get current user
-        cur_user = request.env["res.users"].browse(request.uid)
-        my_shifts = cur_user.sudo().partner_id.get_next_shifts()
+        if not partner:
+            # Get current user
+            partner = request.env["res.users"].browse(request.uid).partner_id
+
+        my_shifts = partner.sudo().get_next_shifts()
+
         subscribed_shifts = []
         for rec in my_shifts:
             subscribed_shifts.append(rec)
@@ -511,7 +514,7 @@ class WebsiteShiftController(http.Controller):
             task_template = (
                 request.env["beesdoo.shift.template"]
                 .sudo()
-                .search([("worker_ids", "in", cur_user.partner_id.id)], limit=1)
+                .search([("worker_ids", "in", partner.id)], limit=1)
             )
             main_shift = (
                 request.env["beesdoo.shift.shift"]
@@ -539,7 +542,7 @@ class WebsiteShiftController(http.Controller):
                 # Create the fictive shift
                 shift = main_shift.new()
                 shift.name = main_shift.name
-                shift.task_template_id = shift.task_template_id
+                shift.task_template_id = main_shift.task_template_id
                 shift.planning_id = main_shift.planning_id
                 shift.task_type_id = main_shift.task_type_id
                 shift.worker_id = main_shift.worker_id

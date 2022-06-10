@@ -108,5 +108,36 @@
             </field>
         </record>
 
+        <!-- Contact coop for planned exchange -->
+        <record id="planned_exchange_contact_coop" model="mail.template">
+            <field name="name">Contact coop if an exchange is planned</field>
+            <field name="model_id" ref="beesdoo_shift_swap.model_res_partner" />
+            <field name="partner_to">${ctx.get('partner_to').id}</field>
+            <field name="auto_delete" eval="False" />
+            <field name="subject">Confirm your planned exchange</field>
+            <field name="body_html">
+                <![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    Hello ${ctx.get('partner_to').name},
+                    <br/><br/>
+                    <p>
+                        ${object.name} has planned to exchange the following shift with you:
+                        ${ctx.get('template_id').name},
+                        ${ctx.get('exchanged_shift_date').date()},
+                        ${ctx.get('template_id').task_type_id.name}
+                    </p>
+                    <p>
+                        To confirm and select the shift you want to exchange, please
+                        <a href="/my/shift/exchange/${object.id}/${ctx.get('template_id').id}/${ctx.get('exchanged_shift_date')}/validate/${ctx.get('asked_shift_date').date()}">
+                        click here
+                        </a>.
+                    </p>
+                    <br/><br/>
+                    Regards,
+                </div>
+                ]]>
+            </field>
+        </record>
+
     </data>
 </odoo>

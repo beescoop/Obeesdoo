@@ -29,7 +29,13 @@
         <!-- Reusable templates -->
         <template id="swap_shift_title" name="Swap Shift Title">
             <h1>
-                Swap Your Shift
+                Swap your shift
+            </h1>
+        </template>
+
+        <template id="exchange_shift_title" name="Exchange Shift Title">
+            <h1>
+                Exchange your shift
             </h1>
         </template>
 
@@ -108,7 +114,7 @@
                                     <div class="modal-footer">
                                         <a
                                             class="btn btn-success"
-                                            t-att-href="'/my/shift/swaping/%i/%s?planned' % (shift.task_template_id,shift.start_time)"
+                                            t-att-href="'/my/shift/exchange/%i/%s/contact' % (shift.task_template_id,shift.start_time)"
                                         >Yes</a>
                                         <a
                                             class="btn btn-danger"
