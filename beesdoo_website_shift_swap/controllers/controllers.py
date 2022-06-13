@@ -58,7 +58,10 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             for r in request.env["beesdoo.shift.exchange_request"]
             .sudo()
             .search(
-                [("worker_id", "=", worker_id)],
+                [
+                    ("worker_id", "=", worker_id),
+                    ("status", "not in", ["done", "cancelled"]),
+                ],
             )
         )
 
@@ -742,7 +745,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             del request.session["template_id"]
             del request.session["date"]
 
-            return request.redirect("/my/shift")
+            return request.redirect("/my/request")
 
         exchanged_tmpl_dated = self.new_tmpl_dated(template_id, date)
 

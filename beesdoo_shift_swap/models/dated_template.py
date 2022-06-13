@@ -176,10 +176,13 @@ class DatedTemplate(models.Model):
         )
         for template in next_tmpl_dated:
             nb_worker_wanted = template.template_id.worker_nb
-            nb_worker_present = nb_worker_wanted - template.template_id.remaining_worker
-            percentage_presence = (nb_worker_present / nb_worker_wanted) * 100
-            if percentage_presence <= min_percentage_presence:
-                available_tmpl_dated |= template
+            if nb_worker_wanted:
+                nb_worker_present = (
+                    nb_worker_wanted - template.template_id.remaining_worker
+                )
+                percentage_presence = (nb_worker_present / nb_worker_wanted) * 100
+                if percentage_presence <= min_percentage_presence:
+                    available_tmpl_dated |= template
 
         if sort_date_desc:
             available_tmpl_dated = available_tmpl_dated.sorted(key=lambda r: r.date)

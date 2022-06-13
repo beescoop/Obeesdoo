@@ -177,7 +177,7 @@ class ExchangeRequest(models.Model):
                 mail_template = self.env.ref(
                     "beesdoo_shift_swap.email_template_cancel_exchange_request", False
                 )
-                mail_template.send_mail(matching_request)
+                mail_template.send_mail(matching_request.id)
             self.status = "cancelled"
             return True
         return False

@@ -240,12 +240,13 @@ class WebsiteShiftController(http.Controller):
             )
             for shift in next_shifts:
                 nb_worker_wanted = shift.task_template_id.worker_nb
-                nb_worker_present = (
-                    nb_worker_wanted - shift.task_template_id.remaining_worker
-                )
-                percentage_presence = (nb_worker_present / nb_worker_wanted) * 100
-                if percentage_presence <= min_percentage_presence:
-                    displayed_shifts |= shift
+                if nb_worker_wanted:
+                    nb_worker_present = (
+                        nb_worker_wanted - shift.task_template_id.remaining_worker
+                    )
+                    percentage_presence = (nb_worker_present / nb_worker_wanted) * 100
+                    if percentage_presence <= min_percentage_presence:
+                        displayed_shifts |= shift
         else:
             displayed_shifts = next_shifts
             display_all = True
