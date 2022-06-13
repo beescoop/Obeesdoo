@@ -528,8 +528,19 @@
                                             t-esc="str(datetime.timedelta(hours=my_request.validate_request_id.exchanged_tmpl_dated_id.template_id.end_time)).rsplit(':', 1)[0]"
                                         />
                                     </t>
+                                    <t t-elif="my_request.status == 'cancelled'">
+                                        Cancelled
+                                    </t>
                                     <t t-else="">
                                         No match has been found on your proposition.
+                                    </t>
+                                    <t
+                                        t-if="my_request.status not in ['done', 'cancelled']"
+                                    >
+                                        <a
+                                            class="btn btn-primary btn-sm"
+                                            t-att-href="'/my/request/cancel/%i' % my_request.id"
+                                        >Cancel this request</a>
                                     </t>
                                 </td>
                             </tr>
@@ -768,41 +779,6 @@
                     </div>
                 </div>
             </t>
-        </template>
-
-        <template
-            id="exchange_feedback_alert"
-            name="Success or error alert for exchange related operations"
-            inherit_id="beesdoo_website_shift.my_shift_title"
-        >
-            <xpath expr="//h1[1]" position="before">
-                <div
-                    t-if="back_from_exchange"
-                    role="alert"
-                    t-att-class="'alert alert-%s alert-dismissible' % ('danger' if fail else 'success')"
-                >
-                    <button
-                        type="button"
-                        class="close"
-                        data-dismiss="alert"
-                        aria-label="Close"
-                    >
-                        <span>×</span>
-                    </button>
-                    <t t-if="fail">
-                        <strong>Error!</strong>
-                        <t t-if="wrong_contact_info">
-                            The information you provided does not match any existing shift.
-                        </t>
-                    </t>
-                    <t t-else="">
-                        <strong>Success!</strong>
-                        <t t-if="contact_planned_exchange_success">
-                            The cooperator has been contacted. You will be notified if he/she accepts your exchange.
-                        </t>
-                    </t>
-                </div>
-            </xpath>
         </template>
 
     </data>

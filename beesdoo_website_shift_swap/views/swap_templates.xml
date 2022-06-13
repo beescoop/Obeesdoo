@@ -306,40 +306,5 @@
             </t>
         </template>
 
-        <template
-            id="swap_feedback_alert"
-            name="Success or error alert for swap related operations"
-            inherit_id="beesdoo_website_shift.my_shift_title"
-        >
-            <xpath expr="//h1[1]" position="before">
-                <div
-                    t-if="back_from_swap"
-                    role="alert"
-                    t-att-class="'alert alert-%s alert-dismissible' % ('danger' if fail else 'success')"
-                >
-                    <button
-                        type="button"
-                        class="close"
-                        data-dismiss="alert"
-                        aria-label="Close"
-                    >
-                        <span>×</span>
-                    </button>
-                    <t t-if="fail">
-                        <strong>Error!</strong>
-                        <t t-if="swap_not_found_error">
-                            This shift is not generated. Unsubscription impossible.
-                        </t>
-                    </t>
-                    <t t-else="">
-                        <strong>Success!</strong>
-                        <t t-if="swap_not_found">
-                            You have been unsubscribed to this shift.
-                        </t>
-                    </t>
-                </div>
-            </xpath>
-        </template>
-
     </data>
 </odoo>

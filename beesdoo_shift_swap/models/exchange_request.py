@@ -13,6 +13,7 @@ class ExchangeRequest(models.Model):
             ("has_match", "Has match"),
             ("awaiting_validation", "Awaiting validation"),
             ("done", "Done"),
+            ("cancelled", "Cancelled"),
         ]
 
     worker_id = fields.Many2one(
@@ -95,7 +96,7 @@ class ExchangeRequest(models.Model):
                     tmpl_dated.template_id
                     == exchange.exchanged_tmpl_dated_id.template_id
                     and tmpl_dated.date == exchange.exchanged_tmpl_dated_id.date
-                    and exchange.status != "done"
+                    and exchange.status not in ["done", "cancelled"]
                 ):
                     for asked_tmpl_dated in exchange.asked_tmpl_dated_ids:
                         if (
@@ -154,3 +155,29 @@ class ExchangeRequest(models.Model):
         )
         email_values = {"matching_request": matching_request}
         template_rec.with_context(email_values).send_mail(self.id, False)
+
+    def cancel_exchange_request(self):
+        self.ensure_one()
+        if self.status not in ["cancelled", "done"]:
+            if (
+                self.validate_request_id
+                and self.validate_request_id.status == "has_match"
+            ):
+                self.validate_request_id.status = "no_match"
+                self.validate_request_id = False
+            elif self.status == "has_match":
+                matching_request = self.env["beesdoo.shift.exchange_request"].search(
+                    [
+                        ("status", "=", "awaiting_validation"),
+                        ("validate_request_id", "=", self.id),
+                    ],
+                    limit=1,
+                )
+                matching_request.status = "cancelled"
+                mail_template = self.env.ref(
+                    "beesdoo_shift_swap.email_template_cancel_exchange_request", False
+                )
+                mail_template.send_mail(matching_request)
+            self.status = "cancelled"
+            return True
+        return False
