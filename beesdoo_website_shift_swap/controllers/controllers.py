@@ -1,7 +1,7 @@
 from datetime import datetime
 from itertools import groupby
 
-from werkzeug.exceptions import Forbidden, ImATeapot
+from werkzeug.exceptions import Forbidden
 
 from odoo import http
 from odoo.exceptions import UserError
@@ -233,7 +233,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             or "template_id" not in request.session
             or "date" not in request.session
         ):
-            raise ImATeapot()
+            return request.render(
+                "beesdoo_website_shift_swap.website_shift_swap_parameters_missing"
+            )
 
         user = request.env["res.users"].sudo().browse(request.uid)
 
@@ -349,7 +351,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             raise Forbidden("Shift exchanges are not enabled")
 
         if "template_id" not in request.session or "date" not in request.session:
-            raise ImATeapot()
+            return request.render(
+                "beesdoo_website_shift_swap.website_shift_swap_parameters_missing"
+            )
 
         # Get template and date from session
         template_id = request.session["template_id"]
@@ -401,7 +405,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         if not self.exchanges_enabled():
             raise Forbidden("Shift exchanges are not enabled")
         if "template_id" not in request.session or "date" not in request.session:
-            raise ImATeapot()
+            return request.render(
+                "beesdoo_website_shift_swap.website_shift_swap_parameters_missing"
+            )
 
         user = request.env["res.users"].sudo().browse(request.uid)
         template_id = request.session["template_id"]
@@ -473,7 +479,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         if not self.exchanges_enabled():
             raise Forbidden("Shift exchanges are not enabled")
         if "template_id" not in request.session or "date" not in request.session:
-            raise ImATeapot()
+            return request.render(
+                "beesdoo_website_shift_swap.website_shift_swap_parameters_missing"
+            )
 
         user = request.env["res.users"].sudo().browse(request.uid)
         template_id = request.session["template_id"]
@@ -516,7 +524,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         if not self.exchanges_enabled():
             raise Forbidden("Shift exchanges are not enabled")
         if "template_id" not in request.session or "date" not in request.session:
-            raise ImATeapot()
+            return request.render(
+                "beesdoo_website_shift_swap.website_shift_swap_parameters_missing"
+            )
 
         user = request.env["res.users"].sudo().browse(request.uid)
         template_id = request.session["template_id"]
@@ -572,7 +582,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         if not self.exchanges_enabled():
             raise Forbidden("Shift exchanges are not enabled")
         if "template_id" not in request.session or "date" not in request.session:
-            raise ImATeapot()
+            return request.render(
+                "beesdoo_website_shift_swap.website_shift_swap_parameters_missing"
+            )
 
         template_id = request.session["template_id"]
         date = request.session["date"]
@@ -677,7 +689,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         if not self.exchanges_enabled():
             raise Forbidden("Shift exchanges are not enabled")
         if "template_id" not in request.session or "date" not in request.session:
-            raise ImATeapot()
+            return request.render(
+                "beesdoo_website_shift_swap.website_shift_swap_parameters_missing"
+            )
 
         template_id = request.session["template_id"]
         date = request.session["date"]
@@ -837,7 +851,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         if not self.exchanges_enabled():
             raise Forbidden("Shift exchanges are not enabled")
         if "template_id" not in request.session or "date" not in request.session:
-            raise ImATeapot()
+            return request.render(
+                "beesdoo_website_shift_swap.website_shift_swap_parameters_missing"
+            )
 
         cur_user = request.env["res.users"].sudo().browse(request.uid)
         template_id = request.session["template_id"]
@@ -1094,7 +1110,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         regular = False
         if user.partner_id.working_mode == "regular":
             if "template_id" not in request.session or "date" not in request.session:
-                raise ImATeapot()
+                return request.render(
+                    "beesdoo_website_shift_swap.website_shift_swap_parameters_missing"
+                )
             regular = True
             template_id = request.session["template_id"]
             date = request.session["date"]

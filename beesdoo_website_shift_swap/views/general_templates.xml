@@ -147,6 +147,33 @@
             </xpath>
         </template>
 
+        <!-- Display error message if parameters are missing -->
+        <template
+            id="website_shift_swap_parameters_missing"
+            name="Error message if parameters are missing"
+        >
+            <t t-call="portal.portal_layout">
+                <t t-set="no_breadcrumbs" t-value="True" />
+                <div class="container mt16">
+                    <div class="row">
+                        <div class="col text-center">
+                            <div class="alert alert-danger">
+                                <p>
+                                    <strong>Error!</strong>
+                                </p>
+                                <p>
+                                    Unable to fulfill this request: parameters missing. <br
+                                    />
+                                    This can happen if you try to access a page by entering the URL manually. Please don't.
+                                </p>
+                            </div>
+                            <a class="btn btn-primary" href="/my/shift">Go back</a>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
         <!-- Summary of the shift being exchanged -->
         <template id="website_shift_swap_summary" name="Swap Summary">
             <h2>
