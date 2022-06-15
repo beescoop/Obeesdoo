@@ -15,7 +15,11 @@
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Account Module",
     "version": "12.0.2.0.0",
-    "depends": ["account", "beesdoo_base"],
+    "depends": [
+        "account",
+        "account_invoice_date_required",
+        "account_invoice_negative_total",
+    ],
     "data": [
         "views/account_invoice.xml",
     ],
