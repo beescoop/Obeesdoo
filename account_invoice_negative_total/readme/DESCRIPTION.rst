@@ -1,1 +1,0 @@
-- Allow validating an invoice with a negative total amount
