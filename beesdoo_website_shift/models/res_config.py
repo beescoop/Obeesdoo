@@ -32,6 +32,9 @@ class WebsiteShiftConfigSettings(models.TransientModel):
     regular_highlight_rule = fields.Integer(
         related="website_id.regular_highlight_rule", readonly=False
     )
+    enable_subscribe_compensation = fields.Boolean(
+        related="website_id.enable_subscribe_compensation", readonly=False
+    )
     enable_unsubscribe_compensation = fields.Boolean(
         related="website_id.enable_unsubscribe_compensation", readonly=False
     )

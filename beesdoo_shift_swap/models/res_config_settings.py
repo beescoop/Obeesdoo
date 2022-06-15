@@ -17,7 +17,7 @@ class ResConfigSettings(models.TransientModel):
         config_parameter="beesdoo_shift.enable_exchanges",
     )
     min_percentage_presence = fields.Integer(
-        string="Limit of percentage of presence of underpopulated shift",
+        string="Limit attendance percentage to define underpopulated shift",
         config_parameter="beesdoo_shift.min_percentage_presence",
     )
     day_limit_swap = fields.Integer(

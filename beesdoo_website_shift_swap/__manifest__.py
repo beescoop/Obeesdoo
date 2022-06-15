@@ -1,8 +1,7 @@
 {
     "name": "Beesdoo Website Shift Swap",
     "summary": """
-        let workers to create exchange or swaping shift with an
-        easy web interface.""",
+        Add shift exchanges and solidarity shifts offers and requests.""",
     "author": "Coop IT Easy SCRLfs",
     "license": "AGPL-3",
     "version": "12.0.1.0.1",

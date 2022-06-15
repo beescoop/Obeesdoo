@@ -173,16 +173,6 @@
                     <t t-esc="shift.task_type_id.name" />
                     <button
                         type="button"
-                        class="btn btn-primary btn-sm ml-2 pull-right"
-                        data-toggle="modal"
-                        t-att-data-target="'#unsubscribe-shift-%s' % shift.id"
-                        t-if="shift.can_unsubscribe and ((shift.is_compensation and request.website.enable_unsubscribe_compensation) or (not shift.is_compensation and request.website.irregular_enable_unsubscribe))"
-                    >
-                        <span class="fa fa-user-plus" aria-hidden="true" />
-                        Unsubscribe
-                    </button>
-                    <button
-                        type="button"
                         class="btn btn-default btn-sm ml-2 pull-right"
                         t-if="shift.super_coop_id.name"
                         data-toggle="modal"
@@ -190,6 +180,16 @@
                     >
                         <span class="fa fa-info" aria-hidden="true" />
                         Super Cooperator Info
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn-primary btn-sm ml-2 pull-right"
+                        data-toggle="modal"
+                        t-att-data-target="'#unsubscribe-shift-%s' % shift.id"
+                        t-if="shift.can_unsubscribe and ((shift.is_compensation and request.website.enable_unsubscribe_compensation) or (not shift.is_compensation and request.website.irregular_enable_unsubscribe))"
+                    >
+                        <span class="fa fa-user-plus" aria-hidden="true" />
+                        Unsubscribe
                     </button>
                 </div>
             </div>

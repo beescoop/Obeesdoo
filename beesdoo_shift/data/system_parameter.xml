@@ -35,10 +35,6 @@
         <field name="key">beesdoo_shift.min_percentage_presence</field>
         <field name="value">20</field>
     </record>
-    <record id="shift_period" model="ir.config_parameter">
-        <field name="key">beesdoo_shift.shift_period</field>
-        <field name="value">28</field>
-    </record>
     <record id="regular_next_shift_limit" model="ir.config_parameter">
         <field name="key">beesdoo_shift.regular_next_shift_limit</field>
         <field name="value">7</field>

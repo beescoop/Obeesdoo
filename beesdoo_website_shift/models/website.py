@@ -44,6 +44,10 @@ class Website(models.Model):
         help="Treshold (in %) of available space in a shift that trigger the "
         "the highlight of a shift template.",
     )
+    enable_subscribe_compensation = fields.Boolean(
+        default=True,
+        help="Enable regular workers to subscribe to compensation shifts",
+    )
     enable_unsubscribe_compensation = fields.Boolean(
         default=True,
         help="Enable regular workers to unsubscribe from compensation shifts",

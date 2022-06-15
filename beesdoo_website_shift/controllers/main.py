@@ -677,11 +677,17 @@ class WebsiteShiftController(http.Controller):
 
     def can_subscribe_compensation(self, worker_id):
         """
-        Return True if the user is regular and the sum of
-        his/her counters is negative
+        Return True if:
+        - The user is regular
+        - The sum of his/her counters is negative
+        - Compensation subscription is enabled
         """
         status = worker_id.cooperative_status_ids
-        return worker_id.working_mode == "regular" and (status.sr + status.sc < 0)
+        return (
+            worker_id.working_mode == "regular"
+            and (status.sr + status.sc < 0)
+            and request.website.enable_subscribe_compensation
+        )
 
     def get_week_days(self):
         return [

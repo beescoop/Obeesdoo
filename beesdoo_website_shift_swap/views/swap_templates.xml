@@ -208,7 +208,7 @@
                 </t>
                 <t t-else="">
                     <a
-                        class="btn btn-primary btn-sm"
+                        class="btn btn-primary btn-sm m-1"
                         t-att-href="'/my/shift/swap/subscribe/%i/%s' % (displayed_shift.template_id,displayed_shift.date)"
                     >Subscribe</a>
                 </t>
@@ -282,15 +282,6 @@
                             <t
                                 t-call="beesdoo_website_shift_swap.website_shift_swap_summary"
                             />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-lg-8">
-                            <t
-                                t-call="beesdoo_website_shift_swap.website_shift_swap_next_tmpl_dated"
-                            />
-                        </div>
-                        <div class="col-12 col-lg-4 text-justify">
                             <t t-call="beesdoo_website_shift_swap.help_text_title" />
                             <t
                                 t-if="not all_shifts"
@@ -299,6 +290,13 @@
                             <t
                                 t-else=""
                                 t-call="beesdoo_website_shift_swap.help_text_swap_all"
+                            />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <t
+                                t-call="beesdoo_website_shift_swap.website_shift_swap_next_tmpl_dated"
                             />
                         </div>
                     </div>

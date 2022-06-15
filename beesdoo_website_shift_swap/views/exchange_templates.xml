@@ -42,7 +42,10 @@
                                     to them would exceed the maximum amount of shifts per day or month:
                                     <p t-foreach="tmpl_dated" t-as="template">
                                         <t
-                                            t-esc="template.date.strftime('%A %d %b, %Y')"
+                                            t-esc="template.template_id.day_nb_id.name"
+                                        />
+                                        <t
+                                            t-esc="template.date.strftime('%d/%m, %Y')"
                                         />
                                         <t t-esc="'|'" />
                                         <t
@@ -127,7 +130,10 @@
                         <tr>
                             <td class="pr-2 py-2">
                                 <t
-                                    t-esc="match.exchanged_tmpl_dated_id.date.strftime('%A %d %b, %Y')"
+                                    t-esc="match.exchanged_tmpl_dated_id.template_id.day_nb_id.name"
+                                />
+                                <t
+                                    t-esc="match.exchanged_tmpl_dated_id.date.strftime('%d/%m, %Y')"
                                 />
                                 <t t-esc="'|'" />
                                 <t
@@ -279,7 +285,10 @@
                                 <tr>
                                     <td>
                                         <t
-                                            t-esc="tmpl_dated.date.strftime('%A %d %B, %Y')"
+                                            t-esc="tmpl_dated.template_id.day_nb_id.name"
+                                        />
+                                        <t
+                                            t-esc="tmpl_dated.date.strftime('%d/%m, %Y')"
                                         />
                                     </td>
                                     <td>
@@ -384,7 +393,10 @@
                             <tr>
                                 <td>
                                     <t
-                                        t-esc="my_request.exchanged_tmpl_dated_id.date.strftime('%A %d %b, %Y')"
+                                        t-esc="my_request.exchanged_tmpl_dated_id.template_id.day_nb_id.name"
+                                    />
+                                    <t
+                                        t-esc="my_request.exchanged_tmpl_dated_id.date.strftime('%d/%m, %Y')"
                                     />
                                     <br />
                                     <t
@@ -401,7 +413,10 @@
                                         t-as="asked_tmpl_dated"
                                     >
                                         <t
-                                            t-esc="asked_tmpl_dated.date.strftime('%A %d %b, %Y')"
+                                            t-esc="asked_tmpl_dated.template_id.day_nb_id.name"
+                                        />
+                                        <t
+                                            t-esc="asked_tmpl_dated.date.strftime('%d/%m, %Y')"
                                         />
                                         <br />
                                         <t
@@ -424,7 +439,10 @@
                                                 <b>Exchange offer :</b>
                                                 <br />
                                                 <t
-                                                    t-esc="match.exchanged_tmpl_dated_id.date.strftime('%A %d %b, %Y')"
+                                                    t-esc="match.exchanged_tmpl_dated_id.template_id.day_nb_id.name"
+                                                />
+                                                <t
+                                                    t-esc="match.exchanged_tmpl_dated_id.date.strftime('%d/%m, %Y')"
                                                 />
                                                 <br />
                                                 <t
@@ -517,7 +535,10 @@
                                         />
                                         <strong>New shift :</strong>
                                         <t
-                                            t-esc="my_request.validate_request_id.exchanged_tmpl_dated_id.date.strftime('%A %d %b, %Y')"
+                                            t-esc="my_request.validate_request_id.exchanged_tmpl_dated_id.template_id.day_nb_id.name"
+                                        />
+                                        <t
+                                            t-esc="my_request.validate_request_id.exchanged_tmpl_dated_id.date.strftime('%d/%m, %Y')"
                                         />
                                         <t t-esc="'|'" />
                                         <t
@@ -662,7 +683,8 @@
                 <t t-esc="partner_id.name" />
                 <br />
                 <label class="font-weight-bold">Exchanged Shift :</label>
-                <t t-esc="exchanged_tmpl_dated.date.strftime('%A %d %b, %Y')" />
+                <t t-esc="exchanged_tmpl_dated.template_id.day_nb_id.name" />
+                <t t-esc="exchanged_tmpl_dated.date.strftime('%d/%m, %Y')" />
                 <t t-esc="'|'" />
                 <t
                     t-esc="str(datetime.timedelta(hours=exchanged_tmpl_dated.template_id.start_time)).rsplit(':', 1)[0]"

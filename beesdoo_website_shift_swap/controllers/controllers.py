@@ -93,6 +93,8 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             del request.session["exchanged_tmpl_dated"]
         if "partner_id" in request.session:
             del request.session["partner_id"]
+        if "from_mail" in request.session:
+            del request.session["from_mail"]
 
         # Add feedback about the success or failure of operations
         template_context["display_message"] = False
@@ -1224,9 +1226,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         after taking into account exchanges and solidarity
         """
         res = super(WebsiteShiftSwapController, self).my_shift_next_shifts(partner)
-        res["subscribed_shifts"] = sorted(
-            res["subscribed_shifts"], key=lambda r: r.start_time
-        )
+        if self.solidarity_enabled() or self.exchanges_enabled():
+            sorted_shifts = sorted(res["subscribed_shifts"], key=lambda r: r.start_time)
+            res["subscribed_shifts"] = sorted_shifts
         return res
 
     def get_shift_grid(self, shifts):

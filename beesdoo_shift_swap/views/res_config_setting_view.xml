@@ -90,10 +90,11 @@
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <div class="o_setting_right_pane">
                                     <span class="o_form_label">
-                                        Limit of percentage of presence of underpopulated shift
+                                        Limit attendance percentage to define underpopulated shift
                                     </span>
                                     <div class="text-muted">
-                                        Only timeslot under this limit will be display as underpopulated timeslot
+                                        Only shifts with a percentage of workers under this limit
+                                        will be considered as underpopulated
                                     </div>
                                     <div class="content-group">
                                         <div class="mt16 row">

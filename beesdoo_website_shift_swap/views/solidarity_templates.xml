@@ -407,13 +407,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 col-lg-8">
-                            <t
-                                t-call="beesdoo_website_shift_swap.website_shift_swap_tmpl_dated_solidarity"
-                            />
-                        </div>
-                        <div class="col-12 col-lg-4 text-justify">
-                            <t t-call="beesdoo_website_shift_swap.help_text_title" />
+                        <div class="col-12 col-lg-6 m-auto text-justify">
                             <t t-if="not all_shifts">
                                 <t
                                     t-call="beesdoo_website_shift_swap.help_text_underpopulated_solidarity_offer"
@@ -424,6 +418,13 @@
                                     t-call="beesdoo_website_shift_swap.help_text_all_shifts_solidarity_offer"
                                 />
                             </t>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <t
+                                t-call="beesdoo_website_shift_swap.website_shift_swap_tmpl_dated_solidarity"
+                            />
                         </div>
                     </div>
                 </div>
@@ -449,7 +450,8 @@
                                 <label
                                     class="font-weight-bold"
                                 >Non realisable shift :</label>
-                                <t t-esc="tmpl_dated.date.strftime('%A %d %b, %Y')" />
+                                <t t-esc="tmpl_dated.template_id.day_nb_id.name" />
+                                <t t-esc="tmpl_dated.date.strftime('%d/%m, %Y')" />
                                 <t t-esc="'|'" />
                                 <t
                                     t-esc="str(datetime.timedelta(hours=tmpl_dated.template_id.start_time)).rsplit(':', 1)[0]"
@@ -516,7 +518,10 @@
                                 <t t-if="regular">
                                     <td>
                                         <t
-                                            t-esc="request.tmpl_dated_id.date.strftime('%A %d %b, %Y')"
+                                            t-esc="request.tmpl_dated_id.template_id.day_nb_id.name"
+                                        />
+                                        <t
+                                            t-esc="request.tmpl_dated_id.date.strftime('%d/%m, %Y')"
                                         />
                                         <br />
                                         <t
@@ -531,7 +536,7 @@
                                 <t t-else="">
                                     <td>
                                         <t
-                                            t-esc="request.create_date.strftime('%A %d %b, %Y')"
+                                            t-esc="request.create_date.strftime('%A %d/%m, %Y')"
                                         />
                                     </td>
                                 </t>
