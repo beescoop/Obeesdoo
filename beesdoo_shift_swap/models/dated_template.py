@@ -167,24 +167,43 @@ class DatedTemplate(models.Model):
         :param nb_days: Integer
         :return: beesdoo.shift.template.dated recordset
         """
-        available_tmpl_dated = self.env["beesdoo.shift.template.dated"]
-        next_tmpl_dated = self.get_next_tmpl_dated(nb_days)
+        end_date = datetime.now() + timedelta(days=nb_days)
+        next_shifts = self.env["beesdoo.shift.planning"].get_future_shifts(end_date)
         min_percentage_presence = int(
             self.env["ir.config_parameter"]
             .sudo()
-            .get_param("beesdoo_shift.percentage_presence")
+            .get_param("beesdoo_shift.min_percentage_presence")
         )
-        for template in next_tmpl_dated:
-            nb_worker_wanted = template.template_id.worker_nb
-            if nb_worker_wanted:
-                nb_worker_present = (
-                    nb_worker_wanted - template.template_id.remaining_worker
-                )
-                percentage_presence = (nb_worker_present / nb_worker_wanted) * 100
-                if percentage_presence <= min_percentage_presence:
-                    available_tmpl_dated |= template
+        underpopulated_tmpl_dated = self.env["beesdoo.shift.template.dated"]
+        cur_date = next_shifts[0].start_time
+        cur_template = next_shifts[0].task_template_id
+        cur_nb_worker_wanted = cur_template.worker_nb
+        cur_nb_workers_present = 0
+        for shift in next_shifts:
+            if shift.start_time != cur_date or shift.task_template_id != cur_template:
+                if cur_nb_worker_wanted and (
+                    cur_nb_workers_present / cur_nb_worker_wanted * 100
+                    <= min_percentage_presence
+                ):
+                    underpopulated_tmpl_dated |= self.new(
+                        {
+                            "template_id": cur_template,
+                            "date": cur_date,
+                        }
+                    )
+                cur_date = shift.start_time
+                cur_template = shift.task_template_id
+                cur_nb_worker_wanted = cur_template.worker_nb
+                if shift.worker_id:
+                    cur_nb_workers_present = 1
+                else:
+                    cur_nb_workers_present = 0
+            elif shift.worker_id:
+                cur_nb_workers_present += 1
 
         if sort_date_desc:
-            available_tmpl_dated = available_tmpl_dated.sorted(key=lambda r: r.date)
+            underpopulated_tmpl_dated = underpopulated_tmpl_dated.sorted(
+                key=lambda t: t.date
+            )
 
-        return available_tmpl_dated
+        return underpopulated_tmpl_dated

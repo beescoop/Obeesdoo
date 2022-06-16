@@ -124,7 +124,7 @@ class Planning(models.Model):
         """
         start_date = datetime.now()
 
-        shift_recset = list(
+        shift_list = list(
             self.env["beesdoo.shift.shift"]
             .sudo()
             .search(
@@ -148,7 +148,7 @@ class Planning(models.Model):
         while next_planning_date < end_date:
             for shift in next_planning.task_template_ids.get_task_day():
                 if shift.start_time > start_date:
-                    shift_recset.append(shift)
+                    shift_list.append(shift)
             next_planning_date = next_planning._get_next_planning_date(
                 next_planning_date
             )
@@ -158,7 +158,7 @@ class Planning(models.Model):
                 visualize_date=next_planning_date
             )
 
-        return shift_recset
+        return shift_list
 
 
 class TaskTemplate(models.Model):

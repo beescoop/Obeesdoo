@@ -11,8 +11,15 @@
                         />
                     </h2>
                 </div>
-                <div class="card-body text-justify">
-                    *Explanatory text solidarity counter*
+                <div class="card-body">
+                    <p class="card-text text-left">
+                        *Explanatory text solidarity counter*
+                    </p>
+                    <div class="text-center">
+                        <a class="btn btn-primary" href="/my/shift/solidarity/offer">
+                            Offer a solidarity shift
+                        </a>
+                    </div>
                 </div>
             </div>
             <br />

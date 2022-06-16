@@ -369,7 +369,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
         # Get next shifts
         display_all = False
-        if "display_all" in kw and kw["display_all"]:
+        if "display_all" in request.session and request.session["display_all"]:
             # Get all next shifts
             next_shifts = (
                 request.env["beesdoo.shift.template.dated"]
@@ -377,6 +377,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 .get_available_tmpl_dated(sort_date_desc=True)
             )
             display_all = True
+            del request.session["display_all"]
         else:
             # Get only underpopulated shifts
             next_shifts = (
@@ -477,7 +478,8 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         ):
             return request.redirect("/my/shift/possible/match")
         else:
-            return request.redirect("/my/shift/swap?display_all=1")
+            request.session["display_all"] = True
+            return request.redirect("/my/shift/swap")
 
     @http.route("/my/shift/swap/not_found", auth="user", website=True)
     def not_found_shift_swap(self):
