@@ -3,7 +3,7 @@ from itertools import groupby
 
 from werkzeug.exceptions import Forbidden
 
-from odoo import http
+from odoo import _, http
 from odoo.exceptions import UserError
 from odoo.http import request
 
@@ -65,6 +65,15 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             )
         )
 
+    def max_shifts_number_message(self):
+        return _("You have reached the maximum number of shifts per day or month.")
+
+    def no_shift_match_info_message(self):
+        return _("The information you provided does not match any existing shift.")
+
+    def exchange_already_exists_message(self):
+        return _("You have already requested an exchange for this shift.")
+
     # Override /my/shift webpage controller
     @http.route("/my/shift", auth="user", website=True)
     def my_shift(self, **kw):
@@ -96,17 +105,6 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         if "from_mail" in request.session:
             del request.session["from_mail"]
 
-        # Add feedback about the success or failure of operations
-        template_context["display_message"] = False
-        if "success_message" in request.session:
-            template_context["display_message"] = True
-            template_context["success_message"] = request.session.get("success_message")
-            del request.session["success_message"]
-        elif "error_message" in request.session:
-            template_context["display_message"] = True
-            template_context["error_message"] = request.session.get("error_message")
-            del request.session["error_message"]
-
         return request.render(res.template, template_context)
 
     @http.route(
@@ -131,9 +129,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             )
 
             if not asked_worker:
-                request.session[
-                    "error_message"
-                ] = "The information you provided does not match any existing shift."
+                request.session["error_message"] = self.no_shift_match_info_message()
                 return request.redirect("/my/shift")
 
             next_shifts_other_coop = self.my_shift_next_shifts(asked_worker)
@@ -142,9 +138,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 shift.start_time.strftime("%Y-%m-%d") == asked_shift_date
                 for shift in next_shifts_other_coop["subscribed_shifts"]
             ):
-                request.session[
-                    "error_message"
-                ] = "The information you provided does not match any existing shift."
+                request.session["error_message"] = self.no_shift_match_info_message()
                 return request.redirect("/my/shift")
 
             exchanged_shift_date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
@@ -164,7 +158,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             }
             template.with_context(email_values).send_mail(user.partner_id.id)
 
-            request.session["success_message"] = (
+            request.session["success_message"] = _(
                 "The cooperator has been contacted. "
                 "You will be notified if he/she accepts your exchange."
             )
@@ -172,9 +166,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
         # Check that an exchange request doesn't already exist for this shift
         if self.exchange_request_exists(user.partner_id.id, template_id, date):
-            request.session[
-                "error_message"
-            ] = "You already requested an exchange for this shift."
+            request.session["error_message"] = self.exchange_already_exists_message()
             return request.redirect("/my/shift")
 
         # Create new tmpl_dated
@@ -246,9 +238,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
         # Check that an exchange request doesn't already exist for this shift
         if self.exchange_request_exists(user.partner_id.id, template_id, date):
-            request.session[
-                "error_message"
-            ] = "You already requested an exchange for this shift."
+            request.session["error_message"] = self.exchange_already_exists_message()
             return request.redirect("/my/shift")
 
         wanted_template_id = request.session["template_id"]
@@ -268,9 +258,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         try:
             user.partner_id.sudo().check_shift_number_limit(wanted_tmpl_dated)
         except UserError:
-            request.session[
-                "error_message"
-            ] = "You have reached the maximum number of shifts per day or month."
+            request.session["error_message"] = self.max_shifts_number_message()
             return request.redirect("/my/shift")
 
         exchanged_tmpl_dated = (
@@ -448,9 +436,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         try:
             user.partner_id.sudo().check_shift_number_limit(tmpl_dated_wanted)
         except UserError:
-            request.session[
-                "error_message"
-            ] = "You have reached the maximum number of shifts per day or month."
+            request.session["error_message"] = self.max_shifts_number_message()
             return request.redirect("/my/shift")
 
         request.env["beesdoo.shift.swap"].sudo().create(
@@ -512,13 +498,13 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 {"worker_id": False, "is_regular": False, "is_compensation": False}
             )
             user.partner_id.cooperative_status_ids.sc -= 1
-            request.session[
-                "success_message"
-            ] = "You have been unsubscribed to this shift."
+            request.session["success_message"] = _(
+                "You have been unsubscribed to this shift."
+            )
         else:
-            request.session[
-                "error_message"
-            ] = "This shift is not generated. Unsubscription impossible."
+            request.session["error_message"] = _(
+                "This shift is not generated. Unsubscription impossible."
+            )
 
         # Clear session
         del request.session["template_id"]
@@ -541,9 +527,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
         # Check that an exchange request doesn't already exist for this shift
         if self.exchange_request_exists(user.partner_id.id, template_id, date):
-            request.session[
-                "error_message"
-            ] = "You already requested an exchange for this shift."
+            request.session["error_message"] = self.exchange_already_exists_message()
             return request.redirect("/my/shift")
 
         exchanged_tmpl_dated = self.new_tmpl_dated(template_id, date)
@@ -814,9 +798,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             {
                 "exchange_requests": exchange_requests,
                 "solidarity_requests": solidarity_requests,
-                "regular": True
-                if cur_user.partner_id.working_mode == "regular"
-                else False,
+                "regular": cur_user.partner_id.working_mode == "regular",
                 "now": datetime.now(),
                 "exchanges_enabled": self.exchanges_enabled(),
                 "solidarity_enabled": self.solidarity_enabled(),
@@ -840,9 +822,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             raise Forbidden("You are not allowed to cancel this request")
 
         if exchange_request.cancel_exchange_request():
-            request.session["success_message"] = "Your request has been cancelled."
+            request.session["success_message"] = _("Your request has been cancelled.")
         else:
-            request.session["error_message"] = (
+            request.session["error_message"] = _(
                 "Your request could not be cancelled, "
                 "Please note that validated exchanges cannot be cancelled."
             )
@@ -891,9 +873,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 matching_request.exchanged_tmpl_dated_id
             )
         except UserError:
-            request.session[
-                "error_message"
-            ] = "You have reached the maximum number of shifts per day or month."
+            request.session["error_message"] = self.max_shifts_number_message()
             return request.redirect("/my/shift")
 
         data = {
@@ -938,9 +918,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 match_request.exchanged_tmpl_dated_id
             )
         except UserError:
-            request.session[
-                "error_message"
-            ] = "You have reached the maximum number of shifts per day or month."
+            request.session["error_message"] = self.max_shifts_number_message()
             return request.redirect("/my/shift")
 
         exchange_data = {
@@ -1029,18 +1007,16 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         try:
             user.partner_id.sudo().check_shift_number_limit(tmpl_dated_wanted)
         except UserError:
-            request.session[
-                "error_message"
-            ] = "You have reached the maximum number of shifts per day or month."
+            request.session["error_message"] = self.max_shifts_number_message()
             return request.redirect("/my/shift")
         data = {
             "worker_id": user.partner_id.id,
             "tmpl_dated_id": tmpl_dated_wanted.id,
         }
         request.env["beesdoo.shift.solidarity.offer"].sudo().create(data)
-        request.session[
-            "success_message"
-        ] = "You have been subscribed to a solidarity shift."
+        request.session["success_message"] = _(
+            "You have been subscribed to a solidarity shift."
+        )
         return request.redirect("/my/shift")
 
     @http.route(
@@ -1075,7 +1051,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             )
 
         solidarity_offer.cancel_solidarity_offer()
-        request.session["success_message"] = "Your solidarity shift has been cancelled."
+        request.session["success_message"] = _(
+            "Your solidarity shift has been cancelled."
+        )
         return request.redirect("/my/shift")
 
     # Solidarity shift request
@@ -1144,7 +1122,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             }
             request.env["beesdoo.shift.solidarity.request"].sudo().create(data)
             if regular:
-                request.session["success_message"] = (
+                request.session["success_message"] = _(
                     "You have been unsubscribed from your shift. "
                     "Your counter will not be decreased."
                 )
@@ -1152,7 +1130,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 del request.session["template_id"]
                 del request.session["date"]
             else:
-                request.session["success_message"] = (
+                request.session["success_message"] = _(
                     "Your request has been taken into account. "
                     "Your counter has been incremented."
                 )
@@ -1211,12 +1189,12 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
         solidarity_request.cancel_solidarity_request()
         if solidarity_request.worker_id.working_mode == "regular":
-            request.session["success_message"] = (
+            request.session["success_message"] = _(
                 "You have successfully cancelled your solidarity request. "
                 "You have been subscribed back to your shift."
             )
         else:
-            request.session["success_message"] = (
+            request.session["success_message"] = _(
                 "You have successfully cancelled your solidarity request. "
                 "Your counter has been decremented."
             )

@@ -249,36 +249,5 @@
             </t>
         </template>
 
-        <template
-            id="feedback_alert"
-            name="Success or error alerts"
-            inherit_id="beesdoo_website_shift.my_shift_title"
-        >
-            <xpath expr="//h1[1]" position="before">
-                <div
-                    t-if="display_message"
-                    role="alert"
-                    t-att-class="'alert alert-%s alert-dismissible' % ('success' if success_message else 'danger')"
-                >
-                    <button
-                        type="button"
-                        class="close"
-                        data-dismiss="alert"
-                        aria-label="Close"
-                    >
-                        <span>×</span>
-                    </button>
-                    <t t-if="success_message">
-                        <strong>Success!</strong>
-                        <t t-esc="success_message" />
-                    </t>
-                    <t t-else="">
-                        <strong>Error!</strong>
-                        <t t-esc="error_message" />
-                    </t>
-                </div>
-            </xpath>
-        </template>
-
     </data>
 </odoo>

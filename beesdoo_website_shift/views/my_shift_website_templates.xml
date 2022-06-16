@@ -19,7 +19,24 @@
 
     <!-- Reusable templates -->
     <template id="my_shift_title" name="My Shift Title">
-
+        <!-- Display feedback (error or success messages) -->
+        <div
+            t-if="display_message"
+            role="alert"
+            t-att-class="'alert alert-%s alert-dismissible' % ('success' if success_message else 'danger')"
+        >
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <![CDATA[&times;]]>
+            </button>
+            <t t-if="success_message">
+                <strong>Success!</strong>
+                <t t-esc="success_message" />
+            </t>
+            <t t-else="">
+                <strong>Error!</strong>
+                <t t-esc="error_message" />
+            </t>
+        </div>
         <h1>
             Your shifts
         </h1>

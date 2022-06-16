@@ -144,7 +144,6 @@ class WebsiteShiftController(http.Controller):
         # TODO: Move this into the attendance_sheet module
         # setting = request.website.attendance_sheet_generation_interval
         start_time_limit = datetime.now()  # + timedelta(minutes=setting)
-        request.session["success"] = False
 
         if (
             irregular_enable_sign_up
@@ -155,7 +154,9 @@ class WebsiteShiftController(http.Controller):
             and not shift.worker_id
         ):
             shift.worker_id = cur_user.partner_id
-            request.session["success"] = True
+            request.session["success_message"] = self.subscribe_success_message()
+        else:
+            request.session["error_message"] = self.subscribe_error_message()
         return request.redirect(kw["nexturl"])
 
     @http.route("/shift_irregular_worker", auth="public", website=True)
@@ -273,8 +274,6 @@ class WebsiteShiftController(http.Controller):
         # Get the shift
         shift = request.env["beesdoo.shift.shift"].sudo().browse(shift_id)
 
-        request.session["success"] = False
-
         if (
             shift
             and shift.state == "open"
@@ -287,7 +286,9 @@ class WebsiteShiftController(http.Controller):
                     "is_compensation": True,
                 }
             )
-            request.session["success"] = True
+            request.session["success_message"] = self.subscribe_success_message()
+        else:
+            request.session["error_message"] = self.subscribe_error_message()
 
         return request.redirect("/my/shift")
 
@@ -312,7 +313,13 @@ class WebsiteShiftController(http.Controller):
             shift.write(
                 {"is_regular": False, "is_compensation": False, "worker_id": False}
             )
-            request.session["unsubscribe_success"] = True
+            request.session["success_message"] = _(
+                "You have been successfully unsubscribed."
+            )
+        else:
+            request.session["error_message"] = _(
+                "Unsubscription failed, impossible to find shift."
+            )
         return request.redirect(kw["nexturl"])
 
     def my_shift_irregular_worker(self, nexturl=""):
@@ -335,18 +342,16 @@ class WebsiteShiftController(http.Controller):
             )
         )
 
-        # Add feedback about the success or the fail of the subscription
-        template_context["back_from_subscription"] = False
-        if "success" in request.session:
-            template_context["back_from_subscription"] = True
-            template_context["success"] = request.session.get("success")
-            del request.session["success"]
-        if "unsubscribe_success" in request.session:
-            template_context["back_from_subscription"] = True
-            template_context["unsubscribe_success"] = request.session.get(
-                "unsubscribe_success"
-            )
-            del request.session["unsubscribe_success"]
+        # Add feedback about the success or failure of operations
+        template_context["display_message"] = False
+        if "success_message" in request.session:
+            template_context["display_message"] = True
+            template_context["success_message"] = request.session.get("success_message")
+            del request.session["success_message"]
+        elif "error_message" in request.session:
+            template_context["display_message"] = True
+            template_context["error_message"] = request.session.get("error_message")
+            del request.session["error_message"]
 
         # Add setting for subscription allowed time
         # TODO: move this to the attendance_sheet module
@@ -392,13 +397,16 @@ class WebsiteShiftController(http.Controller):
             }
         )
 
-        # Add feedback about the success or the fail of the subscription
-        # to a compensation shift
-        template_context["back_from_subscription"] = False
-        if "success" in request.session:
-            template_context["back_from_subscription"] = True
-            template_context["success"] = request.session.get("success")
-            del request.session["success"]
+        # Add feedback about the success or failure of operations
+        template_context["display_message"] = False
+        if "success_message" in request.session:
+            template_context["display_message"] = True
+            template_context["success_message"] = request.session.get("success_message")
+            del request.session["success_message"]
+        elif "error_message" in request.session:
+            template_context["display_message"] = True
+            template_context["error_message"] = request.session.get("error_message")
+            del request.session["error_message"]
 
         return template_context
 
@@ -699,3 +707,12 @@ class WebsiteShiftController(http.Controller):
             _("Saturday"),
             _("Sunday"),
         ]
+
+    def subscribe_success_message(self):
+        return _("Your subscription has succeded.")
+
+    def subscribe_error_message(self):
+        return _(
+            "Your subscription has failed. Someone subscribed before you "
+            "or the shift was deleted. Try again in a moment."
+        )
