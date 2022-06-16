@@ -1,6 +1,5 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* beesdoo_account
 #
 msgid ""
 msgstr ""
@@ -12,47 +11,4 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: beesdoo_account
-#: model:ir.model.fields,field_description:beesdoo_account.field_res_config_settings__group_validate_invoice_negative_total_amount
-msgid "Allow validating an invoice with a negative total amount"
-msgstr ""
-
-#. module: beesdoo_account
-#: model:ir.model.fields,help:beesdoo_account.field_res_config_settings__group_validate_invoice_negative_total_amount
-msgid "Allows you to validate an invoice with a negative total amount"
-msgstr ""
-
-#. module: beesdoo_account
-#: model:ir.model,name:beesdoo_account.model_res_config_settings
-msgid "Config Settings"
-msgstr ""
-
-#. module: beesdoo_account
-#: model:ir.model,name:beesdoo_account.model_account_invoice
-msgid "Invoice"
-msgstr ""
-
-#. module: beesdoo_account
-#: code:addons/beesdoo_account/models/account_invoice.py:38
-#, python-format
-msgid "Invoice must be in draft state in order to validate it."
-msgstr ""
-
-#. module: beesdoo_account
-#: code:addons/beesdoo_account/models/account_invoice.py:42
-#, python-format
-msgid "No account was found to create the invoice, be sure you have installed a chart of account. "
-msgstr ""
-
-#. module: beesdoo_account
-#: code:addons/beesdoo_account/models/account_invoice.py:31
-#, python-format
-msgid "The field Vendor is required, please complete it to validate the Vendor Bill. "
-msgstr ""
-
-#. module: beesdoo_account
-#: model:res.groups,name:beesdoo_account.group_validate_invoice_negative_total_amount
-msgid "Validate an invoice with a negative total amount"
-msgstr ""
 
