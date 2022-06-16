@@ -10,7 +10,7 @@
         "beesdoo_shift",
         "cooperator",
         "cooperator_website",
-        "partner_age",
+        "partner_contact_birthdate",
     ],
     "data": [
         "views/res_company.xml",
