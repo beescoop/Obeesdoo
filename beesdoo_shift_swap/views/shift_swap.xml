@@ -3,17 +3,17 @@
     <!-- Action to open swap shift -->
 
     <record model="ir.actions.act_window" id="action_shift_swap">
-        <field name="name">shift swap</field>
+        <field name="name">Shift swaps</field>
         <field name="res_model">beesdoo.shift.swap</field>
         <field name="view_mode">tree,form</field>
     </record>
     <record model="ir.actions.act_window" id="action_shift_swap_exchange_request">
-        <field name="name">shift exchange request</field>
+        <field name="name">Shift exchange requests</field>
         <field name="res_model">beesdoo.shift.exchange_request</field>
         <field name="view_mode">tree,form</field>
     </record>
     <record model="ir.actions.act_window" id="action_shift_swap_exchange">
-        <field name="name">shift exchange</field>
+        <field name="name">Shift exchanges</field>
         <field name="res_model">beesdoo.shift.exchange</field>
         <field name="view_mode">tree,form</field>
     </record>
@@ -28,7 +28,7 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <!-- Top menu item -->
+    <!-- Top menu items -->
 
     <menuitem
         id="menu_swap_top"
@@ -53,16 +53,22 @@
         parent="menu_swap_top"
         action="action_shift_swap_exchange"
     />
+
+    <menuitem
+        id="menu_solidarity_top"
+        name="Solidarity"
+        parent="beesdoo_shift.menu_root"
+    />
     <menuitem
         id="menu_solidarity_offer"
         name="Solidarity shift offers"
-        parent="menu_swap_top"
+        parent="menu_solidarity_top"
         action="action_solidarity_shift_offer"
     />
     <menuitem
         id="menu_solidarity_requests"
         name="Solidarity shift requests"
-        parent="menu_swap_top"
+        parent="menu_solidarity_top"
         action="action_solidarity_shift_request"
     />
 
