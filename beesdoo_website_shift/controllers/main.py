@@ -516,60 +516,6 @@ class WebsiteShiftController(http.Controller):
         for rec in my_shifts:
             subscribed_shifts.append(rec)
 
-        # In case of regular worker, we compute his fictive next shifts
-        # according to the regular_next_shift_limit
-        if self.is_user_regular():
-            # Compute main shift
-            task_template = (
-                request.env["beesdoo.shift.template"]
-                .sudo()
-                .search([("worker_ids", "in", partner.id)], limit=1)
-            )
-            main_shift = (
-                request.env["beesdoo.shift.shift"]
-                .sudo()
-                .search(
-                    [
-                        ("task_template_id", "=", task_template[0].id),
-                        ("start_time", "!=", False),
-                        ("end_time", "!=", False),
-                    ],
-                    order="start_time desc",
-                    limit=1,
-                )
-            )
-
-            # Get config
-            regular_next_shift_limit = request.website.regular_next_shift_limit
-            shift_period = int(
-                request.env["ir.config_parameter"]
-                .sudo()
-                .get_param("beesdoo_website_shift.shift_period")
-            )
-
-            for i in range(1, regular_next_shift_limit - len(subscribed_shifts) + 1):
-                # Create the fictive shift
-                shift = main_shift.new()
-                shift.name = main_shift.name
-                shift.task_template_id = main_shift.task_template_id
-                shift.planning_id = main_shift.planning_id
-                shift.task_type_id = main_shift.task_type_id
-                shift.worker_id = main_shift.worker_id
-                shift.state = "open"
-                shift.super_coop_id = main_shift.super_coop_id
-                shift.color = main_shift.color
-                shift.is_regular = main_shift.is_regular
-                shift.replaced_id = main_shift.replaced_id
-                shift.revert_info = main_shift.revert_info
-                # Set new date
-                shift.start_time = self.add_days(
-                    main_shift.start_time, days=i * shift_period
-                )
-                shift.end_time = self.add_days(
-                    main_shift.end_time, days=i * shift_period
-                )
-                # Add the fictive shift to the list of shift
-                subscribed_shifts.append(shift)
         return {
             "is_regular": self.is_user_regular(),
             "subscribed_shifts": subscribed_shifts,
