@@ -36,9 +36,6 @@ class Website(models.Model):
         default=10,
         help="Maximum past shift that will be shown for regular worker",
     )
-    regular_next_shift_limit = fields.Integer(
-        default=13, help="Maximun number of next shift that will be shown"
-    )
     regular_highlight_rule = fields.Integer(
         default=20,
         help="Treshold (in %) of available space in a shift that trigger the "
