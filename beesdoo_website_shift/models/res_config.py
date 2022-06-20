@@ -27,7 +27,8 @@ class WebsiteShiftConfigSettings(models.TransientModel):
         related="website_id.regular_past_shift_limit", readonly=False
     )
     regular_next_shift_limit = fields.Integer(
-        related="website_id.regular_next_shift_limit", readonly=False
+        string="Maximun number of next shift that will be shown",
+        config_parameter="regular_next_shift_limit",
     )
     regular_highlight_rule = fields.Integer(
         related="website_id.regular_highlight_rule", readonly=False

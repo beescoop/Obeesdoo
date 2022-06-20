@@ -4,21 +4,9 @@ from odoo import fields, models
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
-    max_shift_per_day = fields.Integer(
-        string="Maximum number of shifts per day for one cooperator",
-        config_parameter="beesdoo_shift.max_shift_per_day",
-    )
-    max_shift_per_month = fields.Integer(
-        string="Maximum number of shifts per month for one cooperator",
-        config_parameter="beesdoo_shift.max_shift_per_month",
-    )
     enable_exchanges = fields.Boolean(
         string="Activate shift swaps and exchanges",
         config_parameter="beesdoo_shift.enable_exchanges",
-    )
-    min_percentage_presence = fields.Integer(
-        string="Limit attendance percentage to define underpopulated shift",
-        config_parameter="beesdoo_shift.min_percentage_presence",
     )
     day_limit_swap = fields.Integer(
         string="Number of days above which a cooperator cannot swap his shift",

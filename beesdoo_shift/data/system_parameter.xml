@@ -32,15 +32,27 @@
         <field name="value">-4</field>
     </record>
     <record id="min_percentage_presence" model="ir.config_parameter">
-        <field name="key">beesdoo_shift.min_percentage_presence</field>
+        <field name="key">min_percentage_presence</field>
         <field name="value">20</field>
     </record>
     <record id="regular_next_shift_limit" model="ir.config_parameter">
-        <field name="key">beesdoo_shift.regular_next_shift_limit</field>
+        <field name="key">regular_next_shift_limit</field>
         <field name="value">7</field>
     </record>
     <record id="min_hours_to_unsubscribe" model="ir.config_parameter">
         <field name="key">min_hours_to_unsubscribe</field>
         <field name="value">2</field>
+    </record>
+    <record id="max_shift_per_day" model="ir.config_parameter">
+        <field name="key">max_shift_per_day</field>
+        <field name="value">2</field>
+    </record>
+    <record id="max_shift_per_month" model="ir.config_parameter">
+        <field name="key">max_shift_per_month</field>
+        <field name="value">5</field>
+    </record>
+    <record id="shift_period" model="ir.config_parameter">
+        <field name="key">shift_period</field>
+        <field name="value">28</field>
     </record>
 </odoo>
