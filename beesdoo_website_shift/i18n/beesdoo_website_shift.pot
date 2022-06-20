@@ -14,6 +14,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_title
+msgid "&amp;times;"
+msgstr ""
+
+#. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
 msgid "<span class=\"fa fa-info\" aria-hidden=\"true\"/>\n"
 "                        Super Cooperator Info"
@@ -25,6 +30,13 @@ msgid "<span class=\"fa fa-lg fa-globe\" title=\"Values set here are website-spe
 msgstr ""
 
 #. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
+msgid "<span class=\"fa fa-user-plus\" aria-hidden=\"true\"/>\n"
+"                        Unsubscribe"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_compensation_card
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_irregular_worker_card
 msgid "<span class=\"fa fa-user-plus\" aria-hidden=\"true\"/>\n"
 "                Subscribe"
@@ -73,7 +85,13 @@ msgid "<strong>Auto-Extension:</strong>\n"
 msgstr ""
 
 #. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_title
+msgid "<strong>Error!</strong>"
+msgstr ""
+
+#. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_regular_worker
 msgid "<strong>Failed!</strong>\n"
 "                                Your subscription has failed. Someone\n"
 "                                subscribed before you or the shift was deleted.\n"
@@ -90,7 +108,7 @@ msgid "<strong>Info !</strong>\n"
 msgstr ""
 
 #. module: beesdoo_website_shift
-#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_common
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_info
 msgid "<strong>Info!</strong>\n"
 "            If you do not agree with your status, please contact the members\n"
 "            office by mail (membre@bees-coop.be) or during the open hours of the\n"
@@ -99,7 +117,19 @@ msgid "<strong>Info!</strong>\n"
 msgstr ""
 
 #. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_title
+msgid "<strong>Success!</strong>"
+msgstr ""
+
+#. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
+msgid "<strong>Success!</strong>\n"
+"                                You have been successfully unsubscribed."
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_regular_worker
 msgid "<strong>Success!</strong>\n"
 "                                Your subscription has succeded."
 msgstr ""
@@ -196,10 +226,34 @@ msgid "Begin of Holiday:"
 msgstr ""
 
 #. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_compensation_card
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
+msgid "Cancel"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.choose_compensation_shift
+msgid "Choose among all shifts"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.choose_compensation_shift
+msgid "Choose among underpopulated shifts"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_compensation_card
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_irregular_worker_card
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_regular_worker
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_title
 msgid "Close"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.choose_compensation_shift
+msgid "Compensation"
 msgstr ""
 
 #. module: beesdoo_website_shift
@@ -211,6 +265,36 @@ msgstr ""
 #. module: beesdoo_website_shift
 #: model:ir.model,name:beesdoo_website_shift.model_res_config_settings
 msgid "Config Settings"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_config_settings__enable_subscribe_compensation
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_website__enable_subscribe_compensation
+msgid "Enable Subscribe Compensation"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_config_settings__enable_unsubscribe_compensation
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_website__enable_unsubscribe_compensation
+msgid "Enable Unsubscribe Compensation"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,help:beesdoo_website_shift.field_res_config_settings__irregular_enable_unsubscribe
+#: model:ir.model.fields,help:beesdoo_website_shift.field_website__irregular_enable_unsubscribe
+msgid "Enable irregular workers to unsubscribe from their shifts"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,help:beesdoo_website_shift.field_res_config_settings__enable_subscribe_compensation
+#: model:ir.model.fields,help:beesdoo_website_shift.field_website__enable_subscribe_compensation
+msgid "Enable regular workers to subscribe to compensation shifts"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,help:beesdoo_website_shift.field_res_config_settings__enable_unsubscribe_compensation
+#: model:ir.model.fields,help:beesdoo_website_shift.field_website__enable_unsubscribe_compensation
+msgid "Enable regular workers to unsubscribe from compensation shifts"
 msgstr ""
 
 #. module: beesdoo_website_shift
@@ -235,9 +319,20 @@ msgid "Explanation of the status:"
 msgstr ""
 
 #. module: beesdoo_website_shift
+#: code:addons/beesdoo_website_shift/controllers/main.py:652
+#, python-format
+msgid "Friday"
+msgstr ""
+
+#. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
 msgid "Future Date of\n"
 "                                Alert:"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.view_website_shift_config_irregular
+msgid "General settings"
 msgstr ""
 
 #. module: beesdoo_website_shift
@@ -249,6 +344,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_public_shift_irregular_worker
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_public_shift_template_regular_worker
 msgid "Help text or information text."
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_title
+msgid "Hide"
 msgstr ""
 
 #. module: beesdoo_website_shift
@@ -272,6 +372,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_config_settings__irregular_enable_sign_up
 #: model:ir.model.fields,field_description:beesdoo_website_shift.field_website__irregular_enable_sign_up
 msgid "Irregular Enable Sign Up"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_config_settings__irregular_enable_unsubscribe
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_website__irregular_enable_unsubscribe
+msgid "Irregular Enable Unsubscribe"
 msgstr ""
 
 #. module: beesdoo_website_shift
@@ -304,6 +410,12 @@ msgid "Maximun number of next shift that will be shown"
 msgstr ""
 
 #. module: beesdoo_website_shift
+#: code:addons/beesdoo_website_shift/controllers/main.py:648
+#, python-format
+msgid "Monday"
+msgstr ""
+
+#. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_link
 msgid "My Shift"
 msgstr ""
@@ -320,8 +432,18 @@ msgid "Next Countdown\n"
 msgstr ""
 
 #. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.choose_compensation_shift
+msgid "No shifts suits me"
+msgstr ""
+
+#. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
 msgid "Number of Absence:"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_config_settings__next_shifts_display_number
+msgid "Number of next shifts displayed on page 'My Shifts' by default"
 msgstr ""
 
 #. module: beesdoo_website_shift
@@ -331,8 +453,14 @@ msgid "Percentage threshold highlight rule"
 msgstr ""
 
 #. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_compensation_card
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_irregular_worker_card
 msgid "Please confirm subscription"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
+msgid "Please confirm unsubscription"
 msgstr ""
 
 #. module: beesdoo_website_shift
@@ -372,6 +500,12 @@ msgid "Regular Past Shift Limit"
 msgstr ""
 
 #. module: beesdoo_website_shift
+#: code:addons/beesdoo_website_shift/controllers/main.py:653
+#, python-format
+msgid "Saturday"
+msgstr ""
+
+#. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_regular_worker
 msgid "Shift in Advance:"
@@ -398,18 +532,35 @@ msgid "Shifts Regular"
 msgstr ""
 
 #. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
+msgid "Show next shifts"
+msgstr ""
+
+#. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_worker_status_common
 msgid "Status:"
 msgstr ""
 
 #. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_compensation_card
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_irregular_worker_card
 msgid "Subscribe"
 msgstr ""
 
 #. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_worker_status_common
+msgid "Subscribe to a compensation shift"
+msgstr ""
+
+#. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_irregular_worker_card
 msgid "Subscribed"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: code:addons/beesdoo_website_shift/controllers/main.py:654
+#, python-format
+msgid "Sunday"
 msgstr ""
 
 #. module: beesdoo_website_shift
@@ -425,14 +576,43 @@ msgid "Threshold (in %) of available space in a shift that trigger the highlight
 msgstr ""
 
 #. module: beesdoo_website_shift
+#: code:addons/beesdoo_website_shift/controllers/main.py:651
+#, python-format
+msgid "Thursday"
+msgstr ""
+
+#. module: beesdoo_website_shift
 #: model:ir.model.fields,help:beesdoo_website_shift.field_res_config_settings__regular_highlight_rule
 #: model:ir.model.fields,help:beesdoo_website_shift.field_website__regular_highlight_rule
 msgid "Treshold (in %) of available space in a shift that trigger the the highlight of a shift template."
 msgstr ""
 
 #. module: beesdoo_website_shift
+#: code:addons/beesdoo_website_shift/controllers/main.py:649
+#, python-format
+msgid "Tuesday"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
+msgid "Unsubscribe"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: code:addons/beesdoo_website_shift/controllers/main.py:320
+#, python-format
+msgid "Unsubscription failed, impossible to find shift."
+msgstr ""
+
+#. module: beesdoo_website_shift
 #: model:ir.model,name:beesdoo_website_shift.model_website
 msgid "Website"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: code:addons/beesdoo_website_shift/controllers/main.py:650
+#, python-format
+msgid "Wednesday"
 msgstr ""
 
 #. module: beesdoo_website_shift
@@ -457,6 +637,12 @@ msgid "You don't have to participate to shift system."
 msgstr ""
 
 #. module: beesdoo_website_shift
+#: code:addons/beesdoo_website_shift/controllers/main.py:316
+#, python-format
+msgid "You have been successfully unsubscribed."
+msgstr ""
+
+#. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
 msgid "Your next shifts"
 msgstr ""
@@ -472,6 +658,18 @@ msgid "Your shifts"
 msgstr ""
 
 #. module: beesdoo_website_shift
+#: code:addons/beesdoo_website_shift/controllers/main.py:661
+#, python-format
+msgid "Your subscription has failed. Someone subscribed before you or the shift was deleted. Try again in a moment."
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: code:addons/beesdoo_website_shift/controllers/main.py:658
+#, python-format
+msgid "Your subscription has succeded."
+msgstr ""
+
+#. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_irregular_worker_card
 msgid "available space(s)"
 msgstr ""
@@ -484,6 +682,7 @@ msgstr ""
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_regular_worker
 msgid "minutes before the shift."
 msgstr ""
 
