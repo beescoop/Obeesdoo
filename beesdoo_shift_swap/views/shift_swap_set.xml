@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="shift_swap_view_tree">
+        <field name="name">Swap Shift Set</field>
+        <field name="model">beesdoo.shift.exchange</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="first_request_id" />
+                <field name="second_request_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="shift_exchange_view_form">
+        <field name="name">Shift exchange view form</field>
+        <field name="model">beesdoo.shift.exchange</field>
+        <field name="arch" type="xml">
+            <form>
+                <group name="group_left">
+                    <field name="first_request_id" />
+                </group>
+                <group name="group_right">
+                    <field name="second_request_id" />
+                </group>
+            </form>
+        </field>
+    </record>
+
+</odoo>

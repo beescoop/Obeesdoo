@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Action to open swap shift -->
+
+    <record model="ir.actions.act_window" id="action_shift_swap">
+        <field name="name">Shift swaps</field>
+        <field name="res_model">beesdoo.shift.swap</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record model="ir.actions.act_window" id="action_shift_swap_exchange_request">
+        <field name="name">Shift exchange requests</field>
+        <field name="res_model">beesdoo.shift.exchange_request</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record model="ir.actions.act_window" id="action_shift_swap_exchange">
+        <field name="name">Shift exchanges</field>
+        <field name="res_model">beesdoo.shift.exchange</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record model="ir.actions.act_window" id="action_solidarity_shift_offer">
+        <field name="name">Solidarity shift offers</field>
+        <field name="res_model">beesdoo.shift.solidarity.offer</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record model="ir.actions.act_window" id="action_solidarity_shift_request">
+        <field name="name">Solidarity shift requests</field>
+        <field name="res_model">beesdoo.shift.solidarity.request</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Top menu items -->
+
+    <menuitem
+        id="menu_swap_top"
+        name="Shift exchanges"
+        parent="beesdoo_shift.menu_root"
+    />
+    <menuitem
+        id="menu_swap"
+        name="Shift swaps"
+        parent="menu_swap_top"
+        action="action_shift_swap"
+    />
+    <menuitem
+        id="menu_exchange_request"
+        name="Exchange requests"
+        parent="menu_swap_top"
+        action="action_shift_swap_exchange_request"
+    />
+    <menuitem
+        id="menu_exchange"
+        name="Concluded exchanges"
+        parent="menu_swap_top"
+        action="action_shift_swap_exchange"
+    />
+
+    <menuitem
+        id="menu_solidarity_top"
+        name="Solidarity"
+        parent="beesdoo_shift.menu_root"
+    />
+    <menuitem
+        id="menu_solidarity_offer"
+        name="Solidarity shift offers"
+        parent="menu_solidarity_top"
+        action="action_solidarity_shift_offer"
+    />
+    <menuitem
+        id="menu_solidarity_requests"
+        name="Solidarity shift requests"
+        parent="menu_solidarity_top"
+        action="action_solidarity_shift_request"
+    />
+
+</odoo>
