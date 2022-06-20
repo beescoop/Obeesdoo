@@ -1,0 +1,766 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* beesdoo_website_shift_swap
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.solidarity_counter
+msgid "*Explanatory text solidarity counter*"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.solidarity_request_help_text_irregular
+msgid "*Warning text irregular*"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.solidarity_request_help_text_regular
+msgid "*Warning text regular*"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.help_text_select_shifts_for_exchange
+msgid "<b>\"friday 10\"</b> : search all lines containing exactly \"friday 10\", for example \"Friday 10 June\""
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_exchange_request_template
+msgid "<b>Exchange offer :</b>\n"
+"                                                <br/>"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.help_text_select_shifts_for_exchange
+msgid "<b>friday 10</b> : search all lines containing friday and 10, for example \"Friday 08 April, 10:00 - 12:00\""
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.help_text_select_shifts_for_exchange
+msgid "<b>wednesday</b> : search all lines containing wednesday"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_exchange_request_template
+msgid "<br/>\n"
+"                                                            Do you want to continue ?"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_exchange_request_template
+msgid "<br/>\n"
+"                                                            New shift :"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_my_possible_match
+msgid "<br/>\n"
+"                                                Do you want to continue ?"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_my_possible_match
+msgid "<br/>\n"
+"                                                New shift :"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.select_shift_planned_exchange
+msgid "<br/>\n"
+"                                Do you want to continue ?"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.select_shift_planned_exchange
+msgid "<br/>\n"
+"                                New shift :"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.available_shift_card_swap
+msgid "<br/>\n"
+"                            Do you want to continue ?"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.available_shift_card_swap
+msgid "<br/>\n"
+"                            New shift :"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_option_buttons
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_next_tmpl_dated
+msgid "<span>&amp;times;</span>"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_parameters_missing
+msgid "<strong>Error!</strong>"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_request_solidarity_impossible
+msgid "<strong>Error!</strong>\n"
+"                                Your can't request solidarity more than"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_request
+msgid "<strong>Info!</strong>\n"
+"                                        You don't have any requests."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_exchange_request_template
+msgid "<strong>Info!</strong>\n"
+"                    You don't have any exchange request."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_solidarity_request_template
+msgid "<strong>Info!</strong>\n"
+"                    You don't have any solidarity request."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.help_text_all_shifts_solidarity_offer
+msgid "<strong>Info!</strong>\n"
+"                On this page you can choose to subscribe to a shift as a solidarity\n"
+"                shift. If you select one of them, you will have to attend it or to\n"
+"                cancel it soon enough, via the \"My shifts\" page."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.help_text_underpopulated_solidarity_offer
+msgid "<strong>Info!</strong>\n"
+"                On this page you can choose to subscribe to a shift that is\n"
+"                underpopulated, as a solidarity shift. If you select one of them, you\n"
+"                will have to attend it or to cancel it soon enough, via the \"My shifts\"\n"
+"                page. If you cannot attend any of those on this list, please click on\n"
+"                the button at the bottom of the page to see all available shifts."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.help_text_swap_all
+msgid "<strong>Info!</strong>\n"
+"                The shift that you want to swap is close in time.\n"
+"                To accelerate the process, we suggest you subscribe directly to\n"
+"                a shift so that you don't need to wait for another cooperator."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.help_text_swap_underpopulated_common
+msgid "<strong>Info!</strong>\n"
+"                The shift that you want to swap is close in time.\n"
+"                To accelerate the process, we suggest you subscribe to an\n"
+"                underpopulated shift so that you don't need to wait for another\n"
+"                cooperator. However, if none of the shifts presented here suits\n"
+"                you, you can click on the button at the bottom of the page."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.no_shift_match_explanation
+msgid "<strong>Info!</strong>\n"
+"                There aren't any cooperator that propose to swap his/her shift with the one\n"
+"                that you try to exchange.\n"
+"                To create your own exchange, please click on the link below."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.no_shift_from_mail_explanation
+msgid "<strong>Info!</strong>\n"
+"                This exchange request has already been accepted by someone else."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_impossible_exchange_request
+msgid "<strong>Warning !</strong>"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_offer_solidarity_impossible
+msgid "<strong>Warning !</strong>\n"
+"                                Your current status does not allow you to offer solidarity shifts."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_cancel_solidarity_offer_impossible
+msgid "<strong>Warning!</strong>\n"
+"                                Your can't cancel this solidarity shift, because it is too close in time."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_my_possible_match
+msgid "Accept exchange"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_exchange_request_template
+msgid "Availabilities"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.available_shift_card_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_exchange_request_template
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.select_shift_planned_exchange
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.solidarity_buttons
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_my_possible_match
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_request_solidarity_form
+msgid "Cancel"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_solidarity_request_template
+msgid "Cancel request"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_option_buttons
+msgid "Cancel solidarity shift"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_exchange_request_template
+msgid "Cancel this request"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_exchange_request_template
+msgid "Cancelled"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_option_buttons
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_next_tmpl_dated
+msgid "Close"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.planned_exchange_summary
+msgid "Current worker :"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_next_possible_tmpl_dated
+msgid "Date"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.contact_coop_for_planned_exchange
+msgid "Date of the other cooperator's shift"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_next_tmpl_dated
+msgid "Do you want to be unsubscribed from your shift?"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.contact_coop_for_planned_exchange
+msgid "Email address of the other cooperator"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.available_shift_card_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_exchange_request_template
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.select_shift_planned_exchange
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_my_possible_match
+msgid "Exchange anyway"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_exchange_request_template
+msgid "Exchange requests"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_exchange_request_template
+msgid "Exchange status"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.select_shift_planned_exchange
+msgid "Exchange this shift"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.exchange_shift_title
+msgid "Exchange your shift"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.planned_exchange_summary
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_summary
+msgid "Exchanged Shift :"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_exchange_request_template
+msgid "Exchanged shifts"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.help_text_select_shifts_for_exchange
+msgid "Functionalities"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_cancel_solidarity_offer_impossible
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_offer_solidarity_impossible
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_parameters_missing
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_request_solidarity_impossible
+msgid "Go back"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_option_buttons
+msgid "Have you already agreed on an exchange with\n"
+"                                        another cooperator for this shift?"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.help_text_title
+msgid "Help"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_next_tmpl_dated
+msgid "I can't find a shift to swap"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.solidarity_buttons
+msgid "I need help"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_next_tmpl_dated
+msgid "If you can't find a shift to swap with yours,\n"
+"                                    you can be unsubscribed from your shift. Your\n"
+"                                    counter will be decreased by 1, so you will have\n"
+"                                    to do a compensation shift before the next one."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.help_text_select_shifts_for_exchange
+msgid "Move from page to page using the navigation bar at the bottom of the table."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_request_link
+msgid "My Requests"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_request
+msgid "My requests"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_option_buttons
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_next_tmpl_dated
+msgid "No"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_possible_match
+msgid "No exchange suits me"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_exchange_request_template
+msgid "No match has been found on your proposition."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_next_tmpl_dated
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_tmpl_dated_solidarity
+msgid "No shifts suits me"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_solidarity_request_template
+msgid "Non realisable shift"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_request_solidarity
+msgid "Non realisable shift :"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.solidarity_buttons
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.solidarity_counter
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_select_solidarity
+msgid "Offer a solidarity shift"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_request_help_text
+msgid "On this page you can see all your requests and their statuses.\n"
+"                You can cancel solidarity requests, and if you are a regular\n"
+"                worker you can also validate exchanges."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.contact_coop_for_planned_exchange
+msgid "Please provide the following informations"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_solidarity_request_template
+msgid "Reason"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_request_solidarity_form
+msgid "Reason :"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_request_solidarity
+msgid "Request a solidarity shift"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_solidarity_request_template
+msgid "Request date"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.solidarity_buttons
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_option_buttons
+msgid "Request solidarity"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.solidarity_buttons
+msgid "Requesting solidarity"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.help_text_select_shifts_for_exchange
+msgid "Search examples"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.help_text_select_shifts_for_exchange
+msgid "Search for specific shifts by using the search bar above the table. The search\n"
+"                        works by lines, you can see examples below."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_next_possible_tmpl_dated
+msgid "Select"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.select_shift_title
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.solidarity_buttons
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_tmpl_dated_solidarity
+msgid "Select a shift"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_tmpl_dated_solidarity
+msgid "Select an underpopulated shift"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_impossible_exchange_request
+msgid "Select other shifts"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_next_possible_tmpl_dated
+msgid "Select shifts"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.select_shift_planned_exchange
+msgid "Select the shift you want to exchange"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_my_possible_match
+msgid "Shifts available for exchange :"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.solidarity_buttons
+msgid "Solidarity"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_solidarity_request_template
+msgid "Solidarity requests"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.solidarity_counter
+msgid "Solidarity shifts counter:"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.help_text_select_shifts_for_exchange
+msgid "Sort shifts by date or task by clicking on the arrows on top of the columns."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_solidarity_request_template
+msgid "Status"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.contact_coop_for_planned_exchange
+msgid "Submit"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.available_shift_card_offer_solidarity
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.available_shift_card_swap
+msgid "Subscribe"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_option_buttons
+msgid "Swap Shift"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_summary
+msgid "Swap Summary"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.swap_shift_title
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_option_buttons
+msgid "Swap your shift"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_next_tmpl_dated
+msgid "Swap your shift with an underpopulated one"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_next_tmpl_dated
+msgid "Swap your shift with another one"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_next_possible_tmpl_dated
+msgid "Task"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.planned_exchange_summary
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_summary
+msgid "Task :"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:161
+#, python-format
+msgid "The cooperator has been contacted. You will be notified if he/she accepts your exchange."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_impossible_exchange_request
+msgid "The following shifts can't be selected, because subscribing\n"
+"                                    to them would exceed the maximum amount of shifts per day or month:"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:72
+#, python-format
+msgid "The information you provided does not match any existing shift."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_exchange_request_template
+msgid "The shifts that tou want to exchange don't have the same task type.\n"
+"                                                            <br/>\n"
+"                                                            Old shift :"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_my_possible_match
+msgid "The shifts that tou want to exchange don't have the same task type.\n"
+"                                                <br/>\n"
+"                                                Old shift :"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.select_shift_planned_exchange
+msgid "The shifts that tou want to exchange don't have the same task type.\n"
+"                                <br/>\n"
+"                                Old shift :"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.available_shift_card_swap
+msgid "The shifts that you want to exchange don't have the same task type.<br/>\n"
+"                            Old shift :"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_exchange_request_template
+msgid "This exchange has been validated by both side. <br/>\n"
+"                                        <strong>New shift :</strong>"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:505
+#, python-format
+msgid "This shift is not generated. Unsubscription impossible."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.help_text_select_shifts_for_exchange
+msgid "This table enables you to save your availability by selecting shifts that\n"
+"                you can attend. To select a shift, tick the corresponding box in the \"Select\"\n"
+"                column. You can select as many shifts as you want."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_next_possible_tmpl_dated
+msgid "Time slot"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_parameters_missing
+msgid "Unable to fulfill this request: parameters missing. <br/>\n"
+"                                    This can happen if you try to access a page by entering the URL manually. Please don't."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_next_tmpl_dated
+msgid "Unsubscription"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_request_solidarity_form
+msgid "Validate request"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_exchange_request_template
+msgid "Validate this exchange"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_exchange_request_template
+msgid "Waiting for validation of the other cooperator."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.available_shift_card_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.my_exchange_request_template
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.select_shift_planned_exchange
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_my_possible_match
+msgid "Warning !"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_option_buttons
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_next_tmpl_dated
+msgid "Yes"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:75
+#, python-format
+msgid "You have already requested an exchange for this shift."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:1017
+#, python-format
+msgid "You have been subscribed to a solidarity shift."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:1125
+#, python-format
+msgid "You have been unsubscribed from your shift. Your counter will not be decreased."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:501
+#, python-format
+msgid "You have been unsubscribed to this shift."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:69
+#, python-format
+msgid "You have reached the maximum number of shifts per day or month."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:1192
+#, python-format
+msgid "You have successfully cancelled your solidarity request. You have been subscribed back to your shift."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:1197
+#, python-format
+msgid "You have successfully cancelled your solidarity request. Your counter has been decremented."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.planned_exchange_summary
+msgid "Your future shift"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:827
+#, python-format
+msgid "Your request could not be cancelled, Please note that validated exchanges cannot be cancelled."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:825
+#, python-format
+msgid "Your request has been cancelled."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:1133
+#, python-format
+msgid "Your request has been taken into account. Your counter has been incremented."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:1054
+#, python-format
+msgid "Your solidarity shift has been cancelled."
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.contact_coop_for_planned_exchange
+msgid "dd/mm/yyyy"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.contact_coop_for_planned_exchange
+msgid "name@example.be"
+msgstr ""
+
+#. module: beesdoo_website_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_request_solidarity_impossible
+msgid "times over a 12 month period."
+msgstr ""
+
