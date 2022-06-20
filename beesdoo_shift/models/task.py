@@ -82,6 +82,7 @@ class Task(models.Model):
     )
     revert_info = fields.Text(copy=False)
     working_mode = fields.Selection(related="worker_id.working_mode")
+    can_unsubscribe = fields.Boolean(compute="_compute_can_unsubscribe")
 
     def _expand_states(self, states, domain, order):
         return [key for key, val in self._fields["state"].selection(self)]
@@ -90,6 +91,25 @@ class Task(models.Model):
     def _compute_color(self):
         for rec in self:
             rec.color = self._get_color_mapping(rec.state)
+
+    def _compute_can_unsubscribe(self):
+        now = datetime.now()
+        ICP = self.env["ir.config_parameter"].sudo()
+        min_hours = int(ICP.get_param("min_hours_to_unsubscribe", 2))
+        for rec in self:
+            if (
+                rec.start_time > now
+                and rec.state == "open"
+                and (
+                    (rec.worker_id and rec.worker_id.working_mode == "irregular")
+                    or rec.is_compensation
+                )
+            ):
+                delta = rec.start_time - now
+                delta = delta.seconds / 3600.0 + delta.days * 24
+                rec.can_unsubscribe = delta >= min_hours
+            else:
+                rec.can_unsubscribe = False
 
     @api.constrains("state")
     def _lock_future_task(self):

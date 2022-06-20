@@ -17,7 +17,7 @@ class InstanciatePlanning(models.TransientModel):
     def generate_task(self):
         self.ensure_one()
         self = self.with_context(visualize_date=self.date_start, tracking_disable=True)
-        shifts = self.planning_id.task_template_ids._generate_task_day()
+        shifts = self.planning_id.task_template_ids.generate_task_day()
         return {
             "name": _("Generated Shift"),
             "type": "ir.actions.act_window",

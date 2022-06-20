@@ -106,11 +106,59 @@ class Planning(models.Model):
             _logger.error("Could not generate next planning: no task template defined.")
             return
 
-        planning.task_template_ids._generate_task_day()
+        planning.task_template_ids.generate_task_day()
 
         next_date = planning._get_next_planning_date(date)
         config.set_param("last_planning_seq", planning.sequence)
         config.set_param("next_planning_date", next_date)
+
+    @api.model
+    def get_future_shifts(self, end_date):
+        """
+        Calculates shifts between now and end_date without
+        storing them in the database
+        Uses a list of shifts instead of a recordset because
+        of issues occuring when copying records
+        :param end_date: Datetime
+        :return: beesdoo.shift.shift list
+        """
+        start_date = datetime.now()
+
+        shift_list = list(
+            self.env["beesdoo.shift.shift"]
+            .sudo()
+            .search(
+                [("start_time", ">", start_date.strftime("%Y-%m-%d %H:%M:%S"))],
+                order="start_time, task_template_id, task_type_id",
+            )
+        )
+
+        last_sequence = int(
+            self.env["ir.config_parameter"].sudo().get_param("last_planning_seq")
+        )
+
+        next_planning = self._get_next_planning(last_sequence)
+
+        next_planning_date = fields.Datetime.from_string(
+            self.env["ir.config_parameter"].sudo().get_param("next_planning_date", 0)
+        )
+
+        next_planning = next_planning.with_context(visualize_date=next_planning_date)
+
+        while next_planning_date < end_date:
+            for shift in next_planning.task_template_ids.get_task_day():
+                if shift.start_time > start_date:
+                    shift_list.append(shift)
+            next_planning_date = next_planning._get_next_planning_date(
+                next_planning_date
+            )
+            last_sequence = next_planning.sequence
+            next_planning = self._get_next_planning(last_sequence)
+            next_planning = next_planning.with_context(
+                visualize_date=next_planning_date
+            )
+
+        return shift_list
 
 
 class TaskTemplate(models.Model):
@@ -144,7 +192,7 @@ class TaskTemplate(models.Model):
         domain=[("is_worker", "=", True)],
     )
     remaining_worker = fields.Integer(
-        compute="_compute_remaining", store=True, string="Remaining Spot"
+        compute="_compute_remaining", store=True, string="Remaining Place"
     )
     active = fields.Boolean(default=True)
     # For Kanban View Only
@@ -212,8 +260,12 @@ class TaskTemplate(models.Model):
         if self.start_time:
             self.end_time = self.start_time + self.duration
 
-    def _generate_task_day(self):
-        tasks = self.env["beesdoo.shift.shift"]
+    def _prepare_task_day(self):
+        """
+        Generates a list of dict objects containing the informations
+        for the shifts to generate based on the template data
+        """
+        tasks = []
         for rec in self:
             for i in range(0, rec.worker_nb):
                 worker_id = rec.worker_ids[i] if len(rec.worker_ids) > i else False
@@ -234,7 +286,7 @@ class TaskTemplate(models.Model):
                         and status.temporary_exempt_end_date >= rec.end_date.date()
                     ):
                         worker_id = False
-                tasks |= tasks.create(
+                tasks.append(
                     {
                         "name": "[%s] %s %s (%s - %s) [%s]"
                         % (
@@ -256,6 +308,34 @@ class TaskTemplate(models.Model):
                     }
                 )
 
+        return tasks
+
+    @api.multi
+    def get_task_day(self):
+        """
+        Creates the shifts according to the template without saving
+        them into the database.
+        To adapt the behaviour, function _prepare_task_day()
+        should be overwritten.
+        """
+        tasks = self.env["beesdoo.shift.shift"]
+        task_list = self._prepare_task_day()
+        for task in task_list:
+            tasks |= tasks.new(task)
+        return tasks
+
+    @api.multi
+    def generate_task_day(self):
+        """
+        Creates the shifts according to the template and saves
+        them into the database.
+        To adapt the behaviour, function _prepare_task_day()
+        should be overwritten.
+        """
+        tasks = self.env["beesdoo.shift.shift"]
+        task_list = self._prepare_task_day()
+        for task in task_list:
+            tasks |= tasks.create(task)
         return tasks
 
     @api.onchange("worker_ids")
