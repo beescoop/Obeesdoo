@@ -237,7 +237,7 @@ class WebsiteShiftController(http.Controller):
             min_percentage_presence = int(
                 request.env["ir.config_parameter"]
                 .sudo()
-                .get_param("beesdoo_shift.min_percentage_presence")
+                .get_param("min_percentage_presence")
             )
             for shift in next_shifts:
                 nb_worker_wanted = shift.task_template_id.worker_nb
@@ -633,8 +633,9 @@ class WebsiteShiftController(http.Controller):
         """
         Return True if:
         - The user is regular
-        - The sum of his/her counters is negative
         - The user is not already subscribed to enough compensation shifts
+        - The sum of the user's counters is negative
+        - The user is not unsubscribed / exempted / resigning
         - Compensation subscription is enabled
         """
         status = worker_id.cooperative_status_ids
@@ -654,6 +655,7 @@ class WebsiteShiftController(http.Controller):
             worker_id.working_mode == "regular"
             and counter < 0
             and abs(counter) > nb_compensation_shift
+            and worker_id.state not in ["unsubscribed", "exempted", "resigning"]
             and request.website.enable_subscribe_compensation
         )
 
