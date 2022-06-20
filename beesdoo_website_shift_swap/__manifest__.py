@@ -1,3 +1,6 @@
+# Copyright 2022 Coop IT Easy SCRLfs
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+
 {
     "name": "Beesdoo Website Shift Swap",
     "summary": """
@@ -9,14 +12,10 @@
     "category": "Cooperative management",
     "depends": ["beesdoo_shift_swap", "beesdoo_website_shift"],
     "data": [
-        # 'security/ir.model.access.csv',
         "views/assets.xml",
         "views/exchange_templates.xml",
         "views/general_templates.xml",
         "views/solidarity_templates.xml",
         "views/swap_templates.xml",
-    ],
-    "demo": [
-        "demo/demo.xml",
     ],
 }
