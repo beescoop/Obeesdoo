@@ -199,6 +199,7 @@
                         Super Cooperator Info
                     </button>
                     <button
+                        id="unsubscribe_button"
                         type="button"
                         class="btn btn-primary btn-sm ml-2 pull-right"
                         data-toggle="modal"
