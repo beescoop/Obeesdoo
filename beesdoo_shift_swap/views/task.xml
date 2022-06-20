@@ -13,17 +13,15 @@
                 />
                 <field name="solidarity_offer_ids" invisible="1" />
             </field>
-            <field name="is_regular" position="replace">
-                <field
-                    name="is_regular"
-                    attrs="{'invisible': ['|',('working_mode', '!=', 'regular'),('is_solidarity', '==', True)]}"
-                />
+            <field name="is_regular" position="attributes">
+                <attribute name="attrs">
+                    {'invisible': ['|',('working_mode', '!=', 'regular'),('is_solidarity', '==', True)]}
+                </attribute>
             </field>
-            <field name="is_compensation" position="replace">
-                <field
-                    name="is_compensation"
-                    attrs="{'invisible': ['|',('working_mode', '!=', 'regular'),('is_solidarity', '==', True)]}"
-                />
+            <field name="is_compensation" position="attributes">
+                <attribute name="attrs">
+                    {'invisible': ['|',('working_mode', '!=', 'regular'),('is_solidarity', '==', True)]}
+                </attribute>
             </field>
         </field>
     </record>
