@@ -18,6 +18,9 @@ class WebsiteShiftConfigSettings(models.TransientModel):
     irregular_past_shift_limit = fields.Integer(
         related="website_id.irregular_past_shift_limit", readonly=False
     )
+    irregular_enable_unsubscribe = fields.Boolean(
+        related="website_id.irregular_enable_unsubscribe", readonly=False
+    )
 
     # Regular worker settings
     regular_past_shift_limit = fields.Integer(
@@ -28,4 +31,16 @@ class WebsiteShiftConfigSettings(models.TransientModel):
     )
     regular_highlight_rule = fields.Integer(
         related="website_id.regular_highlight_rule", readonly=False
+    )
+    enable_subscribe_compensation = fields.Boolean(
+        related="website_id.enable_subscribe_compensation", readonly=False
+    )
+    enable_unsubscribe_compensation = fields.Boolean(
+        related="website_id.enable_unsubscribe_compensation", readonly=False
+    )
+
+    # General settings
+    next_shifts_display_number = fields.Integer(
+        string="Number of next shifts displayed on page 'My Shifts' by default",
+        config_parameter="beesdoo_website_shift.next_shifts_display_number",
     )
