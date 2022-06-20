@@ -1,0 +1,174 @@
+<odoo>
+    <data>
+        <!-- Summary Exchange -->
+        <record id="email_template_exchange_validation" model="mail.template">
+            <field name="name">Exchange validation</field>
+            <field
+                name="model_id"
+                ref="beesdoo_shift_swap.model_beesdoo_shift_exchange_request"
+            />
+            <field name="auto_delete" eval="False" />
+            <field name="partner_to">${object.worker_id.id}</field>
+            <field name="email_cc">
+                ${(object.exchanged_tmpl_dated_id.template_id.super_coop_id or '')}
+            </field>
+            <field name="subject">Exchange validation</field>
+            <field name="body_html">
+                <![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    Hello ${(object.worker_id.name)},
+                    <br/><br/>
+                    <p>
+                        You shift exchange has been confirmed.
+                    </p>
+                    <p>
+                        Here is a summary of the exchange :
+                        <ul>
+                            <li>
+                                Your old Shift : ${(object.exchanged_tmpl_dated_id.template_id.name)},
+                                ${(object.exchanged_tmpl_dated_id.date.date())},
+                                ${(object.exchanged_tmpl_dated_id.template_id.task_type_id.name)}
+                            </li>
+                            <li>
+                                Your new Shift : ${(object.validate_request_id.exchanged_tmpl_dated_id.template_id.name)},
+                                ${(object.validate_request_id.exchanged_tmpl_dated_id.date.date())},
+                                ${(object.validate_request_id.exchanged_tmpl_dated_id.template_id.task_type_id.name)}
+                            </li>
+                        </ul>
+                    </p>
+                    <br/><br/>
+                    Regards,
+                </div>
+                ]]>
+            </field>
+        </record>
+
+        <!--Send mail to coop same days of the week same hours-->
+        <record id="email_template_contact_coop" model="mail.template">
+            <field name="name">Contact Coop Same days of the week same hours</field>
+            <field name="model_id" ref="beesdoo_shift_swap.model_res_partner" />
+            <field name="auto_delete" eval="False" />
+            <field name="subject">Exchange request</field>
+            <field name="body_html">
+                <![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    Hello ${ctx.get('worker_id').name},
+                    <br/><br/>
+                    <p>
+                        A cooperator working on the shift : ${ctx.get('my_tmpl_dated').template_id.name}, ${ctx.get('my_tmpl_dated').date.date()}, ${ctx.get('my_tmpl_dated').template_id.task_type_id.name}<br/>
+                        would like to exchange his shift with yours : ${ctx.get('asked_tmpl_dated').template_id.name}, ${ctx.get('asked_tmpl_dated').date.date()}, ${ctx.get('asked_tmpl_dated').template_id.task_type_id.name}.
+                    </p>
+                    <p>
+                        If you are willing to help by accepting this exchange, please
+                        <a href="/my/shift/swaping/${ctx.get('asked_tmpl_dated').template_id.id}/${ctx.get('asked_tmpl_dated').date.strftime('%Y-%m-%d %H:%M:%S')}?from_mail=1">
+                            click here
+                        </a>.
+                    </p>
+                    <br/><br/>
+                    Regards,
+                </div>
+                ]]>
+            </field>
+        </record>
+
+        <!-- Send mail when match -->
+        <record id="email_template_contact_match_coop" model="mail.template">
+            <field name="name">Contact Coop When Match</field>
+            <field
+                name="model_id"
+                ref="beesdoo_shift_swap.model_beesdoo_shift_exchange_request"
+            />
+            <field name="auto_delete" eval="False" />
+            <field name="partner_to">${object.worker_id.id}</field>
+            <field name="subject">Match with your exchange request !</field>
+            <field name="body_html">
+                <![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    Hello ${(object.worker_id.name)},
+                    <br/><br/>
+                    <p>
+                        You asked to exchange your following shift :
+                        ${(object.exchanged_tmpl_dated_id.template_id.name)},
+                        ${(object.exchanged_tmpl_dated_id.date.date())},
+                        ${(object.exchanged_tmpl_dated_id.template_id.task_type_id.name)}
+                    </p>
+                    <p>
+                        Another cooperator offered to exchange it with his/her shift :
+                        ${ctx.get('matching_request').exchanged_tmpl_dated_id.template_id.name},
+                        ${ctx.get('matching_request').exchanged_tmpl_dated_id.date.date()},
+                        ${ctx.get('matching_request').exchanged_tmpl_dated_id.template_id.task_type_id.name}
+                    </p>
+                    <p>
+                        To confirm this match, please <a href="/my/request">click here</a> and validate the exchange.
+                    </p>
+                    <br/><br/>
+                    Regards,
+                </div>
+                ]]>
+            </field>
+        </record>
+
+        <!-- Contact coop for planned exchange -->
+        <record id="planned_exchange_contact_coop" model="mail.template">
+            <field name="name">Contact coop if an exchange is planned</field>
+            <field name="model_id" ref="beesdoo_shift_swap.model_res_partner" />
+            <field name="partner_to">${ctx.get('partner_to').id}</field>
+            <field name="auto_delete" eval="False" />
+            <field name="subject">Confirm your planned exchange</field>
+            <field name="body_html">
+                <![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    Hello ${ctx.get('partner_to').name},
+                    <br/><br/>
+                    <p>
+                        ${object.name} has planned to exchange the following shift with you:
+                        ${ctx.get('template_id').name},
+                        ${ctx.get('exchanged_shift_date').date()},
+                        ${ctx.get('template_id').task_type_id.name}
+                    </p>
+                    <p>
+                        To confirm and select the shift you want to exchange, please
+                        <a href="/my/shift/exchange/${object.id}/${ctx.get('template_id').id}/${ctx.get('exchanged_shift_date')}/validate/${ctx.get('asked_shift_date').date()}">
+                        click here
+                        </a>.
+                    </p>
+                    <br/><br/>
+                    Regards,
+                </div>
+                ]]>
+            </field>
+        </record>
+
+        <!-- Contact coop if his/her exchange request has been cancelled -->
+        <record id="email_template_cancel_exchange_request" model="mail.template">
+            <field
+                name="name"
+            >Contact coop if his/her exchange request has been cancelled</field>
+            <field
+                name="model_id"
+                ref="beesdoo_shift_swap.model_beesdoo_shift_exchange_request"
+            />
+            <field name="partner_to">${object.worker_id.id}</field>
+            <field name="auto_delete" eval="False" />
+            <field name="subject">You exchange request has been cancelled</field>
+            <field name="body_html">
+                <![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    Hello ${object.worker_id.name},
+                    <br/><br/>
+                    <p>
+                        The exchange request that you accepted has been cancelled by the other cooperator before his/her validation.
+                        Consequently, your exchange request has been cancelled. You can consult the details <a href="/my/request">here</a>.
+                    </p>
+                    <p>
+                        Please feel free to create a new request if you still want to exchange your shift.
+                    </p>
+                    <br/><br/>
+                    Regards,
+                </div>
+                ]]>
+            </field>
+        </record>
+
+    </data>
+</odoo>
