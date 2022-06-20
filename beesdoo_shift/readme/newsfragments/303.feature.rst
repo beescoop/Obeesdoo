@@ -1,0 +1,4 @@
+When subscribing a worker to a shift template in the backend :
+if no super cooperator is set on template and worker is super cooperator
+automatically set them as super cooperator.
+The worker must have a user linked to it.

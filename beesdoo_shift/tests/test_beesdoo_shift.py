@@ -18,6 +18,7 @@ class TestBeesdooShift(TransactionCase):
 
         self.current_time = datetime.now()
         self.user_admin = self.env.ref("base.user_root")
+        self.user_demo = self.env.ref("base.user_demo")
 
         self.worker_regular_1 = self.env.ref("beesdoo_shift.res_partner_worker_1_demo")
         self.worker_irregular_2 = self.env.ref(
@@ -118,7 +119,7 @@ class TestBeesdooShift(TransactionCase):
 
         self.assertEqual(self._count_number_of_shift(self.worker_regular_5), 3)
 
-    def test_subscribe_worker_from_task_template_whitout_shifts_1(self):
+    def test_subscribe_worker_from_task_template_without_shifts_1(self):
         """
         Check that adding a worker to a task_template via the
         task_template add the worker to already generated shifts.
@@ -137,6 +138,24 @@ class TestBeesdooShift(TransactionCase):
         self.task_template_1.worker_ids += self.worker_regular_5
 
         self.assertEqual(self._count_number_of_shift(self.worker_regular_5), 3)
+
+    def test_subscribe_supercooperator_to_shift_sets_them_as_shift_supercooperator(
+        self,
+    ):
+        # if no super cooperator is set on template and worker is super cooperator
+        # automatically set them as super cooperator.
+        super_worker = self.worker_regular_1
+        super_worker.user_ids = self.user_demo
+        subscription_wizard = (
+            self.env["beesdoo.shift.subscribe"]
+            .with_context({"active_id": super_worker.id})
+            .create(
+                {},
+            )
+        )
+        shift = subscription_wizard.shift_id
+        subscription_wizard.subscribe()
+        self.assertEqual(shift.super_coop_id, super_worker.user_ids[0])
 
     def test_change_working_mode_1(self):
         """
