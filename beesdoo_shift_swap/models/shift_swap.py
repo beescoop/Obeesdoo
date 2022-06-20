@@ -5,7 +5,7 @@ from odoo import fields, models
 
 class ShiftSwap(models.Model):
     _name = "beesdoo.shift.swap"
-    _description = "A model to track an exchange with an underpopulated shift"
+    _description = "A model to track an exchange with an empty shift"
 
     def _get_selection_status(self):
         return [("draft", "Draft"), ("validated", "Validated")]
