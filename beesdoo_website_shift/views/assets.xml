@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="beesdoo_website_shift_assets_frontend"
+        name="beesdoo_website_shift frontend assets"
+        inherit_id="web.assets_frontend"
+    >
+        <xpath expr="//script[last()]" position="after">
+            <script
+                type="text/javascript"
+                src="/beesdoo_website_shift/static/src/js/script.js"
+            />
+        </xpath>
+    </template>
+</odoo>
