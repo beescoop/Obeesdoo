@@ -14,11 +14,7 @@ class Task(models.Model):
             and new_state in ["done", "absent_0"]
             and self.solidarity_offer_ids[0]
         ):
-            data["sr"] = 0
-            # old_data = json.loads(self.revert_info)
-            # data["irregular_absence_date"] = old_data["data"]
-            #    .get("irregular_absence_date", False)
-            # data["irregular_absence_counter"] = old_data["data"]
-            #    .get("irregular_absence_counter", 0)
+            # Set status to None to prevent counter update on solidarity shift
+            status = None
 
         return data, status
