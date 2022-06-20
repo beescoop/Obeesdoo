@@ -195,6 +195,16 @@ class Subscribe(models.TransientModel):
             self.cooperator_id.sudo().write(
                 {"subscribed_shift_ids": [(4, self.shift_id.id, False)]}
             )
+
+        # if no super cooperator is set on template and worker is super cooperator
+        # automatically set them as super cooperator.
+        if (
+            self.shift_id
+            and self.cooperator_id.super
+            and not self.shift_id.super_coop_id
+            and self.cooperator_id.user_ids
+        ):
+            self.shift_id.super_coop_id = self.cooperator_id.user_ids[0]
         return True
 
     def _create_user(self):
