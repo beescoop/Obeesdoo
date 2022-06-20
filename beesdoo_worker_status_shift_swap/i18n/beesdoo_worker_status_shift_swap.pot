@@ -1,0 +1,30 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* beesdoo_worker_status_shift_swap
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: beesdoo_worker_status_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_worker_status_shift_swap.field_beesdoo_shift_solidarity_request__personal_counter_status
+msgid "Personal Counter Status"
+msgstr ""
+
+#. module: beesdoo_worker_status_shift_swap
+#: model:ir.model,name:beesdoo_worker_status_shift_swap.model_beesdoo_shift_shift
+msgid "beesdoo.shift.shift"
+msgstr ""
+
+#. module: beesdoo_worker_status_shift_swap
+#: model:ir.model,name:beesdoo_worker_status_shift_swap.model_beesdoo_shift_solidarity_request
+msgid "beesdoo.shift.solidarity.request"
+msgstr ""
+
