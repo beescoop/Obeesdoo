@@ -9,5 +9,9 @@
             <field name="key">beesdoo_website_shift.shift_period</field>
             <field name="value">28</field>
         </record>
+        <record id="next_shifts_display_number" model="ir.config_parameter">
+            <field name="key">beesdoo_website_shift.next_shifts_display_number</field>
+            <field name="value">5</field>
+        </record>
     </data>
 </odoo>
