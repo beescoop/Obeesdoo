@@ -1,0 +1,599 @@
+<odoo>
+    <data>
+
+        <!-- Solidarity counter -->
+        <template id="solidarity_counter" name="solidarity counter">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2> Solidarity shifts counter:
+                        <t
+                            t-esc="request.env['res.company']._company_default_get().solidarity_counter()"
+                        />
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-text text-left">
+                        *Explanatory text solidarity counter*
+                    </p>
+                    <div class="text-center">
+                        <a class="btn btn-primary" href="/my/shift/solidarity/offer">
+                            Offer a solidarity shift
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <br />
+        </template>
+
+        <!-- Solidarity offer and request buttons -->
+        <template id="solidarity_buttons" name="Solidarity offer and request buttons">
+            <h2>
+                Solidarity
+            </h2>
+            <p>
+                <t
+                    t-set="solidarity_counter"
+                    t-value="request.env['res.company']._company_default_get().solidarity_counter()"
+                />
+                <t
+                    t-if="solidarity_counter > int(request.env['ir.config_parameter'].sudo().get_param('beesdoo_shift.solidarity_counter_limit'))"
+                >
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#warning_request_solidarity_popup"
+                    >
+                        I need help
+                    </button>
+                </t>
+                <t t-else="">
+                    <div
+                        id="solidarity_disabled_popover"
+                        class="d-inline-block"
+                        data-toggle="popover"
+                        data-placement="top"
+                        data-trigger="hover"
+                        data-content="Solidarity counter is too low. Requesting solidarity is unavailable."
+                    >
+                        <button
+                            type="button"
+                            class="btn btn-primary disabled"
+                            style="pointer-events: none;"
+                        >
+                            I need help
+                        </button>
+                    </div>
+                </t>
+                <a class="btn btn-primary" href="/my/shift/solidarity/offer">
+                    Offer a solidarity shift
+                </a>
+            </p>
+            <div
+                class="modal fade"
+                id="warning_request_solidarity_popup"
+                data-backdrop="static"
+                data-keyboard="false"
+                tabindex="-1"
+                aria-labelledby="warning_request_solidarity_popup_label"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5
+                                class="modal-title"
+                                id="warning_request_solidarity_popup_label"
+                            >Requesting solidarity</h5>
+                        </div>
+                        <div class="modal-body">
+                            <t
+                                t-if="regular"
+                                t-call="beesdoo_website_shift_swap.solidarity_request_help_text_regular"
+                            />
+                            <t
+                                t-else=""
+                                t-call="beesdoo_website_shift_swap.solidarity_request_help_text_irregular"
+                            />
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-danger"
+                                data-dismiss="modal"
+                            >Cancel</button>
+                            <t t-if="regular">
+                                <a
+                                    class="btn btn-success"
+                                    href="/my/shift?request_solidarity=1"
+                                >
+                                    Select a shift
+                                </a>
+                            </t>
+                            <t t-else="">
+                                <a
+                                    class="btn btn-success"
+                                    href="/my/shift/solidarity/request"
+                                >
+                                    Request solidarity
+                                </a>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- Solidarity request help text -->
+        <template
+            id="solidarity_request_help_text_regular"
+            name="Solidarity request help text for regular workers"
+        >
+            *Warning text regular*
+        </template>
+
+        <template
+            id="solidarity_request_help_text_irregular"
+            name="Solidarity request help text for irregular workers"
+        >
+            *Warning text irregular*
+        </template>
+
+        <!-- Display solidarity related buttons and solidarity counter -->
+        <template
+            id="solidarity_elements_regular_worker"
+            name="Solidarity related elements for regular workers"
+            inherit_id="beesdoo_website_shift.my_shift_regular_worker"
+        >
+            <xpath
+                expr="//div[t[@t-call='beesdoo_website_shift.my_shift_worker_status_title']]/*[last()]"
+                position="after"
+            >
+                <t
+                    t-if="solidarity_enabled"
+                    t-call="beesdoo_website_shift_swap.solidarity_buttons"
+                >
+                    <t t-set="regular" t-value="True" />
+                </t>
+            </xpath>
+            <xpath
+                expr="//t[@t-call='beesdoo_website_shift.help_text_title']"
+                position="before"
+            >
+                <t
+                    t-if="solidarity_enabled"
+                    t-call="beesdoo_website_shift_swap.solidarity_counter"
+                />
+            </xpath>
+        </template>
+
+        <template
+            id="solidarity_elements_irregular_worker"
+            name="Solidarity related elements for irregular workers"
+            inherit_id="beesdoo_website_shift.my_shift_irregular_worker"
+        >
+            <xpath
+                expr="//div[t[@t-call='beesdoo_website_shift.my_shift_worker_status_title']]/*[last()]"
+                position="after"
+            >
+                <t
+                    t-if="solidarity_enabled"
+                    t-call="beesdoo_website_shift_swap.solidarity_buttons"
+                >
+                    <t t-set="regular" t-value="False" />
+                </t>
+            </xpath>
+            <xpath
+                expr="//t[@t-call='beesdoo_website_shift.help_text_title']"
+                position="before"
+            >
+                <t
+                    t-if="solidarity_enabled"
+                    t-call="beesdoo_website_shift_swap.solidarity_counter"
+                />
+            </xpath>
+        </template>
+
+        <template
+            id="solidarity_elements_non_worker"
+            name="Solidarity related elements for non workers"
+            inherit_id="beesdoo_website_shift.my_shift_non_worker"
+        >
+            <xpath
+                expr="//div[hasclass('container', 'mt16')]/*[last()]"
+                position="after"
+            >
+                <div t-if="solidarity_enabled" class="row">
+                    <div class="col">
+                        <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template
+            id="solidarity_elements_new_worker"
+            name="Solidarity related elements for new workers"
+            inherit_id="beesdoo_website_shift.my_shift_new_worker"
+        >
+            <xpath
+                expr="//div[hasclass('container', 'mt6')]/*[last()]"
+                position="after"
+            >
+                <div t-if="solidarity_enabled" class="row">
+                    <div class="col">
+                        <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template
+            id="solidarity_elements_exempted_worker"
+            name="Solidarity related elements for exempted workers"
+            inherit_id="beesdoo_website_shift.my_shift_exempted_worker"
+        >
+            <xpath
+                expr="//div[hasclass('container', 'mt16')]/*[last()]"
+                position="after"
+            >
+                <div t-if="solidarity_enabled" class="row">
+                    <div class="col">
+                        <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template
+            id="solidarity_elements_regular_worker_without_shift"
+            name="Solidarity related elements for regular workers without shifts"
+            inherit_id="beesdoo_website_shift.my_shift_regular_worker_without_shift"
+        >
+            <xpath
+                expr="//div[hasclass('container', 'mt16')]/*[last()]"
+                position="after"
+            >
+                <div t-if="solidarity_enabled" class="row">
+                    <div class="col">
+                        <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <!-- Help text for selection among underpopulated shifts -->
+        <template
+            id="help_text_underpopulated_solidarity_offer"
+            name="Help text underpopulated solidarity offer"
+        >
+            <div class="alert alert-info">
+                <strong>Info!</strong>
+                On this page you can choose to subscribe to a shift that is
+                underpopulated, as a solidarity shift. If you select one of them, you
+                will have to attend it or to cancel it soon enough, via the "My shifts"
+                page. If you cannot attend any of those on this list, please click on
+                the button at the bottom of the page to see all available shifts.
+            </div>
+        </template>
+
+        <!-- Help text for selection among all shifts -->
+        <template
+            id="help_text_all_shifts_solidarity_offer"
+            name="Help text all shifts solidarity offer"
+        >
+            <div class="alert alert-info">
+                <strong>Info!</strong>
+                On this page you can choose to subscribe to a shift as a solidarity
+                shift. If you select one of them, you will have to attend it or to
+                cancel it soon enough, via the "My shifts" page.
+            </div>
+        </template>
+
+        <!-- Display error message if can't offer solidarity shift -->
+        <template
+            id="website_shift_swap_offer_solidarity_impossible"
+            name="Error message if can't offer solidarity shift"
+        >
+            <t t-call="portal.portal_layout">
+                <t t-set="no_breadcrumbs" t-value="True" />
+                <div class="container mt16">
+                    <div class="row">
+                        <div class="col text-center">
+                            <div class="alert alert-warning">
+                                <strong>Warning !</strong>
+                                Your current status does not allow you to offer solidarity shifts.
+                            </div>
+                            <a class="btn btn-primary" href="/my/shift">Go back</a>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- Display error message if can't cancel solidarity offer -->
+        <template
+            id="website_shift_swap_cancel_solidarity_offer_impossible"
+            name="Error message if can't cancel solidarity offer"
+        >
+            <t t-call="portal.portal_layout">
+                <t t-set="no_breadcrumbs" t-value="True" />
+                <div class="container mt16">
+                    <div class="row">
+                        <div class="col text-center">
+                            <div class="alert alert-warning">
+                                <strong>Warning!</strong>
+                                Your can't cancel this solidarity shift, because it is too close in time.
+                            </div>
+                            <a class="btn btn-primary" href="/my/shift">Go back</a>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- Display error message if can't request solidarity -->
+        <template
+            id="website_shift_swap_request_solidarity_impossible"
+            name="Error message if you can't request solidarity"
+        >
+            <t t-call="portal.portal_layout">
+                <t t-set="no_breadcrumbs" t-value="True" />
+                <div class="container mt16">
+                    <div class="row">
+                        <div class="col text-center">
+                            <div class="alert alert-warning">
+                                <strong>Error!</strong>
+                                Your can't request solidarity more than
+                                <t
+                                    t-esc="request.env['ir.config_parameter'].sudo().get_param('beesdoo_shift.max_solidarity_requests_number')"
+                                />
+                                times over a 12 month period.
+                            </div>
+                            <a class="btn btn-primary" href="/my/shift">Go back</a>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- Template display next shift for solidarity-->
+        <template
+            id="website_shift_swap_tmpl_dated_solidarity"
+            name="Next shifts for solidarity"
+        >
+            <t t-if="all_shifts">
+                <h2>
+                    Select a shift
+                </h2>
+            </t>
+            <t t-else="">
+                <h2>
+                    Select an underpopulated shift
+                </h2>
+            </t>
+            <div>
+                <t t-foreach="shift_weeks" t-as="shift_week_tuple">
+                    <div class="card mb-2">
+                        <t t-set="week" t-value="shift_week_tuple[0]" />
+                        <div class="card-body p-0">
+                            <t t-call="beesdoo_website_shift_swap.available_shift_row">
+                                <t
+                                    t-set="shift_by_week"
+                                    t-value="shift_week_tuple[1]"
+                                />
+                            </t>
+                        </div>
+                    </div>
+                </t>
+            </div>
+            <t t-if="not all_shifts">
+                <p>
+                    <a
+                        class="btn btn-primary btn-block"
+                        href="/my/shift/solidarity/offer?display_all=1"
+                    >No shifts suits me</a>
+                </p>
+            </t>
+        </template>
+
+        <!-- Solidarity shift selection page -->
+        <!-- Template for page /my/shift/solidarity/offer -->
+        <template
+            id="website_shift_swap_select_solidarity"
+            name="Select a shift for solidarity"
+        >
+            <t t-call="portal.portal_layout">
+                <t t-set="no_breadcrumbs" t-value="True" />
+                <div class="container mt16">
+                    <div class="row">
+                        <div class="col text-center">
+                            <h1>
+                                Offer a solidarity shift
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6 m-auto text-justify">
+                            <t t-if="not all_shifts">
+                                <t
+                                    t-call="beesdoo_website_shift_swap.help_text_underpopulated_solidarity_offer"
+                                />
+                            </t>
+                            <t t-else="">
+                                <t
+                                    t-call="beesdoo_website_shift_swap.help_text_all_shifts_solidarity_offer"
+                                />
+                            </t>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <t
+                                t-call="beesdoo_website_shift_swap.website_shift_swap_tmpl_dated_solidarity"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- Template for page /my/shift/solidarity/request -->
+        <template
+            id="website_shift_swap_request_solidarity"
+            name="Request a solidarity shift"
+        >
+            <t t-call="portal.portal_layout">
+                <t t-set="no_breadcrumbs" t-value="True" />
+                <div class="container mt16">
+                    <div class="row">
+                        <div class="col text-center">
+                            <h1 class="text-center">Request a solidarity shift</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6 m-auto text-justify">
+                            <p t-if="tmpl_dated">
+                                <label
+                                    class="font-weight-bold"
+                                >Non realisable shift :</label>
+                                <t t-esc="tmpl_dated.template_id.day_nb_id.name" />
+                                <t t-esc="tmpl_dated.date.strftime('%d/%m, %Y')" />
+                                <t t-esc="'|'" />
+                                <t
+                                    t-esc="str(datetime.timedelta(hours=tmpl_dated.template_id.start_time)).rsplit(':', 1)[0]"
+                                />
+                                -
+                                <t
+                                    t-esc="str(datetime.timedelta(hours=tmpl_dated.template_id.end_time)).rsplit(':', 1)[0]"
+                                />
+                            </p>
+                            <t
+                                t-call="beesdoo_website_shift_swap.website_shift_swap_request_solidarity_form"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- Form for a solidarity shift request -->
+        <template
+            id="website_shift_swap_request_solidarity_form"
+            name="Form to request a solidarity shift"
+        >
+            <form method="POST">
+                <div class="form-group">
+                    <label for="reason">Reason :</label>
+                    <textarea class="form-control" name="reason" rows="5" />
+                </div>
+                <button type="submit" class="btn btn-success">Validate request</button>
+                <a href="/my/shift" class="btn btn-danger">Cancel</a>
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    t-att-value="request.csrf_token()"
+                />
+            </form>
+        </template>
+
+        <!-- Display solidarity requests and their status -->
+        <template
+            id="my_solidarity_request_template"
+            name="My solidarity request template"
+        >
+            <h2>
+              Solidarity requests
+            </h2>
+            <t t-if="solidarity_requests">
+                <table class="table table-hover text-justify">
+                    <thead class="thead-dark">
+                        <tr>
+                            <t t-if="regular">
+                                <th class="col-4">Non realisable shift</th>
+                            </t>
+                            <t t-else="">
+                                <th class="col-4">Request date</th>
+                            </t>
+                            <th class="col-6">Reason</th>
+                            <th class="col-2">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="solidarity_requests" t-as="request">
+                            <tr>
+                                <t t-if="regular">
+                                    <td>
+                                        <t
+                                            t-esc="request.tmpl_dated_id.template_id.day_nb_id.name"
+                                        />
+                                        <t
+                                            t-esc="request.tmpl_dated_id.date.strftime('%d/%m, %Y')"
+                                        />
+                                        <br />
+                                        <t
+                                            t-esc="str(datetime.timedelta(hours=request.tmpl_dated_id.template_id.start_time)).rsplit(':', 1)[0]"
+                                        />
+                                        -
+                                        <t
+                                            t-esc="str(datetime.timedelta(hours=request.tmpl_dated_id.template_id.end_time)).rsplit(':', 1)[0]"
+                                        />
+                                    </td>
+                                </t>
+                                <t t-else="">
+                                    <td>
+                                        <t
+                                            t-esc="request.create_date.strftime('%A %d/%m, %Y')"
+                                        />
+                                    </td>
+                                </t>
+                                <td>
+                                    <t t-esc="request.reason" />
+                                </td>
+                                <td>
+                                    <t
+                                        t-esc="dict(request.fields_get(allfields=['state'])['state']['selection'])[request.state]"
+                                    />
+                                    <t
+                                        t-if="(regular and request.state == 'validated' and request.tmpl_dated_id.date > now) or (not regular and request.state == 'validated')"
+                                    >
+                                        <br />
+                                        <a
+                                            class="btn btn-primary btn-sm"
+                                            t-att-href="'/my/shift/solidarity/request/cancel/%i' % request.id"
+                                        >
+                                            Cancel request
+                                        </a>
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </t>
+            <t t-else="">
+                <div class="alert alert-info">
+                    <strong>Info!</strong>
+                    You don't have any solidarity request.
+                </div>
+            </t>
+        </template>
+
+        <template
+            id="available_shift_card_offer_solidarity"
+            name="Available shift card to offer solidarity"
+        >
+            <div class="card bg-light">
+                <div
+                    class="center m-1 font-weight-bold"
+                    t-esc="displayed_shift.template_id.task_type_id.name"
+                />
+                <a
+                    class="btn btn-primary btn-sm m-1"
+                    t-att-href="'/my/shift/solidarity/offer/select/%i/%s' % (displayed_shift.template_id,displayed_shift.date)"
+                >Subscribe</a>
+            </div>
+        </template>
+
+    </data>
+</odoo>

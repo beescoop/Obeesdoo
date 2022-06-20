@@ -1,0 +1,253 @@
+<odoo>
+    <data>
+        <!-- My request menu item -->
+        <template
+            id="my_request_link"
+            name="Request Link to frontend portal"
+            inherit_id="portal.frontend_layout"
+        >
+            <xpath expr="//a[@id='o_logout']" position="before">
+                <div t-if="user_id.partner_id.working_mode in ['regular','irregular']">
+                    <a
+                        href="/my/request"
+                        class="dropdown-item"
+                        role="menuitem"
+                    >My Requests</a>
+                </div>
+            </xpath>
+        </template>
+
+        <!-- Help texts -->
+        <template id="my_request_help_text" name="Help text for My requests page">
+            <div class="text-justify">
+                On this page you can see all your requests and their statuses.
+                You can cancel solidarity requests, and if you are a regular
+                worker you can also validate exchanges.
+            </div>
+        </template>
+
+        <!-- Reusable templates -->
+        <template id="swap_shift_title" name="Swap Shift Title">
+            <h1>
+                Swap your shift
+            </h1>
+        </template>
+
+        <template id="exchange_shift_title" name="Exchange Shift Title">
+            <h1>
+                Exchange your shift
+            </h1>
+        </template>
+
+        <template id="select_shift_title" name="Select shift title">
+            <h1>
+                Select a shift
+            </h1>
+        </template>
+
+        <template id="help_text_title" name="Help Text Title">
+            <h2>
+                Help
+            </h2>
+        </template>
+
+        <!-- Add buttons to swap shift or to request solidarity -->
+        <template
+            id="website_shift_option_buttons"
+            name="shift option buttons"
+            inherit_id="beesdoo_website_shift.my_shift_next_shifts"
+        >
+            <xpath expr="//div[hasclass('card-body', 'clearfix')]" position="inside">
+                <t
+                    t-set="solidarity_counter"
+                    t-value="request.env['res.company']._company_default_get().solidarity_counter()"
+                />
+                <t t-if="shift.is_solidarity">
+                    <a
+                        class="btn btn-primary btn-sm ml-2 pull-right"
+                        t-att-href="'/my/shift/solidarity/offer/cancel/%i' % shift.solidarity_offer_ids[0]"
+                    >
+                        Cancel solidarity shift
+                    </a>
+                </t>
+                <t
+                    t-elif="request.env['res.users'].browse(request.uid).partner_id.working_mode == 'regular'
+                        and shift.state != 'cancel'
+                        and not shift.is_compensation"
+                >
+                    <t t-if="exchanges_enabled">
+                        <button
+                            type="button"
+                            class="btn btn-primary btn-sm ml-2 pull-right"
+                            data-toggle="modal"
+                            t-att-data-target="'#ask_planned_exchange_popup-%s' % shift_index"
+                        >
+                            Swap Shift
+                        </button>
+                        <div
+                            class="modal fade"
+                            t-att-id="'ask_planned_exchange_popup-%s' % shift_index"
+                            tabindex="-1"
+                            aria-labelledby="ask_planned_exchange_popup_label"
+                            aria-hidden="true"
+                        >
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5
+                                            class="modal-title"
+                                            id="ask_planned_exchange_popup_label"
+                                        >Swap your shift</h5>
+                                        <button
+                                            type="button"
+                                            class="close"
+                                            data-dismiss="modal"
+                                            aria-label="Close"
+                                        >
+                                            <span><![CDATA[&times;]]></span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Have you already agreed on an exchange with
+                                        another cooperator for this shift?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a
+                                            class="btn btn-success"
+                                            t-att-href="'/my/shift/exchange/%i/%s/contact' % (shift.task_template_id,shift.start_time)"
+                                        >Yes</a>
+                                        <a
+                                            class="btn btn-danger"
+                                            t-att-href="'/my/shift/swaping/%i/%s' % (shift.task_template_id,shift.start_time)"
+                                        >No</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                    <t t-if="request_solidarity">
+                        <t
+                            t-if="solidarity_counter > int(request.env['ir.config_parameter'].sudo().get_param('beesdoo_shift.solidarity_counter_limit'))"
+                        >
+                            <a
+                                class="btn btn-secondary btn-sm ml-2 pull-right"
+                                t-att-href="'/my/shift/solidarity/request/%i/%s' % (shift.task_template_id,shift.start_time)"
+                            >Request solidarity</a>
+                        </t>
+                        <t t-else="">
+                            <a
+                                class="btn btn-secondary btn-sm ml-2 pull-right disabled"
+                                aria-disabled="true"
+                            >
+                                Request solidarity
+                            </a>
+                        </t>
+                    </t>
+                </t>
+            </xpath>
+        </template>
+
+        <!-- Display error message if parameters are missing -->
+        <template
+            id="website_shift_swap_parameters_missing"
+            name="Error message if parameters are missing"
+        >
+            <t t-call="portal.portal_layout">
+                <t t-set="no_breadcrumbs" t-value="True" />
+                <div class="container mt16">
+                    <div class="row">
+                        <div class="col text-center">
+                            <div class="alert alert-danger">
+                                <p>
+                                    <strong>Error!</strong>
+                                </p>
+                                <p>
+                                    Unable to fulfill this request: parameters missing. <br
+                                    />
+                                    This can happen if you try to access a page by entering the URL manually. Please don't.
+                                </p>
+                            </div>
+                            <a class="btn btn-primary" href="/my/shift">Go back</a>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- Summary of the shift being exchanged -->
+        <template id="website_shift_swap_summary" name="Swap Summary">
+            <h2>
+                Swap Summary
+            </h2>
+            <br />
+            <p>
+                <label class="font-weight-bold">Exchanged Shift :</label>
+                <t t-esc="exchanged_tmpl_dated.template_id.day_nb_id.name" />
+                <t t-esc="exchanged_tmpl_dated.date.strftime('%d/%m, %Y')" />
+                <t t-esc="'|'" />
+                <t
+                    t-esc="str(datetime.timedelta(hours=exchanged_tmpl_dated.template_id.start_time)).rsplit(':', 1)[0]"
+                />
+                -
+                <t
+                    t-esc="str(datetime.timedelta(hours=exchanged_tmpl_dated.template_id.end_time)).rsplit(':', 1)[0]"
+                />
+                <br />
+                <label class="font-weight-bold">Task :</label>
+                <t t-esc="exchanged_tmpl_dated.template_id.task_type_id.name" />
+            </p>
+        </template>
+
+        <!-- Template for page /my/request -->
+        <template id="my_request" name="My Request">
+            <t t-call="portal.portal_layout">
+                <t t-set="no_breadcrumbs" t-value="True" />
+                <div class="container mt16">
+                    <div class="row">
+
+                        <div class="col-12 col-lg-8">
+                            <h1 class="text-center">
+                                My requests
+                            </h1>
+                            <t
+                                t-if="(regular and exchanges_enabled) or solidarity_enabled"
+                            >
+                                <div
+                                    t-if="regular and exchanges_enabled"
+                                    class="col-12"
+                                >
+                                    <t
+                                        t-call="beesdoo_website_shift_swap.my_exchange_request_template"
+                                    />
+                                </div>
+                                <div t-if="solidarity_enabled" class="col-12">
+                                    <t
+                                        t-call="beesdoo_website_shift_swap.my_solidarity_request_template"
+                                    />
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <div class="col-12">
+                                    <div class="alert alert-info">
+                                        <strong>Info!</strong>
+                                        You don't have any requests.
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+
+                        <div class="col-12 col-lg-4">
+                            <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
+                            <t t-call="beesdoo_website_shift_swap.help_text_title" />
+                            <t
+                                t-call="beesdoo_website_shift_swap.my_request_help_text"
+                            />
+                        </div>
+
+                    </div>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>

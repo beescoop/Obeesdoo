@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+     <record model="ir.ui.view" id="shift_swap_view_form">
+        <field name="name">Shift Swap Button</field>
+        <field name="model">res.partner</field>
+        <field
+            name="inherit_id"
+            ref="beesdoo_shift.super_coop_partner_inherited_view_form"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='temporary_exempt']" position="after">
+                <button
+                    name="coop_swap"
+                    string="Swap to underpopulated shift"
+                    class="oe_highlight"
+                    type="object"
+                    groups="beesdoo_shift.group_shift_management"
+                    attrs="{'invisible': [('working_mode','!=','regular'),('state','!=','suspended'),('state','!=','resigning')]}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="shift_swap_underpopulated_view_tree">
+        <field name="name">Swap Shift</field>
+        <field name="model">beesdoo.shift.swap</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="worker_id" />
+                <field name="date" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="shift_swap_view">
+        <field name="name">Shift swap</field>
+        <field name="model">beesdoo.shift.swap</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group name="group_top">
+                        <field name="worker_id" />
+                        <field name="date" />
+                        <group name="group_left">
+                            <field name="exchanged_tmpl_dated_id" />
+                        </group>
+                        <group name="group_right">
+                            <field name="wanted_tmpl_dated_id" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
