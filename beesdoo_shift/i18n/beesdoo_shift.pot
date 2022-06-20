@@ -60,14 +60,14 @@ msgid "\n"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/planning.py:275
+#: code:addons/beesdoo_shift/models/planning.py:355
 #, python-format
 msgid " is already assigned to "
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/task.py:142
-#: code:addons/beesdoo_shift/models/task.py:200
+#: code:addons/beesdoo_shift/models/task.py:162
+#: code:addons/beesdoo_shift/models/task.py:220
 #, python-format
 msgid "'Now' must be a datetime."
 msgstr ""
@@ -179,6 +179,11 @@ msgstr ""
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__can_shop
 msgid "Can Shop"
+msgstr ""
+
+#. module: beesdoo_shift
+#: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_shift__can_unsubscribe
+msgid "Can Unsubscribe"
 msgstr ""
 
 #. module: beesdoo_shift
@@ -1032,7 +1037,7 @@ msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_beesdoo_shift_template__remaining_worker
-msgid "Remaining Spot"
+msgid "Remaining Place"
 msgstr ""
 
 #. module: beesdoo_shift
@@ -1118,7 +1123,7 @@ msgid "Shift and Worker Read Access"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/task.py:99
+#: code:addons/beesdoo_shift/models/task.py:119
 #, python-format
 msgid "Shift state of a future shift can't be set to 'present' or 'absent'."
 msgstr ""
@@ -1356,7 +1361,7 @@ msgid "Want to leave the beescoop"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/planning.py:281
+#: code:addons/beesdoo_shift/models/planning.py:361
 #, python-format
 msgid "Warning"
 msgstr ""
@@ -1418,7 +1423,7 @@ msgid "Working mode"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/task.py:331
+#: code:addons/beesdoo_shift/models/task.py:351
 #, python-format
 msgid "Working mode is not properly defined. Please check if the worker is subscribed "
 msgstr ""
@@ -1438,13 +1443,13 @@ msgid "You can only set one cooperator status per cooperator"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/planning.py:199
+#: code:addons/beesdoo_shift/models/planning.py:247
 #, python-format
 msgid "You cannot assign more workers than the maximal number defined on template. "
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/task.py:313
+#: code:addons/beesdoo_shift/models/task.py:333
 #, python-format
 msgid "You cannot change to the status %s if no worker is defined for the shift "
 msgstr ""
