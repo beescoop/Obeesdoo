@@ -1,0 +1,31 @@
+<odoo>
+    <record model="ir.ui.view" id="subscribe_shift_swap_wizard">
+        <field name="name">Subscribe Swap Cooperator</field>
+        <field name="model">beesdoo.shift.subscribe.shift.swap</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="worker_id" />
+                    <field name="exchanged_tmpl_dated_id" />
+                    <field name="wanted_tmpl_dated_id">
+                        <tree>
+                            <field name="template_id" />
+                            <field name="date" />
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button
+                        type="object"
+                        name="make_change"
+                        string="Confirm"
+                        class="oe_highlight"
+                    />
+                    or
+                    <button special="cancel" string="Cancel" />
+                </footer>
+            </form>
+        </field>
+
+    </record>
+</odoo>
