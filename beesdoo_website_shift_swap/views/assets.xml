@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="assets_frontend" name="test assets" inherit_id="web.assets_frontend">
+        <xpath expr="//script[last()]" position="after">
+            <script
+                type="text/javascript"
+                src="/beesdoo_website_shift_swap/static/src/js/script.js"
+            />
+            <link
+                rel="stylesheet"
+                type="text/css"
+                href="https://cdn.datatables.net/v/bs4/dt-1.11.5/datatables.min.css"
+            />
+            <script
+                type="text/javascript"
+                src="https://cdn.datatables.net/v/bs4/dt-1.11.5/datatables.min.js"
+            />
+            <script
+                type="text/javascript"
+                src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"
+            />
+            <script
+                type="text/javascript"
+                src="//cdn.datatables.net/plug-ins/1.11.5/sorting/datetime-moment.js"
+            />
+        </xpath>
+    </template>
+</odoo>
