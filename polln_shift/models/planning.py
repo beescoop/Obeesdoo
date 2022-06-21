@@ -34,7 +34,7 @@ class WizardSubscribe(models.TransientModel):
                 {"subscribed_shift_ids": [(6, 0, [self.shift_id.id])]}
             )
 
-        # Should work with module beesdoo_easy_my_coop but don't
+        # Should work with module beesdoo_easy_my_coop but doesn't
         self.cooperator_id.eater = "worker_eater"
         return res
 
