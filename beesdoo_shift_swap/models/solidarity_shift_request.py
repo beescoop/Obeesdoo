@@ -58,7 +58,7 @@ class SolidarityShiftRequest(models.Model):
         remove the worker from it.
         :return: Boolean
         """
-        if self.tmpl_dated_id:
+        if self.tmpl_dated_id and self.tmpl_dated_id.date > datetime.now():
             non_realisable_shift = self.env["beesdoo.shift.shift"].search(
                 [
                     ("start_time", "=", self.tmpl_dated_id.date),
@@ -137,14 +137,19 @@ class SolidarityShiftRequest(models.Model):
 
     def cancel_solidarity_request(self):
         self.ensure_one()
-        if self.state == "validated" and (
-            not self.tmpl_dated_id or self.tmpl_dated_id.date > datetime.now()
-        ):
+        if self.can_cancel_request():
             self._subscribe_shift_if_generated()
             self.state = "cancelled"
             self.update_personal_counter()
             return True
         return False
+
+    def can_cancel_request(self):
+        return self.state == "validated" and (
+            self.worker_id.working_mode == "irregular"
+            or self.tmpl_dated_id.date > datetime.now()
+            or self.tmpl_dated_id.date < self.create_date
+        )
 
     @api.model
     def check_solidarity_requests_number(self, worker_id, requested_shift_date=False):
@@ -192,7 +197,7 @@ class SolidarityShiftRequest(models.Model):
         """
         return True
 
-    @api.multi
+    @api.model
     def counter(self):
         """
         Count the number of solidarity requests that have been validated in self.
