@@ -16,9 +16,14 @@ class SolidarityShiftRequest(models.Model):
     )
 
     def update_personal_counter(self):
+        self.ensure_one()
         worker = self.worker_id
         if worker:
-            if worker.working_mode == "irregular":
+            if (
+                worker.working_mode == "irregular"
+                or self.tmpl_dated_id.date < self.create_date
+            ):
+                # Worker is irregular or solidarity is requested for a past shift
                 if (
                     self.state == "validated"
                     and self.personal_counter_status == "not_modified"
