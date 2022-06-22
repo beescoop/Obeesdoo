@@ -113,7 +113,7 @@ class Planning(models.Model):
         config.set_param("next_planning_date", next_date)
 
     @api.model
-    def get_future_shifts(self, end_date):
+    def get_future_shifts(self, end_date, worker_id=None):
         """
         Calculates shifts between now and end_date without
         storing them in the database
@@ -124,15 +124,21 @@ class Planning(models.Model):
         """
         start_date = datetime.now()
 
-        shift_list = list(
+        # Getting existing shifts
+        shift_domain = [("start_time", ">", start_date.strftime("%Y-%m-%d %H:%M:%S"))]
+        if worker_id:
+            shift_domain.append(("worker_id", "=", worker_id.id))
+
+        existing_shift_list = list(
             self.env["beesdoo.shift.shift"]
             .sudo()
             .search(
-                [("start_time", ">", start_date.strftime("%Y-%m-%d %H:%M:%S"))],
+                shift_domain,
                 order="start_time, task_template_id, task_type_id",
             )
         )
 
+        # Getting parameters
         last_sequence = int(
             self.env["ir.config_parameter"].sudo().get_param("last_planning_seq")
         )
@@ -145,10 +151,15 @@ class Planning(models.Model):
 
         next_planning = next_planning.with_context(visualize_date=next_planning_date)
 
+        # The following loop will generate a list of shifts. Each shift
+        # is a dictionary. The conversion to a recordset is performed
+        # after filtering the new shift to avoid unnecessary
+        # computations.
+        future_shift_list = []
         while next_planning_date < end_date:
-            for shift in next_planning.task_template_ids.get_task_day():
-                if shift.start_time > start_date:
-                    shift_list.append(shift)
+            for shift in next_planning.task_template_ids._prepare_task_day():
+                if shift["start_time"] > start_date:
+                    future_shift_list.append(shift)
             next_planning_date = next_planning._get_next_planning_date(
                 next_planning_date
             )
@@ -157,6 +168,20 @@ class Planning(models.Model):
             next_planning = next_planning.with_context(
                 visualize_date=next_planning_date
             )
+
+        # Filtering future shifts
+        if worker_id:
+            filtered_future_shift_list = [
+                shift
+                for shift in future_shift_list
+                if shift["worker_id"] == worker_id.id
+            ]
+
+        # Converting dictionary to recordset
+        shift_list = existing_shift_list + [
+            self.env["beesdoo.shift.shift"].new(shift)
+            for shift in filtered_future_shift_list
+        ]
 
         return shift_list
 
