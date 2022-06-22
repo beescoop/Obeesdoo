@@ -84,6 +84,9 @@ class Task(models.Model):
     def _get_final_state(self):
         return ["done", "absent_2", "absent_1", "absent_0"]
 
+    def get_absent_state(self):
+        return ["absent_2", "absent_1", "absent_0"]
+
     state = fields.Selection(selection=_get_selection_status)
 
     ##############################################

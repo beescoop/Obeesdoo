@@ -1,4 +1,4 @@
-# Copyright 2020 Coop IT Easy SCRL fs
+# Copyright 2020 Coop IT Easy SCRLfs
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {

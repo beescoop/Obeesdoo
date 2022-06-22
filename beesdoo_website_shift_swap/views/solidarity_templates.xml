@@ -107,7 +107,13 @@
                                     class="btn btn-success"
                                     href="/my/shift?request_solidarity=1"
                                 >
-                                    Select a shift
+                                    Select a future shift
+                                </a>
+                                <a
+                                    class="btn btn-success"
+                                    href="/my/shift/solidarity/request/past"
+                                >
+                                    Request for a past shift
                                 </a>
                             </t>
                             <t t-else="">
@@ -554,9 +560,7 @@
                                     <t
                                         t-esc="dict(request.fields_get(allfields=['state'])['state']['selection'])[request.state]"
                                     />
-                                    <t
-                                        t-if="(regular and request.state == 'validated' and request.tmpl_dated_id.date > now) or (not regular and request.state == 'validated')"
-                                    >
+                                    <t t-if="request.can_cancel_request()">
                                         <br />
                                         <a
                                             class="btn btn-primary btn-sm"
