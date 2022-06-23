@@ -6,26 +6,30 @@ odoo.define("beesdoo_website_shift.script", function (require) {
             $("#collapseHelp").removeClass("show");
         }
 
+        // Translatable terms
+        var core = require("web.core");
+        var _t = core._t;
+
         // Change help button if help is hidden
         if (!$("#collapseHelp").hasClass("show")) {
-            $("#toggle_help_button").text("Show");
+            $("#toggle_help_button").text(_t("Show"));
         }
 
         // Toggle help panel
         $("#collapseHelp").on("hidden.bs.collapse", function () {
-            $("#toggle_help_button").text("Show");
+            $("#toggle_help_button").text(_t("Show"));
         });
 
         $("#collapseHelp").on("shown.bs.collapse", function () {
-            $("#toggle_help_button").text("Hide");
+            $("#toggle_help_button").text(_t("Hide"));
         });
 
         $(".multi-collapse").on("hidden.bs.collapse", function () {
-            $("#toggle_shifts_button").text("Show next shifts");
+            $("#toggle_shifts_button").text(_t("Show next shifts"));
         });
 
         $(".multi-collapse").on("shown.bs.collapse", function () {
-            $("#toggle_shifts_button").text("Reduce");
+            $("#toggle_shifts_button").text(_t("Reduce"));
         });
     });
 });
