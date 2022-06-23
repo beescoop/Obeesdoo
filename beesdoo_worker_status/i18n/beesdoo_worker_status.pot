@@ -61,6 +61,11 @@ msgid "Future Alert Date"
 msgstr ""
 
 #. module: beesdoo_worker_status
+#: model:ir.model.fields,field_description:beesdoo_worker_status.field_cooperative_status__is_penalised_irregular
+msgid "Is Currently Penalised Irregular"
+msgstr ""
+
+#. module: beesdoo_worker_status
 #: model:ir.model.fields,field_description:beesdoo_worker_status.field_cooperative_status__next_countdown_date
 msgid "Next Countdown Date"
 msgstr ""
