@@ -2,10 +2,10 @@
 <!-- Copyright 2019 Coop IT Easy SCRLfs
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
-    <record id="view_partner_form_easy_my_coop" model="ir.ui.view">
+    <record id="view_partner_form" model="ir.ui.view">
         <field name="name">res.partner.form.easy_my_coop</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="easy_my_coop.view_partner_form_easy_my_coop" />
+        <field name="inherit_id" ref="cooperator.view_partner_form" />
         <field name="arch" type="xml">
             <field name="internal_rules_approved" position="before">
                 <field

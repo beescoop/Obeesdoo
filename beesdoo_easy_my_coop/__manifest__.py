@@ -8,9 +8,9 @@
     "depends": [
         "beesdoo_base",
         "beesdoo_shift",
-        "easy_my_coop",
-        "easy_my_coop_website",
-        "partner_age",
+        "cooperator",
+        "cooperator_website",
+        "partner_contact_birthdate",
     ],
     "data": [
         "views/res_company.xml",
