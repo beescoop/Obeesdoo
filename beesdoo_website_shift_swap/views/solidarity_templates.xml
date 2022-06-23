@@ -592,10 +592,61 @@
                     class="center m-1 font-weight-bold"
                     t-esc="displayed_shift.template_id.task_type_id.name"
                 />
-                <a
+                <button
+                    type="button"
                     class="btn btn-primary btn-sm m-1"
-                    t-att-href="'/my/shift/solidarity/offer/select/%i/%s' % (displayed_shift.template_id,displayed_shift.date)"
-                >Subscribe</a>
+                    data-toggle="modal"
+                    t-att-data-target="'#subscribe-shift-%s-%s-%s-%s' % (week_count,shift_row_count,shift_by_day_count,shift_count)"
+                >
+                    Subscribe
+                </button>
+            </div>
+            <!-- Subscribe modals -->
+            <div
+                class="modal fade"
+                t-att-id="'subscribe-shift-%s-%s-%s-%s' % (week_count,shift_row_count,shift_by_day_count,shift_count)"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="subscribe-shift-label"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="subscribe-shift-label">
+                                Please confirm subscription
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <label class="font-weight-bold">Shift:</label>
+                            <t t-esc="displayed_shift.template_id.day_nb_id.name" />
+                            <t t-esc="displayed_shift.date.strftime('%d/%m, %Y')" />
+                            <t t-esc="'|'" />
+                            <t
+                                t-esc="str(datetime.timedelta(hours=displayed_shift.template_id.start_time)).rsplit(':', 1)[0]"
+                            />
+                            -
+                            <t
+                                t-esc="str(datetime.timedelta(hours=displayed_shift.template_id.end_time)).rsplit(':', 1)[0]"
+                            />
+                            <br />
+                            <label class="font-weight-bold">Task:</label>
+                            <t t-esc="displayed_shift.template_id.task_type_id.name" />
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-danger"
+                                data-dismiss="modal"
+                            >Close
+                            </button>
+                            <a
+                                class="btn btn-success"
+                                t-att-href="'/my/shift/solidarity/offer/select/%i/%s' % (displayed_shift.template_id,displayed_shift.date)"
+                            >Subscribe</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </template>
 
