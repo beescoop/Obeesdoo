@@ -4,6 +4,10 @@ odoo.define("beesdoo_website_shift.script", function (require) {
         // Hide help panel by default for small screens
         if ($(window).width() < 992) {
             $("#collapseHelp").removeClass("show");
+        }
+
+        // Change help button if help is hidden
+        if (!$("#collapseHelp").hasClass("show")) {
             $("#toggle_help_button").text("Show");
         }
 

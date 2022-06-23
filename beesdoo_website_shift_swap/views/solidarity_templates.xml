@@ -5,17 +5,17 @@
         <template id="solidarity_counter" name="solidarity counter">
             <div class="card">
                 <div class="card-header text-center">
-                    <h2> Solidarity shifts counter:
+                    <h3> Solidarity shifts counter:
                         <t
                             t-esc="request.env['res.company']._company_default_get().solidarity_counter()"
                         />
-                    </h2>
+                    </h3>
                 </div>
                 <div class="card-body">
                     <p class="card-text text-left">
                         *Explanatory text solidarity counter*
                     </p>
-                    <div class="text-center">
+                    <div t-if="not hide_button" class="text-center">
                         <a class="btn btn-primary" href="/my/shift/solidarity/offer">
                             Offer a solidarity shift
                         </a>
@@ -189,15 +189,15 @@
                     <t t-set="regular" t-value="False" />
                 </t>
             </xpath>
-            <xpath
-                expr="//t[@t-call='beesdoo_website_shift.help_text_title']"
-                position="before"
-            >
+            <div id="collapseHelp" position="after">
+                <br />
                 <t
                     t-if="solidarity_enabled"
                     t-call="beesdoo_website_shift_swap.solidarity_counter"
-                />
-            </xpath>
+                >
+                    <t t-set="hide_button" t-value="True" />
+                </t>
+            </div>
         </template>
 
         <template
