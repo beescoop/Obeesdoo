@@ -92,6 +92,11 @@ class BeesdooProduct(models.Model):
     total_deposit = fields.Float(
         compute="_compute_total", store=True, string="Deposit Price"
     )
+    several_tax_strategies_warning = fields.Boolean(
+        string="This product can't be printed from the Point"
+        " of Sale because several tax strategies were defined.",
+        compute="_compute_total",
+    )
 
     label_to_be_printed = fields.Boolean("Print label?")
     label_last_printed = fields.Datetime("Label last printed on")
@@ -220,27 +225,29 @@ class BeesdooProduct(models.Model):
             consignes_group = self.env.ref(
                 "beesdoo_product.consignes_group_tax", raise_if_not_found=False
             )
+            product.several_tax_strategies_warning = False
 
-            taxes_included = set(product.taxes_id.mapped("price_include"))
+            taxes_included = set(
+                product.taxes_id.filtered(
+                    lambda t: t.tax_group_id != consignes_group
+                ).mapped("price_include")
+            )
+
             if len(taxes_included) == 0:
                 product.total_with_vat = product.list_price
                 return True
 
             elif len(taxes_included) > 1:
-                raise ValidationError(
-                    _("Several tax strategies (price_include) defined for %s")
-                    % product.name
+                _logger.warning(
+                    "Several tax strategies (price_include)"
+                    " defined for product (%s, %s)",
+                    product.id,
+                    product.name,
                 )
+                product.several_tax_strategies_warning = True
 
             elif taxes_included.pop():
                 product.total_with_vat = product.list_price
-                product.total_deposit = sum(
-                    [
-                        tax._compute_amount(product.list_price, product.list_price)
-                        for tax in product.taxes_id
-                        if tax.tax_group_id == consignes_group
-                    ]
-                )
             else:
                 tax_amount_sum = sum(
                     [
