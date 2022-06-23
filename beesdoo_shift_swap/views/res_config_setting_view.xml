@@ -12,7 +12,7 @@
             />
             <field name="arch" type="xml">
 
-                <xpath expr="//div[@id='shift_settings_block']" position="inside">
+                <div id="shift_settings_block" position="inside">
                     <h2>Shift Exchanges</h2>
                     <div class="row mt16 o_settings_container">
                         <div class="col-12 o_setting_box">
@@ -250,7 +250,7 @@
                             </div>
                         </div>
                     </div>
-                </xpath>
+                </div>
 
             </field>
         </record>

@@ -767,11 +767,21 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         # Get current user
         cur_user = request.env["res.users"].sudo().browse(request.uid)
 
+        request_number_limit = int(
+            request.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_website_shift_swap.request_number_limit")
+        )
+
         # Get exchange requests
         exchange_request_list = (
             request.env["beesdoo.shift.exchange_request"]
             .sudo()
-            .search([("worker_id", "=", cur_user.partner_id.id)])
+            .search(
+                [("worker_id", "=", cur_user.partner_id.id)],
+                order="create_date desc",
+                limit=request_number_limit,
+            )
         )
         exchange_requests = []
         for rec in exchange_request_list:
@@ -790,7 +800,11 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         solidarity_requests = (
             request.env["beesdoo.shift.solidarity.request"]
             .sudo()
-            .search([("worker_id", "=", cur_user.partner_id.id)])
+            .search(
+                [("worker_id", "=", cur_user.partner_id.id)],
+                order="create_date desc",
+                limit=request_number_limit,
+            )
         )
 
         return request.render(
