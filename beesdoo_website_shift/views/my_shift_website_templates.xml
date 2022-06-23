@@ -1024,36 +1024,6 @@
 
                     <div class="col-12 col-lg-8 order-2 order-lg-1">
 
-                        <div
-                            t-if="back_from_subscription"
-                            role="alert"
-                            t-att-class="'alert alert-%s alert-dismissible' % ('success' if success else 'danger',)"
-                        >
-                            <button
-                                type="button"
-                                class="close"
-                                data-dismiss="alert"
-                                aria-label="Close"
-                            >
-                                <span aria-hidden="true">×</span>
-                            </button>
-                            <t t-if="success">
-                                <strong>Success!</strong>
-                                Your subscription has succeded.
-                            </t>
-                            <t t-if="not success">
-                                <strong>Failed!</strong>
-                                Your subscription has failed. Someone
-                                subscribed before you or the shift was deleted.
-                                Try again in a
-                                moment.
-
-                                Please note that you can't subscribe
-                                <t t-esc="subscription_time_limit" />
-                                minutes before the shift.
-                            </t>
-                        </div>
-
                         <t t-call="beesdoo_website_shift.my_shift_next_shifts" />
 
                         <t t-call="beesdoo_website_shift.my_shift_past_shifts" />
@@ -1066,7 +1036,7 @@
                         <div class="collapse show" id="collapseHelp">
                             <t t-call="beesdoo_website_shift.help_text_common" />
                             <t
-                                t-call="beesdoo_website_shift.help_text_irregular_worker"
+                                t-call="beesdoo_website_shift.help_text_regular_worker"
                             />
                         </div>
 
@@ -1134,43 +1104,17 @@
 
                         <t t-call="beesdoo_website_shift.help_text_info" />
 
+                        <t t-call="beesdoo_website_shift.help_text_title" />
+                        <div class="collapse" id="collapseHelp">
+                            <t t-call="beesdoo_website_shift.help_text_common" />
+                            <t
+                                t-call="beesdoo_website_shift.help_text_irregular_worker"
+                            />
+                        </div>
+
                     </div>
 
-                    <div class="col-12 col-lg-8 order-2 order-lg-1">
-
-                        <div
-                            t-if="back_from_subscription"
-                            role="alert"
-                            t-att-class="'alert alert-%s alert-dismissible' % ('success' if (success or unsubscribe_success) else 'danger',)"
-                        >
-                            <button
-                                type="button"
-                                class="close"
-                                data-dismiss="alert"
-                                aria-label="Close"
-                            >
-                                <span aria-hidden="true">×</span>
-                            </button>
-                            <t t-if="success">
-                                <strong>Success!</strong>
-                                Your subscription has succeded.
-                            </t>
-                            <t t-elif="unsubscribe_success">
-                                <strong>Success!</strong>
-                                You have been successfully unsubscribed.
-                            </t>
-                            <t t-else="">
-                                <strong>Failed!</strong>
-                                Your subscription has failed. Someone
-                                subscribed before you or the shift was deleted.
-                                Try again in a
-                                moment.
-
-                                Please note that you can't subscribe
-                                <t t-esc="subscription_time_limit" />
-                                minutes before the shift.
-                            </t>
-                        </div>
+                    <div class="col-12">
 
                         <t t-call="beesdoo_website_shift.my_shift_next_shifts" />
 
@@ -1197,18 +1141,6 @@
                         />
 
                         <t t-call="beesdoo_website_shift.my_shift_past_shifts" />
-
-                    </div>
-
-                    <div class="col-12 col-lg-4 text-justify  order-1 order-lg-2">
-
-                        <t t-call="beesdoo_website_shift.help_text_title" />
-                        <div class="collapse show" id="collapseHelp">
-                            <t t-call="beesdoo_website_shift.help_text_common" />
-                            <t
-                                t-call="beesdoo_website_shift.help_text_irregular_worker"
-                            />
-                        </div>
 
                     </div>
                 </div>
