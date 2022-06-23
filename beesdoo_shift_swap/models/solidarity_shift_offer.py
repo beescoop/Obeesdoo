@@ -91,6 +91,7 @@ class SolidarityShiftOffer(models.Model):
                 subscribed_solidarity_shift.write(
                     {
                         "is_regular": False,
+                        "is_solidarity": False,
                         "worker_id": False,
                         "solidarity_offer_ids": [(5,)],
                     }
