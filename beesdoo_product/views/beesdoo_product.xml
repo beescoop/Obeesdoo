@@ -33,6 +33,15 @@
             >
                 <attribute name="invisible">1</attribute>
             </field>
+            <xpath expr="//h1" position="after">
+                <field name="several_tax_strategies_warning" attrs="{'invisible': 1}" />
+                <label
+                    for="several_tax_strategies_warning"
+                    decoration-warning="True"
+                    style="color:Red"
+                    attrs="{'invisible': [('several_tax_strategies_warning', '!=', True)]}"
+                />
+            </xpath>
             <xpath expr="//group[@name='inventory']/.." position="after">
                 <page string="Label">
                     <group>
