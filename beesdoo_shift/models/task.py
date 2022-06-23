@@ -39,6 +39,7 @@ class Task(models.Model):
     def _get_final_state(self):
         return ["done", "absent", "excused"]
 
+    @api.model
     def get_absent_state(self):
         return ["absent"]
 
