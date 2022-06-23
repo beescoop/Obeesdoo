@@ -243,6 +243,8 @@ class TestBeesdooShiftSwap(TransactionCase):
         cancel a solidarity request but all the shifts in the timeslot were
         taken in the meantime
         """
+        self.task_template_3.start_date = self.now + timedelta(minutes=20)
+
         template_dated = self.shift_template_dated_model.create(
             {
                 "template_id": self.task_template_3.id,
