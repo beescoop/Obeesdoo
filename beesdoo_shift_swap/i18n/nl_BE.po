@@ -1,0 +1,1090 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* beesdoo_shift_swap
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-23 14:58+0000\n"
+"PO-Revision-Date: 2022-06-23 14:58+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: beesdoo_shift_swap
+#: model:mail.template,body_html:beesdoo_shift_swap.email_template_contact_match_coop
+msgid "\n"
+"                \n"
+"                <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"                    Hello ${(object.worker_id.name)},\n"
+"                    <br/><br/>\n"
+"                    <p>\n"
+"                        You asked to exchange your following shift :\n"
+"                        ${(object.exchanged_tmpl_dated_id.template_id.name)},\n"
+"                        ${(object.exchanged_tmpl_dated_id.date.date())},\n"
+"                        ${(object.exchanged_tmpl_dated_id.template_id.task_type_id.name)}\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Another cooperator offered to exchange it with his/her shift :\n"
+"                        ${ctx.get('matching_request').exchanged_tmpl_dated_id.template_id.name},\n"
+"                        ${ctx.get('matching_request').exchanged_tmpl_dated_id.date.date()},\n"
+"                        ${ctx.get('matching_request').exchanged_tmpl_dated_id.template_id.task_type_id.name}\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        To confirm this match, please <a href=\"/my/request\">click here</a> and validate the exchange.\n"
+"                    </p>\n"
+"                    <br/><br/>\n"
+"                    Regards,\n"
+"                </div>\n"
+"                \n"
+"            "
+msgstr "\n"
+"                \n"
+"                <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"                    Hallo ${(object.worker_id.name)},\n"
+"                    <br/><br/>\n"
+"                    <p>\n"
+"                        Je vroeg om deze shift te ruilen: :\n"
+"                        ${(object.exchanged_tmpl_dated_id.template_id.name)},\n"
+"                        ${(object.exchanged_tmpl_dated_id.date.date())},\n"
+"                        ${(object.exchanged_tmpl_dated_id.template_id.task_type_id.name)}\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Een andere coöperant bood aan om het te ruilen met zijn/haar shift:\n"
+"                        ${ctx.get('matching_request').exchanged_tmpl_dated_id.template_id.name},\n"
+"                        ${ctx.get('matching_request').exchanged_tmpl_dated_id.date.date()},\n"
+"                        ${ctx.get('matching_request').exchanged_tmpl_dated_id.template_id.task_type_id.name}\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Om deze overeenkomst te bevestigen, gelieve <a href=\"/my/request\">hier te klikken</a>.\n"
+"                    </p>\n"
+"                    <br/><br/>\n"
+"                    Met coöperatieve groetjes,\n"
+"                </div>\n"
+"                \n"
+"            "
+
+#. module: beesdoo_shift_swap
+#: model:mail.template,body_html:beesdoo_shift_swap.email_template_exchange_validation
+msgid "\n"
+"                \n"
+"                <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"                    Hello ${(object.worker_id.name)},\n"
+"                    <br/><br/>\n"
+"                    <p>\n"
+"                        You shift exchange has been confirmed.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Here is a summary of the exchange :\n"
+"                        <ul>\n"
+"                            <li>\n"
+"                                Your old Shift : ${(object.exchanged_tmpl_dated_id.template_id.name)},\n"
+"                                ${(object.exchanged_tmpl_dated_id.date.date())},\n"
+"                                ${(object.exchanged_tmpl_dated_id.template_id.task_type_id.name)}\n"
+"                            </li>\n"
+"                            <li>\n"
+"                                Your new Shift : ${(object.validate_request_id.exchanged_tmpl_dated_id.template_id.name)},\n"
+"                                ${(object.validate_request_id.exchanged_tmpl_dated_id.date.date())},\n"
+"                                ${(object.validate_request_id.exchanged_tmpl_dated_id.template_id.task_type_id.name)}\n"
+"                            </li>\n"
+"                        </ul>\n"
+"                    </p>\n"
+"                    <br/><br/>\n"
+"                    Regards,\n"
+"                </div>\n"
+"                \n"
+"            "
+msgstr "\n"
+"                \n"
+"                <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"                    Hallo ${(object.worker_id.name)},\n"
+"                    <br/><br/>\n"
+"                    <p>\n"
+"                        Youw shift ruil is geconfirmeerd.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Hier is een samenvatting van de ruil:\n"
+"                        <ul>\n"
+"                            <li>\n"
+"                                Jouw oude shift : ${(object.exchanged_tmpl_dated_id.template_id.name)},\n"
+"                                ${(object.exchanged_tmpl_dated_id.date.date())},\n"
+"                                ${(object.exchanged_tmpl_dated_id.template_id.task_type_id.name)}\n"
+"                            </li>\n"
+"                            <li>\n"
+"                                Jouw nieuwe shift : ${(object.validate_request_id.exchanged_tmpl_dated_id.template_id.name)},\n"
+"                                ${(object.validate_request_id.exchanged_tmpl_dated_id.date.date())},\n"
+"                                ${(object.validate_request_id.exchanged_tmpl_dated_id.template_id.task_type_id.name)}\n"
+"                            </li>\n"
+"                        </ul>\n"
+"                    </p>\n"
+"                    <br/><br/>\n"
+"                    Met coöperatieve groetjes,\n"
+"                </div>\n"
+"                \n"
+"            "
+
+#. module: beesdoo_shift_swap
+#: model:mail.template,body_html:beesdoo_shift_swap.planned_exchange_contact_coop
+msgid "\n"
+"                \n"
+"                <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"                    Hello ${ctx.get('partner_to').name},\n"
+"                    <br/><br/>\n"
+"                    <p>\n"
+"                        ${object.name} has planned to exchange the following shift with you:\n"
+"                        ${ctx.get('template_id').name},\n"
+"                        ${ctx.get('exchanged_shift_date').date()},\n"
+"                        ${ctx.get('template_id').task_type_id.name}\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        To confirm and select the shift you want to exchange, please\n"
+"                        <a href=\"/my/shift/exchange/${object.id}/${ctx.get('template_id').id}/${ctx.get('exchanged_shift_date')}/validate/${ctx.get('asked_shift_date').date()}\">\n"
+"                        click here\n"
+"                        </a>.\n"
+"                    </p>\n"
+"                    <br/><br/>\n"
+"                    Regards,\n"
+"                </div>\n"
+"                \n"
+"            "
+msgstr "\n"
+"                \n"
+"                <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"                    Hallo ${ctx.get('partner_to').name},\n"
+"                    <br/><br/>\n"
+"                    <p>\n"
+"                        ${object.name} heeft gepland om de volgende shift met jou te ruilen:\n"
+"                        ${ctx.get('template_id').name},\n"
+"                        ${ctx.get('exchanged_shift_date').date()},\n"
+"                        ${ctx.get('template_id').task_type_id.name}\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Om te bevestigen, gelieve\n"
+"                        <a href=\"/my/shift/exchange/${object.id}/${ctx.get('template_id').id}/${ctx.get('exchanged_shift_date')}/validate/${ctx.get('asked_shift_date').date()}\">\n"
+"                        hier te klikken\n"
+"                        </a>.\n"
+"                    </p>\n"
+"                    <br/><br/>\n"
+"                    Met coöperatieve groetjes,\n"
+"                </div>\n"
+"                \n"
+"            "
+
+#. module: beesdoo_shift_swap
+#: model:mail.template,body_html:beesdoo_shift_swap.email_template_contact_coop
+msgid "\n"
+"                \n"
+"                <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"                    Hello ${ctx.get('worker_id').name},\n"
+"                    <br/><br/>\n"
+"                    <p>\n"
+"                        A cooperator working on the shift : ${ctx.get('my_tmpl_dated').template_id.name}, ${ctx.get('my_tmpl_dated').date.date()}, ${ctx.get('my_tmpl_dated').template_id.task_type_id.name}<br/>\n"
+"                        would like to exchange his shift with yours : ${ctx.get('asked_tmpl_dated').template_id.name}, ${ctx.get('asked_tmpl_dated').date.date()}, ${ctx.get('asked_tmpl_dated').template_id.task_type_id.name}.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        If you are willing to help by accepting this exchange, please\n"
+"                        <a href=\"/my/shift/swaping/${ctx.get('asked_tmpl_dated').template_id.id}/${ctx.get('asked_tmpl_dated').date.strftime('%Y-%m-%d %H:%M:%S')}?from_mail=1\">\n"
+"                            click here\n"
+"                        </a>.\n"
+"                    </p>\n"
+"                    <br/><br/>\n"
+"                    Regards,\n"
+"                </div>\n"
+"                \n"
+"            "
+msgstr "\n"
+"                \n"
+"                <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"                    Hallo ${ctx.get('worker_id').name},\n"
+"                    <br/><br/>\n"
+"                    <p>\n"
+"                        Een coöperant van de shift : ${ctx.get('my_tmpl_dated').template_id.name}, ${ctx.get('my_tmpl_dated').date.date()}, ${ctx.get('my_tmpl_dated').template_id.task_type_id.name}<br/>\n"
+"                        zou graag zijn shift ruilen met de jouwe : ${ctx.get('asked_tmpl_dated').template_id.name}, ${ctx.get('asked_tmpl_dated').date.date()}, ${ctx.get('asked_tmpl_dated').template_id.task_type_id.name}.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Als je bereid bent te helpen door deze ruil te accepteren,\n"
+"                        <a href=\"/my/shift/swaping/${ctx.get('asked_tmpl_dated').template_id.id}/${ctx.get('asked_tmpl_dated').date.strftime('%Y-%m-%d %H:%M:%S')}?from_mail=1\">\n"
+"                            klik hier\n"
+"                        </a>.\n"
+"                    </p>\n"
+"                    <br/><br/>\n"
+"                    Met coöperatieve groetjes,\n"
+"                </div>\n"
+"                \n"
+"            "
+
+#. module: beesdoo_shift_swap
+#: model:mail.template,body_html:beesdoo_shift_swap.email_template_cancel_exchange_request
+msgid "\n"
+"                \n"
+"                <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"                    Hello ${object.worker_id.name},\n"
+"                    <br/><br/>\n"
+"                    <p>\n"
+"                        The exchange request that you accepted has been cancelled by the other cooperator before his/her validation.\n"
+"                        Consequently, your exchange request has been cancelled. You can consult the details <a href=\"/my/request\">here</a>.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Please feel free to create a new request if you still want to exchange your shift.\n"
+"                    </p>\n"
+"                    <br/><br/>\n"
+"                    Regards,\n"
+"                </div>\n"
+"                \n"
+"            "
+msgstr "\n"
+"                \n"
+"                <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"                    Hallo ${object.worker_id.name},\n"
+"                    <br/><br/>\n"
+"                    <p>\n"
+"                        Het door jou aanvaarde verzoek om ruiling is door de andere coöperant geannuleerd voordat hij/zij het heeft gevalideerd.\n"
+"                        Bijgevolg is jouw uitwisselingsverzoek geannuleerd. Je kunt de details <a href=\"/my/request\">hier raadplegen</a>.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Je mag een nieuw verzoek in dienen als je jouw shift nog steeds wil ruilen..\n"
+"                    </p>\n"
+"                    <br/><br/>\n"
+"                    Met coöperatieve groetjes,\n"
+"                </div>\n"
+"                \n"
+"            "
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "<span class=\"o_form_label\">\n"
+"                                    Activate shift swaps and exchanges\n"
+"                                </span>"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "<span class=\"o_form_label\">\n"
+"                                    Activate solidarity related features\n"
+"                                </span>"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "<span class=\"o_form_label\">\n"
+"                                    Initial value of the solidarity counter\n"
+"                                </span>"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "<span class=\"o_form_label\">\n"
+"                                    Limit of days to exchange with the same timeslot\n"
+"                                </span>"
+msgstr "<span class=\"o_form_label\">\n"
+"                                        D - Limit of days to exchange with the same timeslot\n"
+"                                    </span>"
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "<span class=\"o_form_label\">\n"
+"                                    Limit of days to request an exchange\n"
+"                                </span>"
+msgstr "<span class=\"o_form_label\">\n"
+"                                        B - Grens waaronder geen bilaterale uitwisseling wordt voorgesteld\n"
+"                                    </span>"
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "<span class=\"o_form_label\">\n"
+"                                    Limit of days to select shifts for an exchange\n"
+"                                </span>"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "<span class=\"o_form_label\">\n"
+"                                    Limit of days to swap shift\n"
+"                                </span>"
+msgstr "<span class=\"o_form_label\">\n"
+"                                        A - Limiet tussen shift wisseling en shift ruil\n"
+"                                    </span>"
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "<span class=\"o_form_label\">\n"
+"                                    Limit of hours to cancel a solidarity shift\n"
+"                                </span>"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "<span class=\"o_form_label\">\n"
+"                                    Limit value of the solidarity counter\n"
+"                                </span>"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "<span class=\"o_form_label\">\n"
+"                                    Maximum number of solidarity requests\n"
+"                                </span>"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_exchange_request
+msgid "A model to track a shift exchange request"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_swap
+msgid "A model to track an exchange with an empty shift"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_exchange
+msgid "A module to track a shift exchange between two cooperators"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_template_dated
+msgid "A shift template with a date and an hour"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_res_config_settings__enable_exchanges
+msgid "Activate shift swaps and exchanges"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_res_config_settings__enable_solidarity
+msgid "Activate solidarity offers and requests"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.shift_swap_view_search
+msgid "Afternoon Shift"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.offer_solidarity_shift_wizard
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.request_solidarity_shift_wizard
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_as_solidarity_wizard
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_exchange_wizard
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_swap_wizard
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.validate_shift_exchange_wizard
+msgid "Cancel"
+msgstr "Annuleren"
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.solidarity_shift_offer_view_form
+msgid "Cancel offer"
+msgstr "Annuleer aanbod"
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.solidarity_shift_request_view_form
+msgid "Cancel request"
+msgstr "Annuleer verzoek"
+
+#. module: beesdoo_shift_swap
+#: selection:beesdoo.shift.solidarity.offer,state:0
+#: selection:beesdoo.shift.solidarity.request,state:0
+msgid "Cancelled"
+msgstr "Geannuleerd"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model,name:beesdoo_shift_swap.model_res_company
+msgid "Companies"
+msgstr "Bedrijven"
+
+#. module: beesdoo_shift_swap
+#: model:ir.ui.menu,name:beesdoo_shift_swap.menu_exchange
+msgid "Concluded exchanges"
+msgstr "Afgeronde ruilen"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model,name:beesdoo_shift_swap.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.offer_solidarity_shift_wizard
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.request_solidarity_shift_wizard
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_as_solidarity_wizard
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_exchange_wizard
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_swap_wizard
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.validate_shift_exchange_wizard
+msgid "Confirm"
+msgstr "Bevestigen"
+
+#. module: beesdoo_shift_swap
+#: model:mail.template,subject:beesdoo_shift_swap.planned_exchange_contact_coop
+msgid "Confirm your planned exchange"
+msgstr "Bevestig jouw geplande ruil"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model,name:beesdoo_shift_swap.model_res_partner
+msgid "Contact"
+msgstr "Contactpersoon"
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_exchange_wizard
+msgid "Contact coop of other week"
+msgstr "Contacteer coöperant van andere weken"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_offer_solidarity_shift__worker_id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_request_solidarity_shift__worker_id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_exchange__worker_id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_solidarity__worker_id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_swap__worker_id
+msgid "Cooperator"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_offer_solidarity_shift__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_request_solidarity_shift__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_offer__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_request__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_exchange__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_solidarity__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_swap__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__create_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_validate_shift_exchange__create_uid
+msgid "Created by"
+msgstr "Aangemaakt door"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_offer_solidarity_shift__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_request_solidarity_shift__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_offer__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_request__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_exchange__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_solidarity__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_swap__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__create_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_validate_shift_exchange__create_date
+msgid "Created on"
+msgstr "Aangemaakt op"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_offer__date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_request__date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap__date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__date
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.shift_swap_view_search
+msgid "Date"
+msgstr "Datum"
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "Days"
+msgstr "Dagen"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_offer_solidarity_shift__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_request_solidarity_shift__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_offer__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_request__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_exchange__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_solidarity__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_swap__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_validate_shift_exchange__display_name
+msgid "Display Name"
+msgstr "Schermnaam"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__end_time
+msgid "End Time"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: code:addons/beesdoo_shift_swap/models/res_partner.py:23
+#, python-format
+msgid "Exchange Swap Cooperator"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:mail.template,subject:beesdoo_shift_swap.email_template_contact_coop
+msgid "Exchange request"
+msgstr "Ruilverzoek"
+
+#. module: beesdoo_shift_swap
+#: model:ir.ui.menu,name:beesdoo_shift_swap.menu_exchange_request
+msgid "Exchange requests"
+msgstr "Ruilverzoeken"
+
+#. module: beesdoo_shift_swap
+#: model:mail.template,subject:beesdoo_shift_swap.email_template_exchange_validation
+msgid "Exchange validation"
+msgstr "Ruilvalidatie"
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.add_exchange_button
+msgid "Exchange your shift"
+msgstr "Ruil jouw shift"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap__exchanged_tmpl_dated_id
+msgid "Exchanged Tmpl Dated"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange__first_request_id
+msgid "First exchange request"
+msgstr "Eerst ruilverzoek"
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.shift_request_view_search
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.shift_swap_view_search
+msgid "Group By"
+msgstr "Groeperen op"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__hour
+msgid "Hour"
+msgstr "Uur"
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "Hours"
+msgstr "Uren"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange__id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_offer_solidarity_shift__id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_request_solidarity_shift__id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_offer__id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_request__id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_exchange__id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_solidarity__id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_swap__id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap__id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_validate_shift_exchange__id
+msgid "ID"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "Inital value for the solidarity counter calculation\n"
+"                                    (equivalent to the value of the counter if no one\n"
+"                                    has offered or requested a solidarity shift)"
+msgstr "Met deze parameter kan je de teller kunstmatig verhogen of verlagen. Handig om boven nul te beginnen of in het geval dat je de shifts database aan het opschonen bent en je de waarde wilt kunnen kiezen."
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_offer_solidarity_shift____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_request_solidarity_shift____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_offer____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_request____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_exchange____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_solidarity____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_swap____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_validate_shift_exchange____last_update
+msgid "Last Modified on"
+msgstr "Laatst gewijzigd op"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_offer_solidarity_shift__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_request_solidarity_shift__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_offer__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_request__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_exchange__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_solidarity__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_swap__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__write_uid
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_validate_shift_exchange__write_uid
+msgid "Last Updated by"
+msgstr "Laatst bijgewerkt door"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_offer_solidarity_shift__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_request_solidarity_shift__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_offer__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_request__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_exchange__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_solidarity__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_swap__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__write_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_validate_shift_exchange__write_date
+msgid "Last Updated on"
+msgstr "Laatst bijgewerkt op"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_res_config_settings__hours_limit_cancel_solidarity_offer
+msgid "Limit of hours to cancel a solidarity shift"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_res_config_settings__solidarity_counter_limit
+msgid "Limit value of the global solidarity counter"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_validate_shift_exchange__match_proposition
+msgid "Match proposition"
+msgstr "Overeenkomstvoorstel"
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.shift_request_view_search
+msgid "Match state"
+msgstr "Overeenkomststaat"
+
+#. module: beesdoo_shift_swap
+#: model:mail.template,subject:beesdoo_shift_swap.email_template_contact_match_coop
+msgid "Match with your exchange request !"
+msgstr "Overeenkomst met jouw ruilverzoek"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_res_config_settings__max_solidarity_requests_number
+msgid "Max number of solidarity requests per year"
+msgstr "Max aantal solidariteitsverzoeken per jaar"
+
+#. module: beesdoo_shift_swap
+#: code:addons/beesdoo_shift_swap/models/res_partner.py:101
+#, python-format
+msgid "Maximum number of shifts per day reached"
+msgstr "Maximum aantal shifts per dag bereikt"
+
+#. module: beesdoo_shift_swap
+#: code:addons/beesdoo_shift_swap/models/res_partner.py:103
+#, python-format
+msgid "Maximum number of shifts per month reached"
+msgstr "Maximum aantal shifts per maand bereikt"
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.shift_swap_view_search
+msgid "Morning Shift"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_validate_shift_exchange__my_proposition
+msgid "My proposition"
+msgstr "Mijn voorstel"
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.shift_swap_view_search
+msgid "Night Shift"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "Number of days above which a cooperator cannot\n"
+"                                    select shifts to exchange with one of his/hers"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_res_config_settings__day_limit_ask_for_exchange
+msgid "Number of days above which a cooperator cannot select shiftsto exchange with one of his/hers"
+msgstr "Als een coöperant een ruilverzoek indient, krijgt hij of zij alle toekomstige shifts te zien voor de x komende dagen "
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_res_config_settings__day_limit_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "Number of days above which a cooperator cannot swap his shift"
+msgstr "Boven dit aantal dagen worden eerst ruilen aangeboden en daarna lege shifts. Als je alleen de lege shifts wil behouden, stel een zeer hoge waarde in."
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "Number of days below which a cooperator can only\n"
+"                                    request exchanges with cooperators from the same\n"
+"                                    timesolt in other weeks"
+msgstr "Wanneer de coöperant een ruilvoorstel doet onder dit aantal dagen, krijgt hij/zij alleen de mogelijkheid om contact op te nemen met coöperanten van hetzelfde schema in andere weken. Zij worden per e-mail gecontacteerd."
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_res_config_settings__day_limit_exchange_with_same_timeslot
+msgid "Number of days below which a cooperator can only request exchangeswith cooperators from the same timesolt in other weeks"
+msgstr "Wanneer de coöperant een ruilvoorstel doet onder dit aantal dagen, krijgt hij/zij alleen de mogelijkheid om contact op te nemen met coöperanten van hetzelfde schema in andere weken. Zij worden per e-mail gecontacteerd."
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "Number of days below which a cooperator cannot\n"
+"                                    request an exchange with another cooperator"
+msgstr "Als the coöp geen shift gevonden heeft in de onderbevolkte shifts - Onder dit aantal dagen kan de coöperant geen ruil meer voorstellen (de kans op succes is te klein) en gaat naar de volledige lijst van shifts (je kunt de ruil overslaan als je het op 0 zet)."
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_res_config_settings__day_limit_request_exchange
+msgid "Number of days below which a cooperator cannot requestan exchange with another cooperator"
+msgstr "Als the coöp geen shift gevonden heeft in de onderbevolkte shifts - Onder dit aantal dagen kan de coöperant geen ruil meer voorstellen (de kans op succes is te klein) en gaat naar de volledige lijst van shifts (je kunt de ruil overslaan als je het op 0 zet)."
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "Number of hours before a solidarity shift after which it can't be cancelled"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.solidarity_offer_button_worker
+msgid "Offer a solidarity shift"
+msgstr "Een solidariteitsshift aanbieden"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_offer_solidarity_shift
+msgid "Offer solidarity shift"
+msgstr "Solidariteitsshift aanbieden"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_request_solidarity_shift__reason
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_request__reason
+msgid "Reason"
+msgstr "Reden"
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.task_shift_view_kanban_extended
+msgid "Regular Shift"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.solidarity_request_button
+msgid "Request a solidarity shift"
+msgstr "Vraag een solidariteitsshift"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_request_solidarity_shift
+msgid "Request solidarity shift"
+msgstr "Vraag een solidariteitsshift"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange__second_request_id
+msgid "Second exchange request"
+msgstr "Tweede ruilverzoek"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_offer_solidarity_shift__tmpl_dated_id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_request_solidarity_shift__tmpl_dated_id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_offer__shift_id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_solidarity__shift_id
+msgid "Shift"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "Shift Exchanges"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:res.groups,name:beesdoo_shift_swap.group_shift_swap_manager
+msgid "Shift Swap Management"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:res.groups,name:beesdoo_shift_swap.group_shift_swap_user
+msgid "Shift Swap Read Access"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.actions.act_window,name:beesdoo_shift_swap.action_shift_swap_exchange_request
+msgid "Shift exchange requests"
+msgstr "Shiftruil verzoeken"
+
+#. module: beesdoo_shift_swap
+#: model:ir.actions.act_window,name:beesdoo_shift_swap.action_shift_swap_exchange
+#: model:ir.ui.menu,name:beesdoo_shift_swap.menu_swap_top
+msgid "Shift exchanges"
+msgstr "Shiftruilen"
+
+#. module: beesdoo_shift_swap
+#: model:ir.actions.act_window,name:beesdoo_shift_swap.action_shift_swap
+#: model:ir.ui.menu,name:beesdoo_shift_swap.menu_swap
+msgid "Shift swaps"
+msgstr "Shift wisselingen"
+
+#. module: beesdoo_shift_swap
+#: code:addons/beesdoo_shift_swap/wizard/subscribe_shift_as_solidarity.py:85
+#, python-format
+msgid "Shifts"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.ui.menu,name:beesdoo_shift_swap.menu_solidarity_top
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "Solidarity"
+msgstr "Solidariteit"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_shift__is_solidarity
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_offer__tmpl_dated_id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_request__tmpl_dated_id
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.task_shift_view_kanban_extended
+msgid "Solidarity shift"
+msgstr "Solidariteitsshift"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_shift__solidarity_offer_ids
+msgid "Solidarity shift offer"
+msgstr "Solidariteitsshift aanbod"
+
+#. module: beesdoo_shift_swap
+#: code:addons/beesdoo_shift_swap/models/res_partner.py:34
+#, python-format
+msgid "Solidarity shift offer wizard"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: code:addons/beesdoo_shift_swap/models/task.py:25
+#, python-format
+msgid "Solidarity shift offer wizard based on shift"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.actions.act_window,name:beesdoo_shift_swap.action_solidarity_shift_offer
+#: model:ir.ui.menu,name:beesdoo_shift_swap.menu_solidarity_offer
+msgid "Solidarity shift offers"
+msgstr "Solidariteitsshift aanbod"
+
+#. module: beesdoo_shift_swap
+#: code:addons/beesdoo_shift_swap/models/res_partner.py:45
+#, python-format
+msgid "Solidarity shift request wizard"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.actions.act_window,name:beesdoo_shift_swap.action_solidarity_shift_request
+#: model:ir.ui.menu,name:beesdoo_shift_swap.menu_solidarity_requests
+msgid "Solidarity shift requests"
+msgstr "Solidariteitsshift aanvraag"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__start_time
+msgid "Start Time"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_res_config_settings__solidarity_counter_start_value
+msgid "Start value of the global solidarity counter"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_offer__state
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_request__state
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap__state
+msgid "State"
+msgstr "Staat/Provincie"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__status
+msgid "Status"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_subscribe_shift_exchange
+msgid "Subscribe Exchange shift"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: code:addons/beesdoo_shift_swap/models/res_partner.py:12
+#, python-format
+msgid "Subscribe Swap Cooperator"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.solidarity_offer_button_shift
+msgid "Subscribe as a solidarity shift"
+msgstr "Inschrijven als solidariteitsshift"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_subscribe_shift_solidarity
+msgid "Subscribe to a shift as a solidarity one"
+msgstr "Inschrijven als solidariteitsshift"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_subscribe_shift_swap
+msgid "Swap shift wizard"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.shift_swap_view_form
+msgid "Swap to underpopulated shift"
+msgstr "Wissel voor een onderbevolkt shift "
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__template_id
+msgid "Template"
+msgstr "Sjabloon"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_swap__exchanged_tmpl_dated_id
+msgid "Unwanted Shift"
+msgstr "Ongewenste shift"
+
+#. module: beesdoo_shift_swap
+#: code:addons/beesdoo_shift_swap/models/exchange_request.py:72
+#, python-format
+msgid "Validate Exchange"
+msgstr "Valideer ruil"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_validate_shift_exchange
+msgid "Validate Shift Exchange"
+msgstr "Valideer shift ruil"
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.shift_swap_request_view
+msgid "Validate exchange"
+msgstr "Valideer ruil"
+
+#. module: beesdoo_shift_swap
+#: selection:beesdoo.shift.solidarity.offer,state:0
+#: selection:beesdoo.shift.solidarity.request,state:0
+msgid "Validated"
+msgstr "Gevalideerd"
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "Value"
+msgstr "Waarde"
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "Value of the maximum number of solidarity requests\n"
+"                                    per worker and per year. The calculation is based\n"
+"                                    on the last twelve months (not on the calendar year)."
+msgstr "Je hebt het maximum aantal shifts per dag of per maand bereikt."
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "Value of the solidarity counter below which\n"
+"                                    it cannot drop. If this value is reached,\n"
+"                                    requesting solidarity becomes impossible until\n"
+"                                    a solidarity shift is done."
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_swap__wanted_tmpl_dated_id
+msgid "Wanted Shift"
+msgstr "Gewenste shift"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap__wanted_tmpl_dated_id
+msgid "Wanted Tmpl Dated"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_offer__worker_id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap__worker_id
+msgid "Worker"
+msgstr "Vervangingswerker"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_request_solidarity_shift__working_mode
+msgid "Working mode"
+msgstr "Werkregime"
+
+#. module: beesdoo_shift_swap
+#: code:addons/beesdoo_shift_swap/wizard/exchange_wizard.py:108
+#: code:addons/beesdoo_shift_swap/wizard/offer_solidarity.py:41
+#: code:addons/beesdoo_shift_swap/wizard/request_solidarity.py:48
+#: code:addons/beesdoo_shift_swap/wizard/subscribe_shift_as_solidarity.py:65
+#: code:addons/beesdoo_shift_swap/wizard/subscribe_shift_swap.py:78
+#: code:addons/beesdoo_shift_swap/wizard/validate_exchange.py:47
+#, python-format
+msgid "You cannot perform this operation on yourself"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: code:addons/beesdoo_shift_swap/wizard/exchange_wizard.py:104
+#: code:addons/beesdoo_shift_swap/wizard/offer_solidarity.py:37
+#: code:addons/beesdoo_shift_swap/wizard/request_solidarity.py:44
+#: code:addons/beesdoo_shift_swap/wizard/subscribe_shift_as_solidarity.py:61
+#: code:addons/beesdoo_shift_swap/wizard/subscribe_shift_swap.py:74
+#: code:addons/beesdoo_shift_swap/wizard/validate_exchange.py:42
+#, python-format
+msgid "You don't have the required access for this operation."
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:mail.template,subject:beesdoo_shift_swap.email_template_cancel_exchange_request
+msgid "You exchange request has been cancelled"
+msgstr "Jouw ruilverzoek is geannuleerd"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__asked_tmpl_dated_ids
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_exchange__asked_tmpl_dated_ids
+msgid "asked_tmpl_dated"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_shift
+msgid "beesdoo.shift.shift"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_solidarity_offer
+msgid "beesdoo.shift.solidarity.offer"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_solidarity_request
+msgid "beesdoo.shift.solidarity.request"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_template
+msgid "beesdoo.shift.template"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__exchange_id
+msgid "exchange"
+msgstr "ruil"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__exchanged_tmpl_dated_id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_exchange__exchanged_tmpl_dated_id
+msgid "exchanged_tmpl_dated"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.offer_solidarity_shift_wizard
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.request_solidarity_shift_wizard
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_as_solidarity_wizard
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_exchange_wizard
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_swap_wizard
+msgid "or"
+msgstr "of"
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_exchange__possible_match
+msgid "possible match"
+msgstr "mogelijke overeenkomst"
+
+#. module: beesdoo_shift_swap
+#: model:ir.module.category,name:beesdoo_shift_swap.group_shift_swap
+msgid "shift_swap"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__store
+msgid "store"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__validate_request_id
+msgid "validate_request"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__worker_id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_request__worker_id
+msgid "worker"
+msgstr ""
+
