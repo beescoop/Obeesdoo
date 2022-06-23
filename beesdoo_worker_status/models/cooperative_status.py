@@ -15,6 +15,9 @@ class CooperativeStatus(models.Model):
 
     future_alert_date = fields.Date(compute="_compute_future_alert_date")
     next_countdown_date = fields.Date(compute="_compute_next_countdown_date")
+    is_penalised_irregular = fields.Boolean(
+        string="Is Currently Penalised Irregular", default=False
+    )
 
     @api.depends(
         "today",
@@ -348,11 +351,15 @@ class CooperativeStatus(models.Model):
 
     def _change_irregular_counter(self):
         if self.sr > 0:
+            if self.sr >= 1:
+                self.is_penalised_irregular = False
             self.sr -= 1
-        elif self.alert_start_time:
+        elif self.alert_start_time or self.is_penalised_irregular:
             self.sr -= 1
         else:
             self.sr -= 2
+            # Until sr is 1 or above, don't do another penalty.
+            self.is_penalised_irregular = True
 
     ##################################
     #    Internal Implementation     #
