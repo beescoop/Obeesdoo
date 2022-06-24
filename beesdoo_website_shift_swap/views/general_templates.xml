@@ -165,6 +165,22 @@
             </xpath>
         </template>
 
+        <!-- Add label for solidarity shifts -->
+        <template
+            id="shift_swap_status_label"
+            name="Shift Swap Status Label"
+            inherit_id="beesdoo_website_shift.shift_status_label"
+        >
+            <xpath expr="//span[last()]" position="after">
+                <span
+                    t-if="shift.is_solidarity"
+                    t-attf-class="badge badge-info ml-1 {{label_css}}"
+                >
+                    solidarity
+                </span>
+            </xpath>
+        </template>
+
         <!-- Display error message if parameters are missing -->
         <template
             id="website_shift_swap_parameters_missing"
