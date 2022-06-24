@@ -27,7 +27,8 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="worker_id" />
-                <field name="date" />
+                <field name="exchanged_tmpl_dated_id" />
+                <field name="wanted_tmpl_dated_id" />
             </tree>
         </field>
     </record>

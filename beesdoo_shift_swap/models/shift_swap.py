@@ -21,9 +21,13 @@ class ShiftSwap(models.Model):
         ],
     )
 
-    exchanged_tmpl_dated_id = fields.Many2one("beesdoo.shift.template.dated")
+    exchanged_tmpl_dated_id = fields.Many2one(
+        "beesdoo.shift.template.dated", string="Exchanged shift"
+    )
 
-    wanted_tmpl_dated_id = fields.Many2one("beesdoo.shift.template.dated")
+    wanted_tmpl_dated_id = fields.Many2one(
+        "beesdoo.shift.template.dated", string="New shift"
+    )
 
     date = fields.Date(required=True, default=datetime.date(datetime.now()))
 
