@@ -631,11 +631,6 @@ msgid "Last Updated on"
 msgstr "Laatst bijgewerkt op"
 
 #. module: beesdoo_shift_swap
-#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_res_config_settings__hours_limit_cancel_solidarity_offer
-msgid "Limit of hours to cancel a solidarity shift"
-msgstr ""
-
-#. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_res_config_settings__solidarity_counter_limit
 msgid "Limit value of the global solidarity counter"
 msgstr ""

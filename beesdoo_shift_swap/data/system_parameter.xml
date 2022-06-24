@@ -39,14 +39,6 @@
             <field name="value">True</field>
         </record>
         <record
-            id="hours_limit_cancel_solidarity_offer"
-            model="ir.config_parameter"
-            forcecreate="False"
-        >
-            <field name="key">beesdoo_shift.hours_limit_cancel_solidarity_offer</field>
-            <field name="value">24</field>
-        </record>
-        <record
             id="solidarity_counter_start_value"
             model="ir.config_parameter"
             forcecreate="False"
