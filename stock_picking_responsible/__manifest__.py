@@ -8,7 +8,7 @@
     "author": "BEES coop SC, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Inventory",
-    "version": "12.0.1.0.1",
+    "version": "12.0.1.0.2",
     "depends": ["stock"],
     "data": ["views/stock_picking.xml"],
     "installable": True,
