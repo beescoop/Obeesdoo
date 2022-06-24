@@ -11,11 +11,10 @@
     "author": "Beescoop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Inventory",
-    "version": "12.0.1.0.1",
+    "version": "12.0.2.0.1",
     "depends": [
-        "delivery",
-        "beesdoo_base",
-        "beesdoo_product",
+        "stock",
+        "beesdoo_product",  # for field main_seller_id
         "stock_picking_responsible",
         "stock_picking_max_shipping_date",
         "stock_picking_copy_quantity",

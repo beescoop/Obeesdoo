@@ -19,7 +19,7 @@ Beesdoo Inventory
 
 |badge1| |badge2| |badge3| 
 
-Adds a responsible, a max shipping date and a button to copy quantity to stock pickings.
+Restrict selectable products to those sold as main supplier by the picking partner.
 
 **Table of contents**
 
