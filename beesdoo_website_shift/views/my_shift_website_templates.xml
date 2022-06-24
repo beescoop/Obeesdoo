@@ -108,44 +108,51 @@
 
         <span
             t-if="shift.state == 'draft'"
-            t-attf-class="badge badge-default {{label_css}}"
+            t-attf-class="badge badge-default ml-1 {{label_css}}"
         >
             <t t-esc="shift.state" />
         </span>
 
         <span
             t-if="shift.state == 'done'"
-            t-attf-class="badge badge-success {{label_css}}"
+            t-attf-class="badge badge-success ml-1 {{label_css}}"
         >
             <t t-esc="shift.state" />
         </span>
 
         <span
             t-if="shift.state == 'absent_2'"
-            t-attf-class="badge badge-warning {{label_css}}"
+            t-attf-class="badge badge-warning ml-1 {{label_css}}"
         >
             <t t-esc="shift.state" />
         </span>
 
         <span
             t-if="shift.state == 'absent_1'"
-            t-attf-class="badge badge-info {{label_css}}"
+            t-attf-class="badge badge-info ml-1 {{label_css}}"
         >
             <t t-esc="shift.state" />
         </span>
 
         <span
             t-if="shift.state == 'absent_0'"
-            t-attf-class="badge badge-info {{label_css}}"
+            t-attf-class="badge badge-info ml-1 {{label_css}}"
         >
             <t t-esc="shift.state" />
         </span>
 
         <span
             t-if="shift.state == 'cancel'"
-            t-attf-class="badge badge-danger {{label_css}}"
+            t-attf-class="badge badge-danger ml-1 {{label_css}}"
         >
             <t t-esc="shift.state" />
+        </span>
+
+        <span
+            t-if="shift.is_compensation"
+            t-attf-class="badge badge-info ml-1 {{label_css}}"
+        >
+            compensation
         </span>
 
     </template>
