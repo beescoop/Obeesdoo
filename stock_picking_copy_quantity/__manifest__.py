@@ -5,22 +5,17 @@
 #   - Jean-Marc François
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
-    "name": "Beesdoo Inventory",
-    "summary": "Restrict selectable products to those"
-    " sold as main supplier by the picking partner.",
+    "name": "Stock Picking Copy Quantity",
+    "summary": "Adds a button to copy required quantities"
+    " to done quantities on stock pickings.",
     "author": "Beescoop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Inventory",
     "version": "12.0.1.0.1",
     "depends": [
-        "delivery",
-        "beesdoo_base",
-        "beesdoo_product",
-        "stock_picking_responsible",
-        "stock_picking_max_shipping_date",
-        "stock_picking_copy_quantity",
+        "stock",
     ],
-    "data": ["views/stock.xml"],
+    "data": ["views/stock_picking.xml"],
     "installable": True,
     "license": "AGPL-3",
 }
