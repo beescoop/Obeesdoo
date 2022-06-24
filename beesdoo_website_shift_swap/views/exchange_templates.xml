@@ -21,7 +21,8 @@
         >
             <div class="alert alert-info">
                 <strong>Info!</strong>
-                This exchange request has already been accepted by someone else.
+                This echange request can't be found. It has probably been
+                accepted by someone else or cancelled.
             </div>
         </template>
 

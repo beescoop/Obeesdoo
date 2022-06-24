@@ -131,6 +131,12 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             if not asked_worker:
                 request.session["error_message"] = self.no_shift_match_info_message()
                 return request.redirect("/my/shift")
+            elif asked_worker.working_mode != "regular":
+                request.session["error_message"] = _(
+                    "This worker is not regular, shift exchanges "
+                    "are only available between regular workers."
+                )
+                return request.redirect("/my/shift")
 
             next_shifts_other_coop = self.my_shift_next_shifts(asked_worker)
 

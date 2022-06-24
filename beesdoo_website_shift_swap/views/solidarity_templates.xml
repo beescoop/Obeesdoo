@@ -211,7 +211,9 @@
             >
                 <div t-if="solidarity_enabled" class="row">
                     <div class="col">
-                        <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
+                        <t t-call="beesdoo_website_shift_swap.solidarity_counter">
+                            <t t-set="hide_button" t-value="True" />
+                        </t>
                     </div>
                 </div>
             </xpath>
@@ -228,7 +230,9 @@
             >
                 <div t-if="solidarity_enabled" class="row">
                     <div class="col">
-                        <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
+                        <t t-call="beesdoo_website_shift_swap.solidarity_counter">
+                            <t t-set="hide_button" t-value="True" />
+                        </t>
                     </div>
                 </div>
             </xpath>
@@ -245,7 +249,9 @@
             >
                 <div t-if="solidarity_enabled" class="row">
                     <div class="col">
-                        <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
+                        <t t-call="beesdoo_website_shift_swap.solidarity_counter">
+                            <t t-set="hide_button" t-value="True" />
+                        </t>
                     </div>
                 </div>
             </xpath>
