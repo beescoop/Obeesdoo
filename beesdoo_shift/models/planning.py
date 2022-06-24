@@ -176,6 +176,8 @@ class Planning(models.Model):
                 for shift in future_shift_list
                 if shift["worker_id"] == worker_id.id
             ]
+        else:
+            filtered_future_shift_list = future_shift_list
 
         # Converting dictionary to recordset
         shift_list = existing_shift_list + [
