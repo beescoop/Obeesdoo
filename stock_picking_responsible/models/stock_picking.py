@@ -24,21 +24,9 @@ class StockPicking(models.Model):
                         ("name", "=", "Discussions"),
                     ]
                 )
-                if not self.env["mail.followers"].search(
-                    [
-                        ("res_id", "=", picking.id),
-                        ("res_model", "=", "stock.picking"),
-                        ("partner_id", "=", picking.responsible.id),
-                    ]
-                ):
-                    self.env["mail.followers"].create(
-                        {
-                            "res_model": "stock.picking",
-                            "res_id": picking.id,
-                            "partner_id": picking.responsible.id,
-                            "subtype_ids": [(6, 0, types.ids)],
-                        }
-                    )
+                picking.message_subscribe(
+                    partner_ids=picking.responsible.ids, subtype_ids=types.ids
+                )
 
     @api.multi
     def write(self, values):
