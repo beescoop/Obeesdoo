@@ -1,10 +1,8 @@
-from odoo import api, fields, models
+from odoo import api, models
 
 
 class StockPicking(models.Model):
     _inherit = "stock.picking"
-
-    max_shipping_date = fields.Datetime("End Shipping Date")
 
     @api.multi
     def copy_qty(self):

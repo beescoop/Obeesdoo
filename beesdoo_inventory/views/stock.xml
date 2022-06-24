@@ -6,9 +6,6 @@
         <field name="model">stock.picking</field>
         <field name="inherit_id" ref="stock.view_picking_form" />
         <field name="arch" type="xml">
-            <field name="scheduled_date" position="after">
-                <field name="max_shipping_date" placeholder="Max shipping date" />
-            </field>
             <button name="action_assign" position="after">
                 <button
                     name="copy_qty"
