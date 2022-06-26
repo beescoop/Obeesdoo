@@ -131,6 +131,12 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             if not asked_worker:
                 request.session["error_message"] = self.no_shift_match_info_message()
                 return request.redirect("/my/shift")
+            elif asked_worker.working_mode != "regular":
+                request.session["error_message"] = _(
+                    "This worker is not regular, shift exchanges "
+                    "are only available between regular workers."
+                )
+                return request.redirect("/my/shift")
 
             next_shifts_other_coop = self.my_shift_next_shifts(asked_worker)
 
@@ -767,11 +773,21 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         # Get current user
         cur_user = request.env["res.users"].sudo().browse(request.uid)
 
+        request_number_limit = int(
+            request.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_website_shift_swap.request_number_limit")
+        )
+
         # Get exchange requests
         exchange_request_list = (
             request.env["beesdoo.shift.exchange_request"]
             .sudo()
-            .search([("worker_id", "=", cur_user.partner_id.id)])
+            .search(
+                [("worker_id", "=", cur_user.partner_id.id)],
+                order="create_date desc",
+                limit=request_number_limit,
+            )
         )
         exchange_requests = []
         for rec in exchange_request_list:
@@ -790,7 +806,11 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         solidarity_requests = (
             request.env["beesdoo.shift.solidarity.request"]
             .sudo()
-            .search([("worker_id", "=", cur_user.partner_id.id)])
+            .search(
+                [("worker_id", "=", cur_user.partner_id.id)],
+                order="create_date desc",
+                limit=request_number_limit,
+            )
         )
 
         return request.render(
@@ -1057,6 +1077,43 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         return request.redirect("/my/shift")
 
     # Solidarity shift request
+    @http.route("/my/shift/solidarity/request/past", auth="user", website=True)
+    def get_past_shift_to_request_solidarity(self):
+        """
+        Calculate the last not attended shift for a regular worker
+        """
+        if not self.solidarity_enabled():
+            raise Forbidden("Solidarity related features are not enabled")
+        if self.solidarity_counter_too_low():
+            raise Forbidden(
+                "Solidarity counter is too low, requesting solidarity is impossible"
+            )
+
+        user = request.env["res.users"].sudo().browse(request.uid)
+
+        absent_states = request.env["beesdoo.shift.shift"].sudo().get_absent_state()
+        not_attended_shift = (
+            request.env["beesdoo.shift.shift"]
+            .sudo()
+            .search(
+                [
+                    ("worker_id", "=", user.partner_id.id),
+                    ("state", "in", absent_states),
+                ],
+                order="start_time desc",
+                limit=1,
+            )
+        )
+        if not_attended_shift:
+            url = "/my/shift/solidarity/request/%i/%s" % (
+                not_attended_shift.task_template_id.id,
+                not_attended_shift.start_time,
+            )
+            return request.redirect(url)
+        else:
+            request.session["error_message"] = _("No absent shift was found")
+            return request.redirect("/my/shift")
+
     @http.route(
         "/my/shift/solidarity/request/<int:template_id>/<string:date>",
         auth="user",
@@ -1121,7 +1178,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 "reason": reason,
             }
             request.env["beesdoo.shift.solidarity.request"].sudo().create(data)
-            if regular:
+            if regular and non_realisable_tmpl_dated.date > datetime.now():
                 request.session["success_message"] = _(
                     "You have been unsubscribed from your shift. "
                     "Your counter will not be decreased."
@@ -1187,16 +1244,24 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         if solidarity_request.worker_id.id != user.partner_id.id:
             raise Forbidden("You are not allowed to cancel this request")
 
-        solidarity_request.cancel_solidarity_request()
-        if solidarity_request.worker_id.working_mode == "regular":
-            request.session["success_message"] = _(
-                "You have successfully cancelled your solidarity request. "
-                "You have been subscribed back to your shift."
-            )
+        if solidarity_request.cancel_solidarity_request():
+            if (
+                solidarity_request.worker_id.working_mode == "regular"
+                and solidarity_request.tmpl_dated_id.date
+                > solidarity_request.create_date
+            ):
+                request.session["success_message"] = _(
+                    "You have successfully cancelled your solidarity request. "
+                    "You have been subscribed back to your shift."
+                )
+            else:
+                request.session["success_message"] = _(
+                    "You have successfully cancelled your solidarity request. "
+                    "Your counter has been decremented."
+                )
         else:
-            request.session["success_message"] = _(
-                "You have successfully cancelled your solidarity request. "
-                "Your counter has been decremented."
+            request.session["error_message"] = _(
+                "You can't cancel this solidarity request."
             )
         return request.redirect("/my/shift")
 

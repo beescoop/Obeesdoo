@@ -6,6 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-23 14:58+0000\n"
+"PO-Revision-Date: 2022-06-23 14:58+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -148,92 +150,77 @@ msgstr ""
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
 msgid "<span class=\"o_form_label\">\n"
-"                                        Activate shift swaps and exchanges\n"
-"                                    </span>"
+"                                    Activate shift swaps and exchanges\n"
+"                                </span>"
 msgstr ""
 
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
 msgid "<span class=\"o_form_label\">\n"
-"                                        Activate solidarity related features\n"
-"                                    </span>"
+"                                    Activate solidarity related features\n"
+"                                </span>"
 msgstr ""
 
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
 msgid "<span class=\"o_form_label\">\n"
-"                                        Initial value of the solidarity counter\n"
-"                                    </span>"
+"                                    Initial value of the solidarity counter\n"
+"                                </span>"
 msgstr ""
 
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
 msgid "<span class=\"o_form_label\">\n"
-"                                        Limit attendance percentage to define underpopulated shift\n"
+"                                    Limit of days to exchange with the same timeslot\n"
+"                                </span>"
+msgstr "<span class=\"o_form_label\">\n"
+"                                        D - Limite pour les échanges semaines ABCD\n"
 "                                    </span>"
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "<span class=\"o_form_label\">\n"
+"                                    Limit of days to request an exchange\n"
+"                                </span>"
+msgstr "<span class=\"o_form_label\">\n"
+"                                        B - Limite sous laquelle on ne propose pas d'échange bilatéral\n"
+"                                    </span>"
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "<span class=\"o_form_label\">\n"
+"                                    Limit of days to select shifts for an exchange\n"
+"                                </span>"
 msgstr ""
 
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
 msgid "<span class=\"o_form_label\">\n"
-"                                        Limit of days to exchange with the same timeslot\n"
+"                                    Limit of days to swap shift\n"
+"                                </span>"
+msgstr "<span class=\"o_form_label\">\n"
+"                                        A - Limite entre changement de shift et échange bilatéral\n"
 "                                    </span>"
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
+msgid "<span class=\"o_form_label\">\n"
+"                                    Limit of hours to cancel a solidarity shift\n"
+"                                </span>"
 msgstr ""
 
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
 msgid "<span class=\"o_form_label\">\n"
-"                                        Limit of days to request an exchange\n"
-"                                    </span>"
+"                                    Limit value of the solidarity counter\n"
+"                                </span>"
 msgstr ""
 
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
 msgid "<span class=\"o_form_label\">\n"
-"                                        Limit of days to select shifts for an exchange\n"
-"                                    </span>"
-msgstr ""
-
-#. module: beesdoo_shift_swap
-#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
-msgid "<span class=\"o_form_label\">\n"
-"                                        Limit of days to swap shift\n"
-"                                    </span>"
-msgstr ""
-
-#. module: beesdoo_shift_swap
-#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
-msgid "<span class=\"o_form_label\">\n"
-"                                        Limit of hours to cancel a solidarity shift\n"
-"                                    </span>"
-msgstr ""
-
-#. module: beesdoo_shift_swap
-#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
-msgid "<span class=\"o_form_label\">\n"
-"                                        Limit value of the solidarity counter\n"
-"                                    </span>"
-msgstr ""
-
-#. module: beesdoo_shift_swap
-#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
-msgid "<span class=\"o_form_label\">\n"
-"                                        Maximum number of shifts per day for one cooperator\n"
-"                                    </span>"
-msgstr ""
-
-#. module: beesdoo_shift_swap
-#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
-msgid "<span class=\"o_form_label\">\n"
-"                                        Maximum number of shifts per month for one cooperator\n"
-"                                    </span>"
-msgstr ""
-
-#. module: beesdoo_shift_swap
-#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
-msgid "<span class=\"o_form_label\">\n"
-"                                        Maximum number of solidarity requests\n"
-"                                    </span>"
+"                                    Maximum number of solidarity requests\n"
+"                                </span>"
 msgstr ""
 
 #. module: beesdoo_shift_swap
@@ -243,7 +230,7 @@ msgstr ""
 
 #. module: beesdoo_shift_swap
 #: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_swap
-msgid "A model to track an exchange with an underpopulated shift"
+msgid "A model to track an exchange with an empty shift"
 msgstr ""
 
 #. module: beesdoo_shift_swap
@@ -279,28 +266,28 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_swap_wizard
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.validate_shift_exchange_wizard
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.solidarity_shift_offer_view_form
 msgid "Cancel offer"
-msgstr ""
+msgstr "Annuler l'offre"
 
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.solidarity_shift_request_view_form
 msgid "Cancel request"
-msgstr ""
+msgstr "Annuler la demande"
 
 #. module: beesdoo_shift_swap
 #: selection:beesdoo.shift.solidarity.offer,state:0
 #: selection:beesdoo.shift.solidarity.request,state:0
 msgid "Cancelled"
-msgstr ""
+msgstr "Annulé"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model,name:beesdoo_shift_swap.model_res_company
 msgid "Companies"
-msgstr ""
+msgstr "Sociétés"
 
 #. module: beesdoo_shift_swap
 #: model:ir.ui.menu,name:beesdoo_shift_swap.menu_exchange
@@ -310,7 +297,7 @@ msgstr ""
 #. module: beesdoo_shift_swap
 #: model:ir.model,name:beesdoo_shift_swap.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Paramètres de configuration"
 
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.offer_solidarity_shift_wizard
@@ -320,7 +307,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_swap_wizard
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.validate_shift_exchange_wizard
 msgid "Confirm"
-msgstr ""
+msgstr "Confirmer"
 
 #. module: beesdoo_shift_swap
 #: model:mail.template,subject:beesdoo_shift_swap.planned_exchange_contact_coop
@@ -330,12 +317,12 @@ msgstr ""
 #. module: beesdoo_shift_swap
 #: model:ir.model,name:beesdoo_shift_swap.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "<strong>Votre contact :</strong>"
 
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_exchange_wizard
 msgid "Contact coop of other week"
-msgstr ""
+msgstr "Contacter les coopérateurs d'autres semaines"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_offer_solidarity_shift__worker_id
@@ -344,7 +331,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_solidarity__worker_id
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_swap__worker_id
 msgid "Cooperator"
-msgstr ""
+msgstr "Coopérateur"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange__create_uid
@@ -360,7 +347,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__create_uid
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_validate_shift_exchange__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Créé par"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange__create_date
@@ -376,7 +363,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__create_date
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_validate_shift_exchange__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Créé le"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_offer__date
@@ -385,12 +372,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__date
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.shift_swap_view_search
 msgid "Date"
-msgstr ""
+msgstr "Date "
 
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
 msgid "Days"
-msgstr ""
+msgstr "Jours"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange__display_name
@@ -406,12 +393,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__display_name
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_validate_shift_exchange__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Afficher Nom"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__end_time
 msgid "End Time"
-msgstr ""
+msgstr "Date et horaire de fin"
 
 #. module: beesdoo_shift_swap
 #: code:addons/beesdoo_shift_swap/models/res_partner.py:23
@@ -437,7 +424,7 @@ msgstr ""
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.add_exchange_button
 msgid "Exchange your shift"
-msgstr ""
+msgstr "Echange ton shift"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap__exchanged_tmpl_dated_id
@@ -450,15 +437,10 @@ msgid "First exchange request"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
-msgid "General settings"
-msgstr ""
-
-#. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.shift_request_view_search
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.shift_swap_view_search
 msgid "Group By"
-msgstr ""
+msgstr "Regrouper par"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__hour
@@ -468,7 +450,7 @@ msgstr ""
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
 msgid "Hours"
-msgstr ""
+msgstr "Heures"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange__id
@@ -489,9 +471,9 @@ msgstr ""
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
 msgid "Inital value for the solidarity counter calculation\n"
-"                                        (equivalent to the value of the counter if no one\n"
-"                                        has offered or requested a solidarity shift)"
-msgstr ""
+"                                    (equivalent to the value of the counter if no one\n"
+"                                    has offered or requested a solidarity shift)"
+msgstr "Ce paramètre permet de remonter ou redescendre le compteur artificiellement. Utile pour démarrer au-dessus de zéro ou au cas où tu nettoies la base de données de shifts et que tu veux pouvoir choisir la valeur."
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange____last_update
@@ -507,7 +489,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated____last_update
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_validate_shift_exchange____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Dernière modification le"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange__write_uid
@@ -523,7 +505,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__write_uid
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_validate_shift_exchange__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Mis à jour par"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange__write_date
@@ -539,12 +521,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__write_date
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_validate_shift_exchange__write_date
 msgid "Last Updated on"
-msgstr ""
-
-#. module: beesdoo_shift_swap
-#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_res_config_settings__min_percentage_presence
-msgid "Limit attendance percentage to define underpopulated shift"
-msgstr ""
+msgstr "Mis à jour le"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_res_config_settings__solidarity_counter_limit
@@ -559,7 +536,7 @@ msgstr ""
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.shift_request_view_search
 msgid "Match state"
-msgstr ""
+msgstr "Etat de la correspondance"
 
 #. module: beesdoo_shift_swap
 #: model:mail.template,subject:beesdoo_shift_swap.email_template_contact_match_coop
@@ -572,26 +549,17 @@ msgid "Max number of solidarity requests per year"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_res_config_settings__max_shift_per_day
-msgid "Maximum number of shifts per day for one cooperator"
-msgstr ""
-
-#. module: beesdoo_shift_swap
-#: code:addons/beesdoo_shift_swap/models/res_partner.py:105
+#: code:addons/beesdoo_shift_swap/models/res_partner.py:101
 #, python-format
 msgid "Maximum number of shifts per day reached"
-msgstr ""
+msgstr "Maximum de shifts par jour atteint\n"
+""
 
 #. module: beesdoo_shift_swap
-#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_res_config_settings__max_shift_per_month
-msgid "Maximum number of shifts per month for one cooperator"
-msgstr ""
-
-#. module: beesdoo_shift_swap
-#: code:addons/beesdoo_shift_swap/models/res_partner.py:107
+#: code:addons/beesdoo_shift_swap/models/res_partner.py:103
 #, python-format
 msgid "Maximum number of shifts per month reached"
-msgstr ""
+msgstr "Maximum de shifts par mois atteint"
 
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.shift_swap_view_search
@@ -611,8 +579,8 @@ msgstr ""
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
 msgid "Number of days above which a cooperator cannot\n"
-"                                        select shifts to exchange with one of his/hers"
-msgstr ""
+"                                    select shifts to exchange with one of his/hers"
+msgstr "Quand un coopérateur crée une demande d'échange, on lui montre tous les shifts futurs des x prochains jours"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_res_config_settings__day_limit_ask_for_exchange
@@ -623,14 +591,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_res_config_settings__day_limit_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
 msgid "Number of days above which a cooperator cannot swap his shift"
-msgstr ""
+msgstr "Au-dessus de ce nombre de jours, on propose d'abord les échanges avant les shifts vides. Pour ne garder que les shifts vides, mets une très haute valeur."
 
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
 msgid "Number of days below which a cooperator can only\n"
-"                                        request exchanges with cooperators from the same\n"
-"                                        timesolt in other weeks"
-msgstr ""
+"                                    request exchanges with cooperators from the same\n"
+"                                    timesolt in other weeks"
+msgstr "Quand le coopérateur crée une proposition d'échange, en-dessous de ce nombre de jours, on lui propose uniquement de contacter les coopérateurs du même horaire, d'autres semaines (entre A et D). Ils sont contactés par e-mail."
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_res_config_settings__day_limit_exchange_with_same_timeslot
@@ -640,8 +608,8 @@ msgstr ""
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
 msgid "Number of days below which a cooperator cannot\n"
-"                                        request an exchange with another cooperator"
-msgstr ""
+"                                    request an exchange with another cooperator"
+msgstr "Si le coopérateur n'a pas trouvé dans les shifts très vides - En-dessous de ce nombre de jours, le coopérateur ne peut plus proposer d'échanges (les chances de réussite sont trop faibles) et va à la liste complète des shifts (tu peux sauter l'étape des échanges si tu la mets sur 0)."
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_res_config_settings__day_limit_request_exchange
@@ -656,7 +624,7 @@ msgstr ""
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.solidarity_offer_button_worker
 msgid "Offer a solidarity shift"
-msgstr ""
+msgstr "Offrir un shift de solidarité"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_offer_solidarity_shift
@@ -664,21 +632,10 @@ msgid "Offer solidarity shift"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
-msgid "Only shifts with a percentage of workers under this limit\n"
-"                                        will be considered as underpopulated"
-msgstr ""
-
-#. module: beesdoo_shift_swap
-#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
-msgid "Percentage (%)"
-msgstr ""
-
-#. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_request_solidarity_shift__reason
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_request__reason
 msgid "Reason"
-msgstr ""
+msgstr "Motif"
 
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.task_shift_view_kanban_extended
@@ -688,7 +645,7 @@ msgstr ""
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.solidarity_request_button
 msgid "Request a solidarity shift"
-msgstr ""
+msgstr "Demander un shift de solidarité"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_request_solidarity_shift
@@ -710,7 +667,7 @@ msgstr ""
 
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
-msgid "Shift Swap"
+msgid "Shift Exchanges"
 msgstr ""
 
 #. module: beesdoo_shift_swap
@@ -747,15 +704,10 @@ msgid "Shifts"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
-msgid "Shifts Swap"
-msgstr ""
-
-#. module: beesdoo_shift_swap
 #: model:ir.ui.menu,name:beesdoo_shift_swap.menu_solidarity_top
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
 msgid "Solidarity"
-msgstr ""
+msgstr "Solidarité"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_shift__is_solidarity
@@ -763,7 +715,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_request__tmpl_dated_id
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.task_shift_view_kanban_extended
 msgid "Solidarity shift"
-msgstr ""
+msgstr "Shift de solidarité"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_shift__solidarity_offer_ids
@@ -803,7 +755,7 @@ msgstr ""
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__start_time
 msgid "Start Time"
-msgstr ""
+msgstr "Date et horaire de début"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_res_config_settings__solidarity_counter_start_value
@@ -815,12 +767,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_request__state
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap__state
 msgid "State"
-msgstr ""
+msgstr "État"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__status
 msgid "Status"
-msgstr ""
+msgstr "Statut"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_subscribe_shift_exchange
@@ -836,7 +788,7 @@ msgstr ""
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.solidarity_offer_button_shift
 msgid "Subscribe as a solidarity shift"
-msgstr ""
+msgstr "Inscrire comme shift de solidarité"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_subscribe_shift_solidarity
@@ -851,17 +803,12 @@ msgstr ""
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.shift_swap_view_form
 msgid "Swap to underpopulated shift"
-msgstr ""
+msgstr "Changer vers un shift très vide"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__template_id
 msgid "Template"
-msgstr ""
-
-#. module: beesdoo_shift_swap
-#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
-msgid "This limit is checked on each exchange or solidarity offer"
-msgstr ""
+msgstr "Modèle"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_swap__exchanged_tmpl_dated_id
@@ -872,7 +819,7 @@ msgstr ""
 #: code:addons/beesdoo_shift_swap/models/exchange_request.py:72
 #, python-format
 msgid "Validate Exchange"
-msgstr ""
+msgstr "Valider l'échange"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_validate_shift_exchange
@@ -888,26 +835,26 @@ msgstr ""
 #: selection:beesdoo.shift.solidarity.offer,state:0
 #: selection:beesdoo.shift.solidarity.request,state:0
 msgid "Validated"
-msgstr ""
+msgstr "Validé"
 
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
 msgid "Value"
-msgstr ""
+msgstr "Valeur"
 
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
 msgid "Value of the maximum number of solidarity requests\n"
-"                                        per worker and per year. The calculation is based\n"
-"                                        on the last twelve months (not on the calendar year)."
+"                                    per worker and per year. The calculation is based\n"
+"                                    on the last twelve months (not on the calendar year)."
 msgstr ""
 
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
 msgid "Value of the solidarity counter below which\n"
-"                                        it cannot drop. If this value is reached,\n"
-"                                        requesting solidarity becomes impossible until\n"
-"                                        a solidarity shift is done."
+"                                    it cannot drop. If this value is reached,\n"
+"                                    requesting solidarity becomes impossible until\n"
+"                                    a solidarity shift is done."
 msgstr ""
 
 #. module: beesdoo_shift_swap
@@ -924,12 +871,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_offer__worker_id
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap__worker_id
 msgid "Worker"
-msgstr ""
+msgstr "Travailleur"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_request_solidarity_shift__working_mode
 msgid "Working mode"
-msgstr ""
+msgstr "Régime de travail"
 
 #. module: beesdoo_shift_swap
 #: code:addons/beesdoo_shift_swap/wizard/exchange_wizard.py:108
@@ -1002,7 +949,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_exchange_wizard
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_swap_wizard
 msgid "or"
-msgstr ""
+msgstr "ou"
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_exchange__possible_match

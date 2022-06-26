@@ -9,7 +9,7 @@
     "author": "Thibault Francois, Elouan Le Bars, Coop IT Easy SCRLfs",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
-    "version": "12.0.2.2.0",
+    "version": "12.0.2.2.1",
     "depends": ["mail"],
     "data": [
         "data/system_parameter.xml",
@@ -23,6 +23,7 @@
         "views/cooperative_status.xml",
         "views/exempt_reason.xml",
         "views/menu.xml",
+        "views/res_config_settings_view.xml",
         "wizard/instanciate_planning.xml",
         "wizard/batch_template.xml",
         "wizard/assign_super_coop.xml",

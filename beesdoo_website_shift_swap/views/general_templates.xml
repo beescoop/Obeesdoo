@@ -57,6 +57,24 @@
             name="shift option buttons"
             inherit_id="beesdoo_website_shift.my_shift_next_shifts"
         >
+            <xpath expr="//button[@id='unsubscribe_button']" position="replace">
+                <button
+                    id="unsubscribe_button"
+                    type="button"
+                    class="btn btn-primary btn-sm ml-2 pull-right"
+                    data-toggle="modal"
+                    t-att-data-target="'#unsubscribe-shift-%s' % shift.id"
+                    t-if="shift.can_unsubscribe
+                        and not shift.is_solidarity
+                        and (
+                            (shift.is_compensation and request.website.enable_unsubscribe_compensation)
+                            or (not shift.is_compensation and request.website.irregular_enable_unsubscribe)
+                        )"
+                >
+                    <span class="fa fa-user-plus" aria-hidden="true" />
+                    Unsubscribe
+                </button>
+            </xpath>
             <xpath expr="//div[hasclass('card-body', 'clearfix')]" position="inside">
                 <t
                     t-set="solidarity_counter"

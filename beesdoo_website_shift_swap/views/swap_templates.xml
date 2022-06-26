@@ -175,6 +175,18 @@
                                                             t-set="displayed_shift"
                                                             t-value="shift.shift"
                                                         />
+                                                        <t
+                                                            t-set="shift_row_count"
+                                                            t-value="shift_row_index"
+                                                        />
+                                                        <t
+                                                            t-set="shift_by_day_count"
+                                                            t-value="shift_by_day_index"
+                                                        />
+                                                        <t
+                                                            t-set="shift_count"
+                                                            t-value="shift_index"
+                                                        />
                                                     </t>
                                                 </t>
                                             </t>

@@ -39,6 +39,10 @@ class Task(models.Model):
     def _get_final_state(self):
         return ["done", "absent", "excused"]
 
+    @api.model
+    def get_absent_state(self):
+        return ["absent"]
+
     name = fields.Char(track_visibility="always")
     task_template_id = fields.Many2one("beesdoo.shift.template")
     planning_id = fields.Many2one(related="task_template_id.planning_id", store=True)

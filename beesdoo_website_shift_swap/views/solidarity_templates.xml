@@ -5,17 +5,17 @@
         <template id="solidarity_counter" name="solidarity counter">
             <div class="card">
                 <div class="card-header text-center">
-                    <h2> Solidarity shifts counter:
+                    <h3> Solidarity shifts counter:
                         <t
                             t-esc="request.env['res.company']._company_default_get().solidarity_counter()"
                         />
-                    </h2>
+                    </h3>
                 </div>
                 <div class="card-body">
                     <p class="card-text text-left">
                         *Explanatory text solidarity counter*
                     </p>
-                    <div class="text-center">
+                    <div t-if="not hide_button" class="text-center">
                         <a class="btn btn-primary" href="/my/shift/solidarity/offer">
                             Offer a solidarity shift
                         </a>
@@ -107,7 +107,13 @@
                                     class="btn btn-success"
                                     href="/my/shift?request_solidarity=1"
                                 >
-                                    Select a shift
+                                    Select a future shift
+                                </a>
+                                <a
+                                    class="btn btn-success"
+                                    href="/my/shift/solidarity/request/past"
+                                >
+                                    Request for a past shift
                                 </a>
                             </t>
                             <t t-else="">
@@ -183,15 +189,15 @@
                     <t t-set="regular" t-value="False" />
                 </t>
             </xpath>
-            <xpath
-                expr="//t[@t-call='beesdoo_website_shift.help_text_title']"
-                position="before"
-            >
+            <div id="collapseHelp" position="after">
+                <br />
                 <t
                     t-if="solidarity_enabled"
                     t-call="beesdoo_website_shift_swap.solidarity_counter"
-                />
-            </xpath>
+                >
+                    <t t-set="hide_button" t-value="True" />
+                </t>
+            </div>
         </template>
 
         <template
@@ -205,7 +211,9 @@
             >
                 <div t-if="solidarity_enabled" class="row">
                     <div class="col">
-                        <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
+                        <t t-call="beesdoo_website_shift_swap.solidarity_counter">
+                            <t t-set="hide_button" t-value="True" />
+                        </t>
                     </div>
                 </div>
             </xpath>
@@ -222,7 +230,9 @@
             >
                 <div t-if="solidarity_enabled" class="row">
                     <div class="col">
-                        <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
+                        <t t-call="beesdoo_website_shift_swap.solidarity_counter">
+                            <t t-set="hide_button" t-value="True" />
+                        </t>
                     </div>
                 </div>
             </xpath>
@@ -239,7 +249,9 @@
             >
                 <div t-if="solidarity_enabled" class="row">
                     <div class="col">
-                        <t t-call="beesdoo_website_shift_swap.solidarity_counter" />
+                        <t t-call="beesdoo_website_shift_swap.solidarity_counter">
+                            <t t-set="hide_button" t-value="True" />
+                        </t>
                     </div>
                 </div>
             </xpath>
@@ -554,9 +566,7 @@
                                     <t
                                         t-esc="dict(request.fields_get(allfields=['state'])['state']['selection'])[request.state]"
                                     />
-                                    <t
-                                        t-if="(regular and request.state == 'validated' and request.tmpl_dated_id.date > now) or (not regular and request.state == 'validated')"
-                                    >
+                                    <t t-if="request.can_cancel_request()">
                                         <br />
                                         <a
                                             class="btn btn-primary btn-sm"
@@ -588,10 +598,61 @@
                     class="center m-1 font-weight-bold"
                     t-esc="displayed_shift.template_id.task_type_id.name"
                 />
-                <a
+                <button
+                    type="button"
                     class="btn btn-primary btn-sm m-1"
-                    t-att-href="'/my/shift/solidarity/offer/select/%i/%s' % (displayed_shift.template_id,displayed_shift.date)"
-                >Subscribe</a>
+                    data-toggle="modal"
+                    t-att-data-target="'#subscribe-shift-%s-%s-%s-%s' % (week_count,shift_row_count,shift_by_day_count,shift_count)"
+                >
+                    Subscribe
+                </button>
+            </div>
+            <!-- Subscribe modals -->
+            <div
+                class="modal fade"
+                t-att-id="'subscribe-shift-%s-%s-%s-%s' % (week_count,shift_row_count,shift_by_day_count,shift_count)"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="subscribe-shift-label"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="subscribe-shift-label">
+                                Please confirm subscription
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <label class="font-weight-bold">Shift:</label>
+                            <t t-esc="displayed_shift.template_id.day_nb_id.name" />
+                            <t t-esc="displayed_shift.date.strftime('%d/%m, %Y')" />
+                            <t t-esc="'|'" />
+                            <t
+                                t-esc="str(datetime.timedelta(hours=displayed_shift.template_id.start_time)).rsplit(':', 1)[0]"
+                            />
+                            -
+                            <t
+                                t-esc="str(datetime.timedelta(hours=displayed_shift.template_id.end_time)).rsplit(':', 1)[0]"
+                            />
+                            <br />
+                            <label class="font-weight-bold">Task:</label>
+                            <t t-esc="displayed_shift.template_id.task_type_id.name" />
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-danger"
+                                data-dismiss="modal"
+                            >Close
+                            </button>
+                            <a
+                                class="btn btn-success"
+                                t-att-href="'/my/shift/solidarity/offer/select/%i/%s' % (displayed_shift.template_id,displayed_shift.date)"
+                            >Subscribe</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </template>
 

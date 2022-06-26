@@ -198,15 +198,16 @@ class ResPartner(models.Model):
     def get_next_shifts(self):
         """
         Get the shifts of the user between now and an end_date,
-        with end_date = 4 weeks * regular_next_shift_limit
+        with end_date = shift_period * regular_next_shift_limit
         :return: beesdoo.shift.shift list
         """
         regular_next_shift_limit = int(
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("beesdoo_shift.regular_next_shift_limit")
+            self.env["ir.config_parameter"].sudo().get_param("regular_next_shift_limit")
         )
-        nb_days = 28 * regular_next_shift_limit
+        shift_period = int(
+            self.env["ir.config_parameter"].sudo().get_param("shift_period")
+        )
+        nb_days = shift_period * regular_next_shift_limit
         start_date = datetime.now()
         end_date = start_date + timedelta(days=nb_days)
 

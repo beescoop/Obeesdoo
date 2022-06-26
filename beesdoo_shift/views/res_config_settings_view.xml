@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <record id="res_config_settings_shift_view_form" model="ir.ui.view">
+            <field name="name">Shifts Settings</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="50" />
+            <field name="inherit_id" ref="base.res_config_settings_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="///div[hasclass('settings')]" position="inside">
+                    <div
+                        id="shift_settings_block"
+                        class="app_settings_block"
+                        data-string="Shifts Settings"
+                        string="Shifts Settings"
+                        data-key="beesdoo_shift"
+                        groups="beesdoo_shift.group_cooperative_admin"
+                    >
+                        <h2>General settings</h2>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">
+                                        Limit attendance percentage to define underpopulated shift
+                                    </span>
+                                    <div class="text-muted">
+                                        Only shifts with a percentage of workers under this limit
+                                        will be considered as underpopulated
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16 row">
+                                            <label
+                                                for="min_percentage_presence"
+                                                string="Percentage (%)"
+                                                class="col-3 col-lg-3 o_light_label"
+                                            />
+                                            <field
+                                                name="min_percentage_presence"
+                                                class="oe_inline"
+                                                required="1"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">
+                                        Minimum number of hours before a shift to unsubscribe
+                                    </span>
+                                    <div class="text-muted">
+                                        Workers can unsubscribe from a shift only if the delay before
+                                        the start is at least this number of hours
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16 row">
+                                            <label
+                                                for="min_hours_to_unsubscribe"
+                                                string="Hours"
+                                                class="col-3 col-lg-3 o_light_label"
+                                            />
+                                            <field
+                                                name="min_hours_to_unsubscribe"
+                                                class="oe_inline"
+                                                required="1"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">
+                                        Maximum number of shifts per day for one cooperator
+                                    </span>
+                                    <div class="text-muted">
+                                        This limit is checked on each exchange or solidarity offer
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16 row">
+                                            <label
+                                                for="max_shift_per_day"
+                                                string="Value"
+                                                class="col-3 col-lg-3 o_light_label"
+                                            />
+                                            <field
+                                                name="max_shift_per_day"
+                                                class="oe_inline"
+                                                required="1"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">
+                                        Maximum number of shifts per month for one cooperator
+                                    </span>
+                                    <div class="text-muted">
+                                        This limit is checked on each exchange or solidarity offer
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16 row">
+                                            <label
+                                                for="max_shift_per_month"
+                                                string="Value"
+                                                class="col-3 col-lg-3 o_light_label"
+                                            />
+                                            <field
+                                                name="max_shift_per_month"
+                                                class="oe_inline"
+                                                required="1"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">
+                                        Shift period
+                                    </span>
+                                    <div class="text-muted">
+                                        Usual number of days between two shifts for regular workers
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16 row">
+                                            <label
+                                                for="shift_period"
+                                                string="Days"
+                                                class="col-3 col-lg-3 o_light_label"
+                                            />
+                                            <field
+                                                name="shift_period"
+                                                class="oe_inline"
+                                                required="1"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

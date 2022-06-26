@@ -79,22 +79,18 @@ class ResPartner(models.Model):
 
     def check_shift_number_limit(self, wanted_tmpl_dated):
         """
-        Check if subscribing to a shift would exceed the daily and
-        monthly shift number limit
-        :param wanted_tmpl_dated: the tmpl_dated matching the shift to subscribe
+        Check if subscribing to a shift matching the wanted_tmpl_dated
+        would exceed the daily and monthly shift number limit
+        :param wanted_tmpl_dated: beesdoo.shift.template.dated
         """
         my_next_tmpl_dated = self.get_next_tmpl_dated()
         shift_in_day = 0
         shift_in_month = 0
         max_shift_per_day = int(
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("beesdoo_shift.max_shift_per_day")
+            self.env["ir.config_parameter"].sudo().get_param("max_shift_per_day")
         )
         max_shift_per_month = int(
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("beesdoo_shift.max_shift_per_month")
+            self.env["ir.config_parameter"].sudo().get_param("max_shift_per_month")
         )
         for tmpl_dated in my_next_tmpl_dated:
             if tmpl_dated.date.date() == wanted_tmpl_dated.date.date():

@@ -91,6 +91,7 @@ class SolidarityShiftOffer(models.Model):
                 subscribed_solidarity_shift.write(
                     {
                         "is_regular": False,
+                        "is_solidarity": False,
                         "worker_id": False,
                         "solidarity_offer_ids": [(5,)],
                     }
@@ -101,7 +102,7 @@ class SolidarityShiftOffer(models.Model):
     def check_offer_date_too_close(self):
         """
         Checks if the time delta between the current date and the shift date
-        is under a limit, defined in parameter 'hours_limit_cancel_solidarity_offer'.
+        is under a limit, defined in parameter 'min_hours_to_unsubscribe'.
         Returns True if the date is too close.
         :return: Boolean
         """
@@ -111,7 +112,7 @@ class SolidarityShiftOffer(models.Model):
         limit_hours = int(
             self.env["ir.config_parameter"]
             .sudo()
-            .get_param("beesdoo_shift.hours_limit_cancel_solidarity_offer")
+            .get_param("beesdoo_shift.min_hours_to_unsubscribe")
         )
         if delta <= timedelta(hours=limit_hours):
             return True

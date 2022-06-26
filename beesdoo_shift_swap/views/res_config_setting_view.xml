@@ -3,354 +3,231 @@
     <data>
 
         <record id="res_config_settings_swap_view_form" model="ir.ui.view">
-            <field name="name">res.config.settings.view.form</field>
+            <field name="name">Shift Exchanges Settings</field>
             <field name="model">res.config.settings</field>
             <field name="priority" eval="50" />
-            <field name="inherit_id" ref="base.res_config_settings_view_form" />
+            <field
+                name="inherit_id"
+                ref="beesdoo_shift.res_config_settings_shift_view_form"
+            />
             <field name="arch" type="xml">
-                <xpath expr="///div[hasclass('settings')]" position="inside">
-                    <div
-                        class="app_settings_block"
-                        data-string="Shifts Swap"
-                        string="Shifts Swap"
-                        data-key="beesdoo_shift"
-                        groups="beesdoo_shift.group_cooperative_admin"
-                    >
-                        <h2>General settings</h2>
-                        <div class="row mt16 o_settings_container">
-                            <div class="col-12 col-lg-6 o_setting_box">
-                                <div class="o_setting_right_pane">
-                                    <span class="o_form_label">
-                                        Maximum number of shifts per day for one cooperator
-                                    </span>
-                                    <div class="text-muted">
-                                        This limit is checked on each exchange or solidarity offer
-                                    </div>
-                                    <div class="content-group">
-                                        <div class="mt16 row">
-                                            <label
-                                                for="max_shift_per_day"
-                                                string="Value"
-                                                class="col-3 col-lg-3 o_light_label"
-                                            />
-                                            <field
-                                                name="max_shift_per_day"
-                                                class="oe_inline"
-                                                required="1"
-                                            />
-                                        </div>
+
+                <div id="shift_settings_block" position="inside">
+                    <h2>Shift Exchanges</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field
+                                    name="enable_exchanges"
+                                    class="oe_inline"
+                                    required="1"
+                                />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">
+                                    Activate shift swaps and exchanges
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">
+                                    Limit of days to swap shift
+                                </span>
+                                <div class="text-muted">
+                                    Number of days above which a cooperator cannot swap his shift
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label
+                                            for="day_limit_swap"
+                                            string="Days"
+                                            class="col-3 col-lg-3 o_light_label"
+                                        />
+                                        <field
+                                            name="day_limit_swap"
+                                            class="oe_inline"
+                                            required="1"
+                                        />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt16 o_settings_container">
-                            <div class="col-12 col-lg-6 o_setting_box">
-                                <div class="o_setting_right_pane">
-                                    <span class="o_form_label">
-                                        Maximum number of shifts per month for one cooperator
-                                    </span>
-                                    <div class="text-muted">
-                                        This limit is checked on each exchange or solidarity offer
-                                    </div>
-                                    <div class="content-group">
-                                        <div class="mt16 row">
-                                            <label
-                                                for="max_shift_per_month"
-                                                string="Value"
-                                                class="col-3 col-lg-3 o_light_label"
-                                            />
-                                            <field
-                                                name="max_shift_per_month"
-                                                class="oe_inline"
-                                                required="1"
-                                            />
-                                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">
+                                    Limit of days to request an exchange
+                                </span>
+                                <div class="text-muted">
+                                    Number of days below which a cooperator cannot
+                                    request an exchange with another cooperator
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label
+                                            for="day_limit_request_exchange"
+                                            string="Days"
+                                            class="col-3 col-lg-3 o_light_label"
+                                        />
+                                        <field
+                                            name="day_limit_request_exchange"
+                                            class="oe_inline"
+                                            required="1"
+                                        />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <h2>Shift Swap</h2>
-                        <div class="row mt16 o_settings_container">
-                            <div class="col-12 col-lg-6 o_setting_box">
-                                <div class="o_setting_left_pane">
-                                    <field
-                                        name="enable_exchanges"
-                                        class="oe_inline"
-                                        required="1"
-                                    />
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">
+                                    Limit of days to select shifts for an exchange
+                                </span>
+                                <div class="text-muted">
+                                    Number of days above which a cooperator cannot
+                                    select shifts to exchange with one of his/hers
                                 </div>
-                                <div class="o_setting_right_pane">
-                                    <span class="o_form_label">
-                                        Activate shift swaps and exchanges
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt16 o_settings_container">
-                            <div class="col-12 col-lg-6 o_setting_box">
-                                <div class="o_setting_right_pane">
-                                    <span class="o_form_label">
-                                        Limit attendance percentage to define underpopulated shift
-                                    </span>
-                                    <div class="text-muted">
-                                        Only shifts with a percentage of workers under this limit
-                                        will be considered as underpopulated
-                                    </div>
-                                    <div class="content-group">
-                                        <div class="mt16 row">
-                                            <label
-                                                for="min_percentage_presence"
-                                                string="Percentage (%)"
-                                                class="col-3 col-lg-3 o_light_label"
-                                            />
-                                            <field
-                                                name="min_percentage_presence"
-                                                class="oe_inline"
-                                                required="1"
-                                            />
-                                        </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label
+                                            for="day_limit_ask_for_exchange"
+                                            string="Days"
+                                            class="col-3 col-lg-3 o_light_label"
+                                        />
+                                        <field
+                                            name="day_limit_ask_for_exchange"
+                                            class="oe_inline"
+                                            required="1"
+                                        />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt16 o_settings_container">
-                            <div class="col-12 col-lg-6 o_setting_box">
-                                <div class="o_setting_right_pane">
-                                    <span class="o_form_label">
-                                        Limit of days to swap shift
-                                    </span>
-                                    <div class="text-muted">
-                                        Number of days above which a cooperator cannot swap his shift
-                                    </div>
-                                    <div class="content-group">
-                                        <div class="mt16 row">
-                                            <label
-                                                for="day_limit_swap"
-                                                string="Days"
-                                                class="col-3 col-lg-3 o_light_label"
-                                            />
-                                            <field
-                                                name="day_limit_swap"
-                                                class="oe_inline"
-                                                required="1"
-                                            />
-                                        </div>
-                                    </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">
+                                    Limit of days to exchange with the same timeslot
+                                </span>
+                                <div class="text-muted">
+                                    Number of days below which a cooperator can only
+                                    request exchanges with cooperators from the same
+                                    timesolt in other weeks
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row mt16 o_settings_container">
-                            <div class="col-12 col-lg-6 o_setting_box">
-                                <div class="o_setting_right_pane">
-                                    <span class="o_form_label">
-                                        Limit of days to request an exchange
-                                    </span>
-                                    <div class="text-muted">
-                                        Number of days below which a cooperator cannot
-                                        request an exchange with another cooperator
-                                    </div>
-                                    <div class="content-group">
-                                        <div class="mt16 row">
-                                            <label
-                                                for="day_limit_request_exchange"
-                                                string="Days"
-                                                class="col-3 col-lg-3 o_light_label"
-                                            />
-                                            <field
-                                                name="day_limit_request_exchange"
-                                                class="oe_inline"
-                                                required="1"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt16 o_settings_container">
-                            <div class="col-12 col-lg-6 o_setting_box">
-                                <div class="o_setting_right_pane">
-                                    <span class="o_form_label">
-                                        Limit of days to select shifts for an exchange
-                                    </span>
-                                    <div class="text-muted">
-                                        Number of days above which a cooperator cannot
-                                        select shifts to exchange with one of his/hers
-                                    </div>
-                                    <div class="content-group">
-                                        <div class="mt16 row">
-                                            <label
-                                                for="day_limit_ask_for_exchange"
-                                                string="Days"
-                                                class="col-3 col-lg-3 o_light_label"
-                                            />
-                                            <field
-                                                name="day_limit_ask_for_exchange"
-                                                class="oe_inline"
-                                                required="1"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt16 o_settings_container">
-                            <div class="col-12 col-lg-6 o_setting_box">
-                                <div class="o_setting_right_pane">
-                                    <span class="o_form_label">
-                                        Limit of days to exchange with the same timeslot
-                                    </span>
-                                    <div class="text-muted">
-                                        Number of days below which a cooperator can only
-                                        request exchanges with cooperators from the same
-                                        timesolt in other weeks
-                                    </div>
-                                    <div class="content-group">
-                                        <div class="mt16 row">
-                                            <label
-                                                for="day_limit_exchange_with_same_timeslot"
-                                                string="Days"
-                                                class="col-3 col-lg-3 o_light_label"
-                                            />
-                                            <field
-                                                name="day_limit_exchange_with_same_timeslot"
-                                                class="oe_inline"
-                                                required="1"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <h2>Solidarity</h2>
-                        <div class="row mt16 o_settings_container">
-                            <div class="col-12 col-lg-6 o_setting_box">
-                                <div class="o_setting_left_pane">
-                                    <field
-                                        name="enable_solidarity"
-                                        class="oe_inline"
-                                        required="1"
-                                    />
-                                </div>
-                                <div class="o_setting_right_pane">
-                                    <span class="o_form_label">
-                                        Activate solidarity related features
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt16 o_settings_container">
-                            <div class="col-12 col-lg-6 o_setting_box">
-                                <div class="o_setting_right_pane">
-                                    <span class="o_form_label">
-                                        Limit of hours to cancel a solidarity shift
-                                    </span>
-                                    <div class="text-muted">
-                                        Number of hours before a solidarity shift after which it can't be cancelled
-                                    </div>
-                                    <div class="content-group">
-                                        <div class="mt16 row">
-                                            <label
-                                                for="hours_limit_cancel_solidarity_offer"
-                                                string="Hours"
-                                                class="col-3 col-lg-3 o_light_label"
-                                            />
-                                            <field
-                                                name="hours_limit_cancel_solidarity_offer"
-                                                class="oe_inline"
-                                                required="1"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt16 o_settings_container">
-                            <div class="col-12 col-lg-6 o_setting_box">
-                                <div class="o_setting_right_pane">
-                                    <span class="o_form_label">
-                                        Initial value of the solidarity counter
-                                    </span>
-                                    <div class="text-muted">
-                                        Inital value for the solidarity counter calculation
-                                        (equivalent to the value of the counter if no one
-                                        has offered or requested a solidarity shift)
-                                    </div>
-                                    <div class="content-group">
-                                        <div class="mt16 row">
-                                            <label
-                                                for="solidarity_counter_start_value"
-                                                string="Value"
-                                                class="col-3 col-lg-3 o_light_label"
-                                            />
-                                            <field
-                                                name="solidarity_counter_start_value"
-                                                class="oe_inline"
-                                                required="1"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt16 o_settings_container">
-                            <div class="col-12 col-lg-6 o_setting_box">
-                                <div class="o_setting_right_pane">
-                                    <span class="o_form_label">
-                                        Limit value of the solidarity counter
-                                    </span>
-                                    <div class="text-muted">
-                                        Value of the solidarity counter below which
-                                        it cannot drop. If this value is reached,
-                                        requesting solidarity becomes impossible until
-                                        a solidarity shift is done.
-                                    </div>
-                                    <div class="content-group">
-                                        <div class="mt16 row">
-                                            <label
-                                                for="solidarity_counter_limit"
-                                                string="Value"
-                                                class="col-3 col-lg-3 o_light_label"
-                                            />
-                                            <field
-                                                name="solidarity_counter_limit"
-                                                class="oe_inline"
-                                                required="1"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt16 o_settings_container">
-                            <div class="col-12 col-lg-6 o_setting_box">
-                                <div class="o_setting_right_pane">
-                                    <span class="o_form_label">
-                                        Maximum number of solidarity requests
-                                    </span>
-                                    <div class="text-muted">
-                                        Value of the maximum number of solidarity requests
-                                        per worker and per year. The calculation is based
-                                        on the last twelve months (not on the calendar year).
-                                    </div>
-                                    <div class="content-group">
-                                        <div class="mt16 row">
-                                            <label
-                                                for="max_solidarity_requests_number"
-                                                string="Value"
-                                                class="col-3 col-lg-3 o_light_label"
-                                            />
-                                            <field
-                                                name="max_solidarity_requests_number"
-                                                class="oe_inline"
-                                                required="1"
-                                            />
-                                        </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label
+                                            for="day_limit_exchange_with_same_timeslot"
+                                            string="Days"
+                                            class="col-3 col-lg-3 o_light_label"
+                                        />
+                                        <field
+                                            name="day_limit_exchange_with_same_timeslot"
+                                            class="oe_inline"
+                                            required="1"
+                                        />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </xpath>
+                    <h2>Solidarity</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field
+                                    name="enable_solidarity"
+                                    class="oe_inline"
+                                    required="1"
+                                />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">
+                                    Activate solidarity related features
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">
+                                    Initial value of the solidarity counter
+                                </span>
+                                <div class="text-muted">
+                                    Inital value for the solidarity counter calculation
+                                    (equivalent to the value of the counter if no one
+                                    has offered or requested a solidarity shift)
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label
+                                            for="solidarity_counter_start_value"
+                                            string="Value"
+                                            class="col-3 col-lg-3 o_light_label"
+                                        />
+                                        <field
+                                            name="solidarity_counter_start_value"
+                                            class="oe_inline"
+                                            required="1"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">
+                                    Limit value of the solidarity counter
+                                </span>
+                                <div class="text-muted">
+                                    Value of the solidarity counter below which
+                                    it cannot drop. If this value is reached,
+                                    requesting solidarity becomes impossible until
+                                    a solidarity shift is done.
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label
+                                            for="solidarity_counter_limit"
+                                            string="Value"
+                                            class="col-3 col-lg-3 o_light_label"
+                                        />
+                                        <field
+                                            name="solidarity_counter_limit"
+                                            class="oe_inline"
+                                            required="1"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">
+                                    Maximum number of solidarity requests
+                                </span>
+                                <div class="text-muted">
+                                    Value of the maximum number of solidarity requests
+                                    per worker and per year. The calculation is based
+                                    on the last twelve months (not on the calendar year).
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label
+                                            for="max_solidarity_requests_number"
+                                            string="Value"
+                                            class="col-3 col-lg-3 o_light_label"
+                                        />
+                                        <field
+                                            name="max_solidarity_requests_number"
+                                            class="oe_inline"
+                                            required="1"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </field>
         </record>
 
