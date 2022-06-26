@@ -210,11 +210,8 @@ class ResPartner(models.Model):
         start_date = datetime.now()
         end_date = start_date + timedelta(days=nb_days)
 
-        shifts = self.env["beesdoo.shift.planning"].get_future_shifts(end_date)
-
-        next_shifts = []
-        for rec in shifts:
-            if rec.worker_id.id == self.id:
-                next_shifts.append(rec)
+        next_shifts = self.env["beesdoo.shift.planning"].get_future_shifts(
+            end_date, worker_id=self
+        )
 
         return next_shifts
