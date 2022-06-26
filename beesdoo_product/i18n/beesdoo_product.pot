@@ -309,7 +309,7 @@ msgid "Name"
 msgstr ""
 
 #. module: beesdoo_product
-#: code:addons/beesdoo_product/models/beesdoo_product.py:363
+#: code:addons/beesdoo_product/models/beesdoo_product.py:370
 #, python-format
 msgid "No Vendor defined for product '%s'"
 msgstr ""
@@ -337,7 +337,7 @@ msgstr ""
 
 #. module: beesdoo_product
 #: code:addons/beesdoo_product/models/beesdoo_product.py:28
-#: code:addons/beesdoo_product/models/beesdoo_product.py:433
+#: code:addons/beesdoo_product/models/beesdoo_product.py:440
 #, python-format
 msgid "Percentages for Profit Margin must >= 0."
 msgstr ""
@@ -413,7 +413,7 @@ msgid "Purchase Price"
 msgstr ""
 
 #. module: beesdoo_product
-#: code:addons/beesdoo_product/models/beesdoo_product.py:280
+#: code:addons/beesdoo_product/models/beesdoo_product.py:287
 #, python-format
 msgid "Reference Unit and Display Unit should belong to the same category "
 msgstr ""
@@ -496,12 +496,6 @@ msgid "Set labels as printed"
 msgstr ""
 
 #. module: beesdoo_product
-#: code:addons/beesdoo_product/models/beesdoo_product.py:231
-#, python-format
-msgid "Several tax strategies (price_include) defined for %s"
-msgstr ""
-
-#. module: beesdoo_product
 #: selection:beesdoo.product.hazard,type:0
 msgid "Specific hazard"
 msgstr ""
@@ -540,6 +534,12 @@ msgstr ""
 #. module: beesdoo_product
 #: model:ir.model.fields,help:beesdoo_product.field_product_supplierinfo__price
 msgid "The price to purchase a product"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__several_tax_strategies_warning
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__several_tax_strategies_warning
+msgid "This product can't be printed from the Point of Sale because several tax strategies were defined."
 msgstr ""
 
 #. module: beesdoo_product
