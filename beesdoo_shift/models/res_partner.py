@@ -1,5 +1,7 @@
 from datetime import datetime, timedelta
 
+from pytz import timezone, utc
+
 from odoo import _, api, fields, models
 
 
@@ -196,23 +198,112 @@ class ResPartner(models.Model):
             )
 
     def get_next_shifts(self):
-        """
-        Get the shifts of the user between now and an end_date,
-        with end_date = shift_period * regular_next_shift_limit
-        :return: beesdoo.shift.shift list
-        """
-        regular_next_shift_limit = int(
-            self.env["ir.config_parameter"].sudo().get_param("regular_next_shift_limit")
+        self.ensure_one()
+        now = datetime.now()
+        subscribed_shifts_rec = (
+            self.env["beesdoo.shift.shift"]
+            .sudo()
+            .search(
+                [
+                    ("start_time", ">", now.strftime("%Y-%m-%d %H:%M:%S")),
+                    ("worker_id", "=", self.id),
+                ],
+                order="start_time, task_template_id, task_type_id",
+            )
         )
-        shift_period = int(
-            self.env["ir.config_parameter"].sudo().get_param("shift_period")
-        )
-        nb_days = shift_period * regular_next_shift_limit
-        start_date = datetime.now()
-        end_date = start_date + timedelta(days=nb_days)
+        # Create a list of record in order to add new record to it later
+        generated_shifts = []
+        for rec in subscribed_shifts_rec:
+            generated_shifts.append(rec)
 
-        next_shifts = self.env["beesdoo.shift.planning"].get_future_shifts(
-            end_date, worker_id=self
-        )
+        if self.working_mode == "regular":
+            # Compute main shift
+            task_template = self.env["beesdoo.shift.template"].search(
+                [("worker_ids", "in", self.id)], limit=1
+            )
+            main_shift = self.env["beesdoo.shift.shift"].search(
+                [
+                    ("task_template_id", "=", task_template[0].id),
+                    ("start_time", "!=", False),
+                    ("end_time", "!=", False),
+                ],
+                order="start_time desc",
+                limit=1,
+            )
 
-        return next_shifts
+            # Get config
+            regular_next_shift_limit = int(
+                self.env["ir.config_parameter"].get_param("regular_next_shift_limit")
+            )
+            shift_period = int(
+                self.env["ir.config_parameter"].get_param("shift_period")
+            )
+            next_planning_date = datetime.strptime(
+                self.env["ir.config_parameter"].get_param("next_planning_date"),
+                "%Y-%m-%d",
+            )
+
+            planned_shifts = []
+
+            for i in range(1, regular_next_shift_limit - len(generated_shifts) + 1):
+                if (
+                    self.add_days(main_shift.start_time, days=i * shift_period)
+                    > next_planning_date
+                ):
+                    # Create the fictive shift
+                    shift = main_shift.new()
+                    shift.name = main_shift.name
+                    shift.task_template_id = main_shift.task_template_id
+                    shift.planning_id = main_shift.planning_id
+                    shift.task_type_id = main_shift.task_type_id
+                    shift.worker_id = main_shift.worker_id
+                    shift.state = "open"
+                    shift.super_coop_id = main_shift.super_coop_id
+                    shift.color = main_shift.color
+                    shift.is_regular = main_shift.is_regular
+                    shift.replaced_id = main_shift.replaced_id
+                    shift.revert_info = main_shift.revert_info
+                    # Set new date
+                    shift.start_time = self.add_days(
+                        main_shift.start_time, days=i * shift_period
+                    )
+                    shift.end_time = self.add_days(
+                        main_shift.end_time, days=i * shift_period
+                    )
+                    # Add the fictive shift to the list of shift
+                    planned_shifts.append(shift)
+
+        return generated_shifts, planned_shifts
+
+    def add_days(self, datetime, days):
+        """
+        Add the number of days to datetime. This take the DST in
+        account, meaning that the UTC time will be correct even if the
+        new datetime has cross the DST boundary.
+
+        :param datetime: a naive datetime expressed in UTC
+        :return: a naive datetime expressed in UTC with the added days
+        """
+        # Ensure that the datetime given is without a timezone
+        assert datetime.tzinfo is None
+        # Get current user and user timezone
+        # Take user tz, if empty use context tz, if empty use UTC
+        cur_user = self.env["res.users"].search([("partner_id", "=", self.id)])
+        user_tz = utc
+        if cur_user.tz:
+            user_tz = timezone(cur_user.tz)
+        elif self.env.context["tz"]:
+            user_tz = timezone(self.env.context["tz"])
+        # Convert to UTC
+        dt_utc = utc.localize(datetime, is_dst=False)
+        # Convert to user TZ
+        dt_local = dt_utc.astimezone(user_tz)
+        # Add the number of days
+        newdt_local = dt_local + timedelta(days=days)
+        # If the newdt_local has cross the DST boundary, its tzinfo is
+        # no longer correct. So it will be replaced by the correct one.
+        newdt_local = user_tz.localize(newdt_local.replace(tzinfo=None))
+        # Now the newdt_local has the right DST so it can be converted
+        # to UTC.
+        newdt_utc = newdt_local.astimezone(utc)
+        return newdt_utc.replace(tzinfo=None)

@@ -275,6 +275,7 @@
                     <table class="table table-hover interactive">
                         <thead class="thead-dark">
                             <tr>
+                                <th>Day</th>
                                 <th>Date</th>
                                 <th class="non_orderable">Time slot</th>
                                 <th>Task</th>
@@ -288,6 +289,8 @@
                                         <t
                                             t-esc="tmpl_dated.template_id.day_nb_id.name"
                                         />
+                                    </td>
+                                    <td>
                                         <t
                                             t-esc="tmpl_dated.date.strftime('%d/%m, %Y')"
                                         />
