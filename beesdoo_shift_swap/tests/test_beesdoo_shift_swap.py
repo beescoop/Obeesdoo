@@ -77,6 +77,9 @@ class TestBeesdooShiftSwap(TransactionCase):
         self.assertTrue(shift.is_solidarity)
 
         # Solidarity offer cancellation
+        self.env["ir.config_parameter"].sudo().set_param(
+            "beesdoo_shift.min_hours_to_unsubscribe", 2
+        )
         self.assertTrue(solidarity_offer.check_offer_date_too_close())
         template_dated.date = self.now + timedelta(days=30)
         shift.start_time = template_dated.date
@@ -128,11 +131,6 @@ class TestBeesdooShiftSwap(TransactionCase):
         self.assertTrue(shift.is_solidarity)
 
         # Solidarity offer cancellation
-        self.assertTrue(solidarity_offer.check_offer_date_too_close())
-        template_dated.date = self.now + timedelta(days=30)
-        shift.start_time = template_dated.date
-        shift.end_time = template_dated.date + timedelta(minutes=10)
-        self.assertFalse(solidarity_offer.check_offer_date_too_close())
         self.assertTrue(solidarity_offer.cancel_solidarity_offer())
 
         self.assertFalse(solidarity_offer.shift_id)
