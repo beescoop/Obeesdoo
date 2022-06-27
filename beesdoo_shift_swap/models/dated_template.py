@@ -131,10 +131,13 @@ class DatedTemplate(models.Model):
         :param user: res.partner
         :return: beesdoo.shift.template.dated recordset
         """
-        subscribed_shifts = user.get_next_shifts()
+        generated_shifts, planned_shifts = user.get_next_shifts()
         result = self
         for rec in self:
-            for tmpl_dated in self.swap_shift_to_tmpl_dated(subscribed_shifts):
+            for tmpl_dated in self.swap_shift_to_tmpl_dated(generated_shifts):
+                if rec.date == tmpl_dated.date:
+                    result -= rec
+            for tmpl_dated in self.swap_shift_to_tmpl_dated(planned_shifts):
                 if rec.date == tmpl_dated.date:
                     result -= rec
         return result
@@ -205,3 +208,27 @@ class DatedTemplate(models.Model):
             )
 
         return underpopulated_tmpl_dated
+
+    def new_shift(self, worker_id=None):
+        """
+        Create a new shift based on self and worker_id
+        :param worker_id: res.partner
+        :return: beesdoo.shift.shift
+        """
+        self.ensure_one()
+        template = self.template_id
+        new_shift = self.env["beesdoo.shift.shift"].new(
+            {
+                "name": "New shift",
+                "task_template_id": template.id,
+                "task_type_id": template.task_type_id.id,
+                "super_coop_id": template.super_coop_id.id,
+                "worker_id": worker_id.id if worker_id else False,
+                "is_regular": bool(worker_id),
+                "start_time": self.date,
+                "end_time": self.date
+                + timedelta(hours=template.end_time - template.start_time),
+                "state": "open",
+            }
+        )
+        return new_shift
