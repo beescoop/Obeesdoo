@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-23 14:59+0000\n"
-"PO-Revision-Date: 2022-06-23 14:59+0000\n"
+"POT-Creation-Date: 2022-06-27 08:24+0000\n"
+"PO-Revision-Date: 2022-06-27 08:24+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -298,7 +298,7 @@ msgstr ""
 #: code:addons/beesdoo_website_shift/controllers/main.py:668
 #, python-format
 msgid "Friday"
-msgstr ""
+msgstr "Vrijdag"
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
@@ -388,8 +388,7 @@ msgid "Maximum past shift that will be shown for regular worker"
 msgstr ""
 
 #. module: beesdoo_website_shift
-#: model:ir.model.fields,help:beesdoo_website_shift.field_res_config_settings__regular_next_shift_limit
-#: model:ir.model.fields,help:beesdoo_website_shift.field_website__regular_next_shift_limit
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_config_settings__regular_next_shift_limit
 msgid "Maximun number of next shift that will be shown"
 msgstr ""
 
@@ -470,18 +469,12 @@ msgstr ""
 #: code:addons/beesdoo_website_shift/static/src/js/script.js:32
 #, python-format
 msgid "Reduce"
-msgstr ""
+msgstr "Reduceren"
 
 #. module: beesdoo_website_shift
 #: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_config_settings__regular_highlight_rule
 #: model:ir.model.fields,field_description:beesdoo_website_shift.field_website__regular_highlight_rule
 msgid "Regular Highlight Rule"
-msgstr ""
-
-#. module: beesdoo_website_shift
-#: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_config_settings__regular_next_shift_limit
-#: model:ir.model.fields,field_description:beesdoo_website_shift.field_website__regular_next_shift_limit
-msgid "Regular Next Shift Limit"
 msgstr ""
 
 #. module: beesdoo_website_shift
@@ -494,7 +487,7 @@ msgstr ""
 #: code:addons/beesdoo_website_shift/controllers/main.py:669
 #, python-format
 msgid "Saturday"
-msgstr ""
+msgstr "Zaterdag"
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
@@ -541,7 +534,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
 #, python-format
 msgid "Show next shifts"
-msgstr ""
+msgstr "De volgende shifts zien"
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_worker_status_common
@@ -568,7 +561,7 @@ msgstr ""
 #: code:addons/beesdoo_website_shift/controllers/main.py:670
 #, python-format
 msgid "Sunday"
-msgstr ""
+msgstr "Zondag"
 
 #. module: beesdoo_website_shift
 #: model:ir.model.fields,help:beesdoo_website_shift.field_res_config_settings__hide_rule
@@ -586,7 +579,7 @@ msgstr ""
 #: code:addons/beesdoo_website_shift/controllers/main.py:667
 #, python-format
 msgid "Thursday"
-msgstr ""
+msgstr "Donderdag"
 
 #. module: beesdoo_website_shift
 #: model:ir.model.fields,help:beesdoo_website_shift.field_res_config_settings__regular_highlight_rule
@@ -598,7 +591,7 @@ msgstr ""
 #: code:addons/beesdoo_website_shift/controllers/main.py:665
 #, python-format
 msgid "Tuesday"
-msgstr ""
+msgstr "Dinsdag"
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
@@ -620,7 +613,7 @@ msgstr ""
 #: code:addons/beesdoo_website_shift/controllers/main.py:666
 #, python-format
 msgid "Wednesday"
-msgstr ""
+msgstr "Woensdag"
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_worker_status_title
