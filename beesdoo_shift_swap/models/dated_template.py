@@ -207,7 +207,7 @@ class DatedTemplate(models.Model):
 
         return underpopulated_tmpl_dated
 
-    def new_shift(self, worker_id=None, is_solidarity=False):
+    def new_shift(self, worker_id=None):
         """
         Create a new shift based on self and worker_id
         :param worker_id: res.partner
@@ -223,7 +223,6 @@ class DatedTemplate(models.Model):
                 "super_coop_id": template.super_coop_id.id,
                 "worker_id": worker_id.id if worker_id else False,
                 "is_regular": bool(worker_id),
-                "is_solidarity": is_solidarity,
                 "start_time": self.date,
                 "end_time": self.date
                 + timedelta(hours=template.end_time - template.start_time),
