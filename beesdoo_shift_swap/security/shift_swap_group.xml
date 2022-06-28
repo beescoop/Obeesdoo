@@ -27,6 +27,6 @@
     </record>
 
     <record id="beesdoo_shift.group_shift_management" model="res.groups">
-        <field name="implied_ids" eval="[(4, ref('group_shift_swap_user'))]" />
+        <field name="implied_ids" eval="[(4, ref('group_shift_swap_manager'))]" />
     </record>
 </odoo>
