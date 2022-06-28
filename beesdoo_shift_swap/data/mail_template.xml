@@ -170,5 +170,38 @@
             </field>
         </record>
 
+        <!-- Contact coop if no match has been found for his/her exchange request -->
+        <record id="email_template_warn_user_no_match" model="mail.template">
+            <field
+                name="name"
+            >Contact coop if no match has been found for his/her exchange request</field>
+            <field
+                name="model_id"
+                ref="beesdoo_shift_swap.model_beesdoo_shift_exchange_request"
+            />
+            <field name="partner_to">${object.worker_id.id}</field>
+            <field name="auto_delete" eval="False" />
+            <field
+                name="subject"
+            >No match has been found for your exchange request</field>
+            <field name="body_html">
+                <![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    Hello ${object.worker_id.name},
+                    <br/><br/>
+                    <p>
+                        You are recieving this email because no match has been found for your exchange request, and the shift that you want
+                        to exchange is getting closer. To avoid missing it, you can now swap it with an underpopulated one.
+                    </p>
+                    <p>
+                        If you wish to do so, please <a href="/my/shift/swaping/${object.exchanged_tmpl_dated_id.template_id.id}/${object.exchanged_tmpl_dated_id.date.strftime('%Y-%m-%d %H:%M:%S')}">click here</a>.
+                    </p>
+                    <br/><br/>
+                    Regards,
+                </div>
+                ]]>
+            </field>
+        </record>
+
     </data>
 </odoo>

@@ -154,7 +154,10 @@ class ResPartner(models.Model):
         # Solidarity offers
         for offer in solidarity_offers:
             planned_shifts = self.exchange_shifts(
-                generated_shifts, planned_shifts, wanted_tmpl_dated=offer.tmpl_dated_id
+                generated_shifts,
+                planned_shifts,
+                wanted_tmpl_dated=offer.tmpl_dated_id,
+                is_solidarity=True,
             )
 
         # Solidarity requests
@@ -173,6 +176,7 @@ class ResPartner(models.Model):
         planned_shifts,
         exchanged_tmpl_dated=None,
         wanted_tmpl_dated=None,
+        is_solidarity=False,
     ):
         """
         Update the personal future shifts list by exchanging two shifts.
@@ -187,6 +191,7 @@ class ResPartner(models.Model):
         :param planned_shift: beesdoo.shift.shift list
         :param exchanged_tmpl_dated: beesdoo.shift.template.dated
         :param wanted_tmpl_dated: beesdoo.shift.template.dated
+        :param is_solidarity: Boolean
         :return planned_shift: beesdoo.shift.shift list
         """
         self.ensure_one()
@@ -211,7 +216,7 @@ class ResPartner(models.Model):
                     break
             # If not, create it and add it to the list
             if not new_shift_generated:
-                new_shift = wanted_tmpl_dated.new_shift(self)
+                new_shift = wanted_tmpl_dated.new_shift(self, is_solidarity)
                 planned_shifts.append(new_shift)
 
         return planned_shifts
