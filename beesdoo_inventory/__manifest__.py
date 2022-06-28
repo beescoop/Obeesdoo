@@ -11,12 +11,12 @@
     "author": "Beescoop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Inventory",
-    "version": "12.0.2.0.1",
+    "version": "12.0.3.0.1",
     "depends": [
         "stock",
         "beesdoo_product",  # for field main_seller_id
         "stock_picking_responsible",
-        "stock_picking_copy_quantity",
+        "stock_move_line_auto_fill",
     ],
     "data": ["views/stock.xml"],
     "installable": True,
