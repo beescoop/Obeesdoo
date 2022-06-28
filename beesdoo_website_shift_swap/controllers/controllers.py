@@ -504,6 +504,10 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 {"worker_id": False, "is_regular": False, "is_compensation": False}
             )
             user.partner_id.cooperative_status_ids.sc -= 1
+            template = self.env["beesdoo.shift.template"].browse(template_id)
+            self.env["beesdoo.shift.exchange_request"].cancel_matching_requests(
+                user.partner_id, template, date
+            )
             request.session["success_message"] = _(
                 "You have been unsubscribed to this shift."
             )

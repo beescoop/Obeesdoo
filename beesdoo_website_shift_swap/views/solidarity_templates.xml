@@ -110,6 +110,7 @@
                                     Select a future shift
                                 </a>
                                 <a
+                                    t-if="0 > status.sr + status.sc"
                                     class="btn btn-success"
                                     href="/my/shift/solidarity/request/past"
                                 >

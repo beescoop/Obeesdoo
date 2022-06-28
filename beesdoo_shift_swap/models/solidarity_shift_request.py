@@ -50,6 +50,9 @@ class SolidarityShiftRequest(models.Model):
         if res.worker_id.working_mode == "regular":
             res._unsubscribe_shift_if_generated()
         res.update_personal_counter()
+        self.env["beesdoo.shift.exchange_request"].cancel_matching_requests(
+            res.worker_id, res.tmpl_dated_id.template_id, res.tmpl_dated_id.date
+        )
         return res
 
     def _unsubscribe_shift_if_generated(self):

@@ -207,3 +207,16 @@ class ExchangeRequest(models.Model):
                 "beesdoo_shift_swap.email_template_warn_user_no_match", False
             )
             email_template.send_mail(request.id, False)
+
+    @api.model
+    def cancel_matching_requests(self, worker_id, template_id, date):
+        requests = self.search(
+            [
+                ("worker_id", "=", worker_id.id),
+                ("status", "not in", ["done", "cancelled"]),
+                ("exchanged_template_date", "=", date),
+            ]
+        )
+        for request in requests:
+            if request.exchanged_tmpl_dated_id.template_id == template_id:
+                request.cancel_exchange_request()
