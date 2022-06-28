@@ -216,6 +216,8 @@ class ResPartner(models.Model):
         for rec in subscribed_shifts_rec:
             generated_shifts.append(rec)
 
+        planned_shifts = []
+
         if self.working_mode == "regular":
             # Compute main shift
             task_template = self.env["beesdoo.shift.template"].search(
@@ -242,8 +244,6 @@ class ResPartner(models.Model):
                 self.env["ir.config_parameter"].get_param("next_planning_date"),
                 "%Y-%m-%d",
             )
-
-            planned_shifts = []
 
             for i in range(1, regular_next_shift_limit - len(generated_shifts) + 1):
                 if (
