@@ -132,12 +132,10 @@ class DatedTemplate(models.Model):
         :return: beesdoo.shift.template.dated recordset
         """
         generated_shifts, planned_shifts = user.get_next_shifts()
+        next_shifts = generated_shifts + planned_shifts
         result = self
         for rec in self:
-            for tmpl_dated in self.swap_shift_to_tmpl_dated(generated_shifts):
-                if rec.date == tmpl_dated.date:
-                    result -= rec
-            for tmpl_dated in self.swap_shift_to_tmpl_dated(planned_shifts):
+            for tmpl_dated in self.swap_shift_to_tmpl_dated(next_shifts):
                 if rec.date == tmpl_dated.date:
                     result -= rec
         return result
@@ -209,7 +207,7 @@ class DatedTemplate(models.Model):
 
         return underpopulated_tmpl_dated
 
-    def new_shift(self, worker_id=None):
+    def new_shift(self, worker_id=None, is_solidarity=False):
         """
         Create a new shift based on self and worker_id
         :param worker_id: res.partner
@@ -225,6 +223,7 @@ class DatedTemplate(models.Model):
                 "super_coop_id": template.super_coop_id.id,
                 "worker_id": worker_id.id if worker_id else False,
                 "is_regular": bool(worker_id),
+                "is_solidarity": is_solidarity,
                 "start_time": self.date,
                 "end_time": self.date
                 + timedelta(hours=template.end_time - template.start_time),

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from odoo import _, api, fields, models
 
@@ -30,6 +30,11 @@ class ExchangeRequest(models.Model):
 
     exchanged_tmpl_dated_id = fields.Many2one(
         "beesdoo.shift.template.dated", string="exchanged_tmpl_dated"
+    )
+
+    exchanged_template_date = fields.Datetime(
+        related="exchanged_tmpl_dated_id.date",
+        readonly=True,
     )
 
     asked_tmpl_dated_ids = fields.Many2many(
@@ -181,3 +186,24 @@ class ExchangeRequest(models.Model):
             self.status = "cancelled"
             return True
         return False
+
+    @api.model
+    def _warn_users_no_match(self):
+        day_limit_swap = int(
+            self.env["ir.config_parameter"].get_param("beesdoo_shift.day_limit_swap")
+        )
+        now = datetime.now()
+        date_limit_up = now + timedelta(days=day_limit_swap)
+        date_limit_down = now + timedelta(days=day_limit_swap - 1)
+        no_matches_requests = self.search(
+            [
+                ("status", "=", "no_match"),
+                ("exchanged_template_date", "<", date_limit_up),
+                ("exchanged_template_date", ">", date_limit_down),
+            ]
+        )
+        for request in no_matches_requests:
+            email_template = self.env.ref(
+                "beesdoo_shift_swap.email_template_warn_user_no_match", False
+            )
+            email_template.send_mail(request.id, False)
