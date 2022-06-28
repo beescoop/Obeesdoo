@@ -16,7 +16,6 @@
         "stock",
         "beesdoo_product",  # for field main_seller_id
         "stock_picking_responsible",
-        "stock_picking_max_shipping_date",
         "stock_picking_copy_quantity",
     ],
     "data": ["views/stock.xml"],
