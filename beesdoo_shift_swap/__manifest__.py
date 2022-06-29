@@ -1,4 +1,4 @@
-# Copyright 2022 Coop IT Easy SCRLfs
+# Copyright 2022 Coop IT Easy SC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
@@ -7,7 +7,7 @@
         Module to allow cooperator to swap his/her shift
         when he/she can't attend it, to do solidarity
         shifts, and to request solidarity if needed.""",
-    "author": "Coop IT Easy SCRLfs",
+    "author": "Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative Management",
     "version": "12.0.1.0.3",
