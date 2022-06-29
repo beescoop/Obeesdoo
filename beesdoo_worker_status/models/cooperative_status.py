@@ -345,8 +345,8 @@ class CooperativeStatus(models.Model):
             ("holiday_start_time", "=", False),
             ("holiday_end_time", "=", False),
             "|",
-            ("holiday_start_time", ">", self.today),
-            ("holiday_end_time", "<", self.today),
+            ("holiday_start_time", ">", today),
+            ("holiday_end_time", "<", today),
         ]
 
     def _change_irregular_counter(self):
