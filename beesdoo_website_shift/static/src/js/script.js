@@ -31,5 +31,8 @@ odoo.define("beesdoo_website_shift.script", function (require) {
         $(".multi-collapse").on("shown.bs.collapse", function () {
             $("#toggle_shifts_button").text(_t("Reduce"));
         });
+
+        // Move modals to body to avoid unwanted behaviour due to parent elements position
+        $(".modal").appendTo("body");
     });
 });

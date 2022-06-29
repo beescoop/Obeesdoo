@@ -623,7 +623,7 @@
                                 Please confirm subscription
                             </h4>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body text-center">
                             <label class="font-weight-bold">Shift:</label>
                             <t t-esc="displayed_shift.template_id.day_nb_id.name" />
                             <t t-esc="displayed_shift.date.strftime('%d/%m, %Y')" />

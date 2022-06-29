@@ -244,7 +244,7 @@
                                 id="warning-task-type-popup-label"
                             >Warning !</h5>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body text-center">
                             The shifts that you want to exchange don't have the same task type.<br
                             />
                             Old shift :
