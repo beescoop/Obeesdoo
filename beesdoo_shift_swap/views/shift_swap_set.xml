@@ -5,7 +5,7 @@
         <field name="name">Swap Shift Set</field>
         <field name="model">beesdoo.shift.exchange</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree create="false">
                 <field name="first_request_id" />
                 <field name="second_request_id" />
             </tree>
@@ -16,7 +16,7 @@
         <field name="name">Shift exchange view form</field>
         <field name="model">beesdoo.shift.exchange</field>
         <field name="arch" type="xml">
-            <form>
+            <form create="false">
                 <group name="group_left">
                     <field name="first_request_id" />
                 </group>

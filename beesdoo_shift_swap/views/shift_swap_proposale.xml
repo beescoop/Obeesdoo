@@ -27,7 +27,7 @@
         <field name="name">Swap Shift Request</field>
         <field name="model">beesdoo.shift.exchange_request</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree create="false">
                 <field name="worker_id" />
                 <field name="create_date" />
                 <field name="status" />
@@ -59,7 +59,7 @@
         <field name="name">Shift swap request</field>
         <field name="model">beesdoo.shift.exchange_request</field>
         <field name="arch" type="xml">
-            <form>
+            <form create="false">
                 <header>
                     <button
                         name="coop_validate_exchange"
