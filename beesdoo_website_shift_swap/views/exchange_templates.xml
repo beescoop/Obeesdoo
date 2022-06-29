@@ -720,7 +720,10 @@
                         t-att-class="'card-header %s clearfix' % highlight_header_class"
                     >
                         <div class="pull-left">
-                            <span t-field="shift.start_time" />
+                            <span
+                                t-field="shift.start_time"
+                                t-options='{"format": "dd/MM/yyyy HH:mm"}'
+                            />
                             -
                             <span
                                 t-field="shift.end_time"
