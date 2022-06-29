@@ -17,19 +17,19 @@ class SubscribeShiftSwap(models.TransientModel):
 
     exchanged_tmpl_dated_id = fields.Many2one(
         "beesdoo.shift.template.dated",
-        string="exchanged_tmpl_dated",
+        string="Exchanged shift",
         required=True,
     )
 
     asked_tmpl_dated_ids = fields.Many2many(
         comodel_name="beesdoo.shift.template.dated",
         relation="wizard_exchange_template_dated",
-        string="asked_tmpl_dated",
+        string="Asked shifts",
     )
 
     possible_match = fields.Many2one(
         "beesdoo.shift.exchange_request",
-        string="possible match",
+        string="Possible match",
     )
 
     @api.onchange("worker_id")
@@ -108,9 +108,13 @@ class SubscribeShiftSwap(models.TransientModel):
             raise UserError(_("You cannot perform this operation on yourself"))
         return self.with_context(real_uid=self._uid)
 
-    @api.multi
     def make_change(self):
         self = self._check()
+        if not self.asked_tmpl_dated_ids or not self.possible_match:
+            raise UserError(
+                _("Please either ask for shifts to exchange or select a match")
+            )
+
         self.exchanged_tmpl_dated_id.store = True
         for rec in self.asked_tmpl_dated_ids:
             rec.store = True
@@ -134,13 +138,17 @@ class SubscribeShiftSwap(models.TransientModel):
         }
         self.env["beesdoo.shift.exchange_request"].sudo().create(data)
 
-    def contact_coop_same_day_same_hour(self):
+    def contact_coop(self):
         """
-        Send a mail to workers that are subscribed to timesolts with same
-        date and hour as self but on another planning
+        Send a mail to all workers of asked_tmpl_dated_ids
+        before creating the exchange request
         """
-        self.ensure_one()
-        matching_workers = self.exchanged_tmpl_dated_id.get_worker_same_day_same_hour()
-        for worker in matching_workers:
-            self.worker_id.send_mail_for_exchange(self.exchanged_tmpl_dated_id, worker)
-        return True
+        self = self._check()
+        if not self.asked_tmpl_dated_ids:
+            raise UserError(_("Please ask for at least one shift"))
+        for tmpl_dated in self.asked_tmpl_dated_ids:
+            for worker in tmpl_dated.template_id.worker_ids:
+                self.worker_id.send_mail_for_exchange(
+                    self.exchanged_tmpl_dated_id, tmpl_dated, worker
+                )
+        self.make_change()
