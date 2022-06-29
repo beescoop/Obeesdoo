@@ -54,13 +54,13 @@ Authors
 ~~~~~~~
 
 * Beescoop - Cellule IT
-* Coop IT Easy SCRLfs
+* Coop IT Easy SC
 
 Contributors
 ~~~~~~~~~~~~
 
 * Beescoop - Cellule IT
-* Coop IT Easy SCRLfs
+* Coop IT Easy SC
 
 Maintainers
 ~~~~~~~~~~~

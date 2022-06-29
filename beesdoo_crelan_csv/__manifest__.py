@@ -7,7 +7,7 @@
     "summary": """
         Import Crelan CSV Wizard
     """,
-    "author": "Beescoop - Cellule IT, Coop IT Easy SCRLfs",
+    "author": "Beescoop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Accounting & Finance",
     "version": "12.0.1.0.0",

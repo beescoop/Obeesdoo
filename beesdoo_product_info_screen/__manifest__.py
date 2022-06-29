@@ -7,7 +7,7 @@
     "version": "12.0.0.0.1",
     "category": "Product",
     "summary": "Adds a read-only screen to display product information",
-    "author": "Coop IT Easy SCRLfs",
+    "author": "Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "license": "AGPL-3",
     "depends": ["beesdoo_product"],

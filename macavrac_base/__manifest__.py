@@ -4,7 +4,7 @@
     "summary": """
     Module with basic customizations for the Macavrac cooperative.
      """,
-    "author": "Patricia Daloze, Coop IT Easy SCRLfs",
+    "author": "Patricia Daloze, Coop IT Easy SC",
     "category": "Sales",
     "website": "https://github.com/beescoop/Obeesdoo",
     "version": "12.0.1.0.0",

@@ -7,7 +7,7 @@
     "category": "Product",
     "summary": "Compute estimated stock coverage based on product sales over "
     "a date range.",
-    "author": "Coop IT Easy SCRLfs",
+    "author": "Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "license": "AGPL-3",
     "depends": ["point_of_sale", "sale_stock"],

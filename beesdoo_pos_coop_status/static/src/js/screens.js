@@ -1,5 +1,5 @@
 /*
- Copyright (C) 2020-Today Coop IT Easy SCRLfs
+ Copyright (C) 2020-Today Coop IT Easy SC
  @author: Robin Keunen <robin@coopiteasy.be>
  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 */

@@ -12,7 +12,7 @@
     "summary": """
         Modification of product module for the needs of beescoop
         """,
-    "author": "Beescoop - Cellule IT, Coop IT Easy SCRLfs",
+    "author": "Beescoop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Sales",
     "version": "12.0.1.3.0",
