@@ -26,7 +26,7 @@
         <field name="name">Solidarity shift requests</field>
         <field name="model">beesdoo.shift.solidarity.request</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree create="false">
                 <field name="worker_id" />
                 <field name="tmpl_dated_id" />
                 <field name="reason" />
@@ -39,7 +39,7 @@
         <field name="name">Solidarity shift request</field>
         <field name="model">beesdoo.shift.solidarity.request</field>
         <field name="arch" type="xml">
-            <form>
+            <form create="false">
                 <header>
                     <button
                         name="cancel_solidarity_request"
