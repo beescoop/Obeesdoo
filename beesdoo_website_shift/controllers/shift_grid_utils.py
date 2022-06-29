@@ -1,4 +1,4 @@
-# Copyright 2017-2020 Coop IT Easy SCRLfs (http://coopiteasy.be)
+# Copyright 2017-2020 Coop IT Easy SC (http://coopiteasy.be)
 #   Robin Keunen <robin@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
