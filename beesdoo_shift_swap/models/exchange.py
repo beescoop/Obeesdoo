@@ -65,6 +65,7 @@ class Exchange(models.Model):
         )
         exchange.second_request_id.write(
             {
+                "validate_request_id": exchange.first_request_id.id,
                 "exchange_id": exchange.id,
                 "status": "done",
             }

@@ -29,7 +29,7 @@ class ExchangeRequest(models.Model):
     status = fields.Selection(selection=_get_status, default="no_match")
 
     exchanged_tmpl_dated_id = fields.Many2one(
-        "beesdoo.shift.template.dated", string="exchanged_tmpl_dated"
+        "beesdoo.shift.template.dated", string="Exchanged shift"
     )
 
     exchanged_template_date = fields.Datetime(
@@ -40,13 +40,13 @@ class ExchangeRequest(models.Model):
     asked_tmpl_dated_ids = fields.Many2many(
         comodel_name="beesdoo.shift.template.dated",
         relation="exchange_template_dated",
-        string="asked_tmpl_dated",
+        string="Asked shifts",
     )
 
-    exchange_id = fields.Many2one("beesdoo.shift.exchange", string="exchange")
+    exchange_id = fields.Many2one("beesdoo.shift.exchange", string="Exchange")
 
     validate_request_id = fields.Many2one(
-        "beesdoo.shift.exchange_request", string="validate_request"
+        "beesdoo.shift.exchange_request", string="Linked matching request"
     )
 
     @api.multi
