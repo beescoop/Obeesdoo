@@ -1269,6 +1269,21 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             )
         return request.redirect("/my/shift")
 
+    @http.route("/mail/toggle/exchanges", auth="user", website=True)
+    def toggle_mail_exchange_subscription(self):
+        if not self.exchanges_enabled():
+            raise Forbidden("Shift exchanges are not enabled")
+
+        worker = request.env["res.users"].sudo().browse(request.uid).partner_id
+
+        is_subscribed = worker.subscribed_exchange_emails
+        worker.subscribed_exchange_emails = not is_subscribed
+
+        return request.render(
+            "beesdoo_website_shift_swap.website_shift_swap_toggle_email_exchanges",
+            {"is_subscribed": is_subscribed},
+        )
+
     def my_shift_next_shifts(self, partner=None):
         """
         Override my_shift_next_shifts method to sort shifts by date

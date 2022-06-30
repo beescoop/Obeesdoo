@@ -66,6 +66,10 @@
                     </p>
                     <br/><br/>
                     Regards,
+                    <br/><br/>
+                    <p class="text-center" style="font-size: 10px;">
+                        You can unsubscribe from these emails on <a href="/my/home">your account page</a> or directly by clicking here: <a href="/mail/toggle/exchanges">Unsubscribe</a>
+                    </p>
                 </div>
                 ]]>
             </field>

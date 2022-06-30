@@ -29,6 +29,7 @@
         "views/solidarity_shift_offer.xml",
         "views/solidarity_shift_request.xml",
         "views/task.xml",
+        "views/res_partner.xml",
         "wizard/exchange_wizard.xml",
         "wizard/offer_solidarity.xml",
         "wizard/request_solidarity.xml",

@@ -26,6 +26,54 @@
             </div>
         </template>
 
+        <!-- Mailing list button -->
+        <template
+            id="manage_emails_button"
+            name="Button to manage email subscription"
+            inherit_id="portal.portal_my_home"
+        >
+            <xpath expr="//div[hasclass('o_portal_my_home')][1]" position="inside">
+                <t
+                    t-set="is_subscribed"
+                    t-value="request.env.user.partner_id.subscribed_exchange_emails"
+                />
+                <h3>Options</h3>
+                <div
+                    t-if="request.env.user.partner_id.working_mode == 'regular'"
+                    class="card"
+                >
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Shift exchange emails:
+                            <t t-if="is_subscribed">subscribed</t>
+                            <t t-else="">not subscribed</t>
+                        </h5>
+                        <div class="card-text">
+                            <t t-if="is_subscribed">
+                                <p>
+                                    If you unsubscribe, you will no longer receive exchange proposals by email. You will still receive
+                                    notifications about your exchange requests.
+                                </p>
+                                <a
+                                    class="btn btn-primary btn-sm"
+                                    href="/mail/toggle/exchanges"
+                                >Unsubscribe from emails related to shift exchanges</a>
+                            </t>
+                            <t t-else="">
+                                <p>
+                                    If you subscribe to this list you will receive exchange proposals by email.
+                                </p>
+                                <a
+                                    class="btn btn-primary btn-sm"
+                                    href="/mail/toggle/exchanges"
+                                >Subscribe to emails related to shift exchanges</a>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
         <!-- Reusable templates -->
         <template id="swap_shift_title" name="Swap Shift Title">
             <h1>
@@ -196,12 +244,40 @@
                                     <strong>Error!</strong>
                                 </p>
                                 <p>
-                                    Unable to fulfill this request: parameters missing. <br
-                                    />
+                                    Unable to fulfill this request: parameters missing.
+                                    <br />
                                     This can happen if you try to access a page by entering the URL manually. Please don't.
                                 </p>
                             </div>
                             <a class="btn btn-primary" href="/my/shift">Go back</a>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- Display message after updating mail subscription preferences -->
+        <template
+            id="website_shift_swap_toggle_email_exchanges"
+            name="Message after mail subscription update"
+        >
+            <t t-call="portal.portal_layout">
+                <t t-set="no_breadcrumbs" t-value="True" />
+                <div class="container mt16">
+                    <div class="row">
+                        <div class="col text-center">
+                            <div class="alert alert-success">
+                                <div t-if="is_subscribed">
+                                    You have been successfully unsubscribed to exchange-related emails.
+                                </div>
+                                <div t-else="">
+                                    You have been successfully subscribed to exchange-related emails.
+                                </div>
+                            </div>
+                            <a
+                                class="btn btn-primary"
+                                href="/my/home"
+                            >Back to my account</a>
                         </div>
                     </div>
                 </div>
