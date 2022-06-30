@@ -34,6 +34,9 @@ class TestBeesdooShiftSwap(TransactionCase):
 
         self.exempt_reason_1 = self.env.ref("beesdoo_shift.exempt_reason_1_demo")
 
+        # Set context to avoid shift generation in the past
+        self.env.context = dict(self.env.context, visualize_date=date.today())
+
     def test_solidarity_offer_if_shift_generated(self):
         """
         Test solidarity shift offer creation and cancellation if the related shift
@@ -99,9 +102,7 @@ class TestBeesdooShiftSwap(TransactionCase):
         related shift is not already generated
         """
         # Setting "visualize_date" to avoid generating a shift in the past
-        template_dated = self.shift_template_dated_model.with_context(
-            {"visualize_date": date.today()}
-        ).create(
+        template_dated = self.shift_template_dated_model.create(
             {
                 "template_id": self.task_template_1.id,
                 "date": self.task_template_1.start_date,
@@ -131,6 +132,9 @@ class TestBeesdooShiftSwap(TransactionCase):
         self.assertTrue(shift.is_solidarity)
 
         # Solidarity offer cancellation
+        self.env["ir.config_parameter"].sudo().set_param(
+            "beesdoo_shift.min_hours_to_unsubscribe", 0
+        )
         self.assertTrue(solidarity_offer.cancel_solidarity_offer())
 
         self.assertFalse(solidarity_offer.shift_id)
