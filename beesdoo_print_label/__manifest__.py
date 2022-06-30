@@ -1,4 +1,4 @@
-# Copyright 2022 Coop IT Easy SCRLfs <http://coopiteasy.be>
+# Copyright 2022 Coop IT Easy SC <http://coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
@@ -7,7 +7,7 @@
     "version": "12.0.1.1.2",
     "license": "AGPL-3",
     "category": "Sales",
-    "author": "Coop IT Easy SCRLfs",
+    "author": "Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "depends": [
         "beesdoo_product",

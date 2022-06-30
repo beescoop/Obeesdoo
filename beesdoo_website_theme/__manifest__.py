@@ -3,7 +3,7 @@
     "summary": """
         Apply BEES coop design rules.
     """,
-    "author": "Rémy Taymans, Coop IT Easy SCRLfs",
+    "author": "Rémy Taymans, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "license": "AGPL-3",
     "category": "Themes",

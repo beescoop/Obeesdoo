@@ -1,4 +1,4 @@
-# Copyright 2017-2020 Coop IT Easy SCRLfs (http://coopiteasy.be)
+# Copyright 2017-2020 Coop IT Easy SC (http://coopiteasy.be)
 #   Rémy Taymans <remy@coopiteasy.be>
 #   Robin Keunen <robin@coopiteasy.be>
 # Copyright 2017-2018 Thibault François

@@ -6,7 +6,7 @@
     "name": "Beescoop Shift Management - Welcome Screen",
     "summary": """
         Volunteer Timetable Management""",
-    "author": "Thibault Francois, Coop IT Easy SCRLfs",
+    "author": "Thibault Francois, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
     "version": "12.0.1.0.1",

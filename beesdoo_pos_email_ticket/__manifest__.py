@@ -10,7 +10,7 @@
     "name": "Beescoop Send POS ticket by email",
     "summary": """This module adds the eaters of the customer to the POS
     ActionpadWidget and PaymentScreenWidget.""",
-    "author": "Beescoop - Cellule IT, Coop IT Easy SCRLfs",
+    "author": "Beescoop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Point Of Sale",
     "version": "12.0.1.1.0",

@@ -11,7 +11,7 @@
         account.invoice_supplier_form
         - Allow validating an invoice with a negative total amount
              """,
-    "author": "Beescoop - Cellule IT, Coop IT Easy SCRLfs",
+    "author": "Beescoop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Account Module",
     "version": "12.0.2.0.0",

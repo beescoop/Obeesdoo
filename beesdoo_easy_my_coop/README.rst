@@ -43,13 +43,13 @@ Authors
 ~~~~~~~
 
 * BEES coop
-* Coop IT Easy SCRLfs
+* Coop IT Easy SC
 
 Contributors
 ~~~~~~~~~~~~
 
 * BEES coop
-* Coop IT Easy SCRLfs
+* Coop IT Easy SC
 
 Maintainers
 ~~~~~~~~~~~

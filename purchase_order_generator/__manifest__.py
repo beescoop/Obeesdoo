@@ -7,7 +7,7 @@
     "version": "12.0.2.1.0",
     "category": "Purchase Order",
     "summary": "Generate purchase order from a product selection",
-    "author": "Coop IT Easy SCRLfs",
+    "author": "Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "license": "AGPL-3",
     "depends": ["purchase", "beesdoo_stock_coverage"],

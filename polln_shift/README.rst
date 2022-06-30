@@ -44,7 +44,7 @@ Authors
 
 * Patricia Daloze
 * Thibault Francois
-* Coop IT Easy SCRLfs
+* Coop IT Easy SC
 
 Contributors
 ~~~~~~~~~~~~
