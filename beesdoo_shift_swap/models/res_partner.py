@@ -1,12 +1,17 @@
 from datetime import datetime
 
-from odoo import _, api, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
 class ResPartner(models.Model):
 
     _inherit = "res.partner"
+
+    subscribed_exchange_emails = fields.Boolean(
+        string="Echange emails subscription",
+        default=True,
+    )
 
     @api.multi
     def coop_swap(self):
@@ -69,6 +74,8 @@ class ResPartner(models.Model):
         :param asked_tmpl_dated: beesdoo.shift.template.dated
         :param partner_to: res.partner
         """
+        if not self.subscribed_exchange_emails:
+            return False
         template_rec = self.env.ref(
             "beesdoo_shift_swap.email_template_contact_coop", False
         )
@@ -79,6 +86,7 @@ class ResPartner(models.Model):
         }
         template_rec.write({"partner_to": partner_to.id})
         template_rec.with_context(email_values).send_mail(self.id, False)
+        return True
 
     def check_shift_number_limit(self, wanted_tmpl_dated):
         """
