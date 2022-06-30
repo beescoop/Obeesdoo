@@ -1,1 +1,3 @@
-* Coop IT Easy SCRLfs
+* `Coop IT Easy SC <https://coopiteasy.be>`_:
+
+  * Mattéo Ledoux
