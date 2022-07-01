@@ -23,7 +23,7 @@ class ExchangeRequest(models.Model):
             ("working_mode", "in", ("regular", "irregular")),
             ("state", "not in", ("unsubscribed", "resigning")),
         ],
-        string="worker",
+        string="Worker",
     )
 
     status = fields.Selection(selection=_get_status, default="no_match")
