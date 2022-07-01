@@ -247,7 +247,7 @@
                     </t>
                 </div>
             </div>
-            <t t-if="shift_last">
+            <t t-if="shift_last and shift_index >= shift_display_number">
                 <p>
                     <button
                         id="toggle_shifts_button"
