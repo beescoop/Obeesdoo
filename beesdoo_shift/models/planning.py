@@ -113,17 +113,15 @@ class Planning(models.Model):
         config.set_param("next_planning_date", next_date)
 
     @api.model
-    def get_future_shifts(self, end_date, worker_id=None):
+    def get_future_shifts(self, end_date, start_date=datetime.now(), worker_id=None):
         """
-        Calculates shifts between now and end_date without
-        storing them in the database
+        Calculates shifts between start_date and end_date without
+        storing them in the database.
         Uses a list of shifts instead of a recordset because
-        of issues occuring when copying records
+        of issues occuring when copying records.
         :param end_date: Datetime
         :return: beesdoo.shift.shift list
         """
-        start_date = datetime.now()
-
         # Getting existing shifts
         shift_domain = [("start_time", ">", start_date.strftime("%Y-%m-%d %H:%M:%S"))]
         if worker_id:
