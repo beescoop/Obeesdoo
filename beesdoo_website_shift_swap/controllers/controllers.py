@@ -1199,24 +1199,19 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             return request.redirect("/my/shift")
 
         if regular:
-            tmpl_dated = self.new_tmpl_dated(template_id, date)
             can_request = request.env[
                 "beesdoo.shift.solidarity.request"
             ].check_solidarity_requests_number(
                 user.partner_id, datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
             )
         else:
-            tmpl_dated = False
             can_request = request.env[
                 "beesdoo.shift.solidarity.request"
             ].check_solidarity_requests_number(user.partner_id)
 
         if can_request:
             return request.render(
-                "beesdoo_website_shift_swap.website_shift_swap_request_solidarity",
-                {
-                    "tmpl_dated": tmpl_dated,
-                },
+                "beesdoo_website_shift_swap.website_shift_swap_request_solidarity"
             )
         else:
             # User has reached maximum amount of solidarity requests
