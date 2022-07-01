@@ -395,6 +395,10 @@
                                     t-set="shift_by_week"
                                     t-value="shift_week_tuple[1]"
                                 />
+                                <t
+                                    t-set="week_count"
+                                    t-value="shift_week_tuple_index"
+                                />
                             </t>
                         </div>
                     </div>
