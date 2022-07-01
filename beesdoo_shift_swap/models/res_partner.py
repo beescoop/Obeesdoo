@@ -226,9 +226,7 @@ class ResPartner(models.Model):
             if not new_shift_generated:
                 new_shift = wanted_tmpl_dated.new_shift(self)
                 if solidarity_offer:
-                    new_shift.write(
-                        {"solidarity_offer_ids": [(6, 0, solidarity_offer.ids)]}
-                    )
+                    new_shift.solidarity_offer_ids = [(6, 0, solidarity_offer.ids)]
                 planned_shifts.append(new_shift)
 
         return planned_shifts

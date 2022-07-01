@@ -208,17 +208,43 @@
                         <span class="fa fa-info" aria-hidden="true" />
                         Super Cooperator Info
                     </button>
-                    <button
-                        id="unsubscribe_button"
-                        type="button"
-                        class="btn btn-primary btn-sm ml-2 pull-right"
-                        data-toggle="modal"
-                        t-att-data-target="'#unsubscribe-shift-%s' % shift.id"
-                        t-if="shift.can_unsubscribe and ((shift.is_compensation and request.website.enable_unsubscribe_compensation) or (not shift.is_compensation and request.website.irregular_enable_unsubscribe))"
+                    <t
+                        t-if="((shift.is_compensation and request.website.enable_unsubscribe_compensation) or (not shift.is_compensation and request.website.irregular_enable_unsubscribe))"
                     >
-                        <span class="fa fa-user-plus" aria-hidden="true" />
-                        Unsubscribe
-                    </button>
+                        <t t-if="shift.can_unsubscribe">
+                            <button
+                                id="unsubscribe_button"
+                                type="button"
+                                class="btn btn-primary btn-sm ml-2 pull-right"
+                                data-toggle="modal"
+                                t-att-data-target="'#unsubscribe-shift-%s' % shift.id"
+                            >
+                                <span class="fa fa-user-plus" aria-hidden="true" />
+                                Unsubscribe
+                            </button>
+                        </t>
+                        <t
+                            t-elif="shift.state == 'open' and not shift.check_hours_to_unsubscribe()"
+                        >
+                            <div
+                                id="unsubscribe_disabled_popover"
+                                class="d-inline-block pull-right"
+                                data-toggle="popover"
+                                data-placement="top"
+                                data-trigger="hover"
+                                data-content="It is too late to unsubscribe. If you can't attend your shift, please contact the supercoop."
+                            >
+                                <button
+                                    id="disabled_unsubscribe_button"
+                                    class="btn btn-primary btn-sm ml-2 disabled"
+                                    style="pointer-events: none;"
+                                >
+                                    <span class="fa fa-user-plus" aria-hidden="true" />
+                                    Unsubscribe
+                                </button>
+                            </div>
+                        </t>
+                    </t>
                 </div>
             </div>
             <t t-if="shift_last">

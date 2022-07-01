@@ -105,23 +105,13 @@
             name="shift option buttons"
             inherit_id="beesdoo_website_shift.my_shift_next_shifts"
         >
-            <xpath expr="//button[@id='unsubscribe_button']" position="replace">
-                <button
-                    id="unsubscribe_button"
-                    type="button"
-                    class="btn btn-primary btn-sm ml-2 pull-right"
-                    data-toggle="modal"
-                    t-att-data-target="'#unsubscribe-shift-%s' % shift.id"
-                    t-if="shift.can_unsubscribe
-                        and not shift.is_solidarity
-                        and (
-                            (shift.is_compensation and request.website.enable_unsubscribe_compensation)
-                            or (not shift.is_compensation and request.website.irregular_enable_unsubscribe)
-                        )"
-                >
-                    <span class="fa fa-user-plus" aria-hidden="true" />
-                    Unsubscribe
-                </button>
+            <xpath
+                expr="//t[@t-if='((shift.is_compensation and request.website.enable_unsubscribe_compensation) or (not shift.is_compensation and request.website.irregular_enable_unsubscribe))']"
+                position="attributes"
+            >
+                <attribute name="t-if">
+                    ((shift.is_compensation and request.website.enable_unsubscribe_compensation) or (not shift.is_compensation and request.website.irregular_enable_unsubscribe)) and not shift.is_solidarity
+                </attribute>
             </xpath>
             <xpath expr="//div[hasclass('card-body', 'clearfix')]" position="inside">
                 <t
@@ -129,12 +119,30 @@
                     t-value="request.env['res.company']._company_default_get().solidarity_counter()"
                 />
                 <t t-if="shift.is_solidarity">
-                    <a
-                        class="btn btn-primary btn-sm ml-2 pull-right"
-                        t-att-href="'/my/shift/solidarity/offer/cancel/%i' % shift.solidarity_offer_ids[0]"
-                    >
-                        Cancel solidarity shift
-                    </a>
+                    <t t-if="shift.check_hours_to_unsubscribe()">
+                        <a
+                            class="btn btn-primary btn-sm ml-2 pull-right"
+                            t-att-href="'/my/shift/solidarity/offer/cancel/%i' % shift.solidarity_offer_ids[0]"
+                        >
+                            Cancel solidarity shift
+                        </a>
+                    </t>
+                    <t t-else="">
+                        <div
+                            class="d-inline-block pull-right"
+                            data-toggle="popover"
+                            data-placement="top"
+                            data-trigger="hover"
+                            data-content="It is too late to unsubscribe. If you can't attend your shift, please contact the supercoop."
+                        >
+                            <button
+                                class="btn btn-primary btn-sm ml-2 disabled"
+                                style="pointer-events: none;"
+                            >
+                                Cancel solidarity shift
+                            </button>
+                        </div>
+                    </t>
                 </t>
                 <t
                     t-elif="request.env['res.users'].browse(request.uid).partner_id.working_mode == 'regular'
