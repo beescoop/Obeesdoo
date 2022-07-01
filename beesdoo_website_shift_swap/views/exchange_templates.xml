@@ -1,19 +1,6 @@
 <odoo>
     <data>
 
-        <!-- Warning displayed if no exchange that match my request have benn found -->
-        <template
-            id="beesdoo_website_shift_swap.no_shift_match_explanation"
-            name="No shift Match Explanation"
-        >
-            <div class="alert alert-info">
-                <strong>Info!</strong>
-                There aren't any cooperator that propose to swap his/her shift with the one
-                that you try to exchange.
-                To create your own exchange, please click on the link below.
-            </div>
-        </template>
-
         <!-- Warning displayed if the shift mentionned in a mail has already been exchanged -->
         <template
             id="beesdoo_website_shift_swap.no_shift_from_mail_explanation"
@@ -115,14 +102,7 @@
         >
             <title>Possible Match</title>
             <div t-if="not possible_matches">
-                <t
-                    t-if="from_mail"
-                    t-call="beesdoo_website_shift_swap.no_shift_from_mail_explanation"
-                />
-                <t
-                    t-else=""
-                    t-call="beesdoo_website_shift_swap.no_shift_match_explanation"
-                />
+                <t t-call="beesdoo_website_shift_swap.no_shift_from_mail_explanation" />
             </div>
             <div t-else="">
                 <label class="font-weight-bold">Shifts available for exchange :</label>
@@ -248,7 +228,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12 col-lg-6 m-auto text-justify">
-                            <t
+                            <p
                                 t-call="beesdoo_website_shift_swap.website_shift_swap_my_possible_match"
                             />
                             <p t-if="not from_mail">
@@ -268,7 +248,7 @@
             id="website_shift_swap_next_possible_tmpl_dated"
             name="Shift Swap possible next tmpl_dated Page"
         >
-            <h2>Select shifts</h2>
+            <h2>Select shifts to create an exchange request</h2>
             <p>
                 <form method="post" id="select_available_shifts_form">
                     <t t-set="index" t-value="0" />

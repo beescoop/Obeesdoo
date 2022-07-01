@@ -73,15 +73,17 @@ class DatedTemplate(models.Model):
         return tmpl_dated_list
 
     @api.model
-    def get_next_tmpl_dated(self, nb_days=60):
+    def get_next_tmpl_dated(
+        self, start_date=datetime.now(), end_date=datetime.now() + timedelta(days=60)
+    ):
         """
-        This function return all the template_dated between now
-        and nb_days days after current date.
+        Return all the next template_dated between start_date and end_date.
         :param nb_days: int
         :return: beesdoo.shift.template.dated recordset
         """
-        end_date = datetime.now() + timedelta(days=nb_days)
-        shifts = self.env["beesdoo.shift.planning"].get_future_shifts(end_date)
+        shifts = self.env["beesdoo.shift.planning"].get_future_shifts(
+            end_date, start_date=start_date
+        )
         return self.swap_shift_to_tmpl_dated(shifts)
 
     def get_tmpl_dated_same_timeslot(self, nb_days=60):
@@ -92,7 +94,8 @@ class DatedTemplate(models.Model):
         :return: beesdoo.shift.template.dated recordset
         """
         self.ensure_one()
-        next_tmpl_dated = self.get_next_tmpl_dated(nb_days)
+        end_date = datetime.now() + timedelta(days=nb_days)
+        next_tmpl_dated = self.get_next_tmpl_dated(end_date=end_date)
         same_timeslot_tmpl_dated = self.env["beesdoo.shift.template.dated"]
         for template in next_tmpl_dated:
             if (
@@ -141,16 +144,21 @@ class DatedTemplate(models.Model):
         return result
 
     @api.model
-    def get_available_tmpl_dated(self, sort_date_desc=False, nb_days=60):
+    def get_available_tmpl_dated(
+        self,
+        start_date=datetime.now(),
+        end_date=datetime.now() + timedelta(days=60),
+        sort_date_desc=False,
+    ):
         """
-        Return all tmpl_dated with free space between now and nb_days days
-        after current date. Sort them by date if sort_date_desc is True.
+        Return all tmpl_dated with free space between start_date and end_date.
+        Sort them by date if sort_date_desc is True.
         :param sort_date_desc: Boolean
         :param nb_days: Integer
         :return: beesdoo.shift.template.dated recordset
         """
         available_tmpl_dated = self.env["beesdoo.shift.template.dated"]
-        next_tmpl_dated = self.get_next_tmpl_dated(nb_days)
+        next_tmpl_dated = self.get_next_tmpl_dated(start_date, end_date)
         for template in next_tmpl_dated:
             if template.template_id.remaining_worker > 0:
                 available_tmpl_dated |= template

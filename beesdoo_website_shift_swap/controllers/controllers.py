@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from itertools import groupby
 
 from werkzeug.exceptions import Forbidden
@@ -555,6 +555,8 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         if "from_mail" in request.session:
             template_context["from_mail"] = request.session["from_mail"]
             del request.session["from_mail"]
+        elif not possible_matches:
+            return request.redirect("/my/shift/possible/match/no_result")
 
         return request.render(
             "beesdoo_website_shift_swap.website_shift_swap_possible_match",
@@ -647,19 +649,26 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             del request.session["date"]
             del request.session["possible_tmpl_dated_list"]
 
-            return request.redirect("/my/shift")
+            return request.redirect("/my/request")
 
         exchanged_tmpl_dated = self.new_tmpl_dated(template_id, date)
 
-        period = int(
+        day_limit_request_exchange = int(
+            request.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_shift.day_limit_request_exchange")
+        )
+        day_limit_ask_for_exchange = int(
             request.env["ir.config_parameter"]
             .sudo()
             .get_param("beesdoo_shift.day_limit_ask_for_exchange")
         )
+        start_date = datetime.now() + timedelta(days=day_limit_request_exchange)
+        end_date = datetime.now() + timedelta(days=day_limit_ask_for_exchange)
         next_tmpl_dated = (
             request.env["beesdoo.shift.template.dated"]
             .sudo()
-            .get_available_tmpl_dated(nb_days=period)
+            .get_available_tmpl_dated(start_date, end_date)
         )
 
         # Remove the already subscribed shifts
