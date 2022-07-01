@@ -1,0 +1,3 @@
+- Set new cooperator as eater or worker based on the share configuration
+- Add constraint on eaters based on share configuration
+- Add eater configuration on share product
