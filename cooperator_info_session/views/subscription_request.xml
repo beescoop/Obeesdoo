@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2019 Coop IT Easy SC
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="subscription_request_form_view">
+        <field name="name">subscription.request.form</field>
+        <field name="model">subscription.request</field>
+        <field name="inherit_id" ref="cooperator.subscription_request_view_form" />
+        <field name="arch" type="xml">
+            <field name="internal_rules_approved" position="before">
+                <field name="info_session_confirmed" />
+            </field>
+        </field>
+    </record>
+
+</odoo>
