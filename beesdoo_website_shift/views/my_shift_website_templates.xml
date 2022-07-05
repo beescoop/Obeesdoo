@@ -236,7 +236,7 @@
                             >
                                 <button
                                     id="disabled_unsubscribe_button"
-                                    class="btn btn-primary btn-sm ml-2 disabled"
+                                    class="btn btn-primary btn-sm ml-2 disabled pull-right"
                                     style="pointer-events: none;"
                                 >
                                     <span class="fa fa-user-plus" aria-hidden="true" />

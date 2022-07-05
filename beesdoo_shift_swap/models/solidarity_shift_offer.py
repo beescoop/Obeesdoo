@@ -29,6 +29,11 @@ class SolidarityShiftOffer(models.Model):
         "beesdoo.shift.template.dated", string="Solidarity shift"
     )
 
+    shift_date = fields.Datetime(
+        related="tmpl_dated_id.date",
+        readonly=True,
+    )
+
     shift_id = fields.Many2one("beesdoo.shift.shift", string="Generated shift")
 
     date = fields.Date(required=True, default=datetime.date(datetime.now()))

@@ -49,6 +49,11 @@ class ExchangeRequest(models.Model):
         "beesdoo.shift.exchange_request", string="Linked matching request"
     )
 
+    validate_date = fields.Datetime(
+        related="exchange_id.create_date",
+        readonly=True,
+    )
+
     @api.multi
     def name_get(self):
         data = []
