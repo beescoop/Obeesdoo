@@ -4,6 +4,13 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
+def get_validate_date(element):
+    if element.__class__.__name__ == "beesdoo.shift.exchange_request":
+        return element.validate_date
+    else:
+        return element.create_date
+
+
 class ResPartner(models.Model):
 
     _inherit = "res.partner"
@@ -121,60 +128,83 @@ class ResPartner(models.Model):
         generated_shifts, planned_shifts = super(ResPartner, self).get_next_shifts()
 
         # Get all the changes related to self
-        swaps = self.env["beesdoo.shift.swap"].search([("worker_id", "=", self.id)])
+        # and store them into a list to sort them
+        changes = []
+
+        swaps = self.env["beesdoo.shift.swap"].search(
+            [
+                ("worker_id", "=", self.id),
+                ("state", "=", "validated"),
+            ]
+        )
+        for swap in swaps:
+            changes.append(swap)
+
         exchange_requests = self.env["beesdoo.shift.exchange_request"].search(
             [
                 ("worker_id", "=", self.id),
                 ("status", "=", "done"),
             ]
         )
+        for request in exchange_requests:
+            changes.append(request)
+
         solidarity_offers = self.env["beesdoo.shift.solidarity.offer"].search(
             [
                 ("worker_id", "=", self.id),
+                ("shift_date", ">", datetime.now()),
                 ("state", "=", "validated"),
             ]
         )
+        for offer in solidarity_offers:
+            changes.append(offer)
+
         solidarity_requests = self.env["beesdoo.shift.solidarity.request"].search(
             [
                 ("worker_id", "=", self.id),
+                ("shift_date", ">", datetime.now()),
                 ("state", "=", "validated"),
             ]
         )
+        for request in solidarity_requests:
+            changes.append(request)
 
-        # Swaps
-        for swap in swaps:
-            planned_shifts = self.exchange_shifts(
-                generated_shifts,
-                planned_shifts,
-                swap.exchanged_tmpl_dated_id,
-                swap.wanted_tmpl_dated_id,
-            )
+        # Sort changes by validation date to evaluate them in the correct order
+        changes.sort(key=get_validate_date)
 
-        # Exchanges
-        for request in exchange_requests:
-            planned_shifts = self.exchange_shifts(
-                generated_shifts,
-                planned_shifts,
-                request.exchanged_tmpl_dated_id,
-                request.validate_request_id.exchanged_tmpl_dated_id,
-            )
+        for rec in changes:
+            class_name = rec.__class__.__name__
 
-        # Solidarity offers
-        for offer in solidarity_offers:
-            planned_shifts = self.exchange_shifts(
-                generated_shifts,
-                planned_shifts,
-                wanted_tmpl_dated=offer.tmpl_dated_id,
-                solidarity_offer=offer,
-            )
+            if class_name == "beesdoo.shift.swap":
+                planned_shifts = self.exchange_shifts(
+                    generated_shifts,
+                    planned_shifts,
+                    rec.exchanged_tmpl_dated_id,
+                    rec.wanted_tmpl_dated_id,
+                )
 
-        # Solidarity requests
-        for sol_request in solidarity_requests:
-            planned_shifts = self.exchange_shifts(
-                generated_shifts,
-                planned_shifts,
-                exchanged_tmpl_dated=sol_request.tmpl_dated_id,
-            )
+            elif class_name == "beesdoo.shift.exchange_request":
+                planned_shifts = self.exchange_shifts(
+                    generated_shifts,
+                    planned_shifts,
+                    rec.exchanged_tmpl_dated_id,
+                    rec.validate_request_id.exchanged_tmpl_dated_id,
+                )
+
+            elif class_name == "beesdoo.shift.solidarity.offer":
+                planned_shifts = self.exchange_shifts(
+                    generated_shifts,
+                    planned_shifts,
+                    wanted_tmpl_dated=rec.tmpl_dated_id,
+                    solidarity_offer=rec,
+                )
+
+            elif class_name == "beesdoo.shift.solidarity.request":
+                planned_shifts = self.exchange_shifts(
+                    generated_shifts,
+                    planned_shifts,
+                    exchanged_tmpl_dated=rec.tmpl_dated_id,
+                )
 
         return generated_shifts, planned_shifts
 
