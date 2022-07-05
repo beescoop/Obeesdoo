@@ -37,6 +37,11 @@ class SolidarityShiftRequest(models.Model):
         "beesdoo.shift.template.dated", string="Solidarity shift"
     )
 
+    shift_date = fields.Datetime(
+        related="tmpl_dated_id.date",
+        readonly=True,
+    )
+
     reason = fields.Text(string="Reason", default="")
 
     date = fields.Date(required=True, default=datetime.date(datetime.now()))
