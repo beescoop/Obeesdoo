@@ -24,28 +24,33 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[beesdoo_account](beesdoo_account/) | 12.0.1.1.0 |  | - Makes date_invoice field required in account.invoice_form and account.invoice_supplier_form - Allow validating an invoice with a negative total amount
+[beesdoo_account](beesdoo_account/) | 12.0.2.0.0 |  | - Makes date_invoice field required in account.invoice_form and account.invoice_supplier_form - Allow validating an invoice with a negative total amount
 [beesdoo_base](beesdoo_base/) | 12.0.1.0.1 |  | Module that customize the base module and contains some python tools
 [beesdoo_crelan_csv](beesdoo_crelan_csv/) | 12.0.1.0.0 |  | Import Crelan CSV Wizard
 [beesdoo_easy_my_coop](beesdoo_easy_my_coop/) | 12.0.1.0.2 |  | Link between beesdoo customization and easy_my_coop
 [beesdoo_inventory](beesdoo_inventory/) | 12.0.1.0.1 |  | Adds a responsible, a max shipping date and a button to copy quantity to stock pickings.
-[beesdoo_pos](beesdoo_pos/) | 12.0.1.2.0 |  | This module adds the eaters of the customer to the POS ActionpadWidget and PaymentScreenWidget.
+[beesdoo_pos](beesdoo_pos/) | 12.0.2.0.0 |  | This module adds the eaters of the customer to the POS ActionpadWidget and PaymentScreenWidget.
 [beesdoo_pos_coop_status](beesdoo_pos_coop_status/) | 12.0.1.0.0 |  | POS Support for cooperator status.
 [beesdoo_pos_email_ticket](beesdoo_pos_email_ticket/) | 12.0.1.1.0 |  | This module adds the eaters of the customer to the POS ActionpadWidget and PaymentScreenWidget.
 [beesdoo_pos_reporting](beesdoo_pos_reporting/) | 12.0.1.0.0 |  | Enhance POS with features allowing statistics and reporting.
-[beesdoo_product](beesdoo_product/) | 12.0.1.2.0 |  | Modification of product module for the needs of beescoop
+[beesdoo_print_label](beesdoo_print_label/) | 12.0.1.1.2 |  | Product labels
+[beesdoo_product](beesdoo_product/) | 12.0.1.3.0 |  | Modification of product module for the needs of beescoop
 [beesdoo_product_info_screen](beesdoo_product_info_screen/) | 12.0.0.0.1 |  | Adds a read-only screen to display product information
 [beesdoo_product_usability](beesdoo_product_usability/) | 12.0.1.0.0 |  | Adapt the product views.
 [beesdoo_purchase](beesdoo_purchase/) | 12.0.1.4.0 |  | Enhancements related to Purchase module : field, filter, PO reference, product's purchase and/or selling price
-[beesdoo_shift](beesdoo_shift/) | 12.0.1.1.0 |  | Generate and manage shifts for cooperators.
-[beesdoo_shift_attendance](beesdoo_shift_attendance/) | 12.0.1.0.2 |  | Volonteer Timetable Management Attendance Sheet for BEES coop
+[beesdoo_shift](beesdoo_shift/) | 12.0.2.2.1 |  | Generate and manage shifts for cooperators.
+[beesdoo_shift_attendance](beesdoo_shift_attendance/) | 12.0.1.1.2 |  | Volonteer Timetable Management Attendance Sheet for BEES coop
+[beesdoo_shift_swap](beesdoo_shift_swap/) | 12.0.1.0.3 |  | Module to allow cooperator to swap his/her shift when he/she can't attend it, to do solidarity shifts, and to request solidarity if needed.
+[beesdoo_shift_welcome_screen](beesdoo_shift_welcome_screen/) | 12.0.1.0.1 |  | Volunteer Timetable Management
 [beesdoo_stock](beesdoo_stock/) | 12.0.1.0.0 |  | Enable action on multiple products of a stock receipt
 [beesdoo_stock_coverage](beesdoo_stock_coverage/) | 12.0.0.0.1 |  | Compute estimated stock coverage based on product sales over a date range.
 [beesdoo_website_eater](beesdoo_website_eater/) | 12.0.1.0.0 |  | Show the eaters of a cooperator in the website portal.
 [beesdoo_website_posorder_amount](beesdoo_website_posorder_amount/) | 12.0.1.0.0 |  | Show the total amount of pos order in the website portal.
-[beesdoo_website_shift](beesdoo_website_shift/) | 12.0.1.0.1 |  | Show available shifts for regular and irregular workers on the website and let workers manage their shifts with an easy web interface.
+[beesdoo_website_shift](beesdoo_website_shift/) | 12.0.1.1.2 |  | Show available shifts for regular and irregular workers on the website and let workers manage their shifts with an easy web interface.
+[beesdoo_website_shift_swap](beesdoo_website_shift_swap/) | 12.0.1.0.2 |  | Add shift exchanges and solidarity shifts offers and requests.
 [beesdoo_website_theme](beesdoo_website_theme/) | 12.0.0.0.1 |  | Apply BEES coop design rules.
-[beesdoo_worker_status](beesdoo_worker_status/) | 12.0.1.0.0 |  | Worker status management specific to beescoop.
+[beesdoo_worker_status](beesdoo_worker_status/) | 12.0.1.1.0 |  | Worker status management specific to beescoop.
+[beesdoo_worker_status_shift_swap](beesdoo_worker_status_shift_swap/) | 12.0.1.0.0 |  | Worker status management specific to shift exchanges.
 [macavrac_base](macavrac_base/) | 12.0.1.0.0 |  | Module with basic customizations for the Macavrac cooperative.
 [polln_shift](polln_shift/) | 12.0.1.0.0 |  | Module with basic customizations for the Polln cooperative.
 [purchase_order_generator](purchase_order_generator/) | 12.0.2.1.0 |  | Generate purchase order from a product selection
