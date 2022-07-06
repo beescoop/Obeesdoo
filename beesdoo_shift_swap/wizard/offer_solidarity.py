@@ -62,6 +62,10 @@ class OfferSolidarityShift(models.TransientModel):
     @api.multi
     def create_offer(self):
         self._check()
+        self.tmpl_dated_id.store = True
+        self.env["beesdoo.shift.template.dated"].search(
+            [("store", "=", False)]
+        ).unlink()
         self.worker_id.check_shift_number_limit(self.tmpl_dated_id)
         data = {
             "worker_id": self.worker_id.id,
