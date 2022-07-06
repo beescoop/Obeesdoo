@@ -12,7 +12,7 @@ class Task(models.Model):
         if (
             self.worker_id.working_mode == "irregular"
             and new_state in ["done", "absent_0"]
-            and self.solidarity_offer_ids[0]
+            and self.is_solidarity
         ):
             # Set status to None to prevent counter update on solidarity shift
             status = None
