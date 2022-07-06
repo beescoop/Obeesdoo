@@ -13,9 +13,9 @@ Beescoop Shift Management
 .. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
-.. |badge3| image:: https://img.shields.io/badge/github-beescoop%2Fobeesdoo-lightgray.png?logo=github
-    :target: https://github.com/beescoop/obeesdoo/tree/12.0/beesdoo_shift
-    :alt: beescoop/obeesdoo
+.. |badge3| image:: https://img.shields.io/badge/github-beescoop%2FObeesdoo-lightgray.png?logo=github
+    :target: https://github.com/beescoop/Obeesdoo/tree/12.0/beesdoo_shift
+    :alt: beescoop/Obeesdoo
 
 |badge1| |badge2| |badge3| 
 
@@ -47,6 +47,17 @@ Configuration
 Changelog
 =========
 
+12.0.2.1.0 (2022-06-21)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+**Features**
+
+- When subscribing a worker to a shift template in the backend :
+  if no super cooperator is set on template and worker is super cooperator
+  automatically set them as super cooperator.
+  The worker must have a user linked to it. (`#303 <https://github.com/beescoop/obeesdoo/issues/303>`_)
+
+
 12.0.1.1.4 (2022-05-26)
 **Bugfixes**
 
@@ -63,10 +74,10 @@ Changelog
 Bug Tracker
 ===========
 
-Bugs are tracked on `GitHub Issues <https://github.com/beescoop/obeesdoo/issues>`_.
+Bugs are tracked on `GitHub Issues <https://github.com/beescoop/Obeesdoo/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/beescoop/obeesdoo/issues/new?body=module:%20beesdoo_shift%0Aversion:%2012.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/beescoop/Obeesdoo/issues/new?body=module:%20beesdoo_shift%0Aversion:%2012.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -89,6 +100,6 @@ Contributors
 Maintainers
 ~~~~~~~~~~~
 
-This module is part of the `beescoop/obeesdoo <https://github.com/beescoop/obeesdoo/tree/12.0/beesdoo_shift>`_ project on GitHub.
+This module is part of the `beescoop/Obeesdoo <https://github.com/beescoop/Obeesdoo/tree/12.0/beesdoo_shift>`_ project on GitHub.
 
 You are welcome to contribute.
