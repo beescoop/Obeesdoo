@@ -50,7 +50,7 @@ addon | version | maintainers | summary
 [beesdoo_website_shift_swap](beesdoo_website_shift_swap/) | 12.0.1.0.2 |  | Add shift exchanges and solidarity shifts offers and requests.
 [beesdoo_website_theme](beesdoo_website_theme/) | 12.0.0.0.1 |  | Apply BEES coop design rules.
 [beesdoo_worker_status](beesdoo_worker_status/) | 12.0.1.1.0 |  | Worker status management specific to beescoop.
-[beesdoo_worker_status_shift_swap](beesdoo_worker_status_shift_swap/) | 12.0.1.0.0 |  | Worker status management specific to shift exchanges.
+[beesdoo_worker_status_shift_swap](beesdoo_worker_status_shift_swap/) | 12.0.1.0.1 |  | Worker status management specific to shift exchanges.
 [macavrac_base](macavrac_base/) | 12.0.1.0.0 |  | Module with basic customizations for the Macavrac cooperative.
 [polln_shift](polln_shift/) | 12.0.1.0.0 |  | Module with basic customizations for the Polln cooperative.
 [purchase_order_generator](purchase_order_generator/) | 12.0.2.1.0 |  | Generate purchase order from a product selection
