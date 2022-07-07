@@ -45,7 +45,7 @@
                 <sheet>
                     <group name="group_top">
                         <field name="worker_id" />
-                        <field name="date" />
+                        <field name="create_date" />
                         <group name="group_left">
                             <field name="exchanged_tmpl_dated_id" />
                         </group>
