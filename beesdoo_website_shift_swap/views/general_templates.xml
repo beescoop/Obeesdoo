@@ -149,7 +149,25 @@
                         and shift.state != 'cancel'
                         and not shift.is_compensation"
                 >
-                    <t t-if="exchanges_enabled">
+                    <t t-if="request_solidarity">
+                        <t
+                            t-if="solidarity_counter > int(request.env['ir.config_parameter'].sudo().get_param('beesdoo_shift.solidarity_counter_limit'))"
+                        >
+                            <a
+                                class="btn btn-secondary btn-sm ml-2 pull-right"
+                                t-att-href="'/my/shift/solidarity/request/%i/%s' % (shift.task_template_id,shift.start_time)"
+                            >Request solidarity</a>
+                        </t>
+                        <t t-else="">
+                            <a
+                                class="btn btn-secondary btn-sm ml-2 pull-right disabled"
+                                aria-disabled="true"
+                            >
+                                Request solidarity
+                            </a>
+                        </t>
+                    </t>
+                    <t t-elif="exchanges_enabled">
                         <button
                             type="button"
                             class="btn btn-primary btn-sm ml-2 pull-right"
@@ -198,24 +216,6 @@
                                 </div>
                             </div>
                         </div>
-                    </t>
-                    <t t-if="request_solidarity">
-                        <t
-                            t-if="solidarity_counter > int(request.env['ir.config_parameter'].sudo().get_param('beesdoo_shift.solidarity_counter_limit'))"
-                        >
-                            <a
-                                class="btn btn-secondary btn-sm ml-2 pull-right"
-                                t-att-href="'/my/shift/solidarity/request/%i/%s' % (shift.task_template_id,shift.start_time)"
-                            >Request solidarity</a>
-                        </t>
-                        <t t-else="">
-                            <a
-                                class="btn btn-secondary btn-sm ml-2 pull-right disabled"
-                                aria-disabled="true"
-                            >
-                                Request solidarity
-                            </a>
-                        </t>
                     </t>
                 </t>
             </xpath>
