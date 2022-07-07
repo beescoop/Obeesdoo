@@ -36,8 +36,6 @@ class SolidarityShiftOffer(models.Model):
 
     shift_id = fields.Many2one("beesdoo.shift.shift", string="Generated shift")
 
-    date = fields.Date(required=True, default=datetime.date(datetime.now()))
-
     def create(self, vals_list):
         """
         Override create() method to subscribe the worker

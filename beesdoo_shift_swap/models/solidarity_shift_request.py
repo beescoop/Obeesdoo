@@ -44,8 +44,6 @@ class SolidarityShiftRequest(models.Model):
 
     reason = fields.Text(string="Reason", default="")
 
-    date = fields.Date(required=True, default=datetime.date(datetime.now()))
-
     def create(self, vals_list):
         """
         Override create() method to unsubscribe the worker
