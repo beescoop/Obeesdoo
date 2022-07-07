@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from odoo import fields, models
 
 
@@ -28,8 +26,6 @@ class ShiftSwap(models.Model):
     wanted_tmpl_dated_id = fields.Many2one(
         "beesdoo.shift.template.dated", string="New shift"
     )
-
-    date = fields.Date(required=True, default=datetime.date(datetime.now()))
 
     def create(self, vals_list):
         """
