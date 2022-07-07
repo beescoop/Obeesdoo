@@ -119,7 +119,7 @@ class SubscribeShiftSwap(models.TransientModel):
 
     def make_change(self):
         self = self._check()
-        if not self.asked_tmpl_dated_ids or not self.possible_match:
+        if not self.asked_tmpl_dated_ids and not self.possible_match:
             raise UserError(
                 _("Please either ask for shifts to exchange or select a match")
             )
