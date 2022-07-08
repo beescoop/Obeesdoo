@@ -37,37 +37,36 @@
                     t-set="is_subscribed"
                     t-value="request.env.user.partner_id.subscribed_exchange_emails"
                 />
-                <h3>Options</h3>
-                <div
-                    t-if="request.env.user.partner_id.working_mode == 'regular'"
-                    class="card"
-                >
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            Shift exchange emails:
-                            <t t-if="is_subscribed">subscribed</t>
-                            <t t-else="">not subscribed</t>
-                        </h5>
-                        <div class="card-text">
-                            <t t-if="is_subscribed">
-                                <p>
-                                    If you unsubscribe, you will no longer receive exchange proposals by email. You will still receive
-                                    notifications about your exchange requests.
-                                </p>
-                                <a
-                                    class="btn btn-primary btn-sm"
-                                    href="/mail/toggle/exchanges"
-                                >Unsubscribe from emails related to shift exchanges</a>
-                            </t>
-                            <t t-else="">
-                                <p>
-                                    If you subscribe to this list you will receive exchange proposals by email.
-                                </p>
-                                <a
-                                    class="btn btn-primary btn-sm"
-                                    href="/mail/toggle/exchanges"
-                                >Subscribe to emails related to shift exchanges</a>
-                            </t>
+                <div t-if="request.env.user.partner_id.working_mode == 'regular'">
+                    <h3>Options</h3>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Shift exchange emails:
+                                <t t-if="is_subscribed">subscribed</t>
+                                <t t-else="">not subscribed</t>
+                            </h5>
+                            <div class="card-text">
+                                <t t-if="is_subscribed">
+                                    <p>
+                                        If you unsubscribe, you will no longer receive exchange proposals by email. You will still receive
+                                        notifications about your exchange requests.
+                                    </p>
+                                    <a
+                                        class="btn btn-primary btn-sm"
+                                        href="/mail/toggle/exchanges"
+                                    >Unsubscribe from emails related to shift exchanges</a>
+                                </t>
+                                <t t-else="">
+                                    <p>
+                                        If you subscribe to this list you will receive exchange proposals by email.
+                                    </p>
+                                    <a
+                                        class="btn btn-primary btn-sm"
+                                        href="/mail/toggle/exchanges"
+                                    >Subscribe to emails related to shift exchanges</a>
+                                </t>
+                            </div>
                         </div>
                     </div>
                 </div>
