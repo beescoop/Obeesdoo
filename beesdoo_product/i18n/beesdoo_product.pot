@@ -36,6 +36,14 @@ msgid "\n"
 msgstr ""
 
 #. module: beesdoo_product
+#: model:ir.model.fields,help:beesdoo_product.field_res_config_settings__auto_write_suggested_price
+msgid "\n"
+"        When editing the purchase price of a product (only in the 'Edit Price' menu),\n"
+"        automatically set its sales price as the calculated suggested price.\n"
+"        "
+msgstr ""
+
+#. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_hazard__active
 #: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_label__active
 msgid "Active"
@@ -45,6 +53,11 @@ msgstr ""
 #: model:ir.actions.act_window,name:beesdoo_product.beesdoo_product_pricelist_action_adapt_sales_price
 #: model_terms:ir.ui.view,arch_db:beesdoo_product.adapt_sales_price_wizard
 msgid "Adapt Sales Price"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_res_config_settings__auto_write_suggested_price
+msgid "Automatically write suggested price"
 msgstr ""
 
 #. module: beesdoo_product
@@ -309,9 +322,15 @@ msgid "Name"
 msgstr ""
 
 #. module: beesdoo_product
-#: code:addons/beesdoo_product/models/beesdoo_product.py:370
+#: code:addons/beesdoo_product/models/beesdoo_product.py:340
 #, python-format
 msgid "No Vendor defined for product '%s'"
+msgstr ""
+
+#. module: beesdoo_product
+#: code:addons/beesdoo_product/models/beesdoo_product.py:397
+#, python-format
+msgid "No supplier found for product {}"
 msgstr ""
 
 #. module: beesdoo_product
@@ -337,7 +356,7 @@ msgstr ""
 
 #. module: beesdoo_product
 #: code:addons/beesdoo_product/models/beesdoo_product.py:28
-#: code:addons/beesdoo_product/models/beesdoo_product.py:440
+#: code:addons/beesdoo_product/models/beesdoo_product.py:502
 #, python-format
 msgid "Percentages for Profit Margin must >= 0."
 msgstr ""
@@ -345,6 +364,11 @@ msgstr ""
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_supplierinfo__price
 msgid "Price"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_supplierinfo__price_write_date
+msgid "Price Last Updated On"
 msgstr ""
 
 #. module: beesdoo_product
@@ -413,7 +437,18 @@ msgid "Purchase Price"
 msgstr ""
 
 #. module: beesdoo_product
-#: code:addons/beesdoo_product/models/beesdoo_product.py:287
+#: model_terms:ir.ui.view,arch_db:beesdoo_product.product_template_edit_price_tree_view
+msgid "Purchase Price Last Updated"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__purchase_price_write_date
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__purchase_price_write_date
+msgid "Purchase Price Last Updated On"
+msgstr ""
+
+#. module: beesdoo_product
+#: code:addons/beesdoo_product/models/beesdoo_product.py:297
 #, python-format
 msgid "Reference Unit and Display Unit should belong to the same category "
 msgstr ""
@@ -437,6 +472,17 @@ msgstr ""
 #. module: beesdoo_product
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_category__rounding_precision
 msgid "Rounding Precision"
+msgstr ""
+
+#. module: beesdoo_product
+#: model_terms:ir.ui.view,arch_db:beesdoo_product.product_template_edit_price_tree_view
+msgid "Sales Price Last Updated"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__list_price_write_date
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__list_price_write_date
+msgid "Sales Price Last Updated On"
 msgstr ""
 
 #. module: beesdoo_product
@@ -578,6 +624,12 @@ msgstr ""
 #. module: beesdoo_product
 #: selection:uom.category,type:0
 msgid "Weight"
+msgstr ""
+
+#. module: beesdoo_product
+#: model_terms:ir.ui.view,arch_db:beesdoo_product.res_config_settings_view_form
+msgid "When editing the purchase price of a product (only in the 'Edit Price' menu),\n"
+"                            automatically set its sales price as the calculated suggested price."
 msgstr ""
 
 #. module: beesdoo_product
