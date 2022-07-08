@@ -52,6 +52,8 @@ Modification of product module for the needs of beescoop
   The only editable field is Purchase Price.
   Through "Action > Adapt Sales Price", the user can, on the selected products,
   adapt the Sales Price according to the Suggested Price.
+  Alternatively, 'Automatically write suggested price' can be enabled to make
+  this last step automatic.
 
 Please note that this model makes assumptions when computing the suggested price:
 
@@ -62,6 +64,18 @@ Please note that this model makes assumptions when computing the suggested price
 
 .. contents::
    :local:
+
+Changelog
+=========
+
+12.0.1.4.0 (2022-07-08)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+**Features**
+
+- If 'Automatically write suggested price' is enabled in the configuration: when
+  purchase price is changed in the 'Edit Price' menu, the sales price is now
+  automatically updated to the suggested price. (`#320 <https://github.com/beescoop/Obeesdoo/issues/320>`_)
 
 Bug Tracker
 ===========
