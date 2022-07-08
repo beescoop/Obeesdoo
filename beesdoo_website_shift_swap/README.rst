@@ -13,15 +13,9 @@ Beesdoo Website Shift Swap
 .. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
-<<<<<<< HEAD
 .. |badge3| image:: https://img.shields.io/badge/github-beescoop%2FObeesdoo-lightgray.png?logo=github
     :target: https://github.com/beescoop/Obeesdoo/tree/12.0/beesdoo_website_shift_swap
     :alt: beescoop/Obeesdoo
-=======
-.. |badge3| image:: https://img.shields.io/badge/github-beescoop%2Fobeesdoo-lightgray.png?logo=github
-    :target: https://github.com/beescoop/obeesdoo/tree/12.0-imp-beesdoo_shift_swap/beesdoo_website_shift_swap
-    :alt: beescoop/obeesdoo
->>>>>>> afad8f5a ([IMP] b_shift_swap,b_website_shift_swap,b_worker_status_shift_swap: pylint checks)
 
 |badge1| |badge2| |badge3| 
 
