@@ -51,6 +51,7 @@ class ExchangeRequest(models.Model):
 
     validate_date = fields.Datetime(
         related="exchange_id.create_date",
+        string="Validated on",
         readonly=True,
     )
 
