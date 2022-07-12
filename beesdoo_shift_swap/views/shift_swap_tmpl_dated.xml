@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="template_id" />
-                <field name="str_date" />
+                <field name="date" />
             </tree>
         </field>
     </record>
@@ -16,7 +16,7 @@
         <field name="model">beesdoo.shift.template.dated</field>
         <field name="arch" type="xml">
             <search>
-                <field name="str_date" />
+                <field name="date" />
                 <field name="template_id" />
                 <filter
                     string="Morning Shift"

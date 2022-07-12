@@ -15,7 +15,7 @@
             <field name="subject">Exchange validation</field>
             <field name="body_html">
                 <![CDATA[
-                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                <div style="font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
                     Hello ${(object.worker_id.name)},
                     <br/><br/>
                     <p>
@@ -51,7 +51,7 @@
             <field name="subject">Exchange request</field>
             <field name="body_html">
                 <![CDATA[
-                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                <div style="font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
                     Hello ${ctx.get('worker_id').name},
                     <br/><br/>
                     <p>
@@ -87,7 +87,7 @@
             <field name="subject">Match with your exchange request !</field>
             <field name="body_html">
                 <![CDATA[
-                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                <div style="font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
                     Hello ${(object.worker_id.name)},
                     <br/><br/>
                     <p>
@@ -121,7 +121,7 @@
             <field name="subject">Confirm your planned exchange</field>
             <field name="body_html">
                 <![CDATA[
-                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                <div style="font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
                     Hello ${ctx.get('partner_to').name},
                     <br/><br/>
                     <p>
@@ -157,7 +157,7 @@
             <field name="subject">You exchange request has been cancelled</field>
             <field name="body_html">
                 <![CDATA[
-                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                <div style="font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
                     Hello ${object.worker_id.name},
                     <br/><br/>
                     <p>
@@ -190,11 +190,11 @@
             >No match has been found for your exchange request</field>
             <field name="body_html">
                 <![CDATA[
-                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                <div style="font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
                     Hello ${object.worker_id.name},
                     <br/><br/>
                     <p>
-                        You are recieving this email because no match has been found for your exchange request, and the shift that you want
+                        You are receiving this email because no match has been found for your exchange request, and the shift that you want
                         to exchange is getting closer. To avoid missing it, you can now swap it with an underpopulated one.
                     </p>
                     <p>

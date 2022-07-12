@@ -307,7 +307,7 @@
                             <input
                                 class="btn btn-primary"
                                 type="submit"
-                                value="Validate the exchange request with selected shifts"
+                                t-att-value="'%s' % submit_button_text"
                             />
                         </div>
                     </p>

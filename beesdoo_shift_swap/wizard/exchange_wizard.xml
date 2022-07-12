@@ -37,7 +37,7 @@
                     or
                     <button
                         type="object"
-                        name="make_change"
+                        name="request_exchange"
                         string="Confirm"
                         class="oe_highlight"
                     />

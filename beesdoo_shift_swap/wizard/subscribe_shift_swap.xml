@@ -19,7 +19,7 @@
                     or
                     <button
                         type="object"
-                        name="make_change"
+                        name="create_swap"
                         string="Confirm"
                         class="oe_highlight"
                     />

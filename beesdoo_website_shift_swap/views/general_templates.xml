@@ -275,7 +275,7 @@
                         <div class="col text-center">
                             <div class="alert alert-success">
                                 <div t-if="is_subscribed">
-                                    You have been successfully unsubscribed to exchange-related emails.
+                                    You have been successfully unsubscribed from exchange-related emails.
                                 </div>
                                 <div t-else="">
                                     You have been successfully subscribed to exchange-related emails.
