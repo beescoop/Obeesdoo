@@ -18,7 +18,6 @@
         "data/system_parameter.xml",
         "data/cron.xml",
         "data/mail_template.xml",
-        "security/shift_swap_group.xml",
         "security/ir.model.access.csv",
         "views/shift_swap.xml",
         "views/shift_swap_subscribe.xml",
