@@ -3,6 +3,7 @@ from odoo import fields, models
 
 class ShiftSwap(models.Model):
     _name = "beesdoo.shift.swap"
+    _inherit = ["beesdoo.shift.swap.mixin"]
     _description = "A model to track an exchange with an empty shift"
 
     def _get_selection_status(self):
@@ -97,3 +98,22 @@ class ShiftSwap(models.Model):
                 )
                 return True
         return False
+
+    def update_shift_data(self, shift, swap_subscription_done):
+        if (
+            not shift["worker_id"]
+            and self.wanted_tmpl_dated_id.template_id.id == shift["task_template_id"]
+            and shift["start_time"] == self.wanted_tmpl_dated_id.date
+            and self.id not in swap_subscription_done
+        ):
+            shift["worker_id"] = self.worker_id.id
+            shift["is_regular"] = True
+            swap_subscription_done.append(self.id)
+        if (
+            self.worker_id.id == shift["worker_id"]
+            and shift["task_template_id"] == self.exchanged_tmpl_dated_id.template_id.id
+            and shift["start_time"] == self.exchanged_tmpl_dated_id.date
+        ):
+            shift["worker_id"] = False
+            shift["is_regular"] = False
+        return shift, swap_subscription_done, False
