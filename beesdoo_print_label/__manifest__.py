@@ -4,10 +4,10 @@
 {
     "name": "Beesdoo Print Label",
     "summary": """Product labels""",
-    "version": "12.0.1.1.2",
+    "version": "12.0.1.1.3",
     "license": "AGPL-3",
     "category": "Sales",
-    "author": "Coop IT Easy SC",
+    "author": "Coop IT Easy SC, Polln group",
     "website": "https://github.com/beescoop/Obeesdoo",
     "depends": [
         "beesdoo_product",
@@ -18,4 +18,6 @@
         "data/product_print_category.xml",
     ],
     "installable": True,
+    "application": True,
+    "auto_install": False
 }
