@@ -39,71 +39,15 @@ class TaskTemplate(models.Model):
         )
 
         # Sort changes by creation date to evaluate them in the correct order
-        changes.sort(key=lambda x: x.create_date)
+        changes.sort(key=lambda x: x.get_validate_date())
 
         swap_subscription_done = []
         for shift in shifts:
             for rec in changes:
-                class_name = rec.__class__.__name__
-                if class_name == "beesdoo.shift.swap":
-                    if (
-                        not shift["worker_id"]
-                        and rec.wanted_tmpl_dated_id.template_id.id
-                        == shift["task_template_id"]
-                        and shift["start_time"] == rec.wanted_tmpl_dated_id.date
-                        and rec.id not in swap_subscription_done
-                    ):
-                        shift["worker_id"] = rec.worker_id.id
-                        shift["is_regular"] = True
-                        swap_subscription_done.append(rec.id)
-                    if (
-                        rec.worker_id.id == shift["worker_id"]
-                        and shift["task_template_id"]
-                        == rec.exchanged_tmpl_dated_id.template_id.id
-                        and shift["start_time"] == rec.exchanged_tmpl_dated_id.date
-                    ):
-                        shift["worker_id"] = False
-                        shift["is_regular"] = False
-                elif class_name == "beesdoo.shift.exchange":
-                    if (
-                        shift["worker_id"] == rec.first_request_id.worker_id.id
-                        and rec.first_request_id.exchanged_tmpl_dated_id.template_id.id
-                        == shift["task_template_id"]
-                        and shift["start_time"]
-                        == rec.first_request_id.exchanged_tmpl_dated_id.date
-                    ):
-                        shift["worker_id"] = rec.second_request_id.worker_id.id
-                        shift["is_regular"] = True
-                    if (
-                        shift["worker_id"] == rec.second_request_id.worker_id.id
-                        and shift["task_template_id"]
-                        == rec.second_request_id.exchanged_tmpl_dated_id.template_id.id
-                        and shift["start_time"]
-                        == rec.second_request_id.exchanged_tmpl_dated_id.date
-                    ):
-                        shift["worker_id"] = rec.first_request_id.worker_id.id
-                        shift["is_regular"] = True
-                elif class_name == "beesdoo.shift.solidarity.offer":
-                    if (
-                        not shift["worker_id"]
-                        and shift["task_template_id"]
-                        == rec.tmpl_dated_id.template_id.id
-                        and shift["start_time"] == rec.tmpl_dated_id.date
-                    ):
-                        shift["worker_id"] = rec.worker_id.id
-                        shift["is_regular"] = True
-                        shift["solidarity_offer_ids"] = [(6, 0, rec.ids)]
-                        changes.remove(rec)
-                elif class_name == "beesdoo.shift.solidarity.request":
-                    if (
-                        shift["worker_id"] == rec.worker_id.id
-                        and rec.tmpl_dated_id
-                        and shift["task_template_id"]
-                        == rec.tmpl_dated_id.template_id.id
-                        and shift["start_time"] == rec.tmpl_dated_id.date
-                    ):
-                        shift["worker_id"] = False
-                        shift["is_regular"] = False
-                        changes.remove(rec)
+                shift, swap_subscription_done, done = rec.update_shift_data(
+                    shift, swap_subscription_done
+                )
+                if done:
+                    changes.remove(rec)
 
         return shifts

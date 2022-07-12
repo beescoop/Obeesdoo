@@ -4,13 +4,6 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
-def get_validate_date(element):
-    if element.__class__.__name__ == "beesdoo.shift.exchange_request":
-        return element.validate_date
-    else:
-        return element.create_date
-
-
 class ResPartner(models.Model):
 
     _inherit = "res.partner"
@@ -170,7 +163,7 @@ class ResPartner(models.Model):
             changes.append(request)
 
         # Sort changes by validation date to evaluate them in the correct order
-        changes.sort(key=get_validate_date)
+        changes.sort(key=lambda x: x.get_validate_date())
 
         for rec in changes:
             class_name = rec.__class__.__name__

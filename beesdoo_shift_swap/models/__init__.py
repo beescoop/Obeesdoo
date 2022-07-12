@@ -1,3 +1,4 @@
+from . import shift_swap_mixin
 from . import res_partner
 from . import shift_swap
 from . import exchange_request
