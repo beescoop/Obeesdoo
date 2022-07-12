@@ -198,6 +198,12 @@ class ResPartner(models.Model):
             )
 
     def get_next_shifts(self):
+        """
+        Return next shifts of the worker without storing them into the database.
+        :return: two beesdoo.shift.shift lists, the first one containing the
+        already generated shifts, the second one containing the planned ones
+        (empty for irregular workers)
+        """
         self.ensure_one()
         now = datetime.now()
         subscribed_shifts_rec = (
