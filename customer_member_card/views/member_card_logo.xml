@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="inhereted_view_from_view_product_brand_form">
+        <field name="name">customer.member.card</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form" />
+        <field name="priority" eval="15"/>
+
+        <field name="arch" type="xml">
+             <xpath expr="//div[@class='o_address_format']" position="after">
+                 <field name="member_card_logo" string="Member Card Logo" class="oe_avater" widget="image"/>
+             </xpath>
+        </field>
+
+    </record>
+</odoo>
