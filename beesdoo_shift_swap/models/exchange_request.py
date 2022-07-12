@@ -5,6 +5,7 @@ from odoo import _, api, fields, models
 
 class ExchangeRequest(models.Model):
     _name = "beesdoo.shift.exchange_request"
+    _inherit = ["beesdoo.shift.swap.mixin"]
     _description = "A model to track a shift exchange request"
 
     def _get_status(self):
@@ -54,6 +55,10 @@ class ExchangeRequest(models.Model):
         string="Validated on",
         readonly=True,
     )
+
+    def get_validate_date(self):
+        self.ensure_one()
+        return self.validate_date
 
     @api.multi
     def name_get(self):

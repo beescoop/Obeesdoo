@@ -5,6 +5,7 @@ from odoo import api, fields, models
 
 class SolidarityShiftOffer(models.Model):
     _name = "beesdoo.shift.solidarity.offer"
+    _inherit = ["beesdoo.shift.swap.mixin"]
     _description = "beesdoo.shift.solidarity.offer"
 
     worker_id = fields.Many2one(
@@ -141,3 +142,16 @@ class SolidarityShiftOffer(models.Model):
             if record.shift_id and record.shift_id.state == "done":
                 counter += 1
         return counter
+
+    def update_shift_data(self, shift, swap_subscription_done):
+        done = False
+        if (
+            not shift["worker_id"]
+            and shift["task_template_id"] == self.tmpl_dated_id.template_id.id
+            and shift["start_time"] == self.tmpl_dated_id.date
+        ):
+            shift["worker_id"] = self.worker_id.id
+            shift["is_regular"] = True
+            shift["solidarity_offer_ids"] = [(6, 0, self.ids)]
+            done = True
+        return shift, swap_subscription_done, done
