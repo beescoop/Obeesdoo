@@ -66,22 +66,25 @@ class RequestSolidarityShift(models.TransientModel):
                         }
                     )
 
-                # Get past absent shifts
-                absent_states = self.env["beesdoo.shift.shift"].get_absent_state()
-                past_shift_possible = self.env["beesdoo.shift.shift"].search(
-                    [
-                        ("worker_id", "=", record.worker_id.id),
-                        ("state", "in", absent_states),
-                    ],
-                )
-                for shift in past_shift_possible:
-                    tmpl_dated_wanted |= tmpl_dated_wanted.create(
-                        {
-                            "template_id": shift.task_template_id.id,
-                            "date": shift.start_time,
-                            "store": False,
-                        }
+                status = record.worker_id.cooperative_status_ids
+                if status.sr + status.sc < 0:
+                    # Get past absent shifts
+                    absent_states = self.env["beesdoo.shift.shift"].get_absent_state()
+                    past_shift_possible = self.env["beesdoo.shift.shift"].search(
+                        [
+                            ("worker_id", "=", record.worker_id.id),
+                            ("state", "in", absent_states),
+                        ],
                     )
+                    for shift in past_shift_possible:
+                        tmpl_dated_wanted |= tmpl_dated_wanted.create(
+                            {
+                                "template_id": shift.task_template_id.id,
+                                "date": shift.start_time,
+                                "store": False,
+                            }
+                        )
+
                 return {
                     "domain": {"tmpl_dated_id": [("id", "in", tmpl_dated_wanted.ids)]}
                 }
