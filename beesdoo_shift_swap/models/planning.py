@@ -14,35 +14,29 @@ class TaskTemplate(models.Model):
         shifts = super(TaskTemplate, self)._prepare_task_day()
 
         # Get all the changes and store them into a list to sort them
-        changes = []
-
         swaps = self.env["beesdoo.shift.swap"].search(
             [
                 ("state", "=", "validated"),
             ]
         )
-        for swap in swaps:
-            changes.append(swap)
-
         exchanges = self.env["beesdoo.shift.exchange"].search([])
-        for exchange in exchanges:
-            changes.append(exchange)
-
         solidarity_offers = self.env["beesdoo.shift.solidarity.offer"].search(
             [
                 ("state", "=", "validated"),
             ]
         )
-        for offer in solidarity_offers:
-            changes.append(offer)
-
         solidarity_requests = self.env["beesdoo.shift.solidarity.request"].search(
             [
                 ("state", "=", "validated"),
             ]
         )
-        for request in solidarity_requests:
-            changes.append(request)
+
+        changes = (
+            list(swaps)
+            + list(exchanges)
+            + list(solidarity_offers)
+            + list(solidarity_requests)
+        )
 
         # Sort changes by creation date to evaluate them in the correct order
         changes.sort(key=lambda x: x.create_date)

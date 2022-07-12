@@ -54,7 +54,7 @@ class SubscribeShiftSwap(models.TransientModel):
             }
 
     @api.onchange("worker_id")
-    def _get_available_tmpl_dated(self):
+    def _get_possible_tmpl_dated(self):
         for record in self:
             day_limit_request_exchange = int(
                 self.env["ir.config_parameter"]
@@ -117,7 +117,7 @@ class SubscribeShiftSwap(models.TransientModel):
             raise UserError(_("You cannot perform this operation on yourself"))
         return self.with_context(real_uid=self._uid)
 
-    def make_change(self):
+    def request_exchange(self):
         self = self._check()
         if not self.asked_tmpl_dated_ids and not self.possible_match:
             raise UserError(
@@ -155,7 +155,7 @@ class SubscribeShiftSwap(models.TransientModel):
         if not self.asked_tmpl_dated_ids:
             raise UserError(_("Please ask for at least one shift"))
 
-        self.make_change()
+        self.request_exchange()
 
         for tmpl_dated in self.asked_tmpl_dated_ids:
             for worker in tmpl_dated.template_id.worker_ids:

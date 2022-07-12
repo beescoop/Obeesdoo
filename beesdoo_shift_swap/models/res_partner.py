@@ -16,7 +16,7 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     subscribed_exchange_emails = fields.Boolean(
-        string="Echange emails subscription",
+        string="Exchange emails subscription",
         default=True,
     )
 

@@ -47,7 +47,7 @@ class SubscribeShiftSwap(models.TransientModel):
             }
 
     @api.onchange("exchanged_tmpl_dated_id")
-    def _get_available_tmpl_dated(self):
+    def _get_possible_tmpl_dated(self):
         for record in self:
             if not record.exchanged_tmpl_dated_id:
                 record.wanted_tmpl_dated_id = False
@@ -79,7 +79,7 @@ class SubscribeShiftSwap(models.TransientModel):
         return self.with_context(real_uid=self._uid)
 
     @api.multi
-    def make_change(self):
+    def create_swap(self):
         self = self._check()
         self.worker_id.check_shift_number_limit(self.wanted_tmpl_dated_id)
         self.exchanged_tmpl_dated_id.store = True
