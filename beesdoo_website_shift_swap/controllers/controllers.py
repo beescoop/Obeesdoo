@@ -74,6 +74,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
     def exchange_already_exists_message(self):
         return _("You have already requested an exchange for this shift.")
 
+    def submit_exchange_request_message(self):
+        return _("Validate the exchange request with selected shifts")
+
     # Override /my/shift webpage controller
     @http.route("/my/shift", auth="user", website=True)
     def my_shift(self, **kw):
@@ -92,6 +95,11 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 template_context["request_solidarity"] = kw["request_solidarity"]
         else:
             template_context["solidarity_enabled"] = False
+
+        # Translatable text
+        template_context["solidarity_counter_too_low_message"] = _(
+            "Solidarity counter is too low. Requesting solidarity is unavailable."
+        )
 
         # Clear session
         if "template_id" in request.session:
@@ -692,9 +700,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 "possible_tmpl_dated": possible_tmpl_dated,
                 "exchanged_tmpl_dated": exchanged_tmpl_dated,
                 # Adding the submit button text to enable translation
-                "submit_button_text": _(
-                    "Validate the exchange request with selected shifts"
-                ),
+                "submit_button_text": self.submit_exchange_request_message(),
             },
         )
 
@@ -782,6 +788,8 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             {
                 "possible_tmpl_dated": possible_tmpl_dated,
                 "exchanged_tmpl_dated": exchanged_tmpl_dated,
+                # Adding the submit button text to enable translation
+                "submit_button_text": self.submit_exchange_request_message(),
             },
         )
 

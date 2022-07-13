@@ -224,7 +224,7 @@
                             </button>
                         </t>
                         <t
-                            t-elif="shift.state == 'open' and not shift.check_hours_to_unsubscribe()"
+                            t-elif="shift.state == 'open' and (shift.worker_id.working_mode == 'irregular' or shift.is_compensation) and not shift.check_hours_to_unsubscribe()"
                         >
                             <div
                                 id="unsubscribe_disabled_popover"
@@ -232,7 +232,7 @@
                                 data-toggle="popover"
                                 data-placement="top"
                                 data-trigger="hover"
-                                data-content="It is too late to unsubscribe. If you can't attend your shift, please contact the supercoop."
+                                t-att-data-content="'%s' % too_late_unsubscribe_message"
                             >
                                 <button
                                     id="disabled_unsubscribe_button"

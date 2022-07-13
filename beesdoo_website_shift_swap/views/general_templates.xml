@@ -132,7 +132,7 @@
                             data-toggle="popover"
                             data-placement="top"
                             data-trigger="hover"
-                            data-content="It is too late to unsubscribe. If you can't attend your shift, please contact the supercoop."
+                            t-att-data-content="'%s' % too_late_unsubscribe_message"
                         >
                             <button
                                 class="btn btn-primary btn-sm ml-2 disabled"

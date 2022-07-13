@@ -54,7 +54,7 @@
                         data-toggle="popover"
                         data-placement="top"
                         data-trigger="hover"
-                        data-content="Solidarity counter is too low. Requesting solidarity is unavailable."
+                        t-att-data-content="'%s' % solidarity_counter_too_low_message"
                     >
                         <button
                             type="button"
