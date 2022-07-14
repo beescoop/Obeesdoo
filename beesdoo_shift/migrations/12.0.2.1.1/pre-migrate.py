@@ -1,4 +1,5 @@
 def migrate(cr, version):
+    # Renamed parameters, delete old names
     cr.execute(
         "delete from "
         "    ir_config_parameter "

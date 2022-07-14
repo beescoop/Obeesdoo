@@ -144,6 +144,10 @@ class SolidarityShiftOffer(models.Model):
         return counter
 
     def update_shift_data(self, shift, swap_subscription_done):
+        """
+        See method info in model beesdoo.shift.swap.mixin
+        """
+        self.ensure_one()
         done = False
         if (
             not shift["worker_id"]

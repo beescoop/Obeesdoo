@@ -100,6 +100,10 @@ class ShiftSwap(models.Model):
         return False
 
     def update_shift_data(self, shift, swap_subscription_done):
+        """
+        See method info in model beesdoo.shift.swap.mixin
+        """
+        self.ensure_one()
         if (
             not shift["worker_id"]
             and self.wanted_tmpl_dated_id.template_id.id == shift["task_template_id"]
