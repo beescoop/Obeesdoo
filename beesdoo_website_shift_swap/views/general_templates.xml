@@ -168,6 +168,7 @@
                     </t>
                     <t t-elif="exchanges_enabled">
                         <button
+                            t-if="shift.check_hours_to_unsubscribe()"
                             type="button"
                             class="btn btn-primary btn-sm ml-2 pull-right"
                             data-toggle="modal"
@@ -175,6 +176,22 @@
                         >
                             Swap Shift
                         </button>
+                        <div
+                            t-else=""
+                            id="swap_impossible_popover"
+                            class="d-inline-block pull-right"
+                            data-toggle="popover"
+                            data-placement="top"
+                            data-trigger="hover"
+                            t-att-data-content="'%s' % too_late_unsubscribe_message"
+                        >
+                            <button
+                                class="btn btn-primary btn-sm ml-2 disabled"
+                                style="pointer-events: none;"
+                            >
+                                Swap Shift
+                            </button>
+                        </div>
                         <div
                             class="modal fade"
                             t-att-id="'ask_planned_exchange_popup-%s' % shift_index"
