@@ -15,6 +15,7 @@ class Exchange(models.Model):
     )
 
     def search_shift_generated(self, request):
+        # TODO: move to model beesdoo.shift.exchange_request
         return self.env["beesdoo.shift.shift"].search(
             [
                 ("start_time", "=", request.exchanged_tmpl_dated_id.date),
@@ -79,6 +80,10 @@ class Exchange(models.Model):
         return exchange
 
     def update_shift_data(self, shift, swap_subscription_done):
+        """
+        See method info in model beesdoo.shift.swap.mixin
+        """
+        self.ensure_one()
         if (
             shift["worker_id"] == self.first_request_id.worker_id.id
             and self.first_request_id.exchanged_tmpl_dated_id.template_id.id
