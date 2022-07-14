@@ -484,10 +484,7 @@ class WebsiteShiftController(http.Controller):
             "is_regular": self.is_user_regular(),
             "subscribed_shifts": subscribed_shifts,
             # Translatable message
-            "too_late_unsubscribe_message": _(
-                "It is too late to unsubscribe. If you can't attend your shift, "
-                "please contact the supercoop."
-            ),
+            "too_late_unsubscribe_message": self.too_late_unsubscribe_message(),
         }
 
     def my_shift_past_shifts(self):
@@ -646,4 +643,10 @@ class WebsiteShiftController(http.Controller):
         return _(
             "Your subscription has failed. Someone subscribed before you "
             "or the shift was deleted. Try again in a moment."
+        )
+
+    def too_late_unsubscribe_message(self):
+        return _(
+            "It is too late to unsubscribe. If you can't attend your shift, "
+            "please contact the supercoop."
         )
