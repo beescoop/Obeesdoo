@@ -153,6 +153,8 @@ class ExchangeRequest(models.Model):
         Send a mail to all workers that are subscribed to a shift matching
         one of asked_tmpl_dated_ids to offer them the exchange
         """
+        # TODO : avoid sending them the email if they have been unsubscribed
+        # from the shift (due to an exchange or solidarity request for ex.)
         self.ensure_one()
         for asked_tmpl in self.asked_tmpl_dated_ids:
             for worker in asked_tmpl.template_id.worker_ids:
