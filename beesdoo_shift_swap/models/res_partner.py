@@ -82,9 +82,8 @@ class ResPartner(models.Model):
         email_values = {
             "my_tmpl_dated": my_tmpl_dated,
             "asked_tmpl_dated": asked_tmpl_dated,
-            "worker_id": partner_to,
+            "partner_to": partner_to,
         }
-        template_rec.write({"partner_to": partner_to.id})
         template_rec.with_context(email_values).send_mail(self.id, False)
         return True
 

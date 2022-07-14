@@ -9,8 +9,7 @@
         />
         <field name="arch" type="xml">
             <xpath expr="//header/button[@name='temporary_exempt']" position="after">
-
-                   <button
+                <button
                     name="coop_exchange"
                     string="Exchange your shift"
                     class="oe_highlight"
@@ -18,7 +17,6 @@
                     groups="beesdoo_shift.group_shift_management"
                     attrs="{'invisible': [('working_mode','!=','regular'),('state','!=','suspended'),('state','!=','resigning')]}"
                 />
-
             </xpath>
         </field>
     </record>
@@ -68,7 +66,6 @@
                         groups="beesdoo_shift.group_shift_management"
                         attrs="{'invisible': [('status','!=','has_match')]}"
                     />
-
                     <field name="status" widget="statusbar" />
                 </header>
                 <sheet>
