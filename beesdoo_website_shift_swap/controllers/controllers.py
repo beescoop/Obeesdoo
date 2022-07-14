@@ -369,6 +369,18 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         # Create new tmpl_dated
         my_tmpl_dated = self.new_tmpl_dated(template_id, date)
 
+        # Check if shift is not too close in time
+        min_hours_to_unsubscribe = int(
+            request.env["ir.config_parameter"]
+            .sudo()
+            .get_param("min_hours_to_unsubscribe")
+        )
+        delta = my_tmpl_dated.date - datetime.now()
+        delta = delta.seconds / 3600.0 + delta.days * 24
+        if delta < min_hours_to_unsubscribe:
+            request.session["error_message"] = self.too_late_unsubscribe_message()
+            return request.redirect("/my/shift")
+
         # Get next shifts
         display_all = False
         if "display_all" in request.session and request.session["display_all"]:
