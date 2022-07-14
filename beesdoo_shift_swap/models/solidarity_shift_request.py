@@ -214,6 +214,10 @@ class SolidarityShiftRequest(models.Model):
         return self.search_count([("state", "=", "validated")])
 
     def update_shift_data(self, shift, swap_subscription_done):
+        """
+        See method info in model beesdoo.shift.swap.mixin
+        """
+        self.ensure_one()
         done = False
         if (
             shift["worker_id"] == self.worker_id.id
