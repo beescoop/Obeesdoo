@@ -32,7 +32,13 @@ msgstr ""
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
 msgid "<span class=\"fa fa-user-plus\" aria-hidden=\"true\"/>\n"
-"                        Unsubscribe"
+"                                    Unsubscribe"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
+msgid "<span class=\"fa fa-user-plus\" aria-hidden=\"true\"/>\n"
+"                                Unsubscribe"
 msgstr ""
 
 #. module: beesdoo_website_shift
@@ -292,7 +298,7 @@ msgid "Explanation of the status:"
 msgstr ""
 
 #. module: beesdoo_website_shift
-#: code:addons/beesdoo_website_shift/controllers/main.py:668
+#: code:addons/beesdoo_website_shift/controllers/main.py:634
 #, python-format
 msgid "Friday"
 msgstr ""
@@ -329,6 +335,11 @@ msgid "Hide Rule"
 msgstr ""
 
 #. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.choose_compensation_shift
+msgid "If you can't find a shift among these, please click here:"
+msgstr ""
+
+#. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_regular_worker
 msgid "In Alert Since:"
 msgstr ""
@@ -358,6 +369,12 @@ msgid "Irregular Past Shift Limit"
 msgstr ""
 
 #. module: beesdoo_website_shift
+#: code:addons/beesdoo_website_shift/controllers/main.py:649
+#, python-format
+msgid "It is too late to unsubscribe. If you can't attend your shift, please contact the supercoop."
+msgstr ""
+
+#. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
 msgid "Last Absence Date:"
 msgstr ""
@@ -380,7 +397,7 @@ msgid "Maximun number of next shift that will be shown"
 msgstr ""
 
 #. module: beesdoo_website_shift
-#: code:addons/beesdoo_website_shift/controllers/main.py:664
+#: code:addons/beesdoo_website_shift/controllers/main.py:630
 #, python-format
 msgid "Monday"
 msgstr ""
@@ -471,7 +488,7 @@ msgid "Regular Past Shift Limit"
 msgstr ""
 
 #. module: beesdoo_website_shift
-#: code:addons/beesdoo_website_shift/controllers/main.py:669
+#: code:addons/beesdoo_website_shift/controllers/main.py:635
 #, python-format
 msgid "Saturday"
 msgstr ""
@@ -545,7 +562,7 @@ msgid "Subscribed"
 msgstr ""
 
 #. module: beesdoo_website_shift
-#: code:addons/beesdoo_website_shift/controllers/main.py:670
+#: code:addons/beesdoo_website_shift/controllers/main.py:636
 #, python-format
 msgid "Sunday"
 msgstr ""
@@ -563,7 +580,7 @@ msgid "Threshold (in %) of available space in a shift that trigger the highlight
 msgstr ""
 
 #. module: beesdoo_website_shift
-#: code:addons/beesdoo_website_shift/controllers/main.py:667
+#: code:addons/beesdoo_website_shift/controllers/main.py:633
 #, python-format
 msgid "Thursday"
 msgstr ""
@@ -575,7 +592,7 @@ msgid "Treshold (in %) of available space in a shift that trigger the the highli
 msgstr ""
 
 #. module: beesdoo_website_shift
-#: code:addons/beesdoo_website_shift/controllers/main.py:665
+#: code:addons/beesdoo_website_shift/controllers/main.py:631
 #, python-format
 msgid "Tuesday"
 msgstr ""
@@ -586,7 +603,7 @@ msgid "Unsubscribe"
 msgstr ""
 
 #. module: beesdoo_website_shift
-#: code:addons/beesdoo_website_shift/controllers/main.py:320
+#: code:addons/beesdoo_website_shift/controllers/main.py:286
 #, python-format
 msgid "Unsubscription failed, impossible to find shift."
 msgstr ""
@@ -597,7 +614,7 @@ msgid "Website"
 msgstr ""
 
 #. module: beesdoo_website_shift
-#: code:addons/beesdoo_website_shift/controllers/main.py:666
+#: code:addons/beesdoo_website_shift/controllers/main.py:632
 #, python-format
 msgid "Wednesday"
 msgstr ""
@@ -624,7 +641,7 @@ msgid "You don't have to participate to shift system."
 msgstr ""
 
 #. module: beesdoo_website_shift
-#: code:addons/beesdoo_website_shift/controllers/main.py:316
+#: code:addons/beesdoo_website_shift/controllers/main.py:282
 #, python-format
 msgid "You have been successfully unsubscribed."
 msgstr ""
@@ -645,13 +662,13 @@ msgid "Your shifts"
 msgstr ""
 
 #. module: beesdoo_website_shift
-#: code:addons/beesdoo_website_shift/controllers/main.py:677
+#: code:addons/beesdoo_website_shift/controllers/main.py:643
 #, python-format
 msgid "Your subscription has failed. Someone subscribed before you or the shift was deleted. Try again in a moment."
 msgstr ""
 
 #. module: beesdoo_website_shift
-#: code:addons/beesdoo_website_shift/controllers/main.py:674
+#: code:addons/beesdoo_website_shift/controllers/main.py:640
 #, python-format
 msgid "Your subscription has succeded."
 msgstr ""
@@ -659,6 +676,11 @@ msgstr ""
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_irregular_worker_card
 msgid "available space(s)"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.shift_status_label
+msgid "compensation"
 msgstr ""
 
 #. module: beesdoo_website_shift
