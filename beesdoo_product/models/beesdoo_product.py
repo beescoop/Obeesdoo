@@ -348,8 +348,10 @@ class BeesdooProduct(models.Model):
             product.purchase_price_write_date = supplierinfo.price_write_date
 
     def write(self, vals):
-        if self.env["ir.config_parameter"].get_param(
-            "beesdoo_product.auto_write_suggested_price"
+        if (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_product.auto_write_suggested_price")
         ):
             purchase_price = vals.get("purchase_price")
             if purchase_price and purchase_price != self.purchase_price:
