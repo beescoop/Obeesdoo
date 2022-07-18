@@ -34,7 +34,7 @@
                         <group>
                             <button
                                 string="New Eater"
-                                name="%(action_eater_wizard)d"
+                                name="%(eater_new_wizard_action)d"
                                 type="action"
                                 class="btn btn-primary"
                             />
