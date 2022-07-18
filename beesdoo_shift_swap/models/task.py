@@ -34,3 +34,9 @@ class Task(models.Model):
     def _compute_is_solidarity(self):
         for rec in self:
             rec.is_solidarity = bool(rec.solidarity_offer_ids)
+
+    def cancel_solidarity_offer(self):
+        self.ensure_one()
+        if self.is_solidarity:
+            return self.solidarity_offer_ids[0].cancel_solidarity_offer()
+        return False
