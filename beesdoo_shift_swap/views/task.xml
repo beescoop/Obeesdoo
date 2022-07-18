@@ -6,6 +6,26 @@
         <field name="model">beesdoo.shift.shift</field>
         <field name="inherit_id" ref="beesdoo_shift.task_view_form" />
         <field name="arch" type="xml">
+            <xpath expr="//header/field[@name='state']" position="before">
+                <button
+                    name="subscribe_shift_as_solidarity"
+                    string="Subscribe as a solidarity shift"
+                    class="oe_highlight"
+                    type="object"
+                    groups="beesdoo_shift.group_shift_management"
+                    attrs="{'invisible': ['|',('state','!=','open'),('worker_id','!=',False)]}"
+                />
+            </xpath>
+            <xpath expr="//header/field[@name='state']" position="before">
+                <button
+                    name="cancel_solidarity_offer"
+                    string="Cancel solidarity shift"
+                    class="oe_highlight"
+                    type="object"
+                    groups="beesdoo_shift.group_shift_management"
+                    attrs="{'invisible': ['|',('is_solidarity','=',False),('state','!=','open')]}"
+                />
+            </xpath>
             <field name="is_compensation" position="after">
                 <field
                     name="is_solidarity"
