@@ -36,7 +36,7 @@
                         <group>
                             <button
                                 string="New Card"
-                                name="%(action_membercard_wizard)d"
+                                name="%(membercard_wizard_action)d"
                                 type="action"
                                 class="btn btn-primary"
                             />
