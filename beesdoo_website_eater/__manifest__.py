@@ -11,6 +11,6 @@
     "version": "12.0.1.0.0",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Website",
-    "depends": ["website", "portal", "beesdoo_base"],
+    "depends": ["website", "portal", "eater"],
     "data": ["views/beesdoo_website_eater_templates.xml"],
 }
