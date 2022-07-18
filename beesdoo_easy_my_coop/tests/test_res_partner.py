@@ -18,7 +18,7 @@ class TestResPartner(TransactionCase):
         Test adding eater to a cooperator and raise when max is
         reached.
         """
-        coop1 = self.env.ref("eater.res_partner_cooperator_1_demo")
+        coop1 = self.env.ref("member_card.res_partner_cooperator_1_demo")
         coop1.write({"child_eater_ids": [(4, self.eater1.id)]})
         self.assertEqual(len(coop1.child_eater_ids), 1)
         coop1.write({"child_eater_ids": [(4, self.eater2.id)]})
@@ -47,7 +47,7 @@ class TestResPartner(TransactionCase):
         Test adding eater to a cooperator and raise when max is
         reached.
         """
-        coop2 = self.env.ref("eater.res_partner_cooperator_2_demo")
+        coop2 = self.env.ref("member_card.res_partner_cooperator_2_demo")
         coop2.write({"child_eater_ids": [(4, self.eater1.id)]})
         self.assertEqual(len(coop2.child_eater_ids), 1)
         coop2.write({"child_eater_ids": [(4, self.eater2.id)]})
@@ -71,7 +71,7 @@ class TestResPartner(TransactionCase):
         """
         Test that share_c can have an unlimited number of eater.
         """
-        coop3 = self.env.ref("eater.res_partner_cooperator_3_demo")
+        coop3 = self.env.ref("member_card.res_partner_cooperator_3_demo")
         coop3.write({"child_eater_ids": [(4, self.eater1.id)]})
         self.assertEqual(len(coop3.child_eater_ids), 1)
         coop3.write({"child_eater_ids": [(4, self.eater2.id)]})
@@ -87,7 +87,7 @@ class TestResPartner(TransactionCase):
         """
         share_c = self.env.ref("beesdoo_easy_my_coop.share_c")
         share_c.max_nb_eater_allowed = 0
-        coop3 = self.env.ref("eater.res_partner_cooperator_3_demo")
+        coop3 = self.env.ref("member_card.res_partner_cooperator_3_demo")
         with self.assertRaises(ValidationError) as econtext:
             coop3.write({"child_eater_ids": [(4, self.eater3.id)]})
         self.assertIn("can only set", str(econtext.exception))
@@ -99,7 +99,7 @@ class TestResPartner(TransactionCase):
         """
         Test adding multiple eater in one write.
         """
-        coop1 = self.env.ref("eater.res_partner_cooperator_1_demo")
+        coop1 = self.env.ref("member_card.res_partner_cooperator_1_demo")
         coop1.write(
             {
                 "child_eater_ids": [
@@ -115,7 +115,7 @@ class TestResPartner(TransactionCase):
         """
         Test adding a parent to multiple eater in one write from the eater.
         """
-        coop1 = self.env.ref("eater.res_partner_cooperator_1_demo")
+        coop1 = self.env.ref("member_card.res_partner_cooperator_1_demo")
         eaters = self.eater1
         eaters |= self.eater2
         eaters |= self.eater3
@@ -126,7 +126,7 @@ class TestResPartner(TransactionCase):
         """
         Test that a cooperator is a worker based on his share type.
         """
-        coop1 = self.env.ref("eater.res_partner_cooperator_1_demo")
+        coop1 = self.env.ref("member_card.res_partner_cooperator_1_demo")
         # Run computed field
         coop1._compute_is_worker()
         self.assertEqual(coop1.is_worker, True)
@@ -135,7 +135,7 @@ class TestResPartner(TransactionCase):
         """
         Test that a cooperator is a worker based on his share type.
         """
-        coop2 = self.env.ref("eater.res_partner_cooperator_2_demo")
+        coop2 = self.env.ref("member_card.res_partner_cooperator_2_demo")
         # Run computed field
         coop2._compute_is_worker()
         self.assertEqual(coop2.is_worker, False)
@@ -145,8 +145,8 @@ class TestResPartner(TransactionCase):
         Test that the search function returns worker based on the
         'is_worker' field.
         """
-        coop1 = self.env.ref("eater.res_partner_cooperator_1_demo")
-        coop2 = self.env.ref("eater.res_partner_cooperator_2_demo")
+        coop1 = self.env.ref("member_card.res_partner_cooperator_1_demo")
+        coop2 = self.env.ref("member_card.res_partner_cooperator_2_demo")
         # Run computed field
         coop1._compute_is_worker()
         coop2._compute_is_worker()
@@ -165,7 +165,7 @@ class TestResPartner(TransactionCase):
         # does not work because the is_worker field is overiden by
         # beesdoo_easy_my_coop's `_compute_is_worker`
 
-        coop1 = self.env.ref("eater.res_partner_cooperator_1_demo")
+        coop1 = self.env.ref("member_card.res_partner_cooperator_1_demo")
         coop1.cooperative_status_ids = self.env.ref(
             "beesdoo_shift.cooperative_status_1_demo"
         )
@@ -181,7 +181,7 @@ class TestResPartner(TransactionCase):
         """
         Test that a cooperator can shop based on his share type.
         """
-        coop3 = self.env.ref("eater.res_partner_cooperator_3_demo")
+        coop3 = self.env.ref("member_card.res_partner_cooperator_3_demo")
         # Run computed field
         coop3._compute_can_shop()
         self.assertEqual(coop3.can_shop, False)
