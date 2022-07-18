@@ -55,6 +55,7 @@ renamed_view_xml_ids = (
 modules_to_install = [
     "member_card",
     "eater",
+    "eater_member_card",
 ]
 
 
