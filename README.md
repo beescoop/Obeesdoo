@@ -40,7 +40,7 @@ addon | version | maintainers | summary
 [beesdoo_purchase](beesdoo_purchase/) | 12.0.1.4.0 |  | Enhancements related to Purchase module : field, filter, PO reference, product's purchase and/or selling price
 [beesdoo_shift](beesdoo_shift/) | 12.0.2.2.1 |  | Generate and manage shifts for cooperators.
 [beesdoo_shift_attendance](beesdoo_shift_attendance/) | 12.0.1.1.2 |  | Volonteer Timetable Management Attendance Sheet for BEES coop
-[beesdoo_shift_swap](beesdoo_shift_swap/) | 12.0.1.0.3 |  | Module to allow cooperator to swap his/her shift when he/she can't attend it, to do solidarity shifts, and to request solidarity if needed.
+[beesdoo_shift_swap](beesdoo_shift_swap/) | 12.0.1.0.4 |  | Module to allow cooperator to swap his/her shift when he/she can't attend it, to do solidarity shifts, and to request solidarity if needed.
 [beesdoo_shift_welcome_screen](beesdoo_shift_welcome_screen/) | 12.0.1.0.1 |  | Volunteer Timetable Management
 [beesdoo_stock](beesdoo_stock/) | 12.0.1.0.0 |  | Enable action on multiple products of a stock receipt
 [beesdoo_stock_coverage](beesdoo_stock_coverage/) | 12.0.0.0.1 |  | Compute estimated stock coverage based on product sales over a date range.
