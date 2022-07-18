@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     Copyright 2019 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="eater1" model="res.partner">
+        <field name="name">Gilles Eaterbeek</field>
+        <field name="firstname">Gilles</field>
+        <field name="lastname">Eaterbeek</field>
+        <field name="eater">eater</field>
+        <field name="is_company" eval="False" />
+        <field name="customer" eval="True" />
+    </record>
+
+    <record id="eater2" model="res.partner">
+        <field name="name">Constant Eateration</field>
+        <field name="firstname">Constant</field>
+        <field name="lastname">Eateration</field>
+        <field name="eater">eater</field>
+        <field name="is_company" eval="False" />
+        <field name="customer" eval="True" />
+    </record>
+
+    <record id="eater3" model="res.partner">
+        <field name="name">Alexander G. Eaterphone</field>
+        <field name="firstname">Alexander G.</field>
+        <field name="lastname">Eaterphone</field>
+        <field name="eater">eater</field>
+        <field name="is_company" eval="False" />
+        <field name="customer" eval="True" />
+    </record>
+
+    <record id="eater4" model="res.partner">
+        <field name="name">Tim Eaternet</field>
+        <field name="firstname">Tim</field>
+        <field name="lastname">Eaternet</field>
+        <field name="eater">eater</field>
+        <field name="is_company" eval="False" />
+        <field name="customer" eval="True" />
+    </record>
+</odoo>
