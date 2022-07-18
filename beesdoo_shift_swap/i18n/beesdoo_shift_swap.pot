@@ -17,7 +17,7 @@ msgstr ""
 #: model:mail.template,body_html:beesdoo_shift_swap.email_template_contact_match_coop
 msgid "\n"
 "                \n"
-"                <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"                <div style=\"font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "                    Hello ${(object.worker_id.name)},\n"
 "                    <br/><br/>\n"
 "                    <p>\n"
@@ -46,7 +46,7 @@ msgstr ""
 #: model:mail.template,body_html:beesdoo_shift_swap.email_template_exchange_validation
 msgid "\n"
 "                \n"
-"                <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"                <div style=\"font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "                    Hello ${(object.worker_id.name)},\n"
 "                    <br/><br/>\n"
 "                    <p>\n"
@@ -78,7 +78,7 @@ msgstr ""
 #: model:mail.template,body_html:beesdoo_shift_swap.planned_exchange_contact_coop
 msgid "\n"
 "                \n"
-"                <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"                <div style=\"font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "                    Hello ${ctx.get('partner_to').name},\n"
 "                    <br/><br/>\n"
 "                    <p>\n"
@@ -104,8 +104,8 @@ msgstr ""
 #: model:mail.template,body_html:beesdoo_shift_swap.email_template_contact_coop
 msgid "\n"
 "                \n"
-"                <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"                    Hello ${ctx.get('worker_id').name},\n"
+"                <div style=\"font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"                    Hello ${ctx.get('partner_to').name},\n"
 "                    <br/><br/>\n"
 "                    <p>\n"
 "                        A cooperator working on the shift : ${ctx.get('my_tmpl_dated').template_id.name}, ${ctx.get('my_tmpl_dated').date.date()}, ${ctx.get('my_tmpl_dated').template_id.task_type_id.name}<br/>\n"
@@ -119,6 +119,10 @@ msgid "\n"
 "                    </p>\n"
 "                    <br/><br/>\n"
 "                    Regards,\n"
+"                    <br/><br/>\n"
+"                    <p class=\"text-center\" style=\"font-size: 10px;\">\n"
+"                        You can unsubscribe from these emails on <a href=\"/my/home\">your account page</a> or directly by clicking here: <a href=\"/mail/toggle/exchanges\">Unsubscribe</a>\n"
+"                    </p>\n"
 "                </div>\n"
 "                \n"
 "            "
@@ -128,7 +132,7 @@ msgstr ""
 #: model:mail.template,body_html:beesdoo_shift_swap.email_template_cancel_exchange_request
 msgid "\n"
 "                \n"
-"                <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"                <div style=\"font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "                    Hello ${object.worker_id.name},\n"
 "                    <br/><br/>\n"
 "                    <p>\n"
@@ -137,6 +141,27 @@ msgid "\n"
 "                    </p>\n"
 "                    <p>\n"
 "                        Please feel free to create a new request if you still want to exchange your shift.\n"
+"                    </p>\n"
+"                    <br/><br/>\n"
+"                    Regards,\n"
+"                </div>\n"
+"                \n"
+"            "
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:mail.template,body_html:beesdoo_shift_swap.email_template_warn_user_no_match
+msgid "\n"
+"                \n"
+"                <div style=\"font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"                    Hello ${object.worker_id.name},\n"
+"                    <br/><br/>\n"
+"                    <p>\n"
+"                        You are receiving this email because no match has been found for your exchange request, and the shift that you want\n"
+"                        to exchange is getting closer. To avoid missing it, you can now swap it with an underpopulated one.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        If you wish to do so, please <a href=\"/my/shift/swaping/${object.exchanged_tmpl_dated_id.template_id.id}/${object.exchanged_tmpl_dated_id.date.strftime('%Y-%m-%d %H:%M:%S')}\">click here</a>.\n"
 "                    </p>\n"
 "                    <br/><br/>\n"
 "                    Regards,\n"
@@ -209,6 +234,11 @@ msgid "<span class=\"o_form_label\">\n"
 msgstr ""
 
 #. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_exchange_wizard
+msgid "<strong>How to use :</strong>"
+msgstr ""
+
+#. module: beesdoo_shift_swap
 #: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_exchange_request
 msgid "A model to track a shift exchange request"
 msgstr ""
@@ -244,6 +274,12 @@ msgid "Afternoon Shift"
 msgstr ""
 
 #. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__asked_tmpl_dated_ids
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_exchange__asked_tmpl_dated_ids
+msgid "Asked shifts"
+msgstr ""
+
+#. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.offer_solidarity_shift_wizard
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.request_solidarity_shift_wizard
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_as_solidarity_wizard
@@ -267,6 +303,12 @@ msgstr ""
 #: selection:beesdoo.shift.solidarity.offer,state:0
 #: selection:beesdoo.shift.solidarity.request,state:0
 msgid "Cancelled"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_exchange_wizard
+msgid "Check if some exchange requests appear in the \"Possible match\" box.\n"
+"                            If this is the case, you can select one and click on \"Confirm\" to accept the exchange."
 msgstr ""
 
 #. module: beesdoo_shift_swap
@@ -295,6 +337,11 @@ msgid "Confirm"
 msgstr ""
 
 #. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_exchange_wizard
+msgid "Confirm and contact involved coop by email"
+msgstr ""
+
+#. module: beesdoo_shift_swap
 #: model:mail.template,subject:beesdoo_shift_swap.planned_exchange_contact_coop
 msgid "Confirm your planned exchange"
 msgstr ""
@@ -302,11 +349,6 @@ msgstr ""
 #. module: beesdoo_shift_swap
 #: model:ir.model,name:beesdoo_shift_swap.model_res_partner
 msgid "Contact"
-msgstr ""
-
-#. module: beesdoo_shift_swap
-#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_exchange_wizard
-msgid "Contact coop of other week"
 msgstr ""
 
 #. module: beesdoo_shift_swap
@@ -351,9 +393,9 @@ msgid "Created on"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_offer__date
-#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_request__date
-#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap__date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__exchanged_template_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_offer__shift_date
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_request__shift_date
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__date
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.shift_swap_view_search
 msgid "Date"
@@ -375,6 +417,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_solidarity__display_name
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_swap__display_name
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap__display_name
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap_mixin__display_name
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__display_name
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_validate_shift_exchange__display_name
 msgid "Display Name"
@@ -386,9 +429,20 @@ msgid "End Time"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: code:addons/beesdoo_shift_swap/models/res_partner.py:23
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__exchange_id
+msgid "Exchange"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: code:addons/beesdoo_shift_swap/models/res_partner.py:30
 #, python-format
 msgid "Exchange Swap Cooperator"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_res_partner__subscribed_exchange_emails
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_res_users__subscribed_exchange_emails
+msgid "Exchange emails subscription"
 msgstr ""
 
 #. module: beesdoo_shift_swap
@@ -412,13 +466,20 @@ msgid "Exchange your shift"
 msgstr ""
 
 #. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__exchanged_tmpl_dated_id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_exchange__exchanged_tmpl_dated_id
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap__exchanged_tmpl_dated_id
-msgid "Exchanged Tmpl Dated"
+msgid "Exchanged shift"
 msgstr ""
 
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange__first_request_id
 msgid "First exchange request"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_offer__shift_id
+msgid "Generated shift"
 msgstr ""
 
 #. module: beesdoo_shift_swap
@@ -443,9 +504,22 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_solidarity__id
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_swap__id
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap__id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap_mixin__id
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__id
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_validate_shift_exchange__id
 msgid "ID"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_exchange_wizard
+msgid "If there are no possible match or if you are not interested in them,\n"
+"                            you can click on \"Confirm\" without filling the \"Possible match\" box to create an exchange request"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_exchange_wizard
+msgid "If you want, you can send a mail to all the cooperators working on the \"Asked shifts\"\n"
+"                            by clicking on the \"Confirm and contact involved coop by email\" button instead of the \"Confirm\" one"
 msgstr ""
 
 #. module: beesdoo_shift_swap
@@ -466,6 +540,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_solidarity____last_update
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_swap____last_update
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap____last_update
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap_mixin____last_update
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated____last_update
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_validate_shift_exchange____last_update
 msgid "Last Modified on"
@@ -509,6 +584,11 @@ msgid "Limit value of the global solidarity counter"
 msgstr ""
 
 #. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__validate_request_id
+msgid "Linked matching request"
+msgstr ""
+
+#. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_validate_shift_exchange__match_proposition
 msgid "Match proposition"
 msgstr ""
@@ -529,13 +609,13 @@ msgid "Max number of solidarity requests per year"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: code:addons/beesdoo_shift_swap/models/res_partner.py:101
+#: code:addons/beesdoo_shift_swap/models/res_partner.py:111
 #, python-format
 msgid "Maximum number of shifts per day reached"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: code:addons/beesdoo_shift_swap/models/res_partner.py:103
+#: code:addons/beesdoo_shift_swap/models/res_partner.py:113
 #, python-format
 msgid "Maximum number of shifts per month reached"
 msgstr ""
@@ -551,8 +631,24 @@ msgid "My proposition"
 msgstr ""
 
 #. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap__wanted_tmpl_dated_id
+msgid "New shift"
+msgstr ""
+
+#. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.shift_swap_view_search
 msgid "Night Shift"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:mail.template,subject:beesdoo_shift_swap.email_template_warn_user_no_match
+msgid "No match has been found for your exchange request"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: code:addons/beesdoo_shift_swap/models/shift_swap_mixin.py:20
+#, python-format
+msgid "Not implemented"
 msgstr ""
 
 #. module: beesdoo_shift_swap
@@ -606,6 +702,28 @@ msgid "Offer solidarity shift"
 msgstr ""
 
 #. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_exchange_wizard
+msgid "Otherwise, select one or more shifts to ask for exchange (\"Asked shifts\" box)"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: code:addons/beesdoo_shift_swap/wizard/exchange_wizard.py:156
+#, python-format
+msgid "Please ask for at least one shift"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: code:addons/beesdoo_shift_swap/wizard/exchange_wizard.py:124
+#, python-format
+msgid "Please either ask for shifts to exchange or select a match"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_exchange__possible_match
+msgid "Possible match"
+msgstr ""
+
+#. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_request_solidarity_shift__reason
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_request__reason
 msgid "Reason"
@@ -632,9 +750,13 @@ msgid "Second exchange request"
 msgstr ""
 
 #. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_exchange_wizard
+msgid "Select a shift to exchange (\"Exchanged shift\" box)"
+msgstr ""
+
+#. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_offer_solidarity_shift__tmpl_dated_id
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_request_solidarity_shift__tmpl_dated_id
-#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_offer__shift_id
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_solidarity__shift_id
 msgid "Shift"
 msgstr ""
@@ -642,16 +764,6 @@ msgstr ""
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.res_config_settings_swap_view_form
 msgid "Shift Exchanges"
-msgstr ""
-
-#. module: beesdoo_shift_swap
-#: model:res.groups,name:beesdoo_shift_swap.group_shift_swap_manager
-msgid "Shift Swap Management"
-msgstr ""
-
-#. module: beesdoo_shift_swap
-#: model:res.groups,name:beesdoo_shift_swap.group_shift_swap_user
-msgid "Shift Swap Read Access"
 msgstr ""
 
 #. module: beesdoo_shift_swap
@@ -672,7 +784,7 @@ msgid "Shift swaps"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: code:addons/beesdoo_shift_swap/wizard/subscribe_shift_as_solidarity.py:85
+#: code:addons/beesdoo_shift_swap/wizard/subscribe_shift_as_solidarity.py:84
 #, python-format
 msgid "Shifts"
 msgstr ""
@@ -697,7 +809,7 @@ msgid "Solidarity shift offer"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: code:addons/beesdoo_shift_swap/models/res_partner.py:34
+#: code:addons/beesdoo_shift_swap/models/res_partner.py:41
 #, python-format
 msgid "Solidarity shift offer wizard"
 msgstr ""
@@ -715,7 +827,7 @@ msgid "Solidarity shift offers"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: code:addons/beesdoo_shift_swap/models/res_partner.py:45
+#: code:addons/beesdoo_shift_swap/models/res_partner.py:52
 #, python-format
 msgid "Solidarity shift request wizard"
 msgstr ""
@@ -754,7 +866,7 @@ msgid "Subscribe Exchange shift"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: code:addons/beesdoo_shift_swap/models/res_partner.py:12
+#: code:addons/beesdoo_shift_swap/models/res_partner.py:19
 #, python-format
 msgid "Subscribe Swap Cooperator"
 msgstr ""
@@ -790,7 +902,7 @@ msgid "Unwanted Shift"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: code:addons/beesdoo_shift_swap/models/exchange_request.py:72
+#: code:addons/beesdoo_shift_swap/models/exchange_request.py:88
 #, python-format
 msgid "Validate Exchange"
 msgstr ""
@@ -809,6 +921,11 @@ msgstr ""
 #: selection:beesdoo.shift.solidarity.offer,state:0
 #: selection:beesdoo.shift.solidarity.request,state:0
 msgid "Validated"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__validate_date
+msgid "Validated on"
 msgstr ""
 
 #. module: beesdoo_shift_swap
@@ -837,11 +954,14 @@ msgid "Wanted Shift"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap__wanted_tmpl_dated_id
-msgid "Wanted Tmpl Dated"
+#: model:ir.actions.server,name:beesdoo_shift_swap.ir_cron_warn_user_no_match_ir_actions_server
+#: model:ir.cron,cron_name:beesdoo_shift_swap.ir_cron_warn_user_no_match
+#: model:ir.cron,name:beesdoo_shift_swap.ir_cron_warn_user_no_match
+msgid "Warn users if no match found for their exchange"
 msgstr ""
 
 #. module: beesdoo_shift_swap
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__worker_id
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_offer__worker_id
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_swap__worker_id
 msgid "Worker"
@@ -853,7 +973,12 @@ msgid "Working mode"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: code:addons/beesdoo_shift_swap/wizard/exchange_wizard.py:108
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_exchange_wizard
+msgid "You can check again if other requests match your request"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: code:addons/beesdoo_shift_swap/wizard/exchange_wizard.py:117
 #: code:addons/beesdoo_shift_swap/wizard/offer_solidarity.py:41
 #: code:addons/beesdoo_shift_swap/wizard/request_solidarity.py:48
 #: code:addons/beesdoo_shift_swap/wizard/subscribe_shift_as_solidarity.py:65
@@ -864,7 +989,7 @@ msgid "You cannot perform this operation on yourself"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: code:addons/beesdoo_shift_swap/wizard/exchange_wizard.py:104
+#: code:addons/beesdoo_shift_swap/wizard/exchange_wizard.py:113
 #: code:addons/beesdoo_shift_swap/wizard/offer_solidarity.py:37
 #: code:addons/beesdoo_shift_swap/wizard/request_solidarity.py:44
 #: code:addons/beesdoo_shift_swap/wizard/subscribe_shift_as_solidarity.py:61
@@ -877,12 +1002,6 @@ msgstr ""
 #. module: beesdoo_shift_swap
 #: model:mail.template,subject:beesdoo_shift_swap.email_template_cancel_exchange_request
 msgid "You exchange request has been cancelled"
-msgstr ""
-
-#. module: beesdoo_shift_swap
-#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__asked_tmpl_dated_ids
-#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_exchange__asked_tmpl_dated_ids
-msgid "asked_tmpl_dated"
 msgstr ""
 
 #. module: beesdoo_shift_swap
@@ -901,19 +1020,13 @@ msgid "beesdoo.shift.solidarity.request"
 msgstr ""
 
 #. module: beesdoo_shift_swap
+#: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_swap_mixin
+msgid "beesdoo.shift.swap.mixin"
+msgstr ""
+
+#. module: beesdoo_shift_swap
 #: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_template
 msgid "beesdoo.shift.template"
-msgstr ""
-
-#. module: beesdoo_shift_swap
-#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__exchange_id
-msgid "exchange"
-msgstr ""
-
-#. module: beesdoo_shift_swap
-#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__exchanged_tmpl_dated_id
-#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_exchange__exchanged_tmpl_dated_id
-msgid "exchanged_tmpl_dated"
 msgstr ""
 
 #. module: beesdoo_shift_swap
@@ -926,27 +1039,11 @@ msgid "or"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_subscribe_shift_exchange__possible_match
-msgid "possible match"
-msgstr ""
-
-#. module: beesdoo_shift_swap
-#: model:ir.module.category,name:beesdoo_shift_swap.group_shift_swap
-msgid "shift_swap"
-msgstr ""
-
-#. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_template_dated__store
 msgid "store"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__validate_request_id
-msgid "validate_request"
-msgstr ""
-
-#. module: beesdoo_shift_swap
-#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_exchange_request__worker_id
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_request__worker_id
 msgid "worker"
 msgstr ""
