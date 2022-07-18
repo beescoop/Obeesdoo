@@ -42,10 +42,19 @@ renamed_view_xml_ids = (
         "beesdoo_base.beesdoo_base_action_set_membercard_as_printed",
         "member_card.beesdoo_base_action_set_membercard_as_printed",
     ),
+    (
+        "beesdoo_base.action_eater_wizard",
+        "eater.action_eater_wizard",
+    ),
+    (
+        "beesdoo_base.Eater Wizard",
+        "eater.Eater Wizard",
+    ),
 )
 
 modules_to_install = [
     "member_card",
+    "eater",
 ]
 
 

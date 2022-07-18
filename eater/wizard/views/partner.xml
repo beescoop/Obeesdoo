@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <!-- New eater generation wizard -->
-    <record id="Eater Wizard" model="ir.ui.view">
+    <record id="new_eater_wizard_action" model="ir.ui.view">
         <field name="name">New Eater Wizard</field>
         <field name="model">eater.new.wizard</field>
         <field name="arch" type="xml">
