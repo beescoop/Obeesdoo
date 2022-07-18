@@ -82,7 +82,7 @@ class DatedTemplate(models.Model):
         :return: beesdoo.shift.template.dated recordset
         """
         shifts = self.env["beesdoo.shift.planning"].get_future_shifts(
-            end_date, start_date=start_date
+            end_date, start_date=start_date, include_cancelled=False
         )
         return self.swap_shift_to_tmpl_dated(shifts)
 
@@ -177,7 +177,9 @@ class DatedTemplate(models.Model):
         :return: beesdoo.shift.template.dated recordset
         """
         end_date = datetime.now() + timedelta(days=nb_days)
-        next_shifts = self.env["beesdoo.shift.planning"].get_future_shifts(end_date)
+        next_shifts = self.env["beesdoo.shift.planning"].get_future_shifts(
+            end_date, include_cancelled=False
+        )
         min_percentage_presence = int(
             self.env["ir.config_parameter"].sudo().get_param("min_percentage_presence")
         )
