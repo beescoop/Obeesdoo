@@ -114,9 +114,7 @@ class SolidarityShiftOffer(models.Model):
         shift_date = self.tmpl_dated_id.date
         delta = shift_date - datetime.now()
         limit_hours = int(
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("beesdoo_shift.min_hours_to_unsubscribe")
+            self.env["ir.config_parameter"].sudo().get_param("min_hours_to_unsubscribe")
         )
         if delta <= timedelta(hours=limit_hours):
             return True
@@ -124,7 +122,7 @@ class SolidarityShiftOffer(models.Model):
 
     def cancel_solidarity_offer(self):
         self.ensure_one()
-        if self.state == "validated" and not self.check_offer_date_too_close():
+        if self.state == "validated":
             self._unsubscribe_shift_if_generated()
             self.state = "cancelled"
             return True
