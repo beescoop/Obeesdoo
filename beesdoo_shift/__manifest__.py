@@ -9,7 +9,7 @@
     "author": "Thibault Francois, Elouan Le Bars, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
-    "version": "12.0.3.0.0",
+    "version": "12.0.3.0.1",
     "depends": ["mail"],
     "data": [
         "data/system_parameter.xml",
