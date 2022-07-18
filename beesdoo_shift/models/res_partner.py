@@ -229,6 +229,10 @@ class ResPartner(models.Model):
             task_template = self.env["beesdoo.shift.template"].search(
                 [("worker_ids", "in", self.id)], limit=1
             )
+
+            if not task_template:
+                return generated_shifts, []
+
             main_shift = self.env["beesdoo.shift.shift"].search(
                 [
                     ("task_template_id", "=", task_template[0].id),
@@ -239,23 +243,41 @@ class ResPartner(models.Model):
                 limit=1,
             )
 
+            if not main_shift:
+                return generated_shifts, []
+
             # Get config
             regular_next_shift_limit = int(
-                self.env["ir.config_parameter"].get_param("regular_next_shift_limit")
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("regular_next_shift_limit")
             )
             shift_period = int(
-                self.env["ir.config_parameter"].get_param("shift_period")
+                self.env["ir.config_parameter"].sudo().get_param("shift_period")
             )
             next_planning_date = datetime.strptime(
-                self.env["ir.config_parameter"].get_param("next_planning_date"),
+                self.env["ir.config_parameter"].sudo().get_param("next_planning_date"),
                 "%Y-%m-%d",
             )
 
+            # Get temporary exemption
+            status = self.cooperative_status_ids
+            if status:
+                exemption_start = status.temporary_exempt_start_date
+                exemption_end = status.temporary_exempt_end_date
+
             for i in range(1, regular_next_shift_limit - len(generated_shifts) + 1):
-                if (
-                    self.add_days(main_shift.start_time, days=i * shift_period)
-                    > next_planning_date
-                ):
+                shift_date = self.add_days(main_shift.start_time, days=i * shift_period)
+                if shift_date > next_planning_date:
+                    # Check exemption
+                    if (
+                        exemption_start
+                        and exemption_end
+                        and shift_date.date() >= exemption_start
+                        and shift_date.date() <= exemption_end
+                    ):
+                        continue
+
                     # Create the fictive shift
                     shift = main_shift.new()
                     shift.name = main_shift.name
