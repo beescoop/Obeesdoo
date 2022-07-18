@@ -15,7 +15,7 @@
     "author": "Beescoop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Sales",
-    "version": "12.0.1.4.0",
+    "version": "12.0.1.4.1",
     "depends": [
         "product",
         "sale",
