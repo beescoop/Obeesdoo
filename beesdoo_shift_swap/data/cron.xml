@@ -1,0 +1,16 @@
+<odoo>
+    <data noupdate="1">
+
+        <record id="ir_cron_warn_user_no_match" model="ir.cron">
+            <field name="name">Warn users if no match found for their exchange</field>
+            <field name="model_id" ref="model_beesdoo_shift_exchange_request" />
+            <field name="state">code</field>
+            <field name="code">model._warn_users_no_match()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+        </record>
+
+    </data>
+</odoo>

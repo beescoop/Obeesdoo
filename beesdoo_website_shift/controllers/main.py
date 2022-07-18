@@ -4,10 +4,9 @@
 # Copyright 2017-2018 Thibault François
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from datetime import datetime, timedelta
+from datetime import datetime
 from itertools import groupby
 
-from pytz import timezone, utc
 from werkzeug.exceptions import Forbidden
 
 from odoo import _, http
@@ -57,39 +56,6 @@ class WebsiteShiftController(http.Controller):
             and user.partner_id.state != "unsubscribed"
             and user.partner_id.state != "resigning"
         )
-
-    def add_days(self, datetime, days):
-        """
-        Add the number of days to datetime. This take the DST in
-        account, meaning that the UTC time will be correct even if the
-        new datetime has cross the DST boundary.
-
-        :param datetime: a naive datetime expressed in UTC
-        :return: a naive datetime expressed in UTC with the added days
-        """
-        # Ensure that the datetime given is without a timezone
-        assert datetime.tzinfo is None
-        # Get current user and user timezone
-        # Take user tz, if empty use context tz, if empty use UTC
-        cur_user = request.env["res.users"].browse(request.uid)
-        user_tz = utc
-        if cur_user.tz:
-            user_tz = timezone(cur_user.tz)
-        elif request.env.context["tz"]:
-            user_tz = timezone(request.env.context["tz"])
-        # Convert to UTC
-        dt_utc = utc.localize(datetime, is_dst=False)
-        # Convert to user TZ
-        dt_local = dt_utc.astimezone(user_tz)
-        # Add the number of days
-        newdt_local = dt_local + timedelta(days=days)
-        # If the newdt_local has cross the DST boundary, its tzinfo is
-        # no longer correct. So it will be replaced by the correct one.
-        newdt_local = user_tz.localize(newdt_local.replace(tzinfo=None))
-        # Now the newdt_local has the right DST so it can be converted
-        # to UTC.
-        newdt_utc = newdt_local.astimezone(utc)
-        return newdt_utc.replace(tzinfo=None)
 
     @http.route("/my/shift", auth="user", website=True)
     def my_shift(self, **kw):
@@ -510,15 +476,15 @@ class WebsiteShiftController(http.Controller):
             # Get current user
             partner = request.env["res.users"].browse(request.uid).partner_id
 
-        my_shifts = partner.sudo().get_next_shifts()
+        generated_shifts, planned_shifts = partner.sudo().get_next_shifts()
 
-        subscribed_shifts = []
-        for rec in my_shifts:
-            subscribed_shifts.append(rec)
+        subscribed_shifts = generated_shifts + planned_shifts
 
         return {
             "is_regular": self.is_user_regular(),
             "subscribed_shifts": subscribed_shifts,
+            # Translatable message
+            "too_late_unsubscribe_message": self.too_late_unsubscribe_message(),
         }
 
     def my_shift_past_shifts(self):
@@ -677,4 +643,10 @@ class WebsiteShiftController(http.Controller):
         return _(
             "Your subscription has failed. Someone subscribed before you "
             "or the shift was deleted. Try again in a moment."
+        )
+
+    def too_late_unsubscribe_message(self):
+        return _(
+            "It is too late to unsubscribe. If you can't attend your shift, "
+            "please contact the supercoop."
         )

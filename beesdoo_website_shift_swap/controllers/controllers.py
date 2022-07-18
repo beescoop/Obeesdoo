@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from itertools import groupby
 
 from werkzeug.exceptions import Forbidden
@@ -74,6 +74,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
     def exchange_already_exists_message(self):
         return _("You have already requested an exchange for this shift.")
 
+    def submit_exchange_request_message(self):
+        return _("Validate the exchange request with selected shifts")
+
     # Override /my/shift webpage controller
     @http.route("/my/shift", auth="user", website=True)
     def my_shift(self, **kw):
@@ -92,6 +95,11 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 template_context["request_solidarity"] = kw["request_solidarity"]
         else:
             template_context["solidarity_enabled"] = False
+
+        # Translatable text
+        template_context["solidarity_counter_too_low_message"] = _(
+            "Solidarity counter is too low. Requesting solidarity is unavailable."
+        )
 
         # Clear session
         if "template_id" in request.session:
@@ -361,6 +369,18 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         # Create new tmpl_dated
         my_tmpl_dated = self.new_tmpl_dated(template_id, date)
 
+        # Check if shift is not too close in time
+        min_hours_to_unsubscribe = int(
+            request.env["ir.config_parameter"]
+            .sudo()
+            .get_param("min_hours_to_unsubscribe")
+        )
+        delta = my_tmpl_dated.date - datetime.now()
+        delta = delta.seconds / 3600.0 + delta.days * 24
+        if delta < min_hours_to_unsubscribe:
+            request.session["error_message"] = self.too_late_unsubscribe_message()
+            return request.redirect("/my/shift")
+
         # Get next shifts
         display_all = False
         if "display_all" in request.session and request.session["display_all"]:
@@ -504,6 +524,10 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 {"worker_id": False, "is_regular": False, "is_compensation": False}
             )
             user.partner_id.cooperative_status_ids.sc -= 1
+            template = self.env["beesdoo.shift.template"].browse(template_id)
+            self.env["beesdoo.shift.exchange_request"].cancel_matching_requests(
+                user.partner_id, template, date
+            )
             request.session["success_message"] = _(
                 "You have been unsubscribed to this shift."
             )
@@ -551,6 +575,8 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         if "from_mail" in request.session:
             template_context["from_mail"] = request.session["from_mail"]
             del request.session["from_mail"]
+        elif not possible_matches:
+            return request.redirect("/my/shift/possible/match/no_result")
 
         return request.render(
             "beesdoo_website_shift_swap.website_shift_swap_possible_match",
@@ -643,19 +669,26 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             del request.session["date"]
             del request.session["possible_tmpl_dated_list"]
 
-            return request.redirect("/my/shift")
+            return request.redirect("/my/request")
 
         exchanged_tmpl_dated = self.new_tmpl_dated(template_id, date)
 
-        period = int(
+        day_limit_request_exchange = int(
+            request.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_shift.day_limit_request_exchange")
+        )
+        day_limit_ask_for_exchange = int(
             request.env["ir.config_parameter"]
             .sudo()
             .get_param("beesdoo_shift.day_limit_ask_for_exchange")
         )
+        start_date = datetime.now() + timedelta(days=day_limit_request_exchange)
+        end_date = datetime.now() + timedelta(days=day_limit_ask_for_exchange)
         next_tmpl_dated = (
             request.env["beesdoo.shift.template.dated"]
             .sudo()
-            .get_available_tmpl_dated(nb_days=period)
+            .get_available_tmpl_dated(start_date, end_date)
         )
 
         # Remove the already subscribed shifts
@@ -678,6 +711,8 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             {
                 "possible_tmpl_dated": possible_tmpl_dated,
                 "exchanged_tmpl_dated": exchanged_tmpl_dated,
+                # Adding the submit button text to enable translation
+                "submit_button_text": self.submit_exchange_request_message(),
             },
         )
 
@@ -765,6 +800,8 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             {
                 "possible_tmpl_dated": possible_tmpl_dated,
                 "exchanged_tmpl_dated": exchanged_tmpl_dated,
+                # Adding the submit button text to enable translation
+                "submit_button_text": self.submit_exchange_request_message(),
             },
         )
 
@@ -1195,24 +1232,19 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             return request.redirect("/my/shift")
 
         if regular:
-            tmpl_dated = self.new_tmpl_dated(template_id, date)
             can_request = request.env[
                 "beesdoo.shift.solidarity.request"
             ].check_solidarity_requests_number(
                 user.partner_id, datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
             )
         else:
-            tmpl_dated = False
             can_request = request.env[
                 "beesdoo.shift.solidarity.request"
             ].check_solidarity_requests_number(user.partner_id)
 
         if can_request:
             return request.render(
-                "beesdoo_website_shift_swap.website_shift_swap_request_solidarity",
-                {
-                    "tmpl_dated": tmpl_dated,
-                },
+                "beesdoo_website_shift_swap.website_shift_swap_request_solidarity"
             )
         else:
             # User has reached maximum amount of solidarity requests
@@ -1264,6 +1296,21 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 "You can't cancel this solidarity request."
             )
         return request.redirect("/my/shift")
+
+    @http.route("/mail/toggle/exchanges", auth="user", website=True)
+    def toggle_mail_exchange_subscription(self):
+        if not self.exchanges_enabled():
+            raise Forbidden("Shift exchanges are not enabled")
+
+        worker = request.env["res.users"].sudo().browse(request.uid).partner_id
+
+        is_subscribed = worker.subscribed_exchange_emails
+        worker.subscribed_exchange_emails = not is_subscribed
+
+        return request.render(
+            "beesdoo_website_shift_swap.website_shift_swap_toggle_email_exchanges",
+            {"is_subscribed": is_subscribed},
+        )
 
     def my_shift_next_shifts(self, partner=None):
         """

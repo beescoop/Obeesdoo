@@ -1,10 +1,11 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from odoo import _, api, fields, models
 
 
 class ExchangeRequest(models.Model):
     _name = "beesdoo.shift.exchange_request"
+    _inherit = ["beesdoo.shift.swap.mixin"]
     _description = "A model to track a shift exchange request"
 
     def _get_status(self):
@@ -23,26 +24,41 @@ class ExchangeRequest(models.Model):
             ("working_mode", "in", ("regular", "irregular")),
             ("state", "not in", ("unsubscribed", "resigning")),
         ],
-        string="worker",
+        string="Worker",
     )
 
     status = fields.Selection(selection=_get_status, default="no_match")
 
     exchanged_tmpl_dated_id = fields.Many2one(
-        "beesdoo.shift.template.dated", string="exchanged_tmpl_dated"
+        "beesdoo.shift.template.dated", string="Exchanged shift"
+    )
+
+    exchanged_template_date = fields.Datetime(
+        related="exchanged_tmpl_dated_id.date",
+        readonly=True,
     )
 
     asked_tmpl_dated_ids = fields.Many2many(
         comodel_name="beesdoo.shift.template.dated",
         relation="exchange_template_dated",
-        string="asked_tmpl_dated",
+        string="Asked shifts",
     )
 
-    exchange_id = fields.Many2one("beesdoo.shift.exchange", string="exchange")
+    exchange_id = fields.Many2one("beesdoo.shift.exchange", string="Exchange")
 
     validate_request_id = fields.Many2one(
-        "beesdoo.shift.exchange_request", string="validate_request"
+        "beesdoo.shift.exchange_request", string="Linked matching request"
     )
+
+    validate_date = fields.Datetime(
+        related="exchange_id.create_date",
+        string="Validated on",
+        readonly=True,
+    )
+
+    def get_validate_date(self):
+        self.ensure_one()
+        return self.validate_date
 
     @api.multi
     def name_get(self):
@@ -137,6 +153,8 @@ class ExchangeRequest(models.Model):
         Send a mail to all workers that are subscribed to a shift matching
         one of asked_tmpl_dated_ids to offer them the exchange
         """
+        # TODO : avoid sending them the email if they have been unsubscribed
+        # from the shift (due to an exchange or solidarity request for ex.)
         self.ensure_one()
         for asked_tmpl in self.asked_tmpl_dated_ids:
             for worker in asked_tmpl.template_id.worker_ids:
@@ -181,3 +199,37 @@ class ExchangeRequest(models.Model):
             self.status = "cancelled"
             return True
         return False
+
+    @api.model
+    def _warn_users_no_match(self):
+        day_limit_swap = int(
+            self.env["ir.config_parameter"].get_param("beesdoo_shift.day_limit_swap")
+        )
+        now = datetime.now()
+        date_limit_up = now + timedelta(days=day_limit_swap)
+        date_limit_down = now + timedelta(days=day_limit_swap - 1)
+        no_matches_requests = self.search(
+            [
+                ("status", "=", "no_match"),
+                ("exchanged_template_date", "<", date_limit_up),
+                ("exchanged_template_date", ">", date_limit_down),
+            ]
+        )
+        for request in no_matches_requests:
+            email_template = self.env.ref(
+                "beesdoo_shift_swap.email_template_warn_user_no_match", False
+            )
+            email_template.send_mail(request.id, False)
+
+    @api.model
+    def cancel_matching_requests(self, worker_id, template_id, date):
+        requests = self.search(
+            [
+                ("worker_id", "=", worker_id.id),
+                ("status", "not in", ["done", "cancelled"]),
+                ("exchanged_template_date", "=", date),
+            ]
+        )
+        for request in requests:
+            if request.exchanged_tmpl_dated_id.template_id == template_id:
+                request.cancel_exchange_request()

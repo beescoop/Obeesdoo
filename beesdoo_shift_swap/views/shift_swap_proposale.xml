@@ -9,8 +9,7 @@
         />
         <field name="arch" type="xml">
             <xpath expr="//header/button[@name='temporary_exempt']" position="after">
-
-                   <button
+                <button
                     name="coop_exchange"
                     string="Exchange your shift"
                     class="oe_highlight"
@@ -18,7 +17,6 @@
                     groups="beesdoo_shift.group_shift_management"
                     attrs="{'invisible': [('working_mode','!=','regular'),('state','!=','suspended'),('state','!=','resigning')]}"
                 />
-
             </xpath>
         </field>
     </record>
@@ -27,9 +25,9 @@
         <field name="name">Swap Shift Request</field>
         <field name="model">beesdoo.shift.exchange_request</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree create="false">
                 <field name="worker_id" />
-                <field name="create_date" />
+                <field name="exchanged_tmpl_dated_id" />
                 <field name="status" />
             </tree>
         </field>
@@ -41,7 +39,6 @@
         <field name="arch" type="xml">
             <search>
                 <field name="worker_id" />
-                <field name="create_date" />
                 <field name="status" />
                 <group expand="1" string="Group By">
                     <filter
@@ -59,7 +56,7 @@
         <field name="name">Shift swap request</field>
         <field name="model">beesdoo.shift.exchange_request</field>
         <field name="arch" type="xml">
-            <form>
+            <form create="false">
                 <header>
                     <button
                         name="coop_validate_exchange"
@@ -69,7 +66,6 @@
                         groups="beesdoo_shift.group_shift_management"
                         attrs="{'invisible': [('status','!=','has_match')]}"
                     />
-
                     <field name="status" widget="statusbar" />
                 </header>
                 <sheet>

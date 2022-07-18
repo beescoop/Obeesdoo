@@ -13,6 +13,7 @@ def float_to_time(f):
 
 class SolidarityShiftRequest(models.Model):
     _name = "beesdoo.shift.solidarity.request"
+    _inherit = ["beesdoo.shift.swap.mixin"]
     _description = "beesdoo.shift.solidarity.request"
 
     worker_id = fields.Many2one(
@@ -37,9 +38,12 @@ class SolidarityShiftRequest(models.Model):
         "beesdoo.shift.template.dated", string="Solidarity shift"
     )
 
-    reason = fields.Text(string="Reason", default="")
+    shift_date = fields.Datetime(
+        related="tmpl_dated_id.date",
+        readonly=True,
+    )
 
-    date = fields.Date(required=True, default=datetime.date(datetime.now()))
+    reason = fields.Text(string="Reason", default="")
 
     def create(self, vals_list):
         """
@@ -50,6 +54,9 @@ class SolidarityShiftRequest(models.Model):
         if res.worker_id.working_mode == "regular":
             res._unsubscribe_shift_if_generated()
         res.update_personal_counter()
+        self.env["beesdoo.shift.exchange_request"].cancel_matching_requests(
+            res.worker_id, res.tmpl_dated_id.template_id, res.tmpl_dated_id.date
+        )
         return res
 
     def _unsubscribe_shift_if_generated(self):
@@ -205,3 +212,20 @@ class SolidarityShiftRequest(models.Model):
         :return: Integer
         """
         return self.search_count([("state", "=", "validated")])
+
+    def update_shift_data(self, shift, swap_subscription_done):
+        """
+        See method info in model beesdoo.shift.swap.mixin
+        """
+        self.ensure_one()
+        done = False
+        if (
+            shift["worker_id"] == self.worker_id.id
+            and self.tmpl_dated_id
+            and shift["task_template_id"] == self.tmpl_dated_id.template_id.id
+            and shift["start_time"] == self.tmpl_dated_id.date
+        ):
+            shift["worker_id"] = False
+            shift["is_regular"] = False
+            done = True
+        return shift, swap_subscription_done, done

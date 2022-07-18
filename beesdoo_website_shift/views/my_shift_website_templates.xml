@@ -108,44 +108,51 @@
 
         <span
             t-if="shift.state == 'draft'"
-            t-attf-class="badge badge-default {{label_css}}"
+            t-attf-class="badge badge-default ml-1 {{label_css}}"
         >
             <t t-esc="shift.state" />
         </span>
 
         <span
             t-if="shift.state == 'done'"
-            t-attf-class="badge badge-success {{label_css}}"
+            t-attf-class="badge badge-success ml-1 {{label_css}}"
         >
             <t t-esc="shift.state" />
         </span>
 
         <span
             t-if="shift.state == 'absent_2'"
-            t-attf-class="badge badge-warning {{label_css}}"
+            t-attf-class="badge badge-warning ml-1 {{label_css}}"
         >
             <t t-esc="shift.state" />
         </span>
 
         <span
             t-if="shift.state == 'absent_1'"
-            t-attf-class="badge badge-info {{label_css}}"
+            t-attf-class="badge badge-info ml-1 {{label_css}}"
         >
             <t t-esc="shift.state" />
         </span>
 
         <span
             t-if="shift.state == 'absent_0'"
-            t-attf-class="badge badge-info {{label_css}}"
+            t-attf-class="badge badge-info ml-1 {{label_css}}"
         >
             <t t-esc="shift.state" />
         </span>
 
         <span
             t-if="shift.state == 'cancel'"
-            t-attf-class="badge badge-danger {{label_css}}"
+            t-attf-class="badge badge-danger ml-1 {{label_css}}"
         >
             <t t-esc="shift.state" />
+        </span>
+
+        <span
+            t-if="shift.is_compensation"
+            t-attf-class="badge badge-info ml-1 {{label_css}}"
+        >
+            compensation
         </span>
 
     </template>
@@ -175,7 +182,10 @@
             >
                 <div t-att-class="'card-header %s clearfix' % highlight_header_class">
                     <div class="pull-left">
-                        <span t-field="shift.start_time" />
+                        <span
+                            t-field="shift.start_time"
+                            t-options='{"format": "dd/MM/yyyy HH:mm"}'
+                        />
                         -
                         <span
                             t-field="shift.end_time"
@@ -198,20 +208,46 @@
                         <span class="fa fa-info" aria-hidden="true" />
                         Super Cooperator Info
                     </button>
-                    <button
-                        id="unsubscribe_button"
-                        type="button"
-                        class="btn btn-primary btn-sm ml-2 pull-right"
-                        data-toggle="modal"
-                        t-att-data-target="'#unsubscribe-shift-%s' % shift.id"
-                        t-if="shift.can_unsubscribe and ((shift.is_compensation and request.website.enable_unsubscribe_compensation) or (not shift.is_compensation and request.website.irregular_enable_unsubscribe))"
+                    <t
+                        t-if="((shift.is_compensation and request.website.enable_unsubscribe_compensation) or (not shift.is_compensation and request.website.irregular_enable_unsubscribe))"
                     >
-                        <span class="fa fa-user-plus" aria-hidden="true" />
-                        Unsubscribe
-                    </button>
+                        <t t-if="shift.can_unsubscribe">
+                            <button
+                                id="unsubscribe_button"
+                                type="button"
+                                class="btn btn-primary btn-sm ml-2 pull-right"
+                                data-toggle="modal"
+                                t-att-data-target="'#unsubscribe-shift-%s' % shift.id"
+                            >
+                                <span class="fa fa-user-plus" aria-hidden="true" />
+                                Unsubscribe
+                            </button>
+                        </t>
+                        <t
+                            t-elif="shift.state == 'open' and (shift.worker_id.working_mode == 'irregular' or shift.is_compensation) and not shift.check_hours_to_unsubscribe()"
+                        >
+                            <div
+                                id="unsubscribe_disabled_popover"
+                                class="d-inline-block pull-right"
+                                data-toggle="popover"
+                                data-placement="top"
+                                data-trigger="hover"
+                                t-att-data-content="'%s' % too_late_unsubscribe_message"
+                            >
+                                <button
+                                    id="disabled_unsubscribe_button"
+                                    class="btn btn-primary btn-sm ml-2 disabled pull-right"
+                                    style="pointer-events: none;"
+                                >
+                                    <span class="fa fa-user-plus" aria-hidden="true" />
+                                    Unsubscribe
+                                </button>
+                            </div>
+                        </t>
+                    </t>
                 </div>
             </div>
-            <t t-if="shift_last">
+            <t t-if="shift_last and shift_index >= shift_display_number">
                 <p>
                     <button
                         id="toggle_shifts_button"
@@ -292,7 +328,10 @@
                             </h4>
                         </div>
                         <div class="modal-body text-center">
-                            <span t-field="shift.start_time" />
+                            <span
+                                t-field="shift.start_time"
+                                t-options='{"format": "dd/MM/yyyy HH:mm"}'
+                            />
                             -
                             <span
                                 t-field="shift.end_time"
@@ -337,7 +376,10 @@
             <div t-att-class="'card mb-4 %s' % highlight_class">
                 <div t-att-class="'card-header %s clearfix' % highlight_header_class">
                     <div class="pull-left">
-                        <span t-field="shift.start_time" />
+                        <span
+                            t-field="shift.start_time"
+                            t-options='{"format": "dd/MM/yyyy HH:mm"}'
+                        />
                         -
                         <span
                             t-field="shift.end_time"
@@ -425,7 +467,10 @@
                         </h4>
                     </div>
                     <div class="modal-body text-center">
-                        <span t-field="shift.start_time" />
+                        <span
+                            t-field="shift.start_time"
+                            t-options='{"format": "dd/MM/yyyy HH:mm"}'
+                        />
                         -
                         <span
                             t-field="shift.end_time"
@@ -502,7 +547,10 @@
                         </h4>
                     </div>
                     <div class="modal-body text-center">
-                        <span t-field="shift.start_time" />
+                        <span
+                            t-field="shift.start_time"
+                            t-options='{"format": "dd/MM/yyyy HH:mm"}'
+                        />
                         -
                         <span
                             t-field="shift.end_time"
@@ -1166,19 +1214,23 @@
                         <h2 t-if="all_shifts">
                             Choose among all shifts
                         </h2>
-                        <h2 t-else="">
-                            Choose among underpopulated shifts
-                        </h2>
+                        <t t-else="">
+                            <h2>
+                                Choose among underpopulated shifts
+                            </h2>
+                            <h5>
+                                If you can't find a shift among these, please click here:
+                                <a
+                                    class="btn btn-primary btn-sm"
+                                    href="/shift/compensation?display_all=1"
+                                >
+                                    No shifts suits me
+                                </a>
+                            </h5>
+                        </t>
                         <t
                             t-call="beesdoo_website_shift.available_shift_compensation_grid"
                         />
-                        <a
-                            t-if="not all_shifts"
-                            class="btn btn-primary btn-block"
-                            href="/shift/compensation?display_all=1"
-                        >
-                            No shifts suits me
-                        </a>
                     </div>
                 </div>
             </div>

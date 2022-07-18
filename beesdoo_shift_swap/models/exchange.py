@@ -3,6 +3,7 @@ from odoo import api, fields, models
 
 class Exchange(models.Model):
     _name = "beesdoo.shift.exchange"
+    _inherit = ["beesdoo.shift.swap.mixin"]
     _description = "A module to track a shift exchange between two cooperators"
 
     first_request_id = fields.Many2one(
@@ -14,6 +15,7 @@ class Exchange(models.Model):
     )
 
     def search_shift_generated(self, request):
+        # TODO: move to model beesdoo.shift.exchange_request
         return self.env["beesdoo.shift.shift"].search(
             [
                 ("start_time", "=", request.exchanged_tmpl_dated_id.date),
@@ -65,6 +67,7 @@ class Exchange(models.Model):
         )
         exchange.second_request_id.write(
             {
+                "validate_request_id": exchange.first_request_id.id,
                 "exchange_id": exchange.id,
                 "status": "done",
             }
@@ -75,3 +78,28 @@ class Exchange(models.Model):
         template_rec.send_mail(exchange.first_request_id.id, False)
         template_rec.send_mail(exchange.second_request_id.id, False)
         return exchange
+
+    def update_shift_data(self, shift, swap_subscription_done):
+        """
+        See method info in model beesdoo.shift.swap.mixin
+        """
+        self.ensure_one()
+        if (
+            shift["worker_id"] == self.first_request_id.worker_id.id
+            and self.first_request_id.exchanged_tmpl_dated_id.template_id.id
+            == shift["task_template_id"]
+            and shift["start_time"]
+            == self.first_request_id.exchanged_tmpl_dated_id.date
+        ):
+            shift["worker_id"] = self.second_request_id.worker_id.id
+            shift["is_regular"] = True
+        if (
+            shift["worker_id"] == self.second_request_id.worker_id.id
+            and shift["task_template_id"]
+            == self.second_request_id.exchanged_tmpl_dated_id.template_id.id
+            and shift["start_time"]
+            == self.second_request_id.exchanged_tmpl_dated_id.date
+        ):
+            shift["worker_id"] = self.first_request_id.worker_id.id
+            shift["is_regular"] = True
+        return shift, swap_subscription_done, False

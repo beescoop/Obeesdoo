@@ -54,7 +54,7 @@
                         data-toggle="popover"
                         data-placement="top"
                         data-trigger="hover"
-                        data-content="Solidarity counter is too low. Requesting solidarity is unavailable."
+                        t-att-data-content="'%s' % solidarity_counter_too_low_message"
                     >
                         <button
                             type="button"
@@ -110,6 +110,7 @@
                                     Select a future shift
                                 </a>
                                 <a
+                                    t-if="0 > status.sr + status.sc"
                                     class="btn btn-success"
                                     href="/my/shift/solidarity/request/past"
                                 >
@@ -394,6 +395,10 @@
                                     t-set="shift_by_week"
                                     t-value="shift_week_tuple[1]"
                                 />
+                                <t
+                                    t-set="week_count"
+                                    t-value="shift_week_tuple_index"
+                                />
                             </t>
                         </div>
                     </div>
@@ -465,21 +470,6 @@
                     </div>
                     <div class="row">
                         <div class="col-12 col-lg-6 m-auto text-justify">
-                            <p t-if="tmpl_dated">
-                                <label
-                                    class="font-weight-bold"
-                                >Non realisable shift :</label>
-                                <t t-esc="tmpl_dated.template_id.day_nb_id.name" />
-                                <t t-esc="tmpl_dated.date.strftime('%d/%m, %Y')" />
-                                <t t-esc="'|'" />
-                                <t
-                                    t-esc="str(datetime.timedelta(hours=tmpl_dated.template_id.start_time)).rsplit(':', 1)[0]"
-                                />
-                                -
-                                <t
-                                    t-esc="str(datetime.timedelta(hours=tmpl_dated.template_id.end_time)).rsplit(':', 1)[0]"
-                                />
-                            </p>
                             <t
                                 t-call="beesdoo_website_shift_swap.website_shift_swap_request_solidarity_form"
                             />

@@ -4,6 +4,28 @@
         <field name="model">beesdoo.shift.subscribe.shift.exchange</field>
         <field name="arch" type="xml">
             <form>
+                <p>
+                    <strong>How to use :</strong>
+                    <ul>
+                        <li>Select a shift to exchange ("Exchanged shift" box)</li>
+                        <li>
+                            Check if some exchange requests appear in the "Possible match" box.
+                            If this is the case, you can select one and click on "Confirm" to accept the exchange.
+                        </li>
+                        <li
+                        >Otherwise, select one or more shifts to ask for exchange ("Asked shifts" box)</li>
+                        <li
+                        >You can check again if other requests match your request</li>
+                        <li>
+                            If there are no possible match or if you are not interested in them,
+                            you can click on "Confirm" without filling the "Possible match" box to create an exchange request
+                        </li>
+                        <li>
+                            If you want, you can send a mail to all the cooperators working on the "Asked shifts"
+                            by clicking on the "Confirm and contact involved coop by email" button instead of the "Confirm" one
+                        </li>
+                    </ul>
+                </p>
                 <group>
                     <field name="worker_id" />
                     <field name="exchanged_tmpl_dated_id" />
@@ -11,19 +33,20 @@
                     <field name="possible_match" />
                 </group>
                 <footer>
-                    <button
-                        type="object"
-                        name="make_change"
-                        string="Confirm"
-                        class="oe_highlight"
-                    />
-                    or
                     <button special="cancel" string="Cancel" />
                     or
                     <button
                         type="object"
-                        name="contact_coop_same_day_same_hour"
-                        string="Contact coop of other week"
+                        name="request_exchange"
+                        string="Confirm"
+                        class="oe_highlight"
+                    />
+                    or
+                    <button
+                        type="object"
+                        name="contact_coop"
+                        string="Confirm and contact involved coop by email"
+                        class="oe_highlight"
                     />
                 </footer>
             </form>

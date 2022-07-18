@@ -13,9 +13,10 @@
                 ${(object.exchanged_tmpl_dated_id.template_id.super_coop_id or '')}
             </field>
             <field name="subject">Exchange validation</field>
+            <field name="lang">${object.worker_id.lang}</field>
             <field name="body_html">
                 <![CDATA[
-                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                <div style="font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
                     Hello ${(object.worker_id.name)},
                     <br/><br/>
                     <p>
@@ -48,11 +49,13 @@
             <field name="name">Contact Coop Same days of the week same hours</field>
             <field name="model_id" ref="beesdoo_shift_swap.model_res_partner" />
             <field name="auto_delete" eval="False" />
+            <field name="partner_to">${ctx.get('partner_to').id}</field>
             <field name="subject">Exchange request</field>
+            <field name="lang">${ctx.get('partner_to').lang}</field>
             <field name="body_html">
                 <![CDATA[
-                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
-                    Hello ${ctx.get('worker_id').name},
+                <div style="font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    Hello ${ctx.get('partner_to').name},
                     <br/><br/>
                     <p>
                         A cooperator working on the shift : ${ctx.get('my_tmpl_dated').template_id.name}, ${ctx.get('my_tmpl_dated').date.date()}, ${ctx.get('my_tmpl_dated').template_id.task_type_id.name}<br/>
@@ -66,6 +69,10 @@
                     </p>
                     <br/><br/>
                     Regards,
+                    <br/><br/>
+                    <p class="text-center" style="font-size: 10px;">
+                        You can unsubscribe from these emails on <a href="/my/home">your account page</a> or directly by clicking here: <a href="/mail/toggle/exchanges">Unsubscribe</a>
+                    </p>
                 </div>
                 ]]>
             </field>
@@ -81,9 +88,10 @@
             <field name="auto_delete" eval="False" />
             <field name="partner_to">${object.worker_id.id}</field>
             <field name="subject">Match with your exchange request !</field>
+            <field name="lang">${object.worker_id.lang}</field>
             <field name="body_html">
                 <![CDATA[
-                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                <div style="font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
                     Hello ${(object.worker_id.name)},
                     <br/><br/>
                     <p>
@@ -115,9 +123,10 @@
             <field name="partner_to">${ctx.get('partner_to').id}</field>
             <field name="auto_delete" eval="False" />
             <field name="subject">Confirm your planned exchange</field>
+            <field name="lang">${ctx.get('partner_to').lang}</field>
             <field name="body_html">
                 <![CDATA[
-                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                <div style="font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
                     Hello ${ctx.get('partner_to').name},
                     <br/><br/>
                     <p>
@@ -151,9 +160,10 @@
             <field name="partner_to">${object.worker_id.id}</field>
             <field name="auto_delete" eval="False" />
             <field name="subject">You exchange request has been cancelled</field>
+            <field name="lang">${object.worker_id.lang}</field>
             <field name="body_html">
                 <![CDATA[
-                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                <div style="font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
                     Hello ${object.worker_id.name},
                     <br/><br/>
                     <p>
@@ -162,6 +172,40 @@
                     </p>
                     <p>
                         Please feel free to create a new request if you still want to exchange your shift.
+                    </p>
+                    <br/><br/>
+                    Regards,
+                </div>
+                ]]>
+            </field>
+        </record>
+
+        <!-- Contact coop if no match has been found for his/her exchange request -->
+        <record id="email_template_warn_user_no_match" model="mail.template">
+            <field
+                name="name"
+            >Contact coop if no match has been found for his/her exchange request</field>
+            <field
+                name="model_id"
+                ref="beesdoo_shift_swap.model_beesdoo_shift_exchange_request"
+            />
+            <field name="partner_to">${object.worker_id.id}</field>
+            <field name="auto_delete" eval="False" />
+            <field
+                name="subject"
+            >No match has been found for your exchange request</field>
+            <field name="lang">${object.worker_id.lang}</field>
+            <field name="body_html">
+                <![CDATA[
+                <div style="font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    Hello ${object.worker_id.name},
+                    <br/><br/>
+                    <p>
+                        You are receiving this email because no match has been found for your exchange request, and the shift that you want
+                        to exchange is getting closer. To avoid missing it, you can now swap it with an underpopulated one.
+                    </p>
+                    <p>
+                        If you wish to do so, please <a href="/my/shift/swaping/${object.exchanged_tmpl_dated_id.template_id.id}/${object.exchanged_tmpl_dated_id.date.strftime('%Y-%m-%d %H:%M:%S')}">click here</a>.
                     </p>
                     <br/><br/>
                     Regards,

@@ -25,9 +25,10 @@
         <field name="name">Swap Shift</field>
         <field name="model">beesdoo.shift.swap</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree create="false">
                 <field name="worker_id" />
-                <field name="date" />
+                <field name="exchanged_tmpl_dated_id" />
+                <field name="wanted_tmpl_dated_id" />
             </tree>
         </field>
     </record>
@@ -37,14 +38,14 @@
         <field name="name">Shift swap</field>
         <field name="model">beesdoo.shift.swap</field>
         <field name="arch" type="xml">
-            <form>
+            <form create="false">
                 <header>
                     <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
                     <group name="group_top">
                         <field name="worker_id" />
-                        <field name="date" />
+                        <field name="create_date" />
                         <group name="group_left">
                             <field name="exchanged_tmpl_dated_id" />
                         </group>

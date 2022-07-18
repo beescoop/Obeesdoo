@@ -73,7 +73,6 @@ class SubscribeShiftAsSolidarity(models.TransientModel):
             {
                 "template_id": shift.task_template_id.id,
                 "date": shift.start_time,
-                "store": False,
             }
         )
         data = {

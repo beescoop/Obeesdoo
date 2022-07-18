@@ -98,8 +98,6 @@ class Task(models.Model):
 
     def _compute_can_unsubscribe(self):
         now = datetime.now()
-        ICP = self.env["ir.config_parameter"].sudo()
-        min_hours = int(ICP.get_param("min_hours_to_unsubscribe", 2))
         for rec in self:
             if (
                 rec.start_time > now
@@ -109,11 +107,18 @@ class Task(models.Model):
                     or rec.is_compensation
                 )
             ):
-                delta = rec.start_time - now
-                delta = delta.seconds / 3600.0 + delta.days * 24
-                rec.can_unsubscribe = delta >= min_hours
+                rec.can_unsubscribe = rec.check_hours_to_unsubscribe()
             else:
                 rec.can_unsubscribe = False
+
+    def check_hours_to_unsubscribe(self):
+        self.ensure_one()
+        min_hours = int(
+            self.env["ir.config_parameter"].sudo().get_param("min_hours_to_unsubscribe")
+        )
+        delta = self.start_time - datetime.now()
+        delta = delta.seconds / 3600.0 + delta.days * 24
+        return delta >= min_hours
 
     @api.constrains("state")
     def _lock_future_task(self):
