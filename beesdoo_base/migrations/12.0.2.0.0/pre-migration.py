@@ -52,21 +52,8 @@ renamed_view_xml_ids = (
     ),
 )
 
-modules_to_install = [
-    "member_card",
-    "eater",
-    "eater_member_card",
-]
-
 
 @openupgrade.migrate()
 def migrate(env, version):
     _logger.info("renaming view xml ids")
     openupgrade.rename_xmlids(env.cr, renamed_view_xml_ids)
-
-    for module in modules_to_install:
-        module_ids = env["ir.module.module"].search(
-            [("name", "=", module), ("state", "=", "uninstalled")]
-        )
-        if module_ids:
-            module_ids.button_install()
