@@ -12,6 +12,9 @@
     "category": "Sales",
     "version": "12.0.1.0.0",
     "depends": ["point_of_sale", "purchase", "partner_firstname"],
+    "external_dependencies": {
+        "python": ["openupgradelib"],
+    },
     "data": [
         "views/partner.xml",
         "wizard/views/partner.xml",
