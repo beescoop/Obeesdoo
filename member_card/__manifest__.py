@@ -20,6 +20,6 @@
         "views/partner.xml",
     ],
     "installable": True,
-    "demo": ["demo/cooperators.xml", "demo/eaters.xml"],
+    "demo": ["demo/cooperators.xml"],
     "license": "AGPL-3",
 }
