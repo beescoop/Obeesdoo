@@ -1,0 +1,138 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* member_card
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: member_card
+#: model:ir.model.fields,field_description:member_card.field_res_partner__barcode
+#: model:ir.model.fields,field_description:member_card.field_res_users__barcode
+msgid "Barcode"
+msgstr ""
+
+#. module: member_card
+#: model:res.groups,name:member_card.group_force_barcode
+msgid "Bees Card Force Barcode"
+msgstr ""
+
+#. module: member_card
+#: model:ir.actions.report,name:member_card.report_beescard_cm
+msgid "Beescaard"
+msgstr ""
+
+#. module: member_card
+#: model_terms:ir.ui.view,arch_db:member_card.MemberCard Wizard
+#: model_terms:ir.ui.view,arch_db:member_card.membercard_set_as_printed_wizard
+#: model_terms:ir.ui.view,arch_db:member_card.printing_membercard_request_wizard
+msgid "Cancel"
+msgstr ""
+
+#. module: member_card
+#: model_terms:ir.ui.view,arch_db:member_card.beesdoo_partner_form_view
+msgid "Cards"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model,name:member_card.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: member_card
+#: model_terms:ir.ui.view,arch_db:member_card.MemberCard Wizard
+msgid "Create"
+msgstr ""
+
+#. module: member_card
+#: model_terms:ir.ui.view,arch_db:member_card.beescard_template_cm
+msgid "Embedded Image"
+msgstr ""
+
+#. module: member_card
+#: model_terms:ir.ui.view,arch_db:member_card.beescard_template_cm
+msgid "En cas de perte,\n"
+"                                    prévenez-nous via\n"
+"                                    membre@bees-coop.be"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model,name:member_card.model_member_card
+#: model:ir.model,name:member_card.model_membercard_new_wizard
+#: model_terms:ir.ui.view,arch_db:member_card.beesdoo_partner_form_view
+msgid "Member Card"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model,name:member_card.model_membercard_requestprinting_wizard
+msgid "Member Card - Request Print Wizard"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model,name:member_card.model_membercard_set_as_printed_wizard
+msgid "Member card - Set as printed wizard"
+msgstr ""
+
+#. module: member_card
+#: model_terms:ir.ui.view,arch_db:member_card.beesdoo_partner_form_view
+msgid "New Card"
+msgstr ""
+
+#. module: member_card
+#: model:ir.actions.act_window,name:member_card.action_membercard_wizard
+msgid "New Member Card"
+msgstr ""
+
+#. module: member_card
+#: model_terms:ir.ui.view,arch_db:member_card.MemberCard Wizard
+msgid "Reason"
+msgstr ""
+
+#. module: member_card
+#: model:ir.actions.act_window,name:member_card.member_card_action_request_membercard_printing
+msgid "Request BEES card printing"
+msgstr ""
+
+#. module: member_card
+#: model_terms:ir.ui.view,arch_db:member_card.printing_membercard_request_wizard
+msgid "Request Member Card Printing"
+msgstr ""
+
+#. module: member_card
+#: model_terms:ir.ui.view,arch_db:member_card.printing_membercard_request_wizard
+msgid "Request Printing for"
+msgstr ""
+
+#. module: member_card
+#: model:ir.actions.act_window,name:member_card.member_card_action_set_membercard_as_printed
+msgid "Set BEES card as printed"
+msgstr ""
+
+#. module: member_card
+#: model_terms:ir.ui.view,arch_db:member_card.membercard_set_as_printed_wizard
+msgid "Set as Printed"
+msgstr ""
+
+#. module: member_card
+#: model_terms:ir.ui.view,arch_db:member_card.membercard_set_as_printed_wizard
+msgid "Set as Printed for"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model.fields,help:member_card.field_res_partner__barcode
+#: model:ir.model.fields,help:member_card.field_res_users__barcode
+msgid "Use a barcode to identify this contact from the Point of Sale."
+msgstr ""
+
+#. module: member_card
+#: model_terms:ir.ui.view,arch_db:member_card.beescard_template_cm
+msgid "www.bees-coop.be"
+msgstr ""
+
