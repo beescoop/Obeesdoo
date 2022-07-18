@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-23 14:54+0000\n"
-"PO-Revision-Date: 2022-06-23 14:54+0000\n"
+"POT-Creation-Date: 2022-07-18 07:36+0000\n"
+"PO-Revision-Date: 2022-07-18 07:36+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -108,8 +108,8 @@ msgid " is already assigned to "
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/task.py:166
-#: code:addons/beesdoo_shift/models/task.py:224
+#: code:addons/beesdoo_shift/models/task.py:171
+#: code:addons/beesdoo_shift/models/task.py:229
 #, python-format
 msgid "'Now' must be a datetime."
 msgstr ""
@@ -1205,7 +1205,7 @@ msgid "Main Attachment"
 msgstr "Pièce jointe principale"
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/res_partner.py:123
+#: code:addons/beesdoo_shift/models/res_partner.py:125
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.super_coop_partner_inherited_view_form
 #, python-format
 msgid "Manual Extension"
@@ -1452,8 +1452,8 @@ msgstr "Présent"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,field_description:beesdoo_shift.field_res_users_member_card_to_be_printed
-msgid "Print BEES card?"
-msgstr "Imprimer la carte ?"
+msgid "Print Member card?"
+msgstr ""
 
 #. module: beesdoo_shift
 #: model:res.groups,comment:beesdoo_shift.group_shift_attendance
@@ -1471,7 +1471,7 @@ msgid "Recurring Workers"
 msgstr "Travailleurs réguliers"
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/res_partner.py:141
+#: code:addons/beesdoo_shift/models/res_partner.py:143
 #, python-format
 msgid "Register Holiday"
 msgstr ""
@@ -1612,7 +1612,7 @@ msgid "Shift period"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/task.py:123
+#: code:addons/beesdoo_shift/models/task.py:128
 #, python-format
 msgid "Shift state of a future shift can't be set to 'present' or 'absent'."
 msgstr "Vous ne pouvez inscrire un shift futur comme 'present' ou 'absent'."
@@ -1686,7 +1686,7 @@ msgid "Status:"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/res_partner.py:106
+#: code:addons/beesdoo_shift/models/res_partner.py:108
 #, python-format
 msgid "Subscribe Cooperator"
 msgstr ""
@@ -1775,7 +1775,7 @@ msgid "Temporary Exempt Start Date"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/res_partner.py:152
+#: code:addons/beesdoo_shift/models/res_partner.py:154
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.coop_status_form_view
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.super_coop_partner_inherited_view_form
 #, python-format
@@ -1815,7 +1815,7 @@ msgid "Too many workers"
 msgstr "Trop de travailleurs"
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/res_partner.py:135
+#: code:addons/beesdoo_shift/models/res_partner.py:137
 #, python-format
 msgid "Trigger Grace Delay"
 msgstr ""
@@ -1901,11 +1901,6 @@ msgstr "Valeur"
 #: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_sheet_validate__barcode_scanned
 msgid "Value of the last barcode scanned."
 msgstr "Valeur du dernier code-barres scanné"
-
-#. module: beesdoo_shift
-#: sql_constraint:cooperative.status:0
-msgid "Vous ne pouvez assigner qu'un statut de coopérateur par coopérateur"
-msgstr ""
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_subscribe__resigning
@@ -2014,7 +2009,7 @@ msgid "Working mode"
 msgstr "Régime de travail"
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/task.py:355
+#: code:addons/beesdoo_shift/models/task.py:360
 #, python-format
 msgid "Working mode is not properly defined. Please check if the worker is subscribed "
 msgstr ""
@@ -2028,6 +2023,7 @@ msgstr ""
 
 #. module: beesdoo_shift
 #: code:addons/beesdoo_shift/models/cooperative_status.py:186
+#: sql_constraint:cooperative.status:0
 #, python-format
 msgid "You can only set one cooperator status per cooperator"
 msgstr "Vous ne pouvez assigner qu'un statut de coopérateur par coopérateur"
@@ -2039,7 +2035,7 @@ msgid "You cannot assign more workers than the maximal number defined on templat
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/task.py:337
+#: code:addons/beesdoo_shift/models/task.py:342
 #, python-format
 msgid "You cannot change to the status %s if no worker is defined for the shift "
 msgstr ""
