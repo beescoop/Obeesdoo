@@ -113,7 +113,13 @@ class Planning(models.Model):
         config.set_param("next_planning_date", next_date)
 
     @api.model
-    def get_future_shifts(self, end_date, start_date=datetime.now(), worker_id=None):
+    def get_future_shifts(
+        self,
+        end_date,
+        start_date=datetime.now(),
+        worker_id=None,
+        include_cancelled=True,
+    ):
         """
         Calculates shifts between start_date and end_date without
         storing them in the database.
@@ -126,6 +132,8 @@ class Planning(models.Model):
         shift_domain = [("start_time", ">", start_date.strftime("%Y-%m-%d %H:%M:%S"))]
         if worker_id:
             shift_domain.append(("worker_id", "=", worker_id.id))
+        if not include_cancelled:
+            shift_domain.append(("state", "!=", "cancel"))
 
         existing_shift_list = list(
             self.env["beesdoo.shift.shift"]
