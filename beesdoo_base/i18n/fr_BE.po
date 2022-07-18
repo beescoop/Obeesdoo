@@ -292,8 +292,8 @@ msgstr "Request BEES card printing"
 
 #. module: beesdoo_base
 #: model_terms:ir.ui.view,arch_db:beesdoo_base.printing_membercard_request_wizard
-msgid "Request Beescard Printing"
-msgstr "Request Beescard Printing"
+msgid "Request Member Card Printing"
+msgstr ""
 
 #. module: beesdoo_base
 #: model_terms:ir.ui.view,arch_db:beesdoo_base.printing_membercard_request_wizard

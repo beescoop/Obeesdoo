@@ -20,17 +20,9 @@ class Partner(models.Model):
     parent_eater_id = fields.Many2one(
         "res.partner", string="Parent Worker", readonly=True
     )
-    barcode = fields.Char(compute="_compute_bar_code", string="Barcode", store=True)
     parent_barcode = fields.Char(
-        compute="_compute_bar_code", string="Parent Barcode", store=True
+        compute="_compute_parent_bar_code", string="Parent Barcode", store=True
     )
-    member_card_ids = fields.One2many("member.card", "partner_id")
-    country_id = fields.Many2one(
-        required=True, default=lambda self: self.env.ref("base.be")
-    )
-
-    member_card_to_be_printed = fields.Boolean("Print BEES card?")
-    last_printed = fields.Datetime("Last printed on")
     cooperator_type = fields.Selection(
         [
             ("share_a", "Share A"),
@@ -40,22 +32,20 @@ class Partner(models.Model):
         store=True,
         compute=None,
     )
+    country_id = fields.Many2one(
+        required=True, default=lambda self: self.env.ref("base.be")
+    )
 
     @api.multi
     @api.depends(
         "parent_eater_id",
         "parent_eater_id.barcode",
         "eater",
-        "member_card_ids",
     )
-    def _compute_bar_code(self):
+    def _compute_parent_bar_code(self):
         for partner in self:
             if partner.eater == "eater":
                 partner.parent_barcode = partner.parent_eater_id.barcode
-            elif partner.member_card_ids:
-                for c in partner.member_card_ids:
-                    if c.valid:
-                        partner.barcode = c.barcode
 
     @api.multi
     @api.constrains("child_eater_ids", "parent_eater_id")
@@ -107,24 +97,6 @@ class Partner(models.Model):
                 if command[0] == 2:
                     command[0] = 3
         return super(Partner, self).write(values)
-
-    @api.multi
-    def _deactivate_active_cards(self):
-        self.ensure_one()
-        for card in self.member_card_ids.filtered("valid"):
-            card.valid = False
-            card.end_date = fields.Date.today()
-
-    @api.multi
-    def _new_card(self, reason, user_id, barcode=False):
-        card_data = {
-            "partner_id": self.id,
-            "responsible_id": user_id,
-            "comment": reason,
-        }
-        if barcode:
-            card_data["barcode"] = barcode
-        self.env["member.card"].create(card_data)
 
     @api.multi
     def _new_eater(self, surname, name, email):
