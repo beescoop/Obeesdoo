@@ -318,9 +318,15 @@
                     />
                 </form>
             </p>
+            <p t-if="same_timeslot" class="text-center">
+                <a
+                    class="btn btn-primary"
+                    href="/my/shift/possible/shift"
+                >No shifts suits me</a>
+            </p>
         </template>
 
-        <!-- Template for page /my/shift/possible/shift -->
+        <!-- Template for page /my/shift/possible/shift and /my/shift/select/same_timeslot -->
         <template
             id="website_shift_swap_possible_tmpl_dated"
             name="Shift Swap possible tmpl_dated Page"
