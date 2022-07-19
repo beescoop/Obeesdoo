@@ -203,7 +203,9 @@ class ExchangeRequest(models.Model):
     @api.model
     def _warn_users_no_match(self):
         day_limit_swap = int(
-            self.env["ir.config_parameter"].get_param("beesdoo_shift.day_limit_swap")
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_shift.day_limit_swap")
         )
         now = datetime.now()
         date_limit_up = now + timedelta(days=day_limit_swap)
