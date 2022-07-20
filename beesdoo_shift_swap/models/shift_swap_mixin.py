@@ -14,7 +14,7 @@ class ShiftSwapMixin(models.AbstractModel):
         """
         Update shift informations with object data
         :param shift: a dict containing data for one shift
-        :param swap_subscription_done: Boolean
+        :param swap_subscription_done: beesdoo.shift.swap id list
         :return: dict, beesdoo.shift.swap ids list, Boolean
         """
         raise MissingError(_("Not implemented"))

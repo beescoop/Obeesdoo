@@ -38,7 +38,7 @@ class TaskTemplate(models.Model):
             + list(solidarity_requests)
         )
 
-        # Sort changes by creation date to evaluate them in the correct order
+        # Sort changes by validation date to evaluate them in the correct order
         changes.sort(key=lambda x: x.get_validate_date())
 
         swap_subscription_done = []
