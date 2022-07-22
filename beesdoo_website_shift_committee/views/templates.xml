@@ -1,0 +1,167 @@
+<odoo>
+    <data>
+
+        <template
+            id="request_committee_shift_button"
+            name="Button to request a committee shift"
+            inherit_id="beesdoo_website_shift.my_shift_regular_worker"
+        >
+            <xpath
+                expr="//t[@t-call='beesdoo_website_shift.help_text_info']"
+                position="before"
+            >
+                <p>
+                    <button
+                        type="button"
+                        class="btn btn-primary btn-sm"
+                        data-toggle="modal"
+                        data-target="#request_committee_modal"
+                    >
+                        Request a compensation for your work in a committee
+                    </button>
+                    <div
+                        class="modal fade"
+                        id="request_committee_modal"
+                        tabindex="-1"
+                        aria-labelledby="request_committee_modal_label"
+                        aria-hidden="true"
+                    >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5
+                                        class="modal-title"
+                                        id="request_committee_modal_label"
+                                    >Request a compensation for your work in a committee</h5>
+                                    <button
+                                        type="button"
+                                        class="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close"
+                                    >
+                                        <span><![CDATA[&times;]]></span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    *Explanatory text committee shift*
+                                </div>
+                                <div class="modal-footer">
+                                    <button
+                                        type="button"
+                                        class="btn btn-danger"
+                                        data-dismiss="modal"
+                                    >Cancel</button>
+                                    <a
+                                        class="btn btn-success"
+                                        href="/my/shift?request_committee=1"
+                                    >Make a request</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </p>
+            </xpath>
+        </template>
+
+        <template
+            id="committee_shift_button"
+            name="Committee shift button"
+            inherit_id="beesdoo_website_shift.my_shift_next_shifts"
+        >
+            <xpath expr="//div[hasclass('card-body', 'clearfix')]" position="inside">
+                <t t-if="request_committee and shift.id">
+                    <a
+                        class="btn btn-secondary btn-sm ml-2 pull-right"
+                        t-att-href="'/my/shift/request/committee/%i' % shift.id"
+                    >
+                        Request unsubscription
+                    </a>
+                </t>
+            </xpath>
+        </template>
+
+        <!-- Template for page /my/shift/request/committee -->
+        <template id="request_committee_shift" name="Request a committee shift">
+            <t t-call="portal.portal_layout">
+                <t t-set="no_breadcrumbs" t-value="True" />
+                <div class="container mt16">
+                    <div class="row">
+                        <div class="col text-center">
+                            <h2
+                                class="text-center"
+                            >Request a compensation for your work in a committee</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6 m-auto text-justify">
+                            <form method="POST">
+                                <div class="form-group">
+                                    <label
+                                        for="reason"
+                                    >Please motivate your request:</label>
+                                    <textarea
+                                        class="form-control"
+                                        name="reason"
+                                        rows="5"
+                                    />
+                                </div>
+                                <button
+                                    type="submit"
+                                    class="btn btn-success"
+                                >Validate request</button>
+                                <a href="/my/shift" class="btn btn-danger">Cancel</a>
+                                <input
+                                    type="hidden"
+                                    name="csrf_token"
+                                    t-att-value="request.csrf_token()"
+                                />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- Validation success -->
+        <template
+            id="validate_request_success"
+            name="Success message after validating the request"
+        >
+            <t t-call="portal.portal_layout">
+                <t t-set="no_breadcrumbs" t-value="True" />
+                <div class="container mt16">
+                    <div class="row">
+                        <div class="col text-center">
+                            <div class="alert alert-success">
+                                <strong>Success!</strong>
+                                The request has been accepted and the worker has been notified by email.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- Validation error -->
+        <template
+            id="validate_request_error"
+            name="Error message when validating the request"
+        >
+            <t t-call="portal.portal_layout">
+                <t t-set="no_breadcrumbs" t-value="True" />
+                <div class="container mt16">
+                    <div class="row">
+                        <div class="col text-center">
+                            <div class="alert alert-danger">
+                                <strong>Error!</strong>
+                                The request could not be validated. Please check that the shift
+                                is not in the past and has not been deleted.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>
