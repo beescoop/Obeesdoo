@@ -11,7 +11,7 @@
             <xpath expr="//header/button[@name='temporary_exempt']" position="after">
                 <button
                     name="coop_swap"
-                    string="Swap to underpopulated shift"
+                    string="Swap to empty shift"
                     class="oe_highlight"
                     type="object"
                     groups="beesdoo_shift.group_shift_management"
