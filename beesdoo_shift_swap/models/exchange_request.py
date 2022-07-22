@@ -64,7 +64,7 @@ class ExchangeRequest(models.Model):
     def name_get(self):
         data = []
         for request in self:
-            display_name = "Worker : %s,\nExchanged shift : %s %s" % (
+            display_name = "Worker : %s, Exchanged shift : %s %s" % (
                 str(request.worker_id.name),
                 str(request.exchanged_tmpl_dated_id.template_id.name),
                 fields.Date.to_string(request.exchanged_tmpl_dated_id.date),
