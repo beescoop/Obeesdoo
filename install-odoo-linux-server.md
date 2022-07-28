@@ -49,7 +49,7 @@
 ##### 10) Installer wkhtml to pdf 0.12.5 !! (pas une autre) (sur une machine 64 bit avec un ubuntu 64bit 18.04)
 
     # apt-get install fontconfig  libfontconfig1 libxrender1 fontconfig-config
-    # wget https://downloads.wkhtmltopdf.org/0.12/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb 
+    # wget https://downloads.wkhtmltopdf.org/0.12/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb
     # dpkg -i wkhtmltox-0.12.5_linux-trusty-amd64.deb
     # cd /usr/local/bin/
     # cp wkhtmltoimage /usr/bin/wkhtmltoimage
