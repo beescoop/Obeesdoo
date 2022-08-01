@@ -1,1 +1,1 @@
-Adds a responsible, a max shipping date and a button to copy quantity to stock pickings.
+Restrict selectable products to those sold as main supplier by the picking partner.

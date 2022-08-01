@@ -6,14 +6,18 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Beesdoo Inventory",
-    "summary": """
-        Adds a responsible, a max shipping date and a button to copy quantity to
-        stock pickings.""",
+    "summary": "Restrict selectable products to those"
+    " sold as main supplier by the picking partner.",
     "author": "Beescoop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Inventory",
-    "version": "12.0.1.0.1",
-    "depends": ["delivery", "beesdoo_base", "beesdoo_product"],
+    "version": "12.0.3.0.1",
+    "depends": [
+        "stock",
+        "beesdoo_product",  # for field main_seller_id
+        "stock_picking_responsible",
+        "stock_move_line_auto_fill",
+    ],
     "data": ["views/stock.xml"],
     "installable": True,
     "license": "AGPL-3",
