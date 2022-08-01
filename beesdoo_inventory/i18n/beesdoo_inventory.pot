@@ -1,6 +1,5 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* beesdoo_inventory
 #
 msgid ""
 msgstr ""
@@ -12,29 +11,4 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: beesdoo_inventory
-#: model_terms:ir.ui.view,arch_db:beesdoo_inventory.beesdoo_stock_form_view
-msgid "Copy Move Line Quantity"
-msgstr ""
-
-#. module: beesdoo_inventory
-#: model:ir.model.fields,field_description:beesdoo_inventory.field_stock_picking__max_shipping_date
-msgid "End Shipping Date"
-msgstr ""
-
-#. module: beesdoo_inventory
-#: model_terms:ir.ui.view,arch_db:beesdoo_inventory.beesdoo_stock_form_view
-msgid "Max shipping date"
-msgstr ""
-
-#. module: beesdoo_inventory
-#: model:ir.model.fields,field_description:beesdoo_inventory.field_stock_picking__responsible
-msgid "Responsible"
-msgstr ""
-
-#. module: beesdoo_inventory
-#: model:ir.model,name:beesdoo_inventory.model_stock_picking
-msgid "Transfer"
-msgstr ""
 
