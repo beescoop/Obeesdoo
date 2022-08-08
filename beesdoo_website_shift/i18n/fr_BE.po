@@ -436,7 +436,7 @@ msgstr "Prochaine date de décompte :"
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.choose_compensation_shift
-msgid "No shifts suits me"
+msgid "No shift suits me"
 msgstr "Aucun shift ne me convient"
 
 #. module: beesdoo_website_shift
