@@ -457,7 +457,7 @@ msgstr "We vinden geen overeenkomst op jouw voorstel."
 #. module: beesdoo_website_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_next_tmpl_dated
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift_swap.website_shift_swap_tmpl_dated_solidarity
-msgid "No shifts suits me"
+msgid "No shift suits me"
 msgstr ""
 
 #. module: beesdoo_website_shift_swap

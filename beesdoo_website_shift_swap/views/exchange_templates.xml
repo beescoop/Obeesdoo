@@ -322,7 +322,7 @@
                 <a
                     class="btn btn-primary"
                     href="/my/shift/possible/shift"
-                >No shifts suits me</a>
+                >No shift suits me</a>
             </p>
         </template>
 
