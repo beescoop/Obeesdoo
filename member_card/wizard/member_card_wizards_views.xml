@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <!-- New card generation wizard -->
-    <record id="membercard_new_wizard_view_form" model="ir.ui.view">
-        <field name="name">New MemberCard Wizard</field>
-        <field name="model">membercard.new.wizard</field>
+    <record id="new_member_card_wizard_view_form" model="ir.ui.view">
+        <field name="name">New Member Card Wizard</field>
+        <field name="model">new.member.card.wizard</field>
         <field name="arch" type="xml">
             <form>
                 <group groups="member_card.group_force_barcode">
@@ -91,7 +91,7 @@
 
     <record id="membercard_wizard_action" model="ir.actions.act_window">
         <field name="name">New Member Card</field>
-        <field name="res_model">membercard.new.wizard</field>
+        <field name="res_model">new.member.card.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>

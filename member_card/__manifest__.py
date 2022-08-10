@@ -16,7 +16,7 @@
     "data": [
         "security/groups.xml",
         "security/ir.model.access.csv",
-        "wizard/membercard_new_wizard.xml",
+        "wizard/member_card_wizards_views.xml",
         "views/partner.xml",
     ],
     "installable": True,

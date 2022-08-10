@@ -1,1 +1,1 @@
-from . import membercard_new_wizard
+from . import member_card_wizards
