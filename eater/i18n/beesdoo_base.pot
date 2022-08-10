@@ -339,7 +339,7 @@ msgstr ""
 #. module: beesdoo_base
 #: code:addons/beesdoo_base/models/partner.py:97
 #, python-format
-msgid "You try to assign a eater to a worker but this eater is already assign to %s please remove it before "
+msgid "You try to assign a eater to a partner but this eater is already assign to %s please remove it before "
 msgstr ""
 
 #. module: beesdoo_base

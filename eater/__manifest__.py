@@ -12,10 +12,10 @@
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Sales",
     "version": "12.0.1.0.0",
-    "depends": ["point_of_sale", "purchase", "partner_firstname"],
+    "depends": ["base", "partner_firstname"],
     "data": [
-        "views/partner.xml",
         "wizard/new_eater_wizard_views.xml",
+        "views/partner.xml",
     ],
     "installable": True,
     "demo": ["demo/eaters.xml"],
