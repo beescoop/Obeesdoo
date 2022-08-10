@@ -31,7 +31,7 @@ class Partner(models.Model):
             ):
                 raise ValidationError(
                     _(
-                        "You try to assign a eater to a worker but this eater "
+                        "You try to assign a eater to a partner but this eater "
                         "is already assign to %s please remove it before "
                     )
                     % partner.parent_eater_id.name
