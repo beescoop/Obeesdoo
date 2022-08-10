@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
-
-    <record model="ir.actions.act_window" id="eater_new_wizard_action">
-        <field name="name">New Eater</field>
-        <field name="res_model">eater.new.wizard</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
-    </record>
-
     <record model="ir.ui.view" id="res_partner_form_view">
         <field name="name">res.partner.form.view</field>
         <field name="model">res.partner</field>
@@ -20,7 +12,6 @@
                     string="Eaters"
                     attrs="{'invisible': ['|', ('customer', '=', False), ('eater', 'not in', ('worker_eater'))]}"
                 >
-
                     <group>
                         <group>
                             <field
@@ -34,7 +25,7 @@
                         <group>
                             <button
                                 string="New Eater"
-                                name="%(eater_new_wizard_action)d"
+                                name="%(new_eater_wizard_action)d"
                                 type="action"
                                 class="btn btn-primary"
                             />

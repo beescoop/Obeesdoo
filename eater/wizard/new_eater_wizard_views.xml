@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <!-- New eater generation wizard -->
-    <record id="new_eater_wizard_action" model="ir.ui.view">
+
+
+    <record model="ir.actions.act_window" id="new_eater_wizard_action">
+        <field name="name">New Eater</field>
+        <field name="res_model">new.eater.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record model="ir.ui.view" id="new_eater_wizard_view_form">
         <field name="name">New Eater Wizard</field>
-        <field name="model">eater.new.wizard</field>
+        <field name="model">new.eater.wizard</field>
         <field name="arch" type="xml">
             <form string="Create a new eater">
                 <group>

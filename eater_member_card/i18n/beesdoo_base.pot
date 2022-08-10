@@ -83,7 +83,7 @@ msgid "Create a new eater"
 msgstr ""
 
 #. module: beesdoo_base
-#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard__create_uid
+#: model:ir.model.fields,field_description:beesdoo_base.field_new_eater_wizard__create_uid
 #: model:ir.model.fields,field_description:beesdoo_base.field_member_card__create_uid
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__create_uid
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard__create_uid
@@ -92,7 +92,7 @@ msgid "Created by"
 msgstr ""
 
 #. module: beesdoo_base
-#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard__create_date
+#: model:ir.model.fields,field_description:beesdoo_base.field_new_eater_wizard__create_date
 #: model:ir.model.fields,field_description:beesdoo_base.field_member_card__create_date
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__create_date
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard__create_date
@@ -101,7 +101,7 @@ msgid "Created on"
 msgstr ""
 
 #. module: beesdoo_base
-#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard__display_name
+#: model:ir.model.fields,field_description:beesdoo_base.field_new_eater_wizard__display_name
 #: model:ir.model.fields,field_description:beesdoo_base.field_member_card__display_name
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__display_name
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard__display_name
@@ -126,7 +126,7 @@ msgid "Eaters"
 msgstr ""
 
 #. module: beesdoo_base
-#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard__email
+#: model:ir.model.fields,field_description:beesdoo_base.field_new_eater_wizard__email
 msgid "Email"
 msgstr ""
 
@@ -148,7 +148,7 @@ msgid "Expiration Date"
 msgstr ""
 
 #. module: beesdoo_base
-#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard__first_name
+#: model:ir.model.fields,field_description:beesdoo_base.field_new_eater_wizard__first_name
 msgid "First Name"
 msgstr ""
 
@@ -163,7 +163,7 @@ msgid "Grant Portal Access"
 msgstr ""
 
 #. module: beesdoo_base
-#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard__id
+#: model:ir.model.fields,field_description:beesdoo_base.field_new_eater_wizard__id
 #: model:ir.model.fields,field_description:beesdoo_base.field_member_card__id
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__id
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard__id
@@ -172,7 +172,7 @@ msgid "ID"
 msgstr ""
 
 #. module: beesdoo_base
-#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard____last_update
+#: model:ir.model.fields,field_description:beesdoo_base.field_new_eater_wizard____last_update
 #: model:ir.model.fields,field_description:beesdoo_base.field_member_card____last_update
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard____last_update
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard____last_update
@@ -181,12 +181,12 @@ msgid "Last Modified on"
 msgstr ""
 
 #. module: beesdoo_base
-#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard__last_name
+#: model:ir.model.fields,field_description:beesdoo_base.field_new_eater_wizard__last_name
 msgid "Last Name"
 msgstr ""
 
 #. module: beesdoo_base
-#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard__write_uid
+#: model:ir.model.fields,field_description:beesdoo_base.field_new_eater_wizard__write_uid
 #: model:ir.model.fields,field_description:beesdoo_base.field_member_card__write_uid
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__write_uid
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard__write_uid
@@ -195,7 +195,7 @@ msgid "Last Updated by"
 msgstr ""
 
 #. module: beesdoo_base
-#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard__write_date
+#: model:ir.model.fields,field_description:beesdoo_base.field_new_eater_wizard__write_date
 #: model:ir.model.fields,field_description:beesdoo_base.field_member_card__write_date
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__write_date
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard__write_date
@@ -257,7 +257,7 @@ msgid "Parent Worker"
 msgstr ""
 
 #. module: beesdoo_base
-#: model:ir.model.fields,field_description:beesdoo_base.field_eater_new_wizard__partner_id
+#: model:ir.model.fields,field_description:beesdoo_base.field_new_eater_wizard__partner_id
 #: model:ir.model.fields,field_description:beesdoo_base.field_member_card__partner_id
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__partner_id
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard__partner_ids
@@ -343,8 +343,8 @@ msgid "You try to assign a eater to a worker but this eater is already assign to
 msgstr ""
 
 #. module: beesdoo_base
-#: model:ir.model,name:beesdoo_base.model_eater_new_wizard
-msgid "eater.new.wizard"
+#: model:ir.model,name:beesdoo_base.model_new_eater_wizard
+msgid "new.eater.wizard"
 msgstr ""
 
 #. module: beesdoo_base

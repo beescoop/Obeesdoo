@@ -51,7 +51,7 @@ msgid "New Eater"
 msgstr ""
 
 #. module: eater
-#: model:ir.model,name:eater.model_eater_new_wizard
-msgid "eater.new.wizard"
+#: model:ir.model,name:eater.model_new_eater_wizard
+msgid "new.eater.wizard"
 msgstr ""
 
