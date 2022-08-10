@@ -85,7 +85,7 @@ msgstr ""
 #. module: beesdoo_base
 #: model:ir.model.fields,field_description:beesdoo_base.field_new_eater_wizard__create_uid
 #: model:ir.model.fields,field_description:beesdoo_base.field_member_card__create_uid
-#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__create_uid
+#: model:ir.model.fields,field_description:beesdoo_base.field_new_member_card_wizard__create_uid
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard__create_uid
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard__create_uid
 msgid "Created by"
@@ -94,7 +94,7 @@ msgstr ""
 #. module: beesdoo_base
 #: model:ir.model.fields,field_description:beesdoo_base.field_new_eater_wizard__create_date
 #: model:ir.model.fields,field_description:beesdoo_base.field_member_card__create_date
-#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__create_date
+#: model:ir.model.fields,field_description:beesdoo_base.field_new_member_card_wizard__create_date
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard__create_date
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard__create_date
 msgid "Created on"
@@ -103,7 +103,7 @@ msgstr ""
 #. module: beesdoo_base
 #: model:ir.model.fields,field_description:beesdoo_base.field_new_eater_wizard__display_name
 #: model:ir.model.fields,field_description:beesdoo_base.field_member_card__display_name
-#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__display_name
+#: model:ir.model.fields,field_description:beesdoo_base.field_new_member_card_wizard__display_name
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard__display_name
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard__display_name
 msgid "Display Name"
@@ -153,7 +153,7 @@ msgid "First Name"
 msgstr ""
 
 #. module: beesdoo_base
-#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__force_barcode
+#: model:ir.model.fields,field_description:beesdoo_base.field_new_member_card_wizard__force_barcode
 msgid "Force Barcode"
 msgstr ""
 
@@ -165,7 +165,7 @@ msgstr ""
 #. module: beesdoo_base
 #: model:ir.model.fields,field_description:beesdoo_base.field_new_eater_wizard__id
 #: model:ir.model.fields,field_description:beesdoo_base.field_member_card__id
-#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__id
+#: model:ir.model.fields,field_description:beesdoo_base.field_new_member_card_wizard__id
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard__id
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard__id
 msgid "ID"
@@ -174,7 +174,7 @@ msgstr ""
 #. module: beesdoo_base
 #: model:ir.model.fields,field_description:beesdoo_base.field_new_eater_wizard____last_update
 #: model:ir.model.fields,field_description:beesdoo_base.field_member_card____last_update
-#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard____last_update
+#: model:ir.model.fields,field_description:beesdoo_base.field_new_member_card_wizard____last_update
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard____last_update
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard____last_update
 msgid "Last Modified on"
@@ -188,7 +188,7 @@ msgstr ""
 #. module: beesdoo_base
 #: model:ir.model.fields,field_description:beesdoo_base.field_new_eater_wizard__write_uid
 #: model:ir.model.fields,field_description:beesdoo_base.field_member_card__write_uid
-#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__write_uid
+#: model:ir.model.fields,field_description:beesdoo_base.field_new_member_card_wizard__write_uid
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard__write_uid
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard__write_uid
 msgid "Last Updated by"
@@ -197,7 +197,7 @@ msgstr ""
 #. module: beesdoo_base
 #: model:ir.model.fields,field_description:beesdoo_base.field_new_eater_wizard__write_date
 #: model:ir.model.fields,field_description:beesdoo_base.field_member_card__write_date
-#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__write_date
+#: model:ir.model.fields,field_description:beesdoo_base.field_new_member_card_wizard__write_date
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard__write_date
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard__write_date
 msgid "Last Updated on"
@@ -211,7 +211,7 @@ msgstr ""
 
 #. module: beesdoo_base
 #: model:ir.model,name:beesdoo_base.model_member_card
-#: model:ir.model,name:beesdoo_base.model_membercard_new_wizard
+#: model:ir.model,name:beesdoo_base.model_new_member_card_wizard
 #: model:ir.model.fields,field_description:beesdoo_base.field_res_partner__member_card_ids
 #: model:ir.model.fields,field_description:beesdoo_base.field_res_users__member_card_ids
 #: model_terms:ir.ui.view,arch_db:beesdoo_base.beesdoo_partner_form_view
@@ -259,7 +259,7 @@ msgstr ""
 #. module: beesdoo_base
 #: model:ir.model.fields,field_description:beesdoo_base.field_new_eater_wizard__partner_id
 #: model:ir.model.fields,field_description:beesdoo_base.field_member_card__partner_id
-#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__partner_id
+#: model:ir.model.fields,field_description:beesdoo_base.field_new_member_card_wizard__partner_id
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_requestprinting_wizard__partner_ids
 #: model:ir.model.fields,field_description:beesdoo_base.field_membercard_set_as_printed_wizard__partner_ids
 msgid "Partner"
@@ -273,7 +273,7 @@ msgstr ""
 
 #. module: beesdoo_base
 #: model:ir.model.fields,field_description:beesdoo_base.field_member_card__comment
-#: model:ir.model.fields,field_description:beesdoo_base.field_membercard_new_wizard__new_comment
+#: model:ir.model.fields,field_description:beesdoo_base.field_new_member_card_wizard__new_comment
 #: model_terms:ir.ui.view,arch_db:beesdoo_base.MemberCard Wizard
 msgid "Reason"
 msgstr ""

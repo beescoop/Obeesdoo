@@ -8,7 +8,7 @@ class NewMemberCardWizard(models.TransientModel):
     needed and the eater/worker that is concerned.
     """
 
-    _name = "membercard.new.wizard"
+    _name = "new.member.card.wizard"
     _description = "Member Card"
 
     def _get_default_partner(self):

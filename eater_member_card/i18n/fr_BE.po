@@ -186,5 +186,5 @@ msgstr ""
 #~ msgid "member.card"
 #~ msgstr "member.card"
 
-#~ msgid "membercard.new.wizard"
-#~ msgstr "membercard.new.wizard"
+#~ msgid "new.member.card.wizard"
+#~ msgstr "new.member.card.wizard"

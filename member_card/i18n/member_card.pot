@@ -65,7 +65,7 @@ msgstr ""
 
 #. module: member_card
 #: model:ir.model,name:member_card.model_member_card
-#: model:ir.model,name:member_card.model_membercard_new_wizard
+#: model:ir.model,name:member_card.model_new_member_card_wizard
 #: model_terms:ir.ui.view,arch_db:member_card.beesdoo_partner_form_view
 msgid "Member Card"
 msgstr ""
