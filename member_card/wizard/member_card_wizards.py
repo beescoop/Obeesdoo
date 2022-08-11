@@ -16,9 +16,7 @@ class NewMemberCardWizard(models.TransientModel):
 
     new_comment = fields.Char("Reason", required=True)
     partner_id = fields.Many2one("res.partner", default=_get_default_partner)
-    force_barcode = fields.Char(
-        "Force Barcode", groups="member_card.group_force_barcode"
-    )
+    force_barcode = fields.Char(help="Override automatic barcode generation")
 
     @api.multi
     def create_new_card(self):

@@ -6,12 +6,11 @@
         <field name="model">new.member.card.wizard</field>
         <field name="arch" type="xml">
             <form>
-                <group groups="member_card.group_force_barcode">
+                <field name="partner_id" invisible="1" />
+                <group>
+                    <field name="new_comment" />
                     <field name="force_barcode" />
                 </group>
-                <separator string="Reason" />
-                <field name="new_comment" string="Reason" editable="True" />
-                <field name="partner_id" invisible="1" />
                 <footer>
                     <button
                         type="object"
@@ -24,7 +23,6 @@
             </form>
         </field>
     </record>
-
 
     <record id="membercard_requestprinting_wizard_view_form" model="ir.ui.view">
         <field name="name">Request Membercard Printing Wizard</field>

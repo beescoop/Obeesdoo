@@ -14,7 +14,6 @@
     "version": "12.0.1.0.1",
     "depends": ["barcodes", "partner_firstname"],
     "data": [
-        "security/groups.xml",
         "security/ir.model.access.csv",
         "wizard/member_card_wizards_views.xml",
         "views/partner.xml",
