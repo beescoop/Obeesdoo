@@ -20,11 +20,6 @@ msgid "Barcode"
 msgstr ""
 
 #. module: member_card
-#: model:res.groups,name:member_card.group_force_barcode
-msgid "Bees Card Force Barcode"
-msgstr ""
-
-#. module: member_card
 #: model:ir.actions.report,name:member_card.report_beescard_cm
 msgid "Beescaard"
 msgstr ""

@@ -12,10 +12,17 @@ class MemberCard(models.Model):
         return self.env.uid
 
     def _compute_bar_code(self):
-        rule = self.env["barcode.rule"].search([("name", "=", "Customer Barcodes")])[0]
-        size = 13 - len(rule.pattern)
-        ean = rule.pattern + str(uuid.uuid4().fields[-1])[:size]
-        return ean[0:12] + str(self.env["barcode.nomenclature"].ean_checksum(ean))
+        ean = str(uuid.uuid4().fields[-1])
+        try:
+            # if point of sale exists, use partner barcode rule
+            # but do not require it as a dependence
+            rule = self.env.ref("point_of_sale.barcode_rule_client")
+            size = 13 - len(rule.pattern)
+            ean = rule.pattern + str(uuid.uuid4().fields[-1])[:size]
+            ean = ean[0:12] + str(self.env["barcode.nomenclature"].ean_checksum(ean))
+        except ValueError:
+            ean = ean[:13]
+        return ean
 
     # todo rename to active
     valid = fields.Boolean(default=True, string="Active")
