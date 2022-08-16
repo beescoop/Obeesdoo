@@ -1,13 +1,16 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* eater
+# 	* beesdoo_base
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-11-13 15:16+0000\n"
+"PO-Revision-Date: 2016-11-13 15:16+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -21,13 +24,14 @@ msgstr ""
 #. module: eater
 #: model_terms:ir.ui.view,arch_db:eater.new_eater_wizard_view_form
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 #. module: eater
 #: model:ir.model.fields,field_description:eater.field_res_partner__child_eater_ids
 #: model:ir.model.fields,field_description:eater.field_res_users__child_eater_ids
+#, fuzzy
 msgid "Child Eater"
-msgstr ""
+msgstr "Child eater ids"
 
 #. module: eater
 #: model:ir.model,name:eater.model_res_partner
@@ -37,104 +41,107 @@ msgstr ""
 #. module: eater
 #: model_terms:ir.ui.view,arch_db:eater.new_eater_wizard_view_form
 msgid "Create"
-msgstr ""
+msgstr "Créer"
 
 #. module: eater
 #: model_terms:ir.ui.view,arch_db:eater.new_eater_wizard_view_form
 msgid "Create a new eater"
-msgstr ""
+msgstr "Create a new eater"
 
 #. module: eater
 #: model:ir.model.fields,field_description:eater.field_new_eater_wizard__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Créé par"
 
 #. module: eater
 #: model:ir.model.fields,field_description:eater.field_new_eater_wizard__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Créé le"
 
 #. module: eater
 #: model:ir.model.fields,field_description:eater.field_new_eater_wizard__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nom affiché"
 
 #. module: eater
 #: selection:res.partner,eater:0
 msgid "Eater"
-msgstr ""
+msgstr "Eater"
 
 #. module: eater
 #: model:ir.model.fields,field_description:eater.field_res_partner__eater
 #: model:ir.model.fields,field_description:eater.field_res_users__eater
 msgid "Eater/Worker"
-msgstr ""
+msgstr "Eater/Worker"
 
 #. module: eater
 #: model_terms:ir.ui.view,arch_db:eater.res_partner_form_view
 msgid "Eaters"
-msgstr ""
+msgstr "Eaters"
 
 #. module: eater
 #: model:ir.model.fields,field_description:eater.field_new_eater_wizard__email
 msgid "Email"
-msgstr ""
+msgstr "Courriel"
 
 #. module: eater
 #: model:ir.model.fields,field_description:eater.field_new_eater_wizard__first_name
 msgid "First Name"
-msgstr ""
+msgstr "Prénom"
 
 #. module: eater
 #: model:ir.model.fields,field_description:eater.field_new_eater_wizard__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: eater
 #: model:ir.model.fields,field_description:eater.field_new_eater_wizard____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Dernière modification le"
 
 #. module: eater
 #: model:ir.model.fields,field_description:eater.field_new_eater_wizard__last_name
 msgid "Last Name"
-msgstr ""
+msgstr "Nom"
 
 #. module: eater
 #: model:ir.model.fields,field_description:eater.field_new_eater_wizard__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Mis à jour par"
 
 #. module: eater
 #: model:ir.model.fields,field_description:eater.field_new_eater_wizard__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Mis à jour le"
 
 #. module: eater
 #: model:ir.actions.act_window,name:eater.new_eater_wizard_action
 #: model_terms:ir.ui.view,arch_db:eater.res_partner_form_view
 msgid "New Eater"
-msgstr ""
+msgstr "New Eater"
 
 #. module: eater
 #: model:ir.model.fields,field_description:eater.field_res_partner__parent_eater_id
 #: model:ir.model.fields,field_description:eater.field_res_users__parent_eater_id
 msgid "Parent Worker"
-msgstr ""
+msgstr "Parent Worker"
 
 #. module: eater
 #: model:ir.model.fields,field_description:eater.field_new_eater_wizard__partner_id
 msgid "Partner"
-msgstr ""
+msgstr "Partenaire"
 
 #. module: eater
 #: selection:res.partner,eater:0
 msgid "Worker and Eater"
-msgstr ""
+msgstr "Worker and Eater"
 
 #. module: eater
 #: code:addons/eater/models/partner.py:33
-#, python-format
-msgid "You try to assign a eater to a partner but this eater is already assign to %s please remove it before "
+#, fuzzy, python-format
+msgid ""
+"You try to assign a eater to a partner but this eater is already assign to "
+"%s please remove it before "
 msgstr ""
-
+"You try to assign a eater to a partner but this easer is alread assign to %s "
+"please remove it before"
