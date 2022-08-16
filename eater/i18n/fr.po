@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* beesdoo_base
+# 	* eater
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0c\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-13 15:16+0000\n"
-"PO-Revision-Date: 2016-11-13 15:16+0000\n"
+"POT-Creation-Date: 2022-08-17 07:45+0000\n"
+"PO-Revision-Date: 2020-08-17 07:45+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -19,7 +19,7 @@ msgstr ""
 #. module: eater
 #: model:ir.model,name:eater.model_new_eater_wizard
 msgid "Add an eater to the current partner"
-msgstr ""
+msgstr "Ajouter un mangeur au partnenaire courant"
 
 #. module: eater
 #: model_terms:ir.ui.view,arch_db:eater.new_eater_wizard_view_form
@@ -31,12 +31,12 @@ msgstr "Annuler"
 #: model:ir.model.fields,field_description:eater.field_res_users__child_eater_ids
 #, fuzzy
 msgid "Child Eater"
-msgstr "Child eater ids"
+msgstr "Mangeurs"
 
 #. module: eater
 #: model:ir.model,name:eater.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Contact"
 
 #. module: eater
 #: model_terms:ir.ui.view,arch_db:eater.new_eater_wizard_view_form
@@ -72,12 +72,12 @@ msgstr "Eater"
 #: model:ir.model.fields,field_description:eater.field_res_partner__eater
 #: model:ir.model.fields,field_description:eater.field_res_users__eater
 msgid "Eater/Worker"
-msgstr "Eater/Worker"
+msgstr "Mangeur/Travailleur"
 
 #. module: eater
 #: model_terms:ir.ui.view,arch_db:eater.res_partner_form_view
 msgid "Eaters"
-msgstr "Eaters"
+msgstr "Mangeurs"
 
 #. module: eater
 #: model:ir.model.fields,field_description:eater.field_new_eater_wizard__email
@@ -143,5 +143,5 @@ msgid ""
 "You try to assign a eater to a partner but this eater is already assign to "
 "%s please remove it before "
 msgstr ""
-"You try to assign a eater to a partner but this easer is alread assign to %s "
-"please remove it before"
+"Vous essayez d'ajouter un mangeur mais ce mangeur est déjà "
+"assigné à %s. Retirez-le d'abord de ce contact."
