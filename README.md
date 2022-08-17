@@ -25,7 +25,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [beesdoo_account](beesdoo_account/) | 12.0.2.0.0 |  | - Makes date_invoice field required in account.invoice_form and account.invoice_supplier_form - Allow validating an invoice with a negative total amount
-[beesdoo_base](beesdoo_base/) | 12.0.1.0.1 |  | Module that customize the base module and contains some python tools
+[beesdoo_base](beesdoo_base/) | 12.0.2.0.0 |  | Module that customize the base module and contains some python tools
 [beesdoo_crelan_csv](beesdoo_crelan_csv/) | 12.0.1.0.0 |  | Import Crelan CSV Wizard
 [beesdoo_easy_my_coop](beesdoo_easy_my_coop/) | 12.0.1.0.2 |  | Link between beesdoo customization and easy_my_coop
 [beesdoo_inventory](beesdoo_inventory/) | 12.0.3.0.1 |  | Restrict selectable products to those sold as main supplier by the picking partner.
@@ -51,7 +51,10 @@ addon | version | maintainers | summary
 [beesdoo_website_theme](beesdoo_website_theme/) | 12.0.0.0.1 |  | Apply BEES coop design rules.
 [beesdoo_worker_status](beesdoo_worker_status/) | 12.0.1.1.0 |  | Worker status management specific to beescoop.
 [beesdoo_worker_status_shift_swap](beesdoo_worker_status_shift_swap/) | 12.0.2.0.0 |  | Worker status management specific to shift exchanges.
+[eater](eater/) | 12.0.1.0.0 |  | Add eaters to the workers of your structure.
+[eater_member_card](eater_member_card/) | 12.0.1.0.0 |  | Compute barcode based on eaters
 [macavrac_base](macavrac_base/) | 12.0.1.0.0 |  | Module with basic customizations for the Macavrac cooperative.
+[member_card](member_card/) | 12.0.1.0.1 |  | Create a member card and link it to a partner.
 [polln_shift](polln_shift/) | 12.0.1.0.0 |  | Module with basic customizations for the Polln cooperative.
 [purchase_order_generator](purchase_order_generator/) | 12.0.2.1.0 |  | Generate purchase order from a product selection
 [website_portal_restrict_modification](website_portal_restrict_modification/) | 12.0.1.0.0 |  | Portal extension preventing modification of sensible data by the users
