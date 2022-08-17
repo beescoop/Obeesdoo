@@ -34,9 +34,9 @@
         <field name="share_product_id" ref="share_a" />
         <field name="share_number">2</field>
         <field name="effective_date">2020-01-01</field>
-        <field name="partner_id" ref="beesdoo_base.res_partner_cooperator_1_demo" />
+        <field name="partner_id" ref="member_card.res_partner_cooperator_1_demo" />
     </record>
-    <record id="beesdoo_base.res_partner_cooperator_1_demo" model="res.partner">
+    <record id="member_card.res_partner_cooperator_1_demo" model="res.partner">
         <field name="cooperator" eval="True" />
         <field name="member" eval="True" />
         <field name="share_ids" eval="[(4, ref('shareline_coop_1'))]" />
@@ -47,9 +47,9 @@
         <field name="share_product_id" ref="share_b" />
         <field name="share_number">4</field>
         <field name="effective_date">2020-01-01</field>
-        <field name="partner_id" ref="beesdoo_base.res_partner_cooperator_2_demo" />
+        <field name="partner_id" ref="member_card.res_partner_cooperator_2_demo" />
     </record>
-    <record id="beesdoo_base.res_partner_cooperator_2_demo" model="res.partner">
+    <record id="member_card.res_partner_cooperator_2_demo" model="res.partner">
         <field name="cooperator" eval="True" />
         <field name="member" eval="True" />
         <field name="share_ids" eval="[(4, ref('shareline_coop_2'))]" />
@@ -60,9 +60,9 @@
         <field name="share_product_id" ref="share_c" />
         <field name="share_number">6</field>
         <field name="effective_date">2020-01-01</field>
-        <field name="partner_id" ref="beesdoo_base.res_partner_cooperator_3_demo" />
+        <field name="partner_id" ref="member_card.res_partner_cooperator_3_demo" />
     </record>
-    <record id="beesdoo_base.res_partner_cooperator_3_demo" model="res.partner">
+    <record id="member_card.res_partner_cooperator_3_demo" model="res.partner">
         <field name="cooperator" eval="True" />
         <field name="member" eval="True" />
         <field name="share_ids" eval="[(4, ref('shareline_coop_3'))]" />

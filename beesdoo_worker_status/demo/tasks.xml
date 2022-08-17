@@ -16,7 +16,7 @@
         <field name="worker_nb">12</field>
         <field
             name="worker_ids"
-            eval="[(6, 0, [ref('beesdoo_base.res_partner_cooperator_1_demo')])]"
+            eval="[(6, 0, [ref('beesdoo_shift.res_partner_worker_1_demo')])]"
         />
     </record>
 
@@ -32,7 +32,7 @@
         <!-- WARNING: issue, worker not registered in demo -->
         <field
             name="worker_ids"
-            eval="[(6, 0, [ref('beesdoo_base.res_partner_cooperator_3_demo')])]"
+            eval="[(6, 0, [ref('beesdoo_shift.res_partner_worker_3_demo')])]"
         />
     </record>
 
@@ -48,7 +48,7 @@
         <!-- WARNING: issue, worker not registered in demo -->
         <field
             name="worker_ids"
-            eval="[(6, 0, [ref('beesdoo_base.res_partner_cooperator_6_demo')])]"
+            eval="[(6, 0, [ref('beesdoo_shift.res_partner_worker_6_demo')])]"
         />
     </record>
 

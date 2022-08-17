@@ -6,7 +6,7 @@
     "category": "Cooperative management",
     "version": "12.0.1.0.2",
     "depends": [
-        "beesdoo_base",
+        "eater",
         "beesdoo_shift",
         "cooperator",
         "cooperator_website",

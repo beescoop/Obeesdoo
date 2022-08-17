@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+
+
+    <record model="ir.ui.view" id="res_partner_view_form">
+        <field name="name">beesdoo.partner.form.view</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="member_card.res_partner_view_form" />
+        <field name="arch" type="xml">
+            <page name="member card" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': ['|', ('customer', '=', False), ('eater', 'not in', ('worker_eater', 'eater'))]}</attribute>
+            </page>
+            <group name="cards" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': ['|', ('customer', '=', False), ('eater', '!=', 'worker_eater')]}</attribute>
+            </group>
+        </field>
+
+    </record>
+
+</odoo>

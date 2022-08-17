@@ -13,7 +13,9 @@
     "category": "Cooperative management",
     "version": "12.0.1.1.2",
     "depends": [
-        "beesdoo_base",
+        "eater",
+        "member_card",
+        "eater_member_card",
         "beesdoo_shift",
         "beesdoo_worker_status",
         "mail",

@@ -24,6 +24,15 @@ class Partner(models.Model):
         readonly=True,
         related="",
     )
+    cooperator_type = fields.Selection(
+        [
+            ("share_a", "Share A"),
+            ("share_b", "Share B"),
+            ("share_c", "Share C"),
+        ],
+        store=True,
+        compute=None,
+    )
 
     def _cooperator_share_type(self):
         """

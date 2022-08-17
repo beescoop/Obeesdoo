@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     Copyright 2019 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="res_partner_cooperator_1_demo" model="res.partner">
+        <field name="name">Fernand Peso</field>
+        <field name="firstname">Fernand</field>
+        <field name="lastname">Peso</field>
+        <field name="customer" eval="True" />
+        <field name="is_company" eval="False" />
+        <field name="email">fernand_peso@demo.net</field>
+        <field name="street">Avenue des Bas-de-Callanques, 15</field>
+        <field name="city">Etterbeek</field>
+        <field name="zip">1040</field>
+        <field name="country_id" ref="base.be" />
+    </record>
+
+    <record id="res_partner_cooperator_2_demo" model="res.partner">
+        <field name="name">Dupont Dupont</field>
+        <field name="customer" eval="True" />
+        <field name="is_company" eval="False" />
+        <field name="email">d_dupont@demo.net</field>
+        <field name="street">Rue des sables, 20</field>
+        <field name="city">Bruxelles</field>
+        <field name="zip">10000</field>
+        <field name="country_id" ref="base.be" />
+    </record>
+
+    <record id="res_partner_cooperator_3_demo" model="res.partner">
+        <field name="name">Ronan Le Gall</field>
+        <field name="customer" eval="True" />
+        <field name="is_company" eval="False" />
+        <field name="email">ronan_gall@demo.net</field>
+        <field name="street">Rue des pecheurs, 23</field>
+        <field name="city">Landudec</field>
+        <field name="zip">29710</field>
+        <field name="country_id" ref="base.fr" />
+    </record>
+
+    <record id="res_partner_cooperator_4_demo" model="res.partner">
+        <field name="name">Elouan Bees</field>
+        <field name="customer" eval="True" />
+        <field name="is_company" eval="False" />
+        <field name="email">elouan_bees@demo.net</field>
+        <field name="street">Rue Wéry, 15</field>
+        <field name="city">Ixelles</field>
+        <field name="zip">1050</field>
+        <field name="country_id" ref="base.be" />
+    </record>
+
+    <record id="res_partner_cooperator_5_demo" model="res.partner">
+        <field name="name">Anne de Marchalo</field>
+        <field name="customer" eval="True" />
+        <field name="is_company" eval="False" />
+        <field name="email">anne_marchalo@demo.net</field>
+        <field name="street">Rue du Wels, 6</field>
+        <field name="city">Nantes</field>
+        <field name="zip">44000</field>
+        <field name="country_id" ref="base.fr" />
+    </record>
+
+    <record id="res_partner_cooperator_6_demo" model="res.partner">
+        <field name="name">Jean Beaumont</field>
+        <field name="customer" eval="True" />
+        <field name="is_company" eval="False" />
+        <field name="email">jean_beaumont@demo.net</field>
+        <field name="street">Rue de la Jungle, 8</field>
+        <field name="city">St-Gilles</field>
+        <field name="zip">1060</field>
+        <field name="country_id" ref="base.be" />
+    </record>
+
+    <record id="member_card_1_demo" model="member.card">
+        <field name="barcode">421457731741</field>
+        <field name="comment">Demo data</field>
+        <field name="create_date" eval="datetime.now() - timedelta(days=15)" />
+        <field name="partner_id" ref="res_partner_cooperator_1_demo" />
+        <field name="valid" eval="True" />
+    </record>
+
+    <record id="member_card_2_demo" model="member.card">
+        <field name="barcode">429919251493</field>
+        <field name="comment">Demo data</field>
+        <field name="create_date" eval="datetime.now() - timedelta(days=10)" />
+        <field name="partner_id" ref="res_partner_cooperator_2_demo" />
+        <field name="valid" eval="True" />
+    </record>
+
+    <record id="member_card_3_demo" model="member.card">
+        <field name="barcode">421457731742</field>
+        <field name="comment">Demo data</field>
+        <field name="create_date" eval="datetime.now() - timedelta(days=15)" />
+        <field name="partner_id" ref="res_partner_cooperator_3_demo" />
+        <field name="valid" eval="True" />
+    </record>
+
+    <record id="member_card_4_demo" model="member.card">
+        <field name="barcode">421457731743</field>
+        <field name="comment">Demo data</field>
+        <field name="create_date" eval="datetime.now() - timedelta(days=15)" />
+        <field name="partner_id" ref="res_partner_cooperator_4_demo" />
+        <field name="valid" eval="True" />
+    </record>
+
+    <record id="member_card_5_demo" model="member.card">
+        <field name="barcode">421457731744</field>
+        <field name="comment">Demo data</field>
+        <field name="create_date" eval="datetime.now() - timedelta(days=15)" />
+        <field name="partner_id" ref="res_partner_cooperator_5_demo" />
+        <field name="valid" eval="True" />
+    </record>
+
+    <record id="member_card_6_demo" model="member.card">
+        <field name="barcode">421457731745</field>
+        <field name="comment">Demo data</field>
+        <field name="create_date" eval="datetime.now() - timedelta(days=15)" />
+        <field name="partner_id" ref="res_partner_cooperator_6_demo" />
+        <field name="valid" eval="True" />
+    </record>
+</odoo>
