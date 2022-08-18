@@ -87,23 +87,24 @@
                                         t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"
                                     />
                             </div>
+                            <!-- Weight (Kg) or Volume (L) pf the product -->
                             <div class="product_price_per_uom_qty floating_box">
                                 <t t-if="product_tmpl_id.volume">
-                                    <b><t t-esc="product_tmpl_id.volume" /> <t
-                                                t-esc="product_tmpl_id.display_unit.name"
-                                            /></b>
+                                    <b>
+                                        <t t-esc="product_tmpl_id.volume" />
+                                        <t t-esc="product_tmpl_id.display_unit.name" />
+                                    </b>
                                 </t>
 
                                 <t t-elif="product_tmpl_id.display_weight">
                                     <b>
-                                        <t t-esc="product_tmpl_id.display_weight" /> <t
-                                                t-esc="product_tmpl_id.display_unit.name"
-                                            />
+                                        <t t-esc="product_tmpl_id.display_weight" />
+                                        <t t-esc="product_tmpl_id.display_unit.name" />
                                     </b>
                                 </t>
                             </div>
+                            <!-- Price per Kg or L -->
                             <div class="product_price_per_uom_price floating_box">
-
                                 <t t-if="product_tmpl_id.total_with_vat_by_unit">
                                     <b>
                                         <t
