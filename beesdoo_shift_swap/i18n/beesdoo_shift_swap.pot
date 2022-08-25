@@ -300,6 +300,11 @@ msgid "Cancel request"
 msgstr ""
 
 #. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.task_view_form_extended
+msgid "Cancel solidarity shift"
+msgstr ""
+
+#. module: beesdoo_shift_swap
 #: selection:beesdoo.shift.solidarity.offer,state:0
 #: selection:beesdoo.shift.solidarity.request,state:0
 msgid "Cancelled"
@@ -609,13 +614,13 @@ msgid "Max number of solidarity requests per year"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: code:addons/beesdoo_shift_swap/models/res_partner.py:111
+#: code:addons/beesdoo_shift_swap/models/res_partner.py:120
 #, python-format
 msgid "Maximum number of shifts per day reached"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: code:addons/beesdoo_shift_swap/models/res_partner.py:113
+#: code:addons/beesdoo_shift_swap/models/res_partner.py:122
 #, python-format
 msgid "Maximum number of shifts per month reached"
 msgstr ""
@@ -707,13 +712,13 @@ msgid "Otherwise, select one or more shifts to ask for exchange (\"Asked shifts\
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: code:addons/beesdoo_shift_swap/wizard/exchange_wizard.py:156
+#: code:addons/beesdoo_shift_swap/wizard/exchange_wizard.py:150
 #, python-format
 msgid "Please ask for at least one shift"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: code:addons/beesdoo_shift_swap/wizard/exchange_wizard.py:124
+#: code:addons/beesdoo_shift_swap/wizard/exchange_wizard.py:118
 #, python-format
 msgid "Please either ask for shifts to exchange or select a match"
 msgstr ""
@@ -872,7 +877,7 @@ msgid "Subscribe Swap Cooperator"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.solidarity_offer_button_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.task_view_form_extended
 msgid "Subscribe as a solidarity shift"
 msgstr ""
 
@@ -888,7 +893,7 @@ msgstr ""
 
 #. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.shift_swap_view_form
-msgid "Swap to underpopulated shift"
+msgid "Swap to empty shift"
 msgstr ""
 
 #. module: beesdoo_shift_swap
@@ -978,22 +983,22 @@ msgid "You can check again if other requests match your request"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: code:addons/beesdoo_shift_swap/wizard/exchange_wizard.py:117
+#: code:addons/beesdoo_shift_swap/wizard/exchange_wizard.py:111
 #: code:addons/beesdoo_shift_swap/wizard/offer_solidarity.py:41
 #: code:addons/beesdoo_shift_swap/wizard/request_solidarity.py:48
 #: code:addons/beesdoo_shift_swap/wizard/subscribe_shift_as_solidarity.py:65
-#: code:addons/beesdoo_shift_swap/wizard/subscribe_shift_swap.py:78
+#: code:addons/beesdoo_shift_swap/wizard/subscribe_shift_swap.py:80
 #: code:addons/beesdoo_shift_swap/wizard/validate_exchange.py:47
 #, python-format
 msgid "You cannot perform this operation on yourself"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: code:addons/beesdoo_shift_swap/wizard/exchange_wizard.py:113
+#: code:addons/beesdoo_shift_swap/wizard/exchange_wizard.py:107
 #: code:addons/beesdoo_shift_swap/wizard/offer_solidarity.py:37
 #: code:addons/beesdoo_shift_swap/wizard/request_solidarity.py:44
 #: code:addons/beesdoo_shift_swap/wizard/subscribe_shift_as_solidarity.py:61
-#: code:addons/beesdoo_shift_swap/wizard/subscribe_shift_swap.py:74
+#: code:addons/beesdoo_shift_swap/wizard/subscribe_shift_swap.py:76
 #: code:addons/beesdoo_shift_swap/wizard/validate_exchange.py:42
 #, python-format
 msgid "You don't have the required access for this operation."
