@@ -7,7 +7,7 @@
         Add shift exchanges and solidarity shifts offers and requests.""",
     "author": "Coop IT Easy SC",
     "license": "AGPL-3",
-    "version": "12.0.2.0.1",
+    "version": "12.0.2.1.0",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
     "depends": ["beesdoo_shift_swap", "beesdoo_website_shift"],
