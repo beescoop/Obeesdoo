@@ -1,7 +1,7 @@
 {
     "name": "Stock Move Line View Order",
     "author": "Coop IT Easy SC, Polln group",
-    "summary": "Reverse the order of stock move lines from newest to oldest." "",
+    "summary": "Reverse the order of stock move lines to 'newest to oldest'." "",
     "website": "https://github.com/beescoop/Obeesdoo",
     "licence": "AGPL-3",
     "category": "Extra tools",

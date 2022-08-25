@@ -1,1 +1,1 @@
-Reverse the order stock move line order by from newest to oldest.
+Reverse the order of stock move lines to 'newest to oldest'.
