@@ -1,0 +1,15 @@
+{
+    "name": "Stock Move Line View Order",
+    "author": "Coop IT Easy SC, Polln group",
+    "summary": "Reverse the order of stock move lines to 'newest to oldest'." "",
+    "website": "https://github.com/beescoop/Obeesdoo",
+    "licence": "AGPL-3",
+    "category": "Extra tools",
+    "version": "12.0.2.1.0",
+    "license": "AGPL-3",
+    "depends": ["stock"],
+    "data": ["views/stock_move_line_views.xml"],
+    "installable": True,
+    "application": False,
+    "auto_install": False,
+}
