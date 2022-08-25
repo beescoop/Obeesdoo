@@ -54,7 +54,7 @@
             </div>
             <p t-if="not all_shifts">
                 <a class="btn btn-primary btn-block" href="/my/shift/swap/no_result">
-                    No shifts suits me
+                    No shift suits me
                 </a>
             </p>
             <p t-else="">

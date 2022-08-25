@@ -800,6 +800,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             {
                 "possible_tmpl_dated": possible_tmpl_dated,
                 "exchanged_tmpl_dated": exchanged_tmpl_dated,
+                "same_timeslot": True,
                 # Adding the submit button text to enable translation
                 "submit_button_text": self.submit_exchange_request_message(),
             },

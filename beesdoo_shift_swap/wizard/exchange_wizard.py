@@ -56,21 +56,15 @@ class SubscribeShiftSwap(models.TransientModel):
     @api.onchange("worker_id")
     def _get_possible_tmpl_dated(self):
         for record in self:
-            day_limit_request_exchange = int(
-                self.env["ir.config_parameter"]
-                .sudo()
-                .get_param("beesdoo_shift.day_limit_request_exchange")
-            )
             day_limit_ask_for_exchange = int(
                 self.env["ir.config_parameter"]
                 .sudo()
                 .get_param("beesdoo_shift.day_limit_ask_for_exchange")
             )
-            start_date = datetime.now() + timedelta(days=day_limit_request_exchange)
             end_date = datetime.now() + timedelta(days=day_limit_ask_for_exchange)
             available_tmpl_dated = self.env[
                 "beesdoo.shift.template.dated"
-            ].get_available_tmpl_dated(start_date, end_date)
+            ].get_available_tmpl_dated(end_date=end_date)
             tmpl_dated_possible = available_tmpl_dated.remove_already_subscribed_shifts(
                 record.worker_id
             )

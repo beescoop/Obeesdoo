@@ -64,7 +64,7 @@ class ExchangeRequest(models.Model):
     def name_get(self):
         data = []
         for request in self:
-            display_name = "Worker : %s,\nExchanged shift : %s %s" % (
+            display_name = "Worker : %s, Exchanged shift : %s %s" % (
                 str(request.worker_id.name),
                 str(request.exchanged_tmpl_dated_id.template_id.name),
                 fields.Date.to_string(request.exchanged_tmpl_dated_id.date),
@@ -153,8 +153,6 @@ class ExchangeRequest(models.Model):
         Send a mail to all workers that are subscribed to a shift matching
         one of asked_tmpl_dated_ids to offer them the exchange
         """
-        # TODO : avoid sending them the email if they have been unsubscribed
-        # from the shift (due to an exchange or solidarity request for ex.)
         self.ensure_one()
         for asked_tmpl in self.asked_tmpl_dated_ids:
             for worker in asked_tmpl.template_id.worker_ids:
@@ -203,7 +201,9 @@ class ExchangeRequest(models.Model):
     @api.model
     def _warn_users_no_match(self):
         day_limit_swap = int(
-            self.env["ir.config_parameter"].get_param("beesdoo_shift.day_limit_swap")
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_shift.day_limit_swap")
         )
         now = datetime.now()
         date_limit_up = now + timedelta(days=day_limit_swap)

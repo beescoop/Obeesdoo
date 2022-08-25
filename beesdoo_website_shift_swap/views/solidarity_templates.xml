@@ -409,7 +409,7 @@
                     <a
                         class="btn btn-primary btn-block"
                         href="/my/shift/solidarity/offer?display_all=1"
-                    >No shifts suits me</a>
+                    >No shift suits me</a>
                 </p>
             </t>
         </template>

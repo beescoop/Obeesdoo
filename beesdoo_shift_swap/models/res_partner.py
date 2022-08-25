@@ -76,6 +76,15 @@ class ResPartner(models.Model):
         """
         if not self.subscribed_exchange_emails:
             return False
+
+        # Check that worker is still subscribed to shift
+        generated_shifts, planned_shifts = partner_to.get_next_shifts()
+        shift_date_list = [s.start_time for s in generated_shifts] + [
+            s.start_time for s in planned_shifts
+        ]
+        if asked_tmpl_dated.date not in shift_date_list:
+            return False
+
         template_rec = self.env.ref(
             "beesdoo_shift_swap.email_template_contact_coop", False
         )
