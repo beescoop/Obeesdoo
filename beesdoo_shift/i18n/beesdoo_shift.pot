@@ -60,7 +60,7 @@ msgid "\n"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/planning.py:380
+#: code:addons/beesdoo_shift/models/planning.py:388
 #, python-format
 msgid " is already assigned to "
 msgstr ""
@@ -1472,7 +1472,7 @@ msgid "Want to leave the beescoop"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/planning.py:386
+#: code:addons/beesdoo_shift/models/planning.py:394
 #, python-format
 msgid "Warning"
 msgstr ""
@@ -1560,7 +1560,7 @@ msgid "You can only set one cooperator status per cooperator"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/planning.py:272
+#: code:addons/beesdoo_shift/models/planning.py:280
 #, python-format
 msgid "You cannot assign more workers than the maximal number defined on template. "
 msgstr ""
