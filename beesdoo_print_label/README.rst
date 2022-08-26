@@ -43,11 +43,13 @@ Authors
 ~~~~~~~
 
 * Coop IT Easy SC
+* Polln group
 
 Contributors
 ~~~~~~~~~~~~
 
 * François Laenen <f.laenen@dooit.io>
+* Tom Rousseaux
 
 Maintainers
 ~~~~~~~~~~~
