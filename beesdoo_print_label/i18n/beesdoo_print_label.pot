@@ -18,23 +18,3 @@ msgstr ""
 msgid "Normal pricetag - 60x38mm"
 msgstr ""
 
-#. module: beesdoo_print_label
-#: model_terms:ir.ui.view,arch_db:beesdoo_print_label.qweb_template_pricetag_normal
-msgid "Price /"
-msgstr ""
-
-#. module: beesdoo_print_label
-#: model_terms:ir.ui.view,arch_db:beesdoo_print_label.qweb_template_pricetag_normal
-msgid "Supplier:"
-msgstr ""
-
-#. module: beesdoo_print_label
-#: model_terms:ir.ui.view,arch_db:beesdoo_print_label.qweb_template_pricetag_normal
-msgid "Volume<br/>"
-msgstr ""
-
-#. module: beesdoo_print_label
-#: model_terms:ir.ui.view,arch_db:beesdoo_print_label.qweb_template_pricetag_normal
-msgid "Weight<br/>"
-msgstr ""
-
