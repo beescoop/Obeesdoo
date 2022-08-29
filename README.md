@@ -55,7 +55,7 @@ addon | version | maintainers | summary
 [eater_member_card](eater_member_card/) | 12.0.1.0.0 |  | Compute barcode based on eaters
 [macavrac_base](macavrac_base/) | 12.0.1.0.0 |  | Module with basic customizations for the Macavrac cooperative.
 [member_card](member_card/) | 12.0.1.0.1 |  | Create a member card and link it to a partner.
-[polln_shift](polln_shift/) | 12.0.1.0.0 |  | Module with basic customizations for the Polln cooperative.
+[polln_shift](polln_shift/) | 12.0.1.1.0 |  | Module with basic customizations for the Polln cooperative.
 [purchase_order_generator](purchase_order_generator/) | 12.0.2.1.0 |  | Generate purchase order from a product selection
 [stock_move_view_line_order](stock_move_view_line_order/) | 12.0.2.1.0 |  | Reverse the order of stock move lines to 'newest to oldest'.
 [website_portal_restrict_modification](website_portal_restrict_modification/) | 12.0.1.0.0 |  | Portal extension preventing modification of sensible data by the users
