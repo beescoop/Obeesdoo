@@ -14,31 +14,31 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: polln_shift
-#: code:addons/polln_shift/models/planning.py:51
+#: code:addons/polln_shift/models/planning.py:57
 #, python-format
 msgid "Absent (-1)"
 msgstr ""
 
 #. module: polln_shift
-#: code:addons/polln_shift/models/planning.py:84
+#: code:addons/polln_shift/models/planning.py:90
 #, python-format
 msgid "Alerte"
 msgstr ""
 
 #. module: polln_shift
-#: code:addons/polln_shift/models/planning.py:50
+#: code:addons/polln_shift/models/planning.py:56
 #, python-format
 msgid "Attended (+1)"
 msgstr ""
 
 #. module: polln_shift
-#: code:addons/polln_shift/models/planning.py:53
+#: code:addons/polln_shift/models/planning.py:59
 #, python-format
 msgid "Cancelled"
 msgstr ""
 
 #. module: polln_shift
-#: code:addons/polln_shift/models/planning.py:49
+#: code:addons/polln_shift/models/planning.py:55
 #, python-format
 msgid "Confirmed"
 msgstr ""
@@ -55,13 +55,13 @@ msgid "Cooperator Type"
 msgstr ""
 
 #. module: polln_shift
-#: code:addons/polln_shift/models/planning.py:52
+#: code:addons/polln_shift/models/planning.py:58
 #, python-format
 msgid "Excused (+0)"
 msgstr ""
 
 #. module: polln_shift
-#: code:addons/polln_shift/models/planning.py:88
+#: code:addons/polln_shift/models/planning.py:94
 #: selection:beesdoo.shift.subscribe,working_mode:0
 #, python-format
 msgid "Exempted"
@@ -83,9 +83,14 @@ msgid "Next Countdown Date"
 msgstr ""
 
 #. module: polln_shift
-#: code:addons/polln_shift/models/planning.py:89
+#: code:addons/polln_shift/models/planning.py:95
 #, python-format
 msgid "Resigning"
+msgstr ""
+
+#. module: polln_shift
+#: model:ir.model.fields,field_description:polln_shift.field_beesdoo_shift_template__shift_presence_value
+msgid "Shift Presence Value"
 msgstr ""
 
 #. module: polln_shift
@@ -104,19 +109,19 @@ msgid "Start date"
 msgstr ""
 
 #. module: polln_shift
-#: code:addons/polln_shift/models/planning.py:85
+#: code:addons/polln_shift/models/planning.py:91
 #, python-format
 msgid "Suspended"
 msgstr ""
 
 #. module: polln_shift
-#: code:addons/polln_shift/models/planning.py:86
+#: code:addons/polln_shift/models/planning.py:92
 #, python-format
 msgid "Unsubscribed"
 msgstr ""
 
 #. module: polln_shift
-#: code:addons/polln_shift/models/planning.py:83
+#: code:addons/polln_shift/models/planning.py:89
 #, python-format
 msgid "Up to Date"
 msgstr ""
@@ -137,12 +142,17 @@ msgid "beesdoo.shift.subscribe"
 msgstr ""
 
 #. module: polln_shift
+#: model:ir.model,name:polln_shift.model_beesdoo_shift_template
+msgid "beesdoo.shift.template"
+msgstr ""
+
+#. module: polln_shift
 #: model:ir.model,name:polln_shift.model_cooperative_status
 msgid "cooperative.status"
 msgstr ""
 
 #. module: polln_shift
-#: code:addons/polln_shift/models/planning.py:87
+#: code:addons/polln_shift/models/planning.py:93
 #, python-format
 msgid "shift_status_holidays"
 msgstr ""
