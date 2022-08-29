@@ -4,6 +4,9 @@
         <field name="model">beesdoo.shift.template</field>
         <field name="inherit_id" ref="beesdoo_shift.task_template_view_form" />
         <field name="arch" type="xml">
+            <field name="task_type_id" position="after">
+                <field name="shift_presence_value" />
+            </field>
             <field name="worker_ids" position="attributes">
                 <attribute name="domain">[("is_worker", "=", True)]</attribute>
             </field>
