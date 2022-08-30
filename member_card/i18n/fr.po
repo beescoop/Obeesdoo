@@ -26,7 +26,7 @@ msgstr "Actif"
 #: model:ir.model.fields,field_description:member_card.field_res_partner__barcode
 #: model:ir.model.fields,field_description:member_card.field_res_users__barcode
 msgid "Barcode"
-msgstr "Code Barre"
+msgstr "Code-barres"
 
 #. module: member_card
 #: model_terms:ir.ui.view,arch_db:member_card.membercard_requestprinting_wizard_view_form
@@ -215,4 +215,4 @@ msgstr "Marqué imprimé pour"
 #: model:ir.model.fields,help:member_card.field_res_partner__barcode
 #: model:ir.model.fields,help:member_card.field_res_users__barcode
 msgid "Use a barcode to identify this contact from the Point of Sale."
-msgstr "Utiliser le code barre pour identifier le contact dans le point de vente."
+msgstr "Utiliser le code-barres pour identifier le contact dans le point de vente."
