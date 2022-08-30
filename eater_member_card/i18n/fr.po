@@ -25,4 +25,4 @@ msgstr "Contact"
 #: model:ir.model.fields,field_description:eater_member_card.field_res_partner__parent_barcode
 #: model:ir.model.fields,field_description:eater_member_card.field_res_users__parent_barcode
 msgid "Parent Barcode"
-msgstr "Code Barre parent"
+msgstr "Code-barres parent"
