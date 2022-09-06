@@ -1,21 +1,18 @@
 from odoo import api, models
 
+_MAJORITY = 18
+
 
 class SubscriptionRequest(models.Model):
     _inherit = "subscription.request"
 
-    _majority = 18
-
     def get_eater_vals(self, partner, share_product_id):
-        vals = {}
         eater = share_product_id.eater
 
-        if partner.is_company or partner.age < self._majority:
+        if partner.is_company or (partner.birthdate_date and partner.age < _MAJORITY):
             eater = "eater"
 
-        vals["eater"] = eater
-
-        return vals
+        return {"eater": eater}
 
     @api.multi
     def validate_subscription_request(self):
