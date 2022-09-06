@@ -24,15 +24,6 @@ class Partner(models.Model):
         readonly=True,
         related="",
     )
-    cooperator_type = fields.Selection(
-        [
-            ("share_a", "Share A"),
-            ("share_b", "Share B"),
-            ("share_c", "Share C"),
-        ],
-        store=True,
-        compute=None,
-    )
 
     def _cooperator_share_type(self):
         """
@@ -40,6 +31,7 @@ class Partner(models.Model):
         """
         self.ensure_one()
         share_type = self.env["product.template"]
+        # fixme 1 sql request for each partner when executing every _compute_can_*
         if self.cooperator_type:
             share_type = (
                 self.env["product.template"].search(
