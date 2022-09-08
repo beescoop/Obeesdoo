@@ -1,0 +1,111 @@
+.bpl-container {
+    // bpl is acronym for beesdoo_print_label
+    // fexbox are absolutely not supported by wkhtmltopdf
+    display: flex;
+    flex-wrap: wrap;
+
+    .container-bottom {
+        margin-top: auto;
+    }
+
+    .container-column {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container-row {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .pricetag {
+        width: 6cm;
+        height: 3.8cm;
+        padding: 0.1cm;
+        border: 1px solid gray;
+
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+
+        .product_informations {
+            font-weight: bold;
+            font-size: 10px;
+            line-height: 12px;
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
+
+        .product_name {
+            height: 36px;
+            font-size: 16px;
+            line-height: 18px;
+            margin-top: 2px;
+            margin-bottom: 2px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .product_labels {
+            display: flex;
+            font-size: 8px;
+            line-height: 10px;
+            max-height: 18px;
+            margin-top: 2px;
+            margin-bottom: 2px;
+
+            .product_label {
+                margin: 2px;
+            }
+
+            img.product_label {
+                max-width: 1rem;
+                max-height: 1rem;
+            }
+        }
+
+        .deposit {
+            flex: 1;
+            font-size: 10px;
+            line-height: 12px;
+            margin-bottom: 10px;
+            margin-top: auto;
+
+            .deposit_logo {
+                max-width: 1rem;
+                max-height: 1rem;
+            }
+        }
+
+        .container-price {
+            flex: 1;
+
+            .product_price {
+                font-size: 24px;
+                line-height: 26px;
+                font-weight: bold;
+                text-align: right;
+            }
+
+            .product_price_per_uom_qty {
+                flex: 1;
+                font-size: 8px;
+                line-height: 10px;
+                min-height: 10px;
+                text-align: right;
+                margin-right: 2px;
+                margin-left: 2px;
+            }
+
+            .product_price_per_uom_price {
+                flex: 1;
+                font-size: 8px;
+                line-height: 10px;
+                min-height: 10px;
+                text-align: right;
+                margin-right: 2px;
+                margin-left: 2px;
+            }
+        }
+    }
+}
