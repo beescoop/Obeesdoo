@@ -1,6 +1,10 @@
 # Copyright 2020 Coop IT Easy SC (<http://www.coopiteasy.be>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+from datetime import date
+
+from dateutil.relativedelta import relativedelta
+
 from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
 
@@ -12,6 +16,20 @@ class TestResPartner(TransactionCase):
         self.eater2 = self.env.ref("eater.eater2")
         self.eater3 = self.env.ref("eater.eater3")
         self.eater4 = self.env.ref("eater.eater4")
+        self.worker_share = self.env["product.template"].create(
+            {
+                "name": "Worker Share",
+                "is_share": True,
+                "eater": "worker_eater",
+            }
+        )
+        self.eater_share = self.env["product.template"].create(
+            {
+                "name": "Eater Share",
+                "is_share": True,
+                "eater": "eater",
+            }
+        )
 
     def test_max_eater_assignment_share_a(self):
         """
@@ -185,3 +203,78 @@ class TestResPartner(TransactionCase):
         # Run computed field
         coop3._compute_can_shop()
         self.assertEqual(coop3.can_shop, False)
+
+    def test_get_eater_vals_returns_share_configuration(self):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Partner with birthdate set",
+                "birthdate_date": date.today() - relativedelta(years=30),
+            }
+        )
+
+        vals = self.env["subscription.request"].get_eater_vals(
+            partner, self.worker_share
+        )
+        self.assertEqual(vals["eater"], "worker_eater")
+
+        vals = self.env["subscription.request"].get_eater_vals(
+            partner, self.eater_share
+        )
+        self.assertEqual(vals["eater"], "eater")
+
+    def test_get_eater_vals_returns_worker_eater_for_unset_birthdate(self):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Partner without birthdate set",
+            }
+        )
+
+        vals = self.env["subscription.request"].get_eater_vals(
+            partner, self.worker_share
+        )
+        self.assertEqual(vals["eater"], "worker_eater")
+
+        vals = self.env["subscription.request"].get_eater_vals(
+            partner, self.eater_share
+        )
+        self.assertEqual(vals["eater"], "eater")
+
+    def test_get_eater_vals_returns_eater_for_youngsters(self):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Young Partner",
+                "birthdate_date": date.today() - relativedelta(years=15),
+            }
+        )
+
+        vals = self.env["subscription.request"].get_eater_vals(
+            partner, self.worker_share
+        )
+        self.assertEqual(vals["eater"], "eater")
+
+        vals = self.env["subscription.request"].get_eater_vals(
+            partner, self.eater_share
+        )
+        self.assertEqual(vals["eater"], "eater")
+
+    def test_get_eater_vals_returns_eater_for_newborns(self):
+        """
+        Test that get_eater_vals() work correctly when the partner is 0 years
+        old.
+        """
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Newborn Partner",
+                "birthdate_date": date.today() - relativedelta(days=180),
+            }
+        )
+
+        vals = self.env["subscription.request"].get_eater_vals(
+            partner, self.worker_share
+        )
+        self.assertEqual(vals["eater"], "eater")
+
+        vals = self.env["subscription.request"].get_eater_vals(
+            partner, self.eater_share
+        )
+        self.assertEqual(vals["eater"], "eater")
