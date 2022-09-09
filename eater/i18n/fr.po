@@ -19,7 +19,7 @@ msgstr ""
 #. module: eater
 #: model:ir.model,name:eater.model_new_eater_wizard
 msgid "Add an eater to the current partner"
-msgstr "Ajouter un mangeur au partnenaire sélectionné"
+msgstr "Ajouter un mangeur au partenaire sélectionné"
 
 #. module: eater
 #: model_terms:ir.ui.view,arch_db:eater.new_eater_wizard_view_form
