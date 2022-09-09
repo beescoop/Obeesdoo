@@ -1,35 +1,52 @@
 .bpl-normal_pricetag_normal {
-    width: 5.8cm;
-    height: 3.6cm;
+    width: 7.1cm;
+    height: 4.5cm;
     padding: 0.15cm;
 
+    .product_name {
+        font-size: 0.5cm;
+        line-height: 0.6cm;
+        height: 1.2cm;
+    }
     .pricetag_left {
-        width: 1.6cm;
-        padding-left: 0.24cm;
+        width: 40%;
     }
     .pricetag_right {
-        width: 3.68cm;
+        width: 60%;
         text-align: right;
-        padding-right: 0.24cm;
     }
     .product_informations {
         font-size: 0.3cm;
+        line-height: 0.4cm;
+        height: 0.8cm;
     }
     .product_price {
         font-size: 0.5cm;
-        height: 0.6cm;
-        line-height: 0.7cm;
+        line-height: 0.6cm;
+    }
+    .deposit {
+        font-size: 0.2cm;
+        img {
+            width: 0.5cm;
+            margin: 0.05cm;
+        }
     }
     .product_labels {
-        font-size: 0.15cm;
-        height: 0.6cm;
+        font-size: 0;
+        height: 1.2cm;
     }
     img.product_label {
-        width: 0.4cm;
-        height: 0.4cm;
-        margin: 0.08cm 0.08cm 0.08cm -0.04cm;
+        width: 0.5cm;
+        height: 0.5cm;
+        margin: 0.05cm;
     }
     span.product_label {
-        margin: 0.08cm 0.08cm 0.08cm -0.04cm;
+        font-size: 0.2cm;
+        margin: 0.05cm;
+    }
+    .product_price_per_uom_qty,
+    .product_price_per_uom_price {
+        font-size: 0.2cm;
+        line-height: 0.3cm;
     }
 }

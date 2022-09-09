@@ -41,7 +41,7 @@
                         </div>
                         <div class="product_informations">
                             <t t-if="product_tmpl_id.main_seller_id.name">
-                                <b><t t-esc="product_tmpl_id.main_seller_id.name" /></b>
+                                <t t-esc="product_tmpl_id.main_seller_id.name" />
                             </t>
                             <t t-else=""><br /></t>
                         </div>
@@ -72,12 +72,10 @@
                                 <img
                                         src="/beesdoo_print_label/static/img/deposit.gif"
                                     />
-                                <b>
-                                    <t
-                                            t-esc="product_tmpl_id.total_deposit"
-                                            t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"
-                                        />
-                                </b>
+                                <t
+                                        t-esc="product_tmpl_id.total_deposit"
+                                        t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"
+                                    />
                             </t>
                         </div>
                         <div class="pricetag_right floating_box">
@@ -90,31 +88,25 @@
                             <!-- Weight (Kg) or Volume (L) pf the product -->
                             <div class="product_price_per_uom_qty floating_box">
                                 <t t-if="product_tmpl_id.volume">
-                                    <b>
-                                        <t t-esc="product_tmpl_id.volume" />
-                                        <t t-esc="product_tmpl_id.display_unit.name" />
-                                    </b>
+                                    <t t-esc="product_tmpl_id.volume" />
+                                    <t t-esc="product_tmpl_id.display_unit.name" />
                                 </t>
 
                                 <t t-elif="product_tmpl_id.display_weight">
-                                    <b>
-                                        <t t-esc="product_tmpl_id.display_weight" />
-                                        <t t-esc="product_tmpl_id.display_unit.name" />
-                                    </b>
+                                    <t t-esc="product_tmpl_id.display_weight" />
+                                    <t t-esc="product_tmpl_id.display_unit.name" />
                                 </t>
                             </div>
                             <!-- Price per Kg or L -->
                             <div class="product_price_per_uom_price floating_box">
                                 <t t-if="product_tmpl_id.total_with_vat_by_unit">
-                                    <b>
-                                        <t
-                                                t-esc="product_tmpl_id.total_with_vat_by_unit"
-                                                t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"
-                                            />
-                                        / <t
-                                                t-esc="product_tmpl_id.default_reference_unit.name"
-                                            />
-                                    </b>
+                                    <t
+                                            t-esc="product_tmpl_id.total_with_vat_by_unit"
+                                            t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"
+                                        />
+                                    / <t
+                                            t-esc="product_tmpl_id.default_reference_unit.name"
+                                        />
                                 </t>
                             </div>
                         </div>
