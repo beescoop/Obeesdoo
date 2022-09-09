@@ -256,3 +256,25 @@ class TestResPartner(TransactionCase):
             partner, self.eater_share
         )
         self.assertEqual(vals["eater"], "eater")
+
+    def test_get_eater_vals_returns_eater_for_newborns(self):
+        """
+        Test that get_eater_vals() work correctly when the partner is 0 years
+        old.
+        """
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Newborn Partner",
+                "birthdate_date": date.today() - relativedelta(days=180),
+            }
+        )
+
+        vals = self.env["subscription.request"].get_eater_vals(
+            partner, self.worker_share
+        )
+        self.assertEqual(vals["eater"], "eater")
+
+        vals = self.env["subscription.request"].get_eater_vals(
+            partner, self.eater_share
+        )
+        self.assertEqual(vals["eater"], "eater")

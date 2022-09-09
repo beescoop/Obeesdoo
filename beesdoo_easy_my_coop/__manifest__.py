@@ -11,6 +11,9 @@
         "cooperator",
         "cooperator_website",
         "partner_contact_birthdate",
+        # fixme: the module itself does not depend on member_card, but its
+        # demo data and its tests do
+        "member_card",
     ],
     "data": [
         "views/res_company.xml",
