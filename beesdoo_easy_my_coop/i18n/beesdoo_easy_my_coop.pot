@@ -81,12 +81,6 @@ msgid "Contact"
 msgstr ""
 
 #. module: beesdoo_easy_my_coop
-#: model:ir.model.fields,field_description:beesdoo_easy_my_coop.field_res_partner__cooperator_type
-#: model:ir.model.fields,field_description:beesdoo_easy_my_coop.field_res_users__cooperator_type
-msgid "Cooperator Type"
-msgstr ""
-
-#. module: beesdoo_easy_my_coop
 #: model:ir.model.fields,field_description:beesdoo_easy_my_coop.field_res_company__display_info_session_confirmation
 msgid "Display Info Session Confirmation"
 msgstr ""
@@ -183,8 +177,8 @@ msgid "Worker and Eater"
 msgstr ""
 
 #. module: beesdoo_easy_my_coop
-#: code:addons/beesdoo_easy_my_coop/models/res_partner.py:137
-#: code:addons/beesdoo_easy_my_coop/models/res_partner.py:156
+#: code:addons/beesdoo_easy_my_coop/models/res_partner.py:129
+#: code:addons/beesdoo_easy_my_coop/models/res_partner.py:148
 #, python-format
 msgid "You can only set %d additional eaters per worker"
 msgstr ""
