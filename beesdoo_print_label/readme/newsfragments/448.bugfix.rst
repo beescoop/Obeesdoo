@@ -1,0 +1,2 @@
+Refactor default pricetag to fit right size and prevent overflow of
+content.

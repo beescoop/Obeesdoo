@@ -1,0 +1,104 @@
+@mixin font-size-big {
+    font-size: 0.5cm;
+    line-height: 0.6cm;
+}
+$line-height-big: 0.6cm;
+
+@mixin font-size-medium {
+    font-size: 0.3cm;
+    line-height: 0.4cm;
+}
+$line-height-medium: 0.4cm;
+
+@mixin font-size-small {
+    font-size: 0.2cm;
+    line-height: 0.3cm;
+}
+$line-height-small: 0.3cm;
+
+.container-pricetag-60x38 {
+    // When using inline-block element, space between them takes place.
+    // To avoid these spaces, font-size is set to 0.
+    font-size: 0px;
+
+    .pricetag {
+        width: 7.1cm; // ~ 6cm on pdf
+        height: 4.5cm; // ~ 3.8cm on pdf
+        padding: 0.15cm;
+        border: 1px solid grey;
+        background-color: white;
+        display: inline-block;
+
+        .product_name {
+            @include font-size-big;
+            height: 2 * $line-height-big;
+            font-weight: bold;
+            overflow: hidden;
+        }
+
+        .product_informations {
+            @include font-size-medium;
+            height: 2 * $line-height-medium;
+            font-weight: bold;
+            text-align: left;
+            overflow: hidden;
+        }
+
+        .product_labels {
+            font-size: 0;
+            height: 1.2cm; // 2 * height img + 4 * margin
+            overflow: hidden;
+
+            img.product_label {
+                height: 0.5cm;
+                margin: 0.05cm;
+            }
+
+            span.product_label {
+                @include font-size-small;
+                margin: 0.05cm;
+            }
+        }
+
+        .deposit {
+            float: left;
+            @include font-size-small;
+            font-weight: bold;
+            width: 40%;
+            height: 0.6cm; // height img + 2 * margin
+
+            img {
+                width: 0.5cm;
+                height: 0.5cm;
+                margin: 0.05cm;
+            }
+        }
+
+        .product_price {
+            float: right;
+            @include font-size-big;
+            font-weight: bold;
+            width: 60%;
+            height: $line-height-big;
+            text-align: right;
+            overflow: hidden;
+        }
+
+        .uom_info {
+            font-size: 0;
+            height: $line-height-small;
+            overflow: hidden;
+            text-align: right;
+            clear: both;
+
+            .product_price_per_uom_qty,
+            .product_price_per_uom_price {
+                display: inline-block;
+                vertical-align: top; // needed by wkhtml to render correctly
+                @include font-size-small;
+                font-weight: bold;
+                margin-left: 0.1cm;
+            }
+        }
+    }
+}
