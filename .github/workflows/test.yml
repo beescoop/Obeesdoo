@@ -24,6 +24,15 @@ jobs:
       matrix:
         include:
           - container: ghcr.io/oca/oca-ci/py3.6-ocb12.0:latest
+            include: "macavrac_base"
+            makepot: "true"
+            name: test with OCB
+          - container: ghcr.io/oca/oca-ci/py3.6-ocb12.0:latest
+            include: "polln_shift"
+            makepot: "true"
+            name: test with OCB
+          - container: ghcr.io/oca/oca-ci/py3.6-ocb12.0:latest
+            exclude: "macavrac_base,polln_shift"
             makepot: "true"
             name: test with OCB
     services:
@@ -35,6 +44,9 @@ jobs:
           POSTGRES_DB: odoo
         ports:
           - 5432:5432
+    env:
+      INCLUDE: "${{ matrix.include }}"
+      EXCLUDE: "${{ matrix.exclude }}"
     steps:
       - uses: actions/checkout@v2
         with:

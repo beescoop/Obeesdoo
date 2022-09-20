@@ -8,7 +8,9 @@ include_wkhtmltopdf: false
 odoo_version: 12.0
 org_name: Coop IT Easy SC
 org_slug: beescoop
-rebel_module_groups: []
+rebel_module_groups:
+- macavrac_base
+- polln_shift
 repo_description: Specific module for the Beescoop
 repo_name: Obeesdoo
 repo_slug: obeesdoo
