@@ -54,6 +54,9 @@ Modification of product module for the needs of beescoop
   adapt the Sales Price according to the Suggested Price.
   Alternatively, 'Automatically write suggested price' can be enabled to make
   this last step automatic.
+- Allow searching a product given the product reference of the main
+  seller (also known as the `product_code` of the `product.supplierinfo`
+  object).
 
 Please note that this model makes assumptions when computing the suggested price:
 
