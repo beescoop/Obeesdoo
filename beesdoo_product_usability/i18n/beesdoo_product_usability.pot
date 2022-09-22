@@ -19,6 +19,11 @@ msgid "Main Seller"
 msgstr ""
 
 #. module: beesdoo_product_usability
+#: model_terms:ir.ui.view,arch_db:beesdoo_product_usability.beesdoo_product_tree
+msgid "Main Seller Product Code"
+msgstr ""
+
+#. module: beesdoo_product_usability
 #: model:ir.model.fields,field_description:beesdoo_product_usability.field_product_product__main_supplierinfo
 #: model:ir.model.fields,field_description:beesdoo_product_usability.field_product_template__main_supplierinfo
 msgid "Main Supplier Information"
