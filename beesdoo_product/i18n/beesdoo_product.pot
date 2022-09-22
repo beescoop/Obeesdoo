@@ -312,7 +312,15 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_product__main_seller_id
 #: model:ir.model.fields,field_description:beesdoo_product.field_product_template__main_seller_id
 #: model_terms:ir.ui.view,arch_db:beesdoo_product.product_template_edit_price_tree_view
+#: model_terms:ir.ui.view,arch_db:beesdoo_product.product_template_search_view
 msgid "Main Seller"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__main_seller_id_product_code
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__main_seller_id_product_code
+#: model_terms:ir.ui.view,arch_db:beesdoo_product.product_template_search_view
+msgid "Main Seller Product Code"
 msgstr ""
 
 #. module: beesdoo_product
@@ -322,13 +330,13 @@ msgid "Name"
 msgstr ""
 
 #. module: beesdoo_product
-#: code:addons/beesdoo_product/models/beesdoo_product.py:340
+#: code:addons/beesdoo_product/models/beesdoo_product.py:348
 #, python-format
 msgid "No Vendor defined for product '%s'"
 msgstr ""
 
 #. module: beesdoo_product
-#: code:addons/beesdoo_product/models/beesdoo_product.py:399
+#: code:addons/beesdoo_product/models/beesdoo_product.py:407
 #, python-format
 msgid "No supplier found for product {}"
 msgstr ""
@@ -356,7 +364,7 @@ msgstr ""
 
 #. module: beesdoo_product
 #: code:addons/beesdoo_product/models/beesdoo_product.py:28
-#: code:addons/beesdoo_product/models/beesdoo_product.py:504
+#: code:addons/beesdoo_product/models/beesdoo_product.py:512
 #, python-format
 msgid "Percentages for Profit Margin must >= 0."
 msgstr ""
@@ -448,7 +456,7 @@ msgid "Purchase Price Last Updated On"
 msgstr ""
 
 #. module: beesdoo_product
-#: code:addons/beesdoo_product/models/beesdoo_product.py:297
+#: code:addons/beesdoo_product/models/beesdoo_product.py:305
 #, python-format
 msgid "Reference Unit and Display Unit should belong to the same category "
 msgstr ""
@@ -589,8 +597,20 @@ msgid "This product can't be printed from the Point of Sale because several tax 
 msgstr ""
 
 #. module: beesdoo_product
+#: model:ir.model.fields,help:beesdoo_product.field_product_product__main_seller_id_product_code
+#: model:ir.model.fields,help:beesdoo_product.field_product_template__main_seller_id_product_code
+msgid "This vendor's product code will be used when printing a request for quotation. Keep empty to use the internal one."
+msgstr ""
+
+#. module: beesdoo_product
 #: selection:uom.category,type:0
 msgid "Time"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__top_supplierinfo_id
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__top_supplierinfo_id
+msgid "Top Supplierinfo"
 msgstr ""
 
 #. module: beesdoo_product
@@ -614,6 +634,12 @@ msgstr ""
 #. module: beesdoo_product
 #: selection:uom.category,type:0
 msgid "Unit"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,help:beesdoo_product.field_product_product__main_seller_id
+#: model:ir.model.fields,help:beesdoo_product.field_product_template__main_seller_id
+msgid "Vendor of this product"
 msgstr ""
 
 #. module: beesdoo_product
