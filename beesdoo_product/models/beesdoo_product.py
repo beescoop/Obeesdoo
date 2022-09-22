@@ -64,11 +64,19 @@ class BeesdooProduct(models.Model):
         translate=True,
     )
 
-    main_seller_id = fields.Many2one(
-        "res.partner",
-        string="Main Seller",
+    top_supplierinfo_id = fields.Many2one(
+        comodel_name="product.supplierinfo",
         compute="_compute_main_seller_id",
         store=True,
+    )
+    main_seller_id = fields.Many2one(
+        string="Main Seller",
+        comodel_name="res.partner",
+        related="top_supplierinfo_id.name",
+    )
+    main_seller_id_product_code = fields.Char(
+        string="Main Seller Product Code",
+        related="top_supplierinfo_id.product_code",
     )
 
     display_unit = fields.Many2one("uom.uom")
@@ -219,7 +227,7 @@ class BeesdooProduct(models.Model):
             #   “seller” and “supplier” are used interchangeably in this
             #   class. is this on purpose?
             sellers_ids = product._get_main_supplier_info()
-            product.main_seller_id = sellers_ids and sellers_ids[0].name or False
+            product.top_supplierinfo_id = sellers_ids and sellers_ids[0] or False
 
     @api.multi
     @api.depends(

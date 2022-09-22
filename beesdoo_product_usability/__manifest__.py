@@ -8,7 +8,7 @@
     "author": "Beescoop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Sales Management",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.1.0",
     "depends": [
         "beesdoo_product",
         "beesdoo_stock_coverage",
