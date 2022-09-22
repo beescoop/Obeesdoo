@@ -37,7 +37,7 @@ class TestWorkers(test_base.TestWorkerBase):
         """
         # using self.env.ref("beesdoo_shift.res_partner_worker_1_demo")
         # does not work because the is_worker field is overriden by
-        # beesdoo_easy_my_coop's `_compute_is_worker`
+        # cooperator_worker's `_compute_is_worker`
 
         cooperative_status = self.env["cooperative.status"].create(
             {

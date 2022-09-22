@@ -849,7 +849,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_shift.field_res_partner__worker_store
 #: model:ir.model.fields,field_description:beesdoo_shift.field_res_users__worker_store
 msgid "Force Worker"
-msgstr ""
+msgstr "Ajouter le candidat coopérateur au système des shifts"
 
 #. module: beesdoo_shift
 #: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_daynumber__number
