@@ -26,6 +26,17 @@ This module extends `product_print_category <https://github.com/grap/grap-odoo-i
 .. contents::
    :local:
 
+Changelog
+=========
+
+12.0.1.1.4 (2022-09-23)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+**Bugfixes**
+
+- Refactor default pricetag to fit right size and prevent overflow of
+  content. (`#448 <https://github.com/beescoop/Obeesdoo/issues/448>`_)
+
 Bug Tracker
 ===========
 
@@ -50,6 +61,10 @@ Contributors
 
 * François Laenen <f.laenen@dooit.io>
 * Tom Rousseaux
+
+* `Coop IT Easy SC <https://coopiteasy.be>`_:
+
+  * Rémy Taymans <remy@coopiteasy.be>
 
 Maintainers
 ~~~~~~~~~~~
