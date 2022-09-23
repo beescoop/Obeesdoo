@@ -4,7 +4,7 @@
 {
     "name": "Beesdoo Print Label",
     "summary": """Product labels""",
-    "version": "12.0.1.1.3",
+    "version": "12.0.1.1.4",
     "license": "AGPL-3",
     "category": "Sales",
     "author": "Coop IT Easy SC, Polln group",
