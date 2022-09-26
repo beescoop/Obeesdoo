@@ -30,7 +30,8 @@
                                 </td>
                                 <td align="center" valign="top">
                                     <img
-                                        src="/polln_base/static/src/img/logo-polln.png"
+                                        t-if="res_company.member_card_logo"
+                                        t-att-src="image_data_uri(res_company.member_card_logo)"
                                         style="display:table; margin: 3pt;width:55%;height:4.0cm;"
                                     />
                                 </td>
