@@ -17,6 +17,7 @@
         "security/ir.model.access.csv",
         "wizard/member_card_wizards_views.xml",
         "views/partner.xml",
+        "report/member_card_template.xml",
     ],
     "installable": True,
     "demo": ["demo/cooperators.xml"],

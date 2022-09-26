@@ -2,16 +2,16 @@
 <odoo>
 
     <report
-        id="report_pollncard_cm"
-        string="Pollncard"
+        id="report_member_card"
+        string="Member Card"
         model="res.partner"
         report_type="qweb-pdf"
-        name="polln_base.pollncard_template_cm"
-        file="polln_base.pollncard_template_cm"
-        print_report_name="'Polln Card Members'"
+        name="member_card.member_card_template"
+        file="member_card.member_card_template"
+        print_report_name="'Member Card'"
     />
 
-    <template id="pollncard_template_cm">
+    <template id="member_card_template">
         <t t-call="web.basic_layout">
             <div class="page">
                 <t t-foreach="docs" t-as="partner">
@@ -23,8 +23,8 @@
                                 <td align="left" rowspan="3" style="width:10%">
                                     <img
                                         alt="barcode"
-                                        t-if="partner.barcode or partner.parent_eater_id.barcode"
-                                        t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' % ('EAN13', partner.barcode or partner.parent_eater_id.barcode, 230, 80)"
+                                        t-if="partner.barcode"
+                                        t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' % ('EAN13', partner.barcode, 230, 80)"
                                         style="-webkit-transform: rotate(270deg);margin-top:77px;margin-left:-65px;margin-right:-85px"
                                     />
                                 </td>
