@@ -13,7 +13,10 @@
     "category": "Sales",
     "version": "12.0.1.0.0",
     "depends": ["eater", "member_card"],
-    "data": ["views/partner.xml"],
+    "data": [
+        "views/partner.xml",
+        "report/member_card_template.xml",
+    ],
     "installable": True,
     "license": "AGPL-3",
 }
