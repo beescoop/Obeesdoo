@@ -39,19 +39,13 @@
                             <tr>
                                 <td>
                                   <div
+                                        id="member_name"
                                         align="center"
                                         style="font-size:14pt;font-weight: bold;"
                                     >
                                     <t t-esc="partner.name[:36]" />
                                   </div>
-                                  <t t-if="partner.parent_eater_id.name">
-                                    <div align="center" style="font-size:10pt">
-                                      <t
-                                                t-esc="'Travailleuse' if partner.parent_eater_id.gender == 'female' else 'Travailleur'"
-                                            />: <t
-                                                t-esc="partner.parent_eater_id.name[:36]"
-                                            /></div>
-                                  </t>
+
                                 </td>
                             </tr>
                         </table>
@@ -60,4 +54,5 @@
             </div>
         </t>
     </template>
+
 </odoo>
