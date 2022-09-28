@@ -1,0 +1,4 @@
+Change what's shown on the second line of the pricetag. It shows the product
+brand, and, if not set, show the main seller name. The module depend on
+the ``product_brand`` module (from `product-attribute
+<https://github.com/OCA/product-attribute>`_).
