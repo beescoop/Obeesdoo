@@ -12,6 +12,7 @@
     "depends": [
         "beesdoo_product",
         "product_print_category",
+        "product_brand",
     ],
     "data": [
         "views/report_pricetag_normal.xml",

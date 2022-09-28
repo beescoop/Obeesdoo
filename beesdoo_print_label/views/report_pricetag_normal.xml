@@ -28,7 +28,10 @@
                             <t t-esc="product_tmpl_id.name" />
                         </div>
                         <div class="product_informations">
-                            <t t-if="product_tmpl_id.main_seller_id.name">
+                            <t t-if="product_tmpl_id.product_brand_id">
+                                <t t-esc="product_tmpl_id.product_brand_id.name" />
+                            </t>
+                            <t t-elif="product_tmpl_id.main_seller_id.name">
                                 <t t-esc="product_tmpl_id.main_seller_id.name" />
                             </t>
                         </div>
