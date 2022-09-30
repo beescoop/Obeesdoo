@@ -43,13 +43,13 @@
                                         align="center"
                                         style="font-size:14pt;font-weight: bold;"
                                     >
-                                    <t t-esc="partner.name[:36]" />
+                                    <t t-esc="partner.name[:20]" />
                                   </div>
                                   <t t-if="partner.parent_eater_id.name">
                                     <div align="center" style="font-size:10pt">
                                       Worker:
                                       <t
-                                                t-esc="partner.parent_eater_id.name[:36]"
+                                                t-esc="partner.parent_eater_id.name[:20]"
                                             /></div>
                                   </t>
                                 </td>
