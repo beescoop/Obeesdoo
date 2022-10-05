@@ -1,20 +1,20 @@
 @mixin font-size-big {
-    font-size: 0.5cm;
-    line-height: 0.6cm;
+    font-size: 0.7cm;
+    line-height: 0.8cm;
 }
-$line-height-big: 0.6cm;
+$line-height-big: 0.8cm;
 
 @mixin font-size-medium {
+    font-size: 0.6cm;
+    line-height: 0.7cm;
+}
+$line-height-medium: 0.7cm;
+
+@mixin font-size-small {
     font-size: 0.3cm;
     line-height: 0.4cm;
 }
-$line-height-medium: 0.4cm;
-
-@mixin font-size-small {
-    font-size: 0.2cm;
-    line-height: 0.3cm;
-}
-$line-height-small: 0.3cm;
+$line-height-small: 0.4cm;
 
 .container-pricetag-60x38 {
     // When using inline-block element, space between them takes place.
@@ -30,15 +30,15 @@ $line-height-small: 0.3cm;
         display: inline-block;
 
         .product_name {
-            @include font-size-big;
-            height: 2 * $line-height-big;
+            @include font-size-medium;
+            height: 2 * $line-height-medium;
             font-weight: bold;
             overflow: hidden;
         }
 
         .product_informations {
-            @include font-size-medium;
-            height: 2 * $line-height-medium;
+            @include font-size-small;
+            height: 2 * $line-height-small;
             font-weight: bold;
             text-align: left;
             overflow: hidden;
@@ -46,12 +46,14 @@ $line-height-small: 0.3cm;
 
         .product_labels {
             font-size: 0;
-            height: 1.2cm; // 2 * height img + 4 * margin
+            height: 0.7cm; // 1 * height img + 2 * margin
             overflow: hidden;
 
             img.product_label {
-                height: 0.5cm;
+                height: 0.6cm;
                 margin: 0.05cm;
+                margin-right: 0.1cm;
+                margin-left: 0.1cm;
             }
 
             span.product_label {
@@ -65,11 +67,11 @@ $line-height-small: 0.3cm;
             @include font-size-small;
             font-weight: bold;
             width: 40%;
-            height: 0.6cm; // height img + 2 * margin
+            height: 0.7cm; // height img + 2 * margin
 
             img {
-                width: 0.5cm;
-                height: 0.5cm;
+                width: 0.6cm;
+                height: 0.6cm;
                 margin: 0.05cm;
             }
         }
