@@ -1,3 +1,8 @@
+- factor out wizards "request member card printing" and "set member card as printed"
+
+  - it was used to request a batch of card to print but has no link to the actual template
+- use `barcodes_generator_abstract` from the OCA to generate barcodes
+
 **Customer Barcodes**
 
 - odoo/base adds `barcode` field on `res.partner`.

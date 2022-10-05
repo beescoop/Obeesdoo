@@ -6,7 +6,10 @@ Create a member card and link it to a partner.
 - the partner's card and barcode history is visible in the member card tab
 - the barcode of a partner is computed from the last active member card
 - a boolean "Print Member card?" allows to filter on partners for which you need to print new cards.
-- contain a template for the member card
+- contains a generic template for the member card
+- the card template uses field `member_card_logo` rather than the company logo
+
+The wizards "Request member card printing" and "Set member card as printed" allow to
 
 Careful : this module overrides the barcodes already defined on the partners.
 
