@@ -5,9 +5,6 @@
         <field name="report_name">eater_member_card.member_card_template</field>
     </record>
 
-
-
-
     <template id="member_card_template">
         <!-- replace the member_card template to add worker information.
             Cannot use template inheritance because the worker information is in partner variable,
