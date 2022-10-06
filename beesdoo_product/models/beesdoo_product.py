@@ -73,10 +73,12 @@ class BeesdooProduct(models.Model):
         string="Main Seller",
         comodel_name="res.partner",
         related="top_supplierinfo_id.name",
+        store=True,
     )
     main_seller_id_product_code = fields.Char(
         string="Main Seller Product Code",
         related="top_supplierinfo_id.product_code",
+        store=True,
     )
 
     display_unit = fields.Many2one("uom.uom")
