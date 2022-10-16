@@ -53,12 +53,6 @@ msgid "Coop N°"
 msgstr ""
 
 #. module: macavrac_base
-#: model:ir.model.fields,field_description:macavrac_base.field_res_partner__cooperator_type
-#: model:ir.model.fields,field_description:macavrac_base.field_res_users__cooperator_type
-msgid "Cooperator Type"
-msgstr ""
-
-#. module: macavrac_base
 #: model:ir.model.fields,field_description:macavrac_base.field_res_partner__birthdate
 #: model:ir.model.fields,field_description:macavrac_base.field_res_users__birthdate
 msgid "Date d'anniversaire"
@@ -150,6 +144,26 @@ msgid "Numéro de registre national"
 msgstr ""
 
 #. module: macavrac_base
+#: selection:res.partner,cooperator_type:0
+msgid "Part A"
+msgstr ""
+
+#. module: macavrac_base
+#: selection:res.partner,cooperator_type:0
+msgid "Part B"
+msgstr ""
+
+#. module: macavrac_base
+#: selection:res.partner,cooperator_type:0
+msgid "Part C"
+msgstr ""
+
+#. module: macavrac_base
+#: selection:res.partner,cooperator_type:0
+msgid "Part D"
+msgstr ""
+
+#. module: macavrac_base
 #: selection:res.partner,state_request:0
 msgid "Parts revendues"
 msgstr ""
@@ -164,6 +178,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:macavrac_base.field_res_partner__date_stamp
 #: model:ir.model.fields,field_description:macavrac_base.field_res_users__date_stamp
 msgid "Timestamp"
+msgstr ""
+
+#. module: macavrac_base
+#: model:ir.model.fields,field_description:macavrac_base.field_res_partner__cooperator_type
+#: model:ir.model.fields,field_description:macavrac_base.field_res_users__cooperator_type
+msgid "Type de Part"
 msgstr ""
 
 #. module: macavrac_base
