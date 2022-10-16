@@ -249,12 +249,6 @@ msgid "Change Super Coop"
 msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,help:beesdoo_shift.field_res_partner__worker_store
-#: model:ir.model.fields,help:beesdoo_shift.field_res_users__worker_store
-msgid "Check to subscribe member to their shift even if they are not yet effective cooperator."
-msgstr ""
-
-#. module: beesdoo_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.coop_status_form_view
 msgid "Clear History"
 msgstr ""
@@ -632,12 +626,6 @@ msgid "For testing purpose only"
 msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_res_partner__worker_store
-#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users__worker_store
-msgid "Force Worker"
-msgstr ""
-
-#. module: beesdoo_shift
 #: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_daynumber__number
 msgid "From 1 to N, When you will instanciate your planning, Day 1 will be the start date of the instance, Day 2 the second, etc..."
 msgstr ""
@@ -797,6 +785,7 @@ msgid "Irregular Start Date"
 msgstr ""
 
 #. module: beesdoo_shift
+#: selection:beesdoo.shift.subscribe,working_mode:0
 #: selection:cooperative.status,working_mode:0
 msgid "Irregular worker"
 msgstr ""
@@ -1117,6 +1106,12 @@ msgid "Regular shift"
 msgstr ""
 
 #. module: beesdoo_shift
+#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__sr
+msgid "Regular shifts counter"
+msgstr ""
+
+#. module: beesdoo_shift
+#: selection:beesdoo.shift.subscribe,working_mode:0
 #: selection:cooperative.status,working_mode:0
 msgid "Regular worker"
 msgstr ""
@@ -1236,11 +1231,6 @@ msgstr ""
 #. module: beesdoo_shift
 #: model:res.groups,name:beesdoo_shift.group_shift_management
 msgid "Shifts and Attendance Sheets Management"
-msgstr ""
-
-#. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_cooperative_status__sr
-msgid "Sr"
 msgstr ""
 
 #. module: beesdoo_shift
@@ -1508,6 +1498,12 @@ msgstr ""
 #. module: beesdoo_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.task_template_view_kanban
 msgid "Worker Number:"
+msgstr ""
+
+#. module: beesdoo_shift
+#: model:ir.model.fields,field_description:beesdoo_shift.field_res_partner__worker_store
+#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users__worker_store
+msgid "Worker Store"
 msgstr ""
 
 #. module: beesdoo_shift
@@ -1786,10 +1782,5 @@ msgstr ""
 #: code:addons/beesdoo_shift/models/cooperative_status.py:54
 #, python-format
 msgid "shift_status_warning"
-msgstr ""
-
-#. module: beesdoo_shift
-#: selection:beesdoo.shift.subscribe,working_mode:0
-msgid "worker"
 msgstr ""
 
