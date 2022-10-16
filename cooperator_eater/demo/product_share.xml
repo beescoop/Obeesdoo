@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Share products -->
+    <record id="cooperator_worker.share_a" model="product.product">
+        <field name="max_nb_eater_allowed">3</field>
+    </record>
+    <record id="cooperator_worker.share_b" model="product.product">
+        <field name="max_nb_eater_allowed">2</field>
+    </record>
+    <record id="cooperator_worker.share_c" model="product.product">
+        <field name="max_nb_eater_allowed">-1</field>
+    </record>
+
+</odoo>

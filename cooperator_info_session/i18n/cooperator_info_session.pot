@@ -1,0 +1,86 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* cooperator_info_session
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: cooperator_info_session
+#: sql_constraint:res.company:0
+msgid "Approval can't be mandatory and not displayed."
+msgstr ""
+
+#. module: cooperator_info_session
+#: model:ir.model.fields,help:cooperator_info_session.field_res_company__display_info_session_confirmation
+msgid "Choose to display a info session checkbox on the cooperator website form."
+msgstr ""
+
+#. module: cooperator_info_session
+#: model:ir.model,name:cooperator_info_session.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: cooperator_info_session
+#: model:ir.model.fields,field_description:cooperator_info_session.field_subscription_request__info_session_confirmed
+msgid "Confirmed Info Session"
+msgstr ""
+
+#. module: cooperator_info_session
+#: model:ir.model.fields,field_description:cooperator_info_session.field_res_partner__info_session_confirmed
+#: model:ir.model.fields,field_description:cooperator_info_session.field_res_users__info_session_confirmed
+msgid "Confirmed presence to info session"
+msgstr ""
+
+#. module: cooperator_info_session
+#: model:ir.model,name:cooperator_info_session.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: cooperator_info_session
+#: model:ir.model.fields,field_description:cooperator_info_session.field_res_company__display_info_session_confirmation
+msgid "Display Info Session Confirmation"
+msgstr ""
+
+#. module: cooperator_info_session
+#: model:ir.model.fields,field_description:cooperator_info_session.field_beesdoo_shift_subscribe__info_session
+msgid "Followed an information session"
+msgstr ""
+
+#. module: cooperator_info_session
+#: model_terms:ir.ui.view,arch_db:cooperator_info_session.rules_template
+msgid "Info Session"
+msgstr ""
+
+#. module: cooperator_info_session
+#: model:ir.model.fields,field_description:cooperator_info_session.field_res_company__info_session_confirmation_text
+msgid "Info Session Confirmation Text"
+msgstr ""
+
+#. module: cooperator_info_session
+#: model:ir.model.fields,field_description:cooperator_info_session.field_res_company__info_session_confirmation_required
+msgid "Is info session confirmation required?"
+msgstr ""
+
+#. module: cooperator_info_session
+#: model:ir.model,name:cooperator_info_session.model_subscription_request
+msgid "Subscription Request"
+msgstr ""
+
+#. module: cooperator_info_session
+#: model:ir.model.fields,help:cooperator_info_session.field_res_company__info_session_confirmation_text
+msgid "Text to display aside the checkbox to confirm participation to an info session."
+msgstr ""
+
+#. module: cooperator_info_session
+#: model:ir.model,name:cooperator_info_session.model_beesdoo_shift_subscribe
+msgid "beesdoo.shift.subscribe"
+msgstr ""
+

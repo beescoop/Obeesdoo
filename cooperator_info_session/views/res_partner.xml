@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2019 Coop IT Easy SC
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">view_partner_form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="cooperator.view_partner_form" />
+        <field name="arch" type="xml">
+            <field name="internal_rules_approved" position="before">
+                <field
+                    name="info_session_confirmed"
+                    attrs="{'invisible':[('member','=',False)]}"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>

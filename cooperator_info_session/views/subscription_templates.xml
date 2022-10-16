@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2019 Coop IT Easy SC
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <template
+        id="rules_template"
+        name="Become Cooperator (in cooperator_info_session)"
+        inherit_id="cooperator_website.rules_template"
+    >
+        <xpath expr="//div[@id='internal_rules_approved']" position="before">
+            <div
+                id="info_session_confirmed"
+                t-if="display_info_session"
+                t-attf-class="form-group"
+            >
+                <label for="info_session_confirmed">
+                    Info Session
+                </label>
+                <div class="form-check">
+                    <input
+                        type="checkbox"
+                        name="info_session_confirmed"
+                        class="form-check-input"
+                        t-att-required="info_session_required"
+                        t-att-checked="info_session_confirmed"
+                    />
+                    <label>
+                        <t t-raw="info_session_text" />
+                    </label>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>
