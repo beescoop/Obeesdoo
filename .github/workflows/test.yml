@@ -23,13 +23,17 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          # FIXME: .pots created by different runs are not identical. This
+          # results in an endless loop. Because both macavrac_base and
+          # polln_shift also depend on beesdoo_shift, they also generate a .pot
+          # for beesdoo_shift.
           - container: ghcr.io/oca/oca-ci/py3.6-ocb12.0:latest
             include: "macavrac_base"
-            makepot: "true"
+            # makepot: "true"
             name: test with OCB
           - container: ghcr.io/oca/oca-ci/py3.6-ocb12.0:latest
             include: "polln_shift"
-            makepot: "true"
+            # makepot: "true"
             name: test with OCB
           - container: ghcr.io/oca/oca-ci/py3.6-ocb12.0:latest
             exclude: "macavrac_base,polln_shift"
