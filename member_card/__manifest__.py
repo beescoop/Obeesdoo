@@ -12,7 +12,7 @@
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Sales",
     "version": "12.0.1.0.1",
-    "depends": ["barcodes", "partner_firstname"],
+    "depends": ["barcodes"],
     "data": [
         "security/ir.model.access.csv",
         "wizard/member_card_wizards_views.xml",

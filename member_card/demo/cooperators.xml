@@ -6,8 +6,6 @@
 <odoo>
     <record id="res_partner_cooperator_1_demo" model="res.partner">
         <field name="name">Fernand Peso</field>
-        <field name="firstname">Fernand</field>
-        <field name="lastname">Peso</field>
         <field name="customer" eval="True" />
         <field name="is_company" eval="False" />
         <field name="email">fernand_peso@demo.net</field>
