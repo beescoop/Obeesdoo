@@ -1,61 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
-    <record id="member_card.report_member_card" model="ir.actions.report">
-        <field name="report_name">eater_member_card.member_card_template</field>
-    </record>
-
-    <template id="member_card_template">
-        <!-- replace the member_card template to add worker information.
-            Cannot use template inheritance because the worker information is in partner variable,
-        which is set in the foreach loop -->
-        <t t-call="web.basic_layout">
-            <div class="page">
-                <t t-foreach="docs" t-as="partner">
-                    <div style="width: 48%; display: inline-table; height:6.7cm;">
-                        <table
-                            style="width:10.7cm; height:6.7cm; border: 1pt solid black; border-collapse:separate; margin:1pt;"
-                        >
-                            <tr>
-                                <td align="left" rowspan="3" style="width:10%">
-                                    <img
-                                        alt="barcode"
-                                        t-if="partner.barcode or partner.parent_eater_id.barcode"
-                                        t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' % ('EAN13', partner.barcode or partner.parent_eater_id.barcode, 230, 80)"
-                                        style="-webkit-transform: rotate(270deg);margin-top:77px;margin-left:-65px;margin-right:-85px"
-                                    />
-                                </td>
-                                <td align="center" valign="top">
-                                    <img
-                                        t-if="res_company.member_card_logo"
-                                        t-att-src="image_data_uri(res_company.member_card_logo)"
-                                        style="display:table; margin: 3pt;width:55%;height:4.0cm;"
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                  <div
-                                        id="member_name"
-                                        align="center"
-                                        style="font-size:14pt;font-weight: bold;"
-                                    >
-                                    <t t-esc="partner.name[:20]" />
-                                  </div>
-                                  <t t-if="partner.parent_eater_id.name">
-                                    <div align="center" style="font-size:10pt">
-                                      Worker:
-                                      <t
-                                                t-esc="partner.parent_eater_id.name[:20]"
-                                            /></div>
-                                  </t>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </t>
-            </div>
-        </t>
+    <template id="member_card_template" inherit_id="member_card.member_card_template">
+        <xpath expr="//div[@id='member_name']" position="after">
+            <t t-if="partner.parent_eater_id.name">
+                <div align="center" style="font-size:10pt">
+                    Worker:
+                    <t t-esc="partner.parent_eater_id.name[:20]" />
+                </div>
+            </t>
+        </xpath>
     </template>
-
 </odoo>
