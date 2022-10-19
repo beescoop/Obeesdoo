@@ -1,9 +1,9 @@
 # Copyright 2020 Coop IT Easy SCRL fs
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+import datetime
 import logging
 import uuid
-from datetime import date
 
 from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
@@ -64,19 +64,21 @@ class BeesdooProduct(models.Model):
         translate=True,
     )
 
-    top_supplierinfo_id = fields.Many2one(
+    main_supplierinfo_id = fields.Many2one(
         comodel_name="product.supplierinfo",
-        compute="_compute_main_seller_id",
+        compute="_compute_main_supplierinfo_id",
         store=True,
     )
     main_seller_id = fields.Many2one(
         string="Main Seller",
         comodel_name="res.partner",
-        related="top_supplierinfo_id.name",
+        related="main_supplierinfo_id.name",
+        store=True,
     )
     main_seller_id_product_code = fields.Char(
         string="Main Seller Product Code",
-        related="top_supplierinfo_id.product_code",
+        related="main_supplierinfo_id.product_code",
+        store=True,
     )
 
     display_unit = fields.Many2one("uom.uom")
@@ -163,17 +165,22 @@ class BeesdooProduct(models.Model):
                 product.scale_sale_unit = "P"
 
     def _get_main_supplier_info(self):
-        # fixme this function either returns a supplier or a collection.
-        #  wouldn’t it be more logical to return a supplier or None?
+        """Return the main supplierinfo linked to this product.
 
-        # supplierinfo w/o date_start come first
-        def sort_date_first(seller):
+        The main supplierinfo is the most recent one based on the
+        supplierinfo.date_start. If date_start is empty then the
+        supplier is considered to be the most recent one.
+
+        If there is no supplierinfo then it return an empty recordset.
+        """
+
+        def sort_date_asc(seller):
             if seller.date_start:
                 return seller.date_start
             else:
-                return date.max
+                return datetime.date.max
 
-        suppliers = self.seller_ids.sorted(key=sort_date_first, reverse=True)
+        suppliers = self.seller_ids.sorted(key=sort_date_asc, reverse=True)
         if suppliers:
             return suppliers[0]
         else:
@@ -219,15 +226,9 @@ class BeesdooProduct(models.Model):
 
     @api.multi
     @api.depends("seller_ids", "seller_ids.date_start")
-    def _compute_main_seller_id(self):
+    def _compute_main_supplierinfo_id(self):
         for product in self:
-            # todo english code Calcule le vendeur associé qui a la date de
-            #  début la plus récente et plus petite qu’aujourd’hui fixme
-            #   could product.main_seller_id be used instead? it seems that
-            #   “seller” and “supplier” are used interchangeably in this
-            #   class. is this on purpose?
-            sellers_ids = product._get_main_supplier_info()
-            product.top_supplierinfo_id = sellers_ids and sellers_ids[0] or False
+            product.main_supplierinfo_id = product._get_main_supplier_info()
 
     @api.multi
     @api.depends(

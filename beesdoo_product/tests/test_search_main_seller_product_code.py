@@ -27,7 +27,7 @@ class TestSearchMainSellerProductCode(TransactionCase):
                 (
                     "main_seller_id_product_code",
                     "=",
-                    self.product1.top_supplierinfo_id.product_code,
+                    self.product1.main_supplierinfo_id.product_code,
                 )
             ]
         )
@@ -37,7 +37,7 @@ class TestSearchMainSellerProductCode(TransactionCase):
                 (
                     "main_seller_id_product_code",
                     "=",
-                    self.product2.top_supplierinfo_id.product_code,
+                    self.product2.main_supplierinfo_id.product_code,
                 )
             ]
         )
