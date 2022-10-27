@@ -4,13 +4,10 @@
 {
     "name": "BEES coop Stock",
     "version": "12.0.1.0.0",
-    "depends": ["stock"],
+    "depends": ["stock_picking_product_link"],
     "author": "Coop IT Easy SC",
     "license": "AGPL-3",
     "website": "https://github.com/beescoop/Obeesdoo",
-    "summary": """
-        Enable action on multiple products of a stock receipt
-    """,
-    "data": ["views/stock_view.xml"],
+    "summary": "Emptied",
     "installable": True,
 }

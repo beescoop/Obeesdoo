@@ -1,1 +1,1 @@
-Enable action on multiple products of a stock receipt.
+Moved to `stock_picking_products` (oca/stock-logistics-workflow).
