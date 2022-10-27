@@ -10,7 +10,7 @@
     "author": "Beescoop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Account Module",
-    "version": "12.0.2.0.0",
+    "version": "12.0.2.0.1",
     "depends": [
         "account",
         "account_invoice_date_required",
