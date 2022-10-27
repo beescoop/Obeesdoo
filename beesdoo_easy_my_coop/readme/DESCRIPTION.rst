@@ -1,1 +1,5 @@
-Link between beesdoo customization and easy_my_coop
+Split into
+
+- cooperator_worker
+- cooperator_eater
+- cooperator_info_session
