@@ -12,7 +12,6 @@
     "data": [
         "views/product_template_views.xml",
     ],
-    "auto_install": True,
     "demo": ["demo/product_share.xml"],
     "license": "AGPL-3",
 }
