@@ -7,21 +7,10 @@ from odoo import api, fields, models
 class Partner(models.Model):
     _inherit = "res.partner"
 
-    # this field is not displayed in the view
-    # cf issue https://github.com/beescoop/Obeesdoo/issues/374
-    # force is_worker to True
-    worker_store = fields.Boolean(
-        string="Force Worker",
-        help="Check to subscribe member to their shift even"
-        " if they are not yet effective cooperator.",
-    )
-
     is_worker = fields.Boolean(
         compute="_compute_is_worker",
         search="_search_worker",
         readonly=True,
-        # override parent definition
-        related="",
         help="Computed from the share product of the first cooperator share",
     )
 
@@ -46,7 +35,6 @@ class Partner(models.Model):
         "share_ids.share_product_id.default_code",
         "share_ids.share_product_id.allow_working",
         "share_ids.share_number",
-        "worker_store",
     )
     def _compute_is_worker(self):
         """
@@ -56,17 +44,15 @@ class Partner(models.Model):
         for rec in self:
             share_type = rec._cooperator_share_type()
             if share_type:
-                is_worker = share_type.allow_working
+                rec.is_worker = share_type.allow_working
             else:
-                is_worker = False
-            rec.is_worker = is_worker or rec.worker_store
+                rec.is_worker = False
 
     def _search_worker(self, operator, value):
         lines = self.env["share.line"].search(
             [("share_product_id.allow_working", "=", "True")]
         )
         partner_ids = lines.mapped("partner_id")
-        partner_ids |= self.search([("worker_store", "=", True)])
         if (operator, value) in [("=", True), ("!=", False)]:
             return [("id", "in", partner_ids.ids)]
         else:

@@ -10,6 +10,8 @@ class Partner(models.Model):
         selection="_get_share_type",
         compute="_compute_cooperator_type",
     )
+    worker_store = fields.Boolean(default=False)
+    is_worker = fields.Boolean(related="worker_store", string="Worker", readonly=False)
 
     @api.depends(
         "share_ids",
