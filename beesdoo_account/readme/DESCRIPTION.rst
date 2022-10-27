@@ -1,2 +1,6 @@
 - Makes date_invoice field required in account.invoice_form and account.invoice_supplier_form
-- Allow validating an invoice with a negative total amount
+
+Split into
+
+- account_invoice_date_required
+- account_invoice_negative_total
