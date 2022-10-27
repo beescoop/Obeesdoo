@@ -11,7 +11,7 @@
     "author": "Beescoop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Sales",
-    "version": "12.0.2.0.0",
+    "version": "12.0.2.0.1",
     "depends": [
         "company_supplier_context",
         "member_card",
