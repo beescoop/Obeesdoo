@@ -24,11 +24,11 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[beesdoo_account](beesdoo_account/) | 12.0.2.0.0 |  | - Makes date_invoice field required in account.invoice_form and account.invoice_supplier_form - Allow validating an invoice with a negative total amount
-[beesdoo_base](beesdoo_base/) | 12.0.2.0.0 |  | Module that customize the base module and contains some python tools
+[beesdoo_account](beesdoo_account/) | 12.0.2.0.0 |  | Emptied.
+[beesdoo_base](beesdoo_base/) | 12.0.2.0.0 |  | Emptied
 [beesdoo_crelan_csv](beesdoo_crelan_csv/) | 12.0.1.0.0 |  | Import Crelan CSV Wizard
 [beesdoo_easy_my_coop](beesdoo_easy_my_coop/) | 12.0.1.2.0 |  | Link between beesdoo customization and easy_my_coop
-[beesdoo_inventory](beesdoo_inventory/) | 12.0.3.0.1 |  | Restrict selectable products to those sold as main supplier by the picking partner.
+[beesdoo_inventory](beesdoo_inventory/) | 12.0.3.0.1 |  | Emptied. Leftover: Restrict selectable products to those sold as main supplier by the picking partner.
 [beesdoo_pos](beesdoo_pos/) | 12.0.2.0.0 |  | This module adds the eaters of the customer to the POS ActionpadWidget and PaymentScreenWidget.
 [beesdoo_pos_coop_status](beesdoo_pos_coop_status/) | 12.0.1.0.0 |  | POS Support for cooperator status.
 [beesdoo_pos_email_ticket](beesdoo_pos_email_ticket/) | 12.0.1.1.0 |  | This module adds the eaters of the customer to the POS ActionpadWidget and PaymentScreenWidget.
