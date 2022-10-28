@@ -19,8 +19,7 @@ msgid "Contact"
 msgstr ""
 
 #. module: eater_member_card
-#: model:ir.model.fields,field_description:eater_member_card.field_res_partner__parent_barcode
-#: model:ir.model.fields,field_description:eater_member_card.field_res_users__parent_barcode
-msgid "Parent Barcode"
+#: model_terms:ir.ui.view,arch_db:eater_member_card.member_card_template
+msgid "Worker:"
 msgstr ""
 
