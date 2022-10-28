@@ -19,7 +19,11 @@ Beescoop link with easy my coop
 
 |badge1| |badge2| |badge3| 
 
-Link between beesdoo customization and easy_my_coop
+Split into
+
+- cooperator_worker
+- cooperator_eater
+- cooperator_info_session
 
 **Table of contents**
 

@@ -17,25 +17,20 @@ Beescoop Base Module
     :target: https://github.com/beescoop/Obeesdoo/tree/12.0/beesdoo_base
     :alt: beescoop/Obeesdoo
 
-|badge1| |badge2| |badge3| 
+|badge1| |badge2| |badge3|
 
-Module that customize the base module and contains some python tools
+Split into
+
+- company_supplier_context
+- member_card
+- eater
+- eater_member_card
 
 **Table of contents**
 
 .. contents::
    :local:
 
-Known issues / Roadmap
-======================
-
-**Customer Barcodes**
-
-- odoo/base adds `barcode` field on `res.partner`.
-- beesdoo_base also adds `barcode` but defines it as computed and stored.
-
-On `beesdoo_base` install, odoo will compute the values for barcode field and **erase pre-existing values**.
-It will also make it impossible to load data on that field.
 
 Bug Tracker
 ===========

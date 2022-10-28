@@ -20,21 +20,16 @@ Beescoop  Account Module
 |badge1| |badge2| |badge3| 
 
 - Makes date_invoice field required in account.invoice_form and account.invoice_supplier_form
-- Allow validating an invoice with a negative total amount
+
+Split into
+
+- account_invoice_date_required
+- account_invoice_negative_total
 
 **Table of contents**
 
 .. contents::
    :local:
-
-Configuration
-=============
-
-The setting *Validate an invoice with a negative total amount* needs to be checked.
-This can be done in these following ways:
-
-* on the Access Rights (Technical Settings) of the user (Validate an invoice with a negative total amount)
-* on the Invoicing Settings inside of the section `Invoices` (Allow validating an invoice with a negative total amount)
 
 Bug Tracker
 ===========
