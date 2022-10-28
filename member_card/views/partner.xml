@@ -10,7 +10,7 @@
                 <page
                     name="member card"
                     string="Member Card"
-                    attrs="{'invisible': ['|', ('customer', '=', False), ('eater', 'not in', ('worker_eater', 'eater'))]}"
+                    attrs="{'invisible': [('customer', '=', False)]}"
                 >
                     <group>
                         <field name="member_card_to_be_printed" />
@@ -19,7 +19,7 @@
 
                     <group
                         name="cards"
-                        attrs="{'invisible': ['|', ('customer', '=', False)]}"
+                        attrs="{'invisible': [('customer', '=', False)]}"
                     >
 
                         <separator string="Cards" />

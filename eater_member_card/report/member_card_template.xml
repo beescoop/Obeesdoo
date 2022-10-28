@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="member_card_template" inherit_id="member_card.member_card_template">
+        <xpath expr="//div[@id='member_name']" position="after">
+            <t t-if="partner.parent_eater_id.name">
+                <div align="center" style="font-size:10pt">
+                    Worker:
+                    <t t-esc="partner.parent_eater_id.name[:20]" />
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>
