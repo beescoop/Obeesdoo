@@ -27,10 +27,12 @@ Create a member card and link it to a partner.
 - the partner's card and barcode history is visible in the member card tab
 - the barcode of a partner is computed from the last active member card
 - a boolean "Print Member card?" allows to filter on partners for which you need to print new cards.
+- contains a generic template for the member card
+- the card template uses field `member_card_logo` rather than the company logo
+
+The wizards "Request member card printing" and "Set member card as printed" allow to
 
 Careful : this module overrides the barcodes already defined on the partners.
-
-Note that there is no member card template in this module, cf ROADMAP.
 
 If point of sale is installed, the generated barcode matches customer pattern rule.
 
@@ -42,6 +44,11 @@ If point of sale is installed, the generated barcode matches customer pattern ru
 Known issues / Roadmap
 ======================
 
+- factor out wizards "request member card printing" and "set member card as printed"
+
+  - it was used to request a batch of card to print but has no link to the actual template
+- use `barcodes_generator_abstract` from the OCA to generate barcodes
+
 **Customer Barcodes**
 
 - odoo/base adds `barcode` field on `res.partner`.
@@ -49,11 +56,6 @@ Known issues / Roadmap
 
 On `member_card` install, odoo will compute the values for barcode field and **erase pre-existing values**.
 It will also make it impossible to load data on that field.
-
-**Member Card Template**
-
-Integrate template developped for Polln here : `[ADD] member_card: add member card report
-#289 <https://github.com/beescoop/Obeesdoo/pull/289>`_
 
 Bug Tracker
 ===========
@@ -79,6 +81,7 @@ Contributors
 
 * Beescoop - Cellule IT
 * Coop IT Easy SC
+* Thibault François
 
 Maintainers
 ~~~~~~~~~~~
