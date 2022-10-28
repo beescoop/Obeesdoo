@@ -38,6 +38,11 @@ msgid "Cards"
 msgstr ""
 
 #. module: member_card
+#: model:ir.model,name:member_card.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: member_card
 #: model:ir.model,name:member_card.model_res_partner
 msgid "Contact"
 msgstr ""
@@ -120,6 +125,7 @@ msgid "Last printed on"
 msgstr ""
 
 #. module: member_card
+#: model:ir.actions.report,name:member_card.report_member_card
 #: model:ir.model,name:member_card.model_member_card
 #: model:ir.model,name:member_card.model_new_member_card_wizard
 #: model:ir.model.fields,field_description:member_card.field_res_partner__member_card_ids
@@ -131,6 +137,11 @@ msgstr ""
 #. module: member_card
 #: model:ir.model,name:member_card.model_membercard_requestprinting_wizard
 msgid "Member Card - Request Print Wizard"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model.fields,field_description:member_card.field_res_company__member_card_logo
+msgid "Member Card Logo"
 msgstr ""
 
 #. module: member_card
@@ -212,5 +223,10 @@ msgstr ""
 #: model:ir.model.fields,help:member_card.field_res_partner__barcode
 #: model:ir.model.fields,help:member_card.field_res_users__barcode
 msgid "Use a barcode to identify this contact from the Point of Sale."
+msgstr ""
+
+#. module: member_card
+#: model_terms:ir.ui.view,arch_db:member_card.member_card_template
+msgid "barcode"
 msgstr ""
 
