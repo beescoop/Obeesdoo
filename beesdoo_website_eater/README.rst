@@ -1,5 +1,5 @@
 =======================
-Beescoop Website Eater
+BEES coop Website Eater
 =======================
 
 .. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -48,7 +48,7 @@ Authors
 Contributors
 ~~~~~~~~~~~~
 
-* Beescoop - Cellule IT
+* BEES coop - Cellule IT
 * Coop IT Easy SC
 
 Maintainers

@@ -61,13 +61,13 @@ Credits
 Authors
 ~~~~~~~
 
-* Beescoop - Cellule IT
+* BEES coop - Cellule IT
 * Coop IT Easy SC
 
 Contributors
 ~~~~~~~~~~~~
 
-* Beescoop - Cellule IT
+* BEES coop - Cellule IT
 * Coop IT Easy SC
 
 Maintainers

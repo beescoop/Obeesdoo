@@ -1,5 +1,5 @@
 =======================
-Beescoop Website Theme
+BEES coop Website Theme
 =======================
 
 .. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -19,7 +19,7 @@ Beescoop Website Theme
 
 |badge1| |badge2| |badge3| 
 
-Apply Beescoop design rules.
+Apply BEES coop design rules.
 
 **Table of contents**
 
@@ -48,7 +48,7 @@ Authors
 Contributors
 ~~~~~~~~~~~~
 
-* Beescoop - Cellule IT
+* BEES coop - Cellule IT
 * Coop IT Easy SC
 
 Maintainers

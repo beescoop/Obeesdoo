@@ -1,5 +1,5 @@
 ===============
-Beescoop Stock
+BEES coop Stock
 ===============
 
 .. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -47,7 +47,7 @@ Authors
 Contributors
 ~~~~~~~~~~~~
 
-* Beescoop - Cellule IT
+* BEES coop - Cellule IT
 * Coop IT Easy SC
 
 Maintainers
