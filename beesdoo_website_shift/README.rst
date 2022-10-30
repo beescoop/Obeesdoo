@@ -1,5 +1,5 @@
 =======================
-Beescoop Website Shift
+BEES coop Website Shift
 =======================
 
 .. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -49,7 +49,7 @@ Authors
 Contributors
 ~~~~~~~~~~~~
 
-* Beescoop - Cellule IT
+* BEES coop - Cellule IT
 * Coop IT Easy SC
 
 Maintainers
