@@ -1,5 +1,5 @@
 =======================
-BEES coop Website Theme
+Beescoop Website Theme
 =======================
 
 .. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -19,7 +19,7 @@ BEES coop Website Theme
 
 |badge1| |badge2| |badge3| 
 
-Apply BEES coop design rules.
+Apply Beescoop design rules.
 
 **Table of contents**
 

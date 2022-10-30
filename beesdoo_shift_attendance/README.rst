@@ -20,7 +20,7 @@ Beescoop Shift Attendance Sheet
 |badge1| |badge2| |badge3| 
 
 Volonteer Timetable Management
-Attendance Sheet for BEES coop
+Attendance Sheet for Beescoop
 
 **Table of contents**
 

@@ -4,7 +4,7 @@
 
 
 {
-    "name": "Beescoop Point of sale - Cooperator Status",
+    "name": "BEES coop Point of sale - Cooperator Status",
     "summary": """POS Support for cooperator status.""",
     "author": "Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",

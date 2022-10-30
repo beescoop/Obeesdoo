@@ -5,7 +5,7 @@
     "summary": """
         Adapt the product views.
     """,
-    "author": "Beescoop - Cellule IT, Coop IT Easy SC",
+    "author": "BEES coop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Sales Management",
     "version": "12.0.1.1.0",

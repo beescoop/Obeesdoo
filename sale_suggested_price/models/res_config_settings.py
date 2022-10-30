@@ -23,15 +23,6 @@ class ResConfigSettings(models.TransientModel):
         """,
         default="supplier_price",
     )
-    auto_write_suggested_price = fields.Boolean(
-        string="Automatically write suggested price",
-        help="""
-        When editing the purchase price of a product (only in the 'Edit Price' menu),
-        automatically set its sales price as the calculated suggested price.
-        """,
-        config_parameter="beesdoo_product.auto_write_suggested_price",
-        default=False,
-    )
 
     @api.model
     def get_values(self):
@@ -39,25 +30,15 @@ class ResConfigSettings(models.TransientModel):
         suggested_price_reference = (
             self.env["ir.config_parameter"]
             .sudo()
-            .get_param("beesdoo_product.suggested_price_reference")
+            .get_param("sale_suggested_price.suggested_price_reference")
         )
         res.update({"suggested_price_reference": suggested_price_reference})
-        auto_write_suggested_price = (
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("beesdoo_product.auto_write_suggested_price")
-        )
-        res.update({"auto_write_suggested_price": auto_write_suggested_price})
         return res
 
     @api.multi
     def set_values(self):
         super(ResConfigSettings, self).set_values()
         self.env["ir.config_parameter"].sudo().set_param(
-            "beesdoo_product.suggested_price_reference",
+            "sale_suggested_price.suggested_price_reference",
             self.suggested_price_reference,
-        )
-        self.env["ir.config_parameter"].sudo().set_param(
-            "beesdoo_product.auto_write_suggested_price",
-            self.auto_write_suggested_price,
         )

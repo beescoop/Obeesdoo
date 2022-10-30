@@ -8,7 +8,7 @@
     "name": "Beesdoo Inventory",
     "summary": "Emptied. Leftover: Restrict selectable products to those"
     " sold as main supplier by the picking partner.",
-    "author": "Beescoop - Cellule IT, Coop IT Easy SC",
+    "author": "BEES coop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Inventory",
     "version": "12.0.3.0.2",

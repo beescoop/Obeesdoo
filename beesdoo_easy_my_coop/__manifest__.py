@@ -1,5 +1,5 @@
 {
-    "name": "Beescoop link with easy my coop",
+    "name": "BEES coop link with easy my coop",
     "summary": """Link between beesdoo customization and easy_my_coop""",
     "author": "BEES coop, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",

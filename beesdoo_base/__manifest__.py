@@ -6,7 +6,7 @@
 #   - Thibault François
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
-    "name": "Beescoop Base Module",
+    "name": "BEES coop Base Module",
     "summary": "Emptied",
     "author": "Beescoop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",

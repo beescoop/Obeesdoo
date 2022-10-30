@@ -7,7 +7,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Member Card",
-    "author": "Beescoop - Cellule IT, Coop IT Easy SC",
+    "author": "BEES coop - Cellule IT, Coop IT Easy SC",
     "summary": "Create a member card and link it to a partner.",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Sales",

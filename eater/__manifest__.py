@@ -8,7 +8,7 @@
 {
     "name": "Eater",
     "summary": "Add eaters to the workers of your structure.",
-    "author": "Beescoop - Cellule IT, Coop IT Easy SC",
+    "author": "BEES coop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Sales",
     "version": "12.0.1.0.0",

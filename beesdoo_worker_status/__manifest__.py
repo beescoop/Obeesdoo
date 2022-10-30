@@ -2,7 +2,7 @@
 #   Elouan Le Bars <elouan@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
-    "name": "Beescoop Worker Status manager",
+    "name": "BEES coop Worker Status manager",
     "summary": """
         Worker status management specific to beescoop.""",
     "author": "Thibault Francois, Elouan Le Bars, Coop IT Easy SC",
