@@ -1,0 +1,147 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_adapt_price_wizard
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_adapt_price_wizard
+#: model:ir.model.fields,help:sale_adapt_price_wizard.field_res_config_settings__auto_write_suggested_price
+msgid "\n"
+"        When editing the purchase price of a product (only in the 'Edit Price' menu),\n"
+"        automatically set its sales price as the calculated suggested price.\n"
+"        "
+msgstr ""
+
+#. module: sale_adapt_price_wizard
+#: model:ir.actions.act_window,name:sale_adapt_price_wizard.pricelist_action_adapt_sales_price
+#: model_terms:ir.ui.view,arch_db:sale_adapt_price_wizard.adapt_sales_price_wizard
+msgid "Adapt Sales Price"
+msgstr ""
+
+#. module: sale_adapt_price_wizard
+#: model:ir.model.fields,field_description:sale_adapt_price_wizard.field_res_config_settings__auto_write_suggested_price
+msgid "Automatically write suggested price"
+msgstr ""
+
+#. module: sale_adapt_price_wizard
+#: model_terms:ir.ui.view,arch_db:sale_adapt_price_wizard.adapt_sales_price_wizard
+msgid "Cancel"
+msgstr ""
+
+#. module: sale_adapt_price_wizard
+#: model:ir.model,name:sale_adapt_price_wizard.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: sale_adapt_price_wizard
+#: model_terms:ir.actions.act_window,help:sale_adapt_price_wizard.purchase_product_edit_price
+#: model_terms:ir.actions.act_window,help:sale_adapt_price_wizard.sale_product_edit_price
+msgid "Create a new product"
+msgstr ""
+
+#. module: sale_adapt_price_wizard
+#: model:ir.model.fields,field_description:sale_adapt_price_wizard.field_adapt_sales_price_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: sale_adapt_price_wizard
+#: model:ir.model.fields,field_description:sale_adapt_price_wizard.field_adapt_sales_price_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: sale_adapt_price_wizard
+#: model:ir.model.fields,field_description:sale_adapt_price_wizard.field_adapt_sales_price_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: sale_adapt_price_wizard
+#: model:ir.ui.menu,name:sale_adapt_price_wizard.menu_purchase_edit_price
+#: model:ir.ui.menu,name:sale_adapt_price_wizard.menu_sale_edit_price
+msgid "Edit Price"
+msgstr ""
+
+#. module: sale_adapt_price_wizard
+#: model:ir.model.fields,field_description:sale_adapt_price_wizard.field_adapt_sales_price_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: sale_adapt_price_wizard
+#: model:ir.model.fields,field_description:sale_adapt_price_wizard.field_adapt_sales_price_wizard____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: sale_adapt_price_wizard
+#: model:ir.model.fields,field_description:sale_adapt_price_wizard.field_adapt_sales_price_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: sale_adapt_price_wizard
+#: model:ir.model.fields,field_description:sale_adapt_price_wizard.field_adapt_sales_price_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: sale_adapt_price_wizard
+#: model_terms:ir.ui.view,arch_db:sale_adapt_price_wizard.product_template_edit_price_tree_view
+msgid "Main Seller"
+msgstr ""
+
+#. module: sale_adapt_price_wizard
+#: model:ir.model.fields,field_description:sale_adapt_price_wizard.field_adapt_sales_price_wizard__product_ids
+#: model_terms:ir.ui.view,arch_db:sale_adapt_price_wizard.product_template_edit_price_tree_view
+msgid "Product"
+msgstr ""
+
+#. module: sale_adapt_price_wizard
+#: model:ir.model,name:sale_adapt_price_wizard.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: sale_adapt_price_wizard
+#: model:ir.actions.act_window,name:sale_adapt_price_wizard.purchase_product_edit_price
+#: model:ir.actions.act_window,name:sale_adapt_price_wizard.sale_product_edit_price
+msgid "Products"
+msgstr ""
+
+#. module: sale_adapt_price_wizard
+#: model_terms:ir.ui.view,arch_db:sale_adapt_price_wizard.product_template_edit_price_tree_view
+msgid "Purchase Price Last Updated"
+msgstr ""
+
+#. module: sale_adapt_price_wizard
+#: model_terms:ir.ui.view,arch_db:sale_adapt_price_wizard.product_template_edit_price_tree_view
+msgid "Sales Price Last Updated"
+msgstr ""
+
+#. module: sale_adapt_price_wizard
+#: model:ir.model.fields,field_description:sale_adapt_price_wizard.field_product_product__list_price_write_date
+#: model:ir.model.fields,field_description:sale_adapt_price_wizard.field_product_template__list_price_write_date
+msgid "Sales Price Last Updated On"
+msgstr ""
+
+#. module: sale_adapt_price_wizard
+#: model_terms:ir.ui.view,arch_db:sale_adapt_price_wizard.res_config_settings_view_form
+msgid "When editing the purchase price of a product (only in the 'Edit Price' menu),\n"
+"                            automatically set its sales price as the calculated suggested price."
+msgstr ""
+
+#. module: sale_adapt_price_wizard
+#: model_terms:ir.actions.act_window,help:sale_adapt_price_wizard.purchase_product_edit_price
+#: model_terms:ir.actions.act_window,help:sale_adapt_price_wizard.sale_product_edit_price
+msgid "You must define a product for everything you purchase,\n"
+"            whether it's a physical product, a consumable or services."
+msgstr ""
+
+#. module: sale_adapt_price_wizard
+#: model:ir.model,name:sale_adapt_price_wizard.model_adapt_sales_price_wizard
+msgid "adapt.sales.price.wizard"
+msgstr ""
+
