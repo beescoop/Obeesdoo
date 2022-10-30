@@ -34,7 +34,7 @@ addon | version | maintainers | summary
 [beesdoo_pos_email_ticket](beesdoo_pos_email_ticket/) | 12.0.1.1.0 |  | This module adds the eaters of the customer to the POS ActionpadWidget and PaymentScreenWidget.
 [beesdoo_pos_reporting](beesdoo_pos_reporting/) | 12.0.1.0.0 |  | Enhance POS with features allowing statistics and reporting.
 [beesdoo_print_label](beesdoo_print_label/) | 12.0.1.1.4 |  | Product labels
-[beesdoo_product](beesdoo_product/) | 12.0.1.4.1 |  | Modification of product module for the needs of beescoop
+[beesdoo_product](beesdoo_product/) | 12.0.2.0.0 |  | Modification of product module for the needs of beescoop
 [beesdoo_product_info_screen](beesdoo_product_info_screen/) | 12.0.0.0.1 |  | Adds a read-only screen to display product information
 [beesdoo_product_usability](beesdoo_product_usability/) | 12.0.1.1.0 |  | Adapt the product views.
 [beesdoo_purchase](beesdoo_purchase/) | 12.0.1.4.0 |  | Enhancements related to Purchase module : field, filter, PO reference, product's purchase and/or selling price
@@ -60,7 +60,10 @@ addon | version | maintainers | summary
 [macavrac_base](macavrac_base/) | 12.0.1.0.0 |  | Module with basic customizations for the Macavrac cooperative.
 [member_card](member_card/) | 12.0.1.0.1 |  | Create a member card and link it to a partner.
 [polln_shift](polln_shift/) | 12.0.1.1.0 |  | Module with basic customizations for the Polln cooperative.
+[product_main_supplier](product_main_supplier/) | 12.0.1.0.0 |  | Add a main supplier
 [purchase_order_generator](purchase_order_generator/) | 12.0.2.1.0 |  | Generate purchase order from a product selection
+[sale_adapt_price_wizard](sale_adapt_price_wizard/) | 12.0.1.0.0 |  | Add "Edit Price" submenu on Purchase and Sale modules.
+[sale_suggested_price](sale_suggested_price/) | 12.0.1.0.0 |  | Add a suggested price to products, dependent on a product margin in partners and product categories.
 [stock_move_view_line_order](stock_move_view_line_order/) | 12.0.2.1.0 |  | Reverse the order of stock move lines to 'newest to oldest'.
 [website_portal_restrict_modification](website_portal_restrict_modification/) | 12.0.1.0.0 |  | Portal extension preventing modification of sensible data by the users
 
