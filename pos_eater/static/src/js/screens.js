@@ -1,4 +1,4 @@
-odoo.define("beesdoo_pos.screens", function (require) {
+odoo.define("pos_eater.screens", function (require) {
     "use strict";
     var screens = require("point_of_sale.screens");
     var models = require("point_of_sale.models");
@@ -36,27 +36,6 @@ odoo.define("beesdoo_pos.screens", function (require) {
                     loaded.reject(error);
                 });
             return loaded;
-        },
-    });
-
-    screens.PaymentScreenWidget.include({
-        auto_invoice: function () {
-            var self = this;
-            var customer = this.pos.get_client();
-            var order = this.pos.get_order();
-            if (customer && customer.is_company && !order.is_to_invoice()) {
-                self.click_invoice();
-            }
-            if (!customer && order.is_to_invoice()) {
-                self.click_invoice();
-            }
-        },
-
-        customer_changed: function () {
-            this._super();
-            if (this.pos.config.module_account) {
-                this.auto_invoice();
-            }
         },
     });
 });

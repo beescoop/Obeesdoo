@@ -1,7 +1,7 @@
 from odoo import api, models
 
 
-class BeescoopPosPartner(models.Model):
+class ResPartner(models.Model):
     _inherit = "res.partner"
 
     @api.multi

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template">
+    <t t-extend="ActionpadWidget">
+        <t t-jquery="t[t-if='widget.pos.get_client()']" t-operation="after">
+            <t t-if="widget.pos.get_client()">
+                <div class='customer-information-pay' />
+            </t>
+        </t>
+    </t>
+
+</templates>

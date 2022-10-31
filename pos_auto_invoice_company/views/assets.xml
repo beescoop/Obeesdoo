@@ -1,0 +1,14 @@
+<odoo>
+    <template id="assets" inherit_id="point_of_sale.assets">
+        <xpath expr="." position="inside">
+            <script
+                type="text/javascript"
+                src="/pos_auto_invoice_company/static/src/js/pos_auto_invoice_company.js"
+            />
+            <link
+                rel='stylesheet'
+                href="/pos_auto_invoice_company/static/src/css/pos_auto_invoice_company.css"
+            />
+        </xpath>
+    </template>
+</odoo>
