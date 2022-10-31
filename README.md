@@ -62,7 +62,7 @@ addon | version | maintainers | summary
 [polln_shift](polln_shift/) | 12.0.1.1.0 |  | Module with basic customizations for the Polln cooperative.
 [product_main_supplier](product_main_supplier/) | 12.0.1.0.0 |  | Add a main supplier
 [purchase_order_generator](purchase_order_generator/) | 12.0.2.1.0 |  | Generate purchase order from a product selection
-[sale_adapt_price_wizard](sale_adapt_price_wizard/) | 12.0.1.0.0 |  | Add "Edit Price" submenu on Purchase and Sale modules.
+[sale_adapt_price_wizard](sale_adapt_price_wizard/) | 12.0.1.0.1 |  | Add "Edit Price" submenu on Purchase and Sale modules.
 [sale_suggested_price](sale_suggested_price/) | 12.0.1.0.0 |  | Add a suggested price to products, dependent on a product margin in partners and product categories.
 [stock_move_view_line_order](stock_move_view_line_order/) | 12.0.2.1.0 |  | Reverse the order of stock move lines to 'newest to oldest'.
 [website_portal_restrict_modification](website_portal_restrict_modification/) | 12.0.1.0.0 |  | Portal extension preventing modification of sensible data by the users
