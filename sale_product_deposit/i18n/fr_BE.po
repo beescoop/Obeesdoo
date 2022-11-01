@@ -1,0 +1,653 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* beesdoo_product
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-08-03 09:47+0000\n"
+"PO-Revision-Date: 2020-08-03 09:47+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: beesdoo_product
+#: model:ir.model.fields,help:beesdoo_product.field_res_config_settings__suggested_price_reference
+msgid ""
+"\n"
+"            Price on which the margin is applied when computing the "
+"suggested\n"
+"                sale price.\n"
+"            - Margin on Supplier Price : Suggested sale price\n"
+"                = supplier price * (1 + margin / 100) (default)\n"
+"            - Margin on Sale Price: Suggested sale price\n"
+"                = supplier price * (1 / (1 - margin / 100))\n"
+"        "
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,help:beesdoo_product.field_product_product__suggested_price
+#: model:ir.model.fields,help:beesdoo_product.field_product_template__suggested_price
+msgid ""
+"\n"
+"        This field computes a suggested price based on the 'Product Margin'\n"
+"        field on Partners (Vendors), if it's set, or otherwise on the "
+"'Product\n"
+"        Margin' field in Product Categories (which has a default value).\n"
+"        "
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_hazard__active
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_label__active
+msgid "Active"
+msgstr "Actif"
+
+#. module: beesdoo_product
+#: model:ir.actions.act_window,name:beesdoo_product.beesdoo_product_pricelist_action_adapt_sales_price
+#: model_terms:ir.ui.view,arch_db:beesdoo_product.adapt_sales_price_wizard
+msgid "Adapt Sales Price"
+msgstr ""
+
+#. module: beesdoo_product
+#: model_terms:ir.ui.view,arch_db:beesdoo_product.adapt_sales_price_wizard
+#: model_terms:ir.ui.view,arch_db:beesdoo_product.printing_label_request_wizard
+#: model_terms:ir.ui.view,arch_db:beesdoo_product.set_label_as_printed_wizard
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_scale_category__code
+msgid "Category code"
+msgstr "Code de catégorie"
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_uom_category__type
+msgid "Category type"
+msgstr "Type de catégorie"
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_label__color_code
+msgid "Color Code"
+msgstr "Code couleur"
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__note
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__note
+msgid "Comments"
+msgstr "Commentaires"
+
+#. module: beesdoo_product
+#: model:ir.model,name:beesdoo_product.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:account.tax.group,name:beesdoo_product.consignes_group_tax
+msgid "Consignes"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model,name:beesdoo_product.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: beesdoo_product
+#: model_terms:ir.actions.act_window,help:beesdoo_product.pos_product_edit_price
+#: model_terms:ir.actions.act_window,help:beesdoo_product.purchase_product_edit_price
+#: model_terms:ir.actions.act_window,help:beesdoo_product.sale_product_edit_price
+msgid "Create a new product"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_adapt_sales_price_wizard__create_uid
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_hazard__create_uid
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_label__create_uid
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_scale_category__create_uid
+#: model:ir.model.fields,field_description:beesdoo_product.field_label_printing_wizard__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_adapt_sales_price_wizard__create_date
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_hazard__create_date
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_label__create_date
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_scale_category__create_date
+#: model:ir.model.fields,field_description:beesdoo_product.field_label_printing_wizard__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__deadline_for_consumption
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__deadline_for_consumption
+msgid "Deadline for consumption(days)"
+msgstr "Date limite de consommation(jours)"
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__deadline_for_sale
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__deadline_for_sale
+msgid "Deadline for sale(days)"
+msgstr "Date limite de vente(jours)"
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__default_reference_unit
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__default_reference_unit
+msgid "Default Reference Unit"
+msgstr "Unité de référence par défaut"
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__total_deposit
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__total_deposit
+msgid "Deposit Price"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_adapt_sales_price_wizard__display_name
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_hazard__display_name
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_label__display_name
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_scale_category__display_name
+#: model:ir.model.fields,field_description:beesdoo_product.field_label_printing_wizard__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__display_unit
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__display_unit
+msgid "Display Unit"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__display_weight
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__display_weight
+msgid "Display Weight"
+msgstr ""
+
+#. module: beesdoo_product
+#: selection:uom.category,type:0
+msgid "Distance"
+msgstr ""
+
+#. module: beesdoo_product
+#: selection:beesdoo.product.label,type:0
+msgid "Distribution"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__eco_label
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__eco_label
+msgid "Eco Label"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.ui.menu,name:beesdoo_product.menu_pos_edit_price
+#: model:ir.ui.menu,name:beesdoo_product.menu_purchase_edit_price
+#: model:ir.ui.menu,name:beesdoo_product.menu_sale_edit_price
+msgid "Edit Price"
+msgstr ""
+
+#. module: beesdoo_product
+#: selection:beesdoo.product.hazard,type:0
+msgid "FDS"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__fds_label
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__fds_label
+#, fuzzy
+msgid "FDS label"
+msgstr "Libellé FDS"
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__fair_label
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__fair_label
+msgid "Fair Label"
+msgstr ""
+
+#. module: beesdoo_product
+#: model_terms:ir.ui.view,arch_db:beesdoo_product.beesdoo_product_form
+msgid "Generate Barcode"
+msgstr ""
+
+#. module: beesdoo_product
+#: selection:product.category,rounding_method:0
+msgid "Half"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__hazard_label
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__hazard_label
+#, fuzzy
+msgid "Hazard label"
+msgstr "Libellé de dangerosité"
+
+#. module: beesdoo_product
+#: model:ir.ui.menu,name:beesdoo_product.hazard_configuration_menu
+msgid "Hazards"
+msgstr "Dangers"
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_adapt_sales_price_wizard__id
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_hazard__id
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_label__id
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_scale_category__id
+#: model:ir.model.fields,field_description:beesdoo_product.field_label_printing_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__ingredients
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__ingredients
+msgid "Ingredient"
+msgstr "Ingrédient "
+
+#. module: beesdoo_product
+#: model_terms:ir.ui.view,arch_db:beesdoo_product.beesdoo_product_form
+msgid "Label"
+msgstr "Libellé"
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__label_last_printed
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__label_last_printed
+msgid "Label last printed on"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.ui.menu,name:beesdoo_product.label_configuration_menu
+msgid "Labels"
+msgstr "Libellés"
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_adapt_sales_price_wizard____last_update
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_hazard____last_update
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_label____last_update
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_scale_category____last_update
+#: model:ir.model.fields,field_description:beesdoo_product.field_label_printing_wizard____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_adapt_sales_price_wizard__write_uid
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_hazard__write_uid
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_label__write_uid
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_scale_category__write_uid
+#: model:ir.model.fields,field_description:beesdoo_product.field_label_printing_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_adapt_sales_price_wizard__write_date
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_hazard__write_date
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_label__write_date
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_scale_category__write_date
+#: model:ir.model.fields,field_description:beesdoo_product.field_label_printing_wizard__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: beesdoo_product
+#: selection:beesdoo.product.label,type:0
+msgid "Local"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__local_label
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__local_label
+msgid "Local Label"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_label__logo
+msgid "Logo"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__main_seller_id
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__main_seller_id
+#: model_terms:ir.ui.view,arch_db:beesdoo_product.product_template_edit_price_tree_view
+msgid "Main Seller"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_hazard__name
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_label__name
+msgid "Name"
+msgstr "Nom"
+
+#. module: beesdoo_product
+#: code:addons/beesdoo_product/models/beesdoo_product.py:363
+#, python-format
+msgid "No Vendor defined for product '%s'"
+msgstr ""
+
+#. module: beesdoo_product
+#: selection:res.config.settings,suggested_price_reference:0
+msgid "On Sale Price"
+msgstr ""
+
+#. module: beesdoo_product
+#: selection:res.config.settings,suggested_price_reference:0
+#, fuzzy
+msgid "On Supplier Price"
+msgstr "Liste de prix du fournisseur"
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__origin_label
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__origin_label
+msgid "Origin Label"
+msgstr ""
+
+#. module: beesdoo_product
+#: selection:uom.category,type:0
+msgid "Other"
+msgstr "Autre"
+
+#. module: beesdoo_product
+#: code:addons/beesdoo_product/models/beesdoo_product.py:28
+#: code:addons/beesdoo_product/models/beesdoo_product.py:433
+#, python-format
+msgid "Percentages for Profit Margin must >= 0."
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_supplierinfo__price
+msgid "Price"
+msgstr ""
+
+#. module: beesdoo_product
+#: model_terms:ir.ui.view,arch_db:beesdoo_product.res_config_settings_view_form
+msgid ""
+"Price on which the margin is applied when computing the suggested sale price."
+"<br/>\n"
+"                            - Margin on Supplier Price : Suggested sale "
+"price = supplier price * (1 + margin / 100) (default)<br/>\n"
+"                            - Margin on Sale Price: Suggested sale price = "
+"supplier price * (1 / (1 - margin / 100))"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__label_to_be_printed
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__label_to_be_printed
+msgid "Print label?"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_adapt_sales_price_wizard__product_ids
+#: model:ir.model.fields,field_description:beesdoo_product.field_label_printing_wizard__product_ids
+#: model_terms:ir.ui.view,arch_db:beesdoo_product.product_template_edit_price_tree_view
+msgid "Product"
+msgstr "Article"
+
+#. module: beesdoo_product
+#: model:ir.model,name:beesdoo_product.model_product_category
+msgid "Product Category"
+msgstr "Catégorie d'article"
+
+#. module: beesdoo_product
+#: model:ir.actions.act_window,name:beesdoo_product.action_hazards
+msgid "Product Hazards"
+msgstr "Dangers d'article"
+
+#. module: beesdoo_product
+#: model:ir.actions.act_window,name:beesdoo_product.action_labels
+msgid "Product Labels"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_category__profit_margin
+#: model:ir.model.fields,field_description:beesdoo_product.field_res_partner__profit_margin
+#: model:ir.model.fields,field_description:beesdoo_product.field_res_users__profit_margin
+msgid "Product Margin [%]"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model,name:beesdoo_product.model_product_template
+msgid "Product Template"
+msgstr "Modèle d'article"
+
+#. module: beesdoo_product
+#: model:ir.model,name:beesdoo_product.model_uom_category
+msgid "Product UoM Categories"
+msgstr "Catégorie d'UdM"
+
+#. module: beesdoo_product
+#: model:ir.actions.act_window,name:beesdoo_product.pos_product_edit_price
+#: model:ir.actions.act_window,name:beesdoo_product.purchase_product_edit_price
+#: model:ir.actions.act_window,name:beesdoo_product.sale_product_edit_price
+#, fuzzy
+msgid "Products"
+msgstr "Article"
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__purchase_price
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__purchase_price
+msgid "Purchase Price"
+msgstr ""
+
+#. module: beesdoo_product
+#: code:addons/beesdoo_product/models/beesdoo_product.py:280
+#, python-format
+msgid "Reference Unit and Display Unit should belong to the same category "
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.actions.act_window,name:beesdoo_product.beesdoo_product_action_request_label_printing
+#: model_terms:ir.ui.view,arch_db:beesdoo_product.printing_label_request_wizard
+msgid "Request label printing"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_category__should_round_suggested_price
+msgid "Round suggested price ?"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_category__rounding_method
+msgid "Rounding Method"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_category__rounding_precision
+msgid "Rounding Precision"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__scale_category
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__scale_category
+msgid "Scale Category"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.actions.act_window,name:beesdoo_product.action_scale_categories
+#: model:ir.ui.menu,name:beesdoo_product.scale_categories_configuration_menu
+msgid "Scale categories"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__scale_category_code
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__scale_category_code
+msgid "Scale category code"
+msgstr ""
+
+#. module: beesdoo_product
+#: model_terms:ir.ui.view,arch_db:beesdoo_product.beesdoo_product_form
+msgid "Scale labels"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__scale_label_info_1
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__scale_label_info_1
+msgid "Scale lable info 1"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__scale_label_info_2
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__scale_label_info_2
+msgid "Scale lable info 2"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_scale_category__name
+msgid "Scale name category"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__scale_sale_unit
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__scale_sale_unit
+msgid "Scale sale unit"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.actions.act_window,name:beesdoo_product.beesdoo_product_action_set_label_as_printed
+msgid "Set label as printed"
+msgstr ""
+
+#. module: beesdoo_product
+#: model_terms:ir.ui.view,arch_db:beesdoo_product.set_label_as_printed_wizard
+msgid "Set labels as printed"
+msgstr ""
+
+#. module: beesdoo_product
+#: code:addons/beesdoo_product/models/beesdoo_product.py:231
+#, python-format
+msgid "Several tax strategies (price_include) defined for %s"
+msgstr ""
+
+#. module: beesdoo_product
+#: selection:beesdoo.product.hazard,type:0
+msgid "Specific hazard"
+msgstr "Danger spécifique"
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__suggested_price
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__suggested_price
+msgid "Suggested Price"
+msgstr ""
+
+#. module: beesdoo_product
+#: model_terms:ir.ui.view,arch_db:beesdoo_product.beesdoo_product_category_form
+msgid "Suggested Price Configuration"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_res_config_settings__suggested_price_reference
+msgid "Suggested price reference for margin"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model,name:beesdoo_product.model_product_supplierinfo
+msgid "Supplier Pricelist"
+msgstr "Liste de prix du fournisseur"
+
+#. module: beesdoo_product
+#: selection:uom.category,type:0
+msgid "Surface"
+msgstr ""
+
+#. module: beesdoo_product
+#: sql_constraint:beesdoo.scale.category:0
+msgid "The code of the scale category must be unique !"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,help:beesdoo_product.field_product_supplierinfo__price
+msgid "The price to purchase a product"
+msgstr "Le prix pour l'achat d'un article"
+
+#. module: beesdoo_product
+#: selection:uom.category,type:0
+msgid "Time"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__total_with_vat
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__total_with_vat
+msgid "Total Sales Price with VAT"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_product__total_with_vat_by_unit
+#: model:ir.model.fields,field_description:beesdoo_product.field_product_template__total_with_vat_by_unit
+msgid "Total Sales Price with VAT by Reference Unit"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_hazard__type
+#: model:ir.model.fields,field_description:beesdoo_product.field_beesdoo_product_label__type
+msgid "Type"
+msgstr ""
+
+#. module: beesdoo_product
+#: selection:uom.category,type:0
+msgid "Unit"
+msgstr "Unité"
+
+#. module: beesdoo_product
+#: selection:uom.category,type:0
+msgid "Volume"
+msgstr ""
+
+#. module: beesdoo_product
+#: selection:uom.category,type:0
+msgid "Weight"
+msgstr "Poids"
+
+#. module: beesdoo_product
+#: model_terms:ir.actions.act_window,help:beesdoo_product.pos_product_edit_price
+#: model_terms:ir.actions.act_window,help:beesdoo_product.purchase_product_edit_price
+#: model_terms:ir.actions.act_window,help:beesdoo_product.sale_product_edit_price
+msgid ""
+"You must define a product for everything you purchase,\n"
+"            whether it's a physical product, a consumable or services."
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model,name:beesdoo_product.model_adapt_sales_price_wizard
+msgid "adapt.sales.price.wizard"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model,name:beesdoo_product.model_beesdoo_product_hazard
+msgid "beesdoo.product.hazard"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model,name:beesdoo_product.model_beesdoo_product_label
+msgid "beesdoo.product.label"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model,name:beesdoo_product.model_beesdoo_scale_category
+msgid "beesdoo.scale.category"
+msgstr ""
+
+#. module: beesdoo_product
+#: selection:product.category,rounding_method:0
+msgid "down"
+msgstr ""
+
+#. module: beesdoo_product
+#: model:ir.model,name:beesdoo_product.model_label_printing_wizard
+msgid "label.printing.wizard"
+msgstr ""
+
+#. module: beesdoo_product
+#: selection:product.category,rounding_method:0
+msgid "up"
+msgstr ""
+
+#. module: beesdoo_product
+#: selection:beesdoo.product.label,type:0
+msgid "Écologique"
+msgstr ""
+
+#. module: beesdoo_product
+#: selection:beesdoo.product.label,type:0
+msgid "Équitable"
+msgstr ""
+
+#~ msgid "Price at which the product is sold to customers."
+#~ msgstr "Prix auquel l'article est vendu aux clients."
