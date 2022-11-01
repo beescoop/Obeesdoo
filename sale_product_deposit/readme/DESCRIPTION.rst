@@ -1,0 +1,2 @@
+- Adds calculated total sales price with VAT, total sales price with VAT by reference unit, and deposit price on product templates (“General Information” tab).
+- Display it in POS

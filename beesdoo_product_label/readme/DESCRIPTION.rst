@@ -1,0 +1,2 @@
+- Adds organic, local, fairtrade and origin labels on product templates (“Label” tab)
+- Adds a 'Comments' field on product templates for use on labels (“Label” tab)

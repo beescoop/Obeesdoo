@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="product_template_view_form">
+        <field name="name">product.template.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+
+            <xpath
+                expr="//page[@name='general_information']/group[last()]"
+                position="after"
+            >
+                <group name="hazards">
+                    <field name="fds_label" widget="selection" />
+                    <field name="hazard_label" widget="selection" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="product_hazard_form">
+        <field name="name">product.hazard.form</field>
+        <field name="model">product.hazard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name" />
+                    <field name="type" />
+                    <field name="active" />
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="product_hazard_tree">
+        <field name="name">product.hazard.tree</field>
+        <field name="model">product.hazard</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name" />
+                <field name="type" />
+                <field name="active" />
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_hazards">
+        <field name="name">Product Hazards</field>
+        <field name="res_model">product.hazard</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="hazard_configuration_menu"
+        name="Hazards"
+        parent="sale.prod_config_main"
+        action="action_hazards"
+        sequence="30"
+    />
+</odoo>

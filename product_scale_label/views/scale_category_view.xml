@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="scale_category_list">
+        <field name="name">scale.category.list</field>
+        <field name="model">scale.category</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="code" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="scale_category_form">
+        <field name="name">scale.category.form</field>
+        <field name="model">scale.category</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name" />
+                    <field name="code" />
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_scale_categories">
+        <field name="name">Scale categories</field>
+        <field name="res_model">scale.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="scale_categories_configuration_menu"
+        name="Scale categories"
+        parent="sale.prod_config_main"
+        action="action_scale_categories"
+        sequence="15"
+    />
+</odoo>
