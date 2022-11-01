@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record model="beesdoo.product.label" id="eco_green">
+            <field name="name">Label Bio ou Confiance</field>
+            <field name="type">eco</field>
+            <field name="color_code">#40ff00</field>
+        </record>
+        <record model="beesdoo.product.label" id="eco_orange">
+            <field name="name">Agriculture raisonnée</field>
+            <field name="type">eco</field>
+            <field name="color_code">#ffa200</field>
+        </record>
+        <record model="beesdoo.product.label" id="eco_red">
+            <field name="name">Conventionnel</field>
+            <field name="type">eco</field>
+            <field name="color_code">#ff4000</field>
+        </record>
+        <record model="beesdoo.product.label" id="local_green">
+            <field name="name">Belgique</field>
+            <field name="type">local</field>
+            <field name="color_code">#40ff00</field>
+        </record>
+        <record model="beesdoo.product.label" id="local_orange">
+            <field name="name">Europe</field>
+            <field name="type">local</field>
+            <field name="color_code">#ffa200</field>
+        </record>
+        <record model="beesdoo.product.label" id="local_red">
+            <field name="name">Monde</field>
+            <field name="type">local</field>
+            <field name="color_code">#ff4000</field>
+        </record>
+        <record model="beesdoo.product.label" id="fair_green">
+            <field name="name">Label par tiers</field>
+            <field name="type">fair</field>
+            <field name="color_code">#40ff00</field>
+        </record>
+        <record model="beesdoo.product.label" id="fair_orange">
+            <field name="name">Préserve l’intérêt</field>
+            <field name="type">fair</field>
+            <field name="color_code">#ffa200</field>
+        </record>
+        <record model="beesdoo.product.label" id="fair_red">
+            <field name="name">Aucune garantie</field>
+            <field name="type">fair</field>
+            <field name="color_code">#ff4000</field>
+        </record>
+        <record model="beesdoo.product.label" id="delivery_green">
+            <field name="name">Intermédiaire coopératif</field>
+            <field name="type">delivery</field>
+            <field name="color_code">#40ff00</field>
+        </record>
+        <record model="beesdoo.product.label" id="delivery_orange">
+            <field name="name">Grossiste biologique</field>
+            <field name="type">delivery</field>
+            <field name="color_code">#ffa200</field>
+        </record>
+        <record model="beesdoo.product.label" id="delivery_red">
+            <field name="name">Grossiste industriel</field>
+            <field name="type">delivery</field>
+            <field name="color_code">#ff4000</field>
+        </record>
+        <record id="consignes_group_tax" model="account.tax.group">
+            <field name="name">Consignes</field>
+            <field name="sequence" eval="10" />
+        </record>
+    </data>
+</odoo>
