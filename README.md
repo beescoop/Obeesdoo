@@ -53,7 +53,7 @@ addon | version | maintainers | summary
 [beesdoo_worker_status_shift_swap](beesdoo_worker_status_shift_swap/) | 12.0.2.0.0 |  | Worker status management specific to shift exchanges.
 [cooperator_eater](cooperator_eater/) | 12.0.1.0.2 |  | Eater configuration based on Share product
 [cooperator_info_session](cooperator_info_session/) | 12.0.1.0.2 |  | Info session for getting share
-[cooperator_worker](cooperator_worker/) | 12.0.1.0.2 |  | Working and shopping configuration based on Share product
+[cooperator_worker](cooperator_worker/) | 12.0.1.1.0 |  | Working and shopping configuration based on Share product
 [eater](eater/) | 12.0.1.0.0 |  | Add eaters to the workers of your structure.
 [eater_member_card](eater_member_card/) | 12.0.1.0.0 |  | Compute barcode based on eaters
 [eater_parent_barcode](eater_parent_barcode/) | 12.0.1.0.0 |  | Compute barcode based on eaters
