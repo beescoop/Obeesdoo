@@ -9,10 +9,7 @@
 
 # Obeesdoo
 
-Specific module for the Beescoop
-The (french) documentation can be found here.
-Contact Coop IT Easy or Coopdevs to contibute to the documentation.
-
+Specific modules for the BEES coop
 
 <!-- /!\ do not modify below this line -->
 
