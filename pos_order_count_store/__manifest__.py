@@ -10,5 +10,6 @@
     "author": "Coop IT Easy SC",
     "license": "AGPL-3",
     "depends": ["point_of_sale"],
+    "pre_init_hook": "pre_compute_pos_order_count",
     "data": [],
 }
