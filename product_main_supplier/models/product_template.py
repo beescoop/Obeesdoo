@@ -26,6 +26,13 @@ class ProductTemplate(models.Model):
         related="main_supplierinfo_id.product_code",
         store=True,
     )
+    main_seller_id_price = fields.Float(
+        string="Supplier Price",
+        related="main_supplierinfo_id.price",
+    )
+    main_seller_id_minimum_qty = fields.Float(
+        string="Minimum Quantity", related="main_supplierinfo_id.min_qty"
+    )
 
     @api.multi
     @api.depends("seller_ids", "seller_ids.date_start")
