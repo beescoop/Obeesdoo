@@ -16,8 +16,8 @@
                     string="Main Seller Product Code"
                 />
                 <field name="weight" />
-                <field name="main_price" />
-                <field name="main_minimum_qty" />
+                <field name="main_seller_id_price" />
+                <field name="main_seller_id_minimum_qty" />
                 <field name="uom_po_id" />
                 <field name="qty_available" />
                 <field name="virtual_available" />
