@@ -1,4 +1,0 @@
-Bigger product name, even bigger price, bigger price info, bigger
-labels. But now labels stick on one line only (as there will be no more
-than 4 or maybe a bit more with some devs). Also adds more space between
-labels (horizontally only).
