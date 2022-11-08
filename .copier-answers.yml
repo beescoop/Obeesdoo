@@ -1,5 +1,5 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: v2.0.10
+_commit: v2.0.12
 _src_path: gh:coopiteasy/oca-addons-repo-template
 ci: GitHub
 dependency_installation_mode: OCA
@@ -11,9 +11,10 @@ org_slug: beescoop
 rebel_module_groups:
 - macavrac_base
 - polln_shift
-repo_description: Specific module for the BEES coop
+repo_description: Specific modules for the BEES coop
 repo_name: Obeesdoo
 repo_slug: obeesdoo
 repo_website: https://coopiteasy.be
 travis_apt_packages: []
 travis_apt_sources: []
+
