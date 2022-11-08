@@ -30,7 +30,7 @@ addon | version | maintainers | summary
 [beesdoo_pos_coop_status](beesdoo_pos_coop_status/) | 12.0.1.0.0 |  | POS Support for cooperator status.
 [beesdoo_pos_email_ticket](beesdoo_pos_email_ticket/) | 12.0.1.1.0 |  | This module adds the eaters of the customer to the POS ActionpadWidget and PaymentScreenWidget.
 [beesdoo_pos_reporting](beesdoo_pos_reporting/) | 12.0.1.0.0 |  | Enhance POS with features allowing statistics and reporting.
-[beesdoo_print_label](beesdoo_print_label/) | 12.0.1.1.4 |  | Product labels
+[beesdoo_print_label](beesdoo_print_label/) | 12.0.1.2.0 |  | Product labels
 [beesdoo_product](beesdoo_product/) | 12.0.2.0.0 |  | Modification of product module for the needs of beescoop
 [beesdoo_product_info_screen](beesdoo_product_info_screen/) | 12.0.0.0.1 |  | Adds a read-only screen to display product information
 [beesdoo_product_usability](beesdoo_product_usability/) | 12.0.1.1.0 |  | Adapt the product views.
