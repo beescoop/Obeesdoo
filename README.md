@@ -35,7 +35,7 @@ addon | version | maintainers | summary
 [beesdoo_product_info_screen](beesdoo_product_info_screen/) | 12.0.0.0.1 |  | Adds a read-only screen to display product information
 [beesdoo_product_usability](beesdoo_product_usability/) | 12.0.1.1.0 |  | Adapt the product views.
 [beesdoo_purchase](beesdoo_purchase/) | 12.0.1.4.0 |  | Enhancements related to Purchase module : field, filter, PO reference, product's purchase and/or selling price
-[beesdoo_shift](beesdoo_shift/) | 12.0.3.1.0 |  | Generate and manage shifts for cooperators.
+[beesdoo_shift](beesdoo_shift/) | 12.0.4.0.0 |  | Generate and manage shifts for cooperators.
 [beesdoo_shift_attendance](beesdoo_shift_attendance/) | 12.0.1.1.2 |  | Volonteer Timetable Management Attendance Sheet for BEES coop
 [beesdoo_shift_swap](beesdoo_shift_swap/) | 12.0.2.1.0 |  | Module to allow cooperator to swap his/her shift when he/she can't attend it, to do solidarity shifts, and to request solidarity if needed.
 [beesdoo_shift_welcome_screen](beesdoo_shift_welcome_screen/) | 12.0.1.0.1 |  | Volunteer Timetable Management
@@ -50,14 +50,14 @@ addon | version | maintainers | summary
 [beesdoo_worker_status_shift_swap](beesdoo_worker_status_shift_swap/) | 12.0.2.0.0 |  | Worker status management specific to shift exchanges.
 [cooperator_eater](cooperator_eater/) | 12.0.1.0.2 |  | Eater configuration based on Share product
 [cooperator_info_session](cooperator_info_session/) | 12.0.1.0.2 |  | Info session for getting share
-[cooperator_worker](cooperator_worker/) | 12.0.1.1.0 |  | Working and shopping configuration based on Share product
-[cooperator_worker_force](cooperator_worker_force/) | 12.0.1.0.0 |  | Allows to set a cooperator as a worker before the share is released.
+[cooperator_worker](cooperator_worker/) | 12.0.2.0.0 |  | Working and shopping configuration based on Share product
+[cooperator_worker_force](cooperator_worker_force/) | 12.0.2.0.0 |  | Allows to set a cooperator as a worker before the share is released.
 [eater](eater/) | 12.0.1.0.0 |  | Add eaters to the workers of your structure.
 [eater_member_card](eater_member_card/) | 12.0.1.0.0 |  | Compute barcode based on eaters
 [eater_parent_barcode](eater_parent_barcode/) | 12.0.1.0.0 |  | Compute barcode based on eaters
 [macavrac_base](macavrac_base/) | 12.0.1.0.0 |  | Module with basic customizations for the Macavrac cooperative.
 [member_card](member_card/) | 12.0.1.0.1 |  | Create a member card and link it to a partner.
-[polln_shift](polln_shift/) | 12.0.1.1.0 |  | Module with basic customizations for the Polln cooperative.
+[polln_shift](polln_shift/) | 12.0.2.0.0 |  | Module with basic customizations for the Polln cooperative.
 [product_main_supplier](product_main_supplier/) | 12.0.1.0.0 |  | Add a main supplier
 [purchase_order_generator](purchase_order_generator/) | 12.0.2.1.0 |  | Generate purchase order from a product selection
 [sale_adapt_price_wizard](sale_adapt_price_wizard/) | 12.0.1.0.1 |  | Add "Edit Price" submenu on Purchase and Sale modules.
