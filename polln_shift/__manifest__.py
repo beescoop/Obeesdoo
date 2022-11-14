@@ -7,7 +7,7 @@
     "author": "Patricia Daloze, Thibault Francois, Coop IT Easy SC",
     "category": "Sales",
     "website": "https://github.com/beescoop/Obeesdoo",
-    "version": "12.0.1.1.0",
+    "version": "12.0.2.0.0",
     "depends": [
         "beesdoo_shift",
         "beesdoo_website_shift",
