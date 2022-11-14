@@ -32,6 +32,12 @@ msgid "Main Supplierinfo"
 msgstr ""
 
 #. module: product_main_supplier
+#: model:ir.model.fields,field_description:product_main_supplier.field_product_product__main_seller_id_minimum_qty
+#: model:ir.model.fields,field_description:product_main_supplier.field_product_template__main_seller_id_minimum_qty
+msgid "Minimum Quantity"
+msgstr ""
+
+#. module: product_main_supplier
 #: model:ir.model.fields,field_description:product_main_supplier.field_product_supplierinfo__price_write_date
 msgid "Price Last Updated On"
 msgstr ""
@@ -42,8 +48,26 @@ msgid "Product Template"
 msgstr ""
 
 #. module: product_main_supplier
+#: model:ir.model.fields,field_description:product_main_supplier.field_product_product__main_seller_id_price
+#: model:ir.model.fields,field_description:product_main_supplier.field_product_template__main_seller_id_price
+msgid "Supplier Price"
+msgstr ""
+
+#. module: product_main_supplier
 #: model:ir.model,name:product_main_supplier.model_product_supplierinfo
 msgid "Supplier Pricelist"
+msgstr ""
+
+#. module: product_main_supplier
+#: model:ir.model.fields,help:product_main_supplier.field_product_product__main_seller_id_minimum_qty
+#: model:ir.model.fields,help:product_main_supplier.field_product_template__main_seller_id_minimum_qty
+msgid "The minimal quantity to purchase from this vendor, expressed in the vendor Product Unit of Measure if not any, in the default unit of measure of the product otherwise."
+msgstr ""
+
+#. module: product_main_supplier
+#: model:ir.model.fields,help:product_main_supplier.field_product_product__main_seller_id_price
+#: model:ir.model.fields,help:product_main_supplier.field_product_template__main_seller_id_price
+msgid "The price to purchase a product"
 msgstr ""
 
 #. module: product_main_supplier
