@@ -39,7 +39,7 @@ addon | version | maintainers | summary
 [beesdoo_shift_attendance](beesdoo_shift_attendance/) | 12.0.1.1.2 |  | Volonteer Timetable Management Attendance Sheet for BEES coop
 [beesdoo_shift_swap](beesdoo_shift_swap/) | 12.0.2.1.0 |  | Module to allow cooperator to swap his/her shift when he/she can't attend it, to do solidarity shifts, and to request solidarity if needed.
 [beesdoo_shift_welcome_screen](beesdoo_shift_welcome_screen/) | 12.0.1.0.1 |  | Volunteer Timetable Management
-[beesdoo_stock](beesdoo_stock/) | 12.0.1.0.0 |  | Enable action on multiple products of a stock receipt
+[beesdoo_stock](beesdoo_stock/) | 12.0.1.0.0 |  | Emptied
 [beesdoo_stock_coverage](beesdoo_stock_coverage/) | 12.0.0.0.1 |  | Compute estimated stock coverage based on product sales over a date range.
 [beesdoo_website_eater](beesdoo_website_eater/) | 12.0.1.0.0 |  | Show the eaters of a cooperator in the website portal.
 [beesdoo_website_posorder_amount](beesdoo_website_posorder_amount/) | 12.0.1.0.0 |  | Show the total amount of pos order in the website portal.
