@@ -249,12 +249,6 @@ msgid "Change Super Coop"
 msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,help:beesdoo_shift.field_res_partner__worker_store
-#: model:ir.model.fields,help:beesdoo_shift.field_res_users__worker_store
-msgid "Check to subscribe member to their shift even if they are not yet effective cooperator."
-msgstr ""
-
-#. module: beesdoo_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.coop_status_form_view
 msgid "Clear History"
 msgstr ""
@@ -638,12 +632,6 @@ msgid "For testing purpose only"
 msgstr ""
 
 #. module: beesdoo_shift
-#: model:ir.model.fields,field_description:beesdoo_shift.field_res_partner__worker_store
-#: model:ir.model.fields,field_description:beesdoo_shift.field_res_users__worker_store
-msgid "Force Worker"
-msgstr ""
-
-#. module: beesdoo_shift
 #: model:ir.model.fields,help:beesdoo_shift.field_beesdoo_shift_daynumber__number
 msgid "From 1 to N, When you will instanciate your planning, Day 1 will be the start date of the instance, Day 2 the second, etc..."
 msgstr ""
@@ -931,7 +919,7 @@ msgid "Main Attachment"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/res_partner.py:125
+#: code:addons/beesdoo_shift/models/res_partner.py:124
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.super_coop_partner_inherited_view_form
 #, python-format
 msgid "Manual Extension"
@@ -1103,7 +1091,7 @@ msgid "Recurring Workers"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/res_partner.py:143
+#: code:addons/beesdoo_shift/models/res_partner.py:142
 #, python-format
 msgid "Register Holiday"
 msgstr ""
@@ -1299,7 +1287,7 @@ msgid "Status:"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/res_partner.py:108
+#: code:addons/beesdoo_shift/models/res_partner.py:107
 #, python-format
 msgid "Subscribe Cooperator"
 msgstr ""
@@ -1377,7 +1365,7 @@ msgid "Temporary Exempt Start Date"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/res_partner.py:154
+#: code:addons/beesdoo_shift/models/res_partner.py:153
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.coop_status_form_view
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift.super_coop_partner_inherited_view_form
 #, python-format
@@ -1407,7 +1395,7 @@ msgid "Today"
 msgstr ""
 
 #. module: beesdoo_shift
-#: code:addons/beesdoo_shift/models/res_partner.py:137
+#: code:addons/beesdoo_shift/models/res_partner.py:136
 #, python-format
 msgid "Trigger Grace Delay"
 msgstr ""
