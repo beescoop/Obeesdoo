@@ -1,0 +1,19 @@
+<odoo>
+    <record model="ir.ui.view" id="super_coop_partner_inherited_view_form">
+        <field name="name">Partner Super Coop</field>
+        <field name="model">res.partner</field>
+        <field
+            name="inherit_id"
+            ref="beesdoo_shift.super_coop_partner_inherited_view_form"
+        />
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <field name="is_worker" position="after">
+                <field
+                    name="worker_store"
+                    groups="beesdoo_shift.group_cooperative_admin"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
