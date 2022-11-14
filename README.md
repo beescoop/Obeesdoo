@@ -41,7 +41,7 @@ addon | version | maintainers | summary
 [beesdoo_shift_welcome_screen](beesdoo_shift_welcome_screen/) | 12.0.1.0.1 |  | Volunteer Timetable Management
 [beesdoo_stock](beesdoo_stock/) | 12.0.2.0.0 |  | Emptied
 [beesdoo_stock_coverage](beesdoo_stock_coverage/) | 12.0.0.0.1 |  | Compute estimated stock coverage based on product sales over a date range.
-[beesdoo_website_eater](beesdoo_website_eater/) | 12.0.1.0.0 |  | Show the eaters of a cooperator in the website portal.
+[beesdoo_website_eater](beesdoo_website_eater/) | 12.0.1.0.0 |  | Emptied.
 [beesdoo_website_posorder_amount](beesdoo_website_posorder_amount/) | 12.0.1.0.0 |  | Show the total amount of pos order in the website portal.
 [beesdoo_website_shift](beesdoo_website_shift/) | 12.0.2.1.0 |  | Show available shifts for regular and irregular workers on the website and let workers manage their shifts with an easy web interface.
 [beesdoo_website_shift_swap](beesdoo_website_shift_swap/) | 12.0.2.1.0 |  | Add shift exchanges and solidarity shifts offers and requests.
@@ -62,6 +62,7 @@ addon | version | maintainers | summary
 [purchase_order_generator](purchase_order_generator/) | 12.0.2.1.0 |  | Generate purchase order from a product selection
 [sale_adapt_price_wizard](sale_adapt_price_wizard/) | 12.0.1.0.1 |  | Add "Edit Price" submenu on Purchase and Sale modules.
 [sale_suggested_price](sale_suggested_price/) | 12.0.1.0.0 |  | Add a suggested price to products, dependent on a product margin in partners and product categories.
+[shift_portal_eater](shift_portal_eater/) | 12.0.1.0.0 |  | Show the eaters of a cooperator in the website portal.
 [stock_move_view_line_order](stock_move_view_line_order/) | 12.0.2.1.0 |  | Reverse the order of stock move lines to 'newest to oldest'.
 [website_portal_restrict_modification](website_portal_restrict_modification/) | 12.0.1.0.0 |  | Portal extension preventing modification of sensible data by the users
 
