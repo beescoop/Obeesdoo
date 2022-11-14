@@ -19,7 +19,7 @@ BEES coop Stock
 
 |badge1| |badge2| |badge3| 
 
-Enable action on multiple products of a stock receipt.
+Moved to `stock_picking_products` (oca/stock-logistics-workflow).
 
 **Table of contents**
 
