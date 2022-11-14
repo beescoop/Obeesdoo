@@ -26,12 +26,6 @@ msgid "Allow owner to work?"
 msgstr ""
 
 #. module: cooperator_worker
-#: model:ir.model.fields,help:cooperator_worker.field_res_partner__worker_store
-#: model:ir.model.fields,help:cooperator_worker.field_res_users__worker_store
-msgid "Check to subscribe member to their shift even if they are not yet effective cooperator."
-msgstr ""
-
-#. module: cooperator_worker
 #: model:ir.model.fields,help:cooperator_worker.field_res_partner__is_worker
 #: model:ir.model.fields,help:cooperator_worker.field_res_users__is_worker
 msgid "Computed from the share product of the first cooperator share"
@@ -40,12 +34,6 @@ msgstr ""
 #. module: cooperator_worker
 #: model:ir.model,name:cooperator_worker.model_res_partner
 msgid "Contact"
-msgstr ""
-
-#. module: cooperator_worker
-#: model:ir.model.fields,field_description:cooperator_worker.field_res_partner__worker_store
-#: model:ir.model.fields,field_description:cooperator_worker.field_res_users__worker_store
-msgid "Force Worker"
 msgstr ""
 
 #. module: cooperator_worker
