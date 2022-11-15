@@ -6,7 +6,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Beesdoo Inventory",
-    "summary": "Emptied. Leftover: Restrict selectable products to those"
+    "summary": "Emptied.\nleftover: Restrict selectable products to those"
     " sold as main supplier by the picking partner.",
     "author": "BEES coop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",

@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "BEES coop Product Usability",
-    "summary": """Simplification of Product View.""",
+    "summary": """Emptied.\nLeftover: simplification of Product View.""",
     "author": "BEES coop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Sales Management",
