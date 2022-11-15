@@ -3,12 +3,12 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Beesdoo POS Reporting",
-    "summary": "Enhance POS with features allowing statistics and reporting.",
+    "summary": "Emptied.",
     "version": "12.0.1.0.0",
     "category": "Point of Sale",
     "website": "https://github.com/beescoop/Obeesdoo",
     "author": "Coop IT Easy SC",
     "license": "AGPL-3",
-    "depends": ["point_of_sale"],
+    "depends": ["pos_order_count_store"],
     "data": [],
 }
