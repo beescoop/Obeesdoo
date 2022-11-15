@@ -4,13 +4,13 @@
 
 
 {
-    "name": "BEES coop Point of sale - Cooperator Status",
-    "summary": """Emptied.""",
+    "name": "POS - Can Partner Shop",
+    "summary": """Display in the POS whether the partner can shop or not.""",
     "author": "Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Point Of Sale",
     "version": "12.0.1.0.0",
-    "depends": ["beesdoo_pos", "beesdoo_shift"],
+    "depends": ["point_of_sale", "beesdoo_shift"],
     "qweb": ["static/src/xml/pos.xml"],
     "data": ["views/assets.xml"],
     "installable": True,
