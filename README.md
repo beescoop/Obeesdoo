@@ -24,8 +24,8 @@ addon | version | maintainers | summary
 [beesdoo_account](beesdoo_account/) | 12.0.2.0.1 |  | Emptied.
 [beesdoo_base](beesdoo_base/) | 12.0.2.0.1 |  | Emptied
 [beesdoo_crelan_csv](beesdoo_crelan_csv/) | 12.0.1.0.0 |  | Import Crelan CSV Wizard
-[beesdoo_easy_my_coop](beesdoo_easy_my_coop/) | 12.0.1.2.1 |  | Emptied.
-[beesdoo_inventory](beesdoo_inventory/) | 12.0.3.0.2 |  | Emptied. leftover: Restrict selectable products to those sold as main supplier by the picking partner.
+[beesdoo_easy_my_coop](beesdoo_easy_my_coop/) | 12.0.1.2.2 |  | Emptied.
+[beesdoo_inventory](beesdoo_inventory/) | 12.0.3.0.3 |  | Emptied. leftover: Restrict selectable products to those sold as main supplier by the picking partner.
 [beesdoo_pos](beesdoo_pos/) | 12.0.2.0.0 |  | This module adds the eaters of the customer to the POS ActionpadWidget and PaymentScreenWidget.
 [beesdoo_pos_coop_status](beesdoo_pos_coop_status/) | 12.0.1.0.0 |  | POS Support for cooperator status.
 [beesdoo_pos_email_ticket](beesdoo_pos_email_ticket/) | 12.0.1.1.0 |  | This module adds the eaters of the customer to the POS ActionpadWidget and PaymentScreenWidget.
@@ -33,7 +33,7 @@ addon | version | maintainers | summary
 [beesdoo_print_label](beesdoo_print_label/) | 12.0.2.0.0 |  | Product labels
 [beesdoo_product](beesdoo_product/) | 12.0.2.0.0 |  | Modification of product module for the needs of beescoop
 [beesdoo_product_info_screen](beesdoo_product_info_screen/) | 12.0.0.0.1 |  | Adds a read-only screen to display product information
-[beesdoo_product_usability](beesdoo_product_usability/) | 12.0.2.0.0 |  | Emptied. Leftover: simplification of Product View.
+[beesdoo_product_usability](beesdoo_product_usability/) | 12.0.2.0.1 |  | Emptied. Leftover: simplification of Product View.
 [beesdoo_purchase](beesdoo_purchase/) | 12.0.1.4.0 |  | Enhancements related to Purchase module : field, filter, PO reference, product's purchase and/or selling price
 [beesdoo_shift](beesdoo_shift/) | 12.0.4.0.0 |  | Generate and manage shifts for cooperators.
 [beesdoo_shift_attendance](beesdoo_shift_attendance/) | 12.0.1.1.2 |  | Volonteer Timetable Management Attendance Sheet for BEES coop
