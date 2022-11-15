@@ -350,16 +350,24 @@ class CooperativeStatus(models.Model):
         ]
 
     def _change_irregular_counter(self):
-        if self.sr > 0:
-            if self.sr >= 1:
-                self.is_penalised_irregular = False
-            self.sr -= 1
-        elif self.alert_start_time or self.is_penalised_irregular:
-            self.sr -= 1
+        irregular_penalty = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("beesdoo_worker_status.irregular_penalty")
+        )
+        if irregular_penalty:
+            if self.sr > 0:
+                if self.sr >= 1:
+                    self.is_penalised_irregular = False
+                self.sr -= 1
+            elif self.alert_start_time or self.is_penalised_irregular:
+                self.sr -= 1
+            else:
+                self.sr -= 2
+                # Until sr is 1 or above, don't do another penalty.
+                self.is_penalised_irregular = True
         else:
-            self.sr -= 2
-            # Until sr is 1 or above, don't do another penalty.
-            self.is_penalised_irregular = True
+            self.sr -= 1
 
     ##################################
     #    Internal Implementation     #

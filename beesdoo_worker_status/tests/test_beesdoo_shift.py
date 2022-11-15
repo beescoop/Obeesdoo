@@ -38,6 +38,8 @@ class TestBeesdooShift(TransactionCase):
         )
 
         self.exempt_reason_1 = self.env.ref("beesdoo_shift.exempt_reason_1_demo")
+        config = self.env["ir.config_parameter"].sudo()
+        config.set_param("beesdoo_worker_status.irregular_penalty", True)
 
     def test_shift_counters(self):
         "Test shift counters calculation and cooperative status update"
@@ -141,6 +143,7 @@ class TestBeesdooShift(TransactionCase):
         The last step should go to -1 instead of -2. The penalty should not be
         given again until sr has reached 1.
         """
+
         worker = self.worker_irregular_1
         worker.cooperative_status_ids.sr = 0
         self.assertFalse(worker.cooperative_status_ids.is_penalised_irregular)
@@ -181,6 +184,16 @@ class TestBeesdooShift(TransactionCase):
         worker.cooperative_status_ids._change_irregular_counter()
         self.assertEqual(worker.cooperative_status_ids.sr, -2)
         self.assertTrue(worker.cooperative_status_ids.is_penalised_irregular)
+
+    def test_shift_config_penalty_disabled(self):
+        config = self.env["ir.config_parameter"].sudo()
+        config.set_param("beesdoo_worker_status.irregular_penalty", False)
+
+        worker = self.worker_irregular_1
+        worker.cooperative_status_ids.sr = 0
+        self.assertFalse(worker.cooperative_status_ids.is_penalised_irregular)
+        worker.cooperative_status_ids._change_irregular_counter()
+        self.assertEqual(worker.cooperative_status_ids.sr, -1)
 
     def test_postponed_alert_start_time_holiday_regular(self):
         """
