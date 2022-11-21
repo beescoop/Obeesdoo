@@ -23,6 +23,8 @@ class Partner(models.Model):
                 for c in partner.member_card_ids:
                     if c.valid:
                         partner.barcode = c.barcode
+            else:
+                partner.barcode = False
 
     @api.multi
     def _deactivate_active_cards(self):
