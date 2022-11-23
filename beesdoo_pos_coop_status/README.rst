@@ -19,9 +19,7 @@ BEES coop Point of sale - Cooperator Status
 
 |badge1| |badge2| |badge3| 
 
-This module displays in the pos whether the cooperator can shop or not.
-If the customer / cooperator cannot shop or is not set, a confirm popup
-is shown.
+Emptied.
 
 **Table of contents**
 
