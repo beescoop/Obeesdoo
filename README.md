@@ -27,7 +27,7 @@ addon | version | maintainers | summary
 [beesdoo_easy_my_coop](beesdoo_easy_my_coop/) | 12.0.1.2.2 |  | Emptied.
 [beesdoo_inventory](beesdoo_inventory/) | 12.0.3.0.3 |  | Emptied. leftover: Restrict selectable products to those sold as main supplier by the picking partner.
 [beesdoo_pos](beesdoo_pos/) | 12.0.2.0.0 |  | This module adds the eaters of the customer to the POS ActionpadWidget and PaymentScreenWidget.
-[beesdoo_pos_coop_status](beesdoo_pos_coop_status/) | 12.0.1.0.0 |  | POS Support for cooperator status.
+[beesdoo_pos_coop_status](beesdoo_pos_coop_status/) | 12.0.1.0.0 |  | Emptied.
 [beesdoo_pos_email_ticket](beesdoo_pos_email_ticket/) | 12.0.1.1.0 |  | This module adds the eaters of the customer to the POS ActionpadWidget and PaymentScreenWidget.
 [beesdoo_pos_reporting](beesdoo_pos_reporting/) | 12.0.1.0.0 |  | Emptied.
 [beesdoo_print_label](beesdoo_print_label/) | 12.0.2.0.0 |  | Product labels
@@ -58,6 +58,7 @@ addon | version | maintainers | summary
 [macavrac_base](macavrac_base/) | 12.0.1.0.0 |  | Module with basic customizations for the Macavrac cooperative.
 [member_card](member_card/) | 12.0.1.0.1 |  | Create a member card and link it to a partner.
 [polln_shift](polln_shift/) | 12.0.2.0.0 |  | Module with basic customizations for the Polln cooperative.
+[pos_shift_partner_can_shop](pos_shift_partner_can_shop/) | 12.0.1.0.0 |  | Display in the POS whether the partner can shop or not.
 [product_main_supplier](product_main_supplier/) | 12.0.2.0.0 |  | Add a main supplier
 [purchase_order_generator](purchase_order_generator/) | 12.0.2.1.0 |  | Generate purchase order from a product selection
 [sale_adapt_price_wizard](sale_adapt_price_wizard/) | 12.0.1.0.1 |  | Add "Edit Price" submenu on Purchase and Sale modules.
