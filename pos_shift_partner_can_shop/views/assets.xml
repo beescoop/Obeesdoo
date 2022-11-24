@@ -13,7 +13,7 @@
             />
             <link
                 rel="stylesheet"
-                href="/pos_shift_partner_can_shop/static/src/css/coop_status.css"
+                href="/pos_shift_partner_can_shop/static/src/css/pos_shift_partner_can_shop.css"
             />
         </xpath>
     </template>
