@@ -8,19 +8,14 @@
 #   - Houssine Bakkali <houssine@coopiteasy.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
-    "name": "BEES coop Point of sale",
-    "summary": """Emptied.""",
+    "name": "POS Auto-invoice Company",
+    "summary": "Applies to_invoice to company partners.",
     "author": "BEES coop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Point Of Sale",
     "version": "12.0.2.0.0",
-    "depends": [
-        "pos_eater",
-        "pos_available_in_pos_unlink",
-        "pos_partner_no_create",
-        "pos_hide_partner_info",
-        "pos_auto_invoice_company",
-    ],
+    "depends": ["point_of_sale"],
+    "data": ["views/assets.xml"],
     "installable": True,
     "license": "AGPL-3",
 }
