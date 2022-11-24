@@ -9,5 +9,5 @@
     "version": "12.0.2.0.0",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Website",
-    "depends": ["shift_portal_eater"],
+    "depends": ["portal_eater"],
 }
