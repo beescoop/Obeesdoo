@@ -12,5 +12,5 @@
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Website",
     "depends": ["website", "portal", "eater"],
-    "data": ["views/shift_portal_eater_templates.xml"],
+    "data": ["views/portal_eater_templates.xml"],
 }
