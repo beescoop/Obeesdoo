@@ -17,6 +17,7 @@
         "beesdoo_product",  # for field main_seller_id
         "stock_picking_responsible",
         "stock_move_line_auto_fill",
+        "stock_picking_product_link",
     ],
     "data": ["views/stock.xml"],
     "installable": True,
