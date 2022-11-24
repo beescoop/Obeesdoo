@@ -13,7 +13,7 @@
     "author": "BEES coop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Point Of Sale",
-    "version": "12.0.2.0.0",
+    "version": "12.0.3.0.0",
     "depends": ["point_of_sale"],
     "data": ["views/assets.xml"],
     "installable": True,
