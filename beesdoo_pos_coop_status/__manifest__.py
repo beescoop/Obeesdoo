@@ -10,9 +10,7 @@
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Point Of Sale",
     "version": "12.0.2.1.0",
-    "depends": ["beesdoo_pos", "beesdoo_shift", "pos_shift_partner_can_shop"],
-    "qweb": ["static/src/xml/pos.xml"],
-    "data": ["views/assets.xml"],
+    "depends": ["pos_shift_partner_can_shop"],
     "installable": True,
     "license": "AGPL-3",
 }
