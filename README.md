@@ -61,7 +61,7 @@ addon | version | maintainers | summary
 [portal_eater](portal_eater/) | 12.0.2.0.1 |  | Show the eaters of a cooperator in the website portal.
 [pos_auto_invoice_company](pos_auto_invoice_company/) | 12.0.3.0.0 |  | Applies to_invoice to company partners.
 [pos_eater](pos_eater/) | 12.0.2.0.0 |  | This module adds the eaters of the customer to the POS ActionpadWidget.
-[pos_shift_partner_can_shop](pos_shift_partner_can_shop/) | 12.0.2.0.0 |  | Display in the POS whether the partner can shop or not.
+[pos_shift_partner_can_shop](pos_shift_partner_can_shop/) | 12.0.2.0.1 |  | Display in the POS whether the partner can shop or not.
 [product_main_supplier](product_main_supplier/) | 12.0.2.0.0 |  | Add a main supplier
 [purchase_order_generator](purchase_order_generator/) | 12.0.2.1.0 |  | Generate purchase order from a product selection
 [sale_adapt_price_wizard](sale_adapt_price_wizard/) | 12.0.1.0.1 |  | Add "Edit Price" submenu on Purchase and Sale modules.
