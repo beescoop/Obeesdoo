@@ -1,6 +1,5 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* beesdoo_pos_coop_status
 #
 msgid ""
 msgstr ""
@@ -12,48 +11,4 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: beesdoo_pos_coop_status
-#. openerp-web
-#: code:addons/beesdoo_pos_coop_status/static/src/xml/pos.xml:13
-#, python-format
-msgid "(Can shop)"
-msgstr ""
-
-#. module: beesdoo_pos_coop_status
-#. openerp-web
-#: code:addons/beesdoo_pos_coop_status/static/src/xml/pos.xml:19
-#, python-format
-msgid "(Cannot shop)"
-msgstr ""
-
-#. module: beesdoo_pos_coop_status
-#. openerp-web
-#: code:addons/beesdoo_pos_coop_status/static/src/js/screens.js:40
-#, python-format
-msgid "No customer set."
-msgstr ""
-
-#. module: beesdoo_pos_coop_status
-#. openerp-web
-#: code:addons/beesdoo_pos_coop_status/static/src/js/screens.js:29
-#, python-format
-msgid "This cooperator cannot shop."
-msgstr ""
-
-#. module: beesdoo_pos_coop_status
-#. openerp-web
-#: code:addons/beesdoo_pos_coop_status/static/src/js/screens.js:30
-#, python-format
-msgid "This cooperator is not up-to-date with his/her shift. \n"
-"\n"
-"Do you want to proceed to payment?"
-msgstr ""
-
-#. module: beesdoo_pos_coop_status
-#. openerp-web
-#: code:addons/beesdoo_pos_coop_status/static/src/js/screens.js:41
-#, python-format
-msgid "You did no select a customer. Do you want to proceed to payment?"
-msgstr ""
 
