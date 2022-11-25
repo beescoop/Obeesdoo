@@ -27,7 +27,7 @@ addon | version | maintainers | summary
 [beesdoo_easy_my_coop](beesdoo_easy_my_coop/) | 12.0.1.2.2 |  | Emptied.
 [beesdoo_inventory](beesdoo_inventory/) | 12.0.3.1.0 |  | Emptied. leftover: Restrict selectable products to those sold as main supplier by the picking partner.
 [beesdoo_pos](beesdoo_pos/) | 12.0.3.0.0 |  | Emptied.
-[beesdoo_pos_coop_status](beesdoo_pos_coop_status/) | 12.0.2.1.0 |  | Emptied.
+[beesdoo_pos_coop_status](beesdoo_pos_coop_status/) | 12.0.2.1.1 |  | Emptied.
 [beesdoo_pos_email_ticket](beesdoo_pos_email_ticket/) | 12.0.1.1.0 |  | This module adds the eaters of the customer to the POS ActionpadWidget and PaymentScreenWidget.
 [beesdoo_pos_reporting](beesdoo_pos_reporting/) | 12.0.1.0.0 |  | Emptied.
 [beesdoo_print_label](beesdoo_print_label/) | 12.0.2.0.0 |  | Product labels
