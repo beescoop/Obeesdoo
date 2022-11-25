@@ -1,5 +1,5 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: v2.1.2
+_commit: v2.1.4
 _src_path: gh:coopiteasy/oca-addons-repo-template
 ci: GitHub
 dependency_installation_mode: OCA
