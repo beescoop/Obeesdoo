@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* shift_portal_eater
+#	* portal_eater
 #
 msgid ""
 msgstr ""
@@ -13,13 +13,13 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: shift_portal_eater
-#: model_terms:ir.ui.view,arch_db:shift_portal_eater.website_eater_details_side
+#. module: portal_eater
+#: model_terms:ir.ui.view,arch_db:portal_eater.website_eater_details_side
 msgid "You have no eaters"
 msgstr ""
 
-#. module: shift_portal_eater
-#: model_terms:ir.ui.view,arch_db:shift_portal_eater.website_eater_details_side
+#. module: portal_eater
+#: model_terms:ir.ui.view,arch_db:portal_eater.website_eater_details_side
 msgid "Your Eaters"
 msgstr ""
 
