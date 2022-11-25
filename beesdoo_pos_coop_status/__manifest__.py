@@ -9,7 +9,7 @@
     "author": "Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Point Of Sale",
-    "version": "12.0.2.1.0",
+    "version": "12.0.2.1.1",
     "depends": ["pos_shift_partner_can_shop"],
     "installable": True,
     "license": "AGPL-3",
