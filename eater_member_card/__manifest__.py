@@ -11,7 +11,7 @@
     "summary": "Compute barcode based on eaters",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Sales",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.1.0",
     "depends": ["eater", "member_card"],
     "data": [
         "views/partner.xml",
