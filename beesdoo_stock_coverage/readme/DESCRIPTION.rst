@@ -1,1 +1,1 @@
-Compute estimated stock coverage based on product sales over a date range.
+Moved to oca/stock-logistics-warehouse under module product_stock_coverage
