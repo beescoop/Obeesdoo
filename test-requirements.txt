@@ -5,6 +5,8 @@ git+https://github.com/coopiteasy/addons@12.0#subdirectory=setup/account_bank_st
 
 git+https://github.com/coopiteasy/cie-pos@12.0#subdirectory=setup/pos_available_in_pos_unlink
 
+git+https://github.com/coopiteasy/cie-stock@12.0#subdirectory=setup/product_stock_coverage
+
 git+https://github.com/coopiteasy/vertical-cooperative@12.0#subdirectory=setup/portal_recaptcha
 
 git+https://github.com/grap/grap-odoo-incubator@12.0#subdirectory=setup/product_print_category
