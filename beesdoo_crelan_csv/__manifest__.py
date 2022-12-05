@@ -4,14 +4,12 @@
 
 {
     "name": "BEES coop Crelan Import module",
-    "summary": """
-        Import Crelan CSV Wizard
-    """,
+    "summary": "Emptied",
     "author": "BEES coop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Accounting & Finance",
     "version": "12.0.1.0.0",
-    "depends": ["account_bank_statement_import"],
+    "depends": ["account_bank_statement_import_crelan"],
     "installable": True,
     "license": "AGPL-3",
 }
