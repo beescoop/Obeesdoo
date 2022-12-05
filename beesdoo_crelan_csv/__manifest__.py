@@ -8,7 +8,7 @@
     "author": "BEES coop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Accounting & Finance",
-    "version": "12.0.1.0.0",
+    "version": "12.0.2.0.0",
     "depends": ["account_bank_statement_import_crelan"],
     "installable": True,
     "license": "AGPL-3",
