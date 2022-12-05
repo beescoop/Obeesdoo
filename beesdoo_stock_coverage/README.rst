@@ -19,7 +19,7 @@ Product - Stock Coverage
 
 |badge1| |badge2| |badge3| 
 
-Compute estimated stock coverage based on product sales over a date range.
+Moved to oca/stock-logistics-warehouse under module product_stock_coverage
 
 **Table of contents**
 
