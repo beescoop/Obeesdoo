@@ -19,7 +19,9 @@ BEES coop Crelan Import module
 
 |badge1| |badge2| |badge3| 
 
-Import Crelan CSV Wizard
+Emptied.
+
+Moved to coopiteasy/addons under account_bank_statement_import_crelan.
 
 **Table of contents**
 
