@@ -23,7 +23,7 @@ addon | version | maintainers | summary
 --- | --- | --- | ---
 [beesdoo_account](beesdoo_account/) | 12.0.2.0.1 |  | Emptied.
 [beesdoo_base](beesdoo_base/) | 12.0.2.0.1 |  | Emptied
-[beesdoo_crelan_csv](beesdoo_crelan_csv/) | 12.0.1.0.0 |  | Emptied
+[beesdoo_crelan_csv](beesdoo_crelan_csv/) | 12.0.2.0.0 |  | Emptied
 [beesdoo_easy_my_coop](beesdoo_easy_my_coop/) | 12.0.1.2.2 |  | Emptied.
 [beesdoo_inventory](beesdoo_inventory/) | 12.0.3.1.0 |  | Emptied. leftover: Restrict selectable products to those sold as main supplier by the picking partner.
 [beesdoo_pos](beesdoo_pos/) | 12.0.3.0.0 |  | Emptied.
