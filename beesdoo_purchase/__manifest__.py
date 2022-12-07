@@ -13,12 +13,12 @@
         "purchase",
         "beesdoo_product",
         "beesdoo_stock_coverage",
+        "purchase_order_responsible",
+        "account_invoice_line_custom_reference",
+        "purchase_order_main_supplier",
     ],
     "data": [
-        "security/invoice_security.xml",
         "views/purchase_order.xml",
-        "views/res_config_settings_view.xml",
-        "report/report_purchaseorder.xml",
     ],
     "license": "AGPL-3",
 }
