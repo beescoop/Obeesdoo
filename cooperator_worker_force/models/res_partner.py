@@ -33,4 +33,4 @@ class ResPartner(models.Model):
             forced_worker_domain = [("id", "in", forced_workers.ids)]
         else:
             forced_worker_domain = [("id", "not in", forced_workers.ids)]
-        return domain + forced_worker_domain
+        return ["|"] + domain + forced_worker_domain
