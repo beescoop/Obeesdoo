@@ -4,7 +4,7 @@
 
 
 {
-    "name": "BEES coop Shift Management",
+    "name": "Shift Management",
     "summary": """Generate and manage shifts for cooperators.""",
     "author": "Thibault Francois, Elouan Le Bars, Coop IT Easy SC",
     "website": "https://github.com/OCA/shift-planning",
