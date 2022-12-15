@@ -105,7 +105,7 @@ class CooperativeStatus(models.Model):
         "cooperative.status.history", "status_id", readonly=True
     )
     unsubscribed = fields.Boolean(default=False, help="Manually unsubscribed")
-    resigning = fields.Boolean(default=False, help="Want to leave the beescoop")
+    resigning = fields.Boolean(default=False, help="Wants to leave the cooperative")
 
     # Specific to irregular
     irregular_start_date = fields.Date()  # TODO migration script

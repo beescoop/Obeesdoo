@@ -7,9 +7,9 @@ from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
 
 
-class TestBeesdooShift(TransactionCase):
+class TestShift(TransactionCase):
     def setUp(self):
-        super(TestBeesdooShift, self).setUp()
+        super(TestShift, self).setUp()
         self.shift_model = self.env["shift.shift"]
         self.shift_template_model = self.env["shift.template"]
         self.subscribe_wizard = self.env["shift.subscribe"]
