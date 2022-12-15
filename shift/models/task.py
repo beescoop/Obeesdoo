@@ -376,7 +376,7 @@ class Task(models.Model):
         """
         tasks = self.env["beesdoo.shift.shift"]
         shift_summary_mail_template = self.env.ref(
-            "beesdoo_shift.email_template_shift_summary", False
+            "shift.email_template_shift_summary", False
         )
 
         start_time = datetime.now() + timedelta(days=notice)

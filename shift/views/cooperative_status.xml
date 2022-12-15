@@ -12,7 +12,7 @@
                         string="Subscribe to shift"
                         class="oe_highlight"
                         type="object"
-                        groups="beesdoo_shift.group_shift_management"
+                        groups="shift.group_shift_management"
                         attrs="{'invisible': [('is_worker', '=', False)]}"
                     />
                     <button
@@ -20,7 +20,7 @@
                         string="Auto Extension"
                         class="oe_highlight"
                         type="object"
-                        groups="beesdoo_shift.group_shift_attendance"
+                        groups="shift.group_shift_attendance"
                         attrs="{'invisible': ['|',
                                                     ('is_worker', '=', False),
                                                     '|',
@@ -32,7 +32,7 @@
                         string="Manual Extension"
                         class="oe_highlight"
                         type="object"
-                        groups="beesdoo_shift.group_shift_management"
+                        groups="shift.group_shift_management"
                         attrs="{'invisible': ['|',
                                                     ('is_worker', '=', False),
                                                     '|',
@@ -44,7 +44,7 @@
                         string="Unsubscribe"
                         class="oe_highlight"
                         type="object"
-                        groups="beesdoo_shift.group_shift_management"
+                        groups="shift.group_shift_management"
                         attrs="{'invisible': [('is_worker', '=', False)]}"
                     />
                     <button
@@ -52,14 +52,14 @@
                         string="Register Holidays"
                         class="oe_highlight"
                         type="object"
-                        groups="beesdoo_shift.group_shift_management"
+                        groups="shift.group_shift_management"
                         attrs="{'invisible': ['|', ('is_worker', '=', False), ('state', '=', 'resigning')]}"
                     />
                     <button
                         name="temporary_exempt"
                         string="Temporary Exemption"
                         type="object"
-                        groups="beesdoo_shift.group_shift_management"
+                        groups="shift.group_shift_management"
                         attrs="{'invisible': ['|', ('is_worker', '=', False), ('state', '=', 'unsubscribed')]}"
                     />
                     <field
@@ -105,7 +105,7 @@
                     <field name="subscribed_shift_ids" />
                     <separator
                         string="Shifts"
-                        groups="beesdoo_shift.group_shift_attendance"
+                        groups="shift.group_shift_attendance"
                     />
                     <field name="shift_shift_ids" />
                 </page>

@@ -18,7 +18,7 @@
         <field name="working_mode">regular</field>
         <field name="is_worker" eval="True" />
 <!--        <field name="cooperative_status_ids"-->
-<!--               eval="[(6, 0, [ref('beesdoo_shift.cooperative_status_1_demo')])]"/>-->
+<!--               eval="[(6, 0, [ref('shift.cooperative_status_1_demo')])]"/>-->
     </record>
 
     <record id="res_partner_worker_2_demo" model="res.partner">
@@ -34,7 +34,7 @@
         <field name="working_mode">irregular</field>
         <field name="is_worker" eval="True" />
 <!--        <field name="cooperative_status_ids"-->
-<!--               eval="[(6, 0, [ref('beesdoo_shift.cooperative_status_2_demo')])]"/>-->
+<!--               eval="[(6, 0, [ref('shift.cooperative_status_2_demo')])]"/>-->
     </record>
 
     <record id="res_partner_worker_3_demo" model="res.partner">
@@ -50,7 +50,7 @@
         <field name="working_mode">regular</field>
         <field name="is_worker" eval="True" />
 <!--        <field name="cooperative_status_ids"-->
-<!--               eval="[(6, 0, [ref('beesdoo_shift.cooperative_status_3_demo')])]"/>-->
+<!--               eval="[(6, 0, [ref('shift.cooperative_status_3_demo')])]"/>-->
     </record>
 
 
@@ -67,7 +67,7 @@
         <field name="working_mode">irregular</field>
         <field name="is_worker" eval="True" />
 <!--        <field name="cooperative_status_ids"-->
-<!--               eval="[(6, 0, [ref('beesdoo_shift.cooperative_status_4_demo')])]"/>-->
+<!--               eval="[(6, 0, [ref('shift.cooperative_status_4_demo')])]"/>-->
     </record>
 
     <record id="res_partner_worker_5_demo" model="res.partner">
@@ -83,7 +83,7 @@
         <field name="working_mode">regular</field>
         <field name="is_worker" eval="True" />
 <!--        <field name="cooperative_status_ids"-->
-<!--               eval="[(6, 0, [ref('beesdoo_shift.cooperative_status_5_demo')])]"/>-->
+<!--               eval="[(6, 0, [ref('shift.cooperative_status_5_demo')])]"/>-->
     </record>
     <record id="res_partner_worker_6_demo" model="res.partner">
         <field name="name">Jean Beaumont</field>
@@ -98,7 +98,7 @@
         <field name="working_mode">regular</field>
         <field name="is_worker" eval="True" />
 <!--        <field name="cooperative_status_ids"-->
-<!--               eval="[(6, 0, [ref('beesdoo_shift.cooperative_status_6_demo')])]"/>-->
+<!--               eval="[(6, 0, [ref('shift.cooperative_status_6_demo')])]"/>-->
     </record>
 
     <record id="cooperative_status_1_demo" model="cooperative.status">

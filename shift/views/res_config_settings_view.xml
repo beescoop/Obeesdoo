@@ -14,8 +14,8 @@
                         class="app_settings_block"
                         data-string="Shifts Settings"
                         string="Shifts Settings"
-                        data-key="beesdoo_shift"
-                        groups="beesdoo_shift.group_cooperative_admin"
+                        data-key="shift"
+                        groups="shift.group_cooperative_admin"
                     >
                         <h2>General settings</h2>
                         <div class="row mt16 o_settings_container">
