@@ -2098,22 +2098,22 @@ msgstr ""
 
 #. module: shift
 #: model:ir.model,name:shift.model_beesddoo_shift_assign_super_coop
-msgid "beesddoo.shift.assign_super_coop"
+msgid "shift.assign_super_coop"
 msgstr ""
 
 #. module: shift
 #: model:ir.model,name:shift.model_beesddoo_shift_generate_planning
-msgid "beesddoo.shift.generate_planning"
+msgid "shift.generate_planning"
 msgstr ""
 
 #. module: shift
 #: model:ir.model,name:shift.model_beesddoo_shift_generate_shift_template
-msgid "beesddoo.shift.generate_shift_template"
+msgid "shift.generate_shift_template"
 msgstr ""
 
 #. module: shift
 #: model:ir.model,name:shift.model_beesddoo_shift_generate_shift_template_line
-msgid "beesddoo.shift.generate_shift_template.line"
+msgid "shift.generate_shift_template.line"
 msgstr ""
 
 #. module: shift

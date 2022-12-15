@@ -1,7 +1,7 @@
 <odoo>
     <record model="ir.ui.view" id="task_template_generation_view_form">
         <field name="name">Planning Form</field>
-        <field name="model">beesddoo.shift.generate_shift_template</field>
+        <field name="model">shift.generate_shift_template</field>
         <field name="arch" type="xml">
             <form>
                 <group>

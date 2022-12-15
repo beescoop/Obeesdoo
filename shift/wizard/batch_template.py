@@ -8,8 +8,8 @@ from odoo import _, api, fields, models
 
 
 class GenerateShiftTemplate(models.TransientModel):
-    _name = "beesddoo.shift.generate_shift_template"
-    _description = "beesddoo.shift.generate_shift_template"
+    _name = "shift.generate_shift_template"
+    _description = "shift.generate_shift_template"
 
     day_ids = fields.Many2many(
         comodel_name="shift.daynumber",
@@ -29,7 +29,7 @@ class GenerateShiftTemplate(models.TransientModel):
         default=lambda self: self._context.get("active_id"),
     )
     line_ids = fields.One2many(
-        "beesddoo.shift.generate_shift_template.line", "wizard_id"
+        "shift.generate_shift_template.line", "wizard_id"
     )
 
     @api.multi
@@ -66,10 +66,10 @@ class GenerateShiftTemplate(models.TransientModel):
 
 
 class GenerateShiftTemplateLine(models.TransientModel):
-    _name = "beesddoo.shift.generate_shift_template.line"
-    _description = "beesddoo.shift.generate_shift_template.line"
+    _name = "shift.generate_shift_template.line"
+    _description = "shift.generate_shift_template.line"
 
-    wizard_id = fields.Many2one("beesddoo.shift.generate_shift_template")
+    wizard_id = fields.Many2one("shift.generate_shift_template")
     start_time = fields.Float(required=True)
     end_time = fields.Float(required=True)
     worker_nb = fields.Integer(default=1)
