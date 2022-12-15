@@ -383,10 +383,10 @@ msgid "Create a portal user for the new worker. If a user exists, nothing is don
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_assign_super_coop__create_uid
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_planning__create_uid
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_shift_template__create_uid
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_shift_template_line__create_uid
+#: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop__create_uid
+#: model:ir.model.fields,field_description:shift.field_shift_generate_planning__create_uid
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__create_uid
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__create_uid
 #: model:ir.model.fields,field_description:shift.field_shift_daynumber__create_uid
 #: model:ir.model.fields,field_description:shift.field_shift_extension__create_uid
 #: model:ir.model.fields,field_description:shift.field_shift_holiday__create_uid
@@ -404,10 +404,10 @@ msgid "Created by"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_assign_super_coop__create_date
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_planning__create_date
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_shift_template__create_date
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_shift_template_line__create_date
+#: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop__create_date
+#: model:ir.model.fields,field_description:shift.field_shift_generate_planning__create_date
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__create_date
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__create_date
 #: model:ir.model.fields,field_description:shift.field_shift_daynumber__create_date
 #: model:ir.model.fields,field_description:shift.field_shift_extension__create_date
 #: model:ir.model.fields,field_description:shift.field_shift_holiday__create_date
@@ -447,7 +447,7 @@ msgid "Date of information session"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_shift_template__day_ids
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__day_ids
 #: model:ir.model.fields,field_description:shift.field_shift_template__day_nb_id
 #: model_terms:ir.ui.view,arch_db:shift.task_view_search
 msgid "Day"
@@ -477,10 +477,10 @@ msgid "Description"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_assign_super_coop__display_name
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_planning__display_name
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_shift_template__display_name
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_shift_template_line__display_name
+#: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop__display_name
+#: model:ir.model.fields,field_description:shift.field_shift_generate_planning__display_name
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__display_name
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__display_name
 #: model:ir.model.fields,field_description:shift.field_shift_action_mixin__display_name
 #: model:ir.model.fields,field_description:shift.field_shift_daynumber__display_name
 #: model:ir.model.fields,field_description:shift.field_shift_extension__display_name
@@ -545,7 +545,7 @@ msgid "End Date"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_shift_template_line__end_time
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__end_time
 #: model:ir.model.fields,field_description:shift.field_shift_shift__end_time
 #: model:ir.model.fields,field_description:shift.field_shift_template__end_time
 msgid "End Time"
@@ -602,7 +602,7 @@ msgid "Field that allow to compute field and store them even if they are based o
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_planning__date_start
+#: model:ir.model.fields,field_description:shift.field_shift_generate_planning__date_start
 msgid "First Day of planning (should be Monday)"
 msgstr ""
 
@@ -720,10 +720,10 @@ msgid "Hours"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_assign_super_coop__id
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_planning__id
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_shift_template__id
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_shift_template_line__id
+#: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop__id
+#: model:ir.model.fields,field_description:shift.field_shift_generate_planning__id
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__id
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__id
 #: model:ir.model.fields,field_description:shift.field_shift_action_mixin__id
 #: model:ir.model.fields,field_description:shift.field_shift_daynumber__id
 #: model:ir.model.fields,field_description:shift.field_shift_extension__id
@@ -839,10 +839,10 @@ msgid "J-5"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_assign_super_coop____last_update
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_planning____last_update
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_shift_template____last_update
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_shift_template_line____last_update
+#: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop____last_update
+#: model:ir.model.fields,field_description:shift.field_shift_generate_planning____last_update
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template____last_update
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line____last_update
 #: model:ir.model.fields,field_description:shift.field_shift_action_mixin____last_update
 #: model:ir.model.fields,field_description:shift.field_shift_daynumber____last_update
 #: model:ir.model.fields,field_description:shift.field_shift_extension____last_update
@@ -861,10 +861,10 @@ msgid "Last Modified on"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_assign_super_coop__write_uid
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_planning__write_uid
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_shift_template__write_uid
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_shift_template_line__write_uid
+#: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop__write_uid
+#: model:ir.model.fields,field_description:shift.field_shift_generate_planning__write_uid
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__write_uid
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__write_uid
 #: model:ir.model.fields,field_description:shift.field_shift_daynumber__write_uid
 #: model:ir.model.fields,field_description:shift.field_shift_extension__write_uid
 #: model:ir.model.fields,field_description:shift.field_shift_holiday__write_uid
@@ -882,10 +882,10 @@ msgid "Last Updated by"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_assign_super_coop__write_date
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_planning__write_date
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_shift_template__write_date
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_shift_template_line__write_date
+#: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop__write_date
+#: model:ir.model.fields,field_description:shift.field_shift_generate_planning__write_date
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__write_date
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__write_date
 #: model:ir.model.fields,field_description:shift.field_shift_daynumber__write_date
 #: model:ir.model.fields,field_description:shift.field_shift_extension__write_date
 #: model:ir.model.fields,field_description:shift.field_shift_holiday__write_date
@@ -908,7 +908,7 @@ msgid "Limit attendance percentage to define underpopulated shift"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_shift_template__line_ids
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__line_ids
 #: model:ir.model.fields,field_description:shift.field_shift_journal__line_ids
 msgid "Line"
 msgstr ""
@@ -982,7 +982,7 @@ msgid "Name"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_assign_super_coop__super_coop_id
+#: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop__super_coop_id
 msgid "New Super Cooperative"
 msgstr ""
 
@@ -1055,8 +1055,8 @@ msgid "Place Available"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_planning__planning_id
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_shift_template__planning_ids
+#: model:ir.model.fields,field_description:shift.field_shift_generate_planning__planning_id
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__planning_ids
 #: model:ir.model.fields,field_description:shift.field_shift_shift__planning_id
 #: model:ir.model.fields,field_description:shift.field_shift_template__planning_id
 #: model:ir.ui.menu,name:shift.menu_task_top
@@ -1176,7 +1176,7 @@ msgid "Sequence"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_assign_super_coop__shift_ids
+#: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop__shift_ids
 #: model:ir.model.fields,field_description:shift.field_shift_subscribe__shift_id
 msgid "Shift"
 msgstr ""
@@ -1246,7 +1246,7 @@ msgid "Start Date"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_shift_template_line__start_time
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__start_time
 #: model:ir.model.fields,field_description:shift.field_shift_shift__start_time
 #: model:ir.model.fields,field_description:shift.field_shift_template__start_time
 msgid "Start Time"
@@ -1401,7 +1401,7 @@ msgid "Trigger Grace Delay"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_shift_template__type_id
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__type_id
 #: model:ir.model.fields,field_description:shift.field_shift_template__task_type_id
 #: model:ir.model.fields,field_description:shift.field_cooperative_status_history__type
 #: model_terms:ir.ui.view,arch_db:shift.task_view_search
@@ -1479,7 +1479,7 @@ msgid "Week Day"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_shift_template_line__wizard_id
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__wizard_id
 msgid "Wizard"
 msgstr ""
 
@@ -1499,7 +1499,7 @@ msgid "Worker Name"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_beesddoo_shift_generate_shift_template_line__worker_nb
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__worker_nb
 msgid "Worker Nb"
 msgstr ""
 
@@ -1628,22 +1628,22 @@ msgid "Your next shift\n"
 msgstr ""
 
 #. module: shift
-#: model:ir.model,name:shift.model_beesddoo_shift_assign_super_coop
+#: model:ir.model,name:shift.model_shift_assign_super_coop
 msgid "shift.assign_super_coop"
 msgstr ""
 
 #. module: shift
-#: model:ir.model,name:shift.model_beesddoo_shift_generate_planning
+#: model:ir.model,name:shift.model_shift_generate_planning
 msgid "shift.generate_planning"
 msgstr ""
 
 #. module: shift
-#: model:ir.model,name:shift.model_beesddoo_shift_generate_shift_template
+#: model:ir.model,name:shift.model_shift_generate_shift_template
 msgid "shift.generate_shift_template"
 msgstr ""
 
 #. module: shift
-#: model:ir.model,name:shift.model_beesddoo_shift_generate_shift_template_line
+#: model:ir.model,name:shift.model_shift_generate_shift_template_line
 msgid "shift.generate_shift_template.line"
 msgstr ""
 
