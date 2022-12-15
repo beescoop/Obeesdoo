@@ -1,7 +1,7 @@
 <odoo>
     <record model="ir.ui.view" id="assign_super_coop_view_form">
         <field name="name">Assign Super Coop</field>
-        <field name="model">beesddoo.shift.assign_super_coop</field>
+        <field name="model">shift.assign_super_coop</field>
         <field name="arch" type="xml">
             <form>
                 <group>
@@ -27,7 +27,7 @@
         id="act_assign_new_super_coop"
         name="Change Super Coop"
         src_model="shift.shift"
-        res_model="beesddoo.shift.assign_super_coop"
+        res_model="shift.assign_super_coop"
         view_mode="form"
         target="new"
         key2="client_action_multi"

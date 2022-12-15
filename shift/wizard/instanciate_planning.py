@@ -2,8 +2,8 @@ from odoo import _, api, fields, models
 
 
 class InstanciatePlanning(models.TransientModel):
-    _name = "beesddoo.shift.generate_planning"
-    _description = "beesddoo.shift.generate_planning"
+    _name = "shift.generate_planning"
+    _description = "shift.generate_planning"
 
     def _get_planning(self):
         return self._context.get("active_id")

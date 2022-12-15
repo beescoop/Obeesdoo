@@ -1,7 +1,7 @@
 <odoo>
     <record model="ir.ui.view" id="planning_instanciate_view_form">
         <field name="name">Planning Form</field>
-        <field name="model">beesddoo.shift.generate_planning</field>
+        <field name="model">shift.generate_planning</field>
         <field name="arch" type="xml">
             <form>
                 <group>

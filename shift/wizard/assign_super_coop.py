@@ -2,8 +2,8 @@ from odoo import api, fields, models
 
 
 class AssignSuperCoop(models.TransientModel):
-    _name = "beesddoo.shift.assign_super_coop"
-    _description = "beesddoo.shift.assign_super_coop"
+    _name = "shift.assign_super_coop"
+    _description = "shift.assign_super_coop"
 
     super_coop_id = fields.Many2one(
         "res.users",

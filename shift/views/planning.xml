@@ -11,7 +11,7 @@
 
     <record model="ir.actions.act_window" id="action_generate_shift_wizard">
         <field name="name">Instanciate Planning Action</field>
-        <field name="res_model">beesddoo.shift.generate_planning</field>
+        <field name="res_model">shift.generate_planning</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>

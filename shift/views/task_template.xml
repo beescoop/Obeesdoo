@@ -212,7 +212,7 @@
 
     <record model="ir.actions.act_window" id="action_generate_shift_template_wizard">
         <field name="name">Generate Shift Template</field>
-        <field name="res_model">beesddoo.shift.generate_shift_template</field>
+        <field name="res_model">shift.generate_shift_template</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
