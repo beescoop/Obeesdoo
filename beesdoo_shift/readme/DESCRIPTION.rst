@@ -1,1 +1,1 @@
-Generate and manage shifts for cooperators.
+Emptied in favour of ``shift``.
