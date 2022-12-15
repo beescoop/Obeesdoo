@@ -28,8 +28,8 @@ def get_first_day_of_week():
 
 
 class TaskType(models.Model):
-    _name = "beesdoo.shift.type"
-    _description = "beesdoo.shift.type"
+    _name = "shift.type"
+    _description = "shift.type"
 
     name = fields.Char()
     description = fields.Text()
@@ -37,8 +37,8 @@ class TaskType(models.Model):
 
 
 class DayNumber(models.Model):
-    _name = "beesdoo.shift.daynumber"
-    _description = "beesdoo.shift.daynumber"
+    _name = "shift.daynumber"
+    _description = "shift.daynumber"
 
     _order = "number asc"
 
@@ -53,8 +53,8 @@ class DayNumber(models.Model):
 
 
 class Planning(models.Model):
-    _name = "beesdoo.shift.planning"
-    _description = "beesdoo.shift.planning"
+    _name = "shift.planning"
+    _description = "shift.planning"
     _order = "sequence asc"
 
     sequence = fields.Integer()
@@ -67,7 +67,7 @@ class Planning(models.Model):
         every seven days.""",
         default=7,
     )
-    task_template_ids = fields.One2many("beesdoo.shift.template", "planning_id")
+    task_template_ids = fields.One2many("shift.template", "planning_id")
 
     @api.model
     def _get_next_planning(self, sequence):
@@ -126,7 +126,7 @@ class Planning(models.Model):
         Uses a list of shifts instead of a recordset because
         of issues occuring when copying records.
         :param end_date: Datetime
-        :return: beesdoo.shift.shift list
+        :return: shift.shift list
         """
         # Getting existing shifts
         shift_domain = [("start_time", ">", start_date.strftime("%Y-%m-%d %H:%M:%S"))]
@@ -136,7 +136,7 @@ class Planning(models.Model):
             shift_domain.append(("state", "!=", "cancel"))
 
         existing_shift_list = list(
-            self.env["beesdoo.shift.shift"]
+            self.env["shift.shift"]
             .sudo()
             .search(
                 shift_domain,
@@ -187,7 +187,7 @@ class Planning(models.Model):
 
         # Converting dictionary to recordset
         shift_list = existing_shift_list + [
-            self.env["beesdoo.shift.shift"].new(shift)
+            self.env["shift.shift"].new(shift)
             for shift in filtered_future_shift_list
         ]
 
@@ -195,16 +195,16 @@ class Planning(models.Model):
 
 
 class TaskTemplate(models.Model):
-    _name = "beesdoo.shift.template"
-    _description = "beesdoo.shift.template"
+    _name = "shift.template"
+    _description = "shift.template"
     _order = "start_time"
 
     name = fields.Char(required=True)
-    planning_id = fields.Many2one("beesdoo.shift.planning", required=True)
-    day_nb_id = fields.Many2one("beesdoo.shift.daynumber", string="Day", required=True)
-    task_type_id = fields.Many2one("beesdoo.shift.type", string="Type")
-    # FIXME removed because beesdoo.shift.sheet is from another module.
-    # attendance_sheet_id = fields.Many2one('beesdoo.shift.sheet', string="Attendance Sheet")  # noqa
+    planning_id = fields.Many2one("shift.planning", required=True)
+    day_nb_id = fields.Many2one("shift.daynumber", string="Day", required=True)
+    task_type_id = fields.Many2one("shift.type", string="Type")
+    # FIXME removed because shift.sheet is from another module.
+    # attendance_sheet_id = fields.Many2one('shift.sheet', string="Attendance Sheet")  # noqa
     start_time = fields.Float(required=True)
     end_time = fields.Float(required=True)
     super_coop_id = fields.Many2one(
@@ -351,7 +351,7 @@ class TaskTemplate(models.Model):
         To adapt the behaviour, function _prepare_task_day()
         should be overwritten.
         """
-        tasks = self.env["beesdoo.shift.shift"]
+        tasks = self.env["shift.shift"]
         task_list = self._prepare_task_day()
         for task in task_list:
             tasks |= tasks.new(task)
@@ -365,7 +365,7 @@ class TaskTemplate(models.Model):
         To adapt the behaviour, function _prepare_task_day()
         should be overwritten.
         """
-        tasks = self.env["beesdoo.shift.shift"]
+        tasks = self.env["shift.shift"]
         task_list = self._prepare_task_day()
         for task in task_list:
             tasks |= tasks.create(task)
@@ -416,7 +416,7 @@ class TaskTemplate(models.Model):
         Subscribe or Unsubscribe worker to already generated shifts
         """
         self.ensure_one()
-        shift_cls = self.env["beesdoo.shift.shift"]
+        shift_cls = self.env["shift.shift"]
         removed_workers = prev_worker_ids - cur_worker_ids
         added_workers = cur_worker_ids - prev_worker_ids
         if removed_workers:

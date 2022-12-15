@@ -3,9 +3,9 @@ from odoo.exceptions import ValidationError
 
 
 class Subscribe(models.TransientModel):
-    _name = "beesdoo.shift.holiday"
-    _description = "beesdoo.shift.holiday"
-    _inherit = "beesdoo.shift.action_mixin"
+    _name = "shift.holiday"
+    _description = "shift.holiday"
+    _inherit = "shift.action_mixin"
 
     def _get_cooperative_status(self):
         partner_id = (

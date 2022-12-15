@@ -12,7 +12,7 @@ class AssignSuperCoop(models.TransientModel):
         domain=[("super", "=", True)],
     )
     shift_ids = fields.Many2many(
-        "beesdoo.shift.shift",
+        "shift.shift",
         readonly=True,
         default=lambda self: self._context.get("active_ids"),
     )

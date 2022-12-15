@@ -3,8 +3,8 @@ from odoo.exceptions import UserError
 
 
 class StatusActionMixin(models.AbstractModel):
-    _name = "beesdoo.shift.action_mixin"
-    _description = "beesdoo.shift.action_mixin"
+    _name = "shift.action_mixin"
+    _description = "shift.action_mixin"
 
     cooperator_id = fields.Many2one(
         "res.partner",
@@ -27,9 +27,9 @@ class StatusActionMixin(models.AbstractModel):
 
 
 class Subscribe(models.TransientModel):
-    _name = "beesdoo.shift.subscribe"
-    _description = "beesdoo.shift.subscribe"
-    _inherit = "beesdoo.shift.action_mixin"
+    _name = "shift.subscribe"
+    _description = "shift.subscribe"
+    _inherit = "shift.action_mixin"
 
     def _get_date(self):
         date = (
@@ -105,7 +105,7 @@ class Subscribe(models.TransientModel):
         default=_get_mode,
     )
     exempt_reason_id = fields.Many2one("cooperative.exempt.reason", "Exempt Reason")
-    shift_id = fields.Many2one("beesdoo.shift.template", default=_get_shift)
+    shift_id = fields.Many2one("shift.template", default=_get_shift)
     nb_shifts = fields.Integer(string="Number of shifts", default=_get_nb_shifts)
     reset_counter = fields.Boolean(default=_get_reset_counter_default)
     reset_compensation_counter = fields.Boolean(default=False)

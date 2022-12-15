@@ -10,11 +10,11 @@ from odoo.tests.common import TransactionCase
 class TestBeesdooShift(TransactionCase):
     def setUp(self):
         super(TestBeesdooShift, self).setUp()
-        self.shift_model = self.env["beesdoo.shift.shift"]
-        self.shift_template_model = self.env["beesdoo.shift.template"]
-        self.subscribe_wizard = self.env["beesdoo.shift.subscribe"]
-        self.holiday_wizard = self.env["beesdoo.shift.holiday"]
-        self.exemption_wizard = self.env["beesdoo.shift.temporary_exemption"]
+        self.shift_model = self.env["shift.shift"]
+        self.shift_template_model = self.env["shift.template"]
+        self.subscribe_wizard = self.env["shift.subscribe"]
+        self.holiday_wizard = self.env["shift.holiday"]
+        self.exemption_wizard = self.env["shift.temporary_exemption"]
 
         self.current_time = datetime.now()
         self.user_admin = self.env.ref("base.user_root")
@@ -40,7 +40,7 @@ class TestBeesdooShift(TransactionCase):
         """
         Run _generate_next_planning *nb* times beginning from today - *days*.
         """
-        planning_cls = self.env["beesdoo.shift.planning"]
+        planning_cls = self.env["shift.planning"]
         begin_date = date.today() - timedelta(days=days)
         self.env["ir.config_parameter"].set_param("last_planning_seq", 0)
         for i in range(nb):
@@ -147,7 +147,7 @@ class TestBeesdooShift(TransactionCase):
         super_worker = self.worker_regular_1
         super_worker.user_ids = self.user_demo
         subscription_wizard = (
-            self.env["beesdoo.shift.subscribe"]
+            self.env["shift.subscribe"]
             .with_context({"active_id": super_worker.id})
             .create(
                 {},

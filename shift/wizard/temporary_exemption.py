@@ -3,9 +3,9 @@ from odoo.exceptions import ValidationError
 
 
 class TemporaryExemption(models.TransientModel):
-    _name = "beesdoo.shift.temporary_exemption"
-    _description = "beesdoo.shift.temporary_exemption"
-    _inherit = "beesdoo.shift.action_mixin"
+    _name = "shift.temporary_exemption"
+    _description = "shift.temporary_exemption"
+    _inherit = "shift.action_mixin"
 
     def _get_cooperative_status(self):
         partner_id = (

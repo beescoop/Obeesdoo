@@ -8,7 +8,7 @@ from odoo.tools.translate import _
 
 
 class Task(models.Model):
-    _name = "beesdoo.shift.shift"
+    _name = "shift.shift"
     _inherit = ["mail.thread"]
     _order = "start_time asc"
 
@@ -44,9 +44,9 @@ class Task(models.Model):
         return ["absent"]
 
     name = fields.Char(track_visibility="always")
-    task_template_id = fields.Many2one("beesdoo.shift.template")
+    task_template_id = fields.Many2one("shift.template")
     planning_id = fields.Many2one(related="task_template_id.planning_id", store=True)
-    task_type_id = fields.Many2one("beesdoo.shift.type", string="Task Type")
+    task_type_id = fields.Many2one("shift.type", string="Task Type")
     worker_id = fields.Many2one(
         "res.partner",
         track_visibility="onchange",
@@ -217,7 +217,7 @@ class Task(models.Model):
         *end_date* (included) if specified.
 
         :type worker_ids: res.partner
-        :type task_tmpl_ids: beesdoo.shift.template
+        :type task_tmpl_ids: shift.template
         :type today: date
         :type end_date: date
         :type now: datetime
@@ -241,7 +241,7 @@ class Task(models.Model):
                 ("task_template_id", "=", task_tmpl_id.id),
                 ("state", "=", "open"),
             ]
-            shift_ids = self.env["beesdoo.shift.shift"].search(
+            shift_ids = self.env["shift.shift"].search(
                 domain + date_domain, order="start_time"
             )
             # worker subscription
@@ -374,7 +374,7 @@ class Task(models.Model):
         Send a summary email for all workers
         if they have a shift planned between `notice` and `notice + period` days.
         """
-        tasks = self.env["beesdoo.shift.shift"]
+        tasks = self.env["shift.shift"]
         shift_summary_mail_template = self.env.ref(
             "shift.email_template_shift_summary", False
         )

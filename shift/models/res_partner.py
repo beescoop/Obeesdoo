@@ -66,10 +66,10 @@ class ResPartner(models.Model):
         store=True,
     )
     subscribed_shift_ids = fields.Many2many(
-        comodel_name="beesdoo.shift.template", readonly=True
+        comodel_name="shift.template", readonly=True
     )
     shift_shift_ids = fields.One2many(
-        comodel_name="beesdoo.shift.shift",
+        comodel_name="shift.shift",
         inverse_name="worker_id",
         string="Shifts",
         groups="shift.group_shift_attendance",
@@ -108,7 +108,7 @@ class ResPartner(models.Model):
             "type": "ir.actions.act_window",
             "view_type": "form",
             "view_mode": "form",
-            "res_model": "beesdoo.shift.subscribe",
+            "res_model": "shift.subscribe",
             "target": "new",
         }
 
@@ -125,7 +125,7 @@ class ResPartner(models.Model):
             "type": "ir.actions.act_window",
             "view_type": "form",
             "view_mode": "form",
-            "res_model": "beesdoo.shift.extension",
+            "res_model": "shift.extension",
             "target": "new",
         }
 
@@ -143,7 +143,7 @@ class ResPartner(models.Model):
             "type": "ir.actions.act_window",
             "view_type": "form",
             "view_mode": "form",
-            "res_model": "beesdoo.shift.holiday",
+            "res_model": "shift.holiday",
             "target": "new",
         }
 
@@ -154,7 +154,7 @@ class ResPartner(models.Model):
             "type": "ir.actions.act_window",
             "view_type": "form",
             "view_mode": "form",
-            "res_model": "beesdoo.shift.temporary_exemption",
+            "res_model": "shift.temporary_exemption",
             "target": "new",
         }
 
@@ -180,7 +180,7 @@ class ResPartner(models.Model):
         shifts when subscribed_shift_ids changes.
         """
         self.ensure_one()
-        shift_cls = self.env["beesdoo.shift.shift"]
+        shift_cls = self.env["shift.shift"]
         removed_tmpl_ids = prev_subscribed_task_tmpl - cur_subscribed_task_tmpl
         added_tmpl_ids = cur_subscribed_task_tmpl - prev_subscribed_task_tmpl
         if removed_tmpl_ids:
@@ -199,14 +199,14 @@ class ResPartner(models.Model):
     def get_next_shifts(self):
         """
         Return next shifts of the worker without storing them into the database.
-        :return: two beesdoo.shift.shift lists, the first one containing the
+        :return: two shift.shift lists, the first one containing the
         already generated shifts, the second one containing the planned ones
         (empty for irregular workers)
         """
         self.ensure_one()
         now = datetime.now()
         subscribed_shifts_rec = (
-            self.env["beesdoo.shift.shift"]
+            self.env["shift.shift"]
             .sudo()
             .search(
                 [
@@ -225,14 +225,14 @@ class ResPartner(models.Model):
 
         if self.working_mode == "regular":
             # Compute main shift
-            task_template = self.env["beesdoo.shift.template"].search(
+            task_template = self.env["shift.template"].search(
                 [("worker_ids", "in", self.id)], limit=1
             )
 
             if not task_template:
                 return generated_shifts, []
 
-            main_shift = self.env["beesdoo.shift.shift"].search(
+            main_shift = self.env["shift.shift"].search(
                 [
                     ("task_template_id", "=", task_template[0].id),
                     ("start_time", "!=", False),

@@ -26,7 +26,7 @@
     <act_window
         id="act_assign_new_super_coop"
         name="Change Super Coop"
-        src_model="beesdoo.shift.shift"
+        src_model="shift.shift"
         res_model="beesddoo.shift.assign_super_coop"
         view_mode="form"
         target="new"

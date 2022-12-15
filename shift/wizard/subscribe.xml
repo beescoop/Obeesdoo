@@ -1,7 +1,7 @@
 <odoo>
     <record model="ir.ui.view" id="subscribe_coop_wizard_view_form">
         <field name="name">Subscribe Cooperator</field>
-        <field name="model">beesdoo.shift.subscribe</field>
+        <field name="model">shift.subscribe</field>
         <field name="arch" type="xml">
             <form>
                 <group attrs="{'invisible': [('unsubscribed', '=', False)]}">

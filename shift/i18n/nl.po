@@ -178,23 +178,23 @@ msgid "Absent"
 msgstr ""
 
 #. module: shift
-#: selection:beesdoo.shift.sheet.added,state:0
-#: selection:beesdoo.shift.sheet.expected,state:0
-#: selection:beesdoo.shift.sheet.shift,state:0
+#: selection:shift.sheet.added,state:0
+#: selection:shift.sheet.expected,state:0
+#: selection:shift.sheet.shift,state:0
 msgid "Absent - 0 Compensation"
 msgstr "Afwezig 0 - Shift geschonken"
 
 #. module: shift
-#: selection:beesdoo.shift.sheet.added,state:0
-#: selection:beesdoo.shift.sheet.expected,state:0
-#: selection:beesdoo.shift.sheet.shift,state:0
+#: selection:shift.sheet.added,state:0
+#: selection:shift.sheet.expected,state:0
+#: selection:shift.sheet.shift,state:0
 msgid "Absent - 1 Compensation"
 msgstr "Afwezig 1 - Shift uitgesteld"
 
 #. module: shift
-#: selection:beesdoo.shift.sheet.added,state:0
-#: selection:beesdoo.shift.sheet.expected,state:0
-#: selection:beesdoo.shift.sheet.shift,state:0
+#: selection:shift.sheet.added,state:0
+#: selection:shift.sheet.expected,state:0
+#: selection:shift.sheet.shift,state:0
 msgid "Absent - 2 Compensations"
 msgstr "Afwezig 2 - Shift uitgesteld + sanctie"
 
@@ -753,7 +753,7 @@ msgid "End date for the holiday (included)"
 msgstr ""
 
 #. module: shift
-#: selection:beesdoo.shift.sheet,worker_nb_feedback:0
+#: selection:shift.sheet,worker_nb_feedback:0
 msgid "Enough workers"
 msgstr "Genoeg werkers"
 
@@ -775,7 +775,7 @@ msgid "Exempt Reason"
 msgstr ""
 
 #. module: shift
-#: selection:beesdoo.shift.subscribe,working_mode:0
+#: selection:shift.subscribe,working_mode:0
 #: selection:cooperative.status,working_mode:0
 msgid "Exempted"
 msgstr "Vrijgesteld"
@@ -953,7 +953,7 @@ msgid "Hours"
 msgstr "Uren"
 
 #. module: shift
-#: selection:beesdoo.shift.sheet,worker_nb_feedback:0
+#: selection:shift.sheet,worker_nb_feedback:0
 msgid "I was not there during the shift"
 msgstr ""
 
@@ -1041,7 +1041,7 @@ msgid "Irregular Start Date"
 msgstr ""
 
 #. module: shift
-#: selection:beesdoo.shift.subscribe,working_mode:0
+#: selection:shift.subscribe,working_mode:0
 #: selection:cooperative.status,working_mode:0
 msgid "Irregular worker"
 msgstr ""
@@ -1305,12 +1305,12 @@ msgid "Next Shift Date"
 msgstr ""
 
 #. module: shift
-#: selection:beesdoo.shift.sheet,state:0
+#: selection:shift.sheet,state:0
 msgid "Not Validated"
 msgstr ""
 
 #. module: shift
-#: selection:beesdoo.shift.sheet,worker_nb_feedback:0
+#: selection:shift.sheet,worker_nb_feedback:0
 msgid "Not enough workers"
 msgstr "Niet genoeg werkers"
 
@@ -1444,9 +1444,9 @@ msgid "Planning Week"
 msgstr ""
 
 #. module: shift
-#: selection:beesdoo.shift.sheet.added,state:0
-#: selection:beesdoo.shift.sheet.expected,state:0
-#: selection:beesdoo.shift.sheet.shift,state:0
+#: selection:shift.sheet.added,state:0
+#: selection:shift.sheet.expected,state:0
+#: selection:shift.sheet.shift,state:0
 msgid "Present"
 msgstr "Aanwezig"
 
@@ -1497,7 +1497,7 @@ msgid "Regular shifts counter"
 msgstr ""
 
 #. module: shift
-#: selection:beesdoo.shift.subscribe,working_mode:0
+#: selection:shift.subscribe,working_mode:0
 #: selection:cooperative.status,working_mode:0
 msgid "Regular worker"
 msgstr ""
@@ -1810,7 +1810,7 @@ msgid "Today"
 msgstr "Vandaag"
 
 #. module: shift
-#: selection:beesdoo.shift.sheet,worker_nb_feedback:0
+#: selection:shift.sheet,worker_nb_feedback:0
 msgid "Too many workers"
 msgstr "Te veel werkers"
 
@@ -1882,7 +1882,7 @@ msgid "Usual number of days between two shifts for regular workers"
 msgstr ""
 
 #. module: shift
-#: selection:beesdoo.shift.sheet,state:0
+#: selection:shift.sheet,state:0
 msgid "Validated"
 msgstr ""
 
@@ -2016,7 +2016,7 @@ msgstr ""
 
 #. module: shift
 #: code:addons/shift/models/cooperative_status.py:513
-#: sql_constraint:beesdoo.shift.journal:0
+#: sql_constraint:shift.journal:0
 #, python-format
 msgid "You can only create one journal per day"
 msgstr ""
@@ -2118,57 +2118,57 @@ msgstr ""
 
 #. module: shift
 #: model:ir.model,name:shift.model_shift_action_mixin
-msgid "beesdoo.shift.action_mixin"
+msgid "shift.action_mixin"
 msgstr ""
 
 #. module: shift
 #: model:ir.model,name:shift.model_shift_daynumber
-msgid "beesdoo.shift.daynumber"
+msgid "shift.daynumber"
 msgstr ""
 
 #. module: shift
 #: model:ir.model,name:shift.model_shift_extension
-msgid "beesdoo.shift.extension"
+msgid "shift.extension"
 msgstr ""
 
 #. module: shift
 #: model:ir.model,name:shift.model_shift_holiday
-msgid "beesdoo.shift.holiday"
+msgid "shift.holiday"
 msgstr ""
 
 #. module: shift
 #: model:ir.model,name:shift.model_shift_journal
-msgid "beesdoo.shift.journal"
+msgid "shift.journal"
 msgstr ""
 
 #. module: shift
 #: model:ir.model,name:shift.model_shift_planning
-msgid "beesdoo.shift.planning"
+msgid "shift.planning"
 msgstr ""
 
 #. module: shift
 #: model:ir.model,name:shift.model_shift_shift
-msgid "beesdoo.shift.shift"
+msgid "shift.shift"
 msgstr ""
 
 #. module: shift
 #: model:ir.model,name:shift.model_shift_subscribe
-msgid "beesdoo.shift.subscribe"
+msgid "shift.subscribe"
 msgstr ""
 
 #. module: shift
 #: model:ir.model,name:shift.model_shift_template
-msgid "beesdoo.shift.template"
+msgid "shift.template"
 msgstr ""
 
 #. module: shift
 #: model:ir.model,name:shift.model_shift_temporary_exemption
-msgid "beesdoo.shift.temporary_exemption"
+msgid "shift.temporary_exemption"
 msgstr ""
 
 #. module: shift
 #: model:ir.model,name:shift.model_shift_type
-msgid "beesdoo.shift.type"
+msgid "shift.type"
 msgstr ""
 
 #. module: shift
