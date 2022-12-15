@@ -517,7 +517,7 @@ class ShiftCronJournal(models.Model):
     @api.multi
     def run(self):
         self.ensure_one()
-        if not self.user_has_groups("beesdoo_shift.group_cooperative_admin"):
+        if not self.user_has_groups("shift.group_cooperative_admin"):
             raise ValidationError(_("You don't have the access to perform this action"))
         self.sudo().env["cooperative.status"]._cron_compute_counter_irregular(
             today=self.date

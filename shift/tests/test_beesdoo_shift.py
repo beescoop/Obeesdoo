@@ -20,21 +20,21 @@ class TestBeesdooShift(TransactionCase):
         self.user_admin = self.env.ref("base.user_root")
         self.user_demo = self.env.ref("base.user_demo")
 
-        self.worker_regular_1 = self.env.ref("beesdoo_shift.res_partner_worker_1_demo")
+        self.worker_regular_1 = self.env.ref("shift.res_partner_worker_1_demo")
         self.worker_irregular_2 = self.env.ref(
-            "beesdoo_shift.res_partner_worker_2_demo"
+            "shift.res_partner_worker_2_demo"
         )
-        self.worker_regular_3 = self.env.ref("beesdoo_shift.res_partner_worker_3_demo")
-        self.worker_regular_5 = self.env.ref("beesdoo_shift.res_partner_worker_5_demo")
-        self.worker_regular_6 = self.env.ref("beesdoo_shift.res_partner_worker_6_demo")
+        self.worker_regular_3 = self.env.ref("shift.res_partner_worker_3_demo")
+        self.worker_regular_5 = self.env.ref("shift.res_partner_worker_5_demo")
+        self.worker_regular_6 = self.env.ref("shift.res_partner_worker_6_demo")
 
-        self.planning_1 = self.env.ref("beesdoo_shift.beesdoo_shift_planning_1_demo")
+        self.planning_1 = self.env.ref("shift.shift_planning_1_demo")
 
-        self.task_template_1 = self.env.ref("beesdoo_shift.task_template_1_demo")
-        self.task_template_2 = self.env.ref("beesdoo_shift.task_template_2_demo")
-        self.task_template_3 = self.env.ref("beesdoo_shift.task_template_3_demo")
+        self.task_template_1 = self.env.ref("shift.task_template_1_demo")
+        self.task_template_2 = self.env.ref("shift.task_template_2_demo")
+        self.task_template_3 = self.env.ref("shift.task_template_3_demo")
 
-        self.exempt_reason_1 = self.env.ref("beesdoo_shift.exempt_reason_1_demo")
+        self.exempt_reason_1 = self.env.ref("shift.exempt_reason_1_demo")
 
     def _generate_shifts(self, days=0, nb=1):
         """

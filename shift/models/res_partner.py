@@ -72,7 +72,7 @@ class ResPartner(models.Model):
         comodel_name="beesdoo.shift.shift",
         inverse_name="worker_id",
         string="Shifts",
-        groups="beesdoo_shift.group_shift_attendance",
+        groups="shift.group_shift_attendance",
         help="All the shifts the worker is subscribed to.",
     )
     next_shift_id = fields.Many2one(
