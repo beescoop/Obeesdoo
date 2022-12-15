@@ -6,7 +6,12 @@
 {
     "name": "Shift Management",
     "summary": """Generate and manage shifts for cooperators.""",
-    "author": "Thibault Francois, Elouan Le Bars, Coop IT Easy SC",
+    "author": """
+        Thibault Francois,
+        Elouan Le Bars,
+        Coop IT Easy SC,
+        Odoo Community Association (OCA),
+        """,
     "website": "https://github.com/OCA/shift-planning",
     "category": "Cooperative management",
     "version": "12.0.4.0.0",
