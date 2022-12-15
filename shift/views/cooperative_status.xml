@@ -222,7 +222,7 @@
 
     <record model="ir.ui.view" id="journal_form_view">
         <field name="name">Journal Form View</field>
-        <field name="model">beesdoo.shift.journal</field>
+        <field name="model">shift.journal</field>
         <field name="arch" type="xml">
             <form>
                 <header>
@@ -259,7 +259,7 @@
 
     <record model="ir.actions.act_window" id="action_journal">
         <field name="name">Counter Journal</field>
-        <field name="res_model">beesdoo.shift.journal</field>
+        <field name="res_model">shift.journal</field>
         <field name="view_mode">tree,form</field>
     </record>
 </odoo>

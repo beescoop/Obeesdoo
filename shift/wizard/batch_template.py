@@ -12,20 +12,20 @@ class GenerateShiftTemplate(models.TransientModel):
     _description = "beesddoo.shift.generate_shift_template"
 
     day_ids = fields.Many2many(
-        comodel_name="beesdoo.shift.daynumber",
+        comodel_name="shift.daynumber",
         relation="template_gen_day_number_rel",
         column1="wizard_id",
         column2="day_id",
     )
     planning_ids = fields.Many2many(
-        comodel_name="beesdoo.shift.planning",
+        comodel_name="shift.planning",
         relation="generate_shift_planning_rel",
         column1="planning_id",
         column2="wizard_id",
         required=True,
     )
     type_id = fields.Many2one(
-        "beesdoo.shift.type",
+        "shift.type",
         default=lambda self: self._context.get("active_id"),
     )
     line_ids = fields.One2many(
@@ -49,7 +49,7 @@ class GenerateShiftTemplate(models.TransientModel):
                         "duration": line.end_time - line.start_time,
                         "worker_nb": line.worker_nb,
                     }
-                    new_rec = self.env["beesdoo.shift.template"].create(
+                    new_rec = self.env["shift.template"].create(
                         shift_template_data
                     )
                     ids.append(new_rec.id)
@@ -58,7 +58,7 @@ class GenerateShiftTemplate(models.TransientModel):
             "type": "ir.actions.act_window",
             "view_type": "form",
             "view_mode": "kanban,tree,form",
-            "res_model": "beesdoo.shift.template",
+            "res_model": "shift.template",
             "target": "current",
             "domain": [("id", "in", ids)],
             "context": {"group_by": "day_nb_id"},

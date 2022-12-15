@@ -1,7 +1,7 @@
 <odoo>
     <record model="ir.ui.view" id="extension_coop_wizard_view_form">
         <field name="name">Extension Management</field>
-        <field name="model">beesdoo.shift.extension</field>
+        <field name="model">shift.extension</field>
         <field name="arch" type="xml">
             <form>
                 <field name="cooperator_id" invisible="1" />

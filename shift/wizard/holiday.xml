@@ -1,7 +1,7 @@
 <odoo>
     <record model="ir.ui.view" id="holiday_coop_wizard_view_form">
         <field name="name">Holiday Management</field>
-        <field name="model">beesdoo.shift.holiday</field>
+        <field name="model">shift.holiday</field>
         <field name="arch" type="xml">
             <form>
                 <field name="cooperator_id" invisible="1" />

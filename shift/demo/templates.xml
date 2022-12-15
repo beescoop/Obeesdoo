@@ -6,71 +6,71 @@
 <odoo>
 
     <!-- Task Type -->
-    <record id="shift_task_type_1_demo" model="beesdoo.shift.type">
+    <record id="shift_task_type_1_demo" model="shift.type">
         <field name="name">Inventaire</field>
         <field name="description">Inventaire frais et vrac.</field>
     </record>
 
-    <record id="shift_task_type_2_demo" model="beesdoo.shift.type">
+    <record id="shift_task_type_2_demo" model="shift.type">
         <field name="name">Bureau des Membres</field>
         <field name="description">Gestion admin (encodage liste présences, etc.)</field>
     </record>
 
-    <record id="shift_task_type_3_demo" model="beesdoo.shift.type">
+    <record id="shift_task_type_3_demo" model="shift.type">
         <field name="name">Magasin</field>
         <field name="description">Gestion du magasin.</field>
     </record>
 
-    <record id="shift_task_type_4_demo" model="beesdoo.shift.type">
+    <record id="shift_task_type_4_demo" model="shift.type">
         <field name="name">Découpe fromage</field>
         <field name="description">Caisse, remplissage des rayons, accueil.</field>
     </record>
 
     <!-- Days -->
-    <record id="shift_daynumber_1_demo" model="beesdoo.shift.daynumber">
+    <record id="shift_daynumber_1_demo" model="shift.daynumber">
         <field name="name">Lundi</field>
         <field name="number">1</field>
     </record>
 
-    <record id="shift_daynumber_2_demo" model="beesdoo.shift.daynumber">
+    <record id="shift_daynumber_2_demo" model="shift.daynumber">
         <field name="name">Mardi</field>
         <field name="number">2</field>
     </record>
 
-    <record id="shift_daynumber_3_demo" model="beesdoo.shift.daynumber">
+    <record id="shift_daynumber_3_demo" model="shift.daynumber">
         <field name="name">Mercredi</field>
         <field name="number">3</field>
     </record>
 
-    <record id="shift_daynumber_4_demo" model="beesdoo.shift.daynumber">
+    <record id="shift_daynumber_4_demo" model="shift.daynumber">
         <field name="name">Jeudi</field>
         <field name="number">4</field>
     </record>
 
-    <record id="shift_daynumber_5_demo" model="beesdoo.shift.daynumber">
+    <record id="shift_daynumber_5_demo" model="shift.daynumber">
         <field name="name">Vendredi</field>
         <field name="number">5</field>
     </record>
 
-    <record id="shift_daynumber_6_demo" model="beesdoo.shift.daynumber">
+    <record id="shift_daynumber_6_demo" model="shift.daynumber">
         <field name="name">Samedi</field>
         <field name="number">6</field>
     </record>
 
-    <record id="shift_daynumber_7_demo" model="beesdoo.shift.daynumber">
+    <record id="shift_daynumber_7_demo" model="shift.daynumber">
         <field name="name">Dimanche</field>
         <field name="number">7</field>
     </record>
 
     <!-- Planning -->
-    <record id="shift_planning_1_demo" model="beesdoo.shift.planning">
+    <record id="shift_planning_1_demo" model="shift.planning">
         <field name="sequence">1</field>
         <field name="name">Semaine A</field>
         <field name="periodicity">7</field>
     </record>
 
     <!-- Task Template -->
-    <record id="task_template_1_demo" model="beesdoo.shift.template">
+    <record id="task_template_1_demo" model="shift.template">
         <field name="name">A_MON-10:00-12:00</field>
         <field name="planning_id" ref="shift.shift_planning_1_demo" />
         <field name="day_nb_id" ref="shift.shift_daynumber_1_demo" />
@@ -86,7 +86,7 @@
         <field name="remaining_worker">3</field>
     </record>
 
-    <record id="task_template_2_demo" model="beesdoo.shift.template">
+    <record id="task_template_2_demo" model="shift.template">
         <field name="name">A_WED-14:00-16:00</field>
         <field name="planning_id" ref="shift.shift_planning_1_demo" />
         <field name="day_nb_id" ref="shift.shift_daynumber_3_demo" />
@@ -102,7 +102,7 @@
         <field name="remaining_worker">4</field>
     </record>
 
-    <record id="task_template_3_demo" model="beesdoo.shift.template">
+    <record id="task_template_3_demo" model="shift.template">
         <field name="name">A_SAT-14:00-16:00</field>
         <field name="planning_id" ref="shift.shift_planning_1_demo" />
         <field name="day_nb_id" ref="shift.shift_daynumber_6_demo" />

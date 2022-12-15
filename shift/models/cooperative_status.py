@@ -114,7 +114,7 @@ class CooperativeStatus(models.Model):
     future_alert_date = fields.Date(compute="_compute_future_alert_date")
     next_countdown_date = fields.Date(compute="_compute_next_countdown_date")
     next_shift_id = fields.Many2one(
-        comodel_name="beesdoo.shift.shift",
+        comodel_name="shift.shift",
         string="Earliest Open Shift",
         compute="_compute_next_shift",
         store=True,
@@ -294,7 +294,7 @@ class CooperativeStatus(models.Model):
         """
         self.ensure_one()
         today = self.today or fields.Date.today()
-        self.env["beesdoo.shift.shift"].unsubscribe_from_today(
+        self.env["shift.shift"].unsubscribe_from_today(
             worker_ids=self.cooperator_id,
             task_tmpl_ids=self.cooperator_id.subscribed_shift_ids,
             today=cur_start_date if cur_start_date >= today else today,
@@ -308,7 +308,7 @@ class CooperativeStatus(models.Model):
             and cur_start_date > prev_start_date
         ):
             # subscribe worker from prev to current start_time
-            self.env["beesdoo.shift.shift"].subscribe_from_today(
+            self.env["shift.shift"].subscribe_from_today(
                 worker_ids=self.cooperator_id,
                 task_tmpl_ids=self.cooperator_id.subscribed_shift_ids,
                 today=prev_start_date,
@@ -316,7 +316,7 @@ class CooperativeStatus(models.Model):
             )
         if prev_end_date and prev_end_date > today and cur_end_date < prev_end_date:
             # subscribe worker from current to prev end time
-            self.env["beesdoo.shift.shift"].subscribe_from_today(
+            self.env["shift.shift"].subscribe_from_today(
                 worker_ids=self.cooperator_id,
                 task_tmpl_ids=self.cooperator_id.subscribed_shift_ids,
                 today=cur_end_date + timedelta(days=1),
@@ -349,9 +349,9 @@ class CooperativeStatus(models.Model):
         once per day
         """
         today = today or fields.Date.today()
-        journal = self.env["beesdoo.shift.journal"].search([("date", "=", today)])
+        journal = self.env["shift.journal"].search([("date", "=", today)])
         if not journal:
-            journal = self.env["beesdoo.shift.journal"].create({"date": today})
+            journal = self.env["shift.journal"].create({"date": today})
 
         domain = self._get_irregular_worker_domain(today)
         irregular = self.search(domain)
@@ -409,7 +409,7 @@ class CooperativeStatus(models.Model):
         # rather take earliest "open" (confirmed) shift
         # in order to take into account partners for which
         # the counter was not incremented (happens when passing to "done")
-        next_shifts = self.env["beesdoo.shift.shift"].search(
+        next_shifts = self.env["shift.shift"].search(
             [("state", "=", "open"), ("worker_id", "in", cooperator_ids)],
             order="worker_id, start_time",
         )
@@ -498,8 +498,8 @@ class CooperativeStatus(models.Model):
 
 
 class ShiftCronJournal(models.Model):
-    _name = "beesdoo.shift.journal"
-    _description = "beesdoo.shift.journal"
+    _name = "shift.journal"
+    _description = "shift.journal"
     _order = "date desc"
     _rec_name = "date"
 

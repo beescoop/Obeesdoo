@@ -1,7 +1,7 @@
 <odoo>
     <record model="ir.ui.view" id="task_view_tree">
         <field name="name">Shift List</field>
-        <field name="model">beesdoo.shift.shift</field>
+        <field name="model">shift.shift</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="start_time" />
@@ -19,7 +19,7 @@
 
     <record model="ir.ui.view" id="task_view_search">
         <field name="name">Shift Search</field>
-        <field name="model">beesdoo.shift.shift</field>
+        <field name="model">shift.shift</field>
         <field name="arch" type="xml">
             <search>
                 <field name="planning_id" />
@@ -122,7 +122,7 @@
 
     <record model="ir.ui.view" id="task_view_calendar">
         <field name="name">Task Template List</field>
-        <field name="model">beesdoo.shift.shift</field>
+        <field name="model">shift.shift</field>
         <field name="arch" type="xml">
             <calendar
                 string="Calendar View"
@@ -139,7 +139,7 @@
 
     <record model="ir.ui.view" id="task_view_form">
         <field name="name">Task Template Form</field>
-        <field name="model">beesdoo.shift.shift</field>
+        <field name="model">shift.shift</field>
         <field name="arch" type="xml">
             <form>
                 <header>
@@ -198,7 +198,7 @@
 
     <record model="ir.ui.view" id="task_shift_view_kanban">
         <field name="name">Shift Kanban</field>
-        <field name="model">beesdoo.shift.shift</field>
+        <field name="model">shift.shift</field>
         <field name="arch" type="xml">
             <kanban>
                 <field name="color" />
@@ -293,7 +293,7 @@
     <!-- Actions -->
     <record model="ir.actions.act_window" id="action_task">
         <field name="name">Shifts</field>
-        <field name="res_model">beesdoo.shift.shift</field>
+        <field name="res_model">shift.shift</field>
         <field name="view_mode">kanban,calendar,tree,form,pivot</field>
         <field name="context">{'search_default_today': 1}</field>
     </record>

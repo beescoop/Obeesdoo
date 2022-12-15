@@ -1,7 +1,7 @@
 <odoo>
     <record model="ir.ui.view" id="task_template_view_tree">
         <field name="name">Shift Template List</field>
-        <field name="model">beesdoo.shift.template</field>
+        <field name="model">shift.template</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="planning_id" />
@@ -20,7 +20,7 @@
 
     <record model="ir.ui.view" id="task_template_view_search">
         <field name="name">Shift Template Search</field>
-        <field name="model">beesdoo.shift.template</field>
+        <field name="model">shift.template</field>
         <field name="arch" type="xml">
             <search>
                 <field name="name" />
@@ -55,7 +55,7 @@
 
     <record model="ir.ui.view" id="task_template_view_form">
         <field name="name">Task Template Form</field>
-        <field name="model">beesdoo.shift.template</field>
+        <field name="model">shift.template</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
@@ -89,7 +89,7 @@
 
     <record model="ir.ui.view" id="task_template_view_calendar">
         <field name="name">Shift Template Calendar</field>
-        <field name="model">beesdoo.shift.template</field>
+        <field name="model">shift.template</field>
         <field name="arch" type="xml">
             <calendar
                 string="Calendar View"
@@ -106,7 +106,7 @@
 
     <record model="ir.ui.view" id="task_template_view_kanban">
         <field name="name">Task Template Kanban</field>
-        <field name="model">beesdoo.shift.template</field>
+        <field name="model">shift.template</field>
         <field name="arch" type="xml">
             <kanban>
                 <field name="planning_id" />
@@ -219,7 +219,7 @@
 
     <record model="ir.ui.view" id="type_view_form">
         <field name="name">Shift Type Form</field>
-        <field name="model">beesdoo.shift.type</field>
+        <field name="model">shift.type</field>
         <field name="arch" type="xml">
             <form>
                 <header>

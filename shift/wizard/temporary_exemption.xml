@@ -1,7 +1,7 @@
 <odoo>
     <record model="ir.ui.view" id="temporary_exemption_wizard_view_form">
         <field name="name">Temporary Exemption</field>
-        <field name="model">beesdoo.shift.temporary_exemption</field>
+        <field name="model">shift.temporary_exemption</field>
         <field name="arch" type="xml">
             <form>
                 <field name="cooperator_id" invisible="1" />

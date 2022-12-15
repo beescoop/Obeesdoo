@@ -10,7 +10,7 @@ class InstanciatePlanning(models.TransientModel):
 
     date_start = fields.Date("First Day of planning (should be Monday)", required=True)
     planning_id = fields.Many2one(
-        "beesdoo.shift.planning", readonly=True, default=_get_planning
+        "shift.planning", readonly=True, default=_get_planning
     )
 
     @api.multi
@@ -23,7 +23,7 @@ class InstanciatePlanning(models.TransientModel):
             "type": "ir.actions.act_window",
             "view_type": "form",
             "view_mode": "kanban,calendar,tree,form,pivot",
-            "res_model": "beesdoo.shift.shift",
+            "res_model": "shift.shift",
             "target": "current",
             "domain": [("id", "in", shifts.ids)],
             "context": {"search_default_gb_day": 1},
