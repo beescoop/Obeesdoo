@@ -11,12 +11,12 @@ from odoo.tests.common import TransactionCase
 class TestBeesdooShift(TransactionCase):
     def setUp(self):
         super(TestBeesdooShift, self).setUp()
-        self.shift_model = self.env["beesdoo.shift.shift"]
-        self.shift_template_model = self.env["beesdoo.shift.template"]
-        self.attendance_sheet_model = self.env["beesdoo.shift.sheet"]
-        self.attendance_sheet_shift_model = self.env["beesdoo.shift.sheet.shift"]
-        self.shift_expected_model = self.env["beesdoo.shift.sheet.expected"]
-        self.shift_added_model = self.env["beesdoo.shift.sheet.added"]
+        self.shift_model = self.env["shift.shift"]
+        self.shift_template_model = self.env["shift.template"]
+        self.attendance_sheet_model = self.env["shift.sheet"]
+        self.attendance_sheet_shift_model = self.env["shift.sheet.shift"]
+        self.shift_expected_model = self.env["shift.sheet.expected"]
+        self.shift_added_model = self.env["shift.sheet.added"]
         self.pre_filled_task_type_id = (
             self.env["ir.config_parameter"]
             .sudo()

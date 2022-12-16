@@ -18,7 +18,7 @@ class AttendanceSheetShift(models.Model):
     when class is Abstract.
     """
 
-    _name = "beesdoo.shift.sheet.shift"
+    _name = "shift.sheet.shift"
     _description = "Copy of an actual shift into an attendance sheet"
     _order = "task_type_id, worker_name"
 
@@ -30,7 +30,7 @@ class AttendanceSheetShift(models.Model):
                 "shift_attendance.pre_filled_task_type_id", default=1
             )
         )
-        task_types = self.env["beesdoo.shift.type"]
+        task_types = self.env["shift.type"]
         return task_types.browse(tasktype_id)
 
     @api.model
@@ -42,9 +42,9 @@ class AttendanceSheetShift(models.Model):
         )
 
     # Related actual shift
-    task_id = fields.Many2one("beesdoo.shift.shift", string="Task")
+    task_id = fields.Many2one("shift.shift", string="Task")
     attendance_sheet_id = fields.Many2one(
-        "beesdoo.shift.sheet",
+        "shift.sheet",
         string="Attendance Sheet",
         required=True,
         ondelete="cascade",
@@ -72,7 +72,7 @@ class AttendanceSheetShift(models.Model):
     )
     worker_name = fields.Char(related="worker_id.name", store=True)
     task_type_id = fields.Many2one(
-        "beesdoo.shift.type",
+        "shift.type",
         string="Task Type",
         default=pre_filled_task_type_id,
     )
@@ -90,9 +90,9 @@ class AttendanceSheetShiftExpected(models.Model):
     Shifts already expected.
     """
 
-    _name = "beesdoo.shift.sheet.expected"
+    _name = "shift.sheet.expected"
     _description = "Expected Shift"
-    _inherit = ["beesdoo.shift.sheet.shift"]
+    _inherit = ["shift.sheet.shift"]
 
     super_coop_id = fields.Many2one(related="task_id.super_coop_id", store=True)
     replaced_id = fields.Many2one(
@@ -117,9 +117,9 @@ class AttendanceSheetShiftAdded(models.Model):
     Shifts added during time slot.
     """
 
-    _name = "beesdoo.shift.sheet.added"
+    _name = "shift.sheet.added"
     _description = "Added Shift"
-    _inherit = ["beesdoo.shift.sheet.shift"]
+    _inherit = ["shift.sheet.shift"]
 
     @api.onchange("working_mode")
     def on_change_working_mode(self):
@@ -128,7 +128,7 @@ class AttendanceSheetShiftAdded(models.Model):
 
 
 class AttendanceSheet(models.Model):
-    _name = "beesdoo.shift.sheet"
+    _name = "shift.sheet"
     _inherit = ["mail.thread", "barcodes.barcode_events_mixin"]
     _description = "Attendance sheet"
     _order = "start_time"
@@ -162,12 +162,12 @@ class AttendanceSheet(models.Model):
     )
 
     expected_shift_ids = fields.One2many(
-        "beesdoo.shift.sheet.expected",
+        "shift.sheet.expected",
         "attendance_sheet_id",
         string="Expected Shifts",
     )
     added_shift_ids = fields.One2many(
-        "beesdoo.shift.sheet.added",
+        "shift.sheet.added",
         "attendance_sheet_id",
         string="Added Shifts",
     )
@@ -386,7 +386,7 @@ class AttendanceSheet(models.Model):
 
         # Expected shifts status update
         for id_ in self.expected_shift_ids.ids:
-            shift = self.env["beesdoo.shift.sheet.expected"].browse(id_)
+            shift = self.env["shift.sheet.expected"].browse(id_)
             if (
                 shift.worker_id == worker and not shift.replaced_id
             ) or shift.replaced_id == worker:
@@ -417,8 +417,8 @@ class AttendanceSheet(models.Model):
 
         # Creation and addition of the expected shifts corresponding
         # to the time range
-        tasks = self.env["beesdoo.shift.shift"]
-        expected_shift = self.env["beesdoo.shift.sheet.expected"]
+        tasks = self.env["shift.shift"]
+        expected_shift = self.env["shift.sheet.expected"]
         # Fix issues with equality check on datetime
         # by searching on a small interval instead
         delta = timedelta(minutes=1)
@@ -512,7 +512,7 @@ class AttendanceSheet(models.Model):
             # by searching on a small intervall instead
             delta = timedelta(minutes=1)
 
-            non_assigned_shifts = self.env["beesdoo.shift.shift"].search(
+            non_assigned_shifts = self.env["shift.shift"].search(
                 [
                     ("worker_id", "=", False),
                     ("start_time", ">", self.start_time - delta),
@@ -527,7 +527,7 @@ class AttendanceSheet(models.Model):
             if len(non_assigned_shifts):
                 actual_shift = non_assigned_shifts[0]
             else:
-                actual_shift = self.env["beesdoo.shift.shift"].create(
+                actual_shift = self.env["shift.shift"].create(
                     {
                         "name": _("%s (added)" % self.name),
                         "task_type_id": added_shift.task_type_id.id,
@@ -615,7 +615,7 @@ class AttendanceSheet(models.Model):
             return
         return {
             "type": "ir.actions.act_window",
-            "res_model": "beesdoo.shift.sheet.validate",
+            "res_model": "shift.sheet.validate",
             "view_type": "form",
             "view_mode": "form",
             "target": "new",
@@ -627,8 +627,8 @@ class AttendanceSheet(models.Model):
         Generate sheets with shifts in the time interval
         defined from corresponding CRON time interval.
         """
-        tasks = self.env["beesdoo.shift.shift"]
-        sheets = self.env["beesdoo.shift.sheet"]
+        tasks = self.env["shift.shift"]
+        sheets = self.env["shift.sheet"]
         current_time = datetime.now()
         generation_interval_setting = int(
             self.env["ir.config_parameter"]
@@ -657,7 +657,7 @@ class AttendanceSheet(models.Model):
 
     @api.model
     def _cron_non_validated_sheets(self):
-        sheets = self.env["beesdoo.shift.sheet"]
+        sheets = self.env["shift.sheet"]
         non_validated_sheets = sheets.search(
             [
                 ("day", "=", date.today() - timedelta(days=1)),

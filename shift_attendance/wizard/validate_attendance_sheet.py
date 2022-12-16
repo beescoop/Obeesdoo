@@ -5,7 +5,7 @@ from odoo.exceptions import UserError
 
 
 class ValidateAttendanceSheet(models.TransientModel):
-    _name = "beesdoo.shift.sheet.validate"
+    _name = "shift.sheet.validate"
     _description = """Check the user name and validate sheet.
     Useless for users in group_shift_attendance"""
     _inherit = ["barcodes.barcode_events_mixin"]
@@ -51,7 +51,7 @@ class ValidateAttendanceSheet(models.TransientModel):
                     )
         return warning_message
 
-    active_sheet = fields.Many2one("beesdoo.shift.sheet", default=_get_active_sheet)
+    active_sheet = fields.Many2one("shift.sheet", default=_get_active_sheet)
     card_support = fields.Boolean(
         default=_get_card_support_setting, string="Card validation"
     )
