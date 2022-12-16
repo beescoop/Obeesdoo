@@ -21,4 +21,5 @@
     ],
     "demo": ["demo/tasks.xml"],
     "license": "AGPL-3",
+    "pre_init_hook": "rename_beesdoo",
 }
