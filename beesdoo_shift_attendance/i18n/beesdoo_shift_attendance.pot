@@ -146,22 +146,22 @@ msgstr ""
 #. module: beesdoo_shift_attendance
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.res_config_settings_view_form
 msgid "<span class=\"o_form_label\">\n"
-"                                        Attendance Sheets Generation Interval\n"
-"                                    </span>"
+"                                    Attendance Sheets Generation Interval\n"
+"                                </span>"
 msgstr ""
 
 #. module: beesdoo_shift_attendance
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.res_config_settings_view_form
 msgid "<span class=\"o_form_label\">\n"
-"                                        Default Shift Attendance Status\n"
-"                                    </span>"
+"                                    Default Shift Attendance Status\n"
+"                                </span>"
 msgstr ""
 
 #. module: beesdoo_shift_attendance
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.res_config_settings_view_form
 msgid "<span class=\"o_form_label\">\n"
-"                                        Default Task Type\n"
-"                                    </span>"
+"                                    Default Task Type\n"
+"                                </span>"
 msgstr ""
 
 #. module: beesdoo_shift_attendance
@@ -576,7 +576,7 @@ msgstr ""
 #. module: beesdoo_shift_attendance
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.res_config_settings_view_form
 msgid "If not checked, user credentials are\n"
-"                                        asked."
+"                                    asked."
 msgstr ""
 
 #. module: beesdoo_shift_attendance
@@ -864,11 +864,6 @@ msgstr ""
 #: code:addons/beesdoo_shift_attendance/models/attendance_sheet.py:575
 #, python-format
 msgid "Shift State is missing or wrong for %s"
-msgstr ""
-
-#. module: beesdoo_shift_attendance
-#: model_terms:ir.ui.view,arch_db:beesdoo_shift_attendance.res_config_settings_view_form
-msgid "Shifts Management"
 msgstr ""
 
 #. module: beesdoo_shift_attendance
