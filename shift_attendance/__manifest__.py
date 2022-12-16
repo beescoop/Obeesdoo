@@ -16,7 +16,7 @@
         "eater",
         "member_card",
         "eater_member_card",
-        "beesdoo_shift",
+        "shift",
         "beesdoo_worker_status",
         "mail",
         "barcodes",
