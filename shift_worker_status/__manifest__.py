@@ -5,7 +5,12 @@
     "name": "Worker Status manager",
     "summary": """
         Worker status management.""",
-    "author": "Thibault Francois, Elouan Le Bars, Coop IT Easy SC",
+    "author": """
+        Thibault Francois,
+        Elouan Le Bars,
+        Coop IT Easy SC,
+        Odoo Community Association (OCA),
+        """,
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
     "version": "12.0.1.1.0",
