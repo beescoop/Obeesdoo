@@ -8,9 +8,9 @@ from odoo.exceptions import UserError
 from odoo.tests.common import TransactionCase
 
 
-class TestBeesdooShift(TransactionCase):
+class TestShift(TransactionCase):
     def setUp(self):
-        super(TestBeesdooShift, self).setUp()
+        super(TestShift, self).setUp()
         self.shift_model = self.env["shift.shift"]
         self.shift_template_model = self.env["shift.template"]
         self.attendance_sheet_model = self.env["shift.sheet"]
@@ -52,10 +52,10 @@ class TestBeesdooShift(TransactionCase):
         self.task_type_3 = self.env.ref("shift.shift_task_type_3_demo")
 
         self.task_template_1 = self.env.ref(
-            "beesdoo_worker_status.shift_task_template_1_demo"
+            "shift_worker_status.shift_task_template_1_demo"
         )
         self.task_template_2 = self.env.ref(
-            "beesdoo_worker_status.shift_task_template_2_demo"
+            "shift_worker_status.shift_task_template_2_demo"
         )
 
         # Set time in and out of generation interval parameter
