@@ -1,2 +1,0 @@
-Repair UI bug where there are two left-hand entries for changing shifts settings
-in the settings interface.
