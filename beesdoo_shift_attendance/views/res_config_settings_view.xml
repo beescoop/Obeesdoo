@@ -12,108 +12,103 @@
             </field>
             <field name="model">res.config.settings</field>
             <field name="priority" eval="50" />
-            <field name="inherit_id" ref="base.res_config_settings_view_form" />
+            <field
+                name="inherit_id"
+                ref="beesdoo_shift.res_config_settings_shift_view_form"
+            />
             <field name="arch" type="xml">
-                <xpath expr="//div[hasclass('settings')]" position="inside">
-                    <div
-                        class="app_settings_block"
-                        data-string="Shifts Management"
-                        string="Shifts Management"
-                        data-key="beesdoo_shift"
-                        groups="beesdoo_shift.group_cooperative_admin"
-                    >
-                        <h2>Attendance Sheets</h2>
-                        <div class="row mt16 o_settings_container">
-                            <div class="col-xs-12 col-md-6 o_setting_box">
-                                <div class="o_setting_left_pane">
-                                    <field name="card_support" />
+                <xpath expr="//div[@id='shift_settings_block']" position="inside">
+                    <h2>Attendance Sheets</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="card_support" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label
+                                    for="card_support"
+                                    string="Scan cards for validation"
+                                />
+                                <div class="text-muted">
+                                    If not checked, user credentials are
+                                    asked.
                                 </div>
-                                <div class="o_setting_right_pane">
-                                    <label
-                                        for="card_support"
-                                        string="Scan cards for validation"
-                                    />
-                                    <div class="text-muted">
-                                        If not checked, user credentials are
-                                        asked.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">
+                                    Attendance Sheets Generation Interval
+                                </span>
+                                <div class="text-muted">
+                                    Generate attendance sheets before shifts start.
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label
+                                            for="attendance_sheet_generation_interval"
+                                            string="Interval (minutes)"
+                                            class="col-3 col-lg-3 o_light_label"
+                                        />
+                                        <field
+                                            name="attendance_sheet_generation_interval"
+                                            class="oe_inline"
+                                            required="1"
+                                        />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt16 o_settings_container">
-                            <div class="col-12 col-lg-6 o_setting_box">
-                                <div class="o_setting_right_pane">
-                                    <span class="o_form_label">
-                                        Attendance Sheets Generation Interval
-                                    </span>
-                                    <div class="text-muted">
-                                        Generate attendance sheets before shifts start.
-                                    </div>
-                                    <div class="content-group">
-                                        <div class="mt16 row">
-                                            <label
-                                                for="attendance_sheet_generation_interval"
-                                                string="Interval (minutes)"
-                                                class="col-3 col-lg-3 o_light_label"
-                                            />
-                                            <field
-                                                name="attendance_sheet_generation_interval"
-                                                class="oe_inline"
-                                                required="1"
-                                            />
-                                        </div>
+                    </div>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">
+                                    Default Task Type
+                                </span>
+                                <div class="text-muted">
+                                    For attendance sheets automatic pre-filling.
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label
+                                            for="pre_filled_task_type_id"
+                                            string="Default Task Type"
+                                            class="col-3 col-lg-3 o_light_label"
+                                        />
+                                        <field
+                                            name="pre_filled_task_type_id"
+                                            class="oe_inline"
+                                            required="1"
+                                        />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt16 o_settings_container">
-                            <div class="col-12 col-lg-6 o_setting_box">
-                                <div class="o_setting_right_pane">
-                                    <span class="o_form_label">
-                                        Default Task Type
-                                    </span>
-                                    <div class="text-muted">
-                                        For attendance sheets automatic pre-filling.
-                                    </div>
-                                    <div class="content-group">
-                                        <div class="mt16 row">
-                                            <label
-                                                for="pre_filled_task_type_id"
-                                                string="Default Task Type"
-                                                class="col-3 col-lg-3 o_light_label"
-                                            />
-                                            <field
-                                                name="pre_filled_task_type_id"
-                                                class="oe_inline"
-                                                required="1"
-                                            />
-                                        </div>
-                                    </div>
+                    </div>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">
+                                    Default Shift Attendance Status
+                                </span>
+                                <div class="text-muted">
+                                    For attendance sheets automatic pre-filling.
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row mt16 o_settings_container">
-                            <div class="col-12 col-lg-6 o_setting_box">
-                                <div class="o_setting_right_pane">
-                                    <span class="o_form_label">
-                                        Default Shift Attendance Status
-                                    </span>
-                                    <div class="text-muted">
-                                        For attendance sheets automatic pre-filling.
-                                    </div>
-                                    <div class="content-group">
-                                        <div class="mt16 row">
-                                            <label
-                                                for="attendance_sheet_default_shift_state"
-                                                string="State"
-                                                class="col-3 col-lg-3 o_light_label"
-                                            />
-                                            <field
-                                                name="attendance_sheet_default_shift_state"
-                                                class="oe_inline"
-                                                required="1"
-                                            />
-                                        </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label
+                                            for="attendance_sheet_default_shift_state"
+                                            string="State"
+                                            class="col-3 col-lg-3 o_light_label"
+                                        />
+                                        <field
+                                            name="attendance_sheet_default_shift_state"
+                                            class="oe_inline"
+                                            required="1"
+                                        />
                                     </div>
                                 </div>
                             </div>
