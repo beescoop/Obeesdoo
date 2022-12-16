@@ -2,7 +2,7 @@
     <data noupdate="1">
         <record id="ir_cron_generate_attendance_sheet" model="ir.cron">
             <field name="name">Generate Attendance Sheets</field>
-            <field name="model_id" ref="model_beesdoo_shift_sheet" />
+            <field name="model_id" ref="model_shift_sheet" />
             <field name="state">code</field>
             <field name="code">model._generate_attendance_sheet()</field>
             <field name="user_id" ref="base.user_root" />
@@ -15,7 +15,7 @@
 
         <record id="ir_cron_check_non_validated_sheet" model="ir.cron">
             <field name="name">Check for non-validated sheets</field>
-            <field name="model_id" ref="model_beesdoo_shift_sheet" />
+            <field name="model_id" ref="model_shift_sheet" />
             <field name="state">code</field>
             <field name="code">model._cron_non_validated_sheets()</field>
             <field name="interval_number">1</field>

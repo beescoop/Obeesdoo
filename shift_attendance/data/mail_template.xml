@@ -9,7 +9,7 @@
             <field
                 name="partner_to"
             >${object.replaced_id.id or object.worker_id.id|safe}</field>
-            <field name="model_id" ref="beesdoo_shift.model_beesdoo_shift_shift" />
+            <field name="model_id" ref="shift.model_shift_shift" />
             <field name="auto_delete" eval="True" />
             <field name="lang">${object.worker_id.lang}</field>
             <field
@@ -107,7 +107,7 @@
             <field
                 name="subject"
             >[${object.day}] Non-validated sheet ${object.time_slot} </field>
-            <field name="model_id" ref="model_beesdoo_shift_sheet" />
+            <field name="model_id" ref="model_shift_sheet" />
             <field name="auto_delete" eval="True" />
             <field
                 name="body_html"

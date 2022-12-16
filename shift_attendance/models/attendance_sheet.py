@@ -27,7 +27,7 @@ class AttendanceSheetShift(models.Model):
         parameters = self.env["ir.config_parameter"].sudo()
         tasktype_id = int(
             parameters.get_param(
-                "beesdoo_shift_attendance.pre_filled_task_type_id", default=1
+                "shift_attendance.pre_filled_task_type_id", default=1
             )
         )
         task_types = self.env["beesdoo.shift.type"]
@@ -37,7 +37,7 @@ class AttendanceSheetShift(models.Model):
     def _default_attendance_sheet_shift_sheet(self):
         parameters = self.env["ir.config_parameter"].sudo()
         return parameters.get_param(
-            "beesdoo_shift_attendance.attendance_sheet_default_shift_state",
+            "shift_attendance.attendance_sheet_default_shift_state",
             default="absent_2",
         )
 
@@ -333,7 +333,7 @@ class AttendanceSheet(models.Model):
             )
 
     def on_barcode_scanned(self, barcode):
-        if self.env.user.has_group("beesdoo_shift_attendance.group_shift_attendance"):
+        if self.env.user.has_group("shift_attendance.group_shift_attendance"):
             raise UserError(
                 _(
                     "You must be logged as 'Attendance Sheet Generic Access' "
@@ -496,7 +496,7 @@ class AttendanceSheet(models.Model):
 
             if expected_shift.state != "done":
                 mail_template = self.env.ref(
-                    "beesdoo_shift_attendance.email_template_non_attendance",
+                    "shift_attendance.email_template_non_attendance",
                     False,
                 )
                 mail_template.send_mail(expected_shift.task_id.id, True)
@@ -605,7 +605,7 @@ class AttendanceSheet(models.Model):
 
         # Open a validation wizard only if not admin
         if self.env.user.has_group(
-            "beesdoo_shift_attendance.group_shift_attendance_sheet_validation"
+            "shift_attendance.group_shift_attendance_sheet_validation"
         ):
             if not self.worker_nb_feedback:
                 raise UserError(
@@ -633,7 +633,7 @@ class AttendanceSheet(models.Model):
         generation_interval_setting = int(
             self.env["ir.config_parameter"]
             .sudo()
-            .get_param("beesdoo_shift_attendance.attendance_sheet_generation_interval")
+            .get_param("shift_attendance.attendance_sheet_generation_interval")
         )
 
         allowed_time_range = timedelta(minutes=generation_interval_setting)
@@ -667,7 +667,7 @@ class AttendanceSheet(models.Model):
 
         if non_validated_sheets:
             mail_template = self.env.ref(
-                "beesdoo_shift_attendance.email_template_non_validated_sheet",
+                "shift_attendance.email_template_non_validated_sheet",
                 False,
             )
             for rec in non_validated_sheets:

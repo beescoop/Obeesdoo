@@ -9,14 +9,14 @@ class ResConfigSettings(models.TransientModel):
 
     card_support = fields.Boolean(
         string="Scan cooperators cards instead of login for sheets validation",
-        config_parameter="beesdoo_shift_attendance.card_support",
+        config_parameter="shift_attendance.card_support",
     )
     pre_filled_task_type_id = fields.Many2one(
         comodel_name="beesdoo.shift.type",
         string="Default Task Type",
         help="Default task type for attendance sheet pre-filling",
         required=True,
-        config_parameter="beesdoo_shift_attendance.pre_filled_task_type_id",
+        config_parameter="shift_attendance.pre_filled_task_type_id",
         default=False,
     )
     attendance_sheet_generation_interval = fields.Integer(
@@ -24,7 +24,7 @@ class ResConfigSettings(models.TransientModel):
         help="Time interval expressed in minutes",
         required=True,
         config_parameter=(
-            "beesdoo_shift_attendance.attendance_sheet_generation_interval"
+            "shift_attendance.attendance_sheet_generation_interval"
         ),
     )
     attendance_sheet_default_shift_state = fields.Selection(
@@ -37,7 +37,7 @@ class ResConfigSettings(models.TransientModel):
         string="Default Shift State",
         required=True,
         config_parameter=(
-            "beesdoo_shift_attendance.attendance_sheet_default_shift_state"
+            "shift_attendance.attendance_sheet_default_shift_state"
         ),
         help="Default state set for shifts on attendance sheets",
     )

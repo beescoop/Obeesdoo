@@ -37,7 +37,7 @@
     <menuitem
         id="menu_missing_attendance_sheets"
         name="Generate missing past attendance sheets"
-        parent="beesdoo_shift.menu_configuration_top"
+        parent="shift.menu_configuration_top"
         action="action_missing_attendance_sheets"
         sequence="2"
     />
