@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="card_support" model="ir.config_parameter">
+            <field name="key">beesdoo_shift_attendance.card_support</field>
+            <field name="value">False</field>
+        </record>
+        <record id="attendance_sheet_generation_interval" model="ir.config_parameter">
+            <field
+                name="key"
+            >beesdoo_shift_attendance.attendance_sheet_generation_interval</field>
+            <field name="value">15</field>
+        </record>
+    </data>
+</odoo>

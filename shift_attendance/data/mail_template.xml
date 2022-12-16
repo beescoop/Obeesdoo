@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Mail template are declared in a NOUPDATE block
+         so users can freely customize/delete them -->
+    <data noupdate="1">
+        <record id="email_template_non_attendance" model="mail.template">
+            <field name="name">Shift Non-attendance</field>
+            <field name="subject">Non-attendance to your last shift.</field>
+            <field
+                name="partner_to"
+            >${object.replaced_id.id or object.worker_id.id|safe}</field>
+            <field name="model_id" ref="beesdoo_shift.model_beesdoo_shift_shift" />
+            <field name="auto_delete" eval="True" />
+            <field name="lang">${object.worker_id.lang}</field>
+            <field
+                name="body_html"
+            ><![CDATA[
+              <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+                  % if object.replaced_id:
+                  <p>Hello ${object.replaced_id.name},
+
+                  <br><br>You have been recorded as non-attended during your last shift (${format_tz(object.start_time,object.replaced_id.tz or 'Europe/Brussels','%d.%m.%Y - %H:%M')}),
+                    and you were supposed to replace ${object.worker_id.name}.
+                  % endif
+
+                  % if not object.replaced_id:
+                  </p><p>Hello ${object.worker_id.name},</p>
+
+                  <p>You have been recorded as non-attended during your last shift (${format_tz(object.start_time,object.worker_id.tz or 'Europe/Brussels','%d.%m.%Y - %H:%M')}).
+                  % endif
+
+                  % if object.worker_id.working_mode == 'regular':
+                    % if object.state == 'absent_0':
+                        <br><br>Super-cooperator assigned you 0 compensation, so you won't have any additionnal shift to do before your next regular shift.
+                    % endif
+                    % if object.state == 'absent_1':
+                        <br><br>Super-cooperator assigned you 1 compensation, so you have to attend one additionnal shift before your next regular shift.
+                    % endif
+                    % if object.state == 'absent_2':
+                        <br><br>Super-cooperator assigned you 2 compensations, so you have to attend two additionnal shifts before your next regular shift.
+                    % endif
+
+                      % if object.replaced_id:
+                            You were supposed to replace ${object.worker_id.name}.
+                            You have to do ${(object.replaced_id.cooperative_status_ids.sr + object.replaced_id.cooperative_status_ids.sc) * -1 } shifts before your next regular shift.<br>
+                      % else:
+                            You have to do ${(object.worker_id.cooperative_status_ids.sr + object.worker_id.cooperative_status_ids.sc) * -1 } shifts before your next regular shift.<br>
+                      % endif
+                  % endif
+
+                  % if object.worker_id.working_mode == 'irregular':
+                        Your shift counter is at ${object.worker_id.cooperative_status_ids.sr}.
+
+                        % if object.worker_id.cooperative_status_ids.future_alert_date:
+                            It should be superior or equal to 1 before the
+                            ${object.worker_id.cooperative_status_ids.future_alert_date}.
+                        % endif
+                        <br>
+                  % endif
+
+                  % if object.replaced_id:
+                     Your current status is "${object.replaced_id.cooperative_status_ids.get_status_value()}".
+                  % else:
+                    <br><br>Your current status is "${object.worker_id.cooperative_status_ids.get_status_value()}".
+                  % endif
+
+                  <br>If you have any question regarding this non-attendance, just answer this e-mail.
+                  </p>
+                  <br>
+                  <p>Cooperatively yours,<br>
+                  The Members' office volunteers</p>
+                  <p>${object.worker_id.company_id.name}.</p>
+
+                  % if object.worker_id.company_id.street:
+                      ${object.worker_id.company_id.street}
+                  % endif
+                  % if object.worker_id.company_id.street2:
+                      ${object.worker_id.company_id.street2}<br>
+                  % endif
+                  % if object.worker_id.company_id.city or object.worker_id.company_id.zip:
+                      ${object.worker_id.company_id.zip} ${object.worker_id.company_id.city}<br>
+                  % endif
+                  % if object.worker_id.company_id.country_id:
+                      ${object.worker_id.company_id.state_id and ('%s, ' % object.worker_id.company_id.state_id.name) or ''} ${object.worker_id.company_id.country_id.name or ''}<br>
+                  % endif
+                  % if object.worker_id.company_id.phone:
+                      Phone:&nbsp; ${object.worker_id.company_id.phone}
+                  % endif
+
+                  % if object.worker_id.company_id.website:
+                      <div>
+                          Web :&nbsp;<a href="${object.worker_id.company_id.website}">${object.worker_id.company_id.website}</a>
+                      </div>
+                  %endif
+                  % if object.worker_id.company_id.logo_url:
+                  <div>
+                      <img src="${object.worker_id.company_id.logo_url}">
+                  </div>
+                  %endif
+              </div>
+            ]]></field>
+        </record>
+
+        <record id="email_template_non_validated_sheet" model="mail.template">
+            <field name="name">Non-validated sheet</field>
+            <field
+                name="subject"
+            >[${object.day}] Non-validated sheet ${object.time_slot} </field>
+            <field name="model_id" ref="model_beesdoo_shift_sheet" />
+            <field name="auto_delete" eval="True" />
+            <field
+                name="body_html"
+            ><![CDATA[
+<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+    <p>${object.day}
+    <br/><br/>The attendance sheet for ${object.time_slot} is not validated.
+    <br/><br/>Please, do it as soon as possible so as to update workers' status.
+    </p>
+
+</div>
+            ]]></field>
+        </record>
+    </data>
+</odoo>

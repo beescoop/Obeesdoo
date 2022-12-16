@@ -1,0 +1,44 @@
+<odoo>
+    <record model="ir.ui.view" id="generate_attendance_sheet_form">
+        <field name="name">Generate Missing Attendance Sheets</field>
+        <field name="model">beesdoo.shift.generate_missing_attendance_sheets</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <label
+                        for="date_start"
+                        string="Generate missing attendance sheets in a given time interval"
+                    />
+                    <group>
+                        <field name="date_start" />
+                        <field name="date_end" />
+                    </group>
+                </sheet>
+                <footer>
+                    <button
+                        type="object"
+                        name="generate_missing_attendance_sheets"
+                        string="Generate"
+                        class="oe_highlight"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window
+        id="action_missing_attendance_sheets"
+        name="Generate Missing Sheets"
+        res_model="beesdoo.shift.generate_missing_attendance_sheets"
+        view_mode="form"
+        target="new"
+    />
+
+    <menuitem
+        id="menu_missing_attendance_sheets"
+        name="Generate missing past attendance sheets"
+        parent="beesdoo_shift.menu_configuration_top"
+        action="action_missing_attendance_sheets"
+        sequence="2"
+    />
+</odoo>

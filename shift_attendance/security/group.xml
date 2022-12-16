@@ -1,0 +1,15 @@
+<odoo>
+    <record id="group_shift_attendance_sheet" model="res.groups">
+        <field name="name">Attendance Sheet Generic Access</field>
+        <field name="category_id" ref="base.module_category_cooperative_management" />
+    </record>
+    <record id="group_shift_attendance_sheet_validation" model="res.groups">
+        <field name="name">Attendance Sheet Validation</field>
+        <field name="category_id" ref="base.module_category_cooperative_management" />
+        <field name="implied_ids" eval="[(4, ref('group_shift_attendance_sheet'))]" />
+        <field name="users" eval="[(4, ref('base.user_root'))]" />
+    </record>
+    <record id="beesdoo_shift.group_shift_attendance" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('group_shift_attendance_sheet'))]" />
+    </record>
+</odoo>

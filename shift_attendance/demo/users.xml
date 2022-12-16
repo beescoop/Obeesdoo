@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     Copyright 2019 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <!-- Generic and permanent account -->
+
+    <record id="beesdoo_shift_partner_1_demo" model="res.partner">
+        <field name="firstname">Generic Account</field>
+        <field name="lastname">Demo</field>
+        <field name="email">generic@demo.net</field>
+    </record>
+
+    <record id="beesdoo_shift_partner_2_demo" model="res.partner">
+        <field name="firstname">Permanent Member</field>
+        <field name="lastname">Demo</field>
+        <field name="is_company" eval="False" />
+        <field name="email">permanent@demo.net</field>
+        <field name="city">Ixelles</field>
+        <field name="zip">1050</field>
+        <field name="country_id" ref="base.be" />
+    </record>
+
+    <record id="beesdoo_shift_user_1_demo" model="res.users">
+        <field name="partner_id" ref="beesdoo_shift_partner_1_demo" />
+        <field name="login">generic</field>
+        <field name="password">demo</field>
+        <field
+            name="groups_id"
+            eval="[(4,ref('base.group_user')), (4,ref('beesdoo_shift_attendance.group_shift_attendance_sheet'))]"
+        />
+    </record>
+
+    <record id="beesdoo_shift_user_2_demo" model="res.users">
+        <field name="partner_id" ref="beesdoo_shift_partner_2_demo" />
+        <field name="login">permanent</field>
+        <field name="password">demo</field>
+        <field
+            name="groups_id"
+            eval="[(4,ref('beesdoo_shift.group_shift_management'))]"
+        />
+    </record>
+
+</odoo>

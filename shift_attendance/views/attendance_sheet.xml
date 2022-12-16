@@ -1,0 +1,336 @@
+<odoo>
+
+    <!-- Attendance Sheet Shifts Views -->
+
+    <record model="ir.ui.view" id="sheet_view_search">
+        <field name="name">Attendance Sheet Search</field>
+        <field name="model">beesdoo.shift.sheet</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="day" />
+                <field name="validated_by" />
+                <filter
+                    string="Annotated (unread)"
+                    name="annotated"
+                    domain="[('is_annotated', '=', True), ('is_read', '=', False)]"
+                />
+                <filter
+                    string="Annotated (read)"
+                    name="annotated_read"
+                    domain="[('is_annotated', '=', True), ('is_read', '=', True)]"
+                />
+                <separator />
+                <filter
+                    string="Archived"
+                    name="archived"
+                    domain="[('active', '=', False)]"
+                />
+                <group expand="1" string="Group By">
+                    <filter
+                        string="Day"
+                        name="gb_day"
+                        context="{'group_by' : 'start_time:day'}"
+                    />
+                    <filter
+                        string="Feedback on number of workers"
+                        name="gb_worker_nb_feedback"
+                        context="{'group_by' : 'worker_nb_feedback'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sheet_expected_view_tree">
+        <field name="name">Expected Shifts List</field>
+        <field name="model">beesdoo.shift.sheet.expected</field>
+        <field name="arch" type="xml">
+            <tree
+                create="false"
+                decoration-danger="state in ['absent_0', 'absent_1', 'absent_2'] "
+                decoration-success="state == 'done'"
+            >
+                <field
+                    name="task_type_id"
+                    readonly="True"
+                    options="{'no_open': True}"
+                />
+                <field
+                    name="super_coop_id"
+                    readonly="True"
+                    options="{'no_open': True}"
+                />
+                <field name="worker_id" readonly="True" options="{'no_open': True}" />
+                <field name="working_mode" />
+                <field name="replaced_id" readonly="True" />
+                <field name="state" readonly="True" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sheet_added_view_tree">
+        <field name="name">Added Shifts List</field>
+        <field name="model">beesdoo.shift.sheet.added</field>
+        <field name="arch" type="xml">
+            <tree
+                decoration-danger="state in ['absent_0', 'absent_1', 'absent_2'] "
+                decoration-success="state == 'done'"
+            >
+                <field
+                    name="task_type_id"
+                    options="{'no_open': True, 'no_create': True, 'no_create_edit':True }"
+                />
+                <field
+                    name="worker_id"
+                    domain="[
+                            ('eater', '=', 'worker_eater'),
+                            ('working_mode', 'in', ('regular', 'irregular')),
+                            ('state', 'not in', ('unsubscribed', 'resigning')),
+                        ]"
+                    options="{'no_open': True, 'no_create': True, 'no_create_edit':True }"
+                />
+                <field name="working_mode" />
+                <field
+                    name="is_compensation"
+                    attrs="{'invisible':
+                             [('working_mode','=','irregular')]}"
+                />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sheet_expected_view_form">
+        <field name="name">Expected Shifts Form</field>
+        <field name="model">beesdoo.shift.sheet.expected</field>
+        <field name="arch" type="xml">
+            <form readonly="True">
+                <group string="Expected Shift">
+                    <field
+                        name="task_type_id"
+                        readonly="True"
+                        options="{'no_open': True}"
+                    />
+                    <field
+                        name="worker_id"
+                        readonly="True"
+                        options="{'no_open': True}"
+                    />
+                    <field name="working_mode" />
+                    <field
+                        name="replaced_id"
+                        attrs="{'invisible':
+                                 [('working_mode','=','irregular')]}"
+                        options="{'no_create': True, 'no_create_edit':True}"
+                    />
+                    <field name="state" />
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sheet_added_view_form">
+        <field name="name">Added Shifts Form</field>
+        <field name="model">beesdoo.shift.sheet.added</field>
+        <field name="arch" type="xml">
+            <form readonly="True">
+                <group>
+                    <field
+                        name="task_type_id"
+                        options="{'no_open': True, 'no_create': True, 'no_create_edit':True }"
+                    />
+                    <field
+                        name="worker_id"
+                        domain="[
+                                ('eater', '=', 'worker_eater'),
+                                ('working_mode', 'in', ('regular', 'irregular')),
+                                ('state', 'not in', ('unsubscribed', 'resigning')),
+                            ]"
+                        options="{'no_open': True, 'no_create': True, 'no_create_edit':True }"
+                    />
+                    <field name="working_mode" />
+                    <field
+                        name="is_compensation"
+                        attrs="{'invisible':
+                                 [('working_mode','=','irregular')]}"
+                    />
+                    <field name="state" />
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Attendance Sheets Views -->
+
+    <record model="ir.ui.view" id="sheet_view_tree">
+        <field name="name">Attendance Sheet List</field>
+        <field name="model">beesdoo.shift.sheet</field>
+        <field name="arch" type="xml">
+            <tree
+                create="false"
+                delete="false"
+                decoration-danger="state == 'not_validated'"
+            >
+                <field name="week" />
+                <field name="day" />
+                <field name="time_slot" />
+                <field name="max_worker_no" type="char" />
+                <field name="state" />
+                <field name="validated_by" />
+                <field name="attended_worker_no" type="char" />
+                <field name="is_annotated" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sheet_view_form">
+        <field name="name">Attendance Sheet Form</field>
+        <field name="model">beesdoo.shift.sheet</field>
+        <field name="arch" type="xml">
+            <form create="false" delete="false">
+                <field name="_barcode_scanned" widget="barcode_handler" />
+                <header>
+                    <field name="state" widget="statusbar" readonly="True" />
+                    <button
+                        type="object"
+                        name="validate_with_checks"
+                        string="Validate Sheet"
+                        confirm="Beware : a validated sheet cannot be edited anymore
+                            and you won't be able to add any latecomers.
+                            The counters of those who didn't attend will be updated
+                            and they will get warning emails."
+                        attrs="{'invisible': ['|',('state', '=', 'validated'),('has_missing_worker', '=', False)]}"
+                    />
+                    <button
+                        type="object"
+                        name="validate_with_checks"
+                        string="Validate Sheet"
+                        attrs="{'invisible': ['|',('state', '=', 'validated'),('has_missing_worker', '=', True)]}"
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="button_mark_as_read"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-check"
+                            string="Mark as read"
+                            groups="beesdoo_shift.group_shift_attendance"
+                        />
+                        <button
+                            name="toggle_active"
+                            type="object"
+                            groups="beesdoo_shift.group_shift_attendance"
+                            class="oe_stat_button"
+                            icon="fa-archive"
+                        >
+                            <field
+                                name="active"
+                                widget="boolean_button"
+                                options='{"terminology": "archive"}'
+                            />
+                        </button>
+                    </div>
+                    <separator string="Expected Shifts" />
+                    <field name="expected_shift_ids" />
+                    <separator string="Added Shifts" />
+                    <field name="added_shift_ids" />
+                    <group>
+                        <field name="max_worker_no" />
+                    </group>
+                    <group
+                        string="Feedback"
+                        groups="beesdoo_shift.group_shift_attendance"
+                    >
+                        <field name="attended_worker_no" />
+                        <field name="notes" />
+                        <field name="feedback" />
+                        <field name="worker_nb_feedback" />
+                        <field name="validated_by" readonly="True" />
+                    </group>
+                    <field name="has_missing_worker" invisible="1" />
+                </sheet>
+                <div class="oe_chatter">
+                    <field
+                        name="message_ids"
+                        widget="mail_thread"
+                        groups="beesdoo_shift.group_shift_attendance"
+                    />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Actions -->
+
+    <act_window
+        id="action_sheet_admin_non_validated"
+        name="Non-validated sheets"
+        res_model="beesdoo.shift.sheet"
+        view_mode="tree,form"
+        domain="[('state','=','not_validated')]"
+    />
+    <!-- Annotated sheets should display only the both annotated and validated ones-->
+    <act_window
+        id="action_sheet_admin_annotated"
+        name="Unread notes"
+        res_model="beesdoo.shift.sheet"
+        view_mode="tree,form"
+        domain="[('is_annotated','=',True),
+                    ('is_read','=',False)]"
+    />
+    <act_window
+        id="action_sheet_admin_list"
+        name="All sheets"
+        res_model="beesdoo.shift.sheet"
+        view_mode="tree,form"
+    />
+    <act_window
+        id="action_sheet_daily"
+        name="Daily attendance sheets"
+        res_model="beesdoo.shift.sheet"
+        view_mode="tree,form"
+        domain="[('end_time','&gt;', datetime.datetime.now().replace(hour=00, minute=00, second=10)),
+                ('start_time','&lt;', datetime.datetime.now().replace(hour=23, minute=59, second=59))]"
+    />
+
+    <!-- Top menu item -->
+    <menuitem
+        id="menu_sheet_top"
+        name="Attendance Sheets"
+        parent="beesdoo_shift.menu_root"
+        groups="beesdoo_shift_attendance.group_shift_attendance_sheet"
+        sequence="1"
+    />
+
+    <!-- Menu actions -->
+    <menuitem
+        id="menu_sheet"
+        name="Daily attendance sheets"
+        parent="menu_sheet_top"
+        action="action_sheet_daily"
+        sequence="2"
+    />
+    <menuitem
+        id="menu_sheet_admin_non_validated"
+        name="Non-validated sheets"
+        parent="menu_sheet_top"
+        action="action_sheet_admin_non_validated"
+        groups="beesdoo_shift.group_shift_attendance"
+    />
+    <menuitem
+        id="menu_sheet_admin_annotated"
+        name="Unread notes"
+        parent="menu_sheet_top"
+        action="action_sheet_admin_annotated"
+        groups="beesdoo_shift.group_shift_attendance"
+    />
+    <menuitem
+        id="menu_sheet_admin_list"
+        name="All sheets"
+        parent="menu_sheet_top"
+        action="action_sheet_admin_list"
+        groups="beesdoo_shift.group_shift_attendance"
+    />
+</odoo>
