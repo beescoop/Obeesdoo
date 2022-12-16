@@ -1,7 +1,7 @@
 <odoo>
     <record model="ir.ui.view" id="validate_attendance_sheet_form">
         <field name="name">Validate Attendance Sheet</field>
-        <field name="model">beesdoo.shift.sheet.validate</field>
+        <field name="model">shift.sheet.validate</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>

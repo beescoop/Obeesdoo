@@ -1,7 +1,7 @@
 <odoo>
     <record model="ir.ui.view" id="generate_attendance_sheet_form">
         <field name="name">Generate Missing Attendance Sheets</field>
-        <field name="model">beesdoo.shift.generate_missing_attendance_sheets</field>
+        <field name="model">shift.generate_missing_attendance_sheets</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
@@ -29,7 +29,7 @@
     <act_window
         id="action_missing_attendance_sheets"
         name="Generate Missing Sheets"
-        res_model="beesdoo.shift.generate_missing_attendance_sheets"
+        res_model="shift.generate_missing_attendance_sheets"
         view_mode="form"
         target="new"
     />

@@ -4,7 +4,7 @@
 
     <record model="ir.ui.view" id="sheet_view_search">
         <field name="name">Attendance Sheet Search</field>
-        <field name="model">beesdoo.shift.sheet</field>
+        <field name="model">shift.sheet</field>
         <field name="arch" type="xml">
             <search>
                 <field name="day" />
@@ -43,7 +43,7 @@
 
     <record model="ir.ui.view" id="sheet_expected_view_tree">
         <field name="name">Expected Shifts List</field>
-        <field name="model">beesdoo.shift.sheet.expected</field>
+        <field name="model">shift.sheet.expected</field>
         <field name="arch" type="xml">
             <tree
                 create="false"
@@ -70,7 +70,7 @@
 
     <record model="ir.ui.view" id="sheet_added_view_tree">
         <field name="name">Added Shifts List</field>
-        <field name="model">beesdoo.shift.sheet.added</field>
+        <field name="model">shift.sheet.added</field>
         <field name="arch" type="xml">
             <tree
                 decoration-danger="state in ['absent_0', 'absent_1', 'absent_2'] "
@@ -102,7 +102,7 @@
 
     <record model="ir.ui.view" id="sheet_expected_view_form">
         <field name="name">Expected Shifts Form</field>
-        <field name="model">beesdoo.shift.sheet.expected</field>
+        <field name="model">shift.sheet.expected</field>
         <field name="arch" type="xml">
             <form readonly="True">
                 <group string="Expected Shift">
@@ -131,7 +131,7 @@
 
     <record model="ir.ui.view" id="sheet_added_view_form">
         <field name="name">Added Shifts Form</field>
-        <field name="model">beesdoo.shift.sheet.added</field>
+        <field name="model">shift.sheet.added</field>
         <field name="arch" type="xml">
             <form readonly="True">
                 <group>
@@ -164,7 +164,7 @@
 
     <record model="ir.ui.view" id="sheet_view_tree">
         <field name="name">Attendance Sheet List</field>
-        <field name="model">beesdoo.shift.sheet</field>
+        <field name="model">shift.sheet</field>
         <field name="arch" type="xml">
             <tree
                 create="false"
@@ -185,7 +185,7 @@
 
     <record model="ir.ui.view" id="sheet_view_form">
         <field name="name">Attendance Sheet Form</field>
-        <field name="model">beesdoo.shift.sheet</field>
+        <field name="model">shift.sheet</field>
         <field name="arch" type="xml">
             <form create="false" delete="false">
                 <field name="_barcode_scanned" widget="barcode_handler" />
@@ -267,7 +267,7 @@
     <act_window
         id="action_sheet_admin_non_validated"
         name="Non-validated sheets"
-        res_model="beesdoo.shift.sheet"
+        res_model="shift.sheet"
         view_mode="tree,form"
         domain="[('state','=','not_validated')]"
     />
@@ -275,7 +275,7 @@
     <act_window
         id="action_sheet_admin_annotated"
         name="Unread notes"
-        res_model="beesdoo.shift.sheet"
+        res_model="shift.sheet"
         view_mode="tree,form"
         domain="[('is_annotated','=',True),
                     ('is_read','=',False)]"
@@ -283,13 +283,13 @@
     <act_window
         id="action_sheet_admin_list"
         name="All sheets"
-        res_model="beesdoo.shift.sheet"
+        res_model="shift.sheet"
         view_mode="tree,form"
     />
     <act_window
         id="action_sheet_daily"
         name="Daily attendance sheets"
-        res_model="beesdoo.shift.sheet"
+        res_model="shift.sheet"
         view_mode="tree,form"
         domain="[('end_time','&gt;', datetime.datetime.now().replace(hour=00, minute=00, second=10)),
                 ('start_time','&lt;', datetime.datetime.now().replace(hour=23, minute=59, second=59))]"

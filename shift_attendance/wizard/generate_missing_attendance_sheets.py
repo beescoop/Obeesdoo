@@ -9,8 +9,8 @@ class GenerateMissingAttendanceSheets(models.TransientModel):
     Generate missing past sheets
     """
 
-    _name = "beesdoo.shift.generate_missing_attendance_sheets"
-    _description = "beesdoo.shift.generate_missing_attendance_sheets"
+    _name = "shift.generate_missing_attendance_sheets"
+    _description = "shift.generate_missing_attendance_sheets"
 
     date_start = fields.Datetime("Start date", required=True)
     date_end = fields.Datetime("End date", required=True)
@@ -18,8 +18,8 @@ class GenerateMissingAttendanceSheets(models.TransientModel):
     @api.multi
     def generate_missing_attendance_sheets(self):
         self.ensure_one()
-        tasks = self.env["beesdoo.shift.shift"]
-        sheets = self.env["beesdoo.shift.sheet"]
+        tasks = self.env["shift.shift"]
+        sheets = self.env["shift.sheet"]
 
         tasks = tasks.search(
             [
@@ -47,7 +47,7 @@ class GenerateMissingAttendanceSheets(models.TransientModel):
             "type": "ir.actions.act_window",
             "view_type": "form",
             "view_mode": "tree,form",
-            "res_model": "beesdoo.shift.sheet",
+            "res_model": "shift.sheet",
             "target": "current",
             "domain": [("id", "in", sheets.ids)],
         }

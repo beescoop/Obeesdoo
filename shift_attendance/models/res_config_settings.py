@@ -12,7 +12,7 @@ class ResConfigSettings(models.TransientModel):
         config_parameter="shift_attendance.card_support",
     )
     pre_filled_task_type_id = fields.Many2one(
-        comodel_name="beesdoo.shift.type",
+        comodel_name="shift.type",
         string="Default Task Type",
         help="Default task type for attendance sheet pre-filling",
         required=True,

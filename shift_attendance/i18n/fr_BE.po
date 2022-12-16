@@ -170,23 +170,23 @@ msgid "A validated attendance sheet can't be modified"
 msgstr ""
 
 #. module: shift_attendance
-#: selection:beesdoo.shift.sheet.added,state:0
-#: selection:beesdoo.shift.sheet.expected,state:0
-#: selection:beesdoo.shift.sheet.shift,state:0
+#: selection:shift.sheet.added,state:0
+#: selection:shift.sheet.expected,state:0
+#: selection:shift.sheet.shift,state:0
 msgid "Absent - 0 Compensation"
 msgstr ""
 
 #. module: shift_attendance
-#: selection:beesdoo.shift.sheet.added,state:0
-#: selection:beesdoo.shift.sheet.expected,state:0
-#: selection:beesdoo.shift.sheet.shift,state:0
+#: selection:shift.sheet.added,state:0
+#: selection:shift.sheet.expected,state:0
+#: selection:shift.sheet.shift,state:0
 msgid "Absent - 1 Compensation"
 msgstr ""
 
 #. module: shift_attendance
-#: selection:beesdoo.shift.sheet.added,state:0
-#: selection:beesdoo.shift.sheet.expected,state:0
-#: selection:beesdoo.shift.sheet.shift,state:0
+#: selection:shift.sheet.added,state:0
+#: selection:shift.sheet.expected,state:0
+#: selection:shift.sheet.shift,state:0
 msgid "Absent - 2 Compensations"
 msgstr ""
 
@@ -430,7 +430,7 @@ msgid "End date"
 msgstr ""
 
 #. module: shift_attendance
-#: selection:beesdoo.shift.sheet,worker_nb_feedback:0
+#: selection:shift.sheet,worker_nb_feedback:0
 msgid "Enough workers"
 msgstr " Assez de travailleurs"
 
@@ -525,7 +525,7 @@ msgid "Has notes been read by an administrator ?"
 msgstr "La note a-t-elle été lue par un administrateur ?"
 
 #. module: shift_attendance
-#: selection:beesdoo.shift.sheet,worker_nb_feedback:0
+#: selection:shift.sheet,worker_nb_feedback:0
 msgid "I was not there during the shift"
 msgstr "Je n'étais pas là durant le shift"
 
@@ -616,7 +616,7 @@ msgid "Last Updated on"
 msgstr "Mis à jour le"
 
 #. module: shift_attendance
-#: sql_constraint:beesdoo.shift.sheet:0
+#: sql_constraint:shift.sheet:0
 msgid "Les feuilles de présences non-annotées ne peuvent pas êtres marquées comme lues."
 msgstr ""
 
@@ -685,12 +685,12 @@ msgid "Non-validated sheets"
 msgstr "Non-validées"
 
 #. module: shift_attendance
-#: selection:beesdoo.shift.sheet,state:0
+#: selection:shift.sheet,state:0
 msgid "Not Validated"
 msgstr "Non validée"
 
 #. module: shift_attendance
-#: selection:beesdoo.shift.sheet,worker_nb_feedback:0
+#: selection:shift.sheet,worker_nb_feedback:0
 msgid "Not enough workers"
 msgstr "Pas assez de travailleurs"
 
@@ -785,9 +785,9 @@ msgid "Please set a correct barcode."
 msgstr ""
 
 #. module: shift_attendance
-#: selection:beesdoo.shift.sheet.added,state:0
-#: selection:beesdoo.shift.sheet.expected,state:0
-#: selection:beesdoo.shift.sheet.shift,state:0
+#: selection:shift.sheet.added,state:0
+#: selection:shift.sheet.expected,state:0
+#: selection:shift.sheet.shift,state:0
 msgid "Present"
 msgstr "Présent"
 
@@ -930,7 +930,7 @@ msgid "Time interval for attendance sheet generation"
 msgstr "Générer les feuilles de présences ... minutes avant le début des shifts"
 
 #. module: shift_attendance
-#: selection:beesdoo.shift.sheet,worker_nb_feedback:0
+#: selection:shift.sheet,worker_nb_feedback:0
 msgid "Too many workers"
 msgstr "Trop de travailleurs"
 
@@ -961,7 +961,7 @@ msgid "Validate Sheet"
 msgstr "Valider la feuille"
 
 #. module: shift_attendance
-#: selection:beesdoo.shift.sheet,state:0
+#: selection:shift.sheet,state:0
 msgid "Validated"
 msgstr "Validée"
 
@@ -1065,6 +1065,6 @@ msgstr ""
 
 #. module: shift_attendance
 #: model:ir.model,name:shift_attendance.model_shift_generate_missing_attendance_sheets
-msgid "beesdoo.shift.generate_missing_attendance_sheets"
+msgid "shift.generate_missing_attendance_sheets"
 msgstr ""
 

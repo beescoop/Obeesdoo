@@ -8,7 +8,7 @@
 
         <record id="res_config_settings_view_form" model="ir.ui.view">
             <field name="name">
-                res.config.settings.view.form.inherit.beesdoo.shift
+                res.config.settings.view.form.inherit.shift
             </field>
             <field name="model">res.config.settings</field>
             <field name="priority" eval="50" />
@@ -123,7 +123,7 @@
             <field name="name">Generate missing past attendance sheets</field>
             <field
                 name="res_model"
-            >beesdoo.shift.generate_missing_attendance_sheets</field>
+            >shift.generate_missing_attendance_sheets</field>
             <field name="view_mode">form</field>
         </record>
 
