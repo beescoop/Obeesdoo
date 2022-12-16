@@ -4,13 +4,15 @@
 {
     "name": "BEES coop Worker Status manager",
     "summary": """
-        Worker status management specific to beescoop.""",
+        Emptied""",
     "author": "Thibault Francois, Elouan Le Bars, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
     "version": "12.0.1.1.0",
-    "depends": ["beesdoo_shift"],
+    "depends": [
+        "shift_worker_status",
+    ],
     "data": [],
-    "demo": ["demo/tasks.xml"],
+    "demo": [],
     "license": "AGPL-3",
 }
