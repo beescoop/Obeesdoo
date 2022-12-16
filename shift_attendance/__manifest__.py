@@ -1,15 +1,13 @@
-# This module is, for now, specific to the BEES coop.
-# Therefore, this module depends on `beesdoo_worker_status`.
+# This module depends on `shift_worker_status`.
 # If someone needs this module but has another worker_status rules
 # this module can be splitted into a generic part, and a specific part
 # that implement the worker_status rules.
 {
-    "name": "BEES coop Shift Attendance Sheet",
+    "name": "Shift Attendance Sheet",
     "summary": """
-        Volonteer Timetable Management
-        Attendance Sheet for BEES coop""",
+        Volunteer Timetable Management""",
     "author": "Elouan Le Bars, Coop IT Easy SC",
-    "website": "https://github.com/beescoop/Obeesdoo",
+    "website": "https://github.com/OCA/shift-planning",
     "category": "Cooperative management",
     "version": "12.0.1.2.0",
     "depends": [
@@ -17,7 +15,7 @@
         "member_card",
         "eater_member_card",
         "shift",
-        "beesdoo_worker_status",
+        "shift_worker_status",
         "mail",
         "barcodes",
     ],
