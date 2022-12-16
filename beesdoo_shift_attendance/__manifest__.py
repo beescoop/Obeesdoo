@@ -11,7 +11,7 @@
     "author": "Elouan Le Bars, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
-    "version": "12.0.1.1.2",
+    "version": "12.0.1.2.0",
     "depends": [
         "eater",
         "member_card",
