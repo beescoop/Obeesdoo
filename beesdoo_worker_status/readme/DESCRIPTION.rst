@@ -1,1 +1,1 @@
-Worker status management specific to beescoop.
+Emptied
