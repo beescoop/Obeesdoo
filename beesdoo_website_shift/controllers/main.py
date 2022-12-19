@@ -103,7 +103,7 @@ class WebsiteShiftController(http.Controller):
         # Get current user
         cur_user = request.env["res.users"].browse(request.uid)
         # Get the shift
-        shift = request.env["beesdoo.shift.shift"].sudo().browse(shift_id)
+        shift = request.env["shift.shift"].sudo().browse(shift_id)
         # Get config
         irregular_enable_sign_up = request.website.irregular_enable_sign_up
         # Set start time limit as defined in beesdoo_shift settings
@@ -152,7 +152,7 @@ class WebsiteShiftController(http.Controller):
         for regular worker.
         """
         # Get all the task template
-        template = request.env["beesdoo.shift.template"]
+        template = request.env["shift.template"]
         task_templates = template.sudo().search(
             [], order="planning_id, day_nb_id, start_time"
         )
@@ -186,7 +186,7 @@ class WebsiteShiftController(http.Controller):
 
         display_all = False
         next_shifts = (
-            request.env["beesdoo.shift.shift"]
+            request.env["shift.shift"]
             .sudo()
             .search(
                 [
@@ -199,7 +199,7 @@ class WebsiteShiftController(http.Controller):
         )
         if "display_all" not in kw:
             # Get only underpopulated shifts
-            displayed_shifts = request.env["beesdoo.shift.shift"].sudo()
+            displayed_shifts = request.env["shift.shift"].sudo()
             min_percentage_presence = int(
                 request.env["ir.config_parameter"]
                 .sudo()
@@ -238,7 +238,7 @@ class WebsiteShiftController(http.Controller):
             raise Forbidden()
 
         # Get the shift
-        shift = request.env["beesdoo.shift.shift"].sudo().browse(shift_id)
+        shift = request.env["shift.shift"].sudo().browse(shift_id)
 
         if (
             shift
@@ -260,7 +260,7 @@ class WebsiteShiftController(http.Controller):
 
     @http.route("/shift/<int:shift_id>/unsubscribe", auth="user", website=True)
     def unsubscribe_to_shift(self, shift_id=-1, **kw):
-        shift = request.env["beesdoo.shift.shift"].sudo().browse(shift_id)
+        shift = request.env["shift.shift"].sudo().browse(shift_id)
         cur_user = request.env["res.users"].browse(request.uid)
         if shift:
             if (
@@ -345,7 +345,7 @@ class WebsiteShiftController(http.Controller):
         template_context = {}
 
         # Get all the task template
-        template = request.env["beesdoo.shift.template"]
+        template = request.env["shift.template"]
         task_templates = template.sudo().search(
             [], order="planning_id, day_nb_id, start_time"
         )
@@ -395,7 +395,7 @@ class WebsiteShiftController(http.Controller):
 
         # Get all the shifts in the future with no worker
         shifts = (
-            request.env["beesdoo.shift.shift"]
+            request.env["shift.shift"]
             .sudo()
             .search(
                 [
@@ -409,7 +409,7 @@ class WebsiteShiftController(http.Controller):
 
         # Get shifts where user is subscribed
         subscribed_shifts = (
-            request.env["beesdoo.shift.shift"]
+            request.env["shift.shift"]
             .sudo()
             .search(
                 [
@@ -504,7 +504,7 @@ class WebsiteShiftController(http.Controller):
         now = datetime.now()
         if past_shift_limit > 0:
             past_shifts = (
-                request.env["beesdoo.shift.shift"]
+                request.env["shift.shift"]
                 .sudo()
                 .search(
                     [
@@ -521,7 +521,7 @@ class WebsiteShiftController(http.Controller):
             )
         else:
             past_shifts = (
-                request.env["beesdoo.shift.shift"]
+                request.env["shift.shift"]
                 .sudo()
                 .search(
                     [
@@ -556,7 +556,7 @@ class WebsiteShiftController(http.Controller):
 
         # Get shifts where user is subscribed
         subscribed_shifts = (
-            request.env["beesdoo.shift.shift"]
+            request.env["shift.shift"]
             .sudo()
             .search(
                 [
@@ -607,7 +607,7 @@ class WebsiteShiftController(http.Controller):
         status = worker_id.cooperative_status_ids
         counter = status.sr + status.sc
         nb_compensation_shift = (
-            request.env["beesdoo.shift.shift"]
+            request.env["shift.shift"]
             .sudo()
             .search_count(
                 [
