@@ -6,8 +6,8 @@ from odoo.tests.common import TransactionCase
 class TestBeesdooWorkerStatusShiftSwap(TransactionCase):
     def setUp(self):
         super(TestBeesdooWorkerStatusShiftSwap, self).setUp()
-        self.shift_model = self.env["beesdoo.shift.shift"]
-        self.shift_template_model = self.env["beesdoo.shift.template"]
+        self.shift_model = self.env["shift.shift"]
+        self.shift_template_model = self.env["shift.template"]
         self.shift_template_dated_model = self.env["beesdoo.shift.template.dated"]
         self.shift_solidarity_offer_model = self.env["beesdoo.shift.solidarity.offer"]
         self.shift_solidarity_request_model = self.env[

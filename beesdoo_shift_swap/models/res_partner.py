@@ -226,12 +226,12 @@ class ResPartner(models.Model):
         One of these two parameters can be None if there are no shifts
         to subscribe/unsubscribe.
 
-        :param generated_shifts: beesdoo.shift.shift list
-        :param planned_shift: beesdoo.shift.shift list
+        :param generated_shifts: shift.shift list
+        :param planned_shift: shift.shift list
         :param exchanged_tmpl_dated: beesdoo.shift.template.dated
         :param wanted_tmpl_dated: beesdoo.shift.template.dated
         :param solidarity_offer: beesdoo.shift.solidarity.offer
-        :return planned_shift: beesdoo.shift.shift list
+        :return planned_shift: shift.shift list
         """
         self.ensure_one()
         if exchanged_tmpl_dated and exchanged_tmpl_dated.date > datetime.now():

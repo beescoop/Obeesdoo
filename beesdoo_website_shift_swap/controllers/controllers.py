@@ -164,9 +164,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
             ).sudo()
             email_values = {
                 "partner_to": asked_worker,
-                "template_id": request.env["beesdoo.shift.template"]
-                .sudo()
-                .browse(template_id),
+                "template_id": request.env["shift.template"].sudo().browse(template_id),
                 "exchanged_shift_date": exchanged_shift_date,
                 "asked_shift_date": asked_shift_date,
             }
@@ -507,7 +505,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         date = request.session["date"]
 
         shift = (
-            request.env["beesdoo.shift.shift"]
+            request.env["shift.shift"]
             .sudo()
             .search(
                 [
@@ -524,7 +522,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
                 {"worker_id": False, "is_regular": False, "is_compensation": False}
             )
             user.partner_id.cooperative_status_ids.sc -= 1
-            template = self.env["beesdoo.shift.template"].browse(template_id)
+            template = self.env["shift.template"].browse(template_id)
             self.env["beesdoo.shift.exchange_request"].cancel_matching_requests(
                 user.partner_id, template, date
             )
@@ -1129,9 +1127,9 @@ class WebsiteShiftSwapController(WebsiteShiftController):
 
         user = request.env["res.users"].sudo().browse(request.uid)
 
-        absent_states = request.env["beesdoo.shift.shift"].sudo().get_absent_state()
+        absent_states = request.env["shift.shift"].sudo().get_absent_state()
         not_attended_shift = (
-            request.env["beesdoo.shift.shift"]
+            request.env["shift.shift"]
             .sudo()
             .search(
                 [

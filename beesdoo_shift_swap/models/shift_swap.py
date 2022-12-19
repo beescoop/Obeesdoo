@@ -47,7 +47,7 @@ class ShiftSwap(models.Model):
         :return: Boolean
         """
         if self.exchanged_tmpl_dated_id:
-            exchanged_shift = self.env["beesdoo.shift.shift"].search(
+            exchanged_shift = self.env["shift.shift"].search(
                 [
                     ("start_time", "=", self.exchanged_tmpl_dated_id.date),
                     ("worker_id", "=", self.worker_id.id),
@@ -77,7 +77,7 @@ class ShiftSwap(models.Model):
         :return: Boolean
         """
         if self.wanted_tmpl_dated_id:
-            wanted_shift = self.env["beesdoo.shift.shift"].search(
+            wanted_shift = self.env["shift.shift"].search(
                 [
                     ("start_time", "=", self.wanted_tmpl_dated_id.date),
                     (
@@ -101,7 +101,7 @@ class ShiftSwap(models.Model):
 
     def update_shift_data(self, shift, swap_subscription_done):
         """
-        See method info in model beesdoo.shift.swap.mixin
+        See method info in model shift.swap.mixin
         """
         self.ensure_one()
         if (

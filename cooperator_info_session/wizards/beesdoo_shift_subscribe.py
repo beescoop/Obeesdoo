@@ -5,7 +5,7 @@ from odoo import fields, models
 
 
 class Subscribe(models.TransientModel):
-    _inherit = "beesdoo.shift.subscribe"
+    _inherit = "shift.subscribe"
 
     def _get_info_session_followed(self):
         """
