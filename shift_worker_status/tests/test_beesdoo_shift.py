@@ -10,8 +10,8 @@ from odoo.tests.common import TransactionCase
 class TestBeesdooShift(TransactionCase):
     def setUp(self):
         super(TestBeesdooShift, self).setUp()
-        self.shift_model = self.env["beesdoo.shift.shift"]
-        self.shift_template_model = self.env["beesdoo.shift.template"]
+        self.shift_model = self.env["shift.shift"]
+        self.shift_template_model = self.env["shift.template"]
 
         self.current_time = datetime.now()
         self.user_admin = self.env.ref("base.user_root")

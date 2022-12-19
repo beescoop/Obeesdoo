@@ -105,7 +105,7 @@ msgstr ""
 
 #. module: beesdoo_worker_status
 #: model:ir.model,name:beesdoo_worker_status.model_shift_shift
-msgid "beesdoo.shift.shift"
+msgid "shift.shift"
 msgstr ""
 
 #. module: beesdoo_worker_status
