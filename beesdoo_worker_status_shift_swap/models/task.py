@@ -4,7 +4,7 @@ from odoo import models
 
 
 class Task(models.Model):
-    _inherit = "beesdoo.shift.shift"
+    _inherit = "shift.shift"
 
     def _get_counter_date_state_change(self, new_state):
         data, status = super(Task, self)._get_counter_date_state_change(new_state)
