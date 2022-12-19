@@ -23,9 +23,7 @@ class ResConfigSettings(models.TransientModel):
         string="Time interval for attendance sheet generation",
         help="Time interval expressed in minutes",
         required=True,
-        config_parameter=(
-            "shift_attendance.attendance_sheet_generation_interval"
-        ),
+        config_parameter=("shift_attendance.attendance_sheet_generation_interval"),
     )
     attendance_sheet_default_shift_state = fields.Selection(
         [
@@ -36,8 +34,6 @@ class ResConfigSettings(models.TransientModel):
         ],
         string="Default Shift State",
         required=True,
-        config_parameter=(
-            "shift_attendance.attendance_sheet_default_shift_state"
-        ),
+        config_parameter=("shift_attendance.attendance_sheet_default_shift_state"),
         help="Default state set for shifts on attendance sheets",
     )

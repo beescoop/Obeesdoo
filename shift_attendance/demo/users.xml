@@ -36,10 +36,7 @@
         <field name="partner_id" ref="shift_partner_2_demo" />
         <field name="login">permanent</field>
         <field name="password">demo</field>
-        <field
-            name="groups_id"
-            eval="[(4,ref('shift.group_shift_management'))]"
-        />
+        <field name="groups_id" eval="[(4,ref('shift.group_shift_management'))]" />
     </record>
 
 </odoo>

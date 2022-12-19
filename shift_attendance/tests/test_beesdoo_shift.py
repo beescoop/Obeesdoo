@@ -25,27 +25,17 @@ class TestShift(TransactionCase):
 
         self.current_time = datetime.now()
         self.user_admin = self.env.ref("base.user_root")
-        self.user_generic = self.env.ref(
-            "shift_attendance.shift_user_1_demo"
-        )
-        self.user_permanent = self.env.ref(
-            "shift_attendance.shift_user_2_demo"
-        )
+        self.user_generic = self.env.ref("shift_attendance.shift_user_1_demo")
+        self.user_permanent = self.env.ref("shift_attendance.shift_user_2_demo")
 
         self.setting_wizard = self.env["res.config.settings"].sudo(self.user_admin)
 
         self.worker_regular_1 = self.env.ref("shift.res_partner_worker_6_demo")
         self.worker_regular_2 = self.env.ref("shift.res_partner_worker_5_demo")
         self.worker_regular_3 = self.env.ref("shift.res_partner_worker_3_demo")
-        self.worker_regular_super_1 = self.env.ref(
-            "shift.res_partner_worker_1_demo"
-        )
-        self.worker_irregular_1 = self.env.ref(
-            "shift.res_partner_worker_2_demo"
-        )
-        self.worker_irregular_2 = self.env.ref(
-            "shift.res_partner_worker_4_demo"
-        )
+        self.worker_regular_super_1 = self.env.ref("shift.res_partner_worker_1_demo")
+        self.worker_irregular_1 = self.env.ref("shift.res_partner_worker_2_demo")
+        self.worker_irregular_2 = self.env.ref("shift.res_partner_worker_4_demo")
 
         self.task_type_1 = self.env.ref("shift.shift_task_type_1_demo")
         self.task_type_2 = self.env.ref("shift.shift_task_type_2_demo")
