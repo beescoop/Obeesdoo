@@ -28,9 +28,7 @@ class GenerateShiftTemplate(models.TransientModel):
         "shift.type",
         default=lambda self: self._context.get("active_id"),
     )
-    line_ids = fields.One2many(
-        "shift.generate_shift_template.line", "wizard_id"
-    )
+    line_ids = fields.One2many("shift.generate_shift_template.line", "wizard_id")
 
     @api.multi
     def generate(self):
@@ -49,9 +47,7 @@ class GenerateShiftTemplate(models.TransientModel):
                         "duration": line.end_time - line.start_time,
                         "worker_nb": line.worker_nb,
                     }
-                    new_rec = self.env["shift.template"].create(
-                        shift_template_data
-                    )
+                    new_rec = self.env["shift.template"].create(shift_template_data)
                     ids.append(new_rec.id)
         return {
             "name": _("Generated Shift Template"),

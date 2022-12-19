@@ -26,9 +26,7 @@ class AttendanceSheetShift(models.Model):
     def pre_filled_task_type_id(self):
         parameters = self.env["ir.config_parameter"].sudo()
         tasktype_id = int(
-            parameters.get_param(
-                "shift_attendance.pre_filled_task_type_id", default=1
-            )
+            parameters.get_param("shift_attendance.pre_filled_task_type_id", default=1)
         )
         task_types = self.env["shift.type"]
         return task_types.browse(tasktype_id)

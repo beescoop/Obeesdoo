@@ -53,7 +53,9 @@ def model_to_table(name):
 def rename_beesdoo(cr):
     cr.execute(
         "SELECT id FROM ir_module_module "
-        "WHERE name=%s and state IN ('installed', 'to upgrade')", (OLD_MODULE_NAME,))
+        "WHERE name=%s and state IN ('installed', 'to upgrade')",
+        (OLD_MODULE_NAME,),
+    )
     if not cr.fetchone():
         return
 

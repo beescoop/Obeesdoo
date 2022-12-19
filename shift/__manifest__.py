@@ -12,7 +12,7 @@
         Coop IT Easy SC,
         Odoo Community Association (OCA),
         """,
-    "website": "https://github.com/OCA/shift-planning",
+    "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
     "version": "12.0.4.0.0",
     "depends": ["mail"],

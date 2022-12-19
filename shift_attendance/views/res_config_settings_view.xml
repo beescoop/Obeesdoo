@@ -12,10 +12,7 @@
             </field>
             <field name="model">res.config.settings</field>
             <field name="priority" eval="50" />
-            <field
-                name="inherit_id"
-                ref="shift.res_config_settings_shift_view_form"
-            />
+            <field name="inherit_id" ref="shift.res_config_settings_shift_view_form" />
             <field name="arch" type="xml">
                 <xpath expr="//div[@id='shift_settings_block']" position="inside">
                     <h2>Attendance Sheets</h2>
@@ -121,9 +118,7 @@
 
         <record model="ir.actions.act_window" id="action_missing_attendance_sheets">
             <field name="name">Generate missing past attendance sheets</field>
-            <field
-                name="res_model"
-            >shift.generate_missing_attendance_sheets</field>
+            <field name="res_model">shift.generate_missing_attendance_sheets</field>
             <field name="view_mode">form</field>
         </record>
 

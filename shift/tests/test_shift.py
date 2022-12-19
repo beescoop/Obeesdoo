@@ -21,9 +21,7 @@ class TestShift(TransactionCase):
         self.user_demo = self.env.ref("base.user_demo")
 
         self.worker_regular_1 = self.env.ref("shift.res_partner_worker_1_demo")
-        self.worker_irregular_2 = self.env.ref(
-            "shift.res_partner_worker_2_demo"
-        )
+        self.worker_irregular_2 = self.env.ref("shift.res_partner_worker_2_demo")
         self.worker_regular_3 = self.env.ref("shift.res_partner_worker_3_demo")
         self.worker_regular_5 = self.env.ref("shift.res_partner_worker_5_demo")
         self.worker_regular_6 = self.env.ref("shift.res_partner_worker_6_demo")
