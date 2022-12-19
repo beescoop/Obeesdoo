@@ -49,9 +49,9 @@ class TaskType(models.TransientModel):
 
     def _get_next_shift(self, partner):
         if not partner:
-            return self.env["beesdoo.shift.shift"]
+            return self.env["shift.shift"]
         now = datetime.now()
-        return self.env["beesdoo.shift.shift"].search(
+        return self.env["shift.shift"].search(
             [
                 ("start_time", ">", now),
                 ("worker_id", "=", partner.id),
