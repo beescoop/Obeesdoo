@@ -50,6 +50,11 @@ msgid "Cancelled"
 msgstr ""
 
 #. module: beesdoo_worker_status
+#: model:ir.model,name:beesdoo_worker_status.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: beesdoo_worker_status
 #: code:addons/beesdoo_worker_status/models/task.py:51
 #, python-format
 msgid "Confirmed"
@@ -71,8 +76,25 @@ msgid "Next Countdown Date"
 msgstr ""
 
 #. module: beesdoo_worker_status
+#: model:ir.model.fields,field_description:beesdoo_worker_status.field_res_config_settings__irregular_penalty
+msgid "Penalty for irregular worker with negative counter"
+msgstr ""
+
+#. module: beesdoo_worker_status
+#: model_terms:ir.ui.view,arch_db:beesdoo_worker_status.res_config_settings_shift_view_form
+msgid "Penalty when irregular worker counter goes below zero."
+msgstr ""
+
+#. module: beesdoo_worker_status
 #: model:ir.model.fields,field_description:beesdoo_worker_status.field_beesdoo_shift_shift__state
 msgid "State"
+msgstr ""
+
+#. module: beesdoo_worker_status
+#: model:ir.model.fields,help:beesdoo_worker_status.field_res_config_settings__irregular_penalty
+msgid "When selected, the irregular worker's counter will decrease\n"
+"        by two when at zero or below, unless they were in alert\n"
+"        before or were already penalized."
 msgstr ""
 
 #. module: beesdoo_worker_status
