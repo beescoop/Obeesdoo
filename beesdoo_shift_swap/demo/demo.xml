@@ -24,7 +24,7 @@
   </record>
 
   <!-- Task Template -->
-  <record id="task_template_1_demo" model="beesdoo.shift.template">
+  <record id="task_template_1_demo" model="shift.template">
       <field name="name">A_TUE-10:00-12:00</field>
       <field name="planning_id" ref="beesdoo_shift.beesdoo_shift_planning_1_demo" />
       <field name="day_nb_id" ref="beesdoo_shift.beesdoo_shift_daynumber_2_demo" />
@@ -37,7 +37,7 @@
       <field name="remaining_worker">5</field>
   </record>
 
-  <record id="task_template_2_demo" model="beesdoo.shift.template">
+  <record id="task_template_2_demo" model="shift.template">
       <field name="name">A_WED-10:00-12:00</field>
       <field name="planning_id" ref="beesdoo_shift.beesdoo_shift_planning_1_demo" />
       <field name="day_nb_id" ref="beesdoo_shift.beesdoo_shift_daynumber_3_demo" />
@@ -53,7 +53,7 @@
       <field name="remaining_worker">4</field>
   </record>
 
-  <record id="task_template_3_demo" model="beesdoo.shift.template">
+  <record id="task_template_3_demo" model="shift.template">
       <field name="name">A_THU-10:00-12:00</field>
       <field name="planning_id" ref="beesdoo_shift.beesdoo_shift_planning_1_demo" />
       <field name="day_nb_id" ref="beesdoo_shift.beesdoo_shift_daynumber_4_demo" />

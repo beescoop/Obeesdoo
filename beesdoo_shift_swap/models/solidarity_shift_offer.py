@@ -35,7 +35,7 @@ class SolidarityShiftOffer(models.Model):
         readonly=True,
     )
 
-    shift_id = fields.Many2one("beesdoo.shift.shift", string="Generated shift")
+    shift_id = fields.Many2one("shift.shift", string="Generated shift")
 
     def create(self, vals_list):
         """
@@ -53,7 +53,7 @@ class SolidarityShiftOffer(models.Model):
         :return: Boolean
         """
         if self.tmpl_dated_id:
-            future_subscribed_shift = self.env["beesdoo.shift.shift"].search(
+            future_subscribed_shift = self.env["shift.shift"].search(
                 [
                     ("start_time", "=", self.tmpl_dated_id.date),
                     ("task_template_id", "=", self.tmpl_dated_id.template_id.id),
@@ -83,7 +83,7 @@ class SolidarityShiftOffer(models.Model):
             and self.tmpl_dated_id.date > datetime.now()
             and self.state == "validated"
         ):
-            subscribed_solidarity_shift = self.env["beesdoo.shift.shift"].search(
+            subscribed_solidarity_shift = self.env["shift.shift"].search(
                 [
                     ("start_time", "=", self.tmpl_dated_id.date),
                     ("task_template_id", "=", self.tmpl_dated_id.template_id.id),

@@ -3,7 +3,7 @@ from odoo import _, api, fields, models
 
 class Task(models.Model):
 
-    _inherit = "beesdoo.shift.shift"
+    _inherit = "shift.shift"
 
     solidarity_offer_ids = fields.One2many(
         "beesdoo.shift.solidarity.offer",

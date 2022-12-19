@@ -16,7 +16,7 @@ class Exchange(models.Model):
 
     def search_shift_generated(self, request):
         # TODO: move to model beesdoo.shift.exchange_request
-        return self.env["beesdoo.shift.shift"].search(
+        return self.env["shift.shift"].search(
             [
                 ("start_time", "=", request.exchanged_tmpl_dated_id.date),
                 (
