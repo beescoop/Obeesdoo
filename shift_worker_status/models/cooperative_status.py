@@ -309,12 +309,12 @@ class CooperativeStatus(models.Model):
             # Remove worker from task_templates
             self.cooperator_id.sudo().write({"subscribed_shift_ids": [(5, 0, 0)]})
             # Remove worker from supercoop in task_templates
-            task_tpls = self.env["beesdoo.shift.template"].search(
+            task_tpls = self.env["shift.template"].search(
                 [("super_coop_id", "in", self.cooperator_id.user_ids.ids)]
             )
             task_tpls.write({"super_coop_id": False})
             # Remove worker for future tasks (remove also supercoop)
-            self.env["beesdoo.shift.shift"].sudo().unsubscribe_from_today(
+            self.env["shift.shift"].sudo().unsubscribe_from_today(
                 self.cooperator_id, now=fields.Datetime.now()
             )
 

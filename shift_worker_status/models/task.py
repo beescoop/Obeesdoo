@@ -4,7 +4,7 @@ from odoo.tools.translate import _
 
 
 class Task(models.Model):
-    _inherit = "beesdoo.shift.shift"
+    _inherit = "shift.shift"
 
     def _compensation_validation(self, task):
         """

@@ -5,7 +5,7 @@
 -->
 <odoo>
 
-    <record id="shift_task_template_1_demo" model="beesdoo.shift.template">
+    <record id="shift_task_template_1_demo" model="shift.template">
         <field name="name">A_LUN_7:00-9:30</field>
         <field name="planning_id" ref="shift.shift_planning_1_demo" />
         <field name="day_nb_id" ref="shift.shift_daynumber_1_demo" />
@@ -20,7 +20,7 @@
         />
     </record>
 
-    <record id="shift_task_template_2_demo" model="beesdoo.shift.template">
+    <record id="shift_task_template_2_demo" model="shift.template">
         <field name="name">A_MAR_12:00-14:30</field>
         <field name="planning_id" ref="shift.shift_planning_1_demo" />
         <field name="day_nb_id" ref="shift.shift_daynumber_2_demo" />
@@ -36,7 +36,7 @@
         />
     </record>
 
-    <record id="shift_task_template_3_demo" model="beesdoo.shift.template">
+    <record id="shift_task_template_3_demo" model="shift.template">
         <field name="name">A_VEN_7:00-9:30</field>
         <field name="planning_id" ref="shift.shift_planning_1_demo" />
         <field name="day_nb_id" ref="shift.shift_daynumber_5_demo" />
