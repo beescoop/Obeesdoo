@@ -8,6 +8,9 @@
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
     "version": "12.0.2.0.0",
-    "depends": ["beesdoo_shift_swap", "beesdoo_worker_status"],
+    "depends": [
+        "beesdoo_shift_swap",
+        "shift_worker_status",
+    ],
     "license": "AGPL-3",
 }
