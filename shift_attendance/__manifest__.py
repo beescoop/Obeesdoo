@@ -6,7 +6,11 @@
     "name": "Shift Attendance Sheet",
     "summary": """
         Volunteer Timetable Management""",
-    "author": "Elouan Le Bars, Coop IT Easy SC",
+    "author": """
+        Elouan Le Bars,
+        Coop IT Easy SC,
+        Odoo Community Association (OCA),
+        """,
     "website": "https://github.com/OCA/shift-planning",
     "category": "Cooperative management",
     "version": "12.0.1.2.0",
