@@ -31,15 +31,15 @@ class TestBeesdooShift(TransactionCase):
         self.task_type_3 = self.env.ref("shift.shift_task_type_3_demo")
 
         self.task_template_1 = self.env.ref(
-            "beesdoo_worker_status.shift_task_template_1_demo"
+            "shift_worker_status.shift_task_template_1_demo"
         )
         self.task_template_2 = self.env.ref(
-            "beesdoo_worker_status.shift_task_template_2_demo"
+            "shift_worker_status.shift_task_template_2_demo"
         )
 
         self.exempt_reason_1 = self.env.ref("shift.exempt_reason_1_demo")
         config = self.env["ir.config_parameter"].sudo()
-        config.set_param("beesdoo_worker_status.irregular_penalty", True)
+        config.set_param("shift_worker_status.irregular_penalty", True)
 
     def test_shift_counters(self):
         "Test shift counters calculation and cooperative status update"
@@ -187,7 +187,7 @@ class TestBeesdooShift(TransactionCase):
 
     def test_shift_config_penalty_disabled(self):
         config = self.env["ir.config_parameter"].sudo()
-        config.set_param("beesdoo_worker_status.irregular_penalty", False)
+        config.set_param("shift_worker_status.irregular_penalty", False)
 
         worker = self.worker_irregular_1
         worker.cooperative_status_ids.sr = 0

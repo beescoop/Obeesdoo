@@ -11,7 +11,7 @@
     "version": "12.0.1.1.0",
     "depends": ["shift"],
     "data": [
-        "data/beesdoo_worker_status_data.xml",
+        "data/data.xml",
         "views/res_config_settings_view.xml",
     ],
     "demo": ["demo/tasks.xml"],

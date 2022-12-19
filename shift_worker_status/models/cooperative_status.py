@@ -353,7 +353,7 @@ class CooperativeStatus(models.Model):
         irregular_penalty = (
             self.env["ir.config_parameter"]
             .sudo()
-            .get_param("beesdoo_worker_status.irregular_penalty")
+            .get_param("shift_worker_status.irregular_penalty")
         )
         if irregular_penalty:
             if self.sr > 0:
