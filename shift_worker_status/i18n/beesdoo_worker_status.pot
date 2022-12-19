@@ -86,7 +86,7 @@ msgid "Penalty when irregular worker counter goes below zero."
 msgstr ""
 
 #. module: beesdoo_worker_status
-#: model:ir.model.fields,field_description:beesdoo_worker_status.field_beesdoo_shift_shift__state
+#: model:ir.model.fields,field_description:beesdoo_worker_status.field_shift_shift__state
 msgid "State"
 msgstr ""
 
@@ -104,7 +104,7 @@ msgid "You must choose between Regular Shift or Compensation Shift."
 msgstr ""
 
 #. module: beesdoo_worker_status
-#: model:ir.model,name:beesdoo_worker_status.model_beesdoo_shift_shift
+#: model:ir.model,name:beesdoo_worker_status.model_shift_shift
 msgid "beesdoo.shift.shift"
 msgstr ""
 

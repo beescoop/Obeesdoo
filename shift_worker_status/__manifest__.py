@@ -9,7 +9,7 @@
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
     "version": "12.0.1.1.0",
-    "depends": ["beesdoo_shift"],
+    "depends": ["shift"],
     "data": [
         "data/beesdoo_worker_status_data.xml",
         "views/res_config_settings_view.xml",

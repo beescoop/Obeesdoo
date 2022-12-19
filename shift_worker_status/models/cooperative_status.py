@@ -1,6 +1,6 @@
 from odoo import api, fields, models
 
-from odoo.addons.beesdoo_shift.models.cooperative_status import add_days_delta
+from odoo.addons.shift.models.cooperative_status import add_days_delta
 
 
 class CooperativeStatus(models.Model):
