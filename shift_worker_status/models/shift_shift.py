@@ -3,7 +3,7 @@ from odoo.exceptions import UserError, ValidationError
 from odoo.tools.translate import _
 
 
-class Task(models.Model):
+class Shift(models.Model):
     _inherit = "shift.shift"
 
     def _compensation_validation(self, task):
