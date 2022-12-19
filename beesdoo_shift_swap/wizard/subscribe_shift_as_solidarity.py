@@ -18,9 +18,9 @@ class SubscribeShiftAsSolidarity(models.TransientModel):
     )
 
     shift_id = fields.Many2one(
-        "beesdoo.shift.shift",
+        "shift.shift",
         string="Shift",
-        default=lambda self: self.env["beesdoo.shift.shift"].browse(
+        default=lambda self: self.env["shift.shift"].browse(
             self._context.get("active_id")
         ),
         required=True,
@@ -30,10 +30,8 @@ class SubscribeShiftAsSolidarity(models.TransientModel):
     @api.onchange("shift_id")
     def _get_possible_workers(self):
         for record in self:
-            shift = self.env["beesdoo.shift.shift"].browse(
-                self._context.get("active_id")
-            )
-            taken_shifts = self.env["beesdoo.shift.shift"].search(
+            shift = self.env["shift.shift"].browse(self._context.get("active_id"))
+            taken_shifts = self.env["shift.shift"].search(
                 [
                     ("task_template_id", "=", shift.task_template_id.id),
                     ("start_time", "=", shift.start_time),
@@ -68,7 +66,7 @@ class SubscribeShiftAsSolidarity(models.TransientModel):
     @api.multi
     def create_offer(self):
         self._check()
-        shift = self.env["beesdoo.shift.shift"].browse(self._context.get("active_id"))
+        shift = self.env["shift.shift"].browse(self._context.get("active_id"))
         tmpl_dated = self.env["beesdoo.shift.template.dated"].create(
             {
                 "template_id": shift.task_template_id.id,
@@ -83,7 +81,7 @@ class SubscribeShiftAsSolidarity(models.TransientModel):
         return {
             "name": _("Shifts"),
             "type": "ir.actions.act_window",
-            "res_model": "beesdoo.shift.shift",
+            "res_model": "shift.shift",
             "views": [
                 [False, "kanban"],
                 [False, "calendar"],

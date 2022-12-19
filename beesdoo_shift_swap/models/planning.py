@@ -3,7 +3,7 @@ from odoo import api, models
 
 class TaskTemplate(models.Model):
 
-    _inherit = "beesdoo.shift.template"
+    _inherit = "shift.template"
 
     @api.multi
     def _prepare_task_day(self):

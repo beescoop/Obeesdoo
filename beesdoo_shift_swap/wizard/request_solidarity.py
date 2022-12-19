@@ -69,8 +69,8 @@ class RequestSolidarityShift(models.TransientModel):
                 status = record.worker_id.cooperative_status_ids
                 if status.sr + status.sc < 0:
                     # Get past absent shifts
-                    absent_states = self.env["beesdoo.shift.shift"].get_absent_state()
-                    past_shift_possible = self.env["beesdoo.shift.shift"].search(
+                    absent_states = self.env["shift.shift"].get_absent_state()
+                    past_shift_possible = self.env["shift.shift"].search(
                         [
                             ("worker_id", "=", record.worker_id.id),
                             ("state", "in", absent_states),
