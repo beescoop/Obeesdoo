@@ -187,8 +187,7 @@ class Planning(models.Model):
 
         # Converting dictionary to recordset
         shift_list = existing_shift_list + [
-            self.env["shift.shift"].new(shift)
-            for shift in filtered_future_shift_list
+            self.env["shift.shift"].new(shift) for shift in filtered_future_shift_list
         ]
 
         return shift_list
