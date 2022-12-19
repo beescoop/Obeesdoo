@@ -16,28 +16,28 @@ class TestBeesdooShift(TransactionCase):
         self.current_time = datetime.now()
         self.user_admin = self.env.ref("base.user_root")
 
-        self.worker_regular_1 = self.env.ref("beesdoo_shift.res_partner_worker_1_demo")
-        self.worker_regular_2 = self.env.ref("beesdoo_shift.res_partner_worker_3_demo")
-        self.worker_regular_3 = self.env.ref("beesdoo_shift.res_partner_worker_5_demo")
+        self.worker_regular_1 = self.env.ref("shift.res_partner_worker_1_demo")
+        self.worker_regular_2 = self.env.ref("shift.res_partner_worker_3_demo")
+        self.worker_regular_3 = self.env.ref("shift.res_partner_worker_5_demo")
         self.worker_irregular_1 = self.env.ref(
-            "beesdoo_shift.res_partner_worker_2_demo"
+            "shift.res_partner_worker_2_demo"
         )
         self.worker_irregular_2 = self.env.ref(
-            "beesdoo_shift.res_partner_worker_4_demo"
+            "shift.res_partner_worker_4_demo"
         )
 
-        self.task_type_1 = self.env.ref("beesdoo_shift.beesdoo_shift_task_type_1_demo")
-        self.task_type_2 = self.env.ref("beesdoo_shift.beesdoo_shift_task_type_2_demo")
-        self.task_type_3 = self.env.ref("beesdoo_shift.beesdoo_shift_task_type_3_demo")
+        self.task_type_1 = self.env.ref("shift.shift_task_type_1_demo")
+        self.task_type_2 = self.env.ref("shift.shift_task_type_2_demo")
+        self.task_type_3 = self.env.ref("shift.shift_task_type_3_demo")
 
         self.task_template_1 = self.env.ref(
-            "beesdoo_worker_status.beesdoo_shift_task_template_1_demo"
+            "beesdoo_worker_status.shift_task_template_1_demo"
         )
         self.task_template_2 = self.env.ref(
-            "beesdoo_worker_status.beesdoo_shift_task_template_2_demo"
+            "beesdoo_worker_status.shift_task_template_2_demo"
         )
 
-        self.exempt_reason_1 = self.env.ref("beesdoo_shift.exempt_reason_1_demo")
+        self.exempt_reason_1 = self.env.ref("shift.exempt_reason_1_demo")
         config = self.env["ir.config_parameter"].sudo()
         config.set_param("beesdoo_worker_status.irregular_penalty", True)
 
