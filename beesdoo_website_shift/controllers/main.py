@@ -13,7 +13,7 @@ from odoo import _, http
 from odoo.fields import Datetime
 from odoo.http import request
 
-from odoo.addons.beesdoo_shift.models.planning import float_to_time
+from odoo.addons.shift.models.planning import float_to_time
 
 from .shift_grid_utils import DisplayedShift, build_shift_grid
 
