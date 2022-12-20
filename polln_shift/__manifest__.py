@@ -9,7 +9,7 @@
     "website": "https://github.com/beescoop/Obeesdoo",
     "version": "12.0.2.0.0",
     "depends": [
-        "beesdoo_shift",
+        "shift",
         "beesdoo_website_shift",
         "contacts",
         "beesdoo_easy_my_coop",

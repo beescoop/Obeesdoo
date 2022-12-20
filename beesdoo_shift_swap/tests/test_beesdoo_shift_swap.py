@@ -20,19 +20,17 @@ class TestBeesdooShiftSwap(TransactionCase):
         self.now = datetime.now()
         self.user_admin = self.env.ref("base.user_root")
 
-        self.worker_regular_1 = self.env.ref("beesdoo_shift.res_partner_worker_1_demo")
-        self.worker_regular_2 = self.env.ref("beesdoo_shift.res_partner_worker_3_demo")
-        self.worker_irregular_1 = self.env.ref(
-            "beesdoo_shift.res_partner_worker_2_demo"
-        )
+        self.worker_regular_1 = self.env.ref("shift.res_partner_worker_1_demo")
+        self.worker_regular_2 = self.env.ref("shift.res_partner_worker_3_demo")
+        self.worker_irregular_1 = self.env.ref("shift.res_partner_worker_2_demo")
 
         self.task_template_1 = self.env.ref("beesdoo_shift_swap.task_template_1_demo")
         self.task_template_2 = self.env.ref("beesdoo_shift_swap.task_template_2_demo")
         self.task_template_3 = self.env.ref("beesdoo_shift_swap.task_template_3_demo")
 
-        self.task_type_1 = self.env.ref("beesdoo_shift.beesdoo_shift_task_type_1_demo")
+        self.task_type_1 = self.env.ref("shift.shift_task_type_1_demo")
 
-        self.exempt_reason_1 = self.env.ref("beesdoo_shift.exempt_reason_1_demo")
+        self.exempt_reason_1 = self.env.ref("shift.exempt_reason_1_demo")
 
         # Set context to avoid shift generation in the past
         self.env.context = dict(self.env.context, visualize_date=date.today())

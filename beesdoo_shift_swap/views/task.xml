@@ -4,7 +4,7 @@
     <record model="ir.ui.view" id="task_view_form_extended">
         <field name="name">Shift form extended</field>
         <field name="model">shift.shift</field>
-        <field name="inherit_id" ref="beesdoo_shift.task_view_form" />
+        <field name="inherit_id" ref="shift.task_view_form" />
         <field name="arch" type="xml">
             <xpath expr="//header/field[@name='state']" position="before">
                 <button
@@ -12,7 +12,7 @@
                     string="Subscribe as a solidarity shift"
                     class="oe_highlight"
                     type="object"
-                    groups="beesdoo_shift.group_shift_management"
+                    groups="shift.group_shift_management"
                     attrs="{'invisible': ['|',('state','!=','open'),('worker_id','!=',False)]}"
                 />
             </xpath>
@@ -22,7 +22,7 @@
                     string="Cancel solidarity shift"
                     class="oe_highlight"
                     type="object"
-                    groups="beesdoo_shift.group_shift_management"
+                    groups="shift.group_shift_management"
                     attrs="{'invisible': ['|',('is_solidarity','=',False),('state','!=','open')]}"
                 />
             </xpath>
@@ -49,7 +49,7 @@
     <record model="ir.ui.view" id="task_shift_view_kanban_extended">
         <field name="name">Shift kanban extended</field>
         <field name="model">shift.shift</field>
-        <field name="inherit_id" ref="beesdoo_shift.task_shift_view_kanban" />
+        <field name="inherit_id" ref="shift.task_shift_view_kanban" />
         <field name="priority">100</field>
         <field name="arch" type="xml">
             <field name="is_regular" position="after">

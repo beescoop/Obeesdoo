@@ -6,7 +6,7 @@
             <field name="model">res.partner</field>
             <field
             name="inherit_id"
-            ref="beesdoo_shift.super_coop_partner_inherited_view_form"
+            ref="shift.super_coop_partner_inherited_view_form"
         />
             <field name="arch" type="xml">
                 <field name="super" position="after">

@@ -6,7 +6,7 @@ from datetime import timedelta
 
 from odoo import _, api, fields, models
 
-from odoo.addons.beesdoo_shift.models.cooperative_status import add_days_delta
+from odoo.addons.shift.models.cooperative_status import add_days_delta
 
 
 def time_to_float(t):

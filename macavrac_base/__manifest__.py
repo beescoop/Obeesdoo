@@ -8,7 +8,7 @@
     "category": "Sales",
     "website": "https://github.com/beescoop/Obeesdoo",
     "version": "12.0.1.0.0",
-    "depends": ["beesdoo_shift", "contacts"],
+    "depends": ["shift", "contacts"],
     "data": ["views/res_partner.xml"],
     "installable": True,
     "license": "AGPL-3",

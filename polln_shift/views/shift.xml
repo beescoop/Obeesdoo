@@ -2,7 +2,7 @@
     <record model="ir.ui.view" id="task_template_view_form_inherit">
         <field name="name">Task Template Form Inherit</field>
         <field name="model">shift.template</field>
-        <field name="inherit_id" ref="beesdoo_shift.task_template_view_form" />
+        <field name="inherit_id" ref="shift.task_template_view_form" />
         <field name="arch" type="xml">
             <field name="task_type_id" position="after">
                 <field name="shift_presence_value" />
@@ -15,7 +15,7 @@
 
     <record model="ir.ui.view" id="task_view_form_inherit">
         <field name="name">Task Form inherit</field>
-        <field name="inherit_id" ref="beesdoo_shift.task_view_form" />
+        <field name="inherit_id" ref="shift.task_view_form" />
         <field name="model">shift.shift</field>
         <field name="arch" type="xml">
             <field name="replaced_id" position="attributes">
@@ -37,7 +37,7 @@
 
     <record model="ir.ui.view" id="coop_status_form_view_inherit">
         <field name="name">Coop Status Form View Inherit</field>
-        <field name="inherit_id" ref="beesdoo_shift.coop_status_form_view" />
+        <field name="inherit_id" ref="shift.coop_status_form_view" />
         <field name="model">cooperative.status</field>
         <field name="arch" type="xml">
             <field name="irregular_start_date" position="attributes">
@@ -58,7 +58,7 @@
 
     <record model="ir.ui.view" id="coop_status_tree_view_inherit">
         <field name="name">Coop Status Tree View Inherit</field>
-        <field name="inherit_id" ref="beesdoo_shift.coop_status_tree_view" />
+        <field name="inherit_id" ref="shift.coop_status_tree_view" />
         <field name="model">cooperative.status</field>
         <field name="arch" type="xml">
             <field name="sr" position="attributes">
@@ -73,7 +73,7 @@
     <record model="ir.ui.view" id="task_shift_view_kanban_inherited">
         <field name="name">Shift Kanban</field>
         <field name="model">shift.shift</field>
-        <field name="inherit_id" ref="beesdoo_shift.task_shift_view_kanban" />
+        <field name="inherit_id" ref="shift.task_shift_view_kanban" />
         <field name="priority">100</field>
         <field name="arch" type="xml">
             <xpath expr="//templates//field[@name='worker_id']/.." position="replace" />
@@ -87,7 +87,7 @@
     <record model="ir.ui.view" id="subscribe_coop_wizard_view_form_inherit">
         <field name="name">Subscribe Cooperator</field>
         <field name="model">shift.subscribe</field>
-        <field name="inherit_id" ref="beesdoo_shift.subscribe_coop_wizard_view_form" />
+        <field name="inherit_id" ref="shift.subscribe_coop_wizard_view_form" />
         <field name="arch" type="xml">
             <field name="cooperator_id" position="attributes">
                 <attribute name="invisible">1</attribute>
@@ -130,7 +130,7 @@
     <record model="ir.ui.view" id="subscribe_coop_wizard_view_form">
         <field name="name">Subscribe Cooperator</field>
         <field name="model">shift.subscribe</field>
-        <field name="inherit_id" ref="beesdoo_shift.subscribe_coop_wizard_view_form" />
+        <field name="inherit_id" ref="shift.subscribe_coop_wizard_view_form" />
         <field name="priority" eval="100" />
         <field name="arch" type="xml">
             <field name="shift_id" position="replace">

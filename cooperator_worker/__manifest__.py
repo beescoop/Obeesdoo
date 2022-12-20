@@ -6,7 +6,7 @@
     "category": "Cooperative management",
     "version": "12.0.2.0.0",
     "depends": [
-        "beesdoo_shift",
+        "shift",
         "cooperator",
     ],
     "data": [
