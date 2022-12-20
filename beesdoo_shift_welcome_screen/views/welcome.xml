@@ -10,7 +10,7 @@
         name="Shift Welcome"
         id="menu_root"
         action="action_welcome"
-        groups="beesdoo_shift.group_shift_attendance"
+        groups="shift.group_shift_attendance"
     />
 
     <record model="ir.ui.view" id="shift_welcome_screen_view_form">
