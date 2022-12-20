@@ -35,7 +35,7 @@ class TestWorkers(test_base.TestWorkerBase):
         """
         Test that a cooperator can shop based on his share type.
         """
-        # using self.env.ref("beesdoo_shift.res_partner_worker_1_demo")
+        # using self.env.ref("shift.res_partner_worker_1_demo")
         # does not work because the is_worker field is overriden by
         # cooperator_worker's `_compute_is_worker`
 
