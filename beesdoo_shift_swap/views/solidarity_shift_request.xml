@@ -4,10 +4,7 @@
     <record model="ir.ui.view" id="solidarity_request_button">
         <field name="name">Solidarity request button</field>
         <field name="model">res.partner</field>
-        <field
-            name="inherit_id"
-            ref="beesdoo_shift.super_coop_partner_inherited_view_form"
-        />
+        <field name="inherit_id" ref="shift.super_coop_partner_inherited_view_form" />
         <field name="arch" type="xml">
             <xpath expr="//header/button[@name='temporary_exempt']" position="after">
                 <button
@@ -15,7 +12,7 @@
                     string="Request a solidarity shift"
                     class="oe_highlight"
                     type="object"
-                    groups="beesdoo_shift.group_shift_management"
+                    groups="shift.group_shift_management"
                     attrs="{'invisible': ['|',('state','in',['unsubscribed','resigning']),('working_mode','not in',['regular','irregular'])]}"
                 />
             </xpath>
@@ -46,7 +43,7 @@
                         string="Cancel request"
                         class="oe_highlight"
                         type="object"
-                        groups="beesdoo_shift.group_shift_management"
+                        groups="shift.group_shift_management"
                         attrs="{'invisible': [('state','=','cancelled')]}"
                     />
                     <field name="state" widget="statusbar" />
