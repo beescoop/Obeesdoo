@@ -30,11 +30,7 @@
 
     <!-- Top menu items -->
 
-    <menuitem
-        id="menu_swap_top"
-        name="Shift exchanges"
-        parent="beesdoo_shift.menu_root"
-    />
+    <menuitem id="menu_swap_top" name="Shift exchanges" parent="shift.menu_root" />
     <menuitem
         id="menu_swap"
         name="Shift swaps"
@@ -54,11 +50,7 @@
         action="action_shift_swap_exchange"
     />
 
-    <menuitem
-        id="menu_solidarity_top"
-        name="Solidarity"
-        parent="beesdoo_shift.menu_root"
-    />
+    <menuitem id="menu_solidarity_top" name="Solidarity" parent="shift.menu_root" />
     <menuitem
         id="menu_solidarity_offer"
         name="Solidarity shift offers"

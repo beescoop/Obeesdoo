@@ -12,7 +12,7 @@
     "category": "Cooperative Management",
     "version": "12.0.2.1.0",
     "depends": [
-        "beesdoo_shift",
+        "shift",
     ],
     "data": [
         "data/system_parameter.xml",
