@@ -10,7 +10,7 @@
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Point Of Sale",
     "version": "12.0.2.0.1",
-    "depends": ["point_of_sale", "beesdoo_shift"],
+    "depends": ["point_of_sale", "shift"],
     "qweb": ["static/src/xml/pos.xml"],
     "data": ["views/assets.xml"],
     "installable": True,
