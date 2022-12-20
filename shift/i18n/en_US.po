@@ -59,8 +59,8 @@ msgid ""
 "\n"
 "    % if object.worker_id.company_id.website:\n"
 "        <div>\n"
-"            Web :&nbsp;<a href=\"${object.worker_id.company_id.website}\">"
-"${object.worker_id.company_id.website}</a>\n"
+"            Web :&nbsp;<a href=\"${object.worker_id.company_id."
+"website}\">${object.worker_id.company_id.website}</a>\n"
 "        </div>\n"
 "    %endif\n"
 "    % if object.worker_id.company_id.logo_url:\n"
@@ -73,14 +73,13 @@ msgid ""
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/planning.py:275
+#: code:addons/shift/models/planning.py:388
 #, python-format
 msgid " is already assigned to "
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/task.py:141
-#: code:addons/shift/models/task.py:199
+#: code:addons/shift/models/task.py:171 code:addons/shift/models/task.py:229
 #, python-format
 msgid "'Now' must be a datetime."
 msgstr ""
@@ -105,6 +104,50 @@ msgstr ""
 msgid ""
 "<br/>\n"
 "                                <strong>Recurring Workers</strong>"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid ""
+"<span class=\"o_form_label\">\n"
+"                                        Limit attendance percentage to "
+"define underpopulated shift\n"
+"                                    </span>"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid ""
+"<span class=\"o_form_label\">\n"
+"                                        Maximum number of shifts per day for "
+"one cooperator\n"
+"                                    </span>"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid ""
+"<span class=\"o_form_label\">\n"
+"                                        Maximum number of shifts per month "
+"for one cooperator\n"
+"                                    </span>"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid ""
+"<span class=\"o_form_label\">\n"
+"                                        Minimum number of hours before a "
+"shift to unsubscribe\n"
+"                                    </span>"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid ""
+"<span class=\"o_form_label\">\n"
+"                                        Shift period\n"
+"                                    </span>"
 msgstr ""
 
 #. module: shift
@@ -198,6 +241,11 @@ msgid "Can Shop"
 msgstr ""
 
 #. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__can_unsubscribe
+msgid "Can Unsubscribe"
+msgstr ""
+
+#. module: shift
 #: model_terms:ir.ui.view,arch_db:shift.assign_super_coop_view_form
 #: model_terms:ir.ui.view,arch_db:shift.extension_coop_wizard_view_form
 #: model_terms:ir.ui.view,arch_db:shift.holiday_coop_wizard_view_form
@@ -222,14 +270,6 @@ msgstr ""
 #. module: shift
 #: model:ir.actions.act_window,name:shift.act_assign_new_super_coop
 msgid "Change Super Coop"
-msgstr ""
-
-#. module: shift
-#: model:ir.model.fields,help:shift.field_res_partner__worker_store
-#: model:ir.model.fields,help:shift.field_res_users__worker_store
-msgid ""
-"Check to subscribe member to their shift even if they are not yet effective "
-"cooperator."
 msgstr ""
 
 #. module: shift
@@ -262,6 +302,17 @@ msgstr ""
 #: model:ir.cron,cron_name:shift.ir_cron_compute_shift_counter
 #: model:ir.cron,name:shift.ir_cron_compute_shift_counter
 msgid "Compute Shift Counter"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,help:shift.field_res_partner__is_worker
+#: model:ir.model.fields,help:shift.field_res_users__is_worker
+msgid "Computed from the share product of the first cooperator share"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_res_config_settings
+msgid "Config Settings"
 msgstr ""
 
 #. module: shift
@@ -346,6 +397,17 @@ msgid "Counter and Status"
 msgstr ""
 
 #. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe__create_user
+msgid "Create User"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,help:shift.field_shift_subscribe__create_user
+msgid ""
+"Create a portal user for the new worker. If a user exists, nothing is done."
+msgstr ""
+
+#. module: shift
 #: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop__create_uid
 #: model:ir.model.fields,field_description:shift.field_shift_generate_planning__create_uid
 #: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__create_uid
@@ -421,6 +483,11 @@ msgstr ""
 #: model:ir.actions.act_window,name:shift.action_day_number
 #: model:ir.model.fields,field_description:shift.field_shift_daynumber__number
 msgid "Day Number"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid "Days"
 msgstr ""
 
 #. module: shift
@@ -594,12 +661,6 @@ msgid "For testing purpose only"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_res_partner__worker_store
-#: model:ir.model.fields,field_description:shift.field_res_users__worker_store
-msgid "Force Worker"
-msgstr ""
-
-#. module: shift
 #: model:ir.model.fields,help:shift.field_shift_daynumber__number
 msgid ""
 "From 1 to N, When you will instanciate your planning, Day 1 will be the "
@@ -623,6 +684,11 @@ msgstr ""
 #. module: shift
 #: model_terms:ir.ui.view,arch_db:shift.coop_status_form_view
 msgid "General information"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid "General settings"
 msgstr ""
 
 #. module: shift
@@ -678,6 +744,11 @@ msgstr ""
 #. module: shift
 #: model:ir.model.fields,field_description:shift.field_cooperative_status__holiday_start_time
 msgid "Holidays Start Day"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid "Hours"
 msgstr ""
 
 #. module: shift
@@ -752,6 +823,7 @@ msgid "Irregular Start Date"
 msgstr ""
 
 #. module: shift
+#: selection:shift.subscribe,working_mode:0
 #: selection:cooperative.status,working_mode:0
 msgid "Irregular worker"
 msgstr ""
@@ -863,6 +935,11 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: shift
+#: model:ir.model.fields,field_description:shift.field_res_config_settings__min_percentage_presence
+msgid "Limit attendance percentage to define underpopulated shift"
+msgstr ""
+
+#. module: shift
 #: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__line_ids
 #: model:ir.model.fields,field_description:shift.field_shift_journal__line_ids
 msgid "Line"
@@ -874,7 +951,7 @@ msgid "Main Attachment"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/res_partner.py:122
+#: code:addons/shift/models/res_partner.py:124
 #: model_terms:ir.ui.view,arch_db:shift.super_coop_partner_inherited_view_form
 #, python-format
 msgid "Manual Extension"
@@ -891,6 +968,16 @@ msgid "Max number of worker for this task"
 msgstr ""
 
 #. module: shift
+#: model:ir.model.fields,field_description:shift.field_res_config_settings__max_shift_per_day
+msgid "Maximum number of shifts per day for one cooperator"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_res_config_settings__max_shift_per_month
+msgid "Maximum number of shifts per month for one cooperator"
+msgstr ""
+
+#. module: shift
 #: model:ir.model.fields,field_description:shift.field_shift_shift__message_has_error
 msgid "Message Delivery error"
 msgstr ""
@@ -898,6 +985,11 @@ msgstr ""
 #. module: shift
 #: model:ir.model.fields,field_description:shift.field_shift_shift__message_ids
 msgid "Messages"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_res_config_settings__min_hours_to_unsubscribe
+msgid "Minimum number of hours before a shift to unsubscribe"
 msgstr ""
 
 #. module: shift
@@ -974,6 +1066,18 @@ msgid "Number of worker"
 msgstr ""
 
 #. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid ""
+"Only shifts with a percentage of workers under this limit\n"
+"                                        will be considered as underpopulated"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid "Percentage (%)"
+msgstr ""
+
+#. module: shift
 #: model:ir.model.fields,field_description:shift.field_shift_planning__periodicity
 msgid "Periodicity"
 msgstr ""
@@ -1020,7 +1124,7 @@ msgid "Recurring Workers"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/res_partner.py:140
+#: code:addons/shift/models/res_partner.py:142
 #, python-format
 msgid "Register Holiday"
 msgstr ""
@@ -1041,18 +1145,24 @@ msgid "Regular shift"
 msgstr ""
 
 #. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__sr
+msgid "Regular shifts counter"
+msgstr ""
+
+#. module: shift
+#: selection:shift.subscribe,working_mode:0
 #: selection:cooperative.status,working_mode:0
 msgid "Regular worker"
 msgstr ""
 
 #. module: shift
 #: model:ir.model.fields,field_description:shift.field_shift_template__remaining_worker
-msgid "Remaining Spot"
+msgid "Remaining Place"
 msgstr ""
 
 #. module: shift
 #: model:ir.model.fields,field_description:shift.field_shift_shift__replaced_id
-msgid "Replaced"
+msgid "Replaced By"
 msgstr ""
 
 #. module: shift
@@ -1133,7 +1243,12 @@ msgid "Shift and Worker Read Access"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/task.py:98
+#: model:ir.model.fields,field_description:shift.field_res_config_settings__shift_period
+msgid "Shift period"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/task.py:128
 #, python-format
 msgid "Shift state of a future shift can't be set to 'present' or 'absent'."
 msgstr ""
@@ -1148,13 +1263,13 @@ msgid "Shifts"
 msgstr ""
 
 #. module: shift
-#: model:res.groups,name:shift.group_shift_management
-msgid "Shifts and Attendance Sheets Management"
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid "Shifts Settings"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_cooperative_status__sr
-msgid "Sr"
+#: model:res.groups,name:shift.group_shift_management
+msgid "Shifts and Attendance Sheets Management"
 msgstr ""
 
 #. module: shift
@@ -1205,7 +1320,7 @@ msgid "Status:"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/res_partner.py:105
+#: code:addons/shift/models/res_partner.py:107
 #, python-format
 msgid "Subscribe Cooperator"
 msgstr ""
@@ -1283,7 +1398,7 @@ msgid "Temporary Exempt Start Date"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/res_partner.py:151
+#: code:addons/shift/models/res_partner.py:153
 #: model_terms:ir.ui.view,arch_db:shift.coop_status_form_view
 #: model_terms:ir.ui.view,arch_db:shift.super_coop_partner_inherited_view_form
 #, python-format
@@ -1291,9 +1406,14 @@ msgid "Temporary Exemption"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/wizard/subscribe.py:142
+#: code:addons/shift/wizard/subscribe.py:151
 #, python-format
 msgid "There is no remaining spot in this shift"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid "This limit is checked on each exchange or solidarity offer"
 msgstr ""
 
 #. module: shift
@@ -1308,7 +1428,7 @@ msgid "Today"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/res_partner.py:134
+#: code:addons/shift/models/res_partner.py:136
 #, python-format
 msgid "Trigger Grace Delay"
 msgstr ""
@@ -1365,25 +1485,25 @@ msgid "User"
 msgstr ""
 
 #. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid "Usual number of days between two shifts for regular workers"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid "Value"
+msgstr ""
+
+#. module: shift
 #: model:ir.model.fields,help:shift.field_shift_subscribe__resigning
 #: model:ir.model.fields,help:shift.field_cooperative_status__resigning
 msgid "Want to leave the beescoop"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/planning.py:281
+#: code:addons/shift/models/planning.py:394
 #, python-format
 msgid "Warning"
-msgstr ""
-
-#. module: shift
-#: model:ir.model.fields,field_description:shift.field_shift_shift__website_message_ids
-msgid "Website Messages"
-msgstr ""
-
-#. module: shift
-#: model:ir.model.fields,help:shift.field_shift_shift__website_message_ids
-msgid "Website communication history"
 msgstr ""
 
 #. module: shift
@@ -1399,6 +1519,8 @@ msgstr ""
 #. module: shift
 #: model:ir.actions.act_window,name:shift.action_worker
 #: model:ir.model.fields,field_description:shift.field_shift_shift__worker_id
+#: model:ir.model.fields,field_description:shift.field_res_partner__is_worker
+#: model:ir.model.fields,field_description:shift.field_res_users__is_worker
 #: model:ir.ui.menu,name:shift.menu_worker
 #: model:ir.ui.menu,name:shift.menu_worker_top
 msgid "Worker"
@@ -1430,6 +1552,14 @@ msgid "Worker:"
 msgstr ""
 
 #. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid ""
+"Workers can unsubscribe from a shift only if the delay before\n"
+"                                        the start is at least this number of "
+"hours"
+msgstr ""
+
+#. module: shift
 #: model:ir.model.fields,field_description:shift.field_shift_subscribe__working_mode
 msgid "Working Mode"
 msgstr ""
@@ -1443,7 +1573,7 @@ msgid "Working mode"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/task.py:326
+#: code:addons/shift/models/task.py:360
 #, python-format
 msgid ""
 "Working mode is not properly defined. Please check if the worker is "
@@ -1465,14 +1595,14 @@ msgid "You can only set one cooperator status per cooperator"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/planning.py:199
+#: code:addons/shift/models/planning.py:280
 #, python-format
 msgid ""
 "You cannot assign more workers than the maximal number defined on template. "
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/task.py:311
+#: code:addons/shift/models/task.py:342
 #, python-format
 msgid ""
 "You cannot change to the status %s if no worker is defined for the shift "
@@ -1631,12 +1761,6 @@ msgid "cooperative.status.history"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_res_partner__is_worker
-#: model:ir.model.fields,field_description:shift.field_res_users__is_worker
-msgid "is Worker"
-msgstr ""
-
-#. module: shift
 #: model_terms:ir.ui.view,arch_db:shift.planning_view_form
 #: model_terms:ir.ui.view,arch_db:shift.task_template_view_form
 msgid "name"
@@ -1697,9 +1821,4 @@ msgstr ""
 #: code:addons/shift/models/cooperative_status.py:54
 #, python-format
 msgid "shift_status_warning"
-msgstr ""
-
-#. module: shift
-#: selection:shift.subscribe,working_mode:0
-msgid "worker"
 msgstr ""
