@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* beesdoo_website_posorder_amount
+#	* portal_posorder_amount
 #
 msgid ""
 msgstr ""
@@ -13,23 +13,23 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: beesdoo_website_posorder_amount
-#: model_terms:ir.ui.view,arch_db:beesdoo_website_posorder_amount.total_pos_order_amount
+#. module: portal_posorder_amount
+#: model_terms:ir.ui.view,arch_db:portal_posorder_amount.total_pos_order_amount
 msgid "Amount"
 msgstr ""
 
-#. module: beesdoo_website_posorder_amount
-#: model_terms:ir.ui.view,arch_db:beesdoo_website_posorder_amount.total_pos_order_amount
+#. module: portal_posorder_amount
+#: model_terms:ir.ui.view,arch_db:portal_posorder_amount.total_pos_order_amount
 msgid "Purchases"
 msgstr ""
 
-#. module: beesdoo_website_posorder_amount
-#: model_terms:ir.ui.view,arch_db:beesdoo_website_posorder_amount.total_pos_order_amount
+#. module: portal_posorder_amount
+#: model_terms:ir.ui.view,arch_db:portal_posorder_amount.total_pos_order_amount
 msgid "Year"
 msgstr ""
 
-#. module: beesdoo_website_posorder_amount
-#: model_terms:ir.ui.view,arch_db:beesdoo_website_posorder_amount.total_pos_order_amount
+#. module: portal_posorder_amount
+#: model_terms:ir.ui.view,arch_db:portal_posorder_amount.total_pos_order_amount
 msgid "You have purchased a total amount of"
 msgstr ""
 
