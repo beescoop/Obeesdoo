@@ -20,4 +20,5 @@
     ],
     "installable": True,
     "application": False,
+    "pre_init_hook": "rename_beesdoo",
 }
