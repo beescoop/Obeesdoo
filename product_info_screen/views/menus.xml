@@ -10,7 +10,7 @@
         id="menu_main_product"
         sequence="40"
         groups="group_product_info_user"
-        web_icon="beesdoo_product_info_screen,static/description/icon.png"
+        web_icon="product_info_screen,static/description/icon.png"
     />
     <menuitem
         name="Product info"
