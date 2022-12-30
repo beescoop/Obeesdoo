@@ -2,11 +2,14 @@
 #   Thibault François
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+import re
 from datetime import timedelta
 
 from odoo import _, api, fields, models
+from odoo.osv import expression
 
 from odoo.addons.shift.models.cooperative_status import add_days_delta
+from odoo.addons.shift.models.planning import float_to_time
 
 
 def time_to_float(t):
@@ -43,6 +46,45 @@ class WizardSubscribe(models.TransientModel):
         # Should work with module beesdoo_easy_my_coop but doesn't
         self.cooperator_id.eater = "worker_eater"
         return res
+
+
+class TaskTemplate(models.Model):
+    _inherit = "shift.template"
+
+    shift_presence_value = fields.Float(default=1.0)
+
+    def name_get(self):
+        res = []
+        for rec in self:
+            name = "%s %s %s (%s-%s)" % (
+                rec.name,
+                rec.planning_id.name,
+                rec.day_nb_id.name,
+                float_to_time(rec.start_time),
+                float_to_time(rec.end_time),
+            )
+            res.append((rec.id, name))
+        return res
+
+    @api.model
+    def _name_search(
+        self, name, args=None, operator="ilike", limit=100, name_get_uid=None
+    ):
+        domain = []
+        time_domain = []
+        FIELDS = ["planning_id", "name", "day_nb_id"]
+        for n in name.split(" "):
+            if re.search(r"^\(\d{2}:\d{2}-\d{2}:\d{2}\)$", n):
+                start, end = n[1:-1].split("-")
+                start, end = time_to_float(start), time_to_float(end)
+                time_domain = [
+                    ["&", ("start_time", "=", start), ("end_time", "=", end)]
+                ]
+            elif n.startswith("("):  # Ignore missformed hour
+                continue
+            else:
+                domain.append(expression.OR([[(f, "ilike", n)] for f in FIELDS]))
+        return self.search(expression.AND(domain + time_domain)).name_get()
 
 
 class Task(models.Model):
@@ -313,6 +355,8 @@ class CooperativeStatus(models.Model):
             )
         if new_state == "alert":
             self.write({"alert_start_time": self.today})
+        if new_state == "ok":
+            self.write({"alert_start_time": False})
 
     def _change_counter(self, data):
         """

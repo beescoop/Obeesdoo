@@ -1,0 +1,223 @@
+<odoo>
+    <report
+        id="report_product_label"
+        string="Etiquettes H"
+        model="product.template"
+        report_type="qweb-pdf"
+        file="polln_shift.product_label"
+        name="polln_shift.product_label"
+    />
+
+    <template id="product_label">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-foreach="docs" t-as="template">
+                    <t t-foreach="template.product_variant_ids" t-as="product">
+                        <t t-call="polln_shift.report_simple_label">
+                            <t t-set="product" t-value="product" />
+                        </t>
+                    </t>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_simple_label">
+        <div style="width: 80%; display: inline-table;height:12rem;">
+            <table class="table table-bordered mb-0" style="border: 2px solid black;">
+                <tr>
+                    <th class="table-active text-left" colspan="2">
+                        <strong t-field="product.display_name" />
+                    </th>
+                </tr>
+                <tr>
+                    <td style="border: 2px solid black;">
+                        <strong
+                            style="font-size:1.5em"
+                            t-field="product.total_with_vat"
+                            t-options="{'widget': 'monetary', 'display_currency': product.company_id.currency_id}"
+                        />
+                        <span style="margin-left:30px">
+                            <t t-esc="round(product.display_weight, 3)" />
+                            <t t-esc="product.display_unit.name" />
+                        </span>
+                        <span style="margin-left:30px">
+                            <span
+                                t-field="product.total_with_vat_by_unit"
+                                t-options="{'widget': 'monetary', 'display_currency': product.company_id.currency_id}"
+                            />
+                            /
+                            <t t-esc="product.default_reference_unit.name" />
+                        </span>
+                        <div
+                            t-if="product.main_seller_id or product.total_deposit &gt; 0"
+                            style="margin-top:10px;"
+                        >
+                          <i
+                                t-if="product.main_seller_id"
+                                class="fa fa-user"
+                                aria-hidden="true"
+                            >
+                            <strong t-esc="product.main_seller_id.name" />
+                          </i>
+                          <span
+                                t-if="product.total_deposit &gt; 0"
+                                style="margin-left:15px"
+                            >
+                            Cons.: <span
+                                    t-field="product.total_deposit"
+                                    t-options="{'widget': 'monetary', 'display_currency': product.company_id.currency_id}"
+                                />
+                          </span>
+                        </div>
+                    </td>
+                    <td
+                        t-if="product.eco_label or product.local_label or product.fair_label or product.origin_label"
+                    >
+                        <div t-if="product.eco_label">
+                          <i
+                                class="fa fa-leaf"
+                                aria-hidden="true"
+                                t-att-style="'color:%s;width:18px' % product.eco_label.color_code"
+                            />
+                          <strong t-esc="product.eco_label.name" />
+                        </div>
+                        <div t-if="product.local_label">
+                            <i
+                                class="fa fa-map-marker"
+                                aria-hidden="true"
+                                t-att-style="'color:%s;width:18px' % product.local_label.color_code"
+                            />
+                            <strong t-esc="product.local_label.name" />
+                        </div>
+                        <div t-if="product.fair_label">
+                          <i
+                                class="fa fa-balance-scale"
+                                aria-hidden="true"
+                                t-att-style="'color:%s;width:18px' % product.fair_label.color_code"
+                            />
+                          <strong t-esc="product.fair_label.name" />
+                        </div>
+                        <div t-if="product.origin_label">
+                          <i
+                                class="fa fa-globe"
+                                aria-hidden="true"
+                                t-att-style="'color:%s;width:18px' % product.origin_label.color_code"
+                            />
+                          <strong t-esc="product.origin_label.name" />
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </template>
+
+    <report
+        id="report_product_label_v"
+        string="Etiquette V"
+        model="product.template"
+        report_type="qweb-pdf"
+        file="polln_shift.product_label_v"
+        name="polln_shift.product_label_v"
+    />
+
+    <template id="product_label_v">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-foreach="docs" t-as="template">
+                    <t t-foreach="template.product_variant_ids" t-as="product">
+                        <t t-call="polln_shift.report_simple_label_v">
+                            <t t-set="product" t-value="product" />
+                        </t>
+                    </t>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_simple_label_v">
+        <div style="width: 40%; display: inline-table;height:12rem;margin-right:20px">
+            <table class="table table-bordered mb-0" style="border: 2px solid black;">
+                <tr>
+                    <th class="table-active text-left">
+                        <strong t-field="product.display_name" />
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <strong
+                            style="font-size:1.5em"
+                            t-field="product.total_with_vat"
+                            t-options="{'widget': 'monetary', 'display_currency': product.company_id.currency_id}"
+                        />
+                        <br />
+                        <span style="margin-left:30px">
+                            <t t-esc="round(product.display_weight, 3)" />
+                            <t t-esc="product.display_unit.name" />
+                        </span>
+                        <span style="margin-left:30px">
+                            <span
+                                t-field="product.total_with_vat_by_unit"
+                                t-options="{'widget': 'monetary', 'display_currency': product.company_id.currency_id}"
+                            />
+                            /
+                            <t t-esc="product.default_reference_unit.name" />
+                        </span>
+                        <div
+                            t-if="product.total_deposit &gt; 0"
+                            style="margin-left:30px"
+                        >
+                            Cons.: <span
+                                t-field="product.total_deposit"
+                                t-options="{'widget': 'monetary', 'display_currency': product.company_id.currency_id}"
+                            />
+                        </div>
+                        <div t-if="product.main_seller_id" style="margin-top:10px;">
+                          <i class="fa fa-user" aria-hidden="true">
+                            <strong t-esc="product.main_seller_id.name" />
+                          </i>
+                        </div>
+                    </td>
+                </tr>
+                <tr
+                    t-if="product.eco_label or product.local_label or product.fair_label or product.origin_label"
+                >
+                    <td>
+                        <div t-if="product.eco_label">
+                          <i
+                                class="fa fa-leaf"
+                                aria-hidden="true"
+                                t-att-style="'color:%s;width:18px' % product.eco_label.color_code"
+                            />
+                          <strong t-esc="product.eco_label.name" />
+                        </div>
+                        <div t-if="product.local_label">
+                            <i
+                                class="fa fa-map-marker"
+                                aria-hidden="true"
+                                t-att-style="'color:%s;width:18px' % product.local_label.color_code"
+                            />
+                            <strong t-esc="product.local_label.name" />
+                        </div>
+                        <div t-if="product.fair_label">
+                          <i
+                                class="fa fa-balance-scale"
+                                aria-hidden="true"
+                                t-att-style="'color:%s;width:18px' % product.fair_label.color_code"
+                            />
+                          <strong t-esc="product.fair_label.name" />
+                        </div>
+                        <div t-if="product.origin_label">
+                          <i
+                                class="fa fa-globe"
+                                aria-hidden="true"
+                                t-att-style="'color:%s;width:18px' % product.origin_label.color_code"
+                            />
+                          <strong t-esc="product.origin_label.name" />
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </template>
+</odoo>

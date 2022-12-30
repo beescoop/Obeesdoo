@@ -282,6 +282,14 @@ class ShiftTemplate(models.Model):
                     )
                 )
 
+    @api.constrains("start_time", "end_time")
+    def _check_real_hour(self):
+        for rec in self:
+            if not (-0.001 < rec.start_time < 24) or not (-0.001 < rec.end_time < 24):
+                raise UserError(
+                    _("Start time and End time need to be between 0 and 23:59")
+                )
+
     @api.onchange("start_time", "end_time")
     def _get_duration(self):
         if self.start_time and self.end_time:
@@ -289,8 +297,7 @@ class ShiftTemplate(models.Model):
 
     @api.onchange("duration")
     def _set_duration(self):
-        if self.start_time:
-            self.end_time = self.start_time + self.duration
+        self.duration = (self.end_time or 0.0) - (self.start_time or 0.0)
 
     def _prepare_task_day(self):
         """

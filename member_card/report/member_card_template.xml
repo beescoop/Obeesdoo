@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+    <!--
+        Copyright 2021 Polln
+            Patricia Daloze
+    -->
 
     <report
         id="report_member_card"
