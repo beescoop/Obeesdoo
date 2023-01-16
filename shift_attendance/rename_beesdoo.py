@@ -11,15 +11,24 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
-MODELS_TO_RENAME = {
-    "beesdoo.shift.sheet": "shift.sheet",
-    "beesdoo.shift.sheet.added": "shift.sheet.added",
-    "beesdoo.shift.sheet.expected": "shift.sheet.expected",
-    "beesdoo.shift.sheet.shift": "shift.sheet.shift",
-    "beesdoo.shift.sheet.validate": "shift.sheet.validate",
-    "beesdoo.shift.generate_missing_attendance_sheets": (
-        "shift.generate_missing_attendance_sheets"
+MODELS_TO_RENAME = [
+    ("beesdoo.shift.sheet", "shift.sheet"),
+    ("beesdoo.shift.sheet.added", "shift.sheet.added"),
+    ("beesdoo.shift.sheet.expected", "shift.sheet.expected"),
+    ("beesdoo.shift.sheet.shift", "shift.sheet.shift"),
+    ("beesdoo.shift.sheet.validate", "shift.sheet.validate"),
+    (
+        "beesdoo.shift.generate_missing_attendance_sheets",
+        "shift.generate_missing_attendance_sheets",
     ),
+]
+CONSTRAINTS_TO_RENAME = {
+    "shift_generate_missing_attendance_sheets": [
+        (
+            "beesdoo_shift_generate_missing_attendance_sheet_create_uid_fkey",
+            "shift_generate_missing_attendance_sheets_create_uid_fkey",
+        ),
+    ],
 }
 XMLIDS_TO_RENAME = [
     (
@@ -70,7 +79,7 @@ def model_to_table(name):
 def rename_beesdoo(cr):
     cr.execute(
         "SELECT id FROM ir_module_module "
-        "WHERE name=%s and state IN ('installed', 'to upgrade')",
+        "WHERE name = %s and state IN ('installed', 'to upgrade')",
         (OLD_MODULE_NAME,),
     )
     if not cr.fetchone():
@@ -78,17 +87,22 @@ def rename_beesdoo(cr):
 
     from openupgradelib import openupgrade
 
-    for origin, new in MODELS_TO_RENAME.items():
-        table_origin = model_to_table(origin)
-        table_new = model_to_table(new)
-        if openupgrade.table_exists(cr, table_origin) and not openupgrade.table_exists(
-            cr, table_new
-        ):
-            _logger.info("renaming table {} to {}".format(table_origin, table_new))
-            openupgrade.rename_tables(cr, [(table_origin, table_new)])
-
-        _logger.info("renaming model {} to {}".format(origin, new))
-        openupgrade.rename_models(cr, [(origin, new)])
+    _logger.info("renaming models")
+    openupgrade.rename_models(cr, MODELS_TO_RENAME)
+    tables_to_rename = [
+        (model_to_table(old_name), model_to_table(new_name))
+        for old_name, new_name in MODELS_TO_RENAME
+    ]
+    _logger.info("renaming tables")
+    openupgrade.rename_tables(cr, tables_to_rename)
+    for table_name, constraints in CONSTRAINTS_TO_RENAME.items():
+        for old_name, new_name in constraints:
+            openupgrade.logged_query(
+                cr,
+                "alter table {} rename constraint {} to {}".format(
+                    table_name, old_name, new_name
+                ),
+            )
 
     for origin, new in PARAMETER_KEYS_TO_RENAME.items():
         _logger.info("renaming key {} to {}".format(origin, new))
@@ -108,6 +122,8 @@ def rename_beesdoo(cr):
             OLD_MODULE_NAME, NEW_MODULE_NAME
         )
     )
+    # this query comes from openupgrade.update_module_names(), which cannot be
+    # used directly here because the module with the old name still exists.
     openupgrade.logged_query(
         cr,
         """
