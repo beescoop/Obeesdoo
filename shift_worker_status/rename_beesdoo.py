@@ -11,7 +11,6 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
-MODELS_TO_RENAME = {}
 XMLIDS_TO_RENAME = [
     (
         "beesdoo_worker_status.beesdoo_shift_task_template_1_demo",
@@ -35,10 +34,6 @@ OLD_MODULE_NAME = "beesdoo_worker_status"
 NEW_MODULE_NAME = "shift_worker_status"
 
 
-def model_to_table(name):
-    return name.replace(".", "_")
-
-
 def rename_beesdoo(cr):
     cr.execute(
         "SELECT id FROM ir_module_module "
@@ -49,18 +44,6 @@ def rename_beesdoo(cr):
         return
 
     from openupgradelib import openupgrade
-
-    for origin, new in MODELS_TO_RENAME.items():
-        table_origin = model_to_table(origin)
-        table_new = model_to_table(new)
-        if openupgrade.table_exists(cr, table_origin) and not openupgrade.table_exists(
-            cr, table_new
-        ):
-            _logger.info("renaming table {} to {}".format(table_origin, table_new))
-            openupgrade.rename_tables(cr, [(table_origin, table_new)])
-
-        _logger.info("renaming model {} to {}".format(origin, new))
-        openupgrade.rename_models(cr, [(origin, new)])
 
     for origin, new in PARAMETER_KEYS_TO_RENAME.items():
         _logger.info("renaming key {} to {}".format(origin, new))
@@ -80,6 +63,8 @@ def rename_beesdoo(cr):
             OLD_MODULE_NAME, NEW_MODULE_NAME
         )
     )
+    # this query comes from openupgrade.update_module_names(), which cannot be
+    # used directly here because the module with the old name still exists.
     openupgrade.logged_query(
         cr,
         """
