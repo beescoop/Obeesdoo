@@ -31,6 +31,9 @@ MODELS_TO_RENAME = [
     ("beesdoo.shift.temporary_exemption", "shift.temporary_exemption"),
     ("beesdoo.shift.type", "shift.type"),
 ]
+# not generated dynamically from MODELS_TO_RENAME for 2 reasons:
+# 1. beesdoo.shift.action_mixin has no table (because it's a mixin).
+# 2. many2many tables must be added anyway.
 TABLES_TO_RENAME = [
     ("beesddoo_shift_assign_super_coop", "shift_assign_super_coop"),
     ("beesddoo_shift_generate_planning", "shift_generate_planning"),
@@ -75,6 +78,11 @@ COLUMNS_TO_RENAME = {
         ("beesdoo_shift_journal_id", "shift_journal_id")
     ],
 }
+# constraints and indexes are normally correctly renamed by the openupgrade
+# functions, but these fail for identifiers that have been truncated to the
+# maximum length (63 characters). they are thus manually renamed here. note
+# that these are cosmetic changes, not doing them would not prevent the module
+# from working correctly.
 CONSTRAINTS_TO_RENAME = {
     "cooperative_status_shift_journal_rel": [
         (
