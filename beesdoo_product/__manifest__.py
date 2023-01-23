@@ -34,9 +34,7 @@
         "product_label_print_request",
         "beesdoo_product_label",
     ],
-    "data": [
-        "views/beesdoo_product.xml",
-    ],
+    "data": [],
     "installable": True,
     "license": "AGPL-3",
 }
