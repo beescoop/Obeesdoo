@@ -14,7 +14,7 @@
     "version": "12.0.3.1.0",
     "depends": [
         "stock",
-        "beesdoo_product",  # for field main_seller_id
+        "product_main_supplier",
         "stock_picking_responsible",
         "stock_move_line_auto_fill",
         "stock_picking_product_link",
