@@ -4,7 +4,7 @@
         <xpath expr="." position="inside">
             <script
                 type="text/javascript"
-                src="/beesdoo_product/static/src/js/models.js"
+                src="/sale_product_deposit/static/src/js/models.js"
             />
         </xpath>
     </template>
