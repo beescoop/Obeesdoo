@@ -1,9 +1,9 @@
 # Copyright 2022 Coop IT Easy SC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-"""This module was previously beesdoo_shift before it was moved to the OCA.
-beesdoo_shift is presently an empty module that depends on this module. When
-this module is installed, it should convert all data from the beesdoo_shift
+"""This module was previously part of beesdoo_product before it was moved to the
+OCA. beesdoo_product is presently an empty module that depends on this module.
+When this module is installed, it should convert data from the beesdoo_product
 module to be useable by this module.
 """
 
