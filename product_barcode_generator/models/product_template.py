@@ -29,7 +29,9 @@ class ProductTemplate(models.Model):
             ean = "02" + self.default_code[0:5] + "000000"
             bc = ean[0:12] + str(self.env["barcode.nomenclature"].ean_checksum(ean))
         else:
-            rule = self.env.ref("product_barcode_generator.product_barcode_rule")
+            rule = self.env.ref(
+                "product_barcode_generator.product_barcode_generator_rule"
+            )
             size = 13 - len(rule.pattern)
             ean = rule.pattern + str(uuid.uuid4().fields[-1])[:size]
             bc = ean[0:12] + str(self.env["barcode.nomenclature"].ean_checksum(ean))
