@@ -1,4 +1,4 @@
-odoo.define("beesdoo_product.models", function (require) {
+odoo.define("sale_product_deposit.models", function (require) {
     "use strict";
 
     var models = require("point_of_sale.models");
