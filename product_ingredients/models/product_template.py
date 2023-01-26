@@ -8,4 +8,4 @@ from odoo import fields, models
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    ingredients = fields.Char(string="Ingredient")
+    ingredients = fields.Char(string="Ingredients")
