@@ -18,9 +18,13 @@ XMLIDS_TO_RENAME = [
         "beesdoo_product.seq_ean_product_internal_ref",
         "product_barcode_generator.seq_ean_product_internal_ref",
     ),
+    (
+        "beesdoo_product.beesdoo_product_barcode_rule",
+        "product_barcode_generator.product_barcode_generator_rule",
+    ),
 ]
 OLD_MODULE_NAME = "beesdoo_product"
-NEW_MODULE_NAME = "beesdoo_product_label"
+NEW_MODULE_NAME = "product_barcode_generator"
 
 
 def model_to_table(name):
