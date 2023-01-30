@@ -31,8 +31,9 @@ addon | version | maintainers | summary
 [beesdoo_pos_email_ticket](beesdoo_pos_email_ticket/) | 12.0.1.1.0 |  | This module adds the eaters of the customer to the POS ActionpadWidget and PaymentScreenWidget.
 [beesdoo_pos_reporting](beesdoo_pos_reporting/) | 12.0.1.0.0 |  | Emptied.
 [beesdoo_print_label](beesdoo_print_label/) | 12.0.2.0.0 |  | Product labels
-[beesdoo_product](beesdoo_product/) | 12.0.2.0.0 |  | Modification of product module for the needs of beescoop
+[beesdoo_product](beesdoo_product/) | 12.0.3.0.0 |  | Emptied.
 [beesdoo_product_info_screen](beesdoo_product_info_screen/) | 12.0.0.0.1 |  | Adds a read-only screen to display product information
+[beesdoo_product_label](beesdoo_product_label/) | 12.0.3.0.0 |  | Adds the label bio/ethique/provenance.
 [beesdoo_product_usability](beesdoo_product_usability/) | 12.0.2.0.1 |  | Emptied. Leftover: simplification of Product View.
 [beesdoo_purchase](beesdoo_purchase/) | 12.0.1.4.0 |  | Enhancements related to Purchase module : field, filter, PO reference, product's purchase and/or selling price
 [beesdoo_shift](beesdoo_shift/) | 12.0.4.0.0 |  | Generate and manage shifts for cooperators.
@@ -62,9 +63,17 @@ addon | version | maintainers | summary
 [pos_auto_invoice_company](pos_auto_invoice_company/) | 12.0.3.0.0 |  | Applies to_invoice to company partners.
 [pos_eater](pos_eater/) | 12.0.2.0.0 |  | This module adds the eaters of the customer to the POS ActionpadWidget.
 [pos_shift_partner_can_shop](pos_shift_partner_can_shop/) | 12.0.2.0.1 |  | Display in the POS whether the partner can shop or not.
+[product_barcode_generator](product_barcode_generator/) | 12.0.1.0.0 | [![victor-champonnois](https://github.com/victor-champonnois.png?size=30px)](https://github.com/victor-champonnois) | Product Barcode Generator
+[product_expiration](product_expiration/) | 12.0.2.0.0 |  | Add Number of Days Before Product Expiration.
+[product_hazard](product_hazard/) | 12.0.1.0.0 |  | Add hazard and FDS labels to products
+[product_ingredients](product_ingredients/) | 12.0.1.0.0 |  | Adds an 'Ingredients' field to products
+[product_label_print_request](product_label_print_request/) | 12.0.1.0.0 | [![victor-champonnois](https://github.com/victor-champonnois.png?size=30px)](https://github.com/victor-champonnois) | Facilitation for label printing.
 [product_main_supplier](product_main_supplier/) | 12.0.2.0.0 |  | Add a main supplier
+[product_sale_limit_date](product_sale_limit_date/) | 12.0.2.0.0 |  | Add Number of Days Before Sale Limit Date.
+[product_scale_label](product_scale_label/) | 12.0.2.0.0 |  | Add scale labels, sale units, and categories.
 [purchase_order_generator](purchase_order_generator/) | 12.0.2.1.0 |  | Generate purchase order from a product selection
 [sale_adapt_price_wizard](sale_adapt_price_wizard/) | 12.0.1.0.1 |  | Add "Edit Price" submenu on Purchase and Sale modules.
+[sale_product_deposit](sale_product_deposit/) | 12.0.1.0.0 |  | Calculates total price with VAT and deposit price.
 [sale_suggested_price](sale_suggested_price/) | 12.0.1.0.0 |  | Add a suggested price to products, dependent on a product margin in partners and product categories.
 [stock_move_view_line_order](stock_move_view_line_order/) | 12.0.2.1.0 |  | Reverse the order of stock move lines to 'newest to oldest'.
 [website_portal_restrict_modification](website_portal_restrict_modification/) | 12.0.1.0.0 |  | Portal extension preventing modification of sensible data by the users
