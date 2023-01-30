@@ -1,16 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* beesdoo_product
+#	* product_hazard
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 09:47+0000\n"
-"PO-Revision-Date: 2020-08-03 09:47+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -19,22 +16,22 @@ msgstr ""
 #. module: product_hazard
 #: model:ir.model.fields,field_description:product_hazard.field_product_hazard__active
 msgid "Active"
-msgstr "Actif"
+msgstr ""
 
 #. module: product_hazard
 #: model:ir.model.fields,field_description:product_hazard.field_product_hazard__create_uid
 msgid "Created by"
-msgstr "Créé par"
+msgstr ""
 
 #. module: product_hazard
 #: model:ir.model.fields,field_description:product_hazard.field_product_hazard__create_date
 msgid "Created on"
-msgstr "Créé le"
+msgstr ""
 
 #. module: product_hazard
 #: model:ir.model.fields,field_description:product_hazard.field_product_hazard__display_name
 msgid "Display Name"
-msgstr "Nom affiché"
+msgstr ""
 
 #. module: product_hazard
 #: selection:product.hazard,type:0
@@ -44,21 +41,19 @@ msgstr ""
 #. module: product_hazard
 #: model:ir.model.fields,field_description:product_hazard.field_product_product__fds_label
 #: model:ir.model.fields,field_description:product_hazard.field_product_template__fds_label
-#, fuzzy
 msgid "FDS label"
-msgstr "Libellé FDS"
+msgstr ""
 
 #. module: product_hazard
 #: model:ir.model.fields,field_description:product_hazard.field_product_product__hazard_label
 #: model:ir.model.fields,field_description:product_hazard.field_product_template__hazard_label
-#, fuzzy
 msgid "Hazard label"
-msgstr "Libellé de dangerosité"
+msgstr ""
 
 #. module: product_hazard
 #: model:ir.ui.menu,name:product_hazard.hazard_configuration_menu
 msgid "Hazards"
-msgstr "Dangers"
+msgstr ""
 
 #. module: product_hazard
 #: model:ir.model.fields,field_description:product_hazard.field_product_hazard__id
@@ -68,37 +63,37 @@ msgstr ""
 #. module: product_hazard
 #: model:ir.model.fields,field_description:product_hazard.field_product_hazard____last_update
 msgid "Last Modified on"
-msgstr "Dernière modification le"
+msgstr ""
 
 #. module: product_hazard
 #: model:ir.model.fields,field_description:product_hazard.field_product_hazard__write_uid
 msgid "Last Updated by"
-msgstr "Dernière mise à jour par"
+msgstr ""
 
 #. module: product_hazard
 #: model:ir.model.fields,field_description:product_hazard.field_product_hazard__write_date
 msgid "Last Updated on"
-msgstr "Dernière mise à jour le"
+msgstr ""
 
 #. module: product_hazard
 #: model:ir.model.fields,field_description:product_hazard.field_product_hazard__name
 msgid "Name"
-msgstr "Nom"
+msgstr ""
 
 #. module: product_hazard
 #: model:ir.actions.act_window,name:product_hazard.action_hazards
 msgid "Product Hazards"
-msgstr "Dangers d'article"
+msgstr ""
 
 #. module: product_hazard
 #: model:ir.model,name:product_hazard.model_product_template
 msgid "Product Template"
-msgstr "Modèle d'article"
+msgstr ""
 
 #. module: product_hazard
 #: selection:product.hazard,type:0
 msgid "Specific hazard"
-msgstr "Danger spécifique"
+msgstr ""
 
 #. module: product_hazard
 #: model:ir.model.fields,field_description:product_hazard.field_product_hazard__type
@@ -107,74 +102,6 @@ msgstr ""
 
 #. module: product_hazard
 #: model:ir.model,name:product_hazard.model_product_hazard
-#, fuzzy
 msgid "product.hazard"
-msgstr "Dangers d'article"
+msgstr ""
 
-#~ msgid "Cancel"
-#~ msgstr "Annuler"
-
-#~ msgid "Category code"
-#~ msgstr "Code de catégorie"
-
-#~ msgid "Category type"
-#~ msgstr "Type de catégorie"
-
-#~ msgid "Color Code"
-#~ msgstr "Code couleur"
-
-#~ msgid "Comments"
-#~ msgstr "Commentaires"
-
-#~ msgid "Deadline for consumption(days)"
-#~ msgstr "Date limite de consommation(jours)"
-
-#~ msgid "Deadline for sale(days)"
-#~ msgstr "Date limite de vente(jours)"
-
-#~ msgid "Default Reference Unit"
-#~ msgstr "Unité de référence par défaut"
-
-#~ msgid "Ingredient"
-#~ msgstr "Ingrédient "
-
-#~ msgid "Label"
-#~ msgstr "Libellé"
-
-#~ msgid "Labels"
-#~ msgstr "Libellés"
-
-#, fuzzy
-#~ msgid "On Supplier Price"
-#~ msgstr "Liste de prix du fournisseur"
-
-#~ msgid "Other"
-#~ msgstr "Autre"
-
-#~ msgid "Product"
-#~ msgstr "Article"
-
-#~ msgid "Product Category"
-#~ msgstr "Catégorie d'article"
-
-#~ msgid "Product UoM Categories"
-#~ msgstr "Catégorie d'UdM"
-
-#, fuzzy
-#~ msgid "Products"
-#~ msgstr "Article"
-
-#~ msgid "Supplier Pricelist"
-#~ msgstr "Liste de prix du fournisseur"
-
-#~ msgid "The price to purchase a product"
-#~ msgstr "Le prix pour l'achat d'un article"
-
-#~ msgid "Unit"
-#~ msgstr "Unité"
-
-#~ msgid "Weight"
-#~ msgstr "Poids"
-
-#~ msgid "Price at which the product is sold to customers."
-#~ msgstr "Prix auquel l'article est vendu aux clients."
