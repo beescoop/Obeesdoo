@@ -10,18 +10,18 @@
             ref('product.field_product_template__list_price'),
             ref('product.field_product_template__name'),
             ref('product_main_supplier.field_product_template__main_seller_id'),
-            ref('beesdoo_product.field_product_template__eco_label'),
-            ref('beesdoo_product.field_product_template__local_label'),
-            ref('beesdoo_product.field_product_template__fair_label'),
-            ref('beesdoo_product.field_product_template__origin_label'),
-            ref('beesdoo_product.field_product_template__total_deposit'),
-            ref('beesdoo_product.field_product_template__total_with_vat'),
-            ref('beesdoo_product.field_product_template__display_weight'),
+            ref('beesdoo_product_label.field_product_template__eco_label'),
+            ref('beesdoo_product_label.field_product_template__local_label'),
+            ref('beesdoo_product_label.field_product_template__fair_label'),
+            ref('beesdoo_product_label.field_product_template__origin_label'),
+            ref('sale_product_deposit.field_product_template__total_deposit'),
+            ref('sale_product_deposit.field_product_template__total_with_vat'),
+            ref('beesdoo_product_label.field_product_template__display_weight'),
             ref('product.field_product_template__volume'),
-            ref('beesdoo_product.field_product_template__display_unit'),
-            ref('beesdoo_product.field_product_template__default_reference_unit'),
+            ref('beesdoo_product_label.field_product_template__display_unit'),
+            ref('beesdoo_product_label.field_product_template__default_reference_unit'),
             ref('product_brand.field_product_template__product_brand_id'),
-            ref('beesdoo_product.field_product_template__total_with_vat_by_unit')])]"
+            ref('sale_product_deposit.field_product_template__total_with_vat_by_unit')])]"
         />
     </record>
 

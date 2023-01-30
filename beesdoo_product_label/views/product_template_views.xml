@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="product_view_form">
+        <field name="name">product.template.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='inventory']/.." position="after">
+                <page string="Label">
+                    <group>
+                        <group name="label">
+                            <field name="display_weight" />
+                            <field name="display_unit" />
+                            <field name="default_reference_unit" />
+                        </group>
+                        <group>
+                            <field name="main_seller_id" />
+                            <field name="eco_label" />
+                            <field name="local_label" />
+                            <field name="fair_label" />
+                            <field name="origin_label" />
+                        </group>
+                    </group>
+                    <group>
+                        <field name="note" />
+                    </group>
+                </page>
+
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>

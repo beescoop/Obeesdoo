@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+product_hazard_read_all,product.hazard Read All,model_product_hazard,,1,0,0,0
+product_hazard_all_access_sale_manager,product.hazard All Access Sale Manager,model_product_hazard,sales_team.group_sale_manager,1,1,1,1
