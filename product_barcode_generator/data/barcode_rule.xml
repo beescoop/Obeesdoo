@@ -6,7 +6,7 @@
             <field name="barcode_nomenclature_id">1</field>
             <field name="type">product</field>
             <field name="pattern">043</field>
-            <field name="sequence">45</field>
+            <field name="sequence">9</field>
             <field name="encoding">ean13</field>
         </record>
     </data>
