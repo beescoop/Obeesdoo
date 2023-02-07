@@ -1,0 +1,47 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_product_deposit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-06 14:43+0000\n"
+"PO-Revision-Date: 2023-02-06 15:59+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.2.2\n"
+
+#. module: sale_product_deposit
+#: model:ir.model.fields,field_description:sale_product_deposit.field_product_product__total_deposit
+#: model:ir.model.fields,field_description:sale_product_deposit.field_product_template__total_deposit
+msgid "Deposit Price"
+msgstr "Prix de la consigne"
+
+#. module: sale_product_deposit
+#: model:ir.model,name:sale_product_deposit.model_product_template
+msgid "Product Template"
+msgstr "Modèle d'article"
+
+#. module: sale_product_deposit
+#: model:ir.model.fields,field_description:sale_product_deposit.field_product_product__several_tax_strategies_warning
+#: model:ir.model.fields,field_description:sale_product_deposit.field_product_template__several_tax_strategies_warning
+msgid "This product can't be printed from the Point of Sale because several tax strategies were defined."
+msgstr ""
+
+#. module: sale_product_deposit
+#: model:ir.model.fields,field_description:sale_product_deposit.field_product_product__total_with_vat
+#: model:ir.model.fields,field_description:sale_product_deposit.field_product_template__total_with_vat
+msgid "Total Sales Price with VAT"
+msgstr "Prix total TVAC"
+
+#. module: sale_product_deposit
+#: model:ir.model.fields,field_description:sale_product_deposit.field_product_product__total_with_vat_by_unit
+#: model:ir.model.fields,field_description:sale_product_deposit.field_product_template__total_with_vat_by_unit
+msgid "Total Sales Price with VAT by Reference Unit"
+msgstr "Prix de vente TVAC par unité de référence"
