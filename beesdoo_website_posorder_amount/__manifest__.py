@@ -1,16 +1,23 @@
-# Copyright 2019 Coop IT Easy SC
-#   Rémy Taymans <remy@coopiteasy.be>
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# SPDX-FileCopyrightText: 2022 Coop IT Easy SC
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 {
     "name": "Portal Website POS order amount",
     "summary": """
-    Show the total amount of pos order in the website portal.
-    """,
-    "author": "Coop IT Easy SC",
-    "license": "AGPL-3",
+        Emptied.""",
     "version": "12.0.1.0.0",
-    "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Website",
-    "depends": ["portal", "point_of_sale"],
-    "data": ["templates/portal_posorder_amount.xml"],
+    "website": "https://github.com/beescoop/Obeesdoo",
+    "author": "Coop IT Easy SC",
+    "maintainers": ["carmenbianca"],
+    "license": "AGPL-3",
+    "application": False,
+    "depends": [
+        "portal_posorder_amount",
+    ],
+    "excludes": [],
+    "data": [],
+    "demo": [],
+    "qweb": [],
 }
