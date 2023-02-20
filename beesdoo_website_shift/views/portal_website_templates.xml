@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="website_portal_restrict_my_details"
+        name="Website Portal Restrict Modification"
+        inherit_id="portal.portal_my_details"
+    >
+        <xpath expr="//select[@name='state_id']/.." position="after">
+            <t t-if='super'>
+                <div
+                    class="form-check"
+                    t-attf-class="form-group #{error.get('share_supercoop_info') and 'o_has_error' or ''} col-xl-6"
+                >
+                    <input
+                        type="checkbox"
+                        name="share_supercoop_info"
+                        class="form-check-input"
+                        t-att-checked="share_supercoop_info"
+                        t-attf-class="#{error.get('share_supercoop_info') and 'is-invalid' or ''}"
+                    >
+                    </input>
+                    <label
+                        class="col-form-label"
+                        for="share_supercoop_info"
+                    >Accept to share my info
+                        as Supercoop</label>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>
