@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template
-        id="website_portal_restrict_my_details"
+        id="portal_my_details"
         name="Website Portal Restrict Modification"
         inherit_id="portal.portal_my_details"
     >
@@ -25,6 +25,25 @@
                     >Accept to share my info
                         as Supercoop</label>
                 </div>
+            </t>
+        </xpath>
+    </template>
+
+    <template
+        id="portal_layout"
+        name="Website Portal Details Form"
+        inherit_id="portal.portal_layout"
+    >
+        <xpath expr="//div[hasclass('o_portal_my_details')]" position="after">
+            <t t-if='super'>
+                <p class="text-center">
+                    <span t-if="share_supercoop_info">
+                        I accept to share my info as Supercoop
+                    </span>
+                    <span t-if="not share_supercoop_info">
+                        I do not accept to share my info as Supercoop
+                    </span>
+                </p>
             </t>
         </xpath>
     </template>
