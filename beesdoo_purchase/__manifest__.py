@@ -14,6 +14,7 @@
         "purchase_order_responsible",
         "account_invoice_line_custom_reference",
         "purchase_order_main_supplier",
+        "sale_suggested_price",
     ],
     "data": [
         "views/purchase_order.xml",

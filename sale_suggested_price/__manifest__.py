@@ -14,6 +14,7 @@
     "application": False,
     "depends": [
         "product_main_supplier",
+        "purchase_order_responsible",
         "product",
         "purchase",
         "sale",
@@ -24,6 +25,7 @@
         "views/product_template_views.xml",
         "views/res_config_settings_views.xml",
         "views/res_partner_views.xml",
+        "views/purchase_order.xml",
     ],
     "demo": [],
     "qweb": [],
