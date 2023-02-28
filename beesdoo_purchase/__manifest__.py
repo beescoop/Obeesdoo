@@ -10,6 +10,7 @@
     "version": "12.0.1.4.0",
     "depends": [
         "purchase",
+        "product_stock_coverage",
         # beesdoo_purchase was (almost entirely) split into the subsequent modules.
         "purchase_order_responsible",
         "account_invoice_line_custom_reference",
