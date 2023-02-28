@@ -14,6 +14,7 @@
     "application": False,
     "depends": [
         "product_main_supplier",
+        "purchase_order_responsible",
         "product",
         "purchase",
         "sale",
