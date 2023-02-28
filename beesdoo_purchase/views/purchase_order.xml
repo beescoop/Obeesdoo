@@ -3,6 +3,9 @@
         <record model="ir.ui.view" id="beesdoo_purchase_order_form_view">
             <field name="name">beesdoo.purchase.order.form.view</field>
             <field name="model">purchase.order</field>
+            <field name="model">purchase.order</field>
+            <!-- add stock coverage at the extreme right of the table -->
+            <field eval="2" name="priority" />
             <field name="inherit_id" ref="purchase.purchase_order_form" />
             <field name="arch" type="xml">
                 <field name="price_subtotal" position="after">
