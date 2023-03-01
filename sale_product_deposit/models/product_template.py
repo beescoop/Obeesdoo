@@ -40,14 +40,14 @@ class ProductTemplate(models.Model):
     )
     def _compute_total(self):
         for product in self:
-            consignes_group = self.env.ref(
-                "beesdoo_product.consignes_group_tax", raise_if_not_found=False
+            deposit_group = self.env.ref(
+                "sale_product_deposit.deposit_tax_group", raise_if_not_found=False
             )
             product.several_tax_strategies_warning = False
 
             taxes_included = set(
                 product.taxes_id.filtered(
-                    lambda t: t.tax_group_id != consignes_group
+                    lambda t: t.tax_group_id != deposit_group
                 ).mapped("price_include")
             )
 
@@ -71,7 +71,7 @@ class ProductTemplate(models.Model):
                     [
                         tax._compute_amount(product.list_price, product.list_price)
                         for tax in product.taxes_id
-                        if tax.tax_group_id != consignes_group
+                        if tax.tax_group_id != deposit_group
                     ]
                 )
                 product.total_with_vat = product.list_price + tax_amount_sum
@@ -80,7 +80,7 @@ class ProductTemplate(models.Model):
                 [
                     tax._compute_amount(product.list_price, product.list_price)
                     for tax in product.taxes_id
-                    if tax.tax_group_id == consignes_group
+                    if tax.tax_group_id == deposit_group
                 ]
             )
 
