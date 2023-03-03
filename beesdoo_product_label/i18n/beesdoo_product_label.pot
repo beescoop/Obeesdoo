@@ -30,11 +30,6 @@ msgid "Comments"
 msgstr ""
 
 #. module: beesdoo_product_label
-#: model:account.tax.group,name:beesdoo_product_label.consignes_group_tax
-msgid "Consignes"
-msgstr ""
-
-#. module: beesdoo_product_label
 #: model:ir.model.fields,field_description:beesdoo_product_label.field_beesdoo_product_label__create_uid
 msgid "Created by"
 msgstr ""
