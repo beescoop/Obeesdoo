@@ -33,7 +33,7 @@ addon | version | maintainers | summary
 [beesdoo_print_label](beesdoo_print_label/) | 12.0.2.0.0 |  | Product labels
 [beesdoo_product](beesdoo_product/) | 12.0.3.0.0 |  | Emptied.
 [beesdoo_product_info_screen](beesdoo_product_info_screen/) | 12.0.0.0.1 |  | Adds a read-only screen to display product information
-[beesdoo_product_label](beesdoo_product_label/) | 12.0.3.0.0 |  | Adds the label bio/ethique/provenance.
+[beesdoo_product_label](beesdoo_product_label/) | 12.0.3.0.1 |  | Adds the label bio/ethique/provenance.
 [beesdoo_product_usability](beesdoo_product_usability/) | 12.0.2.0.1 |  | Emptied. Leftover: simplification of Product View.
 [beesdoo_purchase](beesdoo_purchase/) | 12.0.1.4.0 |  | Enhancements related to Purchase module : field, filter, PO reference, product's purchase and/or selling price
 [beesdoo_shift](beesdoo_shift/) | 12.0.4.0.0 |  | Generate and manage shifts for cooperators.
@@ -73,7 +73,7 @@ addon | version | maintainers | summary
 [product_scale_label](product_scale_label/) | 12.0.2.0.0 |  | Add scale labels, sale units, and categories.
 [purchase_order_generator](purchase_order_generator/) | 12.0.2.1.0 |  | Generate purchase order from a product selection
 [sale_adapt_price_wizard](sale_adapt_price_wizard/) | 12.0.1.0.1 |  | Add "Edit Price" submenu on Purchase and Sale modules.
-[sale_product_deposit](sale_product_deposit/) | 12.0.1.0.0 |  | Calculates total price with VAT and deposit price.
+[sale_product_deposit](sale_product_deposit/) | 12.0.1.0.1 |  | Calculates total price with VAT and deposit price.
 [sale_suggested_price](sale_suggested_price/) | 12.0.1.0.0 |  | Add a suggested price to products, dependent on a product margin in partners and product categories.
 [stock_move_view_line_order](stock_move_view_line_order/) | 12.0.2.1.0 |  | Reverse the order of stock move lines to 'newest to oldest'.
 [website_portal_restrict_modification](website_portal_restrict_modification/) | 12.0.1.0.0 |  | Portal extension preventing modification of sensible data by the users
