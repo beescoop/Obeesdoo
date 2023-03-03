@@ -14,6 +14,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: sale_product_deposit
+#: model:account.tax.group,name:sale_product_deposit.deposit_tax_group
+msgid "Deposit"
+msgstr ""
+
+#. module: sale_product_deposit
 #: model:ir.model.fields,field_description:sale_product_deposit.field_product_product__total_deposit
 #: model:ir.model.fields,field_description:sale_product_deposit.field_product_template__total_deposit
 msgid "Deposit Price"
