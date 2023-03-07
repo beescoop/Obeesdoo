@@ -40,4 +40,5 @@
     ],
     "license": "AGPL-3",
     "pre_init_hook": "rename_beesdoo",
+    "post_init_hook": "post_init",
 }

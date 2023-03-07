@@ -56,18 +56,6 @@ XMLIDS_TO_RENAME = [
         "shift_attendance.shift_user_2_demo_res_partner",
     ),
 ]
-PARAMETER_KEYS_TO_RENAME = {
-    "beesdoo_shift_attendance.card_support": "shift_attendance.card_support",
-    "beesdoo_shift_attendance.pre_filled_task_type_id": (
-        "shift_attendance.pre_filled_task_type_id"
-    ),
-    "beesdoo_shift_attendance.attendance_sheet_generation_interval": (
-        "shift_attendance.attendance_sheet_generation_interval"
-    ),
-    "beesdoo_shift_attendance.attendance_sheet_default_shift_state": (
-        "shift_attendance.attendance_sheet_default_shift_state"
-    ),
-}
 OLD_MODULE_NAME = "beesdoo_shift_attendance"
 NEW_MODULE_NAME = "shift_attendance"
 
@@ -103,16 +91,6 @@ def rename_beesdoo(cr):
                     table_name, old_name, new_name
                 ),
             )
-
-    for origin, new in PARAMETER_KEYS_TO_RENAME.items():
-        _logger.info("renaming key {} to {}".format(origin, new))
-        openupgrade.logged_query(
-            cr,
-            """
-            UPDATE ir_config_parameter SET key = %s
-            WHERE key = %s""",
-            (new, origin),
-        )
 
     _logger.info("renaming xmlids")
     openupgrade.rename_xmlids(cr, XMLIDS_TO_RENAME)
