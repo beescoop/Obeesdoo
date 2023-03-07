@@ -25,11 +25,6 @@ XMLIDS_TO_RENAME = [
         "shift.shift_task_template_3_demo",
     ),
 ]
-PARAMETER_KEYS_TO_RENAME = {
-    "beesdoo_worker_status.irregular_penalty": (
-        "shift_worker_status.irregular_penalty"
-    ),
-}
 OLD_MODULE_NAME = "beesdoo_worker_status"
 NEW_MODULE_NAME = "shift_worker_status"
 
@@ -44,16 +39,6 @@ def rename_beesdoo(cr):
         return
 
     from openupgradelib import openupgrade
-
-    for origin, new in PARAMETER_KEYS_TO_RENAME.items():
-        _logger.info("renaming key {} to {}".format(origin, new))
-        openupgrade.logged_query(
-            cr,
-            """
-            UPDATE ir_config_parameter SET key = %s
-            WHERE key = %s""",
-            (new, origin),
-        )
 
     _logger.info("renaming xmlids")
     openupgrade.rename_xmlids(cr, XMLIDS_TO_RENAME)
