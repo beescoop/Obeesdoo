@@ -203,7 +203,7 @@ class WebsiteShiftController(http.Controller):
             min_percentage_presence = int(
                 request.env["ir.config_parameter"]
                 .sudo()
-                .get_param("min_percentage_presence")
+                .get_param("shift.min_percentage_presence")
             )
             for shift in next_shifts:
                 nb_worker_wanted = shift.task_template_id.worker_nb

@@ -371,7 +371,7 @@ class WebsiteShiftSwapController(WebsiteShiftController):
         min_hours_to_unsubscribe = int(
             request.env["ir.config_parameter"]
             .sudo()
-            .get_param("min_hours_to_unsubscribe")
+            .get_param("shift.min_hours_to_unsubscribe")
         )
         delta = my_tmpl_dated.date - datetime.now()
         delta = delta.seconds / 3600.0 + delta.days * 24
