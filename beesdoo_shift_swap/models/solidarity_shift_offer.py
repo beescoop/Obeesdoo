@@ -106,7 +106,7 @@ class SolidarityShiftOffer(models.Model):
     def check_offer_date_too_close(self):
         """
         Checks if the time delta between the current date and the shift date
-        is under a limit, defined in parameter 'min_hours_to_unsubscribe'.
+        is under a limit, defined in parameter 'shift.min_hours_to_unsubscribe'.
         Returns True if the date is too close.
         :return: Boolean
         """
@@ -114,7 +114,7 @@ class SolidarityShiftOffer(models.Model):
         shift_date = self.tmpl_dated_id.date
         delta = shift_date - datetime.now()
         limit_hours = int(
-            self.env["ir.config_parameter"].sudo().get_param("min_hours_to_unsubscribe")
+            self.env["ir.config_parameter"].sudo().get_param("shift.min_hours_to_unsubscribe")
         )
         if delta <= timedelta(hours=limit_hours):
             return True
