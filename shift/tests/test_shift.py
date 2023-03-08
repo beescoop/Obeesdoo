@@ -48,7 +48,7 @@ class TestShift(TransactionCase):
             # After the merge, the next_planning_date should be set only
             # once at the beginning with last_planning_seq
             self.env["ir.config_parameter"].set_param(
-                "next_planning_date",
+                "shift.next_planning_date",
                 (begin_date + timedelta(days=i * 7)).isoformat(),
             )
             # Generate the planning

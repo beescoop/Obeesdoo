@@ -96,8 +96,8 @@ class Planning(models.Model):
     @api.model
     def _generate_next_planning(self):
         config = self.env["ir.config_parameter"].sudo()
-        last_seq = int(config.get_param("last_planning_seq", 0))
-        date = fields.Date.from_string(config.get_param("next_planning_date", 0))
+        last_seq = int(config.get_param("shift.last_planning_seq", 0))
+        date = fields.Date.from_string(config.get_param("shift.next_planning_date", 0))
 
         planning = self._get_next_planning(last_seq)
         planning = planning.with_context(visualize_date=date)
@@ -109,8 +109,8 @@ class Planning(models.Model):
         planning.task_template_ids.generate_task_day()
 
         next_date = planning._get_next_planning_date(date)
-        config.set_param("last_planning_seq", planning.sequence)
-        config.set_param("next_planning_date", next_date)
+        config.set_param("shift.last_planning_seq", planning.sequence)
+        config.set_param("shift.next_planning_date", next_date)
 
     @api.model
     def get_future_shifts(
@@ -146,13 +146,13 @@ class Planning(models.Model):
 
         # Getting parameters
         last_sequence = int(
-            self.env["ir.config_parameter"].sudo().get_param("last_planning_seq")
+            self.env["ir.config_parameter"].sudo().get_param("shift.last_planning_seq")
         )
 
         next_planning = self._get_next_planning(last_sequence)
 
         next_planning_date = fields.Datetime.from_string(
-            self.env["ir.config_parameter"].sudo().get_param("next_planning_date", 0)
+            self.env["ir.config_parameter"].sudo().get_param("shift.next_planning_date", 0)
         )
 
         next_planning = next_planning.with_context(visualize_date=next_planning_date)

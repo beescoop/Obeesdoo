@@ -249,13 +249,13 @@ class ResPartner(models.Model):
             regular_next_shift_limit = int(
                 self.env["ir.config_parameter"]
                 .sudo()
-                .get_param("regular_next_shift_limit")
+                .get_param("shift.regular_next_shift_limit")
             )
             shift_period = int(
-                self.env["ir.config_parameter"].sudo().get_param("shift_period")
+                self.env["ir.config_parameter"].sudo().get_param("shift.shift_period")
             )
             next_planning_date = datetime.strptime(
-                self.env["ir.config_parameter"].sudo().get_param("next_planning_date"),
+                self.env["ir.config_parameter"].sudo().get_param("shift.next_planning_date"),
                 "%Y-%m-%d",
             )
 

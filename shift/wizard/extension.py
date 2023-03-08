@@ -11,7 +11,7 @@ class Subscribe(models.TransientModel):
         return int(
             self.env["ir.config_parameter"]
             .sudo()
-            .get_param("default_extension_delay", 28)
+            .get_param("shift.default_extension_delay", 28)
         )
 
     extension_start_date = fields.Date(
@@ -34,7 +34,7 @@ class Subscribe(models.TransientModel):
     def extension(self):
         self = self._check()  # maybe a different group
         grace_delay = int(
-            self.env["ir.config_parameter"].sudo().get_param("default_grace_delay", 10)
+            self.env["ir.config_parameter"].sudo().get_param("shift.default_grace_delay", 10)
         )
         status_id = self.env["cooperative.status"].search(
             [("cooperator_id", "=", self.cooperator_id.id)]
