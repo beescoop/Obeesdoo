@@ -143,13 +143,13 @@ class CooperativeStatus(models.Model):
         counter_unsubscribe = int(
             self.env["ir.config_parameter"]
             .sudo()
-            .get_param("regular_counter_to_unsubscribe", -4)
+            .get_param("shift.regular_counter_to_unsubscribe", -4)
         )
         alert_delay = int(
-            self.env["ir.config_parameter"].sudo().get_param("alert_delay", 28)
+            self.env["ir.config_parameter"].sudo().get_param("shift.alert_delay", 28)
         )
         grace_delay = int(
-            self.env["ir.config_parameter"].sudo().get_param("default_grace_delay", 10)
+            self.env["ir.config_parameter"].sudo().get_param("shift.default_grace_delay", 10)
         )
         ok = self.sr >= 0 and self.sc >= 0
         grace_delay = grace_delay + self.time_extension
@@ -220,13 +220,13 @@ class CooperativeStatus(models.Model):
         counter_unsubscribe = int(
             self.env["ir.config_parameter"]
             .sudo()
-            .get_param("irregular_counter_to_unsubscribe", -3)
+            .get_param("shift.irregular_counter_to_unsubscribe", -3)
         )
         alert_delay = int(
-            self.env["ir.config_parameter"].sudo().get_param("alert_delay", 28)
+            self.env["ir.config_parameter"].sudo().get_param("shift.alert_delay", 28)
         )
         grace_delay = int(
-            self.env["ir.config_parameter"].sudo().get_param("default_grace_delay", 10)
+            self.env["ir.config_parameter"].sudo().get_param("shift.default_grace_delay", 10)
         )
         ok = self.sr >= 0
         grace_delay = grace_delay + self.time_extension
