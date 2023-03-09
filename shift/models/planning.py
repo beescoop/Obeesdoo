@@ -202,8 +202,6 @@ class ShiftTemplate(models.Model):
     planning_id = fields.Many2one("shift.planning", required=True)
     day_nb_id = fields.Many2one("shift.daynumber", string="Day", required=True)
     task_type_id = fields.Many2one("shift.type", string="Type")
-    # FIXME removed because shift.sheet is from another module.
-    # attendance_sheet_id = fields.Many2one('shift.sheet', string="Attendance Sheet")  # noqa
     start_time = fields.Float(required=True)
     end_time = fields.Float(required=True)
     super_coop_id = fields.Many2one(
