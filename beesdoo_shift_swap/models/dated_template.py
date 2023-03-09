@@ -181,7 +181,9 @@ class DatedTemplate(models.Model):
             end_date, include_cancelled=False
         )
         min_percentage_presence = int(
-            self.env["ir.config_parameter"].sudo().get_param("shift.min_percentage_presence")
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("shift.min_percentage_presence")
         )
         underpopulated_tmpl_dated = self.env["beesdoo.shift.template.dated"]
         cur_date = next_shifts[0].start_time
