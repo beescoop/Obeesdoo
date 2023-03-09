@@ -47,12 +47,8 @@ def post_init(cr, registry):
     # will copy the old values to the newly prefixed parameters.
     env = api.Environment(cr, SUPERUSER_ID, {})
     for old_key, new_key in PARAMS_TO_RENAME.items():
-        _logger.info("renaming %s to %s", old_key, new_key)
-        try:
-            old_value = env["ir.config_parameter"].get_param(old_key)
-        except Exception:
-            _logger.warning("could not find value for '%s'", old_key)
-            continue
-        env["ir.config_parameter"].set_param(new_key, old_value)
-        # Delete old parameter.
-        env["ir.config_parameter"].search([("key", "=", old_key)]).unlink()
+        old_param = env["ir.config_parameter"].search([("key", "=", old_key)])
+        if old_param:
+            _logger.info("renaming %s to %s", old_key, new_key)
+            env["ir.config_parameter"].set_param(new_key, old_param.value)
+            old_param.unlink()
