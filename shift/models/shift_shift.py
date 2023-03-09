@@ -7,7 +7,7 @@ from odoo.exceptions import UserError
 from odoo.tools.translate import _
 
 
-class Task(models.Model):
+class ShiftShift(models.Model):
     _name = "shift.shift"
     _inherit = ["mail.thread"]
     _order = "start_time asc"
@@ -133,7 +133,7 @@ class Task(models.Model):
 
     def message_auto_subscribe(self, updated_fields, values=None):
         self._add_follower(values)
-        return super(Task, self).message_auto_subscribe(updated_fields, values=values)
+        return super().message_auto_subscribe(updated_fields, values=values)
 
     def _add_follower(self, vals):
         if vals.get("worker_id"):
@@ -292,7 +292,7 @@ class Task(models.Model):
                     # To satisfy the constrains on worker_id, it must be
                     # accompanied by the change in is_regular and
                     # is_compensation field.
-                    super(Task, rec).write(
+                    super(ShiftShift, rec).write(
                         {
                             "worker_id": vals["worker_id"],
                             "is_regular": vals.get("is_regular", rec.is_regular),
@@ -306,7 +306,7 @@ class Task(models.Model):
             for rec in self:
                 if vals["state"] != rec.state:
                     rec._update_state(vals["state"])
-        return super(Task, self).write(vals)
+        return super().write(vals)
 
     def _set_revert_info(self, data, status):
         data_new = {
