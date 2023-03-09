@@ -149,7 +149,9 @@ class CooperativeStatus(models.Model):
             self.env["ir.config_parameter"].sudo().get_param("shift.alert_delay", 28)
         )
         grace_delay = int(
-            self.env["ir.config_parameter"].sudo().get_param("shift.default_grace_delay", 10)
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("shift.default_grace_delay", 10)
         )
         ok = self.sr >= 0 and self.sc >= 0
         grace_delay = grace_delay + self.time_extension
@@ -226,7 +228,9 @@ class CooperativeStatus(models.Model):
             self.env["ir.config_parameter"].sudo().get_param("shift.alert_delay", 28)
         )
         grace_delay = int(
-            self.env["ir.config_parameter"].sudo().get_param("shift.default_grace_delay", 10)
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("shift.default_grace_delay", 10)
         )
         ok = self.sr >= 0
         grace_delay = grace_delay + self.time_extension

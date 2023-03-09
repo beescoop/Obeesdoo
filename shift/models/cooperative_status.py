@@ -162,7 +162,9 @@ class CooperativeStatus(models.Model):
     )
     def _compute_status(self):
         update = int(
-            self.env["ir.config_parameter"].sudo().get_param("shift.always_update", False)
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("shift.always_update", False)
         )
         for rec in self:
             if update or not rec.today:
