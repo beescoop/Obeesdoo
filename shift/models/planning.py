@@ -27,7 +27,7 @@ def get_first_day_of_week():
     return (datetime.now() - timedelta(days=today.weekday())).date()
 
 
-class TaskType(models.Model):
+class ShiftType(models.Model):
     _name = "shift.type"
     _description = "shift.type"
 
@@ -36,7 +36,7 @@ class TaskType(models.Model):
     active = fields.Boolean(default=True)
 
 
-class DayNumber(models.Model):
+class ShiftDayNumber(models.Model):
     _name = "shift.daynumber"
     _description = "shift.daynumber"
 
@@ -52,7 +52,7 @@ class DayNumber(models.Model):
     active = fields.Boolean(default=True)
 
 
-class Planning(models.Model):
+class ShiftPlanning(models.Model):
     _name = "shift.planning"
     _description = "shift.planning"
     _order = "sequence asc"
@@ -193,7 +193,7 @@ class Planning(models.Model):
         return shift_list
 
 
-class TaskTemplate(models.Model):
+class ShiftTemplate(models.Model):
     _name = "shift.template"
     _description = "shift.template"
     _order = "start_time"
@@ -402,7 +402,7 @@ class TaskTemplate(models.Model):
         saved_vals = {}
         for rec in self:
             saved_vals[rec] = rec.worker_ids
-        result = super(TaskTemplate, self).write(vals)
+        result = super().write(vals)
         for rec in self:
             rec._update_shifts_on_worker_change(
                 prev_worker_ids=saved_vals[rec],
