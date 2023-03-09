@@ -7,9 +7,9 @@ from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
 
 
-class TestShift(TransactionCase):
+class TestShiftWorkerStatus(TransactionCase):
     def setUp(self):
-        super(TestShift, self).setUp()
+        super().setUp()
         self.shift_model = self.env["shift.shift"]
         self.shift_template_model = self.env["shift.template"]
 
