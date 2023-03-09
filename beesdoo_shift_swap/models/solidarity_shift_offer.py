@@ -114,7 +114,9 @@ class SolidarityShiftOffer(models.Model):
         shift_date = self.tmpl_dated_id.date
         delta = shift_date - datetime.now()
         limit_hours = int(
-            self.env["ir.config_parameter"].sudo().get_param("shift.min_hours_to_unsubscribe")
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("shift.min_hours_to_unsubscribe")
         )
         if delta <= timedelta(hours=limit_hours):
             return True

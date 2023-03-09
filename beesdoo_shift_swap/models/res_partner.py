@@ -109,7 +109,9 @@ class ResPartner(models.Model):
             self.env["ir.config_parameter"].sudo().get_param("shift.max_shift_per_day")
         )
         max_shift_per_month = int(
-            self.env["ir.config_parameter"].sudo().get_param("shift.max_shift_per_month")
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("shift.max_shift_per_month")
         )
         for tmpl_dated in my_next_tmpl_dated:
             if tmpl_dated.date.date() == wanted_tmpl_dated.date.date():
