@@ -114,7 +114,9 @@ class ShiftShift(models.Model):
     def check_hours_to_unsubscribe(self):
         self.ensure_one()
         min_hours = int(
-            self.env["ir.config_parameter"].sudo().get_param("shift.min_hours_to_unsubscribe")
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("shift.min_hours_to_unsubscribe")
         )
         delta = self.start_time - datetime.now()
         delta = delta.seconds / 3600.0 + delta.days * 24
@@ -347,7 +349,9 @@ class ShiftShift(models.Model):
             )
 
         always_update = int(
-            self.env["ir.config_parameter"].sudo().get_param("shift.always_update", False)
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("shift.always_update", False)
         )
         if always_update or not (self.worker_id or self.replaced_id):
             return

@@ -152,7 +152,9 @@ class ShiftPlanning(models.Model):
         next_planning = self._get_next_planning(last_sequence)
 
         next_planning_date = fields.Datetime.from_string(
-            self.env["ir.config_parameter"].sudo().get_param("shift.next_planning_date", 0)
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("shift.next_planning_date", 0)
         )
 
         next_planning = next_planning.with_context(visualize_date=next_planning_date)
