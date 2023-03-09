@@ -29,7 +29,7 @@
         "views/exempt_reason.xml",
         "views/menu.xml",
         "views/res_config_settings_view.xml",
-        "wizard/instanciate_planning.xml",
+        "wizard/instantiate_planning.xml",
         "wizard/batch_template.xml",
         "wizard/assign_super_coop.xml",
         "wizard/subscribe.xml",

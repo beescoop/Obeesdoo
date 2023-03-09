@@ -1,7 +1,7 @@
 from odoo import _, api, fields, models
 
 
-class InstanciatePlanning(models.TransientModel):
+class InstantiatePlanning(models.TransientModel):
     _name = "shift.generate_planning"
     _description = "shift.generate_planning"
 

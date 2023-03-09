@@ -164,6 +164,11 @@ XMLIDS_TO_RENAME = [
     ("beesdoo_shift.beesdoo_shift_task_type_3_demo", "shift.shift_task_type_3_demo"),
     ("beesdoo_shift.beesdoo_shift_task_type_4_demo", "shift.shift_task_type_4_demo"),
     ("beesdoo_shift.beesdoo_shift_planning_1_demo", "shift.shift_planning_1_demo"),
+    (
+        # typo
+        "beesdoo_shift.planning_instanciate_view_form",
+        "shift.planning_instantiate_view_form",
+    ),
 ]
 OLD_MODULE_NAME = "beesdoo_shift"
 NEW_MODULE_NAME = "shift"
