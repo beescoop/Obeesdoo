@@ -38,13 +38,18 @@ def post_init(cr, registry):
         return
 
     # After shift is installed, a lot of parameters (with prefix 'shift.') are
-    # created fresh. If we didn't rename the parameters (e.g. 'alert_delay' was
-    # never renamed to 'shift.alert_delay'), the values of those parameters
-    # would be reset to the default values at init time (i.e. after the init
-    # hook), even though the XML IDs would have been correctly reconfigured.
+    # created fresh. If we didn't rename the keys of the parameters (e.g.
+    # 'alert_delay' was never renamed to 'shift.alert_delay'), the values of
+    # those parameters would be reset to the default values at init time (i.e.
+    # after the init hook).
     #
-    # For that reason, we take the opportunity here to add some prefixes, and we
-    # will copy the old values to the newly prefixed parameters.
+    # Furthermore, the XMLIDs of all parameters have been changed. If they
+    # stayed the same, the parameters would be overridden at init time as well,
+    # even though the names of the keys have changed.
+    #
+    # The idea here is to take the old parameters that haven't yet been pruned,
+    # put their values in the newly created parameters, then prune the old
+    # parameters.
     env = api.Environment(cr, SUPERUSER_ID, {})
     for old_key, new_key in PARAMS_TO_RENAME.items():
         old_param = env["ir.config_parameter"].search([("key", "=", old_key)])
