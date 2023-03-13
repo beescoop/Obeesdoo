@@ -1,5 +1,5 @@
-from odoo.http import request
 from odoo import http
+from odoo.http import request
 
 from odoo.addons.portal.controllers.portal import CustomerPortal
 
@@ -24,11 +24,10 @@ class WorkerPortalAccount(CustomerPortal):
 
     @http.route(["/my/account"], type="http", auth="user", website=True)
     def account(self, redirect=None, **post):
-        if post and request.httprequest.method == 'POST':
+        if post and request.httprequest.method == "POST":
             if "share_supercoop_info" in post:
                 post["share_supercoop_info"] = True
             else:
                 post["share_supercoop_info"] = False
         res = super().account(redirect, **post)
         return res
-

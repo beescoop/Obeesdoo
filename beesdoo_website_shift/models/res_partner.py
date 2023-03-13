@@ -6,5 +6,5 @@ class ResPartner(models.Model):
 
     share_supercoop_info = fields.Boolean(
         string="Accept to share my info as Supercoop",
-        default=True,
+        default=False,
     )
