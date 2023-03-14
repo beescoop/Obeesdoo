@@ -16,6 +16,7 @@
     "application": False,
     "depends": [
         "account",
+        "purchase",
     ],
     "excludes": [],
     "data": [
