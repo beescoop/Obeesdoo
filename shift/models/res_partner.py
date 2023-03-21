@@ -101,58 +101,48 @@ class ResPartner(models.Model):
             else:
                 rec.can_shop = True
 
-    @api.multi
     def coop_subscribe(self):
         return {
             "name": _("Subscribe Cooperator"),
             "type": "ir.actions.act_window",
-            "view_type": "form",
             "view_mode": "form",
             "res_model": "shift.subscribe",
             "target": "new",
         }
 
-    @api.multi
     def coop_unsubscribe(self):
         res = self.coop_subscribe()
         res["context"] = {"default_unsubscribed": True}
         return res
 
-    @api.multi
     def manual_extension(self):
         return {
             "name": _("Manual Extension"),
             "type": "ir.actions.act_window",
-            "view_type": "form",
             "view_mode": "form",
             "res_model": "shift.extension",
             "target": "new",
         }
 
-    @api.multi
     def auto_extension(self):
         res = self.manual_extension()
         res["context"] = {"default_auto": True}
         res["name"] = _("Trigger Grace Delay")
         return res
 
-    @api.multi
     def register_holiday(self):
         return {
             "name": _("Register Holiday"),
             "type": "ir.actions.act_window",
-            "view_type": "form",
             "view_mode": "form",
             "res_model": "shift.holiday",
             "target": "new",
         }
 
-    @api.multi
     def temporary_exempt(self):
         return {
             "name": _("Temporary Exemption"),
             "type": "ir.actions.act_window",
-            "view_type": "form",
             "view_mode": "form",
             "res_model": "shift.temporary_exemption",
             "target": "new",

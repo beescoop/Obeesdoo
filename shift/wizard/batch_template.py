@@ -4,7 +4,7 @@ Created on 2 janv. 2017
 @author: Thibault Francois
 """
 
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 
 
 class GenerateShiftTemplate(models.TransientModel):
@@ -30,7 +30,6 @@ class GenerateShiftTemplate(models.TransientModel):
     )
     line_ids = fields.One2many("shift.generate_shift_template.line", "wizard_id")
 
-    @api.multi
     def generate(self):
         self.ensure_one()
         ids = []
@@ -52,7 +51,6 @@ class GenerateShiftTemplate(models.TransientModel):
         return {
             "name": _("Generated Shift Template"),
             "type": "ir.actions.act_window",
-            "view_type": "form",
             "view_mode": "kanban,tree,form",
             "res_model": "shift.template",
             "target": "current",

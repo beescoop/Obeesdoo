@@ -1,4 +1,4 @@
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 
@@ -121,7 +121,6 @@ class Subscribe(models.TransientModel):
         " If a user exists, nothing is done.",
     )
 
-    @api.multi
     def unsubscribe(self):
         self = self._check()
         if not self.unsubscribed:
@@ -140,7 +139,6 @@ class Subscribe(models.TransientModel):
         else:
             self.env["cooperative.status"].sudo().create(data)
 
-    @api.multi
     def subscribe(self):
         self = self._check()
         if (

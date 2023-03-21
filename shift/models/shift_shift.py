@@ -9,6 +9,7 @@ from odoo.tools.translate import _
 
 class ShiftShift(models.Model):
     _name = "shift.shift"
+    _description = "shift.shift"
     _inherit = ["mail.thread"]
     _order = "start_time asc"
 
@@ -43,26 +44,26 @@ class ShiftShift(models.Model):
     def get_absent_state(self):
         return ["absent"]
 
-    name = fields.Char(track_visibility="always")
+    name = fields.Char(tracking=True)
     task_template_id = fields.Many2one("shift.template")
     planning_id = fields.Many2one(related="task_template_id.planning_id", store=True)
     task_type_id = fields.Many2one("shift.type", string="Task Type")
     worker_id = fields.Many2one(
         "res.partner",
-        track_visibility="onchange",
+        tracking=True,
         domain=[
             ("is_worker", "=", True),
             ("working_mode", "in", ("regular", "irregular")),
             ("state", "not in", ("unsubscribed", "resigning")),
         ],
     )
-    start_time = fields.Datetime(track_visibility="always", index=True, required=True)
-    end_time = fields.Datetime(track_visibility="always", required=True)
+    start_time = fields.Datetime(tracking=True, index=True, required=True)
+    end_time = fields.Datetime(tracking=True, required=True)
     state = fields.Selection(
         selection=lambda x: x._get_selection_status(),
         default="open",
         required=True,
-        track_visibility="onchange",
+        tracking=True,
         group_expand="_expand_states",
     )
     color = fields.Integer(compute="_compute_color")
@@ -70,14 +71,14 @@ class ShiftShift(models.Model):
         "res.users",
         string="Super Cooperative",
         domain=[("partner_id.super", "=", True)],
-        track_visibility="onchange",
+        tracking=True,
     )
     is_regular = fields.Boolean(default=False, string="Regular shift")
     is_compensation = fields.Boolean(default=False, string="Compensation shift")
     replaced_id = fields.Many2one(
         "res.partner",
         string="Replaced By",
-        track_visibility="onchange",
+        tracking=True,
         domain=[
             ("eater", "=", "worker_eater"),
             ("working_mode", "=", "regular"),
@@ -278,7 +279,6 @@ class ShiftShift(models.Model):
                 if task_tmpl_id.super_coop_id == worker_id:
                     shift_ids.write({"super_coop_id": worker_id})
 
-    @api.multi
     def write(self, vals):
         """
         Overwrite write to track state change

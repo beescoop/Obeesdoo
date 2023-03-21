@@ -1,4 +1,4 @@
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 
@@ -22,7 +22,6 @@ class Subscribe(models.TransientModel):
     auto = fields.Boolean("Auto Extension", default=False)
     extension_days = fields.Integer(default=_get_default_extension_delay)
 
-    @api.multi
     def auto_ext(self):
         self = self._check(group="shift.group_shift_attendance")
         status_id = self.env["cooperative.status"].search(
@@ -30,7 +29,6 @@ class Subscribe(models.TransientModel):
         )
         status_id.sudo().write({"extension_start_time": self.extension_start_date})
 
-    @api.multi
     def extension(self):
         self = self._check()  # maybe a different group
         grace_delay = int(

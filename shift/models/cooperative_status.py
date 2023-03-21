@@ -97,7 +97,6 @@ class CooperativeStatus(models.Model):
         selection=lambda x: x._get_status(),
         compute="_compute_status",
         string="Cooperative Status",
-        translate=True,
         store=True,
     )
     can_shop = fields.Boolean(compute="_compute_can_shop", store=True)
@@ -208,7 +207,6 @@ class CooperativeStatus(models.Model):
             "unsubscribed",
         ]
 
-    @api.multi
     def write(self, vals):
         """
         Overwrite write to historize the change
@@ -255,7 +253,6 @@ class CooperativeStatus(models.Model):
                 )
         return result
 
-    @api.multi
     def _write(self, vals):
         """
         Overwrite write to historize the change of status
@@ -363,7 +360,6 @@ class CooperativeStatus(models.Model):
                 status._change_irregular_counter()
                 journal.line_ids |= status
 
-    @api.multi
     def clear_history(self):
         self.ensure_one()
         self.history_ids.unlink()
@@ -398,7 +394,6 @@ class CooperativeStatus(models.Model):
         for rec in self:
             rec.next_countdown_date = False
 
-    @api.multi
     @api.depends(
         "cooperator_id.shift_shift_ids",
         "cooperator_id.shift_shift_ids.state",
@@ -516,7 +511,6 @@ class ShiftCronJournal(models.Model):
         )
     ]
 
-    @api.multi
     def run(self):
         self.ensure_one()
         if not self.user_has_groups("shift.group_cooperative_admin"):

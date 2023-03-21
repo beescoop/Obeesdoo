@@ -1,4 +1,4 @@
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -48,7 +48,6 @@ class TemporaryExemption(models.TransientModel):
         default=_get_temporary_exempt_end_date, required=True
     )
 
-    @api.multi
     def exempt(self):
         self = self._check()  # maybe a different group
         if (

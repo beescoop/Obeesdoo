@@ -6,15 +6,15 @@
 {
     "name": "Shift Management",
     "summary": """Generate and manage shifts for cooperators.""",
-    "author": (
-        "Thibault Francois, "
-        "Elouan Le Bars, "
-        "Coop IT Easy SC, "
-        "Odoo Community Association (OCA)"
-    ),
+    "author": """
+        Thibault Francois,
+        Elouan Le Bars,
+        Coop IT Easy SC,
+        Odoo Community Association (OCA),
+        """,
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
-    "version": "12.0.5.0.0",
+    "version": "13.0.1.0.0",
     "depends": ["mail"],
     "data": [
         "data/system_parameter.xml",
@@ -43,6 +43,4 @@
         "demo/templates.xml",
     ],
     "license": "AGPL-3",
-    "pre_init_hook": "rename_beesdoo",
-    "post_init_hook": "post_init",
 }

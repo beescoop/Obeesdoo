@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class AssignSuperCoop(models.TransientModel):
@@ -17,7 +17,6 @@ class AssignSuperCoop(models.TransientModel):
         default=lambda self: self._context.get("active_ids"),
     )
 
-    @api.multi
     def write_super_coop(self):
         self.ensure_one()
         self.shift_ids.write({"super_coop_id": self.super_coop_id.id})

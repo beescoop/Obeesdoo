@@ -7,7 +7,6 @@
 
     <record id="res_partner_worker_1_demo" model="res.partner">
         <field name="name">Fernand Peso</field>
-        <field name="customer" eval="True" />
 <!--        <field name="eater">worker_eater</field>-->
         <field name="is_company" eval="False" />
         <field name="email">fernand_peso@demode.net</field>
@@ -23,7 +22,6 @@
 
     <record id="res_partner_worker_2_demo" model="res.partner">
         <field name="name">Dupont Dupont</field>
-        <field name="customer" eval="True" />
 <!--        <field name="eater">worker_eater</field>-->
         <field name="is_company" eval="False" />
         <field name="email">d_dupont@demode.net</field>
@@ -39,7 +37,6 @@
 
     <record id="res_partner_worker_3_demo" model="res.partner">
         <field name="name">Ronan Le Gall</field>
-        <field name="customer" eval="True" />
 <!--        <field name="eater">worker_eater</field>-->
         <field name="is_company" eval="False" />
         <field name="email">ronan_gall@demode.net</field>
@@ -56,7 +53,6 @@
 
     <record id="res_partner_worker_4_demo" model="res.partner">
         <field name="name">Elouan Bees</field>
-        <field name="customer" eval="True" />
 <!--        <field name="eater">worker_eater</field>-->
         <field name="is_company" eval="False" />
         <field name="email">elouan_bees@demode.net</field>
@@ -72,7 +68,6 @@
 
     <record id="res_partner_worker_5_demo" model="res.partner">
         <field name="name">Anne de Marchalo</field>
-        <field name="customer" eval="True" />
 <!--        <field name="eater">worker_eater</field>-->
         <field name="is_company" eval="False" />
         <field name="email">anne_marchalo@demode.net</field>
@@ -87,7 +82,6 @@
     </record>
     <record id="res_partner_worker_6_demo" model="res.partner">
         <field name="name">Jean Beaumont</field>
-        <field name="customer" eval="True" />
 <!--        <field name="eater">worker_eater</field>-->
         <field name="is_company" eval="False" />
         <field name="email">jean_beaumont@demode.net</field>

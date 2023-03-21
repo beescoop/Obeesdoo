@@ -6,7 +6,7 @@
         <record id="email_template_shift_summary" model="mail.template">
             <field name="name">Shift Summary</field>
             <field name="subject">Your next shift
-                (${format_tz(object.start_time,object.worker_id.tz or 'Europe/Brussels','%d.%m.%Y - %H:%M')})
+                (${format_datetime(object.start_time, tz=object.worker_id.tz or 'Europe/Brussels', dt_format='%d.%m.%Y - %H:%M')})
             </field>
             <field name="email_from">${object.worker_id.company_id.email}
             </field>
@@ -23,8 +23,8 @@
 
     <p>Hello ${object.worker_id.name},</p>
 
-    <p>You are awaited the ${format_tz(object.start_time,object.worker_id.tz or 'Europe/Brussels','%d.%m.%Y')}
-    for the shift starting at ${format_tz(object.start_time,object.worker_id.tz or 'Europe/Brussels','%H:%M')}.
+    <p>You are awaited the ${format_datetime(object.start_time, tz=object.worker_id.tz or 'Europe/Brussels', dt_format='%d.%m.%Y')}
+    for the shift starting at ${format_datetime(object.start_time, tz=object.worker_id.tz or 'Europe/Brussels',dt_format='%H:%M')}.
 
     <br/><br/>Please contact us at ${object.worker_id.company_id.email} if you have any trouble attending the shift.
     </p>

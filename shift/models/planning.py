@@ -81,7 +81,6 @@ class ShiftPlanning(models.Model):
             return self.search([])[0]
         return next_planning[0]
 
-    @api.multi
     def _get_next_planning_date(self, date):
         self.ensure_one()
         periodicity = self.periodicity
@@ -342,7 +341,6 @@ class ShiftTemplate(models.Model):
 
         return tasks
 
-    @api.multi
     def get_task_day(self):
         """
         Creates the shifts according to the template without saving
@@ -356,7 +354,6 @@ class ShiftTemplate(models.Model):
             tasks |= tasks.new(task)
         return tasks
 
-    @api.multi
     def generate_task_day(self):
         """
         Creates the shifts according to the template and saves

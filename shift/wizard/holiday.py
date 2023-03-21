@@ -1,4 +1,4 @@
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -36,7 +36,6 @@ class Subscribe(models.TransientModel):
         default=_get_holiday_end_day,
     )
 
-    @api.multi
     def holidays(self):
         self = self._check()  # maybe a different group
         if (

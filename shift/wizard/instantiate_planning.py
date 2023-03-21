@@ -1,4 +1,4 @@
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 
 
 class InstantiatePlanning(models.TransientModel):
@@ -13,7 +13,6 @@ class InstantiatePlanning(models.TransientModel):
         "shift.planning", readonly=True, default=_get_planning
     )
 
-    @api.multi
     def generate_task(self):
         self.ensure_one()
         self = self.with_context(visualize_date=self.date_start, tracking_disable=True)
@@ -21,7 +20,6 @@ class InstantiatePlanning(models.TransientModel):
         return {
             "name": _("Generated Shift"),
             "type": "ir.actions.act_window",
-            "view_type": "form",
             "view_mode": "kanban,calendar,tree,form,pivot",
             "res_model": "shift.shift",
             "target": "current",
