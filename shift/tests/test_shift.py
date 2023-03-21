@@ -8,31 +8,32 @@ from odoo.tests.common import TransactionCase
 
 
 class TestShift(TransactionCase):
-    def setUp(self):
-        super(TestShift, self).setUp()
-        self.shift_model = self.env["shift.shift"]
-        self.shift_template_model = self.env["shift.template"]
-        self.subscribe_wizard = self.env["shift.subscribe"]
-        self.holiday_wizard = self.env["shift.holiday"]
-        self.exemption_wizard = self.env["shift.temporary_exemption"]
+    @classmethod
+    def setUpClass(cls):
+        super(TestShift, cls).setUpClass()
+        cls.shift_model = cls.env["shift.shift"]
+        cls.shift_template_model = cls.env["shift.template"]
+        cls.subscribe_wizard = cls.env["shift.subscribe"]
+        cls.holiday_wizard = cls.env["shift.holiday"]
+        cls.exemption_wizard = cls.env["shift.temporary_exemption"]
 
-        self.current_time = datetime.now()
-        self.user_admin = self.env.ref("base.user_root")
-        self.user_demo = self.env.ref("base.user_demo")
+        cls.current_time = datetime.now()
+        cls.user_admin = cls.env.ref("base.user_root")
+        cls.user_demo = cls.env.ref("base.user_demo")
 
-        self.worker_regular_1 = self.env.ref("shift.res_partner_worker_1_demo")
-        self.worker_irregular_2 = self.env.ref("shift.res_partner_worker_2_demo")
-        self.worker_regular_3 = self.env.ref("shift.res_partner_worker_3_demo")
-        self.worker_regular_5 = self.env.ref("shift.res_partner_worker_5_demo")
-        self.worker_regular_6 = self.env.ref("shift.res_partner_worker_6_demo")
+        cls.worker_regular_1 = cls.env.ref("shift.res_partner_worker_1_demo")
+        cls.worker_irregular_2 = cls.env.ref("shift.res_partner_worker_2_demo")
+        cls.worker_regular_3 = cls.env.ref("shift.res_partner_worker_3_demo")
+        cls.worker_regular_5 = cls.env.ref("shift.res_partner_worker_5_demo")
+        cls.worker_regular_6 = cls.env.ref("shift.res_partner_worker_6_demo")
 
-        self.planning_1 = self.env.ref("shift.shift_planning_1_demo")
+        cls.planning_1 = cls.env.ref("shift.shift_planning_1_demo")
 
-        self.task_template_1 = self.env.ref("shift.task_template_1_demo")
-        self.task_template_2 = self.env.ref("shift.task_template_2_demo")
-        self.task_template_3 = self.env.ref("shift.task_template_3_demo")
+        cls.task_template_1 = cls.env.ref("shift.task_template_1_demo")
+        cls.task_template_2 = cls.env.ref("shift.task_template_2_demo")
+        cls.task_template_3 = cls.env.ref("shift.task_template_3_demo")
 
-        self.exempt_reason_1 = self.env.ref("shift.exempt_reason_1_demo")
+        cls.exempt_reason_1 = cls.env.ref("shift.exempt_reason_1_demo")
 
     def _generate_shifts(self, days=0, nb=1):
         """

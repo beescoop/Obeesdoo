@@ -14,7 +14,7 @@
         """,
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
-    "version": "14.0.1.0.0",
+    "version": "15.0.1.0.0",
     "depends": ["mail"],
     "data": [
         "data/system_parameter.xml",

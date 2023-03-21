@@ -199,7 +199,7 @@
                                     t-as="worker"
                                 >
                                     <div>
-                                        <t t-esc="worker" />
+                                        <t t-out="worker" />
                                     </div>
                                 </t>
                             </div>

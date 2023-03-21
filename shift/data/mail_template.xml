@@ -5,59 +5,58 @@
     <data noupdate="1">
         <record id="email_template_shift_summary" model="mail.template">
             <field name="name">Shift Summary</field>
-            <field name="subject">Your next shift
-                (${format_datetime(object.start_time, tz=object.worker_id.tz or 'Europe/Brussels', dt_format='%d.%m.%Y - %H:%M')})
+            <field name="subject">Your next shift ({{ format_datetime(object.start_time, tz=object.worker_id.tz or 'Europe/Brussels', dt_format='dd.MM.yyyy HH:mm') }})
             </field>
-            <field name="email_from">${object.worker_id.company_id.email}
+            <field name="email_from">{{ object.worker_id.company_id.email }}
             </field>
             <field name="partner_to">
-                ${object.replaced_id.id or object.worker_id.id|safe}
+                {{ object.replaced_id.id or object.worker_id.id|safe }}
             </field>
             <field name="model_id" ref="model_shift_shift" />
             <field name="auto_delete" eval="True" />
-            <field name="lang">${object.worker_id.lang}</field>
+            <field name="lang">{{ object.worker_id.lang }}</field>
             <field
                 name="body_html"
             ><![CDATA[
 <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
 
-    <p>Hello ${object.worker_id.name},</p>
+    <p>Hello <t t-out="object.worker_id.name or ''" />,</p>
 
-    <p>You are awaited the ${format_datetime(object.start_time, tz=object.worker_id.tz or 'Europe/Brussels', dt_format='%d.%m.%Y')}
-    for the shift starting at ${format_datetime(object.start_time, tz=object.worker_id.tz or 'Europe/Brussels',dt_format='%H:%M')}.
+    <p>You are awaited the <t t-out="format_datetime(object.start_time, tz=object.worker_id.tz or 'Europe/Brussels', dt_format='dd.MM.yyyy')"/>
+    for the shift starting at <t t-out="format_datetime(object.start_time, tz=object.worker_id.tz or 'Europe/Brussels',dt_format='HH:mm')"/>.
 
-    <br/><br/>Please contact us at ${object.worker_id.company_id.email} if you have any trouble attending the shift.
+    <br/><br/>Please contact us at <t t-out="object.worker_id.company_id.email"/> if you have any trouble attending the shift.
     </p>
     <br/>
     <p>Sustainably yours,</p>
-    <p>${object.worker_id.company_id.name}.</p>
+    <p><t t-out="object.worker_id.company_id.name"/>.</p>
 
-    % if object.worker_id.company_id.street:
-        ${object.worker_id.company_id.street}
-    % endif
-    % if object.worker_id.company_id.street2:
-        ${object.worker_id.company_id.street2}<br/>
-    % endif
-    % if object.worker_id.company_id.city or object.worker_id.company_id.zip:
-        ${object.worker_id.company_id.zip} ${object.worker_id.company_id.city}<br/>
-    % endif
-    % if object.worker_id.company_id.country_id:
-        ${object.worker_id.company_id.state_id and ('%s, ' % object.worker_id.company_id.state_id.name) or ''} ${object.worker_id.company_id.country_id.name or ''}<br/>
-    % endif
-    % if object.worker_id.company_id.phone:
-        Phone:&nbsp; ${object.worker_id.company_id.phone}
-    % endif
+    <t t-if="object.worker_id.company_id.street">
+        <t t-out="object.worker_id.company_id.street" />
+    </t>
+    <t t-if="object.worker_id.company_id.street2">
+        <t t-out="object.worker_id.company_id.street2"/><br/>
+    </t>
+    <t t-if="object.worker_id.company_id.city or object.worker_id.company_id.zip">
+        <t t-out="object.worker_id.company_id.zip"/> <t t-out="object.worker_id.company_id.city"/><br/>
+    </t>
+    <t t-if="object.worker_id.company_id.country_id">
+        <t t-out="object.worker_id.company_id.state_id and ('%s, ' % object.worker_id.company_id.state_id.name) or ''"/> <t t-out="object.worker_id.company_id.country_id.name or ''"/><br/>
+    </t>
+    <t t-if="object.worker_id.company_id.phone">
+        Phone:&nbsp; <t t-out="object.worker_id.company_id.phone"/>
+    </t>
 
-    % if object.worker_id.company_id.website:
+    <t t-if="object.worker_id.company_id.website">
         <div>
-            Web :&nbsp;<a href="${object.worker_id.company_id.website}">${object.worker_id.company_id.website}</a>
+            Web :&nbsp;<a href="<t t-out="object.worker_id.company_id.website"/>"><t t-out="object.worker_id.company_id.website"/></a>
         </div>
-    %endif
-    % if object.worker_id.company_id.logo_url:
+    </t>
+    <t t-if="object.worker_id.company_id.logo">
     <div>
-        <img src=${object.worker_id.company_id.logo_url}>
+        <img src=<t t-out="object.worker_id.company_id.logo"/>>
     </div>
-    %endif
+    </t>
 </div>
             ]]></field>
         </record>

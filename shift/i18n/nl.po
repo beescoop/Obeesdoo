@@ -4,13 +4,12 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-18 07:37+0000\n"
-"PO-Revision-Date: 2022-07-18 07:37+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2023-03-22 14:49+0000\n"
+"PO-Revision-Date: 2023-03-22 14:49+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -18,120 +17,107 @@ msgstr ""
 
 #. module: shift
 #: model:mail.template,body_html:shift.email_template_shift_summary
-#, fuzzy
 msgid ""
 "\n"
-"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-"
-"serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "\n"
-"    <p>Hello ${object.worker_id.name},</p>\n"
+"    <p>Hello <t t-out=\"object.worker_id.name or ''\"></t>,</p>\n"
 "\n"
-"    <p>You are awaited the ${format_tz(object.start_time,object.worker_id.tz "
-"or 'Europe/Brussels','%d.%m.%Y')}\n"
-"    for the shift starting at ${format_tz(object.start_time,object.worker_id."
-"tz or 'Europe/Brussels','%H:%M')}.\n"
+"    <p>You are awaited the <t t-out=\"format_datetime(object.start_time, tz=object.worker_id.tz or 'Europe/Brussels', dt_format='dd.MM.yyyy')\"></t>\n"
+"    for the shift starting at <t t-out=\"format_datetime(object.start_time, tz=object.worker_id.tz or 'Europe/Brussels',dt_format='HH:mm')\"></t>.\n"
 "\n"
-"    <br/><br/>Please contact us at ${object.worker_id.company_id.email} if "
-"you have any trouble attending the shift.\n"
+"    <br><br>Please contact us at <t t-out=\"object.worker_id.company_id.email\"></t> if you have any trouble attending the shift.\n"
 "    </p>\n"
-"    <br/>\n"
+"    <br>\n"
 "    <p>Sustainably yours,</p>\n"
-"    <p>${object.worker_id.company_id.name}.</p>\n"
+"    <p><t t-out=\"object.worker_id.company_id.name\"></t>.</p>\n"
 "\n"
-"    % if object.worker_id.company_id.street:\n"
-"        ${object.worker_id.company_id.street}\n"
-"    % endif\n"
-"    % if object.worker_id.company_id.street2:\n"
-"        ${object.worker_id.company_id.street2}<br/>\n"
-"    % endif\n"
-"    % if object.worker_id.company_id.city or object.worker_id.company_id."
-"zip:\n"
-"        ${object.worker_id.company_id.zip} ${object.worker_id.company_id."
-"city}<br/>\n"
-"    % endif\n"
-"    % if object.worker_id.company_id.country_id:\n"
-"        ${object.worker_id.company_id.state_id and ('%s, ' % object."
-"worker_id.company_id.state_id.name) or ''} ${object.worker_id.company_id."
-"country_id.name or ''}<br/>\n"
-"    % endif\n"
-"    % if object.worker_id.company_id.phone:\n"
-"        Phone:&nbsp; ${object.worker_id.company_id.phone}\n"
-"    % endif\n"
+"    <t t-if=\"object.worker_id.company_id.street\">\n"
+"        <t t-out=\"object.worker_id.company_id.street\"></t>\n"
+"    </t>\n"
+"    <t t-if=\"object.worker_id.company_id.street2\">\n"
+"        <t t-out=\"object.worker_id.company_id.street2\"></t><br>\n"
+"    </t>\n"
+"    <t t-if=\"object.worker_id.company_id.city or object.worker_id.company_id.zip\">\n"
+"        <t t-out=\"object.worker_id.company_id.zip\"></t> <t t-out=\"object.worker_id.company_id.city\"></t><br>\n"
+"    </t>\n"
+"    <t t-if=\"object.worker_id.company_id.country_id\">\n"
+"        <t t-out=\"object.worker_id.company_id.state_id and ('%s, ' % object.worker_id.company_id.state_id.name) or ''\"></t> <t t-out=\"object.worker_id.company_id.country_id.name or ''\"></t><br>\n"
+"    </t>\n"
+"    <t t-if=\"object.worker_id.company_id.phone\">\n"
+"        Phone:&nbsp; <t t-out=\"object.worker_id.company_id.phone\"></t>\n"
+"    </t>\n"
 "\n"
-"    % if object.worker_id.company_id.website:\n"
+"    <t t-if=\"object.worker_id.company_id.website\">\n"
 "        <div>\n"
-"            Web :&nbsp;<a href=\"${object.worker_id.company_id."
-"website}\">${object.worker_id.company_id.website}</a>\n"
+"            Web :&nbsp;<a href=\"<t t-out=\" object.worker_id.company_id.website\"=\"\"></a>\"&gt;<t t-out=\"object.worker_id.company_id.website\"></t>\n"
 "        </div>\n"
-"    %endif\n"
-"    % if object.worker_id.company_id.logo_url:\n"
+"    </t>\n"
+"    <t t-if=\"object.worker_id.company_id.logo\">\n"
 "    <div>\n"
-"        <img src=${object.worker_id.company_id.logo_url}>\n"
+"        <img src=\"<t\" t-out=\"object.worker_id.company_id.logo\">&gt;\n"
 "    </div>\n"
-"    %endif\n"
+"    </t>\n"
 "</div>\n"
 "            "
 msgstr ""
 "\n"
-"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-"
-"serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "\n"
-"    <p>Dag ${object.worker_id.name},</p>\n"
+"    <p>Dag <t t-out=\"object.worker_id.name or ''\"></t>,</p>\n"
 "\n"
-"    <p>U wordt verwacht op ${format_tz(object.start_time,object.worker_id.tz "
-"or 'Europe/Brussels','%d.%m.%Y')}\n"
-"    voor de shift die aanvangt om ${format_tz(object.start_time,object."
-"worker_id.tz or 'Europe/Brussels','%H:%M')}.\n"
+"    <p>U wordt verwacht op <t t-out=\"format_datetime(object.start_time, tz=object.worker_id.tz or 'Europe/Brussels', dt_format='dd.MM.yyyy')\"></t>\n"
+"    voor de shift die aanvangt om <t t-out=\"format_datetime(object.start_time, tz=object.worker_id.tz or 'Europe/Brussels',dt_format='HH:mm')\"></t>.\n"
 "\n"
-"    <br/><br/>Gelieve ons te contacteren op ${object.worker_id.company_id."
-"email} moest u op deze shift niet aanwezig kunnen zijn.\n"
+"    <br><br>Gelieve ons te contacteren op <t t-out=\"object.worker_id.company_id.email\"></t> moest u op deze shift niet aanwezig kunnen zijn.\n"
 "    </p>\n"
-"    <br/>\n"
-"    <p>Coöperatieve groeten,,</p>\n"
-"    <p>${object.worker_id.company_id.name}.</p>\n"
+"    <br>\n"
+"    <p>Coöperatieve groeten,</p>\n"
+"    <p><t t-out=\"object.worker_id.company_id.name\"></t>.</p>\n"
 "\n"
-"    % if object.worker_id.company_id.street:\n"
-"        ${object.worker_id.company_id.street}\n"
-"    % endif\n"
-"    % if object.worker_id.company_id.street2:\n"
-"        ${object.worker_id.company_id.street2}<br/>\n"
-"    % endif\n"
-"    % if object.worker_id.company_id.city or object.worker_id.company_id."
-"zip:\n"
-"        ${object.worker_id.company_id.zip} ${object.worker_id.company_id."
-"city}<br/>\n"
-"    % endif\n"
-"    % if object.worker_id.company_id.country_id:\n"
-"        ${object.worker_id.company_id.state_id and ('%s, ' % object."
-"worker_id.company_id.state_id.name) or ''} ${object.worker_id.company_id."
-"country_id.name or ''}<br/>\n"
-"    % endif\n"
-"    % if object.worker_id.company_id.phone:\n"
-"        Phone:&nbsp; ${object.worker_id.company_id.phone}\n"
-"    % endif\n"
+"    <t t-if=\"object.worker_id.company_id.street\">\n"
+"        <t t-out=\"object.worker_id.company_id.street\"></t>\n"
+"    </t>\n"
+"    <t t-if=\"object.worker_id.company_id.street2\">\n"
+"        <t t-out=\"object.worker_id.company_id.street2\"></t><br>\n"
+"    </t>\n"
+"    <t t-if=\"object.worker_id.company_id.city or object.worker_id.company_id.zip\">\n"
+"        <t t-out=\"object.worker_id.company_id.zip\"></t> <t t-out=\"object.worker_id.company_id.city\"></t><br>\n"
+"    </t>\n"
+"    <t t-if=\"object.worker_id.company_id.country_id\">\n"
+"        <t t-out=\"object.worker_id.company_id.state_id and ('%s, ' % object.worker_id.company_id.state_id.name) or ''\"></t> <t t-out=\"object.worker_id.company_id.country_id.name or ''\"></t><br>\n"
+"    </t>\n"
+"    <t t-if=\"object.worker_id.company_id.phone\">\n"
+"        Phone:&nbsp; <t t-out=\"object.worker_id.company_id.phone\"></t>\n"
+"    </t>\n"
 "\n"
-"    % if object.worker_id.company_id.website:\n"
+"    <t t-if=\"object.worker_id.company_id.website\">\n"
 "        <div>\n"
-"            Web :&nbsp;<a href=\"${object.worker_id.company_id."
-"website}\">${object.worker_id.company_id.website}</a>\n"
+"            Web :&nbsp;<a href=\"<t t-out=\" object.worker_id.company_id.website\"=\"\"></a>\"&gt;<t t-out=\"object.worker_id.company_id.website\"></t>\n"
 "        </div>\n"
-"    %endif\n"
-"    % if object.worker_id.company_id.logo_url:\n"
+"    </t>\n"
+"    <t t-if=\"object.worker_id.company_id.logo\">\n"
 "    <div>\n"
-"        <img src=${object.worker_id.company_id.logo_url}>\n"
+"        <img src=\"<t\" t-out=\"object.worker_id.company_id.logo\">&gt;\n"
 "    </div>\n"
-"    %endif\n"
+"    </t>\n"
 "</div>\n"
 "            "
 
 #. module: shift
-#: code:addons/shift/models/planning.py:388
+#. odoo-python
+#: code:addons/shift/models/planning.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/planning.py:0
 #, python-format
 msgid " is already assigned to "
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/task.py:171 code:addons/shift/models/task.py:229
+#. odoo-python
+#: code:addons/shift/models/shift_shift.py:0
+#: code:addons/shift/models/shift_shift.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/shift_shift.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/shift_shift.py:0
 #, python-format
 msgid "'Now' must be a datetime."
 msgstr ""
@@ -162,8 +148,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
 msgid ""
 "<span class=\"o_form_label\">\n"
-"                                        Limit attendance percentage to "
-"define underpopulated shift\n"
+"                                        Limit attendance percentage to define underpopulated shift\n"
 "                                    </span>"
 msgstr ""
 
@@ -171,8 +156,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
 msgid ""
 "<span class=\"o_form_label\">\n"
-"                                        Maximum number of shifts per day for "
-"one cooperator\n"
+"                                        Maximum number of shifts per day for one cooperator\n"
 "                                    </span>"
 msgstr ""
 
@@ -180,8 +164,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
 msgid ""
 "<span class=\"o_form_label\">\n"
-"                                        Maximum number of shifts per month "
-"for one cooperator\n"
+"                                        Maximum number of shifts per month for one cooperator\n"
 "                                    </span>"
 msgstr ""
 
@@ -189,8 +172,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
 msgid ""
 "<span class=\"o_form_label\">\n"
-"                                        Minimum number of hours before a "
-"shift to unsubscribe\n"
+"                                        Minimum number of hours before a shift to unsubscribe\n"
 "                                    </span>"
 msgstr ""
 
@@ -203,7 +185,9 @@ msgid ""
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/task.py:24
+#. odoo-python
+#: code:addons/shift/models/shift_shift.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/shift_shift.py:0
 #, python-format
 msgid "Absent"
 msgstr ""
@@ -214,10 +198,10 @@ msgid "Action Needed"
 msgstr "Vereist actie"
 
 #. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__active
 #: model:ir.model.fields,field_description:shift.field_shift_daynumber__active
 #: model:ir.model.fields,field_description:shift.field_shift_template__active
 #: model:ir.model.fields,field_description:shift.field_shift_type__active
-#: model:ir.model.fields,field_description:shift.field_cooperative_status__active
 msgid "Active"
 msgstr "Actief"
 
@@ -270,7 +254,9 @@ msgid "Attachment Count"
 msgstr "Aantal bijlagen"
 
 #. module: shift
-#: code:addons/shift/models/task.py:23
+#. odoo-python
+#: code:addons/shift/models/shift_shift.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/shift_shift.py:0
 #, python-format
 msgid "Attended"
 msgstr "Bezocht"
@@ -301,7 +287,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:shift.assign_super_coop_view_form
 #: model_terms:ir.ui.view,arch_db:shift.extension_coop_wizard_view_form
 #: model_terms:ir.ui.view,arch_db:shift.holiday_coop_wizard_view_form
-#: model_terms:ir.ui.view,arch_db:shift.planning_instanciate_view_form
+#: model_terms:ir.ui.view,arch_db:shift.planning_instantiate_view_form
 #: model_terms:ir.ui.view,arch_db:shift.subscribe_coop_wizard_view_form
 #: model_terms:ir.ui.view,arch_db:shift.task_template_generation_view_form
 #: model_terms:ir.ui.view,arch_db:shift.temporary_exemption_wizard_view_form
@@ -309,7 +295,9 @@ msgid "Cancel"
 msgstr "Annuleren"
 
 #. module: shift
-#: code:addons/shift/models/task.py:26
+#. odoo-python
+#: code:addons/shift/models/shift_shift.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/shift_shift.py:0
 #, python-format
 msgid "Cancelled"
 msgstr ""
@@ -352,20 +340,13 @@ msgstr ""
 #. module: shift
 #: model:ir.actions.server,name:shift.ir_cron_compute_shift_counter_ir_actions_server
 #: model:ir.cron,cron_name:shift.ir_cron_compute_shift_counter
-#: model:ir.cron,name:shift.ir_cron_compute_shift_counter
 msgid "Compute Shift Counter"
-msgstr ""
-
-#. module: shift
-#: model:ir.model.fields,help:shift.field_res_partner__is_worker
-#: model:ir.model.fields,help:shift.field_res_users__is_worker
-msgid "Computed from the share product of the first cooperator share"
 msgstr ""
 
 #. module: shift
 #: model:ir.model,name:shift.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Configuratie instellingen"
 
 #. module: shift
 #: model:ir.ui.menu,name:shift.menu_configuration_top
@@ -376,7 +357,7 @@ msgstr "Instellingen"
 #: model_terms:ir.ui.view,arch_db:shift.assign_super_coop_view_form
 #: model_terms:ir.ui.view,arch_db:shift.extension_coop_wizard_view_form
 #: model_terms:ir.ui.view,arch_db:shift.holiday_coop_wizard_view_form
-#: model_terms:ir.ui.view,arch_db:shift.planning_instanciate_view_form
+#: model_terms:ir.ui.view,arch_db:shift.planning_instantiate_view_form
 #: model_terms:ir.ui.view,arch_db:shift.subscribe_coop_wizard_view_form
 #: model_terms:ir.ui.view,arch_db:shift.task_template_generation_view_form
 #: model_terms:ir.ui.view,arch_db:shift.temporary_exemption_wizard_view_form
@@ -384,7 +365,9 @@ msgid "Confirm"
 msgstr "Bevestigen"
 
 #. module: shift
-#: code:addons/shift/models/task.py:22
+#. odoo-python
+#: code:addons/shift/models/shift_shift.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/shift_shift.py:0
 #, python-format
 msgid "Confirmed"
 msgstr "Bevestigd"
@@ -392,7 +375,7 @@ msgstr "Bevestigd"
 #. module: shift
 #: model:ir.model,name:shift.model_res_partner
 msgid "Contact"
-msgstr "Contactpersoon"
+msgstr ""
 
 #. module: shift
 #: model:res.groups,name:shift.group_cooperative_admin
@@ -413,13 +396,13 @@ msgid "Cooperative Statuses"
 msgstr ""
 
 #. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__cooperator_id
+#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__cooperator_id
 #: model:ir.model.fields,field_description:shift.field_shift_action_mixin__cooperator_id
 #: model:ir.model.fields,field_description:shift.field_shift_extension__cooperator_id
 #: model:ir.model.fields,field_description:shift.field_shift_holiday__cooperator_id
 #: model:ir.model.fields,field_description:shift.field_shift_subscribe__cooperator_id
 #: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__cooperator_id
-#: model:ir.model.fields,field_description:shift.field_cooperative_status__cooperator_id
-#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__cooperator_id
 msgid "Cooperator"
 msgstr ""
 
@@ -429,7 +412,7 @@ msgid "Cooperator Status"
 msgstr "Coöperantstatus"
 
 #. module: shift
-#: selection:cooperative.status.history,type:0
+#: model:ir.model.fields.selection,name:shift.selection__cooperative_status_history__type__counter
 msgid "Counter Change"
 msgstr ""
 
@@ -460,12 +443,15 @@ msgid ""
 msgstr ""
 
 #. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason__create_uid
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__create_uid
+#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__create_uid
 #: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop__create_uid
+#: model:ir.model.fields,field_description:shift.field_shift_daynumber__create_uid
+#: model:ir.model.fields,field_description:shift.field_shift_extension__create_uid
 #: model:ir.model.fields,field_description:shift.field_shift_generate_planning__create_uid
 #: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__create_uid
 #: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__create_uid
-#: model:ir.model.fields,field_description:shift.field_shift_daynumber__create_uid
-#: model:ir.model.fields,field_description:shift.field_shift_extension__create_uid
 #: model:ir.model.fields,field_description:shift.field_shift_holiday__create_uid
 #: model:ir.model.fields,field_description:shift.field_shift_journal__create_uid
 #: model:ir.model.fields,field_description:shift.field_shift_planning__create_uid
@@ -474,19 +460,19 @@ msgstr ""
 #: model:ir.model.fields,field_description:shift.field_shift_template__create_uid
 #: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__create_uid
 #: model:ir.model.fields,field_description:shift.field_shift_type__create_uid
-#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason__create_uid
-#: model:ir.model.fields,field_description:shift.field_cooperative_status__create_uid
-#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__create_uid
 msgid "Created by"
 msgstr "Aangemaakt door"
 
 #. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason__create_date
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__create_date
+#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__create_date
 #: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop__create_date
+#: model:ir.model.fields,field_description:shift.field_shift_daynumber__create_date
+#: model:ir.model.fields,field_description:shift.field_shift_extension__create_date
 #: model:ir.model.fields,field_description:shift.field_shift_generate_planning__create_date
 #: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__create_date
 #: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__create_date
-#: model:ir.model.fields,field_description:shift.field_shift_daynumber__create_date
-#: model:ir.model.fields,field_description:shift.field_shift_extension__create_date
 #: model:ir.model.fields,field_description:shift.field_shift_holiday__create_date
 #: model:ir.model.fields,field_description:shift.field_shift_journal__create_date
 #: model:ir.model.fields,field_description:shift.field_shift_planning__create_date
@@ -495,9 +481,6 @@ msgstr "Aangemaakt door"
 #: model:ir.model.fields,field_description:shift.field_shift_template__create_date
 #: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__create_date
 #: model:ir.model.fields,field_description:shift.field_shift_type__create_date
-#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason__create_date
-#: model:ir.model.fields,field_description:shift.field_cooperative_status__create_date
-#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__create_date
 msgid "Created on"
 msgstr "Aangemaakt op"
 
@@ -555,13 +538,15 @@ msgid "Description"
 msgstr "Omschrijving"
 
 #. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason__display_name
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__display_name
+#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__display_name
 #: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop__display_name
+#: model:ir.model.fields,field_description:shift.field_shift_daynumber__display_name
+#: model:ir.model.fields,field_description:shift.field_shift_extension__display_name
 #: model:ir.model.fields,field_description:shift.field_shift_generate_planning__display_name
 #: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__display_name
 #: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__display_name
-#: model:ir.model.fields,field_description:shift.field_shift_action_mixin__display_name
-#: model:ir.model.fields,field_description:shift.field_shift_daynumber__display_name
-#: model:ir.model.fields,field_description:shift.field_shift_extension__display_name
 #: model:ir.model.fields,field_description:shift.field_shift_holiday__display_name
 #: model:ir.model.fields,field_description:shift.field_shift_journal__display_name
 #: model:ir.model.fields,field_description:shift.field_shift_planning__display_name
@@ -570,9 +555,6 @@ msgstr "Omschrijving"
 #: model:ir.model.fields,field_description:shift.field_shift_template__display_name
 #: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__display_name
 #: model:ir.model.fields,field_description:shift.field_shift_type__display_name
-#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason__display_name
-#: model:ir.model.fields,field_description:shift.field_cooperative_status__display_name
-#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__display_name
 msgid "Display Name"
 msgstr "Schermnaam"
 
@@ -636,25 +618,27 @@ msgid "End date for the holiday (included)"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/task.py:25
+#. odoo-python
+#: code:addons/shift/models/shift_shift.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/shift_shift.py:0
 #, python-format
 msgid "Excused"
 msgstr ""
 
 #. module: shift
 #: model:ir.actions.act_window,name:shift.action_exempt_reason
-#: model:ir.model.fields,field_description:shift.field_shift_subscribe__exempt_reason_id
-#: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__temporary_exempt_reason_id
 #: model:ir.model.fields,field_description:shift.field_cooperative_status__exempt_reason_id
 #: model:ir.model.fields,field_description:shift.field_res_partner__exempt_reason_id
 #: model:ir.model.fields,field_description:shift.field_res_users__exempt_reason_id
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe__exempt_reason_id
+#: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__temporary_exempt_reason_id
 #: model:ir.ui.menu,name:shift.menu_exempt_reason
 msgid "Exempt Reason"
 msgstr ""
 
 #. module: shift
-#: selection:shift.subscribe,working_mode:0
-#: selection:cooperative.status,working_mode:0
+#: model:ir.model.fields.selection,name:shift.selection__cooperative_status__working_mode__exempt
+#: model:ir.model.fields.selection,name:shift.selection__shift_subscribe__working_mode__exempt
 msgid "Exempted"
 msgstr "Vrijgesteld"
 
@@ -696,11 +680,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:shift.field_shift_shift__message_follower_ids
 msgid "Followers"
 msgstr "Volgers"
-
-#. module: shift
-#: model:ir.model.fields,field_description:shift.field_shift_shift__message_channel_ids
-msgid "Followers (Channels)"
-msgstr "Volgers (Kanalen)"
 
 #. module: shift
 #: model:ir.model.fields,field_description:shift.field_shift_shift__message_partner_ids
@@ -746,7 +725,6 @@ msgstr ""
 #. module: shift
 #: model:ir.actions.server,name:shift.ir_cron_generate_next_planning_ir_actions_server
 #: model:ir.cron,cron_name:shift.ir_cron_generate_next_planning
-#: model:ir.cron,name:shift.ir_cron_generate_next_planning
 msgid "Generate Next Planning"
 msgstr ""
 
@@ -766,13 +744,17 @@ msgid "Generate shifts"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/wizard/instanciate_planning.py:22
+#. odoo-python
+#: code:addons/shift/wizard/instantiate_planning.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/wizard/instantiate_planning.py:0
 #, python-format
 msgid "Generated Shift"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/wizard/batch_template.py:57
+#. odoo-python
+#: code:addons/shift/wizard/batch_template.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/wizard/batch_template.py:0
 #, python-format
 msgid "Generated Shift Template"
 msgstr ""
@@ -781,6 +763,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:shift.task_view_search
 msgid "Group By"
 msgstr "Groeperen op"
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__has_message
+msgid "Has Message"
+msgstr ""
 
 #. module: shift
 #: model:ir.model.fields,field_description:shift.field_cooperative_status__history_ids
@@ -804,13 +791,15 @@ msgid "Hours"
 msgstr "Uren"
 
 #. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason__id
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__id
+#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__id
 #: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop__id
+#: model:ir.model.fields,field_description:shift.field_shift_daynumber__id
+#: model:ir.model.fields,field_description:shift.field_shift_extension__id
 #: model:ir.model.fields,field_description:shift.field_shift_generate_planning__id
 #: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__id
 #: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__id
-#: model:ir.model.fields,field_description:shift.field_shift_action_mixin__id
-#: model:ir.model.fields,field_description:shift.field_shift_daynumber__id
-#: model:ir.model.fields,field_description:shift.field_shift_extension__id
 #: model:ir.model.fields,field_description:shift.field_shift_holiday__id
 #: model:ir.model.fields,field_description:shift.field_shift_journal__id
 #: model:ir.model.fields,field_description:shift.field_shift_planning__id
@@ -819,16 +808,8 @@ msgstr "Uren"
 #: model:ir.model.fields,field_description:shift.field_shift_template__id
 #: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__id
 #: model:ir.model.fields,field_description:shift.field_shift_type__id
-#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason__id
-#: model:ir.model.fields,field_description:shift.field_cooperative_status__id
-#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__id
 msgid "ID"
 msgstr ""
-
-#. module: shift
-#: model:ir.model.fields,help:shift.field_shift_shift__message_unread
-msgid "If checked new messages require your attention."
-msgstr "Indien aangevinkt zullen nieuwe berichten uw aandacht vragen."
 
 #. module: shift
 #: model:ir.model.fields,help:shift.field_shift_shift__message_needaction
@@ -875,13 +856,15 @@ msgid "Irregular Start Date"
 msgstr ""
 
 #. module: shift
-#: selection:shift.subscribe,working_mode:0
-#: selection:cooperative.status,working_mode:0
+#: model:ir.model.fields.selection,name:shift.selection__cooperative_status__working_mode__irregular
+#: model:ir.model.fields.selection,name:shift.selection__shift_subscribe__working_mode__irregular
 msgid "Irregular worker"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/cooperative_status.py:193
+#. odoo-python
+#: code:addons/shift/models/cooperative_status.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/cooperative_status.py:0
 #, python-format
 msgid "Irregular workers must have an irregular start date."
 msgstr ""
@@ -923,13 +906,15 @@ msgid "J-5"
 msgstr ""
 
 #. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason____last_update
+#: model:ir.model.fields,field_description:shift.field_cooperative_status____last_update
+#: model:ir.model.fields,field_description:shift.field_cooperative_status_history____last_update
 #: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop____last_update
+#: model:ir.model.fields,field_description:shift.field_shift_daynumber____last_update
+#: model:ir.model.fields,field_description:shift.field_shift_extension____last_update
 #: model:ir.model.fields,field_description:shift.field_shift_generate_planning____last_update
 #: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template____last_update
 #: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line____last_update
-#: model:ir.model.fields,field_description:shift.field_shift_action_mixin____last_update
-#: model:ir.model.fields,field_description:shift.field_shift_daynumber____last_update
-#: model:ir.model.fields,field_description:shift.field_shift_extension____last_update
 #: model:ir.model.fields,field_description:shift.field_shift_holiday____last_update
 #: model:ir.model.fields,field_description:shift.field_shift_journal____last_update
 #: model:ir.model.fields,field_description:shift.field_shift_planning____last_update
@@ -938,19 +923,19 @@ msgstr ""
 #: model:ir.model.fields,field_description:shift.field_shift_template____last_update
 #: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption____last_update
 #: model:ir.model.fields,field_description:shift.field_shift_type____last_update
-#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason____last_update
-#: model:ir.model.fields,field_description:shift.field_cooperative_status____last_update
-#: model:ir.model.fields,field_description:shift.field_cooperative_status_history____last_update
 msgid "Last Modified on"
 msgstr "Laatst gewijzigd op"
 
 #. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason__write_uid
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__write_uid
+#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__write_uid
 #: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop__write_uid
+#: model:ir.model.fields,field_description:shift.field_shift_daynumber__write_uid
+#: model:ir.model.fields,field_description:shift.field_shift_extension__write_uid
 #: model:ir.model.fields,field_description:shift.field_shift_generate_planning__write_uid
 #: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__write_uid
 #: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__write_uid
-#: model:ir.model.fields,field_description:shift.field_shift_daynumber__write_uid
-#: model:ir.model.fields,field_description:shift.field_shift_extension__write_uid
 #: model:ir.model.fields,field_description:shift.field_shift_holiday__write_uid
 #: model:ir.model.fields,field_description:shift.field_shift_journal__write_uid
 #: model:ir.model.fields,field_description:shift.field_shift_planning__write_uid
@@ -959,19 +944,19 @@ msgstr "Laatst gewijzigd op"
 #: model:ir.model.fields,field_description:shift.field_shift_template__write_uid
 #: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__write_uid
 #: model:ir.model.fields,field_description:shift.field_shift_type__write_uid
-#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason__write_uid
-#: model:ir.model.fields,field_description:shift.field_cooperative_status__write_uid
-#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__write_uid
 msgid "Last Updated by"
 msgstr "Laatst bijgewerkt door"
 
 #. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason__write_date
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__write_date
+#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__write_date
 #: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop__write_date
+#: model:ir.model.fields,field_description:shift.field_shift_daynumber__write_date
+#: model:ir.model.fields,field_description:shift.field_shift_extension__write_date
 #: model:ir.model.fields,field_description:shift.field_shift_generate_planning__write_date
 #: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__write_date
 #: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__write_date
-#: model:ir.model.fields,field_description:shift.field_shift_daynumber__write_date
-#: model:ir.model.fields,field_description:shift.field_shift_extension__write_date
 #: model:ir.model.fields,field_description:shift.field_shift_holiday__write_date
 #: model:ir.model.fields,field_description:shift.field_shift_journal__write_date
 #: model:ir.model.fields,field_description:shift.field_shift_planning__write_date
@@ -980,9 +965,6 @@ msgstr "Laatst bijgewerkt door"
 #: model:ir.model.fields,field_description:shift.field_shift_template__write_date
 #: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__write_date
 #: model:ir.model.fields,field_description:shift.field_shift_type__write_date
-#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason__write_date
-#: model:ir.model.fields,field_description:shift.field_cooperative_status__write_date
-#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__write_date
 msgid "Last Updated on"
 msgstr "Laatst bijgewerkt op"
 
@@ -1003,7 +985,9 @@ msgid "Main Attachment"
 msgstr "Hoofd bijlage"
 
 #. module: shift
-#: code:addons/shift/models/res_partner.py:124
+#. odoo-python
+#: code:addons/shift/models/res_partner.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/res_partner.py:0
 #: model_terms:ir.ui.view,arch_db:shift.super_coop_partner_inherited_view_form
 #, python-format
 msgid "Manual Extension"
@@ -1056,12 +1040,12 @@ msgid "My Team Shift"
 msgstr ""
 
 #. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason__name
 #: model:ir.model.fields,field_description:shift.field_shift_daynumber__name
 #: model:ir.model.fields,field_description:shift.field_shift_planning__name
 #: model:ir.model.fields,field_description:shift.field_shift_shift__name
 #: model:ir.model.fields,field_description:shift.field_shift_template__name
 #: model:ir.model.fields,field_description:shift.field_shift_type__name
-#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason__name
 msgid "Name"
 msgstr "Naam"
 
@@ -1089,8 +1073,8 @@ msgstr "Aantal acties"
 
 #. module: shift
 #: model:ir.model.fields,field_description:shift.field_shift_shift__message_has_error_counter
-msgid "Number of error"
-msgstr "Aantal foutmeldingen"
+msgid "Number of errors"
+msgstr ""
 
 #. module: shift
 #: model:ir.model.fields,help:shift.field_shift_shift__message_needaction_counter
@@ -1106,11 +1090,6 @@ msgstr "Aantal berichten met leveringsfout"
 #: model:ir.model.fields,field_description:shift.field_shift_subscribe__nb_shifts
 msgid "Number of shifts"
 msgstr ""
-
-#. module: shift
-#: model:ir.model.fields,help:shift.field_shift_shift__message_unread_counter
-msgid "Number of unread messages"
-msgstr "Aantal ongelezen berichten"
 
 #. module: shift
 #: model:ir.model.fields,field_description:shift.field_shift_template__worker_nb
@@ -1176,7 +1155,9 @@ msgid "Recurring Workers"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/res_partner.py:142
+#. odoo-python
+#: code:addons/shift/models/res_partner.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/res_partner.py:0
 #, python-format
 msgid "Register Holiday"
 msgstr ""
@@ -1202,8 +1183,8 @@ msgid "Regular shifts counter"
 msgstr ""
 
 #. module: shift
-#: selection:shift.subscribe,working_mode:0
-#: selection:cooperative.status,working_mode:0
+#: model:ir.model.fields.selection,name:shift.selection__cooperative_status__working_mode__regular
+#: model:ir.model.fields.selection,name:shift.selection__shift_subscribe__working_mode__regular
 msgid "Regular worker"
 msgstr ""
 
@@ -1233,8 +1214,8 @@ msgid "Reset Counter"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_shift_subscribe__resigning
 #: model:ir.model.fields,field_description:shift.field_cooperative_status__resigning
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe__resigning
 msgid "Resigning"
 msgstr "Aftredend"
 
@@ -1251,7 +1232,6 @@ msgstr ""
 #. module: shift
 #: model:ir.actions.server,name:shift.ir_cron_send_weekly_emails_ir_actions_server
 #: model:ir.cron,cron_name:shift.ir_cron_send_weekly_emails
-#: model:ir.cron,name:shift.ir_cron_send_weekly_emails
 msgid "Send weekly shift summary"
 msgstr ""
 
@@ -1274,6 +1254,11 @@ msgstr ""
 #. module: shift
 #: model:ir.ui.menu,name:shift.menu_root
 msgid "Shift Management"
+msgstr ""
+
+#. module: shift
+#: model:mail.template,name:shift.email_template_shift_summary
+msgid "Shift Summary"
 msgstr ""
 
 #. module: shift
@@ -1300,7 +1285,9 @@ msgid "Shift period"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/task.py:128
+#. odoo-python
+#: code:addons/shift/models/shift_shift.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/shift_shift.py:0
 #, python-format
 msgid "Shift state of a future shift can't be set to 'present' or 'absent'."
 msgstr ""
@@ -1355,16 +1342,16 @@ msgid "State"
 msgstr "Staat/Provincie"
 
 #. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__status_id
 #: model:ir.model.fields,field_description:shift.field_shift_holiday__status_id
 #: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__status_id
-#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__status_id
 #: model:ir.ui.menu,name:shift.menu_status_top
 #: model_terms:ir.ui.view,arch_db:shift.task_view_search
 msgid "Status"
 msgstr ""
 
 #. module: shift
-#: selection:cooperative.status.history,type:0
+#: model:ir.model.fields.selection,name:shift.selection__cooperative_status_history__type__status
 msgid "Status Change"
 msgstr ""
 
@@ -1374,7 +1361,9 @@ msgid "Status:"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/res_partner.py:107
+#. odoo-python
+#: code:addons/shift/models/res_partner.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/res_partner.py:0
 #, python-format
 msgid "Subscribe Cooperator"
 msgstr ""
@@ -1405,11 +1394,11 @@ msgid "Super Coop:"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_shift_shift__super_coop_id
-#: model:ir.model.fields,field_description:shift.field_shift_template__super_coop_id
 #: model:ir.model.fields,field_description:shift.field_cooperative_status__super
 #: model:ir.model.fields,field_description:shift.field_res_partner__super
 #: model:ir.model.fields,field_description:shift.field_res_users__super
+#: model:ir.model.fields,field_description:shift.field_shift_shift__super_coop_id
+#: model:ir.model.fields,field_description:shift.field_shift_template__super_coop_id
 msgid "Super Cooperative"
 msgstr "Supercoöperant"
 
@@ -1435,8 +1424,8 @@ msgid "Templates"
 msgstr "Sjablonen"
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__temporary_exempt_end_date
 #: model:ir.model.fields,field_description:shift.field_cooperative_status__temporary_exempt_end_date
+#: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__temporary_exempt_end_date
 msgid "Temporary Exempt End Date"
 msgstr ""
 
@@ -1446,13 +1435,15 @@ msgid "Temporary Exempt Reason"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__temporary_exempt_start_date
 #: model:ir.model.fields,field_description:shift.field_cooperative_status__temporary_exempt_start_date
+#: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__temporary_exempt_start_date
 msgid "Temporary Exempt Start Date"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/res_partner.py:153
+#. odoo-python
+#: code:addons/shift/models/res_partner.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/res_partner.py:0
 #: model_terms:ir.ui.view,arch_db:shift.coop_status_form_view
 #: model_terms:ir.ui.view,arch_db:shift.super_coop_partner_inherited_view_form
 #, python-format
@@ -1460,7 +1451,9 @@ msgid "Temporary Exemption"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/wizard/subscribe.py:151
+#. odoo-python
+#: code:addons/shift/wizard/subscribe.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/wizard/subscribe.py:0
 #, python-format
 msgid "There is no remaining spot in this shift"
 msgstr ""
@@ -1482,15 +1475,17 @@ msgid "Today"
 msgstr "Vandaag"
 
 #. module: shift
-#: code:addons/shift/models/res_partner.py:136
+#. odoo-python
+#: code:addons/shift/models/res_partner.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/res_partner.py:0
 #, python-format
 msgid "Trigger Grace Delay"
 msgstr ""
 
 #. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__type
 #: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__type_id
 #: model:ir.model.fields,field_description:shift.field_shift_template__task_type_id
-#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__type
 #: model_terms:ir.ui.view,arch_db:shift.task_view_search
 msgid "Type"
 msgstr "Soort"
@@ -1507,16 +1502,6 @@ msgid "Unassigned"
 msgstr "Niet toegewezen"
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_shift_shift__message_unread
-msgid "Unread Messages"
-msgstr "Ongelezen berichten"
-
-#. module: shift
-#: model:ir.model.fields,field_description:shift.field_shift_shift__message_unread_counter
-msgid "Unread Messages Counter"
-msgstr "Aantal ongelezen berichten"
-
-#. module: shift
 #: model_terms:ir.ui.view,arch_db:shift.super_coop_partner_inherited_view_form
 msgid "Unsubscribe"
 msgstr "Uitschrijven"
@@ -1529,7 +1514,6 @@ msgstr "Afgemeld"
 #. module: shift
 #: model:ir.actions.server,name:shift.ir_cron_update_today_ir_actions_server
 #: model:ir.cron,cron_name:shift.ir_cron_update_today
-#: model:ir.cron,name:shift.ir_cron_update_today
 msgid "Update Cooperator status base on the date"
 msgstr ""
 
@@ -1550,12 +1534,18 @@ msgstr "Waarde"
 
 #. module: shift
 #: model:ir.model.fields,help:shift.field_shift_subscribe__resigning
-#: model:ir.model.fields,help:shift.field_cooperative_status__resigning
 msgid "Want to leave the beescoop"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/planning.py:394
+#: model:ir.model.fields,help:shift.field_cooperative_status__resigning
+msgid "Wants to leave the cooperative"
+msgstr ""
+
+#. module: shift
+#. odoo-python
+#: code:addons/shift/models/planning.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/planning.py:0
 #, python-format
 msgid "Warning"
 msgstr ""
@@ -1572,9 +1562,9 @@ msgstr ""
 
 #. module: shift
 #: model:ir.actions.act_window,name:shift.action_worker
-#: model:ir.model.fields,field_description:shift.field_shift_shift__worker_id
 #: model:ir.model.fields,field_description:shift.field_res_partner__is_worker
 #: model:ir.model.fields,field_description:shift.field_res_users__is_worker
+#: model:ir.model.fields,field_description:shift.field_shift_shift__worker_id
 #: model:ir.ui.menu,name:shift.menu_worker
 #: model:ir.ui.menu,name:shift.menu_worker_top
 msgid "Worker"
@@ -1609,8 +1599,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
 msgid ""
 "Workers can unsubscribe from a shift only if the delay before\n"
-"                                        the start is at least this number of "
-"hours"
+"                                        the start is at least this number of hours"
 msgstr ""
 
 #. module: shift
@@ -1619,15 +1608,17 @@ msgid "Working Mode"
 msgstr "Werkregime"
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_shift_shift__working_mode
 #: model:ir.model.fields,field_description:shift.field_cooperative_status__working_mode
 #: model:ir.model.fields,field_description:shift.field_res_partner__working_mode
 #: model:ir.model.fields,field_description:shift.field_res_users__working_mode
+#: model:ir.model.fields,field_description:shift.field_shift_shift__working_mode
 msgid "Working mode"
 msgstr "Werkregime"
 
 #. module: shift
-#: code:addons/shift/models/task.py:360
+#. odoo-python
+#: code:addons/shift/models/shift_shift.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/shift_shift.py:0
 #, python-format
 msgid ""
 "Working mode is not properly defined. Please check if the worker is "
@@ -1635,74 +1626,99 @@ msgid ""
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/cooperative_status.py:513
-#: sql_constraint:shift.journal:0
+#. odoo-python
+#: code:addons/shift/models/cooperative_status.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/cooperative_status.py:0
+#: model:ir.model.constraint,message:shift.constraint_shift_journal_one_entry_per_day
 #, python-format
 msgid "You can only create one journal per day"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/cooperative_status.py:186
-#: sql_constraint:cooperative.status:0
+#. odoo-python
+#: code:addons/shift/models/cooperative_status.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/cooperative_status.py:0
+#: model:ir.model.constraint,message:shift.constraint_cooperative_status_cooperator_uniq
 #, python-format
 msgid "You can only set one cooperator status per cooperator"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/planning.py:280
+#. odoo-python
+#: code:addons/shift/models/planning.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/planning.py:0
 #, python-format
 msgid ""
 "You cannot assign more workers than the maximal number defined on template. "
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/task.py:342
+#. odoo-python
+#: code:addons/shift/models/shift_shift.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/shift_shift.py:0
 #, python-format
 msgid ""
 "You cannot change to the status %s if no worker is defined for the shift "
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/wizard/holiday.py:50
-#: code:addons/shift/wizard/temporary_exemption.py:63
+#. odoo-python
+#: code:addons/shift/wizard/holiday.py:0
+#: code:addons/shift/wizard/temporary_exemption.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/wizard/holiday.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/wizard/temporary_exemption.py:0
 #, python-format
 msgid "You cannot edit start date of an holiday that is not over yet."
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/wizard/holiday.py:67
-#: code:addons/shift/wizard/temporary_exemption.py:81
+#. odoo-python
+#: code:addons/shift/wizard/holiday.py:0
+#: code:addons/shift/wizard/temporary_exemption.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/wizard/holiday.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/wizard/temporary_exemption.py:0
 #, python-format
 msgid "You cannot encode a end date that is in the past (including today)."
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/wizard/holiday.py:57
-#: code:addons/shift/wizard/temporary_exemption.py:71
+#. odoo-python
+#: code:addons/shift/wizard/holiday.py:0
+#: code:addons/shift/wizard/temporary_exemption.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/wizard/holiday.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/wizard/temporary_exemption.py:0
 #, python-format
 msgid "You cannot encode a start date that is in the past (including today)."
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/wizard/subscribe.py:25
+#. odoo-python
+#: code:addons/shift/wizard/subscribe.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/wizard/subscribe.py:0
 #, python-format
 msgid "You cannot perform this operation on yourself"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/cooperative_status.py:521
+#. odoo-python
+#: code:addons/shift/models/cooperative_status.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/cooperative_status.py:0
 #, python-format
 msgid "You don't have the access to perform this action"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/wizard/subscribe.py:20
+#. odoo-python
+#: code:addons/shift/wizard/subscribe.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/wizard/subscribe.py:0
 #, python-format
 msgid "You don't have the required access for this operation."
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/wizard/extension.py:44
+#. odoo-python
+#: code:addons/shift/wizard/extension.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/wizard/extension.py:0
 #, python-format
 msgid ""
 "You should not make a manual extension when the grace delay has not been "
@@ -1710,7 +1726,9 @@ msgid ""
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/wizard/extension.py:54
+#. odoo-python
+#: code:addons/shift/wizard/extension.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/wizard/extension.py:0
 #, python-format
 msgid "You should not start a manual extension during the grace delay "
 msgstr ""
@@ -1718,15 +1736,58 @@ msgstr ""
 #. module: shift
 #: model:mail.template,subject:shift.email_template_shift_summary
 msgid ""
-"Your next shift\n"
-"                (${format_tz(object.start_time,object.worker_id.tz or "
-"'Europe/Brussels','%d.%m.%Y - %H:%M')})\n"
+"Your next shift ({{ format_datetime(object.start_time, tz=object.worker_id.tz or 'Europe/Brussels', dt_format='dd.MM.yyyy HH:mm') }})\n"
 "            "
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_cooperative_exempt_reason
+msgid "cooperative.exempt.reason"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_cooperative_status
+msgid "cooperative.status"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_cooperative_status_history
+msgid "cooperative.status.history"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.planning_view_form
+#: model_terms:ir.ui.view,arch_db:shift.task_template_view_form
+msgid "name"
+msgstr "Naam"
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.assign_super_coop_view_form
+#: model_terms:ir.ui.view,arch_db:shift.extension_coop_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:shift.planning_instantiate_view_form
+#: model_terms:ir.ui.view,arch_db:shift.subscribe_coop_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:shift.task_template_generation_view_form
+msgid "or"
+msgstr "of"
+
+#. module: shift
+#: model:ir.model,name:shift.model_shift_action_mixin
+msgid "shift.action_mixin"
 msgstr ""
 
 #. module: shift
 #: model:ir.model,name:shift.model_shift_assign_super_coop
 msgid "shift.assign_super_coop"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_shift_daynumber
+msgid "shift.daynumber"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_shift_extension
+msgid "shift.extension"
 msgstr ""
 
 #. module: shift
@@ -1742,21 +1803,6 @@ msgstr ""
 #. module: shift
 #: model:ir.model,name:shift.model_shift_generate_shift_template_line
 msgid "shift.generate_shift_template.line"
-msgstr ""
-
-#. module: shift
-#: model:ir.model,name:shift.model_shift_action_mixin
-msgid "shift.action_mixin"
-msgstr ""
-
-#. module: shift
-#: model:ir.model,name:shift.model_shift_daynumber
-msgid "shift.daynumber"
-msgstr ""
-
-#. module: shift
-#: model:ir.model,name:shift.model_shift_extension
-msgid "shift.extension"
 msgstr ""
 
 #. module: shift
@@ -1800,178 +1846,65 @@ msgid "shift.type"
 msgstr ""
 
 #. module: shift
-#: model:ir.model,name:shift.model_cooperative_exempt_reason
-msgid "cooperative.exempt.reason"
-msgstr ""
-
-#. module: shift
-#: model:ir.model,name:shift.model_cooperative_status
-msgid "cooperative.status"
-msgstr ""
-
-#. module: shift
-#: model:ir.model,name:shift.model_cooperative_status_history
-msgid "cooperative.status.history"
-msgstr ""
-
-#. module: shift
-#: model_terms:ir.ui.view,arch_db:shift.planning_view_form
-#: model_terms:ir.ui.view,arch_db:shift.task_template_view_form
-msgid "name"
-msgstr "Naam"
-
-#. module: shift
-#: model_terms:ir.ui.view,arch_db:shift.assign_super_coop_view_form
-#: model_terms:ir.ui.view,arch_db:shift.extension_coop_wizard_view_form
-#: model_terms:ir.ui.view,arch_db:shift.planning_instanciate_view_form
-#: model_terms:ir.ui.view,arch_db:shift.subscribe_coop_wizard_view_form
-#: model_terms:ir.ui.view,arch_db:shift.task_template_generation_view_form
-msgid "or"
-msgstr "of"
-
-#. module: shift
-#: code:addons/shift/models/cooperative_status.py:58
+#. odoo-python
+#: code:addons/shift/models/cooperative_status.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/cooperative_status.py:0
 #, python-format
 msgid "shift_status_exempted"
 msgstr "Vrijgesteld"
 
 #. module: shift
-#: code:addons/shift/models/cooperative_status.py:56
+#. odoo-python
+#: code:addons/shift/models/cooperative_status.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/cooperative_status.py:0
 #, python-format
 msgid "shift_status_extension"
 msgstr "Uitbreiding"
 
 #. module: shift
-#: code:addons/shift/models/cooperative_status.py:59
+#. odoo-python
+#: code:addons/shift/models/cooperative_status.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/cooperative_status.py:0
 #, python-format
 msgid "shift_status_holidays"
 msgstr "Pauze"
 
 #. module: shift
-#: code:addons/shift/models/cooperative_status.py:60
+#. odoo-python
+#: code:addons/shift/models/cooperative_status.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/cooperative_status.py:0
 #, python-format
 msgid "shift_status_resigning"
 msgstr "Ontslagnemend"
 
 #. module: shift
-#: code:addons/shift/models/cooperative_status.py:55
+#. odoo-python
+#: code:addons/shift/models/cooperative_status.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/cooperative_status.py:0
 #, python-format
 msgid "shift_status_suspended"
 msgstr "Rood alarm"
 
 #. module: shift
-#: code:addons/shift/models/cooperative_status.py:57
+#. odoo-python
+#: code:addons/shift/models/cooperative_status.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/cooperative_status.py:0
 #, python-format
 msgid "shift_status_unsubscribed"
 msgstr "Bevroren"
 
 #. module: shift
-#: code:addons/shift/models/cooperative_status.py:53
+#. odoo-python
+#: code:addons/shift/models/cooperative_status.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/cooperative_status.py:0
 #, python-format
 msgid "shift_status_up_to_date"
 msgstr "Up-to-date"
 
 #. module: shift
-#: code:addons/shift/models/cooperative_status.py:54
+#. odoo-python
+#: code:addons/shift/models/cooperative_status.py:0
+#: code:addons/src/coopiteasy/obeesdoo/shift/models/cooperative_status.py:0
 #, python-format
 msgid "shift_status_warning"
 msgstr "Alarm"
-
-#~ msgid "Absent - 0 Compensation"
-#~ msgstr "Afwezig 0 - Shift geschonken"
-
-#~ msgid "Absent - 1 Compensation"
-#~ msgstr "Afwezig 1 - Shift uitgesteld"
-
-#~ msgid "Absent - 2 Compensations"
-#~ msgstr "Afwezig 2 - Shift uitgesteld + sanctie"
-
-#~ msgid "Added Shift"
-#~ msgstr "Toegevoegde shift"
-
-#~ msgid "Added Shifts"
-#~ msgstr "Toegevoegde shift"
-
-#~ msgid "Attendance Sheet"
-#~ msgstr "Aanwezigheidslijsten"
-
-#~ msgid "Attendance sheet"
-#~ msgstr "Aanwezigheidslijsten"
-
-#~ msgid "Barcode Scanned"
-#~ msgstr "Barcode gescand"
-
-#~ msgid "Base: Auto-vacuum internal data"
-#~ msgstr "Base: auto-vacuum interne data"
-
-#~ msgid "Card validation"
-#~ msgstr "Kaartvalidatie"
-
-#~ msgid "Comments about the shift"
-#~ msgstr "Opmerkingen over jouw shift"
-
-#~ msgid "Compensation shift ?"
-#~ msgstr "Compensatie shift ?"
-
-#~ msgid "Cooperator Type"
-#~ msgstr "Coöperanttype"
-
-#~ msgid "Effective Date"
-#~ msgstr "Geboekte datum"
-
-#~ msgid "Enough workers"
-#~ msgstr "Genoeg werkers"
-
-#~ msgid "Indicative maximum number of workers."
-#~ msgstr "Indicatief max. aantal werkers."
-
-#~ msgid "Mark as read"
-#~ msgstr "Markeer als gelezen"
-
-#~ msgid "Maximum number of workers"
-#~ msgstr "Max. aantal werkers"
-
-#~ msgid "Not enough workers"
-#~ msgstr "Niet genoeg werkers"
-
-#~ msgid "Notes"
-#~ msgstr "Notities"
-
-#~ msgid "Password"
-#~ msgstr "Wachtwoord"
-
-#~ msgid "Present"
-#~ msgstr "Aanwezig"
-
-#~ msgid "Replacement Worker"
-#~ msgstr "Vervangingswerker"
-
-#~ msgid "Replacement Worker (must be regular)"
-#~ msgstr "Vervangingswerker (regelmatig werkregime vereist)"
-
-#~ msgid "Shift State"
-#~ msgstr "Shift Staat"
-
-#~ msgid "Task"
-#~ msgstr "Taak"
-
-#~ msgid "Time Slot"
-#~ msgstr "Tijdslot"
-
-#~ msgid "Too many workers"
-#~ msgstr "Te veel werkers"
-
-#~ msgid "Users"
-#~ msgstr "Gebruikers"
-
-#~ msgid "Value of the last barcode scanned."
-#~ msgstr "Waarde van de laatst gescande barcode."
-
-#~ msgid "Was your team big enough ? *"
-#~ msgstr "Was het team groot genoeg? *"
-
-#~ msgid "Website Messages"
-#~ msgstr "Website berichten"
-
-#~ msgid "Website communication history"
-#~ msgstr "Website communicatie geschiedenis"
