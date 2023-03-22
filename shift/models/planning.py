@@ -115,7 +115,7 @@ class ShiftPlanning(models.Model):
     def get_future_shifts(
         self,
         end_date,
-        start_date=datetime.now(),
+        start_date=None,
         worker_id=None,
         include_cancelled=True,
     ):
@@ -127,6 +127,8 @@ class ShiftPlanning(models.Model):
         :param end_date: Datetime
         :return: shift.shift list
         """
+        if not start_date:
+            start_date = datetime.now()
         # Getting existing shifts
         shift_domain = [("start_time", ">", start_date.strftime("%Y-%m-%d %H:%M:%S"))]
         if worker_id:
