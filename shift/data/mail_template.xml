@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<odoo>
+<odoo noupdate="1">
     <!-- Mail template are declared in a NOUPDATE block
          so users can freely customize/delete them -->
-    <data noupdate="1">
         <record id="email_template_shift_summary" model="mail.template">
             <field name="name">Shift Summary</field>
-            <field name="subject">Your next shift ({{ format_datetime(object.start_time, tz=object.worker_id.tz or 'Europe/Brussels', dt_format='dd.MM.yyyy HH:mm') }})
+            <field
+            name="subject"
+        >Your next shift ({{ format_datetime(object.start_time, tz=object.worker_id.tz or 'Europe/Brussels', dt_format='dd.MM.yyyy HH:mm') }})
             </field>
             <field name="email_from">{{ object.worker_id.company_id.email }}
             </field>
@@ -16,8 +17,8 @@
             <field name="auto_delete" eval="True" />
             <field name="lang">{{ object.worker_id.lang }}</field>
             <field
-                name="body_html"
-            ><![CDATA[
+            name="body_html"
+        ><![CDATA[
 <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
 
     <p>Hello <t t-out="object.worker_id.name or ''" />,</p>
@@ -60,5 +61,4 @@
 </div>
             ]]></field>
         </record>
-    </data>
 </odoo>

@@ -147,7 +147,7 @@ class TestShift(TransactionCase):
         super_worker.user_ids = self.user_demo
         subscription_wizard = (
             self.env["shift.subscribe"]
-            .with_context({"active_id": super_worker.id})
+            .with_context(active_id=super_worker.id)
             .create(
                 {},
             )
@@ -167,7 +167,7 @@ class TestShift(TransactionCase):
         self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 2)
 
         subscribe_wiz = self.subscribe_wizard.with_context(
-            {"active_id": self.worker_regular_1.ids}
+            active_id=self.worker_regular_1.ids
         )
         subscribe_wiz = subscribe_wiz.create({"working_mode": "irregular"})
         subscribe_wiz.subscribe()
@@ -243,7 +243,7 @@ class TestShift(TransactionCase):
         self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 5)
 
         holiday_wiz = self.holiday_wizard.with_context(
-            {"active_id": self.worker_regular_1.ids}
+            active_id=self.worker_regular_1.ids
         )
         status_id = self.worker_regular_1.cooperative_status_ids
         status_id.today = date.today()
@@ -374,7 +374,7 @@ class TestShift(TransactionCase):
         self.assertEqual(self._count_number_of_shift(self.worker_regular_1), 5)
 
         exemption_wiz = self.exemption_wizard.with_context(
-            {"active_id": self.worker_regular_1.ids}
+            active_id=self.worker_regular_1.ids
         )
         status_id = self.worker_regular_1.cooperative_status_ids
         status_id.today = date.today()

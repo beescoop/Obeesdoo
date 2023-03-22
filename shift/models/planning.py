@@ -60,7 +60,6 @@ class ShiftPlanning(models.Model):
     sequence = fields.Integer()
     name = fields.Char()
     periodicity = fields.Integer(
-        "Periodicity",
         help="""From 1 to N. This number specifies the periodicity for the
         automated generation of a planning. For a weekly planning, the
         periodicity would be 7, because the planning has to be generated

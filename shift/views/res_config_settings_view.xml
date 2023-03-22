@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <data>
-
         <record id="res_config_settings_shift_view_form" model="ir.ui.view">
             <field name="name">Shifts Settings</field>
             <field name="model">res.config.settings</field>
@@ -10,13 +8,13 @@
             <field name="arch" type="xml">
                 <xpath expr="///div[hasclass('settings')]" position="inside">
                     <div
-                        id="shift_settings_block"
-                        class="app_settings_block"
-                        data-string="Shifts Settings"
-                        string="Shifts Settings"
-                        data-key="shift"
-                        groups="shift.group_cooperative_admin"
-                    >
+                    id="shift_settings_block"
+                    class="app_settings_block"
+                    data-string="Shifts Settings"
+                    string="Shifts Settings"
+                    data-key="shift"
+                    groups="shift.group_cooperative_admin"
+                >
                         <h2>General settings</h2>
                         <div class="row mt16 o_settings_container">
                             <div class="col-12 col-lg-6 o_setting_box">
@@ -31,15 +29,15 @@
                                     <div class="content-group">
                                         <div class="mt16 row">
                                             <label
-                                                for="min_percentage_presence"
-                                                string="Percentage (%)"
-                                                class="col-3 col-lg-3 o_light_label"
-                                            />
+                                            for="min_percentage_presence"
+                                            string="Percentage (%)"
+                                            class="col-3 col-lg-3 o_light_label"
+                                        />
                                             <field
-                                                name="min_percentage_presence"
-                                                class="oe_inline"
-                                                required="1"
-                                            />
+                                            name="min_percentage_presence"
+                                            class="oe_inline"
+                                            required="1"
+                                        />
                                         </div>
                                     </div>
                                 </div>
@@ -56,15 +54,15 @@
                                     <div class="content-group">
                                         <div class="mt16 row">
                                             <label
-                                                for="min_hours_to_unsubscribe"
-                                                string="Hours"
-                                                class="col-3 col-lg-3 o_light_label"
-                                            />
+                                            for="min_hours_to_unsubscribe"
+                                            string="Hours"
+                                            class="col-3 col-lg-3 o_light_label"
+                                        />
                                             <field
-                                                name="min_hours_to_unsubscribe"
-                                                class="oe_inline"
-                                                required="1"
-                                            />
+                                            name="min_hours_to_unsubscribe"
+                                            class="oe_inline"
+                                            required="1"
+                                        />
                                         </div>
                                     </div>
                                 </div>
@@ -80,15 +78,15 @@
                                     <div class="content-group">
                                         <div class="mt16 row">
                                             <label
-                                                for="max_shift_per_day"
-                                                string="Value"
-                                                class="col-3 col-lg-3 o_light_label"
-                                            />
+                                            for="max_shift_per_day"
+                                            string="Value"
+                                            class="col-3 col-lg-3 o_light_label"
+                                        />
                                             <field
-                                                name="max_shift_per_day"
-                                                class="oe_inline"
-                                                required="1"
-                                            />
+                                            name="max_shift_per_day"
+                                            class="oe_inline"
+                                            required="1"
+                                        />
                                         </div>
                                     </div>
                                 </div>
@@ -104,15 +102,15 @@
                                     <div class="content-group">
                                         <div class="mt16 row">
                                             <label
-                                                for="max_shift_per_month"
-                                                string="Value"
-                                                class="col-3 col-lg-3 o_light_label"
-                                            />
+                                            for="max_shift_per_month"
+                                            string="Value"
+                                            class="col-3 col-lg-3 o_light_label"
+                                        />
                                             <field
-                                                name="max_shift_per_month"
-                                                class="oe_inline"
-                                                required="1"
-                                            />
+                                            name="max_shift_per_month"
+                                            class="oe_inline"
+                                            required="1"
+                                        />
                                         </div>
                                     </div>
                                 </div>
@@ -128,15 +126,15 @@
                                     <div class="content-group">
                                         <div class="mt16 row">
                                             <label
-                                                for="shift_period"
-                                                string="Days"
-                                                class="col-3 col-lg-3 o_light_label"
-                                            />
+                                            for="shift_period"
+                                            string="Days"
+                                            class="col-3 col-lg-3 o_light_label"
+                                        />
                                             <field
-                                                name="shift_period"
-                                                class="oe_inline"
-                                                required="1"
-                                            />
+                                            name="shift_period"
+                                            class="oe_inline"
+                                            required="1"
+                                        />
                                         </div>
                                     </div>
                                 </div>
@@ -147,5 +145,4 @@
             </field>
         </record>
 
-    </data>
 </odoo>
