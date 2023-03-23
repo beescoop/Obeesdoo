@@ -11,7 +11,7 @@
     """,
     "author": "Coop IT Easy SC",
     "license": "AGPL-3",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
     "depends": ["portal", "website", "shift"],
