@@ -12,8 +12,6 @@
     "version": "12.0.2.1.0",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
-    "depends": [
-        "shift_portal"
-    ],
+    "depends": ["shift_portal"],
     "data": [],
 }
