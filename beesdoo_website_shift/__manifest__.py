@@ -5,21 +5,15 @@
 {
     "name": "BEES coop Website Shift",
     "summary": """
-        Show available shifts for regular and irregular workers on the
-        website and let workers manage their shifts with an
-        easy web interface.
+        Emptied.
     """,
     "author": "Coop IT Easy SC",
     "license": "AGPL-3",
     "version": "12.0.2.1.0",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
-    "depends": ["portal", "website", "shift"],
-    "data": [
-        "data/res_config_data.xml",
-        "views/shift_website_templates.xml",
-        "views/my_shift_website_templates.xml",
-        "views/res_config_views.xml",
-        "views/assets.xml",
+    "depends": [
+        "shift_portal"
     ],
+    "data": [],
 }

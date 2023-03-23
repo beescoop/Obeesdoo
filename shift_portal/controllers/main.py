@@ -64,28 +64,28 @@ class WebsiteShiftController(http.Controller):
         """
         if self.is_user_irregular():
             return request.render(
-                "beesdoo_website_shift.my_shift_irregular_worker",
+                "shift_portal.my_shift_irregular_worker",
                 self.my_shift_irregular_worker(nexturl="/my/shift"),
             )
         if self.is_user_regular_without_shift():
             return request.render(
-                "beesdoo_website_shift.my_shift_regular_worker_without_shift",
+                "shift_portal.my_shift_regular_worker_without_shift",
                 self.my_shift_regular_worker_without_shift(),
             )
         if self.is_user_regular():
             return request.render(
-                "beesdoo_website_shift.my_shift_regular_worker",
+                "shift_portal.my_shift_regular_worker",
                 self.my_shift_regular_worker(),
             )
         if self.is_user_exempted():
             return request.render(
-                "beesdoo_website_shift.my_shift_exempted_worker",
+                "shift_portal.my_shift_exempted_worker",
                 self.my_shift_exempted_worker(),
             )
         if self.is_user_worker():
-            return request.render("beesdoo_website_shift.my_shift_new_worker", {})
+            return request.render("shift_portal.my_shift_new_worker", {})
 
-        return request.render("beesdoo_website_shift.my_shift_non_worker", {})
+        return request.render("shift_portal.my_shift_non_worker", {})
 
     @http.route("/shift/<int:shift_id>/subscribe", auth="user", website=True)
     def subscribe_to_shift(self, shift_id=-1, **kw):
@@ -98,7 +98,7 @@ class WebsiteShiftController(http.Controller):
             * the shift status is open
             * the shift is free for subscription
             * the shift is starting after the time interval
-            for attendance sheet generation defined in beesdoo_shift settings
+            for attendance sheet generation defined in shift settings
         """
         # Get current user
         cur_user = request.env["res.users"].browse(request.uid)
@@ -106,7 +106,7 @@ class WebsiteShiftController(http.Controller):
         shift = request.env["shift.shift"].sudo().browse(shift_id)
         # Get config
         irregular_enable_sign_up = request.website.irregular_enable_sign_up
-        # Set start time limit as defined in beesdoo_shift settings
+        # Set start time limit as defined in shift settings
         # TODO: Move this into the attendance_sheet module
         # setting = request.website.attendance_sheet_generation_interval
         start_time_limit = datetime.now()  # + timedelta(minutes=setting)
@@ -141,7 +141,7 @@ class WebsiteShiftController(http.Controller):
         )
 
         return request.render(
-            "beesdoo_website_shift.public_shift_irregular_worker",
+            "shift_portal.public_shift_irregular_worker",
             template_context,
         )
 
@@ -168,7 +168,7 @@ class WebsiteShiftController(http.Controller):
             task_tpls_data.append((task_tpl, has_enough_workers))
 
         return request.render(
-            "beesdoo_website_shift.public_shift_template_regular_worker",
+            "shift_portal.public_shift_template_regular_worker",
             {"task_tpls_data": task_tpls_data, "float_to_time": float_to_time},
         )
 
@@ -224,7 +224,7 @@ class WebsiteShiftController(http.Controller):
         template_context["all_shifts"] = display_all
 
         return request.render(
-            "beesdoo_website_shift.choose_compensation_shift",
+            "shift_portal.choose_compensation_shift",
             template_context,
         )
 
@@ -291,7 +291,7 @@ class WebsiteShiftController(http.Controller):
     def my_shift_irregular_worker(self, nexturl=""):
         """
         Return template variables for
-        'beesdoo_website_shift.my_shift_irregular_worker' template
+        'shift_portal.my_shift_irregular_worker' template
         """
         # Get config
         irregular_enable_sign_up = request.website.irregular_enable_sign_up
@@ -332,14 +332,14 @@ class WebsiteShiftController(http.Controller):
     def my_shift_regular_worker_without_shift(self):
         """
         Return template variables for
-        'beesdoo_website_shift.my_shift_regular_worker_without_shift' template
+        'shift_portal.my_shift_regular_worker_without_shift' template
         """
         return self.my_shift_worker_status()
 
     def my_shift_regular_worker(self):
         """
         Return template variables for
-        'beesdoo_website_shift.my_shift_regular_worker' template
+        'shift_portal.my_shift_regular_worker' template
         """
         # Create template context
         template_context = {}
@@ -379,7 +379,7 @@ class WebsiteShiftController(http.Controller):
     def my_shift_exempted_worker(self):
         """
         Return template variables for
-        'beesdoo_website_shift.my_shift_exempted_worker' template
+        'shift_portal.my_shift_exempted_worker' template
         """
         return self.my_shift_worker_status()
 
@@ -388,7 +388,7 @@ class WebsiteShiftController(http.Controller):
     ):
         """
         Return template variables for
-        'beesdoo_website_shift.available_shift_irregular_worker_grid'
+        'shift_portal.available_shift_irregular_worker_grid'
         """
         # Get current user
         cur_user = request.env["res.users"].browse(request.uid)
@@ -470,7 +470,7 @@ class WebsiteShiftController(http.Controller):
     def my_shift_next_shifts(self, partner=None):
         """
         Return template variables for
-        'beesdoo_website_shift.my_shift_next_shifts' template
+        'shift_portal.my_shift_next_shifts' template
         """
         if not partner:
             # Get current user
@@ -490,7 +490,7 @@ class WebsiteShiftController(http.Controller):
     def my_shift_past_shifts(self):
         """
         Return template variables for
-        'beesdoo_website_shift.my_shift_past_shifts' template
+        'shift_portal.my_shift_past_shifts' template
         """
         # Get current user
         cur_user = request.env["res.users"].browse(request.uid)
@@ -541,7 +541,7 @@ class WebsiteShiftController(http.Controller):
     def my_shift_worker_status(self):
         """
         Return template variables for
-        'beesdoo_website_shift.my_shift_worker_status_*' template
+        'shift_portal.my_shift_worker_status_*' template
         """
         cur_user = request.env["res.users"].browse(request.uid)
         return {"status": cur_user.partner_id.cooperative_status_ids}
