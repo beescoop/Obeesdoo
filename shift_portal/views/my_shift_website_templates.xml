@@ -710,9 +710,7 @@
                 <div class="card mb-2">
                     <t t-set="week" t-value="shift_week_tuple[0]" />
                     <div class="card-body p-0">
-                        <t
-                            t-call="shift_portal.available_shift_irregular_worker_row"
-                        >
+                        <t t-call="shift_portal.available_shift_irregular_worker_row">
                             <t t-set="shift_by_week" t-value="shift_week_tuple[1]" />
                         </t>
                     </div>
@@ -730,9 +728,7 @@
                 <div class="card mb-2">
                     <t t-set="week" t-value="shift_week_tuple[0]" />
                     <div class="card-body p-0">
-                        <t
-                            t-call="shift_portal.available_shift_compensation_row"
-                        >
+                        <t t-call="shift_portal.available_shift_compensation_row">
                             <t t-set="shift_by_week" t-value="shift_week_tuple[1]" />
                         </t>
                     </div>
@@ -941,13 +937,9 @@
 
                     <div class="col-12 col-lg-6 m-auto text-justify">
 
-                        <t
-                            t-call="shift_portal.my_shift_worker_status_title"
-                        />
+                        <t t-call="shift_portal.my_shift_worker_status_title" />
 
-                        <t
-                            t-call="shift_portal.my_shift_worker_status_common"
-                        />
+                        <t t-call="shift_portal.my_shift_worker_status_common" />
 
                         <p t-if="status.exempt_reason_id">
                             <label class="font-weight-bold">Exempt Reason:
@@ -988,13 +980,9 @@
                 <div class="row">
                     <div class="col-12 col-lg-6 m-auto text-justify">
 
-                        <t
-                            t-call="shift_portal.my_shift_worker_status_title"
-                        />
+                        <t t-call="shift_portal.my_shift_worker_status_title" />
 
-                        <t
-                            t-call="shift_portal.my_shift_worker_status_common"
-                        />
+                        <t t-call="shift_portal.my_shift_worker_status_common" />
 
                     </div>
 
@@ -1028,13 +1016,9 @@
                 <div class="row">
                     <div class="col-12 col-lg-6 m-auto text-justify">
 
-                        <t
-                            t-call="shift_portal.my_shift_worker_status_title"
-                        />
+                        <t t-call="shift_portal.my_shift_worker_status_title" />
 
-                        <t
-                            t-call="shift_portal.my_shift_worker_status_common"
-                        />
+                        <t t-call="shift_portal.my_shift_worker_status_common" />
 
                         <p t-if="status.sr != 0">
                             <label class="font-weight-bold">Shift in Advance:
@@ -1082,9 +1066,7 @@
                         <t t-call="shift_portal.help_text_title" />
                         <div class="collapse show" id="collapseHelp">
                             <t t-call="shift_portal.help_text_common" />
-                            <t
-                                t-call="shift_portal.help_text_regular_worker"
-                            />
+                            <t t-call="shift_portal.help_text_regular_worker" />
                         </div>
 
                     </div>
@@ -1109,13 +1091,9 @@
                 <div class="row">
                     <div class="col-12 col-lg-6 m-auto text-justify">
 
-                        <t
-                            t-call="shift_portal.my_shift_worker_status_title"
-                        />
+                        <t t-call="shift_portal.my_shift_worker_status_title" />
 
-                        <t
-                            t-call="shift_portal.my_shift_worker_status_common"
-                        />
+                        <t t-call="shift_portal.my_shift_worker_status_common" />
 
                         <p>
                             <label class="font-weight-bold">Shift in Advance:
@@ -1154,9 +1132,7 @@
                         <t t-call="shift_portal.help_text_title" />
                         <div class="collapse" id="collapseHelp">
                             <t t-call="shift_portal.help_text_common" />
-                            <t
-                                t-call="shift_portal.help_text_irregular_worker"
-                            />
+                            <t t-call="shift_portal.help_text_irregular_worker" />
                         </div>
 
                     </div>
@@ -1227,9 +1203,7 @@
                                 </a>
                             </h5>
                         </t>
-                        <t
-                            t-call="shift_portal.available_shift_compensation_grid"
-                        />
+                        <t t-call="shift_portal.available_shift_compensation_grid" />
                     </div>
                 </div>
             </div>
