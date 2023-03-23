@@ -43,5 +43,5 @@ class WebsiteShiftConfigSettings(models.TransientModel):
     # General settings
     next_shifts_display_number = fields.Integer(
         string="Number of next shifts displayed on page 'My Shifts' by default",
-        config_parameter="beesdoo_website_shift.next_shifts_display_number",
+        config_parameter="shift_portal.next_shifts_display_number",
     )

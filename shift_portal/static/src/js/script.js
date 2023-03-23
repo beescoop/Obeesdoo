@@ -1,4 +1,4 @@
-odoo.define("beesdoo_website_shift.script", function (require) {
+odoo.define("shift_portal.script", function (require) {
     "use strict";
     $(document).ready(function () {
         // Hide help panel by default for small screens

@@ -173,7 +173,7 @@
 
         <t
             t-set="shift_display_number"
-            t-value="int(request.env['ir.config_parameter'].sudo().get_param('beesdoo_website_shift.next_shifts_display_number'))"
+            t-value="int(request.env['ir.config_parameter'].sudo().get_param('shift_portal.next_shifts_display_number'))"
         />
 
         <t t-foreach="subscribed_shifts" t-as="shift">
@@ -192,7 +192,7 @@
                             t-options='{"format": "HH:mm"}'
                         />
                     </div>
-                    <t t-call="beesdoo_website_shift.shift_status_label">
+                    <t t-call="shift_portal.shift_status_label">
                         <t t-set="label_css" t-value="'pull-right'" />
                     </t>
                 </div>
@@ -386,7 +386,7 @@
                             t-options='{"format": "HH:mm"}'
                         />
                     </div>
-                    <t t-call="beesdoo_website_shift.shift_status_label">
+                    <t t-call="shift_portal.shift_status_label">
                         <t t-set="label_css" t-value="'pull-right'" />
                     </t>
                 </div>
@@ -614,7 +614,7 @@
                                     <t t-if="shift_by_day">
                                         <t t-foreach="shift_by_day" t-as="shift">
                                             <t
-                                                t-call="beesdoo_website_shift.available_shift_irregular_worker_card"
+                                                t-call="shift_portal.available_shift_irregular_worker_card"
                                             >
                                                 <t
                                                     t-set="displayed_shift"
@@ -668,7 +668,7 @@
                                     <t t-if="shift_by_day">
                                         <t t-foreach="shift_by_day" t-as="shift">
                                             <t
-                                                t-call="beesdoo_website_shift.available_shift_compensation_card"
+                                                t-call="shift_portal.available_shift_compensation_card"
                                             >
                                                 <t
                                                     t-set="displayed_shift"
@@ -711,7 +711,7 @@
                     <t t-set="week" t-value="shift_week_tuple[0]" />
                     <div class="card-body p-0">
                         <t
-                            t-call="beesdoo_website_shift.available_shift_irregular_worker_row"
+                            t-call="shift_portal.available_shift_irregular_worker_row"
                         >
                             <t t-set="shift_by_week" t-value="shift_week_tuple[1]" />
                         </t>
@@ -731,7 +731,7 @@
                     <t t-set="week" t-value="shift_week_tuple[0]" />
                     <div class="card-body p-0">
                         <t
-                            t-call="beesdoo_website_shift.available_shift_compensation_row"
+                            t-call="shift_portal.available_shift_compensation_row"
                         >
                             <t t-set="shift_by_week" t-value="shift_week_tuple[1]" />
                         </t>
@@ -763,9 +763,8 @@
         <div class="alert alert-info">
             <strong>Info!</strong>
             If you do not agree with your status, please contact the members
-            office by mail (membre@bees-coop.be) or during the open hours of the
-            office (Monday 5PM to 7:30PM, Wednesday 5PM to 7:30 PM and Friday
-            2:30PM to 5 PM).
+            office by mail or during the open hours of the
+            office.
         </div>
     </template>
 
@@ -823,7 +822,7 @@
             <strong>Unsubscribed:</strong>
             You did not attend two consecutive shifts. You are now unsubscribed.
             You cannot shop (nor can your eaters) nor come to work.
-            To subscribe again, please contact membre@bees-coop.be or come to
+            To subscribe again, please contact the members office or come to
             the members office during the opening hours.
         </p>
     </template>
@@ -866,7 +865,7 @@
             8 weeks.
             You are unsubscribed. You cannot shop nor can your eaters.
             To subscribe again of if it's a mistake, please contact
-            membre@bees-coop.be or come to the members office during the opening
+            the members office or come to the members office during the opening
             hours.
         </p>
     </template>
@@ -879,7 +878,7 @@
             <div class="container mt16">
                 <div class="row">
                     <div class="col text-center">
-                        <t t-call="beesdoo_website_shift.my_shift_title" />
+                        <t t-call="shift_portal.my_shift_title" />
                     </div>
                 </div>
 
@@ -906,7 +905,7 @@
             <div class="container mt6">
                 <div class="row">
                     <div class="col text-center">
-                        <t t-call="beesdoo_website_shift.my_shift_title" />
+                        <t t-call="shift_portal.my_shift_title" />
                     </div>
                 </div>
 
@@ -934,7 +933,7 @@
             <div class="container mt16">
                 <div class="row">
                     <div class="col text-center">
-                        <t t-call="beesdoo_website_shift.my_shift_title" />
+                        <t t-call="shift_portal.my_shift_title" />
                     </div>
                 </div>
 
@@ -943,11 +942,11 @@
                     <div class="col-12 col-lg-6 m-auto text-justify">
 
                         <t
-                            t-call="beesdoo_website_shift.my_shift_worker_status_title"
+                            t-call="shift_portal.my_shift_worker_status_title"
                         />
 
                         <t
-                            t-call="beesdoo_website_shift.my_shift_worker_status_common"
+                            t-call="shift_portal.my_shift_worker_status_common"
                         />
 
                         <p t-if="status.exempt_reason_id">
@@ -983,18 +982,18 @@
             <div class="container mt16">
                 <div class="row">
                     <div class="col text-center">
-                        <t t-call="beesdoo_website_shift.my_shift_title" />
+                        <t t-call="shift_portal.my_shift_title" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 col-lg-6 m-auto text-justify">
 
                         <t
-                            t-call="beesdoo_website_shift.my_shift_worker_status_title"
+                            t-call="shift_portal.my_shift_worker_status_title"
                         />
 
                         <t
-                            t-call="beesdoo_website_shift.my_shift_worker_status_common"
+                            t-call="shift_portal.my_shift_worker_status_common"
                         />
 
                     </div>
@@ -1022,7 +1021,7 @@
             <div class="container mt16">
                 <div class="row">
                     <div class="col text-center">
-                        <t t-call="beesdoo_website_shift.my_shift_title" />
+                        <t t-call="shift_portal.my_shift_title" />
                     </div>
                 </div>
 
@@ -1030,11 +1029,11 @@
                     <div class="col-12 col-lg-6 m-auto text-justify">
 
                         <t
-                            t-call="beesdoo_website_shift.my_shift_worker_status_title"
+                            t-call="shift_portal.my_shift_worker_status_title"
                         />
 
                         <t
-                            t-call="beesdoo_website_shift.my_shift_worker_status_common"
+                            t-call="shift_portal.my_shift_worker_status_common"
                         />
 
                         <p t-if="status.sr != 0">
@@ -1063,7 +1062,7 @@
                             <t t-esc="status.extension_start_time" />
                         </p>
 
-                        <t t-call="beesdoo_website_shift.help_text_info" />
+                        <t t-call="shift_portal.help_text_info" />
 
                     </div>
 
@@ -1072,19 +1071,19 @@
 
                     <div class="col-12 col-lg-8 order-2 order-lg-1">
 
-                        <t t-call="beesdoo_website_shift.my_shift_next_shifts" />
+                        <t t-call="shift_portal.my_shift_next_shifts" />
 
-                        <t t-call="beesdoo_website_shift.my_shift_past_shifts" />
+                        <t t-call="shift_portal.my_shift_past_shifts" />
 
                     </div>
 
                     <div class="col-12 col-lg-4 text-justify order-1 order-lg-2">
 
-                        <t t-call="beesdoo_website_shift.help_text_title" />
+                        <t t-call="shift_portal.help_text_title" />
                         <div class="collapse show" id="collapseHelp">
-                            <t t-call="beesdoo_website_shift.help_text_common" />
+                            <t t-call="shift_portal.help_text_common" />
                             <t
-                                t-call="beesdoo_website_shift.help_text_regular_worker"
+                                t-call="shift_portal.help_text_regular_worker"
                             />
                         </div>
 
@@ -1103,7 +1102,7 @@
             <div class="container mt16">
                 <div class="row">
                     <div class="col text-center">
-                        <t t-call="beesdoo_website_shift.my_shift_title" />
+                        <t t-call="shift_portal.my_shift_title" />
                     </div>
                 </div>
 
@@ -1111,11 +1110,11 @@
                     <div class="col-12 col-lg-6 m-auto text-justify">
 
                         <t
-                            t-call="beesdoo_website_shift.my_shift_worker_status_title"
+                            t-call="shift_portal.my_shift_worker_status_title"
                         />
 
                         <t
-                            t-call="beesdoo_website_shift.my_shift_worker_status_common"
+                            t-call="shift_portal.my_shift_worker_status_common"
                         />
 
                         <p>
@@ -1150,13 +1149,13 @@
                             <t t-esc="status.irregular_absence_counter" />
                         </p>
 
-                        <t t-call="beesdoo_website_shift.help_text_info" />
+                        <t t-call="shift_portal.help_text_info" />
 
-                        <t t-call="beesdoo_website_shift.help_text_title" />
+                        <t t-call="shift_portal.help_text_title" />
                         <div class="collapse" id="collapseHelp">
-                            <t t-call="beesdoo_website_shift.help_text_common" />
+                            <t t-call="shift_portal.help_text_common" />
                             <t
-                                t-call="beesdoo_website_shift.help_text_irregular_worker"
+                                t-call="shift_portal.help_text_irregular_worker"
                             />
                         </div>
 
@@ -1164,7 +1163,7 @@
 
                     <div class="col-12">
 
-                        <t t-call="beesdoo_website_shift.my_shift_next_shifts" />
+                        <t t-call="shift_portal.my_shift_next_shifts" />
 
                         <h2>
                             Available Shifts
@@ -1185,10 +1184,10 @@
                         </div>
 
                         <t
-                            t-call="beesdoo_website_shift.available_shift_irregular_worker_grid"
+                            t-call="shift_portal.available_shift_irregular_worker_grid"
                         />
 
-                        <t t-call="beesdoo_website_shift.my_shift_past_shifts" />
+                        <t t-call="shift_portal.my_shift_past_shifts" />
 
                     </div>
                 </div>
@@ -1229,7 +1228,7 @@
                             </h5>
                         </t>
                         <t
-                            t-call="beesdoo_website_shift.available_shift_compensation_grid"
+                            t-call="shift_portal.available_shift_compensation_grid"
                         />
                     </div>
                 </div>

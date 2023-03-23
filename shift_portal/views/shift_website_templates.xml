@@ -65,7 +65,7 @@
                     <div class="row mt4">
                         <div class="col">
                             <t
-                                t-call="beesdoo_website_shift.help_text_public_shift_template_regular_worker"
+                                t-call="shift_portal.help_text_public_shift_template_regular_worker"
                             />
                         </div>
                     </div>
@@ -163,7 +163,7 @@
                     <div class="row mt4">
                         <div class="col">
                             <t
-                                t-call="beesdoo_website_shift.help_text_public_shift_irregular_worker"
+                                t-call="shift_portal.help_text_public_shift_irregular_worker"
                             />
                         </div>
                     </div>
@@ -173,7 +173,7 @@
                     <div class="row mt4 justify-content-center">
                         <div class="col-12 col-lg-12">
                             <t
-                                t-call="beesdoo_website_shift.available_shift_irregular_worker_grid"
+                                t-call="shift_portal.available_shift_irregular_worker_grid"
                             />
                         </div>
                     </div>
