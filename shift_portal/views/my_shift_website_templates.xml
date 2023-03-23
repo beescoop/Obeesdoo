@@ -30,11 +30,11 @@
             </button>
             <t t-if="success_message">
                 <strong>Success!</strong>
-                <t t-esc="success_message" />
+                <t t-out="success_message" />
             </t>
             <t t-else="">
                 <strong>Error!</strong>
-                <t t-esc="error_message" />
+                <t t-out="error_message" />
             </t>
         </div>
         <h1>
@@ -66,7 +66,7 @@
         <p id="working_mode">
             <label class="font-weight-bold">Working Mode:</label>
             <t
-                t-esc="dict(status.fields_get(allfields=['working_mode'])['working_mode']['selection'])[status.working_mode]"
+                t-out="dict(status.fields_get(allfields=['working_mode'])['working_mode']['selection'])[status.working_mode]"
             />
         </p>
 
@@ -77,7 +77,7 @@
         <p>
             <label class="font-weight-bold">Status:</label>
             <t
-                t-esc="dict(status.fields_get(allfields=['status'])['status']['selection'])[status.status]"
+                t-out="dict(status.fields_get(allfields=['status'])['status']['selection'])[status.status]"
             />
             <br />
             <t t-if="compensation_ok">
@@ -91,14 +91,14 @@
             t-if="status.holiday_start_time and status.holiday_start_time > status.today or status.status == 'holiday'"
         >
             <label class="font-weight-bold">Begin of Holiday:</label>
-            <t t-esc="status.holiday_start_time" />
+            <t t-out="status.holiday_start_time" />
         </p>
 
         <p
             t-if="status.holiday_end_time and status.holiday_end_time > status.today or status.status == 'holiday'"
         >
             <label class="font-weight-bold">End of Holiday:</label>
-            <t t-esc="status.holiday_end_time" />
+            <t t-out="status.holiday_end_time" />
         </p>
 
     </template>
@@ -110,42 +110,42 @@
             t-if="shift.state == 'draft'"
             t-attf-class="badge badge-default ml-1 {{label_css}}"
         >
-            <t t-esc="shift.state" />
+            <t t-out="shift.state" />
         </span>
 
         <span
             t-if="shift.state == 'done'"
             t-attf-class="badge badge-success ml-1 {{label_css}}"
         >
-            <t t-esc="shift.state" />
+            <t t-out="shift.state" />
         </span>
 
         <span
             t-if="shift.state == 'absent_2'"
             t-attf-class="badge badge-warning ml-1 {{label_css}}"
         >
-            <t t-esc="shift.state" />
+            <t t-out="shift.state" />
         </span>
 
         <span
             t-if="shift.state == 'absent_1'"
             t-attf-class="badge badge-info ml-1 {{label_css}}"
         >
-            <t t-esc="shift.state" />
+            <t t-out="shift.state" />
         </span>
 
         <span
             t-if="shift.state == 'absent_0'"
             t-attf-class="badge badge-info ml-1 {{label_css}}"
         >
-            <t t-esc="shift.state" />
+            <t t-out="shift.state" />
         </span>
 
         <span
             t-if="shift.state == 'cancel'"
             t-attf-class="badge badge-danger ml-1 {{label_css}}"
         >
-            <t t-esc="shift.state" />
+            <t t-out="shift.state" />
         </span>
 
         <span
@@ -197,7 +197,7 @@
                     </t>
                 </div>
                 <div class="card-body clearfix">
-                    <t t-esc="shift.task_type_id.name" />
+                    <t t-out="shift.task_type_id.name" />
                     <button
                         type="button"
                         class="btn btn-default btn-sm ml-2 pull-right"
@@ -286,16 +286,16 @@
                                 class="modal-title"
                                 t-att-id="'super_coop-shift-%s-label' % shift_index"
                             >
-                                <t t-esc="shift.super_coop_id.name" />
+                                <t t-out="shift.super_coop_id.name" />
                             </h4>
                         </div>
                         <div class="modal-body text-center">
                             <i class="fa fa-phone" aria-hidden="true" />
-                            <t t-esc="shift.super_coop_id.phone" />
+                            <t t-out="shift.super_coop_id.phone" />
                             <br />
                             <i class="fa fa-envelope" aria-hidden="true" />
                             <a t-att-href="'mailto:%s' % shift.super_coop_id.email">
-                                <t t-esc="shift.super_coop_id.email" />
+                                <t t-out="shift.super_coop_id.email" />
                             </a>
                         </div>
                         <div class="modal-footer">
@@ -338,7 +338,7 @@
                                 t-options='{"format": "HH:mm"}'
                             />
                             <br />
-                            <t t-esc="shift.task_type_id.name" />
+                            <t t-out="shift.task_type_id.name" />
                         </div>
                         <div class="modal-footer">
                             <button
@@ -391,7 +391,7 @@
                     </t>
                 </div>
                 <div class="card-body clearfix">
-                    <t t-esc="shift.task_type_id.name" />
+                    <t t-out="shift.task_type_id.name" />
                 </div>
             </div>
         </t>
@@ -417,9 +417,9 @@
         />
 
         <div t-att-class="'card %s' % highlight_class">
-            <div class="center m-1 font-weight-bold" t-esc="shift.task_type_id.name" />
+            <div class="center m-1 font-weight-bold" t-out="shift.task_type_id.name" />
             <div class="badge badge-secondary m-1" t-if="count > 0">
-                <t t-esc="count" />
+                <t t-out="count" />
                 spot(s)
             </div>
             <div class="badge badge-secondary m-1" t-if="count == 0">
@@ -477,9 +477,9 @@
                             t-options='{"format": "HH:mm"}'
                         />
                         <br />
-                        <t t-esc="shift.task_type_id.name" />
+                        <t t-out="shift.task_type_id.name" />
                         <br />
-                        <t t-esc="count" />
+                        <t t-out="count" />
                         available space(s)
                     </div>
                     <div class="modal-footer">
@@ -508,7 +508,7 @@
     >
         <t t-set="shift" t-value="displayed_shift.shift" />
         <div t-att-class="'card %s' % highlight_class">
-            <div class="center m-1 font-weight-bold" t-esc="shift.task_type_id.name" />
+            <div class="center m-1 font-weight-bold" t-out="shift.task_type_id.name" />
             <button
                 type="button"
                 class="btn btn-primary btn-sm m-1"
@@ -557,7 +557,7 @@
                             t-options='{"format": "HH:mm"}'
                         />
                         <br />
-                        <t t-esc="shift.task_type_id.name" />
+                        <t t-out="shift.task_type_id.name" />
                     </div>
                     <div class="modal-footer">
                         <button
@@ -591,9 +591,9 @@
                     <t t-foreach="headers" t-as="header">
                         <th style="width: 13%">
                             <!-- Using array of week days instead of strftime to enable translation -->
-                            <t t-esc="week_days[header_index]" />
+                            <t t-out="week_days[header_index]" />
                             <br />
-                            <t t-esc="header.strftime('%d/%m')" />
+                            <t t-out="header.strftime('%d/%m')" />
                         </th>
                     </t>
                 </thead>
@@ -604,9 +604,9 @@
                         <tr>
                             <td class="text-center align-middle">
                                 <div>
-                                    <div t-esc="start_time" />
+                                    <div t-out="start_time" />
                                     <div>-</div>
-                                    <div t-esc="end_time" />
+                                    <div t-out="end_time" />
                                 </div>
                             </td>
                             <t t-foreach="shift_row[1]" t-as="shift_by_day">
@@ -645,9 +645,9 @@
                     <t t-foreach="headers" t-as="header">
                         <th style="width: 13%">
                             <!-- Using array of week days instead of strftime to enable translation -->
-                            <t t-esc="week_days[header_index]" />
+                            <t t-out="week_days[header_index]" />
                             <br />
-                            <t t-esc="header.strftime('%d/%m')" />
+                            <t t-out="header.strftime('%d/%m')" />
                         </th>
                     </t>
                 </thead>
@@ -658,9 +658,9 @@
                         <tr>
                             <td class="text-center align-middle">
                                 <div>
-                                    <div t-esc="start_time" />
+                                    <div t-out="start_time" />
                                     <div>-</div>
-                                    <div t-esc="end_time" />
+                                    <div t-out="end_time" />
                                 </div>
                             </td>
                             <t t-foreach="shift_row[1]" t-as="shift_by_day">
@@ -710,7 +710,9 @@
                 <div class="card mb-2">
                     <t t-set="week" t-value="shift_week_tuple[0]" />
                     <div class="card-body p-0">
-                        <t t-call="shift_portal.available_shift_irregular_worker_row">
+                        <t
+                            t-call="shift_portal.available_shift_irregular_worker_row"
+                        >
                             <t t-set="shift_by_week" t-value="shift_week_tuple[1]" />
                         </t>
                     </div>
@@ -728,7 +730,9 @@
                 <div class="card mb-2">
                     <t t-set="week" t-value="shift_week_tuple[0]" />
                     <div class="card-body p-0">
-                        <t t-call="shift_portal.available_shift_compensation_row">
+                        <t
+                            t-call="shift_portal.available_shift_compensation_row"
+                        >
                             <t t-set="shift_by_week" t-value="shift_week_tuple[1]" />
                         </t>
                     </div>
@@ -937,14 +941,18 @@
 
                     <div class="col-12 col-lg-6 m-auto text-justify">
 
-                        <t t-call="shift_portal.my_shift_worker_status_title" />
+                        <t
+                            t-call="shift_portal.my_shift_worker_status_title"
+                        />
 
-                        <t t-call="shift_portal.my_shift_worker_status_common" />
+                        <t
+                            t-call="shift_portal.my_shift_worker_status_common"
+                        />
 
                         <p t-if="status.exempt_reason_id">
                             <label class="font-weight-bold">Exempt Reason:
                             </label>
-                            <t t-esc="status.exempt_reason_id.name" />
+                            <t t-out="status.exempt_reason_id.name" />
                         </p>
 
                     </div>
@@ -980,9 +988,13 @@
                 <div class="row">
                     <div class="col-12 col-lg-6 m-auto text-justify">
 
-                        <t t-call="shift_portal.my_shift_worker_status_title" />
+                        <t
+                            t-call="shift_portal.my_shift_worker_status_title"
+                        />
 
-                        <t t-call="shift_portal.my_shift_worker_status_common" />
+                        <t
+                            t-call="shift_portal.my_shift_worker_status_common"
+                        />
 
                     </div>
 
@@ -1016,34 +1028,38 @@
                 <div class="row">
                     <div class="col-12 col-lg-6 m-auto text-justify">
 
-                        <t t-call="shift_portal.my_shift_worker_status_title" />
+                        <t
+                            t-call="shift_portal.my_shift_worker_status_title"
+                        />
 
-                        <t t-call="shift_portal.my_shift_worker_status_common" />
+                        <t
+                            t-call="shift_portal.my_shift_worker_status_common"
+                        />
 
                         <p t-if="status.sr != 0">
                             <label class="font-weight-bold">Shift in Advance:
                             </label>
-                            <t t-esc="status.sr" />
+                            <t t-out="status.sr" />
                         </p>
 
                         <p t-if="status.sc != 0">
                             <label class="font-weight-bold">Compensation
                                 Shift:
                             </label>
-                            <t t-esc="status.sc" />
+                            <t t-out="status.sc" />
                         </p>
 
                         <p t-if="status.alert_start_time">
                             <label class="font-weight-bold">In Alert Since:
                             </label>
-                            <t t-esc="status.alert_start_time" />
+                            <t t-out="status.alert_start_time" />
                         </p>
 
                         <p t-if="status.extension_start_time">
                             <label class="font-weight-bold">In Extension
                                 Since:
                             </label>
-                            <t t-esc="status.extension_start_time" />
+                            <t t-out="status.extension_start_time" />
                         </p>
 
                         <t t-call="shift_portal.help_text_info" />
@@ -1066,7 +1082,9 @@
                         <t t-call="shift_portal.help_text_title" />
                         <div class="collapse show" id="collapseHelp">
                             <t t-call="shift_portal.help_text_common" />
-                            <t t-call="shift_portal.help_text_regular_worker" />
+                            <t
+                                t-call="shift_portal.help_text_regular_worker"
+                            />
                         </div>
 
                     </div>
@@ -1091,40 +1109,44 @@
                 <div class="row">
                     <div class="col-12 col-lg-6 m-auto text-justify">
 
-                        <t t-call="shift_portal.my_shift_worker_status_title" />
+                        <t
+                            t-call="shift_portal.my_shift_worker_status_title"
+                        />
 
-                        <t t-call="shift_portal.my_shift_worker_status_common" />
+                        <t
+                            t-call="shift_portal.my_shift_worker_status_common"
+                        />
 
                         <p>
                             <label class="font-weight-bold">Shift in Advance:
                             </label>
-                            <t t-esc="status.sr" />
+                            <t t-out="status.sr" />
                         </p>
 
                         <p t-if="status.next_countdown_date">
                             <label class="font-weight-bold">Next Countdown
                                 Date:
                             </label>
-                            <t t-esc="status.next_countdown_date" />
+                            <t t-out="status.next_countdown_date" />
                         </p>
 
                         <p t-if="status.future_alert_date">
                             <label class="font-weight-bold">Future Date of
                                 Alert:
                             </label>
-                            <t t-esc="status.future_alert_date" />
+                            <t t-out="status.future_alert_date" />
                         </p>
 
                         <p t-if="status.irregular_absence_date">
                             <label class="font-weight-bold">Last Absence Date:
                             </label>
-                            <t t-esc="status.irregular_absence_date" />
+                            <t t-out="status.irregular_absence_date" />
                         </p>
 
                         <p t-if="status.irregular_absence_counter">
                             <label class="font-weight-bold">Number of Absence:
                             </label>
-                            <t t-esc="status.irregular_absence_counter" />
+                            <t t-out="status.irregular_absence_counter" />
                         </p>
 
                         <t t-call="shift_portal.help_text_info" />
@@ -1132,7 +1154,9 @@
                         <t t-call="shift_portal.help_text_title" />
                         <div class="collapse" id="collapseHelp">
                             <t t-call="shift_portal.help_text_common" />
-                            <t t-call="shift_portal.help_text_irregular_worker" />
+                            <t
+                                t-call="shift_portal.help_text_irregular_worker"
+                            />
                         </div>
 
                     </div>
@@ -1203,7 +1227,9 @@
                                 </a>
                             </h5>
                         </t>
-                        <t t-call="shift_portal.available_shift_compensation_grid" />
+                        <t
+                            t-call="shift_portal.available_shift_compensation_grid"
+                        />
                     </div>
                 </div>
             </div>

@@ -11,15 +11,17 @@
     """,
     "author": "Coop IT Easy SC",
     "license": "AGPL-3",
-    "version": "14.0.1.0.0",
+    "version": "15.0.1.0.0",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
     "depends": ["portal", "website", "shift"],
+    "assets": {
+        "web.assets_backend": ["shift_portal/static/src/js/script.js"],
+    },
     "data": [
         "data/res_config_data.xml",
         "views/shift_website_templates.xml",
         "views/my_shift_website_templates.xml",
         "views/res_config_views.xml",
-        "views/assets.xml",
     ],
 }

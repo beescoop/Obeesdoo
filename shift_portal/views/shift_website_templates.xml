@@ -94,22 +94,22 @@
                                         t-att-class="'card-header %s clearfix' % highlight_header_class"
                                     >
                                         <div class="pull-left">
-                                            <t t-esc="template.planning_id.name" />
+                                            <t t-out="template.planning_id.name" />
                                             :
-                                            <t t-esc="template.day_nb_id.name" />
+                                            <t t-out="template.day_nb_id.name" />
                                             <t
-                                                t-esc='float_to_time(template.start_time)'
+                                                t-out='float_to_time(template.start_time)'
                                             />
                                             -
                                             <t
-                                                t-esc='float_to_time(template.end_time)'
+                                                t-out='float_to_time(template.end_time)'
                                             />
                                         </div>
                                         <div
                                             class="badge badge-secondary pull-right"
                                             t-if="template.remaining_worker > 0"
                                         >
-                                            <t t-esc="template.remaining_worker" />
+                                            <t t-out="template.remaining_worker" />
                                             space(s)
                                         </div>
                                         <div
@@ -120,7 +120,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body clearfix">
-                                        <t t-esc="template.task_type_id.name" />
+                                        <t t-out="template.task_type_id.name" />
                                         <div
                                             class="badge badge-warning pull-right"
                                             t-if="not template.super_coop_id"
