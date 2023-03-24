@@ -50,7 +50,7 @@ msgid "Display Info Session Confirmation"
 msgstr ""
 
 #. module: cooperator_info_session
-#: model:ir.model.fields,field_description:cooperator_info_session.field_beesdoo_shift_subscribe__info_session
+#: model:ir.model.fields,field_description:cooperator_info_session.field_shift_subscribe__info_session
 msgid "Followed an information session"
 msgstr ""
 
@@ -80,7 +80,7 @@ msgid "Text to display aside the checkbox to confirm participation to an info se
 msgstr ""
 
 #. module: cooperator_info_session
-#: model:ir.model,name:cooperator_info_session.model_beesdoo_shift_subscribe
-msgid "beesdoo.shift.subscribe"
+#: model:ir.model,name:cooperator_info_session.model_shift_subscribe
+msgid "shift.subscribe"
 msgstr ""
 
