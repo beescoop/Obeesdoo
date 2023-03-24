@@ -614,13 +614,13 @@ msgid "Max number of solidarity requests per year"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: code:addons/beesdoo_shift_swap/models/res_partner.py:120
+#: code:addons/beesdoo_shift_swap/models/res_partner.py:122
 #, python-format
 msgid "Maximum number of shifts per day reached"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: code:addons/beesdoo_shift_swap/models/res_partner.py:122
+#: code:addons/beesdoo_shift_swap/models/res_partner.py:124
 #, python-format
 msgid "Maximum number of shifts per month reached"
 msgstr ""
@@ -789,7 +789,7 @@ msgid "Shift swaps"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: code:addons/beesdoo_shift_swap/wizard/subscribe_shift_as_solidarity.py:84
+#: code:addons/beesdoo_shift_swap/wizard/subscribe_shift_as_solidarity.py:82
 #, python-format
 msgid "Shifts"
 msgstr ""
@@ -801,15 +801,15 @@ msgid "Solidarity"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_shift__is_solidarity
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_offer__tmpl_dated_id
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_request__tmpl_dated_id
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_shift_shift__is_solidarity
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.task_shift_view_kanban_extended
 msgid "Solidarity shift"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_shift__solidarity_offer_ids
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_shift_shift__solidarity_offer_ids
 msgid "Solidarity shift offer"
 msgstr ""
 
@@ -986,7 +986,7 @@ msgstr ""
 #: code:addons/beesdoo_shift_swap/wizard/exchange_wizard.py:111
 #: code:addons/beesdoo_shift_swap/wizard/offer_solidarity.py:41
 #: code:addons/beesdoo_shift_swap/wizard/request_solidarity.py:48
-#: code:addons/beesdoo_shift_swap/wizard/subscribe_shift_as_solidarity.py:65
+#: code:addons/beesdoo_shift_swap/wizard/subscribe_shift_as_solidarity.py:63
 #: code:addons/beesdoo_shift_swap/wizard/subscribe_shift_swap.py:80
 #: code:addons/beesdoo_shift_swap/wizard/validate_exchange.py:47
 #, python-format
@@ -997,7 +997,7 @@ msgstr ""
 #: code:addons/beesdoo_shift_swap/wizard/exchange_wizard.py:107
 #: code:addons/beesdoo_shift_swap/wizard/offer_solidarity.py:37
 #: code:addons/beesdoo_shift_swap/wizard/request_solidarity.py:44
-#: code:addons/beesdoo_shift_swap/wizard/subscribe_shift_as_solidarity.py:61
+#: code:addons/beesdoo_shift_swap/wizard/subscribe_shift_as_solidarity.py:59
 #: code:addons/beesdoo_shift_swap/wizard/subscribe_shift_swap.py:76
 #: code:addons/beesdoo_shift_swap/wizard/validate_exchange.py:42
 #, python-format
@@ -1007,11 +1007,6 @@ msgstr ""
 #. module: beesdoo_shift_swap
 #: model:mail.template,subject:beesdoo_shift_swap.email_template_cancel_exchange_request
 msgid "You exchange request has been cancelled"
-msgstr ""
-
-#. module: beesdoo_shift_swap
-#: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_shift
-msgid "beesdoo.shift.shift"
 msgstr ""
 
 #. module: beesdoo_shift_swap
@@ -1030,17 +1025,22 @@ msgid "beesdoo.shift.swap.mixin"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: model:ir.model,name:beesdoo_shift_swap.model_beesdoo_shift_template
-msgid "beesdoo.shift.template"
-msgstr ""
-
-#. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.offer_solidarity_shift_wizard
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.request_solidarity_shift_wizard
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_as_solidarity_wizard
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_exchange_wizard
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.subscribe_shift_swap_wizard
 msgid "or"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model,name:beesdoo_shift_swap.model_shift_shift
+msgid "shift.shift"
+msgstr ""
+
+#. module: beesdoo_shift_swap
+#: model:ir.model,name:beesdoo_shift_swap.model_shift_template
+msgid "shift.template"
 msgstr ""
 
 #. module: beesdoo_shift_swap
