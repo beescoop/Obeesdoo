@@ -1,1 +1,1 @@
-Emptied in favour of ``shift``.
+Can be safely uninstalled.

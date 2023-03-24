@@ -5,7 +5,7 @@
 
 {
     "name": "BEES coop Shift Management",
-    "summary": """Emptied.""",
+    "summary": """Emptied (replaced by shift)""",
     "author": "Thibault Francois, Elouan Le Bars, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
