@@ -21,6 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[account_invoice_line_po_reference](account_invoice_line_po_reference/) | 12.0.1.0.0 | [![victor-champonnois](https://github.com/victor-champonnois.png?size=30px)](https://github.com/victor-champonnois) | Allows to set the invoice line description from the related purchase order line.
 [beesdoo_account](beesdoo_account/) | 12.0.2.0.1 |  | Emptied.
 [beesdoo_base](beesdoo_base/) | 12.0.2.0.1 |  | Emptied
 [beesdoo_crelan_csv](beesdoo_crelan_csv/) | 12.0.2.0.0 |  | Emptied
@@ -35,7 +36,7 @@ addon | version | maintainers | summary
 [beesdoo_product_info_screen](beesdoo_product_info_screen/) | 12.0.0.0.1 |  | Adds a read-only screen to display product information
 [beesdoo_product_label](beesdoo_product_label/) | 12.0.3.0.1 |  | Adds the label bio/ethique/provenance.
 [beesdoo_product_usability](beesdoo_product_usability/) | 12.0.2.0.1 |  | Emptied. Leftover: simplification of Product View.
-[beesdoo_purchase](beesdoo_purchase/) | 12.0.1.4.0 |  | Enhancements related to Purchase module : field, filter, PO reference, product's purchase and/or selling price
+[beesdoo_purchase](beesdoo_purchase/) | 12.0.1.4.0 |  | Emptied.
 [beesdoo_shift](beesdoo_shift/) | 12.0.4.0.0 |  | Emptied (replaced by shift)
 [beesdoo_shift_attendance](beesdoo_shift_attendance/) | 12.0.1.2.0 |  | Emptied (replaced by shift_attendance)
 [beesdoo_shift_swap](beesdoo_shift_swap/) | 12.0.2.1.1 |  | Module to allow cooperator to swap his/her shift when he/she can't attend it, to do solidarity shifts, and to request solidarity if needed.
@@ -72,6 +73,8 @@ addon | version | maintainers | summary
 [product_sale_limit_date](product_sale_limit_date/) | 12.0.2.0.0 |  | Add Number of Days Before Sale Limit Date.
 [product_scale_label](product_scale_label/) | 12.0.2.0.0 |  | Add scale labels, sale units, and categories.
 [purchase_order_generator](purchase_order_generator/) | 12.0.2.1.0 |  | Generate purchase order from a product selection
+[purchase_order_main_supplier](purchase_order_main_supplier/) | 12.0.1.0.0 | [![victor-champonnois](https://github.com/victor-champonnois.png?size=30px)](https://github.com/victor-champonnois) | Add a Main Sellers Filter in a Purchase Order.
+[purchase_order_responsible](purchase_order_responsible/) | 12.0.1.0.0 | [![victor-champonnois](https://github.com/victor-champonnois.png?size=30px)](https://github.com/victor-champonnois) | Adds a 'Responsible' field to purchase orders
 [sale_adapt_price_wizard](sale_adapt_price_wizard/) | 12.0.1.0.1 |  | Add "Edit Price" submenu on Purchase and Sale modules.
 [sale_product_deposit](sale_product_deposit/) | 12.0.1.0.1 |  | Calculates total price with VAT and deposit price.
 [sale_suggested_price](sale_suggested_price/) | 12.0.1.0.0 |  | Add a suggested price to products, dependent on a product margin in partners and product categories.
