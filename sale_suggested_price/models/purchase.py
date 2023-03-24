@@ -5,37 +5,8 @@ from odoo.exceptions import UserError
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
-    # create_uid must mirror the supervisor_id value.
-    # create_uid is a magic field that belongs to the ORM that is not
-    # editable via a form.
-    create_uid = fields.Many2one(
-        comodel_name="res.users", compute="_compute_create_uid"
-    )
-    supervisor_id = fields.Many2one(
-        comodel_name="res.users",
-        string="Responsible",
-        required=True,
-        default=lambda self: self.env.user,
-    )
     select_all_purchase_price = fields.Boolean(default=False)
     select_all_selling_price = fields.Boolean(default=False)
-
-    @api.depends("supervisor_id")
-    def _compute_create_uid(self):
-        for rec in self:
-            if rec.supervisor_id:
-                rec.create_uid = rec.supervisor_id
-
-    @api.multi
-    def write(self, vals):
-        if "supervisor_id" in vals:
-            new_partner = (
-                self.env["res.users"].browse(vals["supervisor_id"]).partner_id.id
-            )
-            for rec in self:
-                rec.message_unsubscribe(partner_ids=rec.supervisor_id.partner_id.ids)
-                rec.message_subscribe(partner_ids=[new_partner], subtype_ids=[])
-        return super(PurchaseOrder, self).write(vals)
 
     @api.multi
     def action_select_deselect_adapt_purchase_price(self):
@@ -69,9 +40,7 @@ class PurchaseOrder(models.Model):
                 )
                 if seller:
                     price = line.price_unit
-                    suggested_price = (price * product_tmpl_id.uom_po_id.factor) * (
-                        1 + product_tmpl_id.categ_id.profit_margin / 100
-                    )
+                    suggested_price = product_tmpl_id.calculate_suggested_price(price)
                     if line.adapt_purchase_price and line.adapt_selling_price:
                         # will asynchronously trigger _compute_cost()
                         # on `product.template` in `beesdoo_product`
@@ -113,15 +82,3 @@ class PurchaseOrderLine(models.Model):
         help="Check this box to adapt the selling price "
         "on the product page when confirming Purchase Order",
     )
-
-    stock_coverage = fields.Float(compute="_compute_stock_coverage", store=True)
-
-    @api.depends("product_id")
-    def _compute_stock_coverage(self):
-        for purchase_order_line in self:
-            if purchase_order_line.product_id:
-                purchase_order_line.stock_coverage = (
-                    purchase_order_line.product_id.stock_coverage
-                )
-            else:
-                purchase_order_line.stock_coverage = False

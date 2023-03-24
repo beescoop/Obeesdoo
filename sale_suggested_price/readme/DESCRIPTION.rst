@@ -5,6 +5,7 @@
 - Also, sale and supplier taxes that are of type 'percentage' and that are marked as 'included in price'
   are taken into account when computing the suggested price.
 - Round suggested price to 5 cents
+- Allows adapting a product's purchase and/or selling price from a PO.
 
 Please note that this model makes assumptions when computing the suggested price:
 
