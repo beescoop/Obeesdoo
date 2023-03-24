@@ -19,12 +19,12 @@ msgid "Personal Counter Status"
 msgstr ""
 
 #. module: beesdoo_worker_status_shift_swap
-#: model:ir.model,name:beesdoo_worker_status_shift_swap.model_beesdoo_shift_shift
-msgid "beesdoo.shift.shift"
+#: model:ir.model,name:beesdoo_worker_status_shift_swap.model_beesdoo_shift_solidarity_request
+msgid "beesdoo.shift.solidarity.request"
 msgstr ""
 
 #. module: beesdoo_worker_status_shift_swap
-#: model:ir.model,name:beesdoo_worker_status_shift_swap.model_beesdoo_shift_solidarity_request
-msgid "beesdoo.shift.solidarity.request"
+#: model:ir.model,name:beesdoo_worker_status_shift_swap.model_shift_shift
+msgid "shift.shift"
 msgstr ""
 
