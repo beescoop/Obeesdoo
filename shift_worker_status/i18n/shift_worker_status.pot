@@ -14,37 +14,37 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: shift_worker_status
-#: code:addons/shift_worker_status/models/task.py:43
+#: code:addons/shift_worker_status/models/shift_shift.py:43
 #, python-format
 msgid "A worker cannot replace himself."
 msgstr ""
 
 #. module: shift_worker_status
-#: code:addons/shift_worker_status/models/task.py:55
+#: code:addons/shift_worker_status/models/shift_shift.py:55
 #, python-format
 msgid "Absent - 0 compensation"
 msgstr ""
 
 #. module: shift_worker_status
-#: code:addons/shift_worker_status/models/task.py:54
+#: code:addons/shift_worker_status/models/shift_shift.py:54
 #, python-format
 msgid "Absent - 1 compensation"
 msgstr ""
 
 #. module: shift_worker_status
-#: code:addons/shift_worker_status/models/task.py:53
+#: code:addons/shift_worker_status/models/shift_shift.py:53
 #, python-format
 msgid "Absent - 2 compensations"
 msgstr ""
 
 #. module: shift_worker_status
-#: code:addons/shift_worker_status/models/task.py:52
+#: code:addons/shift_worker_status/models/shift_shift.py:52
 #, python-format
 msgid "Attended"
 msgstr ""
 
 #. module: shift_worker_status
-#: code:addons/shift_worker_status/models/task.py:56
+#: code:addons/shift_worker_status/models/shift_shift.py:56
 #, python-format
 msgid "Cancelled"
 msgstr ""
@@ -55,7 +55,7 @@ msgid "Config Settings"
 msgstr ""
 
 #. module: shift_worker_status
-#: code:addons/shift_worker_status/models/task.py:51
+#: code:addons/shift_worker_status/models/shift_shift.py:51
 #, python-format
 msgid "Confirmed"
 msgstr ""
@@ -98,18 +98,18 @@ msgid "When selected, the irregular worker's counter will decrease\n"
 msgstr ""
 
 #. module: shift_worker_status
-#: code:addons/shift_worker_status/models/task.py:18
+#: code:addons/shift_worker_status/models/shift_shift.py:18
 #, python-format
 msgid "You must choose between Regular Shift or Compensation Shift."
 msgstr ""
 
 #. module: shift_worker_status
-#: model:ir.model,name:shift_worker_status.model_shift_shift
-msgid "shift.shift"
+#: model:ir.model,name:shift_worker_status.model_cooperative_status
+msgid "cooperative.status"
 msgstr ""
 
 #. module: shift_worker_status
-#: model:ir.model,name:shift_worker_status.model_cooperative_status
-msgid "cooperative.status"
+#: model:ir.model,name:shift_worker_status.model_shift_shift
+msgid "shift.shift"
 msgstr ""
 
