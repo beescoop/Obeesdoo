@@ -19,31 +19,12 @@ Bees Purchase
 
 |badge1| |badge2| |badge3| 
 
-Extends Purchase module:
-
-- Adds a 'Responsible' field to purchase orders:
-  This is a user who will follow up the order. This users replaces
-  the creator in the order's mail messages followers list, and in the
-  create_uid ORM field. His user's contact info is printed on
-  purchases orders as 'Referent'.
-- A filter w.r.t. the mail sellers is placed on the products field of a
-  purchase order.
-- Allows inverting the Purchase Order (PO) Reference on the invoice lines.
-- Allows adapting a product's purchase and/or selling price from a PO.
+Emptied.
 
 **Table of contents**
 
 .. contents::
    :local:
-
-Configuration
-=============
-
-The setting *Invert Purchase Order Reference on invoice line* needs to be checked.
-This can be done in these following ways:
-
-* on the Access Rights (Technical Settings) of the user (Invert Purchase Order Reference on invoice line)
-* on the Invoicing Settings inside of the section `Invoices` (Allow inverting the Purchase Order Reference on the invoice lines)
 
 Bug Tracker
 ===========
