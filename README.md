@@ -36,33 +36,33 @@ addon | version | maintainers | summary
 [beesdoo_product_label](beesdoo_product_label/) | 12.0.3.0.1 |  | Adds the label bio/ethique/provenance.
 [beesdoo_product_usability](beesdoo_product_usability/) | 12.0.2.0.1 |  | Emptied. Leftover: simplification of Product View.
 [beesdoo_purchase](beesdoo_purchase/) | 12.0.1.4.0 |  | Enhancements related to Purchase module : field, filter, PO reference, product's purchase and/or selling price
-[beesdoo_shift](beesdoo_shift/) | 12.0.4.0.0 |  | Generate and manage shifts for cooperators.
-[beesdoo_shift_attendance](beesdoo_shift_attendance/) | 12.0.1.2.0 |  | Volonteer Timetable Management Attendance Sheet for BEES coop
-[beesdoo_shift_swap](beesdoo_shift_swap/) | 12.0.2.1.0 |  | Module to allow cooperator to swap his/her shift when he/she can't attend it, to do solidarity shifts, and to request solidarity if needed.
-[beesdoo_shift_welcome_screen](beesdoo_shift_welcome_screen/) | 12.0.1.0.1 |  | Volunteer Timetable Management
+[beesdoo_shift](beesdoo_shift/) | 12.0.4.0.0 |  | Emptied (replaced by shift)
+[beesdoo_shift_attendance](beesdoo_shift_attendance/) | 12.0.1.2.0 |  | Emptied (replaced by shift_attendance)
+[beesdoo_shift_swap](beesdoo_shift_swap/) | 12.0.2.1.1 |  | Module to allow cooperator to swap his/her shift when he/she can't attend it, to do solidarity shifts, and to request solidarity if needed.
+[beesdoo_shift_welcome_screen](beesdoo_shift_welcome_screen/) | 12.0.1.0.2 |  | Volunteer Timetable Management
 [beesdoo_stock](beesdoo_stock/) | 12.0.2.0.0 |  | Emptied
 [beesdoo_stock_coverage](beesdoo_stock_coverage/) | 12.0.2.0.0 |  | Emptied
 [beesdoo_website_eater](beesdoo_website_eater/) | 12.0.2.0.1 |  | Emptied.
 [beesdoo_website_posorder_amount](beesdoo_website_posorder_amount/) | 12.0.1.0.0 |  | Show the total amount of pos order in the website portal.
-[beesdoo_website_shift](beesdoo_website_shift/) | 12.0.2.1.0 |  | Show available shifts for regular and irregular workers on the website and let workers manage their shifts with an easy web interface.
+[beesdoo_website_shift](beesdoo_website_shift/) | 12.0.2.1.1 |  | Show available shifts for regular and irregular workers on the website and let workers manage their shifts with an easy web interface.
 [beesdoo_website_shift_swap](beesdoo_website_shift_swap/) | 12.0.2.1.0 |  | Add shift exchanges and solidarity shifts offers and requests.
 [beesdoo_website_theme](beesdoo_website_theme/) | 12.0.0.0.1 |  | Apply BEES coop design rules.
-[beesdoo_worker_status](beesdoo_worker_status/) | 12.0.1.1.0 |  | Worker status management specific to beescoop.
-[beesdoo_worker_status_shift_swap](beesdoo_worker_status_shift_swap/) | 12.0.2.0.0 |  | Worker status management specific to shift exchanges.
+[beesdoo_worker_status](beesdoo_worker_status/) | 12.0.1.1.0 |  | Emptied (replaced by shift_worker_status)
+[beesdoo_worker_status_shift_swap](beesdoo_worker_status_shift_swap/) | 12.0.2.0.1 |  | Worker status management specific to shift exchanges.
 [cooperator_eater](cooperator_eater/) | 12.0.1.0.2 |  | Eater configuration based on Share product
-[cooperator_info_session](cooperator_info_session/) | 12.0.1.0.2 |  | Info session for getting share
-[cooperator_worker](cooperator_worker/) | 12.0.2.0.0 |  | Working and shopping configuration based on Share product
+[cooperator_info_session](cooperator_info_session/) | 12.0.1.0.3 |  | Info session for getting share
+[cooperator_worker](cooperator_worker/) | 12.0.2.0.1 |  | Working and shopping configuration based on Share product
 [cooperator_worker_force](cooperator_worker_force/) | 12.0.2.0.1 |  | Allows to set a cooperator as a worker before the share is released.
 [eater](eater/) | 12.0.1.0.0 |  | Add eaters to the workers of your structure.
 [eater_member_card](eater_member_card/) | 12.0.1.1.0 |  | Compute barcode based on eaters
 [eater_parent_barcode](eater_parent_barcode/) | 12.0.1.0.0 |  | Compute barcode based on eaters
-[macavrac_base](macavrac_base/) | 12.0.1.0.0 |  | Module with basic customizations for the Macavrac cooperative.
+[macavrac_base](macavrac_base/) | 12.0.1.0.1 |  | Module with basic customizations for the Macavrac cooperative.
 [member_card](member_card/) | 12.0.1.0.1 |  | Create a member card and link it to a partner.
-[polln_shift](polln_shift/) | 12.0.2.0.0 |  | Module with basic customizations for the Polln cooperative.
+[polln_shift](polln_shift/) | 12.0.2.0.1 |  | Module with basic customizations for the Polln cooperative.
 [portal_eater](portal_eater/) | 12.0.2.0.1 |  | Show the eaters of a cooperator in the website portal.
 [pos_auto_invoice_company](pos_auto_invoice_company/) | 12.0.3.0.0 |  | Applies to_invoice to company partners.
 [pos_eater](pos_eater/) | 12.0.2.0.0 |  | This module adds the eaters of the customer to the POS ActionpadWidget.
-[pos_shift_partner_can_shop](pos_shift_partner_can_shop/) | 12.0.2.0.1 |  | Display in the POS whether the partner can shop or not.
+[pos_shift_partner_can_shop](pos_shift_partner_can_shop/) | 12.0.2.0.2 |  | Display in the POS whether the partner can shop or not.
 [product_barcode_generator](product_barcode_generator/) | 12.0.1.0.0 | [![victor-champonnois](https://github.com/victor-champonnois.png?size=30px)](https://github.com/victor-champonnois) | Product Barcode Generator
 [product_expiration](product_expiration/) | 12.0.2.0.0 |  | Add Number of Days Before Product Expiration.
 [product_hazard](product_hazard/) | 12.0.1.0.0 |  | Add hazard and FDS labels to products
@@ -75,6 +75,9 @@ addon | version | maintainers | summary
 [sale_adapt_price_wizard](sale_adapt_price_wizard/) | 12.0.1.0.1 |  | Add "Edit Price" submenu on Purchase and Sale modules.
 [sale_product_deposit](sale_product_deposit/) | 12.0.1.0.1 |  | Calculates total price with VAT and deposit price.
 [sale_suggested_price](sale_suggested_price/) | 12.0.1.0.0 |  | Add a suggested price to products, dependent on a product margin in partners and product categories.
+[shift](shift/) | 12.0.5.0.0 |  | Generate and manage shifts for cooperators.
+[shift_attendance](shift_attendance/) | 12.0.2.0.0 |  | Volunteer Timetable Management
+[shift_worker_status](shift_worker_status/) | 12.0.2.0.0 |  | Worker status management.
 [stock_move_view_line_order](stock_move_view_line_order/) | 12.0.2.1.0 |  | Reverse the order of stock move lines to 'newest to oldest'.
 [website_portal_restrict_modification](website_portal_restrict_modification/) | 12.0.1.0.0 |  | Portal extension preventing modification of sensible data by the users
 
