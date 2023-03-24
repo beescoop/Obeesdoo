@@ -3,10 +3,7 @@
     <record model="ir.ui.view" id="add_exchange_button">
         <field name="name">Add shift exchange button</field>
         <field name="model">res.partner</field>
-        <field
-            name="inherit_id"
-            ref="beesdoo_shift.super_coop_partner_inherited_view_form"
-        />
+        <field name="inherit_id" ref="shift.super_coop_partner_inherited_view_form" />
         <field name="arch" type="xml">
             <xpath expr="//header/button[@name='temporary_exempt']" position="after">
                 <button
@@ -14,7 +11,7 @@
                     string="Exchange your shift"
                     class="oe_highlight"
                     type="object"
-                    groups="beesdoo_shift.group_shift_management"
+                    groups="shift.group_shift_management"
                     attrs="{'invisible': ['|',('working_mode','!=','regular'),('state','in',['unsubscribed','resigning'])]}"
                 />
             </xpath>
@@ -63,7 +60,7 @@
                         string="Validate exchange"
                         class="oe_highlight"
                         type="object"
-                        groups="beesdoo_shift.group_shift_management"
+                        groups="shift.group_shift_management"
                         attrs="{'invisible': [('status','!=','has_match')]}"
                     />
                     <field name="status" widget="statusbar" />

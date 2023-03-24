@@ -106,10 +106,12 @@ class ResPartner(models.Model):
         shift_in_day = 0
         shift_in_month = 0
         max_shift_per_day = int(
-            self.env["ir.config_parameter"].sudo().get_param("max_shift_per_day")
+            self.env["ir.config_parameter"].sudo().get_param("shift.max_shift_per_day")
         )
         max_shift_per_month = int(
-            self.env["ir.config_parameter"].sudo().get_param("max_shift_per_month")
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("shift.max_shift_per_month")
         )
         for tmpl_dated in my_next_tmpl_dated:
             if tmpl_dated.date.date() == wanted_tmpl_dated.date.date():
@@ -226,12 +228,12 @@ class ResPartner(models.Model):
         One of these two parameters can be None if there are no shifts
         to subscribe/unsubscribe.
 
-        :param generated_shifts: beesdoo.shift.shift list
-        :param planned_shift: beesdoo.shift.shift list
+        :param generated_shifts: shift.shift list
+        :param planned_shift: shift.shift list
         :param exchanged_tmpl_dated: beesdoo.shift.template.dated
         :param wanted_tmpl_dated: beesdoo.shift.template.dated
         :param solidarity_offer: beesdoo.shift.solidarity.offer
-        :return planned_shift: beesdoo.shift.shift list
+        :return planned_shift: shift.shift list
         """
         self.ensure_one()
         if exchanged_tmpl_dated and exchanged_tmpl_dated.date > datetime.now():

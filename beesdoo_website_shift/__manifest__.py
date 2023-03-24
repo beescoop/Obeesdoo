@@ -11,10 +11,10 @@
     """,
     "author": "Coop IT Easy SC",
     "license": "AGPL-3",
-    "version": "12.0.2.1.0",
+    "version": "12.0.2.1.1",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
-    "depends": ["portal", "website", "beesdoo_shift"],
+    "depends": ["portal", "website", "shift"],
     "data": [
         "data/res_config_data.xml",
         "views/shift_website_templates.xml",

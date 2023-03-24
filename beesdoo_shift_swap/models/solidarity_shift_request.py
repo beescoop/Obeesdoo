@@ -66,7 +66,7 @@ class SolidarityShiftRequest(models.Model):
         :return: Boolean
         """
         if self.tmpl_dated_id and self.tmpl_dated_id.date > datetime.now():
-            non_realisable_shift = self.env["beesdoo.shift.shift"].search(
+            non_realisable_shift = self.env["shift.shift"].search(
                 [
                     ("start_time", "=", self.tmpl_dated_id.date),
                     ("task_template_id", "=", self.tmpl_dated_id.template_id.id),
@@ -92,7 +92,7 @@ class SolidarityShiftRequest(models.Model):
             and self.state == "validated"
         ):
             template_id = self.tmpl_dated_id.template_id
-            unsubscribed_shift = self.env["beesdoo.shift.shift"].search(
+            unsubscribed_shift = self.env["shift.shift"].search(
                 [
                     ("start_time", "=", self.tmpl_dated_id.date),
                     ("task_template_id", "=", template_id.id),
@@ -110,7 +110,7 @@ class SolidarityShiftRequest(models.Model):
                 return True
 
             # If there are no empty shift corresponding
-            nb_shift = self.env["beesdoo.shift.shift"].search_count(
+            nb_shift = self.env["shift.shift"].search_count(
                 [
                     ("start_time", "=", self.tmpl_dated_id.date),
                     ("task_template_id", "=", template_id.id),
@@ -138,7 +138,7 @@ class SolidarityShiftRequest(models.Model):
                     + timedelta(hours=template_id.end_time - template_id.start_time),
                     "state": "open",
                 }
-                self.env["beesdoo.shift.shift"].create(data)
+                self.env["shift.shift"].create(data)
                 return True
         return False
 

@@ -38,12 +38,12 @@ class RequestSolidarityShift(models.TransientModel):
 
     reason = fields.Text(string="Reason", default="")
 
-    def _check(self, group="beesdoo_shift.group_shift_management"):
+    def _check(self, group="shift.group_shift_management"):
         self.ensure_one()
         if not self.env.user.has_group(group):
             raise UserError(_("You don't have the required access for this operation."))
         if self.worker_id == self.env.user.partner_id and not self.env.user.has_group(
-            "beesdoo_shift.group_cooperative_admin"
+            "shift.group_cooperative_admin"
         ):
             raise UserError(_("You cannot perform this operation on yourself"))
         return self.with_context(real_uid=self._uid)
@@ -69,8 +69,8 @@ class RequestSolidarityShift(models.TransientModel):
                 status = record.worker_id.cooperative_status_ids
                 if status.sr + status.sc < 0:
                     # Get past absent shifts
-                    absent_states = self.env["beesdoo.shift.shift"].get_absent_state()
-                    past_shift_possible = self.env["beesdoo.shift.shift"].search(
+                    absent_states = self.env["shift.shift"].get_absent_state()
+                    past_shift_possible = self.env["shift.shift"].search(
                         [
                             ("worker_id", "=", record.worker_id.id),
                             ("state", "in", absent_states),

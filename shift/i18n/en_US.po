@@ -1,0 +1,1824 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* shift
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-05-28 15:37+0000\n"
+"PO-Revision-Date: 2021-05-28 15:37+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: shift
+#: model:mail.template,body_html:shift.email_template_shift_summary
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-"
+"serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"\n"
+"    <p>Hello ${object.worker_id.name},</p>\n"
+"\n"
+"    <p>You are awaited the ${format_tz(object.start_time,object.worker_id.tz "
+"or 'Europe/Brussels','%d.%m.%Y')}\n"
+"    for the shift starting at ${format_tz(object.start_time,object.worker_id."
+"tz or 'Europe/Brussels','%H:%M')}.\n"
+"\n"
+"    <br/><br/>Please contact us at ${object.worker_id.company_id.email} if "
+"you have any trouble attending the shift.\n"
+"    </p>\n"
+"    <br/>\n"
+"    <p>Sustainably yours,</p>\n"
+"    <p>${object.worker_id.company_id.name}.</p>\n"
+"\n"
+"    % if object.worker_id.company_id.street:\n"
+"        ${object.worker_id.company_id.street}\n"
+"    % endif\n"
+"    % if object.worker_id.company_id.street2:\n"
+"        ${object.worker_id.company_id.street2}<br/>\n"
+"    % endif\n"
+"    % if object.worker_id.company_id.city or object.worker_id.company_id."
+"zip:\n"
+"        ${object.worker_id.company_id.zip} ${object.worker_id.company_id."
+"city}<br/>\n"
+"    % endif\n"
+"    % if object.worker_id.company_id.country_id:\n"
+"        ${object.worker_id.company_id.state_id and ('%s, ' % object."
+"worker_id.company_id.state_id.name) or ''} ${object.worker_id.company_id."
+"country_id.name or ''}<br/>\n"
+"    % endif\n"
+"    % if object.worker_id.company_id.phone:\n"
+"        Phone:&nbsp; ${object.worker_id.company_id.phone}\n"
+"    % endif\n"
+"\n"
+"    % if object.worker_id.company_id.website:\n"
+"        <div>\n"
+"            Web :&nbsp;<a href=\"${object.worker_id.company_id."
+"website}\">${object.worker_id.company_id.website}</a>\n"
+"        </div>\n"
+"    %endif\n"
+"    % if object.worker_id.company_id.logo_url:\n"
+"    <div>\n"
+"        <img src=${object.worker_id.company_id.logo_url}>\n"
+"    </div>\n"
+"    %endif\n"
+"</div>\n"
+"            "
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/planning.py:388
+#, python-format
+msgid " is already assigned to "
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/task.py:171 code:addons/shift/models/task.py:229
+#, python-format
+msgid "'Now' must be a datetime."
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_view_search
+msgid "4 next days"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_view_search
+msgid "4 next weeks"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_view_search
+msgid "4 previous weeks"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_template_view_kanban
+msgid ""
+"<br/>\n"
+"                                <strong>Recurring Workers</strong>"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid ""
+"<span class=\"o_form_label\">\n"
+"                                        Limit attendance percentage to "
+"define underpopulated shift\n"
+"                                    </span>"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid ""
+"<span class=\"o_form_label\">\n"
+"                                        Maximum number of shifts per day for "
+"one cooperator\n"
+"                                    </span>"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid ""
+"<span class=\"o_form_label\">\n"
+"                                        Maximum number of shifts per month "
+"for one cooperator\n"
+"                                    </span>"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid ""
+"<span class=\"o_form_label\">\n"
+"                                        Minimum number of hours before a "
+"shift to unsubscribe\n"
+"                                    </span>"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid ""
+"<span class=\"o_form_label\">\n"
+"                                        Shift period\n"
+"                                    </span>"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/task.py:24
+#, python-format
+msgid "Absent"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_daynumber__active
+#: model:ir.model.fields,field_description:shift.field_shift_template__active
+#: model:ir.model.fields,field_description:shift.field_shift_type__active
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__active
+msgid "Active"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,help:shift.field_cooperative_status__time_extension
+msgid ""
+"Addtional days to the automatic extension, 5 mean that you have a total of "
+"15 extension days of default one is set to 10"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__alert_start_time
+msgid "Alert Start Day"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,help:shift.field_res_partner__shift_shift_ids
+#: model:ir.model.fields,help:shift.field_res_users__shift_shift_ids
+msgid "All the shifts the worker is subscribed to."
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_template_generation_view_form
+msgid "Apply for Days"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe__unsubscribed
+msgid "Are you sure to remove this cooperator from his subscribed shift ?"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.subscribe_coop_wizard_view_form
+msgid "Are you sure to unsubscribe this cooperator ?"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_view_search
+msgid "Assigned"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.journal_form_view
+msgid "Assigned cooperator"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/task.py:23
+#, python-format
+msgid "Attended"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_extension__auto
+#: model_terms:ir.ui.view,arch_db:shift.super_coop_partner_inherited_view_form
+msgid "Auto Extension"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_template_view_calendar
+#: model_terms:ir.ui.view,arch_db:shift.task_view_calendar
+msgid "Calendar View"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__can_shop
+msgid "Can Shop"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__can_unsubscribe
+msgid "Can Unsubscribe"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.assign_super_coop_view_form
+#: model_terms:ir.ui.view,arch_db:shift.extension_coop_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:shift.holiday_coop_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:shift.planning_instanciate_view_form
+#: model_terms:ir.ui.view,arch_db:shift.subscribe_coop_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:shift.task_template_generation_view_form
+#: model_terms:ir.ui.view,arch_db:shift.temporary_exemption_wizard_view_form
+msgid "Cancel"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/task.py:26
+#, python-format
+msgid "Cancelled"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__change
+msgid "Change"
+msgstr ""
+
+#. module: shift
+#: model:ir.actions.act_window,name:shift.act_assign_new_super_coop
+msgid "Change Super Coop"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.coop_status_form_view
+msgid "Clear History"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__color
+msgid "Color"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_template__color
+msgid "Color Index"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__is_compensation
+msgid "Compensation shift"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__sc
+msgid "Compensation shifts counter"
+msgstr ""
+
+#. module: shift
+#: model:ir.actions.server,name:shift.ir_cron_compute_shift_counter_ir_actions_server
+#: model:ir.cron,cron_name:shift.ir_cron_compute_shift_counter
+#: model:ir.cron,name:shift.ir_cron_compute_shift_counter
+msgid "Compute Shift Counter"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,help:shift.field_res_partner__is_worker
+#: model:ir.model.fields,help:shift.field_res_users__is_worker
+msgid "Computed from the share product of the first cooperator share"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: shift
+#: model:ir.ui.menu,name:shift.menu_configuration_top
+msgid "Configuration"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.assign_super_coop_view_form
+#: model_terms:ir.ui.view,arch_db:shift.extension_coop_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:shift.holiday_coop_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:shift.planning_instanciate_view_form
+#: model_terms:ir.ui.view,arch_db:shift.subscribe_coop_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:shift.task_template_generation_view_form
+#: model_terms:ir.ui.view,arch_db:shift.temporary_exemption_wizard_view_form
+msgid "Confirm"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/task.py:22
+#, python-format
+msgid "Confirmed"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: shift
+#: model:res.groups,name:shift.group_cooperative_admin
+msgid "Cooperative Admin"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__status
+#: model:ir.model.fields,field_description:shift.field_res_partner__state
+#: model:ir.ui.menu,name:shift.menu_status
+msgid "Cooperative Status"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_res_partner__cooperative_status_ids
+#: model:ir.model.fields,field_description:shift.field_res_users__cooperative_status_ids
+msgid "Cooperative Statuses"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_action_mixin__cooperator_id
+#: model:ir.model.fields,field_description:shift.field_shift_extension__cooperator_id
+#: model:ir.model.fields,field_description:shift.field_shift_holiday__cooperator_id
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe__cooperator_id
+#: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__cooperator_id
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__cooperator_id
+#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__cooperator_id
+msgid "Cooperator"
+msgstr ""
+
+#. module: shift
+#: model:ir.actions.act_window,name:shift.action_coop_status
+msgid "Cooperator Status"
+msgstr ""
+
+#. module: shift
+#: selection:cooperative.status.history,type:0
+msgid "Counter Change"
+msgstr ""
+
+#. module: shift
+#: model:ir.actions.act_window,name:shift.action_journal
+msgid "Counter Journal"
+msgstr ""
+
+#. module: shift
+#: model:ir.ui.menu,name:shift.menu_journal
+msgid "Counter Update Journal"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.coop_status_form_view
+msgid "Counter and Status"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe__create_user
+msgid "Create User"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,help:shift.field_shift_subscribe__create_user
+msgid ""
+"Create a portal user for the new worker. If a user exists, nothing is done."
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop__create_uid
+#: model:ir.model.fields,field_description:shift.field_shift_generate_planning__create_uid
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__create_uid
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__create_uid
+#: model:ir.model.fields,field_description:shift.field_shift_daynumber__create_uid
+#: model:ir.model.fields,field_description:shift.field_shift_extension__create_uid
+#: model:ir.model.fields,field_description:shift.field_shift_holiday__create_uid
+#: model:ir.model.fields,field_description:shift.field_shift_journal__create_uid
+#: model:ir.model.fields,field_description:shift.field_shift_planning__create_uid
+#: model:ir.model.fields,field_description:shift.field_shift_shift__create_uid
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe__create_uid
+#: model:ir.model.fields,field_description:shift.field_shift_template__create_uid
+#: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__create_uid
+#: model:ir.model.fields,field_description:shift.field_shift_type__create_uid
+#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason__create_uid
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__create_uid
+#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop__create_date
+#: model:ir.model.fields,field_description:shift.field_shift_generate_planning__create_date
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__create_date
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__create_date
+#: model:ir.model.fields,field_description:shift.field_shift_daynumber__create_date
+#: model:ir.model.fields,field_description:shift.field_shift_extension__create_date
+#: model:ir.model.fields,field_description:shift.field_shift_holiday__create_date
+#: model:ir.model.fields,field_description:shift.field_shift_journal__create_date
+#: model:ir.model.fields,field_description:shift.field_shift_planning__create_date
+#: model:ir.model.fields,field_description:shift.field_shift_shift__create_date
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe__create_date
+#: model:ir.model.fields,field_description:shift.field_shift_template__create_date
+#: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__create_date
+#: model:ir.model.fields,field_description:shift.field_shift_type__create_date
+#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason__create_date
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__create_date
+#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.subscribe_coop_wizard_view_form
+msgid ""
+"Current worker has more than one shift, subscribing him\n"
+"                        to a new shift will erase all previous shifts."
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_template_generation_view_form
+msgid "Daily Schedule"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_journal__date
+#: model_terms:ir.ui.view,arch_db:shift.coop_status_form_view
+msgid "Date"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe__info_session_date
+msgid "Date of information session"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__day_ids
+#: model:ir.model.fields,field_description:shift.field_shift_template__day_nb_id
+#: model_terms:ir.ui.view,arch_db:shift.task_view_search
+msgid "Day"
+msgstr ""
+
+#. module: shift
+#: model:ir.actions.act_window,name:shift.action_day_number
+#: model:ir.model.fields,field_description:shift.field_shift_daynumber__number
+msgid "Day Number"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid "Days"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_shift_view_kanban
+#: model_terms:ir.ui.view,arch_db:shift.task_template_view_kanban
+msgid "Delete"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_type__description
+#: model_terms:ir.ui.view,arch_db:shift.type_view_form
+msgid "Description"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop__display_name
+#: model:ir.model.fields,field_description:shift.field_shift_generate_planning__display_name
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__display_name
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__display_name
+#: model:ir.model.fields,field_description:shift.field_shift_action_mixin__display_name
+#: model:ir.model.fields,field_description:shift.field_shift_daynumber__display_name
+#: model:ir.model.fields,field_description:shift.field_shift_extension__display_name
+#: model:ir.model.fields,field_description:shift.field_shift_holiday__display_name
+#: model:ir.model.fields,field_description:shift.field_shift_journal__display_name
+#: model:ir.model.fields,field_description:shift.field_shift_planning__display_name
+#: model:ir.model.fields,field_description:shift.field_shift_shift__display_name
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe__display_name
+#: model:ir.model.fields,field_description:shift.field_shift_template__display_name
+#: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__display_name
+#: model:ir.model.fields,field_description:shift.field_shift_type__display_name
+#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason__display_name
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__display_name
+#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_shift_view_kanban
+#: model_terms:ir.ui.view,arch_db:shift.task_template_view_kanban
+msgid "Dropdown menu"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_template__duration
+msgid "Duration"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,help:shift.field_shift_template__duration
+msgid "Duration in Hour"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__next_shift_id
+#: model:ir.model.fields,field_description:shift.field_res_partner__next_shift_id
+#: model:ir.model.fields,field_description:shift.field_res_users__next_shift_id
+msgid "Earliest Open Shift"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,help:shift.field_cooperative_status__next_shift_id
+#: model:ir.model.fields,help:shift.field_res_partner__next_shift_id
+#: model:ir.model.fields,help:shift.field_res_users__next_shift_id
+msgid "Earliest open shift the worker is subscribed to."
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_shift_view_kanban
+msgid "Edit Shift"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_template_view_kanban
+msgid ""
+"Edit Shift\n"
+"                                                Template"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_template__end_date
+msgid "End Date"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__end_time
+#: model:ir.model.fields,field_description:shift.field_shift_shift__end_time
+#: model:ir.model.fields,field_description:shift.field_shift_template__end_time
+msgid "End Time"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_holiday__holiday_end_day
+msgid "End date for the holiday (included)"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/task.py:25
+#, python-format
+msgid "Excused"
+msgstr ""
+
+#. module: shift
+#: model:ir.actions.act_window,name:shift.action_exempt_reason
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe__exempt_reason_id
+#: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__temporary_exempt_reason_id
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__exempt_reason_id
+#: model:ir.model.fields,field_description:shift.field_res_partner__exempt_reason_id
+#: model:ir.model.fields,field_description:shift.field_res_users__exempt_reason_id
+#: model:ir.ui.menu,name:shift.menu_exempt_reason
+msgid "Exempt Reason"
+msgstr ""
+
+#. module: shift
+#: selection:shift.subscribe,working_mode:0
+#: selection:cooperative.status,working_mode:0
+msgid "Exempted"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_extension__extension_days
+msgid "Extension Days"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__time_extension
+msgid "Extension Days NB"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__extension_start_time
+#: model:ir.model.fields,field_description:shift.field_res_partner__extension_start_time
+#: model:ir.model.fields,field_description:shift.field_res_users__extension_start_time
+msgid "Extension Start Day"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,help:shift.field_cooperative_status__today
+msgid ""
+"Field that allow to compute field and store them even if they are based on "
+"the current date"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_generate_planning__date_start
+msgid "First Day of planning (should be Monday)"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe__info_session
+msgid "Followed an information session"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.coop_status_form_view
+msgid "For testing purpose only"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,help:shift.field_shift_daynumber__number
+msgid ""
+"From 1 to N, When you will instanciate your planning, Day 1 will be the "
+"start date of the instance, Day 2 the second, etc..."
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,help:shift.field_shift_planning__periodicity
+msgid ""
+"From 1 to N. This number specifies the periodicity for the\n"
+"        automated generation of a planning. For a weekly planning, the\n"
+"        periodicity would be 7, because the planning has to be generated\n"
+"        every seven days."
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__future_alert_date
+msgid "Future Alert Date"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.coop_status_form_view
+msgid "General information"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid "General settings"
+msgstr ""
+
+#. module: shift
+#: model:ir.actions.server,name:shift.ir_cron_generate_next_planning_ir_actions_server
+#: model:ir.cron,cron_name:shift.ir_cron_generate_next_planning
+#: model:ir.cron,name:shift.ir_cron_generate_next_planning
+msgid "Generate Next Planning"
+msgstr ""
+
+#. module: shift
+#: model:ir.actions.act_window,name:shift.action_generate_shift_template_wizard
+msgid "Generate Shift Template"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.type_view_form
+msgid "Generate shift Templates"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.planning_view_form
+msgid "Generate shifts"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/wizard/instanciate_planning.py:22
+#, python-format
+msgid "Generated Shift"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/wizard/batch_template.py:57
+#, python-format
+msgid "Generated Shift Template"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_view_search
+msgid "Group By"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__history_ids
+#: model_terms:ir.ui.view,arch_db:shift.coop_status_form_view
+msgid "History"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__holiday_end_time
+msgid "Holidays End Day"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__holiday_start_time
+msgid "Holidays Start Day"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid "Hours"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop__id
+#: model:ir.model.fields,field_description:shift.field_shift_generate_planning__id
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__id
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__id
+#: model:ir.model.fields,field_description:shift.field_shift_action_mixin__id
+#: model:ir.model.fields,field_description:shift.field_shift_daynumber__id
+#: model:ir.model.fields,field_description:shift.field_shift_extension__id
+#: model:ir.model.fields,field_description:shift.field_shift_holiday__id
+#: model:ir.model.fields,field_description:shift.field_shift_journal__id
+#: model:ir.model.fields,field_description:shift.field_shift_planning__id
+#: model:ir.model.fields,field_description:shift.field_shift_shift__id
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe__id
+#: model:ir.model.fields,field_description:shift.field_shift_template__id
+#: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__id
+#: model:ir.model.fields,field_description:shift.field_shift_type__id
+#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason__id
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__id
+#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__id
+msgid "ID"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,help:shift.field_shift_shift__message_unread
+msgid "If checked new messages require your attention."
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,help:shift.field_shift_shift__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,help:shift.field_shift_shift__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__info_session
+#: model:ir.model.fields,field_description:shift.field_res_partner__info_session
+#: model:ir.model.fields,field_description:shift.field_res_users__info_session
+msgid "Information Session ?"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__info_session_date
+#: model:ir.model.fields,field_description:shift.field_res_partner__info_session_date
+#: model:ir.model.fields,field_description:shift.field_res_users__info_session_date
+msgid "Information Session Date"
+msgstr ""
+
+#. module: shift
+#: model:ir.actions.act_window,name:shift.action_generate_shift_wizard
+msgid "Instanciate Planning Action"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__irregular_absence_counter
+msgid "Irregular Absence Counter"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__irregular_absence_date
+msgid "Irregular Absence Date"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__irregular_start_date
+msgid "Irregular Start Date"
+msgstr ""
+
+#. module: shift
+#: selection:shift.subscribe,working_mode:0
+#: selection:cooperative.status,working_mode:0
+msgid "Irregular worker"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/cooperative_status.py:193
+#, python-format
+msgid "Irregular workers must have an irregular start date."
+msgstr "Irregulars must have an countdown start date"
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_res_partner__can_shop
+#: model:ir.model.fields,field_description:shift.field_res_users__can_shop
+msgid "Is worker allowed to shop?"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_view_search
+msgid "J-1"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_view_search
+msgid "J-2"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_view_search
+msgid "J-3"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_view_search
+msgid "J-4"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_view_search
+msgid "J-5"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop____last_update
+#: model:ir.model.fields,field_description:shift.field_shift_generate_planning____last_update
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template____last_update
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line____last_update
+#: model:ir.model.fields,field_description:shift.field_shift_action_mixin____last_update
+#: model:ir.model.fields,field_description:shift.field_shift_daynumber____last_update
+#: model:ir.model.fields,field_description:shift.field_shift_extension____last_update
+#: model:ir.model.fields,field_description:shift.field_shift_holiday____last_update
+#: model:ir.model.fields,field_description:shift.field_shift_journal____last_update
+#: model:ir.model.fields,field_description:shift.field_shift_planning____last_update
+#: model:ir.model.fields,field_description:shift.field_shift_shift____last_update
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe____last_update
+#: model:ir.model.fields,field_description:shift.field_shift_template____last_update
+#: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption____last_update
+#: model:ir.model.fields,field_description:shift.field_shift_type____last_update
+#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason____last_update
+#: model:ir.model.fields,field_description:shift.field_cooperative_status____last_update
+#: model:ir.model.fields,field_description:shift.field_cooperative_status_history____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop__write_uid
+#: model:ir.model.fields,field_description:shift.field_shift_generate_planning__write_uid
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__write_uid
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__write_uid
+#: model:ir.model.fields,field_description:shift.field_shift_daynumber__write_uid
+#: model:ir.model.fields,field_description:shift.field_shift_extension__write_uid
+#: model:ir.model.fields,field_description:shift.field_shift_holiday__write_uid
+#: model:ir.model.fields,field_description:shift.field_shift_journal__write_uid
+#: model:ir.model.fields,field_description:shift.field_shift_planning__write_uid
+#: model:ir.model.fields,field_description:shift.field_shift_shift__write_uid
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe__write_uid
+#: model:ir.model.fields,field_description:shift.field_shift_template__write_uid
+#: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__write_uid
+#: model:ir.model.fields,field_description:shift.field_shift_type__write_uid
+#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason__write_uid
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__write_uid
+#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop__write_date
+#: model:ir.model.fields,field_description:shift.field_shift_generate_planning__write_date
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__write_date
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__write_date
+#: model:ir.model.fields,field_description:shift.field_shift_daynumber__write_date
+#: model:ir.model.fields,field_description:shift.field_shift_extension__write_date
+#: model:ir.model.fields,field_description:shift.field_shift_holiday__write_date
+#: model:ir.model.fields,field_description:shift.field_shift_journal__write_date
+#: model:ir.model.fields,field_description:shift.field_shift_planning__write_date
+#: model:ir.model.fields,field_description:shift.field_shift_shift__write_date
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe__write_date
+#: model:ir.model.fields,field_description:shift.field_shift_template__write_date
+#: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__write_date
+#: model:ir.model.fields,field_description:shift.field_shift_type__write_date
+#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason__write_date
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__write_date
+#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_res_config_settings__min_percentage_presence
+msgid "Limit attendance percentage to define underpopulated shift"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__line_ids
+#: model:ir.model.fields,field_description:shift.field_shift_journal__line_ids
+msgid "Line"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/res_partner.py:124
+#: model_terms:ir.ui.view,arch_db:shift.super_coop_partner_inherited_view_form
+#, python-format
+msgid "Manual Extension"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,help:shift.field_cooperative_status__unsubscribed
+msgid "Manually unsubscribed"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,help:shift.field_shift_template__worker_nb
+msgid "Max number of worker for this task"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_res_config_settings__max_shift_per_day
+msgid "Maximum number of shifts per day for one cooperator"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_res_config_settings__max_shift_per_month
+msgid "Maximum number of shifts per month for one cooperator"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_res_config_settings__min_hours_to_unsubscribe
+msgid "Minimum number of hours before a shift to unsubscribe"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_view_search
+msgid "My Shift"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_template_view_search
+#: model_terms:ir.ui.view,arch_db:shift.task_view_search
+msgid "My Team Shift"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_daynumber__name
+#: model:ir.model.fields,field_description:shift.field_shift_planning__name
+#: model:ir.model.fields,field_description:shift.field_shift_shift__name
+#: model:ir.model.fields,field_description:shift.field_shift_template__name
+#: model:ir.model.fields,field_description:shift.field_shift_type__name
+#: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason__name
+msgid "Name"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop__super_coop_id
+msgid "New Super Cooperative"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__next_countdown_date
+msgid "Next Countdown Date"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__next_shift_date
+#: model:ir.model.fields,field_description:shift.field_res_partner__next_shift_date
+#: model:ir.model.fields,field_description:shift.field_res_users__next_shift_date
+msgid "Next Shift Date"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__message_has_error_counter
+msgid "Number of error"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,help:shift.field_shift_shift__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,help:shift.field_shift_shift__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe__nb_shifts
+msgid "Number of shifts"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,help:shift.field_shift_shift__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_template__worker_nb
+msgid "Number of worker"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid ""
+"Only shifts with a percentage of workers under this limit\n"
+"                                        will be considered as underpopulated"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid "Percentage (%)"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_planning__periodicity
+msgid "Periodicity"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_template_view_search
+msgid "Place Available"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_generate_planning__planning_id
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__planning_ids
+#: model:ir.model.fields,field_description:shift.field_shift_shift__planning_id
+#: model:ir.model.fields,field_description:shift.field_shift_template__planning_id
+#: model:ir.ui.menu,name:shift.menu_task_top
+#: model_terms:ir.ui.view,arch_db:shift.task_template_view_search
+msgid "Planning"
+msgstr ""
+
+#. module: shift
+#: model:ir.actions.act_window,name:shift.action_planning
+#: model:ir.actions.act_window,name:shift.action_shift_template
+msgid "Planning Action"
+msgstr ""
+
+#. module: shift
+#: model:res.groups,name:shift.group_planning_management
+msgid "Planning Management"
+msgstr ""
+
+#. module: shift
+#: model:ir.ui.menu,name:shift.menu_planning
+msgid "Planning Week"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_template__worker_ids
+msgid "Recurrent worker assigned"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_template_view_form
+msgid "Recurring Workers"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/res_partner.py:142
+#, python-format
+msgid "Register Holiday"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.super_coop_partner_inherited_view_form
+msgid "Register Holidays"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_shift_view_kanban
+msgid "Regular Shift"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__is_regular
+msgid "Regular shift"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__sr
+msgid "Regular shifts counter"
+msgstr ""
+
+#. module: shift
+#: selection:shift.subscribe,working_mode:0
+#: selection:cooperative.status,working_mode:0
+msgid "Regular worker"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_template__remaining_worker
+msgid "Remaining Place"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__replaced_id
+msgid "Replaced By"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_shift_view_kanban
+msgid "Replacement worker:"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe__reset_compensation_counter
+msgid "Reset Compensation Counter"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe__reset_counter
+msgid "Reset Counter"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe__resigning
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__resigning
+msgid "Resigning"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__revert_info
+msgid "Revert Info"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.journal_form_view
+msgid "Run again for this day"
+msgstr ""
+
+#. module: shift
+#: model:ir.actions.server,name:shift.ir_cron_send_weekly_emails_ir_actions_server
+#: model:ir.cron,cron_name:shift.ir_cron_send_weekly_emails
+#: model:ir.cron,name:shift.ir_cron_send_weekly_emails
+msgid "Send weekly shift summary"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_planning__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_assign_super_coop__shift_ids
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe__shift_id
+msgid "Shift"
+msgstr ""
+
+#. module: shift
+#: model:ir.ui.menu,name:shift.menu_configuration_day
+msgid "Shift Day"
+msgstr ""
+
+#. module: shift
+#: model:ir.ui.menu,name:shift.menu_root
+msgid "Shift Management"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.planning_view_form
+#: model_terms:ir.ui.view,arch_db:shift.planning_view_tree
+#: model_terms:ir.ui.view,arch_db:shift.task_view_search
+msgid "Shift Template"
+msgstr ""
+
+#. module: shift
+#: model:ir.actions.act_window,name:shift.action_type
+#: model:ir.ui.menu,name:shift.menu_configuration_type
+msgid "Shift Type"
+msgstr ""
+
+#. module: shift
+#: model:res.groups,name:shift.group_shift_attendance
+msgid "Shift and Worker Read Access"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_res_config_settings__shift_period
+msgid "Shift period"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/task.py:128
+#, python-format
+msgid "Shift state of a future shift can't be set to 'present' or 'absent'."
+msgstr ""
+
+#. module: shift
+#: model:ir.actions.act_window,name:shift.action_task
+#: model:ir.model.fields,field_description:shift.field_res_partner__shift_shift_ids
+#: model:ir.model.fields,field_description:shift.field_res_users__shift_shift_ids
+#: model:ir.ui.menu,name:shift.menu_task
+#: model_terms:ir.ui.view,arch_db:shift.super_coop_partner_inherited_view_form
+msgid "Shifts"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid "Shifts Settings"
+msgstr ""
+
+#. module: shift
+#: model:res.groups,name:shift.group_shift_management
+msgid "Shifts and Attendance Sheets Management"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe__irregular_start_date
+#: model:ir.model.fields,field_description:shift.field_shift_template__start_date
+msgid "Start Date"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__start_time
+#: model:ir.model.fields,field_description:shift.field_shift_shift__start_time
+#: model:ir.model.fields,field_description:shift.field_shift_template__start_time
+msgid "Start Time"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_extension__extension_start_date
+msgid "Start date for the extension"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_holiday__holiday_start_day
+msgid "Start date for the holiday"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__state
+msgid "State"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_holiday__status_id
+#: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__status_id
+#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__status_id
+#: model:ir.ui.menu,name:shift.menu_status_top
+#: model_terms:ir.ui.view,arch_db:shift.task_view_search
+msgid "Status"
+msgstr ""
+
+#. module: shift
+#: selection:cooperative.status.history,type:0
+msgid "Status Change"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_shift_view_kanban
+msgid "Status:"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/res_partner.py:107
+#, python-format
+msgid "Subscribe Cooperator"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.super_coop_partner_inherited_view_form
+msgid "Subscribe to shift"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_res_partner__subscribed_shift_ids
+#: model:ir.model.fields,field_description:shift.field_res_users__subscribed_shift_ids
+#: model_terms:ir.ui.view,arch_db:shift.super_coop_partner_inherited_view_form
+msgid "Subscribed Shift"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__is_subscribed_to_shift
+#: model:ir.model.fields,field_description:shift.field_res_partner__is_subscribed_to_shift
+#: model:ir.model.fields,field_description:shift.field_res_users__is_subscribed_to_shift
+msgid "Subscribed before Alert Date"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_shift_view_kanban
+#: model_terms:ir.ui.view,arch_db:shift.task_template_view_kanban
+msgid "Super Coop:"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__super_coop_id
+#: model:ir.model.fields,field_description:shift.field_shift_template__super_coop_id
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__super
+#: model:ir.model.fields,field_description:shift.field_res_partner__super
+#: model:ir.model.fields,field_description:shift.field_res_users__super
+msgid "Super Cooperative"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe__super
+msgid "Super Cooperator"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_planning__task_template_ids
+#: model:ir.model.fields,field_description:shift.field_shift_shift__task_template_id
+msgid "Task Template"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__task_type_id
+msgid "Task Type"
+msgstr ""
+
+#. module: shift
+#: model:ir.ui.menu,name:shift.menu_template_top
+msgid "Templates"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__temporary_exempt_end_date
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__temporary_exempt_end_date
+msgid "Temporary Exempt End Date"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__temporary_exempt_reason_id
+msgid "Temporary Exempt Reason"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_temporary_exemption__temporary_exempt_start_date
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__temporary_exempt_start_date
+msgid "Temporary Exempt Start Date"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/res_partner.py:153
+#: model_terms:ir.ui.view,arch_db:shift.coop_status_form_view
+#: model_terms:ir.ui.view,arch_db:shift.super_coop_partner_inherited_view_form
+#, python-format
+msgid "Temporary Exemption"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/wizard/subscribe.py:151
+#, python-format
+msgid "There is no remaining spot in this shift"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid "This limit is checked on each exchange or solidarity offer"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.coop_status_form_view
+msgid "Timing information"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__today
+#: model_terms:ir.ui.view,arch_db:shift.task_view_search
+msgid "Today"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/res_partner.py:136
+#, python-format
+msgid "Trigger Grace Delay"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__type_id
+#: model:ir.model.fields,field_description:shift.field_shift_template__task_type_id
+#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__type
+#: model_terms:ir.ui.view,arch_db:shift.task_view_search
+msgid "Type"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_shift_view_kanban
+#: model_terms:ir.ui.view,arch_db:shift.task_template_view_kanban
+msgid "Type:"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_view_search
+msgid "Unassigned"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.super_coop_partner_inherited_view_form
+msgid "Unsubscribe"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__unsubscribed
+msgid "Unsubscribed"
+msgstr ""
+
+#. module: shift
+#: model:ir.actions.server,name:shift.ir_cron_update_today_ir_actions_server
+#: model:ir.cron,cron_name:shift.ir_cron_update_today
+#: model:ir.cron,name:shift.ir_cron_update_today
+msgid "Update Cooperator status base on the date"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_cooperative_status_history__user_id
+msgid "User"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid "Usual number of days between two shifts for regular workers"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid "Value"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,help:shift.field_shift_subscribe__resigning
+#: model:ir.model.fields,help:shift.field_cooperative_status__resigning
+msgid "Want to leave the beescoop"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/planning.py:394
+#, python-format
+msgid "Warning"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_template_view_search
+msgid "Week Day"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__wizard_id
+msgid "Wizard"
+msgstr ""
+
+#. module: shift
+#: model:ir.actions.act_window,name:shift.action_worker
+#: model:ir.model.fields,field_description:shift.field_shift_shift__worker_id
+#: model:ir.model.fields,field_description:shift.field_res_partner__is_worker
+#: model:ir.model.fields,field_description:shift.field_res_users__is_worker
+#: model:ir.ui.menu,name:shift.menu_worker
+#: model:ir.ui.menu,name:shift.menu_worker_top
+msgid "Worker"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_template__worker_name
+msgid "Worker Name"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template_line__worker_nb
+msgid "Worker Nb"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_template_view_kanban
+msgid "Worker Number:"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.super_coop_partner_inherited_view_form
+msgid "Worker information"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.task_shift_view_kanban
+msgid "Worker:"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid ""
+"Workers can unsubscribe from a shift only if the delay before\n"
+"                                        the start is at least this number of "
+"hours"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_subscribe__working_mode
+msgid "Working Mode"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__working_mode
+#: model:ir.model.fields,field_description:shift.field_cooperative_status__working_mode
+#: model:ir.model.fields,field_description:shift.field_res_partner__working_mode
+#: model:ir.model.fields,field_description:shift.field_res_users__working_mode
+msgid "Working mode"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/task.py:360
+#, python-format
+msgid ""
+"Working mode is not properly defined. Please check if the worker is "
+"subscribed "
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/cooperative_status.py:513
+#: sql_constraint:shift.journal:0
+#, python-format
+msgid "You can only create one journal per day"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/cooperative_status.py:186
+#: sql_constraint:cooperative.status:0
+#, python-format
+msgid "You can only set one cooperator status per cooperator"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/planning.py:280
+#, python-format
+msgid ""
+"You cannot assign more workers than the maximal number defined on template. "
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/task.py:342
+#, python-format
+msgid ""
+"You cannot change to the status %s if no worker is defined for the shift "
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/wizard/holiday.py:50
+#: code:addons/shift/wizard/temporary_exemption.py:63
+#, python-format
+msgid "You cannot edit start date of an holiday that is not over yet."
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/wizard/holiday.py:67
+#: code:addons/shift/wizard/temporary_exemption.py:81
+#, python-format
+msgid "You cannot encode a end date that is in the past (including today)."
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/wizard/holiday.py:57
+#: code:addons/shift/wizard/temporary_exemption.py:71
+#, python-format
+msgid "You cannot encode a start date that is in the past (including today)."
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/wizard/subscribe.py:25
+#, python-format
+msgid "You cannot perform this operation on yourself"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/cooperative_status.py:521
+#, python-format
+msgid "You don't have the access to perform this action"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/wizard/subscribe.py:20
+#, python-format
+msgid "You don't have the required access for this operation."
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/wizard/extension.py:44
+#, python-format
+msgid ""
+"You should not make a manual extension when the grace delay has not been "
+"triggered yet "
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/wizard/extension.py:54
+#, python-format
+msgid "You should not start a manual extension during the grace delay "
+msgstr ""
+
+#. module: shift
+#: model:mail.template,subject:shift.email_template_shift_summary
+msgid ""
+"Your next shift\n"
+"                (${format_tz(object.start_time,object.worker_id.tz or "
+"'Europe/Brussels','%d.%m.%Y - %H:%M')})\n"
+"            "
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_shift_assign_super_coop
+msgid "shift.assign_super_coop"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_shift_generate_planning
+msgid "shift.generate_planning"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_shift_generate_shift_template
+msgid "shift.generate_shift_template"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_shift_generate_shift_template_line
+msgid "shift.generate_shift_template.line"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_shift_action_mixin
+msgid "shift.action_mixin"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_shift_daynumber
+msgid "shift.daynumber"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_shift_extension
+msgid "shift.extension"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_shift_holiday
+msgid "shift.holiday"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_shift_journal
+msgid "shift.journal"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_shift_planning
+msgid "shift.planning"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_shift_shift
+msgid "shift.shift"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_shift_subscribe
+msgid "shift.subscribe"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_shift_template
+msgid "shift.template"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_shift_temporary_exemption
+msgid "shift.temporary_exemption"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_shift_type
+msgid "shift.type"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_cooperative_exempt_reason
+msgid "cooperative.exempt.reason"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_cooperative_status
+msgid "cooperative.status"
+msgstr ""
+
+#. module: shift
+#: model:ir.model,name:shift.model_cooperative_status_history
+msgid "cooperative.status.history"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.planning_view_form
+#: model_terms:ir.ui.view,arch_db:shift.task_template_view_form
+msgid "name"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.assign_super_coop_view_form
+#: model_terms:ir.ui.view,arch_db:shift.extension_coop_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:shift.planning_instanciate_view_form
+#: model_terms:ir.ui.view,arch_db:shift.subscribe_coop_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:shift.task_template_generation_view_form
+msgid "or"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/cooperative_status.py:58
+#, python-format
+msgid "shift_status_exempted"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/cooperative_status.py:56
+#, python-format
+msgid "shift_status_extension"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/cooperative_status.py:59
+#, python-format
+msgid "shift_status_holidays"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/cooperative_status.py:60
+#, python-format
+msgid "shift_status_resigning"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/cooperative_status.py:55
+#, python-format
+msgid "shift_status_suspended"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/cooperative_status.py:57
+#, python-format
+msgid "shift_status_unsubscribed"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/cooperative_status.py:53
+#, python-format
+msgid "shift_status_up_to_date"
+msgstr ""
+
+#. module: shift
+#: code:addons/shift/models/cooperative_status.py:54
+#, python-format
+msgid "shift_status_warning"
+msgstr ""

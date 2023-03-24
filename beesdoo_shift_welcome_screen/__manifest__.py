@@ -9,8 +9,8 @@
     "author": "Thibault Francois, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
-    "version": "12.0.1.0.1",
+    "version": "12.0.1.0.2",
     "license": "AGPL-3",
-    "depends": ["beesdoo_shift", "barcodes"],
+    "depends": ["shift", "barcodes"],
     "data": ["views/welcome.xml"],
 }

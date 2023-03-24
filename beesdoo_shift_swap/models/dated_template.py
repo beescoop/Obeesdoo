@@ -11,7 +11,7 @@ class DatedTemplate(models.Model):
     _description = "A shift template with a date and an hour"
 
     date = fields.Datetime(required=True)
-    template_id = fields.Many2one("beesdoo.shift.template")
+    template_id = fields.Many2one("shift.template")
     store = fields.Boolean(string="store", invisible=True, default=True)
     hour = fields.Integer(string="Hour", compute="_compute_hour", store=True)
 
@@ -48,9 +48,9 @@ class DatedTemplate(models.Model):
     @api.model
     def swap_shift_to_tmpl_dated(self, shift_list):
         """
-        This function allow to swap "beesdoo.shift.shift" type into
+        This function allow to swap "shift.shift" type into
         "beesdoo.shift.template.dated" type.
-        :parameter shift_list: beesdoo.shift.shift recordset,
+        :parameter shift_list: shift.shift recordset,
         :return: beesdoo.shift.template.dated recordset
         """
         tmpl_dated_list = self.env["beesdoo.shift.template.dated"]
@@ -81,7 +81,7 @@ class DatedTemplate(models.Model):
         :param nb_days: int
         :return: beesdoo.shift.template.dated recordset
         """
-        shifts = self.env["beesdoo.shift.planning"].get_future_shifts(
+        shifts = self.env["shift.planning"].get_future_shifts(
             end_date, start_date=start_date, include_cancelled=False
         )
         return self.swap_shift_to_tmpl_dated(shifts)
@@ -113,7 +113,7 @@ class DatedTemplate(models.Model):
         :return: res.partner recordset
         """
         self.ensure_one()
-        templates = self.env["beesdoo.shift.template"].search(
+        templates = self.env["shift.template"].search(
             [
                 ("day_nb_id", "=", self.template_id.day_nb_id.id),
                 ("start_time", "=", self.template_id.start_time),
@@ -177,11 +177,13 @@ class DatedTemplate(models.Model):
         :return: beesdoo.shift.template.dated recordset
         """
         end_date = datetime.now() + timedelta(days=nb_days)
-        next_shifts = self.env["beesdoo.shift.planning"].get_future_shifts(
+        next_shifts = self.env["shift.planning"].get_future_shifts(
             end_date, include_cancelled=False
         )
         min_percentage_presence = int(
-            self.env["ir.config_parameter"].sudo().get_param("min_percentage_presence")
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("shift.min_percentage_presence")
         )
         underpopulated_tmpl_dated = self.env["beesdoo.shift.template.dated"]
         cur_date = next_shifts[0].start_time
@@ -221,11 +223,11 @@ class DatedTemplate(models.Model):
         """
         Create a new shift based on self and worker_id
         :param worker_id: res.partner
-        :return: beesdoo.shift.shift
+        :return: shift.shift
         """
         self.ensure_one()
         template = self.template_id
-        new_shift = self.env["beesdoo.shift.shift"].new(
+        new_shift = self.env["shift.shift"].new(
             {
                 "name": "New shift",
                 "task_template_id": template.id,

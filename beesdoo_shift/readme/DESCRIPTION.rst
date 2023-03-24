@@ -1,1 +1,1 @@
-Generate and manage shifts for cooperators.
+Can be safely uninstalled.

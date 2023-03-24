@@ -1,1 +1,1 @@
-Worker status management specific to beescoop.
+Can be safely uninstalled.

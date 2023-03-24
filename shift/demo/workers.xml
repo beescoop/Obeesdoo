@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     Copyright 2019 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+
+    <record id="res_partner_worker_1_demo" model="res.partner">
+        <field name="name">Fernand Peso</field>
+        <field name="customer" eval="True" />
+<!--        <field name="eater">worker_eater</field>-->
+        <field name="is_company" eval="False" />
+        <field name="email">fernand_peso@demode.net</field>
+        <field name="street">Avenue des Bas-de-Callanques, 15</field>
+        <field name="city">Etterbeek</field>
+        <field name="zip">1040</field>
+        <field name="country_id" ref="base.be" />
+        <field name="working_mode">regular</field>
+        <field name="is_worker" eval="True" />
+<!--        <field name="cooperative_status_ids"-->
+<!--               eval="[(6, 0, [ref('shift.cooperative_status_1_demo')])]"/>-->
+    </record>
+
+    <record id="res_partner_worker_2_demo" model="res.partner">
+        <field name="name">Dupont Dupont</field>
+        <field name="customer" eval="True" />
+<!--        <field name="eater">worker_eater</field>-->
+        <field name="is_company" eval="False" />
+        <field name="email">d_dupont@demode.net</field>
+        <field name="street">Rue des sables, 20</field>
+        <field name="city">Bruxelles</field>
+        <field name="zip">10000</field>
+        <field name="country_id" ref="base.be" />
+        <field name="working_mode">irregular</field>
+        <field name="is_worker" eval="True" />
+<!--        <field name="cooperative_status_ids"-->
+<!--               eval="[(6, 0, [ref('shift.cooperative_status_2_demo')])]"/>-->
+    </record>
+
+    <record id="res_partner_worker_3_demo" model="res.partner">
+        <field name="name">Ronan Le Gall</field>
+        <field name="customer" eval="True" />
+<!--        <field name="eater">worker_eater</field>-->
+        <field name="is_company" eval="False" />
+        <field name="email">ronan_gall@demode.net</field>
+        <field name="street">Rue des pecheurs, 23</field>
+        <field name="city">Landudec</field>
+        <field name="zip">29710</field>
+        <field name="country_id" ref="base.fr" />
+        <field name="working_mode">regular</field>
+        <field name="is_worker" eval="True" />
+<!--        <field name="cooperative_status_ids"-->
+<!--               eval="[(6, 0, [ref('shift.cooperative_status_3_demo')])]"/>-->
+    </record>
+
+
+    <record id="res_partner_worker_4_demo" model="res.partner">
+        <field name="name">Elouan Bees</field>
+        <field name="customer" eval="True" />
+<!--        <field name="eater">worker_eater</field>-->
+        <field name="is_company" eval="False" />
+        <field name="email">elouan_bees@demode.net</field>
+        <field name="street">Rue Wéry, 15</field>
+        <field name="city">Ixelles</field>
+        <field name="zip">1050</field>
+        <field name="country_id" ref="base.be" />
+        <field name="working_mode">irregular</field>
+        <field name="is_worker" eval="True" />
+<!--        <field name="cooperative_status_ids"-->
+<!--               eval="[(6, 0, [ref('shift.cooperative_status_4_demo')])]"/>-->
+    </record>
+
+    <record id="res_partner_worker_5_demo" model="res.partner">
+        <field name="name">Anne de Marchalo</field>
+        <field name="customer" eval="True" />
+<!--        <field name="eater">worker_eater</field>-->
+        <field name="is_company" eval="False" />
+        <field name="email">anne_marchalo@demode.net</field>
+        <field name="street">Rue du Wels, 6</field>
+        <field name="city">Nantes</field>
+        <field name="zip">44000</field>
+        <field name="country_id" ref="base.fr" />
+        <field name="working_mode">regular</field>
+        <field name="is_worker" eval="True" />
+<!--        <field name="cooperative_status_ids"-->
+<!--               eval="[(6, 0, [ref('shift.cooperative_status_5_demo')])]"/>-->
+    </record>
+    <record id="res_partner_worker_6_demo" model="res.partner">
+        <field name="name">Jean Beaumont</field>
+        <field name="customer" eval="True" />
+<!--        <field name="eater">worker_eater</field>-->
+        <field name="is_company" eval="False" />
+        <field name="email">jean_beaumont@demode.net</field>
+        <field name="street">Rue de la Jungle, 8</field>
+        <field name="city">St-Gilles</field>
+        <field name="zip">1060</field>
+        <field name="country_id" ref="base.be" />
+        <field name="working_mode">regular</field>
+        <field name="is_worker" eval="True" />
+<!--        <field name="cooperative_status_ids"-->
+<!--               eval="[(6, 0, [ref('shift.cooperative_status_6_demo')])]"/>-->
+    </record>
+
+    <record id="cooperative_status_1_demo" model="cooperative.status">
+        <field name="cooperator_id" ref="res_partner_worker_1_demo" />
+        <field name="info_session" eval="True" />
+        <field name="info_session_date" eval="datetime.now() - timedelta(days=58)" />
+        <field name="super" eval="True" />
+        <field name="sr">2</field>
+        <field name="working_mode">regular</field>
+    </record>
+
+    <record id="cooperative_status_2_demo" model="cooperative.status">
+        <field name="cooperator_id" ref="res_partner_worker_2_demo" />
+        <field name="info_session" eval="False" />
+        <field name="sr">2</field>
+        <field name="working_mode">irregular</field>
+        <field name="irregular_start_date" eval="datetime.now() - timedelta(days=3)" />
+    </record>
+
+    <record id="cooperative_status_3_demo" model="cooperative.status">
+        <field name="cooperator_id" ref="res_partner_worker_3_demo" />
+        <field name="info_session" eval="True" />
+        <field name="info_session_date" eval="datetime.now() - timedelta(days=98)" />
+        <field name="sc">2</field>
+        <field name="working_mode">regular</field>
+    </record>
+
+    <record id="cooperative_status_4_demo" model="cooperative.status">
+        <field name="cooperator_id" ref="res_partner_worker_4_demo" />
+        <field name="sr">2</field>
+        <field name="working_mode">irregular</field>
+        <field name="irregular_start_date" eval="datetime.now() - timedelta(days=6)" />
+    </record>
+
+    <record id="cooperative_status_5_demo" model="cooperative.status">
+        <field name="cooperator_id" ref="res_partner_worker_5_demo" />
+        <field name="sr">2</field>
+        <field name="working_mode">regular</field>
+    </record>
+
+    <record id="cooperative_status_6_demo" model="cooperative.status">
+        <field name="cooperator_id" ref="res_partner_worker_6_demo" />
+        <field name="info_session" eval="True" />
+        <field name="info_session_date" eval="datetime.now() - timedelta(days=36)" />
+        <field name="sc">2</field>
+        <field name="working_mode">regular</field>
+    </record>
+</odoo>

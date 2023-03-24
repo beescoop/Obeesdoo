@@ -35,7 +35,7 @@ class SolidarityShiftOffer(models.Model):
         readonly=True,
     )
 
-    shift_id = fields.Many2one("beesdoo.shift.shift", string="Generated shift")
+    shift_id = fields.Many2one("shift.shift", string="Generated shift")
 
     def create(self, vals_list):
         """
@@ -53,7 +53,7 @@ class SolidarityShiftOffer(models.Model):
         :return: Boolean
         """
         if self.tmpl_dated_id:
-            future_subscribed_shift = self.env["beesdoo.shift.shift"].search(
+            future_subscribed_shift = self.env["shift.shift"].search(
                 [
                     ("start_time", "=", self.tmpl_dated_id.date),
                     ("task_template_id", "=", self.tmpl_dated_id.template_id.id),
@@ -83,7 +83,7 @@ class SolidarityShiftOffer(models.Model):
             and self.tmpl_dated_id.date > datetime.now()
             and self.state == "validated"
         ):
-            subscribed_solidarity_shift = self.env["beesdoo.shift.shift"].search(
+            subscribed_solidarity_shift = self.env["shift.shift"].search(
                 [
                     ("start_time", "=", self.tmpl_dated_id.date),
                     ("task_template_id", "=", self.tmpl_dated_id.template_id.id),
@@ -106,7 +106,7 @@ class SolidarityShiftOffer(models.Model):
     def check_offer_date_too_close(self):
         """
         Checks if the time delta between the current date and the shift date
-        is under a limit, defined in parameter 'min_hours_to_unsubscribe'.
+        is under a limit, defined in parameter 'shift.min_hours_to_unsubscribe'.
         Returns True if the date is too close.
         :return: Boolean
         """
@@ -114,7 +114,9 @@ class SolidarityShiftOffer(models.Model):
         shift_date = self.tmpl_dated_id.date
         delta = shift_date - datetime.now()
         limit_hours = int(
-            self.env["ir.config_parameter"].sudo().get_param("min_hours_to_unsubscribe")
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("shift.min_hours_to_unsubscribe")
         )
         if delta <= timedelta(hours=limit_hours):
             return True

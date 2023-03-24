@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate="1">
+         <record id="param_config_irregular_penalty" model="ir.config_parameter">
+            <field name="key">shift_worker_status.irregular_penalty</field>
+            <field name="value">True</field>
+        </record>
+    </data>
+</odoo>

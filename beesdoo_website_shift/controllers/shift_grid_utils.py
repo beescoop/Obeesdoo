@@ -69,7 +69,7 @@ def build_shift_grid(shifts: List[DisplayedShift]) -> List:
         {'headers': [datetime.date(2021, 1, 18), ]  # week days
          'rows': [(('07:00', '09:15'),  # start and end time
                    [DisplayedShift(  # shifts by day or None (7 columns)
-                        shift=beesdoo.shift.shift(11950,),
+                        shift=shift.shift(11950,),
                         free_space=1,
                         is_subscribed=False,
                         has_enough_workers=False)), *
