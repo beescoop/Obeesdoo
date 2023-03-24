@@ -101,7 +101,7 @@ class ShiftSwap(models.Model):
 
     def update_shift_data(self, shift, swap_subscription_done):
         """
-        See method info in model shift.swap.mixin
+        See method info in model beesdoo.shift.swap.mixin
         """
         self.ensure_one()
         if (
