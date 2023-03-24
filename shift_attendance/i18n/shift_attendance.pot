@@ -126,19 +126,19 @@ msgid "\n"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:532
+#: code:addons/shift_attendance/models/attendance_sheet.py:530
 #, python-format
 msgid "%s (added)"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:396
+#: code:addons/shift_attendance/models/attendance_sheet.py:394
 #, python-format
 msgid "%s is registered as replaced."
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:383
+#: code:addons/shift_attendance/models/attendance_sheet.py:381
 #, python-format
 msgid "%s's working mode is %s and should be regular or irregular. "
 msgstr ""
@@ -165,32 +165,32 @@ msgid "<span class=\"o_form_label\">\n"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:345
+#: code:addons/shift_attendance/models/attendance_sheet.py:343
 #, python-format
 msgid "A validated attendance sheet can't be modified"
 msgstr ""
 
 #. module: shift_attendance
+#: selection:res.config.settings,attendance_sheet_default_shift_state:0
 #: selection:shift.sheet.added,state:0
 #: selection:shift.sheet.expected,state:0
 #: selection:shift.sheet.shift,state:0
-#: selection:res.config.settings,attendance_sheet_default_shift_state:0
 msgid "Absent - 0 Compensation"
 msgstr ""
 
 #. module: shift_attendance
+#: selection:res.config.settings,attendance_sheet_default_shift_state:0
 #: selection:shift.sheet.added,state:0
 #: selection:shift.sheet.expected,state:0
 #: selection:shift.sheet.shift,state:0
-#: selection:res.config.settings,attendance_sheet_default_shift_state:0
 msgid "Absent - 1 Compensation"
 msgstr ""
 
 #. module: shift_attendance
+#: selection:res.config.settings,attendance_sheet_default_shift_state:0
 #: selection:shift.sheet.added,state:0
 #: selection:shift.sheet.expected,state:0
 #: selection:shift.sheet.shift,state:0
-#: selection:res.config.settings,attendance_sheet_default_shift_state:0
 msgid "Absent - 2 Compensations"
 msgstr ""
 
@@ -275,7 +275,7 @@ msgid "Attendance sheet"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:563
+#: code:addons/shift_attendance/models/attendance_sheet.py:561
 #, python-format
 msgid "Attendance sheet can only be validated once the shifts have started. "
 msgstr ""
@@ -297,13 +297,13 @@ msgid "Beware : a validated sheet cannot be edited anymore                      
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:375
+#: code:addons/shift_attendance/models/attendance_sheet.py:373
 #, python-format
 msgid "Beware, you are recorded as resigning. Please contact member's office if this is incorrect. Thank you. "
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:365
+#: code:addons/shift_attendance/models/attendance_sheet.py:363
 #, python-format
 msgid "Beware, your account is frozen because your shift counter is at %s. Please contact Members Office to unfreeze it. If you want to attend this shift, your supercoop can write your name in the notes field during validation."
 msgstr ""
@@ -338,7 +338,7 @@ msgid "Comments about the shift"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:602
+#: code:addons/shift_attendance/models/attendance_sheet.py:600
 #, python-format
 msgid "Compensation number is missing for %s"
 msgstr ""
@@ -667,7 +667,7 @@ msgid "Messages"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:356
+#: code:addons/shift_attendance/models/attendance_sheet.py:354
 #, python-format
 msgid "Multiple workers are corresponding this barcode. \n"
 "Barcode : %s"
@@ -682,7 +682,7 @@ msgid "Name"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:228
+#: code:addons/shift_attendance/models/attendance_sheet.py:226
 #: sql_constraint:shift.sheet:0
 #, python-format
 msgid "Non-annotated sheets can't be marked as read."
@@ -782,7 +782,7 @@ msgid "Please enter your login."
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:612
+#: code:addons/shift_attendance/models/attendance_sheet.py:610
 #, python-format
 msgid "Please give your feedback about the number of workers."
 msgstr ""
@@ -800,10 +800,10 @@ msgid "Please set a correct barcode."
 msgstr ""
 
 #. module: shift_attendance
+#: selection:res.config.settings,attendance_sheet_default_shift_state:0
 #: selection:shift.sheet.added,state:0
 #: selection:shift.sheet.expected,state:0
 #: selection:shift.sheet.shift,state:0
-#: selection:res.config.settings,attendance_sheet_default_shift_state:0
 msgid "Present"
 msgstr ""
 
@@ -855,13 +855,13 @@ msgid "Shift State"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:598
+#: code:addons/shift_attendance/models/attendance_sheet.py:596
 #, python-format
 msgid "Shift State is missing for %s"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:575
+#: code:addons/shift_attendance/models/attendance_sheet.py:573
 #, python-format
 msgid "Shift State is missing or wrong for %s"
 msgstr ""
@@ -902,32 +902,32 @@ msgid "Task Type"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:580
+#: code:addons/shift_attendance/models/attendance_sheet.py:578
 #, python-format
 msgid "Task Type is missing for %s"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:463
+#: code:addons/shift_attendance/models/attendance_sheet.py:461
 #, python-format
 msgid "The sheet has already been marked as read."
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:332
+#: code:addons/shift_attendance/models/attendance_sheet.py:330
 #, python-format
 msgid "The sheet has already been validated and can't be edited."
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:469
-#: code:addons/shift_attendance/models/attendance_sheet.py:560
+#: code:addons/shift_attendance/models/attendance_sheet.py:467
+#: code:addons/shift_attendance/models/attendance_sheet.py:558
 #, python-format
 msgid "The sheet has already been validated."
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:483
+#: code:addons/shift_attendance/models/attendance_sheet.py:481
 #, python-format
 msgid "The shift linked to the expected shift of %s does exist anymore.This expected shift is ignored in the validation process."
 msgstr ""
@@ -1005,7 +1005,7 @@ msgid "Warning"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:588
+#: code:addons/shift_attendance/models/attendance_sheet.py:586
 #, python-format
 msgid "Warning : Working mode for %s is %s"
 msgstr ""
@@ -1039,13 +1039,13 @@ msgid "Worker"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:572
+#: code:addons/shift_attendance/models/attendance_sheet.py:570
 #, python-format
 msgid "Worker name is missing for an added shift."
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:351
+#: code:addons/shift_attendance/models/attendance_sheet.py:349
 #, python-format
 msgid "Worker not found (invalid barcode or status). \n"
 "Barcode : %s"
@@ -1059,19 +1059,19 @@ msgid "Working Mode"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:584
+#: code:addons/shift_attendance/models/attendance_sheet.py:582
 #, python-format
 msgid "Working mode is missing for %s"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:316
+#: code:addons/shift_attendance/models/attendance_sheet.py:314
 #, python-format
 msgid "You can't add the same worker more than once to an attendance sheet. "
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:338
+#: code:addons/shift_attendance/models/attendance_sheet.py:336
 #, python-format
 msgid "You must be logged as 'Attendance Sheet Generic Access'  if you want to scan cards."
 msgstr ""
