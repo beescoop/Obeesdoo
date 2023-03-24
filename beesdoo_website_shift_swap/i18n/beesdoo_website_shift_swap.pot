@@ -403,7 +403,7 @@ msgid "No"
 msgstr ""
 
 #. module: beesdoo_website_shift_swap
-#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:1152
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:1150
 #, python-format
 msgid "No absent shift was found"
 msgstr ""
@@ -647,7 +647,7 @@ msgid "Task:"
 msgstr ""
 
 #. module: beesdoo_website_shift_swap
-#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:175
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:173
 #, python-format
 msgid "The cooperator has been contacted. You will be notified if he/she accepts your exchange."
 msgstr ""
@@ -698,7 +698,7 @@ msgid "This exchange has been validated by both side. <br/>\n"
 msgstr ""
 
 #. module: beesdoo_website_shift_swap
-#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:535
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:533
 #, python-format
 msgid "This shift is not generated. Unsubscription impossible."
 msgstr ""
@@ -774,7 +774,7 @@ msgid "Yes"
 msgstr ""
 
 #. module: beesdoo_website_shift_swap
-#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:1296
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:1294
 #, python-format
 msgid "You can't cancel this solidarity request."
 msgstr ""
@@ -786,7 +786,7 @@ msgid "You have already requested an exchange for this shift."
 msgstr ""
 
 #. module: beesdoo_website_shift_swap
-#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:1075
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:1073
 #, python-format
 msgid "You have been subscribed to a solidarity shift."
 msgstr ""
@@ -802,13 +802,13 @@ msgid "You have been successfully unsubscribed from exchange-related emails."
 msgstr ""
 
 #. module: beesdoo_website_shift_swap
-#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:1220
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:1218
 #, python-format
 msgid "You have been unsubscribed from your shift. Your counter will not be decreased."
 msgstr ""
 
 #. module: beesdoo_website_shift_swap
-#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:531
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:529
 #, python-format
 msgid "You have been unsubscribed to this shift."
 msgstr ""
@@ -820,13 +820,13 @@ msgid "You have reached the maximum number of shifts per day or month."
 msgstr ""
 
 #. module: beesdoo_website_shift_swap
-#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:1286
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:1284
 #, python-format
 msgid "You have successfully cancelled your solidarity request. You have been subscribed back to your shift."
 msgstr ""
 
 #. module: beesdoo_website_shift_swap
-#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:1291
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:1289
 #, python-format
 msgid "You have successfully cancelled your solidarity request. Your counter has been decremented."
 msgstr ""
@@ -837,25 +837,25 @@ msgid "Your future shift"
 msgstr ""
 
 #. module: beesdoo_website_shift_swap
-#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:885
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:883
 #, python-format
 msgid "Your request could not be cancelled, Please note that validated exchanges cannot be cancelled."
 msgstr ""
 
 #. module: beesdoo_website_shift_swap
-#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:883
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:881
 #, python-format
 msgid "Your request has been cancelled."
 msgstr ""
 
 #. module: beesdoo_website_shift_swap
-#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:1228
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:1226
 #, python-format
 msgid "Your request has been taken into account. Your counter has been incremented."
 msgstr ""
 
 #. module: beesdoo_website_shift_swap
-#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:1112
+#: code:addons/beesdoo_website_shift_swap/controllers/controllers.py:1110
 #, python-format
 msgid "Your solidarity shift has been cancelled."
 msgstr ""
