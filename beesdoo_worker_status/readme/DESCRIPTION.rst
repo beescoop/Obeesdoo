@@ -1,1 +1,1 @@
-Emptied
+Can be safely uninstalled.

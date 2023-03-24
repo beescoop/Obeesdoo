@@ -1,6 +1,6 @@
 {
     "name": "BEES coop Shift Attendance Sheet",
-    "summary": """Emptied""",
+    "summary": """Emptied (replaced by shift_attendance)""",
     "author": "Elouan Le Bars, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",

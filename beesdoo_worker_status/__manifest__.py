@@ -4,7 +4,7 @@
 {
     "name": "BEES coop Worker Status manager",
     "summary": """
-        Emptied""",
+        Emptied (replaced by shift_worker_status)""",
     "author": "Thibault Francois, Elouan Le Bars, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",

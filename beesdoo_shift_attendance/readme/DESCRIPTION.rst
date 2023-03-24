@@ -1,2 +1,1 @@
-Volonteer Timetable Management
-Attendance Sheet for BEES coop
+Can be safely uninstalled.
