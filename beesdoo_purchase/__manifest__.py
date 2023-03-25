@@ -11,7 +11,7 @@
         "account_invoice_line_po_reference",
         "purchase_order_main_supplier",
         "sale_suggested_price",
-        "purchase_stock_coverage",
+        "product_stock_coverage",
     ],
     "data": [],
     "license": "AGPL-3",
