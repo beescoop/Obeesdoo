@@ -187,6 +187,18 @@ msgid "<strong>Warning !</strong>\n"
 msgstr ""
 
 #. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.portal_my_details
+msgid "Accept to share my info\n"
+"                        as Supercoop"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_partner__share_supercoop_info
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_users__share_supercoop_info
+msgid "Accept to share my info as Supercoop"
+msgstr ""
+
+#. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
 msgid "Available Shifts"
 msgstr ""
@@ -244,6 +256,11 @@ msgstr ""
 #. module: beesdoo_website_shift
 #: model:ir.model,name:beesdoo_website_shift.model_res_config_settings
 msgid "Config Settings"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model:ir.model,name:beesdoo_website_shift.model_res_partner
+msgid "Contact"
 msgstr ""
 
 #. module: beesdoo_website_shift
@@ -332,6 +349,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_config_settings__hide_rule
 #: model:ir.model.fields,field_description:beesdoo_website_shift.field_website__hide_rule
 msgid "Hide Rule"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.portal_layout
+msgid "I accept to share my info as Supercoop"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.portal_layout
+msgid "I do not accept to share my info as Supercoop"
 msgstr ""
 
 #. module: beesdoo_website_shift
