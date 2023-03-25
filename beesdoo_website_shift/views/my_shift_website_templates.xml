@@ -201,7 +201,7 @@
                     <button
                         type="button"
                         class="btn btn-default btn-sm ml-2 pull-right"
-                        t-if="shift.super_coop_id.name"
+                        t-if="shift.super_coop_id.name and shift.super_coop_id.share_supercoop_info"
                         data-toggle="modal"
                         t-att-data-target="'#super_coop-shift-%s' % shift_index"
                     >
