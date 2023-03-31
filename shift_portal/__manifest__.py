@@ -16,7 +16,7 @@
     "category": "Cooperative management",
     "depends": ["portal", "website", "shift"],
     "assets": {
-        "web.assets_backend": ["shift_portal/static/src/js/script.js"],
+        "web.assets_frontend": ["shift_portal/static/src/js/script.js"],
     },
     "data": [
         "data/res_config_data.xml",

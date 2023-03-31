@@ -8,8 +8,10 @@
         <field name="name">Website Shift Settings Irregular Worker</field>
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="website.res_config_settings_view_form" />
+        <!-- priority 21 to put it after website (priority 20) -->
+        <field name="priority" eval="21 "/> 
         <field name="arch" type="xml">
-            <div id="webmaster_settings" position="after">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
                 <h2>Shift: General Settings</h2>
                 <div class="row mt16 o_settings_container" id="shift_general_settings">
                     <div class="col-12 col-md-6 o_setting_box">
@@ -198,7 +200,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </xpath>
         </field>
     </record>
 </odoo>
