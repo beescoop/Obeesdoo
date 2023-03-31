@@ -211,5 +211,4 @@ class Subscribe(models.TransientModel):
             active_ids=self.cooperator_id.ids
         ).default_get(["user_ids"])
         wizard = PortalWizard.create(wiz_values)
-        wizard.user_ids.write({"in_portal": True})
-        wizard.action_apply()
+        wizard.user_ids.action_grant_access()
