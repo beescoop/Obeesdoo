@@ -9,7 +9,7 @@
     <template
         id="my_shift_link"
         name="Link to frontend portal"
-        inherit_id="portal.frontend_layout"
+        inherit_id="portal.user_dropdown"
     >
         <xpath expr="//a[@id='o_logout']" position="before">
             <a href="/my/shift" class="dropdown-item" role="menuitem">My Shift
@@ -25,9 +25,6 @@
             role="alert"
             t-att-class="'alert alert-%s alert-dismissible' % ('success' if success_message else 'danger')"
         >
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <![CDATA[&times;]]>
-            </button>
             <t t-if="success_message">
                 <strong>Success!</strong>
                 <t t-out="success_message" />
@@ -36,6 +33,7 @@
                 <strong>Error!</strong>
                 <t t-out="error_message" />
             </t>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <h1>
             Your shifts
@@ -47,7 +45,7 @@
         <h2>
             Worker status
             <span
-                t-att-class="'badge %s pull-right' % ('badge-success' if status.can_shop else 'badge-danger',)"
+                t-att-class="'badge %s float-end' % ('bg-success' if status.can_shop else 'bg-danger',)"
             >
                 <span class="fa fa-shopping-cart" />
                 <t t-if="status.can_shop">
@@ -64,7 +62,7 @@
     <template id="my_shift_worker_status_common" name="My Shift Worker Status Common">
 
         <p id="working_mode">
-            <label class="font-weight-bold">Working Mode:</label>
+            <label class="fw-bold">Working Mode:</label>
             <t
                 t-out="dict(status.fields_get(allfields=['working_mode'])['working_mode']['selection'])[status.working_mode]"
             />
@@ -75,7 +73,7 @@
         </p>
 
         <p>
-            <label class="font-weight-bold">Status:</label>
+            <label class="fw-bold">Status:</label>
             <t
                 t-out="dict(status.fields_get(allfields=['status'])['status']['selection'])[status.status]"
             />
@@ -90,14 +88,14 @@
         <p
             t-if="status.holiday_start_time and status.holiday_start_time > status.today or status.status == 'holiday'"
         >
-            <label class="font-weight-bold">Begin of Holiday:</label>
+            <label class="fw-bold">Begin of Holiday:</label>
             <t t-out="status.holiday_start_time" />
         </p>
 
         <p
             t-if="status.holiday_end_time and status.holiday_end_time > status.today or status.status == 'holiday'"
         >
-            <label class="font-weight-bold">End of Holiday:</label>
+            <label class="fw-bold">End of Holiday:</label>
             <t t-out="status.holiday_end_time" />
         </p>
 
@@ -108,49 +106,49 @@
 
         <span
             t-if="shift.state == 'draft'"
-            t-attf-class="badge badge-default ml-1 {{label_css}}"
+            t-attf-class="badge bg-primary ml-1 {{label_css}}"
         >
             <t t-out="shift.state" />
         </span>
 
         <span
             t-if="shift.state == 'done'"
-            t-attf-class="badge badge-success ml-1 {{label_css}}"
+            t-attf-class="badge bg-success ml-1 {{label_css}}"
         >
             <t t-out="shift.state" />
         </span>
 
         <span
             t-if="shift.state == 'absent_2'"
-            t-attf-class="badge badge-warning ml-1 {{label_css}}"
+            t-attf-class="badge bg-warning ml-1 {{label_css}}"
         >
             <t t-out="shift.state" />
         </span>
 
         <span
             t-if="shift.state == 'absent_1'"
-            t-attf-class="badge badge-info ml-1 {{label_css}}"
+            t-attf-class="badge bg-info ml-1 {{label_css}}"
         >
             <t t-out="shift.state" />
         </span>
 
         <span
             t-if="shift.state == 'absent_0'"
-            t-attf-class="badge badge-info ml-1 {{label_css}}"
+            t-attf-class="badge bg-info ml-1 {{label_css}}"
         >
             <t t-out="shift.state" />
         </span>
 
         <span
             t-if="shift.state == 'cancel'"
-            t-attf-class="badge badge-danger ml-1 {{label_css}}"
+            t-attf-class="badge bg-danger ml-1 {{label_css}}"
         >
             <t t-out="shift.state" />
         </span>
 
         <span
             t-if="shift.is_compensation"
-            t-attf-class="badge badge-info ml-1 {{label_css}}"
+            t-attf-class="badge bg-info ml-1 {{label_css}}"
         >
             compensation
         </span>
@@ -181,7 +179,7 @@
                 t-att-class="'card mb-4 %s%s' % (highlight_class, ' collapse multi-collapse' if shift_index >= shift_display_number else '')"
             >
                 <div t-att-class="'card-header %s clearfix' % highlight_header_class">
-                    <div class="pull-left">
+                    <div class="float-start">
                         <span
                             t-field="shift.start_time"
                             t-options='{"format": "dd/MM/yyyy HH:mm"}'
@@ -193,17 +191,17 @@
                         />
                     </div>
                     <t t-call="shift_portal.shift_status_label">
-                        <t t-set="label_css" t-value="'pull-right'" />
+                        <t t-set="label_css" t-value="'float-end'" />
                     </t>
                 </div>
                 <div class="card-body clearfix">
                     <t t-out="shift.task_type_id.name" />
                     <button
                         type="button"
-                        class="btn btn-default btn-sm ml-2 pull-right"
+                        class="btn btn-primary btn-sm ml-2 float-end"
                         t-if="shift.super_coop_id.name"
-                        data-toggle="modal"
-                        t-att-data-target="'#super_coop-shift-%s' % shift_index"
+                        data-bs-toggle="modal"
+                        t-att-data-bs-target="'#super_coop-shift-%s' % shift_index"
                     >
                         <span class="fa fa-info" aria-hidden="true" />
                         Super Cooperator Info
@@ -215,9 +213,9 @@
                             <button
                                 id="unsubscribe_button"
                                 type="button"
-                                class="btn btn-primary btn-sm ml-2 pull-right"
-                                data-toggle="modal"
-                                t-att-data-target="'#unsubscribe-shift-%s' % shift.id"
+                                class="btn btn-primary btn-sm ml-2 float-end"
+                                data-bs-toggle="modal"
+                                t-att-data-bs-target="'#unsubscribe-shift-%s' % shift.id"
                             >
                                 <span class="fa fa-user-plus" aria-hidden="true" />
                                 Unsubscribe
@@ -228,15 +226,15 @@
                         >
                             <div
                                 id="unsubscribe_disabled_popover"
-                                class="d-inline-block pull-right"
-                                data-toggle="popover"
-                                data-placement="top"
-                                data-trigger="hover"
-                                t-att-data-content="'%s' % too_late_unsubscribe_message"
+                                class="d-inline-block float-end"
+                                data-bs-toggle="popover"
+                                data-bs-placement="top"
+                                data-bs-trigger="hover"
+                                t-att-data-bs-content="'%s' % too_late_unsubscribe_message"
                             >
                                 <button
                                     id="disabled_unsubscribe_button"
-                                    class="btn btn-primary btn-sm ml-2 disabled pull-right"
+                                    class="btn btn-primary btn-sm ml-2 disabled float-end"
                                     style="pointer-events: none;"
                                 >
                                     <span class="fa fa-user-plus" aria-hidden="true" />
@@ -253,8 +251,8 @@
                         id="toggle_shifts_button"
                         class="btn btn-primary btn-block"
                         type="button"
-                        data-toggle="collapse"
-                        data-target=".multi-collapse"
+                        data-bs-toggle="collapse"
+                        data-bs-target=".multi-collapse"
                         aria-expanded="true"
                     >Show next shifts</button>
                 </p>
@@ -274,20 +272,13 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button
-                                type="button"
-                                class="close"
-                                data-dismiss="modal"
-                                aria-label="Close"
-                            >
-                                <span aria-hidden="true">×</span>
-                            </button>
                             <h4
                                 class="modal-title"
                                 t-att-id="'super_coop-shift-%s-label' % shift_index"
                             >
                                 <t t-out="shift.super_coop_id.name" />
                             </h4>
+                            <button type="button" class="btn-close" aria-label="Close"></button>
                         </div>
                         <div class="modal-body text-center">
                             <i class="fa fa-phone" aria-hidden="true" />
@@ -302,7 +293,6 @@
                             <button
                                 type="button"
                                 class="btn btn-primary"
-                                data-dismiss="modal"
                             >Close
                             </button>
                         </div>
@@ -344,7 +334,7 @@
                             <button
                                 type="button"
                                 class="btn btn-danger"
-                                data-dismiss="modal"
+                                data-bs-dismiss="modal"
                             >Cancel
                             </button>
                             <a
@@ -375,7 +365,7 @@
         <t t-foreach="past_shifts" t-as="shift">
             <div t-att-class="'card mb-4 %s' % highlight_class">
                 <div t-att-class="'card-header %s clearfix' % highlight_header_class">
-                    <div class="pull-left">
+                    <div class="float-start">
                         <span
                             t-field="shift.start_time"
                             t-options='{"format": "dd/MM/yyyy HH:mm"}'
@@ -387,7 +377,7 @@
                         />
                     </div>
                     <t t-call="shift_portal.shift_status_label">
-                        <t t-set="label_css" t-value="'pull-right'" />
+                        <t t-set="label_css" t-value="'float-end'" />
                     </t>
                 </div>
                 <div class="card-body clearfix">
@@ -417,22 +407,22 @@
         />
 
         <div t-att-class="'card %s' % highlight_class">
-            <div class="center m-1 font-weight-bold" t-out="shift.task_type_id.name" />
-            <div class="badge badge-secondary m-1" t-if="count > 0">
+            <div class="center m-1 fw-bold" t-out="shift.task_type_id.name" />
+            <div class="badge bg-secondary m-1" t-if="count > 0">
                 <t t-out="count" />
                 spot(s)
             </div>
-            <div class="badge badge-secondary m-1" t-if="count == 0">
+            <div class="badge bg-secondary m-1" t-if="count == 0">
                 full
             </div>
-            <div class="badge badge-secondary m-1" t-if="is_subscribed">
+            <div class="badge bg-secondary m-1" t-if="is_subscribed">
                 Subscribed
             </div>
             <button
                 type="button"
-                class="btn btn-default btn-sm m-1"
-                data-toggle="modal"
-                t-att-data-target="'#subscribe-shift-%s' % shift.id"
+                class="btn btn-primary btn-sm m-1"
+                data-bs-toggle="modal"
+                t-att-data-bs-target="'#subscribe-shift-%s' % shift.id"
                 t-if="irregular_enable_sign_up and not is_subscribed"
             >
                 <span class="fa fa-user-plus" aria-hidden="true" />
@@ -451,14 +441,6 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button
-                            type="button"
-                            class="close"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                        >
-                            <span aria-hidden="true">×</span>
-                        </button>
                         <h4
                             class="modal-title"
                             t-att-id="'subscribe-shift-%s-label' % shift.id"
@@ -485,8 +467,8 @@
                     <div class="modal-footer">
                         <button
                             type="button"
-                            class="btn btn-default"
-                            data-dismiss="modal"
+                            class="btn btn-primary"
+                            data-bs-dismiss="modal"
                         >Close
                         </button>
                         <a
@@ -508,12 +490,12 @@
     >
         <t t-set="shift" t-value="displayed_shift.shift" />
         <div t-att-class="'card %s' % highlight_class">
-            <div class="center m-1 font-weight-bold" t-out="shift.task_type_id.name" />
+            <div class="center m-1 fw-bold" t-out="shift.task_type_id.name" />
             <button
                 type="button"
                 class="btn btn-primary btn-sm m-1"
-                data-toggle="modal"
-                t-att-data-target="'#subscribe-shift-%s' % shift.id"
+                data-bs-toggle="modal"
+                t-att-data-bs-target="'#subscribe-shift-%s' % shift.id"
             >
                 <span class="fa fa-user-plus" aria-hidden="true" />
                 Subscribe
@@ -531,20 +513,13 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button
-                            type="button"
-                            class="close"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                        >
-                            <span aria-hidden="true">×</span>
-                        </button>
                         <h4
                             class="modal-title"
                             t-att-id="'subscribe-shift-%s-label' % shift.id"
                         >
                             Please confirm subscription
                         </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body text-center">
                         <span
@@ -563,7 +538,7 @@
                         <button
                             type="button"
                             class="btn btn-danger"
-                            data-dismiss="modal"
+                            data-bs-dismiss="modal"
                         >Cancel
                         </button>
                         <a
@@ -749,8 +724,8 @@
                 id="toggle_help_button"
                 class="btn btn-primary btn-sm"
                 type="button"
-                data-toggle="collapse"
-                data-target="#collapseHelp"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseHelp"
                 aria-expanded="true"
                 aria-controls="collapseHelp"
             >
@@ -950,7 +925,7 @@
                         />
 
                         <p t-if="status.exempt_reason_id">
-                            <label class="font-weight-bold">Exempt Reason:
+                            <label class="fw-bold">Exempt Reason:
                             </label>
                             <t t-out="status.exempt_reason_id.name" />
                         </p>
@@ -1037,26 +1012,26 @@
                         />
 
                         <p t-if="status.sr != 0">
-                            <label class="font-weight-bold">Shift in Advance:
+                            <label class="fw-bold">Shift in Advance:
                             </label>
                             <t t-out="status.sr" />
                         </p>
 
                         <p t-if="status.sc != 0">
-                            <label class="font-weight-bold">Compensation
+                            <label class="fw-bold">Compensation
                                 Shift:
                             </label>
                             <t t-out="status.sc" />
                         </p>
 
                         <p t-if="status.alert_start_time">
-                            <label class="font-weight-bold">In Alert Since:
+                            <label class="fw-bold">In Alert Since:
                             </label>
                             <t t-out="status.alert_start_time" />
                         </p>
 
                         <p t-if="status.extension_start_time">
-                            <label class="font-weight-bold">In Extension
+                            <label class="fw-bold">In Extension
                                 Since:
                             </label>
                             <t t-out="status.extension_start_time" />
@@ -1080,7 +1055,7 @@
                     <div class="col-12 col-lg-4 text-justify order-1 order-lg-2">
 
                         <t t-call="shift_portal.help_text_title" />
-                        <div class="collapse show" id="collapseHelp">
+                        <div class="collapse toggle" id="collapseHelp">
                             <t t-call="shift_portal.help_text_common" />
                             <t
                                 t-call="shift_portal.help_text_regular_worker"
@@ -1118,33 +1093,33 @@
                         />
 
                         <p>
-                            <label class="font-weight-bold">Shift in Advance:
+                            <label class="fw-bold">Shift in Advance:
                             </label>
                             <t t-out="status.sr" />
                         </p>
 
                         <p t-if="status.next_countdown_date">
-                            <label class="font-weight-bold">Next Countdown
+                            <label class="fw-bold">Next Countdown
                                 Date:
                             </label>
                             <t t-out="status.next_countdown_date" />
                         </p>
 
                         <p t-if="status.future_alert_date">
-                            <label class="font-weight-bold">Future Date of
+                            <label class="fw-bold">Future Date of
                                 Alert:
                             </label>
                             <t t-out="status.future_alert_date" />
                         </p>
 
                         <p t-if="status.irregular_absence_date">
-                            <label class="font-weight-bold">Last Absence Date:
+                            <label class="fw-bold">Last Absence Date:
                             </label>
                             <t t-out="status.irregular_absence_date" />
                         </p>
 
                         <p t-if="status.irregular_absence_counter">
-                            <label class="font-weight-bold">Number of Absence:
+                            <label class="fw-bold">Number of Absence:
                             </label>
                             <t t-out="status.irregular_absence_counter" />
                         </p>
