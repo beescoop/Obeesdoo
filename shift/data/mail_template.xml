@@ -8,11 +8,8 @@
             name="subject"
         >Your next shift ({{ format_datetime(object.start_time, tz=object.worker_id.tz or 'Europe/Brussels', dt_format='dd.MM.yyyy HH:mm') }})
             </field>
-            <field name="email_from">{{ object.worker_id.company_id.email }}
-            </field>
-            <field name="partner_to">
-                {{ object.replaced_id.id or object.worker_id.id|safe }}
-            </field>
+            <field name="email_from">{{ object.create_uid.company_id.email }}</field>
+            <field name="email_to">{{ object.replaced_id.email_formatted or object.worker_id.email_formatted }}</field>
             <field name="model_id" ref="model_shift_shift" />
             <field name="auto_delete" eval="True" />
             <field name="lang">{{ object.worker_id.lang }}</field>
@@ -26,36 +23,36 @@
     <p>You are awaited the <t t-out="format_datetime(object.start_time, tz=object.worker_id.tz or 'Europe/Brussels', dt_format='dd.MM.yyyy')"/>
     for the shift starting at <t t-out="format_datetime(object.start_time, tz=object.worker_id.tz or 'Europe/Brussels',dt_format='HH:mm')"/>.
 
-    <br/><br/>Please contact us at <t t-out="object.worker_id.company_id.email"/> if you have any trouble attending the shift.
+    <br/><br/>Please contact us at <t t-out="object.create_uid.company_id.email"/> if you have any trouble attending the shift.
     </p>
     <br/>
     <p>Sustainably yours,</p>
-    <p><t t-out="object.worker_id.company_id.name"/>.</p>
+    <p><t t-out="object.create_uid.company_id.name"/>.</p>
 
-    <t t-if="object.worker_id.company_id.street">
-        <t t-out="object.worker_id.company_id.street" />
+    <t t-if="object.create_uid.company_id.street">
+        <t t-out="object.create_uid.company_id.street" />
     </t>
-    <t t-if="object.worker_id.company_id.street2">
-        <t t-out="object.worker_id.company_id.street2"/><br/>
+    <t t-if="object.create_uid.company_id.street2">
+        <t t-out="object.create_uid.company_id.street2"/><br/>
     </t>
-    <t t-if="object.worker_id.company_id.city or object.worker_id.company_id.zip">
-        <t t-out="object.worker_id.company_id.zip"/> <t t-out="object.worker_id.company_id.city"/><br/>
+    <t t-if="object.create_uid.company_id.city or object.create_uid.company_id.zip">
+        <t t-out="object.create_uid.company_id.zip"/> <t t-out="object.create_uid.company_id.city"/><br/>
     </t>
-    <t t-if="object.worker_id.company_id.country_id">
-        <t t-out="object.worker_id.company_id.state_id and ('%s, ' % object.worker_id.company_id.state_id.name) or ''"/> <t t-out="object.worker_id.company_id.country_id.name or ''"/><br/>
+    <t t-if="object.create_uid.company_id.country_id">
+        <t t-out="object.create_uid.company_id.state_id and ('%s, ' % object.create_uid.company_id.state_id.name) or ''"/> <t t-out="object.create_uid.company_id.country_id.name or ''"/><br/>
     </t>
-    <t t-if="object.worker_id.company_id.phone">
-        Phone:&nbsp; <t t-out="object.worker_id.company_id.phone"/>
+    <t t-if="object.create_uid.company_id.phone">
+        Phone:&nbsp; <t t-out="object.create_uid.company_id.phone"/>
     </t>
 
-    <t t-if="object.worker_id.company_id.website">
+    <t t-if="object.create_uid.company_id.website">
         <div>
-            Web :&nbsp;<a href="<t t-out="object.worker_id.company_id.website"/>"><t t-out="object.worker_id.company_id.website"/></a>
+            Web: <a t-att-href="'%s' % object.create_uid.company_id.website"><t t-esc="object.create_uid.company_id.website"/></a>
         </div>
     </t>
-    <t t-if="object.worker_id.company_id.logo">
+    <t t-if="object.create_uid.company_id.logo">
     <div>
-        <img src=<t t-out="object.worker_id.company_id.logo"/>>
+        <img src="/web/binary/company_logo" style="vertical-align:baseline;max-width:100px;" />
     </div>
     </t>
 </div>
