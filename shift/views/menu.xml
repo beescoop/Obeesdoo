@@ -120,4 +120,20 @@
         action="action_type"
     />
 
+    <record model="ir.actions.act_window" id="action_shift_settings">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'shift'}</field>
+    </record>
+
+    <menuitem
+        name="Shift Settings"
+        id="menu_shift_settings"
+        parent="shift.menu_configuration_top"
+        action="action_shift_settings"
+        groups="shift.group_cooperative_admin"
+    />
 </odoo>
