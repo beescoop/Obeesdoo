@@ -1,0 +1,14 @@
+<odoo>
+
+    <record model="ir.ui.view" id="super_coop_partner_inherited_view_form">
+        <field name="name">Partner Super Coop</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="shift.super_coop_partner_inherited_view_form" />
+        <field name="arch" type="xml">
+            <field name="category_id" position="after">
+                <field name="is_structure" />
+            </field>
+        </field>
+    </record>
+
+</odoo>

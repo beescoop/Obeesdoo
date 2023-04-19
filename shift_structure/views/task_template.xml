@@ -1,0 +1,14 @@
+<odoo>
+   
+    <record model="ir.ui.view" id="task_template_view_form">
+        <field name="name">Task Template Form</field>
+        <field name="model">shift.template</field>
+        <field name="inherit_id" ref="shift.task_template_view_form" />
+        <field name="arch" type="xml">
+            <field name="super_coop_id" position="after">
+                <field name="structure"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
