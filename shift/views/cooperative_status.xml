@@ -69,7 +69,7 @@
                     />
                 </header>
             </xpath>
-            <xpath expr="//field[@name='type']" position="before">
+            <xpath expr="//field[@name='vat']" position="before">
                 <field name="is_worker" />
                 <field name="can_shop" />
             </xpath>
@@ -85,7 +85,7 @@
                             <field name="info_session" />
                             <field
                                 name="info_session_date"
-                                attrs="{'invisible': ['|', ('info_session', '=', False)]}"
+                                attrs="{'invisible': [('info_session', '=', False)]}"
                             />
                             <field
                                 name="extension_start_time"

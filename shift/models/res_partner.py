@@ -36,7 +36,7 @@ class ResPartner(models.Model):
     )
     info_session = fields.Boolean(
         related="cooperative_status_ids.info_session",
-        string="Information Session ?",
+        string="Information Session?",
         readonly=True,
         store=True,
     )
