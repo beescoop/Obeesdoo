@@ -3,11 +3,25 @@
      Copyright 2017-2018 Rémy Taymans <remytaymans@gmail.com>
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
-<odoo>
-    <data noupdate="1">
-        <record id="next_shifts_display_number" model="ir.config_parameter">
-            <field name="key">shift_portal.next_shifts_display_number</field>
-            <field name="value">5</field>
-        </record>
-    </data>
+<odoo noupdate="1">
+    <record id="next_shifts_display_number" model="ir.config_parameter">
+        <field name="key">shift_portal.next_shifts_display_number</field>
+        <field name="value">5</field>
+    </record>
+        <record id="param_min_percentage_presence" model="ir.config_parameter">
+    <field name="key">shift.min_percentage_presence</field>
+    <field name="value">20</field>
+    </record>
+    <record id="param_min_hours_to_unsubscribe" model="ir.config_parameter">
+        <field name="key">shift.min_hours_to_unsubscribe</field>
+        <field name="value">2</field>
+    </record>
+    <record id="param_max_shift_per_day" model="ir.config_parameter">
+        <field name="key">shift.max_shift_per_day</field>
+        <field name="value">2</field>
+    </record>
+    <record id="param_max_shift_per_month" model="ir.config_parameter">
+        <field name="key">shift.max_shift_per_month</field>
+        <field name="value">5</field>
+    </record>
 </odoo>
