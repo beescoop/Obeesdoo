@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="available_shift_irregular_worker_card"
+        inherit_id="shift_portal.available_shift_irregular_worker_card"
+    >
+        <xpath expr="//div[@t-out='shift.task_type_id.name']" position="after">
+            <t t-out="displayed_shift.shift.structure.name" />
+        </xpath>                 
+    </template>
+
+
+    <template
+        id="public_shift_template_regular_worker_card"
+        inherit_id="shift_portal.public_shift_template_regular_worker_card"
+    >
+        <xpath expr="//div[hasclass('card-body')]" position="inside">
+        <t t-if="template.structure">
+            - <t t-out="template.structure.name" />
+        </t>
+        </xpath>
+    </template>
+
+</odoo>

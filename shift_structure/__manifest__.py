@@ -21,6 +21,7 @@
         "views/task.xml",
         "views/task_template.xml",
         "views/res_partner.xml",
+        "views/shift_website_templates.xml",
     ],
     "demo": [],
     "qweb": [],
