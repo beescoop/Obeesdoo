@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
      Copyright 2017-2020 Rémy Taymans <remytaymans@gmail.com>
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
@@ -44,6 +44,61 @@
 
 
     <!-- Public Available Tasks Templates for Regular Workers -->
+
+
+    <template
+        id="public_shift_template_regular_worker_card"
+        name="public_shift_template_regular_worker_card"
+    >
+        <t t-set="template" t-value="template_data[0]" />
+        <t
+            t-set="has_enough_workers"
+            t-value="template_data[1]"
+        />
+        <t
+            t-set="highlight_header_class"
+            t-value="'bg-warning' if not has_enough_workers else ''"
+        />
+        <t
+            t-set="highlight_class"
+            t-value="'border-warning' if not has_enough_workers else ''"
+        />
+        <div t-att-class="'card mt-4 %s' % highlight_class">
+            <div
+                t-att-class="'card-header %s clearfix' % highlight_header_class"
+            >
+                <div class="float-start">
+                    <t t-out="template.planning_id.name" /> : <t t-out="template.day_nb_id.name" />
+                                            <t
+                        t-out='float_to_time(template.start_time)'
+                    /> - <t
+                        t-out='float_to_time(template.end_time)'
+                    />
+                </div>
+                <div
+                    class="badge bg-secondary float-end"
+                    t-if="template.remaining_worker > 0"
+                >
+                    <t t-out="template.remaining_worker" /> space(s) </div>
+                <div
+                    class="badge bg-secondary float-end"
+                    t-if="template.remaining_worker == 0"
+                >
+                    full
+                </div>
+            </div>
+            <div class="card-body clearfix">
+                <t t-out="template.task_type_id.name" />
+                <div
+                    class="badge bg-warning float-end"
+                    t-if="not template.super_coop_id"
+                >
+                    Need Super Co-operator
+                </div>
+            </div>
+        </div>
+    </template>
+
     <template
         id="public_shift_template_regular_worker"
         name="Available Tasks Templates for Regular Workers"
@@ -76,59 +131,14 @@
                         <div class="col-12 col-lg-6">
 
                             <t t-foreach="task_tpls_data" t-as="template_data">
-                                <t t-set="template" t-value="template_data[0]" />
                                 <t
-                                    t-set="has_enough_workers"
-                                    t-value="template_data[1]"
-                                />
-                                <t
-                                    t-set="highlight_header_class"
-                                    t-value="'bg-warning' if not has_enough_workers else ''"
-                                />
-                                <t
-                                    t-set="highlight_class"
-                                    t-value="'border-warning' if not has_enough_workers else ''"
-                                />
-                                <div t-att-class="'card mt-4 %s' % highlight_class">
-                                    <div
-                                        t-att-class="'card-header %s clearfix' % highlight_header_class"
-                                    >
-                                        <div class="float-start">
-                                            <t t-out="template.planning_id.name" />
-                                            :
-                                            <t t-out="template.day_nb_id.name" />
-                                            <t
-                                                t-out='float_to_time(template.start_time)'
-                                            />
-                                            -
-                                            <t
-                                                t-out='float_to_time(template.end_time)'
-                                            />
-                                        </div>
-                                        <div
-                                            class="badge bg-secondary float-end"
-                                            t-if="template.remaining_worker > 0"
-                                        >
-                                            <t t-out="template.remaining_worker" />
-                                            space(s)
-                                        </div>
-                                        <div
-                                            class="badge bg-secondary float-end"
-                                            t-if="template.remaining_worker == 0"
-                                        >
-                                            full
-                                        </div>
-                                    </div>
-                                    <div class="card-body clearfix">
-                                        <t t-out="template.task_type_id.name" />
-                                        <div
-                                            class="badge bg-warning float-end"
-                                            t-if="not template.super_coop_id"
-                                        >
-                                            Need Super Co-operator
-                                        </div>
-                                    </div>
-                                </div>
+                                    t-call="shift_portal.public_shift_template_regular_worker_card"
+                                >
+                                    <t
+                                        t-set="template_data"
+                                        t-value="template_data"
+                                    />
+                                </t>
                             </t>
 
                         </div>
