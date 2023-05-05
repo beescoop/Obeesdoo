@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
      Copyright 2017-2020 Rémy Taymans <remytaymans@gmail.com>
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
@@ -51,10 +51,7 @@
         name="public_shift_template_regular_worker_card"
     >
         <t t-set="template" t-value="template_data[0]" />
-        <t
-            t-set="has_enough_workers"
-            t-value="template_data[1]"
-        />
+        <t t-set="has_enough_workers" t-value="template_data[1]" />
         <t
             t-set="highlight_header_class"
             t-value="'bg-warning' if not has_enough_workers else ''"
@@ -64,16 +61,14 @@
             t-value="'border-warning' if not has_enough_workers else ''"
         />
         <div t-att-class="'card mt-4 %s' % highlight_class">
-            <div
-                t-att-class="'card-header %s clearfix' % highlight_header_class"
-            >
+            <div t-att-class="'card-header %s clearfix' % highlight_header_class">
                 <div class="float-start">
-                    <t t-out="template.planning_id.name" /> : <t t-out="template.day_nb_id.name" />
+                    <t t-out="template.planning_id.name" /> : <t
+                        t-out="template.day_nb_id.name"
+                    />
                                             <t
                         t-out='float_to_time(template.start_time)'
-                    /> - <t
-                        t-out='float_to_time(template.end_time)'
-                    />
+                    /> - <t t-out='float_to_time(template.end_time)' />
                 </div>
                 <div
                     class="badge bg-secondary float-end"
@@ -134,10 +129,7 @@
                                 <t
                                     t-call="shift_portal.public_shift_template_regular_worker_card"
                                 >
-                                    <t
-                                        t-set="template_data"
-                                        t-value="template_data"
-                                    />
+                                    <t t-set="template_data" t-value="template_data" />
                                 </t>
                             </t>
 
