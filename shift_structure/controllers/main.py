@@ -16,9 +16,10 @@ class WebsiteShiftController(WebsiteShiftController):
 
     def get_selected_structure(self):
         structure_model = request.env["res.partner"]
-        structure_id = request.session["structure"]
-        if structure_id: # if a structure is selected
-            return structure_model.browse(int(structure_id))
+        if "structure" in request.session: # a filter has been applied
+            structure_id = request.session["structure"]
+            if structure_id: # the filter is not empty
+                return structure_model.browse(int(structure_id))
         return structure_model
                 
     def available_shift_irregular_worker(
