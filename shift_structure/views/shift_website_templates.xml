@@ -5,7 +5,9 @@
         inherit_id="shift_portal.available_shift_irregular_worker_card"
     >
         <xpath expr="//div[@t-out='shift.task_type_id.name']" position="after">
-            <t t-out="displayed_shift.shift.structure.name" />
+            <small>
+                <t t-out="displayed_shift.shift.structure.name" />
+            </small>
         </xpath>
     </template>
 
@@ -17,23 +19,23 @@
         <xpath expr="//t[@t-call='shift_portal.available_shift_irregular_worker_grid']"
             position="before">
             <form action="/shift_irregular_worker" method="post">
-                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
                 <div class="row">
                     <div
                         class="form-group field-structure mb-1"
                         name="select_structure_container"
                     >
-                        <label for="structure">Structure</label>
+                        <label for="structure">Filter by structure: </label>
                         <select name="structure">
-                            <option value=""></option>
+                            <option value="">No filter</option>
                             <t t-foreach="structure_list" t-as="structure">
-                                <option t-att-value="structure.id" 
-                                t-att-selected="structure.id == selected_structure.id">
+                                <option t-att-value="structure.id"
+                                    t-att-selected="structure.id == selected_structure.id">
                                     <t t-esc="structure.name" />
                                 </option>
                             </t>
                         </select>
-                        <button type="submit" class="btn btn-primary btn-sm">Filter</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Apply</button>
                     </div>
                 </div>
             </form>
@@ -46,8 +48,12 @@
         id="public_shift_template_regular_worker_card"
         inherit_id="shift_portal.public_shift_template_regular_worker_card"
     >
-        <xpath expr="//div[hasclass('card-body')]" position="inside">
-            <t t-if="template.structure"> - <t t-out="template.structure.name" />
+        <xpath expr="//div[hasclass('float-start')]" position="inside">
+            <t t-if="template.structure">
+                <div>
+                    <small>Structure: <t t-out="template.structure.name" />
+                    </small>
+                </div>
             </t>
         </xpath>
     </template>
