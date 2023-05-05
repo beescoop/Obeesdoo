@@ -6,7 +6,8 @@
         <field name="inherit_id" ref="shift.task_template_view_form" />
         <field name="arch" type="xml">
             <field name="super_coop_id" position="after">
-                <field name="structure"/>
+                <!-- no create to prevent creating a structure that has is_structure unchecked -->
+                <field name="structure" options="{'no_create': True}"/>
             </field>
         </field>
     </record>
