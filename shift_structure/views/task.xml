@@ -14,6 +14,7 @@
     <record model="ir.ui.view" id="task_shift_view_kanban">
         <field name="name">Shift Kanban</field>
         <field name="model">shift.shift</field>
+        <field name="inherit_id" ref="shift.task_shift_view_kanban" />
         <field name="arch" type="xml">
             <xpath expr="//t[@t-name='kanban-box']//field[@name='super_coop_id']/.."
                 position="after">
