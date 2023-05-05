@@ -383,6 +383,10 @@ class WebsiteShiftController(http.Controller):
         """
         return self.my_shift_worker_status()
 
+    def compute_display_shift(self, free_space, task_template):
+        hide_rule = request.website.hide_rule / 100.0
+        return free_space >= task_template.worker_nb * hide_rule
+
     def available_shift_irregular_worker(
         self, irregular_enable_sign_up=False, nexturl=""
     ):
@@ -422,7 +426,6 @@ class WebsiteShiftController(http.Controller):
 
         # Get config
         highlight_rule_pc = request.website.highlight_rule_pc
-        hide_rule = request.website.hide_rule / 100.0
 
         groupby_iter = groupby(
             shifts,
@@ -449,7 +452,7 @@ class WebsiteShiftController(http.Controller):
             has_enough_workers = (
                 free_space <= (task_template.worker_nb * highlight_rule_pc) / 100
             )
-            if free_space >= task_template.worker_nb * hide_rule:
+            if self.compute_display_shift(free_space, task_template):
                 displayed_shifts.append(
                     DisplayedShift(
                         shift_list[0],
