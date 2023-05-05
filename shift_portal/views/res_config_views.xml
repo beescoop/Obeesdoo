@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
      Copyright 2017-2018 Rémy Taymans <remytaymans@gmail.com>
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
@@ -11,8 +11,10 @@
         <!-- priority 21 to put it after website (priority 20) -->
         <field name="priority" eval="21 " />
         <field name="arch" type="xml">
-            <xpath expr="//div[@id='shift_settings_block']//div[hasclass('o_settings_container')]"
-                position="inside">
+            <xpath
+                expr="//div[@id='shift_settings_block']//div[hasclass('o_settings_container')]"
+                position="inside"
+            >
                 <div class="col-12 col-lg-6 o_setting_box">
                     <div class="o_setting_right_pane">
                         <span class="o_form_label">
@@ -116,10 +118,10 @@
                         <div class="o_setting_right_pane">
                             <label for="next_shifts_display_number" />
                             <span
-                                class="fa fa-lg fa-globe"
-                                title="Values set here are website-specific."
-                                groups="website.group_multi_website"
-                            />
+                            class="fa fa-lg fa-globe"
+                            title="Values set here are website-specific."
+                            groups="website.group_multi_website"
+                        />
                             <div class="mt8">
                                 <field name="next_shifts_display_number" />
                             </div>

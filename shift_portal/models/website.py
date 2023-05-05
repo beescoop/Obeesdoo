@@ -15,7 +15,6 @@ class Website(models.Model):
         "highlight of the shift",
     )
     hide_rule = fields.Integer(
-        string="Hide Rule",
         default=20,
         help="Threshold ((available space)/(max space)) in percentage of "
         "available space under which the shift is hidden",
