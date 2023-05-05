@@ -6,7 +6,7 @@
     >
         <xpath expr="//div[@t-out='shift.task_type_id.name']" position="after">
             <small>
-                <t t-out="displayed_shift.shift.structure.name" />
+                <t t-out="displayed_shift.shift.task_template_id.structure.name" />
             </small>
         </xpath>
     </template>
