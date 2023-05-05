@@ -9,7 +9,9 @@
         >Your next shift ({{ format_datetime(object.start_time, tz=object.worker_id.tz or 'Europe/Brussels', dt_format='dd.MM.yyyy HH:mm') }})
             </field>
             <field name="email_from">{{ object.create_uid.company_id.email }}</field>
-            <field name="email_to">{{ object.replaced_id.email_formatted or object.worker_id.email_formatted }}</field>
+            <field
+            name="email_to"
+        >{{ object.replaced_id.email_formatted or object.worker_id.email_formatted }}</field>
             <field name="model_id" ref="model_shift_shift" />
             <field name="auto_delete" eval="True" />
             <field name="lang">{{ object.worker_id.lang }}</field>
