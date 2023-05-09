@@ -99,6 +99,15 @@ class ShiftPlanning(models.Model):
 
         planning = self._get_next_planning(last_seq)
         planning = planning.with_context(visualize_date=date)
+        # The field task_template_ids.start_date is missing when running
+        # _generate_next_planning for the first time
+        # so it is fetched by get, and then computed with _compute_fake_date,
+        # which uses the visualize_date value in context.
+        # In odoo 16, the cache behavior changes, now when the value
+        # has been computed, it is stored in cache and not computed again.
+        # This is why we need to empty the cache to force _compute_fake_date to
+        # run at each iteration.
+        planning.task_template_ids.invalidate_recordset()
 
         if not planning.task_template_ids:
             _logger.error("Could not generate next planning: no task template defined.")
