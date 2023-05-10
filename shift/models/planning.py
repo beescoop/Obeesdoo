@@ -246,6 +246,7 @@ class ShiftTemplate(models.Model):
         return day_utc_time.replace(tzinfo=None)
 
     @api.depends("start_time", "end_time")
+    @api.depends_context("visualize_date")
     def _compute_fake_date(self):
         today = self._context.get("visualize_date", get_first_day_of_week())
         for rec in self:
