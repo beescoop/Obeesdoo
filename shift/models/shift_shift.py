@@ -30,8 +30,8 @@ class ShiftShift(models.Model):
     def _get_color_mapping(self, state):
         return {
             "draft": 0,
-            "open": 1,
-            "done": 5,
+            "open": 0,
+            "done": 10,
             "absent": 2,
             "excused": 3,
             "cancel": 9,
