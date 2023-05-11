@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <field name="super_coop_id" position="after">
                 <!-- no create to prevent creating a structure that has is_structure unchecked -->
-                <field name="structure" options="{'no_create': True}" />
+                <field name="template_structure" options="{'no_create': True}" />
             </field>
         </field>
     </record>
@@ -17,9 +17,13 @@
         <field name="model">shift.shift</field>
         <field name="inherit_id" ref="shift.task_shift_view_kanban" />
         <field name="arch" type="xml">
-            <xpath expr="//t[@t-name='kanban-box']//field[@name='super_coop_id']/.."
-                position="after">
-                <div t-if="record.structure.raw_value"> Structure: <field name="structure" />
+            <xpath
+                expr="//t[@t-name='kanban-box']//field[@name='super_coop_id']/.."
+                position="after"
+            >
+                <div t-if="record.template_structure.raw_value"> Structure: <field
+                        name="template_structure"
+                    />
                 </div>
             </xpath>
         </field>

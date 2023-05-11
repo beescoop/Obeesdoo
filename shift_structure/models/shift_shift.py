@@ -1,12 +1,11 @@
-
 from odoo import fields, models
+
 
 class ShiftShift(models.Model):
     _inherit = "shift.shift"
 
-    structure = fields.Many2one(
+    template_structure = fields.Many2one(
         "res.partner",
-        domain=[
-            ("is_structure", "=", True),
-        ],
+        related="task_template_id.structure",
+        store=True,
     )
