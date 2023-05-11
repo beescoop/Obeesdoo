@@ -3,12 +3,12 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 {
-    "name": "Shift Structure",
+    "name": "Shift Beneficiary",
     "summary": """
-        Add a 'structure' field on shifts""",
+        Add a 'beneficiary' field on shifts""",
     "version": "16.0.1.0.0",
     "category": "Cooperative management",
-    "website": "https://coopiteasy.be",
+    "website": "https://github.com/beescoop/Obeesdoo",
     "author": "Coop IT Easy SC",
     "maintainers": ["victor-champonnois"],
     "license": "AGPL-3",

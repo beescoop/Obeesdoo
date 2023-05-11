@@ -6,8 +6,8 @@
         <field name="inherit_id" ref="shift.task_view_form" />
         <field name="arch" type="xml">
             <field name="super_coop_id" position="after">
-                <!-- no create to prevent creating a structure that has is_structure unchecked -->
-                <field name="template_structure" options="{'no_create': True}" />
+                <!-- no create to prevent creating a beneficiary that has is_beneficiary unchecked -->
+                <field name="template_beneficiary" options="{'no_create': True}" />
             </field>
         </field>
     </record>
@@ -21,8 +21,8 @@
                 expr="//t[@t-name='kanban-box']//field[@name='super_coop_id']/.."
                 position="after"
             >
-                <div t-if="record.template_structure.raw_value"> Structure: <field
-                        name="template_structure"
+                <div t-if="record.template_beneficiary.raw_value"> Beneficiary: <field
+                        name="template_beneficiary"
                     />
                 </div>
             </xpath>
