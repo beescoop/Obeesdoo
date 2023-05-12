@@ -1,6 +1,5 @@
 git+https://github.com/coopiteasy/addons@12.0#subdirectory=setup/company_supplier_context
 git+https://github.com/coopiteasy/addons@12.0#subdirectory=setup/email_template_config
-git+https://github.com/coopiteasy/addons@12.0#subdirectory=setup/partner_contact_address
 git+https://github.com/coopiteasy/addons@12.0#subdirectory=setup/account_bank_statement_import_crelan
 
 git+https://github.com/coopiteasy/cie-pos@12.0#subdirectory=setup/pos_available_in_pos_unlink
