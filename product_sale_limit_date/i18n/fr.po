@@ -1,0 +1,29 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_sale_limit_date
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0"
+"Report-Msgid-Bugs-To: "
+"POT-Creation-Date: 2023-02-06 14:45+0000"
+"PO-Revision-Date: 2023-02-06 15:58+0100"
+"Last-Translator: <>"
+"Language-Team: "
+"Language: fr"
+"MIME-Version: 1.0"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit"
+"Plural-Forms: "
+"X-Generator: Poedit 3.2.2"
+
+#. module: product_sale_limit_date
+#: model:ir.model.fields,field_description:product_sale_limit_date.field_product_product__deadline_for_sale
+#: model:ir.model.fields,field_description:product_sale_limit_date.field_product_template__deadline_for_sale
+msgid "Deadline for sale (days)"
+msgstr "Durée limite de vente (jours)"
+
+#. module: product_sale_limit_date
+#: model:ir.model,name:product_sale_limit_date.model_product_template
+msgid "Product Template"
+msgstr "Modèle d'article"
