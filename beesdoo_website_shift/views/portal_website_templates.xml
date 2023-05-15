@@ -8,19 +8,17 @@
         <xpath expr="//select[@name='state_id']/.." position="after">
             <t t-if='super'>
                 <div
-                    class="form-check"
-                    t-attf-class="form-group #{error.get('share_supercoop_info') and 'o_has_error' or ''} col-xl-6"
+                    t-attf-class="form-check #{error.get('share_supercoop_info') and 'o_has_error' or ''} col-xl-6"
                 >
                     <input
                         type="checkbox"
                         name="share_supercoop_info"
-                        class="form-check-input"
                         t-att-checked="share_supercoop_info"
-                        t-attf-class="#{error.get('share_supercoop_info') and 'is-invalid' or ''}"
+                        t-attf-class="form-check-input position-relative ml-0 mr-1 #{error.get('share_supercoop_info') and 'is-invalid' or ''}"
                     >
                     </input>
                     <label
-                        class="col-form-label"
+                        class="form-check-label"
                         for="share_supercoop_info"
                     >Accept to share my info
                         as Supercoop</label>
