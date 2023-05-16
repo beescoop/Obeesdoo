@@ -191,8 +191,11 @@ class CooperativeStatus(models.Model):
 
     @api.constrains("working_mode", "irregular_start_date")
     def _constrains_irregular_start_date(self):
-        if self.working_mode == "irregular" and not self.irregular_start_date:
-            raise UserError(_("Irregular workers must have an irregular start date."))
+        for status in self:
+            if status.working_mode == "irregular" and not status.irregular_start_date:
+                raise UserError(
+                    _("Irregular workers must have an irregular start date.")
+                )
 
     def _get_watched_fields(self):
         """
