@@ -13,12 +13,11 @@ class WebsiteShiftController(WebsiteShiftController):
         return res
 
     def get_selected_beneficiary(self):
-        beneficiary_model = request.env["res.partner"]
-        if "beneficiary" in request.session:  # a filter has been applied
-            beneficiary_id = request.session["beneficiary"]
-            if beneficiary_id:  # the filter is not empty
-                return beneficiary_model.browse(int(beneficiary_id))
-        return beneficiary_model
+        try:
+            beneficiary_id = int(request.session.get("beneficiary", 0))
+        except ValueError:
+            beneficiary_id = 0
+        return request.env["res.partner"].browse(beneficiary_id).exists()
 
     def available_shift_irregular_worker(
         self,
