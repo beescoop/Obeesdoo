@@ -19,12 +19,12 @@
                 <p>
                     You have purchased a total amount of
                     <span
-                        t-esc="posorder_amount"
+                        t-esc="pos_order_amount"
                         t-esc-options='{"widget": "monetary", "display_currency": "company_currency"}'
                     />
                     .
                 </p>
-                <table name="posorder_amount_by_year" class="table table-striped">
+                <table name="pos_order_amount_by_year" class="table table-striped">
                     <tr>
                         <th>
                             Year
@@ -33,7 +33,7 @@
                             Amount
                         </th>
                     </tr>
-                    <tr t-foreach="posorder_amount_by_year" t-as="row">
+                    <tr t-foreach="pos_order_amount_by_year" t-as="row">
                         <td>
                             <t t-esc="row['year']" />
                         </td>
