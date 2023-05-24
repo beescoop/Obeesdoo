@@ -44,7 +44,7 @@ addon | version | maintainers | summary
 [beesdoo_stock](beesdoo_stock/) | 12.0.2.0.0 |  | Emptied
 [beesdoo_stock_coverage](beesdoo_stock_coverage/) | 12.0.2.0.0 |  | Emptied
 [beesdoo_website_eater](beesdoo_website_eater/) | 12.0.2.0.1 |  | Emptied.
-[beesdoo_website_posorder_amount](beesdoo_website_posorder_amount/) | 12.0.1.0.0 |  | Show the total amount of pos order in the website portal.
+[beesdoo_website_posorder_amount](beesdoo_website_posorder_amount/) | 12.0.1.0.0 |  | Emptied.
 [beesdoo_website_shift](beesdoo_website_shift/) | 12.0.2.2.0 |  | Show available shifts for regular and irregular workers on the website and let workers manage their shifts with an easy web interface.
 [beesdoo_website_shift_swap](beesdoo_website_shift_swap/) | 12.0.2.1.0 |  | Add shift exchanges and solidarity shifts offers and requests.
 [beesdoo_website_theme](beesdoo_website_theme/) | 12.0.0.0.1 |  | Apply BEES coop design rules.
@@ -61,6 +61,7 @@ addon | version | maintainers | summary
 [member_card](member_card/) | 12.0.1.0.1 |  | Create a member card and link it to a partner.
 [polln_shift](polln_shift/) | 12.0.2.0.1 |  | Module with basic customizations for the Polln cooperative.
 [portal_eater](portal_eater/) | 12.0.2.0.1 |  | Show the eaters of a cooperator in the website portal.
+[portal_pos_order_amount](portal_pos_order_amount/) | 12.0.1.0.0 |  | Show the total amount of pos order in the website portal.
 [pos_auto_invoice_company](pos_auto_invoice_company/) | 12.0.3.0.0 |  | Applies to_invoice to company partners.
 [pos_eater](pos_eater/) | 12.0.2.0.0 |  | This module adds the eaters of the customer to the POS ActionpadWidget.
 [pos_shift_partner_can_shop](pos_shift_partner_can_shop/) | 12.0.2.0.2 |  | Display in the POS whether the partner can shop or not.
