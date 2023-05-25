@@ -1,5 +1,4 @@
-# Copyright 2020 Coop IT Easy SCRL fs
-#   Elouan Le Bars <elouan@coopiteasy.be>
+# Copyright 2020-2023 Coop IT Easy SC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 
