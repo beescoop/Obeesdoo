@@ -1,0 +1,247 @@
+<odoo>
+    <record model="ir.ui.view" id="task_template_view_tree">
+        <field name="name">Shift Template List</field>
+        <field name="model">shift.template</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="planning_id" />
+                <field name="task_type_id" />
+                <field name="day_nb_id" />
+                <field name="name" />
+                <field name="super_coop_id" />
+                <field name="start_time" widget="float_time" />
+                <field name="end_time" widget="float_time" />
+                <field name="duration" widget="float_time" />
+                <field name="worker_nb" />
+                <field name="remaining_worker" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="task_template_view_search">
+        <field name="name">Shift Template Search</field>
+        <field name="model">shift.template</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="planning_id" />
+                <field name="task_type_id" />
+                <field name="super_coop_id" />
+                <field name="day_nb_id" />
+                <field name="worker_ids" />
+                <filter
+                    string="My Team Shift"
+                    name="my_team_shift"
+                    domain="[('super_coop_id', '=', uid)]"
+                />
+                <filter
+                    string="Planning"
+                    name="planning"
+                    context="{'group_by':'planning_id'}"
+                />
+                <filter
+                    string="Week Day"
+                    name="week_day"
+                    context="{'group_by':'day_nb_id'}"
+                />
+                <filter
+                    string="Place Available"
+                    name="available"
+                    domain="[('remaining_worker', '>', 0)]"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="task_template_view_form">
+        <field name="name">Task Template Form</field>
+        <field name="model">shift.template</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="day_nb_id" />
+                            <field name="planning_id" />
+                            <field name="task_type_id" />
+                            <field name="worker_nb" />
+                            <field name="remaining_worker" />
+                            <field name="active" />
+                        </group>
+                        <group>
+                            <field name="start_time" widget="float_time" />
+                            <field name="duration" widget="float_time" />
+                            <field name="end_time" widget="float_time" />
+                            <field name="super_coop_id" />
+                        </group>
+                    </group>
+                    <separator string="Recurring Workers" />
+                    <field name="worker_ids" nolabel="1" />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="task_template_view_calendar">
+        <field name="name">Shift Template Calendar</field>
+        <field name="model">shift.template</field>
+        <field name="arch" type="xml">
+            <calendar
+                string="Calendar View"
+                date_start="start_date"
+                date_stop="end_date"
+                color="task_type_id"
+            >
+                <field name="name" />
+                <field name="super_coop_id" />
+                <field name="worker_ids" />
+            </calendar>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="task_template_view_kanban">
+        <field name="name">Task Template Kanban</field>
+        <field name="model">shift.template</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="planning_id" />
+                <field name="color" />
+                <field name="task_type_id" />
+                <field name="name" />
+                <field name="day_nb_id" />
+                <field name="worker_nb" />
+                <field name="worker_ids" />
+                <field name="worker_name" />
+                <field name="super_coop_id" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div
+                            t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click"
+                        >
+                            <t t-if="widget.editable">
+                                <div
+                                    class="o_dropdown_kanban dropdown"
+                                    name="card_dropdown_menu"
+                                >
+                                    <a
+                                        class="dropdown-toggle o-no-caret btn"
+                                        role="button"
+                                        data-toggle="dropdown"
+                                        data-display="static"
+                                        href="#"
+                                        aria-label="Dropdown menu"
+                                        title="Dropdown menu"
+                                    >
+                                        <span class="fa fa-ellipsis-v" />
+                                    </a>
+                                    <div class="dropdown-menu" role="menu">
+                                        <t t-if="widget.editable">
+                                            <a
+                                                role="menuitem"
+                                                type="edit"
+                                                class="dropdown-item"
+                                            >Edit Shift
+                                                Template
+                                            </a>
+                                        </t>
+                                        <t t-if="widget.deletable">
+                                            <a
+                                                role="menuitem"
+                                                type="delete"
+                                                class="dropdown-item"
+                                            >Delete
+                                            </a>
+                                        </t>
+                                        <ul
+                                            role="menu"
+                                            class="oe_kanban_colorpicker"
+                                            data-field="color"
+                                        />
+                                    </div>
+                                </div>
+                            </t>
+                            <div class="oe_kanban_content">
+                                <strong>
+                                    <field name="name" />
+                                </strong>
+                                <div>
+                                    <field name="planning_id" />
+                                </div>
+                                <div t-if="record.task_type_id.raw_value">
+                                    Type:
+                                    <field name="task_type_id" />
+                                </div>
+                                <div t-if="record.super_coop_id.raw_value">
+                                    Super Coop:
+                                    <field name="super_coop_id" />
+                                </div>
+
+                                <div>
+                                    Worker Number:
+                                    <field name="worker_nb" />
+                                </div>
+                                <div>
+                                    <field name="start_time" widget="float_time" />
+                                    -
+                                    <field name="end_time" widget="float_time" />
+                                </div>
+                            </div>
+                            <div>
+                                <br />
+                                <strong>Recurring Workers</strong>
+                                <t
+                                    t-foreach="record.worker_name.raw_value.split(',')"
+                                    t-as="worker"
+                                >
+                                    <div>
+                                        <t t-out="worker" />
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_generate_shift_template_wizard">
+        <field name="name">Generate Shift Template</field>
+        <field name="res_model">shift.generate_shift_template</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record model="ir.ui.view" id="type_view_form">
+        <field name="name">Shift Type Form</field>
+        <field name="model">shift.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        type="action"
+                        name="%(action_generate_shift_template_wizard)d"
+                        string="Generate shift Templates"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                        </group>
+                        <group>
+                            <field name="active" />
+                        </group>
+                    </group>
+                    <separator string="Description" />
+                    <field name="description" />
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

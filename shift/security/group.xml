@@ -1,0 +1,26 @@
+<odoo>
+    <record id="group_shift_attendance" model="res.groups">
+        <field name="name">Shift and Worker Read Access</field>
+        <field name="category_id" ref="base.module_category_cooperative_management" />
+    </record>
+    <record id="group_shift_management" model="res.groups">
+        <field name="name">Shifts and Attendance Sheets Management</field>
+        <field name="category_id" ref="base.module_category_cooperative_management" />
+        <field name="implied_ids" eval="[(4, ref('group_shift_attendance'))]" />
+    </record>
+    <record id="group_planning_management" model="res.groups">
+        <field name="name">Planning Management</field>
+        <field name="category_id" ref="base.module_category_cooperative_management" />
+        <field name="implied_ids" eval="[(4, ref('group_shift_management'))]" />
+    </record>
+    <record id="group_cooperative_admin" model="res.groups">
+        <field name="name">Cooperative Admin</field>
+        <field name="category_id" ref="base.module_category_cooperative_management" />
+        <field name="implied_ids" eval="[(4, ref('group_planning_management'))]" />
+        <field
+            name="users"
+            eval="[(4, ref('base.user_root')),
+                          (4, ref('base.user_admin'))]"
+        />
+    </record>
+</odoo>

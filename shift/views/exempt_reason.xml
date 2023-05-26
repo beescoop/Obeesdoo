@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="exempt_reason_tree_view">
+        <field name="name">Exempt Reason Tree view</field>
+        <field name="model">cooperative.exempt.reason</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_exempt_reason">
+        <field name="name">Exempt Reason</field>
+        <field name="res_model">cooperative.exempt.reason</field>
+        <field name="view_mode">tree</field>
+    </record>
+</odoo>

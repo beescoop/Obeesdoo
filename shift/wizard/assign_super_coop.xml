@@ -1,0 +1,34 @@
+<odoo>
+    <record model="ir.ui.view" id="assign_super_coop_view_form">
+        <field name="name">Assign Super Coop</field>
+        <field name="model">shift.assign_super_coop</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="super_coop_id" />
+                    <field name="shift_ids" invisible="1" />
+                </group>
+                <footer>
+                    <button
+                        type="object"
+                        name="write_super_coop"
+                        string="Confirm"
+                        class="oe_highlight"
+                    />
+                    or
+                    <button special="cancel" string="Cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="act_assign_new_super_coop">
+        <field name="name">Change Super Coop</field>
+        <field name="res_model">shift.assign_super_coop</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="shift.model_shift_shift" />
+    </record>
+
+</odoo>
