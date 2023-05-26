@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     Copyright 2017-2018 Rémy Taymans <remytaymans@gmail.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="view_website_shift_config_irregular" model="ir.ui.view">
+        <field name="name">Website Shift Settings Irregular Worker</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="shift.res_config_settings_shift_view_form" />
+        <!-- lower priority to put it after website (priority 20) -->
+        <field name="priority" eval="30" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//div[@id='shift_settings_block']//div[hasclass('o_settings_container')]"
+                position="inside"
+            >
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_right_pane">
+                        <span class="o_form_label">
+                            Limit attendance percentage to define underpopulated shift
+                        </span>
+                        <div class="text-muted">
+                            Only shifts with a percentage of workers under this limit
+                            will be considered as underpopulated
+                        </div>
+                        <div class="content-group">
+                            <div class="mt16 row">
+                                <label
+                                    for="min_percentage_presence"
+                                    string="Percentage (%)"
+                                    class="col-3 col-lg-3 o_light_label"
+                                />
+                                <field
+                                    name="min_percentage_presence"
+                                    class="oe_inline"
+                                    required="1"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_right_pane">
+                        <span class="o_form_label">
+                            Minimum number of hours before a shift to unsubscribe
+                        </span>
+                        <div class="text-muted">
+                            Workers can unsubscribe from a shift only if the delay before
+                            the start is at least this number of hours
+                        </div>
+                        <div class="content-group">
+                            <div class="mt16 row">
+                                <label
+                                    for="min_hours_to_unsubscribe"
+                                    string="Hours"
+                                    class="col-3 col-lg-3 o_light_label"
+                                />
+                                <field
+                                    name="min_hours_to_unsubscribe"
+                                    class="oe_inline"
+                                    required="1"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_right_pane">
+                        <span class="o_form_label">
+                            Maximum number of shifts per day for one cooperator
+                        </span>
+                        <div class="text-muted">
+                            This limit is checked on each exchange or solidarity offer
+                        </div>
+                        <div class="content-group">
+                            <div class="mt16 row">
+                                <label
+                                    for="max_shift_per_day"
+                                    string="Value"
+                                    class="col-3 col-lg-3 o_light_label"
+                                />
+                                <field
+                                    name="max_shift_per_day"
+                                    class="oe_inline"
+                                    required="1"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_right_pane">
+                        <span class="o_form_label">
+                            Maximum number of shifts per month for one cooperator
+                        </span>
+                        <div class="text-muted">
+                            This limit is checked on each exchange or solidarity offer
+                        </div>
+                        <div class="content-group">
+                            <div class="mt16 row">
+                                <label
+                                    for="max_shift_per_month"
+                                    string="Value"
+                                    class="col-3 col-lg-3 o_light_label"
+                                />
+                                <field
+                                    name="max_shift_per_month"
+                                    class="oe_inline"
+                                    required="1"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                    <div class="col-12 col-md-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="next_shifts_display_number" />
+                            <span
+                            class="fa fa-lg fa-globe"
+                            title="Values set here are website-specific."
+                            groups="website.group_multi_website"
+                        />
+                            <div class="mt8">
+                                <field name="next_shifts_display_number" />
+                            </div>
+                        </div>
+                    </div>
+            </xpath>
+            <xpath expr="//div[@id='shift_settings_block']" position="inside">
+                <h2>Shift: Irregular Worker</h2>
+                <div
+                    class="row mt16 o_settings_container"
+                    id="shift_irregular_settings"
+                >
+                    <div
+                        id="highlight_rule_pc_settings"
+                        class="col-12 col-md-6 o_setting_box"
+                    >
+                        <div class="o_setting_right_pane">
+                            <label for="highlight_rule_pc" />
+                            <span
+                                class="fa fa-lg fa-globe"
+                                title="Values set here are website-specific."
+                                groups="website.group_multi_website"
+                            />
+                            <div class="mt8">
+                                <field name="highlight_rule_pc" />
+                            </div>
+                        </div>
+                    </div>
+                    <div id="hide_rule_settings" class="col-12 col-md-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="hide_rule" />
+                            <span
+                                class="fa fa-lg fa-globe"
+                                title="Values set here are website-specific."
+                                groups="website.group_multi_website"
+                            />
+                            <div class="mt8">
+                                <field name="hide_rule" />
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        id="irregular_enable_sign_up_unsubscribe_settings"
+                        class="col-12 col-md-6 o_setting_box"
+                    >
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="o_setting_left_pane">
+                                    <field name="irregular_enable_sign_up" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="irregular_enable_sign_up" />
+                                    <span
+                                        class="fa fa-lg fa-globe"
+                                        title="Values set here are website-specific."
+                                        groups="website.group_multi_website"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="o_setting_left_pane">
+                                    <field name="irregular_enable_unsubscribe" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="irregular_enable_unsubscribe" />
+                                    <span
+                                        class="fa fa-lg fa-globe"
+                                        title="Values set here are website-specific."
+                                        groups="website.group_multi_website"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        id="irregular_past_shift_limit_settings"
+                        class="col-12 col-md-6 o_setting_box"
+                    >
+                        <div class="o_setting_right_pane">
+                            <label for="irregular_past_shift_limit" />
+                            <span
+                                class="fa fa-lg fa-globe"
+                                title="Values set here are website-specific."
+                                groups="website.group_multi_website"
+                            />
+                            <div class="mt8">
+                                <field name="irregular_past_shift_limit" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2>Shift: Regular Worker</h2>
+                <div class="row mt16 o_settings_container" id="shift_regular_settings">
+                    <div
+                        id="regular_past_shift_limit_settings"
+                        class="col-12 col-md-6 o_setting_box"
+                    >
+                        <div class="o_setting_right_pane">
+                            <label for="regular_past_shift_limit" />
+                            <span
+                                class="fa fa-lg fa-globe"
+                                title="Values set here are website-specific."
+                                groups="website.group_multi_website"
+                            />
+                            <div class="mt8">
+                                <field name="regular_past_shift_limit" />
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        id="regular_next_shift_limit_settings"
+                        class="col-12 col-md-6 o_setting_box"
+                    >
+                        <div class="o_setting_right_pane">
+                            <label for="regular_next_shift_limit" />
+                            <span
+                                class="fa fa-lg fa-globe"
+                                title="Values set here are website-specific."
+                                groups="website.group_multi_website"
+                            />
+                            <div class="mt8">
+                                <field name="regular_next_shift_limit" />
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        id="regular_highlight_rule_settings"
+                        class="col-12 col-md-6 o_setting_box"
+                    >
+                        <div class="o_setting_right_pane">
+                            <label for="regular_highlight_rule" />
+                            <span
+                                class="fa fa-lg fa-globe"
+                                title="Values set here are website-specific."
+                                groups="website.group_multi_website"
+                            />
+                            <div class="mt8">
+                                <field name="regular_highlight_rule" />
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        id="regular_enable_compensation_settings"
+                        class="col-12 col-md-6 o_setting_box"
+                    >
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="o_setting_left_pane">
+                                    <field name="enable_subscribe_compensation" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="enable_subscribe_compensation" />
+                                    <span
+                                        class="fa fa-lg fa-globe"
+                                        title="Values set here are website-specific."
+                                        groups="website.group_multi_website"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="o_setting_left_pane">
+                                    <field name="enable_unsubscribe_compensation" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="enable_unsubscribe_compensation" />
+                                    <span
+                                        class="fa fa-lg fa-globe"
+                                        title="Values set here are website-specific."
+                                        groups="website.group_multi_website"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
