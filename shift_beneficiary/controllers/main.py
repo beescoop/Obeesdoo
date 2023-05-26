@@ -1,7 +1,11 @@
+import logging
+
 from odoo import http
 from odoo.http import request
 
 from odoo.addons.shift_portal.controllers.main import WebsiteShiftController
+
+_logger = logging.getLogger(__name__)
 
 
 class WebsiteShiftController(WebsiteShiftController):
@@ -37,5 +41,14 @@ class WebsiteShiftController(WebsiteShiftController):
     @http.route("/shift_irregular_worker", auth="public", website=True)
     def public_shift_irregular_worker(self, **kw):
         if request.httprequest.method == "POST":
-            request.session["beneficiary"] = kw["beneficiary"]
+            try:
+                # Make sure beneficiary is parseable as int.
+                value = kw.get("beneficiary")
+                request.session["beneficiary"] = str(int(value))
+            except ValueError:
+                _logger.warning(
+                    "keyword 'beneficiary' in '/shift_irregular_worker' was not"
+                    " parseable as int: %s",
+                    value,
+                )
         return super().public_shift_irregular_worker()
