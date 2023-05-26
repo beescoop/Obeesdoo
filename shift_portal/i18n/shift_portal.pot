@@ -485,7 +485,7 @@ msgid "My Shift"
 msgstr ""
 
 #. module: shift_portal
-#: model_terms:ir.ui.view,arch_db:shift_portal.public_shift_template_regular_worker
+#: model_terms:ir.ui.view,arch_db:shift_portal.public_shift_template_regular_worker_card
 msgid "Need Super Co-operator"
 msgstr ""
 
@@ -806,12 +806,12 @@ msgstr ""
 
 #. module: shift_portal
 #: model_terms:ir.ui.view,arch_db:shift_portal.available_shift_irregular_worker_card
-#: model_terms:ir.ui.view,arch_db:shift_portal.public_shift_template_regular_worker
+#: model_terms:ir.ui.view,arch_db:shift_portal.public_shift_template_regular_worker_card
 msgid "full"
 msgstr ""
 
 #. module: shift_portal
-#: model_terms:ir.ui.view,arch_db:shift_portal.public_shift_template_regular_worker
+#: model_terms:ir.ui.view,arch_db:shift_portal.public_shift_template_regular_worker_card
 msgid "space(s)"
 msgstr ""
 
