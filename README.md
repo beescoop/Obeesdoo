@@ -22,6 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [shift](shift/) | 16.0.1.0.0 |  | Generate and manage shifts for cooperators.
+[shift_portal](shift_portal/) | 16.0.1.0.0 |  | Show available shifts for regular and irregular workers on the website and let workers manage their shifts with an easy web interface.
 
 [//]: # (end addons)
 
