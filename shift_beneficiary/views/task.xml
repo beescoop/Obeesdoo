@@ -1,0 +1,32 @@
+<odoo>
+
+    <record model="ir.ui.view" id="task_view_form">
+        <field name="name">Task Template Form</field>
+        <field name="model">shift.shift</field>
+        <field name="inherit_id" ref="shift.task_view_form" />
+        <field name="arch" type="xml">
+            <field name="super_coop_id" position="after">
+                <!-- no create to prevent creating a beneficiary that has is_beneficiary unchecked -->
+                <field name="template_beneficiary" options="{'no_create': True}" />
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="task_shift_view_kanban">
+        <field name="name">Shift Kanban</field>
+        <field name="model">shift.shift</field>
+        <field name="inherit_id" ref="shift.task_shift_view_kanban" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//t[@t-name='kanban-box']//field[@name='super_coop_id']/.."
+                position="after"
+            >
+                <div t-if="record.template_beneficiary.raw_value"> Beneficiary: <field
+                        name="template_beneficiary"
+                    />
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

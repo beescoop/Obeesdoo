@@ -57,6 +57,21 @@ class WebsiteShiftController(http.Controller):
             and user.partner_id.state != "resigning"
         )
 
+    def get_future_shifts_with_no_worker(self):
+        shifts = (
+            request.env["shift.shift"]
+            .sudo()
+            .search(
+                [
+                    ("start_time", ">", Datetime.now()),
+                    ("worker_id", "=", False),
+                    ("state", "=", "open"),
+                ],
+                order="task_template_id, start_time, task_type_id",
+            )
+        )
+        return shifts
+
     @http.route("/my/shift", auth="user", website=True)
     def my_shift(self, **kw):
         """
@@ -185,18 +200,8 @@ class WebsiteShiftController(http.Controller):
             raise Forbidden()
 
         display_all = False
-        next_shifts = (
-            request.env["shift.shift"]
-            .sudo()
-            .search(
-                [
-                    ("start_time", ">", datetime.now()),
-                    ("worker_id", "=", False),
-                    ("state", "=", "open"),
-                ],
-                order="start_time desc, task_template_id, task_type_id",
-            )
-        )
+        next_shifts = self.get_future_shifts_with_no_worker()
+
         if "display_all" not in kw:
             # Get only underpopulated shifts
             displayed_shifts = request.env["shift.shift"].sudo()
@@ -383,6 +388,10 @@ class WebsiteShiftController(http.Controller):
         """
         return self.my_shift_worker_status()
 
+    def compute_display_shift(self, free_space, task_template):
+        hide_rule = request.website.hide_rule / 100.0
+        return free_space >= task_template.worker_nb * hide_rule
+
     def available_shift_irregular_worker(
         self, irregular_enable_sign_up=False, nexturl=""
     ):
@@ -390,39 +399,11 @@ class WebsiteShiftController(http.Controller):
         Return template variables for
         'shift_portal.available_shift_irregular_worker_grid'
         """
-        # Get current user
-        cur_user = request.env["res.users"].browse(request.uid)
-
-        # Get all the shifts in the future with no worker
-        shifts = (
-            request.env["shift.shift"]
-            .sudo()
-            .search(
-                [
-                    ("start_time", ">", Datetime.now()),
-                    ("worker_id", "=", False),
-                    ("state", "=", "open"),
-                ],
-                order="task_template_id, start_time, task_type_id",
-            )
-        )
-
-        # Get shifts where user is subscribed
-        subscribed_shifts = (
-            request.env["shift.shift"]
-            .sudo()
-            .search(
-                [
-                    ("start_time", ">", Datetime.now()),
-                    ("worker_id", "=", cur_user.partner_id.id),
-                ],
-                order="task_template_id, start_time, task_type_id",
-            )
-        )
+        shifts = self.get_future_shifts_with_no_worker()
+        subscribed_shifts = self.my_subscribed_shifts()
 
         # Get config
         highlight_rule_pc = request.website.highlight_rule_pc
-        hide_rule = request.website.hide_rule / 100.0
 
         groupby_iter = groupby(
             shifts,
@@ -449,7 +430,7 @@ class WebsiteShiftController(http.Controller):
             has_enough_workers = (
                 free_space <= (task_template.worker_nb * highlight_rule_pc) / 100
             )
-            if free_space >= task_template.worker_nb * hide_rule:
+            if self.compute_display_shift(free_space, task_template):
                 displayed_shifts.append(
                     DisplayedShift(
                         shift_list[0],
@@ -546,15 +527,8 @@ class WebsiteShiftController(http.Controller):
         cur_user = request.env["res.users"].browse(request.uid)
         return {"status": cur_user.partner_id.cooperative_status_ids}
 
-    def get_compensation_shift_grid(self, shifts):
+    def my_subscribed_shifts(self):
         cur_user = request.env["res.users"].browse(request.uid)
-
-        groupby_iter = groupby(
-            shifts,
-            lambda s: (s.task_template_id, s.start_time, s.task_type_id),
-        )
-
-        # Get shifts where user is subscribed
         subscribed_shifts = (
             request.env["shift.shift"]
             .sudo()
@@ -566,6 +540,15 @@ class WebsiteShiftController(http.Controller):
                 order="task_template_id, start_time, task_type_id",
             )
         )
+        return subscribed_shifts
+
+    def get_compensation_shift_grid(self, shifts):
+        groupby_iter = groupby(
+            shifts,
+            lambda s: (s.task_template_id, s.start_time, s.task_type_id),
+        )
+        # Get shifts where user is subscribed
+        subscribed_shifts = self.my_subscribed_shifts()
 
         displayed_shifts = []
         for keys, grouped_shifts in groupby_iter:
