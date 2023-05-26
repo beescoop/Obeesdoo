@@ -876,11 +876,6 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_res_config_settings__min_percentage_presence
-msgid "Limit attendance percentage to define underpopulated shift"
-msgstr ""
-
-#. module: shift
 #: model:ir.model.fields,field_description:shift.field_shift_generate_shift_template__line_ids
 #: model:ir.model.fields,field_description:shift.field_shift_journal__line_ids
 msgid "Line"
@@ -910,16 +905,6 @@ msgid "Max number of worker for this task"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,field_description:shift.field_res_config_settings__max_shift_per_day
-msgid "Maximum number of shifts per day for one cooperator"
-msgstr ""
-
-#. module: shift
-#: model:ir.model.fields,field_description:shift.field_res_config_settings__max_shift_per_month
-msgid "Maximum number of shifts per month for one cooperator"
-msgstr ""
-
-#. module: shift
 #: model:ir.model.fields,field_description:shift.field_shift_shift__message_has_error
 msgid "Message Delivery error"
 msgstr ""
@@ -927,11 +912,6 @@ msgstr ""
 #. module: shift
 #: model:ir.model.fields,field_description:shift.field_shift_shift__message_ids
 msgid "Messages"
-msgstr ""
-
-#. module: shift
-#: model:ir.model.fields,field_description:shift.field_res_config_settings__min_hours_to_unsubscribe
-msgid "Minimum number of hours before a shift to unsubscribe"
 msgstr ""
 
 #. module: shift
@@ -1438,6 +1418,16 @@ msgstr ""
 #: code:addons/shift/models/planning.py:0
 #, python-format
 msgid "Warning"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_shift_shift__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,help:shift.field_shift_shift__website_message_ids
+msgid "Website communication history"
 msgstr ""
 
 #. module: shift
