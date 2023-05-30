@@ -5,7 +5,6 @@
 from itertools import groupby
 
 from odoo.http import request
-from odoo.tools import float_repr
 
 from odoo.addons.portal.controllers.portal import CustomerPortal
 
@@ -28,15 +27,12 @@ class PortalPosOrderAmount(CustomerPortal):
                 ]
             )
         )
-        values["pos_order_amount"] = float_repr(
-            sum(po.amount_total for po in owned_pos_order), 2
-        )
+        values["pos_order_amount"] = sum(po.amount_total for po in owned_pos_order)
         values["pos_order_amount_by_year"] = [
             {
                 "year": year,
-                "amount": float_repr(
-                    sum(pos_order.amount_total for pos_order in grouped_pos_orders),
-                    2,
+                "amount": sum(
+                    pos_order.amount_total for pos_order in grouped_pos_orders
                 ),
             }
             for year, grouped_pos_orders in groupby(
