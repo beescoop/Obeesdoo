@@ -61,7 +61,7 @@ addon | version | maintainers | summary
 [member_card](member_card/) | 12.0.1.0.1 |  | Create a member card and link it to a partner.
 [polln_shift](polln_shift/) | 12.0.2.0.1 |  | Module with basic customizations for the Polln cooperative.
 [portal_eater](portal_eater/) | 12.0.2.0.1 |  | Show the eaters of a cooperator in the website portal.
-[portal_pos_order_amount](portal_pos_order_amount/) | 12.0.1.0.0 |  | Show the total amount of pos order in the website portal.
+[portal_pos_order_amount](portal_pos_order_amount/) | 12.0.1.0.1 |  | Show the total amount of pos order in the website portal.
 [pos_auto_invoice_company](pos_auto_invoice_company/) | 12.0.3.0.0 |  | Applies to_invoice to company partners.
 [pos_eater](pos_eater/) | 12.0.2.0.0 |  | This module adds the eaters of the customer to the POS ActionpadWidget.
 [pos_shift_partner_can_shop](pos_shift_partner_can_shop/) | 12.0.2.0.2 |  | Display in the POS whether the partner can shop or not.
