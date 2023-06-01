@@ -18,8 +18,52 @@ class Partner(models.Model):
         domain=[("customer", "=", True), ("eater", "=", "eater")],
     )
     parent_eater_id = fields.Many2one(
-        "res.partner", string="Parent Worker", readonly=True
+        "res.partner",
+        string="Parent Worker",
+        readonly=True,
+        domain=[("customer", "=", True), ("eater", "=", "worker_eater")],
     )
+
+    @api.constrains("eater", "parent_eater_id")
+    def _check_parent_is_worker(self):
+        """The parent of an eater must be a worker_eater, and worker_eaters
+        cannot have parents.
+        """
+        for partner in self:
+            parent = partner.parent_eater_id
+            if partner.eater == "eater" and parent:
+                if parent.eater != "worker_eater":
+                    raise ValidationError(
+                        _(
+                            "{0} cannot be the parent of {1} because the parent"
+                            " must be a worker."
+                        ).format(parent.name, partner.name)
+                    )
+            if partner.eater == "worker_eater" and parent:
+                raise ValidationError(
+                    _(
+                        "%s cannot have a parent worker because they are"
+                        " themselves a worker."
+                    )
+                    % partner.name
+                )
+
+    @api.constrains("customer", "parent_eater_id", "child_eater_ids")
+    def _check_eater_is_customer(self):
+        """An eater (or worker_eater) with a parent (or a child) must be a customer."""
+        for partner in self:
+            if (
+                partner.parent_eater_id or partner.child_eater_ids
+            ) and not partner.customer:
+                raise ValidationError(
+                    _("%s must be a customer to be an eater or a parent worker.")
+                    % partner.name
+                )
+            if partner.parent_eater_id and not partner.parent_eater_id.customer:
+                raise ValidationError(
+                    _("%s must be a customer to be a parent worker.")
+                    % partner.parent_eater_id.name
+                )
 
     @api.multi
     def write(self, values):
@@ -42,7 +86,7 @@ class Partner(models.Model):
             for command in values["child_eater_ids"]:
                 if command[0] == 2:
                     command[0] = 3
-        return super(Partner, self).write(values)
+        return super().write(values)
 
     @api.multi
     def _new_eater(self, surname, name, email):
