@@ -33,6 +33,10 @@ class TestEaters(TestWorkerBase):
             {"name": "Eater 4", "customer": True, "eater": "eater"}
         )
 
+        cls.cooperator_x.eater = "worker_eater"
+        cls.cooperator_y.eater = "worker_eater"
+        cls.cooperator_z.eater = "worker_eater"
+
         cls.worker_share = ptemplate_obj.create(
             {
                 "name": "Worker Share",
