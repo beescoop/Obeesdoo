@@ -797,7 +797,7 @@ msgid "Irregular worker"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/cooperative_status.py:195
+#: code:addons/shift/models/cooperative_status.py:197
 #, python-format
 msgid "Irregular workers must have an irregular start date."
 msgstr ""
@@ -1548,7 +1548,7 @@ msgid "Working mode is not properly defined. Please check if the worker is subsc
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/cooperative_status.py:515
+#: code:addons/shift/models/cooperative_status.py:518
 #: sql_constraint:shift.journal:0
 #, python-format
 msgid "You can only create one journal per day"
@@ -1601,7 +1601,7 @@ msgid "You cannot perform this operation on yourself"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/cooperative_status.py:523
+#: code:addons/shift/models/cooperative_status.py:526
 #, python-format
 msgid "You don't have the access to perform this action"
 msgstr ""
