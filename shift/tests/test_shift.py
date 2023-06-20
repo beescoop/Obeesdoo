@@ -505,3 +505,12 @@ class TestShift(TransactionCase):
             self.worker_regular_1.cooperative_status_ids.next_shift_id,
             next_shift,
         )
+
+    def test_write_multiple_statuses(self):
+        """A naïve test that verifies that the write function on multiple status
+        records doesn't result in an error.
+        """
+        statuses = self.env["cooperative.status"]
+        statuses |= self.worker_regular_1.cooperative_status_ids
+        statuses |= self.worker_irregular_2.cooperative_status_ids
+        statuses.write({"irregular_start_date": "2023-05-08"})
