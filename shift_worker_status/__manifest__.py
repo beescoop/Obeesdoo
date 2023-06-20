@@ -13,7 +13,7 @@
     ),
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
-    "version": "12.0.2.0.0",
+    "version": "12.0.2.0.1",
     "depends": ["shift"],
     "data": [
         "data/data.xml",
