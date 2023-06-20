@@ -81,7 +81,7 @@ addon | version | maintainers | summary
 [sale_suggested_price](sale_suggested_price/) | 12.0.1.0.0 |  | Add a suggested price to products, dependent on a product margin in partners and product categories.
 [shift](shift/) | 12.0.5.0.0 |  | Generate and manage shifts for cooperators.
 [shift_attendance](shift_attendance/) | 12.0.2.0.0 |  | Volunteer Timetable Management
-[shift_worker_status](shift_worker_status/) | 12.0.2.0.0 |  | Worker status management.
+[shift_worker_status](shift_worker_status/) | 12.0.2.0.1 |  | Worker status management.
 [stock_move_view_line_order](stock_move_view_line_order/) | 12.0.2.1.0 |  | Reverse the order of stock move lines to 'newest to oldest'.
 [website_portal_restrict_modification](website_portal_restrict_modification/) | 12.0.1.0.0 |  | Portal extension preventing modification of sensible data by the users
 
