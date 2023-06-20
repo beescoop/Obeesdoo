@@ -79,7 +79,7 @@ addon | version | maintainers | summary
 [sale_adapt_price_wizard](sale_adapt_price_wizard/) | 12.0.1.0.1 |  | Add "Edit Price" submenu on Purchase and Sale modules.
 [sale_product_deposit](sale_product_deposit/) | 12.0.1.0.1 |  | Calculates total price with VAT and deposit price.
 [sale_suggested_price](sale_suggested_price/) | 12.0.1.0.0 |  | Add a suggested price to products, dependent on a product margin in partners and product categories.
-[shift](shift/) | 12.0.5.0.0 |  | Generate and manage shifts for cooperators.
+[shift](shift/) | 12.0.5.0.1 |  | Generate and manage shifts for cooperators.
 [shift_attendance](shift_attendance/) | 12.0.2.0.0 |  | Volunteer Timetable Management
 [shift_worker_status](shift_worker_status/) | 12.0.2.0.1 |  | Worker status management.
 [stock_move_view_line_order](stock_move_view_line_order/) | 12.0.2.1.0 |  | Reverse the order of stock move lines to 'newest to oldest'.
