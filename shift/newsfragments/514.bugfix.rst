@@ -1,3 +1,0 @@
-Fixed a bug where writing to multiple cooperative.status records simultaneously
-caused a singleton error. Writing to multiple records simultaneously is now
-possible.
