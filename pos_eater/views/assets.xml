@@ -2,6 +2,7 @@
     <template id="assets" inherit_id="point_of_sale.assets">
         <xpath expr=".">
             <script type="text/javascript" src="/pos_eater/static/src/js/screens.js" />
+            <link rel='stylesheet' href="/pos_eater/static/src/css/beesdoo.css" />
         </xpath>
     </template>
 </odoo>
