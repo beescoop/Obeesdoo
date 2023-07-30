@@ -1,0 +1,13 @@
+<odoo>
+    <record model="ir.ui.view" id="product_category_form_web_sellable">
+        <field name="name">product.category.form.add_web_sellable</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view" />
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <field name="parent_id" position="after">
+                <field name="web_sellable" />
+            </field>
+        </field>
+    </record>
+</odoo>

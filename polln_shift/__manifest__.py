@@ -23,6 +23,7 @@
         # "data/mail_template.xml",
         "views/res_partner.xml",
         "views/shift.xml",
+        "views/product.xml",
         "report/label.xml",
     ],
     "installable": True,
