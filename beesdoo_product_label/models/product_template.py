@@ -6,8 +6,6 @@ from odoo import api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools.translate import _
 
-from odoo.addons import decimal_precision as dp
-
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
@@ -28,18 +26,16 @@ class ProductTemplate(models.Model):
     display_weight = fields.Float(
         compute="_compute_display_weight",
         store=True,
-        digits=dp.get_precision("Stock Weight"),
+        digits="Stock Weight",
     )
 
     note = fields.Text("Comments", copy=False)
 
-    @api.multi
     @api.depends("weight", "display_unit")
     def _compute_display_weight(self):
         for product in self:
             product.display_weight = product.weight * product.display_unit.factor
 
-    @api.multi
     @api.constrains("display_unit", "default_reference_unit")
     def _unit_same_category(self):
         for product in self:

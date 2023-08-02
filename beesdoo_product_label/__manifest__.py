@@ -15,7 +15,7 @@
     "author": "BEES coop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Sales",
-    "version": "12.0.3.0.1",
+    "version": "12.0.1.0.0",
     "depends": [
         "product",
         "account",
@@ -31,5 +31,4 @@
     ],
     "installable": True,
     "license": "AGPL-3",
-    "pre_init_hook": "rename_beesdoo",
 }
