@@ -34,7 +34,6 @@ class ProductTemplate(models.Model):
         string="Minimum Quantity", related="main_supplierinfo_id.min_qty"
     )
 
-    @api.multi
     @api.depends("seller_ids", "seller_ids.date_start")
     def _compute_main_supplierinfo_id(self):
         for product in self:
