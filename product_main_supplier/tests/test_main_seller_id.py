@@ -8,22 +8,23 @@ from odoo.tests import TransactionCase
 
 
 class TestMainSeller(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.product1 = self.env.ref("product.product_delivery_01")
-        self.product2 = self.env.ref("product.product_delivery_02")
-        self.product3 = self.env.ref("product.product_product_6")
-        self.product1_main_supplierinfo_id = self.product1.seller_ids[0]
-        self.product2_main_supplierinfo_id = self.product2.seller_ids[-1]
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.product1 = cls.env.ref("product.product_delivery_01")
+        cls.product2 = cls.env.ref("product.product_delivery_02")
+        cls.product3 = cls.env.ref("product.product_product_6")
+        cls.product1_main_supplierinfo_id = cls.product1.seller_ids[0]
+        cls.product2_main_supplierinfo_id = cls.product2.seller_ids[-1]
 
         # Set the first supplierinfo as the most recent one
-        for index, sup in enumerate(self.product1.seller_ids):
+        for index, sup in enumerate(cls.product1.seller_ids):
             sup.date_start = datetime.date.today() - datetime.timedelta(weeks=index)
         # Set the last supplierinfo as the most recent one
-        for index, sup in enumerate(self.product2.seller_ids):
+        for index, sup in enumerate(cls.product2.seller_ids):
             sup.date_start = datetime.date.today() + datetime.timedelta(weeks=index)
         # Remove all supplierinfo
-        self.product3.seller_ids = False
+        cls.product3.seller_ids = False
 
     def test_get_main_suppplierinfo(self):
         """

@@ -7,14 +7,15 @@ from odoo.tests import TransactionCase
 
 
 class TestSearchMainSellerProductCode(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.product1 = self.env.ref("product.product_delivery_01")
-        self.product2 = self.env.ref("product.product_delivery_02")
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.product1 = cls.env.ref("product.product_delivery_01")
+        cls.product2 = cls.env.ref("product.product_delivery_02")
 
-        for index, sup in enumerate(self.product1.seller_ids):
+        for index, sup in enumerate(cls.product1.seller_ids):
             sup.product_code = "AAA%d" % index
-        for index, sup in enumerate(self.product2.seller_ids):
+        for index, sup in enumerate(cls.product2.seller_ids):
             sup.product_code = "BBB%d" % index
 
     def test_search_product_by_main_seller_product_code(self):
