@@ -18,7 +18,7 @@ class ProductTemplate(models.Model):
     main_seller_id = fields.Many2one(
         string="Main Seller",
         comodel_name="res.partner",
-        related="main_supplierinfo_id.name",
+        related="main_supplierinfo_id.partner_id",
         store=True,
     )
     main_seller_id_product_code = fields.Char(
