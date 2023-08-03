@@ -7,7 +7,16 @@ from odoo import api, fields, models
 class Partner(models.Model):
     _inherit = "res.partner"
 
-    barcode = fields.Char(compute="_compute_bar_code", store=True)
+    barcode = fields.Char(
+        compute="_compute_bar_code",
+        # It makes no sense to keep this field company-dependent in this module.
+        # Partners typically have no company. We could add a company field to
+        # member.card and check it against the env's company to compute the
+        # correct barcode. This would work, but means we can't use `store=True`
+        # on this field.
+        company_dependent=False,
+        store=True,
+    )
     member_card_ids = fields.One2many("member.card", "partner_id")
 
     member_card_to_be_printed = fields.Boolean("Print Member card?")
@@ -15,6 +24,7 @@ class Partner(models.Model):
 
     @api.depends(
         "member_card_ids",
+        "member_card_ids.barcode",
     )
     def _compute_bar_code(self):
         for partner in self:
