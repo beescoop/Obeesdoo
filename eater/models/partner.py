@@ -64,8 +64,10 @@ class Partner(models.Model):
                     )
                     % partner.parent_eater_id.name
                 )
-        # replace many2many command when writing on child_eater_ids to just
-        # remove the link
+        # fixme : is this still necessary ? In a many2many widget, removing an item
+        # is a "3" (unlink) command. In which case would this be a delete command ?
+        # replace many2many command when writing on child_eater_ids to unlink
+        # rather than delete
         if "child_eater_ids" in values:
             for command in values["child_eater_ids"]:
                 if command[0] == 2:
