@@ -11,11 +11,12 @@
     "author": "BEES coop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Sales",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "depends": ["base", "partner_firstname"],
     "data": [
         "wizard/new_eater_wizard_views.xml",
         "views/partner.xml",
+        "security/ir.model.access.csv",
     ],
     "installable": True,
     "demo": ["demo/eaters.xml"],
