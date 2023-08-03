@@ -53,7 +53,7 @@ class Partner(models.Model):
             if (
                 values.get("parent_eater_id")
                 and partner.parent_eater_id
-                and partner.parent_eater_id.id != values.get("parent_eater_id")
+                and partner.parent_eater_id != values.get("parent_eater_id")
             ):
                 raise ValidationError(
                     _(
