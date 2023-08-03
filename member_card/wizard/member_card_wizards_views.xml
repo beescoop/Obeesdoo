@@ -45,16 +45,16 @@
         </field>
     </record>
 
-    <act_window
-        name="Request Member card printing"
-        res_model="membercard.requestprinting.wizard"
-        src_model="res.partner"
-        view_mode="form"
-        target="new"
-        key2="client_action_multi"
+    <record
         id="member_card_requestprinting_wizard_action"
-    />
-
+        model="ir.actions.act_window"
+    >
+        <field name="name">Request Member card printing</field>
+        <field name="res_model">membercard.requestprinting.wizard</field>
+        <field name="binding_model_id" ref="model_res_partner" />
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
 
     <record id="membercard_set_as_printed_wizard_view_form" model="ir.ui.view">
         <field name="name">Set Membercard as Printed Wizard</field>
@@ -77,15 +77,13 @@
         </field>
     </record>
 
-    <act_window
-        name="Set Member card as printed"
-        res_model="membercard.set_as_printed.wizard"
-        src_model="res.partner"
-        view_mode="form"
-        target="new"
-        key2="client_action_multi"
-        id="member_card_set_as_printed_wizard_action"
-    />
+    <record id="member_card_set_as_printed_wizard_action" model="ir.actions.act_window">
+        <field name="name">Set Member card as printed</field>
+        <field name="res_model">membercard.set_as_printed.wizard</field>
+        <field name="binding_model_id" ref="model_res_partner" />
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
 
     <record id="membercard_wizard_action" model="ir.actions.act_window">
         <field name="name">New Member Card</field>

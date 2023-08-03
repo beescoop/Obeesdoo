@@ -13,7 +13,9 @@ class MemberCardCase(SavepointCase):
 
     def _new_card_wizard(self, partner, new_comment, force_barcode=None):
         ctx = {"active_id": partner.id}
-        with Form(self.env["new.member.card.wizard"].with_context(ctx)) as wizard_form:
+        with Form(
+            self.env["new.member.card.wizard"].with_context(**ctx)
+        ) as wizard_form:
             wizard_form.new_comment = new_comment
             wizard_form.force_barcode = force_barcode
             wizard = wizard_form.save()

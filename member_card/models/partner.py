@@ -13,7 +13,6 @@ class Partner(models.Model):
     member_card_to_be_printed = fields.Boolean("Print Member card?")
     last_printed = fields.Datetime("Last printed on")
 
-    @api.multi
     @api.depends(
         "member_card_ids",
     )
@@ -26,14 +25,12 @@ class Partner(models.Model):
             else:
                 partner.barcode = False
 
-    @api.multi
     def _deactivate_active_cards(self):
         self.ensure_one()
         for card in self.member_card_ids.filtered("valid"):
             card.valid = False
             card.end_date = fields.Date.today()
 
-    @api.multi
     def _new_card(self, reason, user_id, barcode=False):
         card_data = {
             "partner_id": self.id,

@@ -6,7 +6,6 @@
 <odoo>
     <record id="res_partner_cooperator_1_demo" model="res.partner">
         <field name="name">Fernand Peso</field>
-        <field name="customer" eval="True" />
         <field name="is_company" eval="False" />
         <field name="email">fernand_peso@demo.net</field>
         <field name="street">Avenue des Bas-de-Callanques, 15</field>
@@ -17,7 +16,6 @@
 
     <record id="res_partner_cooperator_2_demo" model="res.partner">
         <field name="name">Dupont Dupont</field>
-        <field name="customer" eval="True" />
         <field name="is_company" eval="False" />
         <field name="email">d_dupont@demo.net</field>
         <field name="street">Rue des sables, 20</field>
@@ -28,7 +26,6 @@
 
     <record id="res_partner_cooperator_3_demo" model="res.partner">
         <field name="name">Ronan Le Gall</field>
-        <field name="customer" eval="True" />
         <field name="is_company" eval="False" />
         <field name="email">ronan_gall@demo.net</field>
         <field name="street">Rue des pecheurs, 23</field>
@@ -39,7 +36,6 @@
 
     <record id="res_partner_cooperator_4_demo" model="res.partner">
         <field name="name">Elouan Bees</field>
-        <field name="customer" eval="True" />
         <field name="is_company" eval="False" />
         <field name="email">elouan_bees@demo.net</field>
         <field name="street">Rue Wéry, 15</field>
@@ -50,7 +46,6 @@
 
     <record id="res_partner_cooperator_5_demo" model="res.partner">
         <field name="name">Anne de Marchalo</field>
-        <field name="customer" eval="True" />
         <field name="is_company" eval="False" />
         <field name="email">anne_marchalo@demo.net</field>
         <field name="street">Rue du Wels, 6</field>
@@ -61,7 +56,6 @@
 
     <record id="res_partner_cooperator_6_demo" model="res.partner">
         <field name="name">Jean Beaumont</field>
-        <field name="customer" eval="True" />
         <field name="is_company" eval="False" />
         <field name="email">jean_beaumont@demo.net</field>
         <field name="street">Rue de la Jungle, 8</field>

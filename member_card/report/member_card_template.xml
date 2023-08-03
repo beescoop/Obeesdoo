@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
-    <report
-        id="report_member_card"
-        string="Member Card"
-        model="res.partner"
-        report_type="qweb-pdf"
-        name="member_card.member_card_template"
-        file="member_card.member_card_template"
-        print_report_name="'Member Card'"
-    />
+    <record id="report_member_card" model="ir.actions.report">
+        <field name="name">Member Card</field>
+        <field name="model">res.partner</field>
+        <field name="binding_model_id" ref="model_res_partner" />
+        <field name="report_name">member_card.member_card_template</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_file">member_card.member_card_template</field>
+        <field name="print_report_name">'Member Card'</field>
+    </record>
 
     <template id="member_card_template">
         <t t-call="web.basic_layout">

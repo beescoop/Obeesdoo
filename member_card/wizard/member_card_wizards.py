@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class NewMemberCardWizard(models.TransientModel):
@@ -18,7 +18,6 @@ class NewMemberCardWizard(models.TransientModel):
     partner_id = fields.Many2one("res.partner", default=_get_default_partner)
     force_barcode = fields.Char(help="Override automatic barcode generation")
 
-    @api.multi
     def create_new_card(self):
         self.ensure_one()
         client = self.partner_id.sudo()
@@ -36,7 +35,6 @@ class RequestMemberCardPrintingWizard(models.TransientModel):
 
     partner_ids = fields.Many2many("res.partner", default=_get_selected_partners)
 
-    @api.multi
     def request_printing(self):
         self.ensure_one()
         self.partner_ids.write({"member_card_to_be_printed": True})
@@ -51,7 +49,6 @@ class SetAsPrintedWizard(models.TransientModel):
 
     partner_ids = fields.Many2many("res.partner", default=_get_selected_partners)
 
-    @api.multi
     def set_as_printed(self):
         self.ensure_one()
         self.partner_ids.write(

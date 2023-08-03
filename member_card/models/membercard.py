@@ -26,7 +26,7 @@ class MemberCard(models.Model):
 
     # todo rename to active
     valid = fields.Boolean(default=True, string="Active")
-    barcode = fields.Char(oldname="ean13", default=_compute_bar_code)
+    barcode = fields.Char(default=_compute_bar_code)
     partner_id = fields.Many2one("res.partner")
     responsible_id = fields.Many2one(
         "res.users", default=_get_current_user, string="Responsible"

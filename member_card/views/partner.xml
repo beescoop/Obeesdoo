@@ -7,20 +7,13 @@
         <field name="arch" type="xml">
 
             <xpath expr="//notebook" position="inside">
-                <page
-                    name="member card"
-                    string="Member Card"
-                    attrs="{'invisible': [('customer', '=', False)]}"
-                >
+                <page name="member card" string="Member Card">
                     <group>
                         <field name="member_card_to_be_printed" />
                         <field name="last_printed" />
                     </group>
 
-                    <group
-                        name="cards"
-                        attrs="{'invisible': [('customer', '=', False)]}"
-                    >
+                    <group name="cards">
 
                         <separator string="Cards" />
                         <field string="Cards" name="member_card_ids">
