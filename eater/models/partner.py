@@ -49,6 +49,8 @@ class Partner(models.Model):
                 )
 
     def write(self, values):
+        # fixme: shouldn't the check on "values.get("parent_eater_id")" be before
+        # the for loop to avoid looping through all the contacts at every write?
         for partner in self:
             if (
                 values.get("parent_eater_id")
