@@ -7,7 +7,7 @@ from odoo import api, fields, models
 class Partner(models.Model):
     _inherit = "res.partner"
 
-    barcode = fields.Char(compute="_compute_bar_code", string="Barcode", store=True)
+    barcode = fields.Char(compute="_compute_bar_code", store=True)
     member_card_ids = fields.One2many("member.card", "partner_id")
 
     member_card_to_be_printed = fields.Boolean("Print Member card?")
