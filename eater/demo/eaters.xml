@@ -10,7 +10,6 @@
         <field name="lastname">Eaterbeek</field>
         <field name="eater">eater</field>
         <field name="is_company" eval="False" />
-        <field name="customer" eval="True" />
     </record>
 
     <record id="eater2" model="res.partner">
@@ -19,7 +18,6 @@
         <field name="lastname">Eateration</field>
         <field name="eater">eater</field>
         <field name="is_company" eval="False" />
-        <field name="customer" eval="True" />
     </record>
 
     <record id="eater3" model="res.partner">
@@ -28,7 +26,6 @@
         <field name="lastname">Eaterphone</field>
         <field name="eater">eater</field>
         <field name="is_company" eval="False" />
-        <field name="customer" eval="True" />
     </record>
 
     <record id="eater4" model="res.partner">
@@ -37,6 +34,5 @@
         <field name="lastname">Eaternet</field>
         <field name="eater">eater</field>
         <field name="is_company" eval="False" />
-        <field name="customer" eval="True" />
     </record>
 </odoo>

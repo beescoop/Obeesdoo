@@ -41,7 +41,7 @@
             </xpath>
 
             <field name="website" position="after">
-                <field name="eater" attrs="{'invisible': [('customer', '=', False)]}" />
+                <field name="eater" />
                 <field
                     name="parent_eater_id"
                     attrs="{'invisible' : [('eater', '!=', 'eater')]}"

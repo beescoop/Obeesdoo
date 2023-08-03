@@ -11,7 +11,7 @@
     "author": "BEES coop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Sales",
-    "version": "12.0.2.1.0",
+    "version": "13.0.1.0.0",
     "depends": ["base", "partner_firstname"],
     "data": [
         "wizard/new_eater_wizard_views.xml",

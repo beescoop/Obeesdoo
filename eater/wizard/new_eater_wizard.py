@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class NewEaterWizard(models.TransientModel):
@@ -12,13 +12,12 @@ class NewEaterWizard(models.TransientModel):
     def _get_default_partner(self):
         return self.env.context["active_id"]
 
-    first_name = fields.Char("First Name", required=True)
-    last_name = fields.Char("Last Name", required=True)
-    email = fields.Char("Email")
+    first_name = fields.Char(required=True)
+    last_name = fields.Char(required=True)
+    email = fields.Char()
 
     partner_id = fields.Many2one("res.partner", default=_get_default_partner)
 
-    @api.multi
     def create_new_eater(self):
         self.ensure_one()
         self.partner_id._new_eater(self.first_name, self.last_name, self.email)

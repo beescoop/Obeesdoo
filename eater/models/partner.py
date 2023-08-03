@@ -48,7 +48,6 @@ class Partner(models.Model):
                     % partner.name
                 )
 
-    @api.multi
     def write(self, values):
         for partner in self:
             if (
@@ -71,12 +70,10 @@ class Partner(models.Model):
                     command[0] = 3
         return super().write(values)
 
-    @api.multi
     def _new_eater(self, surname, name, email):
         partner_data = {
             "lastname": name,
             "firstname": surname,
-            "customer": True,
             "eater": "eater",
             "parent_eater_id": self.id,
             "email": email,
