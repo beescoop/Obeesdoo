@@ -2,10 +2,10 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo import fields
-from odoo.tests import Form, SavepointCase
+from odoo.tests import Form, TransactionCase
 
 
-class MemberCardCase(SavepointCase):
+class MemberCardCase(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

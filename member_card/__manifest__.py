@@ -11,7 +11,7 @@
     "summary": "Create a member card and link it to a partner.",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Sales",
-    "version": "14.0.1.0.0",
+    "version": "15.0.1.0.0",
     "depends": ["barcodes"],
     "data": [
         "security/ir.model.access.csv",

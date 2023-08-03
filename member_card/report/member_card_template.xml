@@ -43,7 +43,7 @@
                                         align="center"
                                         style="font-size:14pt;font-weight: bold;"
                                     >
-                                    <t t-esc="partner.name[:20]" />
+                                    <t t-out="partner.name[:20]" />
                                   </div>
 
                                 </td>
