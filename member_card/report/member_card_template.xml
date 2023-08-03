@@ -24,9 +24,11 @@
                                     <img
                                         alt="barcode"
                                         t-if="partner.barcode"
-                                        t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' % ('EAN13', partner.barcode, 230, 80)"
+                                        t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' %
+                ('EAN13', partner.barcode, 230, 80)"
                                         style="-webkit-transform: rotate(270deg);margin-top:77px;margin-left:-65px;margin-right:-85px"
                                     />
+
                                 </td>
                                 <td align="center" valign="top">
                                     <img
