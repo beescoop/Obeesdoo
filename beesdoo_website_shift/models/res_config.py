@@ -45,3 +45,7 @@ class WebsiteShiftConfigSettings(models.TransientModel):
         string="Number of next shifts displayed on page 'My Shifts' by default",
         config_parameter="beesdoo_website_shift.next_shifts_display_number",
     )
+    shift_manager_email = fields.Char(
+        config_parameter="beesdoo_website_shift.shift_manager_email",
+        default=lambda self: self.env.user.company_id.email,
+    )

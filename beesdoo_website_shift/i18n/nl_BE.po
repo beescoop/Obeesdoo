@@ -22,6 +22,16 @@ msgid "&amp;times;"
 msgstr ""
 
 #. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_info
+msgid ""
+")\n"
+"            or during the open hours of the\n"
+"            office (Monday 5PM to 7:30PM, Wednesday 5PM to 7:30 PM and "
+"Friday\n"
+"            2:30PM to 5 PM)."
+msgstr ""
+
+#. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
 msgid ""
 "<span class=\"fa fa-info\" aria-hidden=\"true\"/>\n"
@@ -59,6 +69,14 @@ msgstr ""
 msgid ""
 "<span class=\"fa fa-user-plus\" aria-hidden=\"true\"/>\n"
 "                Subscribe"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.res_config_settings_shift_view_form
+msgid ""
+"<span class=\"o_form_label\">\n"
+"                            Shift Manager Contact\n"
+"                        </span>"
 msgstr ""
 
 #. module: beesdoo_website_shift
@@ -131,11 +149,8 @@ msgid ""
 "<strong>Info!</strong>\n"
 "            If you do not agree with your status, please contact the "
 "members\n"
-"            office by mail (membre@bees-coop.be) or during the open hours of "
-"the\n"
-"            office (Monday 5PM to 7:30PM, Wednesday 5PM to 7:30 PM and "
-"Friday\n"
-"            2:30PM to 5 PM)."
+"            office by email\n"
+"            ("
 msgstr ""
 
 #. module: beesdoo_website_shift
@@ -161,12 +176,6 @@ msgid ""
 "            Add your name and the indication \"compensation shift\" on the\n"
 "            attendance list."
 msgstr ""
-"<strong>Alerte rouge :</strong>Ton compteur est sous zéro depuis plus de 28 "
-"jours. Tu n’as plus le droit de faire tes courses mais tu peux demander à "
-"passer en extension, appelée délai de grâce, à l’accueil (1x) puis, si ce "
-"premier délai n’était pas suffisant, au Bureau des Membres (plusieurs fois). "
-"Pour te remettre à jour, regarde les moments où nous avons besoin d'aide, "
-"dans \"Shifts volants\". Merci !"
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_irregular_worker
@@ -184,12 +193,6 @@ msgid ""
 "            For the compensation shifts, subscribe like you do for a normal\n"
 "            shift."
 msgstr ""
-"<strong>Suspendu</strong>Ton compteur est sous zéro depuis plus de 28 jours. "
-"Tu n’as plus le droit de faire tes courses mais tu peux demander à passer en "
-"extension, appelée délai de grâce, à l’accueil (1x) puis, si ce premier "
-"délai n’était pas suffisant, au Bureau des Membres (plusieurs fois). Pour te "
-"remettre à jour, regarde les moments où nous avons besoin d'aide, dans "
-"\"Shifts volants\". Merci !"
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_regular_worker
@@ -198,9 +201,7 @@ msgid ""
 "            You did not attend two consecutive shifts. You are now "
 "unsubscribed.\n"
 "            You cannot shop (nor can your eaters) nor come to work.\n"
-"            To subscribe again, please contact membre@bees-coop.be or come "
-"to\n"
-"            the members office during the opening hours."
+"            To subscribe again, please contact"
 msgstr ""
 
 #. module: beesdoo_website_shift
@@ -211,10 +212,7 @@ msgid ""
 "than\n"
 "            8 weeks.\n"
 "            You are unsubscribed. You cannot shop nor can your eaters.\n"
-"            To subscribe again of if it's a mistake, please contact\n"
-"            membre@bees-coop.be or come to the members office during the "
-"opening\n"
-"            hours."
+"            To subscribe again or if it's a mistake, please contact"
 msgstr ""
 
 #. module: beesdoo_website_shift
@@ -322,6 +320,16 @@ msgstr ""
 #. module: beesdoo_website_shift
 #: model:ir.model,name:beesdoo_website_shift.model_res_partner
 msgid "Contact"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.res_config_settings_shift_view_form
+msgid "Email"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.res_config_settings_shift_view_form
+msgid "Email address displayed in mail templates and on the website"
 msgstr ""
 
 #. module: beesdoo_website_shift
@@ -612,6 +620,11 @@ msgid "Saturday"
 msgstr "Zaterdag"
 
 #. module: beesdoo_website_shift
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_config_settings__shift_manager_email
+msgid "Shift Manager Email"
+msgstr ""
+
+#. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_regular_worker
 msgid "Shift in Advance:"
@@ -824,6 +837,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_irregular_worker_card
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.public_shift_template_regular_worker
 msgid "full"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_irregular_worker
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_regular_worker
+msgid "or come to the members office during the opening hours."
 msgstr ""
 
 #. module: beesdoo_website_shift
