@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="member_card_template" inherit_id="member_card.member_card_template">
+        <xpath expr="//img[@t-if='partner.barcode']" position="after">
+            <img
+                alt="barcode"
+                t-if="partner.parent_barcode"
+                t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' % ('EAN13', partner.parent_barcode, 230, 80)"
+                style="-webkit-transform: rotate(270deg);margin-top:77px;margin-left:-65px;margin-right:-85px"
+            />
+        </xpath>
+    </template>
+</odoo>

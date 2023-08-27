@@ -25,6 +25,7 @@
         "views/shift.xml",
         "views/product.xml",
         "report/label.xml",
+        "report/membercard.xml",
     ],
     "installable": True,
     "license": "AGPL-3",
