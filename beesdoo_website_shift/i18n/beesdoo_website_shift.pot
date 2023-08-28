@@ -316,6 +316,7 @@ msgstr ""
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:634
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:634
 #, python-format
 msgid "Friday"
 msgstr ""
@@ -340,6 +341,7 @@ msgstr ""
 #. module: beesdoo_website_shift
 #. openerp-web
 #: code:addons/beesdoo_website_shift/static/src/js/script.js:24
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/static/src/js/script.js:24
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_title
 #, python-format
 msgid "Hide"
@@ -397,6 +399,7 @@ msgstr ""
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:649
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:649
 #, python-format
 msgid "It is too late to unsubscribe. If you can't attend your shift, please contact the supercoop."
 msgstr ""
@@ -425,6 +428,7 @@ msgstr ""
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:630
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:630
 #, python-format
 msgid "Monday"
 msgstr ""
@@ -498,6 +502,7 @@ msgstr ""
 #. module: beesdoo_website_shift
 #. openerp-web
 #: code:addons/beesdoo_website_shift/static/src/js/script.js:32
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/static/src/js/script.js:32
 #, python-format
 msgid "Reduce"
 msgstr ""
@@ -516,6 +521,7 @@ msgstr ""
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:635
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:635
 #, python-format
 msgid "Saturday"
 msgstr ""
@@ -555,6 +561,8 @@ msgstr ""
 #. openerp-web
 #: code:addons/beesdoo_website_shift/static/src/js/script.js:15
 #: code:addons/beesdoo_website_shift/static/src/js/script.js:20
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/static/src/js/script.js:15
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/static/src/js/script.js:20
 #, python-format
 msgid "Show"
 msgstr ""
@@ -562,6 +570,7 @@ msgstr ""
 #. module: beesdoo_website_shift
 #. openerp-web
 #: code:addons/beesdoo_website_shift/static/src/js/script.js:28
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/static/src/js/script.js:28
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
 #, python-format
 msgid "Show next shifts"
@@ -590,6 +599,7 @@ msgstr ""
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:636
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:636
 #, python-format
 msgid "Sunday"
 msgstr ""
@@ -608,6 +618,7 @@ msgstr ""
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:633
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:633
 #, python-format
 msgid "Thursday"
 msgstr ""
@@ -620,6 +631,7 @@ msgstr ""
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:631
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:631
 #, python-format
 msgid "Tuesday"
 msgstr ""
@@ -631,6 +643,7 @@ msgstr ""
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:286
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:286
 #, python-format
 msgid "Unsubscription failed, impossible to find shift."
 msgstr ""
@@ -642,6 +655,7 @@ msgstr ""
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:632
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:632
 #, python-format
 msgid "Wednesday"
 msgstr ""
@@ -669,6 +683,7 @@ msgstr ""
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:282
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:282
 #, python-format
 msgid "You have been successfully unsubscribed."
 msgstr ""
@@ -690,12 +705,14 @@ msgstr ""
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:643
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:643
 #, python-format
 msgid "Your subscription has failed. Someone subscribed before you or the shift was deleted. Try again in a moment."
 msgstr ""
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:640
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:640
 #, python-format
 msgid "Your subscription has succeded."
 msgstr ""
