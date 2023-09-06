@@ -15,13 +15,13 @@ class Partner(models.Model):
     child_eater_ids = fields.One2many(
         "res.partner",
         "parent_eater_id",
-        domain=[("customer", "=", True), ("eater", "=", "eater")],
+        domain=[("eater", "=", "eater")],
     )
     parent_eater_id = fields.Many2one(
         "res.partner",
         string="Parent Worker",
         readonly=True,
-        domain=[("customer", "=", True), ("eater", "=", "worker_eater")],
+        domain=[("eater", "=", "worker_eater")],
     )
 
     @api.constrains("eater", "parent_eater_id")
@@ -46,23 +46,6 @@ class Partner(models.Model):
                         " themselves a worker."
                     )
                     % partner.name
-                )
-
-    @api.constrains("customer", "parent_eater_id", "child_eater_ids")
-    def _check_eater_is_customer(self):
-        """An eater (or worker_eater) with a parent (or a child) must be a customer."""
-        for partner in self:
-            if (
-                partner.parent_eater_id or partner.child_eater_ids
-            ) and not partner.customer:
-                raise ValidationError(
-                    _("%s must be a customer to be an eater or a parent worker.")
-                    % partner.name
-                )
-            if partner.parent_eater_id and not partner.parent_eater_id.customer:
-                raise ValidationError(
-                    _("%s must be a customer to be a parent worker.")
-                    % partner.parent_eater_id.name
                 )
 
     @api.multi
