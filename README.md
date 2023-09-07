@@ -21,6 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[product_main_supplier](product_main_supplier/) | 16.0.1.0.0 |  | Add a main supplier
 [shift](shift/) | 16.0.1.1.0 |  | Generate and manage shifts for cooperators.
 [shift_beneficiary](shift_beneficiary/) | 16.0.1.1.0 | [![victor-champonnois](https://github.com/victor-champonnois.png?size=30px)](https://github.com/victor-champonnois) | Add a 'beneficiary' field on shifts
 [shift_portal](shift_portal/) | 16.0.1.1.0 |  | Show available shifts for regular and irregular workers on the website and let workers manage their shifts with an easy web interface.
