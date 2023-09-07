@@ -39,4 +39,3 @@ class TestMainSeller(TransactionCase):
             self.product2_main_supplierinfo_id,
         )
         self.assertFalse(self.product3.product_tmpl_id._get_main_supplier_info())
-        self.assertFalse(self.product3.product_tmpl_id._get_main_supplier_info().price)

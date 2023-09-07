@@ -58,7 +58,4 @@ class ProductTemplate(models.Model):
                 return datetime.date.max
 
         suppliers = self.seller_ids.sorted(key=sort_date_asc, reverse=True)
-        if suppliers:
-            return suppliers[0]
-        else:
-            return suppliers
+        return suppliers[0] if suppliers else False
