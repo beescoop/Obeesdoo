@@ -49,21 +49,18 @@ class Partner(models.Model):
                 )
 
     def write(self, values):
-        # fixme: shouldn't the check on "values.get("parent_eater_id")" be before
-        # the for loop to avoid looping through all the contacts at every write?
-        for partner in self:
-            if (
-                values.get("parent_eater_id")
-                and partner.parent_eater_id
-                and partner.parent_eater_id != values.get("parent_eater_id")
-            ):
-                raise ValidationError(
-                    _(
-                        "You try to assign a eater to a partner but this eater "
-                        "is already assign to %s please remove it before "
+        if values.get("parent_eater_id"):
+            for partner in self:
+                if partner.parent_eater_id and partner.parent_eater_id != values.get(
+                    "parent_eater_id"
+                ):
+                    raise ValidationError(
+                        _(
+                            "You try to assign a eater to a partner but this eater "
+                            "is already assign to %s please remove it before "
+                        )
+                        % partner.parent_eater_id.name
                     )
-                    % partner.parent_eater_id.name
-                )
         # fixme : is this still necessary ? In a many2many widget, removing an item
         # is a "3" (unlink) command. In which case would this be a delete command ?
         # replace many2many command when writing on child_eater_ids to unlink
