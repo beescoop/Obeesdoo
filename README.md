@@ -21,6 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[beesdoo_product_label](beesdoo_product_label/) | 16.0.1.0.0 |  | Adds the label bio/ethique/provenance.
 [product_main_supplier](product_main_supplier/) | 16.0.1.0.0 |  | Add a main supplier
 [shift](shift/) | 16.0.1.1.0 |  | Generate and manage shifts for cooperators.
 [shift_beneficiary](shift_beneficiary/) | 16.0.1.1.0 | [![victor-champonnois](https://github.com/victor-champonnois.png?size=30px)](https://github.com/victor-champonnois) | Add a 'beneficiary' field on shifts
