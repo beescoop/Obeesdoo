@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<odoo>
-    <data noupdate="1">
+<odoo noupdate="1">
         <record model="beesdoo.product.label" id="eco_green">
             <field name="name">Label Bio ou Confiance</field>
             <field name="type">eco</field>
@@ -61,5 +60,4 @@
             <field name="type">delivery</field>
             <field name="color_code">#ff4000</field>
         </record>
-    </data>
 </odoo>
