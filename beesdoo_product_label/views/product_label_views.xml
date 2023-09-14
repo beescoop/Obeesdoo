@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="product_label_form">
+        <field name="name">product.label.form</field>
+        <field name="model">beesdoo.product.label</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name" />
+                    <field name="type" />
+                    <field name="color_code" />
+                    <field name="logo" widget="image" options="{'size': [90, 90]}" />
+                    <field name="active" />
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="product_label_view_tree">
+        <field name="name">product.label.tree</field>
+        <field name="model">beesdoo.product.label</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name" />
+                <field name="type" />
+                <field name="color_code" />
+                <field name="logo" widget="image" options="{'size': [90, 90]}" />
+                <field name="active" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_labels">
+        <field name="name">Product Labels</field>
+        <field name="res_model">beesdoo.product.label</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="label_configuration_menu"
+        name="Labels"
+        parent="sale.prod_config_main"
+        action="action_labels"
+        sequence="20"
+    />
+</odoo>

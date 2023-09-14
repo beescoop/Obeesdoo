@@ -1,0 +1,174 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* beesdoo_product_label
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: beesdoo_product_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_beesdoo_product_label__active
+msgid "Active"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_beesdoo_product_label__color_code
+msgid "Color Code"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_product_product__note
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_product_template__note
+msgid "Comments"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_beesdoo_product_label__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_beesdoo_product_label__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_product_product__default_reference_unit
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_product_template__default_reference_unit
+msgid "Default Reference Unit"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_beesdoo_product_label__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_product_product__display_unit
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_product_template__display_unit
+msgid "Display Unit"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_product_product__display_weight
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_product_template__display_weight
+msgid "Display Weight"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: selection:beesdoo.product.label,type:0
+msgid "Distribution"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_product_product__eco_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_product_template__eco_label
+msgid "Eco Label"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_product_product__fair_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_product_template__fair_label
+msgid "Fair Label"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_beesdoo_product_label__id
+msgid "ID"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model_terms:ir.ui.view,arch_db:beesdoo_product_label.product_view_form
+msgid "Label"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model:ir.ui.menu,name:beesdoo_product_label.label_configuration_menu
+msgid "Labels"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_beesdoo_product_label____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_beesdoo_product_label__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_beesdoo_product_label__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: selection:beesdoo.product.label,type:0
+msgid "Local"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_product_product__local_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_product_template__local_label
+msgid "Local Label"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_beesdoo_product_label__logo
+msgid "Logo"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_beesdoo_product_label__name
+msgid "Name"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_product_product__origin_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_product_template__origin_label
+msgid "Origin Label"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model:ir.actions.act_window,name:beesdoo_product_label.action_labels
+msgid "Product Labels"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model:ir.model,name:beesdoo_product_label.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: code:addons/beesdoo_product_label/models/product_template.py:51
+#, python-format
+msgid "Reference Unit and Display Unit should belong to the same category "
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model:ir.model.fields,field_description:beesdoo_product_label.field_beesdoo_product_label__type
+msgid "Type"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: model:ir.model,name:beesdoo_product_label.model_beesdoo_product_label
+msgid "beesdoo.product.label"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: selection:beesdoo.product.label,type:0
+msgid "Écologique"
+msgstr ""
+
+#. module: beesdoo_product_label
+#: selection:beesdoo.product.label,type:0
+msgid "Équitable"
+msgstr ""
+

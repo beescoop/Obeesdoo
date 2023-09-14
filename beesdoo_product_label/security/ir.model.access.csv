@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+beesdoo_product_label_read_all,beesdoo.product.label Read All,model_beesdoo_product_label,,1,0,0,0
+beesdoo_product_label_all_access_sale_manager,beesdoo.product.label All Access Sale Manager,model_beesdoo_product_label,sales_team.group_sale_manager,1,1,1,1
