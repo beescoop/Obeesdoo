@@ -24,7 +24,6 @@ class PurchaseOrder(models.Model):
             if rec.supervisor_id:
                 rec.create_uid = rec.supervisor_id
 
-    @api.multi
     def write(self, vals):
         if "supervisor_id" in vals:
             new_partner = (
