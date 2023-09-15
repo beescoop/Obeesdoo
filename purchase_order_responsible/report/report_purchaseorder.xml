@@ -6,13 +6,14 @@
             inherit_id="purchase.report_purchaseorder_document"
             name="beesdoo purchaseorder"
         >
-            <div t-if="o.date_order" position="after">
+            <div t-elif="o.date_order" position="after">
 
-                <div t-if="o.create_uid.name" class="col-xs-3">
+                <div t-if="o.create_uid.name" class="col-xs-3 bm-2">
                     <strong>Your Referent:</strong>
-                    <div
+                    <p
                         t-field="o.create_uid"
                         t-options='{"widget": "contact", "fields": ["name", "phone", "mobile"], "no_marker": true, "phone_icons": true}'
+                        class="m-0"
                     />
                 </div>
 

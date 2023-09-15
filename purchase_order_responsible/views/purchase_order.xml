@@ -27,9 +27,16 @@
             <field name="model">purchase.order</field>
             <field name="inherit_id" ref="purchase.view_purchase_order_filter" />
             <field name="arch" type="xml">
-                <field name="create_uid" position="after">
+                <field name="user_id" position="after">
                     <field name="supervisor_id" />
                 </field>
+                <filter name="my_purchases" position="after">
+                    <filter
+                        name="my_responsible"
+                        string="My Responsible"
+                        domain="[('supervisor_id', '=', uid)]"
+                    />
+                </filter>
             </field>
         </record>
     </data>
