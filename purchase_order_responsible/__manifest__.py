@@ -6,7 +6,7 @@
     "name": "Purchase Order Responsible",
     "summary": """
          Adds a 'Responsible' field to purchase orders""",
-    "version": "14.0.1.0.0",
+    "version": "15.0.1.0.0",
     "category": "Purchase",
     "website": "https://github.com/beescoop/Obeesdoo",
     "author": "Coop IT Easy SC",
