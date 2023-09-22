@@ -4,6 +4,40 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
 <odoo>
+    <record id="res_config_settings_shift_view_form" model="ir.ui.view">
+        <field name="name">Shift Settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="shift.res_config_settings_shift_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='shift_settings_block']/div" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_right_pane">
+                        <span class="o_form_label">
+                            Shift Manager Contact
+                        </span>
+                        <div class="text-muted">
+                            Email address displayed in mail templates and on the website
+                        </div>
+                        <div class="content-group">
+                            <div class="mt16 row">
+                                <label
+                                    for="shift_manager_email"
+                                    string="Email"
+                                    class="col-3 col-lg-3 o_light_label"
+                                />
+                                <field
+                                    name="shift_manager_email"
+                                    class="oe_inline"
+                                    required="1"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
     <record id="view_website_shift_config_irregular" model="ir.ui.view">
         <field name="name">Website Shift Settings Irregular Worker</field>
         <field name="model">res.config.settings</field>

@@ -760,10 +760,16 @@
     </template>
 
     <template id="help_text_info" name="Help Text Info">
+        <t
+            t-set="shift_manager_email"
+            t-value="request.env['ir.config_parameter'].sudo().get_param('beesdoo_website_shift.shift_manager_email') or request.env['res.company']._company_default_get().email"
+        />
         <div class="alert alert-info">
             <strong>Info!</strong>
             If you do not agree with your status, please contact the members
-            office by mail (membre@bees-coop.be) or during the open hours of the
+            office by email
+            (<span t-raw="shift_manager_email" />)
+            or during the open hours of the
             office (Monday 5PM to 7:30PM, Wednesday 5PM to 7:30 PM and Friday
             2:30PM to 5 PM).
         </div>
@@ -820,11 +826,16 @@
             If you don't do your compensation shifts, you'll be suspended.
         </p>
         <p class="h_reg_unsubscribed">
+            <t
+                t-set="shift_manager_email"
+                t-value="request.env['ir.config_parameter'].sudo().get_param('beesdoo_website_shift.shift_manager_email') or request.env['res.company']._company_default_get().email"
+            />
             <strong>Unsubscribed:</strong>
             You did not attend two consecutive shifts. You are now unsubscribed.
             You cannot shop (nor can your eaters) nor come to work.
-            To subscribe again, please contact membre@bees-coop.be or come to
-            the members office during the opening hours.
+            To subscribe again, please contact
+            <span t-raw="shift_manager_email" />
+            or come to the members office during the opening hours.
         </p>
     </template>
 
@@ -861,13 +872,17 @@
             If you don't do your compensation shifts, you'll be suspended.
         </p>
         <p class="h_irreg_unsubscribed">
+            <t
+                t-set="shift_manager_email"
+                t-value="request.env['ir.config_parameter'].sudo().get_param('beesdoo_website_shift.shift_manager_email') or request.env['res.company']._company_default_get().email"
+            />
             <strong>Unsubscribed:</strong>
             Your counter is negative and you haven't come to work for more than
             8 weeks.
             You are unsubscribed. You cannot shop nor can your eaters.
-            To subscribe again of if it's a mistake, please contact
-            membre@bees-coop.be or come to the members office during the opening
-            hours.
+            To subscribe again or if it's a mistake, please contact
+            <span t-raw="shift_manager_email" />
+            or come to the members office during the opening hours.
         </p>
     </template>
 

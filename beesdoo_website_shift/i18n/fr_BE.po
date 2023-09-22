@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* beesdoo_website_shift
+# 	* beesdoo_website_shift
 #
 msgid ""
 msgstr ""
@@ -10,6 +10,7 @@ msgstr ""
 "PO-Revision-Date: 2022-07-18 07:38+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
+"Language: fr_BE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -21,78 +22,123 @@ msgid "&amp;times;"
 msgstr ""
 
 #. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_info
+msgid ""
+")\n"
+"            or during the open hours of the\n"
+"            office (Monday 5PM to 7:30PM, Wednesday 5PM to 7:30 PM and "
+"Friday\n"
+"            2:30PM to 5 PM)."
+msgstr ""
+") ou en personne pendant les heures d'ouverture du "
+"bureau : le lundi de 17h à 19h30, le mercredi de 17h à 19h30, le vendredi de "
+"14h30 à 17h et le samedi de 9h à 12h30 (à l'étage du magasin)."
+
+#. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
-msgid "<span class=\"fa fa-info\" aria-hidden=\"true\"/>\n"
+msgid ""
+"<span class=\"fa fa-info\" aria-hidden=\"true\"/>\n"
 "                        Super Cooperator Info"
-msgstr "<span class=\"fa fa-info\" aria-hidden=\"true\"/>\n"
+msgstr ""
+"<span class=\"fa fa-info\" aria-hidden=\"true\"/>\n"
 "                        Coordonnées supercoop"
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.view_website_shift_config_irregular
-msgid "<span class=\"fa fa-lg fa-globe\" title=\"Values set here are website-specific.\" groups=\"website.group_multi_website\"/>"
-msgstr "<span class=\"fa fa-lg fa-globe\" title=\"Les valeurs définies ici sont spécifiques au site Web.\" groups=\"website.group_multi_website\"/>"
+msgid ""
+"<span class=\"fa fa-lg fa-globe\" title=\"Values set here are website-"
+"specific.\" groups=\"website.group_multi_website\"/>"
+msgstr ""
+"<span class=\"fa fa-lg fa-globe\" title=\"Les valeurs définies ici sont "
+"spécifiques au site Web.\" groups=\"website.group_multi_website\"/>"
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
-msgid "<span class=\"fa fa-user-plus\" aria-hidden=\"true\"/>\n"
+msgid ""
+"<span class=\"fa fa-user-plus\" aria-hidden=\"true\"/>\n"
 "                                    Unsubscribe"
 msgstr ""
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
-msgid "<span class=\"fa fa-user-plus\" aria-hidden=\"true\"/>\n"
+msgid ""
+"<span class=\"fa fa-user-plus\" aria-hidden=\"true\"/>\n"
 "                                Unsubscribe"
-msgstr "<span class=\"fa fa-user-plus\" aria-hidden=\"true\"/>\n"
+msgstr ""
+"<span class=\"fa fa-user-plus\" aria-hidden=\"true\"/>\n"
 "                Se désinscrire"
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_compensation_card
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_irregular_worker_card
-msgid "<span class=\"fa fa-user-plus\" aria-hidden=\"true\"/>\n"
+msgid ""
+"<span class=\"fa fa-user-plus\" aria-hidden=\"true\"/>\n"
 "                Subscribe"
 msgstr ""
 
 #. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.res_config_settings_shift_view_form
+msgid ""
+"<span class=\"o_form_label\">\n"
+"                            Shift Manager Contact\n"
+"                        </span>"
+msgstr ""
+
+#. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_irregular_worker
-msgid "<strong>Alert:</strong>\n"
-"            If you are in alert status, that means you didn't anticipate enough\n"
+msgid ""
+"<strong>Alert:</strong>\n"
+"            If you are in alert status, that means you didn't anticipate "
+"enough\n"
 "            shifts.\n"
 "            Your counter is now negative, directly to -2.\n"
 "            You have 4 weeks to do 2 shifts to be up to date.\n"
 "            For the compensation shifts, subscribe like you do for a normal\n"
 "            shift.\n"
-"            Be careful, in addition to these 2 shifts, don't forget to do your\n"
+"            Be careful, in addition to these 2 shifts, don't forget to do "
+"your\n"
 "            normal shift in the same delay to prevent to be in the same\n"
 "            situation next month."
-msgstr "<strong>Alerte : </strong>\n"
-"Ton compteur est sous zéro. Pas de panique, tu peux toujours venir faire tes courses (ainsi que tes mangeurs si tu en as). \n"
-"Regarde sur la page \"Shifts volants\" pour les moments où nous avons le plus besoin d'aide. <br />Si tu restes sous zéro plus de 28 jours, tu seras automatiquement \"Suspendu\" et tu devras demander un délai de grâce."
+msgstr ""
+"<strong>Alerte : </strong>\n"
+"Ton compteur est sous zéro. Pas de panique, tu peux toujours venir faire tes "
+"courses (ainsi que tes mangeurs si tu en as). \n"
+"Regarde sur la page \"Shifts volants\" pour les moments où nous avons le "
+"plus besoin d'aide. <br />Si tu restes sous zéro plus de 28 jours, tu seras "
+"automatiquement \"Suspendu\" et tu devras demander un délai de grâce."
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_regular_worker
-msgid "<strong>Alert:</strong>\n"
+msgid ""
+"<strong>Alert:</strong>\n"
 "            If you are in alert status, that means you didn't do your last\n"
 "            shift. You have\n"
 "            until your next scheduled shift to do your compensation shift\n"
 "            according to your situation.\n"
-"            Your compensation is either simple or double. If you don't how how\n"
+"            Your compensation is either simple or double. If you don't how "
+"how\n"
 "            many compensation shifts you have to do, please contact your\n"
 "            supercooperator.\n"
-"            To do your compensation shift, no need to subscribe in advance : you\n"
+"            To do your compensation shift, no need to subscribe in advance : "
+"you\n"
 "            come at the beginning of the shift that best suits you.\n"
 "            Add your name and the indication \"compensation shift\" on the\n"
 "            attendance list.\n"
-"            No panic, you still can come and shop, so can your eaters if you\n"
+"            No panic, you still can come and shop, so can your eaters if "
+"you\n"
 "            have any."
 msgstr ""
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_irregular_worker
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_regular_worker
-msgid "<strong>Auto-Extension:</strong>\n"
-"            You didn't manage to do your compensation shifts in the delay but\n"
+msgid ""
+"<strong>Auto-Extension:</strong>\n"
+"            You didn't manage to do your compensation shifts in the delay "
+"but\n"
 "            you benefit from the auto-extension.\n"
-"            This is two more weeks to do your compensation shifts. You can shop.\n"
+"            This is two more weeks to do your compensation shifts. You can "
+"shop.\n"
 "            If you don't do your compensation shifts, you'll be suspended."
 msgstr ""
 
@@ -103,18 +149,23 @@ msgstr "<strong>Erreur !</strong>"
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_past_shifts
-msgid "<strong>Info !</strong>\n"
+msgid ""
+"<strong>Info !</strong>\n"
 "            You don't have any past shift."
 msgstr "<strong>Info !</strong> Vous n'avez pas de shift passé."
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_info
-msgid "<strong>Info!</strong>\n"
-"            If you do not agree with your status, please contact the members\n"
-"            office by mail (membre@bees-coop.be) or during the open hours of the\n"
-"            office (Monday 5PM to 7:30PM, Wednesday 5PM to 7:30 PM and Friday\n"
-"            2:30PM to 5 PM)."
-msgstr "<strong>Info !</strong> Si tu n'es pas d’accord avec ton statut, il peut s’agir d’une erreur de notre part. Contacte alors le bureau des membres par mail (membre@bees-coop.be) ou en personne pendant les heures d'ouverture du bureau : le lundi de 17h à 19h30, le mercredi de 17h à 19h30, le vendredi de 14h30 à 17h et le samedi de 9h à 12h30 (à l'étage du magasin)."
+msgid ""
+"<strong>Info!</strong>\n"
+"            If you do not agree with your status, please contact the "
+"members\n"
+"            office by email\n"
+"            ("
+msgstr ""
+"<strong>Info !</strong> Si tu n'es pas d’accord avec ton statut, il peut "
+"s’agir d’une erreur de notre part. Contacte alors le bureau des membres par "
+"mail ("
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_title
@@ -123,75 +174,125 @@ msgstr "<strong>C'est bon !</strong>"
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_regular_worker
-msgid "<strong>Suspended:</strong>\n"
-"            If you are suspended, that means you didn't come to a shift and you\n"
+msgid ""
+"<strong>Suspended:</strong>\n"
+"            If you are suspended, that means you didn't come to a shift and "
+"you\n"
 "            didn't do you compensation shifts in the delay (4 weeks).\n"
 "            You cannot shop (so as your eaters). But no need to panic : a\n"
 "            two-weeks delay is activable on demand at the entrance of the\n"
 "            supermarket.\n"
 "            You will be able to shop during 2 more weeks and to put your\n"
 "            situation in order.\n"
-"            To do your compensation shift, no need to subscribe in advance : you\n"
+"            To do your compensation shift, no need to subscribe in advance : "
+"you\n"
 "            come at the beginning of the shift that best suits you.\n"
 "            Add your name and the indication \"compensation shift\" on the\n"
 "            attendance list."
-msgstr "Ton compteur est sous zéro depuis plus de 28 jours : -1, -2 ou -3. Tu n’as plus le droit de faire tes courses mais tu peux demander à passer en extension, appelée délai de grâce, à l’accueil (1x) puis, si ce premier délai n’était pas suffisant, au Bureau des Membres (plusieurs fois). "
+msgstr ""
+"Ton compteur est sous zéro depuis plus de 28 jours : -1, -2 ou -3. Tu n’as "
+"plus le droit de faire tes courses mais tu peux demander à passer en "
+"extension, appelée délai de grâce, à l’accueil (1x) puis, si ce premier "
+"délai n’était pas suffisant, au Bureau des Membres (plusieurs fois). "
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_irregular_worker
-msgid "<strong>Suspended:</strong>\n"
-"            You did not anticipate enough shifts and you did not come back to a\n"
+msgid ""
+"<strong>Suspended:</strong>\n"
+"            You did not anticipate enough shifts and you did not come back "
+"to a\n"
 "            normal situation in the delay.\n"
 "            You cannot shop anymore, nor can your eaters.\n"
-"            But no need to panic : a two-weeks delay is activable on demand at\n"
+"            But no need to panic : a two-weeks delay is activable on demand "
+"at\n"
 "            the entrance of the supermarket.\n"
 "            You will be able to shop during 2 more weeks and to put your\n"
 "            situation in order.\n"
 "            For the compensation shifts, subscribe like you do for a normal\n"
 "            shift."
-msgstr "<strong>Alerte rouge :</strong>Ton compteur est sous zéro depuis plus de 28 jours. Tu n’as plus le droit de faire tes courses mais tu peux demander à passer en extension, appelée délai de grâce, à l’accueil (1x) puis, si ce premier délai n’était pas suffisant, au Bureau des Membres (plusieurs fois). Pour te remettre à jour, regarde les moments où nous avons besoin d'aide, dans \"Shifts volants\". Merci !"
+msgstr ""
+"<strong>Alerte rouge :</strong>Ton compteur est sous zéro depuis plus de 28 "
+"jours. Tu n’as plus le droit de faire tes courses mais tu peux demander à "
+"passer en extension, appelée délai de grâce, à l’accueil (1x) puis, si ce "
+"premier délai n’était pas suffisant, au Bureau des Membres (plusieurs fois). "
+"Pour te remettre à jour, regarde les moments où nous avons besoin d'aide, "
+"dans \"Shifts volants\". Merci !"
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_regular_worker
-msgid "<strong>Unsubscribed:</strong>\n"
-"            You did not attend two consecutive shifts. You are now unsubscribed.\n"
+msgid ""
+"<strong>Unsubscribed:</strong>\n"
+"            You did not attend two consecutive shifts. You are now "
+"unsubscribed.\n"
 "            You cannot shop (nor can your eaters) nor come to work.\n"
-"            To subscribe again, please contact membre@bees-coop.be or come to\n"
-"            the members office during the opening hours."
-msgstr "<strong>Gelé</strong> :Ton compteur est à -4 et on le bloque pour qu’il ne descende pas plus bas. Tu n’as plus le droit de faire tes courses ni de faire des shifts. Si tu es régulier, tu n’es plus inscrit à ton créneau. Dans tous les cas, tu dois prendre contact avec le Bureau des Membres pour arranger la situation : membre@bees-coop.be"
+"            To subscribe again, please contact"
+msgstr ""
+"<strong>Gelé</strong> : Ton compteur est à -4 et on le bloque pour qu’il ne "
+"descende pas plus bas. Tu n’as plus le droit de faire tes courses ni de "
+"faire des shifts. Si tu es régulier, tu n’es plus inscrit à ton créneau. "
+"Dans tous les cas, tu dois prendre contact avec le Bureau des Membres pour "
+"arranger la situation :"
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_irregular_worker
-msgid "<strong>Unsubscribed:</strong>\n"
-"            Your counter is negative and you haven't come to work for more than\n"
+msgid ""
+"<strong>Unsubscribed:</strong>\n"
+"            Your counter is negative and you haven't come to work for more "
+"than\n"
 "            8 weeks.\n"
 "            You are unsubscribed. You cannot shop nor can your eaters.\n"
-"            To subscribe again of if it's a mistake, please contact\n"
-"            membre@bees-coop.be or come to the members office during the opening\n"
-"            hours."
-msgstr "<strong>Gelé</strong> :Ton compteur est à -4 et on le bloque pour qu’il ne descende pas plus bas. Tu n’as plus le droit de faire tes courses ni de faire des shifts. Si tu es régulier, tu n’es plus inscrit à ton créneau. Dans tous les cas, tu dois prendre contact avec le Bureau des Membres pour arranger la situation : membre@bees-coop.be"
+"            To subscribe again or if it's a mistake, please contact"
+msgstr ""
+"<strong>Gelé</strong> : Ton compteur est à -4 et on le bloque pour qu’il ne "
+"descende pas plus bas. Tu n’as plus le droit de faire tes courses ni de "
+"faire des shifts. Si tu es régulier, tu n’es plus inscrit à ton créneau. "
+"Dans tous les cas, tu dois prendre contact avec le Bureau des Membres pour "
+"arranger la situation :"
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_common
-msgid "<strong>Up To Date:</strong>\n"
-"            That's perfect! You are in order. Thanks a lot. You can come and\n"
+msgid ""
+"<strong>Up To Date:</strong>\n"
+"            That's perfect! You are in order. Thanks a lot. You can come "
+"and\n"
 "            shop, so can your eaters if you have any."
-msgstr "<strong>A jour : </strong>\n"
-"Parfait ! Ton compteur est à jour. Merci beaucoup ! Toi et tes mangeurs, vous pouvez venir faire vos courses."
+msgstr ""
+"<strong>A jour : </strong>\n"
+"Parfait ! Ton compteur est à jour. Merci beaucoup ! Toi et tes mangeurs, "
+"vous pouvez venir faire vos courses."
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
-msgid "<strong>Warning !</strong>\n"
-"            For the moment public holidays are not taken into account. If your\n"
+msgid ""
+"<strong>Warning !</strong>\n"
+"            For the moment public holidays are not taken into account. If "
+"your\n"
 "            shift\n"
 "            occures during a public holiday, you do not have to do it."
-msgstr "<strong>Attention !</strong>Pour le moment, les jours fériés ne sont pas pris en compte. Le magasin est fermé et les shifts sont annulés ces jours-là."
+msgstr ""
+"<strong>Attention !</strong>Pour le moment, les jours fériés ne sont pas "
+"pris en compte. Le magasin est fermé et les shifts sont annulés ces jours-là."
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
-msgid "<strong>Warning !</strong>\n"
+msgid ""
+"<strong>Warning !</strong>\n"
 "            You have not yet signed up to a shift."
-msgstr "Tu n'as pas de shift prévu dans les prochaines semaines. Est-ce normal ?"
+msgstr ""
+"Tu n'as pas de shift prévu dans les prochaines semaines. Est-ce normal ?"
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.portal_my_details
+msgid ""
+"Accept to share my info\n"
+"                        as Supercoop"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_partner__share_supercoop_info
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_users__share_supercoop_info
+msgid "Accept to share my info as Supercoop"
+msgstr ""
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
@@ -244,7 +345,8 @@ msgstr ""
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_regular_worker
-msgid "Compensation\n"
+msgid ""
+"Compensation\n"
 "                                Shift:"
 msgstr ""
 
@@ -252,6 +354,21 @@ msgstr ""
 #: model:ir.model,name:beesdoo_website_shift.model_res_config_settings
 msgid "Config Settings"
 msgstr "Paramètres de configuration"
+
+#. module: beesdoo_website_shift
+#: model:ir.model,name:beesdoo_website_shift.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.res_config_settings_shift_view_form
+msgid "Email"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.res_config_settings_shift_view_form
+msgid "Email address displayed in mail templates and on the website"
+msgstr ""
 
 #. module: beesdoo_website_shift
 #: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_config_settings__enable_subscribe_compensation
@@ -306,13 +423,15 @@ msgstr "Explication du statut :"
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:634
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:634
 #, python-format
 msgid "Friday"
 msgstr "Vendredi"
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
-msgid "Future Date of\n"
+msgid ""
+"Future Date of\n"
 "                                Alert:"
 msgstr "Prochaine date d'alerte :"
 
@@ -325,20 +444,24 @@ msgstr "Comprendre ton statut"
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_public_shift_irregular_worker
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_public_shift_template_regular_worker
 msgid "Help text or information text."
-msgstr "Les créneaux en jaune sont ceux où on a le plus besoin de gens.\n"
+msgstr ""
+"Les créneaux en jaune sont ceux où on a le plus besoin de gens.\n"
 "<br/>\n"
 "Si c'est possible pour toi de nous aider à ce moment-là, c'est super !\n"
 "\n"
 "<br/>\n"
-"Regarde dans le <a href=https://gestion.bees-coop.be/documents/44>calendrier des semaines ABCD</a> quelles sont les dates en 2020. \n"
+"Regarde dans le <a href=https://gestion.bees-coop.be/documents/44>calendrier "
+"des semaines ABCD</a> quelles sont les dates en 2020. \n"
 "<br/>\n"
 "\n"
-"Quand tu as choisi ton créneau, envoie un e-mail à <a href=membre@bees-coop.be>membre@bees-coop.be</a>\n"
+"Quand tu as choisi ton créneau, envoie un e-mail à <a href=membre@bees-coop."
+"be>membre@bees-coop.be</a>\n"
 " <br/> A bientôt !"
 
 #. module: beesdoo_website_shift
 #. openerp-web
 #: code:addons/beesdoo_website_shift/static/src/js/script.js:24
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/static/src/js/script.js:24
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_title
 #, python-format
 msgid "Hide"
@@ -348,6 +471,16 @@ msgstr "Cacher"
 #: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_config_settings__hide_rule
 #: model:ir.model.fields,field_description:beesdoo_website_shift.field_website__hide_rule
 msgid "Hide Rule"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.portal_layout
+msgid "I accept to share my info as Supercoop"
+msgstr ""
+
+#. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.portal_layout
+msgid "I do not accept to share my info as Supercoop"
 msgstr ""
 
 #. module: beesdoo_website_shift
@@ -362,7 +495,8 @@ msgstr "En alerte depuis :"
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_regular_worker
-msgid "In Extension\n"
+msgid ""
+"In Extension\n"
 "                                Since:"
 msgstr ""
 
@@ -386,9 +520,14 @@ msgstr ""
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:649
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:649
 #, python-format
-msgid "It is too late to unsubscribe. If you can't attend your shift, please contact the supercoop."
-msgstr "Il est trop tard pour te désinscrire. Si tu ne peux pas venir, contacte le/la supercoop."
+msgid ""
+"It is too late to unsubscribe. If you can't attend your shift, please "
+"contact the supercoop."
+msgstr ""
+"Il est trop tard pour te désinscrire. Si tu ne peux pas venir, contacte le/"
+"la supercoop."
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
@@ -414,6 +553,7 @@ msgstr ""
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:630
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:630
 #, python-format
 msgid "Monday"
 msgstr "Lundi"
@@ -430,7 +570,8 @@ msgstr ""
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
-msgid "Next Countdown\n"
+msgid ""
+"Next Countdown\n"
 "                                Date:"
 msgstr "Prochaine date de décompte :"
 
@@ -469,25 +610,33 @@ msgstr "Confirmer la désinscription"
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_new_worker
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_regular_worker_without_shift
-msgid "Please contact the members office to suscribe to\n"
+msgid ""
+"Please contact the members office to suscribe to\n"
 "                            shifts."
 msgstr ""
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
-msgid "Please, subscribe, in priority, to the\n"
-"                                    highlighted shifts. To sign up to a shift\n"
+msgid ""
+"Please, subscribe, in priority, to the\n"
+"                                    highlighted shifts. To sign up to a "
+"shift\n"
 "                                    click on the\n"
-"                                    subscribe button. Notice that you can not\n"
+"                                    subscribe button. Notice that you can "
+"not\n"
 "                                    unsubscribe online. To unsubscribe to a\n"
 "                                    shift, please,\n"
 "                                    contact us."
-msgstr "Les shifts en jaune sont ceux où nous avons le plus besoin d'aide.\n"
-"Pour le moment, il n'est pas possible de se désinscrire d'un shift via l'intranet. Si tu ne peux finalement pas venir, envoie un e-mail à membre@bees-coop.be. Merci !"
+msgstr ""
+"Les shifts en jaune sont ceux où nous avons le plus besoin d'aide.\n"
+"Pour le moment, il n'est pas possible de se désinscrire d'un shift via "
+"l'intranet. Si tu ne peux finalement pas venir, envoie un e-mail à "
+"membre@bees-coop.be. Merci !"
 
 #. module: beesdoo_website_shift
 #. openerp-web
 #: code:addons/beesdoo_website_shift/static/src/js/script.js:32
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/static/src/js/script.js:32
 #, python-format
 msgid "Reduce"
 msgstr "Réduire"
@@ -506,9 +655,15 @@ msgstr ""
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:635
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:635
 #, python-format
 msgid "Saturday"
 msgstr "Samedi"
+
+#. module: beesdoo_website_shift
+#: model:ir.model.fields,field_description:beesdoo_website_shift.field_res_config_settings__shift_manager_email
+msgid "Shift Manager Email"
+msgstr ""
 
 #. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_irregular_worker
@@ -545,6 +700,8 @@ msgstr "Créneaux réguliers"
 #. openerp-web
 #: code:addons/beesdoo_website_shift/static/src/js/script.js:15
 #: code:addons/beesdoo_website_shift/static/src/js/script.js:20
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/static/src/js/script.js:15
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/static/src/js/script.js:20
 #, python-format
 msgid "Show"
 msgstr ""
@@ -552,6 +709,7 @@ msgstr ""
 #. module: beesdoo_website_shift
 #. openerp-web
 #: code:addons/beesdoo_website_shift/static/src/js/script.js:28
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/static/src/js/script.js:28
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.my_shift_next_shifts
 #, python-format
 msgid "Show next shifts"
@@ -580,6 +738,7 @@ msgstr "Souscrite"
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:636
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:636
 #, python-format
 msgid "Sunday"
 msgstr "Dimanche"
@@ -587,17 +746,22 @@ msgstr "Dimanche"
 #. module: beesdoo_website_shift
 #: model:ir.model.fields,help:beesdoo_website_shift.field_res_config_settings__hide_rule
 #: model:ir.model.fields,help:beesdoo_website_shift.field_website__hide_rule
-msgid "Threshold ((available space)/(max space)) in percentage of available space under which the shift is hidden"
+msgid ""
+"Threshold ((available space)/(max space)) in percentage of available space "
+"under which the shift is hidden"
 msgstr ""
 
 #. module: beesdoo_website_shift
 #: model:ir.model.fields,help:beesdoo_website_shift.field_res_config_settings__highlight_rule_pc
 #: model:ir.model.fields,help:beesdoo_website_shift.field_website__highlight_rule_pc
-msgid "Threshold (in %) of available space in a shift that trigger the highlight of the shift"
+msgid ""
+"Threshold (in %) of available space in a shift that trigger the highlight of "
+"the shift"
 msgstr ""
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:633
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:633
 #, python-format
 msgid "Thursday"
 msgstr "Jeudi"
@@ -605,11 +769,14 @@ msgstr "Jeudi"
 #. module: beesdoo_website_shift
 #: model:ir.model.fields,help:beesdoo_website_shift.field_res_config_settings__regular_highlight_rule
 #: model:ir.model.fields,help:beesdoo_website_shift.field_website__regular_highlight_rule
-msgid "Treshold (in %) of available space in a shift that trigger the the highlight of a shift template."
+msgid ""
+"Treshold (in %) of available space in a shift that trigger the the highlight "
+"of a shift template."
 msgstr ""
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:631
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:631
 #, python-format
 msgid "Tuesday"
 msgstr "Mardi"
@@ -621,6 +788,7 @@ msgstr "Se désabonner"
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:286
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:286
 #, python-format
 msgid "Unsubscription failed, impossible to find shift."
 msgstr ""
@@ -632,6 +800,7 @@ msgstr "Site Web"
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:632
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:632
 #, python-format
 msgid "Wednesday"
 msgstr "Mercredi"
@@ -659,6 +828,7 @@ msgstr "Vous ne devez pas participer au système de shift."
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:282
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:282
 #, python-format
 msgid "You have been successfully unsubscribed."
 msgstr ""
@@ -680,12 +850,16 @@ msgstr "Tes shifts"
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:643
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:643
 #, python-format
-msgid "Your subscription has failed. Someone subscribed before you or the shift was deleted. Try again in a moment."
+msgid ""
+"Your subscription has failed. Someone subscribed before you or the shift was "
+"deleted. Try again in a moment."
 msgstr ""
 
 #. module: beesdoo_website_shift
 #: code:addons/beesdoo_website_shift/controllers/main.py:640
+#: code:addons/src/coopiteasy/obeesdoo/beesdoo_website_shift/controllers/main.py:640
 #, python-format
 msgid "Your subscription has succeded."
 msgstr ""
@@ -707,6 +881,12 @@ msgid "full"
 msgstr ""
 
 #. module: beesdoo_website_shift
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_irregular_worker
+#: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.help_text_regular_worker
+msgid "or come to the members office during the opening hours."
+msgstr ""
+
+#. module: beesdoo_website_shift
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.public_shift_template_regular_worker
 msgid "space(s)"
 msgstr ""
@@ -715,4 +895,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:beesdoo_website_shift.available_shift_irregular_worker_card
 msgid "spot(s)"
 msgstr "place(s)"
-
