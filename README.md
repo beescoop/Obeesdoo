@@ -45,7 +45,7 @@ addon | version | maintainers | summary
 [beesdoo_stock_coverage](beesdoo_stock_coverage/) | 12.0.2.0.0 |  | Emptied
 [beesdoo_website_eater](beesdoo_website_eater/) | 12.0.2.0.1 |  | Emptied.
 [beesdoo_website_posorder_amount](beesdoo_website_posorder_amount/) | 12.0.1.0.0 |  | Emptied.
-[beesdoo_website_shift](beesdoo_website_shift/) | 12.0.2.2.1 |  | Show available shifts for regular and irregular workers on the website and let workers manage their shifts with an easy web interface.
+[beesdoo_website_shift](beesdoo_website_shift/) | 12.0.2.3.0 |  | Show available shifts for regular and irregular workers on the website and let workers manage their shifts with an easy web interface.
 [beesdoo_website_shift_swap](beesdoo_website_shift_swap/) | 12.0.2.1.0 |  | Add shift exchanges and solidarity shifts offers and requests.
 [beesdoo_website_theme](beesdoo_website_theme/) | 12.0.0.0.1 |  | Apply BEES coop design rules.
 [beesdoo_worker_status](beesdoo_worker_status/) | 12.0.1.1.0 |  | Emptied (replaced by shift_worker_status)
