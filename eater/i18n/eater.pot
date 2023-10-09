@@ -14,6 +14,12 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: eater
+#: code:addons/eater/models/partner.py:44
+#, python-format
+msgid "%s cannot have a parent worker because they are themselves a worker."
+msgstr ""
+
+#. module: eater
 #: model:ir.model,name:eater.model_new_eater_wizard
 msgid "Add an eater to the current partner"
 msgstr ""
@@ -133,8 +139,14 @@ msgid "Worker and Eater"
 msgstr ""
 
 #. module: eater
-#: code:addons/eater/models/partner.py:33
+#: code:addons/eater/models/partner.py:60
 #, python-format
 msgid "You try to assign a eater to a partner but this eater is already assign to %s please remove it before "
+msgstr ""
+
+#. module: eater
+#: code:addons/eater/models/partner.py:37
+#, python-format
+msgid "{0} cannot be the parent of {1} because the parent must be a worker."
 msgstr ""
 
