@@ -54,7 +54,7 @@ addon | version | maintainers | summary
 [cooperator_info_session](cooperator_info_session/) | 12.0.1.0.3 |  | Info session for getting share
 [cooperator_worker](cooperator_worker/) | 12.0.2.0.1 |  | Working and shopping configuration based on Share product
 [cooperator_worker_force](cooperator_worker_force/) | 12.0.2.0.1 |  | Allows to set a cooperator as a worker before the share is released.
-[eater](eater/) | 12.0.1.0.0 |  | Add eaters to the workers of your structure.
+[eater](eater/) | 12.0.2.0.0 |  | Add eaters to the workers of your structure.
 [eater_member_card](eater_member_card/) | 12.0.1.1.0 |  | Compute barcode based on eaters
 [eater_parent_barcode](eater_parent_barcode/) | 12.0.1.0.0 |  | Compute barcode based on eaters
 [macavrac_base](macavrac_base/) | 12.0.1.0.1 |  | Module with basic customizations for the Macavrac cooperative.
