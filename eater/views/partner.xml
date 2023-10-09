@@ -8,10 +8,7 @@
         <field name="arch" type="xml">
 
             <xpath expr="//notebook" position="inside">
-                <page
-                    string="Eaters"
-                    attrs="{'invisible': ['|', ('customer', '=', False), ('eater', 'not in', ('worker_eater'))]}"
-                >
+                <page string="Eaters">
                     <group>
                         <group>
                             <field
@@ -20,6 +17,12 @@
                                 widget="many2many_tags"
                                 options="{'no_create': True}"
                                 context="{'default_eater' : 'eater', 'default_customer' : True}"
+                                attrs="{'invisible': [('eater', '=', 'eater')]}"
+                            />
+                            <field
+                                name="parent_eater_id"
+                                options="{'no_create': True}"
+                                attrs="{'invisible': [('eater', '=', 'worker_eater')]}"
                             />
                         </group>
                         <group>
@@ -28,6 +31,7 @@
                                 name="%(new_eater_wizard_action)d"
                                 type="action"
                                 class="btn btn-primary"
+                                attrs="{'invisible': [('eater', '=', 'eater')]}"
                             />
                         </group>
                     </group>
