@@ -4,7 +4,7 @@
 
 {
     "name": "Website Portal Restrict Modification",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "depends": ["portal", "website"],
     "summary": """
     Portal extension preventing modification of sensible data by the users
