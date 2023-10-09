@@ -39,7 +39,5 @@ class PortalPosOrderAmount(CustomerPortal):
                 owned_pos_order, key=lambda pos_order: pos_order.date_order.year
             )
         ]
-        values["company_currency"] = (
-            request.env["res.company"]._company_default_get().currency_id
-        )
+        values["company_currency"] = request.env.company.currency_id
         return values
