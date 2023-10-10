@@ -1,11 +1,10 @@
 # Copyright 2020 Coop IT Easy SCRLfs (<http://www.coopiteasy.be>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+from .common import TestWorkerBase
 
-from . import test_base
 
-
-class TestWorkers(test_base.TestWorkerBase):
+class TestWorkers(TestWorkerBase):
     def test_is_worker_share_x(self):
         """
         Test that a cooperator is a worker based on his share type.
@@ -47,19 +46,9 @@ class TestWorkers(test_base.TestWorkerBase):
                 "sr": 2,
             }
         )
-        # fixme why is cooperative_status_ids not set automatically by Odoo's ORM ?
-        self.assertFalse(self.cooperator_x.cooperative_status_ids)
-        self.cooperator_x.cooperative_status_ids = cooperative_status
-        self.assertTrue(self.cooperator_x.cooperative_status_ids)
         self.assertEqual(self.cooperator_x.can_shop, True)
 
         # Now unsubscribe the coop
         cooperative_status.status = "resigning"
         self.assertEqual(cooperative_status.can_shop, False)
         self.assertEqual(self.cooperator_x.can_shop, False)
-
-    def test_compute_can_shop_share_z(self):
-        """
-        Test that a cooperator can shop based on his share type.
-        """
-        self.assertEqual(self.cooperator_z.can_shop, False)

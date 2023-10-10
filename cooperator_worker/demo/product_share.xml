@@ -1,29 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <!-- Share products -->
-    <record id="share_a" model="product.product">
-        <field name="name">Share A</field>
-        <field name="default_code">share_a</field>
-        <field name="customer" eval="True" />
+    <record id="cooperator.product_template_share_type_1_demo" model="product.template">
         <field name="allow_working" eval="True" />
         <field name="allow_shopping" eval="True" />
-        <field name="is_share" eval="True" />
     </record>
-    <record id="share_b" model="product.product">
-        <field name="name">Share B</field>
-        <field name="default_code">share_b</field>
-        <field name="customer" eval="True" />
+    <record id="cooperator.product_template_share_type_2_demo" model="product.template">
         <field name="allow_working" eval="False" />
         <field name="allow_shopping" eval="True" />
-        <field name="is_share" eval="True" />
     </record>
-    <record id="share_c" model="product.product">
-        <field name="name">Share C</field>
-        <field name="default_code">share_c</field>
-        <field name="customer" eval="True" />
-        <field name="allow_working" eval="False" />
-        <field name="allow_shopping" eval="False" />
-        <field name="is_share" eval="True" />
-    </record>
-
 </odoo>
