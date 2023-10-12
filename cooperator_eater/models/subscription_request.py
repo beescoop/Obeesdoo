@@ -16,7 +16,6 @@ class SubscriptionRequest(models.Model):
 
         return {"eater": eater}
 
-    @api.multi
     def validate_subscription_request(self):
         self.ensure_one()
 

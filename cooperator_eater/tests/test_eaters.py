@@ -8,34 +8,24 @@ from dateutil.relativedelta import relativedelta
 
 from odoo.exceptions import ValidationError
 
-from odoo.addons.cooperator_worker.tests.test_base import TestWorkerBase
+from odoo.addons.cooperator_worker.tests.common import TestWorkerBase
 
 
 class TestEaters(TestWorkerBase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
 
         partner_obj = cls.env["res.partner"]
         ptemplate_obj = cls.env["product.template"]
 
-        cls.eater_1 = partner_obj.create(
-            {"name": "Eater 1", "customer": True, "eater": "eater"}
-        )
-        cls.eater_2 = partner_obj.create(
-            {"name": "Eater 2", "customer": True, "eater": "eater"}
-        )
-        cls.eater_3 = partner_obj.create(
-            {"name": "Eater 3", "customer": True, "eater": "eater"}
-        )
-        cls.eater_4 = partner_obj.create(
-            {"name": "Eater 4", "customer": True, "eater": "eater"}
-        )
+        cls.eater_1 = partner_obj.create({"name": "Eater 1", "eater": "eater"})
+        cls.eater_2 = partner_obj.create({"name": "Eater 2", "eater": "eater"})
+        cls.eater_3 = partner_obj.create({"name": "Eater 3", "eater": "eater"})
+        cls.eater_4 = partner_obj.create({"name": "Eater 4", "eater": "eater"})
 
         cls.cooperator_x.eater = "worker_eater"
         cls.cooperator_y.eater = "worker_eater"
-        cls.cooperator_z.eater = "worker_eater"
 
         cls.worker_share = ptemplate_obj.create(
             {
@@ -110,16 +100,16 @@ class TestEaters(TestWorkerBase):
         """
         Test that share that doesn't allow eater assignment.
         """
-        self.share_z.max_nb_eater_allowed = 0
+        self.share_x.max_nb_eater_allowed = 0
 
         max_eater_error_msg = "You can only set 0 additional eaters per worker"
         with self.assertRaisesRegex(ValidationError, max_eater_error_msg):
-            self.cooperator_z.write({"child_eater_ids": [(4, self.eater_1.id)]})
+            self.cooperator_x.write({"child_eater_ids": [(4, self.eater_1.id)]})
 
         with self.assertRaisesRegex(ValidationError, max_eater_error_msg):
-            self.eater_1.write({"parent_eater_id": self.cooperator_z.id})
+            self.eater_1.write({"parent_eater_id": self.cooperator_x.id})
 
-    def test_get_eater_vals_returns_share_zonfiguration(self):
+    def test_get_eater_vals_returns_share_configuration(self):
         partner = self.env["res.partner"].create(
             {
                 "name": "Partner with birthdate set",

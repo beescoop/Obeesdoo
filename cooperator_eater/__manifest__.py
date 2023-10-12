@@ -4,10 +4,9 @@
     "author": "BEES coop, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
-    "version": "12.0.1.1.0",
+    "version": "16.0.1.0.0",
     "depends": [
         "eater",
-        "cooperator",
         "partner_contact_birthdate",
         "cooperator_worker",
     ],
