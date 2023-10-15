@@ -102,6 +102,14 @@ class ShiftPlanning(models.Model):
         planning = self._get_next_planning(last_seq)
         planning = planning.with_context(visualize_date=date)
 
+        _logger.info(
+            "generating next shift planning:"
+            " (planning = '%s', last_planning_seq = '%s', next_planning_date = '%s')",
+            planning.name,
+            last_seq,
+            date,
+        )
+
         if not planning.task_template_ids:
             _logger.error("Could not generate next planning: no task template defined.")
             return
@@ -111,6 +119,13 @@ class ShiftPlanning(models.Model):
         next_date = planning._get_next_planning_date(date)
         config.set_param("shift.last_planning_seq", planning.sequence)
         config.set_param("shift.next_planning_date", next_date)
+
+        _logger.info(
+            "setting next values:"
+            " (last_planning_seq = '%s', next_planning_date = '%s')",
+            planning.sequence,
+            next_date,
+        )
 
     @api.model
     def get_future_shifts(

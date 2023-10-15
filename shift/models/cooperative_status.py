@@ -360,6 +360,12 @@ class CooperativeStatus(models.Model):
 
         domain = self._get_irregular_worker_domain(today)
         irregular = self.search(domain)
+        _logger.info(
+            "changing irregular counter (today = '%s', journal_id = '%s', ids = '%s')",
+            today,
+            journal.id,
+            irregular.ids,
+        )
         for status in irregular:
             delta = (today - status.irregular_start_date).days
             if delta and delta % self._period == 0 and status not in journal.line_ids:
