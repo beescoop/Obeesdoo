@@ -1,0 +1,10 @@
+<odoo>
+    <data noupdate="1">
+
+        <record id="validating_user_email" model="ir.config_parameter">
+            <field name="key">validating_user_email</field>
+            <field name="value">office@yourdomain.com</field>
+        </record>
+
+    </data>
+</odoo>
