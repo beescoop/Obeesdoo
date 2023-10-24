@@ -48,27 +48,6 @@ class Partner(models.Model):
                     % partner.name
                 )
 
-    def write(self, values):
-        if values.get("parent_eater_id"):
-            for partner in self:
-                if (
-                    partner.parent_eater_id
-                    and partner.parent_eater_id.id != values.get("parent_eater_id")
-                ):
-                    raise ValidationError(
-                        _(
-                            "You are trying to assign %(eater)s as an eater to"
-                            " a new partner, but this eater is already"
-                            " assigned to %(old_partner)s. Please remove the link"
-                            " before creating a new one."
-                        )
-                        % {
-                            "eater": partner.name,
-                            "old_partner": partner.parent_eater_id.name,
-                        }
-                    )
-        return super().write(values)
-
     def _new_eater(self, surname, name, email):
         partner_data = {
             "lastname": name,
