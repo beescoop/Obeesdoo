@@ -1,12 +1,12 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* eater
+# 	* eater
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: <>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -14,7 +14,8 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: eater
-#: code:addons/eater/models/partner.py:44
+#. odoo-python
+#: code:addons/eater/models/partner.py:0
 #, python-format
 msgid "%s cannot have a parent worker because they are themselves a worker."
 msgstr ""
@@ -66,7 +67,7 @@ msgid "Display Name"
 msgstr ""
 
 #. module: eater
-#: selection:res.partner,eater:0
+#: model:ir.model.fields.selection,name:eater.selection__res_partner__eater__eater
 msgid "Eater"
 msgstr ""
 
@@ -134,19 +135,13 @@ msgid "Partner"
 msgstr ""
 
 #. module: eater
-#: selection:res.partner,eater:0
+#: model:ir.model.fields.selection,name:eater.selection__res_partner__eater__worker_eater
 msgid "Worker and Eater"
 msgstr ""
 
 #. module: eater
-#: code:addons/eater/models/partner.py:60
-#, python-format
-msgid "You try to assign a eater to a partner but this eater is already assign to %s please remove it before "
-msgstr ""
-
-#. module: eater
-#: code:addons/eater/models/partner.py:37
+#. odoo-python
+#: code:addons/eater/models/partner.py:0
 #, python-format
 msgid "{0} cannot be the parent of {1} because the parent must be a worker."
 msgstr ""
-
