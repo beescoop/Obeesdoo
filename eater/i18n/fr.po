@@ -1,0 +1,147 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* eater
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-08-17 07:45+0000\n"
+"PO-Revision-Date: 2020-08-17 07:45+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: eater
+#: model:ir.model,name:eater.model_new_eater_wizard
+msgid "Add an eater to the current partner"
+msgstr "Ajouter un mangeur au partenaire sélectionné"
+
+#. module: eater
+#: model_terms:ir.ui.view,arch_db:eater.new_eater_wizard_view_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: eater
+#: model:ir.model.fields,field_description:eater.field_res_partner__child_eater_ids
+#: model:ir.model.fields,field_description:eater.field_res_users__child_eater_ids
+#, fuzzy
+msgid "Child Eater"
+msgstr "Mangeurs"
+
+#. module: eater
+#: model:ir.model,name:eater.model_res_partner
+msgid "Contact"
+msgstr "Contact"
+
+#. module: eater
+#: model_terms:ir.ui.view,arch_db:eater.new_eater_wizard_view_form
+msgid "Create"
+msgstr "Créer"
+
+#. module: eater
+#: model_terms:ir.ui.view,arch_db:eater.new_eater_wizard_view_form
+msgid "Create a new eater"
+msgstr "Create a new eater"
+
+#. module: eater
+#: model:ir.model.fields,field_description:eater.field_new_eater_wizard__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: eater
+#: model:ir.model.fields,field_description:eater.field_new_eater_wizard__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: eater
+#: model:ir.model.fields,field_description:eater.field_new_eater_wizard__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: eater
+#: selection:res.partner,eater:0
+msgid "Eater"
+msgstr "Eater"
+
+#. module: eater
+#: model:ir.model.fields,field_description:eater.field_res_partner__eater
+#: model:ir.model.fields,field_description:eater.field_res_users__eater
+msgid "Eater/Worker"
+msgstr "Mangeur/Travailleur"
+
+#. module: eater
+#: model_terms:ir.ui.view,arch_db:eater.res_partner_form_view
+msgid "Eaters"
+msgstr "Mangeurs"
+
+#. module: eater
+#: model:ir.model.fields,field_description:eater.field_new_eater_wizard__email
+msgid "Email"
+msgstr "Courriel"
+
+#. module: eater
+#: model:ir.model.fields,field_description:eater.field_new_eater_wizard__first_name
+msgid "First Name"
+msgstr "Prénom"
+
+#. module: eater
+#: model:ir.model.fields,field_description:eater.field_new_eater_wizard__id
+msgid "ID"
+msgstr "ID"
+
+#. module: eater
+#: model:ir.model.fields,field_description:eater.field_new_eater_wizard____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: eater
+#: model:ir.model.fields,field_description:eater.field_new_eater_wizard__last_name
+msgid "Last Name"
+msgstr "Nom"
+
+#. module: eater
+#: model:ir.model.fields,field_description:eater.field_new_eater_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Mis à jour par"
+
+#. module: eater
+#: model:ir.model.fields,field_description:eater.field_new_eater_wizard__write_date
+msgid "Last Updated on"
+msgstr "Mis à jour le"
+
+#. module: eater
+#: model:ir.actions.act_window,name:eater.new_eater_wizard_action
+#: model_terms:ir.ui.view,arch_db:eater.res_partner_form_view
+msgid "New Eater"
+msgstr "New Eater"
+
+#. module: eater
+#: model:ir.model.fields,field_description:eater.field_res_partner__parent_eater_id
+#: model:ir.model.fields,field_description:eater.field_res_users__parent_eater_id
+msgid "Parent Worker"
+msgstr "Parent Worker"
+
+#. module: eater
+#: model:ir.model.fields,field_description:eater.field_new_eater_wizard__partner_id
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: eater
+#: selection:res.partner,eater:0
+msgid "Worker and Eater"
+msgstr "Worker and Eater"
+
+#. module: eater
+#: code:addons/eater/models/partner.py:33
+#, fuzzy, python-format
+msgid ""
+"You try to assign a eater to a partner but this eater is already assign to "
+"%s please remove it before "
+msgstr ""
+"Vous essayez d'ajouter un mangeur mais ce mangeur est déjà "
+"assigné à %s. Retirez-le d'abord de ce contact."

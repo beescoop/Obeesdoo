@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     Copyright 2019 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="base.res_partner_address_1" model="res.partner">
+        <field name="eater">worker_eater</field>
+    </record>
+
+    <record id="base.res_partner_address_2" model="res.partner">
+        <field name="eater">worker_eater</field>
+    </record>
+
+    <record id="base.res_partner_address_3" model="res.partner">
+        <field name="eater">eater</field>
+        <field name="parent_eater_id" ref="base.res_partner_address_1" />
+    </record>
+
+    <record id="base.res_partner_address_4" model="res.partner">
+        <field name="eater">eater</field>
+        <field name="parent_eater_id" ref="base.res_partner_address_1" />
+    </record>
+
+    <record id="base.res_partner_address_5" model="res.partner">
+        <field name="eater">eater</field>
+        <field name="parent_eater_id" ref="base.res_partner_address_2" />
+
+    </record>
+
+    <record id="base.res_partner_address_7" model="res.partner">
+        <field name="eater">eater</field>
+        <field name="parent_eater_id" ref="base.res_partner_address_2" />
+    </record>
+</odoo>

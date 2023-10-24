@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="res_partner_form_view">
+        <field name="name">res.partner.form.view</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//notebook" position="inside">
+                <page string="Eaters" attrs="{'invisible': [('eater', '=', False)]}">
+                    <group>
+                        <group>
+                            <field
+                                name="child_eater_ids"
+                                string="Eaters"
+                                widget="many2many_tags"
+                                options="{'no_create': True}"
+                                context="{'default_eater' : 'eater', 'default_customer' : True}"
+                                attrs="{'invisible': [('eater', '=', 'eater')]}"
+                            />
+                            <field
+                                name="parent_eater_id"
+                                options="{'no_create': True}"
+                                attrs="{'invisible': [('eater', '=', 'worker_eater')]}"
+                            />
+                        </group>
+                        <group>
+                            <button
+                                string="New Eater"
+                                name="%(new_eater_wizard_action)d"
+                                type="action"
+                                class="btn btn-primary"
+                                attrs="{'invisible': [('eater', '=', 'eater')]}"
+                            />
+                        </group>
+                    </group>
+
+                </page>
+
+            </xpath>
+
+            <field name="website" position="after">
+                <field name="eater" />
+                <field
+                    name="parent_eater_id"
+                    attrs="{'invisible' : [('eater', '!=', 'eater')]}"
+                />
+            </field>
+
+        </field>
+    </record>
+
+</odoo>

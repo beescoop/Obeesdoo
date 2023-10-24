@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+
+    <record model="ir.actions.act_window" id="new_eater_wizard_action">
+        <field name="name">New Eater</field>
+        <field name="res_model">new.eater.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record model="ir.ui.view" id="new_eater_wizard_view_form">
+        <field name="name">New Eater Wizard</field>
+        <field name="model">new.eater.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Create a new eater">
+                <group>
+                    <field name="first_name" />
+                    <field name="last_name" />
+                    <field name="email" />
+                </group>
+                <footer>
+                    <button
+                        type="object"
+                        name="create_new_eater"
+                        string="Create"
+                        class="oe_highlight"
+                    />
+                    <button special="cancel" string="Cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
