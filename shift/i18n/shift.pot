@@ -262,6 +262,12 @@ msgid "Compute Shift Counter"
 msgstr ""
 
 #. module: shift
+#: model:ir.model.fields,help:shift.field_res_partner__is_worker
+#: model:ir.model.fields,help:shift.field_res_users__is_worker
+msgid "Computed from the share product of the first cooperator share"
+msgstr ""
+
+#. module: shift
 #: model:ir.model,name:shift.model_res_config_settings
 msgid "Config Settings"
 msgstr ""
