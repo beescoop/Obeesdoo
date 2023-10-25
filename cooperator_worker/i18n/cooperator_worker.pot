@@ -1,0 +1,99 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* cooperator_worker
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: cooperator_worker
+#: model:ir.model.fields,field_description:cooperator_worker.field_product_product__allow_shopping
+#: model:ir.model.fields,field_description:cooperator_worker.field_product_template__allow_shopping
+msgid "Allow owner to shop?"
+msgstr ""
+
+#. module: cooperator_worker
+#: model:ir.model.fields,field_description:cooperator_worker.field_product_product__allow_working
+#: model:ir.model.fields,field_description:cooperator_worker.field_product_template__allow_working
+msgid "Allow owner to work?"
+msgstr ""
+
+#. module: cooperator_worker
+#: model:ir.model.fields,help:cooperator_worker.field_res_partner__is_worker
+#: model:ir.model.fields,help:cooperator_worker.field_res_users__is_worker
+msgid "Computed from the share product of the first cooperator share"
+msgstr ""
+
+#. module: cooperator_worker
+#: model:ir.model,name:cooperator_worker.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: cooperator_worker
+#: model:ir.model.fields,help:cooperator_worker.field_product_product__allow_working
+#: model:ir.model.fields,help:cooperator_worker.field_product_template__allow_working
+msgid "Owner of this type of share are allowed to participate to the shift system."
+msgstr ""
+
+#. module: cooperator_worker
+#: model:ir.model.fields,help:cooperator_worker.field_product_product__allow_shopping
+#: model:ir.model.fields,help:cooperator_worker.field_product_template__allow_shopping
+msgid "Owner of this type of share are allowed to shop."
+msgstr ""
+
+#. module: cooperator_worker
+#: model:ir.model,name:cooperator_worker.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: cooperator_worker
+#: model:product.product,name:cooperator_worker.share_a
+#: model:product.template,name:cooperator_worker.share_a_product_template
+msgid "Share A"
+msgstr ""
+
+#. module: cooperator_worker
+#: model:product.product,name:cooperator_worker.share_b
+#: model:product.template,name:cooperator_worker.share_b_product_template
+msgid "Share B"
+msgstr ""
+
+#. module: cooperator_worker
+#: model:product.product,name:cooperator_worker.share_c
+#: model:product.template,name:cooperator_worker.share_c_product_template
+msgid "Share C"
+msgstr ""
+
+#. module: cooperator_worker
+#: model:product.product,uom_name:cooperator_worker.share_a
+#: model:product.product,uom_name:cooperator_worker.share_b
+#: model:product.product,uom_name:cooperator_worker.share_c
+#: model:product.template,uom_name:cooperator_worker.share_a_product_template
+#: model:product.template,uom_name:cooperator_worker.share_b_product_template
+#: model:product.template,uom_name:cooperator_worker.share_c_product_template
+msgid "Unit(s)"
+msgstr ""
+
+#. module: cooperator_worker
+#: model:ir.model.fields,field_description:cooperator_worker.field_res_partner__is_worker
+#: model:ir.model.fields,field_description:cooperator_worker.field_res_users__is_worker
+msgid "Worker"
+msgstr ""
+
+#. module: cooperator_worker
+#: model:product.product,weight_uom_name:cooperator_worker.share_a
+#: model:product.product,weight_uom_name:cooperator_worker.share_b
+#: model:product.product,weight_uom_name:cooperator_worker.share_c
+#: model:product.template,weight_uom_name:cooperator_worker.share_a_product_template
+#: model:product.template,weight_uom_name:cooperator_worker.share_b_product_template
+#: model:product.template,weight_uom_name:cooperator_worker.share_c_product_template
+msgid "kg"
+msgstr ""
+

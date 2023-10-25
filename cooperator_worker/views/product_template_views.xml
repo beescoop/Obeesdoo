@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="name">product_template_form_view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="cooperator.product_template_form_view" />
+        <field name="arch" type="xml">
+            <group name="configuration" position="after">
+                <group name="shifts" string="Shift">
+                    <field
+                        name="allow_working"
+                        attrs="{'invisible':[('is_share','=',False)]}"
+                    />
+                    <field
+                        name="allow_shopping"
+                        attrs="{'invisible':[('is_share','=',False)]}"
+                    />
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>
