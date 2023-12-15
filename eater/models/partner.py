@@ -35,9 +35,9 @@ class Partner(models.Model):
                 if parent.eater != "worker_eater":
                     raise ValidationError(
                         _(
-                            "{0} cannot be the parent of {1} because the parent"
+                            "{parent} cannot be the parent of {partner} because the parent"
                             " must be a worker."
-                        ).format(parent.name, partner.name)
+                        ).format(parent=parent.name, partner=partner.name)
                     )
             if partner.eater == "worker_eater" and parent:
                 raise ValidationError(
