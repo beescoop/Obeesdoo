@@ -143,5 +143,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/eater/models/partner.py:0
 #, python-format
-msgid "{0} cannot be the parent of {1} because the parent must be a worker."
+msgid ""
+"{parent} cannot be the parent of {partner} because the parent must be a "
+"worker."
 msgstr ""
