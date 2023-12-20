@@ -21,6 +21,5 @@
         "report/member_card_template.xml",
     ],
     "installable": True,
-    "demo": ["demo/cooperators.xml"],
     "license": "AGPL-3",
 }
