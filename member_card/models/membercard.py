@@ -19,7 +19,7 @@ class MemberCard(models.Model):
             rule = self.env.ref("point_of_sale.barcode_rule_client")
             size = 13 - len(rule.pattern)
             ean = rule.pattern + str(uuid.uuid4().fields[-1])[:size]
-            ean = ean[0:12] + str(self.env["barcode.nomenclature"].ean_checksum(ean))
+            ean = self.env["barcode.nomenclature"].sanitize_ean(ean)
         except ValueError:
             ean = ean[:13]
         return ean
