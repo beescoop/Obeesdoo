@@ -24,14 +24,17 @@ Member Card
 
 Create a member card and link it to a partner.
 
-- each member card has a barcode
-- create new cards in the "member card" tab of the partner form
-- use "Force Barcode" field to set a user defined barcode
-- the partner's card and barcode history is visible in the member card tab
-- the barcode of a partner is computed from the last active member card
-- a boolean "Print Member card?" allows to filter on partners for which you need to print new cards.
-- contains a generic template for the member card
-- the card template uses field `member_card_logo` rather than the company logo
+- Adds a member_card_template view and print option on partner
+- Adds a "Member card" tab on the partner with a button to create a new member card
+- The partner's card and barcode history is visible in the member card tab
+- Creating a card generates a barcode, witch is then displayed on the member card
+- The "Force Barcode" option allows to set a specific barcode instead
+- A partner's barcode is computed from the last active member card
+- Adds a field `member_card_logo` on the company allowing to upload an image
+- The card template displays the `member_card_logo`  image
+- A boolean "Print Member card?" allows to flag partners for whom you need to print new cards.
+- The wizards "Request member card printing" and "Set member card as printed" allow to mass check and uncheck the "Print Member Card?" flag.
+- If the point of sale is installed, the generated barcode matches customer pattern rule.
 
 The wizards "Request member card printing" and "Set member card as printed" allow to
 

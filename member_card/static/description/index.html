@@ -371,14 +371,17 @@ ul.auto-toc {
 <p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/beescoop/Obeesdoo/tree/16.0/member_card"><img alt="beescoop/Obeesdoo" src="https://img.shields.io/badge/github-beescoop%2FObeesdoo-lightgray.png?logo=github" /></a></p>
 <p>Create a member card and link it to a partner.</p>
 <ul class="simple">
-<li>each member card has a barcode</li>
-<li>create new cards in the “member card” tab of the partner form</li>
-<li>use “Force Barcode” field to set a user defined barcode</li>
-<li>the partner’s card and barcode history is visible in the member card tab</li>
-<li>the barcode of a partner is computed from the last active member card</li>
-<li>a boolean “Print Member card?” allows to filter on partners for which you need to print new cards.</li>
-<li>contains a generic template for the member card</li>
-<li>the card template uses field <cite>member_card_logo</cite> rather than the company logo</li>
+<li>Adds a member_card_template view and print option on partner</li>
+<li>Adds a “Member card” tab on the partner with a button to create a new member card</li>
+<li>The partner’s card and barcode history is visible in the member card tab</li>
+<li>Creating a card generates a barcode, witch is then displayed on the member card</li>
+<li>The “Force Barcode” option allows to set a specific barcode instead</li>
+<li>A partner’s barcode is computed from the last active member card</li>
+<li>Adds a field <cite>member_card_logo</cite> on the company allowing to upload an image</li>
+<li>The card template displays the <cite>member_card_logo</cite>  image</li>
+<li>A boolean “Print Member card?” allows to flag partners for whom you need to print new cards.</li>
+<li>The wizards “Request member card printing” and “Set member card as printed” allow to mass check and uncheck the “Print Member Card?” flag.</li>
+<li>If the point of sale is installed, the generated barcode matches customer pattern rule.</li>
 </ul>
 <p>The wizards “Request member card printing” and “Set member card as printed” allow to</p>
 <p>Careful : this module overrides the barcodes already defined on the partners.</p>
