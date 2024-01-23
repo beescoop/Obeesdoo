@@ -377,8 +377,8 @@ ul.auto-toc {
 <li>Creating a card generates a barcode, witch is then displayed on the member card</li>
 <li>The “Force Barcode” option allows to set a specific barcode instead</li>
 <li>A partner’s barcode is computed from the last active member card</li>
-<li>Adds a field <cite>member_card_logo</cite> on the company allowing to upload an image</li>
-<li>The card template displays the <cite>member_card_logo</cite>  image</li>
+<li>Adds a field <tt class="docutils literal">member_card_logo</tt> on the company allowing to upload an image</li>
+<li>The card template displays the <tt class="docutils literal">member_card_logo</tt> image</li>
 <li>A boolean “Print Member card?” allows to flag partners for whom you need to print new cards.</li>
 <li>The wizards “Request member card printing” and “Set member card as printed” allow to mass check and uncheck the “Print Member Card?” flag.</li>
 <li>If the point of sale is installed, the generated barcode matches customer pattern rule.</li>
@@ -406,14 +406,14 @@ ul.auto-toc {
 <li>it was used to request a batch of card to print but has no link to the actual template</li>
 </ul>
 </li>
-<li>use <cite>barcodes_generator_abstract</cite> from the OCA to generate barcodes</li>
+<li>use <tt class="docutils literal">barcodes_generator_abstract</tt> from the OCA to generate barcodes</li>
 </ul>
 <p><strong>Customer Barcodes</strong></p>
 <ul class="simple">
-<li>odoo/base adds <cite>barcode</cite> field on <cite>res.partner</cite>.</li>
-<li>member_card also adds <cite>barcode</cite> but defines it as computed and stored.</li>
+<li>odoo/base adds <tt class="docutils literal">barcode</tt> field on <tt class="docutils literal">res.partner</tt>.</li>
+<li>member_card also adds <tt class="docutils literal">barcode</tt> but defines it as computed and stored.</li>
 </ul>
-<p>On <cite>member_card</cite> install, odoo will compute the values for barcode field and <strong>erase pre-existing values</strong>.
+<p>On <tt class="docutils literal">member_card</tt> install, odoo will compute the values for barcode field and <strong>erase pre-existing values</strong>.
 It will also make it impossible to load data on that field.</p>
 </div>
 <div class="section" id="bug-tracker">

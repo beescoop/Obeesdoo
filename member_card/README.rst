@@ -30,8 +30,8 @@ Create a member card and link it to a partner.
 - Creating a card generates a barcode, witch is then displayed on the member card
 - The "Force Barcode" option allows to set a specific barcode instead
 - A partner's barcode is computed from the last active member card
-- Adds a field `member_card_logo` on the company allowing to upload an image
-- The card template displays the `member_card_logo`  image
+- Adds a field ``member_card_logo`` on the company allowing to upload an image
+- The card template displays the ``member_card_logo`` image
 - A boolean "Print Member card?" allows to flag partners for whom you need to print new cards.
 - The wizards "Request member card printing" and "Set member card as printed" allow to mass check and uncheck the "Print Member Card?" flag.
 - If the point of sale is installed, the generated barcode matches customer pattern rule.
@@ -53,14 +53,14 @@ Known issues / Roadmap
 - factor out wizards "request member card printing" and "set member card as printed"
 
   - it was used to request a batch of card to print but has no link to the actual template
-- use `barcodes_generator_abstract` from the OCA to generate barcodes
+- use ``barcodes_generator_abstract`` from the OCA to generate barcodes
 
 **Customer Barcodes**
 
-- odoo/base adds `barcode` field on `res.partner`.
-- member_card also adds `barcode` but defines it as computed and stored.
+- odoo/base adds ``barcode`` field on ``res.partner``.
+- member_card also adds ``barcode`` but defines it as computed and stored.
 
-On `member_card` install, odoo will compute the values for barcode field and **erase pre-existing values**.
+On ``member_card`` install, odoo will compute the values for barcode field and **erase pre-existing values**.
 It will also make it impossible to load data on that field.
 
 Bug Tracker
