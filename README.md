@@ -25,6 +25,7 @@ addon | version | maintainers | summary
 [cooperator_eater](cooperator_eater/) | 16.0.1.0.0 |  | Eater configuration based on Share product
 [cooperator_worker](cooperator_worker/) | 16.0.1.0.0 |  | Working and shopping configuration based on Share product
 [eater](eater/) | 16.0.1.0.0 |  | Add eaters to the workers of your structure.
+[member_card](member_card/) | 16.0.1.0.0 |  | Create a member card and link it to a partner.
 [product_main_supplier](product_main_supplier/) | 16.0.1.0.0 |  | Add a main supplier
 [purchase_order_responsible](purchase_order_responsible/) | 16.0.1.0.0 | [![victor-champonnois](https://github.com/victor-champonnois.png?size=30px)](https://github.com/victor-champonnois) | Adds a 'Responsible' field to purchase orders
 [shift](shift/) | 16.0.1.1.0 |  | Generate and manage shifts for cooperators.
