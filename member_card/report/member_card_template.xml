@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="report_member_card" model="ir.actions.report">
+        <field name="name">Member Card</field>
+        <field name="model">res.partner</field>
+        <field name="binding_model_id" ref="model_res_partner" />
+        <field name="report_name">member_card.member_card_template</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_file">member_card.member_card_template</field>
+        <field name="print_report_name">'Member Card'</field>
+    </record>
+
+    <template id="member_card_template">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-foreach="docs" t-as="partner">
+                    <div style="width: 48%; display: inline-table; height:6.7cm;">
+                        <table
+                            style="width:10.7cm; height:6.7cm; border: 1pt solid black; border-collapse:separate; margin:1pt;"
+                        >
+                            <tr>
+                                <td align="left" rowspan="3" style="width:10%">
+                                    <img
+                                        alt="barcode"
+                                        t-if="partner.barcode"
+                                        t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' %
+                ('EAN13', partner.barcode, 230, 80)"
+                                        style="-webkit-transform: rotate(270deg);margin-top:77px;margin-left:-65px;margin-right:-85px"
+                                    />
+
+                                </td>
+                                <td align="center" valign="top">
+                                    <img
+                                        t-if="res_company.member_card_logo"
+                                        t-att-src="image_data_uri(res_company.member_card_logo)"
+                                        style="display:table; margin: 3pt;width:55%;height:4.0cm;"
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                  <div
+                                        id="member_name"
+                                        align="center"
+                                        style="font-size:14pt;font-weight: bold;"
+                                    >
+                                    <t t-out="partner.name[:20]" />
+                                  </div>
+
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+
+</odoo>

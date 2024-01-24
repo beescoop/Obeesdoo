@@ -1,0 +1,5 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+member_card_read_all,member card read all,member_card.model_member_card,,1,0,0,0
+member_card.access_new_member_card_wizard,access_new_member_card_wizard,member_card.model_new_member_card_wizard,base.group_user,1,1,1,1
+member_card.access_membercard_requestprinting_wizard,access_membercard_requestprinting_wizard,member_card.model_membercard_requestprinting_wizard,base.group_user,1,1,1,1
+member_card.access_membercard_set_as_printed_wizard,access_membercard_set_as_printed_wizard,member_card.model_membercard_set_as_printed_wizard,base.group_user,1,1,1,1

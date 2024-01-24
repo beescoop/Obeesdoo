@@ -1,0 +1,232 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* member_card
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: member_card
+#: model:ir.model.fields,field_description:member_card.field_member_card__valid
+msgid "Active"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model.fields,field_description:member_card.field_member_card__barcode
+#: model:ir.model.fields,field_description:member_card.field_res_partner__barcode
+#: model:ir.model.fields,field_description:member_card.field_res_users__barcode
+msgid "Barcode"
+msgstr ""
+
+#. module: member_card
+#: model_terms:ir.ui.view,arch_db:member_card.membercard_requestprinting_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:member_card.membercard_set_as_printed_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:member_card.new_member_card_wizard_view_form
+msgid "Cancel"
+msgstr ""
+
+#. module: member_card
+#: model_terms:ir.ui.view,arch_db:member_card.res_partner_view_form
+msgid "Cards"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model,name:member_card.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model,name:member_card.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: member_card
+#: model_terms:ir.ui.view,arch_db:member_card.new_member_card_wizard_view_form
+msgid "Create"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model.fields,field_description:member_card.field_member_card__create_uid
+#: model:ir.model.fields,field_description:member_card.field_membercard_requestprinting_wizard__create_uid
+#: model:ir.model.fields,field_description:member_card.field_membercard_set_as_printed_wizard__create_uid
+#: model:ir.model.fields,field_description:member_card.field_new_member_card_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model.fields,field_description:member_card.field_member_card__create_date
+#: model:ir.model.fields,field_description:member_card.field_membercard_requestprinting_wizard__create_date
+#: model:ir.model.fields,field_description:member_card.field_membercard_set_as_printed_wizard__create_date
+#: model:ir.model.fields,field_description:member_card.field_new_member_card_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model.fields,field_description:member_card.field_member_card__display_name
+#: model:ir.model.fields,field_description:member_card.field_membercard_requestprinting_wizard__display_name
+#: model:ir.model.fields,field_description:member_card.field_membercard_set_as_printed_wizard__display_name
+#: model:ir.model.fields,field_description:member_card.field_new_member_card_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model.fields,field_description:member_card.field_member_card__end_date
+msgid "Expiration Date"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model.fields,field_description:member_card.field_new_member_card_wizard__force_barcode
+msgid "Force Barcode"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model.fields,field_description:member_card.field_member_card__id
+#: model:ir.model.fields,field_description:member_card.field_membercard_requestprinting_wizard__id
+#: model:ir.model.fields,field_description:member_card.field_membercard_set_as_printed_wizard__id
+#: model:ir.model.fields,field_description:member_card.field_new_member_card_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model.fields,field_description:member_card.field_member_card____last_update
+#: model:ir.model.fields,field_description:member_card.field_membercard_requestprinting_wizard____last_update
+#: model:ir.model.fields,field_description:member_card.field_membercard_set_as_printed_wizard____last_update
+#: model:ir.model.fields,field_description:member_card.field_new_member_card_wizard____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model.fields,field_description:member_card.field_member_card__write_uid
+#: model:ir.model.fields,field_description:member_card.field_membercard_requestprinting_wizard__write_uid
+#: model:ir.model.fields,field_description:member_card.field_membercard_set_as_printed_wizard__write_uid
+#: model:ir.model.fields,field_description:member_card.field_new_member_card_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model.fields,field_description:member_card.field_member_card__write_date
+#: model:ir.model.fields,field_description:member_card.field_membercard_requestprinting_wizard__write_date
+#: model:ir.model.fields,field_description:member_card.field_membercard_set_as_printed_wizard__write_date
+#: model:ir.model.fields,field_description:member_card.field_new_member_card_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model.fields,field_description:member_card.field_res_partner__last_printed
+#: model:ir.model.fields,field_description:member_card.field_res_users__last_printed
+msgid "Last printed on"
+msgstr ""
+
+#. module: member_card
+#: model:ir.actions.report,name:member_card.report_member_card
+#: model:ir.model,name:member_card.model_member_card
+#: model:ir.model,name:member_card.model_new_member_card_wizard
+#: model:ir.model.fields,field_description:member_card.field_res_partner__member_card_ids
+#: model:ir.model.fields,field_description:member_card.field_res_users__member_card_ids
+#: model_terms:ir.ui.view,arch_db:member_card.res_partner_view_form
+msgid "Member Card"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model,name:member_card.model_membercard_requestprinting_wizard
+msgid "Member Card - Request Print Wizard"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model.fields,field_description:member_card.field_res_company__member_card_logo
+msgid "Member Card Logo"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model,name:member_card.model_membercard_set_as_printed_wizard
+msgid "Member card - Set as printed wizard"
+msgstr ""
+
+#. module: member_card
+#: model_terms:ir.ui.view,arch_db:member_card.res_partner_view_form
+msgid "New Card"
+msgstr ""
+
+#. module: member_card
+#: model:ir.actions.act_window,name:member_card.membercard_wizard_action
+msgid "New Member Card"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model.fields,help:member_card.field_new_member_card_wizard__force_barcode
+msgid "Override automatic barcode generation"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model.fields,field_description:member_card.field_member_card__partner_id
+#: model:ir.model.fields,field_description:member_card.field_membercard_requestprinting_wizard__partner_ids
+#: model:ir.model.fields,field_description:member_card.field_membercard_set_as_printed_wizard__partner_ids
+#: model:ir.model.fields,field_description:member_card.field_new_member_card_wizard__partner_id
+msgid "Partner"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model.fields,field_description:member_card.field_res_partner__member_card_to_be_printed
+#: model:ir.model.fields,field_description:member_card.field_res_users__member_card_to_be_printed
+msgid "Print Member card?"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model.fields,field_description:member_card.field_member_card__comment
+#: model:ir.model.fields,field_description:member_card.field_new_member_card_wizard__new_comment
+msgid "Reason"
+msgstr ""
+
+#. module: member_card
+#: model_terms:ir.ui.view,arch_db:member_card.membercard_requestprinting_wizard_view_form
+msgid "Request Member Card Printing"
+msgstr ""
+
+#. module: member_card
+#: model:ir.actions.act_window,name:member_card.member_card_requestprinting_wizard_action
+msgid "Request Member card printing"
+msgstr ""
+
+#. module: member_card
+#: model_terms:ir.ui.view,arch_db:member_card.membercard_requestprinting_wizard_view_form
+msgid "Request Printing for"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model.fields,field_description:member_card.field_member_card__responsible_id
+msgid "Responsible"
+msgstr ""
+
+#. module: member_card
+#: model:ir.actions.act_window,name:member_card.member_card_set_as_printed_wizard_action
+msgid "Set Member card as printed"
+msgstr ""
+
+#. module: member_card
+#: model_terms:ir.ui.view,arch_db:member_card.membercard_set_as_printed_wizard_view_form
+msgid "Set as Printed"
+msgstr ""
+
+#. module: member_card
+#: model_terms:ir.ui.view,arch_db:member_card.membercard_set_as_printed_wizard_view_form
+msgid "Set as Printed for"
+msgstr ""
+
+#. module: member_card
+#: model:ir.model.fields,help:member_card.field_res_partner__barcode
+#: model:ir.model.fields,help:member_card.field_res_users__barcode
+msgid "Use a barcode to identify this contact from the Point of Sale."
+msgstr ""
+
+#. module: member_card
+#: model_terms:ir.ui.view,arch_db:member_card.member_card_template
+msgid "barcode"
+msgstr ""
+
