@@ -14,7 +14,7 @@
     >
         <xpath expr="//div[hasclass('o_portal_my_details')]" position="after">
             <div class="o_my_details_eater mt-3">
-                <h4>Purchases</h4>
+                <h4>Point of Sale Purchases</h4>
                 <hr class="mt-1 mb-0" />
                 <p>
                     You have purchased a total amount of
