@@ -1,1 +1,1 @@
-Add currency in the template
+- Move the table from the side bar to the main content area.
