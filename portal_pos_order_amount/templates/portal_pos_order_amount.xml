@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     Copyright 2018 Rémy Taymans <remytaymans@gmail.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+
+    <!-- Add pos.order total amount -->
+    <template
+        id="total_pos_order_amount"
+        name="Portal total POS order amount"
+        priority="40"
+        inherit_id="portal.portal_layout"
+    >
+        <xpath expr="//div[hasclass('o_portal_my_details')]" position="after">
+            <div class="o_my_details_eater mt-3">
+                <h4>Point of Sale Purchases</h4>
+                <hr class="mt-1 mb-0" />
+                <p>
+                    You have purchased a total amount of
+                    <span
+                        t-esc="pos_order_amount"
+                        t-options='{"widget": "monetary", "display_currency": company_currency}'
+                    />.
+                </p>
+                <table name="pos_order_amount_by_year" class="table table-striped">
+                    <tr>
+                        <th>
+                            Year
+                        </th>
+                        <th>
+                            Amount
+                        </th>
+                    </tr>
+                    <tr t-foreach="pos_order_amount_by_year" t-as="row">
+                        <td>
+                            <t t-esc="row['year']" />
+                        </td>
+                        <td>
+                            <t
+                                t-esc="row['amount']"
+                                t-options='{"widget": "monetary", "display_currency": company_currency}'
+                            />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>
