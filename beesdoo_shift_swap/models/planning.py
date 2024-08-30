@@ -43,11 +43,14 @@ class TaskTemplate(models.Model):
 
         swap_subscription_done = []
         for shift in shifts:
-            for rec in changes:
+            for rec in list(changes):
                 shift, swap_subscription_done, done = rec.update_shift_data(
                     shift, swap_subscription_done
                 )
                 if done:
+                    # You're not supposed to remove items from a list while
+                    # looping over it. We circumvent this problem by looping
+                    # over a copy of the list, which will not be affected.
                     changes.remove(rec)
 
         return shifts
