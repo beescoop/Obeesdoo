@@ -1,0 +1,2 @@
+Correctly recompute ``can_shop`` on partner when the value changes in the
+``cooperative_status``.
