@@ -88,7 +88,7 @@ class ResPartner(models.Model):
         store=True,
     )
 
-    @api.depends("cooperative_status_ids")
+    @api.depends("cooperative_status_ids.can_shop")
     def _compute_can_shop(self):
         """
         Shopping authorisation may vary on the can_shop status of the
