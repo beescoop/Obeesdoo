@@ -1,3 +1,12 @@
+12.0.5.0.2 (2024-11-01)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+**Bugfixes**
+
+- Correctly recompute ``can_shop`` on partner when the value changes in the
+  ``cooperative_status``. (`#535 <https://github.com/beescoop/Obeesdoo/issues/535>`_)
+
+
 12.0.5.0.1 (2023-06-20)
 ~~~~~~~~~~~~~~~~~~~~~~~
 
