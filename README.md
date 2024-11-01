@@ -39,7 +39,7 @@ addon | version | maintainers | summary
 [beesdoo_purchase](beesdoo_purchase/) | 12.0.1.4.0 |  | Emptied.
 [beesdoo_shift](beesdoo_shift/) | 12.0.4.0.0 |  | Emptied (replaced by shift)
 [beesdoo_shift_attendance](beesdoo_shift_attendance/) | 12.0.1.2.0 |  | Emptied (replaced by shift_attendance)
-[beesdoo_shift_swap](beesdoo_shift_swap/) | 12.0.2.1.1 |  | Module to allow cooperator to swap his/her shift when he/she can't attend it, to do solidarity shifts, and to request solidarity if needed.
+[beesdoo_shift_swap](beesdoo_shift_swap/) | 12.0.2.1.2 |  | Module to allow cooperator to swap his/her shift when he/she can't attend it, to do solidarity shifts, and to request solidarity if needed.
 [beesdoo_shift_welcome_screen](beesdoo_shift_welcome_screen/) | 12.0.1.0.2 |  | Volunteer Timetable Management
 [beesdoo_stock](beesdoo_stock/) | 12.0.2.0.0 |  | Emptied
 [beesdoo_stock_coverage](beesdoo_stock_coverage/) | 12.0.2.0.0 |  | Emptied
