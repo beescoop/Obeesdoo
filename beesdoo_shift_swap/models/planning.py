@@ -43,14 +43,13 @@ class TaskTemplate(models.Model):
 
         swap_subscription_done = []
         for shift in shifts:
-            for rec in list(changes):
-                shift, swap_subscription_done, done = rec.update_shift_data(
-                    shift, swap_subscription_done
-                )
-                if done:
-                    # You're not supposed to remove items from a list while
-                    # looping over it. We circumvent this problem by looping
-                    # over a copy of the list, which will not be affected.
-                    changes.remove(rec)
+            # process the remaining changes and create a new list containing
+            # only the changes that have not be processed yet.
+            changes = [
+                rec
+                for rec in changes
+                # 3rd returned element is a boolean telling whether it was done
+                if not rec.update_shift_data(shift, swap_subscription_done)[2]
+            ]
 
         return shifts
