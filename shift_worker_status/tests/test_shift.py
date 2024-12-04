@@ -95,6 +95,7 @@ class TestShiftWorkerStatus(TransactionCase):
         # Check unsubscribed status
         status_1.sr = -1
         status_1.sc = -1
+        self.assertEqual(status_1.status, "alert")
 
         # Subscribe him to another future shift
         future_shift_regular.worker_id = self.worker_regular_1
