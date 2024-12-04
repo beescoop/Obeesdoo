@@ -135,8 +135,9 @@ class CooperativeStatus(models.Model):
     #####################################
 
     def write(self, vals):
-        super(CooperativeStatus, self).write(vals)
+        result = super(CooperativeStatus, self).write(vals)
         self._postpone_alert_start_time()
+        return result
 
     def _get_regular_status(self):
         self.ensure_one()

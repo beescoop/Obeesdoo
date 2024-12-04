@@ -84,13 +84,13 @@ class TestShiftWorkerStatus(TransactionCase):
         self.assertEqual(status_1.sr, -1)
         self.assertEqual(status_1.status, "alert")
         shift_regular.state = "done"
-        self.assertEquals(status_1.sr, 0)
-        self.assertEquals(status_1.sc, 0)
+        self.assertEqual(status_1.sr, 0)
+        self.assertEqual(status_1.sc, 0)
         shift_regular.state = "open"
         shift_regular.write({"is_regular": False, "is_compensation": True})
         shift_regular.state = "done"
-        self.assertEquals(status_1.sr, 1)
-        self.assertEquals(status_1.sc, 0)
+        self.assertEqual(status_1.sr, 1)
+        self.assertEqual(status_1.sc, 0)
 
         # Check unsubscribed status
         status_1.sr = -1
@@ -103,7 +103,7 @@ class TestShiftWorkerStatus(TransactionCase):
             self.assertIn("future", str(e.exception))
         status_1.sr = -2
         status_1.sc = -2
-        self.assertEquals(status_1.status, "unsubscribed")
+        self.assertEqual(status_1.status, "unsubscribed")
 
         # Should be unsubscribed from future shift
         self.assertFalse(future_shift_regular.worker_id)
