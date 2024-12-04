@@ -3,7 +3,7 @@
 
 from datetime import date, datetime, timedelta
 
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError
 from odoo.tests.common import TransactionCase
 
 
@@ -98,7 +98,7 @@ class TestShiftWorkerStatus(TransactionCase):
 
         # Subscribe him to another future shift
         future_shift_regular.worker_id = self.worker_regular_1
-        with self.assertRaises(ValidationError) as e:
+        with self.assertRaises(UserError) as e:
             future_shift_regular.state = "absent_2"
             self.assertIn("future", str(e.exception))
         status_1.sr = -2
