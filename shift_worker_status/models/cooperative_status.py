@@ -296,8 +296,22 @@ class CooperativeStatus(models.Model):
         elif ok or (not self.alert_start_time and self.sr >= 0):
             return "ok"
 
-    def _state_change(self, new_state):
+    def _state_change(self, old_state, new_state):
         self.ensure_one()
+        # log new state
+        data = {
+            "status_id": self.id,
+            "cooperator_id": self.cooperator_id.id,
+            "type": "status",
+            "change": "STATUS: %s -> %s"
+            % (
+                old_state,
+                new_state,
+            ),
+            "user_id": self.env.context.get("real_uid", self.env.uid),
+        }
+        self.env["cooperative.status.history"].sudo().create(data)
+        # do custom action for some status
         if new_state == "alert":
             self.write(
                 {

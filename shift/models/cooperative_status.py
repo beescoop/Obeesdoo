@@ -166,19 +166,22 @@ class CooperativeStatus(models.Model):
             .get_param("shift.always_update", False)
         )
         for rec in self:
+            previous_status = rec.status
+            # default value for status
+            new_status = previous_status
             if update or not rec.today:
-                rec.status = "ok"
-                continue
-            if rec.resigning:
-                rec.status = "resigning"
-                continue
-
-            if rec.working_mode == "regular":
-                rec.status = rec._get_regular_status()
+                new_status = "ok"
+            elif rec.resigning:
+                new_status = "resigning"
+            elif rec.working_mode == "regular":
+                new_status = rec._get_regular_status()
             elif rec.working_mode == "irregular":
-                rec.status = rec._get_irregular_status()
+                new_status = rec._get_irregular_status()
             elif rec.working_mode == "exempt":
-                rec.status = "ok"
+                new_status = "ok"
+            if new_status != previous_status:
+                rec._state_change(previous_status, new_status)
+            rec.status = new_status
 
     _sql_constraints = [
         (
@@ -252,35 +255,6 @@ class CooperativeStatus(models.Model):
                     cur_end_date=self.temporary_exempt_end_date,
                 )
         return result
-
-    def _write(self, vals):
-        """
-        Overwrite write to historize the change of status
-        and make action on status change
-        """
-        if "status" in vals:
-            self._cr.execute(
-                'select id, status, sr, sc from "%s" where id in %%s' % self._table,
-                (self._ids,),
-            )
-            result = self._cr.dictfetchall()
-            old_status_per_id = {r["id"]: r for r in result}
-            for rec in self:
-                if old_status_per_id[rec.id]["status"] != vals["status"]:
-                    data = {
-                        "status_id": rec.id,
-                        "cooperator_id": rec.cooperator_id.id,
-                        "type": "status",
-                        "change": "STATUS: %s -> %s"
-                        % (
-                            old_status_per_id[rec.id]["status"],
-                            vals["status"],
-                        ),
-                        "user_id": self.env.context.get("real_uid", self.env.uid),
-                    }
-                    self.env["cooperative.status.history"].sudo().create(data)
-                    rec._state_change(vals["status"])
-        return super(CooperativeStatus, self)._write(vals)
 
     def _update_shifts_based_on_dates(
         self, prev_start_date, prev_end_date, cur_start_date, cur_end_date
@@ -462,7 +436,7 @@ class CooperativeStatus(models.Model):
         """
         return "ok"
 
-    def _state_change(self, new_state):
+    def _state_change(self, previous_state, new_state):
         """
         Hook to watch change in the state
         """
