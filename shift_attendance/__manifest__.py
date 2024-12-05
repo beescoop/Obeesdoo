@@ -9,7 +9,7 @@
     "author": "Elouan Le Bars, Coop IT Easy SC, Odoo Community Association (OCA)",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
-    "version": "12.0.2.0.0",
+    "version": "16.0.1.0.0",
     "depends": [
         "eater",
         "member_card",
@@ -35,6 +35,4 @@
         "demo/workers.xml",
     ],
     "license": "AGPL-3",
-    "pre_init_hook": "rename_beesdoo",
-    "post_init_hook": "post_init",
 }

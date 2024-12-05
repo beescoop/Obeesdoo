@@ -1,6 +1,6 @@
 import ast
 
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 
@@ -10,7 +10,6 @@ class ValidateAttendanceSheet(models.TransientModel):
     Useless for users in group_shift_attendance"""
     _inherit = ["barcodes.barcode_events_mixin"]
 
-    @api.multi
     def _get_active_sheet(self):
         sheet_id = self._context.get("active_id")
         sheet_model = self._context.get("active_model")
@@ -25,7 +24,6 @@ class ValidateAttendanceSheet(models.TransientModel):
             .get_param("shift_attendance.card_support")
         )
 
-    @api.multi
     def _get_warning_regular_workers(self):
         """
         A warning is shown if some regular workers were not expected
@@ -55,9 +53,9 @@ class ValidateAttendanceSheet(models.TransientModel):
     card_support = fields.Boolean(
         default=_get_card_support_setting, string="Card validation"
     )
-    login = fields.Char(string="Login")
-    password = fields.Char(string="Password")
-    barcode = fields.Char(string="Barcode")
+    login = fields.Char()
+    password = fields.Char()
+    barcode = fields.Char()
     warning_regular_workers = fields.Text(
         "Warning",
         default=_get_warning_regular_workers,
@@ -82,14 +80,12 @@ class ValidateAttendanceSheet(models.TransientModel):
     def on_barcode_scanned(self, barcode):
         self.barcode = barcode
 
-    @api.multi
     def save(self):
         sheet = self.active_sheet
         sheet.notes = self.notes
         sheet.feedback = self.feedback
         sheet.worker_nb_feedback = self.worker_nb_feedback
 
-    @api.multi
     def validate_sheet(self):
         sheet = self.active_sheet
 
@@ -107,7 +103,7 @@ class ValidateAttendanceSheet(models.TransientModel):
             if not self.login:
                 raise UserError(_("Please enter your login."))
             user = self.env["res.users"].search([("login", "=", self.login)])
-            user.sudo(user.id)._check_credentials(self.password)
+            user.with_user(user.id)._check_credentials(self.password)
             partner = user.partner_id
 
         can_validate = partner.user_ids.has_group(

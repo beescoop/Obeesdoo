@@ -131,30 +131,25 @@ class AttendanceSheet(models.Model):
     _description = "Attendance sheet"
     _order = "start_time"
 
-    name = fields.Char(string="Name", compute="_compute_name")
+    name = fields.Char(compute="_compute_name")
     time_slot = fields.Char(
-        string="Time Slot",
         compute="_compute_time_slot",
         store=True,
         readonly=True,
     )
-    active = fields.Boolean(string="Active", default=1)
+    active = fields.Boolean(default=1)
     state = fields.Selection(
         [("not_validated", "Not Validated"), ("validated", "Validated")],
-        string="State",
         readonly=True,
         index=True,
         default="not_validated",
-        track_visibility="onchange",
+        tracking=True,
     )
-    start_time = fields.Datetime(string="Start Time", required=True, readonly=True)
-    end_time = fields.Datetime(string="End Time", required=True, readonly=True)
-    day = fields.Date(string="Day", compute="_compute_day", store=True)
-    day_abbrevation = fields.Char(
-        string="Day Abbrevation", compute="_compute_day_abbrevation"
-    )
+    start_time = fields.Datetime(required=True, readonly=True)
+    end_time = fields.Datetime(required=True, readonly=True)
+    day = fields.Date(compute="_compute_day", store=True)
+    day_abbrevation = fields.Char(compute="_compute_day_abbrevation")
     week = fields.Char(
-        string="Week",
         help="Computed from planning name",
         compute="_compute_week",
     )
@@ -180,13 +175,11 @@ class AttendanceSheet(models.Model):
         string="Number of workers present", default=0, readonly=True
     )
     notes = fields.Text(
-        "Notes",
         default="",
         help="Notes about the attendance for the Members Office",
     )
     is_annotated = fields.Boolean(
         compute="_compute_is_annotated",
-        string="Is annotated",
         readonly=True,
         store=True,
     )
@@ -194,7 +187,7 @@ class AttendanceSheet(models.Model):
         string="Mark as read",
         help="Has notes been read by an administrator ?",
         default=False,
-        track_visibility="onchange",
+        tracking=True,
     )
     feedback = fields.Text("Comments about the shift")
     worker_nb_feedback = fields.Selection(
@@ -208,14 +201,13 @@ class AttendanceSheet(models.Model):
     )
     validated_by = fields.Many2one(
         "res.partner",
-        string="Validated by",
         domain=[
             ("eater", "=", "worker_eater"),
             ("super", "=", True),
             ("working_mode", "=", "regular"),
             ("state", "not in", ("unsubscribed", "resigning")),
         ],
-        track_visibility="onchange",
+        tracking=True,
         readonly=True,
     )
 
@@ -378,8 +370,11 @@ class AttendanceSheet(models.Model):
             )
         if worker.working_mode not in ("regular", "irregular"):
             raise UserError(
-                _("%s's working mode is %s and should be regular or irregular. ")
-                % (worker.name, worker.working_mode)
+                _(
+                    "%(name)s's working mode is %(working_mode)s and "
+                    "should be regular or irregular."
+                )
+                % {"name": worker.name, "working_mode": worker.working_mode}
             )
 
         # Expected shifts status update
@@ -455,7 +450,6 @@ class AttendanceSheet(models.Model):
         new_sheet.max_worker_no = len(tasks)
         return new_sheet
 
-    @api.multi
     def button_mark_as_read(self):
         if self.is_read:
             raise UserError(_("The sheet has already been marked as read."))
@@ -550,7 +544,6 @@ class AttendanceSheet(models.Model):
         self.state = "validated"
         return
 
-    @api.multi
     def validate_with_checks(self):
         self.ensure_one()
 
@@ -583,11 +576,11 @@ class AttendanceSheet(models.Model):
                 )
             if added_shift.working_mode not in ["regular", "irregular"]:
                 raise UserError(
-                    _("Warning : Working mode for %s is %s")
-                    % (
-                        added_shift.worker_id.name,
-                        added_shift.worker_id.working_mode,
-                    )
+                    _("Warning : Working mode for %(name)s is %(working_mode)s")
+                    % {
+                        "name": added_shift.worker_id.name,
+                        "working_mode": added_shift.worker_id.working_mode,
+                    }
                 )
 
         for expected_shift in self.expected_shift_ids:

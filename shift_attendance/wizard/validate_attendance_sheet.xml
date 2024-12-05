@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record model="ir.ui.view" id="validate_attendance_sheet_form">
         <field name="name">Validate Attendance Sheet</field>

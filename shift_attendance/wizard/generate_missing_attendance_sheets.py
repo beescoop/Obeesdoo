@@ -15,7 +15,6 @@ class GenerateMissingAttendanceSheets(models.TransientModel):
     date_start = fields.Datetime("Start date", required=True)
     date_end = fields.Datetime("End date", required=True)
 
-    @api.multi
     def generate_missing_attendance_sheets(self):
         self.ensure_one()
         tasks = self.env["shift.shift"]

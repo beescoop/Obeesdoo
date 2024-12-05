@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record model="ir.ui.view" id="generate_attendance_sheet_form">
         <field name="name">Generate Missing Attendance Sheets</field>
@@ -26,13 +27,12 @@
         </field>
     </record>
 
-    <act_window
-        id="action_missing_attendance_sheets"
-        name="Generate Missing Sheets"
-        res_model="shift.generate_missing_attendance_sheets"
-        view_mode="form"
-        target="new"
-    />
+    <record id="action_missing_attendance_sheets" model="ir.actions.act_window">
+        <field name="name">Generate Missing Past Attendance Sheets</field>
+        <field name="res_model">shift.generate_missing_attendance_sheets</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
 
     <menuitem
         id="menu_missing_attendance_sheets"

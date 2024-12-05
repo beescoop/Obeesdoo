@@ -28,7 +28,7 @@ class TestShift(TransactionCase):
         self.user_generic = self.env.ref("shift_attendance.shift_user_1_demo")
         self.user_permanent = self.env.ref("shift_attendance.shift_user_2_demo")
 
-        self.setting_wizard = self.env["res.config.settings"].sudo(self.user_admin)
+        self.setting_wizard = self.env["res.config.settings"].with_user(self.user_admin)
 
         self.worker_regular_1 = self.env.ref("shift.res_partner_worker_6_demo")
         self.worker_regular_2 = self.env.ref("shift.res_partner_worker_5_demo")
@@ -198,9 +198,11 @@ class TestShift(TransactionCase):
         """
 
         # Attendance sheet generation
-        self.attendance_sheet_model.sudo(self.user_generic)._generate_attendance_sheet()
+        self.attendance_sheet_model.with_user(
+            self.user_generic
+        )._generate_attendance_sheet()
         sheet_1 = self.search_sheets(self.start_in_1, self.end_in_1)
-        sheet_1 = sheet_1.sudo(self.user_generic)
+        sheet_1 = sheet_1.with_user(self.user_generic)
 
         # Expected workers are :
         #     worker_regular_1 (barcode : 521457731745)
@@ -262,7 +264,9 @@ class TestShift(TransactionCase):
     def test_attendance_sheet_edition(self):
 
         # Attendance sheet generation
-        self.attendance_sheet_model.sudo(self.user_generic)._generate_attendance_sheet()
+        self.attendance_sheet_model.with_user(
+            self.user_generic
+        )._generate_attendance_sheet()
         sheet_1 = self.search_sheets(self.start_in_1, self.end_in_1)
 
         # Expected shifts edition
@@ -296,10 +300,10 @@ class TestShift(TransactionCase):
         # class odoo.tests.common.Form(recordp, view=None)
         # is only available from version 12
 
-        # sheet_1 = sheet_1.sudo(self.user_generic)
+        # sheet_1 = sheet_1.with_user(self.user_generic)
 
         # Validation without wizard (as admin user)
-        sheet_1 = sheet_1.sudo(self.user_admin)
+        sheet_1 = sheet_1.with_user(self.user_admin)
 
         # Wait necessary time for shifts to begin
         waiting_time = (self.start_in_1 - datetime.now()).total_seconds()
