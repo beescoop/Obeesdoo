@@ -222,10 +222,6 @@ class TestShift(TransactionCase):
         #     worker_regular_super_1 (barcode : 521457731741)
         #     worker_irregular_2 (barcode : 521457731743)
 
-        # Workararound for _onchange method
-        # (not applying on temporary object in tests)
-        sheet_1._origin = sheet_1
-
         # Scan barcode for added workers
         sheet_1.on_barcode_scanned(521457731741)
         self.assertEqual(len(sheet_1.added_shift_ids), 1)
@@ -281,7 +277,6 @@ class TestShift(TransactionCase):
                 "attendance_sheet_id": sheet_1.id,
                 "worker_id": self.worker_irregular_2.id,
                 "is_compensation": False,
-                "is_regular": False,
             }
         )
         # Same task type as empty shift (should edit it on validation)
@@ -292,15 +287,8 @@ class TestShift(TransactionCase):
                 "attendance_sheet_id": sheet_1.id,
                 "worker_id": self.worker_regular_super_1.id,
                 "is_compensation": True,
-                "is_regular": False,
             }
         )
-
-        # TODO: test validation with wizard (as generic user)
-        # class odoo.tests.common.Form(recordp, view=None)
-        # is only available from version 12
-
-        # sheet_1 = sheet_1.with_user(self.user_generic)
 
         # Validation without wizard (as admin user)
         sheet_1 = sheet_1.with_user(self.user_admin)
@@ -310,7 +298,7 @@ class TestShift(TransactionCase):
         if waiting_time > 0:
             with self.assertRaises(UserError) as econtext:
                 sheet_1.validate_with_checks()
-            self.assertIn("once the shifts have started", str(econtext.exception))
+                self.assertIn("once the shifts have started", str(econtext.exception))
             time.sleep(waiting_time)
 
         sheet_1.worker_nb_feedback = "enough"
@@ -321,7 +309,7 @@ class TestShift(TransactionCase):
 
         with self.assertRaises(UserError) as econtext:
             sheet_1.validate_with_checks()
-        self.assertIn("already been validated", str(econtext.exception))
+            self.assertIn("already been validated", str(econtext.exception))
 
         self.assertEqual(sheet_1.state, "validated")
         self.assertEqual(sheet_1.validated_by, self.user_admin.partner_id)
@@ -333,13 +321,10 @@ class TestShift(TransactionCase):
             "worker_id"
         ) | sheet_1.added_shift_ids.mapped("worker_id")
         self.assertEqual(len(workers), 5)
-        self.assertEqual(sheet_1.expected_shift_ids[0].task_id.state, "absent_2")
-        self.assertEqual(sheet_1.expected_shift_ids[1].task_id.state, "done")
-        self.assertEqual(sheet_1.expected_shift_ids[2].task_id.state, "absent_1")
-        self.assertEqual(sheet_1.added_shift_ids[0].task_id.state, "done")
-        self.assertEqual(sheet_1.added_shift_ids[1].task_id.state, "done")
+        for expected_shift in sheet_1.expected_shift_ids:
+            self.assertEqual(expected_shift.task_id.state, expected_shift.state)
+        for added_shift in sheet_1.added_shift_ids:
+            self.assertEqual(added_shift.task_id.state, added_shift.state)
 
         # Empty shift should have been updated
         self.assertEqual(sheet_1.added_shift_ids[0].task_id, self.shift_empty_1)
-
-        # sheet_1.expected_shift_ids[0].worker_id
