@@ -13,7 +13,6 @@
     "depends": [
         "eater",
         "member_card",
-        "eater_member_card",
         "shift",
         "shift_worker_status",
         "mail",
