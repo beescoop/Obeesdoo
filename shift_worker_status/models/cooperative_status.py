@@ -49,7 +49,8 @@ class CooperativeStatus(models.Model):
                 date = rec.today
                 counter = rec.sr
                 # Simulate the countdown
-                while counter > 0:
+                future_alert_date = False
+                while not future_alert_date or counter > 0:
                     date = self._next_countdown_date(rec.irregular_start_date, date)
                     # Check holidays
                     if (
@@ -59,22 +60,21 @@ class CooperativeStatus(models.Model):
                         and date <= rec.holiday_end_time
                     ):
                         date = add_days_delta(date, 1)
-                        continue
                     # Check temporary exemption
-                    if (
+                    elif (
                         rec.temporary_exempt_start_date
                         and rec.temporary_exempt_end_date
                         and date >= rec.temporary_exempt_start_date
                         and date <= rec.temporary_exempt_end_date
                     ):
                         date = add_days_delta(date, 1)
-                        continue
-                    # Otherwise
-                    date = add_days_delta(date, 1)
-                    counter -= 1
-                rec.future_alert_date = self._next_countdown_date(
-                    rec.irregular_start_date, date
-                )
+                    # If counter is not zero then decrement it
+                    elif counter > 0:
+                        date = add_days_delta(date, 1)
+                        counter -= 1
+                    else:
+                        future_alert_date = date
+                rec.future_alert_date = future_alert_date
 
     @api.depends(
         "today",
@@ -116,18 +116,17 @@ class CooperativeStatus(models.Model):
                         and date <= rec.holiday_end_time
                     ):
                         date = add_days_delta(date, 1)
-                        continue
                     # Check temporary exemption
-                    if (
+                    elif (
                         rec.temporary_exempt_start_date
                         and rec.temporary_exempt_end_date
                         and date >= rec.temporary_exempt_start_date
                         and date <= rec.temporary_exempt_end_date
                     ):
                         date = add_days_delta(date, 1)
-                        continue
                     # Otherwise
-                    next_countdown_date = date
+                    else:
+                        next_countdown_date = date
                 rec.next_countdown_date = next_countdown_date
 
     #####################################
