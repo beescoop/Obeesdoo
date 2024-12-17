@@ -404,51 +404,51 @@ class AttendanceSheet(models.Model):
                 }
             )
 
-    @api.model
-    def create(self, vals):
-        new_sheet = super(AttendanceSheet, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        new_sheets = super(AttendanceSheet, self).create(vals_list)
+        for new_sheet in new_sheets:
+            # Creation and addition of the expected shifts corresponding
+            # to the time range
+            tasks = self.env["shift.shift"]
+            expected_shift = self.env["shift.sheet.expected"]
+            # Fix issues with equality check on datetime
+            # by searching on a small interval instead
+            delta = timedelta(minutes=1)
 
-        # Creation and addition of the expected shifts corresponding
-        # to the time range
-        tasks = self.env["shift.shift"]
-        expected_shift = self.env["shift.sheet.expected"]
-        # Fix issues with equality check on datetime
-        # by searching on a small interval instead
-        delta = timedelta(minutes=1)
+            tasks = tasks.search(
+                [
+                    ("start_time", ">", new_sheet.start_time - delta),
+                    ("start_time", "<", new_sheet.start_time + delta),
+                    ("end_time", ">", new_sheet.end_time - delta),
+                    ("end_time", "<", new_sheet.end_time + delta),
+                ]
+            )
 
-        tasks = tasks.search(
-            [
-                ("start_time", ">", new_sheet.start_time - delta),
-                ("start_time", "<", new_sheet.start_time + delta),
-                ("end_time", ">", new_sheet.end_time - delta),
-                ("end_time", "<", new_sheet.end_time + delta),
-            ]
-        )
+            workers = []
 
-        workers = []
-
-        for task in tasks:
-            # Only one shift is added if multiple similar exist
-            if (
-                task.worker_id
-                and task.worker_id not in workers
-                and (task.state != "cancel")
-            ):
-                expected_shift.create(
-                    {
-                        "attendance_sheet_id": new_sheet.id,
-                        "task_id": task.id,
-                        "worker_id": task.worker_id.id,
-                        "replaced_id": task.replaced_id.id,
-                        "task_type_id": task.task_type_id.id,
-                        "working_mode": task.working_mode,
-                        "is_compensation": task.is_compensation,
-                    }
-                )
-                workers.append(task.worker_id)
-        # Maximum number of workers calculation (count empty shifts)
-        new_sheet.max_worker_no = len(tasks)
-        return new_sheet
+            for task in tasks:
+                # Only one shift is added if multiple similar exist
+                if (
+                    task.worker_id
+                    and task.worker_id not in workers
+                    and (task.state != "cancel")
+                ):
+                    expected_shift.create(
+                        {
+                            "attendance_sheet_id": new_sheet.id,
+                            "task_id": task.id,
+                            "worker_id": task.worker_id.id,
+                            "replaced_id": task.replaced_id.id,
+                            "task_type_id": task.task_type_id.id,
+                            "working_mode": task.working_mode,
+                            "is_compensation": task.is_compensation,
+                        }
+                    )
+                    workers.append(task.worker_id)
+            # Maximum number of workers calculation (count empty shifts)
+            new_sheet.max_worker_no = len(tasks)
+        return new_sheets
 
     def button_mark_as_read(self):
         if self.is_read:
