@@ -283,10 +283,9 @@
         <field name="name">Daily attendance sheets</field>
         <field name="res_model">shift.sheet</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">
-            [('end_time','&gt;', datetime.datetime.now().replace(hour=00, minute=00, second=10)),
-                ('start_time','&lt;', datetime.datetime.now().replace(hour=23, minute=59, second=59))]
-        </field>
+        <field
+            name="domain"
+        >[('end_time','&gt;', context_today().strftime('%Y-%m-%d 00:00:00')), ('start_time','&lt;', context_today().strftime('%Y-%m-%d 23:59:59'))]</field>
     </record>
 
     <!-- Top menu item -->
