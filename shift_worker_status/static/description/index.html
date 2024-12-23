@@ -371,6 +371,21 @@ ul.auto-toc {
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 <p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/beescoop/Obeesdoo/tree/16.0/shift_worker_status"><img alt="beescoop/Obeesdoo" src="https://img.shields.io/badge/github-beescoop%2FObeesdoo-lightgray.png?logo=github" /></a></p>
 <p>Worker status management.</p>
+<ul class="simple">
+<li>add “irregular penalty” config in shift settings</li>
+<li>compute next countdown date and future alert date for irregular
+workers, taking into account holidays and exemption status</li>
+<li>compute the future alert date for irregular workers, taking into
+account holidays and exemption status</li>
+<li>compute regular and irregular statuses according to alert start day,
+alert delay, grace delay and time extensions, taking into account
+holidays and exemption status</li>
+<li>recompute status and counters when a shift undergoes a state change</li>
+<li>postpone alert start time based on holidays and extension status</li>
+<li>handle is_regular and is_compensation consistency on shifts, on worker
+change and by raising a validation error if the fields are not
+properly set</li>
+</ul>
 <p><strong>Table of contents</strong></p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
