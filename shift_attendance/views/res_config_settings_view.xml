@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     Copyright 2019-2020 Elouan Le Bars <elouan@coopiteasy.be>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">
+            res.config.settings.view.form.inherit.shift
+        </field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="50" />
+        <field name="inherit_id" ref="shift.res_config_settings_shift_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='shift_settings_block']" position="inside">
+                <h2>Attendance Sheets</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="card_support" />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label
+                                for="card_support"
+                                string="Scan cards for validation"
+                            />
+                            <div class="text-muted">
+                                If not checked, user credentials are
+                                asked.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">
+                                Attendance Sheets Generation Interval
+                            </span>
+                            <div class="text-muted">
+                                Generate attendance sheets before shifts start.
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16 row">
+                                    <label
+                                        for="attendance_sheet_generation_interval"
+                                        string="Interval (minutes)"
+                                        class="col-3 col-lg-3 o_light_label"
+                                    />
+                                    <field
+                                        name="attendance_sheet_generation_interval"
+                                        class="oe_inline"
+                                        required="1"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">
+                                Default Task Type
+                            </span>
+                            <div class="text-muted">
+                                For attendance sheets automatic pre-filling.
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16 row">
+                                    <label
+                                        for="pre_filled_task_type_id"
+                                        string="Default Task Type"
+                                        class="col-3 col-lg-3 o_light_label"
+                                    />
+                                    <field
+                                        name="pre_filled_task_type_id"
+                                        class="oe_inline"
+                                        required="1"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">
+                                Default Shift Attendance Status
+                            </span>
+                            <div class="text-muted">
+                                For attendance sheets automatic pre-filling.
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16 row">
+                                    <label
+                                        for="attendance_sheet_default_shift_state"
+                                        string="State"
+                                        class="col-3 col-lg-3 o_light_label"
+                                    />
+                                    <field
+                                        name="attendance_sheet_default_shift_state"
+                                        class="oe_inline"
+                                        required="1"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_shift_settings">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'shift'}</field>
+    </record>
+
+    <menuitem
+        name="Shift Settings"
+        id="menu_shift_settings"
+        parent="shift.menu_configuration_top"
+        action="action_shift_settings"
+        groups="shift.group_cooperative_admin"
+    />
+
+</odoo>

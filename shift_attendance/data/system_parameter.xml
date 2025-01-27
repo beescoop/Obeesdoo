@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="param_card_support" model="ir.config_parameter">
+        <field name="key">shift_attendance.card_support</field>
+        <field name="value">False</field>
+    </record>
+    <record id="param_attendance_sheet_generation_interval" model="ir.config_parameter">
+        <field name="key">shift_attendance.attendance_sheet_generation_interval</field>
+        <field name="value">15</field>
+    </record>
+</odoo>

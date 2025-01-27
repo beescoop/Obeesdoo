@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     Copyright 2021 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+
+    <record id="member_card_1_worker_demo" model="member.card">
+        <field name="barcode">521457731741</field>
+        <field name="comment">Demo data</field>
+        <field name="create_date" eval="datetime.now() - timedelta(days=15)" />
+        <field name="partner_id" ref="shift.res_partner_worker_1_demo" />
+        <field name="valid" eval="True" />
+    </record>
+
+    <record id="member_card_2_worker_demo" model="member.card">
+        <field name="barcode">529919251493</field>
+        <field name="comment">Demo data</field>
+        <field name="create_date" eval="datetime.now() - timedelta(days=10)" />
+        <field name="partner_id" ref="shift.res_partner_worker_2_demo" />
+        <field name="valid" eval="True" />
+    </record>
+
+    <record id="member_card_3_worker_demo" model="member.card">
+        <field name="barcode">521457731742</field>
+        <field name="comment">Demo data</field>
+        <field name="create_date" eval="datetime.now() - timedelta(days=15)" />
+        <field name="partner_id" ref="shift.res_partner_worker_3_demo" />
+        <field name="valid" eval="True" />
+    </record>
+
+    <record id="member_card_4_worker_demo" model="member.card">
+        <field name="barcode">521457731743</field>
+        <field name="comment">Demo data</field>
+        <field name="create_date" eval="datetime.now() - timedelta(days=15)" />
+        <field name="partner_id" ref="shift.res_partner_worker_4_demo" />
+        <field name="valid" eval="True" />
+    </record>
+
+    <record id="member_card_5_worker_demo" model="member.card">
+        <field name="barcode">521457731744</field>
+        <field name="comment">Demo data</field>
+        <field name="create_date" eval="datetime.now() - timedelta(days=15)" />
+        <field name="partner_id" ref="shift.res_partner_worker_5_demo" />
+        <field name="valid" eval="True" />
+    </record>
+
+    <record id="member_card_6_worker_demo" model="member.card">
+        <field name="barcode">521457731745</field>
+        <field name="comment">Demo data</field>
+        <field name="create_date" eval="datetime.now() - timedelta(days=15)" />
+        <field name="partner_id" ref="shift.res_partner_worker_6_demo" />
+        <field name="valid" eval="True" />
+    </record>
+</odoo>

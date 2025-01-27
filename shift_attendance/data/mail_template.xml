@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <!-- Mail template are declared in a NOUPDATE block
+         so users can freely customize/delete them -->
+    <record id="email_template_non_attendance" model="mail.template">
+        <field name="name">Shift Non-attendance</field>
+        <field name="subject">Non-attendance to your last shift</field>
+        <field
+            name="partner_to"
+        >{{ object.replaced_id.id or object.worker_id.id }}</field>
+        <field name="model_id" ref="shift.model_shift_shift" />
+        <field name="auto_delete" eval="True" />
+        <field name="lang">{{ object.worker_id.lang }}</field>
+        <field name="body_html" type="html">
+
+<t t-if="object.replaced_id">
+    <p>Hello <t t-out="object.replaced_id.name" />,</p>
+
+    <p>
+        You have been recorded as non-attended during your last shift
+        (<span t-field="object.start_time" />),
+        and you were supposed to replace
+        <t t-out="object.worker_id.name" />.
+    </p>
+</t>
+
+
+<t t-else="">
+    <p>Hello <t t-out="object.worker_id.name" />,</p>
+
+    <p>
+        You have been recorded as non-attended during your last shift
+        (<span t-field="object.start_time" />).
+    </p>
+</t>
+
+
+<t t-if="object.worker_id.working_mode == 'regular'">
+    <p t-if="object.state == 'absent_0'">
+        Super-cooperator assigned you 0 compensation, so you
+        won't have any additionnal shift to do before your
+        next regular shift.
+    </p>
+
+    <p t-elif="object.state == 'absent_1'">
+        Super-cooperator assigned you 1 compensation, so you
+        have to attend one additionnal shift before your
+        next regular shift.
+    </p>
+
+    <p t-elif="object.state == 'absent_2'">
+        Super-cooperator assigned you 2 compensations, so
+        you have to attend two additionnal shifts before
+        your next regular shift.
+    </p>
+
+    <p t-if="object.replaced_id">
+        You were supposed to replace <t t-out="object.worker_id.name" />.
+        You have to do
+        <t
+                        t-out="(object.replaced_id.cooperative_status_ids.sr + object.replaced_id.cooperative_status_ids.sc) * -1"
+                    />
+        shifts before your next regular shift.
+    </p>
+
+    <p t-else="">
+        You have to do
+        <t
+                        t-out="(object.worker_id.cooperative_status_ids.sr + object.worker_id.cooperative_status_ids.sc) * -1"
+                    />
+        shifts before your next regular shift.
+    </p>
+</t>
+
+<t t-if="object.worker_id.working_mode == 'irregular'">
+    <p>
+        Your shift counter is at
+        <t t-out="object.worker_id.cooperative_status_ids.sr" />.
+    </p>
+    <p t-if="object.worker_id.cooperative_status_ids.future_alert_date">
+        It should be superior or equal to 1 before the
+        <span t-field="object.worker_id.cooperative_status_ids.future_alert_date" />.
+    </p>
+</t>
+
+<p t-if="object.replaced_id">
+    Your current status is
+    "<t t-out="object.replaced_id.cooperative_status_ids.get_status_value()" />".
+</p>
+
+<p t-else="">
+    Your current status is
+    "<t t-out="object.worker_id.cooperative_status_ids.get_status_value()" />".
+</p>
+
+<p>
+    If you have any question regarding this non-attendance,
+    just answer this e-mail.
+</p>
+
+<p>
+    Cooperatively yours,<br />
+    The Members' office volunteers
+</p>
+
+<p>
+    <t t-out="object.create_uid.company_id.name" /><br
+                    t-if="object.create_uid.company_id.name"
+                />
+    <t t-out="object.create_uid.company_id.street" /><br
+                    t-if="object.create_uid.company_id.street"
+                />
+    <t t-out="object.create_uid.company_id.street2" /><br
+                    t-if="object.create_uid.company_id.street2"
+                />
+    <t t-out="object.create_uid.company_id.zip" /> <t
+                    t-out="object.create_uid.company_id.city"
+                /><br
+                    t-if="object.create_uid.company_id.zip or object.create_uid.company_id.city"
+                />
+    <t t-if="object.create_uid.company_id.country_id">
+        <t
+                        t-out="object.create_uid.company_id.state_id and object.create_uid.company_id.state_id.name or ''"
+                    />
+        <t t-out="object.create_uid.company_id.country_id.name or ''" /><br />
+    </t>
+    <t t-if="object.create_uid.company_id.phone">
+        Phone: <t t-out="object.create_uid.company_id.phone" /><br />
+    </t>
+
+    <t t-if="object.create_uid.company_id.website">
+        Web: <span t-field="object.create_uid.company_id.website" /><br />
+    </t>
+    <t t-if="object.create_uid.company_id.logo">
+        <img
+                        src="/web/binary/company_logo"
+                        style="vertical-align:baseline;max-width:100px;"
+                    />
+    </t>
+</p>
+
+        </field>
+    </record>
+
+    <record id="email_template_non_validated_sheet" model="mail.template">
+        <field name="name">Non-validated sheet</field>
+        <field
+            name="subject"
+        >[{{object.day}}] Non-validated sheet {{object.time_slot}}</field>
+        <field name="model_id" ref="model_shift_sheet" />
+        <field name="auto_delete" eval="True" />
+        <field name="body_html" type="html">
+
+<p t-out="object.day" />
+<p>The attendance sheet for <t t-out="object.time_slot" /> is not validated.</p>
+<p>Please, do it as soon as possible so as to update workers' status.</p>
+
+        </field>
+    </record>
+</odoo>
