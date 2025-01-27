@@ -1,12 +1,12 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* shift_attendance
+# 	* shift_attendance
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: <>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -14,183 +14,213 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: shift_attendance
-#: model:mail.template,body_html:shift_attendance.email_template_non_attendance
-msgid "\n"
-"              <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"\n"
-"                  % if object.replaced_id:\n"
-"                  <p>Hello ${object.replaced_id.name},\n"
-"\n"
-"                  <br><br>You have been recorded as non-attended during your last shift (${format_tz(object.start_time,object.replaced_id.tz or 'Europe/Brussels','%d.%m.%Y - %H:%M')}),\n"
-"                    and you were supposed to replace ${object.worker_id.name}.\n"
-"                  % endif\n"
-"\n"
-"                  % if not object.replaced_id:\n"
-"                  </p><p>Hello ${object.worker_id.name},</p>\n"
-"\n"
-"                  <p>You have been recorded as non-attended during your last shift (${format_tz(object.start_time,object.worker_id.tz or 'Europe/Brussels','%d.%m.%Y - %H:%M')}).\n"
-"                  % endif\n"
-"\n"
-"                  % if object.worker_id.working_mode == 'regular':\n"
-"                    % if object.state == 'absent_0':\n"
-"                        <br><br>Super-cooperator assigned you 0 compensation, so you won't have any additionnal shift to do before your next regular shift.\n"
-"                    % endif\n"
-"                    % if object.state == 'absent_1':\n"
-"                        <br><br>Super-cooperator assigned you 1 compensation, so you have to attend one additionnal shift before your next regular shift.\n"
-"                    % endif\n"
-"                    % if object.state == 'absent_2':\n"
-"                        <br><br>Super-cooperator assigned you 2 compensations, so you have to attend two additionnal shifts before your next regular shift.\n"
-"                    % endif\n"
-"\n"
-"                      % if object.replaced_id:\n"
-"                            You were supposed to replace ${object.worker_id.name}.\n"
-"                            You have to do ${(object.replaced_id.cooperative_status_ids.sr + object.replaced_id.cooperative_status_ids.sc) * -1 } shifts before your next regular shift.<br>\n"
-"                      % else:\n"
-"                            You have to do ${(object.worker_id.cooperative_status_ids.sr + object.worker_id.cooperative_status_ids.sc) * -1 } shifts before your next regular shift.<br>\n"
-"                      % endif\n"
-"                  % endif\n"
-"\n"
-"                  % if object.worker_id.working_mode == 'irregular':\n"
-"                        Your shift counter is at ${object.worker_id.cooperative_status_ids.sr}.\n"
-"\n"
-"                        % if object.worker_id.cooperative_status_ids.future_alert_date:\n"
-"                            It should be superior or equal to 1 before the\n"
-"                            ${object.worker_id.cooperative_status_ids.future_alert_date}.\n"
-"                        % endif\n"
-"                        <br>\n"
-"                  % endif\n"
-"\n"
-"                  % if object.replaced_id:\n"
-"                     Your current status is \"${object.replaced_id.cooperative_status_ids.get_status_value()}\".\n"
-"                  % else:\n"
-"                    <br><br>Your current status is \"${object.worker_id.cooperative_status_ids.get_status_value()}\".\n"
-"                  % endif\n"
-"\n"
-"                  <br>If you have any question regarding this non-attendance, just answer this e-mail.\n"
-"                  </p>\n"
-"                  <br>\n"
-"                  <p>Cooperatively yours,<br>\n"
-"                  The Members' office volunteers</p>\n"
-"                  <p>${object.worker_id.company_id.name}.</p>\n"
-"\n"
-"                  % if object.worker_id.company_id.street:\n"
-"                      ${object.worker_id.company_id.street}\n"
-"                  % endif\n"
-"                  % if object.worker_id.company_id.street2:\n"
-"                      ${object.worker_id.company_id.street2}<br>\n"
-"                  % endif\n"
-"                  % if object.worker_id.company_id.city or object.worker_id.company_id.zip:\n"
-"                      ${object.worker_id.company_id.zip} ${object.worker_id.company_id.city}<br>\n"
-"                  % endif\n"
-"                  % if object.worker_id.company_id.country_id:\n"
-"                      ${object.worker_id.company_id.state_id and ('%s, ' % object.worker_id.company_id.state_id.name) or ''} ${object.worker_id.company_id.country_id.name or ''}<br>\n"
-"                  % endif\n"
-"                  % if object.worker_id.company_id.phone:\n"
-"                      Phone:&nbsp; ${object.worker_id.company_id.phone}\n"
-"                  % endif\n"
-"\n"
-"                  % if object.worker_id.company_id.website:\n"
-"                      <div>\n"
-"                          Web :&nbsp;<a href=\"${object.worker_id.company_id.website}\">${object.worker_id.company_id.website}</a>\n"
-"                      </div>\n"
-"                  %endif\n"
-"                  % if object.worker_id.company_id.logo_url:\n"
-"                  <div>\n"
-"                      <img src=\"${object.worker_id.company_id.logo_url}\">\n"
-"                  </div>\n"
-"                  %endif\n"
-"              </div>\n"
-"            "
-msgstr ""
-
-#. module: shift_attendance
-#: code:addons/shift_attendance/wizard/validate_attendance_sheet.py:45
+#. odoo-python
+#: code:addons/shift_attendance/wizard/validate_attendance_sheet.py:0
 #, python-format
-msgid "\n"
+msgid ""
+"\n"
 "%s attended its shift as a normal one but was not expected. Something may be wrong in his/her personal informations.\n"
 " "
 msgstr ""
 
 #. module: shift_attendance
-#: model:mail.template,body_html:shift_attendance.email_template_non_validated_sheet
-msgid "\n"
-"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"\n"
-"    <p>${object.day}\n"
-"    <br/><br/>The attendance sheet for ${object.time_slot} is not validated.\n"
-"    <br/><br/>Please, do it as soon as possible so as to update workers' status.\n"
-"    </p>\n"
-"\n"
-"</div>\n"
-"            "
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
+#, python-format
+msgid ""
+"%(name)s's working mode is %(working_mode)s and should be regular or "
+"irregular."
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:530
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
 #, python-format
 msgid "%s (added)"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:394
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
 #, python-format
 msgid "%s is registered as replaced."
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:381
-#, python-format
-msgid "%s's working mode is %s and should be regular or irregular. "
+#: model:mail.template,body_html:shift_attendance.email_template_non_validated_sheet
+msgid ""
+"<p t-out=\"object.day\"></p>\n"
+"<p>The attendance sheet for <t t-out=\"object.time_slot\"></t> is not validated.</p>\n"
+"<p>Please, do it as soon as possible so as to update workers' status.</p>\n"
+"\n"
+"        "
 msgstr ""
 
 #. module: shift_attendance
 #: model_terms:ir.ui.view,arch_db:shift_attendance.res_config_settings_view_form
-msgid "<span class=\"o_form_label\">\n"
-"                                    Attendance Sheets Generation Interval\n"
-"                                </span>"
+msgid ""
+"<span class=\"o_form_label\">\n"
+"                                Attendance Sheets Generation Interval\n"
+"                            </span>"
 msgstr ""
 
 #. module: shift_attendance
 #: model_terms:ir.ui.view,arch_db:shift_attendance.res_config_settings_view_form
-msgid "<span class=\"o_form_label\">\n"
-"                                    Default Shift Attendance Status\n"
-"                                </span>"
+msgid ""
+"<span class=\"o_form_label\">\n"
+"                                Default Shift Attendance Status\n"
+"                            </span>"
 msgstr ""
 
 #. module: shift_attendance
 #: model_terms:ir.ui.view,arch_db:shift_attendance.res_config_settings_view_form
-msgid "<span class=\"o_form_label\">\n"
-"                                    Default Task Type\n"
-"                                </span>"
+msgid ""
+"<span class=\"o_form_label\">\n"
+"                                Default Task Type\n"
+"                            </span>"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:343
+#: model:mail.template,body_html:shift_attendance.email_template_non_attendance
+msgid ""
+"<t t-if=\"object.replaced_id\">\n"
+"    <p>Hello <t t-out=\"object.replaced_id.name\"></t>,</p>\n"
+"\n"
+"    <p>\n"
+"        You have been recorded as non-attended during your last shift\n"
+"        (<span t-field=\"object.start_time\"></span>),\n"
+"        and you were supposed to replace\n"
+"        <t t-out=\"object.worker_id.name\"></t>.\n"
+"    </p>\n"
+"</t>\n"
+"\n"
+"\n"
+"<t t-else=\"\">\n"
+"    <p>Hello <t t-out=\"object.worker_id.name\"></t>,</p>\n"
+"\n"
+"    <p>\n"
+"        You have been recorded as non-attended during your last shift\n"
+"        (<span t-field=\"object.start_time\"></span>).\n"
+"    </p>\n"
+"</t>\n"
+"\n"
+"\n"
+"<t t-if=\"object.worker_id.working_mode == 'regular'\">\n"
+"    <p t-if=\"object.state == 'absent_0'\">\n"
+"        Super-cooperator assigned you 0 compensation, so you\n"
+"        won't have any additionnal shift to do before your\n"
+"        next regular shift.\n"
+"    </p>\n"
+"\n"
+"    <p t-elif=\"object.state == 'absent_1'\">\n"
+"        Super-cooperator assigned you 1 compensation, so you\n"
+"        have to attend one additionnal shift before your\n"
+"        next regular shift.\n"
+"    </p>\n"
+"\n"
+"    <p t-elif=\"object.state == 'absent_2'\">\n"
+"        Super-cooperator assigned you 2 compensations, so\n"
+"        you have to attend two additionnal shifts before\n"
+"        your next regular shift.\n"
+"    </p>\n"
+"\n"
+"    <p t-if=\"object.replaced_id\">\n"
+"        You were supposed to replace <t t-out=\"object.worker_id.name\"></t>.\n"
+"        You have to do\n"
+"        <t t-out=\"(object.replaced_id.cooperative_status_ids.sr + object.replaced_id.cooperative_status_ids.sc) * -1\"></t>\n"
+"        shifts before your next regular shift.\n"
+"    </p>\n"
+"\n"
+"    <p t-else=\"\">\n"
+"        You have to do\n"
+"        <t t-out=\"(object.worker_id.cooperative_status_ids.sr + object.worker_id.cooperative_status_ids.sc) * -1\"></t>\n"
+"        shifts before your next regular shift.\n"
+"    </p>\n"
+"</t>\n"
+"\n"
+"<t t-if=\"object.worker_id.working_mode == 'irregular'\">\n"
+"    <p>\n"
+"        Your shift counter is at\n"
+"        <t t-out=\"object.worker_id.cooperative_status_ids.sr\"></t>.\n"
+"    </p>\n"
+"    <p t-if=\"object.worker_id.cooperative_status_ids.future_alert_date\">\n"
+"        It should be superior or equal to 1 before the\n"
+"        <span t-field=\"object.worker_id.cooperative_status_ids.future_alert_date\"></span>.\n"
+"    </p>\n"
+"</t>\n"
+"\n"
+"<p t-if=\"object.replaced_id\">\n"
+"    Your current status is\n"
+"    \"<t t-out=\"object.replaced_id.cooperative_status_ids.get_status_value()\"></t>\".\n"
+"</p>\n"
+"\n"
+"<p t-else=\"\">\n"
+"    Your current status is\n"
+"    \"<t t-out=\"object.worker_id.cooperative_status_ids.get_status_value()\"></t>\".\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"    If you have any question regarding this non-attendance,\n"
+"    just answer this e-mail.\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"    Cooperatively yours,<br>\n"
+"    The Members' office volunteers\n"
+"</p>\n"
+"\n"
+"<p>\n"
+"    <t t-out=\"object.create_uid.company_id.name\"></t><br t-if=\"object.create_uid.company_id.name\">\n"
+"    <t t-out=\"object.create_uid.company_id.street\"></t><br t-if=\"object.create_uid.company_id.street\">\n"
+"    <t t-out=\"object.create_uid.company_id.street2\"></t><br t-if=\"object.create_uid.company_id.street2\">\n"
+"    <t t-out=\"object.create_uid.company_id.zip\"></t> <t t-out=\"object.create_uid.company_id.city\"></t><br t-if=\"object.create_uid.company_id.zip or object.create_uid.company_id.city\">\n"
+"    <t t-if=\"object.create_uid.company_id.country_id\">\n"
+"        <t t-out=\"object.create_uid.company_id.state_id and object.create_uid.company_id.state_id.name or ''\"></t>\n"
+"        <t t-out=\"object.create_uid.company_id.country_id.name or ''\"></t><br>\n"
+"    </t>\n"
+"    <t t-if=\"object.create_uid.company_id.phone\">\n"
+"        Phone: <t t-out=\"object.create_uid.company_id.phone\"></t><br>\n"
+"    </t>\n"
+"\n"
+"    <t t-if=\"object.create_uid.company_id.website\">\n"
+"        Web: <span t-field=\"object.create_uid.company_id.website\"></span><br>\n"
+"    </t>\n"
+"    <t t-if=\"object.create_uid.company_id.logo\">\n"
+"        <img src=\"/web/binary/company_logo\" style=\"vertical-align:baseline;max-width:100px;\">\n"
+"    </t>\n"
+"</p>\n"
+"\n"
+"        "
+msgstr ""
+
+#. module: shift_attendance
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
 #, python-format
 msgid "A validated attendance sheet can't be modified"
 msgstr ""
 
 #. module: shift_attendance
-#: selection:res.config.settings,attendance_sheet_default_shift_state:0
-#: selection:shift.sheet.added,state:0
-#: selection:shift.sheet.expected,state:0
-#: selection:shift.sheet.shift,state:0
+#: model:ir.model.fields.selection,name:shift_attendance.selection__res_config_settings__attendance_sheet_default_shift_state__absent_0
+#: model:ir.model.fields.selection,name:shift_attendance.selection__shift_sheet_added__state__absent_0
+#: model:ir.model.fields.selection,name:shift_attendance.selection__shift_sheet_expected__state__absent_0
+#: model:ir.model.fields.selection,name:shift_attendance.selection__shift_sheet_shift__state__absent_0
 msgid "Absent - 0 Compensation"
 msgstr ""
 
 #. module: shift_attendance
-#: selection:res.config.settings,attendance_sheet_default_shift_state:0
-#: selection:shift.sheet.added,state:0
-#: selection:shift.sheet.expected,state:0
-#: selection:shift.sheet.shift,state:0
+#: model:ir.model.fields.selection,name:shift_attendance.selection__res_config_settings__attendance_sheet_default_shift_state__absent_1
+#: model:ir.model.fields.selection,name:shift_attendance.selection__shift_sheet_added__state__absent_1
+#: model:ir.model.fields.selection,name:shift_attendance.selection__shift_sheet_expected__state__absent_1
+#: model:ir.model.fields.selection,name:shift_attendance.selection__shift_sheet_shift__state__absent_1
 msgid "Absent - 1 Compensation"
 msgstr ""
 
 #. module: shift_attendance
-#: selection:res.config.settings,attendance_sheet_default_shift_state:0
-#: selection:shift.sheet.added,state:0
-#: selection:shift.sheet.expected,state:0
-#: selection:shift.sheet.shift,state:0
+#: model:ir.model.fields.selection,name:shift_attendance.selection__res_config_settings__attendance_sheet_default_shift_state__absent_2
+#: model:ir.model.fields.selection,name:shift_attendance.selection__shift_sheet_added__state__absent_2
+#: model:ir.model.fields.selection,name:shift_attendance.selection__shift_sheet_expected__state__absent_2
+#: model:ir.model.fields.selection,name:shift_attendance.selection__shift_sheet_shift__state__absent_2
 msgid "Absent - 2 Compensations"
 msgstr ""
 
@@ -237,6 +267,7 @@ msgid "Annotated (unread)"
 msgstr ""
 
 #. module: shift_attendance
+#: model_terms:ir.ui.view,arch_db:shift_attendance.sheet_view_form
 #: model_terms:ir.ui.view,arch_db:shift_attendance.sheet_view_search
 msgid "Archived"
 msgstr ""
@@ -275,7 +306,8 @@ msgid "Attendance sheet"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:561
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
 #, python-format
 msgid "Attendance sheet can only be validated once the shifts have started. "
 msgstr ""
@@ -293,19 +325,30 @@ msgstr ""
 
 #. module: shift_attendance
 #: model_terms:ir.ui.view,arch_db:shift_attendance.sheet_view_form
-msgid "Beware : a validated sheet cannot be edited anymore                             and you won't be able to add any latecomers.                             The counters of those who didn't attend will be updated                             and they will get warning emails."
+msgid ""
+"Beware : a validated sheet cannot be edited anymore"
+"                             and you won't be able to add any latecomers."
+"                             The counters of those who didn't attend will be"
+" updated                             and they will get warning emails."
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:373
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
 #, python-format
-msgid "Beware, you are recorded as resigning. Please contact member's office if this is incorrect. Thank you. "
+msgid ""
+"Beware, you are recorded as resigning. Please contact member's office if "
+"this is incorrect. Thank you. "
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:363
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
 #, python-format
-msgid "Beware, your account is frozen because your shift counter is at %s. Please contact Members Office to unfreeze it. If you want to attend this shift, your supercoop can write your name in the notes field during validation."
+msgid ""
+"Beware, your account is frozen because your shift counter is at %s. Please "
+"contact Members Office to unfreeze it. If you want to attend this shift, "
+"your supercoop can write your name in the notes field during validation."
 msgstr ""
 
 #. module: shift_attendance
@@ -321,13 +364,13 @@ msgstr ""
 #. module: shift_attendance
 #: model:ir.actions.server,name:shift_attendance.ir_cron_check_non_validated_sheet_ir_actions_server
 #: model:ir.cron,cron_name:shift_attendance.ir_cron_check_non_validated_sheet
-#: model:ir.cron,name:shift_attendance.ir_cron_check_non_validated_sheet
 msgid "Check for non-validated sheets"
 msgstr ""
 
 #. module: shift_attendance
 #: model:ir.model,name:shift_attendance.model_shift_sheet_validate
-msgid "Check the user name and validate sheet.\n"
+msgid ""
+"Check the user name and validate sheet.\n"
 "    Useless for users in group_shift_attendance"
 msgstr ""
 
@@ -338,7 +381,8 @@ msgid "Comments about the shift"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:600
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
 #, python-format
 msgid "Compensation number is missing for %s"
 msgstr ""
@@ -444,7 +488,7 @@ msgid "End date"
 msgstr ""
 
 #. module: shift_attendance
-#: selection:shift.sheet,worker_nb_feedback:0
+#: model:ir.model.fields.selection,name:shift_attendance.selection__shift_sheet__worker_nb_feedback__enough
 msgid "Enough workers"
 msgstr ""
 
@@ -476,11 +520,6 @@ msgid "Followers"
 msgstr ""
 
 #. module: shift_attendance
-#: model:ir.model.fields,field_description:shift_attendance.field_shift_sheet__message_channel_ids
-msgid "Followers (Channels)"
-msgstr ""
-
-#. module: shift_attendance
 #: model:ir.model.fields,field_description:shift_attendance.field_shift_sheet__message_partner_ids
 msgid "Followers (Partners)"
 msgstr ""
@@ -498,13 +537,12 @@ msgstr ""
 #. module: shift_attendance
 #: model:ir.actions.server,name:shift_attendance.ir_cron_generate_attendance_sheet_ir_actions_server
 #: model:ir.cron,cron_name:shift_attendance.ir_cron_generate_attendance_sheet
-#: model:ir.cron,name:shift_attendance.ir_cron_generate_attendance_sheet
 msgid "Generate Attendance Sheets"
 msgstr ""
 
 #. module: shift_attendance
 #: model:ir.actions.act_window,name:shift_attendance.action_missing_attendance_sheets
-msgid "Generate Missing Sheets"
+msgid "Generate Missing Past Attendance Sheets"
 msgstr ""
 
 #. module: shift_attendance
@@ -523,7 +561,8 @@ msgid "Generate missing past attendance sheets"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/wizard/generate_missing_attendance_sheets.py:46
+#. odoo-python
+#: code:addons/shift_attendance/wizard/generate_missing_attendance_sheets.py:0
 #, python-format
 msgid "Generated Missing Sheets"
 msgstr ""
@@ -531,6 +570,11 @@ msgstr ""
 #. module: shift_attendance
 #: model_terms:ir.ui.view,arch_db:shift_attendance.sheet_view_search
 msgid "Group By"
+msgstr ""
+
+#. module: shift_attendance
+#: model:ir.model.fields,field_description:shift_attendance.field_shift_sheet__has_message
+msgid "Has Message"
 msgstr ""
 
 #. module: shift_attendance
@@ -544,7 +588,7 @@ msgid "Has notes been read by an administrator ?"
 msgstr ""
 
 #. module: shift_attendance
-#: selection:shift.sheet,worker_nb_feedback:0
+#: model:ir.model.fields.selection,name:shift_attendance.selection__shift_sheet__worker_nb_feedback__empty
 msgid "I was not there during the shift"
 msgstr ""
 
@@ -559,11 +603,6 @@ msgid "ID"
 msgstr ""
 
 #. module: shift_attendance
-#: model:ir.model.fields,help:shift_attendance.field_shift_sheet__message_unread
-msgid "If checked new messages require your attention."
-msgstr ""
-
-#. module: shift_attendance
 #: model:ir.model.fields,help:shift_attendance.field_shift_sheet__message_needaction
 msgid "If checked, new messages require your attention."
 msgstr ""
@@ -575,8 +614,9 @@ msgstr ""
 
 #. module: shift_attendance
 #: model_terms:ir.ui.view,arch_db:shift_attendance.res_config_settings_view_form
-msgid "If not checked, user credentials are\n"
-"                                    asked."
+msgid ""
+"If not checked, user credentials are\n"
+"                                asked."
 msgstr ""
 
 #. module: shift_attendance
@@ -590,13 +630,13 @@ msgid "Interval (minutes)"
 msgstr ""
 
 #. module: shift_attendance
-#: model:ir.model.fields,field_description:shift_attendance.field_shift_sheet__message_is_follower
-msgid "Is Follower"
+#: model:ir.model.fields,field_description:shift_attendance.field_shift_sheet__is_annotated
+msgid "Is Annotated"
 msgstr ""
 
 #. module: shift_attendance
-#: model:ir.model.fields,field_description:shift_attendance.field_shift_sheet__is_annotated
-msgid "Is annotated"
+#: model:ir.model.fields,field_description:shift_attendance.field_shift_sheet__message_is_follower
+msgid "Is Follower"
 msgstr ""
 
 #. module: shift_attendance
@@ -667,9 +707,11 @@ msgid "Messages"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:354
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
 #, python-format
-msgid "Multiple workers are corresponding this barcode. \n"
+msgid ""
+"Multiple workers are corresponding this barcode. \n"
 "Barcode : %s"
 msgstr ""
 
@@ -682,30 +724,40 @@ msgid "Name"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:226
-#: sql_constraint:shift.sheet:0
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
+#: model:ir.model.constraint,message:shift_attendance.constraint_shift_sheet_check_not_annotated_mark_as_read
 #, python-format
 msgid "Non-annotated sheets can't be marked as read."
 msgstr ""
 
 #. module: shift_attendance
 #: model:mail.template,subject:shift_attendance.email_template_non_attendance
-msgid "Non-attendance to your last shift."
+msgid "Non-attendance to your last shift"
 msgstr ""
 
 #. module: shift_attendance
 #: model:ir.actions.act_window,name:shift_attendance.action_sheet_admin_non_validated
+msgid "Non-valiated sheets"
+msgstr ""
+
+#. module: shift_attendance
+#: model:mail.template,name:shift_attendance.email_template_non_validated_sheet
+msgid "Non-validated sheet"
+msgstr ""
+
+#. module: shift_attendance
 #: model:ir.ui.menu,name:shift_attendance.menu_sheet_admin_non_validated
 msgid "Non-validated sheets"
 msgstr ""
 
 #. module: shift_attendance
-#: selection:shift.sheet,state:0
+#: model:ir.model.fields.selection,name:shift_attendance.selection__shift_sheet__state__not_validated
 msgid "Not Validated"
 msgstr ""
 
 #. module: shift_attendance
-#: selection:shift.sheet,worker_nb_feedback:0
+#: model:ir.model.fields.selection,name:shift_attendance.selection__shift_sheet__worker_nb_feedback__not_enough
 msgid "Not enough workers"
 msgstr ""
 
@@ -728,22 +780,17 @@ msgstr ""
 
 #. module: shift_attendance
 #: model:ir.model.fields,field_description:shift_attendance.field_shift_sheet__message_has_error_counter
-msgid "Number of error"
+msgid "Number of errors"
 msgstr ""
 
 #. module: shift_attendance
 #: model:ir.model.fields,help:shift_attendance.field_shift_sheet__message_needaction_counter
-msgid "Number of messages which requires an action"
+msgid "Number of messages requiring action"
 msgstr ""
 
 #. module: shift_attendance
 #: model:ir.model.fields,help:shift_attendance.field_shift_sheet__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
-
-#. module: shift_attendance
-#: model:ir.model.fields,help:shift_attendance.field_shift_sheet__message_unread_counter
-msgid "Number of unread messages"
 msgstr ""
 
 #. module: shift_attendance
@@ -759,15 +806,18 @@ msgid "Only for regular workers"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/wizard/generate_missing_attendance_sheets.py:58
+#. odoo-python
+#: code:addons/shift_attendance/wizard/generate_missing_attendance_sheets.py:0
 #, python-format
 msgid "Only past attendance sheets can be generated"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/wizard/validate_attendance_sheet.py:119
+#. odoo-python
+#: code:addons/shift_attendance/wizard/validate_attendance_sheet.py:0
 #, python-format
-msgid "Only super-cooperators and administrators can validate attendance sheets. "
+msgid ""
+"Only super-cooperators and administrators can validate attendance sheets. "
 msgstr ""
 
 #. module: shift_attendance
@@ -776,34 +826,38 @@ msgid "Password"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/wizard/validate_attendance_sheet.py:108
+#. odoo-python
+#: code:addons/shift_attendance/wizard/validate_attendance_sheet.py:0
 #, python-format
 msgid "Please enter your login."
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:610
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
 #, python-format
 msgid "Please give your feedback about the number of workers."
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/wizard/validate_attendance_sheet.py:97
+#. odoo-python
+#: code:addons/shift_attendance/wizard/validate_attendance_sheet.py:0
 #, python-format
 msgid "Please give your feedback on the number of workers."
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/wizard/validate_attendance_sheet.py:103
+#. odoo-python
+#: code:addons/shift_attendance/wizard/validate_attendance_sheet.py:0
 #, python-format
 msgid "Please set a correct barcode."
 msgstr ""
 
 #. module: shift_attendance
-#: selection:res.config.settings,attendance_sheet_default_shift_state:0
-#: selection:shift.sheet.added,state:0
-#: selection:shift.sheet.expected,state:0
-#: selection:shift.sheet.shift,state:0
+#: model:ir.model.fields.selection,name:shift_attendance.selection__res_config_settings__attendance_sheet_default_shift_state__done
+#: model:ir.model.fields.selection,name:shift_attendance.selection__shift_sheet_added__state__done
+#: model:ir.model.fields.selection,name:shift_attendance.selection__shift_sheet_expected__state__done
+#: model:ir.model.fields.selection,name:shift_attendance.selection__shift_sheet_shift__state__done
 msgid "Present"
 msgstr ""
 
@@ -843,6 +897,11 @@ msgid "Settings"
 msgstr ""
 
 #. module: shift_attendance
+#: model:mail.template,name:shift_attendance.email_template_non_attendance
+msgid "Shift Non-attendance"
+msgstr ""
+
+#. module: shift_attendance
 #: model:ir.ui.menu,name:shift_attendance.menu_shift_settings
 msgid "Shift Settings"
 msgstr ""
@@ -855,13 +914,15 @@ msgid "Shift State"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:596
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
 #, python-format
 msgid "Shift State is missing for %s"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:573
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
 #, python-format
 msgid "Shift State is missing or wrong for %s"
 msgstr ""
@@ -902,34 +963,41 @@ msgid "Task Type"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:578
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
 #, python-format
 msgid "Task Type is missing for %s"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:461
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
 #, python-format
 msgid "The sheet has already been marked as read."
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:330
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
 #, python-format
 msgid "The sheet has already been validated and can't be edited."
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:467
-#: code:addons/shift_attendance/models/attendance_sheet.py:558
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
 #, python-format
 msgid "The sheet has already been validated."
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:481
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
 #, python-format
-msgid "The shift linked to the expected shift of %s does exist anymore.This expected shift is ignored in the validation process."
+msgid ""
+"The shift linked to the expected shift of %s does exist anymore.This "
+"expected shift is ignored in the validation process."
 msgstr ""
 
 #. module: shift_attendance
@@ -948,18 +1016,8 @@ msgid "Time interval for attendance sheet generation"
 msgstr ""
 
 #. module: shift_attendance
-#: selection:shift.sheet,worker_nb_feedback:0
+#: model:ir.model.fields.selection,name:shift_attendance.selection__shift_sheet__worker_nb_feedback__too_many
 msgid "Too many workers"
-msgstr ""
-
-#. module: shift_attendance
-#: model:ir.model.fields,field_description:shift_attendance.field_shift_sheet__message_unread
-msgid "Unread Messages"
-msgstr ""
-
-#. module: shift_attendance
-#: model:ir.model.fields,field_description:shift_attendance.field_shift_sheet__message_unread_counter
-msgid "Unread Messages Counter"
 msgstr ""
 
 #. module: shift_attendance
@@ -979,13 +1037,13 @@ msgid "Validate Sheet"
 msgstr ""
 
 #. module: shift_attendance
-#: selection:shift.sheet,state:0
+#: model:ir.model.fields.selection,name:shift_attendance.selection__shift_sheet__state__validated
 msgid "Validated"
 msgstr ""
 
 #. module: shift_attendance
 #: model:ir.model.fields,field_description:shift_attendance.field_shift_sheet__validated_by
-msgid "Validated by"
+msgid "Validated By"
 msgstr ""
 
 #. module: shift_attendance
@@ -1005,9 +1063,10 @@ msgid "Warning"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:586
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
 #, python-format
-msgid "Warning : Working mode for %s is %s"
+msgid "Warning : Working mode for %(name)s is %(working_mode)s"
 msgstr ""
 
 #. module: shift_attendance
@@ -1039,15 +1098,18 @@ msgid "Worker"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:570
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
 #, python-format
 msgid "Worker name is missing for an added shift."
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:349
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
 #, python-format
-msgid "Worker not found (invalid barcode or status). \n"
+msgid ""
+"Worker not found (invalid barcode or status). \n"
 "Barcode : %s"
 msgstr ""
 
@@ -1059,30 +1121,34 @@ msgid "Working Mode"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:582
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
 #, python-format
 msgid "Working mode is missing for %s"
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:314
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
 #, python-format
 msgid "You can't add the same worker more than once to an attendance sheet. "
 msgstr ""
 
 #. module: shift_attendance
-#: code:addons/shift_attendance/models/attendance_sheet.py:336
+#. odoo-python
+#: code:addons/shift_attendance/models/attendance_sheet.py:0
 #, python-format
-msgid "You must be logged as 'Attendance Sheet Generic Access'  if you want to scan cards."
+msgid ""
+"You must be logged as 'Attendance Sheet Generic Access'  if you want to scan"
+" cards."
 msgstr ""
 
 #. module: shift_attendance
 #: model:mail.template,subject:shift_attendance.email_template_non_validated_sheet
-msgid "[${object.day}] Non-validated sheet ${object.time_slot} "
+msgid "[{{object.day}}] Non-validated sheet {{object.time_slot}}"
 msgstr ""
 
 #. module: shift_attendance
 #: model:ir.model,name:shift_attendance.model_shift_generate_missing_attendance_sheets
 msgid "shift.generate_missing_attendance_sheets"
 msgstr ""
-
