@@ -4,13 +4,13 @@
  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 */
 
-odoo.define("pos_shift_partner_can_shop.screens", function (require) {
+odoo.define("pos_shift_partner_can_shop.screens", function(require) {
     "use strict";
 
     var screens = require("point_of_sale.screens");
 
     screens.ActionpadWidget.include({
-        renderElement: function () {
+        renderElement: function() {
             // Get click handler to wrap it w/ our code
             var self = this;
             this._super();
@@ -20,7 +20,7 @@ odoo.define("pos_shift_partner_can_shop.screens", function (require) {
             button_pay.off("click");
 
             // Wrap click handler
-            button_pay.click(function () {
+            button_pay.click(function() {
                 var client = self.pos.get_client();
                 if (client && client.can_shop) {
                     button_pay_click_handler();
@@ -31,7 +31,7 @@ odoo.define("pos_shift_partner_can_shop.screens", function (require) {
                             "This member is not up-to-date with his/her shift. \n\n" +
                                 "Do you want to proceed to payment?"
                         ),
-                        confirm: function () {
+                        confirm: function() {
                             button_pay_click_handler();
                         },
                     });
@@ -41,7 +41,7 @@ odoo.define("pos_shift_partner_can_shop.screens", function (require) {
                         body: _t(
                             "You did no select a customer. Do you want to proceed to payment?"
                         ),
-                        confirm: function () {
+                        confirm: function() {
                             button_pay_click_handler();
                         },
                     });

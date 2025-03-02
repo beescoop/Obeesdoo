@@ -1,6 +1,6 @@
-odoo.define("beesdoo_website_shift_swap.shift_table", function (require) {
+odoo.define("beesdoo_website_shift_swap.shift_table", function(require) {
     "use strict";
-    $(document).ready(function () {
+    $(document).ready(function() {
         // Interactive html tables
         // Documentation: https://datatables.net/, https://momentjs.com/
         $.fn.dataTable.moment("DD/MM, YYYY");
@@ -9,13 +9,13 @@ odoo.define("beesdoo_website_shift_swap.shift_table", function (require) {
             order: [1, "asc"],
         });
         // Add hidden checkboxes to the form data and add at least one condition
-        $("#select_available_shifts_form").on("submit", function (e) {
+        $("#select_available_shifts_form").on("submit", function(e) {
             if (table.$('input[type="checkbox"]').filter(":checked").length < 1) {
                 alert("Please select at least one shift");
                 return false;
             }
             var $form = $(this);
-            table.$('input[type="checkbox"]').each(function () {
+            table.$('input[type="checkbox"]').each(function() {
                 if (!$.contains(document, this)) {
                     if (this.checked) {
                         $form.append(

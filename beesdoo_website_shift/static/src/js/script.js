@@ -1,6 +1,6 @@
-odoo.define("beesdoo_website_shift.script", function (require) {
+odoo.define("beesdoo_website_shift.script", function(require) {
     "use strict";
-    $(document).ready(function () {
+    $(document).ready(function() {
         // Hide help panel by default for small screens
         if ($(window).width() < 992) {
             $("#collapseHelp").removeClass("show");
@@ -16,19 +16,19 @@ odoo.define("beesdoo_website_shift.script", function (require) {
         }
 
         // Toggle help panel
-        $("#collapseHelp").on("hidden.bs.collapse", function () {
+        $("#collapseHelp").on("hidden.bs.collapse", function() {
             $("#toggle_help_button").text(_t("Show"));
         });
 
-        $("#collapseHelp").on("shown.bs.collapse", function () {
+        $("#collapseHelp").on("shown.bs.collapse", function() {
             $("#toggle_help_button").text(_t("Hide"));
         });
 
-        $(".multi-collapse").on("hidden.bs.collapse", function () {
+        $(".multi-collapse").on("hidden.bs.collapse", function() {
             $("#toggle_shifts_button").text(_t("Show next shifts"));
         });
 
-        $(".multi-collapse").on("shown.bs.collapse", function () {
+        $(".multi-collapse").on("shown.bs.collapse", function() {
             $("#toggle_shifts_button").text(_t("Reduce"));
         });
 
