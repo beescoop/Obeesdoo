@@ -162,7 +162,7 @@ msgid "POG Reference"
 msgstr ""
 
 #. module: purchase_order_generator
-#: code:addons/purchase_order_generator/models/purchase_order_generator_line.py:170
+#: code:addons/purchase_order_generator/models/purchase_order_generator_line.py:158
 #, python-format
 msgid "POG supplier does not sell product {name}"
 msgstr ""
@@ -240,13 +240,13 @@ msgid "Purchase orders"
 msgstr ""
 
 #. module: purchase_order_generator
-#: code:addons/purchase_order_generator/models/purchase_order_generator_line.py:188
+#: code:addons/purchase_order_generator/models/purchase_order_generator_line.py:176
 #, python-format
 msgid "Purchase quantity for {product_name} must be greater than 0"
 msgstr ""
 
 #. module: purchase_order_generator
-#: code:addons/purchase_order_generator/models/purchase_order_generator_line.py:194
+#: code:addons/purchase_order_generator/models/purchase_order_generator_line.py:182
 #, python-format
 msgid "Purchase quantity for {product_name} must be greater than {min_qty}"
 msgstr ""
