@@ -16,7 +16,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     container: ${{ matrix.container }}
     name: ${{ matrix.name }}
     strategy:
@@ -29,16 +29,16 @@ jobs:
           # for shift.
           - container: ghcr.io/oca/oca-ci/py3.6-ocb12.0:latest
             include: "macavrac_base"
-            # makepot: "true"
             name: test with OCB
+            # makepot: "true"
           - container: ghcr.io/oca/oca-ci/py3.6-ocb12.0:latest
             include: "polln_shift"
-            # makepot: "true"
             name: test with OCB
+            # makepot: "true"
           - container: ghcr.io/oca/oca-ci/py3.6-ocb12.0:latest
             exclude: "macavrac_base,polln_shift"
-            makepot: "true"
             name: test with OCB
+            makepot: "true"
     services:
       postgres:
         image: postgres:9.6
@@ -52,7 +52,7 @@ jobs:
       INCLUDE: "${{ matrix.include }}"
       EXCLUDE: "${{ matrix.exclude }}"
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           persist-credentials: false
       - name: Install addons and dependencies
@@ -68,7 +68,9 @@ jobs:
         run: odoo -d ${PGDATABASE} -i beesdoo_shift --stop-after-init
       - name: Run tests
         run: oca_run_tests
-      - uses: codecov/codecov-action@v1
+      - uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
       - name: Update .pot files
         run: oca_export_and_push_pot https://x-access-token:${{ secrets.GIT_PUSH_TOKEN }}@github.com/${{ github.repository }}
         if: ${{ matrix.makepot == 'true' && github.event_name == 'push' && github.repository_owner == 'beescoop' }}
