@@ -1,4 +1,4 @@
-odoo.define("pos_auto_invoice_company.screens", function (require) {
+odoo.define("pos_auto_invoice_company.screens", function(require) {
     "use strict";
     var screens = require("point_of_sale.screens");
     var models = require("point_of_sale.models");
@@ -9,7 +9,7 @@ odoo.define("pos_auto_invoice_company.screens", function (require) {
     // Note a pos_auto_invoice module already exists in addons,
     // but it doesn't do the same thing
     screens.PaymentScreenWidget.include({
-        auto_invoice: function () {
+        auto_invoice: function() {
             var self = this;
             var customer = this.pos.get_client();
             var order = this.pos.get_order();
@@ -21,7 +21,7 @@ odoo.define("pos_auto_invoice_company.screens", function (require) {
             }
         },
 
-        customer_changed: function () {
+        customer_changed: function() {
             this._super();
             if (this.pos.config.module_account) {
                 this.auto_invoice();
