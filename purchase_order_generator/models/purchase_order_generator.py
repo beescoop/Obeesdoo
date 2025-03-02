@@ -138,6 +138,7 @@ class PurchaseOrderGenerator(models.Model):
                         "date_planned": self.date_planned,
                     }
                 )
+                pol.onchange_product_id()
                 pol.compute_taxes_id()
 
             self.generated_purchase_order_ids += purchase_order

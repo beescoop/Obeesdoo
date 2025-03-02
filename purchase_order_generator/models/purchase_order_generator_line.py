@@ -14,7 +14,7 @@ class PurchaseOrderGeneratorLine(models.Model):
     _description = "Purchase Order Generator Line"
     _name = "purchase.order.generator.line"
 
-    name = fields.Char(string="Product Name", compute="_compute_name")
+    name = fields.Char(string="Product Name", related="product_template_id.name")
     cpo_id = fields.Many2one(
         comodel_name="purchase.order.generator",
         string="Purchase Order Generator",
@@ -94,18 +94,6 @@ class PurchaseOrderGeneratorLine(models.Model):
     subtotal = fields.Float(
         string="Subtotal (w/o VAT)", compute="_compute_coverage_and_subtotal"
     )
-
-    @api.multi
-    @api.depends("supplierinfo_id")
-    def _compute_name(self):
-        for cpol in self:
-            if cpol.supplierinfo_id and cpol.supplierinfo_id.product_code:
-                product_code = cpol.supplierinfo_id.product_code
-                product_name = cpol.product_template_id.name
-                cpol_name = "[{}] {}".format(product_code, product_name)
-            else:
-                cpol_name = cpol.product_template_id.name
-            cpol.name = cpol_name
 
     @api.multi
     @api.onchange("product_template_id")
