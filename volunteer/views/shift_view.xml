@@ -1,0 +1,41 @@
+<odoo>
+    <record id="view_form_shift" model="ir.ui.view">
+        <field name="name"> Shift Form</field>
+        <field name="model">volunteer.shift</field>
+        <field name="arch" type="xml">
+            <form string="Shift">
+                <group name="group_top">
+                    <group name="group_left">
+                        <field name="start_time" />
+                        <field name="end_time" />
+                        <field name="max_volunteer_nb" />
+                        <field name="company_id" />
+                    </group>
+                    <group name="group_right">
+                        <field name="category_id" />
+                        <field name="type_id" />
+                        <field name="tag_ids" widget="many2many_tags" />
+                        <field name="state" />
+                    </group>
+            </group>
+            </form>
+        </field>
+    </record>
+    <record id="view_tree_shift" model="ir.ui.view">
+        <field name="name">Shift List</field>
+        <field name="model">volunteer.shift</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="state" />
+                <field name="name" />
+                <field name="start_time" />
+                <field name="end_time" />
+                <field name="max_volunteer_nb" />
+                <field name="category_id" />
+                <field name="type_id" />
+                <field name="tag_ids" widget="many2many_tags" />
+                <field name="company_id" />
+            </tree>
+        </field>
+    </record>
+</odoo>

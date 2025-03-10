@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_shift_user,ShiftUser,model_volunteer_shift,volunteer_group_user,1,0,0,0
+access_shift_manager,ShiftManager,model_volunteer_shift,volunteer_group_manager,1,1,1,0
+access_shift_admin,ShiftAdmin,model_volunteer_shift,volunteer_group_admin,1,1,1,1
+access_shift_category_user,ShiftCategoryUser,model_volunteer_shift_category,volunteer_group_user,1,0,0,0
+access_shift_category_manager,ShiftCategoryManager,model_volunteer_shift_category,volunteer_group_manager,1,1,1,0
+access_shift_category_admin,ShiftCategoryAdmin,model_volunteer_shift_category,volunteer_group_admin,1,1,1,1
+access_shift_type_user,ShiftTypeUser,model_volunteer_shift_type,volunteer_group_user,1,0,0,0
+access_shift_type_manager,ShiftTypeManager,model_volunteer_shift_type,volunteer_group_manager,1,1,1,0
+access_shift_type_admin,ShiftTypeAdmin,model_volunteer_shift_type,volunteer_group_admin,1,1,1,1
+access_shift_tag_user,ShiftTagUser,model_volunteer_shift_tag,volunteer_group_user,1,0,0,0
+access_shift_tag_manager,ShiftTagManager,model_volunteer_shift_tag,volunteer_group_manager,1,1,1,0
+access_shift_tag_admin,ShiftTagAdmin,model_volunteer_shift_tag,volunteer_group_admin,1,1,1,1

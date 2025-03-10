@@ -1,0 +1,61 @@
+<odoo>
+    <!-- Volunteer App Menu -->
+    <menuitem id="menu_volunteer" name="Volunteer" />
+    <!-- Action to open Shift list -->
+    <record id="action_volunteer_shift" model="ir.actions.act_window">
+        <field name="name">Volunteer Shift</field>
+        <field name="res_model">volunteer.shift</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!-- Menu item to open Shift list -->
+    <menuitem
+        id="menu_volunteer_shift"
+        name="Shifts"
+        parent="menu_volunteer"
+        action="action_volunteer_shift"
+    />
+
+    <!-- Menu item to open Configuration menu -->
+    <menuitem
+        id="menu_volunteer_configuration"
+        name="Configuration"
+        parent="menu_volunteer"
+    />
+    <!-- Configuration Submenu to open Category list -->
+    <record id="action_volunteer_category" model="ir.actions.act_window">
+        <field name="name">Categories</field>
+        <field name="res_model">volunteer.shift.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="menu_volunteer_category"
+        name="Categories"
+        action="action_volunteer_category"
+        parent="menu_volunteer_configuration"
+    />
+    <!-- Configuration Submenu to open Type list -->
+    <record id="action_volunteer_type" model="ir.actions.act_window">
+        <field name="name">Types</field>
+        <field name="res_model">volunteer.shift.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="menu_volunteer_type"
+        name="Types"
+        action="action_volunteer_type"
+        parent="menu_volunteer_configuration"
+    />
+
+    <!-- Configuration Submenu to open Tag list -->
+    <record id="action_volunteer_tag" model="ir.actions.act_window">
+        <field name="name">Tags</field>
+        <field name="res_model">volunteer.shift.tag</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="menu_volunteer_tag"
+        name="Tags"
+        action="action_volunteer_tag"
+        parent="menu_volunteer_configuration"
+    />
+</odoo>

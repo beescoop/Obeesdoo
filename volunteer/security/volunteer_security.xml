@@ -1,0 +1,57 @@
+<odoo>
+    <!-- Security groups -->
+    <data>
+        <!-- Volunteer User Group -->
+        <record id="volunteer_group_user" model="res.groups">
+            <field name="name">Volunteer</field>
+            <field
+                name="category_id"
+                ref="base.module_category_cooperative_management"
+            />
+            <field name="implied_ids" eval="[(4,ref('base.group_user'))]" />
+        </record>
+        <!-- Volunteer Manager Group -->
+        <record id="volunteer_group_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field
+                name="category_id"
+                ref="base.module_category_cooperative_management"
+            />
+            <field name="implied_ids" eval="[(4,ref('volunteer_group_user'))]" />
+        </record>
+        <!-- Volunteer Admin Group -->
+        <record id="volunteer_group_admin" model="res.groups">
+            <field name="name">Admin</field>
+            <field
+                name="category_id"
+                ref="base.module_category_cooperative_management"
+            />
+            <field name="implied_ids" eval="[(4,ref('volunteer_group_manager'))]" />
+            <field name="users" eval="[(4, ref('base.user_admin'))]" />
+            <!-- TODO : (Q) pourquoi "users" ? -->
+        </record>
+    </data>
+    <!-- Record Rules -->
+    <data noupdate="1">
+        <record id="shift_user_rule" model="ir.rule">
+            <field name="name">Volunteer Shift User Access</field>
+            <field name="model_id" ref="model_volunteer_shift" />
+            <field name="groups" eval="[(4, ref('volunteer_group_user'))]" />
+        </record>
+        <record id="shift_category_user_rule" model="ir.rule">
+            <field name="name">Volunteer Shift Category User Access</field>
+            <field name="model_id" ref="model_volunteer_shift_category" />
+            <field name="groups" eval="[(4, ref('volunteer_group_user'))]" />
+        </record>
+        <record id="shift_type_user_rule" model="ir.rule">
+            <field name="name">Volunteer Shift Type User Access</field>
+            <field name="model_id" ref="model_volunteer_shift_type" />
+            <field name="groups" eval="[(4, ref('volunteer_group_user'))]" />
+        </record>
+        <record id="shift_tag_user_rule" model="ir.rule">
+            <field name="name">Volunteer Shift Tag User Access</field>
+            <field name="model_id" ref="model_volunteer_shift_tag" />
+            <field name="groups" eval="[(4, ref('volunteer_group_user'))]" />
+        </record>
+    </data>
+</odoo>
