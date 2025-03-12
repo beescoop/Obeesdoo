@@ -6,6 +6,7 @@
             <form string="Shift">
                 <group name="group_top">
                     <group name="group_left">
+                        <field name="name" />
                         <field name="start_time" />
                         <field name="end_time" />
                         <field name="max_volunteer_nb" />
