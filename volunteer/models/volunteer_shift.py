@@ -7,7 +7,7 @@ from odoo.tools.safe_eval import datetime
 class Shift(models.Model):
     _name = "volunteer.shift"
     _description = "Shift"
-    name = fields.Char()
+    name = fields.Char(required=True)
     state = fields.Selection(
         [("draft", "Draft"), ("confirmed", "Confirmed"), ("canceled", "Canceled")],
         default="draft",
@@ -28,7 +28,7 @@ class Shift(models.Model):
 
     @api.model
     def _tz_get(self):
-        return [(x, x) for x in pytz.all_timezones]
+        return [(tz, tz) for tz in pytz.all_timezones]
 
     def button_confirm_shift(self):
         for shift in self:

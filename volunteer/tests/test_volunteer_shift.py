@@ -1,5 +1,3 @@
-import pytz
-
 from odoo.tests import common
 from odoo.tools.safe_eval import datetime
 
@@ -34,6 +32,7 @@ class TestShift(common.TransactionCase):
         )
         self.shift_default = self.Shift.create(
             {
+                "name": "Test",
                 "start_time": datetime.datetime(2025, 12, 24, 10, 5),
                 "end_time": datetime.datetime(2025, 12, 24, 12, 5),
                 "type_id": self.type1.id,
@@ -43,6 +42,7 @@ class TestShift(common.TransactionCase):
         )
         self.shift1 = self.Shift.create(
             {
+                "name": "Test",
                 "state": "canceled",
                 "start_time": datetime.datetime(2025, 12, 24, 10, 5),
                 "end_time": datetime.datetime(2025, 12, 24, 12, 5),
@@ -55,13 +55,15 @@ class TestShift(common.TransactionCase):
         )
 
     def test_shift_create(self):
+        self.assertEqual(self.shift1.name, "Test")
         self.assertEqual(self.shift1.state, "canceled")
         self.assertEqual(self.shift1.timezone, "Europe/Brussels")
         self.assertEqual(self.shift1.max_volunteer_nb, 2)
         self.assertEqual(self.shift1.company_id, self.env.user.company_id)
 
     def test_shift_create_default_values(self):
-        self.assertEqual(self.shift_default.state, "new")
+        self.assertEqual(self.shift_default.name, "Test")
+        self.assertEqual(self.shift_default.state, "draft")
         self.assertEqual(self.shift_default.timezone, self.env.user.tz)
         self.assertEqual(self.shift_default.max_volunteer_nb, 1)
         self.assertEqual(self.shift_default.company_id, self.env.user.company_id)
@@ -85,28 +87,34 @@ class TestShift(common.TransactionCase):
         )
         self.assertEqual(aware_date, "2025/12/24_11:05")
 
-    def test_shift_compute_name_custom_tz(self):
-        formated_start_time = _convert_naive_to_str_aware_date(
-            self.shift1.start_time, "Europe/Brussels", "%Y/%m/%d_%H:%M"
-        )
-        formated_end_time = _convert_naive_to_str_aware_date(
-            self.shift1.end_time, "Europe/Brussels", "%H:%M"
-        )
-        self.assertEqual(
-            self.shift1.name,
-            f"{formated_start_time}-{formated_end_time}_CategoryTest_TypeTest",
-        )
+        ###########################################
+        #       Test Computed field name          #
+        #       Work in Progress for addition     #
+        #       in a future another modules       #
+        ###########################################
 
-    def test_shift_compute_name_default_tz(self):
-        start_time = datetime.datetime(2025, 12, 24, 10, 5).astimezone(
-            pytz.timezone(self.shift_default.timezone)
-        )
-        formated_start_time = datetime.datetime.strftime(start_time, "%Y/%m/%d_%H:%M")
-        end_time = datetime.datetime(2025, 12, 24, 12, 5).astimezone(
-            pytz.timezone(self.shift_default.timezone)
-        )
-        formated_end_time = datetime.datetime.strftime(end_time, "%H:%M")
-        self.assertEqual(
-            self.shift_default.name,
-            f"{formated_start_time}-{formated_end_time}_CategoryTest_TypeTest",
-        )
+    # def test_shift_compute_name_custom_tz(self):
+    #     formated_start_time = _convert_naive_to_str_aware_date(
+    #         self.shift1.start_time, "Europe/Brussels", "%Y/%m/%d_%H:%M"
+    #     )
+    #     formated_end_time = _convert_naive_to_str_aware_date(
+    #         self.shift1.end_time, "Europe/Brussels", "%H:%M"
+    #     )
+    #     self.assertEqual(
+    #         self.shift1.name,
+    #         f"{formated_start_time}-{formated_end_time}_CategoryTest_TypeTest",
+    #     )
+    #
+    # def test_shift_compute_name_default_tz(self):
+    #     start_time = datetime.datetime(2025, 12, 24, 10, 5).astimezone(
+    #         pytz.timezone(self.shift_default.timezone)
+    #     )
+    #     formated_start_time = datetime.datetime.strftime(start_time, "%Y/%m/%d_%H:%M")
+    #     end_time = datetime.datetime(2025, 12, 24, 12, 5).astimezone(
+    #         pytz.timezone(self.shift_default.timezone)
+    #     )
+    #     formated_end_time = datetime.datetime.strftime(end_time, "%H:%M")
+    #     self.assertEqual(
+    #         self.shift_default.name,
+    #         f"{formated_start_time}-{formated_end_time}_CategoryTest_TypeTest",
+    #     )
