@@ -10,6 +10,7 @@
                         <field name="end_time" />
                         <field name="max_volunteer_nb" />
                         <field name="company_id" />
+                        <field name="timezone" />
                     </group>
                     <group name="group_right">
                         <field name="category_id" />
@@ -35,6 +36,7 @@
                 <field name="type_id" />
                 <field name="tag_ids" widget="many2many_tags" />
                 <field name="company_id" />
+                <field name="timezone" />
             </tree>
         </field>
     </record>

@@ -11,12 +11,12 @@ class Shift(models.Model):
     name = fields.Char(compute="_compute_name")
     # TODO : States management ?
     state = fields.Selection(
-        [("new", "Confirmed"), ("canceled", "Canceled")],
-        default="new",
+        [("draft", "Draft"), ("confirmed", "Confirmed"), ("canceled", "Canceled")],
+        default="draft",
     )
     start_time = fields.Datetime()
     end_time = fields.Datetime()
-    timezone = fields.Char(default=lambda self: self.env.user.tz)
+    timezone = fields.Selection("_tz_get", default=lambda self: self.env.user.tz)
     max_volunteer_nb = fields.Integer("Max Volunteer", default=1)
     company_id = fields.Many2one(
         "res.company",
@@ -28,7 +28,11 @@ class Shift(models.Model):
     category_id = fields.Many2one("volunteer.shift.category", "Category")
     tag_ids = fields.Many2many("volunteer.shift.tag", string="Tags")
 
-    @api.depends("name")
+    @api.model
+    def _tz_get(self):
+        return [(x, x) for x in pytz.all_timezones]
+
+    @api.depends("category_id", "type_id", "start_time", "end_time")
     def _compute_name(self):
         for record in self:
             shift_category = record.category_id.name
@@ -37,7 +41,7 @@ class Shift(models.Model):
                 record.start_time, record.timezone, "%Y/%m/%d_%H:%M"
             )
             end_date = _convert_naive_to_str_aware_date(
-                record.end_time, record.timezone, "%H:%M"
+                record.end_time, record.timezone, "%Y/%m/%d_%H:%M"
             )
             record.name = f"{start_date}-{end_date}_{shift_category}_{shift_type}"
         return True
