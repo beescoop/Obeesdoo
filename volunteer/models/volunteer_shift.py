@@ -30,6 +30,16 @@ class Shift(models.Model):
     def _tz_get(self):
         return [(x, x) for x in pytz.all_timezones]
 
+    def button_confirm_shift(self):
+        for shift in self:
+            shift.state = "confirmed"
+        return True
+
+    def button_cancel_shift(self):
+        for shift in self:
+            shift.state = "canceled"
+        return True
+
 
 def _convert_naive_to_str_aware_date(naive_date, timezone, fmt):
     aware_date = naive_date.astimezone(pytz.timezone(timezone))
