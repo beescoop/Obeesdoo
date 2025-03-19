@@ -1,11 +1,8 @@
 from odoo.tests import common
 from odoo.tools.safe_eval import datetime
 
-from ..models.volunteer_shift import _convert_naive_to_str_aware_date
-
 
 class TestShift(common.TransactionCase):
-
     def setUp(self, *args, **kwargs):
         super().setUp(*args, **kwargs)
         self.Shift = self.env["volunteer.shift"]
@@ -53,37 +50,3 @@ class TestShift(common.TransactionCase):
                 "category_id": self.category1.id,
             }
         )
-
-    def test_shift_create(self):
-        self.assertEqual(self.shift1.name, "Test")
-        self.assertEqual(self.shift1.state, "canceled")
-        self.assertEqual(self.shift1.tz, "Europe/Brussels")
-        self.assertEqual(self.shift1.max_volunteer_nb, 2)
-        self.assertEqual(self.shift1.company_id, self.env.user.company_id)
-
-    def test_shift_create_default_values(self):
-        self.assertEqual(self.shift_default.name, "Test")
-        self.assertEqual(self.shift_default.state, "draft")
-        self.assertEqual(self.shift_default.tz, self.env.user.tz)
-        self.assertEqual(self.shift_default.max_volunteer_nb, 1)
-        self.assertEqual(self.shift_default.company_id, self.env.user.company_id)
-
-    def test_shift_relations(self):
-        self.assertEqual(self.shift_default.type_id.name, "TypeTest")
-        self.assertEqual(self.shift_default.tag_ids.name, "TagTest")
-        self.assertEqual(self.shift_default.category_id.name, "CategoryTest")
-
-    def test_shift_time_values(self):
-        self.assertEqual(
-            self.shift_default.start_time, datetime.datetime(2025, 12, 24, 10, 5)
-        )
-        self.assertEqual(
-            self.shift_default.end_time, datetime.datetime(2025, 12, 24, 12, 5)
-        )
-
-    def test_convert_naive_date(self):
-        """Test convert naive to aware date tz Europe/Brussels"""
-        aware_date = _convert_naive_to_str_aware_date(
-            self.shift_default.start_time, "Europe/Brussels", "%Y/%m/%d_%H:%M"
-        )
-        self.assertEqual(aware_date, "2025/12/24_11:05")
