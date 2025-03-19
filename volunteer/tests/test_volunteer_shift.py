@@ -57,14 +57,14 @@ class TestShift(common.TransactionCase):
     def test_shift_create(self):
         self.assertEqual(self.shift1.name, "Test")
         self.assertEqual(self.shift1.state, "canceled")
-        self.assertEqual(self.shift1.timezone, "Europe/Brussels")
+        self.assertEqual(self.shift1.tz, "Europe/Brussels")
         self.assertEqual(self.shift1.max_volunteer_nb, 2)
         self.assertEqual(self.shift1.company_id, self.env.user.company_id)
 
     def test_shift_create_default_values(self):
         self.assertEqual(self.shift_default.name, "Test")
         self.assertEqual(self.shift_default.state, "draft")
-        self.assertEqual(self.shift_default.timezone, self.env.user.tz)
+        self.assertEqual(self.shift_default.tz, self.env.user.tz)
         self.assertEqual(self.shift_default.max_volunteer_nb, 1)
         self.assertEqual(self.shift_default.company_id, self.env.user.company_id)
 
@@ -82,6 +82,7 @@ class TestShift(common.TransactionCase):
         )
 
     def test_convert_naive_date(self):
+        """Test convert naive to aware date tz Europe/Brussels"""
         aware_date = _convert_naive_to_str_aware_date(
             self.shift_default.start_time, "Europe/Brussels", "%Y/%m/%d_%H:%M"
         )

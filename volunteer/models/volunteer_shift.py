@@ -14,7 +14,7 @@ class Shift(models.Model):
     )
     start_time = fields.Datetime(default=fields.datetime.now())
     end_time = fields.Datetime(default=fields.datetime.now())
-    timezone = fields.Selection("_tz_get", default=lambda self: self.env.user.tz)
+    tz = fields.Selection("_tz_get", default=lambda self: self.env.user.tz)
     max_volunteer_nb = fields.Integer("Max Volunteer", default=1)
     company_id = fields.Many2one(
         "res.company",

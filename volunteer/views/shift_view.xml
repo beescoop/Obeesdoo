@@ -34,7 +34,7 @@
                             <field name="category_id" />
                             <field name="type_id" />
                             <field name="tag_ids" widget="many2many_tags" />
-                            <field name="timezone" />
+                            <field name="tz" string="Timezone" />
                         </group>
                     </group>
                 </sheet>
@@ -55,7 +55,7 @@
                 <field name="type_id" />
                 <field name="tag_ids" widget="many2many_tags" />
                 <field name="company_id" />
-                <field name="timezone" />
+                <field name="tz" string="Timezone" />
             </tree>
         </field>
     </record>
