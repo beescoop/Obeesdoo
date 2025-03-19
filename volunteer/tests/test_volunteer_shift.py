@@ -87,35 +87,3 @@ class TestShift(common.TransactionCase):
             self.shift_default.start_time, "Europe/Brussels", "%Y/%m/%d_%H:%M"
         )
         self.assertEqual(aware_date, "2025/12/24_11:05")
-
-        ###########################################
-        #       Test Computed field name          #
-        #       Work in Progress for addition     #
-        #       in a future another modules       #
-        ###########################################
-
-    # def test_shift_compute_name_custom_tz(self):
-    #     formated_start_time = _convert_naive_to_str_aware_date(
-    #         self.shift1.start_time, "Europe/Brussels", "%Y/%m/%d_%H:%M"
-    #     )
-    #     formated_end_time = _convert_naive_to_str_aware_date(
-    #         self.shift1.end_time, "Europe/Brussels", "%H:%M"
-    #     )
-    #     self.assertEqual(
-    #         self.shift1.name,
-    #         f"{formated_start_time}-{formated_end_time}_CategoryTest_TypeTest",
-    #     )
-    #
-    # def test_shift_compute_name_default_tz(self):
-    #     start_time = datetime.datetime(2025, 12, 24, 10, 5).astimezone(
-    #         pytz.timezone(self.shift_default.timezone)
-    #     )
-    #     formated_start_time = datetime.datetime.strftime(start_time, "%Y/%m/%d_%H:%M")
-    #     end_time = datetime.datetime(2025, 12, 24, 12, 5).astimezone(
-    #         pytz.timezone(self.shift_default.timezone)
-    #     )
-    #     formated_end_time = datetime.datetime.strftime(end_time, "%H:%M")
-    #     self.assertEqual(
-    #         self.shift_default.name,
-    #         f"{formated_start_time}-{formated_end_time}_CategoryTest_TypeTest",
-    #     )
