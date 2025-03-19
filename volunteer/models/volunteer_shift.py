@@ -1,7 +1,9 @@
 import pytz
 
-from odoo import api, fields, models
+from odoo import fields, models
 from odoo.tools.safe_eval import datetime
+
+from odoo.addons.base.models.res_partner import _tz_get
 
 
 class Shift(models.Model):
@@ -14,7 +16,7 @@ class Shift(models.Model):
     )
     start_time = fields.Datetime(default=fields.datetime.now())
     end_time = fields.Datetime(default=fields.datetime.now())
-    tz = fields.Selection("_tz_get", default=lambda self: self.env.user.tz or "UTC")
+    tz = fields.Selection(_tz_get, default=lambda self: self.env.user.tz or "UTC")
     max_volunteer_nb = fields.Integer("Max Volunteer", default=1)
     company_id = fields.Many2one(
         "res.company",
@@ -25,10 +27,6 @@ class Shift(models.Model):
     type_id = fields.Many2one("volunteer.shift.type", "Type", required=True)
     category_id = fields.Many2one("volunteer.shift.category", "Category")
     tag_ids = fields.Many2many("volunteer.shift.tag", string="Tags")
-
-    @api.model
-    def _tz_get(self):
-        return [(tz, tz) for tz in pytz.all_timezones]
 
     def button_confirm_shift(self):
         for shift in self:
