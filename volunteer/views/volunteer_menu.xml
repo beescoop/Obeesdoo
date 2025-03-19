@@ -20,6 +20,7 @@
         id="menu_volunteer_configuration"
         name="Configuration"
         parent="menu_volunteer"
+        groups="volunteer.volunteer_group_admin"
     />
     <!-- Configuration Submenu to open Category list -->
     <record id="action_volunteer_category" model="ir.actions.act_window">
