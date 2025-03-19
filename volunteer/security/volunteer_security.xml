@@ -4,28 +4,19 @@
         <!-- Volunteer User Group -->
         <record id="volunteer_group_user" model="res.groups">
             <field name="name">Volunteer</field>
-            <field
-                name="category_id"
-                ref="base.module_category_cooperative_management"
-            />
+            <field name="category_id" ref="base.module_category_volunteer_management" />
             <field name="implied_ids" eval="[(4,ref('base.group_user'))]" />
         </record>
         <!-- Volunteer Manager Group -->
         <record id="volunteer_group_manager" model="res.groups">
             <field name="name">Manager</field>
-            <field
-                name="category_id"
-                ref="base.module_category_cooperative_management"
-            />
+            <field name="category_id" ref="base.module_category_volunteer_management" />
             <field name="implied_ids" eval="[(4,ref('volunteer_group_user'))]" />
         </record>
         <!-- Volunteer Admin Group -->
         <record id="volunteer_group_admin" model="res.groups">
             <field name="name">Admin</field>
-            <field
-                name="category_id"
-                ref="base.module_category_cooperative_management"
-            />
+            <field name="category_id" ref="base.module_category_volunteer_management" />
             <field name="implied_ids" eval="[(4,ref('volunteer_group_manager'))]" />
             <field name="users" eval="[(4, ref('base.user_admin'))]" />
         </record>
