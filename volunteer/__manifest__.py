@@ -25,9 +25,9 @@
         "views/volunteer_menu.xml",
     ],
     "demo": [
-        "data/volunteer.shift.category.csv",
-        "data/volunteer.shift.type.csv",
-        "data/volunteer.shift.tag.csv",
+        "demo/shift_category_demo.xml",
+        "demo/shift_type_demo.xml",
+        "demo/shift_tag_demo.xml",
     ],
     "qweb": [],
 }

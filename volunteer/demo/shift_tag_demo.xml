@@ -1,0 +1,18 @@
+<odoo noupdate="1">
+    <record model="volunteer.shift.tag" id="shift_tag_a">
+        <field name="name">Tag A</field>
+        <field name="description">Shift Tag A</field>
+    </record>
+      <record model="volunteer.shift.tag" id="shift_tag_b">
+        <field name="name">Tag B</field>
+        <field name="description">Shift Tag B</field>
+    </record>
+      <record model="volunteer.shift.tag" id="shift_tag_c">
+        <field name="name">Tag C</field>
+        <field name="description">Shift Tag C</field>
+    </record>
+      <record model="volunteer.shift.tag" id="shift_tag_d">
+        <field name="name">Tag D</field>
+        <field name="description">Shift Tag D</field>
+    </record>
+</odoo>
