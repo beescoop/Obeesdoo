@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo noupdate="1">
     <record model="volunteer.shift.type" id="shift_type_opening">
         <field name="name">Store Opening</field>
