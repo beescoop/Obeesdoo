@@ -44,5 +44,10 @@
             <field name="model_id" ref="model_volunteer_shift_tag" />
             <field name="groups" eval="[(4, ref('volunteer_group_user'))]" />
         </record>
+        <record id="volunteer_user_rule" model="ir.rule">
+            <field name="name">Volunteer Volunteer User Access</field>
+            <field name="model_id" ref="model_volunteer_volunteer" />
+            <field name="groups" eval="[(4, ref('volunteer_group_user'))]" />
+        </record>
     </data>
 </odoo>

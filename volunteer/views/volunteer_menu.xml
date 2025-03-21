@@ -2,62 +2,101 @@
 <odoo>
     <!-- Volunteer App Menu -->
     <menuitem id="menu_volunteer" name="Volunteer" />
-    <!-- Action to open Shift list -->
+
+    <!-- Shift menu -->
     <record id="action_volunteer_shift" model="ir.actions.act_window">
         <field name="name">Volunteer Shift</field>
         <field name="res_model">volunteer.shift</field>
         <field name="view_mode">tree,form</field>
     </record>
-    <!-- Menu item to open Shift list -->
     <menuitem
         id="menu_volunteer_shift"
         name="Shifts"
         parent="menu_volunteer"
+        sequence="10"
         action="action_volunteer_shift"
     />
 
-    <!-- Menu item to open Configuration menu -->
+    <!-- Volunteer Menu -->
+    <record id="action_volunteer_volunteer" model="ir.actions.act_window">
+        <field name="name">Volunteer</field>
+        <field name="res_model">volunteer.volunteer</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="child_action_window_tree" model="ir.actions.act_window.view">
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_tree_volunteer" />
+        <field name="act_window_id" ref="action_volunteer_volunteer" />
+    </record>
+    <record id="child_action_window_form" model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_form_volunteer_inherit" />
+        <field name="act_window_id" ref="action_volunteer_volunteer" />
+    </record>
+    <menuitem
+        id="menu_volunteer_volunteer"
+        name="Volunteers"
+        parent="menu_volunteer"
+        sequence="20"
+        action="action_volunteer_volunteer"
+    />
+
+    <!-- Participation Menu -->
+    <record id="action_volunteer_shift_participation" model="ir.actions.act_window">
+        <field name="name">Participation</field>
+        <field name="res_model">volunteer.shift.participation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="menu_volunteer_shift_participation"
+        name="Participations"
+        parent="menu_volunteer"
+        sequence="30"
+        action="action_volunteer_shift_participation"
+    />
+
+    <!-- Configuration Menu -->
     <menuitem
         id="menu_volunteer_configuration"
         name="Configuration"
         parent="menu_volunteer"
+        sequence="40"
         groups="volunteer.volunteer_group_admin"
     />
-    <!-- Configuration Submenu to open Category list -->
-    <record id="action_volunteer_category" model="ir.actions.act_window">
+    <!-- Category Configuration Submenu -->
+    <record id="action_volunteer_shift_category" model="ir.actions.act_window">
         <field name="name">Categories</field>
         <field name="res_model">volunteer.shift.category</field>
         <field name="view_mode">tree,form</field>
     </record>
     <menuitem
-        id="menu_volunteer_category"
+        id="menu_volunteer_shift_category"
         name="Categories"
-        action="action_volunteer_category"
+        action="action_volunteer_shift_category"
         parent="menu_volunteer_configuration"
     />
-    <!-- Configuration Submenu to open Type list -->
-    <record id="action_volunteer_type" model="ir.actions.act_window">
+    <!-- Type Configuration Submenu -->
+    <record id="action_volunteer_shift_type" model="ir.actions.act_window">
         <field name="name">Types</field>
         <field name="res_model">volunteer.shift.type</field>
         <field name="view_mode">tree,form</field>
     </record>
     <menuitem
-        id="menu_volunteer_type"
+        id="menu_volunteer_shift_type"
         name="Types"
-        action="action_volunteer_type"
+        action="action_volunteer_shift_type"
         parent="menu_volunteer_configuration"
     />
-
-    <!-- Configuration Submenu to open Tag list -->
-    <record id="action_volunteer_tag" model="ir.actions.act_window">
+    <!-- Tag Configuration Submenu -->
+    <record id="action_volunteer_shift_tag" model="ir.actions.act_window">
         <field name="name">Tags</field>
         <field name="res_model">volunteer.shift.tag</field>
         <field name="view_mode">tree,form</field>
     </record>
     <menuitem
-        id="menu_volunteer_tag"
+        id="menu_volunteer_shift_tag"
         name="Tags"
-        action="action_volunteer_tag"
+        action="action_volunteer_shift_tag"
         parent="menu_volunteer_configuration"
     />
 </odoo>

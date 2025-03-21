@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_form_volunteer_inherit" model="ir.ui.view">
+        <field name="name">Volunteer Form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+                    <xpath expr="//field[@name='vat']" position="after">
+                        <field name="is_regular" />
+                    </xpath>
+        </field>
+    </record>
+    <record id="view_tree_volunteer" model="ir.ui.view">
+        <field name="name">Volunteer List</field>
+        <field name="model">volunteer.volunteer</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="is_regular" />
+                <field name="shift_participation_ids" />
+            </tree>
+        </field>
+    </record>
+</odoo>
