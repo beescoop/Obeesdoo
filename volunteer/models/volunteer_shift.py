@@ -19,7 +19,7 @@ class Shift(models.Model):
         [("draft", "Draft"), ("confirmed", "Confirmed"), ("canceled", "Canceled")],
         default="draft",
     )
-    max_volunteer_nb = fields.Integer("Max Volunteer", default=1)
+    max_volunteer_nb = fields.Integer("Max Volunteer", default=1, required=True)
     # Date fields
     tz = fields.Selection(
         _tz_get,

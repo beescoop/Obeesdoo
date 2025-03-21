@@ -19,9 +19,9 @@
         "security/volunteer_security.xml",
         "security/ir.model.access.csv",
         "views/shift_view.xml",
-        "views/category_view.xml",
-        "views/type_view.xml",
-        "views/tag_view.xml",
+        "views/shift_category_view.xml",
+        "views/shift_type_view.xml",
+        "views/shift_tag_view.xml",
         "views/volunteer_menu.xml",
     ],
     "demo": [

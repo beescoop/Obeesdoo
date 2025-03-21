@@ -46,18 +46,14 @@
                                     options="{'related_start_date': 'start_time'}"
                                 />
                             </div>
+                            <field name="tz" string="Timezone" />
                             <field name="type_id" />
-                            <field name="max_volunteer_nb" />
-                            <label for="company_id" string="Company information" />
-                            <div class="o_row">
-                                <field name="company_id" />
-                                <label for="tz" string="Timezone" />
-                                <field name="tz" string="Timezone" />
-                            </div>
                         </group>
                         <group name="group_right">
+                            <field name="max_volunteer_nb" />
                             <field name="category_id" />
                             <field name="tag_ids" widget="many2many_tags" />
+                            <field name="company_id" />
                         </group>
                     </group>
                 </sheet>
