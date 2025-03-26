@@ -23,36 +23,12 @@
         <field name="res_model">volunteer.volunteer</field>
         <field name="view_mode">tree,form</field>
     </record>
-    <record id="child_action_window_tree" model="ir.actions.act_window.view">
-        <field name="view_mode">tree</field>
-        <field name="view_id" ref="view_tree_volunteer" />
-        <field name="act_window_id" ref="action_volunteer_volunteer" />
-    </record>
-    <record id="child_action_window_form" model="ir.actions.act_window.view">
-        <field name="view_mode">form</field>
-        <field name="view_id" ref="view_form_volunteer_inherit" />
-        <field name="act_window_id" ref="action_volunteer_volunteer" />
-    </record>
     <menuitem
         id="menu_volunteer_volunteer"
         name="Volunteers"
         parent="menu_volunteer"
         sequence="20"
         action="action_volunteer_volunteer"
-    />
-
-    <!-- Participation Menu -->
-    <record id="action_volunteer_shift_participation" model="ir.actions.act_window">
-        <field name="name">Participation</field>
-        <field name="res_model">volunteer.shift.participation</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-    <menuitem
-        id="menu_volunteer_shift_participation"
-        name="Participations"
-        parent="menu_volunteer"
-        sequence="30"
-        action="action_volunteer_shift_participation"
     />
 
     <!-- Configuration Menu -->
