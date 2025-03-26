@@ -56,7 +56,28 @@
                             <field name="company_id" />
                         </group>
                     </group>
+                    <notebook>
+                        <page name="page_lines" string="Participating Volunteer">
+                            <field
+                                name="volunteer_participation_ids"
+                                context="{'form_view_ref' : 'volunteer.shift_participation_form_view'}"
+                            >
+                                <tree delete="false">
+                                    <field name="volunteer_id" />
+                                    <field name="replaced_volunteer_id" />
+                                    <field name="registration_date" />
+                                    <field name="registration_type" />
+                                    <field name="registration_state" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
             </form>
         </field>
     </record>

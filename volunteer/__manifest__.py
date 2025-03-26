@@ -20,6 +20,7 @@
         "security/ir.model.access.csv",
         "views/shift_view.xml",
         "views/volunteer_view.xml",
+        "views/shift_participation_form_view.xml",
         "views/shift_category_view.xml",
         "views/shift_type_view.xml",
         "views/shift_tag_view.xml",
