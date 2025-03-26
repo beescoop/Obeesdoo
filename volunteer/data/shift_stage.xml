@@ -1,0 +1,17 @@
+<odoo noupdate="1">
+    <record id="stage_draft" model="volunteer.shift.stage">
+        <field name="name">Draft</field>
+        <field name="sequence">10</field>
+        <field name="state">draft</field>
+    </record>
+    <record id="stage_confirmed" model="volunteer.shift.stage">
+        <field name="name">Confirmed</field>
+        <field name="sequence">20</field>
+        <field name="state">confirmed</field>
+    </record>
+    <record id="stage_cancel" model="volunteer.shift.stage">
+        <field name="name">Canceled</field>
+        <field name="sequence">95</field>
+        <field name="state">canceled</field>
+    </record>
+</odoo>

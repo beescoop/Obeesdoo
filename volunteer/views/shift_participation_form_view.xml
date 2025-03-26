@@ -35,10 +35,10 @@
                     </div>
                     <group name="group_top">
                         <group name="group_left">
-                            <field name="registration_type" />
+                            <field name="replaced_volunteer_id" />
                         </group>
                         <group name="group_right">
-                            <field name="replaced_volunteer_id" />
+                            <field name="registration_type" />
                         </group>
                     </group>
                 </sheet>

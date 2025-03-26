@@ -8,7 +8,7 @@
                 <header>
                     <field name="state" invisible="True" />
                     <field
-                        name="state"
+                        name="stage_id"
                         widget="statusbar"
                         options="{'clickable':True}"
                     />

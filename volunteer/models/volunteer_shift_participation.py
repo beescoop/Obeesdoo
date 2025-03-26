@@ -23,7 +23,7 @@ class Participation(models.Model):
     shift_id = fields.Many2one("volunteer.shift", "Shift", required=True)
     volunteer_id = fields.Many2one("volunteer.volunteer", "Volunteer", required=True)
     replaced_volunteer_id = fields.Many2one(
-        "volunteer.volunteer", "Replaced Volunteer", required=False
+        "volunteer.volunteer", "Replaced By", required=False
     )
 
     @api.depends("shift_id.start_time", "shift_id.end_time", "shift_id.name")

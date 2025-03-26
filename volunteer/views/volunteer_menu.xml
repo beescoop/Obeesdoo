@@ -7,7 +7,7 @@
     <record id="action_volunteer_shift" model="ir.actions.act_window">
         <field name="name">Volunteer Shift</field>
         <field name="res_model">volunteer.shift</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">kanban,tree,form</field>
     </record>
     <menuitem
         id="menu_volunteer_shift"
