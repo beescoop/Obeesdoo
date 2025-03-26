@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class Volunteer(models.Model):
@@ -16,18 +16,9 @@ class Volunteer(models.Model):
         default=lambda self: self.env.user.company_id,
         required=True,
     )
-    shift_participation_ids = fields.Many2many(
-        "volunteer.shift", string="Participations"
+    shift_participation_ids = fields.One2many(
+        "volunteer.shift.participation", "volunteer_id", "Participations"
     )
     is_regular = fields.Boolean(
         compute="_compute_is_regular", precompute=True, store=True
     )
-
-    # Compute test on participation before final implementation on subscription
-    @api.depends("shift_participation_ids")
-    def _compute_is_regular(self):
-        for volunteer in self:
-            if len(volunteer.shift_participation_ids) == 0:
-                volunteer.is_regular = False
-            else:
-                volunteer.is_regular = True
