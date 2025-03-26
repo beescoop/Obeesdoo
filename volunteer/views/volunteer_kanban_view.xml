@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_kanban_volunteer" model="ir.ui.view">
+        <field name="name">Volunteer Kanban</field>
+        <field name="model">volunteer.volunteer</field>
+        <field name="arch" type="xml">
+            <kanban class="o_res_partner_kanban" sample="1">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_res_partner_kanban">
+                            <div class="o_kanban_record_title">
+                                <field name="display_name" />
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <div>
+                                    <field name="email" />
+                                </div>
+                                <div>
+                                    <field name="phone" />
+                                </div>
+                                <div>
+                                    <field name="street" />
+                                </div>
+                                <div>
+                                    <field name="street2" />
+                                </div>
+                                <div>
+                                    <field name="zip" />
+                                </div>
+                                <div>
+                                    <field name="city" />
+                                </div>
+                                <div>
+                                    <field name="country_id" />
+                                </div>
+                                <div>
+                                    <field name="state_id" />
+                                </div>
+                                <div>
+                                    <field name="company_id" />
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+</odoo>

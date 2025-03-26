@@ -21,7 +21,7 @@
     <record id="action_volunteer_volunteer" model="ir.actions.act_window">
         <field name="name">Volunteer</field>
         <field name="res_model">volunteer.volunteer</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">kanban,tree,form</field>
     </record>
     <menuitem
         id="menu_volunteer_volunteer"

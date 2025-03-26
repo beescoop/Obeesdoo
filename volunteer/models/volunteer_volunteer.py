@@ -19,6 +19,4 @@ class Volunteer(models.Model):
     shift_participation_ids = fields.One2many(
         "volunteer.shift.participation", "volunteer_id", "Participations"
     )
-    is_regular = fields.Boolean(
-        compute="_compute_is_regular", precompute=True, store=True
-    )
+    is_regular = fields.Boolean(default="False", readonly="True")
