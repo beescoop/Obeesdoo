@@ -29,7 +29,6 @@
                                 placeholder="City"
                                 class="o_address_city"
                             />
-                            <field name="state_id" class="o_address_state" />
                             <field name="zip" placeholder="ZIP" class="o_address_zip" />
                             <field
                                 name="country_id"

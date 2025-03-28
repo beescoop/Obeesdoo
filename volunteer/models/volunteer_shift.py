@@ -56,11 +56,15 @@ class Shift(models.Model):
     volunteer_participation_ids = fields.One2many(
         "volunteer.shift.participation", "shift_id", string="Participations"
     )
-    coordinator_ids = fields.One2many(
-        "volunteer.shift.participation", "volunteer_id", string="Coordinators"
+    coordinator_ids = fields.Many2many(
+        "volunteer.volunteer", "shift_id", "volunteer_id", string="Coordinators"
     )
     volunteer_ids = fields.One2many(
         "volunteer.shift.participation", "volunteer_id", string="Volunteers"
+    )
+
+    coordinator_line_ids = fields.One2many(
+        "volunteer.coordinator.line", "shift_id", string="Coordinators"
     )
 
     # Constrains
