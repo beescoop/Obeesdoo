@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record model="volunteer.shift.participation" id="shift_participation_a">
+        <field name="volunteer_id" ref="volunteer_a" />
+        <field name="shift_id" ref="shift_almost_full" />
+    </record>
+    <record model="volunteer.shift.participation" id="shift_participation_b">
+        <field name="volunteer_id" ref="volunteer_b" />
+        <field name="shift_id" ref="shift_almost_full" />
+    </record>
+    <record model="volunteer.shift.participation" id="shift_participation_c">
+        <field name="volunteer_id" ref="volunteer_a" />
+        <field name="shift_id" ref="shift_remaining" />
+    </record>
+    <record model="volunteer.shift.participation" id="shift_participation_d">
+        <field name="volunteer_id" ref="volunteer_a" />
+        <field name="shift_id" ref="shift_full" />
+    </record>
+    <record model="volunteer.shift.participation" id="shift_participation_e">
+        <field name="volunteer_id" ref="volunteer_b" />
+        <field name="shift_id" ref="shift_full" />
+    </record>
+    <record model="volunteer.shift.participation" id="shift_participation_f">
+        <field name="volunteer_id" ref="volunteer_c" />
+        <field name="shift_id" ref="shift_full" />
+    </record>
+</odoo>
