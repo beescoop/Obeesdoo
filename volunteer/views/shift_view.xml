@@ -70,6 +70,7 @@
                                     <field name="registration_date" readonly="1" />
                                     <field name="registration_type" />
                                     <field name="registration_state" />
+                                    <field name="cancellation_date" readonly="1" />
                                 </tree>
                             </field>
                         </page>
