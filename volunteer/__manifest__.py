@@ -19,6 +19,7 @@
         "data/shift_stage.xml",
         "security/volunteer_security.xml",
         "security/ir.model.access.csv",
+        "views/volunteer_menu.xml",
         "views/shift_view.xml",
         "views/shift_kanban_view.xml",
         "views/volunteer_view.xml",
@@ -26,12 +27,14 @@
         "views/shift_category_view.xml",
         "views/shift_type_view.xml",
         "views/shift_tag_view.xml",
-        "views/volunteer_menu.xml",
     ],
     "demo": [
         "demo/shift_category_demo.xml",
         "demo/shift_type_demo.xml",
         "demo/shift_tag_demo.xml",
+        "demo/volunteer_demo.xml",
+        "demo/shift_demo.xml",
+        "demo/shift_participation_demo.xml",
     ],
     "qweb": [],
 }

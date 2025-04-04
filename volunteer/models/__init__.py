@@ -5,5 +5,4 @@ from . import volunteer_shift_tag
 from . import volunteer_shift_participation
 from . import volunteer_shift_stage
 from . import volunteer_volunteer
-from . import volunteer_coordinator_line
 from . import res_partner
