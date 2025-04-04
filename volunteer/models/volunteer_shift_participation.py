@@ -1,4 +1,6 @@
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
+from odoo.tools.translate import _
 
 
 class Participation(models.Model):
@@ -20,7 +22,7 @@ class Participation(models.Model):
         required=True,
     )
     registration_state = fields.Selection(
-        [("confirmed", "Confirmed"), ("cancelled", "Cancelled")],
+        [("confirmed", "Confirmed"), ("canceled", "canceled")],
         default="confirmed",
         required=True,
     )
@@ -30,5 +32,19 @@ class Participation(models.Model):
     @api.depends("registration_state")
     def _compute_cancellation_date(self):
         for participation in self:
-            if participation.registration_state == "cancelled":
+            if participation.registration_state == "canceled":
                 participation.cancellation_date = fields.datetime.now()
+
+    @api.constrains("shift_id", "registration_state")
+    def _check_remaining_slots(self):
+        for participation in self:
+            availability = self.shift_id.can_accept_participation()
+            if not availability["can_accept"]:
+                nb_confirmed_volunteers = availability["nb_confirmed_volunteers"]
+                raise ValidationError(
+                    _(
+                        f"It is not possible to register"
+                        f" {nb_confirmed_volunteers} volunteers in this shift."
+                        f" The maximum capacity is {participation.shift_id.max_volunteer_nb}."
+                    )
+                )
