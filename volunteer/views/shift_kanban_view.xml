@@ -5,10 +5,146 @@
         <field name="model">volunteer.shift</field>
         <field name="arch" type="xml">
             <kanban default_group_by="stage_id">
+                <field name="name" />
+                <field name="start_time" />
+                <field name="end_time" />
+                <field name="tag_ids" />
+                <field name="type_id" />
+                <field name="category_id" />
+                <field name="remaining_slots" />
+                <field name="max_volunteer_nb" />
+                <field name="coordinator_id" />
+                <field name="is_one_day" />
                 <templates>
                     <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click">
-                            <field name="name" />
+                        <div
+                            t-attf-class="d-flex flex-column p-0 oe_kanban_card oe_kanban_global_click"
+                        >
+                            <div
+                                class="o_kanban_content p-0 m-0 position-relative row d-flex flex-fill"
+                            >
+                                <div
+                                    class="col-3 text-bg-primary p-2 text-center d-flex flex-column justify-content-center"
+                                >
+                                    <div class="fs-2">
+                                        <t
+                                            t-out="luxon.DateTime.fromISO(record.start_time.raw_value).toFormat('d')"
+                                        />
+                                    </div>
+                                    <div>
+                                        <t
+                                            t-out="luxon.DateTime.fromISO(record.start_time.raw_value).toFormat('MMM yyyy')"
+                                        />
+                                    </div>
+                                    <div>
+                                        <strong>
+                                            <t
+                                                t-out="luxon.DateTime.fromISO(record.start_time.raw_value).toFormat('HH:mm')"
+                                            />
+                                        </strong>
+                                    </div>
+                                        <t
+                                        t-set="start_date_only"
+                                        t-value="record.start_time.raw_value.split('T')[0]"
+                                    />
+                                        <t
+                                        t-set="end_date_only"
+                                        t-value="record.end_time.raw_value.split('T')[0]"
+                                    />
+                                        <div>
+                                            <i
+                                            class="fa fa-arrow-right me-2 o_event_fontsize_09"
+                                            title="End date"
+                                        />
+                                            <t
+                                            t-if="record.is_one_day.raw_value == false"
+                                        >
+                                                <t
+                                                t-out="luxon.DateTime.fromISO(record.end_time.raw_value).toFormat('d MMM')"
+                                            />
+                                                <div>
+                                                    <strong>
+                                                        <t
+                                                        t-out="luxon.DateTime.fromISO(record.end_time.raw_value).toFormat('HH:mm')"
+                                                    />
+                                                    </strong>
+                                                </div>
+                                            </t>
+                                            <t t-else="">
+                                                <strong>
+                                                    <t
+                                                    t-out="luxon.DateTime.fromISO(record.end_time.raw_value).toFormat('HH:mm')"
+                                                />
+                                                </strong>
+                                            </t>
+                                        </div>
+                                </div>
+
+                                <div class="col-9 py-2 px-3 d-flex flex-column pt-3">
+                                    <div
+                                        class="o_kanban_record_title o_text_overflow fs-2 "
+                                        t-att-title="record.name.value"
+                                    >
+                                        <field name="name" />
+                                    </div>
+                                    <t
+                                        t-if="record.tag_ids.raw_value &amp;&amp; record.tag_ids.raw_value.length"
+                                    >
+                                        <div class="o_optional mt-n2">
+                                            <field
+                                                name="tag_ids"
+                                                widget="many2many_tags"
+                                            />
+                                        </div>
+                                    </t>
+                                    <div class="mb-2">
+                                        <field name="type_id" />
+                                        <div>
+                                            <field name="category_id" />
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="o_kanban_record_bottom mt-auto pt-2 text-end"
+                                    >
+                                        <div class="oe_kanban_bottom_left fs-3">
+                                            <t
+                                                t-if="record.remaining_slots.raw_value &lt;= 0"
+                                            >
+                                                <div class="badge bg-danger">
+                                                    Full
+                                                </div>
+                                            </t>
+                                            <t
+                                                t-elif="record.remaining_slots.raw_value == record.max_volunteer_nb.raw_value"
+                                            >
+                                                <div class="badge bg-success">
+                                                    Empty
+                                                </div>
+                                            </t>
+                                            <t
+                                                t-elif="record.remaining_slots.raw_value == 1"
+                                            >
+                                                <div class="badge bg-warning">
+                                                    <field name="remaining_slots" />
+                                                    remaining slot
+                                                </div>
+                                            </t>
+                                            <t t-else="">
+                                                <div class="badge bg-info">
+                                                    <field name="remaining_slots" />
+                                                    remaining slot
+                                                </div>
+                                            </t>
+                                        </div>
+                                        <div class="oe_kanban_bottom_right">
+                                            <field
+                                                name="coordinator_id"
+                                                widget="many2one_avatar"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </t>
                 </templates>
