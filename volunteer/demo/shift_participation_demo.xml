@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<odoo noupdate="1">
+<odoo noupdate="0">
     <record model="volunteer.shift.participation" id="shift_participation_a">
         <field name="volunteer_id" ref="volunteer_a" />
         <field name="shift_id" ref="shift_almost_full" />
