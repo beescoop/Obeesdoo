@@ -12,7 +12,7 @@
         <field name="state">confirmed</field>
     </record>
 
-    <record id="stage_cancel" model="volunteer.shift.stage">
+    <record id="stage_canceled" model="volunteer.shift.stage">
         <field name="name">Canceled</field>
         <field name="sequence">95</field>
         <field name="state">canceled</field>
