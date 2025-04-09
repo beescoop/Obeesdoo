@@ -12,7 +12,13 @@ class Shift(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
     # General fields
+
     name = fields.Char(required=True)
+    max_volunteer_nb = fields.Integer("Max Volunteer", required=True)
+    remaining_slots = fields.Integer(compute="_compute_remaining_slots")
+    is_one_day = fields.Boolean(compute="_compute_is_one_day")
+
+    # Stage fields
 
     @api.model
     def _default_stage_id(self):
@@ -25,13 +31,10 @@ class Shift(models.Model):
         copy=False,
         group_expand="_group_expand_stage_id",
     )
-
     state = fields.Selection(related="stage_id.state", store=True)
-    max_volunteer_nb = fields.Integer("Max Volunteer", required=True)
-    remaining_slots = fields.Integer(compute="_compute_remaining_slots")
-    is_one_day = fields.Boolean(compute="_compute_is_one_day")
 
     # Date fields
+
     tz = fields.Selection(
         _tz_get,
         string="Timezone",
@@ -39,16 +42,18 @@ class Shift(models.Model):
         required=True,
     )
     start_time = fields.Datetime(default=fields.datetime.now())
-    start_time_located = fields.Char(compute="_compute_start_time_tz")
+    start_time_located = fields.Char(compute="_compute_start_time_located")
     end_time = fields.Datetime(default=fields.datetime.now())
-    end_time_located = fields.Char(compute="_compute_end_time_tz")
+    end_time_located = fields.Char(compute="_compute_end_time_located")
 
     # Classification fields
+
     type_id = fields.Many2one("volunteer.shift.type", "Type", required=True)
     category_id = fields.Many2one("volunteer.shift.category", "Category")
     tag_ids = fields.Many2many("volunteer.shift.tag", string="Tags")
 
     # Relational fields
+
     company_id = fields.Many2one(
         "res.company",
         "Company",
@@ -56,7 +61,7 @@ class Shift(models.Model):
         required=True,
     )
     volunteer_participation_ids = fields.One2many(
-        "volunteer.shift.participation", "shift_id", string="Participations"
+        "volunteer.shift.participation", "shift_id", string="participation"
     )
     coordinator_id = fields.Many2one("res.partner", "Coordinator")
     volunteer_ids = fields.One2many(
@@ -64,14 +69,18 @@ class Shift(models.Model):
     )
 
     # Constrains
+
     @api.constrains("volunteer_participation_ids")
     def _unique_volunteer_participation(self):
+        """Check that a volunteer can only be registered once per shift."""
+
         for shift in self:
-            confirmed_volunteer = shift.volunteer_participation_ids.filtered(
-                lambda participation: participation.registration_state == "confirmed"
-            )
+            confirmed_participation = shift.get_booking_status()[
+                "confirmed_participation"
+            ]
             confirmed_volunteer_ids = [
-                participation.volunteer_id.id for participation in confirmed_volunteer
+                participation.volunteer_id.id
+                for participation in confirmed_participation
             ]
 
             if len(confirmed_volunteer_ids) != len(set(confirmed_volunteer_ids)):
@@ -80,18 +89,18 @@ class Shift(models.Model):
                 )
 
     @api.constrains("max_volunteer_nb", "volunteer_participation_ids")
-    def _check_max_volunteer_nb_higher_than_confirmed(self):
-        """Check that the max number of volunteers is higher than the number of
-        confirmed volunteers."""
+    def _check_can_accept_new_participation(self):
         for shift in self:
-            availability = shift.can_accept_participation()
-            if not availability["can_accept"]:
-                nb_confirmed_volunteers = availability["nb_confirmed_volunteers"]
+            booking_status = shift.get_booking_status()
+            if not booking_status["can_accept_participation"]:
+                nb_confirmed_participation = booking_status[
+                    "nb_confirmed_participation"
+                ]
                 raise ValidationError(
                     _(
                         f"The maximum number of volunteers ({shift.max_volunteer_nb}) "
                         f"cannot be lower than the number "
-                        f"of confirmed volunteers ({nb_confirmed_volunteers})."
+                        f"of confirmed volunteers ({nb_confirmed_participation})."
                     )
                 )
 
@@ -104,36 +113,34 @@ class Shift(models.Model):
     ]
 
     # Computed fields
+
     @api.depends("tz", "start_time")
-    def _compute_start_time_tz(self):
+    def _compute_start_time_located(self):
         for shift in self:
             if shift.start_time:
                 shift.start_time_located = format_datetime(
                     self.env, shift.start_time, shift.tz, dt_format="medium"
                 )
             else:
-                shift.start_time = False
+                shift.start_time_located = False
 
-    @api.depends("tz", "start_time")
-    def _compute_end_time_tz(self):
+    @api.depends("tz", "end_time")
+    def _compute_end_time_located(self):
         for shift in self:
             if shift.end_time:
                 shift.end_time_located = format_datetime(
                     self.env, shift.end_time, shift.tz, dt_format="medium"
                 )
             else:
-                shift.end_time = False
+                shift.end_time_located = False
 
     @api.depends("volunteer_participation_ids")
     def _compute_remaining_slots(self):
         for shift in self:
-            nb_confirmed_volunteers = len(
-                shift.volunteer_participation_ids.filtered(
-                    lambda participation: participation.registration_state
-                    == "confirmed"
-                )
-            )
-            shift.remaining_slots = shift.max_volunteer_nb - nb_confirmed_volunteers
+            nb_confirmed_participation = shift.get_booking_status()[
+                "nb_confirmed_participation"
+            ]
+            shift.remaining_slots = shift.max_volunteer_nb - nb_confirmed_participation
 
     @api.depends("start_time", "end_time", "tz")
     def _compute_is_one_day(self):
@@ -150,28 +157,35 @@ class Shift(models.Model):
             else:
                 shift.is_one_day = False
 
-    # Functions
+    # Methods
+
     @api.model
     def _group_expand_stage_id(self, stages, domain, order):
         return stages.search([], order=order)
 
     def _set_tz_context(self):
         """Set the timezone context for the shift."""
+
         self.ensure_one()
         return self.with_context(tz=self.tz)
 
-    def can_accept_participation(self):
-        """Check if the shift can accept more participations."""
+    def get_booking_status(self):
+        """Get the shift booking status by returning a dictionary of :
+        - can_accept_participation: boolean
+        - confirmed_participation: recordset of confirmed participation
+        - nb_confirmed_participation: number of confirmed participation
+        """
+
         self.ensure_one()
-        nb_confirmed_volunteers = len(
-            self.volunteer_participation_ids.filtered(
-                lambda participation: participation.registration_state == "confirmed"
-            )
+        confirmed_participation = self.volunteer_participation_ids.filtered(
+            lambda participation: participation.registration_state == "confirmed"
         )
-        availability = {
-            "can_accept": True,
-            "nb_confirmed_volunteers": nb_confirmed_volunteers,
+        nb_confirmed_participation = len(confirmed_participation)
+        booking_status = {
+            "can_accept_participation": True,
+            "confirmed_participation": confirmed_participation,
+            "nb_confirmed_participation": nb_confirmed_participation,
         }
-        if self.max_volunteer_nb < nb_confirmed_volunteers:
-            availability["can_accept"] = False
-        return availability
+        if self.max_volunteer_nb < nb_confirmed_participation:
+            booking_status["can_accept_participation"] = False
+        return booking_status

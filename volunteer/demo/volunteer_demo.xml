@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<odoo noupdate="0">
+<odoo>
     <record model="res.partner" id="volunteer_partner_a">
         <field name="name">Volunteer A</field>
         <field name="street">123 exemple street</field>

@@ -5,14 +5,21 @@ from odoo.tools.safe_eval import datetime
 class TestVolunteerCommon(common.TransactionCase):
     def setUp(self, *args, **kwargs):
         super().setUp(*args, **kwargs)
+
         self.Shift = self.env["volunteer.shift"]
         self.Type = self.env["volunteer.shift.type"]
+        self.Volunteer = self.env["volunteer.volunteer"]
+        self.Participation = self.env["volunteer.shift.participation"]
+
+        # Create required type
         self.type1 = self.Type.create(
             {
                 "name": "TypeTest",
                 "description": "Type pour autotests",
             }
         )
+
+        # Create shift
         self.shift_max_2 = self.Shift.create(
             {
                 "name": "Test",
@@ -24,7 +31,8 @@ class TestVolunteerCommon(common.TransactionCase):
                 "type_id": self.type1.id,
             }
         )
-        self.Volunteer = self.env["volunteer.volunteer"]
+
+        # Create volunteers
         self.volunteer_confirmed = self.Volunteer.create(
             {
                 "name": "VolunteerConfirmed",
@@ -45,7 +53,8 @@ class TestVolunteerCommon(common.TransactionCase):
                 "name": "VolunteerTest",
             }
         )
-        self.Participation = self.env["volunteer.shift.participation"]
+
+        # Create confirmed participation
         self.participationConfirmed = self.env["volunteer.shift.participation"].create(
             {
                 "volunteer_id": self.volunteer_confirmed.id,

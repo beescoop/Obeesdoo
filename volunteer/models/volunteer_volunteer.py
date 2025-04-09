@@ -17,6 +17,11 @@ class Volunteer(models.Model):
         required=True,
     )
     shift_participation_ids = fields.One2many(
-        "volunteer.shift.participation", "volunteer_id", "Participations"
+        "volunteer.shift.participation", "volunteer_id", "participation"
     )
-    is_regular = fields.Boolean(default="False", readonly="True")
+
+    is_regular = fields.Boolean(
+        default=False,
+        readonly=True,
+        help="Is regular if registered for at least one recurrent shift",
+    )

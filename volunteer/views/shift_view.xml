@@ -13,6 +13,7 @@
                         options="{'clickable':True}"
                     />
                 </header>
+
                 <sheet>
                     <div class="oe_title">
                         <h1>
@@ -22,6 +23,7 @@
                             />
                         </h1>
                     </div>
+
                     <group name="group_top">
                         <group name="group_left">
                             <label for="start_time" string="Period" />
@@ -56,6 +58,7 @@
                             <field name="type_id" />
                             <field name="max_volunteer_nb" />
                         </group>
+
                         <group name="group_right">
                             <field
                                 name="coordinator_id"
@@ -66,6 +69,7 @@
                             <field name="company_id" />
                         </group>
                     </group>
+
                     <notebook>
                         <page
                             name="page_participation"
@@ -86,6 +90,7 @@
                         </page>
                     </notebook>
                 </sheet>
+
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers" />
                     <field name="activity_ids" widget="mail_activity" />
@@ -94,6 +99,7 @@
             </form>
         </field>
     </record>
+
     <record id="view_tree_shift" model="ir.ui.view">
         <field name="name">Shift List</field>
         <field name="model">volunteer.shift</field>

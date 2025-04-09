@@ -7,10 +7,23 @@ class Participation(models.Model):
     _name = "volunteer.shift.participation"
     _description = "Shift participation"
 
+    # State fields
+
+    registration_state = fields.Selection(
+        [("confirmed", "Confirmed"), ("canceled", "canceled")],
+        default="confirmed",
+        required=True,
+    )
+
+    # Date fields
+
     registration_date = fields.Datetime(default=fields.datetime.now(), required=True)
     cancellation_date = fields.Datetime(
         compute="_compute_cancellation_date", store=True
     )
+
+    # Classification fields
+
     registration_type = fields.Selection(
         [
             ("during_shift", "During-shift"),
@@ -21,30 +34,36 @@ class Participation(models.Model):
         default="manual",
         required=True,
     )
-    registration_state = fields.Selection(
-        [("confirmed", "Confirmed"), ("canceled", "canceled")],
-        default="confirmed",
-        required=True,
-    )
+
+    # Relational fields
+
     shift_id = fields.Many2one("volunteer.shift", "Shift", required=True)
     volunteer_id = fields.Many2one("volunteer.volunteer", "Volunteer", required=True)
+
+    # Constraints
+
+    @api.constrains("shift_id", "registration_state")
+    def _check_remaining_slots(self):
+        for participation in self:
+            booking_status = self.shift_id.get_booking_status()
+            if not booking_status["can_accept_participation"]:
+                nb_confirmed_participation = booking_status[
+                    "nb_confirmed_participation"
+                ]
+                raise ValidationError(
+                    _(
+                        f"It is not possible to register"
+                        f" {nb_confirmed_participation} volunteers in this shift."
+                        f" The maximum capacity is {participation.shift_id.max_volunteer_nb}."
+                    )
+                )
+
+    # Computed fields
 
     @api.depends("registration_state")
     def _compute_cancellation_date(self):
         for participation in self:
             if participation.registration_state == "canceled":
                 participation.cancellation_date = fields.datetime.now()
-
-    @api.constrains("shift_id", "registration_state")
-    def _check_remaining_slots(self):
-        for participation in self:
-            availability = self.shift_id.can_accept_participation()
-            if not availability["can_accept"]:
-                nb_confirmed_volunteers = availability["nb_confirmed_volunteers"]
-                raise ValidationError(
-                    _(
-                        f"It is not possible to register"
-                        f" {nb_confirmed_volunteers} volunteers in this shift."
-                        f" The maximum capacity is {participation.shift_id.max_volunteer_nb}."
-                    )
-                )
+            else:
+                participation.cancellation_date = False

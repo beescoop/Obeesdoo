@@ -7,10 +7,10 @@ class TestShiftParticipation(TestVolunteerCommon):
     def setUp(self):
         super().setUp()
 
-    def test_max_volunteer_lower_than_confirmed_participations(self):
-        """Test if participation is prohibited when the max_volunteer_nb
-        is lower than the number of confirmed participations
-        3 participations confirmed, max_volunteer_nb = 2
+    def test_participation_refused_when_shift_full(self):
+        """Test that a participation is refused when the number of confirmed
+        participation exceeds max_volunteer_nb.
+        3 participation confirmed, max_volunteer_nb = 2
         participation refused"""
 
         self.Participation.create(

@@ -26,6 +26,7 @@
                                     t-attf-style="background-image:url('#{background_image}')"
                                 />
                             </t>
+
                             <div
                                 class="oe_kanban_details d-flex flex-column justify-content-between"
                             >

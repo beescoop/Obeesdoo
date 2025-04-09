@@ -81,6 +81,7 @@
                                     >
                                         <field name="name" />
                                     </div>
+
                                     <t
                                         t-if="record.tag_ids.raw_value &amp;&amp; record.tag_ids.raw_value.length"
                                     >
@@ -91,12 +92,14 @@
                                             />
                                         </div>
                                     </t>
+
                                     <div class="mb-2 o_volunteer_fontsize_11">
                                         <field name="type_id" />
                                         <div>
                                             <field name="category_id" />
                                         </div>
                                     </div>
+
                                     <div
                                         class="o_kanban_record_bottom mt-auto pt-2 text-end"
                                     >
@@ -148,6 +151,7 @@
                                                 </div>
                                             </t>
                                         </div>
+
                                         <div
                                             class="oe_kanban_bottom_right o_volunteer_fontsize_11 o_text_overflow"
                                         >

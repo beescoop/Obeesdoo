@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<odoo noupdate="0">
+<odoo>
     <record model="volunteer.shift" id="shift_almost_full">
         <field name="name">Shift Almost Full</field>
         <field name="max_volunteer_nb">3</field>
@@ -12,6 +12,7 @@
         <field name="type_id" ref="shift_type_cheese_cut" />
         <field name="category_id" ref="shift_category_a" />
     </record>
+
     <record model="volunteer.shift" id="shift_remaining">
         <field name="name">Shift remaining</field>
         <field name="max_volunteer_nb">9</field>
@@ -20,6 +21,7 @@
         <field name="type_id" ref="shift_type_closing" />
         <field name="tag_ids" eval="[(6, 0, [ref('shift_tag_a')])]" />
     </record>
+
     <record model="volunteer.shift" id="shift_full">
         <field name="name">Shift Full</field>
         <field name="max_volunteer_nb">3</field>
@@ -27,6 +29,7 @@
         <field name="end_time">2029-03-28 15:00:00</field>
         <field name="type_id" ref="shift_type_closing" />
     </record>
+
     <record model="volunteer.shift" id="shift_empty">
         <field name="name">Shift Empty</field>
         <field name="max_volunteer_nb">3</field>
@@ -35,17 +38,5 @@
         <field name="type_id" ref="shift_type_opening" />
         <field name="tag_ids" eval="[(6, 0, [ref('shift_tag_a')])]" />
         <field name="category_id" ref="shift_category_b" />
-    </record>
-    <record model="volunteer.shift" id="shift_long">
-        <field name="name">Shift Very Very Very Very Very Long</field>
-        <field name="max_volunteer_nb">1</field>
-        <field name="start_time">2029-03-28 18:00:00</field>
-        <field name="end_time">2029-03-28 19:00:00</field>
-        <field name="type_id" ref="shift_type_long" />
-        <field name="category_id" ref="shift_category_long" />
-        <field
-            name="tag_ids"
-            eval="[(6, 0, [ref('shift_tag_a'), ref('shift_tag_b'), ref('shift_tag_long')])]"
-        />
     </record>
 </odoo>

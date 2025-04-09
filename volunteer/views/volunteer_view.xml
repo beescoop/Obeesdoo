@@ -18,6 +18,7 @@
                             <field name="partner_id" placeholder="e.g. Marie Dubois" />
                         </h1>
                     </div>
+
                     <group name="group_top">
                         <group name="group_left">
                             <field name="name" />
@@ -43,6 +44,7 @@
                                 class="o_address_country"
                             />
                         </group>
+
                         <group name="group_right">
                             <field name="phone" />
                             <field name="email" />
@@ -50,8 +52,9 @@
                             <field name="is_regular" />
                         </group>
                     </group>
+
                     <notebook>
-                        <page string="Participations">
+                        <page string="Participation">
                             <field name="shift_participation_ids" readonly="1">
                                 <tree>
                                     <field name="shift_id" />
@@ -67,6 +70,7 @@
             </form>
         </field>
     </record>
+
     <record id="view_tree_volunteer" model="ir.ui.view">
         <field name="name">Volunteer List</field>
         <field name="model">volunteer.volunteer</field>
