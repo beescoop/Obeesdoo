@@ -18,7 +18,7 @@
                 <templates>
                     <t t-name="kanban-box">
                         <div
-                            t-attf-class="d-flex flex-column p-0 oe_kanban_card oe_kanban_global_click"
+                            class="d-flex flex-column p-0 oe_kanban_card oe_kanban_global_click"
                         >
                             <div
                                 class="o_kanban_content p-0 m-0 position-relative row d-flex flex-fill"
@@ -26,7 +26,7 @@
                                 <div
                                     class="col-3 text-bg-primary p-2 text-center d-flex flex-column justify-content-center"
                                 >
-                                    <div class="fs-2">
+                                    <div class="o_volunteer_fontsize_20">
                                         <t
                                             t-out="luxon.DateTime.fromISO(record.start_time.raw_value).toFormat('d')"
                                         />
@@ -36,53 +36,47 @@
                                             t-out="luxon.DateTime.fromISO(record.start_time.raw_value).toFormat('MMM yyyy')"
                                         />
                                     </div>
-                                    <div>
-                                        <strong>
-                                            <t
-                                                t-out="luxon.DateTime.fromISO(record.start_time.raw_value).toFormat('HH:mm')"
-                                            />
-                                        </strong>
-                                    </div>
+                                    <div class="o_volunteer_bold">
                                         <t
+                                            t-out="luxon.DateTime.fromISO(record.start_time.raw_value).toFormat('HH:mm')"
+                                        />
+                                    </div>
+                                    <t
                                         t-set="start_date_only"
                                         t-value="record.start_time.raw_value.split('T')[0]"
                                     />
-                                        <t
+                                    <t
                                         t-set="end_date_only"
                                         t-value="record.end_time.raw_value.split('T')[0]"
                                     />
-                                        <div>
-                                            <i
-                                            class="fa fa-arrow-right me-2 o_event_fontsize_09"
+                                    <div>
+                                        <i
+                                            class="fa fa-arrow-right me-2"
                                             title="End date"
                                         />
+                                        <t t-if="record.is_one_day.raw_value == false">
                                             <t
-                                            t-if="record.is_one_day.raw_value == false"
-                                        >
-                                                <t
                                                 t-out="luxon.DateTime.fromISO(record.end_time.raw_value).toFormat('d MMM')"
                                             />
-                                                <div>
-                                                    <strong>
-                                                        <t
-                                                        t-out="luxon.DateTime.fromISO(record.end_time.raw_value).toFormat('HH:mm')"
-                                                    />
-                                                    </strong>
-                                                </div>
-                                            </t>
-                                            <t t-else="">
-                                                <strong>
-                                                    <t
+                                            <div class="o_volunteer_bold">
+                                                <t
                                                     t-out="luxon.DateTime.fromISO(record.end_time.raw_value).toFormat('HH:mm')"
                                                 />
-                                                </strong>
-                                            </t>
-                                        </div>
+                                            </div>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="o_volunteer_bold">
+                                                <t
+                                                    t-out="luxon.DateTime.fromISO(record.end_time.raw_value).toFormat('HH:mm')"
+                                                />
+                                            </span>
+                                        </t>
+                                    </div>
                                 </div>
 
                                 <div class="col-9 py-2 px-3 d-flex flex-column pt-3">
                                     <div
-                                        class="o_kanban_record_title o_text_overflow fs-2 "
+                                        class="o_kanban_record_title o_text_overflow o_volunteer_fontsize_17"
                                         t-att-title="record.name.value"
                                     >
                                         <field name="name" />
@@ -97,7 +91,7 @@
                                             />
                                         </div>
                                     </t>
-                                    <div class="mb-2">
+                                    <div class="mb-2 o_volunteer_fontsize_11">
                                         <field name="type_id" />
                                         <div>
                                             <field name="category_id" />
@@ -106,18 +100,22 @@
                                     <div
                                         class="o_kanban_record_bottom mt-auto pt-2 text-end"
                                     >
-                                        <div class="oe_kanban_bottom_left fs-3">
+                                        <div class="oe_kanban_bottom_left">
                                             <t
                                                 t-if="record.remaining_slots.raw_value &lt;= 0"
                                             >
-                                                <div class="badge bg-danger">
+                                                <div
+                                                    class="badge bg-danger o_volunteer_fontsize_11"
+                                                >
                                                     Full
                                                 </div>
                                             </t>
                                             <t
                                                 t-elif="record.remaining_slots.raw_value == record.max_volunteer_nb.raw_value"
                                             >
-                                                <div class="badge bg-success">
+                                                <div
+                                                    class="badge bg-success o_volunteer_fontsize_11"
+                                                >
                                                     Empty
                                                 </div>
                                             </t>
@@ -125,18 +123,34 @@
                                                 t-elif="record.remaining_slots.raw_value == 1"
                                             >
                                                 <div class="badge bg-warning">
-                                                    <field name="remaining_slots" />
-                                                    remaining slot
+                                                    <field
+                                                        class="o_volunteer_fontsize_11"
+                                                        name="remaining_slots"
+                                                    />
+                                                    <span
+                                                        class="o_volunteer_fontsize_09"
+                                                    >
+                                                        left
+                                                    </span>
                                                 </div>
                                             </t>
                                             <t t-else="">
                                                 <div class="badge bg-info">
-                                                    <field name="remaining_slots" />
-                                                    remaining slot
+                                                    <field
+                                                        class="o_volunteer_fontsize_11"
+                                                        name="remaining_slots"
+                                                    />
+                                                    <span
+                                                        class="o_volunteer_fontsize_09"
+                                                    >
+                                                        left
+                                                    </span>
                                                 </div>
                                             </t>
                                         </div>
-                                        <div class="oe_kanban_bottom_right">
+                                        <div
+                                            class="oe_kanban_bottom_right o_volunteer_fontsize_11 o_text_overflow"
+                                        >
                                             <field
                                                 name="coordinator_id"
                                                 widget="many2one_avatar"

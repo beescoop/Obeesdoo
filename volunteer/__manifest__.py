@@ -37,4 +37,9 @@
         "demo/shift_participation_demo.xml",
     ],
     "qweb": [],
+    "assets": {
+        "web.assets_backend": [
+            "volunteer/static/src/scss/volunteer_shift.scss",
+        ],
+    },
 }
