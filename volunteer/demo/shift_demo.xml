@@ -18,6 +18,7 @@
         <field name="max_volunteer_nb">9</field>
         <field name="start_time">2029-03-28 16:00:00</field>
         <field name="end_time">2029-03-29 17:00:00</field>
+        <field name="coordinator_id" ref="volunteer_partner_a" />
         <field name="type_id" ref="shift_type_closing" />
         <field name="tag_ids" eval="[(6, 0, [ref('shift_tag_a')])]" />
     </record>
@@ -27,6 +28,7 @@
         <field name="max_volunteer_nb">3</field>
         <field name="start_time">2029-03-28 14:00:00</field>
         <field name="end_time">2029-03-28 15:00:00</field>
+        <field name="coordinator_id" ref="volunteer_partner_b" />
         <field name="type_id" ref="shift_type_closing" />
     </record>
 
