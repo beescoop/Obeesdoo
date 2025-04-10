@@ -58,7 +58,7 @@ class Participation(models.Model):
                     )
                 )
 
-    # Computed fields
+    # Compute Methods
 
     @api.depends("registration_state")
     def _compute_cancellation_date(self):

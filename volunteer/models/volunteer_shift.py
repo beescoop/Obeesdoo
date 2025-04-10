@@ -61,11 +61,11 @@ class Shift(models.Model):
         required=True,
     )
     volunteer_participation_ids = fields.One2many(
-        "volunteer.shift.participation", "shift_id", string="participation"
+        "volunteer.shift.participation", "shift_id", string="Participation"
     )
     coordinator_id = fields.Many2one("res.partner", "Coordinator")
     volunteer_ids = fields.One2many(
-        "volunteer.shift.participation", "volunteer_id", string="Volunteers"
+        "volunteer.volunteer", compute="_compute_volunteer_ids", string="Volunteers"
     )
 
     # Constrains
@@ -112,7 +112,18 @@ class Shift(models.Model):
         ),
     ]
 
-    # Computed fields
+    # Compute Methods
+
+    @api.depends("volunteer_participation_ids")
+    def _compute_volunteer_ids(self):
+        for shift in self:
+            booking_status = shift.get_booking_status()
+            if shift.volunteer_participation_ids:
+                shift.volunteer_ids = booking_status["confirmed_participation"].mapped(
+                    "volunteer_id"
+                )
+            else:
+                shift.volunteer_ids = False
 
     @api.depends("tz", "start_time")
     def _compute_start_time_located(self):

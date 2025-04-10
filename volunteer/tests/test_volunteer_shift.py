@@ -35,6 +35,29 @@ class TestShift(TestVolunteerCommon):
             }
         )
 
+    def test_compute_volunteer_ids(self):
+        """Test that the volunteer_ids are correctly computed
+        2 participation confirmed, 1 participation canceled"""
+
+        self.Participation.create(
+            {
+                "volunteer_id": self.volunteer_confirmed2.id,
+                "shift_id": self.shift_max_2.id,
+                "registration_state": "confirmed",
+            }
+        )
+        self.Participation.create(
+            {
+                "volunteer_id": self.volunteer_canceled.id,
+                "shift_id": self.shift_max_2.id,
+                "registration_state": "canceled",
+            }
+        )
+        self.assertEqual(
+            self.shift_max_2.volunteer_ids,
+            self.volunteer_confirmed | self.volunteer_confirmed2,
+        )
+
     def test_is_one_day(self):
         """Test that the shift is one day
         start_time = 2027-06-06 23:59:58
