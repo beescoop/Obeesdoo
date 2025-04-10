@@ -4,10 +4,11 @@
         <field name="name">Tag List</field>
         <field name="model">volunteer.shift.tag</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree editable="top">
                 <field name="name" />
+                <field name="color" widget="color_picker" />
                 <field name="description" />
-                <field name="company_id" />
+                <field name="company_id" optional="hide" />
             </tree>
         </field>
     </record>

@@ -4,10 +4,10 @@
         <field name="name">Category List</field>
         <field name="model">volunteer.shift.category</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree editable="top">
                 <field name="name" />
                 <field name="description" />
-                <field name="company_id" />
+                <field name="company_id" optional="hide" />
             </tree>
         </field>
     </record>
