@@ -40,9 +40,8 @@ class TestShift(TestVolunteerCommon):
         )
 
     def test_compute_volunteer_ids(self):
-        """Test that the volunteer_ids are correctly computed
-        2 participation confirmed, 1 participation canceled"""
-
+        """Test that the volunteer_ids are correctly computed"""
+        # There is one participation `confirmed` already defined in setUp()
         self.Participation.create(
             {
                 "volunteer_id": self.volunteer_confirmed2.id,
@@ -63,12 +62,7 @@ class TestShift(TestVolunteerCommon):
         )
 
     def test_is_one_day(self):
-        """Test that the shift is one day
-        start_time = 2027-06-06 23:59:58
-        end_time = 2027-06-06 23:59:59
-        shift created with tz UTC
-        expected is_one_day = True"""
-
+        """Test if a shift is one day or not"""
         shift_utc = self.Shift.create(
             {
                 "name": "Test",
@@ -81,13 +75,6 @@ class TestShift(TestVolunteerCommon):
             }
         )
         self.assertTrue(shift_utc.is_one_day)
-
-        # Test that the shift is one day
-        # start_time = 2027-06-06 23:59:59
-        # end_time = 2027-06-07 00:00:01
-        # shift created with tz UTC
-        # expected is_one_day = False
-
         shift_utc = self.Shift.create(
             {
                 "name": "Test",
@@ -103,26 +90,22 @@ class TestShift(TestVolunteerCommon):
 
     def test_compute_time_located(self):
         """Test that the start_time_located and end_time_located
-        are correctly computed with specific timezone
-        shift created with timezone Europe/London, UTC+1 summer time
-        UTC start_time = 2027-06-06 22:59:59
-        expected start_time_located = 2027-06-06 23:59:59
-        UTC end_time = 2027-06-06 23:00:01
-        expected end_time_located = 2027-06-07 00:00:01"""
-
+        are correctly computed with specific timezone"""
+        # shift created with timezone Europe/London, UTC+1 summer time
+        # UTC start_time = 2027-06-06 22:59:59
+        # expected start_time_located = 2027-06-06 23:59:59
+        # UTC end_time = 2027-06-06 23:00:01
+        # expected end_time_located = 2027-06-07 00:00:01
         self.assertFalse(self.shift_utc_plus_1.is_one_day)
-
         # Shift created with timezone Europe/Brussels, UTC+2 summer time
         # UTC start_time = 2027-06-06 22:00:01
         # expected start_time_located = 2027-06-07 00:00:01
         # UTC end_time = 2027-06-07 00:00:01
         # expected end_time_located = 2027-06-07 02:00:01
-
         self.assertTrue(self.shift_utc_plus_2.is_one_day)
 
     def test_reduce_max_volunteer_equals_zero(self):
-        """Test that it is possible to reduce max_volunteer_nb to 0"""
-
+        """Test that it is not possible to reduce max_volunteer_nb to 0"""
         with self.assertRaises(CheckViolation):
             self.shift_utc_plus_2.write(
                 {
@@ -131,10 +114,9 @@ class TestShift(TestVolunteerCommon):
             )
 
     def test_reduce_max_volunteer_under_confirmed_participation(self):
-        """Test that it is possible to reduce max_volunteer_nb
-        under the number of confirmed participation
-        2 participation confirmed, max_volunteer_nb set to 1"""
-
+        """Test that it is not possible to reduce max_volunteer_nb
+        under the number of confirmed participation"""
+        # There is one confirmed participation defined in setUp()
         self.Participation.create(
             {
                 "volunteer_id": self.volunteer_confirmed2.id,
@@ -150,17 +132,14 @@ class TestShift(TestVolunteerCommon):
             )
 
     def test_compute_remaining_slots(self):
-        """Test that the remaining slots are correctly computed
-        1 participation confirmed, max_volunteer_nb = 2, remaining_slots = 1"""
-
+        """Test that the remaining slots are correctly computed"""
+        # 1 participation confirmed, max_volunteer_nb = 2
         self.assertEqual(self.shift_max_2.remaining_slots, 1)
 
     def test_compute_remaining_slots_with_canceled_participation(self):
         """Test that the remaining slots are correctly computed
-        when there is a canceled participation
-        1 participation confirmed, 1 participation canceled,
-        max_volunteer_nb = 2, remaining_slots = 1"""
-
+        when there is a canceled participation"""
+        # There is one confirmed participation already defined in setUp()
         self.Participation.create(
             {
                 "volunteer_id": self.volunteer_canceled.id,
@@ -171,12 +150,8 @@ class TestShift(TestVolunteerCommon):
         self.assertEqual(self.shift_max_2.remaining_slots, 1)
 
     def test_volunteer_cannot_confirm_twice_for_same_shift(self):
-        """Test that it is possible to create multiple participation
-        for the same volunteer
-        1 participation confirmed,
-        1 participation confirmed for the same volunteer,
-        nb_max_volunteer = 2"""
-
+        """Test that it is not possible to create multiple participation
+        for the same volunteer"""
         with self.assertRaises(ValidationError):
             self.shift_max_2.write(
                 {

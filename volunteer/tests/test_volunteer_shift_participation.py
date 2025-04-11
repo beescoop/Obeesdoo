@@ -13,10 +13,8 @@ class TestShiftParticipation(TestVolunteerCommon):
 
     def test_participation_refused_when_shift_full(self):
         """Test that a participation is refused when the number of confirmed
-        participation exceeds max_volunteer_nb.
-        3 participation confirmed, max_volunteer_nb = 2
-        participation refused"""
-
+        participation exceeds max_volunteer_nb"""
+        # There is a confirmed participation that is already defined in setUp()
         self.Participation.create(
             {
                 "volunteer_id": self.volunteer_confirmed2.id,

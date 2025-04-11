@@ -25,7 +25,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             <field name="name">Admin</field>
             <field name="category_id" ref="base.module_category_volunteer_management" />
             <field name="implied_ids" eval="[(4,ref('volunteer_group_manager'))]" />
-            <field name="users" eval="[(4, ref('base.user_admin'))]" />
+            <field name="users" eval="[(4,ref('base.user_admin'))]" />
         </record>
     </data>
 
@@ -34,27 +34,27 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <record id="shift_user_rule" model="ir.rule">
             <field name="name">Volunteer Shift User Access</field>
             <field name="model_id" ref="model_volunteer_shift" />
-            <field name="groups" eval="[(4, ref('volunteer_group_user'))]" />
+            <field name="groups" eval="[(4,ref('volunteer_group_user'))]" />
         </record>
         <record id="shift_category_user_rule" model="ir.rule">
             <field name="name">Volunteer Shift Category User Access</field>
             <field name="model_id" ref="model_volunteer_shift_category" />
-            <field name="groups" eval="[(4, ref('volunteer_group_user'))]" />
+            <field name="groups" eval="[(4,ref('volunteer_group_user'))]" />
         </record>
         <record id="shift_type_user_rule" model="ir.rule">
             <field name="name">Volunteer Shift Type User Access</field>
             <field name="model_id" ref="model_volunteer_shift_type" />
-            <field name="groups" eval="[(4, ref('volunteer_group_user'))]" />
+            <field name="groups" eval="[(4,ref('volunteer_group_user'))]" />
         </record>
         <record id="shift_tag_user_rule" model="ir.rule">
             <field name="name">Volunteer Shift Tag User Access</field>
             <field name="model_id" ref="model_volunteer_shift_tag" />
-            <field name="groups" eval="[(4, ref('volunteer_group_user'))]" />
+            <field name="groups" eval="[(4,ref('volunteer_group_user'))]" />
         </record>
         <record id="volunteer_user_rule" model="ir.rule">
             <field name="name">Volunteer Volunteer User Access</field>
             <field name="model_id" ref="model_volunteer_volunteer" />
-            <field name="groups" eval="[(4, ref('volunteer_group_user'))]" />
+            <field name="groups" eval="[(4,ref('volunteer_group_user'))]" />
         </record>
     </data>
 </odoo>

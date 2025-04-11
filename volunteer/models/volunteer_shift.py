@@ -77,7 +77,6 @@ class Shift(models.Model):
     @api.constrains("volunteer_participation_ids")
     def _unique_volunteer_participation(self):
         """Check that a volunteer can only be registered once per shift."""
-
         for shift in self:
             confirmed_participation = shift.get_booking_status()[
                 "confirmed_participation"
@@ -180,7 +179,6 @@ class Shift(models.Model):
 
     def _set_tz_context(self):
         """Set the timezone context for the shift."""
-
         self.ensure_one()
         return self.with_context(tz=self.tz)
 
@@ -190,7 +188,6 @@ class Shift(models.Model):
         - confirmed_participation: recordset of confirmed participation
         - nb_confirmed_participation: number of confirmed participation
         """
-
         self.ensure_one()
         confirmed_participation = self.volunteer_participation_ids.filtered(
             lambda participation: participation.registration_state == "confirmed"
