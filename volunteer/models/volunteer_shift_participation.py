@@ -22,9 +22,7 @@ class Participation(models.Model):
     # Date fields
 
     registration_date = fields.Datetime(default=fields.datetime.now(), required=True)
-    cancellation_date = fields.Datetime(
-        compute="_compute_cancellation_date", store=True
-    )
+    cancellation_date = fields.Datetime()
 
     # Classification fields
 
