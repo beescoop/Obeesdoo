@@ -20,8 +20,8 @@ class ShiftTag(models.Model):
     color = fields.Integer(default=_get_default_color)
 
     company_id = fields.Many2one(
-        "res.company",
-        "Company",
+        comodel_name="res.company",
+        string="Company",
         default=lambda self: self.env.user.company_id,
         required=True,
     )

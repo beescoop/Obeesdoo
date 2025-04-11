@@ -15,6 +15,10 @@ class ShiftStage(models.Model):
     fold = fields.Boolean()
     active = fields.Boolean(default=True)
     state = fields.Selection(
-        [("draft", "Draft"), ("confirmed", "Confirmed"), ("canceled", "Canceled")],
+        selection=[
+            ("draft", "Draft"),
+            ("confirmed", "Confirmed"),
+            ("canceled", "Canceled"),
+        ],
         default="draft",
     )

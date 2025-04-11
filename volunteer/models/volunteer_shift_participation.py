@@ -14,7 +14,7 @@ class Participation(models.Model):
     # State fields
 
     registration_state = fields.Selection(
-        [("confirmed", "Confirmed"), ("canceled", "canceled")],
+        selection=[("confirmed", "Confirmed"), ("canceled", "canceled")],
         default="confirmed",
         required=True,
     )
@@ -29,7 +29,7 @@ class Participation(models.Model):
     # Classification fields
 
     registration_type = fields.Selection(
-        [
+        selection=[
             ("during_shift", "During-shift"),
             ("manual", "Manual"),
             ("recurrent", "Recurrent"),
@@ -41,8 +41,12 @@ class Participation(models.Model):
 
     # Relational fields
 
-    shift_id = fields.Many2one("volunteer.shift", "Shift", required=True)
-    volunteer_id = fields.Many2one("volunteer.volunteer", "Volunteer", required=True)
+    shift_id = fields.Many2one(
+        comodel_name="volunteer.shift", string="Shift", required=True
+    )
+    volunteer_id = fields.Many2one(
+        comodel_name="volunteer.volunteer", string="Volunteer", required=True
+    )
 
     # Constraints
 

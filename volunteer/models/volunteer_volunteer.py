@@ -12,16 +12,18 @@ class Volunteer(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
     partner_id = fields.Many2one(
-        "res.partner", delegate=True, ondelete="cascade", required=True
+        comodel_name="res.partner", delegate=True, ondelete="cascade", required=True
     )
     company_id = fields.Many2one(
-        "res.company",
-        "Company",
+        comodel_name="res.company",
+        string="Company",
         default=lambda self: self.env.user.company_id,
         required=True,
     )
     shift_participation_ids = fields.One2many(
-        "volunteer.shift.participation", "volunteer_id", "participation"
+        comodel_name="volunteer.shift.participation",
+        inverse_name="volunteer_id",
+        string="Participation",
     )
     is_regular = fields.Boolean(
         default=False,

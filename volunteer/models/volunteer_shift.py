@@ -18,7 +18,7 @@ class Shift(models.Model):
     # General fields
 
     name = fields.Char(required=True)
-    max_volunteer_nb = fields.Integer("Max Volunteer", required=True)
+    max_volunteer_nb = fields.Integer(string="Max Volunteer", required=True)
     remaining_slots = fields.Integer(compute="_compute_remaining_slots")
     is_one_day = fields.Boolean(compute="_compute_is_one_day")
 
@@ -30,7 +30,7 @@ class Shift(models.Model):
         return Stage.search([("state", "=", "draft")], limit=1)
 
     stage_id = fields.Many2one(
-        "volunteer.shift.stage",
+        comodel_name="volunteer.shift.stage",
         default=_default_stage_id,
         copy=False,
         group_expand="_group_expand_stage_id",
@@ -40,7 +40,7 @@ class Shift(models.Model):
     # Date fields
 
     tz = fields.Selection(
-        _tz_get,
+        selection=_tz_get,
         string="Timezone",
         default=lambda self: self.env.user.tz or "UTC",
         required=True,
@@ -52,24 +52,32 @@ class Shift(models.Model):
 
     # Classification fields
 
-    type_id = fields.Many2one("volunteer.shift.type", "Type", required=True)
-    category_id = fields.Many2one("volunteer.shift.category", "Category")
-    tag_ids = fields.Many2many("volunteer.shift.tag", string="Tags")
+    type_id = fields.Many2one(
+        comodel_name="volunteer.shift.type", string="Type", required=True
+    )
+    category_id = fields.Many2one(
+        comodel_name="volunteer.shift.category", string="Category"
+    )
+    tag_ids = fields.Many2many(comodel_name="volunteer.shift.tag", string="Tags")
 
     # Relational fields
 
     company_id = fields.Many2one(
-        "res.company",
-        "Company",
+        comodel_name="res.company",
+        string="Company",
         default=lambda self: self.env.user.company_id,
         required=True,
     )
     volunteer_participation_ids = fields.One2many(
-        "volunteer.shift.participation", "shift_id", string="Participation"
+        comodel_name="volunteer.shift.participation",
+        inverse_name="shift_id",
+        string="Participation",
     )
-    coordinator_id = fields.Many2one("res.partner", "Coordinator")
+    coordinator_id = fields.Many2one(comodel_name="res.partner", string="Coordinator")
     volunteer_ids = fields.One2many(
-        "volunteer.volunteer", compute="_compute_volunteer_ids", string="Volunteers"
+        comodel_name="volunteer.volunteer",
+        compute="_compute_volunteer_ids",
+        string="Volunteers",
     )
 
     # Constrains

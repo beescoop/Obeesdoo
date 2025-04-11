@@ -12,8 +12,8 @@ class ShiftCategory(models.Model):
     name = fields.Char()
     description = fields.Char()
     company_id = fields.Many2one(
-        "res.company",
-        "Company",
+        comodel_name="res.company",
+        string="Company",
         default=lambda self: self.env.user.company_id,
         required=True,
     )
