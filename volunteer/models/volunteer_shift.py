@@ -26,8 +26,7 @@ class Shift(models.Model):
 
     @api.model
     def _default_stage_id(self):
-        Stage = self.env["volunteer.shift.stage"]
-        return Stage.search([("state", "=", "draft")], limit=1)
+        return self.env.ref("volunteer.stage_draft")
 
     stage_id = fields.Many2one(
         comodel_name="volunteer.shift.stage",
