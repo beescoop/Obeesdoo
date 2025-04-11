@@ -10,11 +10,10 @@
     "category": "Volunteer management",
     "website": "https://github.com/beescoop/Obeesdoo",
     "author": "Coop IT Easy SC",
-    "maintainers": ["aydrpm"],
+    "maintainers": ["aydrpm", "remytms"],
     "license": "AGPL-3",
     "application": True,
     "depends": ["mail"],
-    "excludes": [],
     "data": [
         "data/shift_stage.xml",
         "security/volunteer_security.xml",
@@ -36,7 +35,6 @@
         "demo/shift_demo.xml",
         "demo/shift_participation_demo.xml",
     ],
-    "qweb": [],
     "assets": {
         "web.assets_backend": [
             "volunteer/static/src/scss/volunteer_shift.scss",
