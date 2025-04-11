@@ -122,7 +122,7 @@ class Shift(models.Model):
         ),
     ]
 
-    # Compute Methods
+    # Compute methods
 
     @api.depends("volunteer_participation_ids")
     def _compute_volunteer_ids(self):

@@ -66,12 +66,19 @@ class Participation(models.Model):
                     )
                 )
 
-    # Compute Methods
+    # Override methods
 
-    @api.depends("registration_state")
-    def _compute_cancellation_date(self):
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get("registration_state") == "canceled":
+                vals["cancellation_date"] = fields.datetime.now()
+        return super().create(vals_list)
+
+    def write(self, vals):
         for participation in self:
-            if participation.registration_state == "canceled":
-                participation.cancellation_date = fields.datetime.now()
-            else:
-                participation.cancellation_date = False
+            old_state = participation.registration_state
+            new_state = vals.get("registration_state")
+            if old_state != "canceled" and new_state == "canceled":
+                vals["cancellation_date"] = fields.datetime.now()
+        return super().write(vals)
