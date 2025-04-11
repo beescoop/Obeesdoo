@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
 <odoo>
     <record id="view_kanban_volunteer" model="ir.ui.view">
         <field name="name">Volunteer Kanban</field>
