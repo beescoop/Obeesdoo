@@ -116,6 +116,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 <field name="name" />
                 <field name="start_time" />
                 <field name="end_time" />
+                <field name="tz" string="Timezone" readonly="1" optional="hide" />
                 <field name="max_volunteer_nb" />
                 <field name="category_id" />
                 <field name="type_id" />
@@ -127,7 +128,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 <field name="remaining_slots" />
                 <field name="coordinator_id" />
                 <field name="company_id" />
-                <field name="tz" string="Timezone" readonly="1" optional="hide" />
                 <field name="state" />
             </tree>
         </field>

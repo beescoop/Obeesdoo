@@ -40,7 +40,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         id="menu_volunteer_configuration"
         name="Configuration"
         parent="menu_volunteer"
-        sequence="40"
+        sequence="90"
         groups="volunteer.volunteer_group_admin"
     />
     <!-- Category Configuration Submenu -->
