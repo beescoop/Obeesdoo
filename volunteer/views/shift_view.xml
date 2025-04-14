@@ -129,7 +129,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 <field name="remaining_slots" />
                 <field name="coordinator_id" />
                 <field name="company_id" />
-                <field name="state" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-muted="state == 'draft'"
+                    decoration-success="state == 'confirmed'"
+                    decoration-warning="state  == 'canceled'"
+                />
             </tree>
         </field>
     </record>
