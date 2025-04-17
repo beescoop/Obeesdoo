@@ -34,6 +34,7 @@ addon | version | maintainers | summary
 [shift_beneficiary](shift_beneficiary/) | 16.0.1.1.0 | [![victor-champonnois](https://github.com/victor-champonnois.png?size=30px)](https://github.com/victor-champonnois) | Add a 'beneficiary' field on shifts
 [shift_portal](shift_portal/) | 16.0.1.1.0 |  | Show available shifts for regular and irregular workers on the website and let workers manage their shifts with an easy web interface.
 [shift_worker_status](shift_worker_status/) | 16.0.1.0.0 |  | Worker status management.
+[volunteer](volunteer/) | 16.0.0.1.0 | [![aydrpm](https://github.com/aydrpm.png?size=30px)](https://github.com/aydrpm) [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Generate and manage shifts for volunteers.
 
 [//]: # (end addons)
 
