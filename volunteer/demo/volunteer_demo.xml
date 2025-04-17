@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <record model="res.partner" id="volunteer_partner_a">
+        <field name="name">Volunteer A</field>
+        <field name="street">123 exemple street</field>
+        <field name="zip">1190</field>
+        <field name="city">Forest</field>
+        <field name="country_id" ref="base.be" />
+        <field name="phone">123456789</field>
+        <field name="email">vol_a@exemple.com</field>
+    </record>
+    <record model="volunteer.volunteer" id="volunteer_a">
+        <field name="partner_id" ref="volunteer_partner_a" />
+    </record>
+
+    <record model="res.partner" id="volunteer_partner_b">
+        <field name="name">Volunteer B</field>
+        <field name="street">456 exemple street</field>
+        <field name="zip">1050</field>
+        <field name="city">Ixelles</field>
+        <field name="country_id" ref="base.be" />
+        <field name="phone">987654321</field>
+        <field name="email">vol_b@exemple.com</field>
+    </record>
+    <record model="volunteer.volunteer" id="volunteer_b">
+        <field name="partner_id" ref="volunteer_partner_b" />
+    </record>
+
+    <record model="res.partner" id="volunteer_partner_c">
+        <field name="name">Volunteer C</field>
+        <field name="street">789 exemple street</field>
+        <field name="zip">1000</field>
+        <field name="city">Bruxelles</field>
+        <field name="country_id" ref="base.be" />
+        <field name="phone">234567891</field>
+        <field name="email">vol_c@exemple.com</field>
+    </record>
+    <record model="volunteer.volunteer" id="volunteer_c">
+        <field name="partner_id" ref="volunteer_partner_c" />
+        <field name="is_regular" eval="True" />
+    </record>
+</odoo>

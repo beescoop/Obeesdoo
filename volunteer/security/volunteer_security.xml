@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <!-- Security groups -->
+    <data>
+        <!-- Volunteer User Group -->
+        <record id="volunteer_group_user" model="res.groups">
+            <field name="name">Volunteer</field>
+            <field name="category_id" ref="base.module_category_volunteer_management" />
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+        </record>
+
+        <!-- Volunteer Manager Group -->
+        <record id="volunteer_group_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="base.module_category_volunteer_management" />
+            <field name="implied_ids" eval="[(4, ref('volunteer_group_user'))]" />
+        </record>
+
+        <!-- Volunteer Admin Group -->
+        <record id="volunteer_group_admin" model="res.groups">
+            <field name="name">Admin</field>
+            <field name="category_id" ref="base.module_category_volunteer_management" />
+            <field name="implied_ids" eval="[(4, ref('volunteer_group_manager'))]" />
+            <field name="users" eval="[(4, ref('base.user_admin'))]" />
+        </record>
+    </data>
+</odoo>

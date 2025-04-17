@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <record model="volunteer.shift" id="shift_almost_full">
+        <field name="name">Shift Almost Full</field>
+        <field name="max_volunteer_nb">3</field>
+        <field name="start_time">2029-03-28 10:00:00</field>
+        <field name="end_time">2029-03-29 15:00:00</field>
+        <field name="stage_id" ref="stage_confirmed" />
+        <field
+            name="tag_ids"
+            eval="[(6, 0, [ref('shift_tag_a'), ref('shift_tag_b'), ref('shift_tag_c')])]"
+        />
+        <field name="type_id" ref="shift_type_cheese_cut" />
+        <field name="category_id" ref="shift_category_a" />
+    </record>
+
+    <record model="volunteer.shift" id="shift_remaining">
+        <field name="name">Shift remaining</field>
+        <field name="max_volunteer_nb">9</field>
+        <field name="start_time">2029-03-28 16:00:00</field>
+        <field name="end_time">2029-03-29 17:00:00</field>
+        <field name="coordinator_id" ref="volunteer_partner_a" />
+        <field name="stage_id" ref="stage_confirmed" />
+        <field name="type_id" ref="shift_type_closing" />
+        <field name="tag_ids" eval="[(6, 0, [ref('shift_tag_a')])]" />
+    </record>
+
+    <record model="volunteer.shift" id="shift_full">
+        <field name="name">Shift Full</field>
+        <field name="max_volunteer_nb">3</field>
+        <field name="start_time">2029-03-28 14:00:00</field>
+        <field name="end_time">2029-03-28 15:00:00</field>
+        <field name="coordinator_id" ref="volunteer_partner_b" />
+        <field name="stage_id" ref="stage_canceled" />
+        <field name="type_id" ref="shift_type_closing" />
+    </record>
+
+    <record model="volunteer.shift" id="shift_empty">
+        <field name="name">Shift Empty</field>
+        <field name="max_volunteer_nb">3</field>
+        <field name="start_time">2029-03-28 15:00:00</field>
+        <field name="end_time">2029-03-28 16:00:00</field>
+        <field name="type_id" ref="shift_type_opening" />
+        <field name="tag_ids" eval="[(6, 0, [ref('shift_tag_a')])]" />
+        <field name="category_id" ref="shift_category_b" />
+    </record>
+</odoo>

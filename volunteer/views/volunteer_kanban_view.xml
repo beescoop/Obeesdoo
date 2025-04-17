@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <record id="view_kanban_volunteer" model="ir.ui.view">
+        <field name="name">Volunteer Kanban</field>
+        <field name="model">volunteer.volunteer</field>
+        <field name="arch" type="xml">
+            <kanban class="o_res_partner_kanban">
+                <field name="id" />
+                <field name="avatar_128" />
+                <field name="display_name" />
+                <field name="is_regular" />
+                <field name="is_company" />
+                <field name="partner_id" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div
+                            class="oe_kanban_global_click o_kanban_record_has_image_fill"
+                        >
+                            <t t-if="!record.is_company.raw_value">
+                                <t
+                                    t-set="background_image"
+                                    t-value="kanban_image('res.partner', 'avatar_128', record.partner_id.raw_value)"
+                                />
+                                <div
+                                    class="o_kanban_image_fill_left d-none d-md-block"
+                                    t-attf-style="background-image:url('#{background_image}')"
+                                />
+                            </t>
+
+                            <div
+                                class="oe_kanban_details d-flex flex-column justify-content-between"
+                            >
+                                <div>
+                                    <strong
+                                        class="o_kanban_record_title oe_partner_heading"
+                                    >
+                                        <field
+                                            name="display_name"
+                                            on_change="1"
+                                            modifiers="{'invisible': true, 'readonly': true}"
+                                        />
+                                    </strong>
+                                    <t t-if="record.is_regular.raw_value">
+                                        <div>Regular</div>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+
+        </field>
+    </record>
+</odoo>

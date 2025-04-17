@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <record id="view_form_volunteer" model="ir.ui.view">
+        <field name="name">Volunteer Form</field>
+        <field name="model">volunteer.volunteer</field>
+        <field name="arch" type="xml">
+            <form string="Volunteer">
+                <sheet>
+                    <field
+                        name="image_1920"
+                        widget="image"
+                        class="oe_avatar"
+                        options="{'preview_image': 'avatar_128'}"
+                        on_change="1"
+                    />
+                    <div class="oe_title">
+                        <h1>
+                            <field name="partner_id" placeholder="e.g. Marie Dubois" />
+                        </h1>
+                    </div>
+
+                    <group name="group_top">
+                        <group name="group_left">
+                            <field name="name" />
+                            <field
+                                name="street"
+                                placeholder="Street..."
+                                class="o_address_street"
+                            />
+                            <field
+                                name="street2"
+                                placeholder="Street 2..."
+                                class="o_address_street"
+                            />
+                            <field
+                                name="city"
+                                placeholder="City"
+                                class="o_address_city"
+                            />
+                            <field name="zip" placeholder="ZIP" class="o_address_zip" />
+                            <field
+                                name="country_id"
+                                placeholder="Country"
+                                class="o_address_country"
+                            />
+                        </group>
+
+                        <group name="group_right">
+                            <field name="phone" />
+                            <field name="email" />
+                            <field name="company_id" />
+                            <field name="is_regular" />
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Participation">
+                            <field name="shift_participation_ids" readonly="1">
+                                <tree>
+                                    <field name="shift_id" />
+                                    <field name="registration_date" />
+                                    <field name="registration_type" />
+                                    <field name="registration_state" />
+                                    <field name="cancellation_date" readonly="1" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_tree_volunteer" model="ir.ui.view">
+        <field name="name">Volunteer List</field>
+        <field name="model">volunteer.volunteer</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="is_regular" />
+            </tree>
+        </field>
+    </record>
+</odoo>
