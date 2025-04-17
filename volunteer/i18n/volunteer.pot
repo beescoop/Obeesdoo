@@ -1,0 +1,1774 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* volunteer
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__supplier_invoice_count
+msgid "# Vendor Bills"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__type
+msgid ""
+"- Contact: Use this to organize the contact details of employees of a given company (e.g. CEO, CFO, ...).\n"
+"- Invoice Address : Preferred address for all invoices. Selected by default when you invoice an order that belongs to this company.\n"
+"- Delivery Address : Preferred address for all deliveries. Selected by default when you deliver an order that belongs to this company.\n"
+"- Private: Private addresses are only visible by authorized users and contain sensitive data (employee home addresses, ...).\n"
+"- Other: Other address for the company (e.g. subsidiary, ...)"
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.view_kanban_shift
+msgid "<i class=\"fa fa-arrow-right me-2\" title=\"End date\"/>"
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.view_form_shift
+msgid "<i class=\"fa fa-long-arrow-right\" aria-label=\"Arrow icon\" title=\"Arrow\"/>"
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.view_kanban_shift
+msgid ""
+"<span class=\"o_volunteer_fontsize_09\">\n"
+"                                                    left\n"
+"                                                </span>"
+msgstr ""
+
+#. module: volunteer
+#. odoo-python
+#: code:addons/volunteer/models/volunteer_shift.py:0
+#, python-format
+msgid "A volunteer can only be registered once per shift."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__property_account_payable_id
+msgid "Account Payable"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__property_account_receivable_id
+msgid "Account Receivable"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__message_needaction
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__active
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__active
+msgid "Active"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__active_lang_count
+msgid "Active Lang Count"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__activity_ids
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__activity_exception_decoration
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__activity_state
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__activity_type_icon
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__type
+msgid "Address Type"
+msgstr ""
+
+#. module: volunteer
+#: model:res.groups,name:volunteer.volunteer_group_admin
+msgid "Admin"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__age
+msgid "Age"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__lang
+msgid ""
+"All the emails and documents sent to this contact will be translated in this"
+" language."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__shift_shift_ids
+msgid "All the shifts the worker is subscribed to."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__data_policy_approved
+msgid "Approved Data Policy"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__financial_risk_approved
+msgid "Approved Financial Risk"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__internal_rules_approved
+msgid "Approved Internal Rules"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__generic_rules_approved
+msgid "Approved generic rules"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__message_attachment_count
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__receipt_reminder_email
+msgid ""
+"Automatically send a confirmation email to the vendor X days before the "
+"expected receipt date, asking him to confirm the exact date."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__avatar_1920
+msgid "Avatar"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__avatar_1024
+msgid "Avatar 1024"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__avatar_128
+msgid "Avatar 128"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__avatar_256
+msgid "Avatar 256"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__avatar_512
+msgid "Avatar 512"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__bank_account_count
+msgid "Bank"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__bank_ids
+msgid "Banks"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__barcode
+msgid "Barcode"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__birthdate_date
+msgid "Birthdate"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__is_blacklisted
+msgid "Blacklist"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__message_bounce
+msgid "Bounce"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__can_publish
+msgid "Can Publish"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_stage__state__canceled
+msgid "Canceled"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__cancellation_date
+msgid "Cancellation Date"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.actions.act_window,name:volunteer.action_volunteer_shift_category
+#: model:ir.ui.menu,name:volunteer.menu_volunteer_shift_category
+msgid "Categories"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__category_id
+msgid "Category"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__channel_ids
+msgid "Channels"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__is_company
+msgid "Check if the contact is a company, otherwise it is a person"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__cooperator
+msgid "Check this box if this contact is a cooperator (effective or not)."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__employee
+msgid "Check this box if this contact is an Employee."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__member
+msgid "Check this box if this cooperator is an effective member."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__old_member
+msgid "Check this box if this cooperator is no more an effective member."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__child_eater_ids
+msgid "Child Eater"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__city
+#: model_terms:ir.ui.view,arch_db:volunteer.view_form_volunteer
+msgid "City"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__color
+msgid "Color"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__color
+msgid "Color Index"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__commercial_partner_id
+msgid "Commercial Entity"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__ref_company_ids
+msgid "Companies that refers to partner"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__company_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__company_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__company_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__company_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__company_id
+msgid "Company"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__company_registry
+msgid "Company ID"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__company_name
+msgid "Company Name"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__commercial_company_name
+msgid "Company Name Entity"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__company_register_number
+msgid "Company Register Number"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__company_type
+msgid "Company Type"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__contact_address
+msgid "Complete Address"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__is_worker
+msgid "Computed from the share product of the first cooperator share"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.ui.menu,name:volunteer.menu_volunteer_configuration
+msgid "Configuration"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_participation__registration_state__confirmed
+#: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_stage__state__confirmed
+msgid "Confirmed"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model,name:volunteer.model_res_partner
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__child_ids
+msgid "Contact"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__cooperative_membership_id
+msgid "Cooperative Membership For Current Company"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__cooperative_membership_ids
+msgid "Cooperative Memberships"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__state
+msgid "Cooperative Status"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__cooperative_status_ids
+msgid "Cooperative Statuses"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__cooperator
+msgid "Cooperator"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__cooperator_register_number
+msgid "Cooperator Number"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__cooperator_type
+msgid "Cooperator Type"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__coop_candidate
+msgid "Cooperator candidate"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__coordinator_id
+msgid "Coordinator"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__message_bounce
+msgid "Counter of the number of bounced emails for this contact"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__country_id
+#: model_terms:ir.ui.view,arch_db:volunteer.view_form_volunteer
+msgid "Country"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__country_code
+msgid "Country Code"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__create_uid
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__create_uid
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__create_uid
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__create_uid
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__create_uid
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__create_uid
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__create_date
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__create_date
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__create_date
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__create_date
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__create_date
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__create_date
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__credit_limit
+msgid "Credit Limit"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__credit_limit
+msgid "Credit limit specific to this partner."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__property_stock_customer
+msgid "Customer Location"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__property_payment_term_id
+msgid "Customer Payment Terms"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__customer_rank
+msgid "Customer Rank"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__date
+msgid "Date"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__reminder_date_before_receipt
+msgid "Days Before Receipt"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__trust
+msgid "Degree of trust you have in this debtor"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__description
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__description
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__description
+msgid "Description"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__display_name
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__display_name
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__display_name
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__display_name
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__display_name
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__display_name
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_stage__state__draft
+msgid "Draft"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__duplicated_bank_account_partners_count
+msgid "Duplicated Bank Account Partners Count"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_participation__registration_type__during_shift
+msgid "During-shift"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__next_shift_id
+msgid "Earliest Open Shift"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__next_shift_id
+msgid "Earliest open shift the worker is subscribed to."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__eater
+msgid "Eater/Worker"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__effective_date
+msgid "Effective Date"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__member
+msgid "Effective cooperator"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__partner_share
+msgid ""
+"Either customer (not a user), either shared user. Indicated the current "
+"partner is a customer without access or with a limited access created for "
+"sharing data."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__email
+msgid "Email"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__employee
+msgid "Employee"
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.view_kanban_shift
+msgid "Empty"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__end_time
+msgid "End Time"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__end_time_located
+msgid "End Time Located"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__exempt_reason_id
+msgid "Exempt Reason"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__extension_start_time
+msgid "Extension Start Day"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__firstname
+msgid "First name"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__property_account_position_id
+msgid "Fiscal Position"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__fold
+msgid "Fold"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__message_follower_ids
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__message_partner_ids
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift__activity_type_icon
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__email_formatted
+msgid "Format email address \"Name <email@domain>\""
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__email_formatted
+msgid "Formatted Email"
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.view_kanban_shift
+msgid "Full"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__gender
+msgid "Gender"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__partner_latitude
+msgid "Geo Latitude"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__partner_longitude
+msgid "Geo Longitude"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__has_message
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__has_unreconciled_entries
+msgid "Has Unreconciled Entries"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__id
+msgid "ID"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__im_status
+msgid "IM Status"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__activity_exception_icon
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift__activity_exception_icon
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift__message_needaction
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift__message_has_error
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__team_id
+msgid ""
+"If set, this Sales Team will be used for sales and assignments related to "
+"this partner"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__is_blacklisted
+msgid ""
+"If the email address is on the blacklist, the contact won't receive mass "
+"mailing anymore, from any list"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__image_1920
+msgid "Image"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__image_1024
+msgid "Image 1024"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__image_128
+msgid "Image 128"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__image_256
+msgid "Image 256"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__image_512
+msgid "Image 512"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__industry_id
+msgid "Industry"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__info_session_date
+msgid "Information Session Date"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__info_session
+msgid "Information Session?"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__invoice_warn
+msgid "Invoice"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__invoice_ids
+msgid "Invoices"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__is_coa_installed
+msgid "Is Coa Installed"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__message_is_follower
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__is_one_day
+msgid "Is One Day"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__is_public
+msgid "Is Public"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__is_published
+msgid "Is Published"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__is_regular
+msgid "Is Regular"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__is_company
+msgid "Is a Company"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__is_regular
+msgid "Is regular if registered for at least one recurrent shift"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__can_shop
+msgid "Is worker allowed to shop?"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__function
+msgid "Job Position"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__journal_item_count
+msgid "Journal Items"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__lang
+msgid "Language"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift____last_update
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category____last_update
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation____last_update
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage____last_update
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag____last_update
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type____last_update
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__write_uid
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__write_uid
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__write_uid
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__write_uid
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__write_uid
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__write_uid
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__write_date
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__write_date
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__write_date
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__write_date
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__write_date
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__write_date
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__lastname
+msgid "Last name"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__last_printed
+msgid "Last printed on"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__last_time_entries_checked
+msgid ""
+"Last time the invoices & payments matching was performed for this partner. "
+"It is set either if there's not at least an unreconciled debit and an "
+"unreconciled credit or if you click the \"Done\" button."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__last_time_entries_checked
+msgid "Latest Invoices & Payments Matching Date"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__representative
+msgid "Legal Representative"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__representative_of_member_company
+msgid "Legal Representative of Member Company"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__legal_form
+msgid "Legal form"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__message_main_attachment_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: volunteer
+#: model:res.groups,name:volunteer.volunteer_group_manager
+msgid "Manager"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_participation__registration_type__manual
+msgid "Manual"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__max_volunteer_nb
+msgid "Max Volunteer"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__member_card_ids
+msgid "Member Card"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__message_has_error
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__invoice_warn_msg
+msgid "Message for Invoice"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__purchase_warn_msg
+msgid "Message for Purchase Order"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__sale_warn_msg
+msgid "Message for Sales Order"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__picking_warn_msg
+msgid "Message for Stock Picking"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__message_ids
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__mobile
+msgid "Mobile"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__my_activity_date_deadline
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__name
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__name
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__name
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__name
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__name
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__name
+msgid "Name"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__activity_date_deadline
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__activity_summary
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__activity_type_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__next_shift_date
+msgid "Next Shift Date"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__email_normalized
+msgid "Normalized Email"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__comment
+msgid "Notes"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__message_needaction_counter
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__reminder_date_before_receipt
+msgid "Number of days to send reminder email before the promised receipt date"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__message_has_error_counter
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift__message_needaction_counter
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift__message_has_error_counter
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__number_of_share
+msgid "Number of share"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__old_member
+msgid "Old cooperator"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__on_time_rate
+msgid "On-Time Delivery Rate"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__on_time_rate
+msgid ""
+"Over the past x days; the number of products received on time divided by the"
+" number of ordered products.x is either the System Parameter "
+"purchase_stock.on_time_delivery_days or the default 365"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__parent_eater_id
+msgid "Parent Worker"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__parent_name
+msgid "Parent name"
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.view_form_shift
+msgid "Participating Volunteers"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__volunteer_participation_ids
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__shift_participation_ids
+#: model_terms:ir.ui.view,arch_db:volunteer.view_form_volunteer
+msgid "Participation"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__partner_id
+msgid "Partner"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__contract_ids
+msgid "Partner Contracts"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__use_partner_credit_limit
+msgid "Partner Limit"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__same_company_registry_partner_id
+msgid "Partner with same Company Registry"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__same_vat_partner_id
+msgid "Partner with same Tax ID"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__debit_limit
+msgid "Payable Limit"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__payment_token_count
+msgid "Payment Token Count"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__payment_token_ids
+msgid "Payment Tokens"
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.view_form_shift
+msgid "Period"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__phone
+msgid "Phone"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__pos_order_ids
+msgid "Pos Order"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__pos_order_count
+msgid "Pos Order Count"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__property_product_pricelist
+msgid "Pricelist"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__member_card_to_be_printed
+msgid "Print Member card?"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__purchase_line_ids
+msgid "Purchase Lines"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__purchase_order_count
+msgid "Purchase Order Count"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__purchase_warn
+msgid "Purchase Order Warning"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__receipt_reminder_email
+msgid "Receipt Reminder"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_participation__registration_type__recurrent
+msgid "Recurrent"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__ref
+msgid "Reference"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__registration_date
+msgid "Registration Date"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__registration_state
+msgid "Registration State"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__registration_type
+msgid "Registration Type"
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.view_kanban_volunteer
+msgid "Regular"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__parent_id
+msgid "Related Company"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__remaining_slots
+msgid "Remaining Slots"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__activity_user_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__website_id
+msgid "Restrict publishing to this website."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__sale_order_count
+msgid "Sale Order Count"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__sale_order_ids
+msgid "Sales Order"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__team_id
+msgid "Sales Team"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__sale_warn
+msgid "Sales Warnings"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__user_id
+msgid "Salesperson"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__invoice_warn
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__picking_warn
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__purchase_warn
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__sale_warn
+msgid ""
+"Selecting the \"Warning\" option will notify user with the message, "
+"Selecting \"Blocking Message\" will throw an exception with the message and "
+"block the flow. The Message has to be written in the next field."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__self
+msgid "Self"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__use_partner_credit_limit
+msgid "Set a value greater than 0.0 to activate a credit limit check"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__share_ids
+msgid "Share Lines"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__partner_share
+msgid "Share Partner"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model,name:volunteer.model_volunteer_shift
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__shift_id
+#: model_terms:ir.ui.view,arch_db:volunteer.view_form_shift
+msgid "Shift"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model,name:volunteer.model_volunteer_shift_category
+msgid "Shift Category"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model,name:volunteer.model_volunteer_shift_stage
+msgid "Shift Stage"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model,name:volunteer.model_volunteer_shift_tag
+msgid "Shift Tag"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model,name:volunteer.model_volunteer_shift_type
+msgid "Shift Type"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model,name:volunteer.model_volunteer_shift_participation
+msgid "Shift participation"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__shift_shift_ids
+#: model:ir.ui.menu,name:volunteer.menu_volunteer_shift
+msgid "Shifts"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__show_credit_limit
+msgid "Show Credit Limit"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__signup_expiration
+msgid "Signup Expiration"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__signup_token
+msgid "Signup Token"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__signup_type
+msgid "Signup Token Type"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__signup_valid
+msgid "Signup Token is Valid"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__signup_url
+msgid "Signup URL"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__stage_id
+msgid "Stage"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__start_time
+msgid "Start Time"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__start_time_located
+msgid "Start Time Located"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__state
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__state
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__state_id
+msgid "State"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift__activity_state
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__picking_warn
+msgid "Stock Picking"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__street
+msgid "Street"
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.view_form_volunteer
+msgid "Street 2..."
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.view_form_volunteer
+msgid "Street..."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__street2
+msgid "Street2"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__subscribed_shift_ids
+msgid "Subscribed Shift"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__is_subscribed_to_shift
+msgid "Subscribed before Alert Date"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__subscription_request_ids
+msgid "Subscription request"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__super
+msgid "Super Cooperative"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__property_purchase_currency_id
+msgid "Supplier Currency"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__supplier_rank
+msgid "Supplier Rank"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.actions.act_window,name:volunteer.action_volunteer_shift_tag
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__tag_ids
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__category_id
+#: model:ir.ui.menu,name:volunteer.menu_volunteer_shift_tag
+msgid "Tags"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__vat
+msgid "Tax ID"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__country_code
+msgid ""
+"The ISO country code in two chars. \n"
+"You can use this field for quick search."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__vat
+msgid ""
+"The Tax Identification Number. Values here will be validated based on the "
+"country format. You can use '/' to indicate that the partner is not subject "
+"to tax."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__property_account_position_id
+msgid ""
+"The fiscal position determines the taxes/accounts used for this contact."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__website_url
+msgid "The full URL to access the document through the website."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__user_id
+msgid "The internal user in charge of this contact."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.constraint,message:volunteer.constraint_volunteer_shift_max_volunteer_nb_is_positive
+msgid "The maximum of volunteers per shift cannot be null or negative."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__pos_order_count
+msgid "The number of point of sales orders related to this customer"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__has_unreconciled_entries
+msgid ""
+"The partner has at least one unreconciled debit and credit since last time "
+"the invoices & payments matching was performed."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__company_registry
+msgid ""
+"The registry number of the company. Use it if it is different from the Tax "
+"ID. It must be unique across all partners of a same country"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__property_stock_customer
+msgid ""
+"The stock location used as destination when sending goods to this contact."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__property_stock_supplier
+msgid ""
+"The stock location used as source when receiving goods from this contact."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__property_account_payable_id
+msgid ""
+"This account will be used instead of the default one as the payable account "
+"for the current partner"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__property_account_receivable_id
+msgid ""
+"This account will be used instead of the default one as the receivable "
+"account for the current partner"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__property_purchase_currency_id
+msgid ""
+"This currency will be used, instead of the default one, for purchases from "
+"the current partner"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__email_normalized
+msgid ""
+"This field is used to search on email address as the primary email field can"
+" contain more than strictly an email address."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__property_supplier_payment_term_id
+msgid ""
+"This payment term will be used instead of the default one for purchase "
+"orders and vendor bills"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__property_payment_term_id
+msgid ""
+"This payment term will be used instead of the default one for sales orders "
+"and customer invoices"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__property_product_pricelist
+msgid ""
+"This pricelist will be used, instead of the default one, for sales to the "
+"current partner"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__tz
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__tz
+#: model_terms:ir.ui.view,arch_db:volunteer.view_form_shift
+#: model_terms:ir.ui.view,arch_db:volunteer.view_tree_shift
+msgid "Timezone"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__tz_offset
+msgid "Timezone offset"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__title
+msgid "Title"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__total_invoiced
+msgid "Total Invoiced"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__debit
+msgid "Total Payable"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__credit
+msgid "Total Receivable"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__credit
+msgid "Total amount this customer owes you."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__debit
+msgid "Total amount you have to pay to this vendor."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__total_value
+msgid "Total value of shares"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__translated_display_name
+msgid "Translated Display Name"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__type_id
+msgid "Type"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift__activity_exception_decoration
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.actions.act_window,name:volunteer.action_volunteer_shift_type
+#: model:ir.ui.menu,name:volunteer.menu_volunteer_shift_type
+msgid "Types"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__barcode
+msgid "Use a barcode to identify this contact."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__user_ids
+msgid "Users"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__property_stock_supplier
+msgid "Vendor Location"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__property_supplier_payment_term_id
+msgid "Vendor Payment Terms"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__website_published
+msgid "Visible on current website"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__visitor_ids
+msgid "Visitors"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.actions.act_window,name:volunteer.action_volunteer_volunteer
+#: model:ir.model,name:volunteer.model_volunteer_volunteer
+#: model:ir.model.fields,field_description:volunteer.field_res_partner__volunteer_ids
+#: model:ir.model.fields,field_description:volunteer.field_res_users__volunteer_ids
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__volunteer_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__volunteer_ids
+#: model:ir.ui.menu,name:volunteer.menu_volunteer
+#: model:res.groups,name:volunteer.volunteer_group_user
+#: model_terms:ir.ui.view,arch_db:volunteer.view_form_volunteer
+msgid "Volunteer"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.actions.act_window,name:volunteer.action_volunteer_shift
+msgid "Volunteer Shift"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__volunteer_ids
+#: model:ir.ui.menu,name:volunteer.menu_volunteer_volunteer
+msgid "Volunteers"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__website_id
+#: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_participation__registration_type__website
+msgid "Website"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__website
+msgid "Website Link"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__website_message_ids
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__website_url
+msgid "Website URL"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift__website_message_ids
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__tz
+msgid ""
+"When printing documents and exporting/importing data, time values are computed according to this timezone.\n"
+"If the timezone is not set, UTC (Coordinated Universal Time) is used.\n"
+"Anywhere else, time values are computed according to the time offset of your web client."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__is_worker
+msgid "Worker"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__working_mode
+msgid "Working mode"
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.view_form_volunteer
+msgid "ZIP"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__zip
+msgid "Zip"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_participation__registration_state__canceled
+msgid "canceled"
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.view_form_volunteer
+msgid "e.g. Marie Dubois"
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.view_form_shift
+msgid "e.g. Morning store opening"
+msgstr ""
