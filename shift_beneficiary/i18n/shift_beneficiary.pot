@@ -48,6 +48,7 @@ msgstr ""
 #. module: shift_beneficiary
 #: model:ir.model.fields,field_description:shift_beneficiary.field_res_partner__is_beneficiary
 #: model:ir.model.fields,field_description:shift_beneficiary.field_res_users__is_beneficiary
+#: model:ir.model.fields,field_description:shift_beneficiary.field_volunteer_volunteer__is_beneficiary
 msgid "Is Beneficiary"
 msgstr ""
 
