@@ -28,6 +28,7 @@ msgstr ""
 #. module: cooperator_worker
 #: model:ir.model.fields,help:cooperator_worker.field_res_partner__is_worker
 #: model:ir.model.fields,help:cooperator_worker.field_res_users__is_worker
+#: model:ir.model.fields,help:cooperator_worker.field_volunteer_volunteer__is_worker
 msgid "Computed from the share product of the first cooperator share"
 msgstr ""
 
@@ -62,5 +63,6 @@ msgstr ""
 #. module: cooperator_worker
 #: model:ir.model.fields,field_description:cooperator_worker.field_res_partner__is_worker
 #: model:ir.model.fields,field_description:cooperator_worker.field_res_users__is_worker
+#: model:ir.model.fields,field_description:cooperator_worker.field_volunteer_volunteer__is_worker
 msgid "Worker"
 msgstr ""
