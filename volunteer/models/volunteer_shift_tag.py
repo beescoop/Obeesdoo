@@ -10,8 +10,9 @@ from odoo import fields, models
 class ShiftTag(models.Model):
     _name = "volunteer.shift.tag"
     _description = "Shift Tag"
+    _order = "name"
 
-    name = fields.Char()
+    name = fields.Char(required=True)
     description = fields.Char()
 
     def _get_default_color(self):

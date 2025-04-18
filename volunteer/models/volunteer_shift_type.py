@@ -8,8 +8,9 @@ from odoo import fields, models
 class ShiftType(models.Model):
     _name = "volunteer.shift.type"
     _description = "Shift Type"
+    _order = "name"
 
-    name = fields.Char()
+    name = fields.Char(required=True)
     description = fields.Char()
     company_id = fields.Many2one(
         comodel_name="res.company",
