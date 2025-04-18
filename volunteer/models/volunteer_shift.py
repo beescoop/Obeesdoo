@@ -73,10 +73,11 @@ class Shift(models.Model):
         string="Participation",
     )
     coordinator_id = fields.Many2one(comodel_name="res.partner", string="Coordinator")
-    volunteer_ids = fields.One2many(
+    volunteer_ids = fields.Many2many(
         comodel_name="volunteer.volunteer",
         compute="_compute_volunteer_ids",
         string="Volunteers",
+        store=True,
     )
 
     # Constrains

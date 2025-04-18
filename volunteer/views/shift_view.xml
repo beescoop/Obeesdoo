@@ -139,4 +139,86 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             </tree>
         </field>
     </record>
+
+    <record id="view_filter_shift" model="ir.ui.view">
+        <field name="model">volunteer.shift</field>
+        <field name="arch" type="xml">
+            <search string="Shift Search">
+                <field
+                    name="tag_ids"
+                    string="Tags"
+                    filter_domain="[('tag_ids', 'ilike', self)]"
+                />
+                <field
+                    name="volunteer_ids"
+                    filter_domain="[('volunteer_ids', 'ilike', self)]"
+                    string="Volunteer"
+                />
+                <field
+                    name="category_id"
+                    filter_domain="[('category_id.name', 'ilike', self)]"
+                    string="Category"
+                />
+                <field
+                    name="type_id"
+                    filter_domain="[('type_id.name', 'ilike', self)]"
+                    string="Type"
+                />
+
+                <filter
+                    name="filter_today"
+                    string="Today"
+                    domain="[('start_time', '>=', context_today().strftime('%Y-%m-%d 00:00:00')),('start_time','&lt;=', context_today().strftime('%Y-%m-%d 23:59:59'))]"
+                />
+                <filter
+                    name="filter_future"
+                    string="Future"
+                    domain="[('start_time', '>=', context_today().strftime('%Y-%m-%d 00:00:00'))]"
+                />
+                <filter
+                    name="filter_past"
+                    string="Past"
+                    domain="[('start_time','&lt;', context_today().strftime('%Y-%m-%d 23:59:59'))]"
+                />
+                <separator />
+                <filter
+                    name="filter_next_7_days"
+                    string="Next 7 days"
+                    domain="[('start_time', '&lt;=', (context_today()+datetime.timedelta(days=7)).strftime('%Y-%m-%d 23:59:59')),('start_time','>=', (context_today()).strftime('%Y-%m-%d 00:00:00'))]"
+                />
+                <filter
+                    name="filter_last_7_days"
+                    string="Last 7 days"
+                    domain="[('start_time', '&lt;=', context_today().strftime('%Y-%m-%d 23:59:59')),('start_time','>=', (context_today()- datetime.timedelta(days=7)).strftime('%Y-%m-%d 00:00:00'))]"
+                />
+                <filter
+                    name="filter_next_30_days"
+                    string="Next 30 days"
+                    domain="[('start_time', '&lt;=', (context_today()+datetime.timedelta(days=30)).strftime('%Y-%m-%d 23:59:59')),('start_time','>=', (context_today()).strftime('%Y-%m-%d 00:00:00'))]"
+                />
+                <separator />
+                <filter name="filter_date" string="Period" date="start_time" />
+
+                <searchpanel>
+                    <field name="stage_id" string="Stage" select="multi" />
+                    <field name="category_id" string="Category" select="multi" />
+                    <field name="type_id" string="Type" select="multi" />
+                </searchpanel>
+
+                <group expand="1" string="Group By">
+                    <filter
+                        name="category"
+                        string="Category"
+                        context="{'group_by':'category_id'}"
+                    />
+                    <filter
+                        name="type"
+                        string="Type"
+                        context="{'group_by':'type_id'}"
+                    />
+                    <filter name="tag" string="Tag" context="{'group_by':'tag_ids'}" />
+                </group>
+            </search>
+        </field>
+    </record>
 </odoo>
