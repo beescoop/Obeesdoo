@@ -12,6 +12,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <record id="action_volunteer_shift" model="ir.actions.act_window">
         <field name="name">Volunteer Shift</field>
         <field name="res_model">volunteer.shift</field>
+        <field name="context">{"search_default_filter_future": 1}</field>
         <field name="view_mode">kanban,tree,form</field>
     </record>
     <menuitem
@@ -80,4 +81,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         action="action_volunteer_shift_tag"
         parent="menu_volunteer_configuration"
     />
+
+    <!-- Filter Action -->
+    <record id="action_volunteer_shift_filtered" model="ir.actions.act_window">
+        <field name="name">My Volunteer Shifts</field>
+        <field name="res_model">volunteer.shift</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
 </odoo>

@@ -11,6 +11,32 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="arch" type="xml">
             <form string="Volunteer">
                 <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button
+                            name="action_view_volunteer_shifts"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-calendar"
+                        >
+                            <field
+                                name="count_participation"
+                                string="My Shifts"
+                                widget="statinfo"
+                            />
+                        </button>
+                        <button
+                            name="action_view_volunteer_future_shifts"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-calendar"
+                        >
+                            <field
+                                name="count_participation_future"
+                                string="My Future Shifts"
+                                widget="statinfo"
+                            />
+                        </button>
+                    </div>
                     <field
                         name="image_1920"
                         widget="image"
