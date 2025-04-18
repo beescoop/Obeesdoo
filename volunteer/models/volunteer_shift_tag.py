@@ -11,18 +11,20 @@ class ShiftTag(models.Model):
     _name = "volunteer.shift.tag"
     _description = "Shift Tag"
     _order = "name"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
-    name = fields.Char(required=True)
-    description = fields.Char()
+    name = fields.Char(required=True, tracking=True)
+    description = fields.Char(tracking=True)
 
     def _get_default_color(self):
         return randint(1, 11)
 
-    color = fields.Integer(default=_get_default_color)
+    color = fields.Integer(default=_get_default_color, tracking=True)
 
     company_id = fields.Many2one(
         comodel_name="res.company",
         string="Company",
         default=lambda self: self.env.user.company_id,
         required=True,
+        tracking=True,
     )

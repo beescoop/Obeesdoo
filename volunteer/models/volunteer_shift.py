@@ -17,9 +17,11 @@ class Shift(models.Model):
 
     # General fields
 
-    name = fields.Char(required=True)
-    max_volunteer_nb = fields.Integer(string="Max Volunteer", required=True)
-    remaining_slots = fields.Integer(compute="_compute_remaining_slots")
+    name = fields.Char(required=True, tracking=True)
+    max_volunteer_nb = fields.Integer(
+        string="Max Volunteer", required=True, tracking=True
+    )
+    remaining_slots = fields.Integer(compute="_compute_remaining_slots", tracking=True)
     is_one_day = fields.Boolean(compute="_compute_is_one_day")
 
     # Stage fields
@@ -43,21 +45,28 @@ class Shift(models.Model):
         string="Timezone",
         default=lambda self: self.env.user.tz or "UTC",
         required=True,
+        tracking=True,
     )
-    start_time = fields.Datetime(default=fields.datetime.now())
+    start_time = fields.Datetime(
+        default=fields.datetime.now(), required=True, tracking=True
+    )
     start_time_located = fields.Char(compute="_compute_start_time_located")
-    end_time = fields.Datetime(default=fields.datetime.now())
+    end_time = fields.Datetime(
+        default=fields.datetime.now(), required=True, tracking=True
+    )
     end_time_located = fields.Char(compute="_compute_end_time_located")
 
     # Classification fields
 
     type_id = fields.Many2one(
-        comodel_name="volunteer.shift.type", string="Type", required=True
+        comodel_name="volunteer.shift.type", string="Type", required=True, tracking=True
     )
     category_id = fields.Many2one(
-        comodel_name="volunteer.shift.category", string="Category"
+        comodel_name="volunteer.shift.category", string="Category", tracking=True
     )
-    tag_ids = fields.Many2many(comodel_name="volunteer.shift.tag", string="Tags")
+    tag_ids = fields.Many2many(
+        comodel_name="volunteer.shift.tag", string="Tags", tracking=True
+    )
 
     # Relational fields
 
@@ -66,13 +75,17 @@ class Shift(models.Model):
         string="Company",
         default=lambda self: self.env.user.company_id,
         required=True,
+        tracking=True,
     )
     volunteer_participation_ids = fields.One2many(
         comodel_name="volunteer.shift.participation",
         inverse_name="shift_id",
         string="Participation",
+        tracking=True,
     )
-    coordinator_id = fields.Many2one(comodel_name="res.partner", string="Coordinator")
+    coordinator_id = fields.Many2one(
+        comodel_name="res.partner", string="Coordinator", tracking=True
+    )
     volunteer_ids = fields.Many2many(
         comodel_name="volunteer.volunteer",
         compute="_compute_volunteer_ids",

@@ -9,12 +9,14 @@ class ShiftCategory(models.Model):
     _name = "volunteer.shift.category"
     _description = "Shift Category"
     _order = "name"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
-    name = fields.Char(required=True)
-    description = fields.Char()
+    name = fields.Char(required=True, tracking=True)
+    description = fields.Char(tracking=True)
     company_id = fields.Many2one(
         comodel_name="res.company",
         string="Company",
         default=lambda self: self.env.user.company_id,
         required=True,
+        tracking=True,
     )

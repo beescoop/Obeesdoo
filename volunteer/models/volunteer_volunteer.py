@@ -29,11 +29,13 @@ class Volunteer(models.Model):
         string="Company",
         default=lambda self: self.env.user.company_id,
         required=True,
+        tracking=True,
     )
     shift_participation_ids = fields.One2many(
         comodel_name="volunteer.shift.participation",
         inverse_name="volunteer_id",
         string="Participation",
+        tracking=True,
     )
 
     # Computed fields

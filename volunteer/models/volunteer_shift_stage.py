@@ -9,6 +9,7 @@ class ShiftStage(models.Model):
     _name = "volunteer.shift.stage"
     _description = "Shift Stage"
     _order = "sequence"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     name = fields.Char()
     sequence = fields.Integer(default=10)
@@ -21,4 +22,5 @@ class ShiftStage(models.Model):
             ("canceled", "Canceled"),
         ],
         default="draft",
+        tracking=True,
     )

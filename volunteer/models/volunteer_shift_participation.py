@@ -10,6 +10,7 @@ from odoo.tools.translate import _
 class Participation(models.Model):
     _name = "volunteer.shift.participation"
     _description = "Shift participation"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     # State fields
 
@@ -17,12 +18,13 @@ class Participation(models.Model):
         selection=[("confirmed", "Confirmed"), ("canceled", "canceled")],
         default="confirmed",
         required=True,
+        tracking=True,
     )
 
     # Date fields
 
     registration_date = fields.Datetime(default=fields.datetime.now(), required=True)
-    cancellation_date = fields.Datetime()
+    cancellation_date = fields.Datetime(tracking=True)
 
     # Classification fields
 
@@ -35,15 +37,19 @@ class Participation(models.Model):
         ],
         default="manual",
         required=True,
+        tracking=True,
     )
 
     # Relational fields
 
     shift_id = fields.Many2one(
-        comodel_name="volunteer.shift", string="Shift", required=True
+        comodel_name="volunteer.shift", string="Shift", required=True, tracking=True
     )
     volunteer_id = fields.Many2one(
-        comodel_name="volunteer.volunteer", string="Volunteer", required=True
+        comodel_name="volunteer.volunteer",
+        string="Volunteer",
+        required=True,
+        tracking=True,
     )
 
     # Constraints
