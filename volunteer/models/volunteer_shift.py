@@ -192,6 +192,19 @@ class Shift(models.Model):
             else:
                 shift.is_one_day = False
 
+    # Override methods
+
+    def write(self, vals):
+        state_requested = vals.get("state")
+        res = super().write(vals)
+        for shift in self:
+            if state_requested != "canceled" and shift.state == "canceled":
+                confirmed_participation = shift.get_booking_status()[
+                    "confirmed_participation"
+                ]
+                confirmed_participation.write({"registration_state": "canceled"})
+        return res
+
     # Methods
 
     @api.model
