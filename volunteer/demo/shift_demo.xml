@@ -36,7 +36,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="start_time">2029-03-28 14:00:00</field>
         <field name="end_time">2029-03-28 15:00:00</field>
         <field name="coordinator_id" ref="volunteer_partner_b" />
-        <field name="stage_id" ref="stage_canceled" />
+        <field name="stage_id" ref="stage_confirmed" />
         <field name="type_id" ref="shift_type_closing" />
     </record>
 
@@ -45,6 +45,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="max_volunteer_nb">3</field>
         <field name="start_time">2029-03-28 15:00:00</field>
         <field name="end_time">2029-03-28 16:00:00</field>
+        <field name="stage_id" ref="stage_canceled" />
         <field name="type_id" ref="shift_type_opening" />
         <field name="tag_ids" eval="[(6, 0, [ref('shift_tag_a')])]" />
         <field name="category_id" ref="shift_category_b" />
