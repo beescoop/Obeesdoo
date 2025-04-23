@@ -75,14 +75,30 @@ class Participation(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
+            shift = self.env["volunteer.shift"].browse(vals.get("shift_id"))
+            if shift.state == "canceled":
+                raise ValidationError(
+                    _("It is not possible to register in a canceled shift.")
+                )
             if vals.get("registration_state") == "canceled":
-                vals["cancellation_date"] = fields.datetime.now()
+                vals["cancellation_date"] = fields.Datetime.now()
         return super().create(vals_list)
 
     def write(self, vals):
         for participation in self:
-            old_state = participation.registration_state
-            new_state = vals.get("registration_state")
-            if old_state != "canceled" and new_state == "canceled":
-                vals["cancellation_date"] = fields.datetime.now()
+            shift = participation.shift_id
+            if (
+                shift.state == "canceled"
+                and vals.get("registration_state") == "confirmed"
+            ):
+                raise ValidationError(
+                    _(
+                        "It is not possible to confirm a participation in a canceled shift."
+                    )
+                )
+            else:
+                old_state = participation.registration_state
+                new_state = vals.get("registration_state")
+                if old_state != "canceled" and new_state == "canceled":
+                    vals["cancellation_date"] = fields.datetime.now()
         return super().write(vals)
