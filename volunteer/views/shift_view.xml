@@ -207,6 +207,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
                 <group expand="1" string="Group By">
                     <filter
+                        name="start_time"
+                        string="Date"
+                        context="{'group_by':'start_time'}"
+                    />
+                    <filter
                         name="category"
                         string="Category"
                         context="{'group_by':'category_id'}"
