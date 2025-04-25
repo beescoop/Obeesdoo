@@ -79,7 +79,7 @@ class Volunteer(models.Model):
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",
-            "name": "My Shifts",
+            "name": "Shifts",
             "res_model": "volunteer.shift",
             "view_mode": "kanban,tree,form",
             "domain": [("volunteer_ids", "in", [self.id])],
@@ -90,7 +90,7 @@ class Volunteer(models.Model):
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",
-            "name": "My Future Shifts",
+            "name": "Future Shifts",
             "res_model": "volunteer.shift",
             "view_mode": "kanban,tree,form",
             "domain": [("volunteer_ids", "in", [self.id])],

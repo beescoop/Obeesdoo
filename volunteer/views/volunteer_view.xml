@@ -120,4 +120,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             </tree>
         </field>
     </record>
+
+    <record id="action_volunteer_volunteer" model="ir.actions.act_window">
+        <field name="name">Volunteer</field>
+        <field name="res_model">volunteer.volunteer</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+    <record id="action_volunteer_shift_filtered" model="ir.actions.act_window">
+        <field name="name">Volunteer Shifts</field>
+        <field name="res_model">volunteer.shift</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
 </odoo>

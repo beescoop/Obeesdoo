@@ -16,4 +16,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             </tree>
         </field>
     </record>
+
+    <record id="action_volunteer_shift_category" model="ir.actions.act_window">
+        <field name="name">Categories</field>
+        <field name="res_model">volunteer.shift.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 </odoo>

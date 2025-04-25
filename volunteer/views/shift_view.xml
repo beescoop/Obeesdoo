@@ -226,4 +226,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             </search>
         </field>
     </record>
+
+    <record id="action_volunteer_shift" model="ir.actions.act_window">
+        <field name="name">Shift</field>
+        <field name="res_model">volunteer.shift</field>
+        <field name="context">{"search_default_filter_future": 1}</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
 </odoo>
