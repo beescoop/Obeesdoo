@@ -1,5 +1,5 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: v2.3.1
+_commit: v2.3.2
 _src_path: gh:coopiteasy/oca-addons-repo-template
 ci: GitHub
 convert_readme_fragments_to_markdown: false
