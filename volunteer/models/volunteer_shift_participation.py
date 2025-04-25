@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 from odoo import api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import AccessError, ValidationError
 from odoo.tools.translate import _
 
 
@@ -95,6 +95,18 @@ class Participation(models.Model):
     def write(self, vals):
         for participation in self:
             shift = participation.shift_id
+            if (
+                participation.registration_state == "canceled"
+                and vals.get("registration_state") != "canceled"
+                and not self.env.context.get("install_mode")
+                and not self.env.user.has_group("volunteer.volunteer_group_admin")
+            ):
+                raise AccessError(
+                    _(
+                        "Only admins can uncanceled a participation.\n"
+                        "You can contact them or create a new participation."
+                    )
+                )
             if (
                 shift.state == "canceled"
                 and vals.get("registration_state") == "confirmed"
