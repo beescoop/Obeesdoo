@@ -35,6 +35,7 @@ class Shift(models.Model):
         default=_default_stage_id,
         copy=False,
         group_expand="_group_expand_stage_id",
+        tracking=True,
     )
     state = fields.Selection(related="stage_id.state", store=True)
 
