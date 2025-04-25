@@ -15,7 +15,7 @@ class Participation(models.Model):
     # State fields
 
     registration_state = fields.Selection(
-        selection=[("confirmed", "Confirmed"), ("canceled", "canceled")],
+        selection=[("confirmed", "Confirmed"), ("canceled", "Canceled")],
         default="confirmed",
         required=True,
         tracking=True,
@@ -50,6 +50,14 @@ class Participation(models.Model):
         string="Volunteer",
         required=True,
         tracking=True,
+    )
+
+    shift_start_time = fields.Datetime(
+        string="Start Time", related="shift_id.start_time", store=True, readonly=True
+    )
+
+    shift_end_time = fields.Datetime(
+        string="End Time", related="shift_id.end_time", store=True, readonly=True
     )
 
     # Constraints

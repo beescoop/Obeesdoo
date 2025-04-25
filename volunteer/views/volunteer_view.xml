@@ -89,6 +89,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                             <field name="shift_participation_ids" readonly="1">
                                 <tree>
                                     <field name="shift_id" />
+                                    <field name="shift_start_time" />
+                                    <field name="shift_end_time" />
                                     <field name="registration_date" />
                                     <field name="registration_type" />
                                     <field name="registration_state" />
