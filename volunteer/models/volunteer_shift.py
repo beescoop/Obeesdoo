@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 from odoo import api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import AccessError, ValidationError
 from odoo.tools import format_datetime
 from odoo.tools.translate import _
 
@@ -196,6 +196,12 @@ class Shift(models.Model):
 
     def write(self, vals):
         state_requested = vals.get("state")
+        if (
+            "stage_id" in vals
+            and not self.env.context.get("install_mode")
+            and not self.env.user.has_group("volunteer.volunteer_group_admin")
+        ):
+            raise AccessError(_("Only admins can change the stage of a shift"))
         res = super().write(vals)
         for shift in self:
             if state_requested != "canceled" and shift.state == "canceled":
