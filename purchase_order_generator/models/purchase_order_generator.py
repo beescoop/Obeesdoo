@@ -127,9 +127,19 @@ class PurchaseOrderGenerator(models.Model):
         for cpo_line in self.pog_line_ids:
             if cpo_line.purchase_quantity > 0:
                 product = cpo_line.product_template_id.product_variant_id
+
+                # name definition copied from purchase/models/purchase.py:593
+                product_lang = product.with_context(
+                    lang=purchase_order.partner_id.lang,
+                    partner_id=purchase_order.partner_id.id,
+                )
+                pol_name = product_lang.display_name
+                if product_lang.description_purchase:
+                    pol_name += "\n" + product_lang.description_purchase
+
                 pol = self.env["purchase.order.line"].create(
                     {
-                        "name": cpo_line.name,
+                        "name": pol_name,
                         "product_id": product.id,
                         "product_qty": cpo_line.purchase_quantity,
                         "price_unit": cpo_line.product_price,
@@ -138,7 +148,6 @@ class PurchaseOrderGenerator(models.Model):
                         "date_planned": self.date_planned,
                     }
                 )
-                pol.onchange_product_id()
                 pol.compute_taxes_id()
 
             self.generated_purchase_order_ids += purchase_order
