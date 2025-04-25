@@ -87,13 +87,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                     <notebook>
                         <page string="Participation">
                             <field name="shift_participation_ids" readonly="1">
-                                <tree>
-                                    <field name="shift_id" />
+                                <!-- Use editable="top" with readonly fields to prevent popup opening on notebook -->
+                                <tree editable="top" create="false" delete="false">
+                                    <field name="shift_id" readonly="1" />
                                     <field name="shift_start_time" />
                                     <field name="shift_end_time" />
-                                    <field name="registration_date" />
-                                    <field name="registration_type" />
-                                    <field name="registration_state" />
+                                    <field name="registration_date" readonly="1" />
+                                    <field name="registration_type" readonly="1" />
+                                    <field name="registration_state" readonly="1" />
                                     <field name="cancellation_date" readonly="1" />
                                 </tree>
                             </field>
