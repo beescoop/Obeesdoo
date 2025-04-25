@@ -19,8 +19,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                             icon="fa-calendar"
                         >
                             <field
-                                name="count_participation"
-                                string="My Shifts"
+                                name="count_not_canceled_participation"
+                                string="Shifts"
                                 widget="statinfo"
                             />
                         </button>
@@ -31,8 +31,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                             icon="fa-calendar"
                         >
                             <field
-                                name="count_participation_future"
-                                string="My Future Shifts"
+                                name="count_not_canceled_participation_future"
+                                string="Future Shifts"
                                 widget="statinfo"
                             />
                         </button>

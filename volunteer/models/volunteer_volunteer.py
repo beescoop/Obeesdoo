@@ -40,27 +40,37 @@ class Volunteer(models.Model):
 
     # Computed fields
 
-    count_participation = fields.Integer(compute="_compute_count_participation")
-    count_participation_future = fields.Integer(
-        compute="_compute_count_participation_future"
+    count_not_canceled_participation = fields.Integer(
+        compute="_compute_count_not_canceled_participation"
+    )
+    count_not_canceled_participation_future = fields.Integer(
+        compute="_compute_count_not_canceled_participation_future"
     )
 
     # Compute methods
 
-    @api.depends("shift_participation_ids")
-    def _compute_count_participation_future(self):
+    @api.depends(
+        "shift_participation_ids", "shift_participation_ids.registration_state"
+    )
+    def _compute_count_not_canceled_participation(self):
         for volunteer in self:
-            volunteer.count_participation_future = len(
+            volunteer.count_not_canceled_participation = len(
                 volunteer.shift_participation_ids.filtered(
-                    lambda participation: participation.shift_id.start_time
-                    >= fields.Datetime.now()
+                    lambda participation: participation.registration_state != "canceled"
                 )
             )
 
-    @api.depends("shift_participation_ids")
-    def _compute_count_participation(self):
+    @api.depends(
+        "shift_participation_ids", "shift_participation_ids.registration_state"
+    )
+    def _compute_count_not_canceled_participation_future(self):
         for volunteer in self:
-            volunteer.count_participation = len(volunteer.shift_participation_ids)
+            volunteer.count_not_canceled_participation_future = len(
+                volunteer.shift_participation_ids.filtered(
+                    lambda participation: participation.registration_state != "canceled"
+                    and participation.shift_id.start_time > fields.Datetime.now()
+                )
+            )
 
     # Action methods
 
