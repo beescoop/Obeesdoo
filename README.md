@@ -73,7 +73,7 @@ addon | version | maintainers | summary
 [product_main_supplier](product_main_supplier/) | 12.0.2.0.0 |  | Add a main supplier
 [product_sale_limit_date](product_sale_limit_date/) | 12.0.2.0.0 |  | Add Number of Days Before Sale Limit Date.
 [product_scale_label](product_scale_label/) | 12.0.2.0.0 |  | Add scale labels, sale units, and categories.
-[purchase_order_generator](purchase_order_generator/) | 12.0.2.2.0 |  | Generate purchase order from a product selection
+[purchase_order_generator](purchase_order_generator/) | 12.0.2.2.1 |  | Generate purchase order from a product selection
 [purchase_order_main_supplier](purchase_order_main_supplier/) | 12.0.1.0.0 | [![victor-champonnois](https://github.com/victor-champonnois.png?size=30px)](https://github.com/victor-champonnois) | Add a Main Sellers Filter in a Purchase Order.
 [purchase_order_responsible](purchase_order_responsible/) | 12.0.1.0.0 | [![victor-champonnois](https://github.com/victor-champonnois.png?size=30px)](https://github.com/victor-champonnois) | Adds a 'Responsible' field to purchase orders
 [sale_adapt_price_wizard](sale_adapt_price_wizard/) | 12.0.1.0.1 |  | Add "Edit Price" submenu on Purchase and Sale modules.
