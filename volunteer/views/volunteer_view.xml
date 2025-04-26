@@ -86,7 +86,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
                     <notebook>
                         <page string="Participation">
-                            <field name="shift_participation_ids" readonly="1">
+                            <field name="shift_participation_ids">
                                 <!-- Use editable="top" with readonly fields to prevent popup opening on notebook -->
                                 <tree editable="top" create="false" delete="false">
                                     <field name="shift_id" readonly="1" />
