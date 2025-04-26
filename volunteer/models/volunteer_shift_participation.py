@@ -23,7 +23,7 @@ class Participation(models.Model):
 
     # Date fields
 
-    registration_date = fields.Datetime(default=fields.datetime.now(), required=True)
+    registration_date = fields.Datetime()
     cancellation_date = fields.Datetime(tracking=True)
 
     # Classification fields
@@ -83,6 +83,7 @@ class Participation(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
+            vals["registration_date"] = fields.Datetime.now()
             shift = self.env["volunteer.shift"].browse(vals.get("shift_id"))
             if shift.state == "canceled":
                 raise ValidationError(
