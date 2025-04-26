@@ -2,11 +2,12 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+from datetime import datetime
+
 from psycopg2.errors import CheckViolation
 
 from odoo import Command
-from odoo.exceptions import ValidationError
-from odoo.tools.safe_eval import datetime
+from odoo.exceptions import AccessError, ValidationError
 
 from .test_volunteer_common import TestVolunteerCommon
 
@@ -19,9 +20,9 @@ class TestShift(TestVolunteerCommon):
         self.shift_utc_plus_1 = self.Shift.create(
             {
                 "name": "LondonShift",
-                "state": "confirmed",
-                "start_time": datetime.datetime(2027, 6, 6, 22, 59, 59),
-                "end_time": datetime.datetime(2027, 6, 6, 23, 0, 1),
+                "stage_id": self.stage_confirmed.id,
+                "start_time": datetime(2027, 6, 6, 22, 59, 59),
+                "end_time": datetime(2027, 6, 6, 23, 0, 1),
                 "tz": "Europe/London",
                 "max_volunteer_nb": 2,
                 "type_id": self.type1.id,
@@ -30,9 +31,9 @@ class TestShift(TestVolunteerCommon):
         self.shift_utc_plus_2 = self.Shift.create(
             {
                 "name": "Test",
-                "state": "confirmed",
-                "start_time": datetime.datetime(2027, 6, 6, 22, 0, 1),
-                "end_time": datetime.datetime(2027, 6, 7, 0, 0, 1),
+                "stage_id": self.stage_confirmed.id,
+                "start_time": datetime(2027, 6, 6, 22, 0, 1),
+                "end_time": datetime(2027, 6, 7, 0, 0, 1),
                 "tz": "Europe/Brussels",
                 "max_volunteer_nb": 1,
                 "type_id": self.type1.id,
@@ -66,9 +67,9 @@ class TestShift(TestVolunteerCommon):
         shift_utc = self.Shift.create(
             {
                 "name": "Test",
-                "state": "confirmed",
-                "start_time": datetime.datetime(2027, 6, 6, 23, 59, 58),
-                "end_time": datetime.datetime(2027, 6, 6, 23, 59, 59),
+                "stage_id": self.stage_confirmed.id,
+                "start_time": datetime(2027, 6, 6, 23, 59, 58),
+                "end_time": datetime(2027, 6, 6, 23, 59, 59),
                 "tz": "UTC",
                 "max_volunteer_nb": 1,
                 "type_id": self.type1.id,
@@ -79,8 +80,8 @@ class TestShift(TestVolunteerCommon):
             {
                 "name": "Test",
                 "state": "confirmed",
-                "start_time": datetime.datetime(2027, 6, 6, 23, 59, 59),
-                "end_time": datetime.datetime(2027, 6, 7, 0, 0, 1),
+                "start_time": datetime(2027, 6, 6, 23, 59, 59),
+                "end_time": datetime(2027, 6, 7, 0, 0, 1),
                 "tz": "UTC",
                 "max_volunteer_nb": 1,
                 "type_id": self.type1.id,
@@ -160,3 +161,57 @@ class TestShift(TestVolunteerCommon):
                     ]
                 }
             )
+
+    def test_cancel_shift_restrict_to_admin(self):
+        """Test that only admin can cancel a shift"""
+        with self.assertRaises(AccessError):
+            self.shift_max_2.with_user(self.user_user).write(
+                {
+                    "stage_id": self.stage_canceled.id,
+                }
+            )
+        with self.assertRaises(AccessError):
+            self.shift_max_2.with_user(self.user_manager).write(
+                {
+                    "stage_id": self.stage_canceled.id,
+                }
+            )
+        self.shift_max_2.with_user(self.user_admin).write(
+            {
+                "stage_id": self.stage_canceled.id,
+            }
+        )
+
+    def test_cancel_all_participation_when_shift_is_canceled(self):
+        """Test that all participation are canceled when the shift is canceled
+        and do not overwrite cancellation_date on participation already canceled"""
+        # There is one confirmed participation already defined in setUp()
+        participation_canceled = self.Participation.create(
+            {
+                "volunteer_id": self.volunteer_canceled.id,
+                "shift_id": self.shift_max_2.id,
+                "registration_state": "canceled",
+            }
+        )
+        initial_cancellation_date = participation_canceled.cancellation_date
+        participation_confirmed_2 = self.Participation.create(
+            {
+                "volunteer_id": self.volunteer_confirmed2.id,
+                "shift_id": self.shift_max_2.id,
+                "registration_state": "confirmed",
+            }
+        )
+        self.shift_max_2.with_user(self.user_admin).write(
+            {
+                "stage_id": self.stage_canceled.id,
+            }
+        )
+        # Check that all participations are canceled
+        # participation_confirmed is the one created in setUp()
+        self.assertEqual(self.participation_confirmed.registration_state, "canceled")
+        self.assertEqual(participation_confirmed_2.registration_state, "canceled")
+        self.assertEqual(participation_canceled.registration_state, "canceled")
+        # Check that the existing cancellation_date is not overwritten
+        self.assertEqual(
+            participation_canceled.registration_date, initial_cancellation_date
+        )

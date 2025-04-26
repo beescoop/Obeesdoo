@@ -2,20 +2,55 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-from odoo.tests import common
-from odoo.tools.safe_eval import datetime
+from datetime import datetime
+
+from odoo.tests import common, new_test_user
 
 
 class TestVolunteerCommon(common.TransactionCase):
     def setUp(self, *args, **kwargs):
         super().setUp(*args, **kwargs)
 
+        # Set up the environment
+        self.env = self.env(
+            context=dict(
+                self.env.context,
+                mail_create_nolog=True,
+                mail_create_nosubscribe=True,
+                mail_notrack=True,
+                no_reset_password=True,
+                tracking_disable=True,
+            )
+        )
+
+        # Models
         self.Shift = self.env["volunteer.shift"]
         self.Type = self.env["volunteer.shift.type"]
         self.Volunteer = self.env["volunteer.volunteer"]
         self.Participation = self.env["volunteer.shift.participation"]
 
-        # Create required type
+        # Stages
+        self.stage_confirmed = self.env.ref("volunteer.stage_confirmed")
+        self.stage_canceled = self.env.ref("volunteer.stage_canceled")
+
+        # Create test users with different access levels
+        self.user_user = new_test_user(
+            self.env,
+            login="volunteer_user",
+            groups="volunteer.volunteer_group_user",
+        )
+        self.user_manager = new_test_user(
+            self.env,
+            login="volunteer_manager",
+            groups="volunteer.volunteer_group_manager",
+        )
+        self.user_admin = new_test_user(
+            self.env,
+            login="volunteer_admin",
+            groups="volunteer.volunteer_group_admin",
+        )
+
+        # Create required types
         self.type1 = self.Type.create(
             {
                 "name": "TypeTest",
@@ -23,13 +58,13 @@ class TestVolunteerCommon(common.TransactionCase):
             }
         )
 
-        # Create shift
+        # Create shifts
         self.shift_max_2 = self.Shift.create(
             {
                 "name": "Test",
-                "state": "confirmed",
-                "start_time": datetime.datetime(2025, 12, 24, 10, 5),
-                "end_time": datetime.datetime(2025, 12, 24, 12, 5),
+                "stage_id": self.stage_confirmed.id,
+                "start_time": datetime(2025, 12, 24, 10, 5),
+                "end_time": datetime(2025, 12, 24, 12, 5),
                 "tz": "Europe/Brussels",
                 "max_volunteer_nb": 2,
                 "type_id": self.type1.id,
@@ -59,7 +94,7 @@ class TestVolunteerCommon(common.TransactionCase):
         )
 
         # Create confirmed participation
-        self.participationConfirmed = self.env["volunteer.shift.participation"].create(
+        self.participation_confirmed = self.Participation.create(
             {
                 "volunteer_id": self.volunteer_confirmed.id,
                 "shift_id": self.shift_max_2.id,
