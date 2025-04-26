@@ -65,10 +65,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                         </group>
 
                         <group name="group_right">
-                            <field
-                                name="coordinator_id"
-                                options="{'no_quick_create':True,'no_create_edit':True}"
-                            />
+                            <field name="coordinator_id" options="{'no_create':True}" />
                             <field name="category_id" options="{'no_create':True}" />
                             <field
                                 name="tag_ids"
@@ -88,7 +85,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                 <tree editable="bottom" delete="false">
                                     <field
                                         name="volunteer_id"
-                                        options="{'no_quick_create':True,'no_create_edit':True}"
+                                        options="{'no_create':True}"
                                     />
                                     <field name="registration_date" readonly="1" />
                                     <field name="registration_type" />
