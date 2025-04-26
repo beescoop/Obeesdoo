@@ -60,6 +60,14 @@ class Participation(models.Model):
         string="End Time", related="shift_id.end_time", store=True, readonly=True
     )
 
+    company_id = fields.Many2one(
+        "res.company",
+        string="Company",
+        related="shift_id.company_id",
+        store=True,
+        readonly=True,
+    )
+
     # Constraints
 
     @api.constrains("shift_id", "registration_state")
