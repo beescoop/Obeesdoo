@@ -110,7 +110,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </field>
     </record>
 
-    <record id="volunteer_vounteer_view_tree" model="ir.ui.view">
+    <record id="volunteer_volunteer_view_tree" model="ir.ui.view">
         <field name="name">Volunteer List</field>
         <field name="model">volunteer.volunteer</field>
         <field name="arch" type="xml">

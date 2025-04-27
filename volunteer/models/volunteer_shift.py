@@ -202,6 +202,7 @@ class VolunteerShift(models.Model):
 
     def write(self, vals):
         state_requested = vals.get("state")
+        # Restrict stage change to admins only
         if (
             "stage_id" in vals
             and not self.env.context.get("install_mode")
@@ -210,6 +211,7 @@ class VolunteerShift(models.Model):
             raise AccessError(_("Only admins can change the stage of a shift"))
         res = super().write(vals)
         for shift in self:
+            # Auto-cancel confirmed participation if the shift is canceled
             if state_requested != "canceled" and shift.state == "canceled":
                 confirmed_participation = shift.get_booking_status()[
                     "confirmed_participation"

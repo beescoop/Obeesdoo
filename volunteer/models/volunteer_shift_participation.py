@@ -61,7 +61,7 @@ class VolunteerShiftParticipation(models.Model):
     )
 
     company_id = fields.Many2one(
-        "res.company",
+        comodel_name="res.company",
         string="Company",
         related="shift_id.company_id",
         store=True,
@@ -91,12 +91,15 @@ class VolunteerShiftParticipation(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
+            # Set registration date to now at creation
             vals["registration_date"] = fields.Datetime.now()
+            # Prevent registration to a canceled shift
             shift = self.env["volunteer.shift"].browse(vals.get("shift_id"))
             if shift.state == "canceled":
                 raise ValidationError(
                     _("It is not possible to register in a canceled shift.")
                 )
+            # Set cancellation date to now if the participation is canceled
             if vals.get("registration_state") == "canceled":
                 vals["cancellation_date"] = fields.Datetime.now()
         return super().create(vals_list)
@@ -104,6 +107,7 @@ class VolunteerShiftParticipation(models.Model):
     def write(self, vals):
         for participation in self:
             shift = participation.shift_id
+            # Restrict uncanceling participation to admins only
             if (
                 participation.registration_state == "canceled"
                 and vals.get("registration_state") != "canceled"
@@ -116,6 +120,7 @@ class VolunteerShiftParticipation(models.Model):
                         "You can contact them or create a new participation."
                     )
                 )
+            # Prevent confirming participation if the shift is canceled
             if (
                 shift.state == "canceled"
                 and vals.get("registration_state") == "confirmed"
@@ -125,6 +130,7 @@ class VolunteerShiftParticipation(models.Model):
                         "It is not possible to confirm a participation in a canceled shift."
                     )
                 )
+            # Set cancellation date to now if the participation is canceled
             else:
                 old_state = participation.registration_state
                 new_state = vals.get("registration_state")
