@@ -5,11 +5,44 @@ SPDX-FileCopyrightText: 2025 Coop IT Easy SC
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <odoo>
-    <record id="volunteer_shift_almost_full_demo" model="volunteer.shift">
-        <field name="name">Shift Almost Full</field>
+    <record id="volunteer_shift_demo_today" model="volunteer.shift">
+        <field name="name">Shift Today</field>
         <field name="max_volunteer_nb">3</field>
-        <field name="start_time">2029-03-28 10:00:00</field>
-        <field name="end_time">2029-03-29 15:00:00</field>
+        <field name="start_time" eval="datetime.now().strftime('%Y-%m-%d %H:%M:%S')" />
+        <field name="end_time" eval="datetime.now().strftime('%Y-%m-%d %H:%M:%S')" />
+        <field name="coordinator_id" ref="volunteer_partner_b_demo" />
+        <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
+        <field name="type_id" ref="volunteer_shift_type_closing_demo" />
+    </record>
+
+    <record id="volunteer_shift_demo_tomorrow" model="volunteer.shift">
+        <field name="name">Shift Tomorrow</field>
+        <field name="max_volunteer_nb">3</field>
+        <field
+            name="start_time"
+            eval="(datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field
+            name="end_time"
+            eval="(datetime.now() + timedelta(days=1, hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field name="stage_id" ref="volunteer_shift_stage_canceled" />
+        <field name="type_id" ref="volunteer_shift_type_opening_demo" />
+        <field name="tag_ids" eval="[(6, 0, [ref('volunteer_shift_tag_a_demo')])]" />
+        <field name="category_id" ref="volunteer_shift_category_b_demo" />
+    </record>
+
+    <record id="volunteer_shift_demo_next_7_days" model="volunteer.shift">
+        <field name="name">Shift Next 7 days</field>
+        <field name="max_volunteer_nb">3</field>
+        <field
+            name="start_time"
+            eval="(datetime.now() + timedelta(days=+6)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field
+            name="end_time"
+            eval="(datetime.now() + timedelta(days=+6, hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
         <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
         <field
             name="tag_ids"
@@ -19,35 +52,68 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="category_id" ref="volunteer_shift_category_a_demo" />
     </record>
 
-    <record id="volunteer_shift_remaining_demo" model="volunteer.shift">
-        <field name="name">Shift remaining</field>
+    <record id="volunteer_shift_demo_next_30_days" model="volunteer.shift">
+        <field name="name">Shift Next 30 days</field>
         <field name="max_volunteer_nb">9</field>
-        <field name="start_time">2029-03-28 16:00:00</field>
-        <field name="end_time">2029-03-29 17:00:00</field>
+        <field
+            name="start_time"
+            eval="(datetime.now() + timedelta(days=+29)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field
+            name="end_time"
+            eval="(datetime.now() + timedelta(days=+29, hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
         <field name="coordinator_id" ref="volunteer_partner_a_demo" />
         <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
         <field name="type_id" ref="volunteer_shift_type_closing_demo" />
         <field name="tag_ids" eval="[(6, 0, [ref('volunteer_shift_tag_a_demo')])]" />
     </record>
 
-    <record id="volunteer_shift_full_demo" model="volunteer.shift">
-        <field name="name">Shift Full</field>
+    <record id="volunteer_shift_demo_yesterday" model="volunteer.shift">
+        <field name="name">Shift Yesterday</field>
         <field name="max_volunteer_nb">3</field>
-        <field name="start_time">2029-03-28 14:00:00</field>
-        <field name="end_time">2029-03-28 15:00:00</field>
+        <field
+            name="start_time"
+            eval="(datetime.now() + timedelta(days=-1)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field
+            name="end_time"
+            eval="(datetime.now() + timedelta(days=-1, hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
         <field name="coordinator_id" ref="volunteer_partner_b_demo" />
         <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
-        <field name="type_id" ref="volunteer_shift_type_closing_demo" />
+        <field name="type_id" ref="volunteer_shift_type_cheese_cut_demo" />
     </record>
 
-    <record id="shift_empty_demo" model="volunteer.shift">
-        <field name="name">Shift Empty</field>
+    <record id="volunteer_shift_demo_last_7_days" model="volunteer.shift">
+        <field name="name">Shift Last 7 days</field>
         <field name="max_volunteer_nb">3</field>
-        <field name="start_time">2029-03-28 15:00:00</field>
-        <field name="end_time">2029-03-28 16:00:00</field>
-        <field name="stage_id" ref="volunteer_shift_stage_canceled" />
-        <field name="type_id" ref="volunteer_shift_type_opening_demo" />
-        <field name="tag_ids" eval="[(6, 0, [ref('volunteer_shift_tag_a_demo')])]" />
-        <field name="category_id" ref="volunteer_shift_category_b_demo" />
+        <field
+            name="start_time"
+            eval="(datetime.now() + timedelta(days=-6)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field
+            name="end_time"
+            eval="(datetime.now() + timedelta(days=-6, hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field name="coordinator_id" ref="volunteer_partner_b_demo" />
+        <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
+        <field name="type_id" ref="volunteer_shift_type_cheese_cut_demo" />
+    </record>
+
+    <record id="volunteer_shift_demo_last_year" model="volunteer.shift">
+        <field name="name">Shift Last year</field>
+        <field name="max_volunteer_nb">3</field>
+        <field
+            name="start_time"
+            eval="(datetime.now() + timedelta(days=-367)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field
+            name="end_time"
+            eval="(datetime.now() + timedelta(days=-367, hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field name="coordinator_id" ref="volunteer_partner_b_demo" />
+        <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
+        <field name="type_id" ref="volunteer_shift_type_cheese_cut_demo" />
     </record>
 </odoo>

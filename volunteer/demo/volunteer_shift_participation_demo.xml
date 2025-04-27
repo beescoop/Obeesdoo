@@ -10,7 +10,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         model="volunteer.shift.participation"
     >
         <field name="volunteer_id" ref="volunteer_a_demo" />
-        <field name="shift_id" ref="volunteer_shift_almost_full_demo" />
+        <field name="shift_id" ref="volunteer_shift_demo_next_7_days" />
     </record>
 
     <record
@@ -18,7 +18,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         model="volunteer.shift.participation"
     >
         <field name="volunteer_id" ref="volunteer_b_demo" />
-        <field name="shift_id" ref="volunteer_shift_almost_full_demo" />
+        <field name="shift_id" ref="volunteer_shift_demo_next_7_days" />
     </record>
 
     <record
@@ -26,7 +26,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         model="volunteer.shift.participation"
     >
         <field name="volunteer_id" ref="volunteer_a_demo" />
-        <field name="shift_id" ref="volunteer_shift_remaining_demo" />
+        <field name="shift_id" ref="volunteer_shift_demo_next_30_days" />
     </record>
 
     <record
@@ -34,12 +34,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         model="volunteer.shift.participation"
     >
         <field name="volunteer_id" ref="volunteer_a_demo" />
-        <field name="shift_id" ref="volunteer_shift_full_demo" />
+        <field name="shift_id" ref="volunteer_shift_demo_today" />
     </record>
 
     <record id="shift_participation_e_demo" model="volunteer.shift.participation">
         <field name="volunteer_id" ref="volunteer_b_demo" />
-        <field name="shift_id" ref="volunteer_shift_full_demo" />
+        <field name="shift_id" ref="volunteer_shift_demo_today" />
     </record>
 
     <record
@@ -47,6 +47,31 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         model="volunteer.shift.participation"
     >
         <field name="volunteer_id" ref="volunteer_c_demo" />
-        <field name="shift_id" ref="volunteer_shift_full_demo" />
+        <field name="shift_id" ref="volunteer_shift_demo_today" />
+    </record>
+
+
+    <record
+        id="volunteer_shift_participation_g_demo"
+        model="volunteer.shift.participation"
+    >
+        <field name="volunteer_id" ref="volunteer_c_demo" />
+        <field name="shift_id" ref="volunteer_shift_demo_last_7_days" />
+    </record>
+
+    <record
+        id="volunteer_shift_participation_h_demo"
+        model="volunteer.shift.participation"
+    >
+        <field name="volunteer_id" ref="volunteer_c_demo" />
+        <field name="shift_id" ref="volunteer_shift_demo_yesterday" />
+    </record>
+
+    <record
+        id="volunteer_shift_participation_i_demo"
+        model="volunteer.shift.participation"
+    >
+        <field name="volunteer_id" ref="volunteer_c_demo" />
+        <field name="shift_id" ref="volunteer_shift_demo_last_year" />
     </record>
 </odoo>
