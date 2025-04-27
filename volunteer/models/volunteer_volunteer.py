@@ -88,11 +88,14 @@ class VolunteerVolunteer(models.Model):
     def action_view_current_volunteer_future_shifts(self):
         """Open the future shifts of the current volunteer."""
         self.ensure_one()
+        now = fields.Datetime.now()
         return {
             "type": "ir.actions.act_window",
             "name": "Future Shifts",
             "res_model": "volunteer.shift",
             "view_mode": "kanban,tree,form",
-            "domain": [("volunteer_ids", "in", [self.id])],
-            "context": {"search_default_filter_future": 1},
+            "domain": [
+                ("volunteer_ids", "in", [self.id]),
+                ("start_time", ">=", now),
+            ],
         }
