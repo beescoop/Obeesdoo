@@ -7,9 +7,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <odoo>
     <record id="volunteer_shift_demo_today" model="volunteer.shift">
         <field name="name">Shift Today</field>
-        <field name="max_volunteer_nb">3</field>
+        <field name="max_volunteer_nb">2</field>
         <field name="start_time" eval="datetime.now().strftime('%Y-%m-%d %H:%M:%S')" />
-        <field name="end_time" eval="datetime.now().strftime('%Y-%m-%d %H:%M:%S')" />
+        <field
+            name="end_time"
+            eval="(datetime.now() + timedelta(hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
         <field name="coordinator_id" ref="volunteer_partner_demo_b" />
         <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
         <field name="type_id" ref="volunteer_shift_type_demo_closing" />

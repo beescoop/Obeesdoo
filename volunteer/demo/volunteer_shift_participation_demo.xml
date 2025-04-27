@@ -48,8 +48,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     >
         <field name="volunteer_id" ref="volunteer_demo_c" />
         <field name="shift_id" ref="volunteer_shift_demo_today" />
+        <field name="registration_state">canceled</field>
     </record>
-
 
     <record
         id="volunteer_shift_participation_demo_g"
