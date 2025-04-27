@@ -68,7 +68,7 @@ class VolunteerVolunteer(models.Model):
             volunteer.count_not_canceled_participation_future = len(
                 volunteer.shift_participation_ids.filtered(
                     lambda participation: participation.registration_state != "canceled"
-                    and participation.shift_id.start_time > fields.Datetime.now()
+                    and participation.shift_id.end_time >= fields.Datetime.now()
                 )
             )
 
@@ -96,6 +96,6 @@ class VolunteerVolunteer(models.Model):
             "view_mode": "kanban,tree,form",
             "domain": [
                 ("volunteer_ids", "in", [self.id]),
-                ("start_time", ">=", now),
+                ("end_time", ">=", now),
             ],
         }
