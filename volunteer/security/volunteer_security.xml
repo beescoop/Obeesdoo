@@ -35,37 +35,41 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <record id="volunteer_shift_rule_company" model="ir.rule">
             <field name="name">Volunteer Shift: Company Access</field>
             <field name="model_id" ref="model_volunteer_shift" />
+            <field name="domain_force">[('company_id', 'in', company_ids + [False])]
+            </field>
+        </record>
+        <record id="volunteer_shift_participation_rule_company" model="ir.rule">
+            <field name="name">Volunteer Shift Participation: Company Access</field>
+            <field name="model_id" ref="model_volunteer_shift_participation" />
+            <field name="groups" eval="[(4, ref('volunteer_group_admin'))]" />
             <field
                 name="domain_force"
-            >[('company_id', 'in', company_ids + [False])]</field>
+            >[('shift_id.company_id', 'in', company_ids + [False])]
+            </field>
         </record>
         <record id="volunteer_shift_category_rule_company" model="ir.rule">
             <field name="name">Volunteer Shift Category: Company Access</field>
             <field name="model_id" ref="model_volunteer_shift_category" />
-            <field
-                name="domain_force"
-            >[('company_id', 'in', company_ids + [False])]</field>
+            <field name="domain_force">[('company_id', 'in', company_ids + [False])]
+            </field>
         </record>
         <record id="volunteer_shift_type_rule_company" model="ir.rule">
             <field name="name">Volunteer Shift Type: Company Access</field>
             <field name="model_id" ref="model_volunteer_shift_type" />
-            <field
-                name="domain_force"
-            >[('company_id', 'in', company_ids + [False])]</field>
+            <field name="domain_force">[('company_id', 'in', company_ids + [False])]
+            </field>
         </record>
         <record id="volunteer_shift_tag_rule_company" model="ir.rule">
             <field name="name">Volunteer Shift Tag: Company Access</field>
             <field name="model_id" ref="model_volunteer_shift_tag" />
-            <field
-                name="domain_force"
-            >[('company_id', 'in', company_ids + [False])]</field>
+            <field name="domain_force">[('company_id', 'in', company_ids + [False])]
+            </field>
         </record>
         <record id="volunteer_volunteer_rule_company" model="ir.rule">
             <field name="name">Volunteer: Company Access</field>
             <field name="model_id" ref="model_volunteer_volunteer" />
-            <field
-                name="domain_force"
-            >[('company_id', 'in', company_ids + [False])]</field>
+            <field name="domain_force">[('company_id', 'in', company_ids + [False])]
+            </field>
         </record>
     </data>
 </odoo>
