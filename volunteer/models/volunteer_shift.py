@@ -85,7 +85,10 @@ class VolunteerShift(models.Model):
         tracking=True,
     )
     coordinator_id = fields.Many2one(
-        comodel_name="res.partner", string="Coordinator", tracking=True
+        comodel_name="res.partner",
+        domain="[('is_company', '=', False)]",
+        string="Coordinator",
+        tracking=True,
     )
     volunteer_ids = fields.Many2many(
         comodel_name="volunteer.volunteer",
