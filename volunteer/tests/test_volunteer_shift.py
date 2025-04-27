@@ -12,7 +12,7 @@ from odoo.exceptions import AccessError, ValidationError
 from .test_volunteer_common import TestVolunteerCommon
 
 
-class TestShift(TestVolunteerCommon):
+class TestVolunteerShift(TestVolunteerCommon):
     def setUp(self):
         super().setUp()
 

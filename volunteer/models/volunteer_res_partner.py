@@ -5,7 +5,7 @@
 from odoo import fields, models
 
 
-class Partner(models.Model):
+class ResPartner(models.Model):
     _inherit = ["res.partner"]
 
     volunteer_ids = fields.One2many(

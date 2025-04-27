@@ -5,7 +5,7 @@
 from odoo import api, fields, models
 
 
-class Volunteer(models.Model):
+class VolunteerVolunteer(models.Model):
     _name = "volunteer.volunteer"
     _description = "Volunteer"
     _inherits = {"res.partner": "partner_id"}
@@ -74,7 +74,7 @@ class Volunteer(models.Model):
 
     # Action methods
 
-    def action_view_volunteer_shifts(self):
+    def action_view_current_volunteer_shifts(self):
         """Open all shifts of the current volunteer."""
         self.ensure_one()
         return {
@@ -85,7 +85,7 @@ class Volunteer(models.Model):
             "domain": [("volunteer_ids", "in", [self.id])],
         }
 
-    def action_view_volunteer_future_shifts(self):
+    def action_view_current_volunteer_future_shifts(self):
         """Open the future shifts of the current volunteer."""
         self.ensure_one()
         return {

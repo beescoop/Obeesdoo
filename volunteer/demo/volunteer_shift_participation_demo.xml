@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <record
+        id="volunteer_shift_participation_a_demo"
+        model="volunteer.shift.participation"
+    >
+        <field name="volunteer_id" ref="volunteer_a_demo" />
+        <field name="shift_id" ref="volunteer_shift_almost_full_demo" />
+    </record>
+
+    <record
+        id="volunteer_shift_participation_b_demo"
+        model="volunteer.shift.participation"
+    >
+        <field name="volunteer_id" ref="volunteer_b_demo" />
+        <field name="shift_id" ref="volunteer_shift_almost_full_demo" />
+    </record>
+
+    <record
+        id="volunteer_shift_participation_c_demo"
+        model="volunteer.shift.participation"
+    >
+        <field name="volunteer_id" ref="volunteer_a_demo" />
+        <field name="shift_id" ref="volunteer_shift_remaining_demo" />
+    </record>
+
+    <record
+        id="volunteer_shift_participation_d_demo"
+        model="volunteer.shift.participation"
+    >
+        <field name="volunteer_id" ref="volunteer_a_demo" />
+        <field name="shift_id" ref="volunteer_shift_full_demo" />
+    </record>
+
+    <record id="shift_participation_e_demo" model="volunteer.shift.participation">
+        <field name="volunteer_id" ref="volunteer_b_demo" />
+        <field name="shift_id" ref="volunteer_shift_full_demo" />
+    </record>
+
+    <record
+        id="volunteer_shift_participation_f_demo"
+        model="volunteer.shift.participation"
+    >
+        <field name="volunteer_id" ref="volunteer_c_demo" />
+        <field name="shift_id" ref="volunteer_shift_full_demo" />
+    </record>
+</odoo>

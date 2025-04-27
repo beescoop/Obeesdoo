@@ -5,22 +5,21 @@ SPDX-FileCopyrightText: 2025 Coop IT Easy SC
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <odoo>
-    <record id="view_tree_tag" model="ir.ui.view">
-        <field name="name">Tag List</field>
-        <field name="model">volunteer.shift.tag</field>
+    <record id="volunteer_shift_type_view_tree" model="ir.ui.view">
+        <field name="name">Type List</field>
+        <field name="model">volunteer.shift.type</field>
         <field name="arch" type="xml">
             <tree editable="top">
                 <field name="name" />
-                <field name="color" widget="color_picker" />
                 <field name="description" />
                 <field name="company_id" optional="hide" />
             </tree>
         </field>
     </record>
 
-    <record id="action_volunteer_shift_tag" model="ir.actions.act_window">
-        <field name="name">Tags</field>
-        <field name="res_model">volunteer.shift.tag</field>
+    <record id="volunteer_shift_type_action" model="ir.actions.act_window">
+        <field name="name">Types</field>
+        <field name="res_model">volunteer.shift.type</field>
         <field name="view_mode">tree,form</field>
     </record>
 </odoo>

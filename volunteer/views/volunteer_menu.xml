@@ -6,55 +6,59 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <odoo>
     <!-- Volunteer App Menu -->
-    <menuitem id="menu_volunteer" name="Volunteer" action="action_volunteer_shift" />
+    <menuitem
+        id="volunteer_menu"
+        name="Volunteer"
+        action="volunteer_shift_action_future"
+    />
     <!-- Volunteer Menu -->
     <menuitem
-        id="menu_volunteer_volunteer"
+        id="volunteer_volunteer_menu"
         name="Volunteers"
-        parent="menu_volunteer"
+        parent="volunteer_menu"
         sequence="10"
-        action="action_volunteer_volunteer"
+        action="volunteer_volunteer_action"
     />
     <!-- Shift menu -->
     <menuitem
-        id="menu_volunteer_shift"
+        id="volunteer_shift_menu"
         name="Shifts"
-        parent="menu_volunteer"
+        parent="volunteer_menu"
         sequence="20"
-        action="action_volunteer_shift"
+        action="volunteer_shift_action_future"
     />
     <!-- Configuration Menu -->
     <menuitem
-        id="menu_volunteer_configuration"
+        id="volunteer_shift_configuration_menu"
         name="Configuration"
-        parent="menu_volunteer"
+        parent="volunteer_menu"
         sequence="90"
         groups="volunteer.volunteer_group_admin"
     >
         <!-- Shift Configuration Separator -->
         <menuitem
-            id="shift_configuration_menu"
+            id="volunteer_shift_configuration_separator_menu"
             name="Shifts"
             sequence="1"
             groups="volunteer.volunteer_group_admin"
         >
             <!-- Category Submenu -->
             <menuitem
-                id="menu_volunteer_shift_category"
+                id="volunteer_shift_category_menu"
                 name="Categories"
-                action="action_volunteer_shift_category"
+                action="volunteer_shift_category_action"
             />
             <!-- Type Submenu -->
             <menuitem
-                id="menu_volunteer_shift_type"
+                id="volunteer_shift_type_menu"
                 name="Types"
-                action="action_volunteer_shift_type"
+                action="volunteer_shift_type_action"
             />
             <!-- Tag Submenu -->
             <menuitem
-                id="menu_volunteer_shift_tag"
+                id="volunteer_shift_tag_menu"
                 name="Tags"
-                action="action_volunteer_shift_tag"
+                action="volunteer_shift_tag_action"
             />
         </menuitem>
     </menuitem>

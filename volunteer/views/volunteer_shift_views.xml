@@ -5,7 +5,7 @@ SPDX-FileCopyrightText: 2025 Coop IT Easy SC
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <odoo>
-    <record id="view_form_shift" model="ir.ui.view">
+    <record id="volunteer_shift_view_form" model="ir.ui.view">
         <field name="name">Shift Form</field>
         <field name="model">volunteer.shift</field>
         <field name="arch" type="xml">
@@ -106,7 +106,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </field>
     </record>
 
-    <record id="view_tree_shift" model="ir.ui.view">
+    <record id="volunteer_shift_view_tree" model="ir.ui.view">
         <field name="name">Shift List</field>
         <field name="model">volunteer.shift</field>
         <field name="arch" type="xml">
@@ -137,7 +137,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </field>
     </record>
 
-    <record id="view_filter_shift" model="ir.ui.view">
+    <record id="volunteer_shift_view_search" model="ir.ui.view">
         <field name="model">volunteer.shift</field>
         <field name="arch" type="xml">
             <search string="Shift Search">
@@ -224,7 +224,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </field>
     </record>
 
-    <record id="action_volunteer_shift" model="ir.actions.act_window">
+    <record id="volunteer_shift_action_future" model="ir.actions.act_window">
         <field name="name">Shift</field>
         <field name="res_model">volunteer.shift</field>
         <field name="context">{"search_default_filter_future": 1}</field>

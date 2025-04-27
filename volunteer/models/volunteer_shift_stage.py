@@ -5,7 +5,7 @@
 from odoo import fields, models
 
 
-class ShiftStage(models.Model):
+class VolunteerShiftStage(models.Model):
     _name = "volunteer.shift.stage"
     _description = "Shift Stage"
     _order = "sequence"

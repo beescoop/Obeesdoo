@@ -5,22 +5,22 @@ SPDX-FileCopyrightText: 2025 Coop IT Easy SC
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <odoo>
-    <record model="volunteer.shift.tag" id="shift_tag_a">
+    <record id="volunteer_shift_tag_a_demo" model="volunteer.shift.tag">
         <field name="name">Tag A</field>
         <field name="description">Shift Tag A</field>
     </record>
 
-    <record model="volunteer.shift.tag" id="shift_tag_b">
+    <record id="volunteer_shift_tag_b_demo" model="volunteer.shift.tag">
         <field name="name">Tag B</field>
         <field name="description">Shift Tag B</field>
     </record>
 
-    <record model="volunteer.shift.tag" id="shift_tag_c">
+    <record id="volunteer_shift_tag_c_demo" model="volunteer.shift.tag">
         <field name="name">Tag C</field>
         <field name="description">Shift Tag C</field>
     </record>
 
-    <record model="volunteer.shift.tag" id="shift_tag_d">
+    <record id="volunteer_shift_tag_d_demo" model="volunteer.shift.tag">
         <field name="name">Tag D</field>
         <field name="description">Shift Tag D</field>
     </record>

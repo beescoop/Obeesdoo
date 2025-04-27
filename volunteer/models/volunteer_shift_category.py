@@ -5,7 +5,7 @@
 from odoo import fields, models
 
 
-class ShiftCategory(models.Model):
+class VolunteerShiftCategory(models.Model):
     _name = "volunteer.shift.category"
     _description = "Shift Category"
     _order = "name"
@@ -21,7 +21,7 @@ class ShiftCategory(models.Model):
         tracking=True,
     )
 
-    # Constrains
+    # SQL Constraints
 
     _sql_constraints = [
         (

@@ -5,7 +5,7 @@ SPDX-FileCopyrightText: 2025 Coop IT Easy SC
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <odoo>
-    <record id="view_kanban_volunteer" model="ir.ui.view">
+    <record id="volunteer_volunteer_view_kanban" model="ir.ui.view">
         <field name="name">Volunteer Kanban</field>
         <field name="model">volunteer.volunteer</field>
         <field name="arch" type="xml">

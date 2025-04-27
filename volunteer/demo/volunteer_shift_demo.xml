@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <record id="volunteer_shift_almost_full_demo" model="volunteer.shift">
+        <field name="name">Shift Almost Full</field>
+        <field name="max_volunteer_nb">3</field>
+        <field name="start_time">2029-03-28 10:00:00</field>
+        <field name="end_time">2029-03-29 15:00:00</field>
+        <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
+        <field
+            name="tag_ids"
+            eval="[(6, 0, [ref('volunteer_shift_tag_a_demo'), ref('volunteer_shift_tag_b_demo'), ref('volunteer_shift_tag_c_demo')])]"
+        />
+        <field name="type_id" ref="volunteer_shift_type_cheese_cut_demo" />
+        <field name="category_id" ref="volunteer_shift_category_a_demo" />
+    </record>
+
+    <record id="volunteer_shift_remaining_demo" model="volunteer.shift">
+        <field name="name">Shift remaining</field>
+        <field name="max_volunteer_nb">9</field>
+        <field name="start_time">2029-03-28 16:00:00</field>
+        <field name="end_time">2029-03-29 17:00:00</field>
+        <field name="coordinator_id" ref="volunteer_partner_a_demo" />
+        <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
+        <field name="type_id" ref="volunteer_shift_type_closing_demo" />
+        <field name="tag_ids" eval="[(6, 0, [ref('volunteer_shift_tag_a_demo')])]" />
+    </record>
+
+    <record id="volunteer_shift_full_demo" model="volunteer.shift">
+        <field name="name">Shift Full</field>
+        <field name="max_volunteer_nb">3</field>
+        <field name="start_time">2029-03-28 14:00:00</field>
+        <field name="end_time">2029-03-28 15:00:00</field>
+        <field name="coordinator_id" ref="volunteer_partner_b_demo" />
+        <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
+        <field name="type_id" ref="volunteer_shift_type_closing_demo" />
+    </record>
+
+    <record id="shift_empty_demo" model="volunteer.shift">
+        <field name="name">Shift Empty</field>
+        <field name="max_volunteer_nb">3</field>
+        <field name="start_time">2029-03-28 15:00:00</field>
+        <field name="end_time">2029-03-28 16:00:00</field>
+        <field name="stage_id" ref="volunteer_shift_stage_canceled" />
+        <field name="type_id" ref="volunteer_shift_type_opening_demo" />
+        <field name="tag_ids" eval="[(6, 0, [ref('volunteer_shift_tag_a_demo')])]" />
+        <field name="category_id" ref="volunteer_shift_category_b_demo" />
+    </record>
+</odoo>

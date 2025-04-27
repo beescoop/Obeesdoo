@@ -5,7 +5,7 @@ SPDX-FileCopyrightText: 2025 Coop IT Easy SC
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <odoo>
-    <record model="res.partner" id="volunteer_partner_a">
+    <record id="volunteer_partner_a_demo" model="res.partner">
         <field name="name">Volunteer A</field>
         <field name="street">123 exemple street</field>
         <field name="zip">1190</field>
@@ -14,11 +14,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="phone">123456789</field>
         <field name="email">vol_a@exemple.com</field>
     </record>
-    <record model="volunteer.volunteer" id="volunteer_a">
-        <field name="partner_id" ref="volunteer_partner_a" />
+    <record id="volunteer_a_demo" model="volunteer.volunteer">
+        <field name="partner_id" ref="volunteer_partner_a_demo" />
     </record>
 
-    <record model="res.partner" id="volunteer_partner_b">
+    <record id="volunteer_partner_b_demo" model="res.partner">
         <field name="name">Volunteer B</field>
         <field name="street">456 exemple street</field>
         <field name="zip">1050</field>
@@ -27,11 +27,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="phone">987654321</field>
         <field name="email">vol_b@exemple.com</field>
     </record>
-    <record model="volunteer.volunteer" id="volunteer_b">
-        <field name="partner_id" ref="volunteer_partner_b" />
+    <record id="volunteer_b_demo" model="volunteer.volunteer">
+        <field name="partner_id" ref="volunteer_partner_b_demo" />
     </record>
 
-    <record model="res.partner" id="volunteer_partner_c">
+    <record id="volunteer_partner_c_demo" model="res.partner">
         <field name="name">Volunteer C</field>
         <field name="street">789 exemple street</field>
         <field name="zip">1000</field>
@@ -40,8 +40,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="phone">234567891</field>
         <field name="email">vol_c@exemple.com</field>
     </record>
-    <record model="volunteer.volunteer" id="volunteer_c">
-        <field name="partner_id" ref="volunteer_partner_c" />
+    <record id="volunteer_c_demo" model="volunteer.volunteer">
+        <field name="partner_id" ref="volunteer_partner_c_demo" />
         <field name="is_regular" eval="True" />
     </record>
 </odoo>

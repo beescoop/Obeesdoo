@@ -30,8 +30,8 @@ class TestVolunteerCommon(common.TransactionCase):
         self.Participation = self.env["volunteer.shift.participation"]
 
         # Stages
-        self.stage_confirmed = self.env.ref("volunteer.stage_confirmed")
-        self.stage_canceled = self.env.ref("volunteer.stage_canceled")
+        self.stage_confirmed = self.env.ref("volunteer.volunteer_shift_stage_confirmed")
+        self.stage_canceled = self.env.ref("volunteer.volunteer_shift_stage_canceled")
 
         # Create test users with different access levels
         self.user_user = new_test_user(

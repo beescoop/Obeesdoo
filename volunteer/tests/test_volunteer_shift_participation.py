@@ -10,7 +10,7 @@ from odoo.exceptions import AccessError, ValidationError
 from .test_volunteer_common import TestVolunteerCommon
 
 
-class TestShiftParticipation(TestVolunteerCommon):
+class TestVolunteerShiftParticipation(TestVolunteerCommon):
     def setUp(self):
         super().setUp()
         self.now = datetime(2025, 1, 1, 1, 00)

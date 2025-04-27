@@ -7,7 +7,7 @@ from odoo.exceptions import AccessError, ValidationError
 from odoo.tools.translate import _
 
 
-class Participation(models.Model):
+class VolunteerShiftParticipation(models.Model):
     _name = "volunteer.shift.participation"
     _description = "Shift participation"
     _inherit = ["mail.thread", "mail.activity.mixin"]
@@ -23,7 +23,7 @@ class Participation(models.Model):
 
     # Date fields
 
-    registration_date = fields.Datetime()
+    registration_date = fields.Datetime(tracking=True)
     cancellation_date = fields.Datetime(tracking=True)
 
     # Classification fields
@@ -129,5 +129,5 @@ class Participation(models.Model):
                 old_state = participation.registration_state
                 new_state = vals.get("registration_state")
                 if old_state != "canceled" and new_state == "canceled":
-                    vals["cancellation_date"] = fields.datetime.now()
+                    vals["cancellation_date"] = fields.Datetime.now()
         return super().write(vals)

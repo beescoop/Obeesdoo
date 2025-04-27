@@ -7,7 +7,7 @@ from random import randint
 from odoo import fields, models
 
 
-class ShiftTag(models.Model):
+class VolunteerShiftTag(models.Model):
     _name = "volunteer.shift.tag"
     _description = "Shift Tag"
     _order = "name"
@@ -29,7 +29,7 @@ class ShiftTag(models.Model):
         tracking=True,
     )
 
-    # Constrains
+    # SQL Constraints
 
     _sql_constraints = [
         (
