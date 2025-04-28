@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+
+    <record id="volunteer_shift_with_constrain_view_form" model="ir.ui.view">
+        <field name="name">Shift with Constrain Form</field>
+        <field name="model">volunteer.shift</field>
+        <field name="inherit_id" ref="volunteer.volunteer_shift_view_form" />
+        <field name="arch" type="xml">
+            <group name="group_top" position="after">
+                <group name="group_constrain">
+                    <group name="group_constrain_left">
+                        <field name="is_constrain_satisfied" />
+                    </group>
+                    <group name="group_constrain_right">
+                        <field name="shift_constrain_id" />
+                    </group>
+                </group>
+            </group>
+        </field>
+    </record>
+
+    <record id="volunteer_shift_with_constrain_view_tree" model="ir.ui.view">
+        <field name="name">Shift with Constrain Tree</field>
+        <field name="model">volunteer.shift</field>
+        <field name="inherit_id" ref="volunteer.volunteer_shift_view_tree" />
+        <field name="arch" type="xml">
+            <field name="coordinator_id" position="after">
+                <field name="shift_constrain_id" />
+                <field name="is_constrain_satisfied" />
+            </field>
+        </field>
+    </record>
+
+    <record id="volunteer_shift_with_constrain_view_search" model="ir.ui.view">
+        <field name="name">Shift with Constrain Search</field>
+        <field name="model">volunteer.shift</field>
+        <field name="inherit_id" ref="volunteer.volunteer_shift_view_search" />
+        <field name="arch" type="xml">
+            <filter name="filter_date" position="after">
+                <separator />
+                <filter
+                    name="is_constrain_satisfied"
+                    string="Constrain Satisfied"
+                    domain="[('is_constrain_satisfied', '=', True)]"
+                />
+                <filter
+                    name="is_constrain_satisfied"
+                    string="Constrain Not Satisfied"
+                    domain="[('is_constrain_satisfied', '!=', True)]"
+                />
+            </filter>
+        </field>
+    </record>
+
+</odoo>

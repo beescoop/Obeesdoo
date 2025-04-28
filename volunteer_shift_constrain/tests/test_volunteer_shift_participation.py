@@ -1,0 +1,32 @@
+# SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+from odoo.exceptions import ValidationError
+
+from .test_volunteer_common import TestVolunteerCommon
+
+
+class TestShiftParticipation(TestVolunteerCommon):
+    def setUp(self):
+        super().setUp()
+
+    def test_participation_refused_when_shift_full(self):
+        """Test that a participation is refused when the number of confirmed
+        participation exceeds max_volunteer_nb"""
+        # There is a confirmed participation that is already defined in setUp()
+        self.Participation.create(
+            {
+                "volunteer_id": self.volunteer_confirmed2.id,
+                "shift_id": self.shift_max_2.id,
+                "registration_state": "confirmed",
+            }
+        )
+        with self.assertRaises(ValidationError):
+            self.Participation.create(
+                {
+                    "volunteer_id": self.volunteer_test.id,
+                    "shift_id": self.shift_max_2.id,
+                    "registration_state": "confirmed",
+                }
+            )

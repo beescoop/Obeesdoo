@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+
+    <record id="volunteer_shift_type_constrain_view_tree" model="ir.ui.view">
+        <field name="name">Shift Type with Constrain</field>
+        <field name="model">volunteer.shift.type</field>
+        <field name="inherit_id" ref="volunteer.volunteer_shift_type_view_tree" />
+        <field name="arch" type="xml">
+            <field name="description" position="after">
+                <field name="shift_constrain_id" />
+            </field>
+        </field>
+    </record>
+
+
+<!--
+    <record id="view_tree_shift_type" model="ir.ui.view">
+        <field name="name">Shift Type Form</field>
+        <field name="model">volunteer.shift.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet string="Shift Type">
+                    <group name="main">
+                        <group name="left">
+                            <field name="name" />
+                            <field name="description" />
+                        </group>
+                        <group name="right">
+                        </group>
+                    </group>
+                    <notebook>
+                        <page
+                            name="skill_category_constrain"
+                            string="Skill Category Constrain"
+                        >
+                            <field name="skill_category_constrain_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle" />
+                                    <field name="skill_category_id" />
+                                    <field name="required_number" />
+                                    <field name="description" optional="hide" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="skill_constrain" string="Skill Constrain">
+                            <field name="skill_constrain_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle" />
+                                    <field name="required_number" />
+                                    <field name="description" optional="hide" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+        -->
+
+    <!--
+    <record id="view_tree_shift_type" model="ir.ui.view">
+        <field name="model">volunteer.shift.type</field>
+        <field name="inherit_id" ref="volunteer.view_tree_type" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="editable">false</attribute>
+            </xpath>
+        </field>
+    </record>
+        -->
+
+</odoo>

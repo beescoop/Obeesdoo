@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+
+    <record id="volunteer_shift_constrain_view_tree" model="ir.ui.view">
+        <field name="name">Shift Constrains Tree</field>
+        <field name="model">volunteer.shift.constrain</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="description" />
+                <field name="company_id" optional="hide" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="volunteer_shift_constrain_view_form" model="ir.ui.view">
+        <field name="name">Shift Constrains Form</field>
+        <field name="model">volunteer.shift.constrain</field>
+        <field name="arch" type="xml">
+            <form string="Constrain">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field
+                                name="name"
+                                placeholder="e.g. French speaking required"
+                            />
+                        </h1>
+                    </div>
+
+                    <group name="group_main">
+                        <field name="description" />
+                    </group>
+
+                    <notebook>
+                        <page
+                            name="page_skill_category_rule"
+                            string="Skill Category Rules"
+                        >
+                            <field name="skill_category_rule_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle" />
+                                    <field name="skill_category_id" />
+                                    <field name="required_number" />
+                                    <field name="description" optional="hide" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="page_skill_rule" string="Skill Rules">
+                            <field name="skill_rule_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle" />
+                                    <field name="skill_id" />
+                                    <field name="required_number" />
+                                    <field name="description" optional="hide" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="volunteer_shift_constrain_action" model="ir.actions.act_window">
+        <field name="name">Shift Constrains</field>
+        <field name="res_model">volunteer.shift.constrain</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>
