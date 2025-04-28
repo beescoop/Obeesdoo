@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <record
+        id="volunteer_skill_category_demo_language"
+        model="volunteer.skill.category"
+    >
+        <field name="name">Languages</field>
+        <field name="description">Group languages spoken by volunteers.</field>
+    </record>
+
+    <record id="volunteer_skill_category_demo_license" model="volunteer.skill.category">
+        <field name="name">Driving License</field>
+        <field name="description">Group driving licenses owned by volunteers.</field>
+    </record>
+</odoo>

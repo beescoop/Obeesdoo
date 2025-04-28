@@ -48,6 +48,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                     <t t-if="record.is_regular.raw_value">
                                         <div>Regular</div>
                                     </t>
+                                    <div name="skills">
+                                        <field
+                                            name="skill_ids"
+                                            widget="many2many_tags"
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>

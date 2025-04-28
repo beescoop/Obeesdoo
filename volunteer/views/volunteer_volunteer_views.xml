@@ -81,6 +81,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                             <field name="email" />
                             <field name="company_id" />
                             <field name="is_regular" />
+                            <field
+                                name="skill_ids"
+                                widget="many2many_tags"
+                                options="{'no_create': True}"
+                            />
                         </group>
                     </group>
 

@@ -18,6 +18,10 @@ class VolunteerVolunteer(models.Model):
         readonly=True,
         help="Is regular if registered for at least one recurrent shift",
     )
+    skill_ids = fields.Many2many(
+        comodel_name="volunteer.skill",
+        string="Skills",
+    )
 
     # Relational fields
 

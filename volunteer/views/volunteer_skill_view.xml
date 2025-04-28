@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <record id="view_tree_skill" model="ir.ui.view">
+        <field name="name">Skill List</field>
+        <field name="model">volunteer.skill</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name" />
+                <field name="description" />
+                <field name="category_id" />
+                <field name="company_id" optional="hide" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="volunteer_skill_action" model="ir.actions.act_window">
+        <field name="name">Skills</field>
+        <field name="res_model">volunteer.skill</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
