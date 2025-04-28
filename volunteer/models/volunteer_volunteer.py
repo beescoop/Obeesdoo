@@ -85,7 +85,7 @@ class VolunteerVolunteer(models.Model):
             "type": "ir.actions.act_window",
             "name": "Shifts",
             "res_model": "volunteer.shift",
-            "view_mode": "kanban,tree,form",
+            "view_mode": "kanban,tree,form,calendar",
             "domain": [("volunteer_ids", "in", [self.id])],
         }
 
@@ -97,7 +97,7 @@ class VolunteerVolunteer(models.Model):
             "type": "ir.actions.act_window",
             "name": "Future Shifts",
             "res_model": "volunteer.shift",
-            "view_mode": "kanban,tree,form",
+            "view_mode": "kanban,tree,form,calendar",
             "domain": [
                 ("volunteer_ids", "in", [self.id]),
                 ("end_time", ">=", now),
