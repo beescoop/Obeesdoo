@@ -5,22 +5,22 @@ SPDX-FileCopyrightText: 2025 Coop IT Easy SC
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <odoo>
-    <record model="volunteer.shift.category" id="shift_category_a">
+    <record id="volunteer_shift_category_demo_week_a" model="volunteer.shift.category">
         <field name="name">Week A</field>
         <field name="description">Shift Week A</field>
     </record>
 
-    <record model="volunteer.shift.category" id="shift_category_b">
+    <record id="volunteer_shift_category_demo_week_b" model="volunteer.shift.category">
         <field name="name">Week B</field>
         <field name="description">Shift Week B</field>
     </record>
 
-    <record model="volunteer.shift.category" id="shift_category_c">
+    <record id="volunteer_shift_category_demo_week_c" model="volunteer.shift.category">
         <field name="name">Week C</field>
         <field name="description">Shift Week C</field>
     </record>
 
-    <record model="volunteer.shift.category" id="shift_category_d">
+    <record id="volunteer_shift_category_demo_week_d" model="volunteer.shift.category">
         <field name="name">Week D</field>
         <field name="description">Shift Week D</field>
     </record>

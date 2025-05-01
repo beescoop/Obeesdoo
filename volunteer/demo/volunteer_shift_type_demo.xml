@@ -5,22 +5,25 @@ SPDX-FileCopyrightText: 2025 Coop IT Easy SC
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <odoo>
-    <record model="volunteer.shift.type" id="shift_type_opening">
+    <record id="volunteer_shift_type_demo_opening" model="volunteer.shift.type">
         <field name="name">Store Opening</field>
         <field name="description">Shift Opening Store</field>
     </record>
 
-    <record model="volunteer.shift.type" id="shift_type_closing">
+    <record id="volunteer_shift_type_demo_closing" model="volunteer.shift.type">
         <field name="name">Store Closing</field>
         <field name="description">Shift Closing Store</field>
     </record>
 
-    <record model="volunteer.shift.type" id="shift_type_cheese_cut">
+    <record id="volunteer_shift_type_demo_cheese_cut" model="volunteer.shift.type">
         <field name="name">Cheese Cutting</field>
         <field name="description">Shift Cheese Cutting</field>
     </record>
 
-    <record model="volunteer.shift.type" id="shift_type_delicatessen_cut">
+    <record
+        id="volunteer_shift_type_demo_delicatessen_cut"
+        model="volunteer.shift.type"
+    >
         <field name="name">Delicatessen Cutting</field>
         <field name="description">Shift Delicatessen Cutting</field>
     </record>

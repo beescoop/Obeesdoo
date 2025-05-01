@@ -5,7 +5,7 @@ SPDX-FileCopyrightText: 2025 Coop IT Easy SC
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <odoo>
-    <record id="view_form_shift" model="ir.ui.view">
+    <record id="volunteer_shift_view_form" model="ir.ui.view">
         <field name="name">Shift Form</field>
         <field name="model">volunteer.shift</field>
         <field name="arch" type="xml">
@@ -60,20 +60,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                 </div>
                             </div>
                             <field name="tz" string="Timezone" />
-                            <field name="type_id" />
+                            <field name="type_id" options="{'no_create':True}" />
                             <field name="max_volunteer_nb" />
                         </group>
 
                         <group name="group_right">
-                            <field
-                                name="coordinator_id"
-                                options="{'no_quick_create':True,'no_create_edit':True}"
-                            />
-                            <field name="category_id" />
+                            <field name="coordinator_id" options="{'no_create':True}" />
+                            <field name="category_id" options="{'no_create':True}" />
                             <field
                                 name="tag_ids"
                                 widget="many2many_tags"
-                                options="{'color_field': 'color'}"
+                                options="{'color_field':'color','no_create':True}"
                             />
                             <field name="company_id" />
                         </group>
@@ -88,7 +85,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                 <tree editable="bottom" delete="false">
                                     <field
                                         name="volunteer_id"
-                                        options="{'no_quick_create':True,'no_create_edit':True}"
+                                        options="{'no_create':True}"
                                     />
                                     <field name="registration_date" readonly="1" />
                                     <field name="registration_type" />
@@ -109,7 +106,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </field>
     </record>
 
-    <record id="view_tree_shift" model="ir.ui.view">
+    <record id="volunteer_shift_view_tree" model="ir.ui.view">
         <field name="name">Shift List</field>
         <field name="model">volunteer.shift</field>
         <field name="arch" type="xml">
@@ -129,8 +126,108 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 <field name="remaining_slots" />
                 <field name="coordinator_id" />
                 <field name="company_id" />
-                <field name="state" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-muted="state == 'draft'"
+                    decoration-success="state == 'confirmed'"
+                    decoration-warning="state  == 'canceled'"
+                />
             </tree>
         </field>
+    </record>
+
+    <record id="volunteer_shift_view_search" model="ir.ui.view">
+        <field name="model">volunteer.shift</field>
+        <field name="arch" type="xml">
+            <search string="Shift Search">
+                <field
+                    name="tag_ids"
+                    string="Tags"
+                    filter_domain="[('tag_ids', 'ilike', self)]"
+                />
+                <field
+                    name="volunteer_ids"
+                    filter_domain="[('volunteer_ids', 'ilike', self)]"
+                    string="Volunteer"
+                />
+                <field
+                    name="category_id"
+                    filter_domain="[('category_id.name', 'ilike', self)]"
+                    string="Category"
+                />
+                <field
+                    name="type_id"
+                    filter_domain="[('type_id.name', 'ilike', self)]"
+                    string="Type"
+                />
+
+                <filter
+                    name="filter_today"
+                    string="Today"
+                    domain="[('start_time', '>=', context_today().strftime('%Y-%m-%d 00:00:00')),('start_time','&lt;=', context_today().strftime('%Y-%m-%d 23:59:59'))]"
+                />
+                <filter
+                    name="filter_future"
+                    string="Future"
+                    domain="[('start_time', '>=', context_today().strftime('%Y-%m-%d 00:00:00'))]"
+                />
+                <filter
+                    name="filter_past"
+                    string="Past"
+                    domain="[('start_time','&lt;', context_today().strftime('%Y-%m-%d 23:59:59'))]"
+                />
+                <separator />
+                <filter
+                    name="filter_next_7_days"
+                    string="Next 7 days"
+                    domain="[('start_time', '&lt;=', (context_today()+datetime.timedelta(days=7)).strftime('%Y-%m-%d 23:59:59')),('start_time','>=', (context_today()).strftime('%Y-%m-%d 00:00:00'))]"
+                />
+                <filter
+                    name="filter_last_7_days"
+                    string="Last 7 days"
+                    domain="[('start_time', '&lt;=', context_today().strftime('%Y-%m-%d 23:59:59')),('start_time','>=', (context_today()- datetime.timedelta(days=7)).strftime('%Y-%m-%d 00:00:00'))]"
+                />
+                <filter
+                    name="filter_next_30_days"
+                    string="Next 30 days"
+                    domain="[('start_time', '&lt;=', (context_today()+datetime.timedelta(days=30)).strftime('%Y-%m-%d 23:59:59')),('start_time','>=', (context_today()).strftime('%Y-%m-%d 00:00:00'))]"
+                />
+                <separator />
+                <filter name="filter_date" string="Period" date="start_time" />
+
+                <searchpanel>
+                    <field name="stage_id" string="Stage" select="multi" />
+                    <field name="category_id" string="Category" select="multi" />
+                    <field name="type_id" string="Type" select="multi" />
+                </searchpanel>
+
+                <group expand="1" string="Group By">
+                    <filter
+                        name="start_time"
+                        string="Date"
+                        context="{'group_by':'start_time'}"
+                    />
+                    <filter
+                        name="category"
+                        string="Category"
+                        context="{'group_by':'category_id'}"
+                    />
+                    <filter
+                        name="type"
+                        string="Type"
+                        context="{'group_by':'type_id'}"
+                    />
+                    <filter name="tag" string="Tag" context="{'group_by':'tag_ids'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="volunteer_shift_action_future" model="ir.actions.act_window">
+        <field name="name">Shift</field>
+        <field name="res_model">volunteer.shift</field>
+        <field name="context">{"search_default_filter_future": 1}</field>
+        <field name="view_mode">kanban,tree,form</field>
     </record>
 </odoo>

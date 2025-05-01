@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <record id="volunteer_shift_participation_view_tree" model="ir.ui.view">
+        <field name="name">Participation List</field>
+        <field name="model">volunteer.shift.participation</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" delete="false">
+                <field name="volunteer_id" />
+                <field name="shift_id" />
+                <field name="shift_start_time" />
+                <field name="shift_end_time" />
+                <field name="registration_state" />
+                <field name="registration_date" />
+                <field name="cancellation_date" />
+                <field name="company_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="volunteer_shift_participation_view_search" model="ir.ui.view">
+        <field name="model">volunteer.shift.participation</field>
+        <field name="arch" type="xml">
+            <search string="Participation Search">
+                <field
+                    name="volunteer_id"
+                    filter_domain="[('volunteer_id', 'ilike', self)]"
+                    string="Volunteer"
+                />
+                <filter
+                    name="filter_today"
+                    string="Today"
+                    domain="[('shift_start_time', '>=', context_today().strftime('%Y-%m-%d 00:00:00')),('shift_start_time','&lt;=', context_today().strftime('%Y-%m-%d 23:59:59'))]"
+                />
+                <filter
+                    name="filter_future"
+                    string="Future"
+                    domain="[('shift_start_time', '>=', context_today().strftime('%Y-%m-%d 00:00:00'))]"
+                />
+                <filter
+                    name="filter_past"
+                    string="Past"
+                    domain="[('shift_start_time','&lt;', context_today().strftime('%Y-%m-%d 23:59:59'))]"
+                />
+                <separator />
+                <filter
+                    name="filter_next_7_days"
+                    string="Next 7 days"
+                    domain="[('shift_start_time', '&lt;=', (context_today()+datetime.timedelta(days=7)).strftime('%Y-%m-%d 23:59:59')),('shift_start_time','>=', (context_today()).strftime('%Y-%m-%d 00:00:00'))]"
+                />
+                <filter
+                    name="filter_last_7_days"
+                    string="Last 7 days"
+                    domain="[('shift_start_time', '&lt;=', context_today().strftime('%Y-%m-%d 23:59:59')),('shift_start_time','>=', (context_today()- datetime.timedelta(days=7)).strftime('%Y-%m-%d 00:00:00'))]"
+                />
+                <filter
+                    name="filter_next_30_days"
+                    string="Next 30 days"
+                    domain="[('shift_start_time', '&lt;=', (context_today()+datetime.timedelta(days=30)).strftime('%Y-%m-%d 23:59:59')),('shift_start_time','>=', (context_today()).strftime('%Y-%m-%d 00:00:00'))]"
+                />
+                <separator />
+                <filter name="filter_date" string="Period" date="shift_start_time" />
+
+                <searchpanel>
+                    <field name="registration_state" string="State" select="multi" />
+                </searchpanel>
+
+                <group expand="1" string="Group By">
+                    <filter
+                        name="volunteer_id"
+                        string="Volunteer"
+                        context="{'group_by':'volunteer_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="volunteer_shift_participation_action" model="ir.actions.act_window">
+        <field name="name">Participation</field>
+        <field name="res_model">volunteer.shift.participation</field>
+        <field name="view_mode">tree</field>
+    </record>
+</odoo>

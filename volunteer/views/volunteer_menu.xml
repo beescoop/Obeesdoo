@@ -6,78 +6,69 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <odoo>
     <!-- Volunteer App Menu -->
-    <menuitem id="menu_volunteer" name="Volunteer" />
-
-    <!-- Shift menu -->
-    <record id="action_volunteer_shift" model="ir.actions.act_window">
-        <field name="name">Volunteer Shift</field>
-        <field name="res_model">volunteer.shift</field>
-        <field name="view_mode">kanban,tree,form</field>
-    </record>
     <menuitem
-        id="menu_volunteer_shift"
-        name="Shifts"
-        parent="menu_volunteer"
-        sequence="10"
-        action="action_volunteer_shift"
+        id="volunteer_menu"
+        name="Volunteer"
+        action="volunteer_shift_action_future"
     />
-
     <!-- Volunteer Menu -->
-    <record id="action_volunteer_volunteer" model="ir.actions.act_window">
-        <field name="name">Volunteer</field>
-        <field name="res_model">volunteer.volunteer</field>
-        <field name="view_mode">kanban,tree,form</field>
-    </record>
     <menuitem
-        id="menu_volunteer_volunteer"
+        id="volunteer_volunteer_menu"
         name="Volunteers"
-        parent="menu_volunteer"
-        sequence="20"
-        action="action_volunteer_volunteer"
+        parent="volunteer_menu"
+        sequence="10"
+        action="volunteer_volunteer_action"
     />
-
-    <!-- Configuration Menu -->
+    <!-- Shift menu -->
     <menuitem
-        id="menu_volunteer_configuration"
-        name="Configuration"
-        parent="menu_volunteer"
-        sequence="90"
+        id="volunteer_shift_menu"
+        name="Shifts"
+        parent="volunteer_menu"
+        sequence="20"
+        action="volunteer_shift_action_future"
+    />
+    <!-- Shift Participation menu -->
+    <menuitem
+        id="volunteer_shift_participation_menu"
+        name="Participation"
+        parent="volunteer_menu"
+        sequence="80"
+        action="volunteer_shift_participation_action"
         groups="volunteer.volunteer_group_admin"
     />
-    <!-- Category Configuration Submenu -->
-    <record id="action_volunteer_shift_category" model="ir.actions.act_window">
-        <field name="name">Categories</field>
-        <field name="res_model">volunteer.shift.category</field>
-        <field name="view_mode">tree,form</field>
-    </record>
+    <!-- Configuration Menu -->
     <menuitem
-        id="menu_volunteer_shift_category"
-        name="Categories"
-        action="action_volunteer_shift_category"
-        parent="menu_volunteer_configuration"
-    />
-    <!-- Type Configuration Submenu -->
-    <record id="action_volunteer_shift_type" model="ir.actions.act_window">
-        <field name="name">Types</field>
-        <field name="res_model">volunteer.shift.type</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-    <menuitem
-        id="menu_volunteer_shift_type"
-        name="Types"
-        action="action_volunteer_shift_type"
-        parent="menu_volunteer_configuration"
-    />
-    <!-- Tag Configuration Submenu -->
-    <record id="action_volunteer_shift_tag" model="ir.actions.act_window">
-        <field name="name">Tags</field>
-        <field name="res_model">volunteer.shift.tag</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-    <menuitem
-        id="menu_volunteer_shift_tag"
-        name="Tags"
-        action="action_volunteer_shift_tag"
-        parent="menu_volunteer_configuration"
-    />
+        id="volunteer_configuration_menu"
+        name="Configuration"
+        parent="volunteer_menu"
+        sequence="90"
+        groups="volunteer.volunteer_group_admin"
+    >
+        <!-- Shift Configuration Separator -->
+        <menuitem
+            id="volunteer_configuration_shift_separator_menu"
+            name="Shifts"
+            sequence="1"
+            groups="volunteer.volunteer_group_admin"
+        >
+            <!-- Category Submenu -->
+            <menuitem
+                id="volunteer_shift_category_menu"
+                name="Categories"
+                action="volunteer_shift_category_action"
+            />
+            <!-- Type Submenu -->
+            <menuitem
+                id="volunteer_shift_type_menu"
+                name="Types"
+                action="volunteer_shift_type_action"
+            />
+            <!-- Tag Submenu -->
+            <menuitem
+                id="volunteer_shift_tag_menu"
+                name="Tags"
+                action="volunteer_shift_tag_action"
+            />
+        </menuitem>
+    </menuitem>
 </odoo>

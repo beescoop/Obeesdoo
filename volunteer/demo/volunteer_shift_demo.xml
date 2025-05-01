@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <record id="volunteer_shift_demo_today" model="volunteer.shift">
+        <field name="name">Shift Today</field>
+        <field name="max_volunteer_nb">2</field>
+        <field name="start_time" eval="datetime.now().strftime('%Y-%m-%d %H:%M:%S')" />
+        <field
+            name="end_time"
+            eval="(datetime.now() + timedelta(hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field name="coordinator_id" ref="volunteer_partner_demo_b" />
+        <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
+        <field name="type_id" ref="volunteer_shift_type_demo_closing" />
+    </record>
+
+    <record id="volunteer_shift_demo_tomorrow" model="volunteer.shift">
+        <field name="name">Shift Tomorrow</field>
+        <field name="max_volunteer_nb">3</field>
+        <field
+            name="start_time"
+            eval="(datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field
+            name="end_time"
+            eval="(datetime.now() + timedelta(days=1, hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field name="stage_id" ref="volunteer_shift_stage_canceled" />
+        <field name="type_id" ref="volunteer_shift_type_demo_opening" />
+        <field name="tag_ids" eval="[(6, 0, [ref('volunteer_shift_demo_tag_a')])]" />
+        <field name="category_id" ref="volunteer_shift_category_demo_week_b" />
+    </record>
+
+    <record id="volunteer_shift_demo_next_7_days" model="volunteer.shift">
+        <field name="name">Shift Next 7 days</field>
+        <field name="max_volunteer_nb">3</field>
+        <field
+            name="start_time"
+            eval="(datetime.now() + timedelta(days=+6)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field
+            name="end_time"
+            eval="(datetime.now() + timedelta(days=+6, hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
+        <field
+            name="tag_ids"
+            eval="[(6, 0, [ref('volunteer_shift_demo_tag_a'), ref('volunteer_shift_demo_tag_b'), ref('volunteer_shift_demo_tag_c')])]"
+        />
+        <field name="type_id" ref="volunteer_shift_type_demo_cheese_cut" />
+        <field name="category_id" ref="volunteer_shift_category_demo_week_a" />
+    </record>
+
+    <record id="volunteer_shift_demo_next_30_days" model="volunteer.shift">
+        <field name="name">Shift Next 30 days</field>
+        <field name="max_volunteer_nb">9</field>
+        <field
+            name="start_time"
+            eval="(datetime.now() + timedelta(days=+29)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field
+            name="end_time"
+            eval="(datetime.now() + timedelta(days=+29, hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field name="coordinator_id" ref="volunteer_partner_demo_a" />
+        <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
+        <field name="type_id" ref="volunteer_shift_type_demo_closing" />
+        <field name="tag_ids" eval="[(6, 0, [ref('volunteer_shift_demo_tag_a')])]" />
+    </record>
+
+    <record id="volunteer_shift_demo_yesterday" model="volunteer.shift">
+        <field name="name">Shift Yesterday</field>
+        <field name="max_volunteer_nb">3</field>
+        <field
+            name="start_time"
+            eval="(datetime.now() + timedelta(days=-1)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field
+            name="end_time"
+            eval="(datetime.now() + timedelta(days=-1, hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field name="coordinator_id" ref="volunteer_partner_demo_b" />
+        <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
+        <field name="type_id" ref="volunteer_shift_type_demo_cheese_cut" />
+    </record>
+
+    <record id="volunteer_shift_demo_last_7_days" model="volunteer.shift">
+        <field name="name">Shift Last 7 days</field>
+        <field name="max_volunteer_nb">3</field>
+        <field
+            name="start_time"
+            eval="(datetime.now() + timedelta(days=-6)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field
+            name="end_time"
+            eval="(datetime.now() + timedelta(days=-6, hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field name="coordinator_id" ref="volunteer_partner_demo_b" />
+        <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
+        <field name="type_id" ref="volunteer_shift_type_demo_cheese_cut" />
+    </record>
+
+    <record id="volunteer_shift_demo_last_year" model="volunteer.shift">
+        <field name="name">Shift Last year</field>
+        <field name="max_volunteer_nb">3</field>
+        <field
+            name="start_time"
+            eval="(datetime.now() + timedelta(days=-367)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field
+            name="end_time"
+            eval="(datetime.now() + timedelta(days=-367, hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field name="coordinator_id" ref="volunteer_partner_demo_b" />
+        <field name="type_id" ref="volunteer_shift_type_demo_cheese_cut" />
+    </record>
+</odoo>

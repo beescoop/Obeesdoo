@@ -3,36 +3,39 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 from odoo import api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import AccessError, ValidationError
 from odoo.tools import format_datetime
 from odoo.tools.translate import _
 
 from odoo.addons.base.models.res_partner import _tz_get
 
 
-class Shift(models.Model):
+class VolunteerShift(models.Model):
     _name = "volunteer.shift"
     _description = "Shift"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
     # General fields
 
-    name = fields.Char(required=True)
-    max_volunteer_nb = fields.Integer(string="Max Volunteer", required=True)
-    remaining_slots = fields.Integer(compute="_compute_remaining_slots")
+    name = fields.Char(required=True, tracking=True)
+    max_volunteer_nb = fields.Integer(
+        string="Max Volunteer", required=True, tracking=True
+    )
+    remaining_slots = fields.Integer(compute="_compute_remaining_slots", tracking=True)
     is_one_day = fields.Boolean(compute="_compute_is_one_day")
 
     # Stage fields
 
     @api.model
     def _default_stage_id(self):
-        return self.env.ref("volunteer.stage_draft")
+        return self.env.ref("volunteer.volunteer_shift_stage_draft")
 
     stage_id = fields.Many2one(
         comodel_name="volunteer.shift.stage",
         default=_default_stage_id,
         copy=False,
         group_expand="_group_expand_stage_id",
+        tracking=True,
     )
     state = fields.Selection(related="stage_id.state", store=True)
 
@@ -43,21 +46,28 @@ class Shift(models.Model):
         string="Timezone",
         default=lambda self: self.env.user.tz or "UTC",
         required=True,
+        tracking=True,
     )
-    start_time = fields.Datetime(default=fields.datetime.now())
+    start_time = fields.Datetime(
+        default=fields.Datetime.now(), required=True, tracking=True
+    )
     start_time_located = fields.Char(compute="_compute_start_time_located")
-    end_time = fields.Datetime(default=fields.datetime.now())
+    end_time = fields.Datetime(
+        default=fields.Datetime.now(), required=True, tracking=True
+    )
     end_time_located = fields.Char(compute="_compute_end_time_located")
 
     # Classification fields
 
     type_id = fields.Many2one(
-        comodel_name="volunteer.shift.type", string="Type", required=True
+        comodel_name="volunteer.shift.type", string="Type", required=True, tracking=True
     )
     category_id = fields.Many2one(
-        comodel_name="volunteer.shift.category", string="Category"
+        comodel_name="volunteer.shift.category", string="Category", tracking=True
     )
-    tag_ids = fields.Many2many(comodel_name="volunteer.shift.tag", string="Tags")
+    tag_ids = fields.Many2many(
+        comodel_name="volunteer.shift.tag", string="Tags", tracking=True
+    )
 
     # Relational fields
 
@@ -66,23 +76,97 @@ class Shift(models.Model):
         string="Company",
         default=lambda self: self.env.user.company_id,
         required=True,
+        tracking=True,
     )
     volunteer_participation_ids = fields.One2many(
         comodel_name="volunteer.shift.participation",
         inverse_name="shift_id",
         string="Participation",
+        tracking=True,
     )
-    coordinator_id = fields.Many2one(comodel_name="res.partner", string="Coordinator")
-    volunteer_ids = fields.One2many(
+    coordinator_id = fields.Many2one(
+        comodel_name="res.partner",
+        domain="[('is_company', '=', False)]",
+        string="Coordinator",
+        tracking=True,
+    )
+    volunteer_ids = fields.Many2many(
         comodel_name="volunteer.volunteer",
         compute="_compute_volunteer_ids",
         string="Volunteers",
+        store=True,
     )
 
-    # Constrains
+    # SQL constraints
+
+    _sql_constraints = [
+        (
+            "max_volunteer_nb_is_positive",
+            "check (max_volunteer_nb > 0)",
+            "The maximum of volunteers per shift cannot be null or negative.",
+        ),
+    ]
+
+    # Compute methods
+
+    @api.depends("volunteer_participation_ids")
+    def _compute_remaining_slots(self):
+        for shift in self:
+            nb_confirmed_participation = shift.get_booking_status()[
+                "nb_confirmed_participation"
+            ]
+            shift.remaining_slots = shift.max_volunteer_nb - nb_confirmed_participation
+
+    @api.depends("start_time", "end_time", "tz")
+    def _compute_is_one_day(self):
+        for shift in self:
+            shift = shift._set_tz_context()
+            if shift.start_time and shift.end_time:
+                start_date = fields.Datetime.context_timestamp(
+                    shift, shift.start_time
+                ).date()
+                end_date = fields.Datetime.context_timestamp(
+                    shift, shift.end_time
+                ).date()
+                shift.is_one_day = start_date == end_date
+            else:
+                shift.is_one_day = False
+
+    @api.depends("tz", "start_time")
+    def _compute_start_time_located(self):
+        for shift in self:
+            if shift.start_time:
+                shift.start_time_located = format_datetime(
+                    self.env, shift.start_time, shift.tz, dt_format="medium"
+                )
+            else:
+                shift.start_time_located = False
+
+    @api.depends("tz", "end_time")
+    def _compute_end_time_located(self):
+        for shift in self:
+            if shift.end_time:
+                shift.end_time_located = format_datetime(
+                    self.env, shift.end_time, shift.tz, dt_format="medium"
+                )
+            else:
+                shift.end_time_located = False
+
+    @api.depends("volunteer_participation_ids")
+    def _compute_volunteer_ids(self):
+        for shift in self:
+            booking_status = shift.get_booking_status()
+            if shift.volunteer_participation_ids:
+                shift.volunteer_ids = booking_status["confirmed_participation"].mapped(
+                    "volunteer_id"
+                )
+            else:
+                shift.volunteer_ids = False
+
+    # Constraints
 
     @api.constrains("volunteer_participation_ids")
-    def _unique_volunteer_participation(self):
+    def _check_unique_volunteer_participation(self):
         """Check that a volunteer can only be registered once per shift."""
         for shift in self:
             confirmed_participation = shift.get_booking_status()[
@@ -114,69 +198,26 @@ class Shift(models.Model):
                     )
                 )
 
-    _sql_constraints = [
-        (
-            "max_volunteer_nb_is_positive",
-            "check (max_volunteer_nb > 0)",
-            "The maximum of volunteers per shift cannot be null or negative.",
-        ),
-    ]
+    # Override methods
 
-    # Compute methods
-
-    @api.depends("volunteer_participation_ids")
-    def _compute_volunteer_ids(self):
+    def write(self, vals):
+        state_requested = vals.get("state")
+        # Restrict stage change to admins only
+        if (
+            "stage_id" in vals
+            and not self.env.context.get("install_mode")
+            and not self.env.user.has_group("volunteer.volunteer_group_admin")
+        ):
+            raise AccessError(_("Only admins can change the stage of a shift"))
+        res = super().write(vals)
         for shift in self:
-            booking_status = shift.get_booking_status()
-            if shift.volunteer_participation_ids:
-                shift.volunteer_ids = booking_status["confirmed_participation"].mapped(
-                    "volunteer_id"
-                )
-            else:
-                shift.volunteer_ids = False
-
-    @api.depends("tz", "start_time")
-    def _compute_start_time_located(self):
-        for shift in self:
-            if shift.start_time:
-                shift.start_time_located = format_datetime(
-                    self.env, shift.start_time, shift.tz, dt_format="medium"
-                )
-            else:
-                shift.start_time_located = False
-
-    @api.depends("tz", "end_time")
-    def _compute_end_time_located(self):
-        for shift in self:
-            if shift.end_time:
-                shift.end_time_located = format_datetime(
-                    self.env, shift.end_time, shift.tz, dt_format="medium"
-                )
-            else:
-                shift.end_time_located = False
-
-    @api.depends("volunteer_participation_ids")
-    def _compute_remaining_slots(self):
-        for shift in self:
-            nb_confirmed_participation = shift.get_booking_status()[
-                "nb_confirmed_participation"
-            ]
-            shift.remaining_slots = shift.max_volunteer_nb - nb_confirmed_participation
-
-    @api.depends("start_time", "end_time", "tz")
-    def _compute_is_one_day(self):
-        for shift in self:
-            shift = shift._set_tz_context()
-            if shift.start_time and shift.end_time:
-                start_date = fields.Datetime.context_timestamp(
-                    shift, shift.start_time
-                ).date()
-                end_date = fields.Datetime.context_timestamp(
-                    shift, shift.end_time
-                ).date()
-                shift.is_one_day = start_date == end_date
-            else:
-                shift.is_one_day = False
+            # Auto-cancel confirmed participation if the shift is canceled
+            if state_requested != "canceled" and shift.state == "canceled":
+                confirmed_participation = shift.get_booking_status()[
+                    "confirmed_participation"
+                ]
+                confirmed_participation.write({"registration_state": "canceled"})
+        return res
 
     # Methods
 
