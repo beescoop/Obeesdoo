@@ -38,7 +38,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     />
     <!-- Configuration Menu -->
     <menuitem
-        id="volunteer_shift_configuration_menu"
+        id="volunteer_configuration_menu"
         name="Configuration"
         parent="volunteer_menu"
         sequence="90"
@@ -46,7 +46,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     >
         <!-- Shift Configuration Separator -->
         <menuitem
-            id="volunteer_shift_configuration_separator_menu"
+            id="volunteer_configuration_shift_separator_menu"
             name="Shifts"
             sequence="1"
             groups="volunteer.volunteer_group_admin"
