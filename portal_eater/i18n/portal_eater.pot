@@ -14,12 +14,12 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: portal_eater
-#: model_terms:ir.ui.view,arch_db:portal_eater.website_eater_details_side
+#: model_terms:ir.ui.view,arch_db:portal_eater.portal_eater_details_side
 msgid "You have no eaters"
 msgstr ""
 
 #. module: portal_eater
-#: model_terms:ir.ui.view,arch_db:portal_eater.website_eater_details_side
+#: model_terms:ir.ui.view,arch_db:portal_eater.portal_eater_details_side
 msgid "Your Eaters"
 msgstr ""
 
