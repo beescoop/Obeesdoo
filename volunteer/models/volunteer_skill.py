@@ -8,9 +8,12 @@ from odoo import fields, models
 class VolunteerSkill(models.Model):
     _name = "volunteer.skill"
     _description = "Volunteer Skills"
+    _order = "name"
 
     name = fields.Char()
     description = fields.Char()
+    color = fields.Integer(related="category_id.color")
+
     category_id = fields.Many2one(
         comodel_name="volunteer.skill.category",
         string="Category",
