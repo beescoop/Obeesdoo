@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     Copyright 2018 Rémy Taymans <remytaymans@gmail.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+
+    <!-- Add eater information -->
+    <template
+        id="portal_eater_details_side"
+        name="Portal Eater Details Side"
+        priority="50"
+        inherit_id="portal.portal_layout"
+    >
+        <xpath expr="//div[hasclass('o_portal_my_details')]" position="after">
+            <div class="o_portal_my_eater mt-3">
+                <h4>Your Eaters</h4>
+                <hr class="mt-1 mb-1" />
+                <p>
+                    <ul t-if="eaters">
+                        <li t-foreach="eaters" t-as="eater">
+                            <t t-esc="eater.name" />
+                        </li>
+                    </ul>
+                    <span t-if="not eaters">
+                        You have no eaters
+                    </span>
+                </p>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>
