@@ -262,12 +262,15 @@ msgstr ""
 
 #. module: volunteer
 #: model:ir.actions.act_window,name:volunteer.volunteer_shift_category_action
+#: model:ir.actions.act_window,name:volunteer.volunteer_skill_category_action
+#: model:ir.ui.menu,name:volunteer.menu_volunteer_shift_skill_category
 #: model:ir.ui.menu,name:volunteer.volunteer_shift_category_menu
 msgid "Categories"
 msgstr ""
 
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__category_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_skill__category_id
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_search
 msgid "Category"
 msgstr ""
@@ -320,6 +323,8 @@ msgstr ""
 
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__color
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_skill__color
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_skill_category__color
 msgid "Color"
 msgstr ""
 
@@ -344,6 +349,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__company_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__company_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__company_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_skill__company_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_skill_category__company_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__company_id
 msgid "Company"
 msgstr ""
@@ -478,6 +485,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__create_uid
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__create_uid
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__create_uid
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_skill__create_uid
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_skill_category__create_uid
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__create_uid
 msgid "Created by"
 msgstr ""
@@ -489,6 +498,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__create_date
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__create_date
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__create_date
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_skill__create_date
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_skill_category__create_date
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__create_date
 msgid "Created on"
 msgstr ""
@@ -543,6 +554,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__description
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__description
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__description
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_skill__description
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_skill_category__description
 msgid "Description"
 msgstr ""
 
@@ -553,6 +566,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__display_name
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__display_name
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__display_name
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_skill__display_name
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_skill_category__display_name
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__display_name
 msgid "Display Name"
 msgstr ""
@@ -759,6 +774,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_skill__id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_skill_category__id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__id
 msgid "ID"
 msgstr ""
@@ -955,6 +972,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage____last_update
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag____last_update
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type____last_update
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_skill____last_update
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_skill_category____last_update
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer____last_update
 msgid "Last Modified on"
 msgstr ""
@@ -966,6 +985,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__write_uid
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__write_uid
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__write_uid
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_skill__write_uid
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_skill_category__write_uid
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__write_uid
 msgid "Last Updated by"
 msgstr ""
@@ -977,6 +998,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__write_date
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__write_date
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__write_date
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_skill__write_date
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_skill_category__write_date
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__write_date
 msgid "Last Updated on"
 msgstr ""
@@ -1109,6 +1132,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__name
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__name
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__name
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_skill__name
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_skill_category__name
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__name
 msgid "Name"
 msgstr ""
@@ -1546,6 +1571,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__shift_shift_ids
 #: model:ir.ui.menu,name:volunteer.volunteer_configuration_shift_separator_menu
 #: model:ir.ui.menu,name:volunteer.volunteer_shift_menu
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_calendar
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_volunteer_view_form
 msgid "Shifts"
 msgstr ""
@@ -1578,6 +1604,14 @@ msgstr ""
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__signup_url
 msgid "Signup URL"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.actions.act_window,name:volunteer.volunteer_skill_action
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__skill_ids
+#: model:ir.ui.menu,name:volunteer.menu_volunteer_shift_skill
+#: model:ir.ui.menu,name:volunteer.volunteer_configuration_skill_separator_menu
+msgid "Skills"
 msgstr ""
 
 #. module: volunteer
@@ -1955,6 +1989,16 @@ msgstr ""
 #. module: volunteer
 #: model:res.groups,name:volunteer.volunteer_group_manager
 msgid "Volunteer Manager"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model,name:volunteer.model_volunteer_skill
+msgid "Volunteer Skills"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model,name:volunteer.model_volunteer_skill_category
+msgid "Volunteer Skills Category"
 msgstr ""
 
 #. module: volunteer
