@@ -16,6 +16,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </record>
     <record id="volunteer_demo_a" model="volunteer.volunteer">
         <field name="partner_id" ref="volunteer_partner_demo_a" />
+        <field
+            name="skill_ids"
+            eval="[(6, 0, [ref('volunteer_skill_demo_french'), ref('volunteer_skill_demo_B_license')])]"
+        />
     </record>
 
     <record id="volunteer_partner_demo_b" model="res.partner">
@@ -29,6 +33,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </record>
     <record id="volunteer_demo_b" model="volunteer.volunteer">
         <field name="partner_id" ref="volunteer_partner_demo_b" />
+        <field
+            name="skill_ids"
+            eval="[(6, 0, [ref('volunteer_skill_demo_english')])]"
+        />
     </record>
 
     <record id="volunteer_partner_demo_c" model="res.partner">

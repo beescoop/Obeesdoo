@@ -45,9 +45,25 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                             modifiers="{'invisible': true, 'readonly': true}"
                                         />
                                     </strong>
-                                    <t t-if="record.is_regular.raw_value">
-                                        <div>Regular</div>
-                                    </t>
+                                    <div name="skills">
+                                        <field
+                                            name="skill_ids"
+                                            widget="many2many_tags"
+                                            options="{'color_field': 'color'}"
+                                        />
+                                    </div>
+                                    <div
+                                        class="o_kanban_record_bottom mt-auto pt-2 text-end"
+                                    >
+                                        <div class="oe_kanban_bottom_left" />
+                                        <div class="oe_kanban_bottom_right">
+                                            <div
+                                                t-if="record.is_regular.raw_value"
+                                                class="badge bg-light"
+                                            >Regular
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

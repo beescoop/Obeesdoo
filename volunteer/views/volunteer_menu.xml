@@ -70,5 +70,25 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 action="volunteer_shift_tag_action"
             />
         </menuitem>
+        <!-- Skill Configuration Separator -->
+        <menuitem
+            id="volunteer_configuration_skill_separator_menu"
+            name="Skills"
+            sequence="10"
+            groups="volunteer.volunteer_group_admin"
+        >
+            <!-- Skill Configuration Submenu -->
+            <menuitem
+                id="menu_volunteer_shift_skill"
+                name="Skills"
+                action="volunteer_skill_action"
+            />
+            <!-- Skill Category Configuration Submenu -->
+            <menuitem
+                id="menu_volunteer_shift_skill_category"
+                name="Categories"
+                action="volunteer_skill_category_action"
+            />
+        </menuitem>
     </menuitem>
 </odoo>

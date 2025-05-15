@@ -137,6 +137,32 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </field>
     </record>
 
+    <record id="volunteer_shift_view_calendar" model="ir.ui.view">
+        <field name="name">Shift Calendar</field>
+        <field name="model">volunteer.shift</field>
+        <field name="arch" type="xml">
+            <calendar
+                string="Shifts"
+                date_start="start_time"
+                date_stop="end_time"
+                color="type_id"
+            >
+                <field name="max_volunteer_nb" />
+                <field name="type_id" />
+                <field name="category_id" />
+                <field
+                    name="tag_ids"
+                    widget="many2many_tags"
+                    options="{'color_field': 'color'}"
+                />
+                <field name="remaining_slots" />
+                <field name="coordinator_id" />
+                <field name="company_id" />
+                <field name="state" />
+            </calendar>
+        </field>
+    </record>
+
     <record id="volunteer_shift_view_search" model="ir.ui.view">
         <field name="model">volunteer.shift</field>
         <field name="arch" type="xml">
@@ -228,6 +254,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="name">Shift</field>
         <field name="res_model">volunteer.shift</field>
         <field name="context">{"search_default_filter_future": 1}</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">kanban,tree,form,calendar</field>
     </record>
 </odoo>

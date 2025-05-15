@@ -18,6 +18,10 @@ class VolunteerVolunteer(models.Model):
         readonly=True,
         help="Is regular if registered for at least one recurrent shift",
     )
+    skill_ids = fields.Many2many(
+        comodel_name="volunteer.skill",
+        string="Skills",
+    )
 
     # Relational fields
 
@@ -81,7 +85,7 @@ class VolunteerVolunteer(models.Model):
             "type": "ir.actions.act_window",
             "name": "Shifts",
             "res_model": "volunteer.shift",
-            "view_mode": "kanban,tree,form",
+            "view_mode": "kanban,tree,form,calendar",
             "domain": [("volunteer_ids", "in", [self.id])],
         }
 
@@ -93,7 +97,7 @@ class VolunteerVolunteer(models.Model):
             "type": "ir.actions.act_window",
             "name": "Future Shifts",
             "res_model": "volunteer.shift",
-            "view_mode": "kanban,tree,form",
+            "view_mode": "kanban,tree,form,calendar",
             "domain": [
                 ("volunteer_ids", "in", [self.id]),
                 ("end_time", ">=", now),

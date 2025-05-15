@@ -9,4 +9,6 @@ from . import volunteer_shift_tag
 from . import volunteer_shift_participation
 from . import volunteer_shift_stage
 from . import volunteer_volunteer
+from . import volunteer_skill
+from . import volunteer_skill_category
 from . import res_partner
