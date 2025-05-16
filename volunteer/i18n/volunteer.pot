@@ -1291,6 +1291,9 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__shift_participation_ids
 #: model:ir.ui.menu,name:volunteer.volunteer_shift_participation_menu
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_volunteer_view_form
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__volunteer_registration_ids
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__shift_registration_ids
+#: model_terms:ir.ui.view,arch_db:volunteer.view_form_volunteer
 msgid "Participation"
 msgstr ""
 

@@ -39,6 +39,11 @@ class VolunteerShift(models.Model):
         string="Participation",
         tracking=True,
     )
+    generator_id = fields.Many2one(
+        comodel_name="volunteer.shift.recurrent.generator",
+        string="Shift Generator",
+        tracking=True,
+    )
     volunteer_ids = fields.Many2many(
         comodel_name="volunteer.volunteer",
         compute="_compute_volunteer_ids",

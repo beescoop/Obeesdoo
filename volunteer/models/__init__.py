@@ -13,3 +13,5 @@ from . import volunteer_volunteer
 from . import volunteer_skill
 from . import volunteer_skill_category
 from . import res_partner
+from . import volunteer_shift_recurrent_generator
+from . import volunteer_shift_recurrent_subscription

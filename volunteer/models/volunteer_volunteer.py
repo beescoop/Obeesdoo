@@ -41,6 +41,12 @@ class VolunteerVolunteer(models.Model):
         string="Participation",
         tracking=True,
     )
+    shift_recurrent_subscription_ids = fields.One2many(
+        comodel_name="volunteer.shift.recurrent.subscription",
+        inverse_name="volunteer_id",
+        string="Subscriptions",
+        tracking=True,
+    )
 
     # Computed fields
 
