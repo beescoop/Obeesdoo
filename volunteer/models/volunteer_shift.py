@@ -105,18 +105,19 @@ class VolunteerShift(models.Model):
     # Override methods
 
     def write(self, vals):
-        state_requested = vals.get("state")
+        old_states = {shift.id: shift.state for shift in self}
         # Restrict stage change to admins only
         if (
             "stage_id" in vals
             and not self.env.context.get("install_mode")
             and not self.env.user.has_group("volunteer.volunteer_group_admin")
         ):
-            raise AccessError(_("Only admins can change the stage of a shift"))
+            raise AccessError(_("Only admins can change the state of a shift"))
         res = super().write(vals)
         for shift in self:
+            previous_state = old_states[shift.id]
             # Auto-cancel confirmed participation if the shift is canceled
-            if state_requested != "canceled" and shift.state == "canceled":
+            if previous_state != "canceled" and shift.state == "canceled":
                 confirmed_participation = shift.get_booking_status()[
                     "confirmed_participation"
                 ]
