@@ -146,7 +146,9 @@ class VolunteerShiftRecurrentGenerator(models.Model):
                 generator._generate_participation()
             # Else, if the generator is canceled, apply the required changes
             elif previous_state != "canceled" and generator.state == "canceled":
-                generator.write({"until_date": today})
+                super(VolunteerShiftRecurrentGenerator, generator).write(
+                    {"until_date": today}
+                )
                 # Change end_date future subscription
                 future_subscriptions = generator.get_booking_status(
                     requested_start_date=today, requested_end_date=generator.until_date
