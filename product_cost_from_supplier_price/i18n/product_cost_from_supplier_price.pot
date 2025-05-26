@@ -1,0 +1,48 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_cost_from_supplier_price
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: product_cost_from_supplier_price
+#: model:ir.model.fields,field_description:product_cost_from_supplier_price.field_product_category__property_cost_method
+msgid "Costing Method"
+msgstr ""
+
+#. module: product_cost_from_supplier_price
+#: model:ir.model,name:product_cost_from_supplier_price.model_product_template
+msgid "Product"
+msgstr ""
+
+#. module: product_cost_from_supplier_price
+#: model:ir.model,name:product_cost_from_supplier_price.model_product_category
+msgid "Product Category"
+msgstr ""
+
+#. module: product_cost_from_supplier_price
+#: model:ir.model.fields.selection,name:product_cost_from_supplier_price.selection__product_category__property_cost_method__standard_from_main_supplier_price
+msgid "Standard Price (From Main Supplier's Price)"
+msgstr ""
+
+#. module: product_cost_from_supplier_price
+#: model:ir.model.fields,help:product_cost_from_supplier_price.field_product_category__property_cost_method
+msgid ""
+"Standard Price: The products are valued at their standard cost defined on the product.\n"
+"        Average Cost (AVCO): The products are valued at weighted average cost.\n"
+"        First In First Out (FIFO): The products are valued supposing those that enter the company first will also leave it first.\n"
+"        "
+msgstr ""
+
+#. module: product_cost_from_supplier_price
+#: model:ir.model,name:product_cost_from_supplier_price.model_product_supplierinfo
+msgid "Supplier Pricelist"
+msgstr ""
