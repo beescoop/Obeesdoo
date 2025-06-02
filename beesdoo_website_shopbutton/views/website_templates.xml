@@ -1,0 +1,18 @@
+<odoo>
+    <template id="webshop_button_topmenu" inherit_id="website.layout">
+        <xpath
+            expr="//header//ul[@id='top_menu']/li[hasclass('dropdown')]"
+            position="before"
+        >
+            <li class="nav-item" t-if="request.env.user.webshop_url">
+                <a
+                    id="website-shopbutton"
+                    class="website-shopbutton"
+                    t-att-href="request.env.user.webshop_url"
+                >
+                    Webshop
+                </a>
+            </li>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="assets_frontend"
+        name="webshop asset"
+        inherit_id="web.assets_frontend"
+    >
+        <xpath expr="." position="inside">
+            <link
+                rel="stylesheet"
+                href="/beesdoo_website_shopbutton/static/src/css/website_shopbutton.css"
+            />
+        </xpath>
+    </template>
+</odoo>
