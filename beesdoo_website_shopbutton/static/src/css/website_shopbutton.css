@@ -1,20 +1,10 @@
+/*
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+*/
+
 .website-shopbutton {
     background: #fcc101;
-    border-bottom: 0;
     border-radius: 6px;
-    box-sizing: border-box;
-    color: #00000080;
-    font-family: BebasNeue, sans-serif;
-    font-size: 21px;
-    font-weight: 400;
-    line-height: 31.5px;
-    padding: 8px;
-    text-align: right;
-    text-wrap-mode: nowrap;
-    white-space-collapse: collapse;
-}
-
-.website-shopbutton:hover {
-    background-color: #facb6e;
-    color: #000000b3;
 }
