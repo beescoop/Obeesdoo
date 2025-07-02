@@ -1,1 +1,0 @@
-git+https://github.com/coopiteasy/cooperative@16.0-mig-cooperator#subdirectory=setup/cooperator
