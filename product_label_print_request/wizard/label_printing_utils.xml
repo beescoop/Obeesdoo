@@ -13,21 +13,22 @@
                         string="Request label printing"
                         class="oe_highlight"
                     />
-                    <button special="cancel" string="Cancel" />
+                    <button special="cancel" title="Cancel" />
                 </footer>
             </form>
         </field>
     </record>
-    <act_window
-        name="Request label printing"
-        res_model="label.printing.wizard"
-        src_model="product.template"
-        view_mode="form"
-        target="new"
-        view_id="printing_label_request_wizard"
-        key2="client_action_multi"
-        id="product_action_request_label_printing"
-    />
+    <record id="product_action_request_label_printing" model="ir.actions.act_window">
+        <field name="name">Request label printing</field>
+        <field name="res_model">label.printing.wizard</field>
+        <field name="binding_model_id" ref="model_product_template" />
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field
+            name="view_id"
+            ref="product_label_print_request.printing_label_request_wizard"
+        />
+    </record>
     <record id="set_label_as_printed_wizard" model="ir.ui.view">
         <field name="name">Request Label Printing Wizard</field>
         <field name="model">label.printing.wizard</field>
@@ -41,19 +42,20 @@
                         string="Set labels as printed"
                         class="oe_highlight"
                     />
-                    <button special="cancel" string="Cancel" />
+                    <button special="cancel" title="Cancel" />
                 </footer>
             </form>
         </field>
     </record>
-    <act_window
-        name="Set label as printed"
-        res_model="label.printing.wizard"
-        src_model="product.template"
-        view_mode="form"
-        view_id="set_label_as_printed_wizard"
-        target="new"
-        key2="client_action_multi"
-        id="product_action_set_label_as_printed"
-    />
+    <record id="product_action_set_label_as_printed" model="ir.actions.act_window">
+        <field name="name">Set label as printed</field>
+        <field name="res_model">label.printing.wizard</field>
+        <field name="binding_model_id" ref="model_product_template" />
+        <field name="view_mode">form</field>
+        <field
+            name="view_id"
+            ref="product_label_print_request.set_label_as_printed_wizard"
+        />
+        <field name="target">new</field>
+    </record>
 </odoo>

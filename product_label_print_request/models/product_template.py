@@ -3,7 +3,7 @@
 
 import logging
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -14,10 +14,8 @@ class ProductTemplate(models.Model):
     label_to_be_printed = fields.Boolean("Print label?")
     label_last_printed = fields.Datetime("Label last printed on")
 
-    @api.multi
     def create_request_label_printing_wizard(self):
-        context = {"active_ids": self.ids}
-        self.env["label.printing.wizard"].with_context(context).create({})
+        self.env["label.printing.wizard"].with_context(active_ids=self.ids).create({})
         print_request_view = self.env.ref(
             "product_label_print_request.printing_label_request_wizard"
         )

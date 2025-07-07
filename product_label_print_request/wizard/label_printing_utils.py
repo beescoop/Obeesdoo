@@ -1,7 +1,8 @@
-from odoo import api, fields, models
+from odoo import fields, models
 
 
-# todo move printing functions to specific module
+# TODO: If there are transient models, you have to add explicit security ACLs
+# for them (and optionally record rules)
 class RequestLabelPrintingWizard(models.TransientModel):
     _name = "label.printing.wizard"
     _description = "label.printing.wizard"
@@ -11,12 +12,10 @@ class RequestLabelPrintingWizard(models.TransientModel):
 
     product_ids = fields.Many2many("product.template", default=_get_selected_products)
 
-    @api.multi
     def request_printing(self):
         self.ensure_one()
         self.product_ids.write({"label_to_be_printed": True})
 
-    @api.multi
     def set_as_printed(self):
         self.ensure_one()
         self.product_ids.write(
