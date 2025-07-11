@@ -28,9 +28,9 @@ class ProductTemplate(models.Model):
         string="This product can't be printed from the Point"
         " of Sale because several tax strategies were defined.",
         compute="_compute_total",
+        compute_sudo=True,
     )
 
-    @api.multi
     @api.depends(
         "taxes_id",
         "list_price",
@@ -40,10 +40,12 @@ class ProductTemplate(models.Model):
     )
     def _compute_total(self):
         for product in self:
+
+            product.several_tax_strategies_warning = False
+
             deposit_group = self.env.ref(
                 "sale_product_deposit.deposit_tax_group", raise_if_not_found=False
             )
-            product.several_tax_strategies_warning = False
 
             taxes_included = set(
                 product.taxes_id.filtered(
