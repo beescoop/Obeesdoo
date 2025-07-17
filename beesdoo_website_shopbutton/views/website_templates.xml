@@ -10,7 +10,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             expr="//header//ul[@id='top_menu']/li[hasclass('dropdown')]"
             position="before"
         >
-            <li class="nav-item" t-if="request.env.user.webshop_url">
+            <li class="nav-item">
                 <a
                     id="website-shopbutton"
                     class="nav-link website-shopbutton"
