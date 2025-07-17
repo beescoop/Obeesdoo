@@ -22,9 +22,15 @@ class ResPartner(models.Model):
         "worker_store",
     )
     def _compute_is_worker(self):
-        super()._compute_is_worker()
+        """
+        Set worker_store to True if the partner can participate to the shift system.
+        This is either defined on the share type or if the worker status has been
+        forced.
+        """
+        res = super()._compute_is_worker()
         for partner in self:
             partner.is_worker = partner.is_worker or partner.worker_store
+        return res
 
     def _search_worker(self, operator, value):
         domain = super()._search_worker(operator, value)
