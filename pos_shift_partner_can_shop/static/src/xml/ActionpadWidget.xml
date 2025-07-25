@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-     Copyright 2020 Coop IT Easy
-     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+SPDX-FileCopyrightText: 2020 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
 -->
-<templates id="template">
-    <t t-extend="ActionpadWidget">
-        <t t-jquery="t[t-esc='widget.pos.get_client().name']" t-operation="after">
-            <t t-if="widget.pos.get_client().can_shop">
+<templates id="template" xml:space="preserve">
+
+    <t
+        t-name="ActionpadWidgetCanShop"
+        t-inherit="point_of_sale.ActionpadWidget"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//t[@t-esc='props.partner.name']" position="after">
+            <t t-if="props.partner.can_shop">
                 <div
                     name="can-shop-status"
                     class="coop_status can_shop"
@@ -18,6 +25,7 @@
                     class="coop_status cannot_shop"
                 >(Cannot shop)</div>
             </t>
-        </t>
+        </xpath>
     </t>
+
 </templates>

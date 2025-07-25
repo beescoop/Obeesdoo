@@ -1,2 +1,4 @@
-* Coop IT Easy SC
-* Robin Keunen <robin@coopiteasy.be>
+* `Coop IT Easy SC <https://coopiteasy.be>`_:
+
+  * Robin Keunen
+  * Rémy Taymans
