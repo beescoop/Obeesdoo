@@ -4,21 +4,25 @@
 {
     "name": "Beesdoo Print Label",
     "summary": """Product labels""",
-    "version": "12.0.2.0.0",
+    "version": "16.0.1.0.0",
     "license": "AGPL-3",
     "category": "Sales",
     "author": "Coop IT Easy SC, Polln group",
     "website": "https://github.com/beescoop/Obeesdoo",
     "depends": [
-        "beesdoo_product",
-        "product_print_category",
+        "beesdoo_product_label",
         "product_brand",
+        "product_main_supplier",
+        "product_print_category",
+        "sale_product_deposit",
     ],
     "data": [
         "views/report_pricetag_normal.xml",
         "data/product_print_category.xml",
     ],
-    "installable": True,
-    "application": False,
-    "auto_install": False,
+    "assets": {
+        "web.report_assets_common": [
+            "/beesdoo_print_label/static/css/pricetag_60x38mm.scss",
+        ],
+    },
 }

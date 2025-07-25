@@ -1,33 +1,37 @@
 @mixin font-size-big {
-    font-size: 0.7cm;
-    line-height: 0.8cm;
+    font-size: 0.55cm;
+    line-height: 0.6cm;
 }
-$line-height-big: 0.8cm;
+$line-height-big: 0.6cm;
 
 @mixin font-size-medium {
-    font-size: 0.6cm;
-    line-height: 0.7cm;
+    font-size: 0.5cm;
+    line-height: 0.55cm;
 }
-$line-height-medium: 0.7cm;
+$line-height-medium: 0.55cm;
 
 @mixin font-size-small {
-    font-size: 0.3cm;
-    line-height: 0.4cm;
+    font-size: 0.25cm;
+    line-height: 0.3cm;
 }
-$line-height-small: 0.4cm;
+$line-height-small: 0.3cm;
 
 .container-pricetag-60x38 {
     // When using inline-block element, space between them takes place.
     // To avoid these spaces, font-size is set to 0.
+    // BUG: In 16.0 wkhtmltopdf doesn't seem to take it into acccount anymore
     font-size: 0px;
 
     .pricetag {
-        width: 7.1cm; // ~ 6cm on pdf
-        height: 4.5cm; // ~ 3.8cm on pdf
+        width: 5.6cm; // ~ 6cm on pdf
+        height: 3.5cm; // ~ 3.8cm on pdf
         padding: 0.15cm;
         border: 1px solid grey;
         background-color: white;
         display: inline-block;
+        // font-size: 0px; not working anymore in 16.0
+        // replaced by margin-right: -3px
+        margin-right: -3px;
 
         .product_name {
             @include font-size-medium;
@@ -46,11 +50,11 @@ $line-height-small: 0.4cm;
 
         .product_labels {
             font-size: 0;
-            height: 0.7cm; // 1 * height img + 2 * margin
+            height: 0.6cm; // 1 * height img + 2 * margin
             overflow: hidden;
 
             img.product_label {
-                height: 0.6cm;
+                height: 0.5cm;
                 margin: 0.05cm;
                 margin-right: 0.1cm;
                 margin-left: 0.1cm;
@@ -67,11 +71,11 @@ $line-height-small: 0.4cm;
             @include font-size-small;
             font-weight: bold;
             width: 40%;
-            height: 0.7cm; // height img + 2 * margin
+            height: 0.6cm; // height img + 2 * margin
 
             img {
-                width: 0.6cm;
-                height: 0.6cm;
+                width: 0.5cm;
+                height: 0.5cm;
                 margin: 0.05cm;
             }
         }
@@ -84,6 +88,11 @@ $line-height-small: 0.4cm;
             height: $line-height-big;
             text-align: right;
             overflow: hidden;
+
+            // fix: price from widget missaligned
+            span.oe_currency_value {
+                @include font-size-big;
+            }
         }
 
         .uom_info {
@@ -100,6 +109,11 @@ $line-height-small: 0.4cm;
                 @include font-size-small;
                 font-weight: bold;
                 margin-left: 0.1cm;
+
+                // fix: price from widget missaligned
+                span.oe_currency_value {
+                    @include font-size-small;
+                }
             }
         }
     }
