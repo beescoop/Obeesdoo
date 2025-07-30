@@ -1,0 +1,2 @@
+git+https://github.com/coopiteasy/cie-stock@16.0#subdirectory=setup/purchase_stock_coverage
+git+https://github.com/coopiteasy/cie-stock@16.0#subdirectory=setup/product_stock_coverage

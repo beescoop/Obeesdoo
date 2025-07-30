@@ -1,0 +1,1 @@
+Adapt the product views.
