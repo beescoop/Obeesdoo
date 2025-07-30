@@ -33,6 +33,7 @@ addon | version | maintainers | summary
 [product_expiration](product_expiration/) | 16.0.1.0.0 |  | Add Number of Days Before Product Expiration.
 [product_main_supplier](product_main_supplier/) | 16.0.1.0.0 |  | Add a main supplier
 [purchase_order_responsible](purchase_order_responsible/) | 16.0.1.0.0 | [![victor-champonnois](https://github.com/victor-champonnois.png?size=30px)](https://github.com/victor-champonnois) | Adds a 'Responsible' field to purchase orders
+[sale_product_deposit](sale_product_deposit/) | 16.0.1.0.0 |  | Calculates total price with VAT and deposit price.
 [shift](shift/) | 16.0.1.1.1 |  | Generate and manage shifts for cooperators.
 [shift_attendance](shift_attendance/) | 16.0.1.0.0 |  | Volunteer Timetable Management
 [shift_beneficiary](shift_beneficiary/) | 16.0.1.1.0 | [![victor-champonnois](https://github.com/victor-champonnois.png?size=30px)](https://github.com/victor-champonnois) | Add a 'beneficiary' field on shifts
