@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="qweb_template_pricetag_normal">
+        <t t-call="web.basic_layout">
+            <div class="container-pricetag-60x38">
+            <t t-foreach="category_data['lines']" t-as="line">
+                <t t-foreach="line.quantity" t-as="q">
+                    <t
+                            t-set="product_tmpl_id"
+                            t-value="line.product_id.product_tmpl_id"
+                        />
+                    <div class="pricetag">
+                        <div class="product_name">
+                            <t t-out="product_tmpl_id.name" />
+                        </div>
+                        <div class="product_informations">
+                            <t t-if="product_tmpl_id.product_brand_id">
+                                <t t-out="product_tmpl_id.product_brand_id.name" />
+                            </t>
+                            <t t-elif="product_tmpl_id.main_seller_id.name">
+                                <t t-out="product_tmpl_id.main_seller_id.name" />
+                            </t>
+                        </div>
+                        <div class="product_labels">
+                            <t
+                                    t-foreach="[product_tmpl_id.eco_label, product_tmpl_id.local_label,
+                                product_tmpl_id.fair_label, product_tmpl_id.origin_label]"
+                                    t-as="label"
+                                >
+                                <t t-if="label">
+                                    <t t-if="label.logo">
+                                        <img
+                                                class="product_label"
+                                                t-attf-src="data:image/*;base64,{{label.logo}}"
+                                                t-att-alt="label.name"
+                                            />
+                                    </t>
+                                    <t t-else="">
+                                        <span class="product_label text-nowrap">* <t
+                                                    t-out="label.name"
+                                                /></span>
+                                    </t>
+                               </t>
+                            </t>
+                        </div>
+                        <div class="deposit">
+                            <t t-if="product_tmpl_id.total_deposit">
+                                <img
+                                        src="/beesdoo_print_label/static/img/deposit.gif"
+                                    />
+                                <t
+                                        t-out="product_tmpl_id.total_deposit"
+                                        t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"
+                                    />
+                            </t>
+                        </div>
+                        <div class="product_price">
+                            <t
+                                    t-out="product_tmpl_id.total_with_vat"
+                                    t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"
+                                />
+                        </div>
+                        <div class="uom_info">
+                            <!-- Weight (Kg) or Volume (L) pf the product -->
+                            <div class="product_price_per_uom_qty">
+                                <t t-if="product_tmpl_id.volume">
+                                    <t t-out="product_tmpl_id.volume" /> <t
+                                            t-out="product_tmpl_id.display_unit.name"
+                                        />
+                                </t>
+
+                                <t t-elif="product_tmpl_id.display_weight">
+                                    <t t-out="product_tmpl_id.display_weight" /> <t
+                                            t-out="product_tmpl_id.display_unit.name"
+                                        />
+                                </t>
+                            </div>
+                            <!-- Price per Kg or L -->
+                            <div
+                                    class="product_price_per_uom_price"
+                                    t-if="product_tmpl_id.total_with_vat_by_unit"
+                                >
+                                <t
+                                        t-out="product_tmpl_id.total_with_vat_by_unit"
+                                        t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"
+                                    /> / <t
+                                        t-out="product_tmpl_id.default_reference_unit.name"
+                                    />
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+            </div>
+        </t>
+    </template>
+
+</odoo>
