@@ -55,6 +55,7 @@ class ProductTemplate(models.Model):
 
             if len(taxes_included) == 0:
                 product.total_with_vat = product.list_price
+                product.total_with_vat_by_unit = False
                 return True
 
             elif len(taxes_included) > 1:
