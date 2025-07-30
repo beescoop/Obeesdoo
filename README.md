@@ -32,6 +32,7 @@ addon | version | maintainers | summary
 [pos_shift_partner_can_shop](pos_shift_partner_can_shop/) | 16.0.1.0.0 | [![remytms](https://github.com/remytms.png?size=30px)](https://github.com/remytms) | Display in the POS whether the partner can shop or not.
 [product_cost_from_supplier_price](product_cost_from_supplier_price/) | 16.0.1.0.0 |  | Compute the product cost from the main supplier's price
 [product_expiration](product_expiration/) | 16.0.1.0.0 |  | Add Number of Days Before Product Expiration.
+[product_label_print_request](product_label_print_request/) | 16.0.1.0.0 | [![victor-champonnois](https://github.com/victor-champonnois.png?size=30px)](https://github.com/victor-champonnois) | Facilitation for label printing
 [product_main_supplier](product_main_supplier/) | 16.0.1.0.0 |  | Add a main supplier
 [purchase_order_responsible](purchase_order_responsible/) | 16.0.1.0.0 | [![victor-champonnois](https://github.com/victor-champonnois.png?size=30px)](https://github.com/victor-champonnois) | Adds a 'Responsible' field to purchase orders
 [sale_product_deposit](sale_product_deposit/) | 16.0.1.0.0 |  | Calculates total price with VAT and deposit price.
