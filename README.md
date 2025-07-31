@@ -26,6 +26,7 @@ addon | version | maintainers | summary
 [beesdoo_product_usability](beesdoo_product_usability/) | 16.0.1.0.0 |  | Simplification of product views
 [cooperator_eater](cooperator_eater/) | 16.0.1.0.0 |  | Eater configuration based on Share product
 [cooperator_worker](cooperator_worker/) | 16.0.1.0.0 |  | Working and shopping configuration based on Share product
+[cooperator_worker_force](cooperator_worker_force/) | 16.0.1.0.0 |  | Allows to set a cooperator as a worker before the share is released.
 [eater](eater/) | 16.0.1.0.0 |  | Add eaters to the workers of your structure.
 [member_card](member_card/) | 16.0.1.0.0 |  | Create a member card and link it to a partner.
 [portal_eater](portal_eater/) | 16.0.1.0.0 |  | Show the eaters of a cooperator in the website portal.
