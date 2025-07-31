@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+SPDX-FileCopyrightText: 2024 Coop IT Easy SC
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<templates id="template" xml:space="preserve">
+
+    <t
+        t-name="ActionpadWidget"
+        t-inherit="point_of_sale.ActionpadWidget"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//t[@t-esc='props.partner.name']" position="after">
+            <t t-if="props.partner.child_eater_ids">
+                <span class="eaters">
+                    <t t-esc="eaterNames" />
+                </span>
+            </t>
+        </xpath>
+    </t>
+
+</templates>
