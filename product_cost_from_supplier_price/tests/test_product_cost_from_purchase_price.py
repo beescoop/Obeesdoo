@@ -2,6 +2,7 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+from odoo import Command
 from odoo.tests.common import TransactionCase
 
 
@@ -183,3 +184,94 @@ class ProductCostFromPurchasePriceCase(TransactionCase):
         self.assertEqual(product.standard_price, 42)
         product.uom_id = self.env.ref("uom.product_uom_dozen")
         self.assertEqual(product.standard_price, 42 * 12)
+
+    def test_compute_product_cost_with_supplier_taxes(self):
+        # this has include_base_amount set to False, so it will not affect the
+        # computation of the next taxes.
+        tax_10_included = self.env["account.tax"].create(
+            {
+                "name": "10% included",
+                "amount_type": "percent",
+                "amount": 10,
+                "price_include": True,
+                "include_base_amount": False,
+                "sequence": 1,
+            }
+        )
+        # this has include_base_amount set to True, so it will affect the
+        # computation of the next taxes.
+        tax_20_included = self.env["account.tax"].create(
+            {
+                "name": "20% included",
+                "amount_type": "percent",
+                "amount": 20,
+                "price_include": True,
+                "include_base_amount": True,
+                "sequence": 2,
+            }
+        )
+        # this is not included in the price, so it should be ignored.
+        tax_30_excluded = self.env["account.tax"].create(
+            {
+                "name": "30% excluded",
+                "amount_type": "percent",
+                "amount": 30,
+                "price_include": False,
+                "sequence": 3,
+            }
+        )
+        # this has include_base_amount set to True, so it will not affect the
+        # computation of the next taxes.
+        tax_40_included = self.env["account.tax"].create(
+            {
+                "name": "40% included",
+                "amount_type": "percent",
+                "amount": 40,
+                "price_include": True,
+                "include_base_amount": False,
+                "sequence": 4,
+            }
+        )
+        # this has include_base_amount set to False, so it will affect the
+        # computation of the next taxes.
+        tax_50_included = self.env["account.tax"].create(
+            {
+                "name": "50% included",
+                "amount_type": "percent",
+                "amount": 50,
+                "price_include": True,
+                "include_base_amount": True,
+                "sequence": 5,
+            }
+        )
+        # this has include_base_amount set to True, so it will affect the
+        # computation of the next taxes, but because it is the last one, this
+        # has no effect.
+        tax_60_included = self.env["account.tax"].create(
+            {
+                "name": "60% included",
+                "amount_type": "percent",
+                "amount": 60,
+                "price_include": True,
+                "include_base_amount": True,
+                "sequence": 6,
+            }
+        )
+        product = self.env.ref("product.product_product_16")
+        supplierinfo = self.env.ref("product.product_supplierinfo_10")
+        product.categ_id.property_cost_method = "standard_from_main_supplier_price"
+        # 100 * (0.1 + (1 + 0.2) * (0.4 + (1 + 0.5) * (1 + 0.6))) == 346
+        supplierinfo.price = 346
+        product.supplier_taxes_id = [
+            Command.set(
+                [
+                    tax_10_included.id,
+                    tax_20_included.id,
+                    tax_30_excluded.id,
+                    tax_40_included.id,
+                    tax_50_included.id,
+                    tax_60_included.id,
+                ]
+            )
+        ]
+        self.assertEqual(product.standard_price, 100)
