@@ -7,10 +7,6 @@ from odoo.tests.common import TransactionCase
 
 
 class ProductCostFromPurchasePriceCase(TransactionCase):
-    @classmethod
-    def setupClass(cls):
-        pass
-
     def test_compute_product_cost_one_supplier(self):
         product = self.env.ref("product.product_product_10")
         self.assertEqual(product.standard_price, 120.5)
@@ -136,6 +132,87 @@ class ProductCostFromPurchasePriceCase(TransactionCase):
         # the cost must be updated
         self.assertEqual(product.standard_price, 42)
 
+    def test_compute_product_cost_add_new_main_supplier(self):
+        product = self.env.ref("product.product_product_10")
+        product.categ_id.property_cost_method = "standard_from_main_supplier_price"
+        self.assertEqual(product.standard_price, 120.5)
+        supplierinfo = self.env.ref("product.product_supplierinfo_7")
+        supplierinfo.date_start = "2025-05-14"
+        product.seller_ids = [
+            Command.create(
+                {
+                    "partner_id": self.env.ref("base.res_partner_1").id,
+                    "price": 42,
+                    "date_start": "2025-05-16",
+                }
+            )
+        ]
+        # the cost must be updated to the price of the new main supplier
+        self.assertEqual(product.standard_price, 42)
+
+    def test_compute_product_cost_add_new_non_main_supplier(self):
+        product = self.env.ref("product.product_product_10")
+        product.categ_id.property_cost_method = "standard_from_main_supplier_price"
+        self.assertEqual(product.standard_price, 120.5)
+        supplierinfo = self.env.ref("product.product_supplierinfo_7")
+        supplierinfo.price = 42
+        self.assertEqual(product.standard_price, 42)
+        product.seller_ids = [
+            Command.create(
+                {
+                    "partner_id": self.env.ref("base.res_partner_1").id,
+                    "price": 5,
+                }
+            )
+        ]
+        # the cost must not have changed
+        self.assertEqual(product.standard_price, 42)
+
+    def test_compute_product_cost_remove_main_supplier(self):
+        product = self.env.ref("product.product_product_7")
+        self.assertEqual(product.standard_price, 14)
+        product.categ_id.property_cost_method = "standard_from_main_supplier_price"
+        self.assertEqual(product.standard_price, 13)
+        main_supplier = product.main_supplierinfo_id
+        supplierinfo_4 = self.env.ref("product.product_supplierinfo_4")
+        self.assertIn(supplierinfo_4.id, product.seller_ids.ids)
+        self.assertNotEqual(supplierinfo_4, main_supplier)
+        supplierinfo_4.price = 42
+        # the cost must not have changed
+        self.assertEqual(product.standard_price, 13)
+        # remove main supplier
+        product.seller_ids = [Command.delete(main_supplier.id)]
+        # the other supplier should become the main supplier
+        self.assertEqual(product.main_supplierinfo_id, supplierinfo_4)
+        # the cost must be updated
+        self.assertEqual(product.standard_price, 42)
+
+    def test_compute_product_cost_remove_non_main_supplier(self):
+        product = self.env.ref("product.product_product_7")
+        self.assertEqual(product.standard_price, 14)
+        product.categ_id.property_cost_method = "standard_from_main_supplier_price"
+        self.assertEqual(product.standard_price, 13)
+        # reset the price to its original value
+        product.standard_price = 14
+        main_supplier = product.main_supplierinfo_id
+        supplierinfo_4 = self.env.ref("product.product_supplierinfo_4")
+        self.assertIn(supplierinfo_4.id, product.seller_ids.ids)
+        self.assertNotEqual(supplierinfo_4, main_supplier)
+        supplierinfo_4.price = 42
+        # remove the non-main supplier
+        product.seller_ids = [Command.delete(supplierinfo_4.id)]
+        # the cost must not have changed
+        self.assertEqual(product.standard_price, 14)
+
+    def test_compute_product_cost_remove_all_suppliers(self):
+        product = self.env.ref("product.product_product_10")
+        product.categ_id.property_cost_method = "standard_from_main_supplier_price"
+        supplierinfo = self.env.ref("product.product_supplierinfo_7")
+        supplierinfo.price = 42
+        product.seller_ids = [Command.clear()]
+        # the cost must not have changed
+        self.assertEqual(product.standard_price, 42)
+
     def test_compute_product_cost_multiple_variants(self):
         product = self.env.ref("product.product_product_11")
         self.assertEqual(product.standard_price, 0)
@@ -184,6 +261,38 @@ class ProductCostFromPurchasePriceCase(TransactionCase):
         self.assertEqual(product.standard_price, 42)
         product.uom_id = self.env.ref("uom.product_uom_dozen")
         self.assertEqual(product.standard_price, 42 * 12)
+
+    def test_compute_product_cost_on_product_creation(self):
+        category = self.env.ref("product.product_category_5")
+        category.property_cost_method = "standard_from_main_supplier_price"
+        product = self.env["product.template"].create(
+            {
+                "name": "test product",
+                "categ_id": category.id,
+                "standard_price": 5,
+                "seller_ids": [
+                    Command.create(
+                        {
+                            "partner_id": self.env.ref("base.res_partner_1").id,
+                            "price": 42,
+                        }
+                    )
+                ],
+            }
+        )
+        self.assertEqual(product.standard_price, 42)
+
+    def test_compute_product_cost_on_product_creation_only_if_supplier(self):
+        category = self.env.ref("product.product_category_5")
+        category.property_cost_method = "standard_from_main_supplier_price"
+        product = self.env["product.template"].create(
+            {
+                "name": "test product",
+                "categ_id": category.id,
+                "standard_price": 42,
+            }
+        )
+        self.assertEqual(product.standard_price, 42)
 
     def test_compute_product_cost_with_supplier_taxes(self):
         # this has include_base_amount set to False, so it will not affect the

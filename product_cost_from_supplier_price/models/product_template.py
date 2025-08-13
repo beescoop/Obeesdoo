@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-from odoo import models
+from odoo import api, models
 
 
 class ProductTemplate(models.Model):
@@ -30,6 +30,7 @@ class ProductTemplate(models.Model):
             if (
                 rec.categ_id.property_cost_method != "standard_from_main_supplier_price"
                 or rec.product_variant_count != 1
+                or not rec.main_supplierinfo_id
             ):
                 continue
             supplier_taxes_factor = rec._compute_supplier_taxes_factor()
@@ -37,6 +38,13 @@ class ProductTemplate(models.Model):
             rec.product_variant_id.standard_price = (
                 rec.main_supplierinfo_id.price * uom_factor * supplier_taxes_factor
             )
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        # same remark as in product.supplierinfo.write()
+        recs = super().create(vals_list)
+        recs._compute_cost_from_main_supplier_price()
+        return recs
 
     def write(self, vals):
         # same remark as in product.supplierinfo.write()
