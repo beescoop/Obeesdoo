@@ -100,12 +100,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                     />
                                     <field
                                         name="start_date"
-                                        widget="daterange"
+                                        widget="date"
                                         options="{'related_end_date': 'end_date'}"
                                     />
                                     <field
                                         name="end_date"
-                                        widget="daterange"
+                                        widget="date"
                                         options="{'related_start_date': 'start_date'}"
                                     />
                                 </tree>

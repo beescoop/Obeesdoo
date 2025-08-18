@@ -14,7 +14,9 @@ class VolunteerShift(models.Model):
 
     # General fields
 
-    remaining_slots = fields.Integer(compute="_compute_remaining_slots", tracking=True)
+    remaining_slots = fields.Integer(
+        compute="_compute_remaining_slots", store=True, tracking=True
+    )
 
     # Stage fields
 
@@ -53,7 +55,9 @@ class VolunteerShift(models.Model):
 
     # Compute methods
 
-    @api.depends("volunteer_participation_ids")
+    @api.depends(
+        "volunteer_participation_ids", "volunteer_participation_ids.registration_state"
+    )
     def _compute_remaining_slots(self):
         for shift in self:
             nb_confirmed_participation = shift.get_booking_status()[
