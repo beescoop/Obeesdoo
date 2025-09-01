@@ -9,7 +9,7 @@ from odoo.tools.translate import _
 
 class VolunteerShiftParticipation(models.Model):
     _name = "volunteer.shift.participation"
-    _description = "Shift participation"
+    _description = "Shift Participation"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
     # State fields

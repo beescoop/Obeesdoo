@@ -1,13 +1,13 @@
 # SPDX-FileCopyrightText: 2025 Coop IT Easy SC
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
+
 from datetime import date, timedelta
 
 from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models
 from odoo.exceptions import AccessError, ValidationError
-from odoo.fields import Date
 from odoo.tools.translate import _
 
 
@@ -35,6 +35,7 @@ class VolunteerShiftRecurrentGenerator(models.Model):
 
     # Period fields
 
+    nb_occurrence = fields.Integer(default=10)
     until_date = fields.Date(required=False, tracking=True)
     interval_type = fields.Selection(
         selection=[
@@ -78,16 +79,27 @@ class VolunteerShiftRecurrentGenerator(models.Model):
     ]
 
     # Constraints
+    @api.constrains("until_date")
+    def _check_sub_date_range_in_generator_future_period(self):
+        for sub in self.volunteer_subscription_ids:
+            try:
+                sub.check_date_range_in_generator_period(self)
+            except ValidationError as e:
+                # If check doesn't pass, return a more specialized error message
+                # concerning until_date modification
+                raise ValidationError(
+                    _(
+                        f"Cannot modify the generator's end date: this change would exclude "
+                        f"at least one existing subscription from the valid period."
+                        f"{sub.get_conflicting_sub_detail_message()}"
+                    )
+                ) from e
+
     @api.constrains("max_volunteer_nb", "volunteer_subscription_ids")
     def _check_max_volunteer_nb_lower_than_nb_subscriptions(self):
         """Check that the number of subscriptions for period
         does not exceed the maximum number of subscriptions allowed for the generator."""
         for generator in self:
-            # Max volunteer number can only be modified when generator is in draft status,
-            # no verification on generated shifts and no guarantee for eventual modifications
-            # on confirmed generators
-            # Note : This limitation is not yet implemented - currently allows modification
-            # in any state
             if generator.state == "draft":
                 # Build a simulated full period that covers the complete generator period
                 # to pass to the check method and launch the global verification
@@ -104,14 +116,16 @@ class VolunteerShiftRecurrentGenerator(models.Model):
                         [full_period_vals],
                         sub_to_exclude=full_period_vals,
                     )
-                except ValidationError:
+                except ValidationError as e:
                     # If check doesn't pass, return a more specialized error message
                     # concerning the max modification
                     raise ValidationError(
-                        f"The maximum number of volunteers ({generator.max_volunteer_nb}) "
-                        f"cannot be lower than the number "
-                        f"of subscribed volunteers during the same period."
-                    ) from None
+                        _(
+                            f"The maximum number of volunteers ({generator.max_volunteer_nb}) "
+                            f"cannot be lower than the number "
+                            f"of subscribed volunteers during the same period."
+                        )
+                    ) from e
 
     @api.constrains("volunteer_subscription_ids")
     def _check_unique_volunteer_subscription(self):
@@ -125,7 +139,6 @@ class VolunteerShiftRecurrentGenerator(models.Model):
                 active_subscriptions = generator._get_active_subscriptions_for_period(
                     requested_start_date, requested_end_date
                 )
-                # List ids of volunteers with subscription in the active_subscriptions
                 active_volunteer_ids = [
                     subscription.volunteer_id.id
                     for subscription in active_subscriptions
@@ -136,13 +149,28 @@ class VolunteerShiftRecurrentGenerator(models.Model):
                 if len(active_volunteer_ids) != len(set(active_volunteer_ids)):
                     raise ValidationError(
                         _(
-                            f"A volunteer can only be registered once for the same period."
-                            f"\n{subscription.volunteer_id.name} is already registered "
-                            f"from {requested_start_date} to {requested_end_date}."
+                            "A volunteer can only be registered once for the same period."
                         )
                     )
 
     # Override methods
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            # Ensure that until_date is not before start_time
+            if vals.get("until_date"):
+                until_date = fields.Date.to_date(vals["until_date"])
+                start_time = fields.Datetime.to_datetime(vals["start_time"])
+                if until_date < start_time.date():
+                    raise ValidationError(
+                        _(
+                            "The generator end date cannot be earlier "
+                            "than the period start date."
+                        )
+                    )
+
+        return super().create(vals_list)
+
     def write(self, vals):
         # Restrict state change to admins only
         if (
@@ -151,20 +179,49 @@ class VolunteerShiftRecurrentGenerator(models.Model):
             and not self.env.user.has_group("volunteer.volunteer_group_admin")
         ):
             raise AccessError(_("Only admins can change the state of a generator"))
+        for generator in self:
+            # Prevent modification of fields when the generator is not in draft state
+            # except when canceling the generator without other changes
+            if (
+                generator.state != "draft"
+                and not (vals.get("state") == "canceled" and len(vals) == 1)
+                and not vals.get("volunteer_subscription_ids")
+            ):
+                raise ValidationError(
+                    _("Only generators in draft can be modified.")
+                    + self._get_message_procedure_to_modify_generator_fields()
+                )
+            new_until_date = (
+                fields.Date.to_date(vals.get("until_date")) or generator.until_date
+            )
+            new_start_time = (
+                fields.Datetime.to_datetime(vals.get("start_time"))
+                or generator.start_time
+            )
+            # Ensure that until_date is not before start_time
+            if new_until_date and new_until_date < new_start_time.date():
+                raise ValidationError(
+                    _("The generator end date cannot be earlier than the start date.")
+                )
         old_states = {generator.id: generator.state for generator in self}
         res = super().write(vals)
         for generator in self:
             today = date.today()
             previous_state = old_states[generator.id]
+            # Unauthorize return to state draft
+            if previous_state != "draft" and generator.state == "draft":
+                raise ValidationError(_("Returning to draft state is not allowed."))
+            # Unauthorize return from canceled state
+            if previous_state == "canceled" and generator.state != "canceled":
+                raise ValidationError(
+                    _("It is not possible to change the state of a canceled generator.")
+                )
             # If the generator is confirmed, generate shifts and participation
             if previous_state == "draft" and generator.state == "confirmed":
                 generator._generate_shifts()
                 generator._generate_participation()
             # Else, if the generator is canceled, apply the required changes
             elif previous_state != "canceled" and generator.state == "canceled":
-                super(VolunteerShiftRecurrentGenerator, generator).write(
-                    {"until_date": today}
-                )
                 # Change end_date of future subscriptions by getting the active_subscription
                 # for the period from today to generator until_date aka future_subscriptions
                 future_subscriptions = generator._get_active_subscriptions_for_period(
@@ -185,27 +242,21 @@ class VolunteerShiftRecurrentGenerator(models.Model):
                             ).id
                         }
                     )
+                # Set until_date to today after other operations
+                # using super to avoid recursion and bypass checks
+                super(VolunteerShiftRecurrentGenerator, generator).write(
+                    {"until_date": today}
+                )
         return res
 
     # Methods
-    def _get_interval_delta(self):
-        """Get the interval delta for the generator"""
-        self.ensure_one()
-        if self.interval_type == "days":
-            return timedelta(days=self.interval)
-        elif self.interval_type == "weeks":
-            return timedelta(weeks=self.interval)
-        elif self.interval_type == "months":
-            return relativedelta(months=self.interval)
-        elif self.interval_type == "years":
-            return relativedelta(years=self.interval)
-        else:
-            raise ValidationError(_("The interval type is not valid."))
 
     def determine_furthest_end_date(self):
         """Determine the furthest end date to use when
         end_date or until_date are not provided."""
         self.ensure_one()
+        if self.until_date:
+            return self.until_date
         furthest_end_date = self.start_time.date()
         if self.volunteer_subscription_ids:
             # Find the furthest end_date among existing subscriptions
@@ -214,7 +265,6 @@ class VolunteerShiftRecurrentGenerator(models.Model):
                     furthest_end_date = sub.end_date
         # Find the furthest end_date among existing participation
         if self.volunteer_shift_ids:
-            # Search all participation on generated shifts
             all_confirmed_participation = self.env[
                 "volunteer.shift.participation"
             ].search(
@@ -270,7 +320,7 @@ class VolunteerShiftRecurrentGenerator(models.Model):
                                 f"It is not possible to subscribe"
                                 f" volunteers in this generator, "
                                 f"for the period {requested_start_date}"
-                                f"to {requested_end_date}."
+                                f" to {requested_end_date}."
                                 f" The maximum capacity is "
                                 f"{self.max_volunteer_nb}."
                             )
@@ -287,12 +337,12 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         to avoid counting twice"""
         self.ensure_one()
         requested_end_date = (
-            Date.to_date(requested_sub.get("end_date"))
+            fields.Date.to_date(requested_sub.get("end_date"))
             or self.determine_furthest_end_date()
         )
         # start_date comes from vals during create so it's a string
         # and has to be converted
-        date_to_check = Date.to_date(requested_sub.get("start_date"))
+        date_to_check = fields.Date.to_date(requested_sub.get("start_date"))
         while date_to_check <= requested_end_date:
             count = self._count_nb_new_sub_given_day(
                 target_date=date_to_check,
@@ -332,8 +382,8 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         for new_sub in filtered_sub_list:
             # new_sub_start_date in requested_sub_list comes from vals_list
             # during create so it's a string and has to be converted
-            new_sub_start_date = Date.to_date(new_sub.get("start_date"))
-            new_sub_end_date = Date.to_date(new_sub.get("end_date"))
+            new_sub_start_date = fields.Date.to_date(new_sub.get("start_date"))
+            new_sub_end_date = fields.Date.to_date(new_sub.get("end_date"))
             if not new_sub_end_date:
                 new_sub_end_date = self.determine_furthest_end_date()
             # If excluded_sub is provided, skip the check for those values
@@ -393,17 +443,70 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         )
         return active_subscriptions
 
+    def _get_interval_delta(self):
+        """Get the interval delta for the generator"""
+        self.ensure_one()
+        if self.interval_type == "days":
+            return timedelta(days=self.interval)
+        elif self.interval_type == "weeks":
+            return timedelta(weeks=self.interval)
+        elif self.interval_type == "months":
+            return relativedelta(months=self.interval)
+        elif self.interval_type == "years":
+            return relativedelta(years=self.interval)
+        else:
+            raise ValidationError(_("The interval type is not valid."))
+
+    def _get_message_procedure_to_modify_generator_fields(self):
+        """Get the message explaining the procedure to modify restricted fields
+        or indicate to contact the administrator"""
+        if not self.env.user.has_group("volunteer.volunteer_group_admin"):
+            custom_message = (
+                "\nContact your administrator to make this change by "
+                "applying the requested procedure."
+            )
+        else:
+            custom_message = (
+                "\nTo modify generator:\n"
+                "- Duplicate the generator and set the start time to today (or later)\n"
+                "- Apply the changes and re-add old subscriptions if needed\n"
+                "- Confirm the new generator, then cancel the original one.\n"
+            )
+        return custom_message
+
     def _generate_shifts(self):
         """Generate all shifts from the generator start date
         until the generator end date, using the specified interval."""
         self.ensure_one()
         stage_confirmed = self.env.ref("volunteer.volunteer_shift_stage_confirmed")
         delta = self._get_interval_delta()
-        generation_end_date = self.until_date or self.determine_furthest_end_date()
-        generation_start_date = self.start_time.date()
-        shift_generated_start_time = self.start_time
-        shift_generated_end_time = self.end_time
-        while generation_start_date <= generation_end_date:
+        today = date.today()
+        # Generate only future shifts
+        generation_start_date = (
+            today if self.start_time.date() < today else self.start_time.date()
+        )
+        # Determine generation end date
+        if self.until_date:
+            generation_end_date = self.until_date
+        else:
+            # If no until_date is provided, determine the end date
+            # based on the number of occurrences
+            generation_end_date = generation_start_date
+            for _i in range(self.nb_occurrence):
+                generation_end_date += delta
+        # Determine the start_time and end_time for the first generated shift
+        if self.start_time.date() < today:
+            day_diff = (today - self.start_time.date()).days
+            shift_generated_start_time = self.start_time + timedelta(days=day_diff)
+            shift_generated_end_time = self.end_time + timedelta(days=day_diff)
+        else:
+            shift_generated_start_time = self.start_time
+            shift_generated_end_time = self.end_time
+        # Generate shifts until reaching the end date or the number of occurrences
+        while (
+            len(self.volunteer_shift_ids) < self.nb_occurrence
+            and generation_start_date <= generation_end_date
+        ):
             self.env["volunteer.shift"].create(
                 {
                     "name": self.name,

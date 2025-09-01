@@ -1,8 +1,12 @@
 # SPDX-FileCopyrightText: 2025 Coop IT Easy SC
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
+
+from datetime import date
+
 from odoo import api, fields, models
-from odoo.fields import Date
+from odoo.exceptions import ValidationError
+from odoo.tools.translate import _
 
 
 class VolunteerShiftRecurrentSubscription(models.Model):
@@ -13,7 +17,7 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         "mail.thread",
         "mail.activity.mixin",
     ]
-    start_date = fields.Date(required=True, tracking=True, default=Date.today())
+    start_date = fields.Date(required=True, tracking=True, default=fields.Date.today())
     end_date = fields.Date()
 
     # Relational fields
@@ -33,12 +37,39 @@ class VolunteerShiftRecurrentSubscription(models.Model):
 
     # Constraints
 
+    @api.constrains("start_date", "end_date")
+    def _check_date_range(self):
+        """Check that start_date of a subscription is in the past compared to today
+        and to end_date.
+        Equality is accepted to permit eventual cancellation of subscription by reduction
+        of end_date even if it is the same day."""
+        # Skip validation for subscriptions with canceled generators
+        subscriptions_to_check = self.filtered(
+            lambda subscription: subscription.generator_id.state != "canceled"
+        )
+        for sub in subscriptions_to_check:
+            if sub.start_date < date.today():
+                raise ValidationError(
+                    _(
+                        f"Start date of a subscription can't be in the past."
+                        f"{sub.get_conflicting_sub_detail_message()}"
+                    )
+                )
+            if sub.end_date and sub.start_date > sub.end_date:
+                raise ValidationError(
+                    _(
+                        f"Start date of a subscription need to be lower than the end date."
+                        f"{sub.get_conflicting_sub_detail_message()}"
+                    )
+                )
+            sub.check_date_range_in_generator_period()
+
     # Override methods
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            requested_start_date = Date.to_date(vals.get("start_date"))
-            requested_end_date = Date.to_date(vals.get("end_date"))
+            requested_start_date = fields.Date.to_date(vals.get("start_date"))
+            requested_end_date = fields.Date.to_date(vals.get("end_date"))
             gen_id = vals.get("generator_id")
             if gen_id:
                 generator = self.env["volunteer.shift.recurrent.generator"].browse(
@@ -70,48 +101,132 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         return subscriptions
 
     def write(self, vals):
+        # Limitation: when modifying multiple subscriptions simultaneously,
+        # the capacity validation counts both old values (still in DB)
+        # and new values (from the request), but excludes only one old value
+        # at a time via sub_to_exclude. This double-counting may cause
+        # valid modifications to be incorrectly rejected due to false
+        # capacity exceeded errors.
+
+        # Collect old and new values for each subscription in the recordset
+        all_requested_vals = []
+        all_old_vals = []
         for sub in self:
             generator = sub.generator_id
             # Old values to exclude to avoid counting twice since it's a write operation
             old_sub_vals = {
                 "start_date": sub.start_date,
-                "end_date": sub.end_date,
+                "end_date": sub.end_date or generator.determine_furthest_end_date(),
                 "generator_id": generator.id,
                 "volunteer_id": sub.volunteer_id.id,
             }
-            # New values with old ones required if unchanged
+            # Determine requested_end_date
+            if "end_date" in vals:
+                # If end_date is explicitly provided
+                if vals["end_date"]:
+                    requested_end_date = fields.Date.to_date(vals["end_date"])
+                # If explicitly set to False: use furthest end date
+                else:
+                    requested_end_date = generator.determine_furthest_end_date()
+            # If end_date not modified, keep existing value
+            # In case old value is False, determine furthest end date
+            else:
+                requested_end_date = (
+                    sub.end_date or generator.determine_furthest_end_date()
+                )
+            # New values, reusing existing ones if not modified
             requested_vals = {
-                "start_date": Date.to_date(vals.get("start_date")) or sub.start_date,
-                "end_date": Date.to_date(vals.get("end_date")) or sub.end_date,
+                "start_date": fields.Date.to_date(vals.get("start_date"))
+                or sub.start_date,
+                "end_date": requested_end_date,
                 "generator_id": generator.id,
                 "volunteer_id": sub.volunteer_id.id,
             }
+            all_requested_vals.append(requested_vals)
+            all_old_vals.append(old_sub_vals)
+        # Validate each subscription individually
+        # (limitation: doesn't handle multi-record conflicts)
+        for i, sub in enumerate(self):
+            generator = sub.generator_id
             generator.check_remaining_subscription_by_day(
-                requested_vals, [requested_vals], sub_to_exclude=old_sub_vals
+                all_requested_vals[i],
+                all_requested_vals,
+                sub_to_exclude=all_old_vals[i],  # Only excludes one old value, not all
             )
-            res = super().write(vals)
-            # Cancel eventual punctual participation registered on shifts covered by the new sub
+        res = super().write(vals)
+        # Cancel eventual punctual participation registered on shifts covered by the new sub
+        for i, sub in enumerate(self):
+            generator = sub.generator_id
             self._cancel_punctual_participation_for_requested_period(
                 generator.id,
                 sub.volunteer_id.id,
-                requested_vals.get("start_date"),
-                requested_vals.get("end_date"),
+                all_requested_vals[i].get("start_date"),
+                all_requested_vals[i].get("end_date"),
             )
             # After cancellation of punctual participation,
             # cancel or generate the ones concerned by the new sub
             sub._managing_cancel_or_create_participation(
-                old_sub_vals.get("start_date"), old_sub_vals.get("end_date")
+                all_old_vals[i].get("start_date"), all_old_vals[i].get("end_date")
             )
             # After the super().write(vals), remaining_slots of concerned shifts
             # are already updated so it's possible to check by generated shifts
             generator.check_remaining_slots_by_shift_generated(
-                requested_vals.get("start_date"),
-                requested_vals.get("end_date"),
+                all_requested_vals[i].get("start_date"),
+                all_requested_vals[i].get("end_date"),
                 volunteer_to_exclude=sub.volunteer_id.id,
             )
         return res
 
     # Methods
+
+    def get_conflicting_sub_detail_message(self):
+        """Return a formatted message with details of the subscription
+        to append to validation error messages."""
+        self.ensure_one()
+        readable_end_date = self.end_date or "No end date"
+        message = (
+            f"\n\nConflicting subscription :\n"
+            f"Volunteer: {self.volunteer_id.name}\n"
+            f"Start date: {self.start_date}\n"
+            f"End date: {readable_end_date}\n"
+        )
+        return message
+
+    def generate_participation(self):
+        """Generate participation for all shifts covered by the subscription in self"""
+        self.ensure_one()
+        generator = self.generator_id
+        if not self.end_date:
+            shifts = generator.volunteer_shift_ids.filtered(
+                lambda shift: shift.start_time.date() >= self.start_date
+            )
+        else:
+            shifts = generator.volunteer_shift_ids.filtered(
+                lambda shift: self.start_date <= shift.start_time.date()
+                and shift.end_time.date() <= self.end_date
+            )
+        self._generate_participation_by_shifts(shifts)
+
+    def check_date_range_in_generator_period(self, generator=None):
+        """Check that the subscription period is included in the generator period."""
+        generator = generator or self.generator_id
+        generator_start_date = generator.start_time.date()
+        if not generator.until_date:
+            generator_until_date = generator.determine_furthest_end_date()
+            custom_period_message = ""
+        else:
+            generator_until_date = generator.until_date
+            custom_period_message = f"\nIt must end on or before {generator_until_date}"
+        end_date = self.end_date or generator.determine_furthest_end_date()
+        if self.start_date < generator_start_date or end_date > generator_until_date:
+            raise ValidationError(
+                _(
+                    f"The subscription must be included in the generator period:\n"
+                    f"Starting on or after {generator_start_date}"
+                    f"{custom_period_message}"
+                    f"{self.get_conflicting_sub_detail_message()}"
+                )
+            )
 
     def _get_shifts_intersection_between_two_periods(
         self, new_start_date, new_end_date, old_start_date, old_end_date
@@ -259,31 +374,3 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                     "registration_state": "confirmed",
                 }
             )
-
-    def generate_participation(self):
-        """Generate participation for all shifts covered by the subscription in self"""
-        self.ensure_one()
-        generator = self.generator_id
-        end_date = self.end_date
-        if not end_date:
-            end_date = generator.determine_furthest_end_date()
-        for shift in generator.volunteer_shift_ids:
-            if (
-                self.start_date <= shift.start_time.date()
-                and end_date >= shift.end_time.date()
-            ):
-                existing = self.env["volunteer.shift.participation"].search(
-                    [
-                        ("shift_id", "=", shift.id),
-                        ("volunteer_id", "=", self.volunteer_id.id),
-                    ]
-                )
-                if not existing:
-                    self.env["volunteer.shift.participation"].create(
-                        {
-                            "shift_id": shift.id,
-                            "volunteer_id": self.volunteer_id.id,
-                            "registration_type": "recurrent",
-                            "registration_state": "confirmed",
-                        }
-                    )
