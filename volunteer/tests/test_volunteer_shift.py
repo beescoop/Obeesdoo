@@ -107,6 +107,8 @@ class TestVolunteerShift(TestVolunteerCommon):
 
     def test_reduce_max_volunteer_equals_zero(self):
         """Test that it is not possible to reduce max_volunteer_nb to 0"""
+        # The "CheckViolation" log "volunteer_shift_max_volunteer_nb_is_positive"
+        # should be muted, but the test still passes.
         with self.assertRaises(CheckViolation):
             self.shift_utc_plus_2.write(
                 {

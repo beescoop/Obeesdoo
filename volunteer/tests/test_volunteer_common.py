@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-from datetime import date, datetime
+from datetime import datetime
 
 from odoo.tests import common, new_test_user
 
@@ -73,35 +73,6 @@ class TestVolunteerCommon(common.TransactionCase):
             }
         )
 
-        # Create recurrent generators
-        self.gen_each_day_max_3_vol = self.Generator.create(
-            {
-                "name": "GenEachDayMax3",
-                "state": "draft",
-                "until_date": date(2026, 1, 1),
-                "interval_type": "days",
-                "interval": 1,
-                "start_time": datetime(2024, 1, 1, 10, 5),
-                "end_time": datetime(2024, 1, 1, 12, 5),
-                "tz": "Europe/Brussels",
-                "max_volunteer_nb": 3,
-                "type_id": self.type1.id,
-            }
-        )
-        self.gen_each_day_max_2_vol = self.Generator.create(
-            {
-                "name": "GenEachDayMax2",
-                "state": "draft",
-                "until_date": date(2026, 12, 24),
-                "interval_type": "days",
-                "interval": 1,
-                "start_time": datetime(2024, 1, 1, 10, 5),
-                "end_time": datetime(2024, 1, 1, 12, 5),
-                "tz": "Europe/Brussels",
-                "max_volunteer_nb": 2,
-                "type_id": self.type1.id,
-            }
-        )
         # Create volunteers
         self.volunteer_confirmed = self.Volunteer.create(
             {

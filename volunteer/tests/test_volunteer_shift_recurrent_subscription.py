@@ -1,0 +1,683 @@
+# SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+import unittest
+from datetime import date, datetime
+
+from freezegun import freeze_time
+
+from odoo.exceptions import ValidationError
+
+from .test_volunteer_generator_subscription_common import (
+    TestVolunteerGeneratorSubscriptionCommon,
+)
+
+
+# Freeze time to past date to prevent errors when
+# testing subscriptions with past start dates
+@freeze_time("2025-01-01 10:00:00")
+class TestVolunteerShiftRecurrentSubscription(TestVolunteerGeneratorSubscriptionCommon):
+    def setUp(self):
+        super().setUp()
+
+    def test_subscription_exceed_max_3_with_overlaps_not_allowed(self):
+        """Test that creating a subscription that would exceed the max_volunteer_nb
+        for any day in the subscription period is not allowed."""
+        # There is already 3 subscriptions created in setUp() for 2025 january 1 to 5:
+        # 01/01 : 1 volunteer
+        # 01/02 : 2 volunteers
+        # 01/03 : 3 volunteers
+        # 01/04 : 2 volunteers
+        # 01/05 : 1 volunteer
+        self.gen_each_day_max_3_vol.with_user(self.user_admin).write(
+            {
+                "state": "confirmed",
+            }
+        )
+        with self.assertRaises(ValidationError):
+            self.Subscription.create(
+                {
+                    "start_date": date(2024, 12, 3),
+                    "end_date": date(2025, 1, 10),
+                    "volunteer_id": self.volunteer_canceled.id,
+                    "generator_id": self.gen_each_day_max_3_vol.id,
+                }
+            )
+
+    def test_subscription_exceed_max_3_with_overlaps_borders(self):
+        """Test that creating a subscription that would exceed the max_volunteer_nb
+        for any day in the subscription period is not allowed, even if it starts or ends
+        on the border of existing subscriptions."""
+        # There is already 3 subscriptions created in setUp() for 2025 january 1 to 5:
+        # 01/01 : 1 volunteer
+        # 01/02 : 2 volunteers
+        # 01/03 : 3 volunteers
+        # 01/04 : 2 volunteers
+        # 01/05 : 1 volunteer
+        self.gen_each_day_max_3_vol.with_user(self.user_admin).write(
+            {
+                "state": "confirmed",
+            }
+        )
+        with self.assertRaises(ValidationError):
+            self.Subscription.create(
+                {
+                    "start_date": date(2025, 1, 1),
+                    "end_date": date(2025, 1, 3),
+                    "volunteer_id": self.volunteer_canceled.id,
+                    "generator_id": self.gen_each_day_max_3_vol.id,
+                }
+            )
+        with self.assertRaises(ValidationError):
+            self.Subscription.create(
+                {
+                    "start_date": date(2025, 1, 3),
+                    "end_date": date(2025, 1, 5),
+                    "volunteer_id": self.volunteer_canceled.id,
+                    "generator_id": self.gen_each_day_max_3_vol.id,
+                }
+            )
+
+    def test_subscription_exceed_max_2_one_single_day(self):
+        """Test that creating a subscription that would exceed the max_volunteer_nb
+        for a single day is not allowed."""
+        # There is already 2 subscriptions created in setUp() for 2025 january 1 to 5:
+        # 01/01 : 1 volunteer
+        # 01/02 : 2 volunteer
+        # 01/03 : 2 volunteers
+        # 01/04 : 2 volunteers
+        # 01/05 : 1 volunteer
+        self.gen_each_day_max_2_vol.with_user(self.user_admin).write(
+            {
+                "state": "confirmed",
+            }
+        )
+        with self.assertRaises(ValidationError):
+            self.Subscription.create(
+                {
+                    "start_date": date(2025, 1, 2),
+                    "end_date": date(2025, 1, 2),
+                    "volunteer_id": self.volunteer_canceled.id,
+                    "generator_id": self.gen_each_day_max_2_vol.id,
+                }
+            )
+
+    def test_subscription_without_overlaps_dont_exceed_max_3(self):
+        """Test that creating a subscription that does not overlap with existing
+        subscriptions and does not exceed max_volunteer_nb is allowed."""
+        # There is already 3 subscriptions created in setUp() for 2025 january 1 to 5:
+        # 01/01 : 1 volunteer
+        # 01/02 : 2 volunteers
+        # 01/03 : 3 volunteers
+        # 01/04 : 2 volunteers
+        # 01/05 : 1 volunteer
+        self.gen_each_day_max_3_vol.with_user(self.user_admin).write(
+            {
+                "state": "confirmed",
+            }
+        )
+        self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 1),
+                "end_date": date(2025, 1, 2),
+                "volunteer_id": self.volunteer_canceled.id,
+                "generator_id": self.gen_each_day_max_3_vol.id,
+            }
+        )
+
+    def test_write_extend_subscription_causes_exceeding_max(self):
+        """Test that extending an existing subscription that would cause the
+        max_volunteer_nb to be exceeded is not allowed."""
+        # There is already 3 subscriptions created in setUp() for 2025 january 1 to 5:
+        # 01/01 : 1 volunteer
+        # 01/02 : 2 volunteers
+        # 01/03 : 3 volunteers
+        # 01/04 : 2 volunteers
+        # 01/05 : 1 volunteer
+        self.gen_each_day_max_3_vol.with_user(self.user_admin).write(
+            {
+                "state": "confirmed",
+            }
+        )
+        new_sub = self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 1),
+                "end_date": date(2025, 1, 2),
+                "volunteer_id": self.volunteer_canceled.id,
+                "generator_id": self.gen_each_day_max_3_vol.id,
+            }
+        )
+        with self.assertRaises(ValidationError):
+            new_sub.write(
+                {
+                    "end_date": date(2025, 1, 5),
+                }
+            )
+
+    def test_unsubscribe_allows_new_subscription(self):
+        """Test that modifying an existing subscription to free up slots
+        allows creating a new subscription that fits within the max_volunteer_nb."""
+        # There is already 2 subscriptions created in setUp() for 2025 january 1 to 5:
+        # 01/01 : 1 volunteer
+        # 01/02 : 2 volunteer
+        # 01/03 : 2 volunteers
+        # 01/04 : 2 volunteers
+        # 01/05 : 1 volunteer
+        self.gen_each_day_max_2_vol.with_user(self.user_admin).write(
+            {
+                "state": "confirmed",
+            }
+        )
+        with self.assertRaises(ValidationError):
+            self.Subscription.create(
+                {
+                    "start_date": date(2025, 1, 3),
+                    "end_date": date(2025, 1, 3),
+                    "volunteer_id": self.volunteer_canceled.id,
+                    "generator_id": self.gen_each_day_max_2_vol.id,
+                }
+            )
+        # Reduce existing subscription to free up slot on 2025-01-3
+        self.sub_1_to_5_test1_max2.write(
+            {
+                "start_date": date(2025, 1, 1),
+                "end_date": date(2025, 1, 1),
+                "volunteer_id": self.volunteer_test_1.id,
+                "generator_id": self.gen_each_day_max_2_vol.id,
+            }
+        )
+        self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 3),
+                "end_date": date(2025, 1, 3),
+                "volunteer_id": self.volunteer_canceled.id,
+                "generator_id": self.gen_each_day_max_2_vol.id,
+            }
+        )
+
+    def test_generate_participation_with_until_date(self):
+        """Test that participations are generated only up to the end_date of the subscription
+        even if the generator has an until_date beyond the subscription end_date."""
+        self.gen_each_day_max_2_vol.write(
+            {
+                "until_date": date(2025, 1, 10),
+            }
+        )
+        self.gen_each_day_max_2_vol.with_user(self.user_admin).write(
+            {
+                "state": "confirmed",
+            }
+        )
+        self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 6),
+                "end_date": date(2025, 1, 9),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_each_day_max_2_vol.id,
+            }
+        )
+        # Search shifts from 2025-01-06 to 2025-01-09 (4 shifts)
+        # which is within subscription dates
+        shifts = self.Shift.search(
+            [
+                ("start_time", ">=", datetime(2025, 1, 6)),
+                ("start_time", "<", datetime(2025, 1, 10)),
+                ("generator_id", "=", self.gen_each_day_max_2_vol.id),
+            ]
+        )
+        self.assertEqual(len(shifts), 4)
+        # Check that participation are created for these shifts
+        parts = self.Participation.search(
+            [
+                ("shift_id", "in", shifts.ids),
+                ("volunteer_id", "=", self.volunteer_test.id),
+                ("registration_state", "=", "confirmed"),
+            ]
+        )
+        self.assertEqual(len(parts), 4)
+        # Check that participation are not created beyond end_date of subscription
+        shifts_beyond = self.Shift.search(
+            [
+                ("start_time", ">=", datetime(2025, 1, 10)),
+                ("generator_id", "=", self.gen_each_day_max_2_vol.id),
+            ]
+        )
+        self.assertEqual(len(shifts_beyond), 1)
+        parts_beyond = self.Participation.search(
+            [
+                ("shift_id", "in", shifts_beyond.ids),
+                ("volunteer_id", "=", self.volunteer_test.id),
+                ("registration_state", "=", "confirmed"),
+            ]
+        )
+        self.assertEqual(len(parts_beyond), 0)
+
+    def test_generate_participation_without_generator_until_date(self):
+        """Test that participations are generated up to nb_occurrence
+        when the generator has no until_date and the subscription has no end_date."""
+        self.gen_each_day_max_2_vol.write(
+            {
+                "until_date": False,
+            }
+        )
+        self.gen_each_day_max_2_vol.with_user(self.user_admin).write(
+            {
+                "state": "confirmed",
+            }
+        )
+        # Create a subscription without end date
+        sub_no_end = self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 6),
+                "end_date": False,
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_each_day_max_2_vol.id,
+            }
+        )
+        # Start date of generator is 2024-01-01,
+        # so generator start generates from today (frozen at 2025-01-01)
+        # until nb_occurrence (10) means 2025-01-10
+        shifts = self.Shift.search(
+            [
+                ("start_time", ">=", sub_no_end.start_date),
+                ("start_time", "<", date(2025, 1, 11)),
+                ("generator_id", "=", self.gen_each_day_max_2_vol.id),
+            ]
+        )
+        # From start subscription : 2025-01-06
+        # to last date shift generated :2025-01-10
+        # there is 5 shifts generated
+        self.assertEqual(len(shifts), 5)
+        all_participation = self.Participation.search(
+            [
+                ("shift_id", "in", shifts.ids),
+                ("volunteer_id", "=", self.volunteer_test.id),
+                ("registration_state", "=", "confirmed"),
+            ]
+        )
+        # Check that participation are created for these shifts
+        self.assertEqual(len(all_participation), 5)
+
+    def test_autocancel_participation_covered_by_new_sub_same_volunteer(self):
+        """Test that a participation is auto-canceled when a new subscription
+        is created that covers the date of the participation for the same volunteer."""
+        self.gen_each_day_max_3_vol.with_user(self.user_admin).write(
+            {
+                "state": "confirmed",
+            }
+        )
+        shift = self.Shift.search(
+            [
+                ("start_time", "=", datetime(2025, 1, 7, 10, 5)),
+                ("generator_id", "=", self.gen_each_day_max_3_vol.id),
+            ]
+        )
+        part1 = self.Participation.create(
+            {
+                "shift_id": shift.id,
+                "volunteer_id": self.volunteer_test_0.id,
+                "registration_state": "confirmed",
+            }
+        )
+        self.assertEqual(
+            part1.registration_state,
+            "confirmed",
+        )
+        self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 6),
+                "end_date": date(2025, 1, 8),
+                "volunteer_id": self.volunteer_test_0.id,
+                "generator_id": self.gen_each_day_max_3_vol.id,
+            }
+        )
+        self.assertEqual(
+            part1.registration_state,
+            "canceled",
+        )
+
+    def test_autocancel_participation_covered_by_modified_sub_same_volunteer(self):
+        """Test that a participation is auto-canceled when an existing subscription
+        is modified to cover the date of the participation for the same volunteer."""
+        self.gen_each_day_max_3_vol.with_user(self.user_admin).write(
+            {
+                "state": "confirmed",
+            }
+        )
+        shift2 = self.Shift.search(
+            [
+                ("start_time", "=", datetime(2025, 1, 8, 10, 5)),
+                ("generator_id", "=", self.gen_each_day_max_3_vol.id),
+            ]
+        )
+        part2 = self.Participation.create(
+            {
+                "shift_id": shift2.id,
+                "volunteer_id": self.volunteer_test_1.id,
+                "registration_state": "confirmed",
+            }
+        )
+        self.assertEqual(
+            part2.registration_state,
+            "confirmed",
+        )
+        sub = self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 4),
+                "end_date": date(2025, 1, 6),
+                "volunteer_id": self.volunteer_test_1.id,
+                "generator_id": self.gen_each_day_max_3_vol.id,
+            }
+        )
+        # Extend subscription to cover participation date
+        sub.write(
+            {
+                "end_date": False,
+            }
+        )
+        self.assertEqual(
+            part2.registration_state,
+            "canceled",
+        )
+
+    def test_create_and_write_multiple_subscriptions(self):
+        """Test creating and writing multiple subscriptions at once."""
+        # Create multi subscriptions with different generator
+        vals_list = [
+            {
+                "start_date": date(2025, 1, 6),
+                "end_date": date(2025, 1, 7),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_each_day_max_3_vol.id,
+            },
+            {
+                "start_date": date(2025, 1, 8),
+                "end_date": date(2025, 1, 9),
+                "volunteer_id": self.volunteer_confirmed.id,
+                "generator_id": self.gen_each_day_max_2_vol.id,
+            },
+            {
+                "start_date": date(2025, 1, 10),
+                "end_date": date(2025, 1, 11),
+                "volunteer_id": self.volunteer_confirmed2.id,
+                "generator_id": self.gen_each_day_max_3_vol.id,
+            },
+        ]
+        subscriptions = self.Subscription.create(vals_list)
+        self.assertEqual(len(subscriptions), 3)
+        # Write multiple subscriptions end_date to same value
+        subscriptions.write({"end_date": date(2025, 1, 12)})
+        for sub in subscriptions:
+            self.assertEqual(sub.end_date, date(2025, 1, 12))
+
+    def test_create_multiple_subscriptions_conflicts(self):
+        """Test that creating multiple subscriptions at once that would
+        exceed the max_volunteer_nb for any day is not allowed."""
+        # There is no subscription in setUp() for 2025 january 6
+        # max 2 volunteers for gen_each_day_max_2_vol
+        vals_list_conflict_same_gen = [
+            {
+                "start_date": date(2025, 1, 6),
+                "end_date": date(2025, 1, 6),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_each_day_max_2_vol.id,
+            },
+            {
+                "start_date": date(2025, 1, 6),
+                "end_date": date(2025, 1, 6),
+                "volunteer_id": self.volunteer_confirmed.id,
+                "generator_id": self.gen_each_day_max_2_vol.id,
+            },
+            {
+                "start_date": date(2025, 1, 6),
+                "end_date": date(2025, 1, 6),
+                "volunteer_id": self.volunteer_confirmed2.id,
+                "generator_id": self.gen_each_day_max_2_vol.id,
+            },
+        ]
+        with self.assertRaises(ValidationError):
+            self.Subscription.create(vals_list_conflict_same_gen)
+
+    def test_write_multiple_subscriptions_conflicts(self):
+        """Test that writing multiple subscriptions at once that would
+        exceed the max_volunteer_nb for any day is not allowed."""
+        # There is already 3 subscriptions created in setUp() for 2025 january 1 to 5:
+        # 01/01 : 1 volunteer
+        # 01/02 : 2 volunteers
+        # 01/03 : 3 volunteers
+        # 01/04 : 2 volunteers
+        # 01/05 : 1 volunteer
+        sub1 = self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 7),
+                "end_date": date(2025, 1, 7),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_each_day_max_2_vol.id,
+            }
+        )
+        sub2 = self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 8),
+                "end_date": date(2025, 1, 8),
+                "volunteer_id": self.volunteer_confirmed.id,
+                "generator_id": self.gen_each_day_max_2_vol.id,
+            }
+        )
+        with self.assertRaises(ValidationError):
+            (sub1 + sub2).write(
+                {
+                    "start_date": date(2025, 1, 1),
+                    "end_date": date(2025, 1, 1),
+                }
+            )
+
+    def test_managing_cancel_or_create_participation(self):
+        """Test managing canceling or creating participation when modifying
+        a subscription end_date including setting it to None (no end)."""
+        self.gen_each_day_max_2_vol.with_user(self.user_admin).write(
+            {"state": "confirmed"}
+        )
+        # Create a subscription from 2025-01-07 with end date
+        sub = self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 7),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_each_day_max_2_vol.id,
+            }
+        )
+        # Modify end date to 2025-01-10
+        sub.write({"end_date": date(2025, 1, 10)})
+        # Check that participation are created for shift on 2025-01-08
+        # which is within subscription dates
+        shift_8 = self.Shift.search(
+            [
+                ("start_time", "=", datetime(2025, 1, 8, 10, 5)),
+                ("generator_id", "=", self.gen_each_day_max_2_vol.id),
+            ]
+        )
+        part_8_confirmed = self.Participation.search(
+            [
+                ("shift_id", "=", shift_8.id),
+                ("volunteer_id", "=", self.volunteer_test.id),
+                ("registration_state", "=", "confirmed"),
+            ]
+        )
+        self.assertEqual(len(part_8_confirmed), 1)
+        # Reduce end date to 2025-01-07
+        # needs to cancel participation on 2025-01-08
+        sub.write({"end_date": date(2025, 1, 7)})
+        part_8_canceled = self.Participation.search(
+            [
+                ("shift_id", "=", shift_8.id),
+                ("volunteer_id", "=", self.volunteer_test.id),
+                ("registration_state", "=", "canceled"),
+            ]
+        )
+        # Check that participation for shift on 2025-01-08 is canceled
+        # and there is no other confirmed participation for this shift
+        # and volunteer
+        self.assertEqual(len(part_8_canceled), 1)
+        part_8 = self.Participation.search(
+            [
+                ("shift_id", "=", shift_8.id),
+                ("volunteer_id", "=", self.volunteer_test.id),
+                ("registration_state", "=", "confirmed"),
+            ]
+        )
+        self.assertEqual(len(part_8), 0)
+        # Modify end date to None (no end)
+        # needs to create participation after 2025-01-08 (check 2025-01-10)
+        sub.write({"end_date": False})
+        shift_10 = self.Shift.search(
+            [
+                ("start_time", "=", datetime(2025, 1, 10, 10, 5)),
+                ("generator_id", "=", self.gen_each_day_max_2_vol.id),
+            ]
+        )
+        part_10 = self.Participation.search(
+            [
+                ("shift_id", "=", shift_10.id),
+                ("volunteer_id", "=", self.volunteer_test.id),
+                ("registration_state", "=", "confirmed"),
+            ]
+        )
+        self.assertEqual(len(part_10), 1)
+
+    def test_subscription_invalid_date_ranges_rejected(self):
+        """Test that creating a subscription with invalid date ranges is rejected."""
+        # Time frozen at 2025-01-01 10:00, which is considered as "today" during tests
+        # Generator setup with past start date starting at 2023/1/1 and until date 2024/12/24
+        # Subscription in the past should be rejected even if within generator range
+        with self.subTest("Past start date"):
+            with self.assertRaises(ValidationError):
+                self.Subscription.create(
+                    {
+                        "start_date": date(2024, 12, 10),
+                        "end_date": date(2024, 12, 12),
+                        "volunteer_id": self.volunteer_test.id,
+                        "generator_id": self.gen_with_past_start.id,
+                    }
+                )
+        # Subscription outside generator range should be rejected
+        with self.subTest("Outside generator range"):
+            with self.assertRaises(ValidationError):
+                self.Subscription.create(
+                    {
+                        "start_date": date(2024, 12, 25),
+                        "end_date": date(2024, 12, 26),
+                        "volunteer_id": self.volunteer_test_0.id,
+                        "generator_id": self.gen_with_past_start.id,
+                    }
+                )
+        # Subscription start date after end date should be rejected
+        with self.subTest("Start date after end date"):
+            with self.assertRaises(ValidationError):
+                self.Subscription.create(
+                    {
+                        "start_date": date(2024, 12, 10),
+                        "end_date": date(2023, 12, 8),
+                        "volunteer_id": self.volunteer_test_0.id,
+                        "generator_id": self.gen_with_past_start.id,
+                    }
+                )
+        # Subscription start date with end date False should be allowed
+        with self.subTest("Start date after end date with end date False"):
+            self.Subscription.create(
+                {
+                    "start_date": date(2025, 12, 10),
+                    "end_date": False,
+                    "volunteer_id": self.volunteer_test_0.id,
+                    "generator_id": self.gen_with_past_start.id,
+                }
+            )
+
+    def test_conflicting_subscription_detail_in_error_message(self):
+        """Test that the error message when creating a conflicting subscription
+        includes details about the conflict."""
+        # Time frozen at 2025-01-01 10:00, which is considered as "today" during tests
+        # Capture error message when creating a conflicting subscription
+        with self.assertRaises(ValidationError) as context:
+            self.Subscription.create(
+                {
+                    "start_date": date(2024, 12, 10),
+                    "end_date": date(2024, 12, 12),
+                    "volunteer_id": self.volunteer_test_0.id,
+                    "generator_id": self.gen_with_past_start.id,
+                }
+            )
+        # Check that error message contains details about the conflict
+        error_msg = str(context.exception)
+        self.assertIn("Conflicting subscription", error_msg)
+        self.assertIn("Volunteer: VolunteerTest0", error_msg)
+        self.assertIn("Start date: 2024-12-10", error_msg)
+        self.assertIn("End date: 2024-12-12", error_msg)
+        with self.assertRaises(ValidationError) as context:
+            self.Subscription.create(
+                {
+                    "start_date": date(2024, 12, 12),
+                    "volunteer_id": self.volunteer_test_1.id,
+                    "generator_id": self.gen_with_past_start.id,
+                }
+            )
+        # Test with no end date
+        error_msg = str(context.exception)
+        self.assertIn("Conflicting subscription", error_msg)
+        self.assertIn("Volunteer: VolunteerTest1", error_msg)
+        self.assertIn("Start date: 2024-12-12", error_msg)
+        self.assertIn("End date: No end date", error_msg)
+
+    @unittest.skip(
+        "Known limitation: Multi-record validation incorrectly rejects valid modifications"
+    )
+    def test_write_multiple_subscriptions_double_counting_same_modification(self):
+        """Test demonstrates validation incorrectly rejecting a valid multi-record modification
+
+        This should PASS but currently FAILS due to double-counting limitation.
+        The modification is valid (respects capacity) but validation sees false conflicts.
+        """
+
+        # Initial state: 2 subscriptions on different periods, no conflicts
+        sub1 = self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 10),
+                "end_date": date(2025, 1, 12),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_each_day_max_2_vol.id,
+            }
+        )
+        sub2 = self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 8),
+                "end_date": date(2025, 1, 9),
+                "volunteer_id": self.volunteer_confirmed.id,
+                "generator_id": self.gen_each_day_max_2_vol.id,
+            }
+        )
+
+        self.gen_each_day_max_2_vol.with_user(self.user_admin).write(
+            {"state": "confirmed"}
+        )
+
+        # Batch modification: same modification for both subscriptions (10th to 15th)
+        # Expected final state: 2 subscriptions from 10th to 15th
+        # = max 2 volunteers per day = Valid
+        # Limitation behavior: During validation, the system counts subscriptions
+        # from volunteer_subscription_ids (which still contains old values:
+        # sub1(10-12) + sub2(8-9)) plus new requested values
+        # (sub1(10-15) + sub2(10-15)).
+        # However, sub_to_exclude only removes one old subscription per iteration
+        # (e.g., when validating sub1, only sub1_old(10-12) is excluded), leading to
+        # triple counting on overlapping dates
+        # (e.g., on 10th: sub1_old(10-12) + sub1_new(10-15) +
+        # sub2_new(10-15) - sub1_old(10-12) excluded = 2,
+        # but when validating sub2: sub1_old(10-12) + sub1_new(10-15) + sub2_new(10-15)
+        # - sub2_old(8-9) excluded = 3 > max 2).
+
+        # This modification should succeed (respects capacity) but currently fails
+        (sub1 + sub2).write(
+            {
+                "start_date": date(2025, 1, 10),
+                "end_date": date(2025, 1, 15),
+            }
+        )
