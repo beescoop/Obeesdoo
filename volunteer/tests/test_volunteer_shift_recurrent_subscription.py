@@ -155,6 +155,151 @@ class TestVolunteerShiftRecurrentSubscription(TestVolunteerGeneratorSubscription
                 }
             )
 
+    def test_create_sub_same_volunteer_no_overlap_allowed(self):
+        """Test that creating a subscription for the same volunteer
+        with a non-overlapping period is allowed and doesn't block subscriptions
+        for other volunteers, even if their subscription overlaps with at leas
+        two overlapping subscriptions of the first volunteer."""
+        # Generator has no until_date
+        # There is no subscription in setUp()
+        self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 1),
+                "end_date": date(2025, 1, 5),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
+        )
+        self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 10),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
+        )
+        # Create a subscription for another volunteer that covers
+        # at least 2 overlapping subscriptions of the first volunteer
+        self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 3),
+                "end_date": date(2025, 1, 12),
+                "volunteer_id": self.volunteer_confirmed.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
+        )
+
+    def test_create_write_sub_for_same_volunteer_different_period_allowed(self):
+        """Test that creating or writing a subscription for the same volunteer
+        with non-overlapping period is allowed including subscriptions
+        without end_date"""
+        # Generator has no until_date
+        # There is no subscription in setUp()
+        sub = self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 1),
+                "end_date": date(2025, 1, 5),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
+        )
+        # No overlap, subscription allowed
+        self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 10),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
+        )
+        # No overlap, writing end_date allowed
+        sub.write(
+            {
+                "end_date": date(2025, 1, 8),
+            }
+        )
+
+    def test_create_overlap_sub_same_volunteer_without_end_not_allowed(self):
+        """Test that creating a subscription with an overlapping period
+        for the same volunteer is not allowed,
+        even when the new subscription has no end_date"""
+        # Generator has no until_date
+        # There is no subscription in setUp()
+        self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 2),
+                "end_date": date(2025, 1, 5),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
+        )
+        with self.assertRaises(ValidationError):
+            self.Subscription.create(
+                {
+                    "start_date": date(2025, 1, 3),
+                    "volunteer_id": self.volunteer_test.id,
+                    "generator_id": self.gen_without_sub_2025_no_until.id,
+                }
+            )
+
+    def test_write_overlap_sub_same_volunteer_without_end_not_allowed(self):
+        """Test that updating a subscription to create an overlapping period
+        for the same volunteer is not allowed,
+        including when removing the end_date or changing the start_date"""
+        # Generator has no until_date
+        # There is no subscription in setUp()
+        sub = self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 2),
+                "end_date": date(2025, 1, 5),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
+        )
+        # No overlap, subscription allowed
+        sub1 = self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 10),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
+        )
+        # Writing end_date to False to create overlap not allowed
+        with self.subTest("Writing end_date to create overlap not allowed"):
+            with self.assertRaises(ValidationError):
+                sub.write(
+                    {
+                        "end_date": False,
+                    }
+                )
+        with self.subTest("Writing start_date to create overlap not allowed"):
+            # Writing start_date to create overlap not allowed
+            with self.assertRaises(ValidationError):
+                sub1.write(
+                    {
+                        "start_date": date(2025, 1, 4),
+                    }
+                )
+
+    def test_create_multiple_sub_same_volunteer_not_allowed(self):
+        """Test that creating multiple subscriptions for the same volunteer
+        with overlapping periods is not allowed"""
+        # Generator start date is 2025-01-01
+        # There is no subscription in setUp()
+        vals_list = [
+            {
+                "start_date": date(2025, 1, 1),
+                "end_date": date(2025, 1, 5),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            },
+            {
+                "start_date": date(2025, 1, 5),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            },
+        ]
+        with self.assertRaises(ValidationError):
+            self.Subscription.create(vals_list)
+
     def test_unsubscribe_allows_new_subscription(self):
         """Test that modifying an existing subscription to free up slots
         allows creating a new subscription that fits within the max_volunteer_nb."""
@@ -381,8 +526,8 @@ class TestVolunteerShiftRecurrentSubscription(TestVolunteerGeneratorSubscription
             "canceled",
         )
 
-    def test_create_and_write_multiple_subscriptions(self):
-        """Test creating and writing multiple subscriptions at once."""
+    def test_create_and_write_multiple_subscriptions_different_generator(self):
+        """Test creating multiple subscriptions at once on different generator."""
         # Create multi subscriptions with different generator
         vals_list = [
             {
@@ -406,10 +551,6 @@ class TestVolunteerShiftRecurrentSubscription(TestVolunteerGeneratorSubscription
         ]
         subscriptions = self.Subscription.create(vals_list)
         self.assertEqual(len(subscriptions), 3)
-        # Write multiple subscriptions end_date to same value
-        subscriptions.write({"end_date": date(2025, 1, 12)})
-        for sub in subscriptions:
-            self.assertEqual(sub.end_date, date(2025, 1, 12))
 
     def test_create_multiple_subscriptions_conflicts(self):
         """Test that creating multiple subscriptions at once that would
@@ -634,7 +775,10 @@ class TestVolunteerShiftRecurrentSubscription(TestVolunteerGeneratorSubscription
         """Test demonstrates validation incorrectly rejecting a valid multi-record modification
 
         This should PASS but currently FAILS due to double-counting limitation.
-        The modification is valid (respects capacity) but validation sees false conflicts.
+        The modification is valid (respects unicity and capacity)
+        but validation sees false conflicts.
+
+        Currently, the first error raised is the unicity constraint.
         """
 
         # Initial state: 2 subscriptions on different periods, no conflicts
@@ -674,7 +818,9 @@ class TestVolunteerShiftRecurrentSubscription(TestVolunteerGeneratorSubscription
         # but when validating sub2: sub1_old(10-12) + sub1_new(10-15) + sub2_new(10-15)
         # - sub2_old(8-9) excluded = 3 > max 2).
 
-        # This modification should succeed (respects capacity) but currently fails
+        # This modification should succeed (respects capacity and unicity)
+        # but currently fails at first validation step (unicity error)
+        # due to double-counting limitation explained above.
         (sub1 + sub2).write(
             {
                 "start_date": date(2025, 1, 10),

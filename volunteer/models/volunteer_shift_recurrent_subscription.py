@@ -153,6 +153,11 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                 all_requested_vals,
                 sub_to_exclude=all_old_vals[i],  # Only excludes one old value, not all
             )
+            generator.check_remaining_slots_by_shift_generated(
+                all_requested_vals[i].get("start_date"),
+                all_requested_vals[i].get("end_date"),
+                volunteer_to_exclude=sub.volunteer_id.id,
+            )
         res = super().write(vals)
         # Cancel eventual punctual participation registered on shifts covered by the new sub
         for i, sub in enumerate(self):
@@ -167,13 +172,6 @@ class VolunteerShiftRecurrentSubscription(models.Model):
             # cancel or generate the ones concerned by the new sub
             sub._managing_cancel_or_create_participation(
                 all_old_vals[i].get("start_date"), all_old_vals[i].get("end_date")
-            )
-            # After the super().write(vals), remaining_slots of concerned shifts
-            # are already updated so it's possible to check by generated shifts
-            generator.check_remaining_slots_by_shift_generated(
-                all_requested_vals[i].get("start_date"),
-                all_requested_vals[i].get("end_date"),
-                volunteer_to_exclude=sub.volunteer_id.id,
             )
         return res
 

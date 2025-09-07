@@ -54,6 +54,19 @@ class TestVolunteerGeneratorSubscriptionCommon(TestVolunteerCommon):
                 "type_id": self.type1.id,
             }
         )
+        self.gen_without_sub_2025_no_until = self.Generator.create(
+            {
+                "name": "GenWithoutSub2025NoUntil",
+                "state": "draft",
+                "interval_type": "days",
+                "interval": 1,
+                "start_time": datetime(2025, 1, 1, 10, 5),
+                "end_time": datetime(2025, 1, 1, 12, 5),
+                "tz": "Europe/Brussels",
+                "max_volunteer_nb": 6,
+                "type_id": self.type1.id,
+            }
+        )
         # Set up 3 subscriptions with overlapping dates for the same generator
         # with max 3 volunteers
         self.sub_1_to_3 = self.Subscription.create(

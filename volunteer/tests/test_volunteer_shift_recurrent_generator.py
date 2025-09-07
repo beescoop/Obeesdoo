@@ -87,8 +87,9 @@ class TestVolunteerShiftRecurrentGenerator(TestVolunteerGeneratorSubscriptionCom
         with self.assertRaises(ValidationError):
             self.gen_each_day_max_2_vol.write({"end_time": datetime(2025, 1, 1, 16, 0)})
 
-    def test_determine_furthest_end_date(self):
+    def test_determine_furthest_end_date_shift_2_days_long(self):
         """Test that the furthest end date is correctly determined"""
+        # Create a generator with shifts 2 days long
         gen_test_furthest_end_date = self.Generator.create(
             {
                 "name": "GenTestFurthestEndDate",
@@ -96,55 +97,177 @@ class TestVolunteerShiftRecurrentGenerator(TestVolunteerGeneratorSubscriptionCom
                 "interval_type": "days",
                 "interval": 1,
                 "start_time": datetime(2025, 1, 1, 10, 5),
-                "end_time": datetime(2025, 1, 1, 12, 5),
+                "end_time": datetime(2025, 1, 2, 12, 5),
                 "tz": "Europe/Brussels",
                 "max_volunteer_nb": 3,
                 "type_id": self.type1.id,
             }
         )
         # No subscription, no participation,
-        # furthest end date should be start_date + 1 day
-        self.assertEqual(
-            gen_test_furthest_end_date.determine_furthest_end_date(),
-            date(2025, 1, 2),
-        )
+        # furthest end date should be start_time + 1 day
+        with self.subTest("No subscription, no participation"):
+            self.assertEqual(
+                gen_test_furthest_end_date.determine_furthest_end_date(),
+                date(2025, 1, 2),
+            )
+        # Furthest end date should be subscription end_date + 1 day
+        with self.subTest("With subscription, no participation"):
+            self.Subscription.create(
+                {
+                    "start_date": date(2025, 1, 1),
+                    "end_date": date(2025, 1, 3),
+                    "volunteer_id": self.volunteer_test.id,
+                    "generator_id": gen_test_furthest_end_date.id,
+                }
+            )
+            self.assertEqual(
+                gen_test_furthest_end_date.determine_furthest_end_date(),
+                date(2025, 1, 4),
+            )
+        # Furthest end date should be shift end_date concerned
+        # by participation + 1 day
+        # since it is after subscription end_date
+        with self.subTest("With subscription and participation"):
+            gen_test_furthest_end_date.with_user(self.user_admin).write(
+                {
+                    "state": "confirmed",
+                }
+            )
+            shift = self.Shift.search(
+                [
+                    ("start_time", "=", datetime(2025, 1, 7, 10, 5)),
+                    ("generator_id", "=", gen_test_furthest_end_date.id),
+                ]
+            )
+            self.Participation.create(
+                {
+                    "shift_id": shift.id,
+                    "volunteer_id": self.volunteer_test_0.id,
+                    "registration_state": "confirmed",
+                }
+            )
+            self.assertEqual(
+                gen_test_furthest_end_date.determine_furthest_end_date(),
+                date(2025, 1, 8),
+            )
+
+    def test_determine_furthest_end_date_no_until_date_multiple_sub_no_end(self):
+        """Test that the furthest end date is correctly determined
+        when there are multiple subscriptions without end_date
+        and the generator has no until_date"""
+        # Create multiple subscriptions without end_date
         self.Subscription.create(
             {
                 "start_date": date(2025, 1, 1),
-                "end_date": date(2025, 1, 3),
+                "end_date": False,
                 "volunteer_id": self.volunteer_test.id,
-                "generator_id": gen_test_furthest_end_date.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
             }
         )
-        # Furthest end date should be subscription end_date + 1 day
-        self.assertEqual(
-            gen_test_furthest_end_date.determine_furthest_end_date(),
-            date(2025, 1, 4),
+        self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 3),
+                "end_date": False,
+                "volunteer_id": self.volunteer_test_0.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
         )
-        gen_test_furthest_end_date.with_user(self.user_admin).write(
+        self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 5),
+                "end_date": False,
+                "volunteer_id": self.volunteer_test_1.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
+        )
+        with self.subTest("No participation"):
+            # Furthest end date should be furthest start_date (2025/01/05)
+            # + 1 day since there are only subscriptions without end_date
+            # and no until_date on the generator (his start_time is 2025/01/01)
+            self.assertEqual(
+                self.gen_without_sub_2025_no_until.determine_furthest_end_date(),
+                date(2025, 1, 6),
+            )
+        with self.subTest("With participation before last subscription start_date"):
+            self.gen_without_sub_2025_no_until.with_user(self.user_admin).write(
+                {
+                    "state": "confirmed",
+                }
+            )
+            shift_2 = self.Shift.search(
+                [
+                    (
+                        "start_time",
+                        "=",
+                        datetime(2025, 1, 2, 10, 5),
+                    ),
+                    ("generator_id", "=", self.gen_without_sub_2025_no_until.id),
+                ]
+            )
+            self.Participation.create(
+                {
+                    "shift_id": shift_2.id,
+                    "volunteer_id": self.volunteer_confirmed.id,
+                    "registration_state": "confirmed",
+                }
+            )
+            # Furthest end date should still be last subscription start_date + 1 day
+            # since participation (2025/01/02)
+            # is before last subscription start_date (2025/01/05)
+            self.assertEqual(
+                self.gen_without_sub_2025_no_until.determine_furthest_end_date(),
+                date(2025, 1, 6),
+            )
+        with self.subTest("With participation after last subscription start_date"):
+            shift_10 = self.Shift.search(
+                [
+                    (
+                        "start_time",
+                        "=",
+                        datetime(2025, 1, 10, 10, 5),
+                    ),
+                    ("generator_id", "=", self.gen_without_sub_2025_no_until.id),
+                ]
+            )
+            self.Participation.create(
+                {
+                    "shift_id": shift_10.id,
+                    "volunteer_id": self.volunteer_confirmed2.id,
+                    "registration_state": "confirmed",
+                }
+            )
+            # Furthest end date should be
+            # last participation date (2025/01/10) + 1 day
+            # since it is after last subscription start_date (2025/01/05)
+            self.assertEqual(
+                self.gen_without_sub_2025_no_until.determine_furthest_end_date(),
+                date(2025, 1, 11),
+            )
+
+    def test_create_participation_volunteer_already_subscribed_not_allowed(self):
+        """Test that creating a participation for a volunteer
+        already subscribed at the same period is not allowed"""
+        # There is already a subscription for volunteer_test_0
+        # from 2025/1/2 to 2025/1/4
+        self.gen_each_day_max_2_vol.with_user(self.user_admin).write(
             {
                 "state": "confirmed",
             }
         )
-        shift = self.Shift.search(
+        shift_3 = self.Shift.search(
             [
-                ("start_time", "=", datetime(2025, 1, 7, 10, 5)),
-                ("generator_id", "=", gen_test_furthest_end_date.id),
+                ("start_time", "=", datetime(2025, 1, 3, 10, 5)),
+                ("generator_id", "=", self.gen_each_day_max_2_vol.id),
             ]
         )
-        self.Participation.create(
-            {
-                "shift_id": shift.id,
-                "volunteer_id": self.volunteer_test_0.id,
-                "registration_state": "confirmed",
-            }
-        )
-        # Furthest end date should be last participation date + 1 day
-        # since it is after subscription end_date
-        self.assertEqual(
-            gen_test_furthest_end_date.determine_furthest_end_date(),
-            date(2025, 1, 8),
-        )
+        with self.assertRaises(ValidationError):
+            self.Participation.create(
+                {
+                    "shift_id": shift_3.id,
+                    "volunteer_id": self.volunteer_test_0.id,
+                    "registration_state": "confirmed",
+                }
+            )
 
     def test_modify_until_date(self):
         """Test that modifying until_date is not allowed
