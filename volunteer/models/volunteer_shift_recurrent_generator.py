@@ -142,8 +142,12 @@ class VolunteerShiftRecurrentGenerator(models.Model):
                             "than the period start date."
                         )
                     )
-
-        return super().create(vals_list)
+        generators = super().create(vals_list)
+        for generator in generators:
+            if generator.state == "confirmed":
+                generator._generate_shifts()
+                generator._generate_participation()
+        return generators
 
     def write(self, vals):
         # Restrict state change to admins only
