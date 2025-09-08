@@ -7,7 +7,7 @@ from datetime import date, datetime
 from freezegun import freeze_time
 
 from odoo import Command
-from odoo.exceptions import ValidationError
+from odoo.exceptions import AccessError, ValidationError
 
 from .test_volunteer_generator_subscription_common import (
     TestVolunteerGeneratorSubscriptionCommon,
@@ -56,36 +56,6 @@ class TestVolunteerShiftRecurrentGenerator(TestVolunteerGeneratorSubscriptionCom
                     ]
                 }
             )
-
-    def test_modification_on_confirmed_generator_not_allowed(self):
-        """Test that modifying fields of a confirmed generator is not allowed"""
-        # Confirmed that modifying fields of a draft generator is allowed
-        self.gen_each_day_max_2_vol.write(
-            {
-                "until_date": date(2026, 1, 1),
-                "start_time": datetime(2025, 1, 1, 13, 0),
-                "end_time": datetime(2025, 1, 1, 13, 0),
-                "max_volunteer_nb": 3,
-            }
-        )
-        self.gen_each_day_max_2_vol.with_user(self.user_admin).write(
-            {
-                "state": "confirmed",
-            }
-        )
-        with self.assertRaises(ValidationError):
-            self.gen_each_day_max_2_vol.write({"max_volunteer_nb": 4})
-
-        with self.assertRaises(ValidationError):
-            self.gen_each_day_max_2_vol.write({"until_date": date(2026, 1, 3)})
-
-        with self.assertRaises(ValidationError):
-            self.gen_each_day_max_2_vol.write(
-                {"start_time": datetime(2025, 1, 1, 15, 0)}
-            )
-
-        with self.assertRaises(ValidationError):
-            self.gen_each_day_max_2_vol.write({"end_time": datetime(2025, 1, 1, 16, 0)})
 
     def test_determine_furthest_end_date_shift_2_days_long(self):
         """Test that the furthest end date is correctly determined"""
@@ -427,14 +397,58 @@ class TestVolunteerShiftRecurrentGenerator(TestVolunteerGeneratorSubscriptionCom
         self.assertEqual(self.sub_2_to_4_test0_max2.end_date, date(2025, 1, 1))
         self.assertEqual(self.sub_1_to_5_test1_max2.end_date, date(2025, 1, 1))
 
-    def test_modification_on_canceled_generator_not_allowed(self):
-        """Test that modifying fields of a canceled generator is not allowed"""
-        self.gen_each_day_max_2_vol.with_user(self.user_admin).write(
+    def test_modification_on_confirmed_generator_not_allowed(self):
+        """Test that modifying fields of a confirmed generator is not allowed"""
+        # Confirmed that modifying fields of a draft generator is allowed
+        self.gen_without_sub_2025_no_until.write(
+            {
+                "until_date": date(2026, 1, 1),
+                "start_time": datetime(2025, 1, 1, 13, 0),
+                "end_time": datetime(2025, 1, 1, 13, 0),
+                "max_volunteer_nb": 3,
+            }
+        )
+        self.gen_without_sub_2025_no_until.with_user(self.user_admin).write(
             {
                 "state": "confirmed",
             }
         )
+        with self.assertRaises(ValidationError):
+            self.gen_without_sub_2025_no_until.write({"max_volunteer_nb": 4})
+        with self.assertRaises(ValidationError):
+            self.gen_without_sub_2025_no_until.write({"until_date": date(2026, 1, 3)})
 
+        with self.assertRaises(ValidationError):
+            self.gen_without_sub_2025_no_until.write(
+                {"start_time": datetime(2025, 1, 1, 15, 0)}
+            )
+        with self.assertRaises(ValidationError):
+            self.gen_without_sub_2025_no_until.write(
+                {"end_time": datetime(2025, 1, 1, 16, 0)}
+            )
+        with self.assertRaises(ValidationError):
+            self.gen_without_sub_2025_no_until.with_user(self.user_user).write(
+                {
+                    "max_volunteer_nb": 4,
+                    "until_date": date(2026, 1, 3),
+                    "start_time": datetime(2025, 1, 1, 15),
+                    "end_time": datetime(2025, 1, 1, 16, 0),
+                    "type_id": self.type2.id,
+                }
+            )
+        with self.assertRaises(ValidationError):
+            self.gen_without_sub_2025_no_until.with_user(self.user_manager).write(
+                {
+                    "max_volunteer_nb": 4,
+                    "until_date": date(2026, 1, 3),
+                    "start_time": datetime(2025, 1, 1, 15),
+                    "end_time": datetime(2025, 1, 1, 16, 0),
+                    "type_id": self.type2.id,
+                }
+            )
+
+    def test_modification_on_canceled_generator_not_allowed(self):
+        """Test that modifying fields of a canceled generator is not allowed"""
         self.gen_each_day_max_2_vol.with_user(self.user_admin).write(
             {
                 "state": "canceled",
@@ -464,8 +478,28 @@ class TestVolunteerShiftRecurrentGenerator(TestVolunteerGeneratorSubscriptionCom
                     "end_time": datetime(2025, 1, 1, 16, 0),
                 }
             )
+        with self.assertRaises(AccessError):
+            self.gen_without_sub_2025_no_until.with_user(self.user_manager).write(
+                {
+                    "max_volunteer_nb": 4,
+                    "until_date": date(2026, 1, 3),
+                    "start_time": datetime(2025, 1, 1, 15),
+                    "end_time": datetime(2025, 1, 1, 16, 0),
+                    "type_id": self.type2.id,
+                }
+            )
+        with self.assertRaises(AccessError):
+            self.gen_without_sub_2025_no_until.with_user(self.user_user).write(
+                {
+                    "max_volunteer_nb": 4,
+                    "until_date": date(2026, 1, 3),
+                    "start_time": datetime(2025, 1, 1, 15),
+                    "end_time": datetime(2025, 1, 1, 16, 0),
+                    "type_id": self.type2.id,
+                }
+            )
 
-    def test_modification_with_canceled_state_not_allowed(self):
+    def test_write_fields_during_generator_cancellation_not_allowed(self):
         """Test that modifying other fields while setting state to canceled is not allowed"""
         self.gen_each_day_max_2_vol.with_user(self.user_admin).write(
             {
@@ -481,3 +515,37 @@ class TestVolunteerShiftRecurrentGenerator(TestVolunteerGeneratorSubscriptionCom
                     "end_time": datetime(2025, 1, 10, 16, 0),
                 }
             )
+
+    def test_write_on_draft_generator_allowed_only_to_admin(self):
+        """Test that only admin can modify a generator"""
+        # Generator in draft state, without subscriptions
+        with self.assertRaises(AccessError):
+            self.gen_without_sub_2025_no_until.with_user(self.user_user).write(
+                {
+                    "max_volunteer_nb": 4,
+                    "until_date": date(2026, 1, 3),
+                    "start_time": datetime(2025, 1, 1, 15),
+                    "end_time": datetime(2025, 1, 1, 16, 0),
+                    "type_id": self.type2.id,
+                }
+            )
+        with self.assertRaises(AccessError):
+            self.gen_without_sub_2025_no_until.with_user(self.user_manager).write(
+                {
+                    "max_volunteer_nb": 4,
+                    "until_date": date(2026, 1, 3),
+                    "start_time": datetime(2025, 1, 1, 15),
+                    "end_time": datetime(2025, 1, 1, 16, 0),
+                    "state": "canceled",
+                    "type_id": self.type2.id,
+                }
+            )
+        self.gen_without_sub_2025_no_until.with_user(self.user_admin).write(
+            {
+                "max_volunteer_nb": 4,
+                "until_date": date(2026, 1, 3),
+                "start_time": datetime(2025, 1, 1, 15),
+                "end_time": datetime(2025, 1, 1, 16, 0),
+                "type_id": self.type2.id,
+            }
+        )

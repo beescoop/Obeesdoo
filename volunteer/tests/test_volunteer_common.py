@@ -11,6 +11,9 @@ class TestVolunteerCommon(common.TransactionCase):
     def setUp(self, *args, **kwargs):
         super().setUp(*args, **kwargs)
 
+        # Force all operations to run as admin
+        self.env = self.env(user=self.env.ref("base.user_admin"))
+
         # Set up the environment
         self.env = self.env(
             context=dict(
@@ -57,6 +60,12 @@ class TestVolunteerCommon(common.TransactionCase):
             {
                 "name": "TypeTest",
                 "description": "Type pour autotests",
+            }
+        )
+        self.type2 = self.Type.create(
+            {
+                "name": "TypeTest2",
+                "description": "Type pour autotests 2",
             }
         )
 

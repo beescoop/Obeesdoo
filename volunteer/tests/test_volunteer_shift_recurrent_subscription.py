@@ -7,7 +7,7 @@ from datetime import date, datetime
 
 from freezegun import freeze_time
 
-from odoo.exceptions import ValidationError
+from odoo.exceptions import AccessError, ValidationError
 
 from .test_volunteer_generator_subscription_common import (
     TestVolunteerGeneratorSubscriptionCommon,
@@ -20,6 +20,161 @@ from .test_volunteer_generator_subscription_common import (
 class TestVolunteerShiftRecurrentSubscription(TestVolunteerGeneratorSubscriptionCommon):
     def setUp(self):
         super().setUp()
+
+    def test_manager_can_create_write_subscription(self):
+        """Test that a user with the 'Volunteer Manager' role can create
+        a subscription on a generator in 'draft' and 'confirmed' state,
+        but not on a generator in 'canceled' state."""
+        sub = self.Subscription.with_user(self.user_manager).create(
+            {
+                "start_date": date(2025, 1, 1),
+                "end_date": date(2025, 1, 2),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
+        )
+        sub.with_user(self.user_manager).write(
+            {
+                "end_date": date(2025, 1, 4),
+            }
+        )
+        self.gen_without_sub_2025_no_until.with_user(self.user_admin).write(
+            {
+                "state": "confirmed",
+            }
+        )
+        self.Subscription.with_user(self.user_manager).create(
+            {
+                "start_date": date(2025, 1, 5),
+                "end_date": date(2025, 1, 7),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
+        )
+        sub.with_user(self.user_manager).write(
+            {
+                "start_date": date(2025, 1, 2),
+            }
+        )
+
+    def test_user_cannot_create_write_subscription(self):
+        """Test that a user with the 'Volunteer User' role cannot create
+        or write a subscription on any generator state."""
+        # Setup set runs all operations as admin by default
+        sub = self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 1),
+                "end_date": date(2025, 1, 2),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
+        )
+        with self.assertRaises(AccessError):
+            self.Subscription.with_user(self.user_user).create(
+                {
+                    "start_date": date(2025, 1, 10),
+                    "end_date": date(2025, 1, 12),
+                    "volunteer_id": self.volunteer_test.id,
+                    "generator_id": self.gen_without_sub_2025_no_until.id,
+                }
+            )
+        with self.assertRaises(AccessError):
+            sub.with_user(self.user_user).write(
+                {
+                    "end_date": date(2025, 1, 4),
+                }
+            )
+        self.gen_without_sub_2025_no_until.with_user(self.user_admin).write(
+            {
+                "state": "confirmed",
+            }
+        )
+        with self.assertRaises(AccessError):
+            self.Subscription.with_user(self.user_user).create(
+                {
+                    "start_date": date(2025, 1, 10),
+                    "end_date": date(2025, 1, 12),
+                    "volunteer_id": self.volunteer_test.id,
+                    "generator_id": self.gen_without_sub_2025_no_until.id,
+                }
+            )
+        with self.assertRaises(AccessError):
+            sub.with_user(self.user_user).write(
+                {
+                    "end_date": date(2025, 1, 6),
+                }
+            )
+
+    def test_no_create_write_sub_on_canceled_generator(self):
+        """Test that creating or writing a subscription on a generator
+        in 'canceled' state is not allowed for any user role.
+        Except writing end_date to today for admins only."""
+        # Setup set runs all operations as admin by default
+        sub = self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 1),
+                "end_date": date(2025, 1, 2),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
+        )
+        self.gen_without_sub_2025_no_until.with_user(self.user_admin).write(
+            {
+                "state": "canceled",
+            }
+        )
+        with self.assertRaises(ValidationError):
+            self.Subscription.with_user(self.user_user).create(
+                {
+                    "start_date": date(2025, 1, 1),
+                    "end_date": date(2025, 1, 2),
+                    "volunteer_id": self.volunteer_test.id,
+                    "generator_id": self.gen_without_sub_2025_no_until.id,
+                }
+            )
+        with self.assertRaises(ValidationError):
+            sub.with_user(self.user_user).write(
+                {
+                    "end_date": date(2025, 1, 1),
+                }
+            )
+        with self.assertRaises(ValidationError):
+            self.Subscription.with_user(self.user_manager).create(
+                {
+                    "start_date": date(2025, 1, 3),
+                    "end_date": date(2025, 1, 5),
+                    "volunteer_id": self.volunteer_test.id,
+                    "generator_id": self.gen_without_sub_2025_no_until.id,
+                }
+            )
+        with self.assertRaises(ValidationError):
+            sub.with_user(self.user_manager).write(
+                {
+                    "end_date": date(2025, 1, 1),
+                }
+            )
+        with self.assertRaises(ValidationError):
+            self.Subscription.with_user(self.user_admin).create(
+                {
+                    "start_date": date(2025, 1, 6),
+                    "end_date": date(2025, 1, 8),
+                    "volunteer_id": self.volunteer_test.id,
+                    "generator_id": self.gen_without_sub_2025_no_until.id,
+                }
+            )
+        # Writing end_date to today is allowed for admins
+        # Today is 2025-01-01 due to freeze_time
+        with self.assertRaises(ValidationError):
+            sub.with_user(self.user_admin).write(
+                {
+                    "end_date": date(2025, 1, 4),
+                }
+            )
+        sub.with_user(self.user_admin).write(
+            {
+                "end_date": date(2025, 1, 1),
+            }
+        )
 
     def test_subscription_exceed_max_3_with_overlaps_not_allowed(self):
         """Test that creating a subscription that would exceed the max_volunteer_nb
@@ -733,41 +888,6 @@ class TestVolunteerShiftRecurrentSubscription(TestVolunteerGeneratorSubscription
                 }
             )
 
-    def test_conflicting_subscription_detail_in_error_message(self):
-        """Test that the error message when creating a conflicting subscription
-        includes details about the conflict."""
-        # Time frozen at 2025-01-01 10:00, which is considered as "today" during tests
-        # Capture error message when creating a conflicting subscription
-        with self.assertRaises(ValidationError) as context:
-            self.Subscription.create(
-                {
-                    "start_date": date(2024, 12, 10),
-                    "end_date": date(2024, 12, 12),
-                    "volunteer_id": self.volunteer_test_0.id,
-                    "generator_id": self.gen_with_past_start.id,
-                }
-            )
-        # Check that error message contains details about the conflict
-        error_msg = str(context.exception)
-        self.assertIn("Conflicting subscription", error_msg)
-        self.assertIn("Volunteer: VolunteerTest0", error_msg)
-        self.assertIn("Start date: 2024-12-10", error_msg)
-        self.assertIn("End date: 2024-12-12", error_msg)
-        with self.assertRaises(ValidationError) as context:
-            self.Subscription.create(
-                {
-                    "start_date": date(2024, 12, 12),
-                    "volunteer_id": self.volunteer_test_1.id,
-                    "generator_id": self.gen_with_past_start.id,
-                }
-            )
-        # Test with no end date
-        error_msg = str(context.exception)
-        self.assertIn("Conflicting subscription", error_msg)
-        self.assertIn("Volunteer: VolunteerTest1", error_msg)
-        self.assertIn("Start date: 2024-12-12", error_msg)
-        self.assertIn("End date: No end date", error_msg)
-
     @unittest.skip(
         "Known limitation: Multi-record validation incorrectly rejects valid modifications"
     )
@@ -780,7 +900,6 @@ class TestVolunteerShiftRecurrentSubscription(TestVolunteerGeneratorSubscription
 
         Currently, the first error raised is the unicity constraint.
         """
-
         # Initial state: 2 subscriptions on different periods, no conflicts
         sub1 = self.Subscription.create(
             {

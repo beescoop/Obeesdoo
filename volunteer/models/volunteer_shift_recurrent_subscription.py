@@ -75,6 +75,13 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                 generator = self.env["volunteer.shift.recurrent.generator"].browse(
                     gen_id
                 )
+                if generator.state == "canceled":
+                    raise ValidationError(
+                        _(
+                            "It is not possible to create "
+                            "a subscription for a canceled generator."
+                        )
+                    )
                 # Pass vals to proceed with the check on each vals
                 # and pass also the full vals_list to verify all the vals requested
                 # in multi create for excluding them
@@ -113,6 +120,17 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         all_old_vals = []
         for sub in self:
             generator = sub.generator_id
+            if generator.state == "canceled" and not (
+                self.env.user.has_group("volunteer.volunteer_group_admin")
+                and len(vals) == 1
+                and "end_date" in vals
+                and vals["end_date"] == fields.Date.today()
+            ):
+                raise ValidationError(
+                    _(
+                        "It is not possible to modify a subscription for a canceled generator."
+                    )
+                )
             # Old values to exclude to avoid counting twice since it's a write operation
             old_sub_vals = {
                 "start_date": sub.start_date,
