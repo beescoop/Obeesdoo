@@ -48,13 +48,6 @@ class VolunteerShiftRecurrentSubscription(models.Model):
             lambda subscription: subscription.generator_id.state != "canceled"
         )
         for sub in subscriptions_to_check:
-            if sub.start_date < date.today():
-                raise ValidationError(
-                    _(
-                        f"Start date of a subscription can't be in the past."
-                        f"{sub.get_conflicting_sub_detail_message()}"
-                    )
-                )
             if sub.end_date and sub.start_date > sub.end_date:
                 raise ValidationError(
                     _(
@@ -80,6 +73,25 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                         _(
                             "It is not possible to create "
                             "a subscription for a canceled generator."
+                        )
+                    )
+                # Disallow start_date in past only when it is explicitly modified
+                if (
+                    "start_date" in vals
+                    and fields.Date.to_date(vals["start_date"]) < date.today()
+                ):
+                    sub_id = vals.get("subscription_id")
+                    if sub_id:
+                        sub = self.env["volunteer.shift.recurrent.subscription"].browse(
+                            sub_id
+                        )
+                        custom_message = f"{sub.get_conflicting_sub_detail_message()}"
+                    else:
+                        custom_message = ""
+                    raise ValidationError(
+                        _(
+                            f"Start date of a subscription can't be in the past."
+                            f"{custom_message}"
                         )
                     )
                 # Pass vals to proceed with the check on each vals
@@ -129,6 +141,17 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                 raise ValidationError(
                     _(
                         "It is not possible to modify a subscription for a canceled generator."
+                    )
+                )
+            # Disallow start_date in past only when it is explicitly modified
+            if (
+                "start_date" in vals
+                and fields.Date.to_date(vals["start_date"]) < date.today()
+            ):
+                raise ValidationError(
+                    _(
+                        f"Start date of a subscription can't be in the past."
+                        f"{sub.get_conflicting_sub_detail_message()}"
                     )
                 )
             # Old values to exclude to avoid counting twice since it's a write operation

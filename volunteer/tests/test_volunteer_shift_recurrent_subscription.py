@@ -888,6 +888,41 @@ class TestVolunteerShiftRecurrentSubscription(TestVolunteerGeneratorSubscription
                 }
             )
 
+    def test_start_date_past_validation_only_when_explicitly_modified(self):
+        """Test that start_date validation only triggers
+        when explicitly modified, allowing modification of end_date
+        even when start_date becomes past due to time passing."""
+        # Time frozen at 2025-01-01
+        sub = self.Subscription.create(
+            {
+                "start_date": date(2025, 2, 1),
+                "end_date": date(2025, 2, 5),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
+        )
+        # Move time forward to 2025-03-01 where start_date is now in the past
+        with freeze_time("2025-03-01 10:00:00"):
+            # Modify end_date only, should succeed
+            sub.write({"end_date": date(2025, 2, 10)})
+            # Explicitly modify start_date to past, should fail
+            with self.assertRaises(ValidationError):
+                sub.write({"start_date": date(2025, 1, 15)})
+
+    def test_create_subscription_with_past_start_date_not_allowed(self):
+        """Test that creating a subscription with start_date in past is not allowed"""
+        # Time frozen at 2025-01-01 10:00,
+        # which is considered as "today" during tests
+        with self.assertRaises(ValidationError):
+            self.Subscription.create(
+                {
+                    "start_date": date(2024, 12, 1),
+                    "end_date": date(2025, 12, 5),
+                    "volunteer_id": self.volunteer_test.id,
+                    "generator_id": self.gen_without_sub_2025_no_until.id,
+                }
+            )
+
     @unittest.skip(
         "Known limitation: Multi-record validation incorrectly rejects valid modifications"
     )
