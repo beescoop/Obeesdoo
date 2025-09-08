@@ -150,60 +150,22 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         return generators
 
     def write(self, vals):
-        # Restrict state change to admins only
+        # Check if vals contains state change for all generators
+        # because it's a general blocking condition with strict blocking
+        # for all users except admins and don't depend on other modifications
         if (
             "state" in vals
             and not self.env.context.get("install_mode")
             and not self.env.user.has_group("volunteer.volunteer_group_admin")
         ):
             raise AccessError(_("Only admins can change the state of a generator"))
+        # Save previous states for all generators
         old_states = {generator.id: generator.state for generator in self}
-        for generator in self:
-            # Restrict modification on canceled generators to admins only
-            if generator.state == "canceled" and not self.env.user.has_group(
-                "volunteer.volunteer_group_admin"
-            ):
-                raise AccessError(_("Only admins can modify a canceled generator."))
-            # Prevent modification of fields when the generator is not in draft state
-            # except when canceling the generator without other changes
-            if (
-                generator.state != "draft"
-                and not (vals.get("state") == "canceled" and len(vals) == 1)
-                and not vals.get("volunteer_subscription_ids")
-            ):
-                raise ValidationError(
-                    _(
-                        f"Only generators in draft can be modified. "
-                        f"{generator._get_message_procedure_to_modify_generator_fields()}"
-                    )
-                )
-            if self.env.user.has_group("volunteer.volunteer_group_admin"):
-                new_until_date = (
-                    fields.Date.to_date(vals.get("until_date")) or generator.until_date
-                )
-                new_start_time = (
-                    fields.Datetime.to_datetime(vals.get("start_time"))
-                    or generator.start_time
-                )
-                # Ensure that until_date is not before start_time
-                if new_until_date and new_until_date < new_start_time.date():
-                    raise ValidationError(
-                        _(
-                            "The generator end date cannot be earlier than the start date."
-                        )
-                    )
+        self._check_access_and_restrictions_based_on_generator_state(vals, old_states)
         res = super().write(vals)
+        today = date.today()
         for generator in self:
-            today = date.today()
             previous_state = old_states[generator.id]
-            # Unauthorize return to state draft
-            if previous_state != "draft" and generator.state == "draft":
-                raise ValidationError(_("Returning to draft state is not allowed."))
-            # Unauthorize return from canceled state
-            if previous_state == "canceled" and generator.state != "canceled":
-                raise ValidationError(
-                    _("It is not possible to change the state of a canceled generator.")
-                )
             # If the generator is confirmed, generate shifts and participation
             if previous_state == "draft" and generator.state == "confirmed":
                 generator._generate_shifts()
@@ -216,6 +178,9 @@ class VolunteerShiftRecurrentGenerator(models.Model):
                     requested_start_date=today,
                     requested_end_date=generator.until_date,
                 )
+                # Set end_date to today for future subscriptions
+                # (no state on subscription, cancellation is done
+                # by setting end_date to today)
                 for subscription in generator.volunteer_subscription_ids:
                     if subscription in future_subscriptions:
                         subscription.write({"end_date": today})
@@ -239,6 +204,97 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         return res
 
     # Methods
+
+    def _check_access_and_restrictions_based_on_generator_state(self, vals, old_states):
+        """Check access rights and restrictions based on the generator state
+        Note: access for user groups is managed by access rules"""
+        # Bypass checks during installation for demo data loading
+        if self.env.context.get("install_mode"):
+            return True
+        is_manager = self.env.user.has_group("volunteer.volunteer_group_manager")
+        is_admin = self.env.user.has_group("volunteer.volunteer_group_admin")
+        for generator in self:
+            previous_state = old_states[generator.id]
+            new_state = vals.get("state") or generator.state
+            is_state_changing = previous_state != new_state
+            is_write_or_create_sub = (
+                True if vals.get("volunteer_subscription_ids") else False
+            )
+            is_only_managing_sub = (
+                True if is_write_or_create_sub and len(vals) == 1 else False
+            )
+            if not is_state_changing:
+                if new_state == "draft":
+                    # Only admins can modify fields, managers can only manage subscriptions
+                    if not is_admin and not (is_manager and is_only_managing_sub):
+                        raise AccessError(
+                            _("Only admins can modify generators in draft.")
+                        )
+                    else:
+                        # If admin modify until_date, ensure it's not before start_time
+                        new_until_date = (
+                            fields.Date.to_date(vals.get("until_date"))
+                            or generator.until_date
+                        )
+                        # During write start_time can be unmodified so not in vals
+                        # but it's a required field so always present in the record,
+                        # it has to be set to generator.start_time in this case
+                        new_start_time = (
+                            fields.Datetime.to_datetime(vals.get("start_time"))
+                            or generator.start_time
+                        )
+                        # until_date is not required so check only if provided
+                        # If not provided, it is considered as higher than start_time
+                        if new_until_date and new_until_date < new_start_time.date():
+                            raise ValidationError(
+                                _(
+                                    "The generator until date cannot "
+                                    "be earlier than the start date."
+                                )
+                            )
+                elif new_state == "confirmed":
+                    # Block changes fields to manager
+                    # but allow subscription creation/modification only
+                    # (access rules already restrict user group access)
+                    if (is_manager or is_admin) and not is_only_managing_sub:
+                        procedure_msg = (
+                            generator._get_message_procedure_to_modify_generator_fields()
+                        )
+                        raise ValidationError(
+                            _(
+                                f"Modification of fields of a generators in confirmed state "
+                                f"needs to be done by a specific procedure."
+                                f"{procedure_msg}"
+                            )
+                        )
+                elif new_state == "canceled":
+                    # Block field changes to all users
+                    raise ValidationError(
+                        _("It is not possible to modify a canceled generator.")
+                    )
+            # Check when state is changing
+            else:
+                # Unauthorize return to state draft for all users
+                if previous_state != "draft" and new_state == "draft":
+                    raise ValidationError(_("Returning to draft state is not allowed."))
+                # Unauthorize return from canceled state
+                if previous_state == "canceled" and new_state != "canceled":
+                    raise ValidationError(
+                        _(
+                            "It is not possible to change the state of a canceled generator."
+                        )
+                    )
+                # Admin is allowed to change state to canceled
+                # but not modify other fields at the same time
+                # (access for other groups is blocked on first global state change
+                # check at the beginning of write override)
+                if (previous_state != "canceled" and new_state == "canceled") and not (
+                    len(vals) == 1
+                ):
+                    raise ValidationError(
+                        _("You can't modify fields when canceling a generator.")
+                    )
+        return True
 
     def determine_furthest_end_date(self):
         """Determine the furthest end date to use when

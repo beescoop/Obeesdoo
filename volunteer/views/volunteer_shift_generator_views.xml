@@ -92,7 +92,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
                     <notebook>
                         <page name="page_subscription" string="Subscribed Volunteers">
-                            <field name="volunteer_subscription_ids">
+                            <field
+                                name="volunteer_subscription_ids"
+                                attrs="{'readonly': [('state', '=', 'canceled')]}"
+                            >
                                 <tree editable="bottom" delete="false">
                                     <field
                                         name="volunteer_id"

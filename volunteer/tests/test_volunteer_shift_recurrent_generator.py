@@ -426,7 +426,7 @@ class TestVolunteerShiftRecurrentGenerator(TestVolunteerGeneratorSubscriptionCom
             self.gen_without_sub_2025_no_until.write(
                 {"end_time": datetime(2025, 1, 1, 16, 0)}
             )
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(AccessError):
             self.gen_without_sub_2025_no_until.with_user(self.user_user).write(
                 {
                     "max_volunteer_nb": 4,
@@ -446,6 +446,33 @@ class TestVolunteerShiftRecurrentGenerator(TestVolunteerGeneratorSubscriptionCom
                     "type_id": self.type2.id,
                 }
             )
+        # Test authorized action : subscription management via notebook
+        self.gen_without_sub_2025_no_until.with_user(self.user_manager).write(
+            {
+                "volunteer_subscription_ids": [
+                    Command.create(
+                        {
+                            "start_date": date(2025, 1, 1),
+                            "end_date": date(2025, 1, 2),
+                            "volunteer_id": self.volunteer_test.id,
+                        }
+                    )
+                ]
+            }
+        )
+        self.gen_without_sub_2025_no_until.with_user(self.user_admin).write(
+            {
+                "volunteer_subscription_ids": [
+                    Command.create(
+                        {
+                            "start_date": date(2025, 1, 3),
+                            "end_date": date(2025, 1, 4),
+                            "volunteer_id": self.volunteer_test_0.id,
+                        }
+                    )
+                ]
+            }
+        )
 
     def test_modification_on_canceled_generator_not_allowed(self):
         """Test that modifying fields of a canceled generator is not allowed"""
@@ -478,7 +505,7 @@ class TestVolunteerShiftRecurrentGenerator(TestVolunteerGeneratorSubscriptionCom
                     "end_time": datetime(2025, 1, 1, 16, 0),
                 }
             )
-        with self.assertRaises(AccessError):
+        with self.assertRaises(ValidationError):
             self.gen_without_sub_2025_no_until.with_user(self.user_manager).write(
                 {
                     "max_volunteer_nb": 4,
@@ -488,7 +515,7 @@ class TestVolunteerShiftRecurrentGenerator(TestVolunteerGeneratorSubscriptionCom
                     "type_id": self.type2.id,
                 }
             )
-        with self.assertRaises(AccessError):
+        with self.assertRaises(ValidationError):
             self.gen_without_sub_2025_no_until.with_user(self.user_user).write(
                 {
                     "max_volunteer_nb": 4,
@@ -496,6 +523,43 @@ class TestVolunteerShiftRecurrentGenerator(TestVolunteerGeneratorSubscriptionCom
                     "start_time": datetime(2025, 1, 1, 15),
                     "end_time": datetime(2025, 1, 1, 16, 0),
                     "type_id": self.type2.id,
+                }
+            )
+
+    def test_subscription_management_via_notebook_blocked_on_canceled_generator(self):
+        """Test that subscription management via notebook is blocked
+        on a canceled generator"""
+        self.gen_without_sub_2025_no_until.with_user(self.user_admin).write(
+            {
+                "state": "canceled",
+            }
+        )
+        with self.assertRaises(ValidationError):
+            self.gen_without_sub_2025_no_until.with_user(self.user_manager).write(
+                {
+                    "volunteer_subscription_ids": [
+                        Command.create(
+                            {
+                                "start_date": date(2025, 1, 1),
+                                "end_date": date(2025, 1, 1),
+                                "volunteer_id": self.volunteer_test.id,
+                            }
+                        )
+                    ]
+                }
+            )
+        with self.assertRaises(ValidationError):
+            self.gen_without_sub_2025_no_until.with_user(self.user_admin).write(
+                {
+                    "volunteer_subscription_ids": [
+                        Command.create(
+                            {
+                                "start_date": date(2025, 1, 3),
+                                "end_date": date(2025, 1, 4),
+                                "volunteer_id": self.volunteer_test_0.id,
+                            }
+                        )
+                    ]
                 }
             )
 
@@ -516,9 +580,12 @@ class TestVolunteerShiftRecurrentGenerator(TestVolunteerGeneratorSubscriptionCom
                 }
             )
 
-    def test_write_on_draft_generator_allowed_only_to_admin(self):
-        """Test that only admin can modify a generator"""
+    def test_draft_generator_write_permissions_by_role(self):
+        """Test that field modifications on a draft generator
+        are allowed for admins only, except for subscription management
+        for managers"""
         # Generator in draft state, without subscriptions
+        # User blocked for all modifications
         with self.assertRaises(AccessError):
             self.gen_without_sub_2025_no_until.with_user(self.user_user).write(
                 {
@@ -529,6 +596,7 @@ class TestVolunteerShiftRecurrentGenerator(TestVolunteerGeneratorSubscriptionCom
                     "type_id": self.type2.id,
                 }
             )
+        # Manager blocked for field modifications
         with self.assertRaises(AccessError):
             self.gen_without_sub_2025_no_until.with_user(self.user_manager).write(
                 {
@@ -536,16 +604,28 @@ class TestVolunteerShiftRecurrentGenerator(TestVolunteerGeneratorSubscriptionCom
                     "until_date": date(2026, 1, 3),
                     "start_time": datetime(2025, 1, 1, 15),
                     "end_time": datetime(2025, 1, 1, 16, 0),
-                    "state": "canceled",
                     "type_id": self.type2.id,
                 }
             )
+        # Manager allowed for subscription management only
+        # (from notebook)
+        self.gen_without_sub_2025_no_until.with_user(self.user_manager).write(
+            {
+                "volunteer_subscription_ids": [
+                    Command.create(
+                        {
+                            "start_date": date(2025, 1, 10),
+                            "end_date": date(2025, 1, 12),
+                            "volunteer_id": self.volunteer_test.id,
+                        }
+                    )
+                ]
+            }
+        )
+        # Admin allowed for field modifications
         self.gen_without_sub_2025_no_until.with_user(self.user_admin).write(
             {
                 "max_volunteer_nb": 4,
                 "until_date": date(2026, 1, 3),
-                "start_time": datetime(2025, 1, 1, 15),
-                "end_time": datetime(2025, 1, 1, 16, 0),
-                "type_id": self.type2.id,
             }
         )
