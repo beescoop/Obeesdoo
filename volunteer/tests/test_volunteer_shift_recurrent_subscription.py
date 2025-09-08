@@ -911,8 +911,7 @@ class TestVolunteerShiftRecurrentSubscription(TestVolunteerGeneratorSubscription
 
     def test_create_subscription_with_past_start_date_not_allowed(self):
         """Test that creating a subscription with start_date in past is not allowed"""
-        # Time frozen at 2025-01-01 10:00,
-        # which is considered as "today" during tests
+        # Time frozen at 2025-01-01
         with self.assertRaises(ValidationError):
             self.Subscription.create(
                 {
@@ -922,6 +921,78 @@ class TestVolunteerShiftRecurrentSubscription(TestVolunteerGeneratorSubscription
                     "generator_id": self.gen_without_sub_2025_no_until.id,
                 }
             )
+
+    def test_write_sub_end_date_from_none_to_defined_with_full_capacity_allowed(self):
+        """Test that modifying end_date of a subscription from None to a defined date
+        is allowed when max capacity is reached with other subscriptions without end_date
+        Note : Integration test for _managing_cancel_or_create_participation
+        with None end_date handling."""
+        self.gen_without_sub_2025_no_until.with_user(self.user_admin).write(
+            {"state": "confirmed"}
+        )
+        # Create 3 subscriptions without end_date to reach max capacity
+        sub1 = self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 1),
+                "end_date": False,
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
+        )
+        self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 1),
+                "end_date": False,
+                "volunteer_id": self.volunteer_test_0.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
+        )
+        self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 1),
+                "end_date": False,
+                "volunteer_id": self.volunteer_test_1.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
+        )
+        # Reducing end_date of one subscription should be allowed
+        sub1.write({"end_date": date(2025, 1, 15)})
+
+    def test_write_sub_start_date_with_full_capacity_reached_no_end_date_allowed(self):
+        """Test that modifying start_date of a subscription is allowed
+        when max capacity is reached with other subscriptions without end_date
+        Note: Integration test: Validates the old_end_date=new_end_date
+        fix in _managing_cancel_or_create_participation."""
+        self.gen_without_sub_2025_no_until.with_user(self.user_admin).write(
+            {"state": "confirmed"}
+        )
+        # Create 3 subscriptions without end_date to reach max capacity
+        sub1 = self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 1),
+                "end_date": False,
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
+        )
+        self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 1),
+                "end_date": False,
+                "volunteer_id": self.volunteer_test_0.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
+        )
+        self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 1),
+                "end_date": False,
+                "volunteer_id": self.volunteer_test_1.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
+        )
+        # Modifying start_date of one subscription should be allowed
+        sub1.write({"start_date": date(2025, 1, 15)})
 
     @unittest.skip(
         "Known limitation: Multi-record validation incorrectly rejects valid modifications"

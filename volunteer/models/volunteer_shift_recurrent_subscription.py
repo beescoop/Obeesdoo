@@ -157,7 +157,7 @@ class VolunteerShiftRecurrentSubscription(models.Model):
             # Old values to exclude to avoid counting twice since it's a write operation
             old_sub_vals = {
                 "start_date": sub.start_date,
-                "end_date": sub.end_date or generator.determine_furthest_end_date(),
+                "end_date": sub.end_date,
                 "generator_id": generator.id,
                 "volunteer_id": sub.volunteer_id.id,
             }
@@ -296,7 +296,8 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         since they mean there is no change requested.
         """
         new_end_date = self.end_date or self.generator_id.determine_furthest_end_date()
-        old_end_date = old_end_date or self.generator_id.determine_furthest_end_date()
+        if not old_end_date:
+            old_end_date = new_end_date
         shifts_intersection = self._get_shifts_intersection_between_two_periods(
             self.start_date, new_end_date, old_start_date, old_end_date
         )
