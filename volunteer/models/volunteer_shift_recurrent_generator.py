@@ -157,7 +157,13 @@ class VolunteerShiftRecurrentGenerator(models.Model):
             and not self.env.user.has_group("volunteer.volunteer_group_admin")
         ):
             raise AccessError(_("Only admins can change the state of a generator"))
+        old_states = {generator.id: generator.state for generator in self}
         for generator in self:
+            # Restrict modification on canceled generators to admins only
+            if generator.state == "canceled" and not self.env.user.has_group(
+                "volunteer.volunteer_group_admin"
+            ):
+                raise AccessError(_("Only admins can modify a canceled generator."))
             # Prevent modification of fields when the generator is not in draft state
             # except when canceling the generator without other changes
             if (
@@ -166,8 +172,10 @@ class VolunteerShiftRecurrentGenerator(models.Model):
                 and not vals.get("volunteer_subscription_ids")
             ):
                 raise ValidationError(
-                    _("Only generators in draft can be modified.")
-                    + self._get_message_procedure_to_modify_generator_fields()
+                    _(
+                        f"Only generators in draft can be modified. "
+                        f"{generator._get_message_procedure_to_modify_generator_fields()}"
+                    )
                 )
             if self.env.user.has_group("volunteer.volunteer_group_admin"):
                 new_until_date = (
@@ -184,60 +192,50 @@ class VolunteerShiftRecurrentGenerator(models.Model):
                             "The generator end date cannot be earlier than the start date."
                         )
                     )
-            old_states = {generator.id: generator.state for generator in self}
         res = super().write(vals)
-        if self.env.user.has_group("volunteer.volunteer_group_admin"):
-            for generator in self:
-                today = date.today()
-                previous_state = old_states[generator.id]
-                # Unauthorize return to state draft
-                if previous_state != "draft" and generator.state == "draft":
-                    raise ValidationError(_("Returning to draft state is not allowed."))
-                # Unauthorize return from canceled state
-                if previous_state == "canceled" and generator.state != "canceled":
-                    raise ValidationError(
-                        _(
-                            "It is not possible to change the state of a canceled generator."
-                        )
+        for generator in self:
+            today = date.today()
+            previous_state = old_states[generator.id]
+            # Unauthorize return to state draft
+            if previous_state != "draft" and generator.state == "draft":
+                raise ValidationError(_("Returning to draft state is not allowed."))
+            # Unauthorize return from canceled state
+            if previous_state == "canceled" and generator.state != "canceled":
+                raise ValidationError(
+                    _("It is not possible to change the state of a canceled generator.")
+                )
+            # If the generator is confirmed, generate shifts and participation
+            if previous_state == "draft" and generator.state == "confirmed":
+                generator._generate_shifts()
+                generator._generate_participation()
+            # Else, if the generator is canceled, apply the required changes
+            elif previous_state != "canceled" and generator.state == "canceled":
+                # Change end_date of future subscriptions by getting the active_subscription
+                # for the period from today to generator until_date aka future_subscriptions
+                future_subscriptions = generator._get_active_subscriptions_for_period(
+                    requested_start_date=today,
+                    requested_end_date=generator.until_date,
+                )
+                for subscription in generator.volunteer_subscription_ids:
+                    if subscription in future_subscriptions:
+                        subscription.write({"end_date": today})
+                # Auto-cancel future shifts, which will also cancel related participation
+                future_shifts = generator.volunteer_shift_ids.filtered(
+                    lambda shift: shift.start_time.date() >= today
+                )
+                for shift in future_shifts:
+                    shift.write(
+                        {
+                            "stage_id": self.env.ref(
+                                "volunteer.volunteer_shift_stage_canceled"
+                            ).id
+                        }
                     )
-                # If the generator is confirmed, generate shifts and participation
-                if previous_state == "draft" and generator.state == "confirmed":
-                    generator._generate_shifts()
-                    generator._generate_participation()
-                # Else, if the generator is canceled, apply the required changes
-                elif previous_state != "canceled" and generator.state == "canceled":
-                    # Change end_date of future subscriptions by getting the active_subscription
-                    # for the period from today to generator until_date aka future_subscriptions
-                    future_subscriptions = (
-                        generator._get_active_subscriptions_for_period(
-                            requested_start_date=today,
-                            requested_end_date=generator.until_date,
-                        )
-                    )
-                    for subscription in generator.volunteer_subscription_ids:
-                        if subscription in future_subscriptions:
-                            subscription.write({"end_date": today})
-                    # Auto-cancel future shifts, which will also cancel related participation
-                    future_shifts = generator.volunteer_shift_ids.filtered(
-                        lambda shift: shift.start_time.date() >= today
-                    )
-                    for shift in future_shifts:
-                        shift.write(
-                            {
-                                "stage_id": self.env.ref(
-                                    "volunteer.volunteer_shift_stage_canceled"
-                                ).id
-                            }
-                        )
-                    # Set until_date to today after other operations
-                    # using super to avoid recursion and bypass checks
-                    super(VolunteerShiftRecurrentGenerator, generator).write(
-                        {"until_date": today}
-                    )
-        else:
-            raise AccessError(
-                _("Only admins can modify the fields of a draft generator.")
-            )
+                # Set until_date to today after other operations
+                # using super to avoid recursion and bypass checks
+                super(VolunteerShiftRecurrentGenerator, generator).write(
+                    {"until_date": today}
+                )
         return res
 
     # Methods

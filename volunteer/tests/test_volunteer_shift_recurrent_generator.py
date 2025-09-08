@@ -449,31 +449,31 @@ class TestVolunteerShiftRecurrentGenerator(TestVolunteerGeneratorSubscriptionCom
 
     def test_modification_on_canceled_generator_not_allowed(self):
         """Test that modifying fields of a canceled generator is not allowed"""
-        self.gen_each_day_max_2_vol.with_user(self.user_admin).write(
+        self.gen_without_sub_2025_no_until.with_user(self.user_admin).write(
             {
                 "state": "canceled",
             }
         )
         with self.assertRaises(ValidationError):
-            self.gen_each_day_max_2_vol.write(
+            self.gen_without_sub_2025_no_until.write(
                 {
                     "max_volunteer_nb": 4,
                 }
             )
         with self.assertRaises(ValidationError):
-            self.gen_each_day_max_2_vol.write(
+            self.gen_without_sub_2025_no_until.write(
                 {
                     "until_date": date(2026, 1, 3),
                 }
             )
         with self.assertRaises(ValidationError):
-            self.gen_each_day_max_2_vol.write(
+            self.gen_without_sub_2025_no_until.write(
                 {
                     "start_time": datetime(2025, 1, 1, 15, 0),
                 }
             )
         with self.assertRaises(ValidationError):
-            self.gen_each_day_max_2_vol.write(
+            self.gen_without_sub_2025_no_until.write(
                 {
                     "end_time": datetime(2025, 1, 1, 16, 0),
                 }
