@@ -132,6 +132,9 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         all_old_vals = []
         for sub in self:
             generator = sub.generator_id
+            # Allow modifications of end_date to today for admins only
+            # on canceled generators to permit canceling subscriptions
+            # on cascade when the generator is canceled
             if generator.state == "canceled" and not (
                 self.env.user.has_group("volunteer.volunteer_group_admin")
                 and len(vals) == 1
