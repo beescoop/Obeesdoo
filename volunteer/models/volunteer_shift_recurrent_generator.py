@@ -81,6 +81,7 @@ class VolunteerShiftRecurrentGenerator(models.Model):
     # Constraints
     @api.constrains("until_date")
     def _check_sub_date_range_in_generator_future_period(self):
+        """Check that the subscription period is within the generator period"""
         for sub in self.volunteer_subscription_ids:
             try:
                 sub.check_date_range_in_generator_period(self)
@@ -132,6 +133,8 @@ class VolunteerShiftRecurrentGenerator(models.Model):
     def create(self, vals_list):
         for vals in vals_list:
             # Ensure that until_date is not before start_time
+            # if until_date is provided, else it's considered
+            # as infinite and cannot be before start_time
             if vals.get("until_date"):
                 until_date = fields.Date.to_date(vals["until_date"])
                 start_time = fields.Datetime.to_datetime(vals["start_time"])
@@ -311,10 +314,10 @@ class VolunteerShiftRecurrentGenerator(models.Model):
             furthest_start_date = max(
                 self.volunteer_subscription_ids.mapped("start_date")
             )
-            # If no subscription has an end_date, and there is no until_date,
-            # furthest_end_date will be the furthest start_date
             if sub_with_ends:
                 furthest_end_date = max(sub_with_ends.mapped("end_date"))
+            # If no subscription has an end_date, and there is no until_date,
+            # furthest_end_date will be the furthest start_date
             if furthest_end_date < furthest_start_date:
                 furthest_end_date = furthest_start_date
         # Find the furthest end_date among existing participation
@@ -397,8 +400,8 @@ class VolunteerShiftRecurrentGenerator(models.Model):
     ):
         """Ensure there are available subscription slots for the specified period.
         sub_to_exclude is used during write and contains the subscription data
-        of the current sub being modified so it has to be excluded from the counting
-        to avoid counting twice"""
+        of the current subscription being modified so it has to be excluded
+        from the counting to avoid counting twice"""
         self.ensure_one()
         requested_end_date = (
             fields.Date.to_date(requested_sub.get("end_date"))

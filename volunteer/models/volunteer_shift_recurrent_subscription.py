@@ -75,24 +75,12 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                             "a subscription for a canceled generator."
                         )
                     )
-                # Disallow start_date in past only when it is explicitly modified
-                if (
-                    "start_date" in vals
-                    and fields.Date.to_date(vals["start_date"]) < date.today()
-                ):
-                    sub_id = vals.get("subscription_id")
-                    if sub_id:
-                        sub = self.env["volunteer.shift.recurrent.subscription"].browse(
-                            sub_id
-                        )
-                        custom_message = f"{sub.get_conflicting_sub_detail_message()}"
-                    else:
-                        custom_message = ""
+                # Check start_date in past.
+                # Start_date is required, so it should always be in vals
+                if fields.Date.to_date(vals["start_date"]) < date.today():
+                    # and name of volunteer and end_date if provided
                     raise ValidationError(
-                        _(
-                            f"Start date of a subscription can't be in the past."
-                            f"{custom_message}"
-                        )
+                        _("Start date of a subscription can't be in the past.")
                     )
                 # Pass vals to proceed with the check on each vals
                 # and pass also the full vals_list to verify all the vals requested
@@ -105,16 +93,15 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                     requested_start_date,
                     requested_end_date,
                 )
-                # Check remaining_slots based on generated shifts can be called before creation
-                # because it only adds new participation without needing
-                # to update the actual remaining slots for liberating slots
-                # like it's the case in write
+                # Check remaining_slots based on generated shifts
+                # no need to exclude old values since it's a create operation
                 generator.check_remaining_slots_by_shift_generated(
                     requested_start_date, requested_end_date
                 )
         subscriptions = super().create(vals_list)
         for sub in subscriptions:
-            # Generate all participation for new sub requested after all checks pass
+            # After all checks pass generate all participation
+            # for new subscription requested
             if sub.generator_id.state == "confirmed":
                 sub.generate_participation()
         return subscriptions
@@ -127,14 +114,17 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         # valid modifications to be incorrectly rejected due to false
         # capacity exceeded errors.
 
-        # Collect old and new values for each subscription in the recordset
+        # Prepare lists to collect old subscription data and new values
+        # for each subscription in the recordset
         all_requested_vals = []
-        all_old_vals = []
+        all_old_sub_data = []
         for sub in self:
             generator = sub.generator_id
-            # Allow modifications of end_date to today for admins only
+            # Allow only admins to modify end_date to today's date
             # on canceled generators to permit canceling subscriptions
-            # on cascade when the generator is canceled
+            # in cascade when the generator is canceled
+            # Check end_date in vals is the only modification requested
+            # and that it is set to today
             if generator.state == "canceled" and not (
                 self.env.user.has_group("volunteer.volunteer_group_admin")
                 and len(vals) == 1
@@ -147,6 +137,8 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                     )
                 )
             # Disallow start_date in past only when it is explicitly modified
+            # (it can be kept in the past if not modified
+            # to prevent blocking updates of end_date only)
             if (
                 "start_date" in vals
                 and fields.Date.to_date(vals["start_date"]) < date.today()
@@ -157,19 +149,22 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                         f"{sub.get_conflicting_sub_detail_message()}"
                     )
                 )
-            # Old values to exclude to avoid counting twice since it's a write operation
-            old_sub_vals = {
+            # Collect old values of the subscription to exclude
+            # to avoid counting twice since it's a write operation
+            old_sub_data = {
                 "start_date": sub.start_date,
                 "end_date": sub.end_date,
                 "generator_id": generator.id,
                 "volunteer_id": sub.volunteer_id.id,
             }
-            # Determine requested_end_date
+            # Check if modification of end_date is requested
+            # to determine the requested value to use during construction
+            # of requested_vals
             if "end_date" in vals:
-                # If end_date is explicitly provided
+                # If provided value is not False, convert it to date
                 if vals["end_date"]:
                     requested_end_date = fields.Date.to_date(vals["end_date"])
-                # If explicitly set to False: use furthest end date
+                # If the requested value is False, it has to be determined
                 else:
                     requested_end_date = generator.determine_furthest_end_date()
             # If end_date not modified, keep existing value
@@ -178,7 +173,7 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                 requested_end_date = (
                     sub.end_date or generator.determine_furthest_end_date()
                 )
-            # New values, reusing existing ones if not modified
+            # Collect new values requested, reusing existing ones if not modified
             requested_vals = {
                 "start_date": fields.Date.to_date(vals.get("start_date"))
                 or sub.start_date,
@@ -187,7 +182,7 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                 "volunteer_id": sub.volunteer_id.id,
             }
             all_requested_vals.append(requested_vals)
-            all_old_vals.append(old_sub_vals)
+            all_old_sub_data.append(old_sub_data)
         # Validate each subscription individually
         # (limitation: doesn't handle multi-record conflicts)
         for i, sub in enumerate(self):
@@ -195,15 +190,20 @@ class VolunteerShiftRecurrentSubscription(models.Model):
             generator.check_remaining_subscription_by_day(
                 all_requested_vals[i],
                 all_requested_vals,
-                sub_to_exclude=all_old_vals[i],  # Only excludes one old value, not all
+                sub_to_exclude=all_old_sub_data[
+                    i
+                ],  # Only excludes one old value, not all
             )
             generator.check_remaining_slots_by_shift_generated(
                 all_requested_vals[i].get("start_date"),
                 all_requested_vals[i].get("end_date"),
                 volunteer_to_exclude=sub.volunteer_id.id,
             )
+        # If all checks pass, proceed with the write operation
+        # and post treatment
         res = super().write(vals)
-        # Cancel eventual punctual participation registered on shifts covered by the new sub
+        # Cancel eventual punctual participation of the concerned volunteer,
+        # registered on shifts covered by the new subscription period
         for i, sub in enumerate(self):
             generator = sub.generator_id
             self._cancel_punctual_participation_for_requested_period(
@@ -213,9 +213,10 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                 all_requested_vals[i].get("end_date"),
             )
             # After cancellation of punctual participation,
-            # cancel or generate the ones concerned by the new sub
+            # cancel or generate the ones concerned by the new subscription
             sub._managing_cancel_or_create_participation(
-                all_old_vals[i].get("start_date"), all_old_vals[i].get("end_date")
+                all_old_sub_data[i].get("start_date"),
+                all_old_sub_data[i].get("end_date"),
             )
         return res
 
@@ -235,7 +236,7 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         return message
 
     def generate_participation(self):
-        """Generate participation for all shifts covered by the subscription in self"""
+        """Generate participation for all shifts covered by this subscription"""
         self.ensure_one()
         generator = self.generator_id
         if not self.end_date:
@@ -273,7 +274,7 @@ class VolunteerShiftRecurrentSubscription(models.Model):
     def _get_shifts_intersection_between_two_periods(
         self, new_start_date, new_end_date, old_start_date, old_end_date
     ):
-        """Get all shifts in the intersection on two periods"""
+        """Get all shifts in the intersection between two periods"""
         intersection_start_date = max(new_start_date, old_start_date)
         intersection_end_date = min(new_end_date, old_end_date)
         if intersection_start_date > intersection_end_date:
@@ -298,6 +299,7 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         Note: Cases of exact match between new and old subscriptions are not processed
         since they mean there is no change requested.
         """
+        self.ensure_one()
         new_end_date = self.end_date or self.generator_id.determine_furthest_end_date()
         if not old_end_date:
             old_end_date = new_end_date
@@ -312,8 +314,8 @@ class VolunteerShiftRecurrentSubscription(models.Model):
             )
             self._cancel_participation_by_shifts(old_shifts)
             # All shifts covered by the new subscription need to be generated
-            # Apply generate_participation without args because new vals are already in self
-            # (management method called after super().write())
+            # Call generate_participation on self, which is up to date
+            # since this management method is called after super().write()
             self.generate_participation()
         else:
             # Define the boundaries of the full period between old and new subscription
@@ -332,16 +334,14 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                 lambda shift: shift.start_time.date() >= self.start_date
                 and shift.end_time.date() <= new_end_date
             )
-            # The shifts after modification which are only concerned
-            # by the new subscription need to be generated
+            # Generate participation for shifts newly covered by the subscription
             self._generate_participation_by_shifts(shifts_new_sub_only)
             # Filter the period of old subscription without intersection and in the full range
             shifts_old_sub_only = shifts_full_period_without_intersection.filtered(
                 lambda shift: shift.start_time.date() >= old_start_date
                 and shift.end_time.date() <= old_end_date
             )
-            # The shifts after modification which are only concerned
-            # by the old subscription need to be canceled
+            # Cancel participation for shifts no longer covered by the subscription
             self._cancel_participation_by_shifts(shifts_old_sub_only)
 
     @api.model
@@ -405,8 +405,8 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                 )
 
     def _generate_participation_by_shifts(self, shifts):
-        """Generate all participation for given shifts
-        for the volunteer concerned by subscription in self"""
+        """Generate participation records for the given shifts
+        for the volunteer linked to this subscription."""
         self.ensure_one()
         for shift in shifts:
             self.env["volunteer.shift.participation"].create(
