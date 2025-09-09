@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record model="ir.ui.view" id="scale_category_list">
+    <record id="scale_category_list" model="ir.ui.view">
         <field name="name">scale.category.list</field>
         <field name="model">scale.category</field>
         <field name="arch" type="xml">
@@ -11,7 +11,7 @@
         </field>
     </record>
 
-    <record model="ir.ui.view" id="scale_category_form">
+    <record id="scale_category_form" model="ir.ui.view">
         <field name="name">scale.category.form</field>
         <field name="model">scale.category</field>
         <field name="arch" type="xml">
@@ -24,7 +24,7 @@
         </field>
     </record>
 
-    <record model="ir.actions.act_window" id="action_scale_categories">
+    <record id="action_scale_categories" model="ir.actions.act_window">
         <field name="name">Scale categories</field>
         <field name="res_model">scale.category</field>
         <field name="view_mode">tree,form</field>
