@@ -1,5 +1,5 @@
 <odoo>
-    <record model="ir.actions.act_window" id="action_welcome">
+    <record id="action_welcome" model="ir.actions.act_window">
         <field name="name">Shift Type</field>
         <field name="res_model">beesdoo.shift.welcome</field>
         <field name="view_mode">form</field>
@@ -13,7 +13,7 @@
         groups="shift.group_shift_attendance"
     />
 
-    <record model="ir.ui.view" id="shift_welcome_screen_view_form">
+    <record id="shift_welcome_screen_view_form" model="ir.ui.view">
         <field name="name">Shift Welcome Screen</field>
         <field name="model">beesdoo.shift.welcome</field>
         <field name="arch" type="xml">
@@ -35,8 +35,8 @@
             <div class="row align-items-center">
                 <div class="col-md-3">
                     <img
-                        t-if="partner.image"
-                        t-attf-src="data:image/*;base64,{{partner.image}}"
+                        t-if="partner.image_512"
+                        t-attf-src="data:image/*;base64,{{partner.image_512}}"
                     />
                 </div>
                 <div class="col-md-9">

@@ -13,18 +13,18 @@ class TaskType(models.TransientModel):
     _inherit = ["barcodes.barcode_events_mixin"]
 
     partner_id = fields.Many2one("res.partner", string="Cooperator")
-    message = fields.Html("Message")
+    message = fields.Html()
 
     def on_barcode_scanned(self, barcode):
         self._barcode_scanned = ""
         self.message = ""
 
+        # 0 at the beginning of the barcode seems not to be scanned
         if barcode.startswith("42"):
             barcode = "0" + barcode
         if not barcode.startswith("042"):
             self.message = _("Invalid barcode")
             return
-        # 0 at the begining of the code bar seems not to be scanned
         partner_ids = self.env["res.partner"].search([("barcode", "=", barcode)])
         if not partner_ids:
             self.message = _("Member does not exist")
@@ -42,8 +42,8 @@ class TaskType(models.TransientModel):
             "partner": partner,
             "next_shift": self._get_next_shift(partner),
         }
-        html_res = self.env.ref("beesdoo_shift_welcome_screen.welcome_message").render(
-            values
+        html_res = self.env["ir.qweb"]._render(
+            "beesdoo_shift_welcome_screen.welcome_message", values
         )
         self.message = html_res
 
