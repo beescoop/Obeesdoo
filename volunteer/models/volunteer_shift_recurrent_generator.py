@@ -320,6 +320,17 @@ class VolunteerShiftRecurrentGenerator(models.Model):
             # furthest_end_date will be the furthest start_date
             if furthest_end_date < furthest_start_date:
                 furthest_end_date = furthest_start_date
+        # If generator is confirmed, there are shifts generated
+        # It might be that some shifts extend beyond the furthest end_date
+        # when it is based on latest start_time of subscriptions
+        # Check if the shifts end_time in this case is greater
+        # than the furthest_end_date found with subscriptions
+        if self.state == "confirmed" and self.volunteer_shift_ids:
+            last_shift_date = max(
+                shift.end_time.date() for shift in self.volunteer_shift_ids
+            )
+            if last_shift_date > furthest_end_date:
+                furthest_end_date = last_shift_date
         # Find the furthest end_date among existing participation
         if self.volunteer_shift_ids:
             all_confirmed_participation = self.env[
@@ -466,7 +477,7 @@ class VolunteerShiftRecurrentGenerator(models.Model):
             and sub_to_exclude.get("generator_id") == self.id
             and sub_to_exclude.get("start_date")
             <= date_to_check
-            <= (sub_to_exclude.get("end_date") or self.determine_furthest_end_date())
+            <= sub_to_exclude.get("end_date")
         ):
             volunteer_to_exclude = sub_to_exclude.get("volunteer_id")
             filtered_list = []
@@ -534,9 +545,7 @@ class VolunteerShiftRecurrentGenerator(models.Model):
             # If excluded_sub is provided, skip the check for those values
             # to avoid counting them, useful during write operation
             if excluded_sub is not None:
-                exclude_sub_end_date = (
-                    excluded_sub.get("end_date") or self.determine_furthest_end_date()
-                )
+                exclude_sub_end_date = excluded_sub.get("end_date")
                 if (
                     excluded_sub.get("start_date") == new_sub_start_date
                     and exclude_sub_end_date == new_sub_end_date
@@ -559,9 +568,7 @@ class VolunteerShiftRecurrentGenerator(models.Model):
             # If excluded_sub is provided, skip the check for those values
             # to avoid counting them, useful during write operation
             if excluded_sub is not None:
-                excluded_sub_end_date = (
-                    excluded_sub.get("end_date") or self.determine_furthest_end_date()
-                )
+                excluded_sub_end_date = excluded_sub.get("end_date")
                 if (
                     existing_sub.start_date == excluded_sub.get("start_date")
                     and existing_sub_end_date == excluded_sub_end_date

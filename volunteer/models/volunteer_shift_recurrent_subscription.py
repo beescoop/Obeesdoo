@@ -113,7 +113,13 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         # at a time via sub_to_exclude. This double-counting may cause
         # valid modifications to be incorrectly rejected due to false
         # capacity exceeded errors.
-
+        old_furthest_dates_by_generator = {}
+        for sub in self:
+            #  Precompute furthest end dates for each generator only once
+            if sub.generator_id.id not in old_furthest_dates_by_generator:
+                old_furthest_dates_by_generator[
+                    sub.generator_id.id
+                ] = sub.generator_id.determine_furthest_end_date()
         # Prepare lists to collect old subscription data and new values
         # for each subscription in the recordset
         all_requested_vals = []
@@ -151,9 +157,11 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                 )
             # Collect old values of the subscription to exclude
             # to avoid counting twice since it's a write operation
+            # Use furthest end date of the generator if old end_date is False
             old_sub_data = {
                 "start_date": sub.start_date,
-                "end_date": sub.end_date,
+                "end_date": sub.end_date
+                or old_furthest_dates_by_generator[generator.id],
                 "generator_id": generator.id,
                 "volunteer_id": sub.volunteer_id.id,
             }
@@ -190,9 +198,7 @@ class VolunteerShiftRecurrentSubscription(models.Model):
             generator.check_remaining_subscription_by_day(
                 all_requested_vals[i],
                 all_requested_vals,
-                sub_to_exclude=all_old_sub_data[
-                    i
-                ],  # Only excludes one old value, not all
+                sub_to_exclude=all_old_sub_data[i],
             )
             generator.check_remaining_slots_by_shift_generated(
                 all_requested_vals[i].get("start_date"),
@@ -301,8 +307,6 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         """
         self.ensure_one()
         new_end_date = self.end_date or self.generator_id.determine_furthest_end_date()
-        if not old_end_date:
-            old_end_date = new_end_date
         shifts_intersection = self._get_shifts_intersection_between_two_periods(
             self.start_date, new_end_date, old_start_date, old_end_date
         )
