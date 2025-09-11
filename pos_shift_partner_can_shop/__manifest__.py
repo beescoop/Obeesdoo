@@ -8,7 +8,7 @@
     "author": "Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Point Of Sale",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     "depends": ["point_of_sale", "shift"],
     "maintainers": ["remytms"],
     "assets": {
