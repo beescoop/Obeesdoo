@@ -14,10 +14,10 @@ const ActionpadWidgetConfirm = () =>
             super.setup(...arguments);
         }
 
-        async trigger() {
+        async trigger(event_name) {
             const customer_partner = this.env.pos.get_order().get_partner();
             if (
-                this.props.actionName.valueOf() === "Payment" &&
+                event_name === "click-pay" &&
                 customer_partner &&
                 !customer_partner.can_shop
             ) {
