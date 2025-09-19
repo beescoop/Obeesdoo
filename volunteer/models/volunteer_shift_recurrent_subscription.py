@@ -63,6 +63,12 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         for vals in vals_list:
             requested_start_date = fields.Date.to_date(vals.get("start_date"))
             requested_end_date = fields.Date.to_date(vals.get("end_date"))
+            self._check_infinite_subscription_unique(
+                vals.get("volunteer_id"),
+                vals.get("generator_id"),
+                requested_start_date,
+                requested_end_date,
+            )
             gen_id = vals.get("generator_id")
             if gen_id:
                 generator = self.env["volunteer.shift.recurrent.generator"].browse(
@@ -78,7 +84,6 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                 # Check start_date in past.
                 # Start_date is required, so it should always be in vals
                 if fields.Date.to_date(vals["start_date"]) < date.today():
-                    # and name of volunteer and end_date if provided
                     raise ValidationError(
                         _("Start date of a subscription can't be in the past.")
                     )
@@ -113,6 +118,30 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         # at a time via sub_to_exclude. This double-counting may cause
         # valid modifications to be incorrectly rejected due to false
         # capacity exceeded errors.
+        for sub in self:
+            # Don't allow changing volunteer of a subscription
+            if "volunteer_id" in vals and vals["volunteer_id"] != sub.volunteer_id.id:
+                raise ValidationError(
+                    _(
+                        "It is not possible to change the volunteer "
+                        "of an existing subscription."
+                    )
+                )
+            requested_start = (
+                fields.Date.to_date(vals.get("start_date")) or sub.start_date
+            )
+            requested_end = (
+                fields.Date.to_date(vals.get("end_date"))
+                if "end_date" in vals
+                else sub.end_date
+            )
+            sub._check_infinite_subscription_unique(
+                sub.volunteer_id.id,
+                sub.generator_id.id,
+                requested_start,
+                requested_end,
+                old_sub_to_exclude=sub,
+            )
         old_furthest_dates_by_generator = {}
         for sub in self:
             #  Precompute furthest end dates for each generator only once
@@ -420,4 +449,74 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                     "registration_type": "recurrent",
                     "registration_state": "confirmed",
                 }
+            )
+
+    @api.model
+    def _check_infinite_subscription_unique(
+        self,
+        volunteer_id,
+        generator_id,
+        requested_start_date,
+        requested_end_date=None,
+        old_sub_to_exclude=None,
+    ):
+        """Handle specific cases of unique subscription per volunteer
+        and generator when one of the subscriptions of the volunteer
+        has no end_date (infinite) or change to infinite (end_date removed)."""
+        # Search for existing subscriptions for this volunteer and generator
+        existing_subs = self.search(
+            [
+                ("volunteer_id", "=", volunteer_id),
+                ("generator_id", "=", generator_id),
+            ]
+        )
+        # Exclude the old subscription being modified if provided
+        if old_sub_to_exclude:
+            existing_subs = existing_subs - old_sub_to_exclude
+        # If no existing subscriptions, no need to check further
+        if not existing_subs:
+            return True
+        # Separate existing subscriptions into infinite and finite recordsets
+        infinite_subs = existing_subs.filtered(lambda s: not s.end_date)
+        finite_subs = existing_subs.filtered(lambda s: s.end_date)
+        if finite_subs:
+            furthest_end_date = max(finite_subs.mapped("end_date"))
+        elif infinite_subs:
+            furthest_end_date = max(infinite_subs.mapped("start_date"))
+        else:
+            return True
+        if infinite_subs:
+            furthest_start_date = max(infinite_subs.mapped("start_date"))
+            # Define the case where the requested finite subscription
+            # overlaps with the infinite one
+            finite_overlaps = (
+                requested_end_date and requested_end_date >= furthest_start_date
+            )
+            # Define the case where the requested finite subscription
+            # is included in the infinite one
+            starts_in_infinite = requested_start_date >= furthest_start_date
+            if finite_overlaps or starts_in_infinite:
+                raise ValidationError(
+                    _(
+                        "Cannot subscribe for a period already covered by "
+                        "an infinite subscription of the same volunteer."
+                    )
+                )
+            # If the requested subscription is infinite and there is already
+            # an infinite subscription (first condition of the if),
+            # it is a conflict
+            if not requested_end_date:
+                raise ValidationError(
+                    _(
+                        "Cannot have multiple infinite subscriptions for the same volunteer"
+                    )
+                )
+        # If the requested subscription is infinite,
+        # check if it overlaps with the existing finite subscriptions
+        if not requested_end_date and requested_start_date <= furthest_end_date:
+            raise ValidationError(
+                _(
+                    "Subscription without end date can't start before the furthest end date of "
+                    "existing subscriptions of the same volunteer."
+                )
             )

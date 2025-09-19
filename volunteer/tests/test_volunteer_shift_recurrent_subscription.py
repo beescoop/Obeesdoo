@@ -53,7 +53,7 @@ class TestVolunteerShiftRecurrentSubscription(TestVolunteerGeneratorSubscription
         )
         sub.with_user(self.user_manager).write(
             {
-                "start_date": date(2025, 1, 2),
+                "start_date": date(2025, 1, 3),
             }
         )
 
@@ -855,13 +855,16 @@ class TestVolunteerShiftRecurrentSubscription(TestVolunteerGeneratorSubscription
                         "generator_id": self.gen_with_past_start.id,
                     }
                 )
+        # Change until_date of generator to future date
+        # to allow future testing of subscription date ranges
+        self.gen_with_past_start.write({"until_date": date(2025, 3, 31)})
         # Subscription outside generator range should be rejected
         with self.subTest("Outside generator range"):
             with self.assertRaises(ValidationError):
                 self.Subscription.create(
                     {
-                        "start_date": date(2024, 12, 25),
-                        "end_date": date(2024, 12, 26),
+                        "start_date": date(2025, 3, 25),
+                        "end_date": date(2025, 4, 26),
                         "volunteer_id": self.volunteer_test_0.id,
                         "generator_id": self.gen_with_past_start.id,
                     }
@@ -871,22 +874,35 @@ class TestVolunteerShiftRecurrentSubscription(TestVolunteerGeneratorSubscription
             with self.assertRaises(ValidationError):
                 self.Subscription.create(
                     {
-                        "start_date": date(2024, 12, 10),
-                        "end_date": date(2023, 12, 8),
+                        "start_date": date(2025, 3, 10),
+                        "end_date": date(2025, 3, 8),
                         "volunteer_id": self.volunteer_test_0.id,
                         "generator_id": self.gen_with_past_start.id,
                     }
                 )
         # Subscription start date with end date False should be allowed
-        with self.subTest("Start date after end date with end date False"):
+        # if start_date is before until_date of generator when defined
+        with self.subTest("Start date before until_date without end date allowed"):
             self.Subscription.create(
                 {
-                    "start_date": date(2025, 12, 10),
+                    "start_date": date(2025, 3, 10),
                     "end_date": False,
                     "volunteer_id": self.volunteer_test_0.id,
                     "generator_id": self.gen_with_past_start.id,
                 }
             )
+        # Subscription start date after until_date generator
+        # and without end date should be rejected
+        with self.subTest("Start date after until_date date without end_date rejected"):
+            with self.assertRaises(ValidationError):
+                self.Subscription.create(
+                    {
+                        "start_date": date(2025, 4, 1),
+                        "end_date": False,
+                        "volunteer_id": self.volunteer_test_0.id,
+                        "generator_id": self.gen_with_past_start.id,
+                    }
+                )
 
     def test_start_date_past_validation_only_when_explicitly_modified(self):
         """Test that start_date validation only triggers
@@ -993,6 +1009,19 @@ class TestVolunteerShiftRecurrentSubscription(TestVolunteerGeneratorSubscription
         )
         # Modifying start_date of one subscription should be allowed
         sub1.write({"start_date": date(2025, 1, 15)})
+
+    def test_changing_volunteer_of_subscription_not_allowed(self):
+        """Test that changing the volunteer of an existing subscription is not allowed."""
+        sub = self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 10),
+                "end_date": date(2025, 1, 12),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
+        )
+        with self.assertRaises(ValidationError):
+            sub.write({"volunteer_id": self.volunteer_confirmed.id})
 
     @unittest.skip(
         "Known limitation: Multi-record validation incorrectly rejects valid modifications"
