@@ -135,6 +135,34 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                 if "end_date" in vals
                 else sub.end_date
             )
+            # Check increase subscription when old end date in past
+            # and generator confirmed with shifts already generated
+            # and there is generated shift between the old end date and today
+            # and the requested end date is after the old end date
+            # (or infinite subscription requested)
+            if (
+                sub.end_date
+                and sub.end_date < date.today()
+                and sub.generator_id.state == "confirmed"
+                and sub.generator_id.volunteer_shift_ids
+                and "end_date" in vals
+                and len(vals) == 1
+            ):
+                shifts = sub.generator_id.volunteer_shift_ids
+                shifts_between_old_end_and_today = shifts.filtered(
+                    lambda s: sub.end_date < s.start_time.date() <= date.today()
+                )
+                if shifts_between_old_end_and_today and (
+                    not requested_end
+                    or (requested_end and requested_end > sub.end_date)
+                ):
+                    raise ValidationError(
+                        _(
+                            "It is not possible to increase a subscription "
+                            "that has already ended in the past "
+                            "for a confirmed generator with generated shifts."
+                        )
+                    )
             sub._check_infinite_subscription_unique(
                 sub.volunteer_id.id,
                 sub.generator_id.id,
@@ -295,6 +323,16 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         else:
             generator_until_date = generator.until_date
             custom_period_message = f"\nIt must end on or before {generator_until_date}"
+            # Manage case of infinite subscription starting after the generator until_date
+            # (if until_date defined)
+            if not self.end_date and self.start_date > generator_until_date:
+                raise ValidationError(
+                    _(
+                        f"Infinite subscription cannot start after generator "
+                        f"end date ({generator_until_date})"
+                        f"{self.get_conflicting_sub_detail_message()}"
+                    )
+                )
         end_date = self.end_date or generator.determine_furthest_end_date()
         if self.start_date < generator_start_date or end_date > generator_until_date:
             raise ValidationError(

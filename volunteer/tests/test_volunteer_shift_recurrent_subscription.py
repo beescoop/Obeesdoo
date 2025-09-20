@@ -1023,6 +1023,62 @@ class TestVolunteerShiftRecurrentSubscription(TestVolunteerGeneratorSubscription
         with self.assertRaises(ValidationError):
             sub.write({"volunteer_id": self.volunteer_confirmed.id})
 
+    def test_infinite_subscription_start_after_generator_until_date_not_allowed(self):
+        """Test that creating a subscription without end_date is not allowed
+        when generator has an until_date"""
+        # Generator has until_date at 2026-12-24
+        with self.assertRaises(ValidationError):
+            self.Subscription.create(
+                {
+                    "start_date": date(2026, 12, 25),
+                    "end_date": False,
+                    "volunteer_id": self.volunteer_test.id,
+                    "generator_id": self.gen_each_day_max_2_vol.id,
+                }
+            )
+
+    def test_extend_past_subscription_with_missed_shifts_not_allowed(self):
+        """Test that extending a subscription that ended in the past
+        is not allowed when there are generated shifts between the old end date
+        and today for a confirmed generator."""
+        # Create a generator and confirm it to generate shifts
+        generator = self.Generator.create(
+            {
+                "name": "TestPastExtension",
+                "state": "draft",
+                "interval_type": "days",
+                "interval": 1,
+                "start_time": datetime(2025, 1, 1, 10, 0),
+                "end_time": datetime(2025, 1, 1, 12, 0),
+                "max_volunteer_nb": 2,
+                "type_id": self.type1.id,
+            }
+        )
+        # Create a subscription in future that will end in the past
+        sub = self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 5),
+                "end_date": date(2025, 1, 8),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": generator.id,
+            }
+        )
+        # Confirm generator to generate shifts
+        generator.with_user(self.user_admin).write({"state": "confirmed"})
+        # Freeze time to 2025-01-10, so subscription ended in the past
+        # and there are generated shifts between end_date and today
+        with freeze_time("2025-01-10 10:00:00"):
+            # Extend subscription end_date to a future date not allowed
+            # because there are generated shifts between old end_date and today
+            with self.assertRaises(ValidationError):
+                sub.write({"end_date": date(2025, 1, 15)})
+            # Extending subscription by setting end_date to False (infinite)
+            # should also be rejected
+            with self.assertRaises(ValidationError):
+                sub.write({"end_date": False})
+            # Verify that reducing end_date is still allowed
+            sub.write({"end_date": date(2025, 1, 6)})
+
     @unittest.skip(
         "Known limitation: Multi-record validation incorrectly rejects valid modifications"
     )
