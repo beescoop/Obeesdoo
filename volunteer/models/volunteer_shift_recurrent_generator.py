@@ -16,10 +16,6 @@ class VolunteerShiftRecurrentGenerator(models.Model):
     _description = "Recurrent Shift Generator"
     _inherit = ["volunteer.shift.mixin", "mail.thread", "mail.activity.mixin"]
 
-    # General fields
-
-    name = fields.Char(required=True, tracking=True)
-
     # State fields
 
     state = fields.Selection(
@@ -35,7 +31,7 @@ class VolunteerShiftRecurrentGenerator(models.Model):
 
     # Period fields
 
-    nb_occurrence = fields.Integer(default=10)
+    nb_occurrence = fields.Integer(default=10, required=True)
     until_date = fields.Date(required=False, tracking=True)
     interval_type = fields.Selection(
         selection=[
@@ -323,12 +319,12 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         # If generator is confirmed, there are shifts generated
         # It might be that some shifts extend beyond the furthest end_date
         # when it is based on latest start_time of subscriptions
-        # Check if the shifts end_time in this case is greater
-        # than the furthest_end_date found with subscriptions
-        if self.state == "confirmed" and self.volunteer_shift_ids:
+        if self.state == "confirmed":
             last_shift_date = max(
-                shift.end_time.date() for shift in self.volunteer_shift_ids
+                shift.start_time.date() for shift in self.volunteer_shift_ids
             )
+            # Check if the shifts end_time in this case is greater
+            # than the furthest_end_date found with subscriptions
             if last_shift_date > furthest_end_date:
                 furthest_end_date = last_shift_date
         # Find the furthest end_date among existing participation

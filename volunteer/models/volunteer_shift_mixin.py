@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: 2025 Coop IT Easy SC
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
+from datetime import timedelta
 
 from odoo import api, fields, models
 from odoo.tools import format_datetime
@@ -34,8 +35,12 @@ class VolunteerShiftMixin(models.AbstractModel):
     start_time = fields.Datetime(
         default=fields.Datetime.now(), required=True, tracking=True
     )
+
+    def _get_default_end_time(self):
+        return fields.Datetime.now() + timedelta(hours=1)
+
     end_time = fields.Datetime(
-        default=fields.Datetime.now(), required=True, tracking=True
+        default=_get_default_end_time, required=True, tracking=True
     )
     start_time_located = fields.Char(compute="_compute_start_time_located")
     end_time_located = fields.Char(compute="_compute_end_time_located")

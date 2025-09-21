@@ -207,22 +207,22 @@ class TestVolunteerShiftRecurrentGenerator(TestVolunteerGeneratorSubscriptionCom
         """Test that shifts are generated from start_date
         if start_date is in the future"""
         # Today is frozen to 2025/1/1
-        self.gen_each_day_max_2_vol.write(
+        self.gen_without_sub_2025_no_until.write(
             {
                 "start_time": datetime(2025, 2, 1, 10, 5),
                 "end_time": datetime(2025, 2, 1, 12, 5),
             }
         )
-        self.gen_each_day_max_2_vol.with_user(self.user_admin).write(
+        self.gen_without_sub_2025_no_until.with_user(self.user_admin).write(
             {"state": "confirmed"}
         )
         shifts = self.Shift.search(
-            [("generator_id", "=", self.gen_each_day_max_2_vol.id)]
+            [("generator_id", "=", self.gen_without_sub_2025_no_until.id)]
         )
-        start_date = self.gen_each_day_max_2_vol.start_time.date()
+        start_date = self.gen_without_sub_2025_no_until.start_time.date()
         for shift in shifts:
             self.assertEqual(shift.start_time.date(), start_date)
-            start_date += self.gen_each_day_max_2_vol._get_interval_delta()
+            start_date += self.gen_without_sub_2025_no_until._get_interval_delta()
 
     def test_generate_right_number_of_shifts_without_until_date(self):
         """Test that the right number of shifts are generated
