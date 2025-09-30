@@ -238,6 +238,14 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                 requested_end_date = (
                     sub.end_date or generator.determine_furthest_end_date()
                 )
+            # Check end_date not in past
+            if requested_end_date < date.today():
+                raise ValidationError(
+                    _(
+                        f"End date of a subscription cannot be set in the past."
+                        f"{sub.get_conflicting_sub_detail_message()}"
+                    )
+                )
             # Collect new values requested, reusing existing ones if not modified
             requested_vals = {
                 "start_date": fields.Date.to_date(vals.get("start_date"))
@@ -519,10 +527,6 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         finite_subs = existing_subs.filtered(lambda s: s.end_date)
         if finite_subs:
             furthest_end_date = max(finite_subs.mapped("end_date"))
-        elif infinite_subs:
-            furthest_end_date = max(infinite_subs.mapped("start_date"))
-        else:
-            return True
         if infinite_subs:
             furthest_start_date = max(infinite_subs.mapped("start_date"))
             # Define the case where the requested finite subscription
@@ -549,12 +553,15 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                         "Cannot have multiple infinite subscriptions for the same volunteer"
                     )
                 )
+        if finite_subs and infinite_subs:
+            furthest_end_date = max(furthest_start_date, furthest_end_date)
         # If the requested subscription is infinite,
         # check if it overlaps with the existing finite subscriptions
         if not requested_end_date and requested_start_date <= furthest_end_date:
             raise ValidationError(
                 _(
-                    "Subscription without end date can't start before the furthest end date of "
+                    "Infinite subscription can't start before the furthest defined end date of "
                     "existing subscriptions of the same volunteer."
                 )
             )
+        return True
