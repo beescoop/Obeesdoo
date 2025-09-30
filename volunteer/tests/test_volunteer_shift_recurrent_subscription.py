@@ -313,7 +313,7 @@ class TestVolunteerShiftRecurrentSubscription(TestVolunteerGeneratorSubscription
     def test_create_sub_same_volunteer_no_overlap_allowed(self):
         """Test that creating a subscription for the same volunteer
         with a non-overlapping period is allowed and doesn't block subscriptions
-        for other volunteers, even if their subscription overlaps with at leas
+        for other volunteers, even if their subscription overlaps with at least
         two overlapping subscriptions of the first volunteer."""
         # Generator has no until_date
         # There is no subscription in setUp()
@@ -454,6 +454,35 @@ class TestVolunteerShiftRecurrentSubscription(TestVolunteerGeneratorSubscription
         ]
         with self.assertRaises(ValidationError):
             self.Subscription.create(vals_list)
+
+    def test_create_multiple_sub_different_volunteers_capacity_exceeded(self):
+        """Test that creating multiple subscriptions for different volunteers
+        that would exceed the max_volunteer_nb for any day in the subscription
+        period is not allowed."""
+        # There is already 2 subscriptions created in setUp() only for 2025 january 1 to 5
+        # Tested subscriptions don't overlap with these setUp data (20-24 january)
+        vals_list_capacity_exceeded = [
+            {
+                "start_date": date(2025, 1, 20),
+                "end_date": date(2025, 1, 22),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_each_day_max_2_vol.id,
+            },
+            {
+                "start_date": date(2025, 1, 21),
+                "end_date": date(2025, 1, 23),
+                "volunteer_id": self.volunteer_test_0.id,
+                "generator_id": self.gen_each_day_max_2_vol.id,
+            },
+            {
+                "start_date": date(2025, 1, 22),
+                "end_date": date(2025, 1, 24),
+                "volunteer_id": self.volunteer_test_1.id,
+                "generator_id": self.gen_each_day_max_2_vol.id,
+            },
+        ]
+        with self.assertRaises(ValidationError):
+            self.Subscription.create(vals_list_capacity_exceeded)
 
     def test_unsubscribe_allows_new_subscription(self):
         """Test that modifying an existing subscription to free up slots
@@ -920,10 +949,10 @@ class TestVolunteerShiftRecurrentSubscription(TestVolunteerGeneratorSubscription
         # Move time forward to 2025-03-01 where start_date is now in the past
         with freeze_time("2025-03-01 10:00:00"):
             # Modify end_date only, should succeed
-            sub.write({"end_date": date(2025, 2, 10)})
+            sub.write({"end_date": date(2025, 3, 10)})
             # Explicitly modify start_date to past, should fail
             with self.assertRaises(ValidationError):
-                sub.write({"start_date": date(2025, 1, 15)})
+                sub.write({"start_date": date(2025, 2, 15)})
 
     def test_create_subscription_with_past_start_date_not_allowed(self):
         """Test that creating a subscription with start_date in past is not allowed"""
@@ -1058,13 +1087,15 @@ class TestVolunteerShiftRecurrentSubscription(TestVolunteerGeneratorSubscription
         sub = self.Subscription.create(
             {
                 "start_date": date(2025, 1, 5),
-                "end_date": date(2025, 1, 8),
+                "end_date": date(2025, 1, 10),
                 "volunteer_id": self.volunteer_test.id,
                 "generator_id": generator.id,
             }
         )
         # Confirm generator to generate shifts
         generator.with_user(self.user_admin).write({"state": "confirmed"})
+        # Verify that reducing end_date is still allowed
+        sub.write({"end_date": date(2025, 1, 8)})
         # Freeze time to 2025-01-10, so subscription ended in the past
         # and there are generated shifts between end_date and today
         with freeze_time("2025-01-10 10:00:00"):
@@ -1076,8 +1107,61 @@ class TestVolunteerShiftRecurrentSubscription(TestVolunteerGeneratorSubscription
             # should also be rejected
             with self.assertRaises(ValidationError):
                 sub.write({"end_date": False})
-            # Verify that reducing end_date is still allowed
-            sub.write({"end_date": date(2025, 1, 6)})
+
+    @unittest.skip(
+        "Known limitation: Shifts with duration greater than 1 day not handled"
+    )
+    def test_multi_day_shift_limitation(self):
+        """Test demonstrates a known limitation with multi-day shifts.
+
+        Example: A subscription ending on day X should generate participation
+        for shifts starting on day X, even if the shift extends beyond day X.
+        Other edge cases likely exist but haven't been fully verified.
+        """
+
+        gen_shift_2_days = self.Generator.create(
+            {
+                "name": "Generator with 2 days shift",
+                "state": "draft",
+                "interval_type": "days",
+                "interval": 1,
+                "start_time": datetime(2025, 1, 10, 23, 0),
+                "end_time": datetime(2025, 1, 11, 1, 0),
+                "max_volunteer_nb": 2,
+                "type_id": self.type1.id,
+            }
+        )
+
+        gen_shift_2_days.with_user(self.user_admin).write({"state": "confirmed"})
+
+        # Create a subscription ending on the same day as the start of the shift
+        self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 10),
+                "end_date": date(2025, 1, 10),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": gen_shift_2_days.id,
+            }
+        )
+
+        shift = self.Shift.search(
+            [
+                ("start_time", "=", datetime(2025, 1, 10, 23, 0)),
+                ("generator_id", "=", gen_shift_2_days.id),
+            ]
+        )
+
+        participations = self.Participation.search(
+            [
+                ("shift_id", "=", shift.id),
+                ("volunteer_id", "=", self.volunteer_test.id),
+                ("registration_state", "=", "confirmed"),
+            ]
+        )
+
+        # Check that participation for shift on 2025-01-10 23:00 is created
+        # despite the shift ending on 2025-01-11
+        self.assertEqual(len(participations), 1)
 
     @unittest.skip(
         "Known limitation: Multi-record validation incorrectly rejects valid modifications"
