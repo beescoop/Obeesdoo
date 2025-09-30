@@ -79,7 +79,7 @@ class VolunteerShiftMixin(models.AbstractModel):
         (
             "max_volunteer_nb_is_positive",
             "check (max_volunteer_nb > 0)",
-            "The maximum of volunteers per shift cannot be null or negative.",
+            "The maximum of volunteers cannot be null or negative.",
         ),
     ]
 

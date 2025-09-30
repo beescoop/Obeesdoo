@@ -72,9 +72,6 @@ class VolunteerShiftRecurrentGenerator(models.Model):
             "check (interval > 0)",
             "The interval cannot be null or negative.",
         ),
-    ]
-
-    _sql_constraints = [
         (
             "nb_occurrence_is_positive",
             "check (nb_occurrence > 0)",

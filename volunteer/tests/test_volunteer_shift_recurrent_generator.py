@@ -5,9 +5,11 @@
 from datetime import date, datetime
 
 from freezegun import freeze_time
+from psycopg2.errors import CheckViolation
 
 from odoo import Command
 from odoo.exceptions import AccessError, ValidationError
+from odoo.tools import mute_logger
 
 from .test_volunteer_generator_subscription_common import (
     TestVolunteerGeneratorSubscriptionCommon,
@@ -20,6 +22,40 @@ from .test_volunteer_generator_subscription_common import (
 class TestVolunteerShiftRecurrentGenerator(TestVolunteerGeneratorSubscriptionCommon):
     def setUp(self):
         super().setUp()
+
+    def test_reduce_max_volunteer_equals_zero(self):
+        """Test that it is not possible to reduce max_volunteer_nb to 0"""
+        with mute_logger("odoo.sql_db"):
+            with self.assertRaises(CheckViolation):
+                with self.cr.savepoint():
+                    self.gen_without_sub_2025_no_until.write(
+                        {
+                            "max_volunteer_nb": 0,
+                        }
+                    )
+
+    def test_reduce_nb_occurrence_equals_zero(self):
+        """Test that it is not possible to reduce nb_occurrence to 0"""
+        with mute_logger("odoo.sql_db"):
+            with self.assertRaises(CheckViolation):
+                with self.cr.savepoint():
+                    self.gen_without_sub_2025_no_until.write(
+                        {
+                            "nb_occurrence": 0,
+                        }
+                    )
+
+    def test_interval_equals_zero(self):
+        """Test that modifying a generator with
+        interval equal to 0 is not allowed"""
+        with mute_logger("odoo.sql_db"):
+            with self.assertRaises(CheckViolation):
+                with self.cr.savepoint():
+                    self.gen_each_day_max_2_vol.write(
+                        {
+                            "interval": 0,
+                        }
+                    )
 
     def test_reduce_max_volunteer_under_nb_subscription(self):
         """Test that reducing max_volunteer_nb under the max number of existing
