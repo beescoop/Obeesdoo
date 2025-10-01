@@ -2,6 +2,7 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+import unittest
 from datetime import date, datetime
 
 from freezegun import freeze_time
@@ -22,11 +23,11 @@ class TestVolunteerShiftRecurrentSubscriptionParticipation(
     def setUp(self):
         super().setUp()
 
-    def test_subscription_invalid_date_ranges_rejected(self):
-        """Test that creating a subscription with invalid date ranges is rejected."""
+    def test_create_subscription_invalid_date_ranges_not_allowed(self):
+        """Test that creating a subscription with invalid date ranges is not allowed."""
         # Time frozen at 2025-01-01 10:00, which is considered as "today" during tests
-        # Generator setup with past start date starting at 2023/1/1 and until date 2024/12/24
-        # Subscription in the past should be rejected even if within generator range
+        # Generator setup with past start date starting at 2023-01-01 and until date 2024-12-24
+        # Subscription in the past is not allowed even if within generator range
         with self.subTest("Past start date"):
             with self.assertRaises(ValidationError):
                 self.Subscription.create(
@@ -40,7 +41,7 @@ class TestVolunteerShiftRecurrentSubscriptionParticipation(
         # Change until_date of generator to future date
         # to allow future testing of subscription date ranges
         self.gen_with_past_start.write({"until_date": date(2025, 3, 31)})
-        # Subscription outside generator range should be rejected
+        # Subscription finishing outside generator range is not allowed
         with self.subTest("Outside generator range"):
             with self.assertRaises(ValidationError):
                 self.Subscription.create(
@@ -51,7 +52,7 @@ class TestVolunteerShiftRecurrentSubscriptionParticipation(
                         "generator_id": self.gen_with_past_start.id,
                     }
                 )
-        # Subscription start date after end date should be rejected
+        # Subscription start date after end date is not allowed
         with self.subTest("Start date after end date"):
             with self.assertRaises(ValidationError):
                 self.Subscription.create(
@@ -62,9 +63,9 @@ class TestVolunteerShiftRecurrentSubscriptionParticipation(
                         "generator_id": self.gen_with_past_start.id,
                     }
                 )
-        # Subscription start date with end date False should be allowed
+        # Infinite subscription should be allowed
         # if start_date is before until_date of generator when defined
-        with self.subTest("Start date before until_date without end date allowed"):
+        with self.subTest("Infinite subscription with start date before until_date"):
             self.Subscription.create(
                 {
                     "start_date": date(2025, 3, 10),
@@ -73,9 +74,8 @@ class TestVolunteerShiftRecurrentSubscriptionParticipation(
                     "generator_id": self.gen_with_past_start.id,
                 }
             )
-        # Subscription start date after until_date generator
-        # and without end date should be rejected
-        with self.subTest("Start date after until_date date without end_date rejected"):
+        # Infinite subscription starting after until_date generator is not allowed
+        with self.subTest("Infinite subscription with start date after until_date"):
             with self.assertRaises(ValidationError):
                 self.Subscription.create(
                     {
@@ -86,20 +86,7 @@ class TestVolunteerShiftRecurrentSubscriptionParticipation(
                     }
                 )
 
-    def test_create_subscription_with_past_start_date_not_allowed(self):
-        """Test that creating a subscription with start_date in past is not allowed"""
-        # Time frozen at 2025-01-01
-        with self.assertRaises(ValidationError):
-            self.Subscription.create(
-                {
-                    "start_date": date(2024, 12, 1),
-                    "end_date": date(2025, 12, 5),
-                    "volunteer_id": self.volunteer_test.id,
-                    "generator_id": self.gen_without_sub_2025_no_until.id,
-                }
-            )
-
-    def test_start_date_past_validation_only_when_explicitly_modified(self):
+    def test_write_subscription_past_start_date_only_when_explicit_not_allowed(self):
         """Test that start_date validation only triggers
         when explicitly modified, allowing modification of end_date
         even when start_date becomes past due to time passing."""
@@ -114,14 +101,14 @@ class TestVolunteerShiftRecurrentSubscriptionParticipation(
         )
         # Move time forward to 2025-03-01 where start_date is now in the past
         with freeze_time("2025-03-01 10:00:00"):
-            # Modify end_date only, should succeed
+            # Modify end_date only is allowed even if start_date is now in the past
             sub.write({"end_date": date(2025, 3, 10)})
             # Explicitly modify start_date to past, should fail
             with self.assertRaises(ValidationError):
                 sub.write({"start_date": date(2025, 2, 15)})
 
-    def test_generate_participation_with_until_date(self):
-        """Test that participations are generated only up to the end_date of the subscription
+    def test_generate_participation_with_generator_until_date(self):
+        """Test that participation are generated only up to the end_date of the subscription
         even if the generator has an until_date beyond the subscription end_date."""
         self.gen_each_day_max_2_vol.write(
             {
@@ -177,8 +164,10 @@ class TestVolunteerShiftRecurrentSubscriptionParticipation(
         )
         self.assertEqual(len(parts_beyond), 0)
 
-    def test_generate_participation_without_generator_until_date(self):
-        """Test that participations are generated up to nb_occurrence
+    def test_generate_participation_without_generator_until_date_respect_nb_occurrence(
+        self,
+    ):
+        """Test that participation are generated up to nb_occurrence
         when the generator has no until_date and the subscription has no end_date."""
         self.gen_each_day_max_2_vol.write(
             {
@@ -223,20 +212,23 @@ class TestVolunteerShiftRecurrentSubscriptionParticipation(
         # Check that participation are created for these shifts
         self.assertEqual(len(all_participation), 5)
 
-    def test_autocancel_participation_covered_by_new_sub_same_volunteer(self):
+    def test_autocancel_participation_covered_by_new_subscription_same_volunteer(self):
         """Test that a participation is auto-canceled when a new subscription
         is created that covers the date of the participation for the same volunteer."""
+        # Confirm generator to generate shifts
         self.gen_each_day_max_3_vol.with_user(self.user_admin).write(
             {
                 "state": "confirmed",
             }
         )
+        # Search shift on 2025-01-07
         shift = self.Shift.search(
             [
                 ("start_time", "=", datetime(2025, 1, 7, 10, 5)),
                 ("generator_id", "=", self.gen_each_day_max_3_vol.id),
             ]
         )
+        # Create a participation on 2025-01-07 for volunteer_test_0
         part1 = self.Participation.create(
             {
                 "shift_id": shift.id,
@@ -248,6 +240,7 @@ class TestVolunteerShiftRecurrentSubscriptionParticipation(
             part1.registration_state,
             "confirmed",
         )
+        # Create a subscription covering 2025-01-07 for the same volunteer
         self.Subscription.create(
             {
                 "start_date": date(2025, 1, 6),
@@ -256,6 +249,8 @@ class TestVolunteerShiftRecurrentSubscriptionParticipation(
                 "generator_id": self.gen_each_day_max_3_vol.id,
             }
         )
+        # Check that punctual participation is auto-canceled
+        # because volunteer is now subscribed for this shift
         self.assertEqual(
             part1.registration_state,
             "canceled",
@@ -294,7 +289,7 @@ class TestVolunteerShiftRecurrentSubscriptionParticipation(
                 "generator_id": self.gen_each_day_max_3_vol.id,
             }
         )
-        # Extend subscription to cover participation date
+        # Extend subscription to infinite to cover participation date
         sub.write(
             {
                 "end_date": False,
@@ -359,7 +354,7 @@ class TestVolunteerShiftRecurrentSubscriptionParticipation(
             ]
         )
         self.assertEqual(len(part_8), 0)
-        # Modify end date to None (no end)
+        # Modify end date to False (infinite)
         # needs to create participation after 2025-01-08 (check 2025-01-10)
         sub.write({"end_date": False})
         shift_10 = self.Shift.search(
@@ -423,7 +418,7 @@ class TestVolunteerShiftRecurrentSubscriptionParticipation(
         """Test that creating a participation for a volunteer
         already subscribed at the same period is not allowed"""
         # There is already a subscription for volunteer_test_0
-        # from 2025/1/2 to 2025/1/4
+        # from 2025-01-02 to 2025-01-04 in setup
         self.gen_each_day_max_2_vol.with_user(self.user_admin).write(
             {
                 "state": "confirmed",
@@ -443,3 +438,52 @@ class TestVolunteerShiftRecurrentSubscriptionParticipation(
                     "registration_state": "confirmed",
                 }
             )
+
+    @unittest.skip(
+        "Known limitation: Shifts with duration greater than 1 day not handled"
+    )
+    def test_multi_day_shift_limitation(self):
+        """Test demonstrates a known limitation with multi-day shifts.
+
+        Example: A subscription ending on day X should generate participation
+        for shifts starting on day X, even if the shift extends beyond day X.
+        Other edge cases likely exist but haven't been fully verified.
+        """
+        gen_shift_2_days = self.Generator.create(
+            {
+                "name": "Generator with 2 days shift",
+                "state": "draft",
+                "interval_type": "days",
+                "interval": 1,
+                "start_time": datetime(2025, 1, 10, 23, 0),
+                "end_time": datetime(2025, 1, 11, 1, 0),
+                "max_volunteer_nb": 2,
+                "type_id": self.type1.id,
+            }
+        )
+        gen_shift_2_days.with_user(self.user_admin).write({"state": "confirmed"})
+        # Create a subscription ending on the same day as the start of the shift
+        self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 10),
+                "end_date": date(2025, 1, 10),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": gen_shift_2_days.id,
+            }
+        )
+        shift = self.Shift.search(
+            [
+                ("start_time", "=", datetime(2025, 1, 10, 23, 0)),
+                ("generator_id", "=", gen_shift_2_days.id),
+            ]
+        )
+        participation = self.Participation.search(
+            [
+                ("shift_id", "=", shift.id),
+                ("volunteer_id", "=", self.volunteer_test.id),
+                ("registration_state", "=", "confirmed"),
+            ]
+        )
+        # Check that participation for shift on 2025-01-10 23:00 is created
+        # despite the shift ending on 2025-01-11
+        self.assertEqual(len(participation), 1)

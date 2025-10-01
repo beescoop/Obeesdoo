@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 import unittest
-from datetime import date, datetime
+from datetime import date
 
 from freezegun import freeze_time
 
@@ -23,13 +23,10 @@ class TestVolunteerShiftRecurrentSubscriptionUniqueness(
     def setUp(self):
         super().setUp()
 
-    def test_create_write_sub_for_same_volunteer_different_period_allowed(self):
-        """Test that creating or writing a subscription for the same volunteer
-        with non-overlapping period is allowed including subscriptions
-        without end_date"""
-        # Generator has no until_date
-        # There is no subscription in setUp()
-        sub = self.Subscription.create(
+    def test_create_subscription_same_volunteer_no_overlap_allowed(self):
+        """Test that creating multiple non-overlapping subscriptions
+        for the same volunteer is allowed, including infinite subscriptions."""
+        self.Subscription.create(
             {
                 "start_date": date(2025, 1, 1),
                 "end_date": date(2025, 1, 5),
@@ -37,28 +34,47 @@ class TestVolunteerShiftRecurrentSubscriptionUniqueness(
                 "generator_id": self.gen_without_sub_2025_no_until.id,
             }
         )
-        # No overlap, subscription allowed
+        # No overlap with sub, infinite subscription creation allowed
         self.Subscription.create(
             {
                 "start_date": date(2025, 1, 10),
+                "end_date": False,
                 "volunteer_id": self.volunteer_test.id,
                 "generator_id": self.gen_without_sub_2025_no_until.id,
             }
         )
-        # No overlap, writing end_date allowed
-        sub.write(
+
+    def test_write_subscription_same_volunteer_no_overlap_allowed(self):
+        """Test that modifying a subscription to remain non-overlapping
+        for same volunteer is allowed."""
+        sub1 = self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 1),
+                "end_date": date(2025, 1, 5),
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
+        )
+        # No overlap with first subscription, infinite subscription creation allowed
+        self.Subscription.create(
+            {
+                "start_date": date(2025, 1, 10),
+                "end_date": False,
+                "volunteer_id": self.volunteer_test.id,
+                "generator_id": self.gen_without_sub_2025_no_until.id,
+            }
+        )
+        # Extending sub1 to stay before infinite subscription start allowed
+        sub1.write(
             {
                 "end_date": date(2025, 1, 8),
             }
         )
 
-    def test_create_sub_same_volunteer_no_overlap_allowed(self):
-        """Test that creating a subscription for the same volunteer
-        with a non-overlapping period is allowed and doesn't block subscriptions
-        for other volunteers, even if their subscription overlaps with at least
-        two overlapping subscriptions of the first volunteer."""
-        # Generator has no until_date
-        # There is no subscription in setUp()
+    def test_create_subscription_different_volunteer_multiple_periods_allowed(self):
+        """Test that a different volunteer can create a subscription covering
+        multiple non-overlapping periods of another volunteer."""
+        # Create two non-overlapping subscriptions for the same volunteer
         self.Subscription.create(
             {
                 "start_date": date(2025, 1, 1),
@@ -74,8 +90,8 @@ class TestVolunteerShiftRecurrentSubscriptionUniqueness(
                 "generator_id": self.gen_without_sub_2025_no_until.id,
             }
         )
-        # Create a subscription for another volunteer that covers
-        # at least 2 overlapping subscriptions of the first volunteer
+        # Create a subscription for another volunteer with a period
+        # overlapping the 2 subscriptions of the first volunteer
         self.Subscription.create(
             {
                 "start_date": date(2025, 1, 3),
@@ -85,9 +101,10 @@ class TestVolunteerShiftRecurrentSubscriptionUniqueness(
             }
         )
 
-    def test_create_and_write_multiple_subscriptions_different_generator(self):
-        """Test creating multiple subscriptions at once on different generator."""
-        # Create multi subscriptions with different generator
+    def test_create_multiple_subscriptions_different_generator_allowed(self):
+        """Test creating multiple subscriptions at once on different generator is allowed."""
+        # Create multiple subscriptions on different generators
+        # Generators have no subscriptions after 2025-01-05
         vals_list = [
             {
                 "start_date": date(2025, 1, 6),
@@ -111,12 +128,10 @@ class TestVolunteerShiftRecurrentSubscriptionUniqueness(
         subscriptions = self.Subscription.create(vals_list)
         self.assertEqual(len(subscriptions), 3)
 
-    def test_create_overlap_sub_same_volunteer_without_end_not_allowed(self):
+    def test_create_subscription_same_volunteer_with_infinite_overlap_not_allowed(self):
         """Test that creating a subscription with an overlapping period
         for the same volunteer is not allowed,
         even when the new subscription has no end_date"""
-        # Generator has no until_date
-        # There is no subscription in setUp()
         self.Subscription.create(
             {
                 "start_date": date(2025, 1, 2),
@@ -125,6 +140,7 @@ class TestVolunteerShiftRecurrentSubscriptionUniqueness(
                 "generator_id": self.gen_without_sub_2025_no_until.id,
             }
         )
+        # Infinite subscription start before existing sub end not allowed
         with self.assertRaises(ValidationError):
             self.Subscription.create(
                 {
@@ -134,12 +150,10 @@ class TestVolunteerShiftRecurrentSubscriptionUniqueness(
                 }
             )
 
-    def test_write_overlap_sub_same_volunteer_without_end_not_allowed(self):
+    def test_write_subscription_same_volunteer_with_infinite_overlap_not_allowed(self):
         """Test that updating a subscription to create an overlapping period
         for the same volunteer is not allowed,
-        including when removing the end_date or changing the start_date"""
-        # Generator has no until_date
-        # There is no subscription in setUp()
+        including when removing the end_date (infinite) or changing the start_date"""
         sub = self.Subscription.create(
             {
                 "start_date": date(2025, 1, 2),
@@ -156,8 +170,8 @@ class TestVolunteerShiftRecurrentSubscriptionUniqueness(
                 "generator_id": self.gen_without_sub_2025_no_until.id,
             }
         )
-        # Writing end_date to False to create overlap not allowed
-        with self.subTest("Writing end_date to create overlap not allowed"):
+        # Writing end_date to False to create overlap on infinite not allowed
+        with self.subTest("Writing end_date to infinite to create overlap not allowed"):
             with self.assertRaises(ValidationError):
                 sub.write(
                     {
@@ -173,11 +187,9 @@ class TestVolunteerShiftRecurrentSubscriptionUniqueness(
                     }
                 )
 
-    def test_create_multiple_sub_same_volunteer_not_allowed(self):
+    def test_create_subscription_same_volunteer_multiple_with_overlap_not_allowed(self):
         """Test that creating multiple subscriptions for the same volunteer
         with overlapping periods is not allowed"""
-        # Generator start date is 2025-01-01
-        # There is no subscription in setUp()
         vals_list = [
             {
                 "start_date": date(2025, 1, 1),
@@ -194,7 +206,7 @@ class TestVolunteerShiftRecurrentSubscriptionUniqueness(
         with self.assertRaises(ValidationError):
             self.Subscription.create(vals_list)
 
-    def test_changing_volunteer_of_subscription_not_allowed(self):
+    def test_write_subscription_changing_volunteer_not_allowed(self):
         """Test that changing the volunteer of an existing subscription is not allowed."""
         sub = self.Subscription.create(
             {
@@ -207,10 +219,11 @@ class TestVolunteerShiftRecurrentSubscriptionUniqueness(
         with self.assertRaises(ValidationError):
             sub.write({"volunteer_id": self.volunteer_confirmed.id})
 
-    def test_infinite_subscription_start_after_generator_until_date_not_allowed(self):
-        """Test that creating a subscription without end_date is not allowed
-        when generator has an until_date"""
+    def test_create_infinite_subscription_after_generator_until_date_not_allowed(self):
+        """Test that creating an infinite subscription starting after
+        the generator's until_date (if defined) is not allowed."""
         # Generator has until_date at 2026-12-24
+        # and no subscriptions on 2026-12-25
         with self.assertRaises(ValidationError):
             self.Subscription.create(
                 {
@@ -220,61 +233,6 @@ class TestVolunteerShiftRecurrentSubscriptionUniqueness(
                     "generator_id": self.gen_each_day_max_2_vol.id,
                 }
             )
-
-    @unittest.skip(
-        "Known limitation: Shifts with duration greater than 1 day not handled"
-    )
-    def test_multi_day_shift_limitation(self):
-        """Test demonstrates a known limitation with multi-day shifts.
-
-        Example: A subscription ending on day X should generate participation
-        for shifts starting on day X, even if the shift extends beyond day X.
-        Other edge cases likely exist but haven't been fully verified.
-        """
-
-        gen_shift_2_days = self.Generator.create(
-            {
-                "name": "Generator with 2 days shift",
-                "state": "draft",
-                "interval_type": "days",
-                "interval": 1,
-                "start_time": datetime(2025, 1, 10, 23, 0),
-                "end_time": datetime(2025, 1, 11, 1, 0),
-                "max_volunteer_nb": 2,
-                "type_id": self.type1.id,
-            }
-        )
-
-        gen_shift_2_days.with_user(self.user_admin).write({"state": "confirmed"})
-
-        # Create a subscription ending on the same day as the start of the shift
-        self.Subscription.create(
-            {
-                "start_date": date(2025, 1, 10),
-                "end_date": date(2025, 1, 10),
-                "volunteer_id": self.volunteer_test.id,
-                "generator_id": gen_shift_2_days.id,
-            }
-        )
-
-        shift = self.Shift.search(
-            [
-                ("start_time", "=", datetime(2025, 1, 10, 23, 0)),
-                ("generator_id", "=", gen_shift_2_days.id),
-            ]
-        )
-
-        participation = self.Participation.search(
-            [
-                ("shift_id", "=", shift.id),
-                ("volunteer_id", "=", self.volunteer_test.id),
-                ("registration_state", "=", "confirmed"),
-            ]
-        )
-
-        # Check that participation for shift on 2025-01-10 23:00 is created
-        # despite the shift ending on 2025-01-11
-        self.assertEqual(len(participation), 1)
 
     @unittest.skip(
         "Known limitation: Multi-record validation incorrectly rejects valid modifications"
@@ -288,6 +246,7 @@ class TestVolunteerShiftRecurrentSubscriptionUniqueness(
 
         Currently, the first error raised is the unicity constraint.
         """
+        # Generator setup has no subscriptions after the 2025-1-5
         # Initial state: 2 subscriptions on different periods, no conflicts
         sub1 = self.Subscription.create(
             {

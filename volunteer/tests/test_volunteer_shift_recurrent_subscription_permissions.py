@@ -19,13 +19,14 @@ from .test_volunteer_generator_subscription_common import (
 class TestVolunteerShiftRecurrentSubscriptionPermissions(
     TestVolunteerGeneratorSubscriptionCommon
 ):
+    # Operations run as admin unless another role is explicitly specified.
+    # This is defined in setUp() test_volunteer_common.py
     def setUp(self):
         super().setUp()
 
-    def test_manager_can_create_write_subscription(self):
+    def test_create_write_subscription_manager_allowed(self):
         """Test that a user with the 'Volunteer Manager' role can create
-        a subscription on a generator in 'draft' and 'confirmed' state,
-        but not on a generator in 'canceled' state."""
+        and modify subscriptions on generators in 'draft' and 'confirmed' states."""
         sub = self.Subscription.with_user(self.user_manager).create(
             {
                 "start_date": date(2025, 1, 1),
@@ -58,10 +59,9 @@ class TestVolunteerShiftRecurrentSubscriptionPermissions(
             }
         )
 
-    def test_user_cannot_create_write_subscription(self):
+    def test_create_write_subscription_user_not_allowed(self):
         """Test that a user with the 'Volunteer User' role cannot create
         or write a subscription on any generator state."""
-        # Setup set runs all operations as admin by default
         sub = self.Subscription.create(
             {
                 "start_date": date(2025, 1, 1),
@@ -106,11 +106,9 @@ class TestVolunteerShiftRecurrentSubscriptionPermissions(
                 }
             )
 
-    def test_no_create_write_sub_on_canceled_generator(self):
-        """Test that creating or writing a subscription on a generator
-        in 'canceled' state is not allowed for any user role.
-        Except writing end_date to today for admins only."""
-        # Setup set runs all operations as admin by default
+    def test_create_write_subscription_canceled_generator_not_allowed(self):
+        """Test that creating or writing a subscription on a canceled generator
+        is not allowed for any user role, except admins can write end_date to today."""
         sub = self.Subscription.create(
             {
                 "start_date": date(2025, 1, 1),
@@ -124,6 +122,7 @@ class TestVolunteerShiftRecurrentSubscriptionPermissions(
                 "state": "canceled",
             }
         )
+        # User: cannot create or write
         with self.assertRaises(ValidationError):
             self.Subscription.with_user(self.user_user).create(
                 {
@@ -139,6 +138,7 @@ class TestVolunteerShiftRecurrentSubscriptionPermissions(
                     "end_date": date(2025, 1, 1),
                 }
             )
+        # Manager: cannot create or write
         with self.assertRaises(ValidationError):
             self.Subscription.with_user(self.user_manager).create(
                 {
@@ -154,6 +154,7 @@ class TestVolunteerShiftRecurrentSubscriptionPermissions(
                     "end_date": date(2025, 1, 1),
                 }
             )
+        # Admin: cannot create, cannot write arbitrary end_date
         with self.assertRaises(ValidationError):
             self.Subscription.with_user(self.user_admin).create(
                 {
@@ -163,14 +164,13 @@ class TestVolunteerShiftRecurrentSubscriptionPermissions(
                     "generator_id": self.gen_without_sub_2025_no_until.id,
                 }
             )
-        # Writing end_date to today is allowed for admins
-        # Today is 2025-01-01 due to freeze_time
         with self.assertRaises(ValidationError):
             sub.with_user(self.user_admin).write(
                 {
                     "end_date": date(2025, 1, 4),
                 }
             )
+        # Admin: CAN write end_date to today (freeze_time: 2025-01-01)
         sub.with_user(self.user_admin).write(
             {
                 "end_date": date(2025, 1, 1),

@@ -20,15 +20,17 @@ from .test_volunteer_generator_subscription_common import (
 class TestVolunteerShiftRecurrentGeneratorPermissions(
     TestVolunteerGeneratorSubscriptionCommon
 ):
+    # Operations run as admin unless another role is explicitly specified.
+    # This is defined in setUp() test_volunteer_common.py
     def setUp(self):
         super().setUp()
 
-    def test_draft_generator_write_permissions_by_role(self):
+    def test_write_permissions_by_role_draft_generator(self):
         """Test that field modifications on a draft generator
         are allowed for admins only, except for subscription management
         for managers"""
         # Generator in draft state, without subscriptions
-        # User blocked for all modifications
+        # User cannot write fields
         with self.assertRaises(AccessError):
             self.gen_without_sub_2025_no_until.with_user(self.user_user).write(
                 {
@@ -39,7 +41,7 @@ class TestVolunteerShiftRecurrentGeneratorPermissions(
                     "type_id": self.type2.id,
                 }
             )
-        # Manager blocked for field modifications
+        # Manager cannot write fields
         with self.assertRaises(AccessError):
             self.gen_without_sub_2025_no_until.with_user(self.user_manager).write(
                 {
@@ -73,7 +75,7 @@ class TestVolunteerShiftRecurrentGeneratorPermissions(
             }
         )
 
-    def test_modification_on_confirmed_generator_not_allowed(self):
+    def test_write_confirmed_generator_not_allowed(self):
         """Test that modifying fields of a confirmed generator is not allowed"""
         # Confirmed that modifying fields of a draft generator is allowed
         self.gen_without_sub_2025_no_until.write(
@@ -89,8 +91,10 @@ class TestVolunteerShiftRecurrentGeneratorPermissions(
                 "state": "confirmed",
             }
         )
+        # Test some forbidden individual modifications (admin)
         with self.assertRaises(ValidationError):
             self.gen_without_sub_2025_no_until.write({"max_volunteer_nb": 4})
+
         with self.assertRaises(ValidationError):
             self.gen_without_sub_2025_no_until.write({"until_date": date(2026, 1, 3)})
 
@@ -102,6 +106,7 @@ class TestVolunteerShiftRecurrentGeneratorPermissions(
             self.gen_without_sub_2025_no_until.write(
                 {"end_time": datetime(2025, 1, 1, 16, 0)}
             )
+        # Test forbidden multiple modifications for role user
         with self.assertRaises(AccessError):
             self.gen_without_sub_2025_no_until.with_user(self.user_user).write(
                 {
@@ -112,6 +117,7 @@ class TestVolunteerShiftRecurrentGeneratorPermissions(
                     "type_id": self.type2.id,
                 }
             )
+        # Test forbidden multiple modifications for role manager
         with self.assertRaises(ValidationError):
             self.gen_without_sub_2025_no_until.with_user(self.user_manager).write(
                 {
@@ -122,7 +128,7 @@ class TestVolunteerShiftRecurrentGeneratorPermissions(
                     "type_id": self.type2.id,
                 }
             )
-        # Test authorized action : subscription management via notebook
+        # Test authorized action : subscription management via notebook for manager
         self.gen_without_sub_2025_no_until.with_user(self.user_manager).write(
             {
                 "volunteer_subscription_ids": [
@@ -136,6 +142,7 @@ class TestVolunteerShiftRecurrentGeneratorPermissions(
                 ]
             }
         )
+        # Test authorized action : subscription management via notebook for admin
         self.gen_without_sub_2025_no_until.with_user(self.user_admin).write(
             {
                 "volunteer_subscription_ids": [
@@ -150,9 +157,9 @@ class TestVolunteerShiftRecurrentGeneratorPermissions(
             }
         )
 
-    def test_cancel_generator_with_sub_allowed(self):
-        """Test that canceling a generator is not blocked by
-        dates constraints and that subscriptions end_date are set to today"""
+    def test_cancel_generator_with_subscription_allowed(self):
+        """Test that canceling a generator is allowed despite date constraints,
+        and that associated subscriptions end_date are automatically set to today"""
         self.gen_each_day_max_2_vol.with_user(self.user_admin).write(
             {
                 "state": "confirmed",
@@ -167,13 +174,14 @@ class TestVolunteerShiftRecurrentGeneratorPermissions(
         self.assertEqual(self.sub_2_to_4_test0_max2.end_date, date(2025, 1, 1))
         self.assertEqual(self.sub_1_to_5_test1_max2.end_date, date(2025, 1, 1))
 
-    def test_modification_on_canceled_generator_not_allowed(self):
+    def test_write_canceled_generator_not_allowed(self):
         """Test that modifying fields of a canceled generator is not allowed"""
         self.gen_without_sub_2025_no_until.with_user(self.user_admin).write(
             {
                 "state": "canceled",
             }
         )
+        # Test some forbidden individual modifications (admin)
         with self.assertRaises(ValidationError):
             self.gen_without_sub_2025_no_until.write(
                 {
@@ -198,16 +206,7 @@ class TestVolunteerShiftRecurrentGeneratorPermissions(
                     "end_time": datetime(2025, 1, 1, 16, 0),
                 }
             )
-        with self.assertRaises(ValidationError):
-            self.gen_without_sub_2025_no_until.with_user(self.user_manager).write(
-                {
-                    "max_volunteer_nb": 4,
-                    "until_date": date(2026, 1, 3),
-                    "start_time": datetime(2025, 1, 1, 15),
-                    "end_time": datetime(2025, 1, 1, 16, 0),
-                    "type_id": self.type2.id,
-                }
-            )
+        # Test forbidden multiple modifications for role user
         with self.assertRaises(ValidationError):
             self.gen_without_sub_2025_no_until.with_user(self.user_user).write(
                 {
@@ -218,15 +217,27 @@ class TestVolunteerShiftRecurrentGeneratorPermissions(
                     "type_id": self.type2.id,
                 }
             )
+        # Test forbidden multiple modifications for role manager
+        with self.assertRaises(ValidationError):
+            self.gen_without_sub_2025_no_until.with_user(self.user_manager).write(
+                {
+                    "max_volunteer_nb": 4,
+                    "until_date": date(2026, 1, 3),
+                    "start_time": datetime(2025, 1, 1, 15),
+                    "end_time": datetime(2025, 1, 1, 16, 0),
+                    "type_id": self.type2.id,
+                }
+            )
 
-    def test_subscription_management_via_notebook_blocked_on_canceled_generator(self):
-        """Test that subscription management via notebook is blocked
+    def test_subscription_management_via_notebook_canceled_generator_not_allowed(self):
+        """Test that subscription management via notebook is not allowed
         on a canceled generator"""
         self.gen_without_sub_2025_no_until.with_user(self.user_admin).write(
             {
                 "state": "canceled",
             }
         )
+        # Test forbidden subscription management via notebook for role manager
         with self.assertRaises(ValidationError):
             self.gen_without_sub_2025_no_until.with_user(self.user_manager).write(
                 {
@@ -241,6 +252,7 @@ class TestVolunteerShiftRecurrentGeneratorPermissions(
                     ]
                 }
             )
+        # Test forbidden subscription management via notebook for role admin
         with self.assertRaises(ValidationError):
             self.gen_without_sub_2025_no_until.with_user(self.user_admin).write(
                 {

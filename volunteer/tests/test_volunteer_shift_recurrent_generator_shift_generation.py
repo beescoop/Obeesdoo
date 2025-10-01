@@ -20,11 +20,11 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
     def setUp(self):
         super().setUp()
 
-    def test_generate_shifts_from_today(self):
+    def test_generate_shifts_with_past_start_date(self):
         """Test that shifts are generated from today if
         start_date is in the past"""
-        # Start_date generator : 2023/1/1
-        # Today is frozen to 2025/1/1
+        # Generator starts in the past (2023-01-01), but as of today (2025-01-01),
+        # shifts should be generated starting from today only
         self.gen_with_past_start.with_user(self.user_admin).write(
             {"state": "confirmed"}
         )
@@ -37,7 +37,7 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
     def test_generate_shifts_from_start_date_future(self):
         """Test that shifts are generated from start_date
         if start_date is in the future"""
-        # Today is frozen to 2025/1/1
+        # Today is frozen to 2025-01-01
         self.gen_without_sub_2025_no_until.write(
             {
                 "start_time": datetime(2025, 2, 1, 10, 5),
@@ -55,10 +55,10 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
             self.assertEqual(shift.start_time.date(), start_date)
             start_date += self.gen_without_sub_2025_no_until._get_interval_delta()
 
-    def test_generate_right_number_of_shifts_with_until_date(self):
+    def test_generate_right_number_of_shifts_generator_with_until_date(self):
         """Test that the right number of shifts are generated
         based on until_date and not on number of occurrences"""
-        # Between 2025/1/1 and 2025/1/5 there are 5 occurrences
+        # Between 2025-01-01 and 2025-01-05 there are 5 occurrences
         # and not 10 like number of occurrences
         self.gen_each_day_max_2_vol.write(
             {
@@ -75,11 +75,11 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
         )
         self.assertEqual(len(shifts), 5)
 
-    def test_generate_right_number_of_shifts_without_until_date(self):
+    def test_generate_right_number_of_shifts_generator_without_until_date(self):
         """Test that the right number of shifts are generated
         based on number of occurrences since there is no until_date"""
         # Number of occurrences is 10
-        # Today is frozen to 2025/1/1
+        # Today is frozen to 2025-01-01, so shifts will be generated from this date
         self.gen_each_day_max_2_vol.write(
             {
                 "start_time": datetime(2025, 1, 1, 10, 5),
@@ -94,7 +94,7 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
         )
         self.assertEqual(len(shifts), 10)
 
-    def test_generate_shift_with_right_start_end_time(self):
+    def test_generate_shifts_with_right_period(self):
         """Test that the shifts are generated with the right start and end time"""
         self.gen_each_day_max_2_vol.write(
             {
@@ -111,6 +111,8 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
         )
         expected_start = datetime(2025, 1, 1, 10, 5)
         expected_end = datetime(2025, 1, 1, 12, 5)
+        # Each generated shift must strictly match the configured time slot
+        # with the correct interval applied between occurrences
         for shift in shifts:
             self.assertEqual(shift.start_time, expected_start)
             self.assertEqual(shift.end_time, expected_end)
@@ -121,13 +123,13 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
                 expected_end + self.gen_each_day_max_2_vol._get_interval_delta()
             )
 
-    def test_determine_furthest_end_date_no_until_date_multiple_sub_no_end(self):
+    def test_determine_furthest_end_date_with_infinite_multiple_cases(self):
         """Test that the furthest end date is correctly determined
         when there are multiple subscriptions without end_date
         and the generator has no until_date.
         For confirmed generators, generated shifts take precedence
         over subscription start dates."""
-        # Create multiple subscriptions without end_date
+        # Create multiple subscriptions without end_date (infinite)
         self.Subscription.create(
             {
                 "start_date": date(2025, 1, 1),
@@ -153,14 +155,15 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
             }
         )
         with self.subTest("No participation"):
-            # Furthest end date should be furthest start_date (2025/01/05)
-            # + 1 day since there are only subscriptions without end_date
-            # and no until_date on the generator (his start_time is 2025/01/01)
+            # Furthest end date should be furthest start_date (2025-01-05)
+            # + 1 day since there are only infinite subscriptions
+            # and no until_date on the generator (his start_time is 2025-01-01)
             self.assertEqual(
                 self.gen_without_sub_2025_no_until.determine_furthest_end_date(),
                 date(2025, 1, 6),
             )
         with self.subTest("With participation before last subscription start_date"):
+            # Confirm generator to generate shifts
             self.gen_without_sub_2025_no_until.with_user(self.user_admin).write(
                 {
                     "state": "confirmed",
@@ -176,6 +179,8 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
                     ("generator_id", "=", self.gen_without_sub_2025_no_until.id),
                 ]
             )
+            # Create participation on generated shift before last subscription
+            # start_date (2025-01-02)
             self.Participation.create(
                 {
                     "shift_id": shift_2.id,
@@ -184,8 +189,8 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
                 }
             )
             # Furthest end date should be last generated shift end_time + 1 day
-            # since generator is confirmed and has generated shifts (2025/01/01 to 2025/01/10)
-            # after last subscription start_date (2025/01/05)
+            # since generator is confirmed and has generated shifts (2025-01-01 to 2025-01-10)
+            # after last subscription start_date (2025-01-05)
             self.assertEqual(
                 self.gen_without_sub_2025_no_until.determine_furthest_end_date(),
                 date(2025, 1, 11),
