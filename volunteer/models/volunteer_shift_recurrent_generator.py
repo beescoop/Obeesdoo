@@ -344,18 +344,10 @@ class VolunteerShiftRecurrentGenerator(models.Model):
             # furthest_end_date will be the furthest start_date
             if furthest_end_date < furthest_start_date:
                 furthest_end_date = furthest_start_date
-        # If generator is confirmed, there are shifts generated
-        # It might be that some shifts extend beyond the furthest end_date
-        # when it is based on latest start_time of subscriptions
-        if self.state == "confirmed":
-            last_shift_date = max(
-                shift.start_time.date() for shift in self.volunteer_shift_ids
-            )
-            # Check if the shifts end_time in this case is greater
-            # than the furthest_end_date found with subscriptions
-            if last_shift_date > furthest_end_date:
-                furthest_end_date = last_shift_date
-        # Find the furthest end_date among existing participation
+        # Find the furthest end_date among existing punctual participation
+        # For confirmed generators with large intervals (weekly, monthly, yearly),
+        # checking the last participation is more efficient than checking all generated shifts
+        # since capacity checks actually iterate day by day
         if self.volunteer_shift_ids:
             all_confirmed_participation = self.env[
                 "volunteer.shift.participation"

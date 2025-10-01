@@ -123,11 +123,13 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
                 expected_end + self.gen_each_day_max_2_vol._get_interval_delta()
             )
 
-    def test_determine_furthest_end_date_with_infinite_multiple_cases(self):
+    def test_determine_furthest_end_date_infinite_generator_multiple_infinite_subscriptions(
+        self,
+    ):
         """Test that the furthest end date is correctly determined
         when there are multiple subscriptions without end_date
         and the generator has no until_date.
-        For confirmed generators, generated shifts take precedence
+        For confirmed generators, last participation on generated shifts takes precedence
         over subscription start dates."""
         # Create multiple subscriptions without end_date (infinite)
         self.Subscription.create(
@@ -157,7 +159,7 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
         with self.subTest("No participation"):
             # Furthest end date should be furthest start_date (2025-01-05)
             # + 1 day since there are only infinite subscriptions
-            # and no until_date on the generator (his start_time is 2025-01-01)
+            # and no until_date on the generator (start_time is 2025-01-01)
             self.assertEqual(
                 self.gen_without_sub_2025_no_until.determine_furthest_end_date(),
                 date(2025, 1, 6),
@@ -188,12 +190,12 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
                     "registration_state": "confirmed",
                 }
             )
-            # Furthest end date should be last generated shift end_time + 1 day
-            # since generator is confirmed and has generated shifts (2025-01-01 to 2025-01-10)
-            # after last subscription start_date (2025-01-05)
+            # Furthest end date should be last subscription start_date + 1 day (2025/01/06)
+            # since the last subscription is infinite and start at 2025-01-05
+            # and last participation is before last subscription start_date
             self.assertEqual(
                 self.gen_without_sub_2025_no_until.determine_furthest_end_date(),
-                date(2025, 1, 11),
+                date(2025, 1, 6),
             )
         with self.subTest("With participation after last subscription start_date"):
             shift_10 = self.Shift.search(
@@ -201,7 +203,7 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
                     (
                         "start_time",
                         "=",
-                        datetime(2025, 1, 10, 10, 5),
+                        datetime(2025, 1, 8, 10, 5),
                     ),
                     ("generator_id", "=", self.gen_without_sub_2025_no_until.id),
                 ]
@@ -213,10 +215,15 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
                     "registration_state": "confirmed",
                 }
             )
-            # Furthest end date should be last generated shift end_time + 1 day (2025/01/11)
-            # since confirmed generator prioritizes generated shifts
-            # over individual participation
+            # Furthest end date should be last participation date (2025-01-08) + 1 day
+            # since the last infinite subscription starts before the participation (2025-01-05)
+            # This prioritization of last participation over last generated shift
+            # avoids unnecessary day-by-day iteration for generators with large intervals
             self.assertEqual(
                 self.gen_without_sub_2025_no_until.determine_furthest_end_date(),
-                date(2025, 1, 11),
+                date(
+                    2025,
+                    1,
+                    9,
+                ),
             )
