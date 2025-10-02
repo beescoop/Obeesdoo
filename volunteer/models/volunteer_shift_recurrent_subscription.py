@@ -39,10 +39,11 @@ class VolunteerShiftRecurrentSubscription(models.Model):
 
     @api.constrains("start_date", "end_date")
     def _check_date_range(self):
-        """Check that start_date of a subscription is in the past compared to today
-        and to end_date.
-        Equality is accepted to permit eventual cancellation of subscription by reduction
-        of end_date even if it is the same day."""
+        """Check that start_date of a subscription is not after end_date.
+
+        Equality is accepted to permit cancellation by setting
+        end_date to start_date, even if it is the same day.
+        """
         # Skip validation for subscriptions with canceled generators
         subscriptions_to_check = self.filtered(
             lambda subscription: subscription.generator_id.state != "canceled"
@@ -140,6 +141,8 @@ class VolunteerShiftRecurrentSubscription(models.Model):
             # and there is generated shift between the old end date and today
             # and the requested end date is after the old end date
             # (or infinite subscription requested)
+            # This prevents participation from being generated
+            # for shifts the volunteer did not attend.
             if (
                 sub.end_date
                 and sub.end_date < date.today()
@@ -177,15 +180,13 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                 old_furthest_dates_by_generator[
                     sub.generator_id.id
                 ] = sub.generator_id.determine_furthest_end_date()
-        # Prepare lists to collect old subscription data and new values
-        # for each subscription in the recordset
         all_requested_vals = []
         all_old_sub_data = []
         for sub in self:
             generator = sub.generator_id
             # Allow only admins to modify end_date to today's date
             # on canceled generators to permit canceling subscriptions
-            # in cascade when the generator is canceled
+            # in cascade when the generator is canceled.
             # Check end_date in vals is the only modification requested
             # and that it is set to today
             if generator.state == "canceled" and not (
@@ -199,9 +200,9 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                         "It is not possible to modify a subscription for a canceled generator."
                     )
                 )
-            # Disallow start_date in past only when it is explicitly modified
+            # Disallow start_date in past, only when it is explicitly modified
             # (it can be kept in the past if not modified
-            # to prevent blocking updates of end_date only)
+            # to prevent blocking updates of end_date only, after time has passed)
             if (
                 "start_date" in vals
                 and fields.Date.to_date(vals["start_date"]) < date.today()
@@ -226,19 +227,14 @@ class VolunteerShiftRecurrentSubscription(models.Model):
             # to determine the requested value to use during construction
             # of requested_vals
             if "end_date" in vals:
-                # If provided value is not False, convert it to date
                 if vals["end_date"]:
                     requested_end_date = fields.Date.to_date(vals["end_date"])
-                # If the requested value is False, it has to be determined
                 else:
                     requested_end_date = generator.determine_furthest_end_date()
-            # If end_date not modified, keep existing value
-            # In case old value is False, determine furthest end date
             else:
                 requested_end_date = (
                     sub.end_date or generator.determine_furthest_end_date()
                 )
-            # Check end_date not in past
             if requested_end_date < date.today():
                 raise ValidationError(
                     _(
@@ -273,7 +269,7 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         # If all checks pass, proceed with the write operation
         # and post treatment
         res = super().write(vals)
-        # Cancel eventual punctual participation of the concerned volunteer,
+        # Cancel existing punctual participation of the concerned volunteer,
         # registered on shifts covered by the new subscription period
         for i, sub in enumerate(self):
             generator = sub.generator_id
@@ -295,7 +291,8 @@ class VolunteerShiftRecurrentSubscription(models.Model):
 
     def get_conflicting_sub_detail_message(self):
         """Return a formatted message with details of the subscription
-        to append to validation error messages."""
+        to append to validation error messages.
+        """
         self.ensure_one()
         readable_end_date = self.end_date or "No end date"
         message = (
@@ -307,7 +304,7 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         return message
 
     def generate_participation(self):
-        """Generate participation for all shifts covered by this subscription"""
+        """Generate participation for all shifts covered by this subscription."""
         self.ensure_one()
         generator = self.generator_id
         if not self.end_date:
@@ -355,7 +352,7 @@ class VolunteerShiftRecurrentSubscription(models.Model):
     def _get_shifts_intersection_between_two_periods(
         self, new_start_date, new_end_date, old_start_date, old_end_date
     ):
-        """Get all shifts in the intersection between two periods"""
+        """Get all shifts in the intersection between two periods."""
         intersection_start_date = max(new_start_date, old_start_date)
         intersection_end_date = min(new_end_date, old_end_date)
         if intersection_start_date > intersection_end_date:
@@ -438,7 +435,6 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         to avoid counting twice the participation of the same
         volunteer during checks applied on remaining_slots by shift.
         """
-        # Generator needs to be retrieved from the generator_id provided
         generator = self.env["volunteer.shift.recurrent.generator"].browse(generator_id)
         for shift in generator.volunteer_shift_ids:
             if not requested_end_date:
@@ -457,7 +453,6 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                         ("registration_type", "!=", "recurrent"),
                     ]
                 )
-                # If the volunteer has punctual participation, it has to be canceled
                 if participation_to_cancel:
                     participation_to_cancel.write(
                         {
@@ -467,7 +462,8 @@ class VolunteerShiftRecurrentSubscription(models.Model):
 
     def _cancel_participation_by_shifts(self, shifts):
         """Cancel all participation for given shifts
-        for the volunteer concerned by subscription in self"""
+        for the volunteer concerned by subscription in self.
+        """
         self.ensure_one()
         for shift in shifts:
             participation_to_cancel = self.env["volunteer.shift.participation"].search(
@@ -485,7 +481,8 @@ class VolunteerShiftRecurrentSubscription(models.Model):
 
     def _generate_participation_by_shifts(self, shifts):
         """Generate participation records for the given shifts
-        for the volunteer linked to this subscription."""
+        for the volunteer linked to this subscription.
+        """
         self.ensure_one()
         for shift in shifts:
             self.env["volunteer.shift.participation"].create(
@@ -508,7 +505,8 @@ class VolunteerShiftRecurrentSubscription(models.Model):
     ):
         """Handle specific cases of unique subscription per volunteer
         and generator when one of the subscriptions of the volunteer
-        has no end_date (infinite) or change to infinite (end_date removed)."""
+        has no end_date (infinite) or change to infinite (end_date removed).
+        """
         # Search for existing subscriptions for this volunteer and generator
         existing_subs = self.search(
             [

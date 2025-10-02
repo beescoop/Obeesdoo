@@ -89,7 +89,6 @@ class VolunteerShiftRecurrentGenerator(models.Model):
                 earliest_sub_start = min(
                     sub.start_date for sub in generator.volunteer_subscription_ids
                 )
-                # Check that the new start_time is not after this date
                 if generator.start_time.date() > earliest_sub_start:
                     raise ValidationError(
                         _(
@@ -101,7 +100,9 @@ class VolunteerShiftRecurrentGenerator(models.Model):
 
     @api.constrains("until_date")
     def _check_sub_date_range_in_generator_new_period(self):
-        """Check that the subscription period is within the generator period"""
+        """Check that the subscription period is still within the generator period
+        after until_date modification, to prevent excluding existing subscriptions.
+        """
         for sub in self.volunteer_subscription_ids:
             try:
                 sub.check_date_range_in_generator_period(self)
@@ -152,9 +153,8 @@ class VolunteerShiftRecurrentGenerator(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            # Ensure that until_date is not before start_time
-            # if until_date is provided, else it's considered
-            # as infinite and cannot be before start_time
+            # Ensure that until_date (if provided) is not before start_time
+            # If it is not provided, it's considered as infinite and valid
             if vals.get("until_date"):
                 until_date = fields.Date.to_date(vals["until_date"])
                 start_time = fields.Datetime.to_datetime(vals["start_time"])
@@ -167,6 +167,7 @@ class VolunteerShiftRecurrentGenerator(models.Model):
                     )
         generators = super().create(vals_list)
         for generator in generators:
+            # Prevent creating generators directly in canceled state
             if generator.state == "canceled":
                 raise ValidationError(
                     _("A generator cannot be created in the canceled state.")
@@ -177,9 +178,8 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         return generators
 
     def write(self, vals):
-        # Check if vals contains state change for all generators
-        # because it's a general blocking condition with strict blocking
-        # for all users except admins and don't depend on other modifications
+        # Check state changes first as this is a blocking condition for non-admins
+        # regardless of other field modifications
         if (
             "state" in vals
             and not self.env.context.get("install_mode")
@@ -199,8 +199,8 @@ class VolunteerShiftRecurrentGenerator(models.Model):
                 generator._generate_participation()
             # Else, if the generator is canceled, apply the required changes
             elif previous_state != "canceled" and generator.state == "canceled":
-                # Change end_date of future subscriptions by getting the active_subscription
-                # for the period from today to generator until_date aka future_subscriptions
+                # Retrieve future subscriptions by getting the active_subscription
+                # for the period from today to generator until_date
                 future_subscriptions = generator._get_active_subscriptions_for_period(
                     requested_start_date=today,
                     requested_end_date=generator.until_date,
@@ -233,8 +233,10 @@ class VolunteerShiftRecurrentGenerator(models.Model):
     # Methods
 
     def _check_access_and_restrictions_based_on_generator_state(self, vals, old_states):
-        """Check access rights and restrictions based on the generator state
-        Note: access for user groups is managed by access rules"""
+        """Check access rights and restrictions based on the generator state.
+
+        Note: access for user groups is managed by access rules
+        """
         # Bypass checks during installation for demo data loading
         if self.env.context.get("install_mode"):
             return True
@@ -263,15 +265,15 @@ class VolunteerShiftRecurrentGenerator(models.Model):
                             fields.Date.to_date(vals.get("until_date"))
                             or generator.until_date
                         )
-                        # During write start_time can be unmodified so not in vals
+                        # During write, start_time can be unmodified so not in vals
                         # but it's a required field so always present in the record,
                         # it has to be set to generator.start_time in this case
                         new_start_time = (
                             fields.Datetime.to_datetime(vals.get("start_time"))
                             or generator.start_time
                         )
-                        # until_date is not required so check only if provided
-                        # If not provided, it is considered as higher than start_time
+                        # until_date is not required, so check only if provided.
+                        # If not provided, it is considered as higher than start_time (infinite)
                         if new_until_date and new_until_date < new_start_time.date():
                             raise ValidationError(
                                 _(
@@ -280,8 +282,8 @@ class VolunteerShiftRecurrentGenerator(models.Model):
                                 )
                             )
                 elif new_state == "confirmed":
-                    # Block changes fields to manager
-                    # but allow subscription creation/modification only
+                    # In confirmed state: restrict field changes (shifts already generated)
+                    # but allow managers to add/modify subscriptions
                     # (access rules already restrict user group access)
                     if (is_manager or is_admin) and not is_only_managing_sub:
                         procedure_msg = (
@@ -295,7 +297,7 @@ class VolunteerShiftRecurrentGenerator(models.Model):
                             )
                         )
                 elif new_state == "canceled":
-                    # Block field changes to all users
+                    # Change on canceled state is not allowed for all users
                     raise ValidationError(
                         _("It is not possible to modify a canceled generator.")
                     )
@@ -324,8 +326,22 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         return True
 
     def determine_furthest_end_date(self):
-        """Determine the furthest end date to use when
-        end_date or until_date are not provided."""
+        """Determine the furthest end date when end_date or until_date are not provided.
+
+        Returns the latest date among:
+        - Generator's until_date (if set)
+        - Latest subscription end_date (or start_date for infinite starting after
+          finite ones)
+        - Latest punctual participation date (for confirmed generators)
+
+        Returns:
+            date: Furthest end date + 1 day
+            (ensures infinite subscriptions extend beyond finite ones)
+
+        Warning:
+            This method cannot consider new subscriptions not yet in database.
+            Results depend on calling context.
+        """
         self.ensure_one()
         if self.until_date:
             return self.until_date
@@ -340,8 +356,7 @@ class VolunteerShiftRecurrentGenerator(models.Model):
             )
             if sub_with_ends:
                 furthest_end_date = max(sub_with_ends.mapped("end_date"))
-            # If no subscription has an end_date, and there is no until_date,
-            # furthest_end_date will be the furthest start_date
+            # For infinite subscriptions, use the latest start_date
             if furthest_end_date < furthest_start_date:
                 furthest_end_date = furthest_start_date
         # Find the furthest end_date among existing punctual participation
@@ -363,8 +378,8 @@ class VolunteerShiftRecurrentGenerator(models.Model):
                 # Check if any participation extend beyond current furthest date
                 if end_date > furthest_end_date:
                     furthest_end_date = end_date
-        # Add one day to ensure all null end_dates are grouped together
-        # and extend beyond any specific end_date
+        # Add one day to ensure infinite subscriptions (no end_date)
+        # are grouped together and extend beyond any specific end_date
         furthest_end_date = furthest_end_date + timedelta(days=1)
         return furthest_end_date
 
@@ -375,13 +390,13 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         for the specified subscription period.
         volunteer_to_exclude is used during write to exclude
         the volunteer's existing participation from the remaining slots calculation
-        to avoid double counting"""
+        to avoid double counting
+        """
         self.ensure_one()
         if not requested_end_date:
             requested_end_date = self.determine_furthest_end_date()
-        # Treat case when a infinite subscription is requested
-        # and start_date is after the furthest end date
-        # since determine_furthest_end_date() cannot consider new subscriptions
+        # Handle edge case: infinite subscription starting after current furthest date
+        # (determine_furthest_end_date() cannot consider new subscriptions)
         if requested_end_date < requested_start_date:
             requested_end_date = requested_start_date + timedelta(days=1)
         date_to_check = requested_start_date
@@ -431,18 +446,19 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         self, requested_sub, requested_sub_list, sub_to_exclude=None
     ):
         """Ensure there are available subscription slots for the specified period.
+
         sub_to_exclude is used during write and contains the subscription data
         of the current subscription being modified so it has to be excluded
-        from the counting to avoid counting twice"""
+        from the counting to avoid counting twice.
+        """
         self.ensure_one()
         requested_end_date = (
             fields.Date.to_date(requested_sub.get("end_date"))
             or self.determine_furthest_end_date()
         )
         requested_start_date = fields.Date.to_date(requested_sub.get("start_date"))
-        # Treat case when a infinite subscription is requested
-        # and start_date is after the furthest end date
-        # since determine_furthest_end_date() cannot consider new subscriptions
+        # Handle edge case: infinite subscription starting after current furthest date
+        # (determine_furthest_end_date() cannot consider new subscriptions)
         if requested_end_date < requested_start_date:
             requested_end_date = requested_start_date + timedelta(days=1)
         date_to_check = fields.Date.to_date(requested_sub.get("start_date"))
@@ -550,8 +566,7 @@ class VolunteerShiftRecurrentGenerator(models.Model):
     def _count_nb_new_sub_given_day(
         self, target_date, requested_sub_list, excluded_sub
     ):
-        """Count the total number of subscriptions for the requested date
-        in vals_list"""
+        """Count the total number of subscriptions for the requested date in vals_list"""
         self.ensure_one()
         filtered_sub_list = []
         # Filter requested_sub_list to process only the current generator's subscriptions
@@ -560,8 +575,6 @@ class VolunteerShiftRecurrentGenerator(models.Model):
                 filtered_sub_list.append(requested_sub)
         count = 0
         for new_sub in filtered_sub_list:
-            # new_sub_start_date in requested_sub_list comes from vals_list
-            # during create so it's a string and has to be converted
             new_sub_start_date = fields.Date.to_date(new_sub.get("start_date"))
             new_sub_end_date = fields.Date.to_date(new_sub.get("end_date"))
             if not new_sub_end_date:
@@ -582,7 +595,8 @@ class VolunteerShiftRecurrentGenerator(models.Model):
 
     def _count_nb_existing_sub_given_day(self, target_date, excluded_sub):
         """Count the total number of subscriptions for the requested date
-        in existing subscriptions"""
+        in existing subscriptions.
+        """
         self.ensure_one()
         count = 0
         for existing_sub in self.volunteer_subscription_ids:
@@ -652,7 +666,8 @@ class VolunteerShiftRecurrentGenerator(models.Model):
 
     def _generate_shifts(self):
         """Generate all shifts from the generator start date
-        until the generator end date, using the specified interval."""
+        until the generator end date, using the specified interval.
+        """
         self.ensure_one()
         stage_confirmed = self.env.ref("volunteer.volunteer_shift_stage_confirmed")
         delta = self._get_interval_delta()

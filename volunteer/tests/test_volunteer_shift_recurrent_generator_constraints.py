@@ -25,13 +25,12 @@ class TestVolunteerShiftRecurrentGeneratorConstraints(
     def setUp(self):
         super().setUp()
 
-    # Note : Constraints managed by SQL constraint produce Odoo logs
+    # Note : Constraints managed by SQL constraints produce Odoo logs
     # which need to be muted to avoid polluting tests outputs.
     # Savepoints are used to prevent the transaction from being blocked
     # when a SQL exception (e.g. CheckViolation) is raised.
     def test_reduce_max_volunteer_equals_zero_not_allowed(self):
         """Test that it is not possible to reduce max_volunteer_nb to 0"""
-
         with mute_logger("odoo.sql_db"):
             with self.assertRaises(CheckViolation):
                 with self.cr.savepoint():
