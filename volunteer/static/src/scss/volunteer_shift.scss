@@ -9,6 +9,12 @@
         .o_volunteer_fontsize_11 {
             font-size: 1.1rem;
         }
+        .o_volunteer_fontsize_12 {
+            font-size: 1.25rem;
+        }
+        .o_volunteer_fontsize_14 {
+            font-size: 1.4rem;
+        }
         .o_volunteer_fontsize_17 {
             font-size: 1.75rem;
         }
@@ -16,4 +22,14 @@
             font-size: 2rem;
         }
     }
+}
+
+.state-canceled {
+    background-color: red;
+    opacity: 0.4;
+    color: white;
+}
+.state-draft {
+    background-color: grey;
+    color: white;
 }

@@ -24,6 +24,7 @@
         "views/volunteer_shift_generator_views.xml",
         "views/volunteer_shift_kanban_views.xml",
         "views/volunteer_shift_participation_views.xml",
+        "views/volunteer_shift_generator_kanban_views.xml",
         "views/volunteer_shift_subscription_views.xml",
         "views/volunteer_shift_category_views.xml",
         "views/volunteer_shift_type_views.xml",
