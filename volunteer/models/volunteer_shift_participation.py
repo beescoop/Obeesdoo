@@ -9,7 +9,7 @@ from odoo.tools.translate import _
 
 class VolunteerShiftParticipation(models.Model):
     _name = "volunteer.shift.participation"
-    _description = "Shift participation"
+    _description = "Shift Participation"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
     # State fields
@@ -72,8 +72,9 @@ class VolunteerShiftParticipation(models.Model):
 
     @api.constrains("shift_id", "registration_state")
     def _check_remaining_slots(self):
-        for participation in self:
-            booking_status = self.shift_id.get_booking_status()
+        shifts_to_check = self.mapped("shift_id")
+        for shift in shifts_to_check:
+            booking_status = shift.get_booking_status()
             if not booking_status["can_accept_participation"]:
                 nb_confirmed_participation = booking_status[
                     "nb_confirmed_participation"
@@ -82,7 +83,8 @@ class VolunteerShiftParticipation(models.Model):
                     _(
                         f"It is not possible to register"
                         f" {nb_confirmed_participation} volunteers in this shift."
-                        f" The maximum capacity is {participation.shift_id.max_volunteer_nb}."
+                        f" The maximum capacity is "
+                        f"{shift.max_volunteer_nb}."
                     )
                 )
 
