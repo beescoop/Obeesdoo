@@ -31,6 +31,7 @@
         "views/volunteer_skill_view.xml",
         "views/volunteer_skill_category_view.xml",
         "views/volunteer_menu.xml",
+        "views/res_config_settings_views.xml",
     ],
     "demo": [
         "demo/volunteer_shift_category_demo.xml",
