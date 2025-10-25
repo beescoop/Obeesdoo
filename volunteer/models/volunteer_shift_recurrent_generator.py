@@ -81,12 +81,14 @@ class VolunteerShiftRecurrentGenerator(models.Model):
     ]
 
     # Override methods
+
     @api.model_create_multi
     def create(self, vals_list):
         generators = super().create(vals_list)
         for generator in generators:
             if generator.state == "confirmed":
                 generator._generate_shifts()
+                generator._generate_all_participation()
         return generators
 
     def write(self, vals):
@@ -94,9 +96,10 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         res = super().write(vals)
         for generator in self:
             previous_state = old_states[generator.id]
-            # If the generator is confirmed, generate shifts
+            # If the generator is confirmed, generate shifts and participation
             if previous_state == "draft" and generator.state == "confirmed":
                 generator._generate_shifts()
+                generator._generate_all_participation()
         return res
 
     # Methods
@@ -166,3 +169,8 @@ class VolunteerShiftRecurrentGenerator(models.Model):
             shift_generated_start_time += delta
             shift_generated_end_time += delta
             nb_generated_shift += 1
+
+    def _generate_all_participation(self):
+        """Generate participation for all subscriptions in the generator"""
+        for subscription in self.volunteer_subscription_ids:
+            subscription.generate_participation()

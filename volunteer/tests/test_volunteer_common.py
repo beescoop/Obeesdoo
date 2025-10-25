@@ -29,6 +29,7 @@ class TestVolunteerCommon(common.TransactionCase):
         self.Volunteer = self.env["volunteer.volunteer"]
         self.Participation = self.env["volunteer.shift.participation"]
         self.Generator = self.env["volunteer.shift.recurrent.generator"]
+        self.Subscription = self.env["volunteer.shift.recurrent.subscription"]
 
         # Stages
         self.stage_confirmed = self.env.ref("volunteer.volunteer_shift_stage_confirmed")

@@ -170,6 +170,7 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
                 shifts = self.Shift.search(
                     [("generator_id", "=", generator.id)], order="start_time"
                 )
+                self.assertGreaterEqual(len(shifts), len(expected_start))
                 # Verify interval progression on first 3 shifts
                 for i, expected_date in enumerate(expected_start):
                     self.assertEqual(shifts[i].start_time, expected_date)
