@@ -8,6 +8,8 @@ from dateutil.relativedelta import relativedelta
 
 from odoo import fields, models
 from odoo.exceptions import UserError
+from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 from odoo.tools.translate import _
 
 
@@ -78,6 +80,25 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         ),
     ]
 
+    # Override methods
+    @api.model_create_multi
+    def create(self, vals_list):
+        generators = super().create(vals_list)
+        for generator in generators:
+            if generator.state == "confirmed":
+                generator._generate_shifts()
+        return generators
+
+    def write(self, vals):
+        old_states = {generator.id: generator.state for generator in self}
+        res = super().write(vals)
+        for generator in self:
+            previous_state = old_states[generator.id]
+            # If the generator is confirmed, generate shifts
+            if previous_state == "draft" and generator.state == "confirmed":
+                generator._generate_shifts()
+        return res
+
     # Methods
 
     def _get_interval_delta(self):
@@ -93,3 +114,55 @@ class VolunteerShiftRecurrentGenerator(models.Model):
             return relativedelta(years=self.interval)
         else:
             raise UserError(_("The interval type is not valid."))
+
+    def _generate_shifts(self):
+        """Generate all shifts from the generator start date
+        until the generator until date or number of occurrences,
+        using the specified interval.
+        """
+        self.ensure_one()
+        nb_occurrence = self.company_id.shift_nb_occurrence
+        stage_confirmed = self.env.ref("volunteer.volunteer_shift_stage_confirmed")
+        delta = self._get_interval_delta()
+        today = fields.Date.today()
+        # Generate only future shifts
+        generation_start_date = (
+            today if self.start_time.date() < today else self.start_time.date()
+        )
+        # Calculate end date from until_date or occurrence count
+        if self.until_date:
+            generation_end_date = self.until_date
+        else:
+            generation_end_date = generation_start_date
+            for _i in range(nb_occurrence):
+                generation_end_date += delta
+        shift_generated_start_time = self.start_time
+        shift_generated_end_time = self.end_time
+        # Skip past occurrences by incrementing with delta until reaching a future date
+        while shift_generated_start_time.date() < today:
+            shift_generated_start_time += delta
+            shift_generated_end_time += delta
+        nb_generated_shift = 0
+        while (
+            nb_generated_shift < nb_occurrence
+            and shift_generated_start_time.date() <= generation_end_date
+        ):
+            self.env["volunteer.shift"].create(
+                {
+                    "name": self.name,
+                    "tz": self.tz,
+                    "start_time": shift_generated_start_time,
+                    "end_time": shift_generated_end_time,
+                    "max_volunteer_nb": self.max_volunteer_nb,
+                    "stage_id": stage_confirmed.id,
+                    "type_id": self.type_id.id,
+                    "category_id": self.category_id.id,
+                    "tag_ids": self.tag_ids.ids,
+                    "generator_id": self.id,
+                    "company_id": self.company_id.id,
+                    "coordinator_id": self.coordinator_id.id,
+                }
+            )
+            shift_generated_start_time += delta
+            shift_generated_end_time += delta
+            nb_generated_shift += 1
