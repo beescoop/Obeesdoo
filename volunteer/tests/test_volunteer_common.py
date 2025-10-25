@@ -28,6 +28,7 @@ class TestVolunteerCommon(common.TransactionCase):
         self.Type = self.env["volunteer.shift.type"]
         self.Volunteer = self.env["volunteer.volunteer"]
         self.Participation = self.env["volunteer.shift.participation"]
+        self.Generator = self.env["volunteer.shift.recurrent.generator"]
 
         # Stages
         self.stage_confirmed = self.env.ref("volunteer.volunteer_shift_stage_confirmed")
@@ -54,7 +55,7 @@ class TestVolunteerCommon(common.TransactionCase):
         self.type1 = self.Type.create(
             {
                 "name": "TypeTest",
-                "description": "Type pour autotests",
+                "description": "Type for autotests",
             }
         )
 
@@ -92,7 +93,6 @@ class TestVolunteerCommon(common.TransactionCase):
                 "name": "VolunteerTest",
             }
         )
-
         # Create confirmed participation
         self.participation_confirmed = self.Participation.create(
             {
