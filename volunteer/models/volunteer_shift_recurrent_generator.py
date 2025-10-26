@@ -86,6 +86,11 @@ class VolunteerShiftRecurrentGenerator(models.Model):
     def create(self, vals_list):
         generators = super().create(vals_list)
         for generator in generators:
+            # Prevent creating generators directly in canceled state
+            if generator.state == "canceled":
+                raise ValidationError(
+                    _("A generator cannot be created in canceled state.")
+                )
             if generator.state == "confirmed":
                 generator._generate_shifts()
                 generator._generate_all_participation()
@@ -96,10 +101,11 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         res = super().write(vals)
         for generator in self:
             previous_state = old_states[generator.id]
-            # If the generator is confirmed, generate shifts and participation
             if previous_state == "draft" and generator.state == "confirmed":
                 generator._generate_shifts()
                 generator._generate_all_participation()
+            elif previous_state != "canceled" and generator.state == "canceled":
+                generator._handle_generator_cancellation()
         return res
 
     # Methods
@@ -117,6 +123,33 @@ class VolunteerShiftRecurrentGenerator(models.Model):
             return relativedelta(years=self.interval)
         else:
             raise UserError(_("The interval type is not valid."))
+
+    def _get_active_subscriptions(self):
+        """Get all active subscriptions for this generator."""
+        self.ensure_one()
+        today = fields.Date.today()
+        active_subscriptions = self.volunteer_subscription_ids.filtered(
+            lambda subscription: subscription.start_date <= today
+            and (not subscription.end_date or subscription.end_date >= today)
+        )
+        return active_subscriptions
+
+    def _get_future_subscriptions(self):
+        """Get all future subscriptions for this generator."""
+        self.ensure_one()
+        today = fields.Date.today()
+        future_subscriptions = self.volunteer_subscription_ids.filtered(
+            lambda subscription: subscription.start_date >= today
+        )
+        return future_subscriptions
+
+    def _get_future_shifts(self):
+        """Get all future shifts for this generator."""
+        self.ensure_one()
+        today = fields.Date.today()
+        return self.volunteer_shift_ids.filtered(
+            lambda shift: shift.start_time.date() >= today
+        )
 
     def _generate_shifts(self):
         """Generate all shifts from the generator start date
@@ -174,3 +207,26 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         """Generate participation for all subscriptions in the generator"""
         for subscription in self.volunteer_subscription_ids:
             subscription.generate_participation()
+
+    def _handle_generator_cancellation(self):
+        """Handle the cancellation of the generator by:
+        - Setting the end_date of all future subscriptions to today
+        - Auto-canceling all future shifts
+        - Setting the generator until_date to today
+        """
+        self.ensure_one()
+        today = fields.Date.today()
+        active_subscriptions = self._get_active_subscriptions()
+        future_subscriptions = self._get_future_subscriptions()
+        subscriptions_to_canceled = active_subscriptions + future_subscriptions
+        subscriptions_to_canceled.write({"end_date": today})
+        # Auto-cancel future shifts, which will also cancel related participation
+        future_shifts = self._get_future_shifts()
+        future_shifts.write(
+            {"stage_id": self.env.ref("volunteer.volunteer_shift_stage_canceled").id}
+        )
+        # Set until_date to today using super to avoid write recursion
+        # (future validations will be added to write method
+        # and need to be bypassed)
+        res = super(VolunteerShiftRecurrentGenerator, self).write({"until_date": today})
+        return res
