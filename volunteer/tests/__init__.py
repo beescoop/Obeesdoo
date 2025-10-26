@@ -8,5 +8,5 @@ from . import test_volunteer_generator_subscription_common
 from . import test_volunteer_shift
 from . import test_volunteer_shift_participation
 from . import test_volunteer_shift_recurrent_generator_generation
-from . import test_volunteer_recurrent_subscription_participation
+from . import test_volunteer_shift_recurrent_subscription_participation
 from . import test_volunteer_shift_recurrent_generator_cancellation
