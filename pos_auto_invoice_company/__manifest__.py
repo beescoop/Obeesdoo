@@ -13,9 +13,13 @@
     "author": "BEES coop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Point Of Sale",
-    "version": "12.0.3.0.0",
+    "version": "16.0.1.0.0",
     "depends": ["point_of_sale"],
-    "data": ["views/assets.xml"],
-    "installable": True,
+    "assets": {
+        "point_of_sale.assets": [
+            "pos_auto_invoice_company/static/src/js/**/*.js",
+            "pos_auto_invoice_company/static/src/scss/**/*.scss",
+        ],
+    },
     "license": "AGPL-3",
 }
