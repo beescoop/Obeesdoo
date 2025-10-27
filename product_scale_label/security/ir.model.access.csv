@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+scale_category_read_all,scale.category Read All,model_scale_category,,1,0,0,0
+scale_categoryl_all_access_sale_manager,scale.category All Access Sale Manager,model_scale_category,sales_team.group_sale_manager,1,1,1,0
