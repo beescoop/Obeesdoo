@@ -259,9 +259,9 @@ class AttendanceSheet(models.Model):
         of first expected shift with one.
         """
         for rec in self:
+            rec.day_abbrevation = False
             for shift in rec.expected_shift_ids:
-                if shift.task_id.task_template_id.day_nb_id.name:
-                    rec.day_abbrevation = shift.task_id.task_template_id.day_nb_id.name
+                rec.day_abbrevation = shift.task_id.task_template_id.day_nb_id.name
 
     @api.depends("expected_shift_ids")
     def _compute_week(self):
@@ -270,15 +270,14 @@ class AttendanceSheet(models.Model):
         of first expected shift with one.
         """
         for rec in self:
+            rec.week = False
             for shift in rec.expected_shift_ids:
-                if shift.task_id.planning_id.name:
-                    rec.week = shift.task_id.planning_id.name
+                rec.week = shift.task_id.planning_id.name
 
     @api.depends("notes")
     def _compute_is_annotated(self):
         for rec in self:
-            if rec.notes:
-                rec.is_annotated = bool(rec.notes.strip())
+            rec.is_annotated = bool(rec.notes and rec.notes.strip())
 
     @api.depends("expected_shift_ids.state", "added_shift_ids.state")
     def _compute_has_missing_worker(self):
@@ -286,10 +285,8 @@ class AttendanceSheet(models.Model):
             rec.has_missing_worker = False
             if any(s.state != "done" for s in rec.expected_shift_ids):
                 rec.has_missing_worker = True
-                continue
-            if any(s.state != "done" for s in rec.added_shift_ids):
+            elif any(s.state != "done" for s in rec.added_shift_ids):
                 rec.has_missing_worker = True
-                continue
 
     @api.constrains("expected_shift_ids", "added_shift_ids")
     def _constrain_unique_worker(self):
