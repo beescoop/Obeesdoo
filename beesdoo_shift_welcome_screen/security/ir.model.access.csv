@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_beesdoo_shift_welcome,access_beesdoo_shift_welcome,model_beesdoo_shift_welcome,base.group_user,1,1,1,1
