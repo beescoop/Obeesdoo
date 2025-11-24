@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <template
+        id="qweb_template_pricetag_normal"
+        inherit_id="beesdoo_print_label.qweb_template_pricetag_normal"
+    >
+        <xpath expr="//div[hasclass('deposit')]" position="inside">
+            <t t-if="product_tmpl_id.deposit_product_id">
+                <img src="/beesdoo_print_label/static/img/deposit.gif" />
+                <t
+                    t-out="product_tmpl_id.deposit_product_id.total_with_vat"
+                    t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"
+                />
+            </t>
+        </xpath>
+    </template>
+</odoo>
