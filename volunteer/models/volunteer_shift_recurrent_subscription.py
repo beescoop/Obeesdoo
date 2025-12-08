@@ -13,6 +13,9 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         "mail.thread",
         "mail.activity.mixin",
     ]
+
+    # Date fields
+
     start_date = fields.Date(
         required=True, tracking=True, default=lambda self: fields.Date.today()
     )

@@ -7,7 +7,7 @@ from datetime import timedelta
 from dateutil.relativedelta import relativedelta
 
 from odoo import fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError
 from odoo.tools.translate import _
 
 
@@ -92,4 +92,4 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         elif self.interval_type == "years":
             return relativedelta(years=self.interval)
         else:
-            raise ValidationError(_("The interval type is not valid."))
+            raise UserError(_("The interval type is not valid."))
