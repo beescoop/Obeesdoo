@@ -34,8 +34,17 @@ msgid "<i class=\"fa fa-arrow-right me-2\" title=\"End date\"/>"
 msgstr ""
 
 #. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_form
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_form
 msgid "<i class=\"fa fa-long-arrow-right\" aria-label=\"Arrow icon\" title=\"Arrow\"/>"
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.res_config_settings_view_form
+msgid ""
+"<span class=\"o_form_label\">\n"
+"                                     Shift number of occurrences\n"
+"                                </span>"
 msgstr ""
 
 #. module: volunteer
@@ -67,6 +76,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__message_needaction
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__message_needaction
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__message_needaction
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__message_needaction
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__message_needaction
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__message_needaction
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__message_needaction
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__message_needaction
@@ -89,6 +100,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__activity_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__activity_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__activity_ids
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__activity_ids
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__activity_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__activity_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__activity_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__activity_ids
@@ -100,6 +113,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__activity_exception_decoration
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__activity_exception_decoration
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__activity_exception_decoration
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__activity_exception_decoration
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__activity_exception_decoration
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__activity_exception_decoration
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__activity_exception_decoration
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__activity_exception_decoration
@@ -111,6 +126,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__activity_state
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__activity_state
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__activity_state
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__activity_state
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__activity_state
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__activity_state
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__activity_state
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__activity_state
@@ -122,6 +139,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__activity_type_icon
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__activity_type_icon
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__activity_type_icon
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__activity_type_icon
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__activity_type_icon
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__activity_type_icon
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__activity_type_icon
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__activity_type_icon
@@ -175,6 +194,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__message_attachment_count
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__message_attachment_count
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__message_attachment_count
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__message_attachment_count
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__message_attachment_count
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__message_attachment_count
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__message_attachment_count
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__message_attachment_count
@@ -251,6 +272,7 @@ msgstr ""
 
 #. module: volunteer
 #: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_participation__registration_state__canceled
+#: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_recurrent_generator__state__canceled
 #: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_stage__state__canceled
 msgid "Canceled"
 msgstr ""
@@ -270,6 +292,8 @@ msgstr ""
 
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__category_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_mixin__category_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__category_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_skill__category_id
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_search
 msgid "Category"
@@ -339,6 +363,11 @@ msgid "Commercial Entity"
 msgstr ""
 
 #. module: volunteer
+#: model:ir.model,name:volunteer.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__ref_company_ids
 msgid "Companies that refers to partner"
 msgstr ""
@@ -346,7 +375,10 @@ msgstr ""
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__company_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__company_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_mixin__company_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__company_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__company_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__company_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__company_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__company_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_skill__company_id
@@ -391,12 +423,18 @@ msgid "Computed from the share product of the first cooperator share"
 msgstr ""
 
 #. module: volunteer
+#: model:ir.model,name:volunteer.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: volunteer
 #: model:ir.ui.menu,name:volunteer.volunteer_configuration_menu
 msgid "Configuration"
 msgstr ""
 
 #. module: volunteer
 #: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_participation__registration_state__confirmed
+#: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_recurrent_generator__state__confirmed
 #: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_stage__state__confirmed
 msgid "Confirmed"
 msgstr ""
@@ -449,6 +487,8 @@ msgstr ""
 
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__coordinator_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_mixin__coordinator_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__coordinator_id
 msgid "Coordinator"
 msgstr ""
 
@@ -482,6 +522,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__create_uid
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__create_uid
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__create_uid
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__create_uid
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__create_uid
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__create_uid
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__create_uid
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__create_uid
@@ -495,6 +537,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__create_date
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__create_date
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__create_date
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__create_date
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__create_date
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__create_date
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__create_date
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__create_date
@@ -541,6 +585,11 @@ msgid "Date"
 msgstr ""
 
 #. module: volunteer
+#: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_recurrent_generator__interval_type__days
+msgid "Days"
+msgstr ""
+
+#. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__reminder_date_before_receipt
 msgid "Days Before Receipt"
 msgstr ""
@@ -563,6 +612,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__display_name
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__display_name
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__display_name
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__display_name
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__display_name
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__display_name
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__display_name
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__display_name
@@ -573,6 +624,7 @@ msgid "Display Name"
 msgstr ""
 
 #. module: volunteer
+#: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_recurrent_generator__state__draft
 #: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_stage__state__draft
 msgid "Draft"
 msgstr ""
@@ -636,13 +688,22 @@ msgid "Empty"
 msgstr ""
 
 #. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__end_date
+msgid "End Date"
+msgstr ""
+
+#. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__end_time
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_mixin__end_time
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__shift_end_time
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__end_time
 msgid "End Time"
 msgstr ""
 
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__end_time_located
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_mixin__end_time_located
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__end_time_located
 msgid "End Time Located"
 msgstr ""
 
@@ -675,6 +736,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__message_follower_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__message_follower_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__message_follower_ids
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__message_follower_ids
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__message_follower_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__message_follower_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__message_follower_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__message_follower_ids
@@ -686,6 +749,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__message_partner_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__message_partner_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__message_partner_ids
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__message_partner_ids
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__message_partner_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__message_partner_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__message_partner_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__message_partner_ids
@@ -697,6 +762,8 @@ msgstr ""
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift__activity_type_icon
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_category__activity_type_icon
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_participation__activity_type_icon
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift_recurrent_generator__activity_type_icon
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift_recurrent_subscription__activity_type_icon
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_stage__activity_type_icon
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_tag__activity_type_icon
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_type__activity_type_icon
@@ -736,6 +803,11 @@ msgid "Gender"
 msgstr ""
 
 #. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.res_config_settings_view_form
+msgid "Generator settings"
+msgstr ""
+
+#. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__partner_latitude
 msgid "Geo Latitude"
 msgstr ""
@@ -755,6 +827,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__has_message
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__has_message
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__has_message
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__has_message
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__has_message
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__has_message
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__has_message
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__has_message
@@ -771,6 +845,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__id
@@ -789,6 +865,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__activity_exception_icon
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__activity_exception_icon
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__activity_exception_icon
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__activity_exception_icon
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__activity_exception_icon
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__activity_exception_icon
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__activity_exception_icon
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__activity_exception_icon
@@ -800,6 +878,8 @@ msgstr ""
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift__activity_exception_icon
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_category__activity_exception_icon
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_participation__activity_exception_icon
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift_recurrent_generator__activity_exception_icon
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift_recurrent_subscription__activity_exception_icon
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_stage__activity_exception_icon
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_tag__activity_exception_icon
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_type__activity_exception_icon
@@ -811,6 +891,8 @@ msgstr ""
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift__message_needaction
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_category__message_needaction
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_participation__message_needaction
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift_recurrent_generator__message_needaction
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift_recurrent_subscription__message_needaction
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_stage__message_needaction
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_tag__message_needaction
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_type__message_needaction
@@ -822,6 +904,8 @@ msgstr ""
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift__message_has_error
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_category__message_has_error
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_participation__message_has_error
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift_recurrent_generator__message_has_error
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift_recurrent_subscription__message_has_error
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_stage__message_has_error
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_tag__message_has_error
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_type__message_has_error
@@ -884,6 +968,16 @@ msgid "Information Session?"
 msgstr ""
 
 #. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__interval
+msgid "Interval"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__interval_type
+msgid "Interval Type"
+msgstr ""
+
+#. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__invoice_warn
 msgid "Invoice"
 msgstr ""
@@ -902,6 +996,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__message_is_follower
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__message_is_follower
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__message_is_follower
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__message_is_follower
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__message_is_follower
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__message_is_follower
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__message_is_follower
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__message_is_follower
@@ -911,6 +1007,8 @@ msgstr ""
 
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__is_one_day
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_mixin__is_one_day
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__is_one_day
 msgid "Is One Day"
 msgstr ""
 
@@ -969,6 +1067,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift____last_update
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category____last_update
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation____last_update
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator____last_update
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription____last_update
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage____last_update
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag____last_update
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type____last_update
@@ -982,6 +1082,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__write_uid
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__write_uid
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__write_uid
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__write_uid
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__write_uid
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__write_uid
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__write_uid
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__write_uid
@@ -995,6 +1097,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__write_date
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__write_date
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__write_date
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__write_date
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__write_date
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__write_date
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__write_date
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__write_date
@@ -1046,6 +1150,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__message_main_attachment_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__message_main_attachment_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__message_main_attachment_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__message_main_attachment_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__message_main_attachment_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__message_main_attachment_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__message_main_attachment_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__message_main_attachment_id
@@ -1060,6 +1166,8 @@ msgstr ""
 
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__max_volunteer_nb
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_mixin__max_volunteer_nb
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__max_volunteer_nb
 msgid "Max Volunteer"
 msgstr ""
 
@@ -1072,6 +1180,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__message_has_error
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__message_has_error
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__message_has_error
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__message_has_error
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__message_has_error
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__message_has_error
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__message_has_error
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__message_has_error
@@ -1103,6 +1213,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__message_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__message_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__message_ids
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__message_ids
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__message_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__message_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__message_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__message_ids
@@ -1111,14 +1223,26 @@ msgid "Messages"
 msgstr ""
 
 #. module: volunteer
+#: model:ir.model,name:volunteer.model_volunteer_shift_mixin
+msgid "Mixin class for shift setup"
+msgstr ""
+
+#. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__mobile
 msgid "Mobile"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_recurrent_generator__interval_type__months
+msgid "Months"
 msgstr ""
 
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__my_activity_date_deadline
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__my_activity_date_deadline
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__my_activity_date_deadline
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__my_activity_date_deadline
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__my_activity_date_deadline
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__my_activity_date_deadline
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__my_activity_date_deadline
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__my_activity_date_deadline
@@ -1129,6 +1253,8 @@ msgstr ""
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__name
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__name
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_mixin__name
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__name
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__name
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__name
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__name
@@ -1154,6 +1280,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__activity_date_deadline
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__activity_date_deadline
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__activity_date_deadline
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__activity_date_deadline
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__activity_date_deadline
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__activity_date_deadline
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__activity_date_deadline
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__activity_date_deadline
@@ -1165,6 +1293,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__activity_summary
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__activity_summary
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__activity_summary
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__activity_summary
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__activity_summary
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__activity_summary
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__activity_summary
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__activity_summary
@@ -1176,6 +1306,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__activity_type_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__activity_type_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__activity_type_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__activity_type_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__activity_type_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__activity_type_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__activity_type_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__activity_type_id
@@ -1202,6 +1334,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__message_needaction_counter
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__message_needaction_counter
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__message_needaction_counter
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__message_needaction_counter
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__message_needaction_counter
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__message_needaction_counter
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__message_needaction_counter
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__message_needaction_counter
@@ -1218,6 +1352,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__message_has_error_counter
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__message_has_error_counter
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__message_has_error_counter
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__message_has_error_counter
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__message_has_error_counter
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__message_has_error_counter
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__message_has_error_counter
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__message_has_error_counter
@@ -1229,6 +1365,8 @@ msgstr ""
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift__message_needaction_counter
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_category__message_needaction_counter
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_participation__message_needaction_counter
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift_recurrent_generator__message_needaction_counter
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift_recurrent_subscription__message_needaction_counter
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_stage__message_needaction_counter
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_tag__message_needaction_counter
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_type__message_needaction_counter
@@ -1240,6 +1378,8 @@ msgstr ""
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift__message_has_error_counter
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_category__message_has_error_counter
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_participation__message_has_error_counter
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift_recurrent_generator__message_has_error_counter
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift_recurrent_subscription__message_has_error_counter
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_stage__message_has_error_counter
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_tag__message_has_error_counter
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_type__message_has_error_counter
@@ -1250,6 +1390,22 @@ msgstr ""
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__number_of_share
 msgid "Number of share"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_res_company__shift_nb_occurrence
+#: model:ir.model.fields,field_description:volunteer.field_res_config_settings__shift_nb_occurrence
+msgid "Number of shift occurrences"
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.res_config_settings_view_form
+msgid "Number of shift occurrences to maintain automatically"
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.res_config_settings_view_form
+msgid "Occurrences"
 msgstr ""
 
 #. module: volunteer
@@ -1346,6 +1502,7 @@ msgid "Payment Tokens"
 msgstr ""
 
 #. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_form
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_participation_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_form
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_search
@@ -1403,6 +1560,16 @@ msgid "Recurrent"
 msgstr ""
 
 #. module: volunteer
+#: model:ir.model,name:volunteer.model_volunteer_shift_recurrent_generator
+msgid "Recurrent Shift Generator"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__volunteer_shift_ids
+msgid "Recurrent Shifts"
+msgstr ""
+
+#. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__ref
 msgid "Reference"
 msgstr ""
@@ -1420,6 +1587,11 @@ msgstr ""
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__registration_type
 msgid "Registration Type"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.ui.menu,name:volunteer.volunteer_shift_registration_menu
+msgid "Registrations"
 msgstr ""
 
 #. module: volunteer
@@ -1441,6 +1613,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__activity_user_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__activity_user_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__activity_user_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__activity_user_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__activity_user_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__activity_user_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__activity_user_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__activity_user_id
@@ -1543,6 +1717,34 @@ msgid "Shift Category"
 msgstr ""
 
 #. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_form
+msgid "Shift Configuration"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.actions.act_window,name:volunteer.volunteer_shift_generator_action
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__generator_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__generator_id
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_form
+msgid "Shift Generator"
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_form
+msgid "Shift Generator Configuration"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model,name:volunteer.model_volunteer_shift_participation
+msgid "Shift Participation"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model,name:volunteer.model_volunteer_shift_recurrent_subscription
+msgid "Shift Recurrent Subscription"
+msgstr ""
+
+#. module: volunteer
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_search
 msgid "Shift Search"
 msgstr ""
@@ -1563,17 +1765,17 @@ msgid "Shift Type"
 msgstr ""
 
 #. module: volunteer
-#: model:ir.model,name:volunteer.model_volunteer_shift_participation
-msgid "Shift participation"
-msgstr ""
-
-#. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__shift_shift_ids
 #: model:ir.ui.menu,name:volunteer.volunteer_configuration_shift_separator_menu
 #: model:ir.ui.menu,name:volunteer.volunteer_shift_menu
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_calendar
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_volunteer_view_form
 msgid "Shifts"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.ui.menu,name:volunteer.volunteer_shift_generator_menu
+msgid "Shifts Generators"
 msgstr ""
 
 #. module: volunteer
@@ -1621,18 +1823,28 @@ msgid "Stage"
 msgstr ""
 
 #. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__start_date
+msgid "Start Date"
+msgstr ""
+
+#. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__start_time
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_mixin__start_time
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__shift_start_time
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__start_time
 msgid "Start Time"
 msgstr ""
 
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__start_time_located
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_mixin__start_time_located
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__start_time_located
 msgid "Start Time Located"
 msgstr ""
 
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__state
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__state
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__state
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__state_id
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_participation_view_search
@@ -1643,6 +1855,8 @@ msgstr ""
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift__activity_state
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_category__activity_state
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_participation__activity_state
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift_recurrent_generator__activity_state
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift_recurrent_subscription__activity_state
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_stage__activity_state
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_tag__activity_state
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_type__activity_state
@@ -1685,13 +1899,30 @@ msgid "Subscribed Shift"
 msgstr ""
 
 #. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_form
+msgid "Subscribed Volunteers"
+msgstr ""
+
+#. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__is_subscribed_to_shift
 msgid "Subscribed before Alert Date"
 msgstr ""
 
 #. module: volunteer
+#: model:ir.actions.act_window,name:volunteer.volunteer_shift_recurrent_subscription_action
+#: model:ir.ui.menu,name:volunteer.volunteer_shift_recurrent_subscription_menu
+msgid "Subscription"
+msgstr ""
+
+#. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__subscription_request_ids
 msgid "Subscription request"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__volunteer_subscription_ids
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__shift_recurrent_subscription_ids
+msgid "Subscriptions"
 msgstr ""
 
 #. module: volunteer
@@ -1722,6 +1953,8 @@ msgstr ""
 #. module: volunteer
 #: model:ir.actions.act_window,name:volunteer.volunteer_shift_tag_action
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__tag_ids
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_mixin__tag_ids
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__tag_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__category_id
 #: model:ir.ui.menu,name:volunteer.volunteer_shift_tag_menu
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_search
@@ -1765,8 +1998,26 @@ msgid "The internal user in charge of this contact."
 msgstr ""
 
 #. module: volunteer
-#: model:ir.model.constraint,message:volunteer.constraint_volunteer_shift_max_volunteer_nb_is_positive
-msgid "The maximum of volunteers per shift cannot be null or negative."
+#: model:ir.model.constraint,message:volunteer.constraint_volunteer_shift_recurrent_generator_interval_is_pos
+msgid "The interval cannot be null or negative."
+msgstr ""
+
+#. module: volunteer
+#. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_generator.py:0
+#, python-format
+msgid "The interval type is not valid."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.constraint,message:volunteer.constraint_volunteer_shift_recurrent_generator_gen_max_vol_nb_is_pos
+#: model:ir.model.constraint,message:volunteer.constraint_volunteer_shift_shift_max_vol_nb_is_pos
+msgid "The maximum of volunteers cannot be null or negative."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.constraint,message:volunteer.constraint_res_company_nb_occurrence_is_pos
+msgid "The number of occurrence cannot be null or negative."
 msgstr ""
 
 #. module: volunteer
@@ -1851,10 +2102,21 @@ msgstr ""
 
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__tz
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_mixin__tz
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__tz
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__tz
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_form
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_tree
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_form
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_tree
 msgid "Timezone"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift__tz
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift_mixin__tz
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift_recurrent_generator__tz
+msgid "Timezone of the shift."
 msgstr ""
 
 #. module: volunteer
@@ -1910,6 +2172,8 @@ msgstr ""
 
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__type_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_mixin__type_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__type_id
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_search
 msgid "Type"
 msgstr ""
@@ -1918,6 +2182,8 @@ msgstr ""
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift__activity_exception_decoration
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_category__activity_exception_decoration
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_participation__activity_exception_decoration
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift_recurrent_generator__activity_exception_decoration
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift_recurrent_subscription__activity_exception_decoration
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_stage__activity_exception_decoration
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_tag__activity_exception_decoration
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_type__activity_exception_decoration
@@ -1934,6 +2200,11 @@ msgstr ""
 #: model:ir.actions.act_window,name:volunteer.volunteer_shift_type_action
 #: model:ir.ui.menu,name:volunteer.volunteer_shift_type_menu
 msgid "Types"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__until_date
+msgid "Until Date"
 msgstr ""
 
 #. module: volunteer
@@ -1972,6 +2243,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_res_partner__volunteer_ids
 #: model:ir.model.fields,field_description:volunteer.field_res_users__volunteer_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__volunteer_id
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__volunteer_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__volunteer_ids
 #: model:ir.ui.menu,name:volunteer.volunteer_menu
 #: model:res.groups,name:volunteer.volunteer_group_user
@@ -1989,6 +2261,11 @@ msgstr ""
 #. module: volunteer
 #: model:res.groups,name:volunteer.volunteer_group_manager
 msgid "Volunteer Manager"
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.res_config_settings_view_form
+msgid "Volunteer Settings"
 msgstr ""
 
 #. module: volunteer
@@ -2022,6 +2299,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__website_message_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_category__website_message_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__website_message_ids
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__website_message_ids
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__website_message_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__website_message_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_tag__website_message_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_type__website_message_ids
@@ -2038,11 +2317,18 @@ msgstr ""
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift__website_message_ids
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_category__website_message_ids
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_participation__website_message_ids
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift_recurrent_generator__website_message_ids
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift_recurrent_subscription__website_message_ids
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_stage__website_message_ids
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_tag__website_message_ids
 #: model:ir.model.fields,help:volunteer.field_volunteer_shift_type__website_message_ids
 #: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__website_message_ids
 msgid "Website communication history"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_recurrent_generator__interval_type__weeks
+msgid "Weeks"
 msgstr ""
 
 #. module: volunteer
@@ -2064,6 +2350,11 @@ msgid "Working mode"
 msgstr ""
 
 #. module: volunteer
+#: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_recurrent_generator__interval_type__years
+msgid "Years"
+msgstr ""
+
+#. module: volunteer
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_volunteer_view_form
 msgid "ZIP"
 msgstr ""
@@ -2079,6 +2370,7 @@ msgid "e.g. Marie Dubois"
 msgstr ""
 
 #. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_form
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_form
 msgid "e.g. Morning store opening"
 msgstr ""
