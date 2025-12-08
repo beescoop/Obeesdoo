@@ -91,8 +91,7 @@ class VolunteerShiftRecurrentSubscription(models.Model):
 
     def generate_participation(self):
         """Generate participation for all future shifts covered by this subscription.
-        This method cancels any conflicting punctual participation before generating
-        the recurrent participation.
+        Conflicting punctual participation is automatically canceled during generation.
         """
         self.ensure_one()
         future_shifts = self._get_future_shifts_in_subscription_period()
@@ -115,6 +114,8 @@ class VolunteerShiftRecurrentSubscription(models.Model):
     def _generate_participation_by_shifts(self, shifts):
         """Generate participation records for the given shifts
         for the volunteer linked to this subscription.
+        This method cancels any conflicting punctual participation before generating
+        the recurrent participation.
         """
         self.ensure_one()
         self._cancel_conflicting_punctual_participation(shifts)
@@ -151,8 +152,8 @@ class VolunteerShiftRecurrentSubscription(models.Model):
                 )
 
     def _cancel_conflicting_punctual_participation(self, shifts):
-        """Cancel the punctual participation of a volunteer if they subscribe
-        for a period when they already have punctual participation registered.
+        """Cancel all confirmed punctual participation on the given shifts
+        for this subscription's volunteer.
         """
         self.ensure_one()
         all_participation_to_cancel = self.env["volunteer.shift.participation"].search(
