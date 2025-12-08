@@ -2,9 +2,11 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-from datetime import date
+from datetime import date, datetime
 
 from freezegun import freeze_time
+
+from odoo.exceptions import UserError
 
 from .test_volunteer_generator_subscription_common import (
     TestVolunteerGeneratorSubscriptionCommon,
@@ -17,6 +19,24 @@ class TestVolunteerShiftRecurrentGeneratorCancellation(
 ):
     def setUp(self):
         super().setUp()
+
+    def test_cannot_create_generator_in_canceled_state(self):
+        """Test that creating a generator directly in canceled state is prohibited"""
+        with self.assertRaises(UserError):
+            self.Generator.create(
+                {
+                    "name": "GenCanceled",
+                    "state": "canceled",
+                    "until_date": date(2025, 12, 31),
+                    "interval_type": "days",
+                    "interval": 1,
+                    "start_time": datetime(2024, 1, 1, 10, 5),
+                    "end_time": datetime(2024, 1, 1, 12, 5),
+                    "tz": "Europe/Brussels",
+                    "max_volunteer_nb": 6,
+                    "type_id": self.type1.id,
+                }
+            )
 
     def test_generator_cancellation_automation(self):
         """Test that canceling a generator cancels future shifts

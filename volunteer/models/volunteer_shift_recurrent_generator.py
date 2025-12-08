@@ -6,10 +6,8 @@ from datetime import timedelta
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import fields, models
-from odoo.exceptions import UserError
 from odoo import api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError
 from odoo.tools.translate import _
 
 
@@ -88,9 +86,7 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         for generator in generators:
             # Prevent creating generators directly in canceled state
             if generator.state == "canceled":
-                raise ValidationError(
-                    _("A generator cannot be created in canceled state.")
-                )
+                raise UserError(_("A generator cannot be created in canceled state."))
             if generator.state == "confirmed":
                 generator._generate_shifts()
                 generator._generate_all_participation()
