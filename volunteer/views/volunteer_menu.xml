@@ -27,13 +27,38 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         sequence="20"
         action="volunteer_shift_action_future"
     />
-    <!-- Shift Participation menu -->
+    <!-- Shift Generator menu -->
     <menuitem
-        id="volunteer_shift_participation_menu"
-        name="Participation"
+        id="volunteer_shift_generator_menu"
+        name="Shifts Generators"
+        parent="volunteer_menu"
+        sequence="30"
+        action="volunteer_shift_generator_action"
+    />
+    <!-- Shift Registration menu -->
+    <menuitem
+        id="volunteer_shift_registration_menu"
+        name="Registrations"
         parent="volunteer_menu"
         sequence="80"
+        groups="volunteer.volunteer_group_admin"
+    />
+        <!-- Shift Participation submenu -->
+        <menuitem
+        id="volunteer_shift_participation_menu"
+        name="Participation"
+        parent="volunteer_shift_registration_menu"
+        sequence="10"
         action="volunteer_shift_participation_action"
+        groups="volunteer.volunteer_group_admin"
+    />
+        <!-- Shift Subscription submenu -->
+        <menuitem
+        id="volunteer_shift_recurrent_subscription_menu"
+        name="Subscription"
+        parent="volunteer_shift_registration_menu"
+        sequence="20"
+        action="volunteer_shift_recurrent_subscription_action"
         groups="volunteer.volunteer_group_admin"
     />
     <!-- Configuration Menu -->

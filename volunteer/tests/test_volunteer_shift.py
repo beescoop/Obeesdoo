@@ -8,6 +8,7 @@ from psycopg2.errors import CheckViolation
 
 from odoo import Command
 from odoo.exceptions import AccessError, ValidationError
+from odoo.tools import mute_logger
 
 from .test_volunteer_common import TestVolunteerCommon
 
@@ -105,14 +106,16 @@ class TestVolunteerShift(TestVolunteerCommon):
         # expected end_time_located = 2027-06-07 02:00:01
         self.assertTrue(self.shift_utc_plus_2.is_one_day)
 
-    def test_reduce_max_volunteer_equals_zero(self):
+    def test_reduce_max_volunteer_equals_zero_not_allowed(self):
         """Test that it is not possible to reduce max_volunteer_nb to 0"""
-        with self.assertRaises(CheckViolation):
-            self.shift_utc_plus_2.write(
-                {
-                    "max_volunteer_nb": 0,
-                }
-            )
+        with mute_logger("odoo.sql_db"):
+            with self.assertRaises(CheckViolation):
+                with self.cr.savepoint():
+                    self.shift_utc_plus_2.write(
+                        {
+                            "max_volunteer_nb": 0,
+                        }
+                    )
 
     def test_reduce_max_volunteer_under_confirmed_participation(self):
         """Test that it is not possible to reduce max_volunteer_nb
