@@ -36,7 +36,7 @@ addon | version | maintainers | summary
 [pos_auto_invoice_company](pos_auto_invoice_company/) | 16.0.1.0.0 |  | Applies to_invoice to company partners.
 [pos_eater](pos_eater/) | 16.0.1.0.0 |  | This module adds the eaters of the customer to the POS ActionpadWidget.
 [pos_shift_partner_can_shop](pos_shift_partner_can_shop/) | 16.0.1.0.1 | <a href='https://github.com/remytms'><img src='https://github.com/remytms.png' width='32' height='32' style='border-radius:50%;' alt='remytms'/></a> | Display in the POS whether the partner can shop or not.
-[product_cost_from_supplier_price](product_cost_from_supplier_price/) | 16.0.1.0.0 |  | Compute the product cost from the main supplier's price
+[product_cost_from_supplier_price](product_cost_from_supplier_price/) | 16.0.1.0.1 |  | Compute the product cost from the main supplier's price
 [product_expiration](product_expiration/) | 16.0.1.0.0 |  | Add Number of Days Before Product Expiration.
 [product_label_print_request](product_label_print_request/) | 16.0.1.0.0 | <a href='https://github.com/victor-champonnois'><img src='https://github.com/victor-champonnois.png' width='32' height='32' style='border-radius:50%;' alt='victor-champonnois'/></a> | Facilitation for label printing
 [product_main_supplier](product_main_supplier/) | 16.0.1.0.0 |  | Add a main supplier
