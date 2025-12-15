@@ -57,6 +57,13 @@ msgstr ""
 
 #. module: volunteer
 #. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_generator.py:0
+#, python-format
+msgid "A generator cannot be created in canceled state."
+msgstr ""
+
+#. module: volunteer
+#. odoo-python
 #: code:addons/volunteer/models/volunteer_shift.py:0
 #, python-format
 msgid "A volunteer can only be registered once per shift."
@@ -798,6 +805,11 @@ msgid "Future Shifts"
 msgstr ""
 
 #. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__global_location_number
+msgid "GLN"
+msgstr ""
+
+#. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__gender
 msgid "Gender"
 msgstr ""
@@ -815,6 +827,11 @@ msgstr ""
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__partner_longitude
 msgid "Geo Longitude"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__global_location_number
+msgid "Global Location Number"
 msgstr ""
 
 #. module: volunteer
