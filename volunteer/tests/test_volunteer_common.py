@@ -11,6 +11,9 @@ class TestVolunteerCommon(common.TransactionCase):
     def setUp(self, *args, **kwargs):
         super().setUp(*args, **kwargs)
 
+        # Force all operations to run as admin
+        self.env = self.env(user=self.env.ref("base.user_admin"))
+
         # Set up the environment
         self.env = self.env(
             context=dict(
@@ -28,6 +31,8 @@ class TestVolunteerCommon(common.TransactionCase):
         self.Type = self.env["volunteer.shift.type"]
         self.Volunteer = self.env["volunteer.volunteer"]
         self.Participation = self.env["volunteer.shift.participation"]
+        self.Generator = self.env["volunteer.shift.recurrent.generator"]
+        self.Subscription = self.env["volunteer.shift.recurrent.subscription"]
 
         # Stages
         self.stage_confirmed = self.env.ref("volunteer.volunteer_shift_stage_confirmed")
@@ -54,7 +59,7 @@ class TestVolunteerCommon(common.TransactionCase):
         self.type1 = self.Type.create(
             {
                 "name": "TypeTest",
-                "description": "Type pour autotests",
+                "description": "Type for autotests",
             }
         )
 
@@ -92,7 +97,6 @@ class TestVolunteerCommon(common.TransactionCase):
                 "name": "VolunteerTest",
             }
         )
-
         # Create confirmed participation
         self.participation_confirmed = self.Participation.create(
             {
