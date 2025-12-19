@@ -135,22 +135,29 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         self.ensure_one()
         today = fields.Date.today()
         future_subscriptions = self.volunteer_subscription_ids.filtered(
-            lambda subscription: subscription.start_date >= today
+            lambda subscription: subscription.start_date > today
         )
         return future_subscriptions
 
     def _get_future_shifts(self):
         """Get all future shifts for this generator."""
         self.ensure_one()
-        today = fields.Date.today()
-        return self.volunteer_shift_ids.filtered(
-            lambda shift: shift.start_time.date() >= today
+        tomorrow = fields.Date.today() + timedelta(days=1)
+        return self.env["volunteer.shift"].search(
+            [
+                ("generator_id", "=", self.id),
+                ("start_time", ">=", tomorrow),
+            ]
         )
 
     def _generate_shifts(self):
         """Generate all shifts from the generator start date
         until the generator until date or number of occurrences,
         using the specified interval.
+
+        When the generator start date is in the past or equal to today,
+        shift generation starts strictly from tomorrow (day-based logic).
+        No shift is generated for the current day, regardless of the confirmation time.
         """
         self.ensure_one()
         nb_occurrence = self.company_id.shift_nb_occurrence
@@ -171,7 +178,7 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         shift_to_generate_start_time = self.start_time
         shift_to_generate_end_time = self.end_time
         # Skip past occurrences by incrementing with delta until reaching a future date
-        while shift_to_generate_start_time.date() < today:
+        while shift_to_generate_start_time.date() <= today:
             shift_to_generate_start_time += delta
             shift_to_generate_end_time += delta
         nb_shift_to_generate = 0

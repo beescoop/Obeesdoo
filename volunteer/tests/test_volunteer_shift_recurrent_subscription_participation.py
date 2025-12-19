@@ -23,7 +23,7 @@ class TestVolunteerShiftRecurrentSubscriptionParticipation(
         even if the generator has shift generated beyond the subscription end_date.
         """
         # Generator start_date is 2025/01/01,
-        # last shift generated is 2025/01/10 (10 occurrences)
+        # last shift generated is 2025/01/11 (10 occurrences, starting from 2025-01-02)
         self.gen_today_to_infinite_empty.write(
             {
                 "state": "confirmed",
@@ -61,7 +61,7 @@ class TestVolunteerShiftRecurrentSubscriptionParticipation(
                 ("generator_id", "=", self.gen_today_to_infinite_empty.id),
             ]
         )
-        self.assertEqual(len(shifts_beyond), 2)
+        self.assertEqual(len(shifts_beyond), 3)
         parts_beyond = self.Participation.search(
             [
                 ("shift_id", "in", shifts_beyond.ids),

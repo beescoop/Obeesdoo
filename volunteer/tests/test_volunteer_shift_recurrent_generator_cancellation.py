@@ -40,7 +40,10 @@ class TestVolunteerShiftRecurrentGeneratorCancellation(
 
     def test_generator_cancellation_automation(self):
         """Test that canceling a generator cancels future shifts
-        and set subscriptions end_date and until_date generator to today.
+        and sets subscriptions end_date and until_date generator to today.
+
+        Cancellation strictly applied to future shifts, excluding today,
+        independently of time (starting from tomorrow).
         """
         self.gen_with_past_start.write({"state": "confirmed"})
         past_sub = self.Subscription.create(
@@ -70,7 +73,7 @@ class TestVolunteerShiftRecurrentGeneratorCancellation(
         self.gen_with_past_start.write({"state": "canceled"})
         today = date.today()
         future_shifts = self.gen_with_past_start.volunteer_shift_ids.filtered(
-            lambda s: s.start_time.date() >= today
+            lambda s: s.start_time.date() > today
         )
         self.assertGreater(len(future_shifts), 0)
         for shift in future_shifts:
@@ -79,3 +82,18 @@ class TestVolunteerShiftRecurrentGeneratorCancellation(
         self.assertEqual(future_sub.end_date, today)
         self.assertEqual(past_sub.end_date, date(2024, 12, 5))
         self.assertEqual(self.gen_with_past_start.until_date, today)
+
+    def test_generator_cancellation_excludes_today_shifts(self):
+        """Test that canceling a generator only cancels shifts starting from tomorrow.
+        If there is a shift today, it must remain confirmed.
+        """
+        self.gen_with_past_start.write({"state": "confirmed"})
+        # Advance time to a later date to ensure there is an actual shift generated today.
+        with freeze_time("2025-01-04"):
+            self.gen_with_past_start.write({"state": "canceled"})
+            today = date.today()
+            today_shift = self.gen_with_past_start.volunteer_shift_ids.filtered(
+                lambda s: s.start_time.date() == today
+            )
+            self.assertEqual(len(today_shift), 1)
+            self.assertEqual(today_shift[0].stage_id, self.stage_confirmed)
