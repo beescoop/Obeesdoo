@@ -122,14 +122,9 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         participation_to_create = []
         for shift in shifts:
             participation_to_create.append(
-                {
-                    "shift_id": shift.id,
-                    "volunteer_id": self.volunteer_id.id,
-                    "registration_type": "recurrent",
-                    "registration_state": "confirmed",
-                }
+                self._prepare_participation_vals(shift.id, "recurrent", "confirmed")
             )
-        self.env["volunteer.shift.participation"].create(participation_to_create)
+        return self.env["volunteer.shift.participation"].create(participation_to_create)
 
     def _cancel_participation_by_shifts(self, shifts):
         """Cancel all participation for given shifts
@@ -235,3 +230,18 @@ class VolunteerShiftRecurrentSubscription(models.Model):
             )
             # Cancel participation for shifts no longer covered by the subscription
             self._cancel_participation_by_shifts(shifts_old_sub_only)
+
+    def _prepare_participation_vals(
+        self, shift_id, registration_type, registration_state
+    ):
+        """Prepare vals to create a participation with given registration type and state
+        for this subscription's volunteer and the given shift.
+        """
+        self.ensure_one()
+        participation_vals = {
+            "shift_id": shift_id,
+            "volunteer_id": self.volunteer_id.id,
+            "registration_type": registration_type,
+            "registration_state": registration_state,
+        }
+        return participation_vals
