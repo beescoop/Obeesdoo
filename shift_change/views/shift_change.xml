@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="shift_swap_underpopulated_view_tree">
+        <field name="name">Shift Change</field>
+        <field name="model">shift.change</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="worker_id" />
+                <field name="old_shift_id" />
+                <field name="new_shift_id" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="shift_swap_view">
+        <field name="name">Shift Change</field>
+        <field name="model">shift.change</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="group_top">
+                        <field name="worker_id" />
+                        <field name="create_date" />
+                        <group name="group_left">
+                            <field
+                                name="old_shift_id"
+                                domain="[('worker_id', '=', worker_id)]"
+                            />
+                        </group>
+                        <group name="group_right">
+                            <field name="new_shift_id" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
