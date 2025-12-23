@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="res_config_settings_swap_view_form" model="ir.ui.view">
+        <field name="name">Shift Changes Settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="50" />
+        <field name="inherit_id" ref="shift.res_config_settings_shift_view_form" />
+        <field name="arch" type="xml">
+
+            <div id="shift_settings_block" position="inside">
+                <h2>Shift Changes</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field
+                                name="enable_shift_changes"
+                                class="oe_inline"
+                                required="1"
+                            />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">
+                                Activate shift changes
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">
+                                Limit in hour to allow shift change
+                            </span>
+                            <div class="text-muted">
+                                Number in hour above which a cooperator cannot swap his shift
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16 row">
+                                    <label
+                                        for="hour_limit_change"
+                                        string="Days"
+                                        class="col-3 col-lg-3 o_light_label"
+                                    />
+                                    <field
+                                        name="hour_limit_change"
+                                        class="oe_inline"
+                                        required="1"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </field>
+    </record>
+
+</odoo>

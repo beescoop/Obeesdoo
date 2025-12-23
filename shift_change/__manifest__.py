@@ -1,0 +1,27 @@
+# Copyright 2022 Coop IT Easy SC
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+
+{
+    "name": "Shift Change",
+    "summary": """
+        Let regular workers change their shift.
+    """,
+    "author": "Coop IT Easy SC",
+    "website": "https://github.com/beescoop/Obeesdoo",
+    "category": "Cooperative Management",
+    "version": "16.0.1.0.0",
+    "depends": [
+        "shift",
+    ],
+    "data": [
+        "data/system_parameter.xml",
+        "security/ir.model.access.csv",
+        "views/shift_change.xml",
+        "views/shift_change_menu.xml",
+        "views/res_config_setting_view.xml",
+    ],
+    "demo": [
+        "demo/demo.xml",
+    ],
+    "license": "AGPL-3",
+}
