@@ -42,3 +42,15 @@ class TestVolunteerGeneratorSubscriptionCommon(TestVolunteerCommon):
                 "type_id": self.type1.id,
             }
         )
+        self.gen_shift_2_days = self.Generator.create(
+            {
+                "name": "Generator with 2 days shift",
+                "state": "draft",
+                "interval_type": "days",
+                "interval": 1,
+                "start_time": datetime(2025, 1, 1, 10, 5),
+                "end_time": datetime(2025, 1, 2, 12, 5),
+                "max_volunteer_nb": 2,
+                "type_id": self.type1.id,
+            }
+        )

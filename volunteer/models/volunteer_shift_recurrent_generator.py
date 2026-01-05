@@ -135,22 +135,29 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         self.ensure_one()
         today = fields.Date.today()
         future_subscriptions = self.volunteer_subscription_ids.filtered(
-            lambda subscription: subscription.start_date >= today
+            lambda subscription: subscription.start_date > today
         )
         return future_subscriptions
 
     def _get_future_shifts(self):
         """Get all future shifts for this generator."""
         self.ensure_one()
-        today = fields.Date.today()
-        return self.volunteer_shift_ids.filtered(
-            lambda shift: shift.start_time.date() >= today
+        tomorrow = fields.Date.today() + timedelta(days=1)
+        return self.env["volunteer.shift"].search(
+            [
+                ("generator_id", "=", self.id),
+                ("start_time", ">=", tomorrow),
+            ]
         )
 
     def _generate_shifts(self):
         """Generate all shifts from the generator start date
         until the generator until date or number of occurrences,
         using the specified interval.
+
+        When the generator start date is in the past or equal to today,
+        shift generation starts strictly from tomorrow (day-based logic).
+        No shift is generated for the current day, regardless of the confirmation time.
         """
         self.ensure_one()
         nb_occurrence = self.company_id.shift_nb_occurrence
@@ -168,36 +175,28 @@ class VolunteerShiftRecurrentGenerator(models.Model):
             generation_end_date = generation_start_date
             for _i in range(nb_occurrence):
                 generation_end_date += delta
-        shift_generated_start_time = self.start_time
-        shift_generated_end_time = self.end_time
+        shift_to_generate_start_time = self.start_time
+        shift_to_generate_end_time = self.end_time
         # Skip past occurrences by incrementing with delta until reaching a future date
-        while shift_generated_start_time.date() < today:
-            shift_generated_start_time += delta
-            shift_generated_end_time += delta
-        nb_generated_shift = 0
+        while shift_to_generate_start_time.date() <= today:
+            shift_to_generate_start_time += delta
+            shift_to_generate_end_time += delta
+        nb_shift_to_generate = 0
+        shifts_to_create = []
         while (
-            nb_generated_shift < nb_occurrence
-            and shift_generated_start_time.date() <= generation_end_date
+            nb_shift_to_generate < nb_occurrence
+            and shift_to_generate_start_time.date() <= generation_end_date
         ):
-            self.env["volunteer.shift"].create(
-                {
-                    "name": self.name,
-                    "tz": self.tz,
-                    "start_time": shift_generated_start_time,
-                    "end_time": shift_generated_end_time,
-                    "max_volunteer_nb": self.max_volunteer_nb,
-                    "stage_id": stage_confirmed.id,
-                    "type_id": self.type_id.id,
-                    "category_id": self.category_id.id,
-                    "tag_ids": self.tag_ids.ids,
-                    "generator_id": self.id,
-                    "company_id": self.company_id.id,
-                    "coordinator_id": self.coordinator_id.id,
-                }
+            vals = self._prepare_shift_vals(
+                shift_to_generate_start_time,
+                shift_to_generate_end_time,
+                stage_confirmed,
             )
-            shift_generated_start_time += delta
-            shift_generated_end_time += delta
-            nb_generated_shift += 1
+            shifts_to_create.append(vals)
+            shift_to_generate_start_time += delta
+            shift_to_generate_end_time += delta
+            nb_shift_to_generate += 1
+        return self.env["volunteer.shift"].create(shifts_to_create)
 
     def _generate_all_participation(self):
         """Generate participation for all subscriptions in the generator"""
@@ -226,3 +225,24 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         # and need to be bypassed)
         res = super(VolunteerShiftRecurrentGenerator, self).write({"until_date": today})
         return res
+
+    def _prepare_shift_vals(self, shift_start_time, shift_end_time, shift_stage):
+        """Prepare vals to create a shift in the given stage
+        with specified start and end time for this generator.
+        """
+        self.ensure_one()
+        shift_vals = {
+            "name": self.name,
+            "tz": self.tz,
+            "start_time": shift_start_time,
+            "end_time": shift_end_time,
+            "max_volunteer_nb": self.max_volunteer_nb,
+            "stage_id": shift_stage.id,
+            "type_id": self.type_id.id,
+            "category_id": self.category_id.id,
+            "tag_ids": self.tag_ids.ids,
+            "generator_id": self.id,
+            "company_id": self.company_id.id,
+            "coordinator_id": self.coordinator_id.id,
+        }
+        return shift_vals

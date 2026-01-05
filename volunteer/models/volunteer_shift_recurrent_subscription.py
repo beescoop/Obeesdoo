@@ -84,8 +84,9 @@ class VolunteerShiftRecurrentSubscription(models.Model):
             # No intersection
             return []
         shifts_intersection = self.generator_id.volunteer_shift_ids.filtered(
-            lambda shift: shift.start_time.date() >= intersection_start_date
-            and shift.end_time.date() <= intersection_end_date
+            lambda shift: intersection_start_date
+            <= shift.start_time.date()
+            <= intersection_end_date
         )
         return shifts_intersection
 
@@ -107,7 +108,7 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         )
         if self.end_date:
             shifts = shifts.filtered(
-                lambda shift: shift.end_time.date() <= self.end_date
+                lambda shift: shift.start_time.date() <= self.end_date
             )
         return shifts
 
@@ -122,14 +123,9 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         participation_to_create = []
         for shift in shifts:
             participation_to_create.append(
-                {
-                    "shift_id": shift.id,
-                    "volunteer_id": self.volunteer_id.id,
-                    "registration_type": "recurrent",
-                    "registration_state": "confirmed",
-                }
+                self._prepare_participation_vals(shift.id, "recurrent", "confirmed")
             )
-        self.env["volunteer.shift.participation"].create(participation_to_create)
+        return self.env["volunteer.shift.participation"].create(participation_to_create)
 
     def _cancel_participation_by_shifts(self, shifts):
         """Cancel all participation for given shifts
@@ -190,9 +186,9 @@ class VolunteerShiftRecurrentSubscription(models.Model):
             return
         new_end_date = self.end_date
         new_start_date = self.start_date
-        date_last_shift = future_shifts.sorted("end_time", reverse=True)[
+        date_last_shift = future_shifts.sorted("start_time", reverse=True)[
             0
-        ].end_time.date()
+        ].start_time.date()
         if not new_end_date:
             new_end_date = date_last_shift
         if not old_end_date:
@@ -203,8 +199,7 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         if not shifts_intersection:
             # No intersection : all old shifts need to be canceled
             old_shifts = future_shifts.filtered(
-                lambda shift: shift.start_time.date() >= old_start_date
-                and shift.end_time.date() <= old_end_date
+                lambda shift: old_start_date <= shift.start_time.date() <= old_end_date
             )
             self._cancel_participation_by_shifts(old_shifts)
             # All shifts covered by the new subscription need to be generated
@@ -217,21 +212,35 @@ class VolunteerShiftRecurrentSubscription(models.Model):
             end_date_full_period = max(new_end_date, old_end_date)
             # Filter the full period excluding the intersection period
             shifts_full_period_without_intersection = future_shifts.filtered(
-                lambda shift: shift.start_time.date() >= start_date_full_period
-                and shift.end_time.date() <= end_date_full_period
+                lambda shift: start_date_full_period
+                <= shift.start_time.date()
+                <= end_date_full_period
                 and shift.id not in shifts_intersection.ids
             )
             # Filter the period of new subscription without intersection and in the full range
             shifts_new_sub_only = shifts_full_period_without_intersection.filtered(
-                lambda shift: shift.start_time.date() >= new_start_date
-                and shift.end_time.date() <= new_end_date
+                lambda shift: new_start_date <= shift.start_time.date() <= new_end_date
             )
             # Generate participation for shifts newly covered by the subscription
             self._generate_participation_by_shifts(shifts_new_sub_only)
             # Filter the period of old subscription without intersection and in the full range
             shifts_old_sub_only = shifts_full_period_without_intersection.filtered(
-                lambda shift: shift.start_time.date() >= old_start_date
-                and shift.end_time.date() <= old_end_date
+                lambda shift: old_start_date <= shift.start_time.date() <= old_end_date
             )
             # Cancel participation for shifts no longer covered by the subscription
             self._cancel_participation_by_shifts(shifts_old_sub_only)
+
+    def _prepare_participation_vals(
+        self, shift_id, registration_type, registration_state
+    ):
+        """Prepare vals to create a participation with given registration type and state
+        for this subscription's volunteer and the given shift.
+        """
+        self.ensure_one()
+        participation_vals = {
+            "shift_id": shift_id,
+            "volunteer_id": self.volunteer_id.id,
+            "registration_type": registration_type,
+            "registration_state": registration_state,
+        }
+        return participation_vals

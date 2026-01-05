@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 from freezegun import freeze_time
 
@@ -19,14 +19,18 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
         super().setUp()
 
     def test_generate_shifts_with_past_start_date(self):
-        """Test that shifts are generated from today
+        """Test that shifts are generated from tomorrow
         when generator start_date is in the past
         """
         # Generator starts in the past (2024-01-01), today freeze to 2025-01-01,
-        # shifts should be generated starting from today only
+        # shifts should be generated starting from tomorrow only : 2025-01-02
+        # (generator had interval of one day).
         self.gen_with_past_start.write({"state": "confirmed"})
-        shifts = self.Shift.search([("generator_id", "=", self.gen_with_past_start.id)])
-        self.assertEqual(shifts[0].start_time.date(), date.today())
+        shifts = self.Shift.search(
+            [("generator_id", "=", self.gen_with_past_start.id)], order="start_time"
+        )
+        self.assertTrue(shifts)
+        self.assertEqual(shifts[0].start_time.date(), date.today() + timedelta(days=1))
 
     def test_generate_shifts_from_start_date_future(self):
         """Test that shifts are generated from the configured start_date
@@ -41,8 +45,10 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
         )
         self.gen_today_to_infinite_empty.write({"state": "confirmed"})
         shifts = self.Shift.search(
-            [("generator_id", "=", self.gen_today_to_infinite_empty.id)]
+            [("generator_id", "=", self.gen_today_to_infinite_empty.id)],
+            order="start_time",
         )
+        self.assertTrue(shifts)
         start_date = self.gen_today_to_infinite_empty.start_time.date()
         self.assertEqual(shifts[0].start_time.date(), start_date)
 
@@ -50,12 +56,12 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
         """Test that the right number of shifts are generated
         based on until_date and not on number of occurrences
         """
-        # Between 2025-01-01 and 2025-01-05 there are 5 occurrences
+        # Between 2025-01-02 and 2025-01-05 there are 4 occurrences
         # and not 10 like number of occurrences
         self.gen_today_to_infinite_empty.write(
             {
-                "start_time": datetime(2025, 1, 1, 10, 5),
-                "end_time": datetime(2025, 1, 1, 12, 5),
+                "start_time": datetime(2025, 1, 2, 10, 5),
+                "end_time": datetime(2025, 1, 2, 12, 5),
                 "until_date": date(2025, 1, 5),
             }
         )
@@ -63,14 +69,14 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
         shifts = self.Shift.search(
             [("generator_id", "=", self.gen_today_to_infinite_empty.id)]
         )
-        self.assertEqual(len(shifts), 5)
+        self.assertEqual(len(shifts), 4)
 
     def test_generate_right_number_of_shifts_generator_without_until_date(self):
         """Test that the right number of shifts are generated
         based on number of occurrences since there is no until_date
         """
-        # Number of occurrences is 10
-        # Today is frozen to 2025-01-01, so shifts will be generated from this date
+        # Number of occurrences is 10. Today is frozen to 2025-01-01,
+        # so shifts will be generated from 2025-01-02
         self.gen_today_to_infinite_empty.write(
             {
                 "start_time": datetime(2025, 1, 1, 10, 5),
@@ -87,8 +93,8 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
         """Test that the shifts are generated with the right start and end time"""
         self.gen_today_to_infinite_empty.write(
             {
-                "start_time": datetime(2025, 1, 1, 10, 5),
-                "end_time": datetime(2025, 1, 1, 12, 5),
+                "start_time": datetime(2025, 1, 2, 10, 5),
+                "end_time": datetime(2025, 1, 2, 12, 5),
                 "until_date": date(2025, 1, 6),
             }
         )
@@ -96,8 +102,8 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
         shifts = self.Shift.search(
             [("generator_id", "=", self.gen_today_to_infinite_empty.id)]
         )
-        expected_start = datetime(2025, 1, 1, 10, 5)
-        expected_end = datetime(2025, 1, 1, 12, 5)
+        expected_start = datetime(2025, 1, 2, 10, 5)
+        expected_end = datetime(2025, 1, 2, 12, 5)
         # Each generated shift must strictly match the configured time slot
         # with the correct interval applied between occurrences
         for shift in shifts:
@@ -111,42 +117,44 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
             )
 
     def test_generate_shifts_different_intervals(self):
-        """Test shift generation with different interval types"""
+        """Test shift generation with different interval types.
+        The first generated shift starts on tomorrow (2025-01-02).
+        """
         intervals = [
             (
                 "days",
                 3,
                 [
-                    datetime(2025, 1, 1, 10, 0),
-                    datetime(2025, 1, 4, 10, 0),
-                    datetime(2025, 1, 7, 10, 0),
+                    datetime(2025, 1, 2, 10, 0),
+                    datetime(2025, 1, 5, 10, 0),
+                    datetime(2025, 1, 8, 10, 0),
                 ],
             ),
             (
                 "weeks",
                 2,
                 [
-                    datetime(2025, 1, 1, 10, 0),
-                    datetime(2025, 1, 15, 10, 0),
-                    datetime(2025, 1, 29, 10, 0),
+                    datetime(2025, 1, 2, 10, 0),
+                    datetime(2025, 1, 16, 10, 0),
+                    datetime(2025, 1, 30, 10, 0),
                 ],
             ),
             (
                 "months",
                 3,
                 [
-                    datetime(2025, 1, 1, 10, 0),
-                    datetime(2025, 4, 1, 10, 0),
-                    datetime(2025, 7, 1, 10, 0),
+                    datetime(2025, 1, 2, 10, 0),
+                    datetime(2025, 4, 2, 10, 0),
+                    datetime(2025, 7, 2, 10, 0),
                 ],
             ),
             (
                 "years",
                 1,
                 [
-                    datetime(2025, 1, 1, 10, 0),
-                    datetime(2026, 1, 1, 10, 0),
-                    datetime(2027, 1, 1, 10, 0),
+                    datetime(2025, 1, 2, 10, 0),
+                    datetime(2026, 1, 2, 10, 0),
+                    datetime(2027, 1, 2, 10, 0),
                 ],
             ),
         ]
@@ -159,8 +167,8 @@ class TestVolunteerShiftRecurrentGeneratorGeneration(
                         "state": "draft",
                         "interval_type": interval_type,
                         "interval": interval_value,
-                        "start_time": datetime(2025, 1, 1, 10, 0),
-                        "end_time": datetime(2025, 1, 1, 12, 0),
+                        "start_time": datetime(2025, 1, 2, 10, 0),
+                        "end_time": datetime(2025, 1, 2, 12, 0),
                         "max_volunteer_nb": 3,
                         "type_id": self.type1.id,
                         "tz": "Europe/Brussels",
