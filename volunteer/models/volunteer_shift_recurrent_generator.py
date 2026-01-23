@@ -68,12 +68,12 @@ class VolunteerShiftRecurrentGenerator(models.Model):
     _sql_constraints = [
         (
             "gen_max_vol_nb_is_pos",
-            "check (max_volunteer_nb > 0)",
+            "CHECK(max_volunteer_nb > 0)",
             "The maximum of volunteers cannot be null or negative.",
         ),
         (
             "interval_is_pos",
-            "check (interval > 0)",
+            "CHECK(interval > 0)",
             "The interval cannot be null or negative.",
         ),
     ]

@@ -53,10 +53,12 @@ class VolunteerShift(models.Model):
         store=True,
     )
 
+    # SQL constraints
+
     _sql_constraints = [
         (
             "shift_max_vol_nb_is_pos",
-            "check (max_volunteer_nb > 0)",
+            "CHECK(max_volunteer_nb > 0)",
             "The maximum of volunteers cannot be null or negative.",
         ),
     ]

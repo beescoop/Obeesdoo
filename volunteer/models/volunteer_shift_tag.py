@@ -34,12 +34,12 @@ class VolunteerShiftTag(models.Model):
     _sql_constraints = [
         (
             "name_company_uniq",
-            "UNIQUE (name, company_id)",
+            "UNIQUE(name, company_id)",
             "Tag with such name already exists in the company!",
         ),
         (
             "name_nocompany_uniq",
-            "EXCLUDE (name WITH =) WHERE (company_id IS NULL)",
+            "EXCLUDE(name WITH =) WHERE(company_id IS NULL)",
             "Shared tag with such name already exists!",
         ),
     ]

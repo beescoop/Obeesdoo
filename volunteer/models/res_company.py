@@ -16,7 +16,7 @@ class ResCompany(models.Model):
     _sql_constraints = [
         (
             "nb_occurrence_is_pos",
-            "check (shift_nb_occurrence > 0)",
+            "CHECK(shift_nb_occurrence > 0)",
             "The number of occurrence cannot be null or negative.",
         ),
     ]
