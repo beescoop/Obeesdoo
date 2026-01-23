@@ -7,7 +7,7 @@ from datetime import timedelta
 from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 from odoo.tools.translate import _
 
 
@@ -85,6 +85,28 @@ class VolunteerShiftRecurrentGenerator(models.Model):
             "The interval cannot be null or negative.",
         ),
     ]
+
+    # Constraints
+
+    @api.constrains("until_date")
+    def _check_until_date_not_in_past(self):
+        """Check that until_date is not before today."""
+        today = fields.Date.today()
+        for generator in self:
+            if generator.until_date and generator.until_date < today:
+                raise UserError(_("The until date cannot be in the past."))
+
+    @api.constrains("start_time", "until_date")
+    def _check_start_time_before_until_date(self):
+        """Check that start_time is strictly before until_date if not null.
+        This constraint is skipped for canceled generator."""
+        for generator in self:
+            if generator.state != "canceled" and generator.until_date:
+                start_date = generator.start_time.date()
+                if generator.until_date <= start_date:
+                    raise ValidationError(
+                        _("The shift start time must be before until date.")
+                    )
 
     # Override methods
 

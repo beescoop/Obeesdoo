@@ -78,3 +78,24 @@ class TestVolunteerShiftRecurrentGeneratorCancellation(
             )
             self.assertEqual(len(today_shift), 1)
             self.assertEqual(today_shift[0].stage_id, self.stage_confirmed)
+
+    # Constraint: start_time < until_date (skipped for canceled)
+
+    def test_canceled_future_generator_is_allowed(self):
+        """Test that cancelling generator with start time in future is allowed.
+        In this case, until_date will be before start_time."""
+        self.gen_with_future_start.write({"state": "canceled"})
+        self.assertTrue(
+            self.gen_with_future_start.start_time.date()
+            > self.gen_with_future_start.until_date
+        )
+
+    def test_canceled_generator_starting_today_is_allowed(self):
+        """Test that cancelling generator with start time today is allowed.
+        In this case, until_date will be equals to start_time."""
+        self.gen_with_future_start.write({"start_time": datetime.now()})
+        self.gen_with_future_start.write({"state": "canceled"})
+        self.assertTrue(
+            self.gen_with_future_start.start_time.date()
+            == self.gen_with_future_start.until_date
+        )

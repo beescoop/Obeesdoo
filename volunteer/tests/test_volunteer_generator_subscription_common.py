@@ -56,6 +56,20 @@ class TestVolunteerGeneratorSubscriptionCommon(TestVolunteerCommon):
                 "type_id": self.type1.id,
             }
         )
+        self.gen_with_future_start = self.Generator.create(
+            {
+                "name": "GenFutureStart",
+                "state": "draft",
+                "until_date": date(2025, 12, 31),
+                "interval_type": "days",
+                "interval": 1,
+                "start_time": datetime(2025, 2, 1, 10, 5),
+                "end_time": datetime(2025, 2, 1, 12, 5),
+                "tz": "Europe/Brussels",
+                "max_volunteer_nb": 3,
+                "type_id": self.type1.id,
+            }
+        )
         with freeze_time("2024-01-01 01:00:00"):
             self.gen_ongoing_with_3_subs = self.Generator.create(
                 {
