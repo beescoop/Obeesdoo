@@ -78,6 +78,7 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         return subscriptions
 
     def write(self, vals):
+        self._check_can_be_modified(vals)
         old_sub_data = {}
         for sub in self:
             old_sub_data[sub.id] = {
@@ -121,6 +122,44 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         if self.start_date > today:
             return "upcoming"
         return "ongoing"
+
+    def _check_can_be_modified(self, vals):
+        """Check if subscriptions can be modified based on their temporal_state:
+        - Canceled (inactive) and finished subscriptions cannot be modified
+        - Ongoing subscription start_date cannot be modified
+        - Upcoming subscriptions are fully modifiable.
+        """
+        for sub in self:
+            if not sub.active:
+                raise UserError(
+                    _("A canceled subscription can't be modified.")
+                    + sub._get_conflicting_sub_detail_message()
+                )
+            current_temporal_state = sub._get_current_temporal_state()
+            if current_temporal_state == "finished":
+                raise UserError(
+                    _("A subscription already finished can't be modified.")
+                    + sub._get_conflicting_sub_detail_message()
+                )
+            if current_temporal_state == "ongoing" and "start_date" in vals:
+                raise UserError(
+                    _("Start date of an ongoing subscription can't be modified.")
+                    + sub._get_conflicting_sub_detail_message()
+                )
+
+    def _get_conflicting_sub_detail_message(self):
+        """Return a formatted message with details of the subscription
+        to append to validation error messages.
+        """
+        self.ensure_one()
+        readable_end_date = self.end_date or "No end date"
+        message = (
+            f"\n\nConflicting subscription :\n"
+            f"Volunteer: {self.volunteer_id.name}\n"
+            f"Start date: {self.start_date}\n"
+            f"End date: {readable_end_date}\n"
+        )
+        return message
 
     def _get_shifts_intersection_between_two_periods(
         self, new_start_date, new_end_date, old_start_date, old_end_date
