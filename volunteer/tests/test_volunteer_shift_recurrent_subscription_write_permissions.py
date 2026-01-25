@@ -20,6 +20,12 @@ class TestVolunteerShiftRecurrentSubscriptionWritePermissions(
     def setUp(self):
         super().setUp()
 
+    def test_cannot_change_volunteer_of_existing_subscription(self):
+        """Test that changing the volunteer of an existing subscription is not allowed."""
+        # Current volunteer: volunteer_confirmed
+        with self.assertRaises(UserError):
+            self.sub_ongoing.write({"volunteer_id": self.volunteer_test.id})
+
     def test_cannot_modify_inactive_subscription(self):
         """Test that inactive subscriptions cannot be modified"""
         self.sub_ongoing.write({"active": False})

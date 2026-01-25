@@ -159,12 +159,21 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         return "ongoing"
 
     def _check_can_be_modified(self, vals):
-        """Check if subscriptions can be modified based on their temporal_state:
+        """Check if subscription can be modified.
+
+        - Volunteer cannot be changed
         - Canceled (inactive) and finished subscriptions cannot be modified
         - Ongoing subscription start_date cannot be modified
         - Upcoming subscriptions are fully modifiable.
         """
         for sub in self:
+            if "volunteer_id" in vals and vals["volunteer_id"] != sub.volunteer_id.id:
+                raise UserError(
+                    _(
+                        "It is not possible to change the volunteer "
+                        "of an existing subscription."
+                    )
+                )
             if not sub.active:
                 raise UserError(
                     _("A canceled subscription can't be modified.")
