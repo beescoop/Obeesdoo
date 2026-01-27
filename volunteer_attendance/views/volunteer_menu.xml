@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+<!-- Attendance Status Submenu -->
+    <menuitem
+        id="volunteer_attendance_separator_menu"
+        name="Attendances"
+        parent="volunteer.volunteer_configuration_menu"
+        sequence="20"
+    >
+        <menuitem
+            id="volunteer_shift_attendance_status_menu"
+            name="Attendance Status"
+            action="volunteer_shift_attendance_status_action"
+        />
+    </menuitem>
+</odoo>
