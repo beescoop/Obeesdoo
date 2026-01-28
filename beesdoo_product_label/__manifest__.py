@@ -15,7 +15,7 @@
     "author": "BEES coop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Sales",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     "depends": [
         "product",
         "account",
