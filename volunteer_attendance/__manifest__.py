@@ -14,8 +14,11 @@
     "depends": ["base", "volunteer", "mail"],
     "data": [
         "security/ir.model.access.csv",
-        "views/volunteer_shift_attendance_status_view.xml",
+        "views/volunteer_shift_attendance_status_views.xml",
         "views/volunteer_menu.xml",
+        "views/volunteer_shift_views.xml",
+        "views/volunteer_volunteer_views.xml",
+        "views/volunteer_shift_participation_views.xml",
     ],
     "demo": [],
 }
