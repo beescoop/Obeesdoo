@@ -9,12 +9,45 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="name">Subscription List</field>
         <field name="model">volunteer.shift.recurrent.subscription</field>
         <field name="arch" type="xml">
-            <tree create="false" edit="false" delete="false">
+            <tree
+                create="false"
+                edit="false"
+                delete="false"
+                decoration-muted="active == False"
+            >
+                <field name="active" invisible="1" />
                 <field name="generator_id" />
                 <field name="volunteer_id" />
                 <field name="start_date" />
                 <field name="end_date" />
             </tree>
+        </field>
+    </record>
+
+    <record id="volunteer_shift_subscription_view_search" model="ir.ui.view">
+        <field name="name">Subscription Search</field>
+        <field name="model">volunteer.shift.recurrent.subscription</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="volunteer_id" />
+                <field name="generator_id" />
+                <filter
+                    name="active"
+                    string="Active"
+                    domain="[('active', '=', True)]"
+                />
+                <filter
+                    name="canceled"
+                    string="Canceled"
+                    domain="[('active', '=', False)]"
+                />
+                <filter
+                    name="all"
+                    string="All"
+                    domain="[]"
+                    context="{'active_test': False}"
+                />
+            </search>
         </field>
     </record>
 
@@ -25,5 +58,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="name">Subscription</field>
         <field name="res_model">volunteer.shift.recurrent.subscription</field>
         <field name="view_mode">tree</field>
+        <field name="context">{'search_default_all': 1}</field>
     </record>
 </odoo>

@@ -11,3 +11,4 @@ from . import test_volunteer_shift_recurrent_generator_generation
 from . import test_volunteer_shift_recurrent_subscription_participation
 from . import test_volunteer_shift_recurrent_generator_cancellation
 from . import test_volunteer_shift_recurrent_generator_dates_constraints
+from . import test_volunteer_shift_recurrent_subscription_cancellation

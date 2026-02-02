@@ -3,6 +3,8 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 from odoo import api, fields, models
+from odoo.exceptions import UserError
+from odoo.tools.translate import _
 
 
 class VolunteerShiftRecurrentSubscription(models.Model):
@@ -13,6 +15,10 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         "mail.thread",
         "mail.activity.mixin",
     ]
+
+    # State fields
+
+    active = fields.Boolean(required=True, tracking=True, default=True)
 
     # Date fields
 
@@ -72,6 +78,20 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         return res
 
     # Methods
+
+    def action_cancel_subscription(self):
+        """Cancel subscription by setting end_date to today and active to False."""
+        self.ensure_one()
+        today = fields.Date.today()
+        if not self.active:
+            raise UserError(_("This subscription is already canceled."))
+        self.write(
+            {
+                "end_date": today,
+                "active": False,
+            }
+        )
+        return True
 
     def _get_shifts_intersection_between_two_periods(
         self, new_start_date, new_end_date, old_start_date, old_end_date

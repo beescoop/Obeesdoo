@@ -63,6 +63,14 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         tracking=True,
     )
 
+    volunteer_subscription_inactive_ids = fields.One2many(
+        comodel_name="volunteer.shift.recurrent.subscription",
+        inverse_name="generator_id",
+        string="Canceled subscriptions",
+        domain=[("active", "=", False)],
+        context={"active_test": False},
+    )
+
     # SQL constraints
 
     _sql_constraints = [
