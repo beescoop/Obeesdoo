@@ -10,6 +10,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="model">volunteer.shift</field>
         <field name="inherit_id" ref="volunteer.volunteer_shift_view_form" />
         <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="attendance_state" options="{'no_create':True}" />
+            </field>
             <field name="cancellation_date" position="after">
                 <field name="attendance_status_id" options="{'no_create':True}" />
             </field>

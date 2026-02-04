@@ -2,8 +2,26 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-from odoo import models
+from odoo import api, fields, models
 
 
 class VolunteerShift(models.Model):
     _inherit = "volunteer.shift"
+
+    attendance_state = fields.Selection(
+        selection=[("waiting", "Waiting"), ("validated", "Validated")],
+        help="Validated if all attendance status fields hold a value.",
+        compute="_compute_attendance_state",
+        # tracking=True
+    )
+
+    @api.depends("volunteer_participation_ids.attendance_status_id")
+    def _compute_attendance_state(self):
+        for shift in self:
+            all_attendance_status = []
+            for participation in shift.volunteer_participation_ids:
+                all_attendance_status.append(participation.attendance_status_id.name)
+            if all(all_attendance_status):
+                shift.attendance_state = "validated"
+            else:
+                shift.attendance_state = "waiting"

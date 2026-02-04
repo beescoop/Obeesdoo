@@ -10,15 +10,20 @@ class VolunteerShiftAttendanceStatus(models.Model):
     _description = "Specify status of a volunteer's attendance to a shift"
     _order = "name"
 
-    name = fields.Char(required=True, tracking=True)
-    description = fields.Char(tracking=True)
+    name = fields.Char(
+        required=True,
+        # ~ tracking=True
+    )
+    description = fields.Char(
+        # ~ tracking=True
+    )
 
     company_id = fields.Many2one(
         comodel_name="res.company",
         string="Company",
         default=lambda self: self.env.user.company_id,
         required=True,
-        tracking=True,
+        # ~ tracking=True,
     )
 
     # SQL Constraints
