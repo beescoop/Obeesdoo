@@ -19,6 +19,15 @@ class VolunteerShiftRecurrentSubscription(models.Model):
     # State fields
 
     active = fields.Boolean(required=True, tracking=True, default=True)
+    temporal_state = fields.Selection(
+        selection=[
+            ("finished", "Finished"),
+            ("ongoing", "Ongoing"),
+            ("upcoming", "Upcoming"),
+        ],
+        compute="_compute_temporal_state",
+        store=True,
+    )
 
     # Date fields
 
@@ -49,6 +58,14 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         store=True,
         readonly=True,
     )
+
+    # Compute methods
+
+    @api.depends("start_date", "end_date")
+    def _compute_temporal_state(self):
+        """Compute temporal_state based on dates."""
+        for sub in self:
+            sub.temporal_state = sub._get_current_temporal_state()
 
     # Override methods
 
@@ -83,6 +100,8 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         """Cancel subscription by setting end_date to today and active to False."""
         self.ensure_one()
         today = fields.Date.today()
+        if self._get_current_temporal_state() == "finished":
+            raise UserError(_("Cannot cancel a subscription that has already ended."))
         if not self.active:
             raise UserError(_("This subscription is already canceled."))
         self.write(
@@ -92,6 +111,16 @@ class VolunteerShiftRecurrentSubscription(models.Model):
             }
         )
         return True
+
+    def _get_current_temporal_state(self):
+        """Get current temporal state of the subscription based on dates."""
+        self.ensure_one()
+        today = fields.Date.today()
+        if self.end_date and self.end_date < today:
+            return "finished"
+        if self.start_date > today:
+            return "upcoming"
+        return "ongoing"
 
     def _get_shifts_intersection_between_two_periods(
         self, new_start_date, new_end_date, old_start_date, old_end_date

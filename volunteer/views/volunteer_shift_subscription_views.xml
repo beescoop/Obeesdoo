@@ -20,6 +20,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 <field name="volunteer_id" />
                 <field name="start_date" />
                 <field name="end_date" />
+                <field
+                    name="temporal_state"
+                    widget="badge"
+                    decoration-info="temporal_state == 'upcoming'"
+                    decoration-success="temporal_state == 'ongoing'"
+                    decoration-muted="temporal_state == 'finished'"
+                    attrs="{'invisible': [('active', '=', False)]}"
+                />
             </tree>
         </field>
     </record>

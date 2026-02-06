@@ -103,12 +103,20 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                     />
                                     <field name="start_date" widget="date" />
                                     <field name="end_date" widget="date" />
+                                    <field
+                                        name="temporal_state"
+                                        widget="badge"
+                                        decoration-info="temporal_state == 'upcoming'"
+                                        decoration-success="temporal_state == 'ongoing'"
+                                        decoration-muted="temporal_state == 'finished'"
+                                    />
                                     <button
                                         name="action_cancel_subscription"
                                         type="object"
                                         string="Cancel"
                                         class="btn-danger float-end"
                                         confirm="Are you sure you want to cancel this subscription?"
+                                        attrs="{'invisible': [('temporal_state', '=', 'finished')]}"
                                     />
                                 </tree>
                             </field>

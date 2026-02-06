@@ -4,6 +4,8 @@
 
 from datetime import date, datetime
 
+from freezegun import freeze_time
+
 from .test_volunteer_common import TestVolunteerCommon
 
 
@@ -52,5 +54,50 @@ class TestVolunteerGeneratorSubscriptionCommon(TestVolunteerCommon):
                 "end_time": datetime(2025, 1, 2, 12, 5),
                 "max_volunteer_nb": 2,
                 "type_id": self.type1.id,
+            }
+        )
+        with freeze_time("2024-01-01 01:00:00"):
+            self.gen_ongoing_with_3_subs = self.Generator.create(
+                {
+                    "name": "Ongoing generator with 3 subs",
+                    "state": "draft",
+                    "until_date": date(2025, 12, 31),
+                    "interval_type": "days",
+                    "interval": 1,
+                    "start_time": datetime(2024, 1, 1, 10, 5),
+                    "end_time": datetime(2024, 1, 2, 12, 5),
+                    "max_volunteer_nb": 5,
+                    "type_id": self.type1.id,
+                }
+            )
+
+        # Create subscriptions
+        # Reference date: 2025-01-01 (globally frozen in test files)
+        # - sub_finished: ended before reference date (2024-12)
+        # - sub_ongoing: active on reference date (2024-12 ; 2025-12)
+        # - sub_upcoming: starts after reference date (2025-02 ; 2025-12)
+        with freeze_time("2024-01-01 01:00:00"):
+            self.sub_finished = self.Subscription.create(
+                {
+                    "generator_id": self.gen_ongoing_with_3_subs.id,
+                    "volunteer_id": self.volunteer_test.id,
+                    "start_date": date(2024, 12, 1),
+                    "end_date": date(2024, 12, 31),
+                }
+            )
+            self.sub_ongoing = self.Subscription.create(
+                {
+                    "generator_id": self.gen_ongoing_with_3_subs.id,
+                    "volunteer_id": self.volunteer_confirmed.id,
+                    "start_date": date(2024, 12, 1),
+                    "end_date": date(2025, 12, 31),
+                }
+            )
+        self.sub_upcoming = self.Subscription.create(
+            {
+                "generator_id": self.gen_ongoing_with_3_subs.id,
+                "volunteer_id": self.volunteer_confirmed2.id,
+                "start_date": date(2025, 2, 1),
+                "end_date": date(2025, 12, 31),
             }
         )
