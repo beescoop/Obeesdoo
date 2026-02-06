@@ -1,14 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2026 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
 <odoo noupdate="1">
-    <record id="enable_shift_changes" model="ir.config_parameter" forcecreate="False">
-        <field name="key">shift_change.enable_shift_changes</field>
-        <field name="value">True</field>
-    </record>
-    <record id="hour_limit_change" model="ir.config_parameter" forcecreate="False">
+    <record id="hour_limit_change" model="ir.config_parameter">
         <field name="key">shift_change.hour_limit_change</field>
         <field name="value">24</field>
     </record>
-    <record id="enable_solidarity" model="ir.config_parameter" forcecreate="False">
-        <field name="key">beesdoo_shift.enable_solidarity</field>
-        <field name="value">True</field>
+    <record id="same_shift_change_max" model="ir.config_parameter">
+        <field name="key">shift_change.same_shift_change_max</field>
+        <field name="value">3</field>
     </record>
 </odoo>

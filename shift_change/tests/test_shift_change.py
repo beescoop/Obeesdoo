@@ -1,7 +1,14 @@
+# SPDX-FileCopyrightText: 2026 Coop IT Easy SC
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 from datetime import date, datetime, timedelta
+
+from psycopg2.errors import IntegrityError
 
 from odoo.exceptions import AccessError, ValidationError
 from odoo.tests.common import TransactionCase
+from odoo.tools import mute_logger
 
 
 class TestShiftChange(TransactionCase):
@@ -29,8 +36,8 @@ class TestShiftChange(TransactionCase):
             {
                 "name": "shift_1",
                 "task_template_id": self.task_template_1.id,
-                "start_time": self.now,
-                "end_time": self.now,
+                "start_time": self.now + timedelta(days=2),
+                "end_time": self.now + timedelta(days=2),
                 "is_regular": True,
                 "worker_id": self.worker_regular_1.id,
             }
@@ -39,8 +46,8 @@ class TestShiftChange(TransactionCase):
             {
                 "name": "shift_2",
                 "task_template_id": self.task_template_2.id,
-                "start_time": self.now,
-                "end_time": self.now,
+                "start_time": self.now + timedelta(days=2),
+                "end_time": self.now + timedelta(days=2),
                 "is_regular": True,
                 "worker_id": self.worker_regular_2.id,
             }
@@ -49,8 +56,8 @@ class TestShiftChange(TransactionCase):
             {
                 "name": "shift_3",
                 "task_template_id": self.task_template_2.id,
-                "start_time": self.now + timedelta(days=2),
-                "end_time": self.now + timedelta(days=2),
+                "start_time": self.now + timedelta(days=4),
+                "end_time": self.now + timedelta(days=4),
                 "worker_id": False,
             }
         )
@@ -58,7 +65,7 @@ class TestShiftChange(TransactionCase):
             {
                 "name": "shift_4",
                 "task_template_id": self.task_template_2.id,
-                "start_time": self.now - timedelta(days=2),
+                "start_time": self.now - timedelta(days=4),
                 "end_time": self.now,
                 "worker_id": False,
             }
@@ -67,7 +74,7 @@ class TestShiftChange(TransactionCase):
             {
                 "name": "shift_5",
                 "task_template_id": self.task_template_2.id,
-                "start_time": self.now + timedelta(days=2),
+                "start_time": self.now + timedelta(days=4),
                 "end_time": self.now,
                 "worker_id": False,
             }
@@ -85,6 +92,11 @@ class TestShiftChange(TransactionCase):
         # Set context to avoid shift generation in the past
         self.env.context = dict(self.env.context, visualize_date=date.today())
 
+        # Set maximum change shift for testing
+        self.env["ir.config_parameter"].set_param(
+            "shift_change.same_shift_change_max", 1
+        )
+
     def test_shift_change(self):
         """Test change a shift"""
         self.assertEqual(self.shift_1.worker_id, self.worker_regular_1)
@@ -98,6 +110,29 @@ class TestShiftChange(TransactionCase):
         )
         self.assertFalse(self.shift_1.worker_id)
         self.assertEqual(self.shift_3.worker_id, self.worker_regular_1)
+
+    def test_shift_change_max(self):
+        """Test change a shift several times"""
+        self.assertEqual(self.shift_1.worker_id, self.worker_regular_1)
+        self.assertFalse(self.shift_3.worker_id)
+        self.assertFalse(self.shift_5.worker_id)
+        self.shift_change_model.create(
+            {
+                "worker_id": self.worker_regular_1.id,
+                "old_shift_id": self.shift_1.id,
+                "new_shift_id": self.shift_3.id,
+            }
+        )
+        self.assertFalse(self.shift_1.worker_id)
+        self.assertEqual(self.shift_3.worker_id, self.worker_regular_1)
+        with self.assertRaises(ValidationError):
+            self.shift_change_model.create(
+                {
+                    "worker_id": self.worker_regular_1.id,
+                    "old_shift_id": self.shift_3.id,
+                    "new_shift_id": self.shift_5.id,
+                }
+            )
 
     def test_shift_change_not_empty(self):
         """Test changing a shift to a non empty shift"""
@@ -142,12 +177,13 @@ class TestShiftChange(TransactionCase):
 
     def test_shift_change_missing_required_fields(self):
         """Test creating a shift with missing fields"""
-        with self.assertRaises(ValidationError):
-            self.shift_change_model.create(
-                {
-                    "worker_id": self.worker_regular_1.id,
-                }
-            )
+        with self.assertRaises(IntegrityError):
+            with mute_logger("odoo.sql_db"):
+                self.shift_change_model.create(
+                    {
+                        "worker_id": self.worker_regular_1.id,
+                    }
+                )
 
     def test_shift_change_writing(self):
         """Test that writing to a shift fails"""

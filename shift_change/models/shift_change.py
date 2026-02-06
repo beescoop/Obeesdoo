@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 Coop IT Easy SC
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 from datetime import datetime, timedelta
 
 from odoo import _, api, fields, models
@@ -32,30 +36,41 @@ class ShiftChange(models.Model):
         to the old shift and subscribe him/her to the new one
         """
         res = super().create(vals_list)
-        res._unsubscribe_old_shift()
         res._subscribe_new_shift()
+        res._unsubscribe_old_shift()
         return res
 
     def _unsubscribe_old_shift(self):
         """
         Unsubscribe self.worker_id from old_shift
-        Return True is unsubscription is successful.
-        :return: Boolean
+        Raise error if not possible.
         """
-        if (
-            self.old_shift_id.worker_id
-            and self.old_shift_id.worker_id == self.worker_id
-        ):
-            self.old_shift_id.worker_id = False
-        else:
-            raise ValidationError(_("You can't change shift that your are not worker."))
+        self._check_old_shift(self.old_shift_id, self.worker_id)
+        self.old_shift_id.write(
+            {
+                "worker_id": False,
+                "is_regular": False,
+                "is_compensation": False,
+            }
+        )
 
     def _subscribe_new_shift(self):
         """
         Subscribe self.worker_id to the new shift
-        Return True is subscription is successful.
-        :return: Boolean
+        Raise error if not possible.
         """
+        self._check_new_shift(self.new_shift_id)
+        self.new_shift_id.write(
+            {
+                "worker_id": self.worker_id.id,
+                "is_regular": self.old_shift_id.is_regular,
+                "is_compensation": self.old_shift_id.is_compensation,
+            }
+        )
+
+    @api.model
+    def _check_old_shift(self, old_shift_id, worker_id):
+        """Check if old shift can be changed"""
         try:
             hour_limit_change = int(
                 self.env["ir.config_parameter"].get_param(
@@ -63,19 +78,70 @@ class ShiftChange(models.Model):
                 )
             )
         except ValueError:
-            # Fall back to a default value
+            # fall back to a default value
             hour_limit_change = 0
-        if self.new_shift_id.worker_id:
+        if not old_shift_id.worker_id or old_shift_id.worker_id != worker_id:
+            raise ValidationError(_("You can't change shift that your are not worker."))
+        if old_shift_id.start_time <= datetime.now():
+            raise ValidationError(_("You can't change shift that is in the past."))
+        if old_shift_id.start_time <= datetime.now() + timedelta(
+            hours=hour_limit_change
+        ):
+            raise ValidationError(_("You can't change a shift so close in the futur."))
+        try:
+            same_shift_change_max = int(
+                self.env["ir.config_parameter"].get_param(
+                    "shift_change.same_shift_change_max"
+                )
+            )
+        except ValueError:
+            # fall back to a default value
+            same_shift_change_max = 0
+        if same_shift_change_max:
+            same_shift_change_nb = 0
+            tmp_old_shift_id = old_shift_id
+            while tmp_old_shift_id:
+                change = self.search(
+                    [
+                        ("new_shift_id", "=", tmp_old_shift_id.id),
+                        ("worker_id", "=", worker_id.id),
+                    ],
+                    limit=1,
+                )
+                if change:
+                    same_shift_change_nb += 1
+                    tmp_old_shift_id = change.old_shift_id
+                else:
+                    tmp_old_shift_id = None
+            if same_shift_change_nb >= same_shift_change_max:
+                raise ValidationError(
+                    _(
+                        "You can't change the same shift more than"
+                        f"{same_shift_change_max} times."
+                    )
+                )
+
+    @api.model
+    def _check_new_shift(self, new_shift_id):
+        """Check if shift can be changed or not"""
+        try:
+            hour_limit_change = int(
+                self.env["ir.config_parameter"].get_param(
+                    "shift_change.hour_limit_change"
+                )
+            )
+        except ValueError:
+            # fall back to a default value
+            hour_limit_change = 0
+        if new_shift_id.worker_id:
             raise ValidationError(
                 _("You can't subscribe to a shift assigned to someone else.")
             )
-        elif self.new_shift_id.start_time <= datetime.now():
+        if new_shift_id.start_time <= datetime.now():
             raise ValidationError(_("You can't subscribe to a shift in the past."))
-        elif self.new_shift_id.start_time <= datetime.now() + timedelta(
+        if new_shift_id.start_time <= datetime.now() + timedelta(
             hours=hour_limit_change
         ):
             raise ValidationError(
                 _("You can't subscribe to a shift so close in the futur.")
             )
-        else:
-            self.new_shift_id.worker_id = self.worker_id
