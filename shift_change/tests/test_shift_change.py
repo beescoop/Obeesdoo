@@ -179,3 +179,16 @@ class TestShiftChange(TransactionCase):
                     "new_shift_id": self.shift_6.id,
                 }
             )
+
+    def test_shift_origin_empty(self):
+        """Test that fails if old_shift is empty"""
+        self.assertFalse(self.shift_4.worker_id)
+        self.assertFalse(self.shift_3.worker_id)
+        with self.assertRaises(ValidationError):
+            self.shift_change_model.create(
+                {
+                    "worker_id": self.worker_regular_1.id,
+                    "old_shift_id": self.shift_4.id,
+                    "new_shift_id": self.shift_3.id,
+                }
+            )

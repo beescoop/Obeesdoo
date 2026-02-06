@@ -15,12 +15,14 @@ class ShiftChange(models.Model):
             ("working_mode", "in", ("regular", "irregular")),
             ("state", "not in", ("unsubscribed", "resigning")),
         ],
+        required=True,
     )
-    old_shift_id = fields.Many2one("shift.shift", string="Old shift")
+    old_shift_id = fields.Many2one("shift.shift", string="Old shift", required=True)
     new_shift_id = fields.Many2one(
         "shift.shift",
         string="New shift",
         domain=[("worker_id", "=", False)],
+        required=True,
     )
 
     @api.model_create_multi
@@ -40,7 +42,10 @@ class ShiftChange(models.Model):
         Return True is unsubscription is successful.
         :return: Boolean
         """
-        if self.old_shift_id.worker_id == self.worker_id:
+        if (
+            self.old_shift_id.worker_id
+            and self.old_shift_id.worker_id == self.worker_id
+        ):
             self.old_shift_id.worker_id = False
         else:
             raise ValidationError(_("You can't change shift that your are not worker."))
