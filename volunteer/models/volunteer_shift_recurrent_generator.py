@@ -128,24 +128,21 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         else:
             raise UserError(_("The interval type is not valid."))
 
-    def _get_active_subscriptions(self):
-        """Get all active subscriptions for this generator."""
+    def _get_ongoing_subscriptions(self):
+        """Get all ongoing subscriptions for this generator."""
         self.ensure_one()
-        today = fields.Date.today()
-        active_subscriptions = self.volunteer_subscription_ids.filtered(
-            lambda subscription: subscription.start_date <= today
-            and (not subscription.end_date or subscription.end_date >= today)
+        ongoing_subscriptions = self.volunteer_subscription_ids.filtered(
+            lambda sub: sub.active and sub._get_current_temporal_state() == "ongoing"
         )
-        return active_subscriptions
+        return ongoing_subscriptions
 
-    def _get_future_subscriptions(self):
-        """Get all future subscriptions for this generator."""
+    def _get_upcoming_subscriptions(self):
+        """Get all upcoming subscriptions for this generator."""
         self.ensure_one()
-        today = fields.Date.today()
-        future_subscriptions = self.volunteer_subscription_ids.filtered(
-            lambda subscription: subscription.start_date > today
+        upcoming_subscriptions = self.volunteer_subscription_ids.filtered(
+            lambda sub: sub.active and sub._get_current_temporal_state() == "upcoming"
         )
-        return future_subscriptions
+        return upcoming_subscriptions
 
     def _get_future_shifts(self):
         """Get all future shifts for this generator."""
@@ -213,16 +210,17 @@ class VolunteerShiftRecurrentGenerator(models.Model):
 
     def _handle_generator_cancellation(self):
         """Handle the cancellation of the generator by:
-        - Setting the end_date of all future subscriptions to today
+        - Call action_cancel_subscription() on all active upcoming and ongoing subscriptions
         - Auto-canceling all future shifts
         - Setting the generator until_date to today
         """
         self.ensure_one()
         today = fields.Date.today()
-        active_subscriptions = self._get_active_subscriptions()
-        future_subscriptions = self._get_future_subscriptions()
-        subscriptions_to_canceled = active_subscriptions + future_subscriptions
-        subscriptions_to_canceled.write({"end_date": today})
+        ongoing_subscriptions = self._get_ongoing_subscriptions()
+        upcoming_subscriptions = self._get_upcoming_subscriptions()
+        subscriptions_to_canceled = ongoing_subscriptions + upcoming_subscriptions
+        for sub in subscriptions_to_canceled:
+            sub.action_cancel_subscription()
         # Auto-cancel future shifts, which will also cancel related participation
         future_shifts = self._get_future_shifts()
         future_shifts.write(
