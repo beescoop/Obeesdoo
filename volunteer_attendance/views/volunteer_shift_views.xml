@@ -5,20 +5,58 @@ SPDX-FileCopyrightText: 2025 Coop IT Easy SC
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <odoo>
+
     <record id="volunteer_shift_view_form_extend" model="ir.ui.view">
         <field name="name">Shift: add attendance status for participation</field>
         <field name="model">volunteer.shift</field>
         <field name="inherit_id" ref="volunteer.volunteer_shift_view_form" />
         <field name="arch" type="xml">
-            <field name="company_id" position="after">
-                <field name="attendance_state" options="{'no_create':True}" />
-            </field>
+
+            <xpath expr="//div[hasclass('oe_title')]" position="before">
+                <div name="button_box" class="oe_button_box">
+                    <button
+                        name="action_display_attendance_state"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-users"
+                    >
+                        <field
+                            name="attendance_state"
+                            widget="badge"
+                            decoration-success="attendance_state == 'validated'"
+                            decoration-warning="attendance_state == 'waiting'"
+                            options="{'no_create':True}"
+                        />
+                    </button>
+                </div>
+            </xpath>
+
             <field name="cancellation_date" position="after">
                 <field name="attendance_status_id" options="{'no_create':True}" />
-            </field>
-            <field name="attendance_status_id" position="after">
                 <field name="attendance_date" />
             </field>
         </field>
     </record>
+
+    <record id="volunteer_shift_view_search_extend" model="ir.ui.view">
+        <field name="name">Shift: add filter for attendances</field>
+        <field name="model">volunteer.shift</field>
+        <field name="inherit_id" ref="volunteer.volunteer_shift_view_search" />
+        <field name="arch" type="xml">
+            <filter name="filter_date" position="after">
+                <separator />
+                <filter
+                    name="filter_attendances_validated"
+                    string="Validated Attendances"
+                    domain="[('attendance_state', '=', 'validated')]"
+                />
+                <filter
+                    name="filter_attendances_waiting"
+                    string="Waiting Attendances"
+                    domain="[('attendance_state', '=', 'waiting')]"
+                />
+            </filter>
+        </field>
+    </record>
+
 </odoo>

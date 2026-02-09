@@ -10,10 +10,14 @@ class VolunteerShift(models.Model):
 
     attendance_state = fields.Selection(
         selection=[("waiting", "Waiting"), ("validated", "Validated")],
-        help="Validated if all attendance status fields hold a value.",
+        help="Validated if every volunteer is given an attendance status.",
         compute="_compute_attendance_state",
-        # tracking=True
+        store=True,
+        # ~ search="_search_is_validated"
+        # ~ tracking=True
     )
+
+    # Methods
 
     @api.depends("volunteer_participation_ids.attendance_status_id")
     def _compute_attendance_state(self):
@@ -25,3 +29,9 @@ class VolunteerShift(models.Model):
                 shift.attendance_state = "validated"
             else:
                 shift.attendance_state = "waiting"
+
+    # ~ def _search_is_validated(self, operator, value):
+
+    def action_display_attendance_state(self):
+        """Do nothing"""
+        return
