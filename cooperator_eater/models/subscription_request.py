@@ -20,6 +20,14 @@ class SubscriptionRequest(models.Model):
     def validate_subscription_request(self):
         self.ensure_one()
 
+        if self.partner_id:
+            vals = self.get_eater_vals(self.partner_id, self.share_product_id)
+            # settattr will change the values of the partner object without
+            # applying the changes in the db, so we can see if the new value of
+            # the field eater is valid, without the risk of changing the result of
+            # super().validate_subscription_request() which depends on that field
+            setattr(self.partner_id, "eater", vals["eater"])
+
         invoice = super().validate_subscription_request()[0]
         partner = invoice.partner_id
 
