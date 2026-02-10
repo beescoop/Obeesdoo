@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 from odoo import api, fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 from odoo.tools.translate import _
 
 
@@ -67,10 +67,43 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         for sub in self:
             sub.temporal_state = sub._get_current_temporal_state()
 
+    # Constraints
+
+    @api.constrains("start_date", "end_date", "generator_id", "active")
+    def _check_subscription_dates(self):
+        """Check subscriptions dates consistency and within generator period (in this order).
+        Skipped for canceled (inactive) subscriptions.
+        """
+        for sub in self:
+            if not sub.active:
+                continue
+            # Check dates consistency
+            if sub.end_date and sub.start_date >= sub.end_date:
+                raise ValidationError(
+                    _("Start date must be before end date.")
+                    + sub._get_conflicting_sub_detail_message()
+                )
+            gen = sub.generator_id
+            gen_start_date = fields.Date.to_date(gen.start_time)
+            # Check subscription is within generator period
+            if (
+                sub.start_date < gen_start_date
+                or (gen.until_date and sub.start_date > gen.until_date)
+                or (sub.end_date and gen.until_date and sub.end_date > gen.until_date)
+            ):
+                raise UserError(
+                    _("Subscription must be within generator period.")
+                    + sub._get_conflicting_sub_detail_message()
+                )
+
     # Override methods
 
     @api.model_create_multi
     def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get("active") is False:
+                raise UserError(_("Cannot create an inactive subscription."))
+            self._check_dates_not_in_past(vals)
         subscriptions = super().create(vals_list)
         for sub in subscriptions:
             if sub.generator_id.state == "confirmed":
@@ -81,6 +114,8 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         self._check_can_be_modified(vals)
         old_sub_data = {}
         for sub in self:
+            state = sub._get_current_temporal_state()
+            sub._check_dates_not_in_past(vals, temporal_state=state)
             old_sub_data[sub.id] = {
                 "start_date": sub.start_date,
                 "end_date": sub.end_date,
@@ -160,6 +195,38 @@ class VolunteerShiftRecurrentSubscription(models.Model):
             f"End date: {readable_end_date}\n"
         )
         return message
+
+    def _check_dates_not_in_past(self, vals, temporal_state=None):
+        """Check that subscription dates are not in the past.
+
+        For create/upcoming subscriptions: checks start_date only, since end_date
+        must be after start_date (validated separately).
+
+        For ongoing subscriptions: checks end_date only, since start_date can
+        legitimately be in the past.
+        """
+        # Allow empty recordset for create(), enforce single record otherwise
+        if self:
+            self.ensure_one()
+        today = fields.Date.today()
+        start_date = vals["start_date"] if "start_date" in vals else self.start_date
+        # Get end_date from vals if present (can be explicit False to make infinite).
+        # If not in vals, use self.end_date which is False when self is empty (create)
+        # or when subscription is already infinite (write)
+        end_date = vals["end_date"] if "end_date" in vals else self.end_date
+        # Convert string dates to date objects if needed
+        if isinstance(start_date, str):
+            start_date = fields.Date.from_string(start_date)
+        if isinstance(end_date, str):
+            end_date = fields.Date.from_string(end_date)
+        # Create()/upcoming: check start_date only
+        if temporal_state is None or temporal_state == "upcoming":
+            if start_date < today:
+                raise UserError(_("Start date cannot be in the past"))
+        # Ongoing: check end_date only
+        if temporal_state == "ongoing":
+            if end_date and end_date < today:
+                raise UserError(_("End date cannot be in the past"))
 
     def _get_shifts_intersection_between_two_periods(
         self, new_start_date, new_end_date, old_start_date, old_end_date
