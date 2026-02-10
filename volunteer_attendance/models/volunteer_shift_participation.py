@@ -11,11 +11,8 @@ class VolunteerShiftParticipation(models.Model):
     attendance_status_id = fields.Many2one(
         comodel_name="volunteer.shift.attendance.status",
         string="Attendance Status",
-        # ~ tracking=True,
     )
-    attendance_date = fields.Datetime(
-        # ~ tracking=True,
-    )
+    attendance_date = fields.Datetime()
 
     @api.depends("attendance_status_id")
     def write(self, vals):

@@ -13,8 +13,6 @@ class VolunteerShift(models.Model):
         help="Validated if every volunteer is given an attendance status.",
         compute="_compute_attendance_state",
         store=True,
-        # ~ search="_search_is_validated"
-        # ~ tracking=True
     )
 
     # Methods
@@ -29,8 +27,6 @@ class VolunteerShift(models.Model):
                 shift.attendance_state = "validated"
             else:
                 shift.attendance_state = "waiting"
-
-    # ~ def _search_is_validated(self, operator, value):
 
     def action_display_attendance_state(self):
         """Do nothing"""
