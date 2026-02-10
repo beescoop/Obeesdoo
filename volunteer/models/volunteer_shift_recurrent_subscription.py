@@ -100,10 +100,11 @@ class VolunteerShiftRecurrentSubscription(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        for vals in vals_list:
-            if vals.get("active") is False:
-                raise UserError(_("Cannot create an inactive subscription."))
-            self._check_dates_not_in_past(vals)
+        if not self.env.context.get("install_mode"):
+            for vals in vals_list:
+                if vals.get("active") is False:
+                    raise UserError(_("Cannot create an inactive subscription."))
+                self._check_dates_not_in_past(vals)
         subscriptions = super().create(vals_list)
         for sub in subscriptions:
             if sub.generator_id.state == "confirmed":

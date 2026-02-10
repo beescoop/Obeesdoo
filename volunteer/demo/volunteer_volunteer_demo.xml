@@ -52,4 +52,43 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="partner_id" ref="volunteer_partner_demo_c" />
         <field name="is_regular" eval="True" />
     </record>
+
+    <record id="volunteer_partner_demo_john" model="res.partner">
+        <field name="name">John Leclair</field>
+        <field name="street">78 chaussée de Wavre</field>
+        <field name="zip">1050</field>
+        <field name="city">Ixelles</field>
+        <field name="country_id" ref="base.be" />
+        <field name="phone">0472345678</field>
+        <field name="email">john.leclair@example.com</field>
+    </record>
+    <record id="volunteer_demo_john" model="volunteer.volunteer">
+        <field name="partner_id" ref="volunteer_partner_demo_john" />
+    </record>
+
+    <record id="volunteer_partner_demo_emma" model="res.partner">
+        <field name="name">Emma Rousseau</field>
+        <field name="street">23 rue du Trône</field>
+        <field name="zip">1000</field>
+        <field name="city">Bruxelles</field>
+        <field name="country_id" ref="base.be" />
+        <field name="phone">0473456789</field>
+        <field name="email">emma.rousseau@example.com</field>
+    </record>
+    <record id="volunteer_demo_emma" model="volunteer.volunteer">
+        <field name="partner_id" ref="volunteer_partner_demo_emma" />
+    </record>
+
+    <record id="volunteer_partner_demo_jean" model="res.partner">
+        <field name="name">Jean Dupont</field>
+        <field name="street">21 rue du Trône</field>
+        <field name="zip">1000</field>
+        <field name="city">Bruxelles</field>
+        <field name="country_id" ref="base.be" />
+        <field name="phone">0473456789</field>
+        <field name="email">jean.dupont@example.com</field>
+    </record>
+    <record id="volunteer_demo_jean" model="volunteer.volunteer">
+        <field name="partner_id" ref="volunteer_partner_demo_jean" />
+    </record>
 </odoo>

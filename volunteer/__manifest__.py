@@ -40,6 +40,8 @@
         "demo/volunteer_skill_category_demo.xml",
         "demo/volunteer_skill_demo.xml",
         "demo/volunteer_volunteer_demo.xml",
+        "demo/volunteer_shift_recurrent_generator_demo.xml",
+        "demo/volunteer_shift_recurrent_subscription_demo.xml",
         "demo/volunteer_shift_demo.xml",
         "demo/volunteer_shift_participation_demo.xml",
     ],
