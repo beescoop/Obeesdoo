@@ -219,11 +219,11 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         if self:
             self.ensure_one()
         today = fields.Date.today()
-        start_date = vals["start_date"] if "start_date" in vals else self.start_date
+        start_date = vals.get("start_date", self.start_date)
         # Get end_date from vals if present (can be explicit False to make infinite).
         # If not in vals, use self.end_date which is False when self is empty (create)
         # or when subscription is already infinite (write)
-        end_date = vals["end_date"] if "end_date" in vals else self.end_date
+        end_date = vals.get("end_date", self.end_date)
         # Convert string dates to date objects if needed
         if isinstance(start_date, str):
             start_date = fields.Date.from_string(start_date)
