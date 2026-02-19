@@ -17,8 +17,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="arch" type="xml">
             <field name="cancellation_date" position="after">
                 <field name="attendance_status_id" options="{'no_create':True}" />
-            </field>
-            <field name="attendance_status_id" position="after">
                 <field name="attendance_date" />
             </field>
         </field>

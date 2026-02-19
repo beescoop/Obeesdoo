@@ -29,5 +29,15 @@ class VolunteerShift(models.Model):
                 shift.attendance_state = "waiting"
 
     def action_display_attendance_state(self):
-        """Do nothing"""
-        return
+        """Display participations with no attendance status"""
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Participations",
+            "res_model": "volunteer.shift.participation",
+            "view_mode": "tree",
+            "domain": [
+                ("shift_id", "=", [self.id]),
+                ("attendance_status_id", "=", None),
+            ],
+        }

@@ -25,7 +25,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                             widget="badge"
                             decoration-success="attendance_state == 'validated'"
                             decoration-warning="attendance_state == 'waiting'"
-                            options="{'no_create':True}"
                         />
                     </button>
                 </div>
