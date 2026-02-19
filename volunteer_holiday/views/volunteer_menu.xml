@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+
+    <!-- Company Holidays Menu-->
+    <menuitem
+        id="volunteer_company_holiday_menu"
+        name="Company Holidays"
+        parent="volunteer.volunteer_menu"
+        sequence="100"
+        action="action_volunteer_company_holiday"
+    />
+</odoo>

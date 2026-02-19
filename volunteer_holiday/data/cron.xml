@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <!-- Après test, passer en noupdate=1 -->
+    <record id="ir_cron_cancel_holiday_shifts" model="ir.cron">
+        <field name="name">Cancel generated shifts during holidays</field>
+        <field name="model_id" ref="model_volunteer_company_holiday" />
+        <field name="state">code</field>
+        <field name="code">model._cancel_holiday_shift()</field>
+        <field name="interval_number">24</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+    </record>
+</odoo>
