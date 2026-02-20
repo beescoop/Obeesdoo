@@ -57,9 +57,23 @@ msgstr ""
 
 #. module: volunteer
 #. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_subscription.py:0
+#, python-format
+msgid "A canceled subscription can't be modified."
+msgstr ""
+
+#. module: volunteer
+#. odoo-python
 #: code:addons/volunteer/models/volunteer_shift_recurrent_generator.py:0
 #, python-format
 msgid "A generator cannot be created in canceled state."
+msgstr ""
+
+#. module: volunteer
+#. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_subscription.py:0
+#, python-format
+msgid "A subscription already finished can't be modified."
 msgstr ""
 
 #. module: volunteer
@@ -93,14 +107,21 @@ msgid "Action Needed"
 msgstr ""
 
 #. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__active
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__active
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__active
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_subscription_view_search
 msgid "Active"
 msgstr ""
 
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__active_lang_count
 msgid "Active Lang Count"
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_form
+msgid "Active Subscriptions"
 msgstr ""
 
 #. module: volunteer
@@ -166,6 +187,11 @@ msgid "Age"
 msgstr ""
 
 #. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_subscription_view_search
+msgid "All"
+msgstr ""
+
+#. module: volunteer
 #: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__lang
 msgid ""
 "All the emails and documents sent to this contact will be translated in this"
@@ -195,6 +221,11 @@ msgstr ""
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__generic_rules_approved
 msgid "Approved generic rules"
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_form
+msgid "Are you sure you want to cancel this subscription?"
 msgstr ""
 
 #. module: volunteer
@@ -278,15 +309,45 @@ msgid "Can Publish"
 msgstr ""
 
 #. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_form
+msgid "Cancel"
+msgstr ""
+
+#. module: volunteer
 #: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_participation__registration_state__canceled
 #: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_recurrent_generator__state__canceled
 #: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_stage__state__canceled
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_subscription_view_search
 msgid "Canceled"
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_form
+msgid "Canceled Subscriptions"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__volunteer_subscription_inactive_ids
+msgid "Canceled subscriptions"
 msgstr ""
 
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_participation__cancellation_date
 msgid "Cancellation Date"
+msgstr ""
+
+#. module: volunteer
+#. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_subscription.py:0
+#, python-format
+msgid "Cannot cancel a subscription that has already ended."
+msgstr ""
+
+#. module: volunteer
+#. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_subscription.py:0
+#, python-format
+msgid "Cannot create an inactive subscription."
 msgstr ""
 
 #. module: volunteer
@@ -715,6 +776,13 @@ msgid "End Time Located"
 msgstr ""
 
 #. module: volunteer
+#. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_subscription.py:0
+#, python-format
+msgid "End date cannot be in the past"
+msgstr ""
+
+#. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__exempt_reason_id
 msgid "Exempt Reason"
 msgstr ""
@@ -722,6 +790,11 @@ msgstr ""
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__extension_start_time
 msgid "Extension Start Day"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_recurrent_subscription__temporal_state__finished
+msgid "Finished"
 msgstr ""
 
 #. module: volunteer
@@ -1057,6 +1130,14 @@ msgstr ""
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__can_shop
 msgid "Is worker allowed to shop?"
+msgstr ""
+
+#. module: volunteer
+#. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_subscription.py:0
+#, python-format
+msgid ""
+"It is not possible to change the volunteer of an existing subscription."
 msgstr ""
 
 #. module: volunteer
@@ -1433,6 +1514,11 @@ msgstr ""
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__on_time_rate
 msgid "On-Time Delivery Rate"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_recurrent_subscription__temporal_state__ongoing
+msgid "Ongoing"
 msgstr ""
 
 #. module: volunteer
@@ -1860,6 +1946,27 @@ msgid "Start Time Located"
 msgstr ""
 
 #. module: volunteer
+#. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_subscription.py:0
+#, python-format
+msgid "Start date cannot be in the past"
+msgstr ""
+
+#. module: volunteer
+#. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_subscription.py:0
+#, python-format
+msgid "Start date must be before end date."
+msgstr ""
+
+#. module: volunteer
+#. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_subscription.py:0
+#, python-format
+msgid "Start date of an ongoing subscription can't be modified."
+msgstr ""
+
+#. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__state
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__state
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__state
@@ -1916,11 +2023,6 @@ msgid "Subscribed Shift"
 msgstr ""
 
 #. module: volunteer
-#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_form
-msgid "Subscribed Volunteers"
-msgstr ""
-
-#. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__is_subscribed_to_shift
 msgid "Subscribed before Alert Date"
 msgstr ""
@@ -1929,6 +2031,13 @@ msgstr ""
 #: model:ir.actions.act_window,name:volunteer.volunteer_shift_recurrent_subscription_action
 #: model:ir.ui.menu,name:volunteer.volunteer_shift_recurrent_subscription_menu
 msgid "Subscription"
+msgstr ""
+
+#. module: volunteer
+#. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_subscription.py:0
+#, python-format
+msgid "Subscription must be within generator period."
 msgstr ""
 
 #. module: volunteer
@@ -1981,6 +2090,11 @@ msgstr ""
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__vat
 msgid "Tax ID"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_subscription__temporal_state
+msgid "Temporal State"
 msgstr ""
 
 #. module: volunteer
@@ -2057,6 +2171,20 @@ msgid ""
 msgstr ""
 
 #. module: volunteer
+#: model:ir.model.constraint,message:volunteer.constraint_volunteer_shift_mixin_start_time_before_end_time
+#: model:ir.model.constraint,message:volunteer.constraint_volunteer_shift_recurrent_generator_start_time_before_end_time
+#: model:ir.model.constraint,message:volunteer.constraint_volunteer_shift_start_time_before_end_time
+msgid "The shift start time must be before it's end time."
+msgstr ""
+
+#. module: volunteer
+#. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_generator.py:0
+#, python-format
+msgid "The shift start time must be before until date."
+msgstr ""
+
+#. module: volunteer
 #: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__property_stock_customer
 msgid ""
 "The stock location used as destination when sending goods to this contact."
@@ -2066,6 +2194,13 @@ msgstr ""
 #: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__property_stock_supplier
 msgid ""
 "The stock location used as source when receiving goods from this contact."
+msgstr ""
+
+#. module: volunteer
+#. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_generator.py:0
+#, python-format
+msgid "The until date cannot be in the past."
 msgstr ""
 
 #. module: volunteer
@@ -2115,6 +2250,13 @@ msgstr ""
 msgid ""
 "This pricelist will be used, instead of the default one, for sales to the "
 "current partner"
+msgstr ""
+
+#. module: volunteer
+#. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_subscription.py:0
+#, python-format
+msgid "This subscription is already canceled."
 msgstr ""
 
 #. module: volunteer
@@ -2222,6 +2364,11 @@ msgstr ""
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__until_date
 msgid "Until Date"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_recurrent_subscription__temporal_state__upcoming
+msgid "Upcoming"
 msgstr ""
 
 #. module: volunteer
