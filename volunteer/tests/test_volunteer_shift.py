@@ -218,3 +218,38 @@ class TestVolunteerShift(TestVolunteerCommon):
         self.assertEqual(
             participation_canceled.registration_date, initial_cancellation_date
         )
+
+    def test_cannot_create_shift_with_end_time_before_start_time(self):
+        """Test that create shift with end_time before start_time
+        is not allowed."""
+        with mute_logger("odoo.sql_db"):
+            with self.assertRaises(CheckViolation):
+                with self.cr.savepoint():
+                    self.Shift.create(
+                        {
+                            "name": "ShiftInvalid",
+                            "stage_id": self.stage_confirmed.id,
+                            "start_time": datetime(2025, 1, 2, 10, 5),
+                            "end_time": datetime(2025, 1, 1, 12, 5),
+                            "tz": "Europe/Brussels",
+                            "max_volunteer_nb": 2,
+                            "type_id": self.type1.id,
+                        }
+                    )
+
+    def test_cannot_write_shift_with_end_time_before_start_time(self):
+        """Test that modifying a shift with end_time before start_time
+        is not allowed."""
+        with mute_logger("odoo.sql_db"):
+            with self.assertRaises(CheckViolation):
+                with self.cr.savepoint():
+                    # Start time is 2025-12-24 10:05
+                    self.shift_max_2.write({"end_time": datetime(2025, 12, 24, 10, 4)})
+            with self.assertRaises(CheckViolation):
+                with self.cr.savepoint():
+                    # End time is 2025-12-24 12:05
+                    self.shift_max_2.write(
+                        {
+                            "start_time": datetime(2025, 12, 24, 12, 6),
+                        }
+                    )

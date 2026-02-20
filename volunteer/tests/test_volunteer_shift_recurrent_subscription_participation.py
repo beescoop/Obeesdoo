@@ -255,37 +255,37 @@ class TestVolunteerShiftRecurrentSubscriptionParticipation(
                 "generator_id": self.gen_today_to_infinite_empty.id,
             }
         )
-        shift_8 = self.Shift.search(
+        shift_9 = self.Shift.search(
             [
-                ("start_time", "=", datetime(2025, 1, 8, 10, 5)),
+                ("start_time", "=", datetime(2025, 1, 9, 10, 5)),
                 ("generator_id", "=", self.gen_today_to_infinite_empty.id),
             ]
         )
         # Check initial state
-        part_8_before_write = self.Participation.search(
+        part_9_before_write = self.Participation.search(
             [
-                ("shift_id", "=", shift_8.id),
+                ("shift_id", "=", shift_9.id),
                 ("volunteer_id", "=", self.volunteer_test.id),
                 ("registration_type", "=", "recurrent"),
                 ("registration_state", "=", "confirmed"),
             ]
         )
-        self.assertEqual(len(part_8_before_write), 1)
-        # Reduce end date to 2025-01-07
-        # needs to cancel participation on 2025-01-08
-        sub.write({"end_date": date(2025, 1, 7)})
-        part_8_after_write = self.Participation.search(
+        self.assertEqual(len(part_9_before_write), 1)
+        # Reduce end date to 2025-01-08
+        # needs to cancel participation on 2025-01-09
+        sub.write({"end_date": date(2025, 1, 8)})
+        part_9_after_write = self.Participation.search(
             [
-                ("shift_id", "=", shift_8.id),
+                ("shift_id", "=", shift_9.id),
                 ("volunteer_id", "=", self.volunteer_test.id),
                 ("registration_type", "=", "recurrent"),
             ]
         )
-        # Check that participation for shift on 2025-01-08 is canceled
+        # Check that participation for shift on 2025-01-09 is canceled
         # and there is no other participation for this shift and volunteer
-        self.assertEqual(len(part_8_after_write), 1)
-        self.assertEqual(part_8_after_write.id, part_8_before_write.id)
-        self.assertEqual(part_8_after_write.registration_state, "canceled")
+        self.assertEqual(len(part_9_after_write), 1)
+        self.assertEqual(part_9_after_write.id, part_9_before_write.id)
+        self.assertEqual(part_9_after_write.registration_state, "canceled")
 
     def test_extending_subscription_to_infinite(self):
         """Test that extending subscription to infinite generates participation
@@ -295,7 +295,7 @@ class TestVolunteerShiftRecurrentSubscriptionParticipation(
         )
         sub = self.Subscription.create(
             {
-                "start_date": date(2025, 1, 2),
+                "start_date": date(2025, 1, 1),
                 "end_date": date(2025, 1, 2),
                 "volunteer_id": self.volunteer_test.id,
                 "generator_id": self.gen_today_to_infinite_empty.id,
@@ -305,7 +305,7 @@ class TestVolunteerShiftRecurrentSubscriptionParticipation(
         self._check_existing_recurrent_participation_state_for_days(
             self.gen_today_to_infinite_empty,
             self.volunteer_test,
-            range(2, 12),
+            range(2, 11),
             "confirmed",
         )
 
@@ -424,7 +424,7 @@ class TestVolunteerShiftRecurrentSubscriptionParticipation(
         # Create a subscription ending on the same day as the start of the shift
         self.Subscription.create(
             {
-                "start_date": date(2025, 1, 2),
+                "start_date": date(2025, 1, 1),
                 "end_date": date(2025, 1, 2),
                 "volunteer_id": self.volunteer_test.id,
                 "generator_id": self.gen_shift_2_days.id,

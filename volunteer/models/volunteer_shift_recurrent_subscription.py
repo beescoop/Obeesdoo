@@ -3,6 +3,8 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 from odoo import api, fields, models
+from odoo.exceptions import UserError, ValidationError
+from odoo.tools.translate import _
 
 
 class VolunteerShiftRecurrentSubscription(models.Model):
@@ -13,6 +15,19 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         "mail.thread",
         "mail.activity.mixin",
     ]
+
+    # State fields
+
+    active = fields.Boolean(required=True, tracking=True, default=True)
+    temporal_state = fields.Selection(
+        selection=[
+            ("finished", "Finished"),
+            ("ongoing", "Ongoing"),
+            ("upcoming", "Upcoming"),
+        ],
+        compute="_compute_temporal_state",
+        store=True,
+    )
 
     # Date fields
 
@@ -44,10 +59,52 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         readonly=True,
     )
 
+    # Compute methods
+
+    @api.depends("start_date", "end_date")
+    def _compute_temporal_state(self):
+        """Compute temporal_state based on dates."""
+        for sub in self:
+            sub.temporal_state = sub._get_current_temporal_state()
+
+    # Constraints
+
+    @api.constrains("start_date", "end_date", "generator_id", "active")
+    def _check_subscription_dates(self):
+        """Check subscriptions dates consistency and within generator period (in this order).
+        Skipped for canceled (inactive) subscriptions.
+        """
+        for sub in self:
+            if not sub.active:
+                continue
+            # Check dates consistency
+            if sub.end_date and sub.start_date >= sub.end_date:
+                raise ValidationError(
+                    _("Start date must be before end date.")
+                    + sub._get_conflicting_sub_detail_message()
+                )
+            gen = sub.generator_id
+            gen_start_date = fields.Date.to_date(gen.start_time)
+            # Check subscription is within generator period
+            if (
+                sub.start_date < gen_start_date
+                or (gen.until_date and sub.start_date > gen.until_date)
+                or (sub.end_date and gen.until_date and sub.end_date > gen.until_date)
+            ):
+                raise UserError(
+                    _("Subscription must be within generator period.")
+                    + sub._get_conflicting_sub_detail_message()
+                )
+
     # Override methods
 
     @api.model_create_multi
     def create(self, vals_list):
+        if not self.env.context.get("install_mode"):
+            for vals in vals_list:
+                if vals.get("active") is False:
+                    raise UserError(_("Cannot create an inactive subscription."))
+                self._check_dates_not_in_past(vals)
         subscriptions = super().create(vals_list)
         for sub in subscriptions:
             if sub.generator_id.state == "confirmed":
@@ -55,8 +112,11 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         return subscriptions
 
     def write(self, vals):
+        self._check_can_be_modified(vals)
         old_sub_data = {}
         for sub in self:
+            state = sub._get_current_temporal_state()
+            sub._check_dates_not_in_past(vals, temporal_state=state)
             old_sub_data[sub.id] = {
                 "start_date": sub.start_date,
                 "end_date": sub.end_date,
@@ -72,6 +132,111 @@ class VolunteerShiftRecurrentSubscription(models.Model):
         return res
 
     # Methods
+
+    def action_cancel_subscription(self):
+        """Cancel subscription by setting end_date to today and active to False."""
+        self.ensure_one()
+        today = fields.Date.today()
+        if self._get_current_temporal_state() == "finished":
+            raise UserError(_("Cannot cancel a subscription that has already ended."))
+        if not self.active:
+            raise UserError(_("This subscription is already canceled."))
+        self.write(
+            {
+                "end_date": today,
+                "active": False,
+            }
+        )
+        return True
+
+    def _get_current_temporal_state(self):
+        """Get current temporal state of the subscription based on dates."""
+        self.ensure_one()
+        today = fields.Date.today()
+        if self.end_date and self.end_date < today:
+            return "finished"
+        if self.start_date > today:
+            return "upcoming"
+        return "ongoing"
+
+    def _check_can_be_modified(self, vals):
+        """Check if subscription can be modified.
+
+        - Volunteer cannot be changed
+        - Canceled (inactive) and finished subscriptions cannot be modified
+        - Ongoing subscription start_date cannot be modified
+        - Upcoming subscriptions are fully modifiable.
+        """
+        for sub in self:
+            if "volunteer_id" in vals and vals["volunteer_id"] != sub.volunteer_id.id:
+                raise UserError(
+                    _(
+                        "It is not possible to change the volunteer "
+                        "of an existing subscription."
+                    )
+                )
+            if not sub.active:
+                raise UserError(
+                    _("A canceled subscription can't be modified.")
+                    + sub._get_conflicting_sub_detail_message()
+                )
+            current_temporal_state = sub._get_current_temporal_state()
+            if current_temporal_state == "finished":
+                raise UserError(
+                    _("A subscription already finished can't be modified.")
+                    + sub._get_conflicting_sub_detail_message()
+                )
+            if current_temporal_state == "ongoing" and "start_date" in vals:
+                raise UserError(
+                    _("Start date of an ongoing subscription can't be modified.")
+                    + sub._get_conflicting_sub_detail_message()
+                )
+
+    def _get_conflicting_sub_detail_message(self):
+        """Return a formatted message with details of the subscription
+        to append to validation error messages.
+        """
+        self.ensure_one()
+        readable_end_date = self.end_date or "No end date"
+        message = (
+            f"\n\nConflicting subscription :\n"
+            f"Volunteer: {self.volunteer_id.name}\n"
+            f"Start date: {self.start_date}\n"
+            f"End date: {readable_end_date}\n"
+        )
+        return message
+
+    def _check_dates_not_in_past(self, vals, temporal_state=None):
+        """Check that subscription dates are not in the past.
+
+        For create/upcoming subscriptions: checks start_date only, since end_date
+        must be after start_date (validated separately).
+
+        For ongoing subscriptions: checks end_date only, since start_date can
+        legitimately be in the past.
+        """
+        # Allow empty recordset for create(), enforce single record otherwise
+        if self:
+            self.ensure_one()
+        today = fields.Date.today()
+        start_date = vals.get("start_date", self.start_date)
+        # Get end_date from vals if present (can be explicit False to make infinite).
+        # If not in vals, use self.end_date which is False when self is empty (create)
+        # or when subscription is already infinite (write)
+        end_date = vals.get("end_date", self.end_date)
+        # Convert string dates to date objects if needed
+        if isinstance(start_date, str):
+            start_date = fields.Date.from_string(start_date)
+        if isinstance(end_date, str):
+            end_date = fields.Date.from_string(end_date)
+        # Create()/upcoming: check start_date only
+        if temporal_state is None or temporal_state == "upcoming":
+            if start_date < today:
+                raise UserError(_("Start date cannot be in the past"))
+        # Ongoing: check end_date only
+        if temporal_state == "ongoing":
+            if end_date and end_date < today:
+                raise UserError(_("End date cannot be in the past"))
 
     def _get_shifts_intersection_between_two_periods(
         self, new_start_date, new_end_date, old_start_date, old_end_date

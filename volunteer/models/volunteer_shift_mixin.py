@@ -74,6 +74,16 @@ class VolunteerShiftMixin(models.AbstractModel):
         tracking=True,
     )
 
+    # SQL constraints
+
+    _sql_constraints = [
+        (
+            "start_time_before_end_time",
+            "CHECK(start_time < end_time)",
+            "The shift start time must be before it's end time.",
+        ),
+    ]
+
     # Compute methods
 
     @api.depends("start_time", "end_time", "tz")

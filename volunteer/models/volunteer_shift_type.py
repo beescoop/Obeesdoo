@@ -26,12 +26,12 @@ class VolunteerShiftType(models.Model):
     _sql_constraints = [
         (
             "name_company_uniq",
-            "UNIQUE (name, company_id)",
+            "UNIQUE(name, company_id)",
             "Type with such name already exists in the company!",
         ),
         (
             "name_nocompany_uniq",
-            "EXCLUDE (name WITH =) WHERE (company_id IS NULL)",
+            "EXCLUDE(name WITH =) WHERE(company_id IS NULL)",
             "Shared type with such name already exists!",
         ),
     ]
