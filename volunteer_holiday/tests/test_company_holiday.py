@@ -38,6 +38,9 @@ class TestCronHoliday(TransactionCase):
         self.stage_confirmed = self.env.ref("volunteer.volunteer_shift_stage_confirmed")
         self.stage_canceled = self.env.ref("volunteer.volunteer_shift_stage_canceled")
 
+        # Create other company
+        self.anoter_company = self.env["res.company"].create({"name": "AnotherCompany"})
+
         # Create required type
         self.type1 = self.Type.create(
             {
@@ -57,8 +60,8 @@ class TestCronHoliday(TransactionCase):
                 "until_date": date(2026, 3, 5),
                 "interval_type": "days",
                 "interval": 1,
-                "start_time": datetime(2026, 3, 4, 10, 5),
-                "end_time": datetime(2026, 3, 4, 12, 5),
+                "start_time": datetime(2026, 3, 4, 10, 0),
+                "end_time": datetime(2026, 3, 4, 12, 0),
                 "tz": "Europe/Brussels",
                 "max_volunteer_nb": 6,
                 "type_id": self.type1.id,
@@ -72,8 +75,8 @@ class TestCronHoliday(TransactionCase):
                 "until_date": date(2026, 3, 3),
                 "interval_type": "days",
                 "interval": 1,
-                "start_time": datetime(2026, 3, 1, 10, 5),
-                "end_time": datetime(2026, 3, 1, 12, 5),
+                "start_time": datetime(2026, 3, 1, 10, 0),
+                "end_time": datetime(2026, 3, 1, 12, 0),
                 "tz": "Europe/Brussels",
                 "max_volunteer_nb": 6,
                 "type_id": self.type1.id,
@@ -83,11 +86,26 @@ class TestCronHoliday(TransactionCase):
             {
                 "name": "genOverlapHoliday",
                 "state": "confirmed",
-                "until_date": date(2026, 3, 5),
+                "until_date": date(2026, 3, 7),
                 "interval_type": "days",
                 "interval": 1,
-                "start_time": datetime(2026, 3, 1, 10, 5),
-                "end_time": datetime(2026, 3, 1, 12, 5),
+                "start_time": datetime(2026, 3, 1, 10, 0),
+                "end_time": datetime(2026, 3, 1, 12, 0),
+                "tz": "Europe/Brussels",
+                "max_volunteer_nb": 6,
+                "type_id": self.type1.id,
+            }
+        )
+
+        self.gen_long_shift = self.Generator.create(
+            {
+                "name": "genOverlapHoliday",
+                "state": "confirmed",
+                "until_date": date(2026, 3, 7),
+                "interval_type": "days",
+                "interval": 1,
+                "start_time": datetime(2026, 3, 1, 10, 0),
+                "end_time": datetime(2026, 3, 7, 10, 0),
                 "tz": "Europe/Brussels",
                 "max_volunteer_nb": 6,
                 "type_id": self.type1.id,
@@ -95,7 +113,6 @@ class TestCronHoliday(TransactionCase):
         )
 
         # Create holidays
-
         self.march_holiday = self.Holiday.create(
             {
                 "name": "marchHolidays",

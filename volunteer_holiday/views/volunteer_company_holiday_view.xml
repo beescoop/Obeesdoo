@@ -12,7 +12,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="arch" type="xml">
             <tree editable="bottom" delete="false">
                 <field name="name" />
-                <!-- <field name="company_id" options="{'no_create':True}" /> -->
+                <field name="company_id" options="{'no_create':True}" />
                 <field name="start_date" />
                 <field name="end_date" />
             </tree>

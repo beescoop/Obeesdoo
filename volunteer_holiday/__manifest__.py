@@ -13,7 +13,7 @@
     "application": False,
     "depends": ["base", "volunteer", "mail"],
     "data": [
-        # "data/cron.xml",
+        "data/cron.xml",
         "security/ir.model.access.csv",
         "views/volunteer_shift_generator_views.xml",
         "views/volunteer_company_holiday_view.xml",
