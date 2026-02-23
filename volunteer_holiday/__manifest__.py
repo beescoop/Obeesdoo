@@ -20,9 +20,4 @@
         "views/volunteer_menu.xml",
     ],
     "demo": [],
-    "assets": {
-        "web.assets_backend": [
-            "volunteer/static/src/scss/volunteer_shift.scss",
-        ],
-    },
 }

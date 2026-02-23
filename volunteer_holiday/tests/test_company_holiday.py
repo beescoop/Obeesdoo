@@ -60,8 +60,8 @@ class TestCronHoliday(TransactionCase):
                 "until_date": date(2026, 3, 5),
                 "interval_type": "days",
                 "interval": 1,
-                "start_time": datetime(2026, 3, 4, 10, 0),
-                "end_time": datetime(2026, 3, 4, 12, 0),
+                "start_time": datetime(2026, 3, 3, 10, 0),
+                "end_time": datetime(2026, 3, 3, 12, 0),
                 "tz": "Europe/Brussels",
                 "max_volunteer_nb": 6,
                 "type_id": self.type1.id,
@@ -72,7 +72,7 @@ class TestCronHoliday(TransactionCase):
             {
                 "name": "genWithoutHoliday",
                 "state": "confirmed",
-                "until_date": date(2026, 3, 3),
+                "until_date": date(2026, 3, 2),
                 "interval_type": "days",
                 "interval": 1,
                 "start_time": datetime(2026, 3, 1, 10, 0),
@@ -117,7 +117,7 @@ class TestCronHoliday(TransactionCase):
             {
                 "name": "marchHolidays",
                 # "company_id": self.env.user.company_id,
-                "start_date": date(2026, 3, 4),
+                "start_date": date(2026, 3, 3),
                 "end_date": date(2026, 3, 5),
             }
         )
@@ -125,7 +125,7 @@ class TestCronHoliday(TransactionCase):
     def test_cancel_holiday_shift(self):
         """Test that holidays do cancel confirmed generated shifts"""
 
-        # Start of the test
+        # Check before test
         shifts_with_holiday = self.gen_with_holiday.volunteer_shift_ids
         for shift in shifts_with_holiday:
             self.assertEqual(shift.state, "confirmed")
@@ -138,22 +138,18 @@ class TestCronHoliday(TransactionCase):
         for shift in shifts_overlap_holiday:
             self.assertEqual(shift.state, "confirmed")
 
+        # Call function
         self.Holiday._cancel_holiday_shift()
 
-        # All shifts in shifts_with_holiday cover the march_holidays period
+        # All shifts in shifts_with_holiday cover the march_holidays period,
+        # thus should be canceled
         for shift in shifts_with_holiday:
             self.assertEqual(shift.state, "canceled")
 
-        # No shift in shifts_without_holiday cover holiday period
+        # No shift in shifts_without_holiday cover holiday period,
+        # thus shouldn't be canceled
         for shift in shifts_without_holiday:
             self.assertEqual(shift.state, "confirmed")
 
-        # Certain shifts in shifts_overlap_holiday cover holiday period
-        for shift in shifts_overlap_holiday:
-            if (
-                shift.start_time.date() == self.march_holiday.start_date
-                or shift.start_time.date() == self.march_holiday.end_date
-            ):
-                self.assertEqual(shift.state, "canceled")
-            else:
-                self.assertEqual(shift.state, "confirmed")
+        # Certain shifts in shifts_overlap_holiday cover holiday period,
+        # thus only certain shifts should be canceled

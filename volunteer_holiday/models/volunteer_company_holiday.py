@@ -31,16 +31,20 @@ class VolunteerCompanyHoliday(models.Model):
 
     # Methods
 
+    # Retirer la limite de temps, regarder les shifts futurs
     def _cancel_holiday_shift(self, time_in_months=3):
         """Cancel shifts if they cover holiday period within time range"""
-        # Forcing admin because of clause in volunteer.volunteer_shift.py
+        # Forcing admin because of clause in volunteer.volunteer_shift.py,
+        # couldn't run the function otherwise.
+        # Retester avec sudo
         previous_env = self.env
         self.env = self.env(user=self.env.ref("base.user_admin"))
 
-        # Setting the time range we want to work with
+        # Setting the time range we want to work with, here 3 months.
         date_time_range = datetime.today() + relativedelta(months=time_in_months)
 
         confirmed_future_generated_shifts_in_range = self.env["volunteer.shift"].search(
+            # Here we'll have to include domain where holiday.company_id == shift.company_id
             [
                 ("start_time", ">=", datetime.today()),
                 ("start_time", "<=", date_time_range),
@@ -50,6 +54,7 @@ class VolunteerCompanyHoliday(models.Model):
         )
 
         # Getting list of shifts to be canceled in case of holidays through generator_id
+        # Faire la meme chose avec filtered, lambda rec:
         potential_shifts_to_cancel = []
         for shift in confirmed_future_generated_shifts_in_range:
             if not shift.generator_id.is_maintained_during_holiday:
