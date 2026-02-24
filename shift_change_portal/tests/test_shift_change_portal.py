@@ -115,6 +115,11 @@ class TestShiftChangePortalController(HttpCase):
             "shift_change_portal.enable_shift_change", 1
         )
 
+        # Set maximum change shift for testing
+        self.env["ir.config_parameter"].set_param(
+            "shift_change.same_shift_change_max", 1
+        )
+
     def _get_new_shift_selection(self, old_shift_id, user, password):
         """Post data to /my/shift/change/<old_shift_id>"""
         self.authenticate(user.login, password)
@@ -180,6 +185,28 @@ class TestShiftChangePortalController(HttpCase):
         response = self._post_shift_change(
             self.shift_1,
             self.shift_2,
+            self.worker_regular_1_portal,
+            self.worker_regular_1_portal_pwd,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("alert-danger", response.content.decode("utf-8"))
+
+    def test_shift_change_max(self):
+        """Test changing the same shift several times"""
+        self.assertEqual(self.shift_1.worker_id, self.worker_regular_1)
+        self.assertFalse(self.shift_3.worker_id)
+        self.assertFalse(self.shift_5.worker_id)
+        response = self._post_shift_change(
+            self.shift_1,
+            self.shift_3,
+            self.worker_regular_1_portal,
+            self.worker_regular_1_portal_pwd,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertNotIn("alert-danger", response.content.decode("utf-8"))
+        response = self._post_shift_change(
+            self.shift_3,
+            self.shift_5,
             self.worker_regular_1_portal,
             self.worker_regular_1_portal_pwd,
         )
