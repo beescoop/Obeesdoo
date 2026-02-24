@@ -28,14 +28,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                     <group name="group_top">
                         <field name="worker_id" />
                         <field name="create_date" />
+                        <field name="available_new_shift_ids" invisible="1" />
                         <group name="group_left">
-                            <field
-                                name="old_shift_id"
-                                domain="[('worker_id', '=', worker_id)]"
-                            />
+                            <field name="old_shift_id" />
                         </group>
                         <group name="group_right">
-                            <field name="new_shift_id" />
+                            <field
+                                name="new_shift_id"
+                                domain="[('id', 'in', available_new_shift_ids)]"
+                            />
                         </group>
                     </group>
                 </sheet>
