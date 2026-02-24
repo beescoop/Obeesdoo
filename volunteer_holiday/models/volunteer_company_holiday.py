@@ -22,7 +22,7 @@ class VolunteerCompanyHoliday(models.Model):
         comodel_name="res.company",
         string="Company",
         default=lambda self: self.env.user.company_id,
-        # required=True,
+        required=True,
     )
 
     start_date = fields.Date(required=True)
@@ -70,11 +70,15 @@ class VolunteerCompanyHoliday(models.Model):
         # Cancel shifts if they're not canceled yet and cover holiday period
         for shift in potential_shifts_to_cancel:
             for holiday in future_company_holidays_in_range:
-                if shift.state != "canceled" and self._shift_covers_holiday(
-                    shift.start_time,
-                    shift.end_time,
-                    holiday.start_date,
-                    holiday.end_date,
+                if (
+                    shift.state != "canceled"
+                    and shift.company_id == holiday.company_id
+                    and self._shift_covers_holiday(
+                        shift.start_time,
+                        shift.end_time,
+                        holiday.start_date,
+                        holiday.end_date,
+                    )
                 ):
                     shift.write(
                         {

@@ -28,6 +28,7 @@ class TestCronHoliday(TransactionCase):
 
         # Models
 
+        self.Company = self.env["res.company"]
         self.Holiday = self.env["volunteer.company.holiday"]
         self.Shift = self.env["volunteer.shift"]
         self.Type = self.env["volunteer.shift.type"]
@@ -37,9 +38,6 @@ class TestCronHoliday(TransactionCase):
 
         self.stage_confirmed = self.env.ref("volunteer.volunteer_shift_stage_confirmed")
         self.stage_canceled = self.env.ref("volunteer.volunteer_shift_stage_canceled")
-
-        # Create other company
-        self.anoter_company = self.env["res.company"].create({"name": "AnotherCompany"})
 
         # Create required type
         self.type1 = self.Type.create(
@@ -82,24 +80,10 @@ class TestCronHoliday(TransactionCase):
                 "type_id": self.type1.id,
             }
         )
-        self.gen_overlap_holiday = self.Generator.create(
-            {
-                "name": "genOverlapHoliday",
-                "state": "confirmed",
-                "until_date": date(2026, 3, 7),
-                "interval_type": "days",
-                "interval": 1,
-                "start_time": datetime(2026, 3, 1, 10, 0),
-                "end_time": datetime(2026, 3, 1, 12, 0),
-                "tz": "Europe/Brussels",
-                "max_volunteer_nb": 6,
-                "type_id": self.type1.id,
-            }
-        )
 
-        self.gen_long_shift = self.Generator.create(
+        self.gen_one_long_shift = self.Generator.create(
             {
-                "name": "genOverlapHoliday",
+                "name": "genOneLongShift",
                 "state": "confirmed",
                 "until_date": date(2026, 3, 7),
                 "interval_type": "days",
@@ -112,11 +96,25 @@ class TestCronHoliday(TransactionCase):
             }
         )
 
+        self.gen_overlap_holiday = self.Generator.create(
+            {
+                "name": "genOverlapHoliday",
+                "state": "confirmed",
+                "until_date": date(2026, 3, 6),
+                "interval_type": "days",
+                "interval": 1,
+                "start_time": datetime(2026, 3, 2, 10, 0),
+                "end_time": datetime(2026, 3, 2, 12, 0),
+                "tz": "Europe/Brussels",
+                "max_volunteer_nb": 6,
+                "type_id": self.type1.id,
+            }
+        )
+
         # Create holidays
         self.march_holiday = self.Holiday.create(
             {
                 "name": "marchHolidays",
-                # "company_id": self.env.user.company_id,
                 "start_date": date(2026, 3, 3),
                 "end_date": date(2026, 3, 5),
             }
@@ -134,6 +132,12 @@ class TestCronHoliday(TransactionCase):
         for shift in shifts_without_holiday:
             self.assertEqual(shift.state, "confirmed")
 
+        one_long_shift = self.gen_one_long_shift.volunteer_shift_ids
+        # print(f"Here is one_long_shift : {one_long_shift}")
+        for shift in one_long_shift:
+            self.assertEqual(shift.state, "confirmed")
+
+        # Here generator overlapping with holiday period
         shifts_overlap_holiday = self.gen_overlap_holiday.volunteer_shift_ids
         for shift in shifts_overlap_holiday:
             self.assertEqual(shift.state, "confirmed")
@@ -151,5 +155,45 @@ class TestCronHoliday(TransactionCase):
         for shift in shifts_without_holiday:
             self.assertEqual(shift.state, "confirmed")
 
-        # Certain shifts in shifts_overlap_holiday cover holiday period,
-        # thus only certain shifts should be canceled
+        # This long shift should be canceled entirely as it overlaps with holiday period
+        for shift in one_long_shift:
+            self.assertEqual(shift.state, "canceled")
+
+        # Overlapping shifts should be canceled, the others should stay
+        for shift in shifts_overlap_holiday:
+            # Holidays last from 4/3/26 to 5/3/2026
+            if shift.start_time == datetime(2026, 3, 2, 10, 0):
+                self.assertEqual(shift.state, "confirmed")
+            if shift.start_time == datetime(2026, 3, 3, 10, 0):
+                self.assertEqual(shift.state, "canceled")
+            if shift.start_time == datetime(2026, 3, 4, 10, 0):
+                self.assertEqual(shift.state, "canceled")
+            if shift.start_time == datetime(2026, 3, 5, 10, 0):
+                self.assertEqual(shift.state, "canceled")
+            if shift.start_time == datetime(2026, 3, 6, 10, 0):
+                # print(f"shift start time : {shift.start_time}, holiday end date :  {}")
+                self.assertEqual(shift.state, "confirmed")
+
+        # # Create other company
+        # self.anoter_company = self.Company.sudo().create({"name": "AnotherCompany"})
+
+        # # Create holidays of another company
+        # self.other_company_holiday = self.Holiday.sudo().create(
+        #     {
+        #         "name": "marchOtherHolidays",
+        #         "company_id": self.anoter_company.id,
+        #         "start_date": date(2026, 3, 6),
+        #         "end_date": date(2026, 3, 6),
+        #     }
+        # )
+
+        # # Call function again
+        # self.Holiday._cancel_holiday_shift()
+
+        # # Check that shift of March 6 wasn't canceled,
+        # # because March 6 holiday is registered for a different company
+        # # than March 6 shift
+        # march_6_shift = self.shifts_overlap_holiday.filtered(
+        #     lambda shift: shift.start_time == datetime(2026, 3, 6, 10, 0)
+        # )
+        # self.assertEqual(march_6_shift.state, "confirmed")
