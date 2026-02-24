@@ -4,6 +4,7 @@
 
 from datetime import datetime
 
+from odoo.exceptions import ValidationError
 from odoo.tests import common
 
 
@@ -96,9 +97,22 @@ class TestVolunteerShiftAttendance(common.TransactionCase):
                 "volunteer_id": self.volunteer_confirmed2.id,
                 "shift_id": self.standard_shift.id,
                 "registration_state": "confirmed",
-                "attendance_status_id": self.attendance_status_test.id,
+                # "attendance_status_id": self.attendance_status_test.id,
             }
         )
+
+    def test_01_compute_attendance_state(self):
+        """Test that attendance state is correctly computed"""
+        # First we're lacking one attendance status id for the test
+        self.assertEqual("waiting", self.standard_shift.attendance_state)
+
+        # Here we provided lacking attendance status id
+        self.participation_confirmed2.write(
+            {"attendance_status_id": self.attendance_status_test.id}
+        )
+        self.assertEqual("validated", self.standard_shift.attendance_state)
+
+        # Now checking that canceled participations aren't taken into account
         self.participation_canceled = self.Participation.create(
             {
                 "volunteer_id": self.volunteer_canceled.id,
@@ -106,11 +120,19 @@ class TestVolunteerShiftAttendance(common.TransactionCase):
                 "registration_state": "canceled",
             }
         )
-
-    def test_01_compute_attendance_state(self):
-        """Test that attendance state is correctly computed"""
-        self.assertEqual("waiting", self.standard_shift.attendance_state)
-        self.participation_canceled.attendance_status_id = (
-            self.attendance_status_test.id
-        )
         self.assertEqual("validated", self.standard_shift.attendance_state)
+
+    def test_02_no_attendance_status_for_canceled_participation(self):
+        """Test that it is not possible to enter attendance status value
+        for a  canceled participation"""
+        self.participation_canceled = self.Participation.create(
+            {
+                "volunteer_id": self.volunteer_canceled.id,
+                "shift_id": self.standard_shift.id,
+                "registration_state": "canceled",
+            }
+        )
+        with self.assertRaises(ValidationError):
+            self.participation_canceled.write(
+                {"attendance_status_id": self.attendance_status_test.id}
+            )

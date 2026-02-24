@@ -2,4 +2,4 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-from . import test_volunteer_shift_attendance
+from . import test_volunteer_attendance

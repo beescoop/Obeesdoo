@@ -19,9 +19,19 @@ class VolunteerShift(models.Model):
 
     @api.depends("volunteer_participation_ids.attendance_status_id")
     def _compute_attendance_state(self):
+        """Compute attendance state according to attendance status
+        in all confirmed participations"""
+        # Here a function using mapped and filtered doesn't work,
+        # as we need to compare a list where every participation is unique
+        # with a list where attendance status ids can repeat themselves or
+        # be absent. Therefore the use of loops to come out with a custom list
+        # and check none values as well as repeated values.
         for shift in self:
+            confirmed_participations = shift.volunteer_participation_ids.filtered(
+                lambda participation: participation.registration_state == "confirmed"
+            )
             all_attendance_status = []
-            for participation in shift.volunteer_participation_ids:
+            for participation in confirmed_participations:
                 all_attendance_status.append(participation.attendance_status_id.name)
             if all(all_attendance_status):
                 shift.attendance_state = "validated"
