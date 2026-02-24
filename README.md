@@ -49,6 +49,7 @@ addon | version | maintainers | summary
 [shift_portal](shift_portal/) | 16.0.1.1.0 |  | Show available shifts for regular and irregular workers on the website and let workers manage their shifts with an easy web interface.
 [shift_worker_status](shift_worker_status/) | 16.0.1.0.0 |  | Worker status management.
 [volunteer](volunteer/) | 16.0.0.6.0 | <a href='https://github.com/aydrpm'><img src='https://github.com/aydrpm.png' width='32' height='32' style='border-radius:50%;' alt='aydrpm'/></a> <a href='https://github.com/remytms'><img src='https://github.com/remytms.png' width='32' height='32' style='border-radius:50%;' alt='remytms'/></a> | Generate and manage shifts for volunteers.
+[volunteer_attendance](volunteer_attendance/) | 16.0.0.5.0 |  | Specify volunteers' type of absences
 
 [//]: # (end addons)
 
