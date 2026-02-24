@@ -1,0 +1,145 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* volunteer_attendance
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: volunteer_attendance
+#. odoo-python
+#: code:addons/volunteer_attendance/models/volunteer_shift_participation.py:0
+#, python-format
+msgid ""
+"An attendance status for a canceled participation will not be taken into "
+"account for the attendance state of the shift."
+msgstr ""
+
+#. module: volunteer_attendance
+#: model:ir.model.fields,field_description:volunteer_attendance.field_volunteer_shift_participation__attendance_date
+msgid "Attendance Date"
+msgstr ""
+
+#. module: volunteer_attendance
+#: model:ir.model.fields,field_description:volunteer_attendance.field_volunteer_shift__attendance_state
+msgid "Attendance State"
+msgstr ""
+
+#. module: volunteer_attendance
+#: model:ir.actions.act_window,name:volunteer_attendance.volunteer_shift_attendance_status_action
+#: model:ir.model.fields,field_description:volunteer_attendance.field_volunteer_shift_participation__attendance_status_id
+#: model:ir.ui.menu,name:volunteer_attendance.volunteer_shift_attendance_status_menu
+msgid "Attendance Status"
+msgstr ""
+
+#. module: volunteer_attendance
+#: model:ir.ui.menu,name:volunteer_attendance.volunteer_attendance_separator_menu
+msgid "Attendances"
+msgstr ""
+
+#. module: volunteer_attendance
+#: model:ir.model.constraint,message:volunteer_attendance.constraint_volunteer_shift_attendance_status_name_company_uniq
+msgid "Category with such name already exists in the company!"
+msgstr ""
+
+#. module: volunteer_attendance
+#: model:ir.model.fields,field_description:volunteer_attendance.field_volunteer_shift_attendance_status__company_id
+msgid "Company"
+msgstr ""
+
+#. module: volunteer_attendance
+#: model:ir.model.fields,field_description:volunteer_attendance.field_volunteer_shift_attendance_status__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: volunteer_attendance
+#: model:ir.model.fields,field_description:volunteer_attendance.field_volunteer_shift_attendance_status__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: volunteer_attendance
+#: model:ir.model.fields,field_description:volunteer_attendance.field_volunteer_shift_attendance_status__description
+msgid "Description"
+msgstr ""
+
+#. module: volunteer_attendance
+#: model:ir.model.fields,field_description:volunteer_attendance.field_volunteer_shift_attendance_status__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: volunteer_attendance
+#: model:ir.model.fields,field_description:volunteer_attendance.field_volunteer_shift_attendance_status__id
+msgid "ID"
+msgstr ""
+
+#. module: volunteer_attendance
+#: model:ir.model.fields,field_description:volunteer_attendance.field_volunteer_shift_attendance_status____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: volunteer_attendance
+#: model:ir.model.fields,field_description:volunteer_attendance.field_volunteer_shift_attendance_status__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: volunteer_attendance
+#: model:ir.model.fields,field_description:volunteer_attendance.field_volunteer_shift_attendance_status__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: volunteer_attendance
+#: model:ir.model.fields,field_description:volunteer_attendance.field_volunteer_shift_attendance_status__name
+msgid "Name"
+msgstr ""
+
+#. module: volunteer_attendance
+#: model:ir.model.constraint,message:volunteer_attendance.constraint_volunteer_shift_attendance_status_name_nocompany_uniq
+msgid "Shared category with such name already exists!"
+msgstr ""
+
+#. module: volunteer_attendance
+#: model:ir.model,name:volunteer_attendance.model_volunteer_shift
+msgid "Shift"
+msgstr ""
+
+#. module: volunteer_attendance
+#: model:ir.model,name:volunteer_attendance.model_volunteer_shift_participation
+msgid "Shift Participation"
+msgstr ""
+
+#. module: volunteer_attendance
+#: model:ir.model,name:volunteer_attendance.model_volunteer_shift_attendance_status
+msgid "Specify status of a volunteer's attendance to a shift"
+msgstr ""
+
+#. module: volunteer_attendance
+#: model:ir.model.fields.selection,name:volunteer_attendance.selection__volunteer_shift__attendance_state__validated
+msgid "Validated"
+msgstr ""
+
+#. module: volunteer_attendance
+#: model_terms:ir.ui.view,arch_db:volunteer_attendance.volunteer_shift_view_search_extend
+msgid "Validated Attendances"
+msgstr ""
+
+#. module: volunteer_attendance
+#: model:ir.model.fields,help:volunteer_attendance.field_volunteer_shift__attendance_state
+msgid "Validated if every volunteer is given an attendance status."
+msgstr ""
+
+#. module: volunteer_attendance
+#: model:ir.model.fields.selection,name:volunteer_attendance.selection__volunteer_shift__attendance_state__waiting
+msgid "Waiting"
+msgstr ""
+
+#. module: volunteer_attendance
+#: model_terms:ir.ui.view,arch_db:volunteer_attendance.volunteer_shift_view_search_extend
+msgid "Waiting Attendances"
+msgstr ""
