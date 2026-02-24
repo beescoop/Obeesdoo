@@ -28,6 +28,59 @@ class ShiftChange(models.Model):
         domain=[("worker_id", "=", False)],
         required=True,
     )
+    available_new_shift_ids = fields.Many2many(
+        "shift.shift",
+        string="Available New Shifts",
+        compute="_compute_available_new_shift_ids",
+    )
+
+    @api.onchange("worker_id")
+    def _on_change_worker_id(self):
+        hour_limit_change = self._get_hour_limit_change()
+        old_shift_domain = [
+            ("worker_id", "=", self.worker_id.id),
+            ("start_time", ">=", datetime.now() + timedelta(hours=hour_limit_change)),
+        ]
+        return {
+            "domain": {
+                "old_shift_id": old_shift_domain,
+            }
+        }
+
+    @api.depends("worker_id", "old_shift_id")
+    def _compute_available_new_shift_ids(self):
+        for rec in self:
+            next_templates = (
+                self.env["shift.shift"]
+                .search(
+                    [
+                        ("worker_id", "=", self.worker_id),
+                        ("start_time", ">=", datetime.now()),
+                    ]
+                )
+                .mapped("task_template_id")
+            )
+            rec.available_new_shift_ids = self.env["shift.shift"].search(
+                [
+                    ("worker_id", "=", False),
+                    ("start_time", ">=", datetime.now()),
+                    ("task_template_id", "not in", next_templates.ids),
+                ]
+            )
+
+    @api.model
+    def _get_hour_limit_change(self):
+        """Return value for hour_limit_change parameter"""
+        try:
+            hour_limit_change = int(
+                self.env["ir.config_parameter"].get_param(
+                    "shift_change.hour_limit_change"
+                )
+            )
+        except ValueError:
+            # fall back to a default value
+            hour_limit_change = 0
+        return hour_limit_change
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -71,15 +124,7 @@ class ShiftChange(models.Model):
     @api.model
     def _check_old_shift(self, old_shift_id, worker_id):
         """Check if old shift can be changed"""
-        try:
-            hour_limit_change = int(
-                self.env["ir.config_parameter"].get_param(
-                    "shift_change.hour_limit_change"
-                )
-            )
-        except ValueError:
-            # fall back to a default value
-            hour_limit_change = 0
+        hour_limit_change = self._get_hour_limit_change()
         if not old_shift_id.worker_id or old_shift_id.worker_id != worker_id:
             raise ValidationError(_("You can't change shift that your are not worker."))
         if old_shift_id.start_time <= datetime.now():
@@ -124,15 +169,7 @@ class ShiftChange(models.Model):
     @api.model
     def _check_new_shift(self, new_shift_id):
         """Check if shift can be changed or not"""
-        try:
-            hour_limit_change = int(
-                self.env["ir.config_parameter"].get_param(
-                    "shift_change.hour_limit_change"
-                )
-            )
-        except ValueError:
-            # fall back to a default value
-            hour_limit_change = 0
+        hour_limit_change = self._get_hour_limit_change()
         if new_shift_id.worker_id:
             raise ValidationError(
                 _("You can't subscribe to a shift assigned to someone else.")
