@@ -1,0 +1,90 @@
+# SPDX-FileCopyrightText: 2026 Coop IT Easy SC
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+from datetime import datetime, timedelta
+
+from odoo import api, fields, models
+
+
+class ShiftChangeCreateWizard(models.TransientModel):
+    _name = "shift.change.create.wizard"
+    _description = "Wizard to create a shift change"
+
+    worker_id = fields.Many2one(
+        "res.partner",
+        domain=[
+            ("is_worker", "=", True),
+            ("working_mode", "in", ("regular", "irregular")),
+            ("state", "not in", ("unsubscribed", "resigning")),
+        ],
+        required=True,
+    )
+    old_shift_id = fields.Many2one("shift.shift", string="Old shift", required=True)
+    new_shift_id = fields.Many2one(
+        "shift.shift",
+        string="New shift",
+        required=True,
+    )
+    available_new_shift_ids = fields.Many2many(
+        "shift.shift",
+        string="Available New Shifts",
+        compute="_compute_available_new_shift_ids",
+    )
+
+    @api.onchange("worker_id")
+    def _on_change_worker_id(self):
+        hour_limit_change = self._get_hour_limit_change()
+        old_shift_domain = [
+            ("worker_id", "=", self.worker_id.id),
+            ("start_time", ">=", datetime.now() + timedelta(hours=hour_limit_change)),
+        ]
+        return {
+            "domain": {
+                "old_shift_id": old_shift_domain,
+            }
+        }
+
+    @api.depends("worker_id", "old_shift_id")
+    def _compute_available_new_shift_ids(self):
+        for rec in self:
+            next_templates = (
+                self.env["shift.shift"]
+                .search(
+                    [
+                        ("worker_id", "=", self.worker_id.id),
+                        ("start_time", ">=", datetime.now()),
+                    ]
+                )
+                .mapped("task_template_id")
+            )
+            rec.available_new_shift_ids = self.env["shift.shift"].search(
+                [
+                    ("worker_id", "=", False),
+                    ("start_time", ">=", datetime.now()),
+                    ("task_template_id", "not in", next_templates.ids),
+                ]
+            )
+
+    @api.model
+    def _get_hour_limit_change(self):
+        """Return value for hour_limit_change parameter"""
+        try:
+            hour_limit_change = int(
+                self.env["ir.config_parameter"].get_param(
+                    "shift_change.hour_limit_change"
+                )
+            )
+        except ValueError:
+            # fall back to a default value
+            hour_limit_change = 0
+        return hour_limit_change
+
+    def action_confirm(self):
+        self.env["shift.change"].create(
+            {
+                "worker_id": self.worker_id.id,
+                "old_shift_id": self.old_shift_id.id,
+                "new_shift_id": self.new_shift_id,
+            }
+        )
