@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2026 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+
+    <record model="ir.ui.view" id="shift_change_create_wizard_form">
+        <field name="name">Shift Change Create Wizard Form</field>
+        <field name="model">shift.change.create.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Create Shift Change">
+                <sheet>
+                    <group name="group_top">
+                        <group name="group_left">
+                            <field name="worker_id" />
+                        </group>
+                        <group name="group_right">
+                        </group>
+                    </group>
+                    <group name="group_bottom">
+                        <field name="available_new_shift_ids" invisible="1" />
+                        <group name="group_left">
+                            <field
+                                name="old_shift_id"
+                                context="{
+                                    'search_default_gb_day': 1,
+                                    'search_default_template': 1,
+                                }"
+                            />
+                        </group>
+                        <group name="group_right">
+                            <field
+                                name="new_shift_id"
+                                domain="[('id', 'in', available_new_shift_ids)]"
+                                context="{
+                                    'search_default_template': 1,
+                                    'search_default_gb_day': 1,
+                                }"
+                            />
+                        </group>
+                    </group>
+                    <footer>
+                        <button
+                            string="Confirm"
+                            type="object"
+                            name="action_confirm"
+                            class="btn-primary"
+                        />
+                        <button
+                            string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"
+                        />
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

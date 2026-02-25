@@ -11,9 +11,11 @@ from odoo.exceptions import ValidationError
 class ShiftChange(models.Model):
     _name = "shift.change"
     _description = "A model to track a change of a shift"
+    _order = "create_date desc"
 
     worker_id = fields.Many2one(
         "res.partner",
+        string="Worker",
         domain=[
             ("is_worker", "=", True),
             ("working_mode", "in", ("regular", "irregular")),
@@ -25,48 +27,19 @@ class ShiftChange(models.Model):
     new_shift_id = fields.Many2one(
         "shift.shift",
         string="New shift",
-        domain=[("worker_id", "=", False)],
         required=True,
     )
-    available_new_shift_ids = fields.Many2many(
-        "shift.shift",
-        string="Available New Shifts",
-        compute="_compute_available_new_shift_ids",
-    )
 
-    @api.onchange("worker_id")
-    def _on_change_worker_id(self):
-        hour_limit_change = self._get_hour_limit_change()
-        old_shift_domain = [
-            ("worker_id", "=", self.worker_id.id),
-            ("start_time", ">=", datetime.now() + timedelta(hours=hour_limit_change)),
-        ]
-        return {
-            "domain": {
-                "old_shift_id": old_shift_domain,
-            }
-        }
-
-    @api.depends("worker_id", "old_shift_id")
-    def _compute_available_new_shift_ids(self):
+    def name_get(self):
+        res = []
         for rec in self:
-            next_templates = (
-                self.env["shift.shift"]
-                .search(
-                    [
-                        ("worker_id", "=", self.worker_id),
-                        ("start_time", ">=", datetime.now()),
-                    ]
-                )
-                .mapped("task_template_id")
+            name = "{} - {} -> {}".format(
+                rec.worker_id.name,
+                rec.old_shift_id.start_time,
+                rec.new_shift_id.start_time,
             )
-            rec.available_new_shift_ids = self.env["shift.shift"].search(
-                [
-                    ("worker_id", "=", False),
-                    ("start_time", ">=", datetime.now()),
-                    ("task_template_id", "not in", next_templates.ids),
-                ]
-            )
+            res.append((rec.id, name))
+        return res
 
     @api.model
     def _get_hour_limit_change(self):

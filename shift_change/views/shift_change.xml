@@ -6,41 +6,85 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <odoo>
 
-    <record model="ir.ui.view" id="shift_swap_underpopulated_view_tree">
-        <field name="name">Shift Change</field>
+    <record model="ir.ui.view" id="shift_change_view_tree">
+        <field name="name">Shift Change Tree</field>
         <field name="model">shift.change</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree create="false">
                 <field name="worker_id" />
                 <field name="old_shift_id" />
                 <field name="new_shift_id" />
+                <field name="create_date" />
             </tree>
         </field>
     </record>
 
 
-    <record model="ir.ui.view" id="shift_swap_view">
-        <field name="name">Shift Change</field>
+    <record model="ir.ui.view" id="shift_change_view_form">
+        <field name="name">Shift Change Form</field>
         <field name="model">shift.change</field>
         <field name="arch" type="xml">
-            <form>
+            <form create="false">
                 <sheet>
                     <group name="group_top">
-                        <field name="worker_id" />
-                        <field name="create_date" />
-                        <field name="available_new_shift_ids" invisible="1" />
                         <group name="group_left">
-                            <field name="old_shift_id" />
+                            <field name="worker_id" />
+                        </group>
+                        <group name="group_right">
+                            <field name="create_date" />
+                        </group>
+                    </group>
+                    <group name="group_bottom">
+                        <group name="group_left">
+                            <field
+                                name="old_shift_id"
+                                context="{
+                                    'search_default_gb_day': 1,
+                                    'search_default_template': 1,
+                                }"
+                            />
                         </group>
                         <group name="group_right">
                             <field
                                 name="new_shift_id"
-                                domain="[('id', 'in', available_new_shift_ids)]"
+                                context="{
+                                    'search_default_gb_day': 1,
+                                    'search_default_template': 1,
+                                }"
                             />
                         </group>
                     </group>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="shift_change_view_search">
+        <field name="name">Shift Change Search</field>
+        <field name="model">shift.change</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="worker_id" />
+                <field name="old_shift_id" />
+                <field name="new_shift_id" />
+                <filter
+                    string="My Changes"
+                    name="my_changes"
+                    domain="[('worker_id.user_ids', 'in', uid)]"
+                />
+                <group expand="1" string="Group By">
+                    <filter
+                        string="Worker"
+                        name="gb_worker"
+                        context="{'group_by' : 'worker_id'}"
+                    />
+                    <filter
+                        string="Create Date"
+                        name="gb_create_date"
+                        context="{'group_by' : 'create_date'}"
+                    />
+                </group>
+            </search>
         </field>
     </record>
 </odoo>
