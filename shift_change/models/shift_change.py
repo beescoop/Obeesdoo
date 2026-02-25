@@ -55,6 +55,27 @@ class ShiftChange(models.Model):
             hour_limit_change = 0
         return hour_limit_change
 
+    @api.model
+    def _get_available_new_shift_ids(self, worker_id):
+        """List new shifts available for the given worker"""
+        next_templates = (
+            self.env["shift.shift"]
+            .search(
+                [
+                    ("worker_id", "=", worker_id.id),
+                    ("start_time", ">=", datetime.now()),
+                ]
+            )
+            .mapped("task_template_id")
+        )
+        return self.env["shift.shift"].search(
+            [
+                ("worker_id", "=", False),
+                ("start_time", ">=", datetime.now()),
+                ("task_template_id", "not in", next_templates.ids),
+            ]
+        )
+
     @api.model_create_multi
     def create(self, vals_list):
         """
@@ -154,4 +175,8 @@ class ShiftChange(models.Model):
         ):
             raise ValidationError(
                 _("You can't subscribe to a shift so close in the futur.")
+            )
+        if new_shift_id not in self._get_available_new_shift_ids(self.worker_id):
+            raise ValidationError(
+                _("You can't subscribe to this shift, it’s not available for you.")
             )

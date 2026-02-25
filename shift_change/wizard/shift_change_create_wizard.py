@@ -48,23 +48,9 @@ class ShiftChangeCreateWizard(models.TransientModel):
     @api.depends("worker_id", "old_shift_id")
     def _compute_available_new_shift_ids(self):
         for rec in self:
-            next_templates = (
-                self.env["shift.shift"]
-                .search(
-                    [
-                        ("worker_id", "=", self.worker_id.id),
-                        ("start_time", ">=", datetime.now()),
-                    ]
-                )
-                .mapped("task_template_id")
-            )
-            rec.available_new_shift_ids = self.env["shift.shift"].search(
-                [
-                    ("worker_id", "=", False),
-                    ("start_time", ">=", datetime.now()),
-                    ("task_template_id", "not in", next_templates.ids),
-                ]
-            )
+            rec.available_new_shift_ids = self.env[
+                "shift.change"
+            ]._get_available_new_shift_ids(rec.worker_id)
 
     @api.model
     def _get_hour_limit_change(self):

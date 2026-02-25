@@ -88,6 +88,25 @@ class TestShiftChange(TransactionCase):
                 "worker_id": False,
             }
         )
+        self.shift_7 = self.shift_model.create(
+            {
+                "name": "shift_7",
+                "task_template_id": self.task_template_1.id,
+                "start_time": self.now + timedelta(days=4),
+                "end_time": self.now + timedelta(days=4),
+                "is_regular": True,
+                "worker_id": self.worker_regular_1.id,
+            }
+        )
+        self.shift_7_bis = self.shift_model.create(
+            {
+                "name": "shift_7_bis",
+                "task_template_id": self.task_template_1.id,
+                "start_time": self.now + timedelta(days=4),
+                "end_time": self.now + timedelta(days=4),
+                "worker_id": False,
+            }
+        )
 
         # Set context to avoid shift generation in the past
         self.env.context = dict(self.env.context, visualize_date=date.today())
@@ -226,5 +245,19 @@ class TestShiftChange(TransactionCase):
                     "worker_id": self.worker_regular_1.id,
                     "old_shift_id": self.shift_4.id,
                     "new_shift_id": self.shift_3.id,
+                }
+            )
+
+    def test_new_shift_not_available(self):
+        """Test that fails if worker has already subscribed to a sibling
+        of new_shift"""
+        self.assertEqual(self.shift_1.worker_id, self.worker_regular_1)
+        self.assertFalse(self.shift_7_bis.worker_id)
+        with self.assertRaises(ValidationError):
+            self.shift_change_model.create(
+                {
+                    "worker_id": self.worker_regular_1.id,
+                    "old_shift_id": self.shift_1.id,
+                    "new_shift_id": self.shift_7_bis.id,
                 }
             )
