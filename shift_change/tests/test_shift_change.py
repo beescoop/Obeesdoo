@@ -97,6 +97,26 @@ class TestShiftChange(TransactionCase):
             "shift_change.same_shift_change_max", 1
         )
 
+    def test_get_available_new_shift_ids(self):
+        """Test available new shift"""
+        available_shifts = self.shift_change_model._get_available_new_shift_ids(
+            self.worker_regular_1
+        )
+        expected_shifts = self.shift_3 | self.shift_5 | self.shift_6
+        self.assertEqual(
+            available_shifts,
+            expected_shifts,
+        )
+        self.shift_1.write({"worker_id": False, "is_regular": False})
+        available_shifts = self.shift_change_model._get_available_new_shift_ids(
+            self.worker_regular_1
+        )
+        expected_shifts = self.shift_1 | self.shift_3 | self.shift_5 | self.shift_6
+        self.assertEqual(
+            available_shifts,
+            expected_shifts,
+        )
+
     def test_shift_change(self):
         """Test change a shift"""
         self.assertEqual(self.shift_1.worker_id, self.worker_regular_1)
@@ -262,3 +282,30 @@ class TestShiftChange(TransactionCase):
                     "new_shift_id": self.shift_7_bis.id,
                 }
             )
+
+    def test_shift_change_loop(self):
+        """Test change a shift"""
+        # Set maximum change shift for testing
+        self.env["ir.config_parameter"].set_param(
+            "shift_change.same_shift_change_max", 3
+        )
+        self.assertEqual(self.shift_1.worker_id, self.worker_regular_1)
+        self.assertFalse(self.shift_3.worker_id)
+        self.shift_change_model.create(
+            {
+                "worker_id": self.worker_regular_1.id,
+                "old_shift_id": self.shift_1.id,
+                "new_shift_id": self.shift_3.id,
+            }
+        )
+        self.assertFalse(self.shift_1.worker_id)
+        self.assertEqual(self.shift_3.worker_id, self.worker_regular_1)
+        self.shift_change_model.create(
+            {
+                "worker_id": self.worker_regular_1.id,
+                "old_shift_id": self.shift_3.id,
+                "new_shift_id": self.shift_1.id,
+            }
+        )
+        self.assertEqual(self.shift_1.worker_id, self.worker_regular_1)
+        self.assertFalse(self.shift_3.worker_id)

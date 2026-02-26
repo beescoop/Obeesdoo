@@ -139,17 +139,20 @@ class ShiftChange(models.Model):
         if same_shift_change_max:
             same_shift_change_nb = 0
             tmp_old_shift_id = old_shift_id
-            while tmp_old_shift_id:
+            previous_changes = self.env["shift.change"]
+            while tmp_old_shift_id and same_shift_change_nb <= same_shift_change_max:
                 change = self.search(
                     [
                         ("new_shift_id", "=", tmp_old_shift_id.id),
                         ("worker_id", "=", worker_id.id),
+                        ("id", "not in", previous_changes.ids),
                     ],
                     limit=1,
                 )
                 if change:
                     same_shift_change_nb += 1
                     tmp_old_shift_id = change.old_shift_id
+                    previous_changes |= change
                 else:
                     tmp_old_shift_id = None
             if same_shift_change_nb >= same_shift_change_max:
