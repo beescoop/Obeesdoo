@@ -17,6 +17,13 @@ from .test_volunteer_generator_subscription_common import (
 class TestVolunteerShiftRecurrentSubscriptionWritePermissions(
     TestVolunteerGeneratorSubscriptionCommon
 ):
+    """Test date-based write permissions on shift recurrent subscription.
+
+    Note: Tests runs with admin role (defined in setup), admins (and managers)
+    are allowed to modify subscriptions with date-based restrictions,
+    except on canceled generators.
+    """
+
     def setUp(self):
         super().setUp()
 
