@@ -14,6 +14,27 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: volunteer
+#. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_generator.py:0
+#, python-format
+msgid ""
+"\n"
+"Contact your administrator to make this change by applying the requested procedure."
+msgstr ""
+
+#. module: volunteer
+#. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_generator.py:0
+#, python-format
+msgid ""
+"\n"
+"To modify generator:\n"
+"- Duplicate the generator and set the start time to today (or later)\n"
+"- Apply the changes and re-add old subscriptions if needed\n"
+"- Confirm the new generator, then cancel the original one.\n"
+msgstr ""
+
+#. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__supplier_invoice_count
 msgid "# Vendor Bills"
 msgstr ""
@@ -1134,10 +1155,33 @@ msgstr ""
 
 #. module: volunteer
 #. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_generator.py:0
+#, python-format
+msgid "It is not possible to change the state of a canceled generator."
+msgstr ""
+
+#. module: volunteer
+#. odoo-python
 #: code:addons/volunteer/models/volunteer_shift_recurrent_subscription.py:0
 #, python-format
 msgid ""
 "It is not possible to change the volunteer of an existing subscription."
+msgstr ""
+
+#. module: volunteer
+#. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_generator.py:0
+#, python-format
+msgid "It is not possible to modify a canceled generator."
+msgstr ""
+
+#. module: volunteer
+#. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_generator.py:0
+#, python-format
+msgid ""
+"It is not possible to modify fields or manage subscriptions when canceling a"
+" generator."
 msgstr ""
 
 #. module: volunteer
@@ -1331,6 +1375,15 @@ msgid "Mobile"
 msgstr ""
 
 #. module: volunteer
+#. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_generator.py:0
+#, python-format
+msgid ""
+"Modification of fields of a generators in confirmed state needs to be done "
+"by a specific procedure."
+msgstr ""
+
+#. module: volunteer
 #: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_recurrent_generator__interval_type__months
 msgid "Months"
 msgstr ""
@@ -1519,6 +1572,20 @@ msgstr ""
 #. module: volunteer
 #: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_recurrent_subscription__temporal_state__ongoing
 msgid "Ongoing"
+msgstr ""
+
+#. module: volunteer
+#. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_generator.py:0
+#, python-format
+msgid "Only admins can change the state of a generator"
+msgstr ""
+
+#. module: volunteer
+#. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_generator.py:0
+#, python-format
+msgid "Only admins can modify generators in draft."
 msgstr ""
 
 #. module: volunteer
@@ -1728,6 +1795,13 @@ msgstr ""
 #. module: volunteer
 #: model:ir.model.fields,help:volunteer.field_volunteer_volunteer__website_id
 msgid "Restrict publishing to this website."
+msgstr ""
+
+#. module: volunteer
+#. odoo-python
+#: code:addons/volunteer/models/volunteer_shift_recurrent_generator.py:0
+#, python-format
+msgid "Returning to draft state is not allowed."
 msgstr ""
 
 #. module: volunteer
