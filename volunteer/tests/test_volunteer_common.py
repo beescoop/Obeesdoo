@@ -29,6 +29,7 @@ class TestVolunteerCommon(common.TransactionCase):
         # Models
         self.Shift = self.env["volunteer.shift"]
         self.Type = self.env["volunteer.shift.type"]
+        self.Category = self.env["volunteer.shift.category"]
         self.Volunteer = self.env["volunteer.volunteer"]
         self.Participation = self.env["volunteer.shift.participation"]
         self.Generator = self.env["volunteer.shift.recurrent.generator"]
@@ -60,6 +61,14 @@ class TestVolunteerCommon(common.TransactionCase):
             {
                 "name": "TypeTest",
                 "description": "Type for autotests",
+            }
+        )
+
+        # Create category
+        self.category_test = self.Category.create(
+            {
+                "name": "CategoryTest",
+                "description": "Category for autotests",
             }
         )
 

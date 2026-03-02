@@ -7,7 +7,7 @@ from datetime import timedelta
 from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tools.translate import _
 
 
@@ -124,6 +124,7 @@ class VolunteerShiftRecurrentGenerator(models.Model):
 
     def write(self, vals):
         old_states = {generator.id: generator.state for generator in self}
+        self._check_write_permissions_based_on_state(vals, old_states)
         res = super().write(vals)
         for generator in self:
             previous_state = old_states[generator.id]
@@ -135,6 +136,92 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         return res
 
     # Methods
+
+    def _check_write_permissions_based_on_state(self, vals, old_states):
+        """Check write permissions based on the generator state.
+
+        Note: access for user groups is managed by access rules
+        """
+        # Bypass checks during installation for demo data loading
+        if self.env.context.get("install_mode"):
+            return True
+        is_admin = self.env.user.has_group("volunteer.volunteer_group_admin")
+        if "state" in vals and not is_admin:
+            raise AccessError(_("Only admins can change the state of a generator"))
+        is_manager = self.env.user.has_group("volunteer.volunteer_group_manager")
+        for generator in self:
+            previous_state = old_states[generator.id]
+            target_state = vals.get("state") or generator.state
+            is_state_changing = previous_state != target_state
+            is_write_or_create_sub = bool(vals.get("volunteer_subscription_ids"))
+            is_only_managing_sub = is_write_or_create_sub and len(vals) == 1
+            if not is_state_changing:
+                if target_state == "draft":
+                    # Only admins can modify fields, managers can only manage subscriptions
+                    if not is_admin and not (is_manager and is_only_managing_sub):
+                        raise AccessError(
+                            _("Only admins can modify generators in draft.")
+                        )
+                elif target_state == "confirmed":
+                    # Restrict field changes for all groups (shifts already generated)
+                    # but subscription management remains allowed for
+                    # managers and admins
+                    if not (is_manager or is_admin) or not is_only_managing_sub:
+                        procedure_msg = (
+                            generator._get_message_procedure_to_modify_generator_fields()
+                        )
+                        raise UserError(
+                            _(
+                                "Modification of fields of a generators in confirmed state "
+                                "needs to be done by a specific procedure."
+                            )
+                            + procedure_msg
+                        )
+                elif target_state == "canceled":
+                    # Change on canceled state is not allowed for all groups
+                    raise UserError(
+                        _("It is not possible to modify a canceled generator.")
+                    )
+            else:  # State is changing
+                # Unauthorize return to state draft for all groups
+                if previous_state != "draft" and target_state == "draft":
+                    raise UserError(_("Returning to draft state is not allowed."))
+                # Unauthorize return from canceled state
+                if previous_state == "canceled" and target_state != "canceled":
+                    raise UserError(
+                        _(
+                            "It is not possible to change the state of a canceled generator."
+                        )
+                    )
+                # Admin is allowed to change state to canceled
+                # but not modify other fields or managed subscriptions at the same time
+                if (
+                    previous_state != "canceled" and target_state == "canceled"
+                ) and len(vals) != 1:
+                    raise UserError(
+                        _(
+                            "It is not possible to modify fields or manage subscriptions "
+                            "when canceling a generator."
+                        )
+                    )
+        return True
+
+    def _get_message_procedure_to_modify_generator_fields(self):
+        """Get the message explaining the procedure to modify restricted fields
+        or indicate to contact the administrator"""
+        if self.env.user.has_group("volunteer.volunteer_group_admin"):
+            custom_message = _(
+                "\nTo modify generator:\n"
+                "- Duplicate the generator and set the start time to today (or later)\n"
+                "- Apply the changes and re-add old subscriptions if needed\n"
+                "- Confirm the new generator, then cancel the original one.\n"
+            )
+        else:
+            custom_message = _(
+                "\nContact your administrator to make this change by "
+                "applying the requested procedure."
+            )
+        return custom_message
 
     def _get_interval_delta(self):
         """Get the interval delta for the generator"""
@@ -249,8 +336,7 @@ class VolunteerShiftRecurrentGenerator(models.Model):
             {"stage_id": self.env.ref("volunteer.volunteer_shift_stage_canceled").id}
         )
         # Set until_date to today using super to avoid write recursion
-        # (future validations will be added to write method
-        # and need to be bypassed)
+        # and bypass write permission check to allow fields modification on canceled generator
         res = super(VolunteerShiftRecurrentGenerator, self).write({"until_date": today})
         return res
 

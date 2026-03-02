@@ -95,7 +95,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                             name="page_subscription_active"
                             string="Active Subscriptions"
                         >
-                            <field name="volunteer_subscription_ids">
+                            <field
+                                name="volunteer_subscription_ids"
+                                attrs="{'readonly': [('state', '=', 'canceled')]}"
+                            >
                                 <tree editable="bottom" delete="false">
                                     <field
                                         name="volunteer_id"
@@ -117,6 +120,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                         class="btn-danger float-end"
                                         confirm="Are you sure you want to cancel this subscription?"
                                         attrs="{'invisible': [('temporal_state', '=', 'finished')]}"
+                                        groups="volunteer.volunteer_group_manager,volunteer.volunteer_group_admin"
                                     />
                                 </tree>
                             </field>
