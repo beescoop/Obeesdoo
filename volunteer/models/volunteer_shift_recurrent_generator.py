@@ -336,8 +336,7 @@ class VolunteerShiftRecurrentGenerator(models.Model):
             {"stage_id": self.env.ref("volunteer.volunteer_shift_stage_canceled").id}
         )
         # Set until_date to today using super to avoid write recursion
-        # (future validations will be added to write method
-        # and need to be bypassed)
+        # and bypass write permission check to allow fields modification on canceled generator
         res = super(VolunteerShiftRecurrentGenerator, self).write({"until_date": today})
         return res
 
