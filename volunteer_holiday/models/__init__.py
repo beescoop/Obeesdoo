@@ -4,3 +4,6 @@
 
 from . import volunteer_company_holiday
 from . import volunteer_shift_recurrent_generator
+from . import volunteer_volunteer
+from . import volunteer_volunteer_leave_type
+from . import volunteer_volunteer_leave

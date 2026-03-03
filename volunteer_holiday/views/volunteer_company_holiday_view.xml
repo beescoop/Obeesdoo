@@ -19,7 +19,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </field>
     </record>
 
-    <record id="action_volunteer_company_holiday" model="ir.actions.act_window">
+    <record id="volunteer_company_holiday_action" model="ir.actions.act_window">
         <field name="name">Company Holiday</field>
         <field name="res_model">volunteer.company.holiday</field>
         <field name="view_mode">tree</field>

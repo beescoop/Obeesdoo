@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <record id="volunteer_volunteer_view_form_extend" model="ir.ui.view">
+        <field name="name">Volunteer: Add page Vacation</field>
+        <field name="model">volunteer.volunteer</field>
+        <field name="inherit_id" ref="volunteer.volunteer_volunteer_view_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//page[field[@name='shift_participation_ids']]"
+                position="after"
+            >
+                <page name="page_leaves" string="Leaves">
+                    <field name="volunteer_leave_ids">
+                        <tree editable="top">
+                            <field name="type_id" options="{'no_create':True}" />
+                            <field name="start_date" />
+                            <field name="end_date" />
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

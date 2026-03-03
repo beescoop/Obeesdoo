@@ -17,7 +17,9 @@
         "security/ir.model.access.csv",
         "views/volunteer_shift_generator_views.xml",
         "views/volunteer_company_holiday_view.xml",
+        "views/volunteer_volunteer_view.xml",
+        "views/volunteer_volunteer_leave_type_view.xml",
+        "views/volunteer_volunteer_leave_view.xml",
         "views/volunteer_menu.xml",
     ],
-    "demo": [],
 }
