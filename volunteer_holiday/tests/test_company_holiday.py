@@ -55,6 +55,7 @@ class TestCronHoliday(TransactionCase):
             {
                 "name": "GenWithHoliday",
                 "state": "confirmed",
+                "is_maintained_during_holiday": False,
                 "until_date": date(2026, 3, 5),
                 "interval_type": "days",
                 "interval": 1,
@@ -86,6 +87,7 @@ class TestCronHoliday(TransactionCase):
             {
                 "name": "genWithoutHoliday",
                 "state": "confirmed",
+                "is_maintained_during_holiday": False,
                 "until_date": date(2026, 3, 2),
                 "interval_type": "days",
                 "interval": 1,
@@ -101,6 +103,7 @@ class TestCronHoliday(TransactionCase):
             {
                 "name": "genOneLongShift",
                 "state": "confirmed",
+                "is_maintained_during_holiday": False,
                 "until_date": date(2026, 3, 8),
                 "interval_type": "months",
                 "interval": 1,
@@ -116,6 +119,7 @@ class TestCronHoliday(TransactionCase):
             {
                 "name": "genOverlapHoliday",
                 "state": "confirmed",
+                "is_maintained_during_holiday": False,
                 "until_date": date(2026, 3, 6),
                 "interval_type": "days",
                 "interval": 1,
