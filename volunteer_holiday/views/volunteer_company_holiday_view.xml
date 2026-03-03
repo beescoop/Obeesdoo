@@ -10,7 +10,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="name">Holiday List</field>
         <field name="model">volunteer.company.holiday</field>
         <field name="arch" type="xml">
-            <tree editable="bottom" delete="false">
+            <tree editable="bottom">
                 <field name="name" />
                 <field name="company_id" options="{'no_create':True}" />
                 <field name="start_date" />
@@ -24,4 +24,5 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="res_model">volunteer.company.holiday</field>
         <field name="view_mode">tree</field>
     </record>
+
 </odoo>

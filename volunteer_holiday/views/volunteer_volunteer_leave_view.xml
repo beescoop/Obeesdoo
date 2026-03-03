@@ -9,7 +9,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="name">Volunteer Leaves List</field>
         <field name="model">volunteer.volunteer.leave</field>
         <field name="arch" type="xml">
-            <tree editable="bottom" delete="false">
+            <tree editable="bottom">
                 <field name="volunteer_id" />
                 <field name="type_id" />
                 <field name="start_date" />

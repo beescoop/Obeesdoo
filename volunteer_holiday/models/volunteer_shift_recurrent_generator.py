@@ -8,4 +8,6 @@ from odoo import fields, models
 class VolunteerShiftRecurrentGenerator(models.Model):
     _inherit = "volunteer.shift.recurrent.generator"
 
-    is_maintained_during_holiday = fields.Boolean("Maintain During Holidays")
+    is_maintained_during_holiday = fields.Boolean(
+        "Maintain During Holidays", tracking=True
+    )
