@@ -4,9 +4,12 @@
 
 from datetime import date, datetime
 
+from freezegun import freeze_time
+
 from odoo.tests.common import TransactionCase
 
 
+@freeze_time("2026-01-01 10:00:00")
 class TestCronHoliday(TransactionCase):
     def setUp(self, *args, **kwargs):
         super().setUp(*args, **kwargs)
@@ -217,7 +220,7 @@ class TestCronHoliday(TransactionCase):
         self.Holiday._cancel_holiday_shift()
 
         # Check that shift of March 6 wasn't canceled,
-        # because March 6 holiday is registered for a different company
+        # as March 6 holiday is registered for a different company
         # than March 6 shift
         march_6_shift = shifts_overlap_holiday.filtered(
             lambda shift: shift.start_time == datetime(2026, 3, 6, 10, 0)
