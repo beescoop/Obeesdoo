@@ -14,6 +14,7 @@
     "depends": ["base", "volunteer", "mail"],
     "data": [
         "security/ir.model.access.csv",
+        "security/volunteer_security.xml",
         "views/volunteer_shift_attendance_status_views.xml",
         "views/volunteer_menu.xml",
         "views/volunteer_shift_views.xml",
@@ -21,9 +22,4 @@
         "views/volunteer_shift_participation_views.xml",
     ],
     "demo": [],
-    "assets": {
-        "web.assets_backend": [
-            "volunteer/static/src/scss/volunteer_shift.scss",
-        ],
-    },
 }

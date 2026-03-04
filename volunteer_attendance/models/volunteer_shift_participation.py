@@ -35,8 +35,8 @@ class VolunteerShiftParticipation(models.Model):
 
     # Methods
 
-    @api.depends("attendance_status_id")
     def write(self, vals):
         """Set attendance status modification date to now at modification"""
-        vals["attendance_date"] = fields.Datetime.now()
-        return super().write(vals)
+        if "attendance_status_id" in vals:
+            vals["attendance_date"] = fields.Datetime.now()
+            return super().write(vals)
