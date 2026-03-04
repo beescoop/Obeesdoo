@@ -6,7 +6,7 @@ from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class VolunteerCompanyHoliday(models.Model):
@@ -87,6 +87,7 @@ class VolunteerCompanyHoliday(models.Model):
                         }
                     )
 
+    @api.model
     def _shift_covers_holiday(
         self, shift_start_time, shift_end_time, holiday_start_date, holiday_end_date
     ):
@@ -94,7 +95,7 @@ class VolunteerCompanyHoliday(models.Model):
         shift_start_date = shift_start_time.date()
         shift_end_date = shift_end_time.date()
 
-        if (
+        return (
             (
                 shift_start_date >= holiday_start_date
                 and shift_start_date <= holiday_end_date
@@ -107,5 +108,4 @@ class VolunteerCompanyHoliday(models.Model):
                 shift_start_date <= holiday_start_date
                 and shift_end_date >= holiday_end_date
             )
-        ):
-            return True
+        )
