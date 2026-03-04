@@ -15,6 +15,7 @@
     "data": [
         "data/cron.xml",
         "security/ir.model.access.csv",
+        "security/volunteer_security.xml",
         "views/volunteer_shift_generator_views.xml",
         "views/volunteer_company_holiday_view.xml",
         "views/volunteer_volunteer_view.xml",

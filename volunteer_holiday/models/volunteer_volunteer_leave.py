@@ -16,12 +16,19 @@ class VolunteerVolunteerLeave(models.Model):
         string="Volunteer",
         required=True,
     )
+    company_id = fields.Many2one(
+        comodel_name="res.company",
+        string="Company",
+        related="volunteer_id.company_id",
+    )
+
     start_date = fields.Date(
         required=True,
     )
     end_date = fields.Date(
         required=True,
     )
+
     type_id = fields.Many2one(
         comodel_name="volunteer.volunteer.leave.type",
         string="Leave Type",

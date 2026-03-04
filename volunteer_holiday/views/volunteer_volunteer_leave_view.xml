@@ -14,6 +14,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 <field name="type_id" />
                 <field name="start_date" />
                 <field name="end_date" />
+                <field name="company_id" options="{'no_create':True}" optional="hide" />
             </tree>
         </field>
     </record>

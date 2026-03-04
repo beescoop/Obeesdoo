@@ -12,6 +12,7 @@ class VolunteerVolunteerLeaveType(models.Model):
 
     name = fields.Char(string="Leave Type", required="True")
     description = fields.Char()
+
     company_id = fields.Many2one(
         comodel_name="res.company",
         string="Company",
