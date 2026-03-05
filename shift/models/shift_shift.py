@@ -10,7 +10,7 @@ from odoo.tools.translate import _
 class ShiftShift(models.Model):
     _name = "shift.shift"
     _inherit = ["mail.thread"]
-    _order = "start_time asc"
+    _order = "start_time asc, task_template_id, task_type_id, worker_id, id"
 
     ##################################
     # Method to override             #
