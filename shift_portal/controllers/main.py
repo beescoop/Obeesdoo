@@ -399,32 +399,31 @@ class WebsiteShiftController(http.Controller):
         Return template variables for
         'shift_portal.available_shift_irregular_worker_grid'
         """
-        shifts = self.get_future_shifts_with_no_worker()
-        subscribed_shifts = self.my_subscribed_shifts()
+        cur_worker = request.env["res.users"].browse(request.uid).partner_id
 
         # Get config
         highlight_rule_pc = request.website.highlight_rule_pc
 
-        groupby_iter = groupby(
-            shifts,
-            lambda s: (s.task_template_id, s.start_time, s.task_type_id),
+        aggregated_shifts = (
+            request.env["shift.shift"]
+            .sudo()
+            ._aggregate_sibling_shifts(
+                [
+                    ("start_time", ">", Datetime.now()),
+                    ("state", "=", "open"),
+                ],
+            )
         )
 
         displayed_shifts = []
-        for keys, grouped_shifts in groupby_iter:
-            task_template, start_time, task_type = keys
-            shift_list = list(grouped_shifts)
+        for (task_template, _start_time, _task_type), shifts in aggregated_shifts:
             # Compute available space
-            free_space = len(shift_list)
+            free_space = len(shifts.filtered(lambda rec: not rec.worker_id))
             # Is the current user subscribed to this task_template
-            is_subscribed = any(
-                (
-                    sub_shift.task_template_id == task_template
-                    and sub_shift.start_time == start_time
-                    and sub_shift.task_type_id == task_type
-                )
-                for sub_shift in subscribed_shifts
+            is_subscribed = bool(
+                shifts.filtered(lambda rec: rec.worker_id == cur_worker)
             )
+
             # Check the necessary number of worker based on the
             # highlight_rule_pc
             has_enough_workers = (
@@ -433,7 +432,7 @@ class WebsiteShiftController(http.Controller):
             if self.compute_display_shift(free_space, task_template):
                 displayed_shifts.append(
                     DisplayedShift(
-                        shift_list[0],
+                        shifts[0],
                         free_space,
                         is_subscribed,
                         has_enough_workers,
