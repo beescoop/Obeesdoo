@@ -10,7 +10,7 @@ from odoo.tests.common import TransactionCase
 
 
 @freeze_time("2026-01-01 10:00:00")
-class TestCronHoliday(TransactionCase):
+class TestCompanyHoliday(TransactionCase):
     def setUp(self, *args, **kwargs):
         super().setUp(*args, **kwargs)
 
@@ -33,14 +33,14 @@ class TestCronHoliday(TransactionCase):
 
         self.Company = self.env["res.company"]
         self.Holiday = self.env["volunteer.company.holiday"]
-        self.Shift = self.env["volunteer.shift"]
+        # self.Shift = self.env["volunteer.shift"]
         self.Type = self.env["volunteer.shift.type"]
         self.Generator = self.env["volunteer.shift.recurrent.generator"]
 
         # Stages
 
-        self.stage_confirmed = self.env.ref("volunteer.volunteer_shift_stage_confirmed")
-        self.stage_canceled = self.env.ref("volunteer.volunteer_shift_stage_canceled")
+        # self.stage_confirmed = self.env.ref("volunteer.volunteer_shift_stage_confirmed")
+        # self.stage_canceled = self.env.ref("volunteer.volunteer_shift_stage_canceled")
 
         # Create required type
         self.type1 = self.Type.create(
@@ -146,7 +146,7 @@ class TestCronHoliday(TransactionCase):
     def test_cancel_holiday_shift(self):
         """Test that holidays do cancel confirmed generated shifts"""
 
-        # Check before test
+        # Checks before test
         shifts_on_holiday = self.gen_with_holiday.volunteer_shift_ids
         for shift in shifts_on_holiday:
             self.assertEqual(shift.state, "confirmed")

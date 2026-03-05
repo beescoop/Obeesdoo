@@ -2,6 +2,5 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+from . import test_volunteer_leave
 from . import test_company_holiday
-
-# from . import test_volunteer_leave
