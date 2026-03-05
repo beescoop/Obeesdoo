@@ -49,7 +49,7 @@ class VolunteerVolunteerLeave(models.Model):
         all_future_volunteer_leaves = (
             self.env["volunteer.volunteer.leave"]
             .sudo()
-            .search([("start_date", ">=", date.today())])
+            .search([("end_date", ">=", date.today())])
         )
 
         for leave in all_future_volunteer_leaves:
