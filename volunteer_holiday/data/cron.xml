@@ -6,8 +6,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <odoo>
     <!-- Après test, passer en noupdate=1 -->
-    <record id="ir_cron_cancel_holiday_shifts" model="ir.cron">
-        <field name="name">Cancel generated shifts during holidays</field>
+    <record id="ir_cron_cancel_holiday_shift" model="ir.cron">
+        <field name="name">Cancel Generated Shifts During Company Holidays</field>
         <field name="model_id" ref="model_volunteer_company_holiday" />
         <field name="state">code</field>
         <field name="code">model._cancel_holiday_shift()</field>
@@ -16,4 +16,16 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="numbercall">-1</field>
         <field name="doall" eval="False" />
     </record>
+
+    <record id="ir_cron_cancel_volunteer_leave_participation" model="ir.cron">
+        <field name="name">Cancel Participations During Volunteer Leaves</field>
+        <field name="model_id" ref="model_volunteer_volunteer_leave" />
+        <field name="state">code</field>
+        <field name="code">model._cancel_volunteer_leave_participation()</field>
+        <field name="interval_number">24</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+    </record>
+
 </odoo>
