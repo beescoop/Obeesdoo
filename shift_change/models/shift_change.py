@@ -58,23 +58,24 @@ class ShiftChange(models.Model):
     @api.model
     def _get_available_new_shift_ids(self, worker_id):
         """List new shifts available for the given worker"""
-        next_templates = (
-            self.env["shift.shift"]
-            .search(
-                [
-                    ("worker_id", "=", worker_id.id),
-                    ("start_time", ">=", datetime.now()),
-                ]
-            )
-            .mapped("task_template_id")
-        )
-        return self.env["shift.shift"].search(
+        aggregated_shifts = self.env["shift.shift"]._aggregate_sibling_shifts(
             [
-                ("worker_id", "=", False),
                 ("start_time", ">=", datetime.now()),
-                ("task_template_id", "not in", next_templates.ids),
-            ]
+                ("state", "=", "open"),
+            ],
         )
+        available_new_shifts = self.env["shift.shift"]
+        for _keys, shifts in aggregated_shifts:
+            is_subscribed = bool(
+                shifts.filtered(lambda rec: rec.worker_id == worker_id)
+            )
+            if not is_subscribed:
+                for shift in shifts:
+                    if not shift.worker_id:
+                        # Add first empty shift and exit
+                        available_new_shifts |= shift
+                        break
+        return available_new_shifts
 
     @api.model_create_multi
     def create(self, vals_list):

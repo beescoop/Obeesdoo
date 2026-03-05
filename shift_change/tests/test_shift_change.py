@@ -32,9 +32,9 @@ class TestShiftChange(TransactionCase):
         self.task_template_2 = self.env.ref("shift_change.task_template_2_demo")
         self.task_template_3 = self.env.ref("shift_change.task_template_3_demo")
 
-        self.shift_1 = self.shift_model.create(
+        self.shift1_d2_w1_t1 = self.shift_model.create(
             {
-                "name": "shift_1",
+                "name": "shift1_d2_w1_t1",
                 "task_template_id": self.task_template_1.id,
                 "start_time": self.now + timedelta(days=2),
                 "end_time": self.now + timedelta(days=2),
@@ -42,9 +42,9 @@ class TestShiftChange(TransactionCase):
                 "worker_id": self.worker_regular_1.id,
             }
         )
-        self.shift_2 = self.shift_model.create(
+        self.shift2_d2_w2_t2 = self.shift_model.create(
             {
-                "name": "shift_2",
+                "name": "shift2_d2_w2_t2",
                 "task_template_id": self.task_template_2.id,
                 "start_time": self.now + timedelta(days=2),
                 "end_time": self.now + timedelta(days=2),
@@ -52,36 +52,36 @@ class TestShiftChange(TransactionCase):
                 "worker_id": self.worker_regular_2.id,
             }
         )
-        self.shift_3 = self.shift_model.create(
+        self.shift3_d4_nw_t2 = self.shift_model.create(
             {
-                "name": "shift_3",
+                "name": "shift3_d4_nw_t2",
                 "task_template_id": self.task_template_2.id,
                 "start_time": self.now + timedelta(days=4),
                 "end_time": self.now + timedelta(days=4),
                 "worker_id": False,
             }
         )
-        self.shift_4 = self.shift_model.create(
+        self.shift4_past_nw_t2 = self.shift_model.create(
             {
-                "name": "shift_4",
+                "name": "shift4_past_nw_t2",
                 "task_template_id": self.task_template_2.id,
                 "start_time": self.now - timedelta(days=4),
                 "end_time": self.now,
                 "worker_id": False,
             }
         )
-        self.shift_5 = self.shift_model.create(
+        self.shift5_d6_nw_t2 = self.shift_model.create(
             {
-                "name": "shift_5",
+                "name": "shift5_d6_nw_t2",
                 "task_template_id": self.task_template_2.id,
-                "start_time": self.now + timedelta(days=4),
+                "start_time": self.now + timedelta(days=6),
                 "end_time": self.now,
                 "worker_id": False,
             }
         )
-        self.shift_6 = self.shift_model.create(
+        self.shift6_h1_nw_t2 = self.shift_model.create(
             {
-                "name": "shift_6",
+                "name": "shift6_h1_nw_t2",
                 "task_template_id": self.task_template_2.id,
                 "start_time": self.now + timedelta(hours=1),
                 "end_time": self.now,
@@ -102,16 +102,23 @@ class TestShiftChange(TransactionCase):
         available_shifts = self.shift_change_model._get_available_new_shift_ids(
             self.worker_regular_1
         )
-        expected_shifts = self.shift_3 | self.shift_5 | self.shift_6
+        expected_shifts = (
+            self.shift3_d4_nw_t2 | self.shift5_d6_nw_t2 | self.shift6_h1_nw_t2
+        )
         self.assertEqual(
             available_shifts,
             expected_shifts,
         )
-        self.shift_1.write({"worker_id": False, "is_regular": False})
+        self.shift1_d2_w1_t1.write({"worker_id": False, "is_regular": False})
         available_shifts = self.shift_change_model._get_available_new_shift_ids(
             self.worker_regular_1
         )
-        expected_shifts = self.shift_1 | self.shift_3 | self.shift_5 | self.shift_6
+        expected_shifts = (
+            self.shift1_d2_w1_t1
+            | self.shift3_d4_nw_t2
+            | self.shift5_d6_nw_t2
+            | self.shift6_h1_nw_t2
+        )
         self.assertEqual(
             available_shifts,
             expected_shifts,
@@ -119,64 +126,64 @@ class TestShiftChange(TransactionCase):
 
     def test_shift_change(self):
         """Test change a shift"""
-        self.assertEqual(self.shift_1.worker_id, self.worker_regular_1)
-        self.assertFalse(self.shift_3.worker_id)
+        self.assertEqual(self.shift1_d2_w1_t1.worker_id, self.worker_regular_1)
+        self.assertFalse(self.shift3_d4_nw_t2.worker_id)
         self.shift_change_model.create(
             {
                 "worker_id": self.worker_regular_1.id,
-                "old_shift_id": self.shift_1.id,
-                "new_shift_id": self.shift_3.id,
+                "old_shift_id": self.shift1_d2_w1_t1.id,
+                "new_shift_id": self.shift3_d4_nw_t2.id,
             }
         )
-        self.assertFalse(self.shift_1.worker_id)
-        self.assertEqual(self.shift_3.worker_id, self.worker_regular_1)
+        self.assertFalse(self.shift1_d2_w1_t1.worker_id)
+        self.assertEqual(self.shift3_d4_nw_t2.worker_id, self.worker_regular_1)
 
     def test_shift_change_max(self):
         """Test change a shift several times"""
-        self.assertEqual(self.shift_1.worker_id, self.worker_regular_1)
-        self.assertFalse(self.shift_3.worker_id)
-        self.assertFalse(self.shift_5.worker_id)
+        self.assertEqual(self.shift1_d2_w1_t1.worker_id, self.worker_regular_1)
+        self.assertFalse(self.shift3_d4_nw_t2.worker_id)
+        self.assertFalse(self.shift5_d6_nw_t2.worker_id)
         self.shift_change_model.create(
             {
                 "worker_id": self.worker_regular_1.id,
-                "old_shift_id": self.shift_1.id,
-                "new_shift_id": self.shift_3.id,
+                "old_shift_id": self.shift1_d2_w1_t1.id,
+                "new_shift_id": self.shift3_d4_nw_t2.id,
             }
         )
-        self.assertFalse(self.shift_1.worker_id)
-        self.assertEqual(self.shift_3.worker_id, self.worker_regular_1)
+        self.assertFalse(self.shift1_d2_w1_t1.worker_id)
+        self.assertEqual(self.shift3_d4_nw_t2.worker_id, self.worker_regular_1)
         with self.assertRaises(ValidationError):
             self.shift_change_model.create(
                 {
                     "worker_id": self.worker_regular_1.id,
-                    "old_shift_id": self.shift_3.id,
-                    "new_shift_id": self.shift_5.id,
+                    "old_shift_id": self.shift3_d4_nw_t2.id,
+                    "new_shift_id": self.shift5_d6_nw_t2.id,
                 }
             )
 
     def test_shift_change_not_empty(self):
         """Test changing a shift to a non empty shift"""
-        self.assertEqual(self.shift_1.worker_id, self.worker_regular_1)
-        self.assertEqual(self.shift_2.worker_id, self.worker_regular_2)
+        self.assertEqual(self.shift1_d2_w1_t1.worker_id, self.worker_regular_1)
+        self.assertEqual(self.shift2_d2_w2_t2.worker_id, self.worker_regular_2)
         with self.assertRaises(ValidationError):
             self.shift_change_model.create(
                 {
                     "worker_id": self.worker_regular_1.id,
-                    "old_shift_id": self.shift_1.id,
-                    "new_shift_id": self.shift_2.id,
+                    "old_shift_id": self.shift1_d2_w1_t1.id,
+                    "new_shift_id": self.shift2_d2_w2_t2.id,
                 }
             )
 
     def test_shift_change_in_past(self):
         """Test changing for a shift in the past"""
-        self.assertEqual(self.shift_1.worker_id, self.worker_regular_1)
-        self.assertFalse(self.shift_4.worker_id)
+        self.assertEqual(self.shift1_d2_w1_t1.worker_id, self.worker_regular_1)
+        self.assertFalse(self.shift4_past_nw_t2.worker_id)
         with self.assertRaises(ValidationError):
             self.shift_change_model.create(
                 {
                     "worker_id": self.worker_regular_1.id,
-                    "old_shift_id": self.shift_1.id,
-                    "new_shift_id": self.shift_4.id,
+                    "old_shift_id": self.shift1_d2_w1_t1.id,
+                    "new_shift_id": self.shift4_past_nw_t2.id,
                 }
             )
 
@@ -184,14 +191,14 @@ class TestShiftChange(TransactionCase):
         """Test creating a change with worker that don't match the shift
         worker
         """
-        self.assertEqual(self.shift_1.worker_id, self.worker_regular_1)
-        self.assertFalse(self.shift_3.worker_id)
+        self.assertEqual(self.shift1_d2_w1_t1.worker_id, self.worker_regular_1)
+        self.assertFalse(self.shift3_d4_nw_t2.worker_id)
         with self.assertRaises(ValidationError):
             self.shift_change_model.create(
                 {
                     "worker_id": self.worker_regular_2.id,
-                    "old_shift_id": self.shift_1.id,
-                    "new_shift_id": self.shift_4.id,
+                    "old_shift_id": self.shift1_d2_w1_t1.id,
+                    "new_shift_id": self.shift4_past_nw_t2.id,
                 }
             )
 
@@ -207,45 +214,45 @@ class TestShiftChange(TransactionCase):
 
     def test_shift_change_writing(self):
         """Test that writing to a shift fails"""
-        self.assertEqual(self.shift_1.worker_id, self.worker_regular_1)
-        self.assertFalse(self.shift_3.worker_id)
+        self.assertEqual(self.shift1_d2_w1_t1.worker_id, self.worker_regular_1)
+        self.assertFalse(self.shift3_d4_nw_t2.worker_id)
         shift_change = self.shift_change_model.create(
             {
                 "worker_id": self.worker_regular_1.id,
-                "old_shift_id": self.shift_1.id,
-                "new_shift_id": self.shift_3.id,
+                "old_shift_id": self.shift1_d2_w1_t1.id,
+                "new_shift_id": self.shift3_d4_nw_t2.id,
             }
         )
         with self.assertRaises(AccessError):
             shift_change.write(
                 {
-                    "new_shift_id": self.shift_4.id,
+                    "new_shift_id": self.shift4_past_nw_t2.id,
                 }
             )
 
     def test_shift_change_to_close(self):
         """Test changing to a shift to close"""
-        self.assertEqual(self.shift_1.worker_id, self.worker_regular_1)
-        self.assertFalse(self.shift_6.worker_id)
+        self.assertEqual(self.shift1_d2_w1_t1.worker_id, self.worker_regular_1)
+        self.assertFalse(self.shift6_h1_nw_t2.worker_id)
         with self.assertRaises(ValidationError):
             self.shift_change_model.create(
                 {
                     "worker_id": self.worker_regular_1.id,
-                    "old_shift_id": self.shift_1.id,
-                    "new_shift_id": self.shift_6.id,
+                    "old_shift_id": self.shift1_d2_w1_t1.id,
+                    "new_shift_id": self.shift6_h1_nw_t2.id,
                 }
             )
 
     def test_shift_origin_empty(self):
         """Test that fails if old_shift is empty"""
-        self.assertFalse(self.shift_4.worker_id)
-        self.assertFalse(self.shift_3.worker_id)
+        self.assertFalse(self.shift4_past_nw_t2.worker_id)
+        self.assertFalse(self.shift3_d4_nw_t2.worker_id)
         with self.assertRaises(ValidationError):
             self.shift_change_model.create(
                 {
                     "worker_id": self.worker_regular_1.id,
-                    "old_shift_id": self.shift_4.id,
-                    "new_shift_id": self.shift_3.id,
+                    "old_shift_id": self.shift4_past_nw_t2.id,
+                    "new_shift_id": self.shift3_d4_nw_t2.id,
                 }
             )
 
@@ -272,13 +279,13 @@ class TestShiftChange(TransactionCase):
                 "worker_id": False,
             }
         )
-        self.assertEqual(self.shift_1.worker_id, self.worker_regular_1)
+        self.assertEqual(self.shift1_d2_w1_t1.worker_id, self.worker_regular_1)
         self.assertFalse(self.shift_7_bis.worker_id)
         with self.assertRaises(ValidationError):
             self.shift_change_model.create(
                 {
                     "worker_id": self.worker_regular_1.id,
-                    "old_shift_id": self.shift_1.id,
+                    "old_shift_id": self.shift1_d2_w1_t1.id,
                     "new_shift_id": self.shift_7_bis.id,
                 }
             )
@@ -289,23 +296,23 @@ class TestShiftChange(TransactionCase):
         self.env["ir.config_parameter"].set_param(
             "shift_change.same_shift_change_max", 3
         )
-        self.assertEqual(self.shift_1.worker_id, self.worker_regular_1)
-        self.assertFalse(self.shift_3.worker_id)
+        self.assertEqual(self.shift1_d2_w1_t1.worker_id, self.worker_regular_1)
+        self.assertFalse(self.shift3_d4_nw_t2.worker_id)
         self.shift_change_model.create(
             {
                 "worker_id": self.worker_regular_1.id,
-                "old_shift_id": self.shift_1.id,
-                "new_shift_id": self.shift_3.id,
+                "old_shift_id": self.shift1_d2_w1_t1.id,
+                "new_shift_id": self.shift3_d4_nw_t2.id,
             }
         )
-        self.assertFalse(self.shift_1.worker_id)
-        self.assertEqual(self.shift_3.worker_id, self.worker_regular_1)
+        self.assertFalse(self.shift1_d2_w1_t1.worker_id)
+        self.assertEqual(self.shift3_d4_nw_t2.worker_id, self.worker_regular_1)
         self.shift_change_model.create(
             {
                 "worker_id": self.worker_regular_1.id,
-                "old_shift_id": self.shift_3.id,
-                "new_shift_id": self.shift_1.id,
+                "old_shift_id": self.shift3_d4_nw_t2.id,
+                "new_shift_id": self.shift1_d2_w1_t1.id,
             }
         )
-        self.assertEqual(self.shift_1.worker_id, self.worker_regular_1)
-        self.assertFalse(self.shift_3.worker_id)
+        self.assertEqual(self.shift1_d2_w1_t1.worker_id, self.worker_regular_1)
+        self.assertFalse(self.shift3_d4_nw_t2.worker_id)

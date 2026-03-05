@@ -31,6 +31,8 @@ class ShiftType(models.Model):
     _name = "shift.type"
     _description = "shift.type"
 
+    _order = "name, id"
+
     name = fields.Char()
     description = fields.Text()
     active = fields.Boolean(default=True)
@@ -40,7 +42,7 @@ class ShiftDayNumber(models.Model):
     _name = "shift.daynumber"
     _description = "shift.daynumber"
 
-    _order = "number asc"
+    _order = "number asc, id"
 
     name = fields.Char()
     number = fields.Integer(
@@ -55,7 +57,7 @@ class ShiftDayNumber(models.Model):
 class ShiftPlanning(models.Model):
     _name = "shift.planning"
     _description = "shift.planning"
-    _order = "sequence asc"
+    _order = "sequence asc, id"
 
     sequence = fields.Integer()
     name = fields.Char()
@@ -198,7 +200,7 @@ class ShiftPlanning(models.Model):
 class ShiftTemplate(models.Model):
     _name = "shift.template"
     _description = "shift.template"
-    _order = "start_time"
+    _order = "planning_id, day_nb_id, start_time, task_type_id, id"
 
     name = fields.Char(required=True)
     planning_id = fields.Many2one("shift.planning", required=True)
