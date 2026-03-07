@@ -52,16 +52,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                             options="{'color_field': 'color'}"
                                         />
                                     </div>
-                                    <div
-                                        class="o_kanban_record_bottom mt-auto pt-2 text-end"
-                                    >
-                                        <div class="oe_kanban_bottom_left" />
-                                        <div class="oe_kanban_bottom_right">
-                                            <div
-                                                t-if="record.is_regular.raw_value"
-                                                class="badge bg-light"
-                                            >Regular
-                                            </div>
+                                </div>
+                                <div
+                                    t-if="record.is_regular.raw_value"
+                                    class="o_kanban_record_bottom mt-auto pt-2 text-end"
+                                >
+                                    <div class="oe_kanban_bottom_left" />
+                                    <div class="oe_kanban_bottom_right">
+                                        <div class="badge bg-light">Regular
                                         </div>
                                     </div>
                                 </div>

@@ -46,14 +46,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                             t-out="luxon.DateTime.fromISO(record.start_time.raw_value).toFormat('HH:mm')"
                                         />
                                     </div>
-                                    <t
-                                        t-set="start_date_only"
-                                        t-value="record.start_time.raw_value.split('T')[0]"
-                                    />
-                                    <t
-                                        t-set="end_date_only"
-                                        t-value="record.end_time.raw_value.split('T')[0]"
-                                    />
                                     <div>
                                         <i
                                             class="fa fa-arrow-right me-2"

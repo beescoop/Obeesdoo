@@ -189,9 +189,107 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </field>
     </record>
 
+    <record id="volunteer_shift_generator_view_search" model="ir.ui.view">
+        <field name="model">volunteer.shift.recurrent.generator</field>
+        <field name="arch" type="xml">
+            <search string="Shift Generators">
+                <field
+                    name="tag_ids"
+                    string="Tags"
+                    filter_domain="[('tag_ids', 'ilike', self)]"
+                />
+                <field
+                    name="volunteer_subscription_ids"
+                    filter_domain="[('volunteer_subscription_ids.volunteer_id', 'ilike', self)]"
+                    string="Volunteer"
+                />
+                <field
+                    name="category_id"
+                    filter_domain="[('category_id.name', 'ilike', self)]"
+                    string="Category"
+                />
+                <field
+                    name="type_id"
+                    filter_domain="[('type_id.name', 'ilike', self)]"
+                    string="Type"
+                />
+
+                <filter
+                    name="filter_today"
+                    string="Today"
+                    domain="[('start_time', '>=', context_today().strftime('%Y-%m-%d 00:00:00')),('start_time','&lt;=', context_today().strftime('%Y-%m-%d 23:59:59'))]"
+                />
+                <filter
+                    name="filter_future"
+                    string="Future"
+                    domain="[('start_time', '>=', context_today().strftime('%Y-%m-%d 00:00:00'))]"
+                />
+                <filter
+                    name="filter_past"
+                    string="Past"
+                    domain="[('start_time','&lt;', context_today().strftime('%Y-%m-%d 23:59:59'))]"
+                />
+                <separator />
+                <filter
+                    name="filter_next_7_days"
+                    string="Next 7 days"
+                    domain="[('start_time', '&lt;=', (context_today()+datetime.timedelta(days=7)).strftime('%Y-%m-%d 23:59:59')),('start_time','>=', (context_today()).strftime('%Y-%m-%d 00:00:00'))]"
+                />
+                <filter
+                    name="filter_last_7_days"
+                    string="Last 7 days"
+                    domain="[('start_time', '&lt;=', context_today().strftime('%Y-%m-%d 23:59:59')),('start_time','>=', (context_today()- datetime.timedelta(days=7)).strftime('%Y-%m-%d 00:00:00'))]"
+                />
+                <filter
+                    name="filter_next_30_days"
+                    string="Next 30 days"
+                    domain="[('start_time', '&lt;=', (context_today()+datetime.timedelta(days=30)).strftime('%Y-%m-%d 23:59:59')),('start_time','>=', (context_today()).strftime('%Y-%m-%d 00:00:00'))]"
+                />
+                <separator />
+                <filter name="filter_date" string="Period" date="start_time" />
+                <filter
+                    name="filter_confirmed"
+                    string="Confirmed"
+                    domain="[('state', '=', 'confirmed')]"
+                    invisible="1"
+                />
+                <searchpanel>
+                    <field name="state" string="State" select="multi" />
+                    <field name="category_id" string="Category" select="multi" />
+                    <field name="type_id" string="Type" select="multi" />
+                </searchpanel>
+
+                <group expand="1" string="Group By">
+                    <filter
+                        name="start_time"
+                        string="Date"
+                        context="{'group_by':'start_time'}"
+                    />
+                    <filter
+                        name="state"
+                        string="State"
+                        context="{'group_by':'state'}"
+                    />
+                    <filter
+                        name="category"
+                        string="Category"
+                        context="{'group_by':'category_id'}"
+                    />
+                    <filter
+                        name="type"
+                        string="Type"
+                        context="{'group_by':'type_id'}"
+                    />
+                    <filter name="tag" string="Tag" context="{'group_by':'tag_ids'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
     <record id="volunteer_shift_generator_action" model="ir.actions.act_window">
         <field name="name">Shift Generator</field>
         <field name="res_model">volunteer.shift.recurrent.generator</field>
-        <field name="view_mode">tree,form</field>
+        <field name="context">{"search_default_filter_confirmed": 1}</field>
+        <field name="view_mode">kanban,tree,form</field>
     </record>
 </odoo>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <record id="volunteer_shift_generator_view_kanban" model="ir.ui.view">
+        <field name="name">Generator Kanban</field>
+        <field name="model">volunteer.shift.recurrent.generator</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name" />
+                <field name="start_time" />
+                <field name="end_time" />
+                <field name="tag_ids" />
+                <field name="type_id" />
+                <field name="category_id" />
+                <field name="max_volunteer_nb" />
+                <field name="coordinator_id" />
+                <field name="is_one_day" />
+                <field name="until_date" />
+                <field name="interval" />
+                <field name="interval_type" />
+                <field name="state" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div
+                            class="d-flex flex-column p-0 oe_kanban_card oe_kanban_global_click"
+                        >
+                            <t
+                                t-if="record.state.raw_value == 'draft'"
+                                t-set="state_class"
+                                t-value="'o_volunteer_state_draft'"
+                            />
+                            <t
+                                t-elif="record.state.raw_value == 'canceled'"
+                                t-set="state_class"
+                                t-value="'o_volunteer_state_canceled'"
+                            />
+                            <t
+                                t-else=""
+                                t-set="state_class"
+                                t-value="'o_volunteer_state_confirmed'"
+                            />
+                            <div
+                                t-attf-class="py-1 o_volunteer_recurrence_header #{state_class} text-center"
+                                t-att-title="record.interval_type.value"
+                            >
+                                Each
+                                <t t-if="record.interval.raw_value &gt; 1">
+                                    <t t-out="record.interval.raw_value" />
+                                    <t t-out="' ' + record.interval_type.raw_value" />
+                                </t>
+                                <t t-else="">
+                                    <t
+                                        t-out="' ' + record.interval_type.raw_value.slice(0, -1)"
+                                    />
+                                </t>
+                            </div>
+                            <div
+                                class="o_kanban_content p-0 m-0 position-relative row d-flex flex-fill"
+                            >
+                                <div
+                                    t-attf-class="col-3 pb-3 px-2 text-center d-flex flex-column #{state_class}"
+                                >
+                                    <t t-if="!record.is_one_day.raw_value">
+                                        <div class="ms-3">
+                                            <t
+                                                t-out="luxon.DateTime.fromISO(record.start_time.raw_value).toFormat('d MMM')"
+                                            />
+                                        </div>
+                                    </t>
+                                    <div class="d-flex flex-column flex-grow-1">
+                                        <div
+                                            class="o_volunteer_bold o_volunteer_fontsize_14"
+                                        >
+                                            <t
+                                                t-out="luxon.DateTime.fromISO(record.start_time.raw_value).toFormat('HH:mm')"
+                                            />
+                                        </div>
+                                        <div>
+                                            <i
+                                                class="fa fa-arrow-right me-2"
+                                                title="End date"
+                                            />
+                                            <t t-if="record.is_one_day.raw_value">
+                                                <span
+                                                    class="o_volunteer_bold o_volunteer_fontsize_14"
+                                                >
+                                                    <t
+                                                        t-out="luxon.DateTime.fromISO(record.end_time.raw_value).toFormat('HH:mm')"
+                                                    />
+                                                </span>
+                                                <div>
+                                                    <t
+                                                        t-out="luxon.DateTime.fromISO(record.start_time.raw_value).toFormat('d MMM')"
+                                                    />
+                                                </div>
+                                            </t>
+                                            <t t-else="">
+                                                <t
+                                                    t-out="luxon.DateTime.fromISO(record.end_time.raw_value).toFormat('d MMM')"
+                                                />
+                                                <div
+                                                    class="o_volunteer_bold o_volunteer_fontsize_14"
+                                                >
+                                                    <t
+                                                        t-out="luxon.DateTime.fromISO(record.end_time.raw_value).toFormat('HH:mm')"
+                                                    />
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </div>
+                                    <t t-if="record.until_date.raw_value">
+                                        <div
+                                            class="border-top pt-2 mt-2 mb-n2 w-100 d-flex justify-content-center"
+                                        >
+                                            <span
+                                                class="o_volunteer_bold o_volunteer_fontsize_12 text-nowrap"
+                                            >
+                                                <t
+                                                    t-out="luxon.DateTime.fromISO(record.until_date.raw_value).toFormat('d MMM yy')"
+                                                />
+                                            </span>
+                                        </div>
+                                    </t>
+                                </div>
+
+                                <div class="col-9 pb-2 px-3 d-flex flex-column">
+                                    <div
+                                        class="o_kanban_record_title o_text_overflow o_volunteer_fontsize_17"
+                                        t-att-title="record.name.value"
+                                    >
+                                        <field name="name" />
+                                    </div>
+
+                                    <t
+                                        t-if="record.tag_ids.raw_value and record.tag_ids.raw_value.length"
+                                    >
+                                        <div class="o_optional mt-n2">
+                                            <field
+                                                name="tag_ids"
+                                                widget="many2many_tags"
+                                                options="{'color_field': 'color'}"
+                                            />
+                                        </div>
+                                    </t>
+
+                                    <div class="mb-2 o_volunteer_fontsize_11">
+                                        <field name="type_id" />
+                                        <div>
+                                            <field name="category_id" />
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        t-if="record.coordinator_id.raw_value"
+                                        class="o_kanban_record_bottom mt-auto text-end"
+                                    >
+                                        <div class="oe_kanban_bottom_left" />
+                                        <div
+                                            class="oe_kanban_bottom_right o_volunteer_fontsize_11 o_text_overflow"
+                                        >
+                                            <field
+                                                name="coordinator_id"
+                                                widget="many2one_avatar"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+
+        </field>
+    </record>
+</odoo>
