@@ -115,7 +115,9 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         generators = super().create(vals_list)
         for generator in generators:
             # Prevent creating generators directly in canceled state
-            if generator.state == "canceled":
+            if generator.state == "canceled" and not self.env.context.get(
+                "install_mode"
+            ):
                 raise UserError(_("A generator cannot be created in canceled state."))
             if generator.state == "confirmed":
                 generator._generate_shifts()

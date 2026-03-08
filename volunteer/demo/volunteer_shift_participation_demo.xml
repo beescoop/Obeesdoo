@@ -9,45 +9,48 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         id="volunteer_shift_participation_demo_a"
         model="volunteer.shift.participation"
     >
-        <field name="volunteer_id" ref="volunteer_demo_a" />
-        <field name="shift_id" ref="volunteer_shift_demo_next_7_days" />
+        <field name="volunteer_id" ref="volunteer_demo_jean" />
+        <field name="shift_id" ref="volunteer_shift_demo_closing" />
     </record>
 
     <record
         id="volunteer_shift_participation_demo_b"
         model="volunteer.shift.participation"
     >
-        <field name="volunteer_id" ref="volunteer_demo_b" />
-        <field name="shift_id" ref="volunteer_shift_demo_next_7_days" />
+        <field name="volunteer_id" ref="volunteer_demo_john" />
+        <field name="shift_id" ref="volunteer_shift_demo_closing" />
     </record>
 
     <record
         id="volunteer_shift_participation_demo_c"
         model="volunteer.shift.participation"
     >
-        <field name="volunteer_id" ref="volunteer_demo_a" />
-        <field name="shift_id" ref="volunteer_shift_demo_next_30_days" />
+        <field name="volunteer_id" ref="volunteer_demo_jean" />
+        <field name="shift_id" ref="volunteer_shift_demo_future_closing" />
     </record>
 
     <record
         id="volunteer_shift_participation_demo_d"
         model="volunteer.shift.participation"
     >
-        <field name="volunteer_id" ref="volunteer_demo_a" />
-        <field name="shift_id" ref="volunteer_shift_demo_today" />
+        <field name="volunteer_id" ref="volunteer_demo_jean" />
+        <field name="shift_id" ref="volunteer_shift_demo_cheese" />
     </record>
 
-    <record id="shift_participation_demo_e" model="volunteer.shift.participation">
-        <field name="volunteer_id" ref="volunteer_demo_b" />
-        <field name="shift_id" ref="volunteer_shift_demo_today" />
+    <record
+        id="volunteer_shift_participation_demo_e"
+        model="volunteer.shift.participation"
+    >
+        <field name="volunteer_id" ref="volunteer_demo_emma" />
+        <field name="shift_id" ref="volunteer_shift_demo_cheese" />
     </record>
 
     <record
         id="volunteer_shift_participation_demo_f"
         model="volunteer.shift.participation"
     >
-        <field name="volunteer_id" ref="volunteer_demo_c" />
-        <field name="shift_id" ref="volunteer_shift_demo_today" />
+        <field name="volunteer_id" ref="volunteer_demo_john" />
+        <field name="shift_id" ref="volunteer_shift_demo_cheese" />
         <field name="registration_state">canceled</field>
     </record>
 
@@ -55,23 +58,23 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         id="volunteer_shift_participation_demo_g"
         model="volunteer.shift.participation"
     >
-        <field name="volunteer_id" ref="volunteer_demo_c" />
-        <field name="shift_id" ref="volunteer_shift_demo_last_7_days" />
+        <field name="volunteer_id" ref="volunteer_demo_john" />
+        <field name="shift_id" ref="volunteer_shift_demo_past_cheese" />
     </record>
 
     <record
         id="volunteer_shift_participation_demo_h"
         model="volunteer.shift.participation"
     >
-        <field name="volunteer_id" ref="volunteer_demo_c" />
-        <field name="shift_id" ref="volunteer_shift_demo_yesterday" />
+        <field name="volunteer_id" ref="volunteer_demo_john" />
+        <field name="shift_id" ref="volunteer_shift_demo_past_opening" />
     </record>
 
     <record
         id="volunteer_shift_participation_demo_i"
         model="volunteer.shift.participation"
     >
-        <field name="volunteer_id" ref="volunteer_demo_c" />
-        <field name="shift_id" ref="volunteer_shift_demo_last_year" />
+        <field name="volunteer_id" ref="volunteer_demo_john" />
+        <field name="shift_id" ref="volunteer_shift_demo_past_delicatessen" />
     </record>
 </odoo>

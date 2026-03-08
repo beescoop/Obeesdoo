@@ -5,12 +5,12 @@ SPDX-FileCopyrightText: 2025 Coop IT Easy SC
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <odoo>
-        <record
-        id="volunteer_generator_demo_opening"
+    <record
+        id="volunteer_generator_demo_friday_opening"
         model="volunteer.shift.recurrent.generator"
     >
-        <field name="name">Store Opening</field>
-        <field name="max_volunteer_nb">5</field>
+        <field name="name">Friday opening</field>
+        <field name="max_volunteer_nb">3</field>
         <field
             name="start_time"
             eval="(datetime.now() - timedelta(days=30)).replace(hour=6, minute=0, second=0).strftime('%Y-%m-%d %H:%M:%S')"
@@ -21,8 +21,91 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         />
         <field name="interval_type">days</field>
         <field name="interval">1</field>
-        <field name="state">draft</field>
+        <field name="state">confirmed</field>
         <field name="type_id" ref="volunteer_shift_type_demo_opening" />
+        <field name="category_id" ref="volunteer_shift_category_demo_week_b" />
+        <field
+            name="tag_ids"
+            eval="[(6, 0, [ref('volunteer_shift_tag_demo_fresh'), ref('volunteer_shift_tag_demo_lifting')])]"
+        />
+        <field name="tz">Europe/Brussels</field>
+    </record>
+
+    <record
+        id="volunteer_generator_demo_thursday_closing"
+        model="volunteer.shift.recurrent.generator"
+    >
+        <field name="name">Thursday closing</field>
+        <field name="max_volunteer_nb">3</field>
+        <field
+            name="start_time"
+            eval="datetime.now().replace(hour=20, minute=0, second=0).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field
+            name="end_time"
+            eval="(datetime.now() + timedelta(days=1)).replace(hour=2, minute=0, second=0).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field name="interval_type">weeks</field>
+        <field name="interval">1</field>
+        <field name="state">draft</field>
+        <field name="type_id" ref="volunteer_shift_type_demo_closing" />
+        <field name="category_id" ref="volunteer_shift_category_demo_week_b" />
+        <field
+            name="tag_ids"
+            eval="[(6, 0, [ref('volunteer_shift_tag_demo_fresh'), ref('volunteer_shift_tag_demo_lifting')])]"
+        />
+        <field name="tz">Europe/Brussels</field>
+    </record>
+
+    <record
+        id="volunteer_generator_demo_saturday_opening"
+        model="volunteer.shift.recurrent.generator"
+    >
+        <field name="name">Saturday opening</field>
+        <field name="max_volunteer_nb">3</field>
+        <field
+            name="start_time"
+            eval="(datetime.now() + timedelta(days=3)).replace(hour=6, minute=0, second=0).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field
+            name="end_time"
+            eval="(datetime.now() + timedelta(days=3)).replace(hour=9, minute=0, second=0).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field name="interval_type">weeks</field>
+        <field name="interval">2</field>
+        <field name="state">canceled</field>
+        <field name="type_id" ref="volunteer_shift_type_demo_closing" />
+        <field name="category_id" ref="volunteer_shift_category_demo_week_a" />
+        <field
+            name="tag_ids"
+            eval="[(6, 0, [ref('volunteer_shift_tag_demo_lifting')])]"
+        />
+        <field name="tz">Europe/Brussels</field>
+    </record>
+
+    <record
+        id="volunteer_generator_demo_cheese"
+        model="volunteer.shift.recurrent.generator"
+    >
+        <field name="name">Cheese cutting</field>
+        <field name="max_volunteer_nb">2</field>
+        <field
+            name="start_time"
+            eval="(datetime.now()).replace(hour=8, minute=0, second=0).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field
+            name="end_time"
+            eval="(datetime.now()).replace(hour=12, minute=0, second=0).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+        <field name="interval_type">months</field>
+        <field name="interval">1</field>
+        <field
+            name="until_date"
+            eval="(datetime.now() + timedelta(days=62)).strftime('%Y-%m-%d')"
+        />
+        <field name="state">confirmed</field>
+        <field name="type_id" ref="volunteer_shift_type_demo_cheese_cut" />
+        <field name="coordinator_id" ref="volunteer_partner_demo_emma" />
         <field name="tz">Europe/Brussels</field>
     </record>
 </odoo>

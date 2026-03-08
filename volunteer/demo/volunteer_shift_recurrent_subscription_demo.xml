@@ -11,7 +11,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         model="volunteer.shift.recurrent.subscription"
     >
         <field name="volunteer_id" ref="volunteer_demo_emma" />
-        <field name="generator_id" ref="volunteer_generator_demo_opening" />
+        <field name="generator_id" ref="volunteer_generator_demo_friday_opening" />
         <field
             name="start_date"
             eval="(datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')"
@@ -25,14 +25,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         model="volunteer.shift.recurrent.subscription"
     >
         <field name="volunteer_id" ref="volunteer_demo_emma" />
-        <field name="generator_id" ref="volunteer_generator_demo_opening" />
+        <field name="generator_id" ref="volunteer_generator_demo_friday_opening" />
         <field
             name="start_date"
             eval="(datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')"
-        />
-        <field
-            name="end_date"
-            eval="(datetime.now() + timedelta(days=7)).strftime('%Y-%m-%d')"
         />
     </record>
     <!-- Upcoming subscription -->
@@ -41,7 +37,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         model="volunteer.shift.recurrent.subscription"
     >
         <field name="volunteer_id" ref="volunteer_demo_jean" />
-        <field name="generator_id" ref="volunteer_generator_demo_opening" />
+        <field name="generator_id" ref="volunteer_generator_demo_friday_opening" />
         <field
             name="start_date"
             eval="(datetime.now() + timedelta(days=7)).strftime('%Y-%m-%d')"
@@ -57,7 +53,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         model="volunteer.shift.recurrent.subscription"
     >
         <field name="volunteer_id" ref="volunteer_demo_john" />
-        <field name="generator_id" ref="volunteer_generator_demo_opening" />
+        <field name="generator_id" ref="volunteer_generator_demo_friday_opening" />
         <field
             name="start_date"
             eval="(datetime.now() - timedelta(days=14)).strftime('%Y-%m-%d')"
