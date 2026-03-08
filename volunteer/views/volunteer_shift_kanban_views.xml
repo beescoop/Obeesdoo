@@ -104,19 +104,19 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                         <div class="oe_kanban_bottom_left">
                                             <div
                                                 t-if="record.remaining_slots.raw_value &lt;= 0"
-                                                class="badge bg-danger o_volunteer_fontsize_11"
+                                                class="badge bg-success o_volunteer_fontsize_11"
                                             >
                                                 Full
                                             </div>
                                             <div
                                                 t-elif="record.remaining_slots.raw_value == record.max_volunteer_nb.raw_value"
-                                                class="badge bg-success o_volunteer_fontsize_11"
+                                                class="badge bg-danger o_volunteer_fontsize_11"
                                             >
                                                 Empty
                                             </div>
                                             <div
                                                 t-elif="record.remaining_slots.raw_value == 1"
-                                                class="badge bg-warning"
+                                                class="badge bg-info"
                                             >
                                                 <field
                                                     class="o_volunteer_fontsize_11"
@@ -126,7 +126,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                                     left
                                                 </span>
                                             </div>
-                                            <div t-else="" class="badge bg-info">
+                                            <div t-else="" class="badge bg-warning">
                                                 <field
                                                     class="o_volunteer_fontsize_11"
                                                     name="remaining_slots"
