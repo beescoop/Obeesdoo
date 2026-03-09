@@ -21,5 +21,7 @@
         "views/volunteer_volunteer_views.xml",
         "views/volunteer_shift_participation_views.xml",
     ],
-    "demo": [],
+    "demo": [
+        "demo/volunteer_shift_attendance_status_demo.xml",
+    ],
 }
