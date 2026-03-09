@@ -71,6 +71,6 @@ class ShiftChangeCreateWizard(models.TransientModel):
             {
                 "worker_id": self.worker_id.id,
                 "old_shift_id": self.old_shift_id.id,
-                "new_shift_id": self.new_shift_id,
+                "new_shift_id": self.new_shift_id.id,
             }
         )
