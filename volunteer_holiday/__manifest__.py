@@ -23,4 +23,9 @@
         "views/volunteer_volunteer_leave_view.xml",
         "views/volunteer_menu.xml",
     ],
+    "demo": [
+        "demo/volunteer_company_holiday_demo.xml",
+        "demo/volunteer_volunteer_leave_type_demo.xml",
+        "demo/volunteer_volunteer_leave_demo.xml",
+    ],
 }
