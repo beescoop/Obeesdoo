@@ -109,3 +109,33 @@ class VolunteerCompanyHoliday(models.Model):
                 and shift_end_date >= holiday_end_date
             )
         )
+
+    # Override Methods
+
+    # def write(self, vals):
+    #     self.ensure_one()
+    #     if "start_date" in vals or "end_date" in vals:
+    #         old_start_date = self.start_date
+    #         old_end_date = self.end_date
+
+    #         if vals["start_date"] > old_start_date:
+    #             shifts_to_uncancel = self.env["volunteer_shift"].sudo().search(
+    #                 [
+    #                     ("shift.state", "=", "canceled"),
+    #                     ("shift.start_time", ">", old_start_date),
+    #                     ("shift.start_time", "<", vals["start_date"]),
+    #                     ("shift.generator_id", "!=", None),
+    #                     ("shift.generator_id.is_maintained_during_holiday", "=", False),
+    #                     # Ajouter un bool canceled_through_cron ?
+    #                 ]
+    #             )
+    #             for shift in shifts_to_uncancel:
+    #                 shift.super().write(
+    #                     {
+    #                         "stage_id": self.env.ref(
+    #                             "volunteer.volunteer_shift_stage_confirmed"
+    #                         ).id
+    #                     }
+    #                 )
+
+    #         # if vals["end_date"] < old_end_date:
