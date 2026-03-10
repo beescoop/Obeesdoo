@@ -39,4 +39,4 @@ class VolunteerShiftParticipation(models.Model):
         """Set attendance status modification date to now at modification"""
         if "attendance_status_id" in vals:
             vals["attendance_date"] = fields.Datetime.now()
-            return super().write(vals)
+        return super().write(vals)
