@@ -34,10 +34,16 @@ class ShiftChangeCreateWizard(models.TransientModel):
 
     @api.onchange("worker_id")
     def _on_change_worker_id(self):
-        hour_limit_change = self._get_hour_limit_change()
+        old_shift_hour_limit_change = self.env[
+            "shift.change"
+        ]._get_old_shift_hour_limit_change()
         old_shift_domain = [
             ("worker_id", "=", self.worker_id.id),
-            ("start_time", ">=", datetime.now() + timedelta(hours=hour_limit_change)),
+            (
+                "start_time",
+                ">=",
+                datetime.now() + timedelta(hours=old_shift_hour_limit_change),
+            ),
         ]
         return {
             "domain": {
@@ -51,20 +57,6 @@ class ShiftChangeCreateWizard(models.TransientModel):
             rec.available_new_shift_ids = self.env[
                 "shift.change"
             ]._get_available_new_shift_ids(rec.worker_id)
-
-    @api.model
-    def _get_hour_limit_change(self):
-        """Return value for hour_limit_change parameter"""
-        try:
-            hour_limit_change = int(
-                self.env["ir.config_parameter"].get_param(
-                    "shift_change.hour_limit_change"
-                )
-            )
-        except ValueError:
-            # fall back to a default value
-            hour_limit_change = 0
-        return hour_limit_change
 
     def action_confirm(self):
         self.env["shift.change"].create(
