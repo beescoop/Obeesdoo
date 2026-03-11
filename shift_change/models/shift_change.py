@@ -42,27 +42,50 @@ class ShiftChange(models.Model):
         return res
 
     @api.model
-    def _get_hour_limit_change(self):
-        """Return value for hour_limit_change parameter"""
+    def _get_old_shift_hour_limit_change(self):
+        """Return value for old_shift_hour_limit_change parameter"""
         try:
-            hour_limit_change = int(
+            old_shift_hour_limit_change = int(
                 self.env["ir.config_parameter"].get_param(
-                    "shift_change.hour_limit_change"
+                    "shift_change.old_shift_hour_limit_change"
                 )
             )
         except ValueError:
             # fall back to a default value
-            hour_limit_change = 0
-        return hour_limit_change
+            old_shift_hour_limit_change = 0
+        return old_shift_hour_limit_change
+
+    @api.model
+    def _get_new_shift_hour_limit_change(self):
+        """Return value for new_shift_hour_limit_change parameter"""
+        try:
+            new_shift_hour_limit_change = int(
+                self.env["ir.config_parameter"].get_param(
+                    "shift_change.new_shift_hour_limit_change"
+                )
+            )
+        except ValueError:
+            # fall back to a default value
+            new_shift_hour_limit_change = 0
+        return new_shift_hour_limit_change
+
+    @api.model
+    def _get_new_shift_domain(self):
+        new_shift_hour_limit_change = self._get_new_shift_hour_limit_change()
+        return [
+            (
+                "start_time",
+                ">=",
+                datetime.now() + timedelta(hours=new_shift_hour_limit_change),
+            ),
+            ("state", "=", "open"),
+        ]
 
     @api.model
     def _get_available_new_shift_ids(self, worker_id):
         """List new shifts available for the given worker"""
         aggregated_shifts = self.env["shift.shift"]._aggregate_sibling_shifts(
-            [
-                ("start_time", ">=", datetime.now()),
-                ("state", "=", "open"),
-            ],
+            self._get_new_shift_domain(),
         )
         available_new_shifts = self.env["shift.shift"]
         for _keys, shifts in aggregated_shifts:
@@ -119,13 +142,13 @@ class ShiftChange(models.Model):
     @api.model
     def _check_old_shift(self, old_shift_id, worker_id):
         """Check if old shift can be changed"""
-        hour_limit_change = self._get_hour_limit_change()
+        old_shift_hour_limit_change = self._get_old_shift_hour_limit_change()
         if not old_shift_id.worker_id or old_shift_id.worker_id != worker_id:
             raise ValidationError(_("You can't change shift that your are not worker."))
         if old_shift_id.start_time <= datetime.now():
             raise ValidationError(_("You can't change shift that is in the past."))
         if old_shift_id.start_time <= datetime.now() + timedelta(
-            hours=hour_limit_change
+            hours=old_shift_hour_limit_change
         ):
             raise ValidationError(_("You can't change a shift so close in the futur."))
         try:
@@ -159,7 +182,7 @@ class ShiftChange(models.Model):
             if same_shift_change_nb >= same_shift_change_max:
                 raise ValidationError(
                     _(
-                        "You can't change the same shift more than"
+                        "You can't change the same shift more than "
                         f"{same_shift_change_max} times."
                     )
                 )
@@ -167,7 +190,7 @@ class ShiftChange(models.Model):
     @api.model
     def _check_new_shift(self, new_shift_id):
         """Check if shift can be changed or not"""
-        hour_limit_change = self._get_hour_limit_change()
+        old_shift_hour_limit_change = self._get_old_shift_hour_limit_change()
         if new_shift_id.worker_id:
             raise ValidationError(
                 _("You can't subscribe to a shift assigned to someone else.")
@@ -175,7 +198,7 @@ class ShiftChange(models.Model):
         if new_shift_id.start_time <= datetime.now():
             raise ValidationError(_("You can't subscribe to a shift in the past."))
         if new_shift_id.start_time <= datetime.now() + timedelta(
-            hours=hour_limit_change
+            hours=old_shift_hour_limit_change
         ):
             raise ValidationError(
                 _("You can't subscribe to a shift so close in the futur.")

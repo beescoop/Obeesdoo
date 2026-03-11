@@ -20,20 +20,41 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                     <div class="col-12 col-lg-6 o_setting_box">
                         <div class="o_setting_right_pane">
                             <span class="o_form_label">
-                                Limit in hour to allow shift change
+                                Time limit to change a shift
                             </span>
                             <div class="text-muted">
-                                Number in hour above which a cooperator cannot swap his shift
+                                Number of hours above which a shift cannot be changed
                             </div>
                             <div class="content-group">
                                 <div class="mt16 row">
                                     <label
-                                        for="hour_limit_change"
+                                        for="old_shift_hour_limit_change"
                                         string="Hours"
                                         class="col-3 col-lg-3 o_light_label"
                                     />
                                     <field
-                                        name="hour_limit_change"
+                                        name="old_shift_hour_limit_change"
+                                        class="oe_inline"
+                                        required="1"
+                                    />
+                                </div>
+                            </div>
+
+                            <span class="o_form_label">
+                                Time limit to take a new a shift
+                            </span>
+                            <div class="text-muted">
+                                Number of hours above which a new shift cannot be taken
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16 row">
+                                    <label
+                                        for="new_shift_hour_limit_change"
+                                        string="Hours"
+                                        class="col-3 col-lg-3 o_light_label"
+                                    />
+                                    <field
+                                        name="new_shift_hour_limit_change"
                                         class="oe_inline"
                                         required="1"
                                     />
@@ -45,7 +66,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                     <div class="col-12 col-lg-6 o_setting_box">
                         <div class="o_setting_right_pane">
                             <span class="o_form_label">
-                                Change the same shift maximum
+                                Maximum changes for the same shift
                             </span>
                             <div class="text-muted">
                                 Number of time the same shift can be changed

@@ -393,7 +393,7 @@ class WebsiteShiftController(http.Controller):
         return free_space >= task_template.worker_nb * hide_rule
 
     def available_shift_irregular_worker(
-        self, irregular_enable_sign_up=False, nexturl=""
+        self, shift_domain=None, irregular_enable_sign_up=False, nexturl=""
     ):
         """
         Return template variables for
@@ -404,15 +404,14 @@ class WebsiteShiftController(http.Controller):
         # Get config
         highlight_rule_pc = request.website.highlight_rule_pc
 
+        if not shift_domain:
+            shift_domain = [
+                ("start_time", ">", Datetime.now()),
+                ("state", "=", "open"),
+            ]
+
         aggregated_shifts = (
-            request.env["shift.shift"]
-            .sudo()
-            ._aggregate_sibling_shifts(
-                [
-                    ("start_time", ">", Datetime.now()),
-                    ("state", "=", "open"),
-                ],
-            )
+            request.env["shift.shift"].sudo()._aggregate_sibling_shifts(shift_domain)
         )
 
         displayed_shifts = []
