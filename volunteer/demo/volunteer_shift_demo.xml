@@ -8,11 +8,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <record id="volunteer_shift_demo_cheese" model="volunteer.shift">
         <field name="name">Cheese cutting</field>
         <field name="max_volunteer_nb">2</field>
-        <field name="start_time" eval="datetime.now().strftime('%Y-%m-%d %H:%M:%S')" />
-        <field
-            name="end_time"
-            eval="(datetime.now() + timedelta(hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
-        />
+        <field name="start_time" eval="datetime.now()" />
+        <field name="end_time" eval="datetime.now() + timedelta(hours=2)" />
         <field name="coordinator_id" ref="volunteer_partner_demo_john" />
         <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
         <field name="type_id" ref="volunteer_shift_type_demo_cheese_cut" />
@@ -21,14 +18,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <record id="volunteer_shift_demo_delicatessen" model="volunteer.shift">
         <field name="name">Delicatessen cutting</field>
         <field name="max_volunteer_nb">3</field>
-        <field
-            name="start_time"
-            eval="(datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')"
-        />
-        <field
-            name="end_time"
-            eval="(datetime.now() + timedelta(days=1, hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
-        />
+        <field name="start_time" eval="datetime.now() + timedelta(days=1)" />
+        <field name="end_time" eval="datetime.now() + timedelta(days=1, hours=2)" />
         <field name="stage_id" ref="volunteer_shift_stage_canceled" />
         <field name="type_id" ref="volunteer_shift_type_demo_delicatessen_cut" />
         <field
@@ -41,14 +32,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <record id="volunteer_shift_demo_closing" model="volunteer.shift">
         <field name="name">Thursday closing</field>
         <field name="max_volunteer_nb">3</field>
-        <field
-            name="start_time"
-            eval="(datetime.now() + timedelta(days=+6)).strftime('%Y-%m-%d %H:%M:%S')"
-        />
-        <field
-            name="end_time"
-            eval="(datetime.now() + timedelta(days=+6, hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
-        />
+        <field name="start_time" eval="datetime.now() + timedelta(days=+6)" />
+        <field name="end_time" eval="datetime.now() + timedelta(days=+6, hours=2)" />
         <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
         <field
             name="tag_ids"
@@ -63,11 +48,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="max_volunteer_nb">9</field>
         <field
             name="start_time"
-            eval="(datetime.now() + timedelta(days=29)).replace(hour=20, minute=0, second=0).strftime('%Y-%m-%d %H:%M:%S')"
+            eval="(datetime.now() + timedelta(days=29)).replace(hour=20, minute=0, second=0)"
         />
         <field
             name="end_time"
-            eval="(datetime.now() + timedelta(days=30)).replace(hour=2, minute=0, second=0).strftime('%Y-%m-%d %H:%M:%S')"
+            eval="(datetime.now() + timedelta(days=30)).replace(hour=2, minute=0, second=0)"
         />
         <field name="coordinator_id" ref="volunteer_partner_demo_jean" />
         <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
@@ -81,14 +66,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <record id="volunteer_shift_demo_past_opening" model="volunteer.shift">
         <field name="name">Store opening</field>
         <field name="max_volunteer_nb">3</field>
-        <field
-            name="start_time"
-            eval="(datetime.now() + timedelta(days=-1)).strftime('%Y-%m-%d %H:%M:%S')"
-        />
-        <field
-            name="end_time"
-            eval="(datetime.now() + timedelta(days=-1, hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
-        />
+        <field name="start_time" eval="datetime.now() + timedelta(days=-1)" />
+        <field name="end_time" eval="datetime.now() + timedelta(days=-1, hours=2)" />
         <field name="coordinator_id" ref="volunteer_partner_demo_emma" />
         <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
         <field name="type_id" ref="volunteer_shift_type_demo_opening" />
@@ -97,14 +76,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <record id="volunteer_shift_demo_past_cheese" model="volunteer.shift">
         <field name="name">Cheese cutting</field>
         <field name="max_volunteer_nb">3</field>
-        <field
-            name="start_time"
-            eval="(datetime.now() + timedelta(days=-6)).strftime('%Y-%m-%d %H:%M:%S')"
-        />
-        <field
-            name="end_time"
-            eval="(datetime.now() + timedelta(days=-6, hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
-        />
+        <field name="start_time" eval="datetime.now() + timedelta(days=-6)" />
+        <field name="end_time" eval="datetime.now() + timedelta(days=-6, hours=2)" />
         <field name="coordinator_id" ref="volunteer_partner_demo_emma" />
         <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
         <field name="type_id" ref="volunteer_shift_type_demo_cheese_cut" />
@@ -113,14 +86,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <record id="volunteer_shift_demo_past_delicatessen" model="volunteer.shift">
         <field name="name">Delicatessen cutting</field>
         <field name="max_volunteer_nb">3</field>
-        <field
-            name="start_time"
-            eval="(datetime.now() + timedelta(days=-367)).strftime('%Y-%m-%d %H:%M:%S')"
-        />
-        <field
-            name="end_time"
-            eval="(datetime.now() + timedelta(days=-367, hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
-        />
+        <field name="start_time" eval="datetime.now() + timedelta(days=-367)" />
+        <field name="end_time" eval="datetime.now() + timedelta(days=-367, hours=2)" />
         <field name="coordinator_id" ref="volunteer_partner_demo_emma" />
         <field name="type_id" ref="volunteer_shift_type_demo_delicatessen_cut" />
     </record>
