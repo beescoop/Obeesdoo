@@ -22,8 +22,6 @@
         "views/res_config_setting_view.xml",
         "wizard/shift_change_create_wizard.xml",
     ],
-    "demo": [
-        "demo/demo.xml",
-    ],
+    "demo": [],
     "license": "AGPL-3",
 }
