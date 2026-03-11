@@ -28,9 +28,9 @@ class TestShiftChange(TransactionCase):
         self.worker_regular_2 = self.env.ref("shift.res_partner_worker_3_demo")
         self.worker_irregular_1 = self.env.ref("shift.res_partner_worker_2_demo")
 
-        self.task_template_1 = self.env.ref("shift_change.task_template_1_demo")
-        self.task_template_2 = self.env.ref("shift_change.task_template_2_demo")
-        self.task_template_3 = self.env.ref("shift_change.task_template_3_demo")
+        self.task_template_1 = self.env.ref("shift.task_template_1_demo")
+        self.task_template_2 = self.env.ref("shift.task_template_2_demo")
+        self.task_template_3 = self.env.ref("shift.task_template_3_demo")
 
         self.shift1_d2_w1_t1 = self.shift_model.create(
             {
