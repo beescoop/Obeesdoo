@@ -9,6 +9,7 @@
     "category": "Volunteer management",
     "website": "https://github.com/beescoop/Obeesdoo",
     "author": "Coop IT Easy SC",
+    "maintainers": ["remytms"],
     "license": "AGPL-3",
     "application": False,
     "depends": ["base", "volunteer", "mail"],

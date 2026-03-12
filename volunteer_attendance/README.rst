@@ -57,6 +57,14 @@ Contributors
 Maintainers
 ~~~~~~~~~~~
 
+.. |maintainer-remytms| image:: https://github.com/remytms.png?size=40px
+    :target: https://github.com/remytms
+    :alt: remytms
+
+Current maintainer:
+
+|maintainer-remytms| 
+
 This module is part of the `beescoop/Obeesdoo <https://github.com/beescoop/Obeesdoo/tree/16.0/volunteer_attendance>`_ project on GitHub.
 
 You are welcome to contribute.
