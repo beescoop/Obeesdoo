@@ -15,12 +15,12 @@
     "category": "Sales",
     "version": "16.0.1.0.0",
     "depends": [
+        "pos_container_deposit",
         "product",
         "sale",
     ],
     "data": [
         "views/product_template_view.xml",
-        "data/account_tax_group_data.xml",
     ],
     "license": "AGPL-3",
 }

@@ -36,27 +36,17 @@ class ProductTemplate(models.Model):
         "list_price",
         "taxes_id.amount",
         "taxes_id.tax_group_id",
-        "weight",
+        "uom_id",
     )
     def _compute_total(self):
         for product in self:
 
             product.several_tax_strategies_warning = False
 
-            deposit_group = self.env.ref(
-                "sale_product_deposit.deposit_tax_group", raise_if_not_found=False
-            )
-
-            taxes_included = set(
-                product.taxes_id.filtered(
-                    lambda t: t.tax_group_id != deposit_group
-                ).mapped("price_include")
-            )
+            taxes_included = set(product.taxes_id.mapped("price_include"))
 
             if len(taxes_included) == 0:
                 product.total_with_vat = product.list_price
-                product.total_with_vat_by_unit = False
-                return True
 
             elif len(taxes_included) > 1:
                 _logger.warning(
@@ -74,18 +64,16 @@ class ProductTemplate(models.Model):
                     [
                         tax._compute_amount(product.list_price, product.list_price)
                         for tax in product.taxes_id
-                        if tax.tax_group_id != deposit_group
                     ]
                 )
                 product.total_with_vat = product.list_price + tax_amount_sum
 
-            product.total_deposit = sum(
-                [
-                    tax._compute_amount(product.list_price, product.list_price)
-                    for tax in product.taxes_id
-                    if tax.tax_group_id == deposit_group
-                ]
-            )
+            if product.deposit_product_id:
+                product.total_deposit = product.deposit_product_id.lst_price
+            else:
+                product.total_deposit = False
 
-            if product.weight > 0:
-                product.total_with_vat_by_unit = product.total_with_vat / product.weight
+            if product.uom_id.factor_inv:
+                product.total_with_vat_by_unit = (
+                    product.total_with_vat / product.uom_id.factor_inv
+                )
