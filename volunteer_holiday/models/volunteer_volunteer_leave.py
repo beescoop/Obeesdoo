@@ -4,7 +4,7 @@
 
 from datetime import date, datetime
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class VolunteerVolunteerLeave(models.Model):
@@ -43,6 +43,7 @@ class VolunteerVolunteerLeave(models.Model):
 
     def _cancel_volunteer_leave_participation(self):
         """Cancel participations of volunteers if they overlap with their time off"""
+        Holiday = self.env["volunteer.company.holiday"]
         today_midnight = datetime.today().replace(
             hour=0, minute=0, second=0, microsecond=0
         )
@@ -61,33 +62,10 @@ class VolunteerVolunteerLeave(models.Model):
                 )
             )
             for participation in future_confirmed_participations:
-                if self._shift_covers_holiday(
+                if Holiday._shift_covers_holiday(
                     participation.shift_id.start_time,
                     participation.shift_id.end_time,
                     leave.start_date,
                     leave.end_date,
                 ):
                     participation.sudo().write({"registration_state": "canceled"})
-
-    @api.model
-    def _shift_covers_holiday(
-        self, shift_start_time, shift_end_time, holiday_start_date, holiday_end_date
-    ):
-        """Compare two periods of time, return true if they overlap."""
-        shift_start_date = shift_start_time.date()
-        shift_end_date = shift_end_time.date()
-
-        return (
-            (
-                shift_start_date >= holiday_start_date
-                and shift_start_date <= holiday_end_date
-            )
-            or (
-                shift_end_date >= holiday_start_date
-                and shift_start_date <= holiday_end_date
-            )
-            or (
-                shift_start_date <= holiday_start_date
-                and shift_end_date >= holiday_end_date
-            )
-        )

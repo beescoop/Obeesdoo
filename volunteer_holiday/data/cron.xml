@@ -4,10 +4,12 @@ SPDX-FileCopyrightText: 2025 Coop IT Easy SC
 
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
-<odoo>
-    <!-- Après test, passer en noupdate=1 -->
+<odoo noupdate="0">
+
     <record id="ir_cron_cancel_holiday_shift" model="ir.cron">
-        <field name="name">Cancel Generated Shifts During Company Holidays</field>
+        <field
+            name="name"
+        >Volunteer: Cancel Generated Shifts During Company Holidays</field>
         <field name="model_id" ref="model_volunteer_company_holiday" />
         <field name="state">code</field>
         <field name="code">model._cancel_holiday_shift()</field>
@@ -18,10 +20,25 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </record>
 
     <record id="ir_cron_cancel_volunteer_leave_participation" model="ir.cron">
-        <field name="name">Cancel Participations During Volunteer Leaves</field>
+        <field
+            name="name"
+        >Volunteer: Cancel Participations During Volunteer Leaves</field>
         <field name="model_id" ref="model_volunteer_volunteer_leave" />
         <field name="state">code</field>
         <field name="code">model._cancel_volunteer_leave_participation()</field>
+        <field name="interval_number">24</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+    </record>
+
+    <record id="ir_cron_send_leave_end_notification" model="ir.cron">
+        <field
+            name="name"
+        >Notification: Send a Reminder to Volunteers Before their Leave Ends</field>
+        <field name="model_id" ref="model_volunteer_volunteer" />
+        <field name="state">code</field>
+        <field name="code">model._send_notification_end_leave()</field>
         <field name="interval_number">24</field>
         <field name="interval_type">hours</field>
         <field name="numbercall">-1</field>

@@ -33,7 +33,7 @@ class VolunteerCompanyHoliday(models.Model):
 
     # Retirer la limite de temps, regarder les shifts futurs
     def _cancel_holiday_shift(self, time_in_months=3):
-        """Cancel shifts if they cover holiday period within time range"""
+        """Cancel shifts if they cover holiday period within time range."""
         today_midnight = datetime.today().replace(
             hour=0, minute=0, second=0, microsecond=0
         )
@@ -110,32 +110,46 @@ class VolunteerCompanyHoliday(models.Model):
             )
         )
 
-    # Override Methods
+    # Override Methods : DRAFT ! il faut encore préciser des conditions qui
+    # vérifieront que ça vaut la peine de lancer la fonction (qu'il y a bien
+    # des shifts à annuler dans l'interval de temps entre les anciennes dates
+    # de début et de fin des vacances).
 
     # def write(self, vals):
-    #     self.ensure_one()
     #     if "start_date" in vals or "end_date" in vals:
-    #         old_start_date = self.start_date
-    #         old_end_date = self.end_date
-
-    #         if vals["start_date"] > old_start_date:
-    #             shifts_to_uncancel = self.env["volunteer_shift"].sudo().search(
-    #                 [
-    #                     ("shift.state", "=", "canceled"),
-    #                     ("shift.start_time", ">", old_start_date),
-    #                     ("shift.start_time", "<", vals["start_date"]),
-    #                     ("shift.generator_id", "!=", None),
-    #                     ("shift.generator_id.is_maintained_during_holiday", "=", False),
-    #                     # Ajouter un bool canceled_through_cron ?
-    #                 ]
-    #             )
+    #         canceled_shifts_during_holiday = self.env["volunteer_shift"].sudo().search(
+    #             [
+    #                 ("shift.state", "=", "canceled"),
+    #                 ("shift.generator_id", "!=", None),
+    #                 ("shift.generator_id.is_maintained_during_holiday", "=", False),
+    #                 # the 2 last domains could be replaced by one if we add the bool
+    #                 # is_canceled_by_holiday
+    #             ]
+    #         )
+    #         for holiday in self:
+    #             old_start_date = holiday.start_date
+    #             old_end_date = holiday.end_date
+    #             shifts_to_uncancel = []
+    #             if vals["start_date"] > old_start_date:
+    #                 temp_shifts_to_uncancel = canceled_shifts_during_holiday.filtered(
+    #                     lambda shift: shift.start_time.date() > old_start_date
+    #                     and shift.start_time.date() < vals["start_date"]
+    #                 )
+    #                 shifts_to_uncancel.extend(temp_shifts_to_uncancel)
+    #             elif vals["end_date"] < old_end_date:
+    #                 temp_shifts_to_uncancel = canceled_shifts_during_holiday.filtered(
+    #                     lambda shift: shift.end_time.date() < old_end_date
+    #                     and shift.end_time.date() > vals["end_date"]
+    #                 )
+    #                 shifts_to_uncancel.extend(temp_shifts_to_uncancel)
     #             for shift in shifts_to_uncancel:
-    #                 shift.super().write(
+    #                 shift.write(
     #                     {
     #                         "stage_id": self.env.ref(
     #                             "volunteer.volunteer_shift_stage_confirmed"
     #                         ).id
     #                     }
     #                 )
-
-    #         # if vals["end_date"] < old_end_date:
+    # TODO: Aussi penser aux participations de chaque shift,
+    # si on les repasse en confirmé, lesquelles, etc
+    #     super().write(vals)
