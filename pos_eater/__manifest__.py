@@ -14,7 +14,7 @@
     "author": "BEES coop - Cellule IT, Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Point Of Sale",
-    "version": "16.0.1.0.1",
+    "version": "16.0.1.0.2",
     "depends": ["point_of_sale", "eater"],
     "assets": {
         "point_of_sale.assets": [

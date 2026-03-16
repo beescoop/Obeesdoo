@@ -33,7 +33,7 @@ addon | version | maintainers | summary
 [portal_eater](portal_eater/) | 16.0.1.0.0 |  | Show the eaters of a cooperator in the website portal.
 [portal_pos_order_amount](portal_pos_order_amount/) | 16.0.1.0.0 |  | Show the total amount of pos order in the website portal.
 [pos_auto_invoice_company](pos_auto_invoice_company/) | 16.0.1.0.0 |  | Applies to_invoice to company partners.
-[pos_eater](pos_eater/) | 16.0.1.0.1 |  | This module adds the eaters of the customer to the POS ActionpadWidget.
+[pos_eater](pos_eater/) | 16.0.1.0.2 |  | This module adds the eaters of the customer to the POS ActionpadWidget.
 [pos_shift_partner_can_shop](pos_shift_partner_can_shop/) | 16.0.1.0.1 | <a href='https://github.com/remytms'><img src='https://github.com/remytms.png' width='32' height='32' style='border-radius:50%;' alt='remytms'/></a> | Display in the POS whether the partner can shop or not.
 [product_cost_from_supplier_price](product_cost_from_supplier_price/) | 16.0.1.0.1 |  | Compute the product cost from the main supplier's price
 [product_expiration](product_expiration/) | 16.0.1.0.0 |  | Add Number of Days Before Product Expiration.
