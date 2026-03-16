@@ -30,14 +30,6 @@ msgid "Product"
 msgstr ""
 
 #. module: sale_product_deposit
-#: model:ir.model.fields,field_description:sale_product_deposit.field_product_product__several_tax_strategies_warning
-#: model:ir.model.fields,field_description:sale_product_deposit.field_product_template__several_tax_strategies_warning
-msgid ""
-"This product can't be printed from the Point of Sale because several tax "
-"strategies were defined."
-msgstr ""
-
-#. module: sale_product_deposit
 #: model:ir.model.fields,field_description:sale_product_deposit.field_product_product__total_with_vat
 #: model:ir.model.fields,field_description:sale_product_deposit.field_product_template__total_with_vat
 msgid "Total Sales Price with VAT"
