@@ -42,7 +42,7 @@ addon | version | maintainers | summary
 [product_main_supplier](product_main_supplier/) | 16.0.1.0.0 |  | Add a main supplier
 [product_scale_label](product_scale_label/) | 16.0.1.0.0 |  | Add scale labels, sale units, and categories.
 [purchase_order_responsible](purchase_order_responsible/) | 16.0.1.0.0 | <a href='https://github.com/victor-champonnois'><img src='https://github.com/victor-champonnois.png' width='32' height='32' style='border-radius:50%;' alt='victor-champonnois'/></a> | Adds a 'Responsible' field to purchase orders
-[sale_product_deposit](sale_product_deposit/) | 16.0.1.0.0 |  | Calculates total price with VAT and deposit price.
+[sale_product_deposit](sale_product_deposit/) | 16.0.1.1.0 |  | Compute total price with VAT and deposit price
 [shift](shift/) | 16.0.1.1.1 |  | Generate and manage shifts for cooperators.
 [shift_attendance](shift_attendance/) | 16.0.1.0.1 |  | Volunteer Timetable Management
 [shift_beneficiary](shift_beneficiary/) | 16.0.1.1.0 | <a href='https://github.com/victor-champonnois'><img src='https://github.com/victor-champonnois.png' width='32' height='32' style='border-radius:50%;' alt='victor-champonnois'/></a> | Add a 'beneficiary' field on shifts
