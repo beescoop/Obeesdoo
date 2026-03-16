@@ -6,8 +6,8 @@
 import ActionpadWidget from "point_of_sale.ActionpadWidget";
 import Registries from "point_of_sale.Registries";
 
-const EaterActionpadWidget = () =>
-    class extends ActionpadWidget {
+const EaterActionpadWidget = (ActionpadWidget_) =>
+    class extends ActionpadWidget_ {
         get eaterNames() {
             const names = this.props.partner.child_eater_ids.map(
                 (id) => this.env.pos.db.get_partner_by_id(id).name
