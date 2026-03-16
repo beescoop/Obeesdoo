@@ -22,7 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [beesdoo_label_deposit](beesdoo_label_deposit/) | 16.0.1.0.0 | <a href='https://github.com/mihien'><img src='https://github.com/mihien.png' width='32' height='32' style='border-radius:50%;' alt='mihien'/></a> | Add the price of the product deposit to the label
-[beesdoo_print_label](beesdoo_print_label/) | 16.0.1.0.1 |  | Product labels
+[beesdoo_print_label](beesdoo_print_label/) | 16.0.1.0.2 |  | Product labels
 [beesdoo_product_label](beesdoo_product_label/) | 16.0.1.0.1 |  | Adds the label bio/ethique/provenance.
 [beesdoo_product_usability](beesdoo_product_usability/) | 16.0.1.0.0 |  | Simplification of product views
 [beesdoo_shift_welcome_screen](beesdoo_shift_welcome_screen/) | 16.0.1.0.0 |  | Volunteer Timetable Management
