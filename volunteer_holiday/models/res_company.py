@@ -16,7 +16,7 @@ class ResCompany(models.Model):
     _sql_constraints = [
         (
             "nb_days_is_pos",
-            "check (nb_days_before_leave_end > 0)",
+            "CHECK (nb_days_before_leave_end > 0)",
             "The number of days cannot be null or negative.",
         ),
     ]

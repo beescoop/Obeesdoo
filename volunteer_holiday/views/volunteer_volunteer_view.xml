@@ -16,7 +16,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             >
                 <page name="page_leaves" string="Leaves">
                     <field name="volunteer_leave_ids">
-                        <tree editable="top">
+                        <tree delete="false">
                             <field name="type_id" options="{'no_create':True}" />
                             <field name="start_date" />
                             <field name="end_date" />

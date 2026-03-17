@@ -13,6 +13,7 @@ class VolunteerCompanyHoliday(models.Model):
     _name = "volunteer.company.holiday"
     _description = "Company Holidays"
     _order = "start_date"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     # Fields
 
@@ -25,9 +26,19 @@ class VolunteerCompanyHoliday(models.Model):
         required=True,
     )
 
-    start_date = fields.Date(required=True)
+    start_date = fields.Date(required=True, tracking=True)
 
-    end_date = fields.Date(required=True)
+    end_date = fields.Date(required=True, tracking=True)
+
+    # SQL Constraints
+
+    _sql_constraints = [
+        (
+            "start_d_smaller_than_end_d",
+            "CHECK (start_date <= end_date)",
+            "Start date shouldn't be greater than end date.",
+        ),
+    ]
 
     # Methods
 

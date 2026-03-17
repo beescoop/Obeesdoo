@@ -33,14 +33,8 @@ class TestCompanyHoliday(TransactionCase):
 
         self.Company = self.env["res.company"]
         self.Holiday = self.env["volunteer.company.holiday"]
-        # self.Shift = self.env["volunteer.shift"]
         self.Type = self.env["volunteer.shift.type"]
         self.Generator = self.env["volunteer.shift.recurrent.generator"]
-
-        # Stages
-
-        # self.stage_confirmed = self.env.ref("volunteer.volunteer_shift_stage_confirmed")
-        # self.stage_canceled = self.env.ref("volunteer.volunteer_shift_stage_canceled")
 
         # Create required type
         self.type1 = self.Type.create(

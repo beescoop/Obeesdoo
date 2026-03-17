@@ -10,7 +10,8 @@ from odoo import fields, models
 class VolunteerVolunteerLeave(models.Model):
     _name = "volunteer.volunteer.leave"
     _description = "Volunteer Leave"
-    _order = "start_date"
+    _order = "start_date desc"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     # Relational Fields
 
@@ -32,12 +33,18 @@ class VolunteerVolunteerLeave(models.Model):
 
     # Time fields
 
-    start_date = fields.Date(
-        required=True,
-    )
-    end_date = fields.Date(
-        required=True,
-    )
+    start_date = fields.Date(required=True, tracking=True)
+    end_date = fields.Date(required=True, tracking=True)
+
+    # SQL Constraints
+
+    _sql_constraints = [
+        (
+            "start_d_smaller_than_end_d",
+            "CHECK (start_date <= end_date)",
+            "Start date shouldn't be greater than end date.",
+        ),
+    ]
 
     # Methods
 
