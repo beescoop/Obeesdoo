@@ -24,20 +24,18 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                         <group name="group_left">
                             <field
                                 name="old_shift_id"
-                                context="{
-                                    'search_default_gb_day': 1,
-                                    'search_default_template': 1,
-                                }"
+                                options="{
+                                    'no_create': True,
+                                 }"
                             />
                         </group>
                         <group name="group_right">
                             <field
                                 name="new_shift_id"
                                 domain="[('id', 'in', available_new_shift_ids)]"
-                                context="{
-                                    'search_default_template': 1,
-                                    'search_default_gb_day': 1,
-                                }"
+                                options="{
+                                    'no_create': True,
+                                 }"
                             />
                         </group>
                     </group>
