@@ -159,6 +159,8 @@ class TestShiftChangePortalController(TestShiftChangeCommon, HttpCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertIn("alert-danger", response.content.decode("utf-8"))
+        # Ensure there is not change created
+        self.assertFalse(self.shift_change_model.search([]))
 
     def test_shift_change_wrong_worker(self):
         """Test creating a change with worker that don't match the shift
@@ -174,6 +176,8 @@ class TestShiftChangePortalController(TestShiftChangeCommon, HttpCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertIn("alert-danger", response.content.decode("utf-8"))
+        # Ensure there is not change created
+        self.assertFalse(self.shift_change_model.search([]))
 
     def test_shift_change_to_close(self):
         """Test changing to a shift to close"""
@@ -187,6 +191,8 @@ class TestShiftChangePortalController(TestShiftChangeCommon, HttpCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertIn("alert-danger", response.content.decode("utf-8"))
+        # Ensure there is not change created
+        self.assertFalse(self.shift_change_model.search([]))
 
     def test_shift_origin_empty(self):
         """Test that fails if old_shift is empty"""
@@ -200,3 +206,5 @@ class TestShiftChangePortalController(TestShiftChangeCommon, HttpCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertIn("alert-danger", response.content.decode("utf-8"))
+        # Ensure there is not change created
+        self.assertFalse(self.shift_change_model.search([]))
