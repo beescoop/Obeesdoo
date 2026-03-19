@@ -85,13 +85,18 @@ class ShiftChangePortal(WebsiteShiftController):
         error = None
         if request.httprequest.method == "POST":
             try:
-                request.env["shift.change"].sudo().create(
-                    {
-                        "worker_id": request.env.user.partner_id.id,
-                        "old_shift_id": old_shift.id,
-                        "new_shift_id": new_shift.id,
-                    }
-                )
+                # We need that the create rollback in case of an error.
+                # In a controller is not the default as in wizards.
+                # So we manually create a savepoint before calling the
+                # create.
+                with request.env.cr.savepoint():
+                    request.env["shift.change"].sudo().create(
+                        {
+                            "worker_id": request.env.user.partner_id.id,
+                            "old_shift_id": old_shift.id,
+                            "new_shift_id": new_shift.id,
+                        }
+                    )
             except UserError as err:
                 error = str(err)
             else:

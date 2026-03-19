@@ -84,6 +84,7 @@ class TestShiftChange(TestShiftChangeCommon):
                     "new_shift_id": self.shift2_d2_w2_t2.id,
                 }
             )
+        self.assertFalse(self.shift_change_model.search([]))
 
     def test_shift_change_in_past(self):
         """Test changing for a shift in the past"""
