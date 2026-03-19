@@ -25,12 +25,10 @@ class WebsiteShiftController(WebsiteShiftController):
 
     def available_shift_irregular_worker(
         self,
-        irregular_enable_sign_up=False,
-        nexturl="",
+        *args,
+        **kwargs,
     ):
-        res = super().available_shift_irregular_worker(
-            irregular_enable_sign_up, nexturl
-        )
+        res = super().available_shift_irregular_worker(*args, **kwargs)
         beneficiary_list = (
             request.env["res.partner"].sudo().search([("is_beneficiary", "=", True)])
         )
