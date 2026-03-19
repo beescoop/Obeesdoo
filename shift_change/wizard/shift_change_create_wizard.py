@@ -18,6 +18,9 @@ class ShiftChangeCreateWizard(models.TransientModel):
             ("working_mode", "in", ("regular", "irregular")),
             ("state", "not in", ("unsubscribed", "resigning")),
         ],
+        default=lambda self: self.env["res.partner"].browse(
+            self._context.get("active_id")
+        ),
         required=True,
     )
     old_shift_id = fields.Many2one("shift.shift", string="Old shift", required=True)
