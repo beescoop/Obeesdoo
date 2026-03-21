@@ -43,7 +43,7 @@ class VolunteerCompanyHoliday(models.Model):
     # Methods
 
     # Retirer la limite de temps, regarder les shifts futurs
-    def _cancel_holiday_shift(self, time_in_months=3):
+    def _cancel_holiday_shift(self, time_in_months=12):
         """Cancel shifts if they cover holiday period within time range."""
         today_midnight = datetime.today().replace(
             hour=0, minute=0, second=0, microsecond=0
