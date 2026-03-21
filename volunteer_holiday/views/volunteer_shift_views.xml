@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <record id="volunteer_shift_view_form_extend" model="ir.ui.view">
+        <field name="name">Shift: Add info if shift overlaps with holidays</field>
+        <field name="model">volunteer.shift</field>
+        <field name="inherit_id" ref="volunteer.volunteer_shift_view_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@class='oe_title']" position="after">
+                <div class="d-flex align-items-start mt-2 mb-5">
+                    <div
+                        class="badge bg-warning text-center fs-4 p-2 w-auto"
+                        attrs="{'invisible': [('overlaps_holiday', '=', False)]}"
+                    >
+                        Overlap with company holiday
+                        <field name="overlaps_holiday" invisible="1" />
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
