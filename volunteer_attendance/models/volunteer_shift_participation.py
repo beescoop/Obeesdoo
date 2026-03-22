@@ -23,13 +23,12 @@ class VolunteerShiftParticipation(models.Model):
         for participation in self:
             if (
                 participation.registration_state == "canceled"
-                and participation.attendance_status_id is not None
+                and participation.attendance_status_id.id
             ):
                 raise ValidationError(
                     _(
                         "An attendance status for a canceled participation "
-                        "will not be taken into account for the attendance state "
-                        "of the shift."
+                        "will not be taken into account. "
                     )
                 )
 

@@ -49,5 +49,6 @@ class VolunteerShift(models.Model):
             "domain": [
                 ("shift_id", "=", [self.id]),
                 ("attendance_status_id", "=", None),
+                ("registration_state", "!=", "canceled"),
             ],
         }
