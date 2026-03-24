@@ -185,7 +185,7 @@ msgid "<strong>Warning !</strong>\n"
 "            For the moment public holidays are not taken into account. If your\n"
 "            shift\n"
 "            occures during a public holiday, you do not have to do it."
-msgstr "<strong>Attention !</strong>Pour le moment, les jours fériés ne sont pas pris en compte. Le magasin est fermé et les shifts sont annulés ces jours-là."
+msgstr "<strong>Attention !</strong> Pour le moment, les jours fériés ne sont pas pris en compte. Le magasin est fermé et les shifts sont annulés ces jours-là."
 
 #. module: shift_portal
 #: model_terms:ir.ui.view,arch_db:shift_portal.my_shift_next_shifts
