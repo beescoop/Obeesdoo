@@ -386,32 +386,39 @@ ul.auto-toc {
 </div>
 <div class="section" id="known-issues-roadmap">
 <h1><a class="toc-backref" href="#toc-entry-1">Known issues / Roadmap</a></h1>
-<ul class="simple">
-<li>Currently, shifts that were canceled due to company holidays are not marked as such. It can be a source of confusion.</li>
+<ul>
+<li><p class="first">Currently, shifts that were canceled due to company holidays are not marked as such. It can be a source of confusion.</p>
+<blockquote>
+<p>Add message in the chatter of the shift form view stating that it was canceled because of company holidays.</p>
+</blockquote>
+</li>
+<li><p class="first">A label indicates whether a shift overlaps with any holiday period ONLY in the shift form view.</p>
+<blockquote>
+<p>Add the same label in all shift views, especially in the shift list view.</p>
+</blockquote>
+</li>
+<li><p class="first">No reminder that a shift has been created through a Generator with the bool is_maintained_during_holiday=True is visible on the shift.</p>
+<blockquote>
+<p>Add a field to the volunteer shift model and views to show this information.</p>
+</blockquote>
+</li>
+<li><p class="first">Currently, there is no warning or any form of control in the cancellation-of-shifts-due-to-holidays process.</p>
+<blockquote>
+<p>Add a wizard to control every step of the process when creating company holidays.
+AND/OR Add a button in the company holidays view that would allow to trigger the function that cancels shifts manually.</p>
+</blockquote>
+</li>
+<li><p class="first">A volunteer’s participations are not marked when they overlap with any of their leave.</p>
+<blockquote>
+<p>Add a computed field similar to overlaps_holiday in volunteer.shift, to display on all views with participations.</p>
+</blockquote>
+</li>
+<li><p class="first">For now, it is still possible for a volunteer to participate in a shift that over laps withtheir leave.</p>
+<blockquote>
+<p>Add constraints and an error message if it is attempted.</p>
+</blockquote>
+</li>
 </ul>
-<p>Suggestion: Add message in the chatter of the shift form view stating that it was canceled because of company holidays.</p>
-<ul class="simple">
-<li>A label indicates whether a shift overlaps with any holiday period ONLY in the shift form view.</li>
-</ul>
-<p>Suggestion: Add the same label in all shift views, especially in the shift list view.</p>
-<ul class="simple">
-<li>No reminder that a shift has been created through a Generator with the bool is_maintained_during_holiday=True is visible on the shift.</li>
-</ul>
-<p>Suggestion: Add a field to the volunteer shift model and views to show this information.</p>
-<ul class="simple">
-<li>Currently, there is no warning or any form of control in the cancellation-of-shifts-due-to-holidays process.</li>
-</ul>
-<p>Suggestions:
-Add a wizard to control every step of the process when creating company holidays.
-Add a button in the company holidays view that would allow to trigger the function that cancels shifts manually.</p>
-<ul class="simple">
-<li>A volunteer’s participations are not marked when they overlap with any of their leave.</li>
-</ul>
-<p>Suggestion: Add a computed field similar to overlaps_holiday in volunteer.shift, to display on all views with participations.</p>
-<ul class="simple">
-<li>For now, it is still possible for a volunteer to participate in a shift that over laps withtheir leave.</li>
-</ul>
-<p>Suggestion: Add constraints and an error message if it is attempted.</p>
 </div>
 <div class="section" id="bug-tracker">
 <h1><a class="toc-backref" href="#toc-entry-2">Bug Tracker</a></h1>
