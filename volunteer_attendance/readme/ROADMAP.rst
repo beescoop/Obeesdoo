@@ -6,5 +6,5 @@
 
 - The "attendance_state" field is not present in the shift list view.
 
-    Add atendance_state to shift list view.
+    Add atendance_state to shift list view
 
