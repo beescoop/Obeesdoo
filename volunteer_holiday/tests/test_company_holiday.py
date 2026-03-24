@@ -6,43 +6,15 @@ from datetime import date, datetime
 
 from freezegun import freeze_time
 
-from odoo.tests.common import TransactionCase
+from .test_volunteer_holiday_common import TestVolunteerHolidayCommon
 
 
 @freeze_time("2026-01-01 10:00:00")
-class TestCompanyHoliday(TransactionCase):
+class TestCompanyHoliday(TestVolunteerHolidayCommon):
     def setUp(self, *args, **kwargs):
         super().setUp(*args, **kwargs)
 
-        # Force all operations to run as admin
-        self.env = self.env(user=self.env.ref("base.user_admin"))
-
-        # Set up the environment
-        self.env = self.env(
-            context=dict(
-                self.env.context,
-                mail_create_nolog=True,
-                mail_create_nosubscribe=True,
-                mail_notrack=True,
-                no_reset_password=True,
-                tracking_disable=True,
-            )
-        )
-
-        # Models
-
-        self.Company = self.env["res.company"]
-        self.Holiday = self.env["volunteer.company.holiday"]
-        self.Type = self.env["volunteer.shift.type"]
         self.Generator = self.env["volunteer.shift.recurrent.generator"]
-
-        # Create required type
-        self.type1 = self.Type.create(
-            {
-                "name": "TypeTest",
-                "description": "Type for autotests",
-            }
-        )
 
         # Fix number of occurrences for all tests
         self.env.company.shift_nb_occurrence = 10
@@ -196,9 +168,6 @@ class TestCompanyHoliday(TransactionCase):
                 self.assertEqual(shift.state, "canceled")
             if shift.start_time == datetime(2026, 3, 6, 10, 0):
                 self.assertEqual(shift.state, "confirmed")
-
-        # Create other company
-        self.anoter_company = self.Company.sudo().create({"name": "AnotherCompany"})
 
         # Create holidays of another company
         self.other_company_holiday = self.Holiday.sudo().create(

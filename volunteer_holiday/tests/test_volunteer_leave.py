@@ -6,55 +6,17 @@ from datetime import date, datetime
 
 from freezegun import freeze_time
 
-from odoo.tests.common import TransactionCase
+from .test_volunteer_holiday_common import TestVolunteerHolidayCommon
 
 
 @freeze_time("2026-03-01 10:00:00")
-class TestVolunteerLeave(TransactionCase):
+class TestVolunteerLeave(TestVolunteerHolidayCommon):
     def setUp(self, *args, **kwargs):
         super().setUp(*args, **kwargs)
 
-        # Force all operations to run as admin
-        self.env = self.env(user=self.env.ref("base.user_admin"))
+        # Needed models
 
-        # Set up the environment
-        self.env = self.env(
-            context=dict(
-                self.env.context,
-                mail_create_nolog=True,
-                mail_create_nosubscribe=True,
-                mail_notrack=True,
-                no_reset_password=True,
-                tracking_disable=True,
-            )
-        )
-
-        # Models
-
-        self.Volunteer = self.env["volunteer.volunteer"]
-        self.Shift = self.env["volunteer.shift"]
-        self.Type = self.env["volunteer.shift.type"]
-        self.VolunteerLeave = self.env["volunteer.volunteer.leave"]
-        self.VolunteerLeaveType = self.env["volunteer.volunteer.leave.type"]
         self.Participation = self.env["volunteer.shift.participation"]
-
-        # Create required stages
-        self.stage_confirmed = self.env.ref("volunteer.volunteer_shift_stage_confirmed")
-        self.stage_canceled = self.env.ref("volunteer.volunteer_shift_stage_canceled")
-
-        # Create required types
-        self.type1 = self.Type.create(
-            {
-                "name": "TypeTest",
-                "description": "Type for autotests",
-            }
-        )
-        self.volunteer_leave_type1 = self.VolunteerLeaveType.create(
-            {
-                "name": "LeaveTypeTest",
-                "description": "Type for autotests",
-            }
-        )
 
         # Create shifts
         self.shift1 = self.Shift.create(
