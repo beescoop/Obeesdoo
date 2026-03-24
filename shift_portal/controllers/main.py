@@ -152,7 +152,9 @@ class WebsiteShiftController(http.Controller):
         # Create template context
         template_context = {}
         template_context.update(
-            self.available_shift_irregular_worker(irregular_enable_sign_up, nexturl)
+            self.available_shift_irregular_worker(
+                irregular_enable_sign_up=irregular_enable_sign_up, nexturl=nexturl
+            )
         )
 
         return request.render(
@@ -309,7 +311,10 @@ class WebsiteShiftController(http.Controller):
         template_context.update(self.my_shift_past_shifts())
         template_context.update(
             self.available_shift_irregular_worker(
-                irregular_enable_sign_up and self.user_can_subscribe(), nexturl
+                irregular_enable_sign_up=(
+                    irregular_enable_sign_up and self.user_can_subscribe()
+                ),
+                nexturl=nexturl,
             )
         )
 
