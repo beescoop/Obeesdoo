@@ -15,6 +15,7 @@ class TestVolunteerShift(TestVolunteerHolidayCommon):
         super().setUp()
 
         # Records
+
         self.easter_holiday = self.Holiday.create(
             {
                 "name": "Easter",
@@ -65,7 +66,7 @@ class TestVolunteerShift(TestVolunteerHolidayCommon):
         current shifts and holidays"""
         # The compute_overlap_holiday is triggered when holidays are
         # created, written or unlinked, as well as when start_time
-        # and end_time are modificated on shifts.
+        # and end_time are modificated in shifts.
         self.assertFalse(self.shift_no_overlap.overlaps_holiday)
         self.assertTrue(self.shift_overlap.overlaps_holiday)
         self.assertFalse(self.shift_other_company.overlaps_holiday)

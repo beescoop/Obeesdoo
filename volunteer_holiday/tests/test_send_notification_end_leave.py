@@ -9,7 +9,6 @@ from freezegun import freeze_time
 from .test_volunteer_holiday_common import TestVolunteerHolidayCommon
 
 
-# @freeze_time("2026-01-01 10:00:00")
 class TestNotificationEndLeave(TestVolunteerHolidayCommon):
     def setUp(self, *args, **kwargs):
         super().setUp(*args, **kwargs)

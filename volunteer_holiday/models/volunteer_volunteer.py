@@ -15,7 +15,7 @@ class VolunteerVolunteer(models.Model):
     volunteer_leave_ids = fields.One2many(
         comodel_name="volunteer.volunteer.leave",
         inverse_name="volunteer_id",
-        string="Leave",
+        string="Leaves",
     )
 
     def _send_notification_end_leave(self):

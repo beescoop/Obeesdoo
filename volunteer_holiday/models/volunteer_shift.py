@@ -17,21 +17,9 @@ class VolunteerShift(models.Model):
         store=True,
     )
 
-    # # This field needs more thinking. See method below.
-    # overlapping_holiday_ids = fields.Many2many(
-    #     comodel_name="volunteer.company.holiday",
-    #     string="Overlap with: ",
-    #     compute="_compute_overlap_holiday",
-    #     store=True,
-    # )
-
     @api.depends("start_time", "end_time", "company_id")
     def _compute_overlap_holiday(self):
         """Compute if shift overlaps with any company holiday period."""
-        # # For now, this function only applies to future shifts and holidays.
-        # # Some thinking will be needed regarding the update of the fields
-        # # overlapping_holiday_ids and overlaps_holiday over time, and whether
-        # # changing dates in the past should be possible or not.
         date_today = datetime.today().date()
         Holiday = self.env["volunteer.company.holiday"]
         future_shifts = self.env["volunteer.shift"].search(

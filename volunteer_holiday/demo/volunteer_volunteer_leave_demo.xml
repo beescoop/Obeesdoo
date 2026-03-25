@@ -13,11 +13,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="type_id" ref="volunteer_volunteer_leave_type_demo_vacation" />
         <field
             name="start_date"
-            eval="(datetime.now().date() + timedelta(weeks=4, days=4)).strftime('%Y-%m-%d')"
+            eval="(datetime.now().date() + timedelta(weeks=4, days=4))"
         />
         <field
             name="end_date"
-            eval="(datetime.now().date() + timedelta(weeks=4, days=14)).strftime('%Y-%m-%d')"
+            eval="(datetime.now().date() + timedelta(weeks=4, days=14))"
         />
     </record>
 
@@ -30,13 +30,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             name="type_id"
             ref="volunteer_volunteer_leave_type_demo_parental_leave"
         />
-        <field
-            name="start_date"
-            eval="(datetime.now().date() + timedelta(days=4)).strftime('%Y-%m-%d')"
-        />
+        <field name="start_date" eval="(datetime.now().date() + timedelta(days=4))" />
         <field
             name="end_date"
-            eval="(datetime.now().date() + timedelta(weeks=9, days=4)).strftime('%Y-%m-%d')"
+            eval="(datetime.now().date() + timedelta(weeks=9, days=4))"
         />
     </record>
 </odoo>

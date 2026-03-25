@@ -10,7 +10,7 @@ from odoo import fields, models
 class VolunteerVolunteerLeave(models.Model):
     _name = "volunteer.volunteer.leave"
     _description = "Volunteer Leave"
-    _order = "start_date desc"
+    _order = "start_date desc, volunteer_id, id"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
     # Relational Fields
