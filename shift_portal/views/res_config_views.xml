@@ -43,31 +43,6 @@
                 <div class="col-12 col-lg-6 o_setting_box">
                     <div class="o_setting_right_pane">
                         <span class="o_form_label">
-                            Minimum number of hours before a shift to unsubscribe
-                        </span>
-                        <div class="text-muted">
-                            Workers can unsubscribe from a shift only if the delay before
-                            the start is at least this number of hours
-                        </div>
-                        <div class="content-group">
-                            <div class="mt16 row">
-                                <label
-                                    for="min_hours_to_unsubscribe"
-                                    string="Hours"
-                                    class="col-3 col-lg-3 o_light_label"
-                                />
-                                <field
-                                    name="min_hours_to_unsubscribe"
-                                    class="oe_inline"
-                                    required="1"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-6 o_setting_box">
-                    <div class="o_setting_right_pane">
-                        <span class="o_form_label">
                             Maximum number of shifts per day for one cooperator
                         </span>
                         <div class="text-muted">
