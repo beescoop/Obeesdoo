@@ -7,6 +7,7 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 from odoo import fields, models
+from odoo.tools.translate import _
 
 
 class VolunteerVolunteer(models.Model):
@@ -23,7 +24,7 @@ class VolunteerVolunteer(models.Model):
         all_companies = self.env["res.company"].search([])
         for company in all_companies:
             nb_days = company.nb_days_before_leave_end
-            message_body = ("Your leave ends in {} days.").format(nb_days)
+            message_body = _("Your leave ends in {} days.").format(nb_days)
             ending_soon_leaves = self.env["volunteer.volunteer.leave"].search(
                 [
                     ("company_id", "=", company.id),

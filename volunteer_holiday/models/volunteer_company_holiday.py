@@ -68,23 +68,23 @@ class VolunteerCompanyHoliday(models.Model):
         )
 
         future_company_holidays = self.env["volunteer.company.holiday"].search(
-            [("start_date", ">=", today_midnight)]
+            [("start_date", ">=", today_midnight)],
+            order="company_id",
         )
 
-        for company, grouped_holidays_by_company in groupby(
-            future_company_holidays, key=lambda holiday: holiday.company_id.id
+        for company_id, grouped_holidays_by_company in groupby(
+            future_company_holidays, key=lambda holiday: holiday.company_id
         ):
-            grouped_holidays = list(grouped_holidays_by_company)
             same_company_shifts = self.env["volunteer.shift"].search(
                 [
-                    ("company_id", "=", company),
+                    ("company_id", "=", company_id.id),
                     ("state", "=", "confirmed"),
                     ("start_time", ">=", today_midnight),
                     ("generator_id", "!=", False),
                     ("generator_id.is_maintained_during_holiday", "=", False),
                 ]
             )
-            for hol in grouped_holidays:
+            for hol in grouped_holidays_by_company:
                 for shift in same_company_shifts:
                     if self._shift_covers_holiday(
                         shift.start_time,

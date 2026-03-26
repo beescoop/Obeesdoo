@@ -17,5 +17,4 @@ class VolunteerVolunteerLeaveType(models.Model):
         comodel_name="res.company",
         string="Company",
         default=lambda self: self.env.user.company_id,
-        required=True,
     )

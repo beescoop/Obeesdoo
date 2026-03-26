@@ -54,11 +54,7 @@ class VolunteerVolunteerLeave(models.Model):
         today_midnight = datetime.today().replace(
             hour=0, minute=0, second=0, microsecond=0
         )
-        all_future_volunteer_leaves = (
-            self.env["volunteer.volunteer.leave"]
-            .sudo()
-            .search([("end_date", ">=", date.today())])
-        )
+        all_future_volunteer_leaves = self.search([("end_date", ">=", date.today())])
 
         for leave in all_future_volunteer_leaves:
             future_confirmed_participations = (
@@ -75,4 +71,4 @@ class VolunteerVolunteerLeave(models.Model):
                     leave.start_date,
                     leave.end_date,
                 ):
-                    participation.sudo().write({"registration_state": "canceled"})
+                    participation.write({"registration_state": "canceled"})

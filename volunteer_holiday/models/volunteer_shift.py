@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-from datetime import datetime
 
 from odoo import api, fields, models
 
@@ -17,31 +16,28 @@ class VolunteerShift(models.Model):
         store=True,
     )
 
+    # Compute Method
+
     @api.depends("start_time", "end_time", "company_id")
     def _compute_overlap_holiday(self):
         """Compute if shift overlaps with any company holiday period."""
-        date_today = datetime.today().date()
         Holiday = self.env["volunteer.company.holiday"]
-        future_shifts = self.env["volunteer.shift"].search(
-            [("end_time", ">=", datetime.today())]
-        )
-        for shift in future_shifts:
+        for shift in self:
+            # Setting local variable
             found_overlap = False
-            this_company_future_holidays = self.env["volunteer.company.holiday"].search(
+            company_holidays = self.env["volunteer.company.holiday"].search(
                 [
-                    ("end_date", ">=", date_today),
                     ("company_id", "=", shift.company_id.id),
-                ]
+                ],
             )
-            for holiday in this_company_future_holidays:
+            for hol in company_holidays:
                 if Holiday._shift_covers_holiday(
                     shift.start_time,
                     shift.end_time,
-                    holiday.start_date,
-                    holiday.end_date,
+                    hol.start_date,
+                    hol.end_date,
                 ):
                     found_overlap = True
-                    shift.overlaps_holiday = True
+                    break
 
-            if not found_overlap:
-                shift.overlaps_holiday = False
+            shift.overlaps_holiday = found_overlap
