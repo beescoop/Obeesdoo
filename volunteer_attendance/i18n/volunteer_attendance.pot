@@ -14,15 +14,6 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: volunteer_attendance
-#. odoo-python
-#: code:addons/volunteer_attendance/models/volunteer_shift_participation.py:0
-#, python-format
-msgid ""
-"An attendance status for a canceled participation will not be taken into "
-"account for the attendance state of the shift."
-msgstr ""
-
-#. module: volunteer_attendance
 #: model:ir.model.fields,field_description:volunteer_attendance.field_volunteer_shift_participation__attendance_date
 msgid "Attendance Date"
 msgstr ""
@@ -142,4 +133,11 @@ msgstr ""
 #. module: volunteer_attendance
 #: model_terms:ir.ui.view,arch_db:volunteer_attendance.volunteer_shift_view_search_extend
 msgid "Waiting Attendances"
+msgstr ""
+
+#. module: volunteer_attendance
+#. odoo-python
+#: code:addons/volunteer_attendance/models/volunteer_shift_participation.py:0
+#, python-format
+msgid "You can’t set attendance status on a canceled participation."
 msgstr ""
