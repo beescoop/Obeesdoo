@@ -5,7 +5,7 @@
 {
     "name": "Volunteer Attendances",
     "summary": "Specify volunteers' type of absences",
-    "version": "16.0.0.5.0",
+    "version": "16.0.0.5.1",
     "category": "Volunteer management",
     "website": "https://github.com/beescoop/Obeesdoo",
     "author": "Coop IT Easy SC",
