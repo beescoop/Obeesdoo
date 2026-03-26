@@ -23,20 +23,16 @@ class VolunteerShiftParticipation(models.Model):
         for participation in self:
             if (
                 participation.registration_state == "canceled"
-                and participation.attendance_status_id is not None
+                and participation.attendance_status_id.id
             ):
                 raise ValidationError(
-                    _(
-                        "An attendance status for a canceled participation "
-                        "will not be taken into account for the attendance state "
-                        "of the shift."
-                    )
+                    _("You can’t set attendance status on a canceled participation.")
                 )
 
     # Methods
 
-    @api.depends("attendance_status_id")
     def write(self, vals):
         """Set attendance status modification date to now at modification"""
-        vals["attendance_date"] = fields.Datetime.now()
+        if "attendance_status_id" in vals:
+            vals["attendance_date"] = fields.Datetime.now()
         return super().write(vals)

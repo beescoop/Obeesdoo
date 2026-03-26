@@ -1,7 +1,3 @@
-.. image:: https://odoo-community.org/readme-banner-image
-   :target: https://odoo-community.org/get-involved?utm_source=readme
-   :alt: Odoo Community Association
-
 =====================
 Volunteer Attendances
 =====================
@@ -17,7 +13,7 @@ Volunteer Attendances
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-beescoop%2FObeesdoo-lightgray.png?logo=github
@@ -32,6 +28,24 @@ Specify status of a volunteer's attendance to a shift.
 
 .. contents::
    :local:
+
+Known issues / Roadmap
+======================
+
+- The purpose of the smart button used for the attendance state in the shift form view is not clear.
+
+    - Redesign the smart button.
+
+    - A help attribute for the attendance state field could help understand better this functionality.
+
+    - Count the number of participation without an attendance state.
+
+- The "attendance_state" field is not present in the shift list view.
+
+    Add attendance_state field to shift list view.
+
+
+
 
 Bug Tracker
 ===========
@@ -60,6 +74,14 @@ Contributors
 
 Maintainers
 ~~~~~~~~~~~
+
+.. |maintainer-remytms| image:: https://github.com/remytms.png?size=40px
+    :target: https://github.com/remytms
+    :alt: remytms
+
+Current maintainer:
+
+|maintainer-remytms| 
 
 This module is part of the `beescoop/Obeesdoo <https://github.com/beescoop/Obeesdoo/tree/16.0/volunteer_attendance>`_ project on GitHub.
 
