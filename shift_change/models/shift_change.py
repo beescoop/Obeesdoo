@@ -130,7 +130,7 @@ class ShiftChange(models.Model):
         Subscribe self.worker_id to the new shift
         Raise error if not possible.
         """
-        self._check_new_shift(self.new_shift_id)
+        self._check_new_shift(self.new_shift_id, self.worker_id)
         self.new_shift_id.write(
             {
                 "worker_id": self.worker_id.id,
@@ -188,7 +188,7 @@ class ShiftChange(models.Model):
                 )
 
     @api.model
-    def _check_new_shift(self, new_shift_id):
+    def _check_new_shift(self, new_shift_id, worker_id):
         """Check if shift can be changed or not"""
         old_shift_hour_limit_change = self._get_old_shift_hour_limit_change()
         if new_shift_id.worker_id:
@@ -203,7 +203,7 @@ class ShiftChange(models.Model):
             raise ValidationError(
                 _("You can't subscribe to a shift so close in the futur.")
             )
-        if new_shift_id not in self._get_available_new_shift_ids(self.worker_id):
+        if new_shift_id not in self._get_available_new_shift_ids(worker_id):
             raise ValidationError(
                 _("You can't subscribe to this shift, it’s not available for you.")
             )
