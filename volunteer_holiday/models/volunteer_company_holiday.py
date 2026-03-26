@@ -39,7 +39,7 @@ class VolunteerCompanyHoliday(models.Model):
         ),
     ]
 
-    # Overrride Methods
+    # Override Methods
 
     def write(self, vals):
         result = super().write(vals)
@@ -47,10 +47,10 @@ class VolunteerCompanyHoliday(models.Model):
             self.env["volunteer.shift"]._compute_overlap_holiday()
         return result
 
-    @api.model
-    def create(self, vals):
-        result = super().create(vals)
-        if "start_date" in vals or "end_date" in vals:
+    @api.model_create_multi
+    def create(self, vals_list):
+        result = super().create(vals_list)
+        if "start_date" in vals_list or "end_date" in vals_list:
             self.env["volunteer.shift"]._compute_overlap_holiday()
         return result
 
