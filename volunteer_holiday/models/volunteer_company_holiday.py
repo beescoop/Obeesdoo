@@ -11,7 +11,7 @@ from odoo import api, fields, models
 class VolunteerCompanyHoliday(models.Model):
     _name = "volunteer.company.holiday"
     _description = "Company Holidays"
-    _order = "start_date"
+    _order = "start_date, company_id, id"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
     # Fields
