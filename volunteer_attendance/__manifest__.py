@@ -12,7 +12,7 @@
     "maintainers": ["remytms"],
     "license": "AGPL-3",
     "application": False,
-    "depends": ["base", "volunteer", "mail"],
+    "depends": ["volunteer", "mail"],
     "data": [
         "security/ir.model.access.csv",
         "security/volunteer_security.xml",

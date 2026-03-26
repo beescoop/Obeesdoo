@@ -26,10 +26,7 @@ class VolunteerShiftParticipation(models.Model):
                 and participation.attendance_status_id.id
             ):
                 raise ValidationError(
-                    _(
-                        "An attendance status for a canceled participation "
-                        "will not be taken into account. "
-                    )
+                    _("You can’t set attendance status on a canceled participation.")
                 )
 
     # Methods
