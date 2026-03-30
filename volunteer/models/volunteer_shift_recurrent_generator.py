@@ -62,13 +62,26 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         string="Subscriptions",
         tracking=True,
     )
-
     volunteer_subscription_inactive_ids = fields.One2many(
         comodel_name="volunteer.shift.recurrent.subscription",
         inverse_name="generator_id",
         string="Canceled subscriptions",
         domain=[("active", "=", False)],
         context={"active_test": False},
+    )
+
+    # Search fields
+
+    ongoing_volunteer_name = fields.Char(
+        store=False,
+        search="_search_ongoing_volunteer_name",
+        help="Dummy field to search generators by volunteer name with ongoing subscription.",
+    )
+    ongoing_and_upcoming_volunteer_name = fields.Char(
+        store=False,
+        search="_search_ongoing_and_upcoming_volunteer_name",
+        help="Dummy field to search generators by volunteer name "
+        "with ongoing or upcoming subscription state.",
     )
 
     # SQL constraints
@@ -138,6 +151,26 @@ class VolunteerShiftRecurrentGenerator(models.Model):
         return res
 
     # Methods
+
+    def _search_volunteer_name_by_states(self, operator, value, states):
+        """Search generators by volunteer name filtered by subscription temporal states."""
+        all_volunteer_subscriptions = self.env[
+            "volunteer.shift.recurrent.subscription"
+        ].search([("volunteer_id.name", "ilike", value)])
+        matching_subscriptions = all_volunteer_subscriptions.filtered(
+            lambda sub: sub.active and sub._get_current_temporal_state() in states
+        )
+        return [("id", "in", matching_subscriptions.mapped("generator_id").ids)]
+
+    def _search_ongoing_volunteer_name(self, operator, value):
+        """Search generators by volunteer name with ongoing subscription."""
+        return self._search_volunteer_name_by_states(operator, value, ["ongoing"])
+
+    def _search_ongoing_and_upcoming_volunteer_name(self, operator, value):
+        """Search generators by volunteer name with ongoing or upcoming subscription state."""
+        return self._search_volunteer_name_by_states(
+            operator, value, ["ongoing", "upcoming"]
+        )
 
     def _check_write_permissions_based_on_state(self, vals, old_states):
         """Check write permissions based on the generator state.

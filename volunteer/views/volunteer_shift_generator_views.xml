@@ -193,15 +193,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="model">volunteer.shift.recurrent.generator</field>
         <field name="arch" type="xml">
             <search string="Shift Generators">
+                <field name="ongoing_volunteer_name" string="Volunteer (Ongoing)" />
+                <field
+                    name="ongoing_and_upcoming_volunteer_name"
+                    string="Volunteer (Ongoing and upcoming)"
+                />
                 <field
                     name="tag_ids"
                     string="Tags"
                     filter_domain="[('tag_ids', 'ilike', self)]"
-                />
-                <field
-                    name="volunteer_subscription_ids"
-                    filter_domain="[('volunteer_subscription_ids.volunteer_id', 'ilike', self)]"
-                    string="Volunteer"
                 />
                 <field
                     name="category_id"
