@@ -50,6 +50,7 @@ msgid ""
 msgstr ""
 
 #. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_kanban
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_kanban
 msgid "<i class=\"fa fa-arrow-right me-2\" title=\"End date\"/>"
 msgstr ""
@@ -384,6 +385,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_mixin__category_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__category_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_skill__category_id
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_search
 msgid "Category"
 msgstr ""
@@ -525,6 +527,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_participation__registration_state__confirmed
 #: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_recurrent_generator__state__confirmed
 #: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_stage__state__confirmed
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_search
 msgid "Confirmed"
 msgstr ""
 
@@ -669,6 +672,7 @@ msgstr ""
 
 #. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__date
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_search
 msgid "Date"
 msgstr ""
@@ -719,6 +723,20 @@ msgid "Draft"
 msgstr ""
 
 #. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift_recurrent_generator__ongoing_and_upcoming_volunteer_name
+msgid ""
+"Dummy field to search generators by volunteer name with ongoing or upcoming "
+"subscription state."
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,help:volunteer.field_volunteer_shift_recurrent_generator__ongoing_volunteer_name
+msgid ""
+"Dummy field to search generators by volunteer name with ongoing "
+"subscription."
+msgstr ""
+
+#. module: volunteer
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__duplicated_bank_account_partners_count
 msgid "Duplicated Bank Account Partners Count"
 msgstr ""
@@ -726,6 +744,11 @@ msgstr ""
 #. module: volunteer
 #: model:ir.model.fields.selection,name:volunteer.selection__volunteer_shift_participation__registration_type__during_shift
 msgid "During-shift"
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_kanban
+msgid "Each"
 msgstr ""
 
 #. module: volunteer
@@ -888,6 +911,7 @@ msgid "Full"
 msgstr ""
 
 #. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_participation_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_search
 msgid "Future"
@@ -929,6 +953,7 @@ msgid "Global Location Number"
 msgstr ""
 
 #. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_participation_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_search
 msgid "Group By"
@@ -1200,6 +1225,7 @@ msgid "Language"
 msgstr ""
 
 #. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_participation_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_search
 msgid "Last 7 days"
@@ -1416,12 +1442,14 @@ msgid "Name"
 msgstr ""
 
 #. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_participation_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_search
 msgid "Next 30 days"
 msgstr ""
 
 #. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_participation_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_search
 msgid "Next 7 days"
@@ -1575,6 +1603,16 @@ msgid "Ongoing"
 msgstr ""
 
 #. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__ongoing_and_upcoming_volunteer_name
+msgid "Ongoing And Upcoming Volunteer Name"
+msgstr ""
+
+#. module: volunteer
+#: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__ongoing_volunteer_name
+msgid "Ongoing Volunteer Name"
+msgstr ""
+
+#. module: volunteer
 #. odoo-python
 #: code:addons/volunteer/models/volunteer_shift_recurrent_generator.py:0
 #, python-format
@@ -1651,6 +1689,7 @@ msgid "Partner with same Tax ID"
 msgstr ""
 
 #. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_participation_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_search
 msgid "Past"
@@ -1673,6 +1712,7 @@ msgstr ""
 
 #. module: volunteer
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_form
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_participation_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_form
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_search
@@ -1912,6 +1952,11 @@ msgid "Shift Generator Configuration"
 msgstr ""
 
 #. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_search
+msgid "Shift Generators"
+msgstr ""
+
+#. module: volunteer
 #: model:ir.model,name:volunteer.model_volunteer_shift_participation
 msgid "Shift Participation"
 msgstr ""
@@ -2045,6 +2090,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__state
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_stage__state
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__state_id
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_participation_view_search
 msgid "State"
 msgstr ""
@@ -2141,6 +2187,7 @@ msgid "Supplier Rank"
 msgstr ""
 
 #. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_search
 msgid "Tag"
 msgstr ""
@@ -2157,6 +2204,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__tag_ids
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_volunteer__category_id
 #: model:ir.ui.menu,name:volunteer.volunteer_shift_tag_menu
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_search
 msgid "Tags"
 msgstr ""
@@ -2363,6 +2411,7 @@ msgid "Title"
 msgstr ""
 
 #. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_participation_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_search
 msgid "Today"
@@ -2407,6 +2456,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift__type_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_mixin__type_id
 #: model:ir.model.fields,field_description:volunteer.field_volunteer_shift_recurrent_generator__type_id
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_search
 msgid "Type"
 msgstr ""
@@ -2489,6 +2539,16 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_view_search
 #: model_terms:ir.ui.view,arch_db:volunteer.volunteer_volunteer_view_form
 msgid "Volunteer"
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_search
+msgid "Volunteer (Ongoing and upcoming)"
+msgstr ""
+
+#. module: volunteer
+#: model_terms:ir.ui.view,arch_db:volunteer.volunteer_shift_generator_view_search
+msgid "Volunteer (Ongoing)"
 msgstr ""
 
 #. module: volunteer
