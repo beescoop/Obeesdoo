@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2026 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+
+    <record model="ir.ui.view" id="solidarity_shift_offer_view_tree">
+        <field name="name">Solidarity shift offers</field>
+        <field name="model">shift.solidarity.offer</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="worker_id" />
+                <field name="shift_id" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="solidarity_shift_offer_view_form">
+        <field name="name">Solidarity shift offer</field>
+        <field name="model">shift.solidarity.offer</field>
+        <field name="arch" type="xml">
+            <form create="false">
+                <header>
+                    <button
+                        name="cancel_solidarity_offer"
+                        string="Cancel offer"
+                        class="oe_highlight"
+                        type="object"
+                        groups="shift.group_shift_management"
+                        attrs="{'invisible': [('state','=','cancelled')]}"
+                    />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group name="group_top">
+                        <field name="worker_id" />
+                        <field name="shift_id" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>
