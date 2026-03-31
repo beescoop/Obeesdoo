@@ -5,23 +5,18 @@ SPDX-FileCopyrightText: 2025 Coop IT Easy SC
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <odoo>
-    <record id="volunteer_shift_demo_tag_a" model="volunteer.shift.tag">
-        <field name="name">Tag A</field>
-        <field name="description">Shift Tag A</field>
+    <record id="volunteer_shift_tag_demo_fresh" model="volunteer.shift.tag">
+        <field name="name">Fresh</field>
+        <field name="description">Fresh product reception</field>
     </record>
 
-    <record id="volunteer_shift_demo_tag_b" model="volunteer.shift.tag">
-        <field name="name">Tag B</field>
-        <field name="description">Shift Tag B</field>
+    <record id="volunteer_shift_tag_demo_physical" model="volunteer.shift.tag">
+        <field name="name">Physical</field>
+        <field name="description">Physical work</field>
     </record>
 
-    <record id="volunteer_shift_demo_tag_c" model="volunteer.shift.tag">
-        <field name="name">Tag C</field>
-        <field name="description">Shift Tag C</field>
-    </record>
-
-    <record id="volunteer_shift_demo_tag_d" model="volunteer.shift.tag">
-        <field name="name">Tag D</field>
-        <field name="description">Shift Tag D</field>
+    <record id="volunteer_shift_tag_demo_lifting" model="volunteer.shift.tag">
+        <field name="name">Lifting</field>
+        <field name="description">Heavy lifting</field>
     </record>
 </odoo>

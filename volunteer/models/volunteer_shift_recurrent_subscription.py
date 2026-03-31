@@ -26,7 +26,6 @@ class VolunteerShiftRecurrentSubscription(models.Model):
             ("upcoming", "Upcoming"),
         ],
         compute="_compute_temporal_state",
-        store=True,
     )
 
     # Date fields

@@ -11,12 +11,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         model="volunteer.shift.recurrent.subscription"
     >
         <field name="volunteer_id" ref="volunteer_demo_emma" />
-        <field name="generator_id" ref="volunteer_generator_demo_opening" />
-        <field
-            name="start_date"
-            eval="(datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')"
-        />
-        <field name="end_date" eval="datetime.now().strftime('%Y-%m-%d')" />
+        <field name="generator_id" ref="volunteer_generator_demo_friday_opening" />
+        <field name="start_date" eval="datetime.now() - timedelta(days=7)" />
+        <field name="end_date" eval="datetime.now()" />
         <field name="active" eval="False" />
     </record>
     <!-- Ongoing subscription -->
@@ -25,15 +22,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         model="volunteer.shift.recurrent.subscription"
     >
         <field name="volunteer_id" ref="volunteer_demo_emma" />
-        <field name="generator_id" ref="volunteer_generator_demo_opening" />
-        <field
-            name="start_date"
-            eval="(datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')"
-        />
-        <field
-            name="end_date"
-            eval="(datetime.now() + timedelta(days=7)).strftime('%Y-%m-%d')"
-        />
+        <field name="generator_id" ref="volunteer_generator_demo_friday_opening" />
+        <field name="start_date" eval="datetime.now() - timedelta(days=7)" />
     </record>
     <!-- Upcoming subscription -->
     <record
@@ -41,15 +31,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         model="volunteer.shift.recurrent.subscription"
     >
         <field name="volunteer_id" ref="volunteer_demo_jean" />
-        <field name="generator_id" ref="volunteer_generator_demo_opening" />
-        <field
-            name="start_date"
-            eval="(datetime.now() + timedelta(days=7)).strftime('%Y-%m-%d')"
-        />
-        <field
-            name="end_date"
-            eval="(datetime.now() + timedelta(days=14)).strftime('%Y-%m-%d')"
-        />
+        <field name="generator_id" ref="volunteer_generator_demo_friday_opening" />
+        <field name="start_date" eval="datetime.now() + timedelta(days=7)" />
+        <field name="end_date" eval="datetime.now() + timedelta(days=14)" />
     </record>
     <!-- Finished subscription -->
     <record
@@ -57,14 +41,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         model="volunteer.shift.recurrent.subscription"
     >
         <field name="volunteer_id" ref="volunteer_demo_john" />
-        <field name="generator_id" ref="volunteer_generator_demo_opening" />
-        <field
-            name="start_date"
-            eval="(datetime.now() - timedelta(days=14)).strftime('%Y-%m-%d')"
-        />
-        <field
-            name="end_date"
-            eval="(datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')"
-        />
+        <field name="generator_id" ref="volunteer_generator_demo_friday_opening" />
+        <field name="start_date" eval="datetime.now() - timedelta(days=14)" />
+        <field name="end_date" eval="datetime.now() - timedelta(days=7)" />
     </record>
 </odoo>

@@ -5,117 +5,90 @@ SPDX-FileCopyrightText: 2025 Coop IT Easy SC
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <odoo>
-    <record id="volunteer_shift_demo_today" model="volunteer.shift">
-        <field name="name">Shift Today</field>
+    <record id="volunteer_shift_demo_cheese" model="volunteer.shift">
+        <field name="name">Cheese cutting</field>
         <field name="max_volunteer_nb">2</field>
-        <field name="start_time" eval="datetime.now().strftime('%Y-%m-%d %H:%M:%S')" />
-        <field
-            name="end_time"
-            eval="(datetime.now() + timedelta(hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
-        />
-        <field name="coordinator_id" ref="volunteer_partner_demo_b" />
+        <field name="start_time" eval="datetime.now()" />
+        <field name="end_time" eval="datetime.now() + timedelta(hours=2)" />
+        <field name="coordinator_id" ref="volunteer_partner_demo_john" />
         <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
-        <field name="type_id" ref="volunteer_shift_type_demo_closing" />
+        <field name="type_id" ref="volunteer_shift_type_demo_cheese_cut" />
     </record>
 
-    <record id="volunteer_shift_demo_tomorrow" model="volunteer.shift">
-        <field name="name">Shift Tomorrow</field>
+    <record id="volunteer_shift_demo_delicatessen" model="volunteer.shift">
+        <field name="name">Delicatessen cutting</field>
         <field name="max_volunteer_nb">3</field>
-        <field
-            name="start_time"
-            eval="(datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')"
-        />
-        <field
-            name="end_time"
-            eval="(datetime.now() + timedelta(days=1, hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
-        />
+        <field name="start_time" eval="datetime.now() + timedelta(days=1)" />
+        <field name="end_time" eval="datetime.now() + timedelta(days=1, hours=2)" />
         <field name="stage_id" ref="volunteer_shift_stage_canceled" />
-        <field name="type_id" ref="volunteer_shift_type_demo_opening" />
-        <field name="tag_ids" eval="[(6, 0, [ref('volunteer_shift_demo_tag_a')])]" />
+        <field name="type_id" ref="volunteer_shift_type_demo_delicatessen_cut" />
+        <field
+            name="tag_ids"
+            eval="[(6, 0, [ref('volunteer_shift_tag_demo_fresh')])]"
+        />
         <field name="category_id" ref="volunteer_shift_category_demo_week_b" />
     </record>
 
-    <record id="volunteer_shift_demo_next_7_days" model="volunteer.shift">
-        <field name="name">Shift Next 7 days</field>
+    <record id="volunteer_shift_demo_closing" model="volunteer.shift">
+        <field name="name">Thursday closing</field>
         <field name="max_volunteer_nb">3</field>
-        <field
-            name="start_time"
-            eval="(datetime.now() + timedelta(days=+6)).strftime('%Y-%m-%d %H:%M:%S')"
-        />
-        <field
-            name="end_time"
-            eval="(datetime.now() + timedelta(days=+6, hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
-        />
+        <field name="start_time" eval="datetime.now() + timedelta(days=+6)" />
+        <field name="end_time" eval="datetime.now() + timedelta(days=+6, hours=2)" />
         <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
         <field
             name="tag_ids"
-            eval="[(6, 0, [ref('volunteer_shift_demo_tag_a'), ref('volunteer_shift_demo_tag_b'), ref('volunteer_shift_demo_tag_c')])]"
+            eval="[(6, 0, [ref('volunteer_shift_tag_demo_physical'), ref('volunteer_shift_tag_demo_lifting')])]"
         />
-        <field name="type_id" ref="volunteer_shift_type_demo_cheese_cut" />
+        <field name="type_id" ref="volunteer_shift_type_demo_closing" />
         <field name="category_id" ref="volunteer_shift_category_demo_week_a" />
     </record>
 
-    <record id="volunteer_shift_demo_next_30_days" model="volunteer.shift">
-        <field name="name">Shift Next 30 days</field>
+    <record id="volunteer_shift_demo_future_closing" model="volunteer.shift">
+        <field name="name">Friday closing</field>
         <field name="max_volunteer_nb">9</field>
         <field
             name="start_time"
-            eval="(datetime.now() + timedelta(days=+29)).strftime('%Y-%m-%d %H:%M:%S')"
+            eval="(datetime.now() + timedelta(days=29)).replace(hour=20, minute=0, second=0)"
         />
         <field
             name="end_time"
-            eval="(datetime.now() + timedelta(days=+29, hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
+            eval="(datetime.now() + timedelta(days=30)).replace(hour=2, minute=0, second=0)"
         />
-        <field name="coordinator_id" ref="volunteer_partner_demo_a" />
+        <field name="coordinator_id" ref="volunteer_partner_demo_jean" />
         <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
         <field name="type_id" ref="volunteer_shift_type_demo_closing" />
-        <field name="tag_ids" eval="[(6, 0, [ref('volunteer_shift_demo_tag_a')])]" />
+        <field
+            name="tag_ids"
+            eval="[(6, 0, [ref('volunteer_shift_tag_demo_physical')])]"
+        />
     </record>
 
-    <record id="volunteer_shift_demo_yesterday" model="volunteer.shift">
-        <field name="name">Shift Yesterday</field>
+    <record id="volunteer_shift_demo_past_opening" model="volunteer.shift">
+        <field name="name">Store opening</field>
         <field name="max_volunteer_nb">3</field>
-        <field
-            name="start_time"
-            eval="(datetime.now() + timedelta(days=-1)).strftime('%Y-%m-%d %H:%M:%S')"
-        />
-        <field
-            name="end_time"
-            eval="(datetime.now() + timedelta(days=-1, hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
-        />
-        <field name="coordinator_id" ref="volunteer_partner_demo_b" />
+        <field name="start_time" eval="datetime.now() + timedelta(days=-1)" />
+        <field name="end_time" eval="datetime.now() + timedelta(days=-1, hours=2)" />
+        <field name="coordinator_id" ref="volunteer_partner_demo_emma" />
+        <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
+        <field name="type_id" ref="volunteer_shift_type_demo_opening" />
+    </record>
+
+    <record id="volunteer_shift_demo_past_cheese" model="volunteer.shift">
+        <field name="name">Cheese cutting</field>
+        <field name="max_volunteer_nb">3</field>
+        <field name="start_time" eval="datetime.now() + timedelta(days=-6)" />
+        <field name="end_time" eval="datetime.now() + timedelta(days=-6, hours=2)" />
+        <field name="coordinator_id" ref="volunteer_partner_demo_emma" />
         <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
         <field name="type_id" ref="volunteer_shift_type_demo_cheese_cut" />
     </record>
 
-    <record id="volunteer_shift_demo_last_7_days" model="volunteer.shift">
-        <field name="name">Shift Last 7 days</field>
+    <record id="volunteer_shift_demo_past_delicatessen" model="volunteer.shift">
+        <field name="name">Delicatessen cutting</field>
         <field name="max_volunteer_nb">3</field>
-        <field
-            name="start_time"
-            eval="(datetime.now() + timedelta(days=-6)).strftime('%Y-%m-%d %H:%M:%S')"
-        />
-        <field
-            name="end_time"
-            eval="(datetime.now() + timedelta(days=-6, hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
-        />
-        <field name="coordinator_id" ref="volunteer_partner_demo_b" />
-        <field name="stage_id" ref="volunteer_shift_stage_confirmed" />
-        <field name="type_id" ref="volunteer_shift_type_demo_cheese_cut" />
-    </record>
-
-    <record id="volunteer_shift_demo_last_year" model="volunteer.shift">
-        <field name="name">Shift Last year</field>
-        <field name="max_volunteer_nb">3</field>
-        <field
-            name="start_time"
-            eval="(datetime.now() + timedelta(days=-367)).strftime('%Y-%m-%d %H:%M:%S')"
-        />
-        <field
-            name="end_time"
-            eval="(datetime.now() + timedelta(days=-367, hours=2)).strftime('%Y-%m-%d %H:%M:%S')"
-        />
-        <field name="coordinator_id" ref="volunteer_partner_demo_b" />
-        <field name="type_id" ref="volunteer_shift_type_demo_cheese_cut" />
+        <field name="start_time" eval="datetime.now() + timedelta(days=-367)" />
+        <field name="end_time" eval="datetime.now() + timedelta(days=-367, hours=2)" />
+        <field name="coordinator_id" ref="volunteer_partner_demo_emma" />
+        <field name="type_id" ref="volunteer_shift_type_demo_delicatessen_cut" />
     </record>
 </odoo>

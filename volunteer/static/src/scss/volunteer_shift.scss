@@ -1,4 +1,23 @@
 .o_kanban_view {
+    .o_volunteer_recurrence_header {
+        font-weight: bold;
+        font-size: 1.25rem;
+    }
+    .o_volunteer_state_canceled,
+    .o_volunteer_state_confirmed,
+    .o_volunteer_state_draft {
+        color: white;
+    }
+    .o_volunteer_state_canceled {
+        background-color: red;
+        opacity: 0.4;
+    }
+    .o_volunteer_state_confirmed {
+        background-color: #dc3545;
+    }
+    .o_volunteer_state_draft {
+        background-color: grey;
+    }
     .o_kanban_content {
         .o_volunteer_bold {
             font-weight: bold;
@@ -8,6 +27,12 @@
         }
         .o_volunteer_fontsize_11 {
             font-size: 1.1rem;
+        }
+        .o_volunteer_fontsize_12 {
+            font-size: 1.25rem;
+        }
+        .o_volunteer_fontsize_14 {
+            font-size: 1.4rem;
         }
         .o_volunteer_fontsize_17 {
             font-size: 1.75rem;
