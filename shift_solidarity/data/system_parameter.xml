@@ -1,0 +1,45 @@
+<odoo noupdate="1">
+
+    <record id="enable_solidarity" model="ir.config_parameter" forcecreate="False">
+        <field name="key">shift_solidarity.enable_solidarity</field>
+        <field name="value">True</field>
+    </record>
+
+    <record
+        id="solidarity_counter_start_value"
+        model="ir.config_parameter"
+        forcecreate="False"
+    >
+        <field name="key">shift_solidarity.solidarity_counter_start_value</field>
+        <field name="value">0</field>
+    </record>
+
+    <record
+        id="solidarity_counter_limit"
+        model="ir.config_parameter"
+        forcecreate="False"
+    >
+        <field name="key">shift_solidarity.solidarity_counter_limit</field>
+        <field name="value">0</field>
+    </record>
+
+    <record
+        id="max_solidarity_requests_number"
+        model="ir.config_parameter"
+        forcecreate="False"
+    >
+        <field name="key">shift_solidarity.max_solidarity_requests_number</field>
+        <field name="value">2</field>
+    </record>
+
+    <record id="solidarity_offer_hour_limit" model="ir.config_parameter">
+        <field name="key">shift_solidarity.solidarity_offer_hour_limit</field>
+        <field name="value">2</field>
+    </record>
+
+    <record id="solidarity_request_hour_limit" model="ir.config_parameter">
+        <field name="key">shift_solidarity.solidarity_request_hour_limit</field>
+        <field name="value">2</field>
+    </record>
+
+</odoo>
