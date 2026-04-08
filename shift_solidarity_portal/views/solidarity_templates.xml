@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2026 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+
+    <!-- Solidarity counter -->
+    <template id="solidarity_counter" name="solidarity counter">
+        <div class="card">
+            <div class="card-header text-center">
+                <h3> Solidarity shifts counter:
+                    <t t-out="solidarity_counter" />
+                </h3>
+            </div>
+            <div class="card-body">
+                <p class="card-text text-left">
+                    *Explanatory text solidarity counter*
+                </p>
+                <div t-if="not hide_button" class="text-center">
+                    <a class="btn btn-primary" href="/my/shift/solidarity/offer/select">
+                        Offer a solidarity shift
+                    </a>
+                </div>
+            </div>
+        </div>
+        <br />
+    </template>
+
+    <!-- Solidarity offer and request buttons -->
+    <template id="solidarity_buttons" name="Solidarity offer and request buttons">
+        <h2>
+            Solidarity
+        </h2>
+        <p>
+            <a
+                id="solidarity_i_need_help"
+                t-attf-class="btn btn-primary #{'disabled' if not is_solidarity_counter_ok else ''}"
+                href="/my/shift/solidarity/request/select"
+            >
+                I need help
+            </a>
+            <a class="btn btn-primary" href="/my/shift/solidarity/offer/select">
+                Offer a solidarity shift
+            </a>
+            <a class="btn btn-secondary" href="/my/shift/solidarity/requests">
+                My solidarity requests
+            </a>
+        </p>
+    </template>
+
+    <!-- Solidarity request help text -->
+    <template
+        id="solidarity_request_help_text_regular"
+        name="Solidarity request help text for regular workers"
+    >
+        *Warning text regular*
+    </template>
+
+    <template
+        id="solidarity_request_help_text_irregular"
+        name="Solidarity request help text for irregular workers"
+    >
+        *Warning text irregular*
+    </template>
+
+    <!-- Display solidarity related buttons and solidarity counter -->
+    <template
+        id="solidarity_elements_regular_worker"
+        name="Solidarity related elements for regular workers"
+        inherit_id="shift_portal.my_shift_regular_worker"
+    >
+        <xpath
+            expr="//div[t[@t-call='shift_portal.my_shift_worker_status_title']]/*[last()]"
+            position="after"
+        >
+            <t
+                t-if="is_solidarity_enabled"
+                t-call="shift_solidarity_portal.solidarity_buttons"
+            >
+                <t t-set="regular" t-value="True" />
+            </t>
+        </xpath>
+        <xpath expr="//t[@t-call='shift_portal.help_text_title']" position="before">
+            <t
+                t-if="is_solidarity_enabled"
+                t-call="shift_solidarity_portal.solidarity_counter"
+            />
+        </xpath>
+    </template>
+
+    <template
+        id="solidarity_elements_irregular_worker"
+        name="Solidarity related elements for irregular workers"
+        inherit_id="shift_portal.my_shift_irregular_worker"
+    >
+        <xpath
+            expr="//div[t[@t-call='shift_portal.my_shift_worker_status_title']]/*[last()]"
+            position="after"
+        >
+            <t
+                t-if="is_solidarity_enabled"
+                t-call="shift_solidarity_portal.solidarity_buttons"
+            >
+                <t t-set="regular" t-value="False" />
+            </t>
+        </xpath>
+        <div id="collapseHelp" position="after">
+            <br />
+            <t
+                t-if="is_solidarity_enabled"
+                t-call="shift_solidarity_portal.solidarity_counter"
+            >
+                <t t-set="hide_button" t-value="True" />
+            </t>
+        </div>
+    </template>
+
+    <template
+        id="solidarity_elements_non_worker"
+        name="Solidarity related elements for non workers"
+        inherit_id="shift_portal.my_shift_non_worker"
+    >
+        <xpath expr="//div[hasclass('container', 'mt16')]/*[last()]" position="after">
+            <div t-if="is_solidarity_enabled" class="row">
+                <div class="col">
+                    <t t-call="shift_solidarity_portal.solidarity_counter">
+                        <t t-set="hide_button" t-value="True" />
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template
+        id="solidarity_elements_new_worker"
+        name="Solidarity related elements for new workers"
+        inherit_id="shift_portal.my_shift_new_worker"
+    >
+        <xpath expr="//div[hasclass('container', 'mt6')]/*[last()]" position="after">
+            <div t-if="is_solidarity_enabled" class="row">
+                <div class="col">
+                    <t t-call="shift_solidarity_portal.solidarity_counter">
+                        <t t-set="hide_button" t-value="True" />
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template
+        id="solidarity_elements_exempted_worker"
+        name="Solidarity related elements for exempted workers"
+        inherit_id="shift_portal.my_shift_exempted_worker"
+    >
+        <xpath expr="//div[hasclass('container', 'mt16')]/*[last()]" position="after">
+            <div t-if="is_solidarity_enabled" class="row">
+                <div class="col">
+                    <t t-call="shift_solidarity_portal.solidarity_counter">
+                        <t t-set="hide_button" t-value="True" />
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template
+        id="solidarity_elements_regular_worker_without_shift"
+        name="Solidarity related elements for regular workers without shifts"
+        inherit_id="shift_portal.my_shift_regular_worker_without_shift"
+    >
+        <xpath expr="//div[hasclass('container', 'mt16')]/*[last()]" position="after">
+            <div t-if="is_solidarity_enabled" class="row">
+                <div class="col">
+                    <t t-call="shift_solidarity_portal.solidarity_counter" />
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- Help text for selection among underpopulated shifts -->
+    <template
+        id="help_text_underpopulated_solidarity_offer"
+        name="Help text underpopulated solidarity offer"
+    >
+        <div class="alert alert-info">
+            <strong>Info!</strong>
+            On this page you can choose to subscribe to a shift that is
+            underpopulated, as a solidarity shift. If you select one of them, you
+            will have to attend it or to cancel it soon enough, via the "My shifts"
+            page. If you cannot attend any of those on this list, please click on
+            the button at the bottom of the page to see all available shifts.
+        </div>
+    </template>
+
+    <!-- Help text for selection among all shifts -->
+    <template
+        id="help_text_all_shifts_solidarity_offer"
+        name="Help text all shifts solidarity offer"
+    >
+        <div class="alert alert-info">
+            <strong>Info!</strong>
+            On this page you can choose to subscribe to a shift as a solidarity
+            shift. If you select one of them, you will have to attend it or to
+            cancel it soon enough, via the "My shifts" page.
+        </div>
+    </template>
+
+    <!-- Solidarity shift selection page -->
+    <!-- Template for page /my/shift/solidarity/offer -->
+    <template
+        id="shift_solidarity_offer_selection"
+        name="Select a shift for solidarity"
+    >
+        <t t-call="portal.portal_layout">
+            <t t-set="no_breadcrumbs" t-value="True" />
+            <div class="container mt16">
+                <div class="row">
+                    <div class="col text-center">
+                        <h1>
+                            Offer a solidarity shift
+                        </h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div
+                        class="col-12 col-lg-6 m-auto text-justify"
+                        t-call="shift_solidarity_portal.help_text_all_shifts_solidarity_offer"
+                    />
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <h2>Select a shift</h2>
+                    </div>
+                </div>
+                <div class="row mt4 justify-content-center">
+                    <div class="col-12 col-lg-12">
+                        <div class="alert alert-danger" t-if="error" t-out="error" />
+                        <t
+                            t-call="shift_portal.available_shift_irregular_worker_grid"
+                        />
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="shift_solidarity_offer_cancel" name="Cancel a solidarity shift offer">
+        <t t-call="portal.portal_layout">
+            <t t-set="no_breadcrumbs" t-value="True" />
+            <div class="container mt16">
+                <div class="row">
+                    <div class="col text-center">
+                        <h1>
+                            Cancellation of a solidarity offer
+                        </h1>
+                    </div>
+                </div>
+                <div class="row mt4 justify-content-center">
+                    <div class="col-12 col-lg-12">
+                        <div class="alert alert-danger" t-if="error" t-out="error" />
+                        <div class="alert alert-success" t-else="">
+                            Your solidarity offer has properly been cancelled.
+                        </div>
+                        <a href="/my/shift" class="btn btn-primary mt4">Back</a>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template
+        id="available_shift_irregular_worker_card"
+        name="Available Shift for Irregular Worker: Add solidarity offer button"
+        inherit_id="shift_portal.available_shift_irregular_worker_card"
+    >
+        <xpath expr="//div" position="inside">
+            <form
+                t-attf-id="select_shift_solidarity_offer_{{ shift.id }}"
+                method="post"
+                t-if="solidarity_offer_enabled and shift.id and not is_subscribed"
+            >
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    t-att-value="request.csrf_token()"
+                />
+                <input
+                    type="hidden"
+                    id="shift_id"
+                    name="shift_id"
+                    t-att-value="shift.id"
+                    readonly="readonly"
+                />
+                <div
+                    class="text-center"
+                    t-attf-id="select_shift_solidarity_offer_button_{{ shift.id }}"
+                >
+                    <button
+                        type="submit"
+                        class="btn btn-sm btn-primary m-1"
+                    >Select</button>
+                </div>
+            </form>
+        </xpath>
+    </template>
+
+    <!-- Template for page /my/shift/solidarity/request/select -->
+    <template
+        id="shift_solidarity_request_selection"
+        name="Select a shift to request solidarity"
+    >
+        <t t-call="portal.portal_layout">
+            <t t-set="no_breadcrumbs" t-value="True" />
+            <div class="container mt16">
+                <div class="row">
+                    <div class="col text-center">
+                        <h1>
+                            Request a solidarity shift
+                        </h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div
+                        t-if="is_regular"
+                        class="col-12 col-lg-6 m-auto text-justify"
+                        t-call="shift_solidarity_portal.solidarity_request_help_text_regular"
+                    />
+                    <div
+                        t-else=""
+                        class="col-12 col-lg-6 m-auto text-justify"
+                        t-call="shift_solidarity_portal.solidarity_request_help_text_irregular"
+                    />
+                </div>
+                <div class="row mt4 justify-content-center">
+                    <div class="col-12 col-lg-12">
+                        <form id="validate_solidarity_request_form" method="post">
+                            <div class="form-group mt-3">
+                                <label for="reason">Reason</label>
+                                <textarea
+                                    class="form-control"
+                                    id="reason"
+                                    name="reason"
+                                    rows="3"
+                                />
+                            </div>
+                            <h5 class="m-4 ml0">Shifts</h5>
+                            <div class="form-group row">
+                                <t t-foreach="shifts" t-as="shift">
+                                    <label t-attf-for="shift-{{ shift.id }}">
+                                        <div class="card mb-4">
+                                            <div class="card-header">
+                                                <div class="float-start">
+                                                    <input
+                                                        class="m-2"
+                                                        type="radio"
+                                                        t-attf-id="shift-{{ shift.id }}"
+                                                        name="shift_id"
+                                                        t-attf-value="{{ shift.id }}"
+                                                        required="required"
+                                                    />
+                                                    <span
+                                                        t-field="shift.start_time"
+                                                        t-options='{"format": "dd/MM/yyyy HH:mm"}'
+                                                    />
+                                                    -
+                                                    <span
+                                                        t-field="shift.end_time"
+                                                        t-options='{"format": "HH:mm"}'
+                                                    />
+                                                </div>
+                                                <t
+                                                    t-call="shift_portal.shift_status_label"
+                                                >
+                                                    <t
+                                                        t-set="label_css"
+                                                        t-value="'float-end'"
+                                                    />
+                                                </t>
+                                            </div>
+                                            <div class="card-body clearfix">
+                                                <t t-out="shift.task_type_id.name" />
+                                            </div>
+                                        </div>
+                                    </label>
+                                </t>
+                            </div>
+                            <input
+                                type="hidden"
+                                name="csrf_token"
+                                t-att-value="request.csrf_token()"
+                            />
+                            <div
+                                class="text-center mt16"
+                                id="validate_solidarity_request_form_button"
+                            >
+                                <a
+                                    t-attf-href="/my/shift"
+                                    class="btn btn-secondary mr16"
+                                >Cancel</a>
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary ml16"
+                                >Validate</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Display solidarity requests and their status -->
+    <template id="list_solidarity_requests" name="List solidarity requests">
+        <t t-call="portal.portal_layout">
+            <t t-set="no_breadcrumbs" t-value="True" />
+            <div class="container mt16">
+                <div class="row">
+                    <div class="col text-center">
+                        <h1>
+                            Solidarity requests
+                        </h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="alert alert-danger" t-if="error" t-out="error" />
+                        <div
+                            class="alert alert-success"
+                            t-if="success"
+                            t-out="success"
+                        />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <a href="/my/shift" class="btn btn-primary">
+                            Back
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <t t-if="solidarity_requests">
+                            <table class="table table-hover text-justify">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <t t-if="regular">
+                                            <th class="col-4">Non realisable shift</th>
+                                        </t>
+                                        <th class="col-4">Request date</th>
+                                        <th class="col-6">Reason</th>
+                                        <th class="col-2">Status</th>
+                                        <th />
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t
+                                        t-foreach="solidarity_requests"
+                                        t-as="solidarity_request"
+                                    >
+                                        <tr>
+                                            <t t-if="regular">
+                                                <td>
+                                                    <span
+                                                        t-field="solidarity_request.shift_id"
+                                                    />
+                                                </td>
+                                            </t>
+                                            <td>
+                                                <t
+                                                    t-out="solidarity_request.create_date.strftime('%A %d/%m, %Y')"
+                                                />
+                                            </td>
+                                            <td>
+                                                <span
+                                                    t-field="solidarity_request.reason"
+                                                />
+                                            </td>
+                                            <td>
+                                                <span
+                                                    t-field="solidarity_request.state"
+                                                />
+                                            </td>
+                                            <td>
+                                                <form
+                                                    t-attf-id="cancel_shift_solidarity_request_{{ solidarity_request.id }}"
+                                                    method="post"
+                                                    t-if="solidarity_request.state == 'validated'"
+                                                >
+                                                    <input
+                                                        type="hidden"
+                                                        name="csrf_token"
+                                                        t-att-value="request.csrf_token()"
+                                                    />
+                                                    <input
+                                                        type="hidden"
+                                                        id="solidarity_request_id"
+                                                        name="solidarity_request_id"
+                                                        t-att-value="solidarity_request.id"
+                                                        readonly="readonly"
+                                                    />
+                                                    <input
+                                                        type="hidden"
+                                                        id="state"
+                                                        name="state"
+                                                        value="cancelled"
+                                                        readonly="readonly"
+                                                    />
+                                                    <div
+                                                        class="text-center"
+                                                        t-attf-id="cancel_shift_solidarity_request_button_{{ solidarity_request.id }}"
+                                                    >
+                                                        <button
+                                                            type="submit"
+                                                            class="btn btn-sm btn-primary m-1"
+                                                        >Cancel</button>
+                                                    </div>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
+                        <t t-else="">
+                            <div class="alert alert-info">
+                                <strong>Info!</strong>
+                                You don't have any solidarity request.
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>
