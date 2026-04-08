@@ -24,7 +24,7 @@ class ShiftChangePortal(WebsiteShiftController):
 
     @http.route()
     def my_shift(self, **kw):
-        res = super().my_shift()
+        res = super().my_shift(**kw)
         qcontext = res.qcontext
 
         qcontext["is_shift_change_enabled"] = self.is_shift_change_enabled()
