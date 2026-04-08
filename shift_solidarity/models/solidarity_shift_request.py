@@ -129,22 +129,22 @@ class SolidarityShiftRequest(models.Model):
         if shift_id.start_time < datetime.now():
             raise UserError(_("You can not subscribe to a shift in the past."))
 
-    @api.onchange("worker_id")
-    def _on_change_worker_id(self):
+    @api.model
+    def _get_shift_domain(self, worker_id):
         solidarity_request_hour_limit = self._get_solidarity_request_hour_limit()
         shift_domain = [
-            ("worker_id", "=", self.worker_id.id),
+            ("worker_id", "=", worker_id.id),
             (
                 "start_time",
                 ">=",
                 datetime.now() + timedelta(hours=solidarity_request_hour_limit),
             ),
         ]
-        return {
-            "domain": {
-                "shift_id": shift_domain,
-            }
-        }
+        return shift_domain
+
+    @api.onchange("worker_id")
+    def _on_change_worker_id(self):
+        return {"domain": {"shift_id": self._get_shift_domain(self.worker_id)}}
 
     def _unsubscribe_from_shift(self):
         """Unsubscribe worker from shift"""
