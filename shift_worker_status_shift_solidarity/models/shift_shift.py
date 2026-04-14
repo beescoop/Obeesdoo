@@ -1,13 +1,15 @@
-# import json
+# SPDX-FileCopyrightText: 2026 Coop IT Easy SC
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
 
 from odoo import models
 
 
-class Task(models.Model):
+class ShiftShift(models.Model):
     _inherit = "shift.shift"
 
     def _get_counter_date_state_change(self, new_state):
-        data, status = super(Task, self)._get_counter_date_state_change(new_state)
+        data, status = super()._get_counter_date_state_change(new_state)
 
         if (
             self.worker_id.working_mode == "irregular"
