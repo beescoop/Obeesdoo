@@ -60,7 +60,7 @@ msgid "\n"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/planning.py:387
+#: code:addons/shift/models/planning.py:389
 #, python-format
 msgid " is already assigned to "
 msgstr ""
@@ -1472,7 +1472,7 @@ msgid "Wants to leave the cooperative"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/planning.py:393
+#: code:addons/shift/models/planning.py:395
 #, python-format
 msgid "Warning"
 msgstr ""
@@ -1562,7 +1562,7 @@ msgid "You can only set one cooperator status per cooperator"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/planning.py:279
+#: code:addons/shift/models/planning.py:281
 #, python-format
 msgid "You cannot assign more workers than the maximal number defined on template. "
 msgstr ""
