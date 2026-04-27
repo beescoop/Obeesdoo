@@ -25,7 +25,7 @@ class HistoryStatus(models.Model):
     _name = "cooperative.status.history"
     _description = "cooperative.status.history"
 
-    _order = "create_date desc"
+    _order = "create_date desc, cooperator_id, id"
 
     status_id = fields.Many2one("cooperative.status")
     cooperator_id = fields.Many2one("res.partner")
@@ -40,7 +40,7 @@ class CooperativeStatus(models.Model):
     _name = "cooperative.status"
     _description = "cooperative.status"
     _rec_name = "cooperator_id"
-    _order = "cooperator_id"
+    _order = "cooperator_id, id"
     _period = 28
 
     def _get_status(self):
@@ -505,7 +505,7 @@ class CooperativeStatus(models.Model):
 class ShiftCronJournal(models.Model):
     _name = "shift.journal"
     _description = "shift.journal"
-    _order = "date desc"
+    _order = "date desc, id"
     _rec_name = "date"
 
     date = fields.Date()
