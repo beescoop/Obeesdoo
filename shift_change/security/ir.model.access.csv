@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+user_shift_change,shift_change_user,model_shift_change,shift.group_shift_attendance,1,0,0,0
+manager_shift_change,shift_change_manager,model_shift_change,shift.group_shift_management,1,0,1,0
+user_shift_change_create_wizard,shift_change_create_wizard_user,model_shift_change_create_wizard,shift.group_shift_attendance,1,0,0,0
+manager_shift_change_create_wizard,shift_change_create_wizard_manager,model_shift_change_create_wizard,shift.group_shift_management,1,0,1,0
