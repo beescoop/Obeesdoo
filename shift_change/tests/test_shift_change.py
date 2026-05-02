@@ -77,13 +77,17 @@ class TestShiftChange(TestShiftChangeCommon):
         self.assertEqual(self.shift1_d2_w1_t1.worker_id, self.worker_regular_1)
         self.assertEqual(self.shift2_d2_w2_t2.worker_id, self.worker_regular_2)
         with self.assertRaises(ValidationError):
-            self.shift_change_model.create(
-                {
-                    "worker_id": self.worker_regular_1.id,
-                    "old_shift_id": self.shift1_d2_w1_t1.id,
-                    "new_shift_id": self.shift2_d2_w2_t2.id,
-                }
-            )
+            # Test in 12.0, there is no automatic rollback in case of
+            # error during creation.
+            # We want the same behaviour as in UI.
+            with self.env.cr.savepoint():
+                self.shift_change_model.create(
+                    {
+                        "worker_id": self.worker_regular_1.id,
+                        "old_shift_id": self.shift1_d2_w1_t1.id,
+                        "new_shift_id": self.shift2_d2_w2_t2.id,
+                    }
+                )
         self.assertFalse(self.shift_change_model.search([]))
 
     def test_shift_change_in_past(self):
