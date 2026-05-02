@@ -142,6 +142,41 @@ class ShiftShift(models.Model):
             worker = self.env["res.partner"].browse(vals["worker_id"])
             self.message_subscribe(partner_ids=worker.ids)
 
+    @api.model
+    def _aggregate_sibling_shifts(self, domain):
+        """Several shifts are siblings because they belong to the same
+        shfit template, the same day at the same our and for the same
+        task.
+        These represent the shift of all the poeple that will work
+        together.
+        This function aggregate shifts by task_template, start_time and
+        task_type for the given domain.
+        E.g. content of the list:
+        ((task_template_id, start_time, task_type_id), shifts)
+        """
+        all_shifts = self.env["shift.shift"].search(
+            domain,
+            # ensure shift are ordered for groupby
+            order="task_template_id, start_time, task_type_id",
+        )
+        all_shifts_groupby = itertools.groupby(
+            all_shifts,
+            lambda s: (s.task_template_id, s.start_time, s.task_type_id),
+        )
+        aggregated_shifts = []
+        for keys, grouped_shifts in all_shifts_groupby:
+            # Get back a shift recordset
+            shifts = self
+            for shift in grouped_shifts:
+                shifts |= shift
+            aggregated_shifts.append(
+                (
+                    keys,
+                    shifts,
+                )
+            )
+        return aggregated_shifts
+
     # TODO button to replace someone
     @api.model
     def unsubscribe_from_today(
