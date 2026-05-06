@@ -200,7 +200,7 @@ class ShiftPlanning(models.Model):
 class ShiftTemplate(models.Model):
     _name = "shift.template"
     _description = "shift.template"
-    _order = "planning_id, task_type_id, start_time, id"
+    _order = "planning_id, day_nb_id, start_time, task_type_id, id"
 
     name = fields.Char(required=True)
     planning_id = fields.Many2one("shift.planning", required=True)
