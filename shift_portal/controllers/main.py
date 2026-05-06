@@ -395,7 +395,7 @@ class WebsiteShiftController(http.Controller):
 
     def compute_display_shift(self, free_space, task_template):
         hide_rule = request.website.hide_rule / 100.0
-        return free_space >= task_template.worker_nb * hide_rule
+        return free_space > 0 and free_space >= task_template.worker_nb * hide_rule
 
     def available_shift_irregular_worker(
         self, shift_domain=None, irregular_enable_sign_up=False, nexturl=""
@@ -421,8 +421,10 @@ class WebsiteShiftController(http.Controller):
 
         displayed_shifts = []
         for (task_template, _start_time, _task_type), shifts in aggregated_shifts:
+            # Get empty shifts
+            empty_shifts = shifts.filtered(lambda rec: not rec.worker_id)
             # Compute available space
-            free_space = len(shifts.filtered(lambda rec: not rec.worker_id))
+            free_space = len(empty_shifts)
             # Is the current user subscribed to this task_template
             is_subscribed = bool(
                 shifts.filtered(lambda rec: rec.worker_id == cur_worker)
@@ -436,7 +438,7 @@ class WebsiteShiftController(http.Controller):
             if self.compute_display_shift(free_space, task_template):
                 displayed_shifts.append(
                     DisplayedShift(
-                        shifts[0],
+                        empty_shifts[0],
                         free_space,
                         is_subscribed,
                         has_enough_workers,
