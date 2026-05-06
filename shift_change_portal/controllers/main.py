@@ -5,7 +5,7 @@
 from werkzeug.exceptions import Forbidden, NotFound
 
 from odoo import http
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 from odoo.http import request
 
 from odoo.addons.beesdoo_website_shift.controllers.main import WebsiteShiftController
@@ -45,8 +45,8 @@ class ShiftChangePortal(WebsiteShiftController):
             request.env["shift.change"].sudo()._check_old_shift(
                 old_shift, request.env.user.partner_id
             )
-        except UserError as err:
-            error = str(err)
+        except (UserError, ValidationError) as err:
+            error = err.name
 
         irregular_enable_sign_up = False
         nexturl = "/my/shift"
@@ -97,8 +97,8 @@ class ShiftChangePortal(WebsiteShiftController):
                             "new_shift_id": new_shift.id,
                         }
                     )
-            except UserError as err:
-                error = str(err)
+            except (UserError, ValidationError) as err:
+                error = err.name
             else:
                 return request.redirect("/my/shift")
 

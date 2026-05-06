@@ -17,7 +17,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 </div>
                 <div class="row mt16">
                     <div class="col-12">
-                        <div class="alert alert-danger" t-if="error" t-out="error" />
+                        <div class="alert alert-danger" t-if="error" t-esc="error" />
                         <div class="card">
                             <div class="card-body">
                                 <form id="validate_change_form" method="post">
@@ -101,7 +101,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 </div>
                 <div class="row mt4 justify-content-center">
                     <div class="col-12 col-lg-12">
-                        <div class="alert alert-danger" t-if="error" t-out="error" />
+                        <div class="alert alert-danger" t-if="error" t-esc="error" />
                         <t
                             t-else=""
                             t-call="beesdoo_website_shift.available_shift_irregular_worker_grid"
