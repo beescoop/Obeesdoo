@@ -8,7 +8,7 @@ from odoo import http
 from odoo.exceptions import UserError
 from odoo.http import request
 
-from odoo.addons.shift_portal.controllers.main import WebsiteShiftController
+from odoo.addons.beesdoo_website_shift.controllers.main import WebsiteShiftController
 
 
 class ShiftChangePortal(WebsiteShiftController):

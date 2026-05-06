@@ -10,7 +10,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <template
         id="my_shift_next_shifts_change"
         name="My shifts: Next Shift with change button"
-        inherit_id="shift_portal.my_shift_next_shifts"
+        inherit_id="beesdoo_website_shift.my_shift_next_shifts"
     >
         <xpath expr="//div[hasclass('card-body', 'clearfix')]" position="inside">
             <a

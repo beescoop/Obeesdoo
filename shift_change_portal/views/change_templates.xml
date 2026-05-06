@@ -104,7 +104,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                         <div class="alert alert-danger" t-if="error" t-out="error" />
                         <t
                             t-else=""
-                            t-call="shift_portal.available_shift_irregular_worker_grid"
+                            t-call="beesdoo_website_shift.available_shift_irregular_worker_grid"
                         />
                     </div>
                 </div>
@@ -115,7 +115,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <template
         id="available_shift_irregular_worker_card"
         name="Available Shift for Irregular Worker"
-        inherit_id="shift_portal.available_shift_irregular_worker_card"
+        inherit_id="beesdoo_website_shift.available_shift_irregular_worker_card"
     >
         <xpath expr="//div" position="inside">
             <a
