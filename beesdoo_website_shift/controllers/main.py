@@ -421,8 +421,10 @@ class WebsiteShiftController(http.Controller):
 
         displayed_shifts = []
         for (task_template, _start_time, _task_type), shifts in aggregated_shifts:
+            # Get empty shifts
+            empty_shifts = shifts.filtered(lambda rec: not rec.worker_id)
             # Compute available space
-            free_space = len(shifts.filtered(lambda rec: not rec.worker_id))
+            free_space = len(empty_shifts)
             # Is the current user subscribed to this task_template
             is_subscribed = bool(
                 shifts.filtered(lambda rec: rec.worker_id == cur_worker)
@@ -436,7 +438,7 @@ class WebsiteShiftController(http.Controller):
             if self.compute_display_shift(free_space, task_template):
                 displayed_shifts.append(
                     DisplayedShift(
-                        shifts[0],
+                        empty_shifts[0],
                         free_space,
                         is_subscribed,
                         has_enough_workers,
