@@ -449,7 +449,7 @@ class WebsiteShiftController(http.Controller):
             has_enough_workers = (
                 free_space <= (task_template.worker_nb * highlight_rule_pc) / 100
             )
-            if free_space >= task_template.worker_nb * hide_rule:
+            if free_space > 0 and free_space >= task_template.worker_nb * hide_rule:
                 displayed_shifts.append(
                     DisplayedShift(
                         shift_list[0],
