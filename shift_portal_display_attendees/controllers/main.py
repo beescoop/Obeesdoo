@@ -9,10 +9,10 @@ from odoo.addons.shift_portal.controllers.main import WebsiteShiftController
 
 class WebsiteShiftController(WebsiteShiftController):
     def available_shift_irregular_worker(
-        self, irregular_enable_sign_up=False, nexturl=""
+        self, shift_domain=None, irregular_enable_sign_up=False, nexturl=""
     ):
         res = super().available_shift_irregular_worker(
-            irregular_enable_sign_up, nexturl
+            shift_domain, irregular_enable_sign_up, nexturl
         )
         res["display_attendees"] = request.website.display_attendees_on_portal
         return res
