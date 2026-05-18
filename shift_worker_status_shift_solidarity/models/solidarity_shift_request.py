@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-from odoo import api, fields, models
+from odoo import api, models
 
 
 class SolidarityShiftRequest(models.Model):

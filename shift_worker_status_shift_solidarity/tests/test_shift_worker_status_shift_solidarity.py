@@ -2,15 +2,15 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-from datetime import datetime, timedelta
 
 from freezegun import freeze_time
 
-from odoo.addons.shift_solidarity.tests.test_shift_solidarity_common import TestShiftSolidarityCommon
+from odoo.addons.shift_solidarity.tests.test_shift_solidarity_common import (
+    TestShiftSolidarityCommon,
+)
 
 
 class TestShiftWorkerStatusSolidarity(TestShiftSolidarityCommon):
-
     def test_irregular_counter_solidarity_request(self):
         """Test that the personal counter updates when requesting
         a solidarity shift or cancelling a request
