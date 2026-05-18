@@ -5,10 +5,10 @@
 from werkzeug.exceptions import Forbidden
 
 from odoo import _, http
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 from odoo.http import request
 
-from odoo.addons.shift_portal.controllers.main import WebsiteShiftController
+from odoo.addons.beesdoo_website_shift.controllers.main import WebsiteShiftController
 
 
 class ShiftSolidarityPortal(WebsiteShiftController):
@@ -37,12 +37,12 @@ class ShiftSolidarityPortal(WebsiteShiftController):
         template_context = res.qcontext
         template_context["is_solidarity_enabled"] = self.is_solidarity_enabled()
         template_context["is_solidarity_counter_ok"] = (
-            request.env.company.sudo().solidarity_counter()
+            request.env["res.company"]._company_default_get().solidarity_counter()
             > self.get_solidarity_counter_limit()
         )
-        template_context[
-            "solidarity_counter"
-        ] = request.env.company.sudo().solidarity_counter()
+        template_context["solidarity_counter"] = (
+            request.env["res.company"]._company_default_get().solidarity_counter()
+        )
         return request.render(res.template, template_context)
 
     # Solidarity shift offer
@@ -73,8 +73,8 @@ class ShiftSolidarityPortal(WebsiteShiftController):
                             "state": "validated",
                         }
                     )
-            except UserError as err:
-                error = str(err)
+            except (UserError, ValidationError) as err:
+                error = err.name
             else:
                 return request.redirect("/my/shift")
 
@@ -123,8 +123,8 @@ class ShiftSolidarityPortal(WebsiteShiftController):
             # backend.
             with request.env.cr.savepoint():
                 offer.state = "cancelled"
-        except UserError as err:
-            error = str(err)
+        except (UserError, ValidationError) as err:
+            error = err.name
 
         return request.render(
             "shift_solidarity_portal.shift_solidarity_offer_cancel",
@@ -158,8 +158,8 @@ class ShiftSolidarityPortal(WebsiteShiftController):
                             "state": "validated",
                         }
                     )
-            except UserError as err:
-                error = str(err)
+            except (UserError, ValidationError) as err:
+                error = err.name
             else:
                 return request.redirect("/my/shift")
 
@@ -216,8 +216,8 @@ class ShiftSolidarityPortal(WebsiteShiftController):
                             "state": kw.get("state"),
                         }
                     )
-            except UserError as err:
-                error = str(err)
+            except (UserError, ValidationError) as err:
+                error = err.name
             else:
                 success = _(
                     "Your solidarity request has successfully " "been cancelled."

@@ -11,7 +11,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <div class="card">
             <div class="card-header text-center">
                 <h3> Solidarity shifts counter:
-                    <t t-out="solidarity_counter" />
+                    <t t-esc="solidarity_counter" />
                 </h3>
             </div>
             <div class="card-body">
@@ -69,10 +69,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <template
         id="solidarity_elements_regular_worker"
         name="Solidarity related elements for regular workers"
-        inherit_id="shift_portal.my_shift_regular_worker"
+        inherit_id="beesdoo_website_shift.my_shift_regular_worker"
     >
         <xpath
-            expr="//div[t[@t-call='shift_portal.my_shift_worker_status_title']]/*[last()]"
+            expr="//div[t[@t-call='beesdoo_website_shift.my_shift_worker_status_title']]/*[last()]"
             position="after"
         >
             <t
@@ -82,7 +82,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 <t t-set="regular" t-value="True" />
             </t>
         </xpath>
-        <xpath expr="//t[@t-call='shift_portal.help_text_title']" position="before">
+        <xpath
+            expr="//t[@t-call='beesdoo_website_shift.help_text_title']"
+            position="before"
+        >
             <t
                 t-if="is_solidarity_enabled"
                 t-call="shift_solidarity_portal.solidarity_counter"
@@ -93,10 +96,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <template
         id="solidarity_elements_irregular_worker"
         name="Solidarity related elements for irregular workers"
-        inherit_id="shift_portal.my_shift_irregular_worker"
+        inherit_id="beesdoo_website_shift.my_shift_irregular_worker"
     >
         <xpath
-            expr="//div[t[@t-call='shift_portal.my_shift_worker_status_title']]/*[last()]"
+            expr="//div[t[@t-call='beesdoo_website_shift.my_shift_worker_status_title']]/*[last()]"
             position="after"
         >
             <t
@@ -120,7 +123,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <template
         id="solidarity_elements_non_worker"
         name="Solidarity related elements for non workers"
-        inherit_id="shift_portal.my_shift_non_worker"
+        inherit_id="beesdoo_website_shift.my_shift_non_worker"
     >
         <xpath expr="//div[hasclass('container', 'mt16')]/*[last()]" position="after">
             <div t-if="is_solidarity_enabled" class="row">
@@ -136,7 +139,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <template
         id="solidarity_elements_new_worker"
         name="Solidarity related elements for new workers"
-        inherit_id="shift_portal.my_shift_new_worker"
+        inherit_id="beesdoo_website_shift.my_shift_new_worker"
     >
         <xpath expr="//div[hasclass('container', 'mt6')]/*[last()]" position="after">
             <div t-if="is_solidarity_enabled" class="row">
@@ -152,7 +155,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <template
         id="solidarity_elements_exempted_worker"
         name="Solidarity related elements for exempted workers"
-        inherit_id="shift_portal.my_shift_exempted_worker"
+        inherit_id="beesdoo_website_shift.my_shift_exempted_worker"
     >
         <xpath expr="//div[hasclass('container', 'mt16')]/*[last()]" position="after">
             <div t-if="is_solidarity_enabled" class="row">
@@ -168,7 +171,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <template
         id="solidarity_elements_regular_worker_without_shift"
         name="Solidarity related elements for regular workers without shifts"
-        inherit_id="shift_portal.my_shift_regular_worker_without_shift"
+        inherit_id="beesdoo_website_shift.my_shift_regular_worker_without_shift"
     >
         <xpath expr="//div[hasclass('container', 'mt16')]/*[last()]" position="after">
             <div t-if="is_solidarity_enabled" class="row">
@@ -236,9 +239,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 </div>
                 <div class="row mt4 justify-content-center">
                     <div class="col-12 col-lg-12">
-                        <div class="alert alert-danger" t-if="error" t-out="error" />
+                        <div class="alert alert-danger" t-if="error" t-esc="error" />
                         <t
-                            t-call="shift_portal.available_shift_irregular_worker_grid"
+                            t-call="beesdoo_website_shift.available_shift_irregular_worker_grid"
                         />
                     </div>
                 </div>
@@ -259,7 +262,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 </div>
                 <div class="row mt4 justify-content-center">
                     <div class="col-12 col-lg-12">
-                        <div class="alert alert-danger" t-if="error" t-out="error" />
+                        <div class="alert alert-danger" t-if="error" t-esc="error" />
                         <div class="alert alert-success" t-else="">
                             Your solidarity offer has properly been cancelled.
                         </div>
@@ -273,7 +276,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <template
         id="available_shift_irregular_worker_card"
         name="Available Shift for Irregular Worker: Add solidarity offer button"
-        inherit_id="shift_portal.available_shift_irregular_worker_card"
+        inherit_id="beesdoo_website_shift.available_shift_irregular_worker_card"
     >
         <xpath expr="//div" position="inside">
             <form
@@ -371,7 +374,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                                     />
                                                 </div>
                                                 <t
-                                                    t-call="shift_portal.shift_status_label"
+                                                    t-call="beesdoo_website_shift.shift_status_label"
                                                 >
                                                     <t
                                                         t-set="label_css"
@@ -380,7 +383,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                                 </t>
                                             </div>
                                             <div class="card-body clearfix">
-                                                <t t-out="shift.task_type_id.name" />
+                                                <t t-esc="shift.task_type_id.name" />
                                             </div>
                                         </div>
                                     </label>
@@ -425,11 +428,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 </div>
                 <div class="row">
                     <div class="col">
-                        <div class="alert alert-danger" t-if="error" t-out="error" />
+                        <div class="alert alert-danger" t-if="error" t-esc="error" />
                         <div
                             class="alert alert-success"
                             t-if="success"
-                            t-out="success"
+                            t-esc="success"
                         />
                     </div>
                 </div>
@@ -470,7 +473,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                             </t>
                                             <td>
                                                 <t
-                                                    t-out="solidarity_request.create_date.strftime('%A %d/%m, %Y')"
+                                                    t-esc="solidarity_request.create_date.strftime('%A %d/%m, %Y')"
                                                 />
                                             </td>
                                             <td>
