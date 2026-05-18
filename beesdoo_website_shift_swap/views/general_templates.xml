@@ -109,7 +109,7 @@
                 position="attributes"
             >
                 <attribute name="t-if">
-                    ((shift.is_compensation and request.website.enable_unsubscribe_compensation) or (not shift.is_compensation and request.website.irregular_enable_unsubscribe)) and not shift.is_solidarity
+                    ((shift.is_compensation and request.website.enable_unsubscribe_compensation) or (not shift.is_compensation and request.website.irregular_enable_unsubscribe)) and not shift.swap_is_solidarity
                 </attribute>
             </xpath>
             <xpath expr="//div[hasclass('card-body', 'clearfix')]" position="inside">
@@ -117,11 +117,11 @@
                     t-set="solidarity_counter"
                     t-value="request.env['res.company']._company_default_get().solidarity_counter()"
                 />
-                <t t-if="shift.is_solidarity">
+                <t t-if="shift.swap_is_solidarity">
                     <t t-if="shift.check_hours_to_unsubscribe()">
                         <a
                             class="btn btn-primary btn-sm ml-2 pull-right"
-                            t-att-href="'/my/shift/solidarity/offer/cancel/%i' % shift.solidarity_offer_ids[0]"
+                            t-att-href="'/my/shift/solidarity/offer/cancel/%i' % shift.swap_solidarity_offer_ids[0]"
                         >
                             Cancel solidarity shift
                         </a>
@@ -245,7 +245,7 @@
         >
             <xpath expr="//span[last()]" position="after">
                 <span
-                    t-if="shift.is_solidarity"
+                    t-if="shift.swap_is_solidarity"
                     t-attf-class="badge badge-info ml-1 {{label_css}}"
                 >
                     solidarity

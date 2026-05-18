@@ -803,13 +803,13 @@ msgstr ""
 #. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_offer__tmpl_dated_id
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_request__tmpl_dated_id
-#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_shift_shift__is_solidarity
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_shift_shift__swap_is_solidarity
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.task_shift_view_kanban_extended
 msgid "Solidarity shift"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_shift_shift__solidarity_offer_ids
+#: model:ir.model.fields,field_description:beesdoo_shift_swap.field_shift_shift__swap_solidarity_offer_ids
 msgid "Solidarity shift offer"
 msgstr ""
 

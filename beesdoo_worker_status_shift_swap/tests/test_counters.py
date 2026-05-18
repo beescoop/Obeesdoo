@@ -120,7 +120,7 @@ class TestBeesdooWorkerStatusShiftSwap(TransactionCase):
                 "end_time": template_dated.date + timedelta(minutes=10),
                 "is_regular": True,
                 "is_compensation": False,
-                "solidarity_offer_ids": [(6, 0, solidarity_offer.ids)],
+                "swap_solidarity_offer_ids": [(6, 0, solidarity_offer.ids)],
             }
         )
 
