@@ -71,7 +71,7 @@ class TestShiftSolidarity(TestShiftSolidarityCommon):
         self.env["ir.config_parameter"].set_param(
             "shift_solidarity.solidarity_offer_hour_limit", 240
         )
-        with self.assertRaises(UserError):
+        with self.assertRaises(ValidationError):
             offer.state = "cancelled"
 
     def test_solidarity_request_create_draft(self):
