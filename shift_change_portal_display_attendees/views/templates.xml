@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     SPDX-FileCopyrightText: 2026 Coop IT Easy SC
+     SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <!-- 1. Change the Select button from direct link to modal trigger -->
+    <template
+        id="available_shift_irregular_worker_card_change_button"
+        inherit_id="shift_change_portal.available_shift_irregular_worker_card"
+    >
+        <xpath
+            expr="//a[@t-attf-href='/my/shift/change/{{ old_shift.id }}/{{ shift.id }}']"
+            position="attributes"
+        >
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath
+            expr="//a[@t-attf-href='/my/shift/change/{{ old_shift.id }}/{{ shift.id }}']"
+            position="after"
+        >
+            <button
+                type="button"
+                class="btn btn-sm btn-primary m-1"
+                data-bs-toggle="modal"
+                t-att-data-bs-target="'#subscribe-shift-%s' % shift.id"
+                t-if="regular_shift_change_enabled and shift.id and not is_subscribed"
+            >
+                Select
+            </button>
+        </xpath>
+    </template>
+    <!-- 2. Make modal footer work for BOTH shift subscription AND shift change -->
+    <template
+        id="available_shift_irregular_worker_card_change_footer"
+        inherit_id="shift_portal.available_shift_irregular_worker_card"
+    >
+        <xpath
+            expr="//div[hasclass('modal-footer')]//a[contains(@t-att-href, '/shift/')]"
+            position="attributes"
+        >
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath
+            expr="//div[hasclass('modal-footer')]//a[contains(@t-att-href, '/shift/')]"
+            position="after"
+        >
+            <a
+                class="btn btn-primary"
+                t-if="irregular_enable_sign_up"
+                t-att-href="'/shift/%s/subscribe?nexturl=%s' % (shift.id, nexturl)"
+            >Subscribe</a>
+            <a
+                class="btn btn-primary"
+                t-if="regular_shift_change_enabled"
+                t-att-href="'/my/shift/change/%s/%s' % (old_shift.id, shift.id)"
+            >Subscribe</a>
+        </xpath>
+    </template>
+
+</odoo>
