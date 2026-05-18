@@ -17,6 +17,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 t-if="request.env.user.partner_id.working_mode == 'regular'
                     and shift.state != 'cancel'
                     and not shift.is_compensation
+                    and shift.can_be_changed
                     and is_shift_change_enabled
                     and shift.id"
                 t-attf-href="/my/shift/change/{{ shift.id }}"

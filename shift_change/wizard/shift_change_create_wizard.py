@@ -47,6 +47,7 @@ class ShiftChangeCreateWizard(models.TransientModel):
                 ">=",
                 datetime.now() + timedelta(hours=old_shift_hour_limit_change),
             ),
+            ("can_be_changed", "=", True),
         ]
         return {
             "domain": {
