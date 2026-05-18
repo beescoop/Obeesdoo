@@ -257,32 +257,44 @@
                                 <strong>
                                     <field name="name" />
                                 </strong>
-                                <div>
+                                <div name="start_time">
                                     <field name="start_time" widget="datetime" />
                                     -
                                     <field name="end_time" widget="datetime" />
                                 </div>
-                                <div>
+                                <div name="status">
                                     Status:
                                     <field name="state" />
                                 </div>
-                                <div t-if="record.task_type_id.raw_value">
+                                <div
+                                    name="shift_type"
+                                    t-if="record.task_type_id.raw_value"
+                                >
                                     Type:
                                     <field name="task_type_id" />
                                 </div>
-                                <div>
+                                <div name="worker_id">
                                     Worker:
                                     <field name="worker_id" />
                                 </div>
-                                <div t-if="record.replaced_id.raw_value">
+                                <div
+                                    name="replacement"
+                                    t-if="record.replaced_id.raw_value"
+                                >
                                     Replacement worker:
                                     <field name="replaced_id" />
                                 </div>
-                                <div t-if="record.super_coop_id.raw_value">
+                                <div
+                                    name="super_coop"
+                                    t-if="record.super_coop_id.raw_value"
+                                >
                                     Super Coop:
                                     <field name="super_coop_id" />
                                 </div>
-                                <div t-if="record.is_regular.raw_value">
+                                <div
+                                    name="regular_shift"
+                                    t-if="record.is_regular.raw_value"
+                                >
                                     Regular Shift
                                 </div>
 
