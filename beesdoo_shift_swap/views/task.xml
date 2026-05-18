@@ -55,13 +55,17 @@
             <field name="is_regular" position="after">
                 <field name="is_solidarity" />
             </field>
-            <xpath expr="//div[@t-if='record.is_regular.raw_value']" position="replace">
-                <div t-if="record.is_solidarity.raw_value">
-                    Solidarity shift
+            <xpath expr="//div[@name='regular_shift']" position="after">
+                <div name="solidarity_shift" t-if="record.is_solidarity.raw_value">
+                    Solidarity Shift
                 </div>
-                <div t-elif="record.is_regular.raw_value">
-                    Regular Shift
-                </div>
+            </xpath>
+            <xpath expr="//div[@name='regular_shift']" position="attributes">
+                <attribute
+                    name="t-if"
+                    add="&amp;&amp; !record.is_solidarity.raw_value"
+                    separator=" "
+                />
             </xpath>
         </field>
     </record>
