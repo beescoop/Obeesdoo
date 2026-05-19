@@ -27,14 +27,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             <div
                 t-if="not shift.id and is_shift_change_enabled"
                 name="shift_change_no_change_too_far"
-                class="small text-muted mt8"
+                class="small text-info mt8"
             >
                 This shift can not be changed because it is too far in the future.
             </div>
             <div
                 t-if="shift.id and is_shift_change_enabled and shift.is_compensation"
                 name="shift_change_no_change_compensation"
-                class="small text-muted mt8"
+                class="small text-info mt8"
             >
                 This shift can not be changed because it is a compensation shift.
             </div>
