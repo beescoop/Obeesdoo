@@ -23,7 +23,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                 Time limit to change a shift
                             </span>
                             <div class="text-muted">
-                                Number of hours above which a shift cannot be changed
+                                Number of hours below which a shift cannot be changed
                             </div>
                             <div class="content-group">
                                 <div class="mt16 row">
@@ -44,7 +44,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                 Time limit to take a new a shift
                             </span>
                             <div class="text-muted">
-                                Number of hours above which a new shift cannot be taken
+                                Number of hours below which a new shift cannot be taken
                             </div>
                             <div class="content-group">
                                 <div class="mt16 row">
