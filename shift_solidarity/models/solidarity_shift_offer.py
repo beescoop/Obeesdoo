@@ -76,7 +76,7 @@ class SolidarityShiftOffer(models.Model):
         ]
 
     @api.model
-    def _get_available_shift_ids(self, worker_id):
+    def _get_available_shift_ids(self, worker_id, only_one_shift_per_template=True):
         """List shifts available for the given worker"""
         aggregated_shifts = self.env["shift.shift"]._aggregate_sibling_shifts(
             self._get_shift_domain(),
@@ -89,9 +89,10 @@ class SolidarityShiftOffer(models.Model):
             if not is_subscribed:
                 for shift in shifts:
                     if not shift.worker_id:
-                        # Add first empty shift and exit
                         available_shifts |= shift
-                        break
+                        if only_one_shift_per_template:
+                            # Exit after first shift
+                            break
         return available_shifts
 
     @api.model

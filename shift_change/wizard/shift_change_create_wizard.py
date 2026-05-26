@@ -60,7 +60,9 @@ class ShiftChangeCreateWizard(models.TransientModel):
         for rec in self:
             rec.available_new_shift_ids = self.env[
                 "shift.change"
-            ]._get_available_new_shift_ids(rec.worker_id)
+            ]._get_available_new_shift_ids(
+                rec.worker_id, only_one_shift_per_template=True
+            )
 
     def action_confirm(self):
         self.env["shift.change"].create(

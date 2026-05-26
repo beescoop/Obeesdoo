@@ -82,7 +82,9 @@ class ShiftChange(models.Model):
         ]
 
     @api.model
-    def _get_available_new_shift_ids(self, worker_id):
+    def _get_available_new_shift_ids(
+        self, worker_id, only_one_shift_per_template=False
+    ):
         """List new shifts available for the given worker"""
         aggregated_shifts = self.env["shift.shift"]._aggregate_sibling_shifts(
             self._get_new_shift_domain(),
@@ -95,9 +97,10 @@ class ShiftChange(models.Model):
             if not is_subscribed:
                 for shift in shifts:
                     if not shift.worker_id:
-                        # Add first empty shift and exit
                         available_new_shifts |= shift
-                        break
+                        if only_one_shift_per_template:
+                            # Exit after first shift
+                            break
         return available_new_shifts
 
     @api.model_create_multi
