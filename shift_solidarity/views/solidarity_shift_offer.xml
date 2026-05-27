@@ -10,7 +10,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="name">Solidarity shift offers</field>
         <field name="model">shift.solidarity.offer</field>
         <field name="arch" type="xml">
-            <tree create="false">
+            <tree>
                 <field name="worker_id" />
                 <field name="shift_id" />
                 <field name="state" />
@@ -22,7 +22,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="name">Solidarity shift offer</field>
         <field name="model">shift.solidarity.offer</field>
         <field name="arch" type="xml">
-            <form create="false">
+            <form>
                 <header>
                     <button
                         name="cancel_solidarity_offer"
