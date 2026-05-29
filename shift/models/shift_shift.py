@@ -20,7 +20,7 @@ class ShiftShift(models.Model):
     ##################################
     def _get_selection_status(self):
         return [
-            ("open", _("Confirmed")),
+            ("open", _("Scheduled")),
             ("done", _("Attended")),
             ("absent", _("Absent")),
             ("excused", _("Excused")),

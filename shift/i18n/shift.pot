@@ -283,13 +283,6 @@ msgid "Confirm"
 msgstr ""
 
 #. module: shift
-#. odoo-python
-#: code:addons/shift/models/shift_shift.py:0
-#, python-format
-msgid "Confirmed"
-msgstr ""
-
-#. module: shift
 #: model:ir.model,name:shift.model_res_partner
 msgid "Contact"
 msgstr ""
@@ -1100,6 +1093,13 @@ msgstr ""
 #. module: shift
 #: model_terms:ir.ui.view,arch_db:shift.journal_form_view
 msgid "Run again for this day"
+msgstr ""
+
+#. module: shift
+#. odoo-python
+#: code:addons/shift/models/shift_shift.py:0
+#, python-format
+msgid "Scheduled"
 msgstr ""
 
 #. module: shift
