@@ -262,12 +262,6 @@ msgid "Compute Shift Counter"
 msgstr ""
 
 #. module: shift
-#: model:ir.model.fields,help:shift.field_res_partner__is_worker
-#: model:ir.model.fields,help:shift.field_res_users__is_worker
-msgid "Computed from the share product of the first cooperator share"
-msgstr ""
-
-#. module: shift
 #: model:ir.model,name:shift.model_res_config_settings
 msgid "Config Settings"
 msgstr ""
@@ -286,13 +280,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:shift.task_template_generation_view_form
 #: model_terms:ir.ui.view,arch_db:shift.temporary_exemption_wizard_view_form
 msgid "Confirm"
-msgstr ""
-
-#. module: shift
-#. odoo-python
-#: code:addons/shift/models/shift_shift.py:0
-#, python-format
-msgid "Confirmed"
 msgstr ""
 
 #. module: shift
@@ -1109,6 +1096,13 @@ msgid "Run again for this day"
 msgstr ""
 
 #. module: shift
+#. odoo-python
+#: code:addons/shift/models/shift_shift.py:0
+#, python-format
+msgid "Scheduled"
+msgstr ""
+
+#. module: shift
 #: model:ir.actions.server,name:shift.ir_cron_send_weekly_emails_ir_actions_server
 #: model:ir.cron,cron_name:shift.ir_cron_send_weekly_emails
 msgid "Send weekly shift summary"
@@ -1424,16 +1418,6 @@ msgstr ""
 #: code:addons/shift/models/planning.py:0
 #, python-format
 msgid "Warning"
-msgstr ""
-
-#. module: shift
-#: model:ir.model.fields,field_description:shift.field_shift_shift__website_message_ids
-msgid "Website Messages"
-msgstr ""
-
-#. module: shift
-#: model:ir.model.fields,help:shift.field_shift_shift__website_message_ids
-msgid "Website communication history"
 msgstr ""
 
 #. module: shift
