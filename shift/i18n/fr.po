@@ -285,7 +285,7 @@ msgstr "Annuler"
 #: code:addons/shift/models/shift_shift.py:0
 #, python-format
 msgid "Cancelled"
-msgstr ""
+msgstr "Annulé"
 
 #. module: shift
 #: model:ir.model.fields,field_description:shift.field_cooperative_status_history__change
