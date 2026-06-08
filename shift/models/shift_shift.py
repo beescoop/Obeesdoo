@@ -433,6 +433,24 @@ class ShiftShift(models.Model):
         for rec in confirmed_tasks:
             shift_summary_mail_template.send_mail(rec.id, True)
 
+    def _get_shift_coworkers(self):
+        """Get coworkers for a shift (workers registered for the same task template,
+        start time and task type)."""
+        all_shifts = (
+            self.env["shift.shift"]
+            .sudo()
+            .search(
+                [
+                    ("task_template_id", "=", self.task_template_id.id),
+                    ("start_time", "=", self.start_time),
+                    ("task_type_id", "=", self.task_type_id.id),
+                    ("worker_id", "!=", False),
+                    ("worker_id", "!=", self.env.user.partner_id.id),
+                ]
+            )
+        )
+        return all_shifts.mapped("worker_id")
+
     ########################################################
     #                   Method to override                 #
     #           To define the behavior of the status       #
