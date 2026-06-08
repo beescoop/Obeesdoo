@@ -25,7 +25,7 @@ addon | version | maintainers | summary
 [beesdoo_product_label](beesdoo_product_label/) | 16.0.1.0.1 |  | Adds the label bio/ethique/provenance.
 [beesdoo_product_usability](beesdoo_product_usability/) | 16.0.1.0.0 |  | Simplification of product views
 [beesdoo_shift_welcome_screen](beesdoo_shift_welcome_screen/) | 16.0.1.0.0 |  | Volunteer Timetable Management
-[cooperator_eater](cooperator_eater/) | 16.0.1.0.0 |  | Eater configuration based on Share product
+[cooperator_eater](cooperator_eater/) | 16.0.1.0.1 |  | Eater configuration based on Share product
 [cooperator_worker](cooperator_worker/) | 16.0.1.0.0 |  | Working and shopping configuration based on Share product
 [cooperator_worker_force](cooperator_worker_force/) | 16.0.1.0.0 |  | Allows to set a cooperator as a worker before the share is released.
 [eater](eater/) | 16.0.1.0.0 |  | Add eaters to the workers of your structure.
