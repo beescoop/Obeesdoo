@@ -99,6 +99,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                         <h1>Select your new shift</h1>
                     </div>
                 </div>
+                <div id="actions-top" class="row mt4">
+                    <div class="col">
+                        <a href="/my/shift" class="btn btn-primary"><i
+                                class="fa fa-arrow-left me-2"
+                            />Back</a>
+                    </div>
+                </div>
                 <div class="row mt4 justify-content-center">
                     <div class="col-12 col-lg-12">
                         <div class="alert alert-danger" t-if="error" t-out="error" />
@@ -106,6 +113,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                             t-else=""
                             t-call="shift_portal.available_shift_irregular_worker_grid"
                         />
+                    </div>
+                </div>
+                <div id="actions-bottom" class="row mt4">
+                    <div class="col">
+                        <a href="/my/shift" class="btn btn-primary"><i
+                                class="fa fa-arrow-left me-2"
+                            />Back</a>
                     </div>
                 </div>
             </div>
