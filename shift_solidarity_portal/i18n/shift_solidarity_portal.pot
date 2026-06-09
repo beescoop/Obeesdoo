@@ -1,0 +1,190 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* shift_solidarity_portal
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.solidarity_counter
+msgid "*Explanatory text solidarity counter*"
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.solidarity_request_help_text_irregular
+msgid "*Warning text irregular*"
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.solidarity_request_help_text_regular
+msgid "*Warning text regular*"
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.list_solidarity_requests
+msgid ""
+"<strong>Info!</strong>\n"
+"                                You don't have any solidarity request."
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.help_text_all_shifts_solidarity_offer
+msgid ""
+"<strong>Info!</strong>\n"
+"            On this page you can choose to subscribe to a shift as a solidarity\n"
+"            shift. If you select one of them, you will have to attend it or to\n"
+"            cancel it soon enough, via the \"My shifts\" page."
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.help_text_underpopulated_solidarity_offer
+msgid ""
+"<strong>Info!</strong>\n"
+"            On this page you can choose to subscribe to a shift that is\n"
+"            underpopulated, as a solidarity shift. If you select one of them, you\n"
+"            will have to attend it or to cancel it soon enough, via the \"My shifts\"\n"
+"            page. If you cannot attend any of those on this list, please click on\n"
+"            the button at the bottom of the page to see all available shifts."
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.list_solidarity_requests
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.shift_solidarity_offer_cancel
+msgid "Back"
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.list_solidarity_requests
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.shift_solidarity_request_selection
+msgid "Cancel"
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.my_shift_next_shifts_solidarity_offer
+msgid "Cancel solidarity"
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.shift_solidarity_offer_cancel
+msgid "Cancellation of a solidarity offer"
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.solidarity_buttons
+msgid "I need help"
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.solidarity_buttons
+msgid "My solidarity requests"
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.list_solidarity_requests
+msgid "Non realisable shift"
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.shift_solidarity_offer_selection
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.solidarity_buttons
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.solidarity_counter
+msgid "Offer a solidarity shift"
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.list_solidarity_requests
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.shift_solidarity_request_selection
+msgid "Reason"
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.shift_solidarity_request_selection
+msgid "Request a solidarity shift"
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.list_solidarity_requests
+msgid "Request date"
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.available_shift_irregular_worker_card
+msgid "Select"
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.shift_solidarity_offer_selection
+msgid "Select a shift"
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.shift_solidarity_request_selection
+msgid "Shifts"
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.solidarity_buttons
+msgid "Solidarity"
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.list_solidarity_requests
+msgid "Solidarity requests"
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.solidarity_counter
+msgid "Solidarity shifts counter:"
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.list_solidarity_requests
+msgid "Status"
+msgstr ""
+
+#. module: shift_solidarity_portal
+#. odoo-python
+#: code:addons/shift_solidarity_portal/controllers/main.py:0
+#: code:addons/shift_solidarity_portal/controllers/main.py:0
+#, python-format
+msgid "The selected shift does not exists."
+msgstr ""
+
+#. module: shift_solidarity_portal
+#. odoo-python
+#: code:addons/shift_solidarity_portal/controllers/main.py:0
+#, python-format
+msgid "The selected solidarity request does not exists."
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.shift_solidarity_request_selection
+msgid "Validate"
+msgstr ""
+
+#. module: shift_solidarity_portal
+#. odoo-python
+#: code:addons/shift_solidarity_portal/controllers/main.py:0
+#, python-format
+msgid "You are not allowed to cancel this offer."
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.shift_solidarity_offer_cancel
+msgid "Your solidarity offer has properly been cancelled."
+msgstr ""
+
+#. module: shift_solidarity_portal
+#. odoo-python
+#: code:addons/shift_solidarity_portal/controllers/main.py:0
+#, python-format
+msgid "Your solidarity request has successfully been cancelled."
+msgstr ""
