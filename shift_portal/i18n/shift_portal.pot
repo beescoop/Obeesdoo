@@ -74,14 +74,6 @@ msgid ""
 msgstr ""
 
 #. module: shift_portal
-#: model_terms:ir.ui.view,arch_db:shift_portal.view_website_shift_config_irregular
-msgid ""
-"<span class=\"o_form_label\">\n"
-"                            Minimum number of hours before a shift to unsubscribe\n"
-"                        </span>"
-msgstr ""
-
-#. module: shift_portal
 #: model_terms:ir.ui.view,arch_db:shift_portal.help_text_irregular_worker
 msgid ""
 "<strong>Alert:</strong>\n"
@@ -382,11 +374,6 @@ msgid "Hide Rule"
 msgstr ""
 
 #. module: shift_portal
-#: model_terms:ir.ui.view,arch_db:shift_portal.view_website_shift_config_irregular
-msgid "Hours"
-msgstr ""
-
-#. module: shift_portal
 #: model_terms:ir.ui.view,arch_db:shift_portal.choose_compensation_shift
 msgid "If you can't find a shift among these, please click here:"
 msgstr ""
@@ -441,16 +428,6 @@ msgid "Limit attendance percentage to define underpopulated shift"
 msgstr ""
 
 #. module: shift_portal
-#: model:ir.model.fields,field_description:shift_portal.field_res_config_settings__max_shift_per_day
-msgid "Maximum number of shifts per day for one cooperator"
-msgstr ""
-
-#. module: shift_portal
-#: model:ir.model.fields,field_description:shift_portal.field_res_config_settings__max_shift_per_month
-msgid "Maximum number of shifts per month for one cooperator"
-msgstr ""
-
-#. module: shift_portal
 #: model:ir.model.fields,help:shift_portal.field_res_config_settings__irregular_past_shift_limit
 #: model:ir.model.fields,help:shift_portal.field_website__irregular_past_shift_limit
 msgid "Maximum past shift that will be shown for irregular worker"
@@ -465,11 +442,6 @@ msgstr ""
 #. module: shift_portal
 #: model:ir.model.fields,field_description:shift_portal.field_res_config_settings__regular_next_shift_limit
 msgid "Maximun number of next shift that will be shown"
-msgstr ""
-
-#. module: shift_portal
-#: model:ir.model.fields,field_description:shift_portal.field_res_config_settings__min_hours_to_unsubscribe
-msgid "Minimum number of hours before a shift to unsubscribe"
 msgstr ""
 
 #. module: shift_portal
@@ -731,13 +703,6 @@ msgstr ""
 #. module: shift_portal
 #: model_terms:ir.ui.view,arch_db:shift_portal.my_shift_worker_status_title
 msgid "Worker status"
-msgstr ""
-
-#. module: shift_portal
-#: model_terms:ir.ui.view,arch_db:shift_portal.view_website_shift_config_irregular
-msgid ""
-"Workers can unsubscribe from a shift only if the delay before\n"
-"                            the start is at least this number of hours"
 msgstr ""
 
 #. module: shift_portal
