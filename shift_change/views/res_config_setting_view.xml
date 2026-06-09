@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2026 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+
+    <record id="res_config_settings_swap_view_form" model="ir.ui.view">
+        <field name="name">Shift Changes Settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="50" />
+        <field name="inherit_id" ref="shift.res_config_settings_shift_view_form" />
+        <field name="arch" type="xml">
+
+            <div id="shift_settings_block" position="inside">
+                <h2>Shift Changes</h2>
+                <div class="row mt16 o_settings_container">
+
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">
+                                Time limit to change a shift
+                            </span>
+                            <div class="text-muted">
+                                Number of hours below which a shift cannot be changed
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16 row">
+                                    <label
+                                        for="old_shift_hour_limit_change"
+                                        string="Hours"
+                                        class="col-3 col-lg-3 o_light_label"
+                                    />
+                                    <field
+                                        name="old_shift_hour_limit_change"
+                                        class="oe_inline"
+                                        required="1"
+                                    />
+                                </div>
+                            </div>
+
+                            <span class="o_form_label">
+                                Time limit to take a new a shift
+                            </span>
+                            <div class="text-muted">
+                                Number of hours below which a new shift cannot be taken
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16 row">
+                                    <label
+                                        for="new_shift_hour_limit_change"
+                                        string="Hours"
+                                        class="col-3 col-lg-3 o_light_label"
+                                    />
+                                    <field
+                                        name="new_shift_hour_limit_change"
+                                        class="oe_inline"
+                                        required="1"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">
+                                Maximum changes for the same shift
+                            </span>
+                            <div class="text-muted">
+                                Number of time the same shift can be changed
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16 row">
+                                    <label
+                                        for="same_shift_change_max"
+                                        string="Times"
+                                        class="col-3 col-lg-3 o_light_label"
+                                    />
+                                    <field
+                                        name="same_shift_change_max"
+                                        class="oe_inline"
+                                        required="1"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </field>
+    </record>
+
+</odoo>

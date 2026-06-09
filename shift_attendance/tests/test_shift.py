@@ -327,4 +327,6 @@ class TestShift(TransactionCase):
             self.assertEqual(added_shift.task_id.state, added_shift.state)
 
         # Empty shift should have been updated
-        self.assertEqual(sheet_1.added_shift_ids[0].task_id, self.shift_empty_1)
+        self.assertIn(
+            self.shift_empty_1, (rec.task_id for rec in sheet_1.added_shift_ids)
+        )

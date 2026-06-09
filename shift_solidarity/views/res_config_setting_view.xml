@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2026 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+
+    <record id="res_config_settings_shift_solidarity" model="ir.ui.view">
+        <field name="name">Shift Solidarity Settings</field>
+        <field name="model">res.config.settings</field>
+        <!-- <field name="priority" eval="50" /> -->
+        <field name="inherit_id" ref="shift.res_config_settings_shift_view_form" />
+        <field name="arch" type="xml">
+
+            <div id="shift_settings_block" position="inside">
+                <h2>Solidarity</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field
+                                name="enable_solidarity"
+                                class="oe_inline"
+                                required="1"
+                            />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">
+                                Activate solidarity related features
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">
+                                Initial value of the solidarity counter
+                            </span>
+                            <div class="text-muted">
+                                Inital value for the solidarity counter calculation
+                                (equivalent to the value of the counter if no one
+                                has offered or requested a solidarity shift)
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16 row">
+                                    <label
+                                        for="solidarity_counter_start_value"
+                                        string="Value"
+                                        class="col-3 col-lg-3 o_light_label"
+                                    />
+                                    <field
+                                        name="solidarity_counter_start_value"
+                                        class="oe_inline"
+                                        required="1"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">
+                                Limit value of the solidarity counter
+                            </span>
+                            <div class="text-muted">
+                                Value of the solidarity counter below which
+                                it cannot drop. If this value is reached,
+                                requesting solidarity becomes impossible until
+                                a solidarity shift is done.
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16 row">
+                                    <label
+                                        for="solidarity_counter_limit"
+                                        string="Value"
+                                        class="col-3 col-lg-3 o_light_label"
+                                    />
+                                    <field
+                                        name="solidarity_counter_limit"
+                                        class="oe_inline"
+                                        required="1"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">
+                                Maximum number of solidarity requests
+                            </span>
+                            <div class="text-muted">
+                                Value of the maximum number of solidarity requests
+                                per worker and per year. The calculation is based
+                                on the last twelve months (not on the calendar year).
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16 row">
+                                    <label
+                                        for="max_solidarity_requests_number"
+                                        string="Value"
+                                        class="col-3 col-lg-3 o_light_label"
+                                    />
+                                    <field
+                                        name="max_solidarity_requests_number"
+                                        class="oe_inline"
+                                        required="1"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </field>
+    </record>
+
+</odoo>

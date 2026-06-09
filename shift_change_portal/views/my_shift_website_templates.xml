@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2026 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+
+    <!-- Add buttons to change shift -->
+    <template
+        id="my_shift_next_shifts_change"
+        name="My shifts: Next Shift with change button"
+        inherit_id="shift_portal.my_shift_next_shifts"
+    >
+        <xpath expr="//div[hasclass('card-body', 'clearfix')]" position="inside">
+            <a
+                t-if="request.env.user.partner_id.working_mode == 'regular'
+                    and shift.state != 'cancel'
+                    and not shift.is_compensation
+                    and is_shift_change_enabled
+                    and shift.id"
+                t-attf-href="/my/shift/change/{{ shift.id }}"
+                class="btn btn-primary btn-sm ml-2"
+            >
+                Change Shift
+            </a>
+            <div
+                t-if="not shift.id and is_shift_change_enabled"
+                name="shift_change_no_change_too_far"
+                class="small text-info mt8"
+            >
+                This shift can not be changed because it is too far in the future.
+            </div>
+            <div
+                t-if="shift.id and is_shift_change_enabled and shift.is_compensation"
+                name="shift_change_no_change_compensation"
+                class="small text-info mt8"
+            >
+                This shift can not be changed because it is a compensation shift.
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

@@ -152,7 +152,9 @@ class WebsiteShiftController(http.Controller):
         # Create template context
         template_context = {}
         template_context.update(
-            self.available_shift_irregular_worker(irregular_enable_sign_up, nexturl)
+            self.available_shift_irregular_worker(
+                irregular_enable_sign_up=irregular_enable_sign_up, nexturl=nexturl
+            )
         )
 
         return request.render(
@@ -309,7 +311,10 @@ class WebsiteShiftController(http.Controller):
         template_context.update(self.my_shift_past_shifts())
         template_context.update(
             self.available_shift_irregular_worker(
-                irregular_enable_sign_up and self.user_can_subscribe(), nexturl
+                irregular_enable_sign_up=(
+                    irregular_enable_sign_up and self.user_can_subscribe()
+                ),
+                nexturl=nexturl,
             )
         )
 
@@ -390,41 +395,41 @@ class WebsiteShiftController(http.Controller):
 
     def compute_display_shift(self, free_space, task_template):
         hide_rule = request.website.hide_rule / 100.0
-        return free_space >= task_template.worker_nb * hide_rule
+        return free_space > 0 and free_space >= task_template.worker_nb * hide_rule
 
     def available_shift_irregular_worker(
-        self, irregular_enable_sign_up=False, nexturl=""
+        self, shift_domain=None, irregular_enable_sign_up=False, nexturl=""
     ):
         """
         Return template variables for
         'shift_portal.available_shift_irregular_worker_grid'
         """
-        shifts = self.get_future_shifts_with_no_worker()
-        subscribed_shifts = self.my_subscribed_shifts()
+        cur_worker = request.env["res.users"].browse(request.uid).partner_id
 
         # Get config
         highlight_rule_pc = request.website.highlight_rule_pc
 
-        groupby_iter = groupby(
-            shifts,
-            lambda s: (s.task_template_id, s.start_time, s.task_type_id),
+        if not shift_domain:
+            shift_domain = [
+                ("start_time", ">", Datetime.now()),
+                ("state", "=", "open"),
+            ]
+
+        aggregated_shifts = (
+            request.env["shift.shift"].sudo()._aggregate_sibling_shifts(shift_domain)
         )
 
         displayed_shifts = []
-        for keys, grouped_shifts in groupby_iter:
-            task_template, start_time, task_type = keys
-            shift_list = list(grouped_shifts)
+        for (task_template, _start_time, _task_type), shifts in aggregated_shifts:
+            # Get empty shifts
+            empty_shifts = shifts.filtered(lambda rec: not rec.worker_id)
             # Compute available space
-            free_space = len(shift_list)
+            free_space = len(empty_shifts)
             # Is the current user subscribed to this task_template
-            is_subscribed = any(
-                (
-                    sub_shift.task_template_id == task_template
-                    and sub_shift.start_time == start_time
-                    and sub_shift.task_type_id == task_type
-                )
-                for sub_shift in subscribed_shifts
+            is_subscribed = bool(
+                shifts.filtered(lambda rec: rec.worker_id == cur_worker)
             )
+
             # Check the necessary number of worker based on the
             # highlight_rule_pc
             has_enough_workers = (
@@ -433,7 +438,7 @@ class WebsiteShiftController(http.Controller):
             if self.compute_display_shift(free_space, task_template):
                 displayed_shifts.append(
                     DisplayedShift(
-                        shift_list[0],
+                        empty_shifts[0],
                         free_space,
                         is_subscribed,
                         has_enough_workers,

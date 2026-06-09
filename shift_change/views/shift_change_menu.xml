@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2026 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <!-- Action to open change shift -->
+
+    <record model="ir.actions.act_window" id="action_shift_change">
+        <field name="name">Shift changes</field>
+        <field name="res_model">shift.change</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_shift_change_create_wizard">
+        <field name="name">Shift Change Create Wizard</field>
+        <field name="res_model">shift.change.create.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Top menu items -->
+
+    <menuitem id="menu_change_top" name="Shift Changes" parent="shift.menu_root" />
+    <menuitem
+        id="menu_shift_change_create_wizard"
+        name="Create Shift Change"
+        parent="menu_change_top"
+        action="action_shift_change_create_wizard"
+    />
+    <menuitem
+        id="menu_change"
+        name="Shift Changes History"
+        parent="menu_change_top"
+        action="action_shift_change"
+    />
+
+</odoo>

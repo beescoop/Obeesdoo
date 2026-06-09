@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2026 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+
+    <template id="validate_change" name="Validate change">
+        <t t-call="portal.portal_layout">
+            <t t-set="no_breadcrumbs" t-value="True" />
+            <div class="container mt16">
+                <div class="row">
+                    <div class="col text-center">
+                        <h1 id="validate_change_title">Validate change</h1>
+                    </div>
+                </div>
+                <div class="row mt16">
+                    <div class="col-12">
+                        <div class="alert alert-danger" t-if="error" t-out="error" />
+                        <div class="card">
+                            <div class="card-body">
+                                <form id="validate_change_form" method="post">
+                                    <div class="form-group row">
+                                        <label
+                                            for="old_shift_name"
+                                            class="col-sm-3 col-form-label"
+                                        >Old Shift Name</label>
+                                        <div class="col-sm-9">
+                                            <input
+                                                type="text"
+                                                readonly="readonly"
+                                                class="form-control-plaintext"
+                                                id="old_shift_name"
+                                                t-att-value="old_shift.name"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label
+                                            for="new_shift_name"
+                                            class="col-sm-3 col-form-label"
+                                        >New Shift Name</label>
+                                        <div class="col-sm-9">
+                                            <input
+                                                type="text"
+                                                readonly="readonly"
+                                                class="form-control-plaintext"
+                                                id="new_shift_name"
+                                                t-att-value="new_shift.name"
+                                            />
+                                        </div>
+                                    </div>
+                                    <input
+                                        type="hidden"
+                                        name="csrf_token"
+                                        t-att-value="request.csrf_token()"
+                                    />
+                                    <input
+                                        type="hidden"
+                                        id="old_shift_ids"
+                                        t-att-value="old_shift.id"
+                                        readonly="readonly"
+                                    />
+                                    <input
+                                        type="hidden"
+                                        id="new_shift_ids"
+                                        t-att-value="new_shift.id"
+                                        readonly="readonly"
+                                    />
+                                    <div
+                                        class="text-center mt16"
+                                        id="validate_change_form_button"
+                                    >
+                                        <a
+                                            t-attf-href="/my/shift/change/{{ old_shift.id }}"
+                                            class="btn btn-secondary mr16"
+                                        >Cancel</a>
+                                        <button
+                                            type="submit"
+                                            class="btn btn-primary ml16"
+                                        >Validate</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="shift_change_selection" name="Shift Change Selection">
+        <t t-call="portal.portal_layout">
+            <t t-set="no_breadcrumbs" t-value="True" />
+            <div class="container mt16">
+                <div class="row">
+                    <div class="col text-center">
+                        <h1>Select your new shift</h1>
+                    </div>
+                </div>
+                <div id="actions-top" class="row mt4">
+                    <div class="col">
+                        <a href="/my/shift" class="btn btn-primary"><i
+                                class="fa fa-arrow-left me-2"
+                            />Back</a>
+                    </div>
+                </div>
+                <div class="row mt4 justify-content-center">
+                    <div class="col-12 col-lg-12">
+                        <div class="alert alert-danger" t-if="error" t-out="error" />
+                        <t
+                            t-else=""
+                            t-call="shift_portal.available_shift_irregular_worker_grid"
+                        />
+                    </div>
+                </div>
+                <div id="actions-bottom" class="row mt4">
+                    <div class="col">
+                        <a href="/my/shift" class="btn btn-primary"><i
+                                class="fa fa-arrow-left me-2"
+                            />Back</a>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template
+        id="available_shift_irregular_worker_card"
+        name="Available Shift for Irregular Worker"
+        inherit_id="shift_portal.available_shift_irregular_worker_card"
+    >
+        <xpath expr="//div" position="inside">
+            <a
+                t-attf-href="/my/shift/change/{{ old_shift.id }}/{{ shift.id }}"
+                t-if="regular_shift_change_enabled and shift.id and not is_subscribed"
+                class="btn btn-sm btn-primary m-1"
+            >
+                Select
+            </a>
+        </xpath>
+    </template>
+
+</odoo>
