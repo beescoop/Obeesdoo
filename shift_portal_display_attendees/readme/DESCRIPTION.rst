@@ -1,0 +1,1 @@
+Show the coworkers that will be present when subscribing to a shift.

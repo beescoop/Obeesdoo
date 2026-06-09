@@ -1,0 +1,10 @@
+/* SPDX-FileCopyrightText: 2023 Coop IT Easy SC */
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+.shift-modal-info-section {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #e0e0e0;
+    font-size: 0.9em;
+    color: #555;
+}

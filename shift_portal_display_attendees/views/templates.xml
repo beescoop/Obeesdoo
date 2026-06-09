@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     SPDX-FileCopyrightText: 2026 Coop IT Easy SC
+     SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <template id="shift_detail_modal" inherit_id="shift_portal.shift_detail_modal">
+        <xpath expr="//div[hasclass('row')]" position="inside">
+            <t t-if="request.website.display_attendees_on_portal">
+                <t
+                    t-set="workers"
+                    t-value="shift._get_shift_coworkers(filtered_worker_id=request.env.user.partner_id)"
+                />
+                <div class="col-12">
+                    <div class="d-flex gap-3 p-2">
+                        <i class="fa fa-users text-muted mt-1" />
+                        <div>
+                            <small class="text-uppercase text-muted">
+                                Co-shift workers
+                            </small>
+                            <div>
+                                <t t-if="workers">
+                                    <t t-foreach="workers" t-as="worker">
+                                        <t t-out="worker.name" />
+                                        <t t-if="not worker_last">, </t>
+                                    </t>
+                                </t>
+                                <t t-else="">
+                                    No other workers subscribed yet
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>
