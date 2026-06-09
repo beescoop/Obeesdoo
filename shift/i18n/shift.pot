@@ -101,6 +101,14 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
 msgid ""
 "<span class=\"o_form_label\">\n"
+"                                    Minimum number of hours before a shift to unsubscribe\n"
+"                                </span>"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid ""
+"<span class=\"o_form_label\">\n"
 "                                    Shift period\n"
 "                                </span>"
 msgstr ""
@@ -694,6 +702,11 @@ msgid "Holidays Start Day"
 msgstr ""
 
 #. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid "Hours"
+msgstr ""
+
+#. module: shift
 #: model:ir.model.fields,field_description:shift.field_cooperative_exempt_reason__id
 #: model:ir.model.fields,field_description:shift.field_cooperative_status__id
 #: model:ir.model.fields,field_description:shift.field_cooperative_status_history__id
@@ -904,6 +917,16 @@ msgid "Max number of worker for this task"
 msgstr ""
 
 #. module: shift
+#: model:ir.model.fields,field_description:shift.field_res_config_settings__max_shift_per_day
+msgid "Maximum number of shifts per day for one cooperator"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_res_config_settings__max_shift_per_month
+msgid "Maximum number of shifts per month for one cooperator"
+msgstr ""
+
+#. module: shift
 #: model:ir.model.fields,field_description:shift.field_shift_shift__message_has_error
 msgid "Message Delivery error"
 msgstr ""
@@ -911,6 +934,11 @@ msgstr ""
 #. module: shift
 #: model:ir.model.fields,field_description:shift.field_shift_shift__message_ids
 msgid "Messages"
+msgstr ""
+
+#. module: shift
+#: model:ir.model.fields,field_description:shift.field_res_config_settings__min_hours_to_unsubscribe
+msgid "Minimum number of hours before a shift to unsubscribe"
 msgstr ""
 
 #. module: shift
@@ -1479,6 +1507,13 @@ msgstr ""
 #. module: shift
 #: model_terms:ir.ui.view,arch_db:shift.task_shift_view_kanban
 msgid "Worker:"
+msgstr ""
+
+#. module: shift
+#: model_terms:ir.ui.view,arch_db:shift.res_config_settings_shift_view_form
+msgid ""
+"Workers can unsubscribe from a shift only if the delay before\n"
+"                                    the start is at least this number of hours"
 msgstr ""
 
 #. module: shift
