@@ -8,7 +8,7 @@
         Let workers offer or request a solidarity shift in the portal.""",
     "author": "Coop IT Easy SC",
     "license": "AGPL-3",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
     "depends": ["shift_solidarity", "shift_portal"],
