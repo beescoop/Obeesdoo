@@ -347,7 +347,7 @@
         </t>
 
         <t t-foreach="subscribed_shifts" t-as="shift">
-            <!-- Super Cooperator info modal -->
+            <!-- Shift Details modal -->
             <div
                 class="modal fade"
                 t-att-id="'super_coop-shift-%s' % shift_index"
@@ -530,7 +530,7 @@
                             class="modal-title"
                             t-att-id="'subscribe-shift-%s-label' % shift.id"
                         >
-                            Please confirm subscription
+                            Shift Details
                         </h4>
                     </div>
                     <div class="modal-body">
