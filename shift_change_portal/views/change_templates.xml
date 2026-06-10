@@ -135,7 +135,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             <a
                 t-attf-href="/my/shift/change/{{ old_shift.id }}/{{ shift.id }}"
                 t-if="regular_shift_change_enabled and shift.id and not is_subscribed"
-                class="btn btn-sm btn-primary m-1"
+                class="btn btn-sm btn-primary m-1 fw-bold"
             >
                 Select
             </a>
