@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     SPDX-FileCopyrightText: 2026 Coop IT Easy SC
+     SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <!-- Add Shift Details button to irregular worker card -->
+    <template
+        id="available_shift_irregular_worker_card_change_button"
+        inherit_id="shift_portal.available_shift_irregular_worker_card"
+    >
+        <xpath expr="//div" position="inside">
+            <t
+                t-set="is_public_user"
+                t-value="request.env.user == request.website.user_id"
+            />
+            <button
+                type="button"
+                class="btn btn-primary btn-sm m-1 fw-bold"
+                data-bs-toggle="modal"
+                t-att-data-bs-target="'#subscribe-shift-%s' % shift.id"
+                t-if="not is_public_user"
+            >
+                <span class="fa fa-info mx-1" aria-hidden="true" />
+                Shift Details
+            </button>
+        </xpath>
+    </template>
+</odoo>
