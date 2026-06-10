@@ -59,9 +59,9 @@ class SolidarityShiftRequest(models.Model):
         """Return value for solidarity_request_hour_limit parameter"""
         try:
             solidarity_request_hour_limit = int(
-                self.env["ir.config_parameter"].get_param(
-                    "shift_solidarity.solidarity_request_hour_limit"
-                )
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("shift_solidarity.solidarity_request_hour_limit")
             )
         except ValueError:
             # fall back to a default value
@@ -85,9 +85,9 @@ class SolidarityShiftRequest(models.Model):
         )
         try:
             max_solidarity_requests = int(
-                self.env["ir.config_parameter"].get_param(
-                    "shift_solidarity.max_solidarity_requests_number"
-                )
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("shift_solidarity.max_solidarity_requests_number")
             )
         except ValueError:
             # fall back to a default value
