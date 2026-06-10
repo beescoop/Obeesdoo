@@ -11,7 +11,7 @@ from odoo.exceptions import ValidationError
 class ShiftChange(models.Model):
     _name = "shift.change"
     _description = "A model to track a change of a shift"
-    _order = "create_date desc"
+    _order = "create_date desc, id"
 
     worker_id = fields.Many2one(
         "res.partner",
