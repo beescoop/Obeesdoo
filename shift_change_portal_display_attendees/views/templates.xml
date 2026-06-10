@@ -6,7 +6,7 @@
 <odoo>
     <!-- Add Shift Details button to irregular worker card -->
     <template
-        id="available_shift_irregular_worker_card_change_button"
+        id="available_shift_irregular_worker_card_shift_detail_button"
         inherit_id="shift_portal.available_shift_irregular_worker_card"
     >
         <xpath expr="//div" position="inside">
