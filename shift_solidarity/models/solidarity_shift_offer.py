@@ -11,6 +11,7 @@ from odoo.exceptions import UserError, ValidationError
 class SolidarityShiftOffer(models.Model):
     _name = "shift.solidarity.offer"
     _description = "Solidarity Shift Offer"
+    _order = "create_date desc, id"
 
     worker_id = fields.Many2one(
         comodel_name="res.partner",
