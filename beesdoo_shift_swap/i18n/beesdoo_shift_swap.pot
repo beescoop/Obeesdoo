@@ -735,11 +735,6 @@ msgid "Reason"
 msgstr ""
 
 #. module: beesdoo_shift_swap
-#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.task_shift_view_kanban_extended
-msgid "Regular Shift"
-msgstr ""
-
-#. module: beesdoo_shift_swap
 #: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.solidarity_request_button
 msgid "Request a solidarity shift"
 msgstr ""
@@ -801,10 +796,14 @@ msgid "Solidarity"
 msgstr ""
 
 #. module: beesdoo_shift_swap
+#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.task_shift_view_kanban_extended
+msgid "Solidarity Shift"
+msgstr ""
+
+#. module: beesdoo_shift_swap
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_offer__tmpl_dated_id
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_beesdoo_shift_solidarity_request__tmpl_dated_id
 #: model:ir.model.fields,field_description:beesdoo_shift_swap.field_shift_shift__swap_is_solidarity
-#: model_terms:ir.ui.view,arch_db:beesdoo_shift_swap.task_shift_view_kanban_extended
 msgid "Solidarity shift"
 msgstr ""
 
