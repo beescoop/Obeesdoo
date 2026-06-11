@@ -10,7 +10,7 @@
     "author": "Coop IT Easy SC",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative Management",
-    "version": "12.0.2.1.2",
+    "version": "12.0.2.1.3",
     "depends": [
         "shift",
     ],

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2026 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+
+    <record model="ir.ui.view" id="solidarity_offer_button_worker">
+        <field name="name">Solidarity offer button on worker</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="shift.super_coop_partner_inherited_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='temporary_exempt']" position="after">
+                <button
+                    name="worker_offer_solidarity"
+                    string="Offer a solidarity shift"
+                    class="oe_highlight"
+                    type="object"
+                    groups="shift.group_shift_management"
+                    attrs="{'invisible': ['|',('state','!=','ok'),('working_mode','not in',['regular','irregular'])]}"
+                />
+                <button
+                    name="worker_request_solidarity"
+                    string="Request a solidarity shift"
+                    class="oe_highlight"
+                    type="object"
+                    groups="shift.group_shift_management"
+                    attrs="{'invisible': ['|',('state','in',['unsubscribed','resigning']),('working_mode','not in',['regular','irregular'])]}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

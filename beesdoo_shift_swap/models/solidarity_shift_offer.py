@@ -66,7 +66,7 @@ class SolidarityShiftOffer(models.Model):
                     {
                         "is_regular": True,
                         "worker_id": self.worker_id.id,
-                        "solidarity_offer_ids": [(6, 0, self.ids)],
+                        "swap_solidarity_offer_ids": [(6, 0, self.ids)],
                     }
                 )
                 return True
@@ -95,9 +95,9 @@ class SolidarityShiftOffer(models.Model):
                 subscribed_solidarity_shift.write(
                     {
                         "is_regular": False,
-                        "is_solidarity": False,
+                        "swap_is_solidarity": False,
                         "worker_id": False,
-                        "solidarity_offer_ids": [(5,)],
+                        "swap_solidarity_offer_ids": [(5,)],
                     }
                 )
                 return True
@@ -156,6 +156,6 @@ class SolidarityShiftOffer(models.Model):
         ):
             shift["worker_id"] = self.worker_id.id
             shift["is_regular"] = True
-            shift["solidarity_offer_ids"] = [(6, 0, self.ids)]
+            shift["swap_solidarity_offer_ids"] = [(6, 0, self.ids)]
             done = True
         return shift, swap_subscription_done, done

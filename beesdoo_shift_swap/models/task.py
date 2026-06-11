@@ -5,18 +5,18 @@ class Task(models.Model):
 
     _inherit = "shift.shift"
 
-    solidarity_offer_ids = fields.One2many(
+    swap_solidarity_offer_ids = fields.One2many(
         "beesdoo.shift.solidarity.offer",
         "shift_id",
         string="Solidarity shift offer",
         default=None,
     )
 
-    is_solidarity = fields.Boolean(
+    swap_is_solidarity = fields.Boolean(
         string="Solidarity shift",
         readonly=True,
         store=True,
-        compute="_compute_is_solidarity",
+        compute="_compute_swap_is_solidarity",
     )
 
     @api.multi
@@ -30,13 +30,13 @@ class Task(models.Model):
             "target": "new",
         }
 
-    @api.depends("solidarity_offer_ids")
-    def _compute_is_solidarity(self):
+    @api.depends("swap_solidarity_offer_ids")
+    def _compute_swap_is_solidarity(self):
         for rec in self:
-            rec.is_solidarity = bool(rec.solidarity_offer_ids)
+            rec.swap_is_solidarity = bool(rec.swap_solidarity_offer_ids)
 
     def cancel_solidarity_offer(self):
         self.ensure_one()
-        if self.is_solidarity:
-            return self.solidarity_offer_ids[0].cancel_solidarity_offer()
+        if self.swap_is_solidarity:
+            return self.swap_solidarity_offer_ids[0].cancel_solidarity_offer()
         return False

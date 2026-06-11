@@ -71,11 +71,11 @@ class TestBeesdooShiftSwap(TransactionCase):
         self.assertEqual(solidarity_offer.state, "validated")
 
         self.assertEqual(solidarity_offer.shift_id.id, shift.id)
-        self.assertEqual(solidarity_offer.id, shift.solidarity_offer_ids[0].id)
+        self.assertEqual(solidarity_offer.id, shift.swap_solidarity_offer_ids[0].id)
 
         self.assertEqual(shift.worker_id.id, self.worker_regular_1.id)
         self.assertTrue(shift.is_regular)
-        self.assertTrue(shift.is_solidarity)
+        self.assertTrue(shift.swap_is_solidarity)
 
         # Solidarity offer cancellation
         self.env["ir.config_parameter"].sudo().set_param("min_hours_to_unsubscribe", 2)
@@ -87,10 +87,10 @@ class TestBeesdooShiftSwap(TransactionCase):
         self.assertTrue(solidarity_offer.cancel_solidarity_offer())
 
         self.assertFalse(solidarity_offer.shift_id)
-        self.assertFalse(shift.solidarity_offer_ids)
+        self.assertFalse(shift.swap_solidarity_offer_ids)
         self.assertFalse(shift.worker_id.id)
         self.assertFalse(shift.is_regular)
-        self.assertFalse(shift.is_solidarity)
+        self.assertFalse(shift.swap_is_solidarity)
 
     def test_solidarity_offer_if_shift_not_generated(self):
         """
@@ -121,21 +121,21 @@ class TestBeesdooShiftSwap(TransactionCase):
         shift = shifts[0]
 
         self.assertEqual(solidarity_offer.shift_id.id, shift.id)
-        self.assertEqual(solidarity_offer.id, shift.solidarity_offer_ids.id)
+        self.assertEqual(solidarity_offer.id, shift.swap_solidarity_offer_ids.id)
 
         self.assertEqual(shift.worker_id.id, self.worker_regular_1.id)
         self.assertTrue(shift.is_regular)
-        self.assertTrue(shift.is_solidarity)
+        self.assertTrue(shift.swap_is_solidarity)
 
         # Solidarity offer cancellation
         self.env["ir.config_parameter"].sudo().set_param("min_hours_to_unsubscribe", 0)
         self.assertTrue(solidarity_offer.cancel_solidarity_offer())
 
         self.assertFalse(solidarity_offer.shift_id)
-        self.assertFalse(shift.solidarity_offer_ids)
+        self.assertFalse(shift.swap_solidarity_offer_ids)
         self.assertFalse(shift.worker_id.id)
         self.assertFalse(shift.is_regular)
-        self.assertFalse(shift.is_solidarity)
+        self.assertFalse(shift.swap_is_solidarity)
 
     def test_solidarity_request_if_shift_generated(self):
         """
