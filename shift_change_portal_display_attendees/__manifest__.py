@@ -8,7 +8,7 @@
         Display registered attendee names and supercoop contact info
         in shift change selection modals on the portal.
     """,
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.1.0",
     "category": "Cooperative management",
     "website": "https://github.com/beescoop/Obeesdoo",
     "author": "Coop IT Easy SC",

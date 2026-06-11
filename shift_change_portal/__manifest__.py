@@ -8,7 +8,7 @@
         Let regular workers change their shifts in the portal.""",
     "author": "Coop IT Easy SC",
     "license": "AGPL-3",
-    "version": "16.0.1.0.1",
+    "version": "16.0.1.1.0",
     "website": "https://github.com/beescoop/Obeesdoo",
     "category": "Cooperative management",
     "depends": ["shift_change", "shift_portal"],
