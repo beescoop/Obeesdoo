@@ -1,0 +1,82 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* shift_portal_display_attendees
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-11 10:13+0000\n"
+"PO-Revision-Date: 2026-06-11 10:13+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: shift_portal_display_attendees
+#: model_terms:ir.ui.view,arch_db:shift_portal_display_attendees.shift_detail_modal
+msgid ""
+"<small class=\"text-uppercase text-muted\">\n"
+"                                Co-shift workers\n"
+"                            </small>"
+msgstr ""
+"<small class=\"text-uppercase text-muted\">\n"
+"                                Co-shifteureuses\n"
+"                            </small>"
+
+#. module: shift_portal_display_attendees
+#: model_terms:ir.ui.view,arch_db:shift_portal_display_attendees.view_shift_display_attendees_settings
+msgid ""
+"<span class=\"fa fa-lg fa-globe\" title=\"Values set here are website-"
+"specific.\" groups=\"website.group_multi_website\"/>"
+msgstr ""
+"<span class=\"fa fa-lg fa-globe\" title=\"Les caleurs définies ici sont spécifiques au "
+"site.\" groups=\"website.group_multi_website\"/>"
+
+#. module: shift_portal_display_attendees
+#: model:ir.model,name:shift_portal_display_attendees.model_res_config_settings
+msgid "Config Settings"
+msgstr "Paramétrage de configuration"
+
+#. module: shift_portal_display_attendees
+#: model:ir.model.fields,field_description:shift_portal_display_attendees.field_res_config_settings__display_attendees_on_portal
+#: model:ir.model.fields,field_description:shift_portal_display_attendees.field_website__display_attendees_on_portal
+msgid "Display Attendees On Portal"
+msgstr "Afficher co-shifteureuses sur le portail"
+
+#. module: shift_portal_display_attendees
+#: model_terms:ir.ui.view,arch_db:shift_portal_display_attendees.view_shift_display_attendees_settings
+msgid ""
+"Display names of registered attendees\n"
+"                                        on shift subscription modals"
+msgstr ""
+"Afficher les nom des co-shifteureuses\n"
+"                                        sur le modal d'inscription au shift"
+
+
+#. module: shift_portal_display_attendees
+#: model:ir.model.fields,help:shift_portal_display_attendees.field_res_config_settings__display_attendees_on_portal
+#: model:ir.model.fields,help:shift_portal_display_attendees.field_website__display_attendees_on_portal
+msgid ""
+"Display names of registered attendees on shift subscription modals in the "
+"portal"
+msgstr ""
+"Afficher les noms de co-shifteureuses sur le modal d'inscription au shift "
+"du portail"
+
+#. module: shift_portal_display_attendees
+#: model_terms:ir.ui.view,arch_db:shift_portal_display_attendees.shift_detail_modal
+msgid "No other workers subscribed yet"
+msgstr "Pas encore d'autres co-shifteureuses inscrit"
+
+#. module: shift_portal_display_attendees
+#: model_terms:ir.ui.view,arch_db:shift_portal_display_attendees.view_shift_display_attendees_settings
+msgid "Shift: Portal Display"
+msgstr "Shift: Affichage Portail"
+
+#. module: shift_portal_display_attendees
+#: model:ir.model,name:shift_portal_display_attendees.model_website
+msgid "Website"
+msgstr "Site Web"
