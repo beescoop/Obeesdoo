@@ -14,9 +14,9 @@ class ResCompany(models.Model):
         """Return value for solidarity_counter_limit parameter"""
         try:
             solidarity_counter_limit = int(
-                self.env["ir.config_parameter"].get_param(
-                    "shift_solidarity.solidarity_counter_limit"
-                )
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("shift_solidarity.solidarity_counter_limit")
             )
         except ValueError:
             # fall back to a default value
@@ -36,9 +36,9 @@ class ResCompany(models.Model):
         )
         try:
             start_value = int(
-                self.env["ir.config_parameter"].get_param(
-                    "shift_solidarity.solidarity_counter_start_value"
-                )
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("shift_solidarity.solidarity_counter_start_value")
             )
         except ValueError:
             start_value = 0

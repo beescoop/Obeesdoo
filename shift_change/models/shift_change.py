@@ -11,7 +11,7 @@ from odoo.exceptions import ValidationError
 class ShiftChange(models.Model):
     _name = "shift.change"
     _description = "A model to track a change of a shift"
-    _order = "create_date desc"
+    _order = "create_date desc, id"
 
     worker_id = fields.Many2one(
         "res.partner",
@@ -46,9 +46,9 @@ class ShiftChange(models.Model):
         """Return value for old_shift_hour_limit_change parameter"""
         try:
             old_shift_hour_limit_change = int(
-                self.env["ir.config_parameter"].get_param(
-                    "shift_change.old_shift_hour_limit_change"
-                )
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("shift_change.old_shift_hour_limit_change")
             )
         except ValueError:
             # fall back to a default value
@@ -60,9 +60,9 @@ class ShiftChange(models.Model):
         """Return value for new_shift_hour_limit_change parameter"""
         try:
             new_shift_hour_limit_change = int(
-                self.env["ir.config_parameter"].get_param(
-                    "shift_change.new_shift_hour_limit_change"
-                )
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("shift_change.new_shift_hour_limit_change")
             )
         except ValueError:
             # fall back to a default value
@@ -153,9 +153,9 @@ class ShiftChange(models.Model):
             raise ValidationError(_("You can't change a shift so close in the futur."))
         try:
             same_shift_change_max = int(
-                self.env["ir.config_parameter"].get_param(
-                    "shift_change.same_shift_change_max"
-                )
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("shift_change.same_shift_change_max")
             )
         except ValueError:
             # fall back to a default value

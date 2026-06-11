@@ -11,6 +11,7 @@ from odoo.exceptions import UserError, ValidationError
 class SolidarityShiftOffer(models.Model):
     _name = "shift.solidarity.offer"
     _description = "Solidarity Shift Offer"
+    _order = "create_date desc, id"
 
     worker_id = fields.Many2one(
         comodel_name="res.partner",
@@ -54,9 +55,9 @@ class SolidarityShiftOffer(models.Model):
         """Return value for solidarity_offer_hour_limit parameter"""
         try:
             solidarity_offer_hour_limit = int(
-                self.env["ir.config_parameter"].get_param(
-                    "shift_solidarity.solidarity_offer_hour_limit"
-                )
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("shift_solidarity.solidarity_offer_hour_limit")
             )
         except ValueError:
             # fall back to a default value
