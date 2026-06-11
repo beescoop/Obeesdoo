@@ -14,10 +14,33 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: shift_portal
+#: model_terms:ir.ui.view,arch_db:shift_portal.shift_detail_modal
+msgid ""
+"<small class=\"text-uppercase text-muted\">\n"
+"                            Super cooperator\n"
+"                        </small>"
+msgstr ""
+
+#. module: shift_portal
+#: model_terms:ir.ui.view,arch_db:shift_portal.shift_detail_modal
+msgid "<small class=\"text-uppercase text-muted\">Available spaces</small>"
+msgstr ""
+
+#. module: shift_portal
+#: model_terms:ir.ui.view,arch_db:shift_portal.shift_detail_modal
+msgid "<small class=\"text-uppercase text-muted\">Date &amp; time</small>"
+msgstr ""
+
+#. module: shift_portal
+#: model_terms:ir.ui.view,arch_db:shift_portal.shift_detail_modal
+msgid "<small class=\"text-uppercase text-muted\">Task type</small>"
+msgstr ""
+
+#. module: shift_portal
 #: model_terms:ir.ui.view,arch_db:shift_portal.my_shift_next_shifts
 msgid ""
-"<span class=\"fa fa-info\" aria-hidden=\"true\"/>\n"
-"                        Super Cooperator Info"
+"<span class=\"fa fa-info mx-1\" aria-hidden=\"true\"/>\n"
+"                        Shift Details"
 msgstr ""
 
 #. module: shift_portal
@@ -30,15 +53,15 @@ msgstr ""
 #. module: shift_portal
 #: model_terms:ir.ui.view,arch_db:shift_portal.my_shift_next_shifts
 msgid ""
-"<span class=\"fa fa-user-plus\" aria-hidden=\"true\"/>\n"
-"                                    Unsubscribe"
+"<span class=\"fa fa-user-plus mx-1\" aria-hidden=\"true\"/>\n"
+"                                Unsubscribe"
 msgstr ""
 
 #. module: shift_portal
 #: model_terms:ir.ui.view,arch_db:shift_portal.my_shift_next_shifts
 msgid ""
 "<span class=\"fa fa-user-plus\" aria-hidden=\"true\"/>\n"
-"                                Unsubscribe"
+"                                    Unsubscribe"
 msgstr ""
 
 #. module: shift_portal
@@ -469,6 +492,11 @@ msgid ""
 msgstr ""
 
 #. module: shift_portal
+#: model_terms:ir.ui.view,arch_db:shift_portal.shift_detail_modal
+msgid "No Super Cooperator"
+msgstr ""
+
+#. module: shift_portal
 #: model_terms:ir.ui.view,arch_db:shift_portal.choose_compensation_shift
 msgid "No shift suits me"
 msgstr ""
@@ -491,6 +519,11 @@ msgid ""
 msgstr ""
 
 #. module: shift_portal
+#: model_terms:ir.ui.view,arch_db:shift_portal.my_shift_next_shifts
+msgid "Other shift informations"
+msgstr ""
+
+#. module: shift_portal
 #: model_terms:ir.ui.view,arch_db:shift_portal.view_website_shift_config_irregular
 msgid "Percentage (%)"
 msgstr ""
@@ -503,7 +536,6 @@ msgstr ""
 
 #. module: shift_portal
 #: model_terms:ir.ui.view,arch_db:shift_portal.available_shift_compensation_card
-#: model_terms:ir.ui.view,arch_db:shift_portal.available_shift_irregular_worker_card
 msgid "Please confirm subscription"
 msgstr ""
 
@@ -556,6 +588,11 @@ msgstr ""
 #: code:addons/shift_portal/controllers/main.py:0
 #, python-format
 msgid "Saturday"
+msgstr ""
+
+#. module: shift_portal
+#: model_terms:ir.ui.view,arch_db:shift_portal.available_shift_irregular_worker_card
+msgid "Shift Details"
 msgstr ""
 
 #. module: shift_portal
@@ -760,11 +797,6 @@ msgid "Your subscription has succeded."
 msgstr ""
 
 #. module: shift_portal
-#: model_terms:ir.ui.view,arch_db:shift_portal.available_shift_irregular_worker_card
-msgid "available space(s)"
-msgstr ""
-
-#. module: shift_portal
 #: model_terms:ir.ui.view,arch_db:shift_portal.shift_status_label
 msgid "compensation"
 msgstr ""
@@ -783,4 +815,9 @@ msgstr ""
 #. module: shift_portal
 #: model_terms:ir.ui.view,arch_db:shift_portal.available_shift_irregular_worker_card
 msgid "spot(s)"
+msgstr ""
+
+#. module: shift_portal
+#: model_terms:ir.ui.view,arch_db:shift_portal.shift_detail_modal
+msgid "spot(s) open"
 msgstr ""
