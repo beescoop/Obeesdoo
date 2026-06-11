@@ -45,6 +45,89 @@
         </h1>
     </template>
 
+    <template id="shift_detail_modal" name="Shift Detail Modal">
+        <div class="row row-cols-2 g-3">
+            <div class="col">
+                <div class="d-flex gap-3 p-2">
+                    <i class="fa fa-user-circle text-muted mt-1" />
+                    <div>
+                        <small class="text-uppercase text-muted">
+                            Super cooperator
+                        </small>
+                        <div t-if="shift.super_coop_id">
+                            <t t-out="shift.super_coop_id.name" />
+                        </div>
+                        <div t-else="">No Super Cooperator</div>
+                        <div
+                            t-if="shift.super_coop_id"
+                            class="d-flex flex-column gap-1 mt-1"
+                        >
+                            <a
+                                t-if="shift.super_coop_id.partner_id.email"
+                                t-att-href="'mailto:%s' % shift.super_coop_id.partner_id.email"
+                                class="text-info small"
+                            >
+                                <i class="fa fa-envelope me-1" />
+                                <t t-out="shift.super_coop_id.partner_id.email" />
+                            </a>
+                            <a
+                                t-if="shift.super_coop_id.partner_id.phone"
+                                t-att-href="'tel:%s' % shift.super_coop_id.partner_id.phone"
+                                class="text-info small"
+                            >
+                                <i class="fa fa-phone me-1" />
+                                <t t-out="shift.super_coop_id.partner_id.phone" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="d-flex gap-3 p-2">
+                    <i class="fa fa-calendar text-muted mt-1" />
+                    <div>
+                        <small class="text-uppercase text-muted">Date &amp; time</small>
+                        <div>
+                            <span
+                                t-field="shift.start_time"
+                                t-options='{"format": "dd/MM/yyyy HH:mm"}'
+                            />
+                            –
+                            <span
+                                t-field="shift.end_time"
+                                t-options='{"format": "HH:mm"}'
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="d-flex gap-3 p-2">
+                    <i class="oi oi-studio text-muted mt-1" />
+                    <div>
+                        <small class="text-uppercase text-muted">Task type</small>
+                        <div>
+                            <t t-out="shift.task_type_id.name" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" t-if="count">
+                <div class="d-flex gap-3 p-2">
+                    <i class="fa fa-user-plus text-muted mt-1" />
+                    <div>
+                        <small
+                            class="text-uppercase text-muted"
+                        >Available spaces</small>
+                        <div>
+                            <t t-out="count" /> spot(s) open
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
     <template id="my_shift_worker_status_title" name="My Shift Worker Status Title">
 
         <h2>
@@ -203,13 +286,12 @@
                     <t t-out="shift.task_type_id.name" />
                     <button
                         type="button"
-                        class="btn btn-primary btn-sm ml-2 float-end"
-                        t-if="shift.super_coop_id.name"
+                        class="btn btn-primary btn-sm ms-2 float-end"
                         data-bs-toggle="modal"
                         t-att-data-bs-target="'#super_coop-shift-%s' % shift_index"
                     >
-                        <span class="fa fa-info" aria-hidden="true" />
-                        Super Cooperator Info
+                        <span class="fa fa-info mx-1" aria-hidden="true" />
+                        Shift Details
                     </button>
                     <t
                         t-if="((shift.is_compensation and request.website.enable_unsubscribe_compensation) or (not shift.is_compensation and request.website.irregular_enable_unsubscribe))"
@@ -218,11 +300,11 @@
                             <button
                                 id="unsubscribe_button"
                                 type="button"
-                                class="btn btn-primary btn-sm ml-2 float-end"
+                                class="btn btn-primary btn-sm ms-2 float-end"
                                 data-bs-toggle="modal"
                                 t-att-data-bs-target="'#unsubscribe-shift-%s' % shift.id"
                             >
-                                <span class="fa fa-user-plus" aria-hidden="true" />
+                                <span class="fa fa-user-plus mx-1" aria-hidden="true" />
                                 Unsubscribe
                             </button>
                         </t>
@@ -265,10 +347,9 @@
         </t>
 
         <t t-foreach="subscribed_shifts" t-as="shift">
-            <!-- Super Cooperator info modal -->
+            <!-- Shift Details modal -->
             <div
                 class="modal fade"
-                t-if="shift.super_coop_id.name"
                 t-att-id="'super_coop-shift-%s' % shift_index"
                 tabindex="-1"
                 role="dialog"
@@ -281,26 +362,24 @@
                                 class="modal-title"
                                 t-att-id="'super_coop-shift-%s-label' % shift_index"
                             >
-                                <t t-out="shift.super_coop_id.name" />
+                                Other shift informations
                             </h4>
                             <button
                                 type="button"
                                 class="btn-close"
+                                data-bs-dismiss="modal"
                                 aria-label="Close"
                             />
                         </div>
-                        <div class="modal-body text-center">
-                            <i class="fa fa-phone" aria-hidden="true" />
-                            <t t-out="shift.super_coop_id.phone" />
-                            <br />
-                            <i class="fa fa-envelope" aria-hidden="true" />
-                            <a t-att-href="'mailto:%s' % shift.super_coop_id.email">
-                                <t t-out="shift.super_coop_id.email" />
-                            </a>
+                        <div class='modal-body'>
+                            <t t-call="shift_portal.shift_detail_modal" />
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">Close
-                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-primary"
+                                data-bs-dismiss="modal"
+                            >Close</button>
                         </div>
                     </div>
                 </div>
@@ -451,24 +530,11 @@
                             class="modal-title"
                             t-att-id="'subscribe-shift-%s-label' % shift.id"
                         >
-                            Please confirm subscription
+                            Shift Details
                         </h4>
                     </div>
-                    <div class="modal-body text-center">
-                        <span
-                            t-field="shift.start_time"
-                            t-options='{"format": "dd/MM/yyyy HH:mm"}'
-                        />
-                        -
-                        <span
-                            t-field="shift.end_time"
-                            t-options='{"format": "HH:mm"}'
-                        />
-                        <br />
-                        <t t-out="shift.task_type_id.name" />
-                        <br />
-                        <t t-out="count" />
-                        available space(s)
+                    <div class="modal-body">
+                        <t t-call="shift_portal.shift_detail_modal" />
                     </div>
                     <div class="modal-footer">
                         <button
@@ -495,6 +561,7 @@
         name="Available Shift for compensation"
     >
         <t t-set="shift" t-value="displayed_shift.shift" />
+        <t t-set="count" t-value="displayed_shift.free_space" />
         <div t-att-class="'card %s' % highlight_class">
             <div class="center m-1 fw-bold" t-out="shift.task_type_id.name" />
             <button
@@ -532,18 +599,8 @@
                             aria-label="Close"
                         />
                     </div>
-                    <div class="modal-body text-center">
-                        <span
-                            t-field="shift.start_time"
-                            t-options='{"format": "dd/MM/yyyy HH:mm"}'
-                        />
-                        -
-                        <span
-                            t-field="shift.end_time"
-                            t-options='{"format": "HH:mm"}'
-                        />
-                        <br />
-                        <t t-out="shift.task_type_id.name" />
+                    <div class="modal-body">
+                        <t t-call="shift_portal.shift_detail_modal" />
                     </div>
                     <div class="modal-footer">
                         <button
@@ -893,7 +950,6 @@
 
                 <div class="row">
                     <div class="col">
-
                         <div class="alert alert-info">
                             Please contact the members office to suscribe to
                             shifts.
