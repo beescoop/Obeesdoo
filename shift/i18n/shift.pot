@@ -66,8 +66,8 @@ msgid " is already assigned to "
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/shift_shift.py:173
-#: code:addons/shift/models/shift_shift.py:231
+#: code:addons/shift/models/shift_shift.py:208
+#: code:addons/shift/models/shift_shift.py:266
 #, python-format
 msgid "'Now' must be a datetime."
 msgstr ""
@@ -1542,7 +1542,7 @@ msgid "Working mode"
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/shift_shift.py:364
+#: code:addons/shift/models/shift_shift.py:399
 #, python-format
 msgid "Working mode is not properly defined. Please check if the worker is subscribed "
 msgstr ""
@@ -1568,7 +1568,7 @@ msgid "You cannot assign more workers than the maximal number defined on templat
 msgstr ""
 
 #. module: shift
-#: code:addons/shift/models/shift_shift.py:344
+#: code:addons/shift/models/shift_shift.py:379
 #, python-format
 msgid "You cannot change to the status %s if no worker is defined for the shift "
 msgstr ""
