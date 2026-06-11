@@ -39,17 +39,17 @@ addon | version | maintainers | summary
 [beesdoo_purchase](beesdoo_purchase/) | 12.0.1.4.0 |  | Emptied.
 [beesdoo_shift](beesdoo_shift/) | 12.0.4.0.0 |  | Emptied (replaced by shift)
 [beesdoo_shift_attendance](beesdoo_shift_attendance/) | 12.0.1.2.0 |  | Emptied (replaced by shift_attendance)
-[beesdoo_shift_swap](beesdoo_shift_swap/) | 12.0.2.1.2 |  | Module to allow cooperator to swap his/her shift when he/she can't attend it, to do solidarity shifts, and to request solidarity if needed.
+[beesdoo_shift_swap](beesdoo_shift_swap/) | 12.0.2.1.3 |  | Module to allow cooperator to swap his/her shift when he/she can't attend it, to do solidarity shifts, and to request solidarity if needed.
 [beesdoo_shift_welcome_screen](beesdoo_shift_welcome_screen/) | 12.0.1.0.2 |  | Volunteer Timetable Management
 [beesdoo_stock](beesdoo_stock/) | 12.0.2.0.0 |  | Emptied
 [beesdoo_stock_coverage](beesdoo_stock_coverage/) | 12.0.2.0.0 |  | Emptied
 [beesdoo_website_eater](beesdoo_website_eater/) | 12.0.2.0.1 |  | Emptied.
 [beesdoo_website_posorder_amount](beesdoo_website_posorder_amount/) | 12.0.1.0.0 |  | Emptied.
-[beesdoo_website_shift](beesdoo_website_shift/) | 12.0.2.3.1 |  | Show available shifts for regular and irregular workers on the website and let workers manage their shifts with an easy web interface.
-[beesdoo_website_shift_swap](beesdoo_website_shift_swap/) | 12.0.2.1.0 |  | Add shift exchanges and solidarity shifts offers and requests.
+[beesdoo_website_shift](beesdoo_website_shift/) | 12.0.2.3.2 |  | Show available shifts for regular and irregular workers on the website and let workers manage their shifts with an easy web interface.
+[beesdoo_website_shift_swap](beesdoo_website_shift_swap/) | 12.0.2.1.1 |  | Add shift exchanges and solidarity shifts offers and requests.
 [beesdoo_website_theme](beesdoo_website_theme/) | 12.0.0.0.1 |  | Apply BEES coop design rules.
 [beesdoo_worker_status](beesdoo_worker_status/) | 12.0.1.1.0 |  | Emptied (replaced by shift_worker_status)
-[beesdoo_worker_status_shift_swap](beesdoo_worker_status_shift_swap/) | 12.0.2.0.1 |  | Worker status management specific to shift exchanges.
+[beesdoo_worker_status_shift_swap](beesdoo_worker_status_shift_swap/) | 12.0.2.0.2 |  | Worker status management specific to shift exchanges.
 [cooperator_eater](cooperator_eater/) | 12.0.1.1.1 |  | Eater configuration based on Share product
 [cooperator_info_session](cooperator_info_session/) | 12.0.1.0.3 |  | Info session for getting share
 [cooperator_worker](cooperator_worker/) | 12.0.2.0.1 |  | Working and shopping configuration based on Share product
@@ -79,9 +79,15 @@ addon | version | maintainers | summary
 [sale_adapt_price_wizard](sale_adapt_price_wizard/) | 12.0.1.0.1 |  | Add "Edit Price" submenu on Purchase and Sale modules.
 [sale_product_deposit](sale_product_deposit/) | 12.0.1.0.1 |  | Calculates total price with VAT and deposit price.
 [sale_suggested_price](sale_suggested_price/) | 12.0.1.0.0 |  | Add a suggested price to products, dependent on a product margin in partners and product categories.
-[shift](shift/) | 12.0.5.0.4 |  | Generate and manage shifts for cooperators.
+[shift](shift/) | 12.0.5.0.5 |  | Generate and manage shifts for cooperators.
 [shift_attendance](shift_attendance/) | 12.0.2.0.0 |  | Volunteer Timetable Management
+[shift_change](shift_change/) | 12.0.1.0.0 |  | Let regular workers change their shift.
+[shift_change_portal](shift_change_portal/) | 12.0.1.0.0 |  | Let regular workers change their shifts in the portal.
+[shift_change_shift_solidarity](shift_change_shift_solidarity/) | 12.0.1.0.0 | <a href='https://github.com/remytms'><img src='https://github.com/remytms.png' width='32' height='32' style='border-radius:50%;' alt='remytms'/></a> | Glue module between Shift Change and Shift Solidarity
+[shift_solidarity](shift_solidarity/) | 12.0.1.0.0 |  | Manage solidarity shifts: offer shift for other and request shifts.
+[shift_solidarity_portal](shift_solidarity_portal/) | 12.0.1.0.0 |  | Let workers offer or request a solidarity shift in the portal.
 [shift_worker_status](shift_worker_status/) | 12.0.2.0.1 |  | Worker status management.
+[shift_worker_status_shift_solidarity](shift_worker_status_shift_solidarity/) | 12.0.1.0.0 |  | Worker status management specific to solidarity shifts.
 [stock_move_view_line_order](stock_move_view_line_order/) | 12.0.2.1.0 |  | Reverse the order of stock move lines to 'newest to oldest'.
 [website_portal_restrict_modification](website_portal_restrict_modification/) | 12.0.1.0.0 |  | Portal extension preventing modification of sensible data by the users
 
