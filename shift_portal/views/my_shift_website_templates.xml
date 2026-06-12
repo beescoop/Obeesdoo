@@ -564,14 +564,21 @@
         <t t-set="count" t-value="displayed_shift.free_space" />
         <div t-att-class="'card %s' % highlight_class">
             <div class="center m-1 fw-bold" t-out="shift.task_type_id.name" />
+            <a
+                class="btn btn-primary btn-sm m-1"
+                t-att-href="'/shift/compensation/%s/subscribe' % (shift.id)"
+            >
+                <span class="fa fa-user-plus" aria-hidden="true" />
+                Subscribe
+            </a>
             <button
                 type="button"
                 class="btn btn-primary btn-sm m-1"
                 data-bs-toggle="modal"
                 t-att-data-bs-target="'#subscribe-shift-%s' % shift.id"
             >
-                <span class="fa fa-user-plus" aria-hidden="true" />
-                Subscribe
+                <span class="fa fa-info mx-1" aria-hidden="true" />
+                Shift Details
             </button>
         </div>
 
