@@ -42,29 +42,8 @@ msgid "Absent - 2 compensations"
 msgstr ""
 
 #. module: shift_worker_status
-#. odoo-python
-#: code:addons/shift_worker_status/models/shift_shift.py:0
-#, python-format
-msgid "Attended"
-msgstr ""
-
-#. module: shift_worker_status
-#. odoo-python
-#: code:addons/shift_worker_status/models/shift_shift.py:0
-#, python-format
-msgid "Cancelled"
-msgstr ""
-
-#. module: shift_worker_status
 #: model:ir.model,name:shift_worker_status.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
-
-#. module: shift_worker_status
-#. odoo-python
-#: code:addons/shift_worker_status/models/shift_shift.py:0
-#, python-format
-msgid "Confirmed"
 msgstr ""
 
 #. module: shift_worker_status
@@ -90,11 +69,6 @@ msgstr ""
 #. module: shift_worker_status
 #: model_terms:ir.ui.view,arch_db:shift_worker_status.res_config_settings_shift_view_form
 msgid "Penalty when irregular worker counter goes below zero."
-msgstr ""
-
-#. module: shift_worker_status
-#: model:ir.model.fields,field_description:shift_worker_status.field_shift_shift__state
-msgid "State"
 msgstr ""
 
 #. module: shift_worker_status
