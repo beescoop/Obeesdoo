@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import api, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.translate import _
 
@@ -47,14 +47,21 @@ class ShiftShift(models.Model):
     #################################
 
     def _get_selection_status(self):
-        return [
-            ("open", _("Confirmed")),
-            ("done", _("Attended")),
-            ("absent_2", _("Absent - 2 compensations")),
-            ("absent_1", _("Absent - 1 compensation")),
-            ("absent_0", _("Absent - 0 compensation")),
-            ("cancel", _("Cancelled")),
-        ]
+        # replace "absent" and "excused" by 3 absent statuses
+        def replace_statuses(statuses):
+            for status in statuses:
+                if status[0] == "absent":
+                    yield from (
+                        ("absent_2", _("Absent - 2 compensations")),
+                        ("absent_1", _("Absent - 1 compensation")),
+                        ("absent_0", _("Absent - 0 compensation")),
+                    )
+                elif status[0] == "excused":
+                    continue
+                else:
+                    yield status
+
+        return list(replace_statuses(super()._get_selection_status()))
 
     def _get_color_mapping(self, state):
         """
@@ -87,8 +94,6 @@ class ShiftShift(models.Model):
     @api.model
     def get_absent_state(self):
         return ["absent_2", "absent_1", "absent_0"]
-
-    state = fields.Selection(selection=_get_selection_status)
 
     ##############################################
     #    Change counter when state change        #
