@@ -272,7 +272,9 @@ class ShiftTemplate(models.Model):
     @api.depends("worker_ids")
     def _compute_worker_name(self):
         for rec in self:
-            rec.worker_name = ",".join(rec.worker_ids.mapped("display_name"))
+            # name rather than display_name, so the parent doesn't appear
+            # on worker list in kanban
+            rec.worker_name = ",".join(rec.worker_ids.mapped("name"))
 
     @api.constrains("worker_nb", "worker_ids")
     def _nb_worker_max(self):
