@@ -190,7 +190,7 @@ class ShiftChange(models.Model):
     @api.model
     def _check_new_shift(self, new_shift_id, worker_id):
         """Check if shift can be changed or not"""
-        old_shift_hour_limit_change = self._get_old_shift_hour_limit_change()
+        new_shift_hour_limit_change = self._get_new_shift_hour_limit_change()
         if new_shift_id.worker_id:
             raise ValidationError(
                 _("You can't subscribe to a shift assigned to someone else.")
@@ -198,7 +198,7 @@ class ShiftChange(models.Model):
         if new_shift_id.start_time <= datetime.now():
             raise ValidationError(_("You can't subscribe to a shift in the past."))
         if new_shift_id.start_time <= datetime.now() + timedelta(
-            hours=old_shift_hour_limit_change
+            hours=new_shift_hour_limit_change
         ):
             raise ValidationError(
                 _("You can't subscribe to a shift so close in the futur.")
