@@ -23,10 +23,10 @@ class ShiftChange(models.Model):
         ],
         required=True,
     )
-    old_shift_id = fields.Many2one("shift.shift", string="Old shift", required=True)
+    old_shift_id = fields.Many2one("shift.shift", string="Old Shift", required=True)
     new_shift_id = fields.Many2one(
         "shift.shift",
-        string="New shift",
+        string="New Shift",
         required=True,
     )
 
@@ -144,13 +144,17 @@ class ShiftChange(models.Model):
         """Check if old shift can be changed"""
         old_shift_hour_limit_change = self._get_old_shift_hour_limit_change()
         if not old_shift_id.worker_id or old_shift_id.worker_id != worker_id:
-            raise ValidationError(_("You can't change shift that your are not worker."))
+            raise ValidationError(
+                _("You can't change a shift to which your are not assigned.")
+            )
         if old_shift_id.start_time <= datetime.now():
-            raise ValidationError(_("You can't change shift that is in the past."))
+            raise ValidationError(_("You can't change a shift that is in the past."))
         if old_shift_id.start_time <= datetime.now() + timedelta(
             hours=old_shift_hour_limit_change
         ):
-            raise ValidationError(_("You can't change a shift so close in the futur."))
+            raise ValidationError(
+                _("You can't change a shift that is so close in the future.")
+            )
         try:
             same_shift_change_max = int(
                 self.env["ir.config_parameter"]
@@ -183,7 +187,8 @@ class ShiftChange(models.Model):
                 raise ValidationError(
                     _(
                         "You can't change the same shift more than "
-                        f"{same_shift_change_max} times."
+                        "%(same_shift_change_max)s times.",
+                        same_shift_change_max=same_shift_change_max,
                     )
                 )
 
@@ -201,9 +206,9 @@ class ShiftChange(models.Model):
             hours=new_shift_hour_limit_change
         ):
             raise ValidationError(
-                _("You can't subscribe to a shift so close in the futur.")
+                _("You can't subscribe to a shift that is so close in the future.")
             )
         if new_shift_id not in self._get_available_new_shift_ids(worker_id):
             raise ValidationError(
-                _("You can't subscribe to this shift, it’s not available for you.")
+                _("You can't subscribe to this shift, it's not available to you.")
             )

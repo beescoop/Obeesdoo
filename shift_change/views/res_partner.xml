@@ -14,7 +14,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             <xpath expr="//header/button[@name='temporary_exempt']" position="after">
                 <button
                     name="button_change_shift"
-                    string="Change a shift"
+                    string="Change a Shift"
                     class="oe_highlight"
                     type="object"
                     groups="shift.group_shift_management"
