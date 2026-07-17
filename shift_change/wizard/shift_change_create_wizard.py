@@ -23,10 +23,10 @@ class ShiftChangeCreateWizard(models.TransientModel):
         ),
         required=True,
     )
-    old_shift_id = fields.Many2one("shift.shift", string="Old shift", required=True)
+    old_shift_id = fields.Many2one("shift.shift", string="Old Shift", required=True)
     new_shift_id = fields.Many2one(
         "shift.shift",
-        string="New shift",
+        string="New Shift",
         required=True,
     )
     available_new_shift_ids = fields.Many2many(

@@ -8,13 +8,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <!-- Action to open change shift -->
 
     <record model="ir.actions.act_window" id="action_shift_change">
-        <field name="name">Shift changes</field>
+        <field name="name">Shift Changes</field>
         <field name="res_model">shift.change</field>
         <field name="view_mode">tree,form</field>
     </record>
 
     <record model="ir.actions.act_window" id="action_shift_change_create_wizard">
-        <field name="name">Shift Change Create Wizard</field>
+        <field name="name">Create Shift Change</field>
         <field name="res_model">shift.change.create.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>

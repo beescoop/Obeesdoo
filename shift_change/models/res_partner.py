@@ -10,7 +10,7 @@ class ResPartner(models.Model):
 
     def button_change_shift(self):
         return {
-            "name": _("Change a shift"),
+            "name": _("Change a Shift"),
             "type": "ir.actions.act_window",
             "view_type": "form",
             "view_mode": "form",

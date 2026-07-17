@@ -41,7 +41,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                             </div>
 
                             <span class="o_form_label">
-                                Time limit to take a new a shift
+                                Time limit to take a new shift
                             </span>
                             <div class="text-muted">
                                 Number of hours below which a new shift cannot be taken
