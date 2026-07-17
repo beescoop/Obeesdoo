@@ -45,7 +45,7 @@ addon | version | maintainers | summary
 [shift](shift/) | 16.0.1.2.2 |  | Generate and manage shifts for cooperators.
 [shift_attendance](shift_attendance/) | 16.0.1.0.2 |  | Volunteer Timetable Management
 [shift_beneficiary](shift_beneficiary/) | 16.0.1.1.1 | <a href='https://github.com/victor-champonnois'><img src='https://github.com/victor-champonnois.png' width='32' height='32' style='border-radius:50%;' alt='victor-champonnois'/></a> | Add a 'beneficiary' field on shifts
-[shift_change](shift_change/) | 16.0.1.0.2 |  | Let regular workers change their shift.
+[shift_change](shift_change/) | 16.0.1.0.3 |  | Let regular workers change their shift.
 [shift_change_portal](shift_change_portal/) | 16.0.1.1.0 |  | Let regular workers change their shifts in the portal.
 [shift_change_portal_display_attendees](shift_change_portal_display_attendees/) | 16.0.1.1.0 |  | Display registered attendee names and supercoop contact info in shift change selection modals on the portal.
 [shift_change_shift_solidarity](shift_change_shift_solidarity/) | 16.0.1.0.1 | <a href='https://github.com/remytms'><img src='https://github.com/remytms.png' width='32' height='32' style='border-radius:50%;' alt='remytms'/></a> | Glue module between Shift Change and Shift Solidarity
