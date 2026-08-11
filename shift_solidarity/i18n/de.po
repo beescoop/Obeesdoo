@@ -1,0 +1,364 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* shift_solidarity
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-11 08:34+0000\n"
+"PO-Revision-Date: 2026-08-11 08:34+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: shift_solidarity
+#: model_terms:ir.ui.view,arch_db:shift_solidarity.res_config_settings_shift_solidarity
+msgid "<span class=\"o_form_label\">\n"
+"                                Activate solidarity related features\n"
+"                            </span>"
+msgstr "<span class=\"o_form_label\">\n"
+"                                Solidaritätsrelevante Eigentschaften aktivieren\n"
+"                            </span>"
+
+#. module: shift_solidarity
+#: model_terms:ir.ui.view,arch_db:shift_solidarity.res_config_settings_shift_solidarity
+msgid "<span class=\"o_form_label\">\n"
+"                                Initial value of the solidarity counter\n"
+"                            </span>"
+msgstr "<span class=\"o_form_label\">\n"
+"                                Anfangswert der Solidaritätsschichtenzähler\n"
+"                            </span>"
+
+#. module: shift_solidarity
+#: model_terms:ir.ui.view,arch_db:shift_solidarity.res_config_settings_shift_solidarity
+msgid "<span class=\"o_form_label\">\n"
+"                                Limit value of the solidarity counter\n"
+"                            </span>"
+msgstr "<span class=\"o_form_label\">\n"
+"                                Höchstwert für den Solidaritätsschichtenzähler\n"
+"                            </span>"
+
+#. module: shift_solidarity
+#: model_terms:ir.ui.view,arch_db:shift_solidarity.res_config_settings_shift_solidarity
+msgid "<span class=\"o_form_label\">\n"
+"                                Maximum number of solidarity requests\n"
+"                            </span>"
+msgstr "<span class=\"o_form_label\">\n"
+"                                Maximaler Anzahl Anfragen für Solidaritätsschichten\n"
+"                            </span>"
+
+#. module: shift_solidarity
+#: model:ir.model.fields,field_description:shift_solidarity.field_res_config_settings__enable_solidarity
+msgid "Activate solidarity offers and requests"
+msgstr "Aktiviere Solidaritäts-Angebote und -Anfragen"
+
+#. module: shift_solidarity
+#: model_terms:ir.ui.view,arch_db:shift_solidarity.solidarity_shift_offer_view_form
+msgid "Cancel offer"
+msgstr "Angebot stornieren"
+
+#. module: shift_solidarity
+#: model_terms:ir.ui.view,arch_db:shift_solidarity.solidarity_shift_request_view_form
+msgid "Cancel request"
+msgstr "Anfrage abbrechen"
+
+#. module: shift_solidarity
+#: model_terms:ir.ui.view,arch_db:shift_solidarity.task_view_form_extended
+msgid "Cancel solidarity shift"
+msgstr "Storniere Solidaritätsschicht"
+
+#. module: shift_solidarity
+#: selection:shift.solidarity.offer,state:0
+#: selection:shift.solidarity.request,state:0
+msgid "Cancelled"
+msgstr "Storniert"
+
+#. module: shift_solidarity
+#: model:ir.model,name:shift_solidarity.model_res_company
+msgid "Companies"
+msgstr "Unternehmen"
+
+#. module: shift_solidarity
+#: model:ir.model,name:shift_solidarity.model_res_config_settings
+msgid "Config Settings"
+msgstr "Konfiguration "
+
+#. module: shift_solidarity
+#: model:ir.model,name:shift_solidarity.model_res_partner
+msgid "Contact"
+msgstr "Kontakt"
+
+#. module: shift_solidarity
+#: model:ir.model.fields,field_description:shift_solidarity.field_shift_solidarity_offer__create_uid
+#: model:ir.model.fields,field_description:shift_solidarity.field_shift_solidarity_request__create_uid
+msgid "Created by"
+msgstr "Erstellt von"
+
+#. module: shift_solidarity
+#: model:ir.model.fields,field_description:shift_solidarity.field_shift_solidarity_offer__create_date
+#: model:ir.model.fields,field_description:shift_solidarity.field_shift_solidarity_request__create_date
+msgid "Created on"
+msgstr "Erstellt am"
+
+#. module: shift_solidarity
+#: model:ir.model.fields,field_description:shift_solidarity.field_shift_solidarity_offer__display_name
+#: model:ir.model.fields,field_description:shift_solidarity.field_shift_solidarity_request__display_name
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: shift_solidarity
+#: selection:shift.solidarity.offer,state:0
+#: selection:shift.solidarity.request,state:0
+msgid "Draft"
+msgstr "Entwurf"
+
+#. module: shift_solidarity
+#: model:ir.model.fields,field_description:shift_solidarity.field_shift_solidarity_offer__shift_id
+msgid "Generated shift"
+msgstr "Erstellte Schicht"
+
+#. module: shift_solidarity
+#: model:ir.model.fields,field_description:shift_solidarity.field_shift_solidarity_offer__id
+#: model:ir.model.fields,field_description:shift_solidarity.field_shift_solidarity_request__id
+msgid "ID"
+msgstr ""
+
+#. module: shift_solidarity
+#: model_terms:ir.ui.view,arch_db:shift_solidarity.res_config_settings_shift_solidarity
+msgid "Inital value for the solidarity counter calculation\n"
+"                                (equivalent to the value of the counter if no one\n"
+"                                has offered or requested a solidarity shift)"
+msgstr "Anfangswert für die Solidaritätszählerzähler\n"
+"                                (entspricht dem Wert des Zählers, wenn noch niemand\n"
+"                                einen Solidaritätsschicht angeboten oder gefordert hat)"
+
+#. module: shift_solidarity
+#: model:ir.model.fields,field_description:shift_solidarity.field_shift_solidarity_offer____last_update
+#: model:ir.model.fields,field_description:shift_solidarity.field_shift_solidarity_request____last_update
+msgid "Last Modified on"
+msgstr "Zuletzt geändert am"
+
+#. module: shift_solidarity
+#: model:ir.model.fields,field_description:shift_solidarity.field_shift_solidarity_offer__write_uid
+#: model:ir.model.fields,field_description:shift_solidarity.field_shift_solidarity_request__write_uid
+msgid "Last Updated by"
+msgstr "Zuletzt aktualisiert durch"
+
+#. module: shift_solidarity
+#: model:ir.model.fields,field_description:shift_solidarity.field_shift_solidarity_offer__write_date
+#: model:ir.model.fields,field_description:shift_solidarity.field_shift_solidarity_request__write_date
+msgid "Last Updated on"
+msgstr "Zuletzt aktualisiert am"
+
+#. module: shift_solidarity
+#: model:ir.model.fields,field_description:shift_solidarity.field_res_config_settings__solidarity_counter_limit
+msgid "Limit value of the global solidarity counter"
+msgstr "Grenzwert des globalen Solidaritätszählers"
+
+#. module: shift_solidarity
+#: model:ir.model.fields,field_description:shift_solidarity.field_res_config_settings__max_solidarity_requests_number
+msgid "Max number of solidarity requests per year"
+msgstr "Maximale Anzahl von Solidaritätsanträgen pro Jahr"
+
+#. module: shift_solidarity
+#: model_terms:ir.ui.view,arch_db:shift_solidarity.solidarity_offer_button_worker
+msgid "Offer a solidarity shift"
+msgstr "Eine Solidaritätsschicht anbieten"
+
+#. module: shift_solidarity
+#: model:ir.model.fields,field_description:shift_solidarity.field_shift_solidarity_request__reason
+msgid "Reason"
+msgstr "Grund"
+
+#. module: shift_solidarity
+#: model_terms:ir.ui.view,arch_db:shift_solidarity.solidarity_offer_button_worker
+msgid "Request a solidarity shift"
+msgstr "Anfrage für eine Solidaritätsschicht"
+
+#. module: shift_solidarity
+#: model:ir.model.fields,field_description:shift_solidarity.field_shift_solidarity_request__shift_id
+msgid "Shift"
+msgstr "Schicht"
+
+#. module: shift_solidarity
+#: model:ir.ui.menu,name:shift_solidarity.menu_solidarity_top
+#: model_terms:ir.ui.view,arch_db:shift_solidarity.res_config_settings_shift_solidarity
+msgid "Solidarity"
+msgstr "Solidaritätsschichten"
+
+#. module: shift_solidarity
+#: model_terms:ir.ui.view,arch_db:shift_solidarity.task_shift_view_kanban_extended
+msgid "Solidarity Shift"
+msgstr "Solidaritätsschicht"
+
+#. module: shift_solidarity
+#: model:ir.model,name:shift_solidarity.model_shift_solidarity_offer
+msgid "Solidarity Shift Offer"
+msgstr "Angebot für Solidaritätsschicht"
+
+#. module: shift_solidarity
+#: model:ir.model,name:shift_solidarity.model_shift_solidarity_request
+msgid "Solidarity Shift Request"
+msgstr "Anfrage für Solidaritätsschicht"
+
+#. module: shift_solidarity
+#: model:ir.model.fields,field_description:shift_solidarity.field_shift_shift__is_solidarity
+msgid "Solidarity shift"
+msgstr "Solidaritätsschicht"
+
+#. module: shift_solidarity
+#: model:ir.model.fields,field_description:shift_solidarity.field_shift_shift__solidarity_offer_ids
+msgid "Solidarity shift offer"
+msgstr "Angebot für Solidaritätsschicht"
+
+#. module: shift_solidarity
+#: model:ir.actions.act_window,name:shift_solidarity.action_solidarity_shift_offer
+#: model:ir.ui.menu,name:shift_solidarity.menu_solidarity_offer
+msgid "Solidarity shift offers"
+msgstr "Angebote für Solidaritätsschichten"
+
+#. module: shift_solidarity
+#: model:ir.actions.act_window,name:shift_solidarity.action_solidarity_shift_request
+#: model:ir.ui.menu,name:shift_solidarity.menu_solidarity_requests
+msgid "Solidarity shift requests"
+msgstr "Anfragen für Solidaritätsschichten"
+
+#. module: shift_solidarity
+#: model:ir.model.fields,field_description:shift_solidarity.field_res_config_settings__solidarity_counter_start_value
+msgid "Start value of the global solidarity counter"
+msgstr "Startwert des globalen Solidaritätszählers"
+
+#. module: shift_solidarity
+#: model:ir.model.fields,field_description:shift_solidarity.field_shift_solidarity_offer__state
+#: model:ir.model.fields,field_description:shift_solidarity.field_shift_solidarity_request__state
+msgid "State"
+msgstr "Status"
+
+#. module: shift_solidarity
+#: model_terms:ir.ui.view,arch_db:shift_solidarity.task_view_form_extended
+msgid "Subscribe as a solidarity shift"
+msgstr "Abonnieren als Solidaritätsdienst"
+
+#. module: shift_solidarity
+#: code:addons/shift_solidarity/models/res_company.py:53
+#, python-format
+msgid "The solidarity counter can not go below %s."
+msgstr "Der Solidaritätsschichtenzähler kann nicht negativ sein (%s)"
+
+#. module: shift_solidarity
+#: code:addons/shift_solidarity/models/solidarity_shift_request.py:98
+#, python-format
+msgid "Too many solidarity request for this partner."
+msgstr "Zu viele Anfragen für Solidaritätsschicht für dieses Mitglied"
+
+#. module: shift_solidarity
+#: selection:shift.solidarity.offer,state:0
+#: selection:shift.solidarity.request,state:0
+msgid "Validated"
+msgstr "Validiert"
+
+#. module: shift_solidarity
+#: model_terms:ir.ui.view,arch_db:shift_solidarity.res_config_settings_shift_solidarity
+msgid "Value"
+msgstr "Wert"
+
+#. module: shift_solidarity
+#: model_terms:ir.ui.view,arch_db:shift_solidarity.res_config_settings_shift_solidarity
+msgid "Value of the maximum number of solidarity requests\n"
+"                                per worker and per year. The calculation is based\n"
+"                                on the last twelve months (not on the calendar year)."
+msgstr "Wert der maximalen Anzahl von Solidaritätsanfragen\n"
+"                                pro Arbeiter und pro Jahr. Die Berechnung basiert\n"
+"                                auf die letzten zwölf Monate (nicht auf das Kalenderjahr)."
+
+#. module: shift_solidarity
+#: model_terms:ir.ui.view,arch_db:shift_solidarity.res_config_settings_shift_solidarity
+msgid "Value of the solidarity counter below which\n"
+"                                it cannot drop. If this value is reached,\n"
+"                                requesting solidarity becomes impossible until\n"
+"                                a solidarity shift is done."
+msgstr "Minimalwert des Solidaritätsschichtenzählers,\n"
+"                                Wenn dieser Wert erreicht wird, wird\n"
+"                                die Anfrage um Solidaritätsschicht unmöglich, bis\n"
+"                                eine neue Solidaritätsschicht angeboten wird."
+
+#. module: shift_solidarity
+#: model:ir.model.fields,field_description:shift_solidarity.field_shift_solidarity_offer__worker_id
+msgid "Worker"
+msgstr "Mitglied"
+
+#. module: shift_solidarity
+#: code:addons/shift_solidarity/models/solidarity_shift_offer.py:136
+#, python-format
+msgid "You can not cancel this solidarity offer, because the shift is too close in time."
+msgstr "Du kannst diese Solidaritätsangebot nicht mehr stornieren, da es zu nah in der Zukunft liegt"
+
+#. module: shift_solidarity
+#: code:addons/shift_solidarity/models/solidarity_shift_offer.py:106
+#, python-format
+msgid "You can not offer a solidarity shift if your counter is below zero."
+msgstr "Du kannst keine Solidaritätsschicht anbieten, wenn dein Zähler negativ ist."
+
+#. module: shift_solidarity
+#: code:addons/shift_solidarity/models/solidarity_shift_request.py:112
+#, python-format
+msgid "You can not request solidarity for a shift %s."
+msgstr "Du kannst keine Solidaritätsschicht anfragen (%s)"
+
+#. module: shift_solidarity
+#: code:addons/shift_solidarity/models/solidarity_shift_request.py:119
+#, python-format
+msgid "You can not request solidarity for a shift soo close in the time."
+msgstr "Du kannst keine Solidaritätsschicht anfragen, für eine Schicht die so nah in der Zukunft liegt"
+
+#. module: shift_solidarity
+#: code:addons/shift_solidarity/models/solidarity_shift_request.py:105
+#, python-format
+msgid "You can not request solidarity for a shift your are not assigned to."
+msgstr "Du kannst keine Solidaritätsschicht anfragen, für eine Schicht wofür du nicht angemeldet bist"
+
+#. module: shift_solidarity
+#: code:addons/shift_solidarity/models/solidarity_shift_offer.py:129
+#: code:addons/shift_solidarity/models/solidarity_shift_request.py:128
+#, python-format
+msgid "You can not subscribe to a shift in state %s."
+msgstr "Du kannst dich mit Status %s nicht für eine Schicht anmelden."
+
+#. module: shift_solidarity
+#: code:addons/shift_solidarity/models/solidarity_shift_request.py:131
+#, python-format
+msgid "You can not subscribe to a shift in the past."
+msgstr "Du kannst dich nicht für eine Schicht in der Vergangenheit anmelden."
+
+#. module: shift_solidarity
+#: code:addons/shift_solidarity/models/solidarity_shift_offer.py:122
+#, python-format
+msgid "You can't subscribe to this shift, because your are not assigned to it."
+msgstr "Du kannst dich für diese Schicht nicht anmelden, da du nicht dafür zugeteilt bist."
+
+#. module: shift_solidarity
+#: code:addons/shift_solidarity/models/solidarity_shift_offer.py:114
+#, python-format
+msgid "You can't subscribe to this shift, it’s not available for you."
+msgstr "Du kannst dich zu dieser Schicht nicht anmelden, die ist nicht für dich verfügbar."
+
+#. module: shift_solidarity
+#: code:addons/shift_solidarity/models/solidarity_shift_request.py:125
+#, python-format
+msgid "You can’t subscribe to a non empty shift."
+msgstr "Du kannst dich nicht für eine besetzte Schicht anmelden."
+
+#. module: shift_solidarity
+#: model:ir.model,name:shift_solidarity.model_shift_shift
+msgid "shift.shift"
+msgstr ""
+
+#. module: shift_solidarity
+#: model:ir.model.fields,field_description:shift_solidarity.field_shift_solidarity_request__worker_id
+msgid "worker"
+msgstr "Arbeiter"
+

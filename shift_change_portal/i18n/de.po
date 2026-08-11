@@ -1,0 +1,91 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* shift_change_portal
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-11 08:29+0000\n"
+"PO-Revision-Date: 2026-08-11 08:29+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: shift_change_portal
+#: model_terms:ir.ui.view,arch_db:shift_change_portal.res_config_settings_swap_view_form
+msgid "<span class=\"o_form_label\">\n"
+"                                Activate shift changes\n"
+"                            </span>"
+msgstr "<span class=\"o_form_label\">\n"
+"                                Schichtentausch aktivieren\n"
+"                            </span>"
+
+#. module: shift_change_portal
+#: model:ir.model.fields,field_description:shift_change_portal.field_res_config_settings__enable_shift_changes
+msgid "Activate shift changes"
+msgstr "Schichtentausch aktivieren"
+
+#. module: shift_change_portal
+#: model_terms:ir.ui.view,arch_db:shift_change_portal.validate_change
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. module: shift_change_portal
+#: model_terms:ir.ui.view,arch_db:shift_change_portal.my_shift_next_shifts_change
+msgid "Change Shift"
+msgstr "Schicht tauschen"
+
+#. module: shift_change_portal
+#: model:ir.model,name:shift_change_portal.model_res_config_settings
+msgid "Config Settings"
+msgstr "Konfiguration "
+
+#. module: shift_change_portal
+#: model_terms:ir.ui.view,arch_db:shift_change_portal.validate_change
+msgid "New Shift Name"
+msgstr "Neue Schichtname"
+
+#. module: shift_change_portal
+#: model_terms:ir.ui.view,arch_db:shift_change_portal.validate_change
+msgid "Old Shift Name"
+msgstr "Alte Schichtname"
+
+#. module: shift_change_portal
+#: model_terms:ir.ui.view,arch_db:shift_change_portal.available_shift_irregular_worker_card
+msgid "Select"
+msgstr "Auswählen"
+
+#. module: shift_change_portal
+#: model_terms:ir.ui.view,arch_db:shift_change_portal.shift_change_selection
+msgid "Select your new shift"
+msgstr "Wähle deine neue Schicht aus"
+
+#. module: shift_change_portal
+#: model_terms:ir.ui.view,arch_db:shift_change_portal.res_config_settings_swap_view_form
+msgid "Shift Changes Portal"
+msgstr "Schichtentausch Portal"
+
+#. module: shift_change_portal
+#: model_terms:ir.ui.view,arch_db:shift_change_portal.my_shift_next_shifts_change
+msgid "This shift can not be changed because it is a compensation shift."
+msgstr "Diese Schicht kann nicht getauscht werden, da es sich um eine Kompensationsschicht handelt"
+
+#. module: shift_change_portal
+#: model_terms:ir.ui.view,arch_db:shift_change_portal.my_shift_next_shifts_change
+msgid "This shift can not be changed because it is too far in the future."
+msgstr "Diese Schicht kann nicht getauscht werden, da sie zu weit in der Zukunft liegt"
+
+#. module: shift_change_portal
+#: model_terms:ir.ui.view,arch_db:shift_change_portal.validate_change
+msgid "Validate"
+msgstr "Validieren"
+
+#. module: shift_change_portal
+#: model_terms:ir.ui.view,arch_db:shift_change_portal.validate_change
+msgid "Validate change"
+msgstr "Tausch bestätigen"
+

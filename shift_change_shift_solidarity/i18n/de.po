@@ -1,0 +1,33 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* shift_change_shift_solidarity
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-11 08:30+0000\n"
+"PO-Revision-Date: 2026-08-11 08:30+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: shift_change_shift_solidarity
+#: model:ir.model,name:shift_change_shift_solidarity.model_shift_change
+msgid "A model to track a change of a shift"
+msgstr "Ein Modell zur Verfolgung der Schichtänderungen"
+
+#. module: shift_change_shift_solidarity
+#: code:addons/shift_change_shift_solidarity/models/shift_change.py:16
+#, python-format
+msgid "You can't change a solidarity shift."
+msgstr "Du kannst eine Solidaritätsschicht nicht tauschen"
+
+#. module: shift_change_shift_solidarity
+#: model:ir.model,name:shift_change_shift_solidarity.model_shift_shift
+msgid "shift.shift"
+msgstr ""
+

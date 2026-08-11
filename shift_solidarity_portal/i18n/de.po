@@ -1,0 +1,196 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* shift_solidarity_portal
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-11 08:35+0000\n"
+"PO-Revision-Date: 2026-08-11 08:35+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.solidarity_counter
+msgid "*Explanatory text solidarity counter*"
+msgstr "*Erklärungstext für Solidaritsschichtenzähler*"
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.solidarity_request_help_text_irregular
+msgid "*Warning text irregular*"
+msgstr "*Warnungstext Springer*"
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.solidarity_request_help_text_regular
+msgid "*Warning text regular*"
+msgstr "*Warnungstext Festschichtmitglied*"
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.list_solidarity_requests
+msgid "<strong>Info!</strong>\n"
+"                                You don't have any solidarity request."
+msgstr "<strong>Info!</strong>\n"
+"                                Du hast keine Anfrage für Solidaritätsschicht."
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.help_text_all_shifts_solidarity_offer
+msgid "<strong>Info!</strong>\n"
+"            On this page you can choose to subscribe to a shift as a solidarity\n"
+"            shift. If you select one of them, you will have to attend it or to\n"
+"            cancel it soon enough, via the \"My shifts\" page."
+msgstr "<strong>Info!</strong>\n"
+"Auf dieser Seite kannst du eine Solidaritätschicht im Anspruch nehmen. Wenn du einen auswählst, musst du anwesend sein oder rechtzeitig über die Seite „Meine Schichten“stornieren.\n"
+"\n"
+"\n"
+""
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.help_text_underpopulated_solidarity_offer
+msgid "<strong>Info!</strong>\n"
+"            On this page you can choose to subscribe to a shift that is\n"
+"            underpopulated, as a solidarity shift. If you select one of them, you\n"
+"            will have to attend it or to cancel it soon enough, via the \"My shifts\"\n"
+"            page. If you cannot attend any of those on this list, please click on\n"
+"            the button at the bottom of the page to see all available shifts."
+msgstr "<strong>Info!</strong>\n"
+"            Auf dieser Seite kannst dudich für eine Solidaritätsschicht anmelden, die\n"
+"            unterbesetzt ist. Wenn du einen davon auswählst, muss daran teilnehmen\n"
+"             oder es frühzeitig über die \"Meine Schichten\" absagen.\n"
+"            Wenn Du an keinem der vorgeschlagenen Terminen teilnehmen kannst, klicke bitte auf\n"
+"            die Schaltfläche unten auf der Seite, um alle verfügbaren Schichten anzuzeigen."
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.list_solidarity_requests
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.shift_solidarity_offer_cancel
+msgid "Back"
+msgstr "Zurück"
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.list_solidarity_requests
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.shift_solidarity_request_selection
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.my_shift_next_shifts_solidarity_offer
+msgid "Cancel solidarity"
+msgstr "Solidaritätsschicht stornieren"
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.shift_solidarity_offer_cancel
+msgid "Cancellation of a solidarity offer"
+msgstr "Stornierung eines Solidaritätsangebots"
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.solidarity_buttons
+msgid "I need help"
+msgstr "Ich brauche Hilfe"
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.solidarity_buttons
+msgid "My solidarity requests"
+msgstr "Meine Anfragen für Solidaritätsschichten"
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.list_solidarity_requests
+msgid "Non realisable shift"
+msgstr "Nicht realisierbare Schichten"
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.shift_solidarity_offer_selection
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.solidarity_buttons
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.solidarity_counter
+msgid "Offer a solidarity shift"
+msgstr "Eine Solidaritätsschicht anbieten"
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.list_solidarity_requests
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.shift_solidarity_request_selection
+msgid "Reason"
+msgstr "Grund"
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.shift_solidarity_request_selection
+msgid "Request a solidarity shift"
+msgstr "Anfrage für eine Solidaritätsschicht"
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.list_solidarity_requests
+msgid "Request date"
+msgstr "Anfragedatum"
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.available_shift_irregular_worker_card
+msgid "Select"
+msgstr "Auswählen"
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.shift_solidarity_offer_selection
+msgid "Select a shift"
+msgstr "Wähle eine Schicht"
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.shift_solidarity_request_selection
+msgid "Shifts"
+msgstr "Schichten"
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.solidarity_buttons
+msgid "Solidarity"
+msgstr "Solidaritätsschichten"
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.list_solidarity_requests
+msgid "Solidarity requests"
+msgstr "Solidaritätsanfrage"
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.solidarity_counter
+msgid "Solidarity shifts counter:"
+msgstr "Solidaritätsschichtenzähler"
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.list_solidarity_requests
+msgid "Status"
+msgstr ""
+
+#. module: shift_solidarity_portal
+#: code:addons/shift_solidarity_portal/controllers/main.py:65
+#: code:addons/shift_solidarity_portal/controllers/main.py:149
+#, python-format
+msgid "The selected shift does not exists."
+msgstr "Die ausgewählte Schicht existiert nicht"
+
+#. module: shift_solidarity_portal
+#: code:addons/shift_solidarity_portal/controllers/main.py:209
+#, python-format
+msgid "The selected solidarity request does not exists."
+msgstr "Die ausgewählte Anfrage für Solidaritätsschicht existiert nicht."
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.shift_solidarity_request_selection
+msgid "Validate"
+msgstr "Validieren"
+
+#. module: shift_solidarity_portal
+#: code:addons/shift_solidarity_portal/controllers/main.py:121
+#, python-format
+msgid "You are not allowed to cancel this offer."
+msgstr "Du darfst dieses Angebot nicht stornieren."
+
+#. module: shift_solidarity_portal
+#: model_terms:ir.ui.view,arch_db:shift_solidarity_portal.shift_solidarity_offer_cancel
+msgid "Your solidarity offer has properly been cancelled."
+msgstr "Dein Angebot für Solidaritätsschicht wurde storniert."
+
+#. module: shift_solidarity_portal
+#: code:addons/shift_solidarity_portal/controllers/main.py:222
+#, python-format
+msgid "Your solidarity request has successfully been cancelled."
+msgstr "Deine Anfrage für Solidaritätsschicht wurde erfolgreich storniert."
+
