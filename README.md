@@ -43,7 +43,7 @@ addon | version | maintainers | summary
 [purchase_order_responsible](purchase_order_responsible/) | 16.0.1.0.0 | <a href='https://github.com/victor-champonnois'><img src='https://github.com/victor-champonnois.png' width='32' height='32' style='border-radius:50%;' alt='victor-champonnois'/></a> | Adds a 'Responsible' field to purchase orders
 [sale_product_deposit](sale_product_deposit/) | 16.0.1.1.0 |  | Compute total price with VAT and deposit price
 [shift](shift/) | 16.0.1.2.2 |  | Generate and manage shifts for cooperators.
-[shift_attendance](shift_attendance/) | 16.0.1.0.2 |  | Volunteer Timetable Management
+[shift_attendance](shift_attendance/) | 16.0.1.1.0 |  | Volunteer Timetable Management
 [shift_beneficiary](shift_beneficiary/) | 16.0.1.1.1 | <a href='https://github.com/victor-champonnois'><img src='https://github.com/victor-champonnois.png' width='32' height='32' style='border-radius:50%;' alt='victor-champonnois'/></a> | Add a 'beneficiary' field on shifts
 [shift_change](shift_change/) | 16.0.1.0.3 |  | Let regular workers change their shift.
 [shift_change_portal](shift_change_portal/) | 16.0.1.1.0 |  | Let regular workers change their shifts in the portal.
