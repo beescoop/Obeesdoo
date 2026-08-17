@@ -6,8 +6,6 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-12 12:57+0000\n"
-"PO-Revision-Date: 2026-06-12 12:57+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,7 +16,7 @@ msgstr ""
 #. module: shift_change_portal
 #: model_terms:ir.ui.view,arch_db:shift_change_portal.shift_change_selection
 msgid "<i class=\"fa fa-arrow-left me-2\"/>Back"
-msgstr ""
+msgstr "<i class=\"fa fa-arrow-left me-2\"/>Retour"
 
 #. module: shift_change_portal
 #: model_terms:ir.ui.view,arch_db:shift_change_portal.res_config_settings_swap_view_form
@@ -27,68 +25,71 @@ msgid ""
 "                                Activate shift changes\n"
 "                            </span>"
 msgstr ""
+"<span class=\"o_form_label\">\n"
+"                                Activer les changements de shift\n"
+"                            </span>"
 
 #. module: shift_change_portal
 #: model:ir.model.fields,field_description:shift_change_portal.field_res_config_settings__enable_shift_changes
 msgid "Activate shift changes"
-msgstr ""
+msgstr "Activer les changements de shift"
 
 #. module: shift_change_portal
 #: model_terms:ir.ui.view,arch_db:shift_change_portal.validate_change
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 #. module: shift_change_portal
 #: model_terms:ir.ui.view,arch_db:shift_change_portal.my_shift_next_shifts_change
 msgid "Change Shift"
-msgstr ""
+msgstr "Changer de shift"
 
 #. module: shift_change_portal
 #: model:ir.model,name:shift_change_portal.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Paramètres de configuration"
 
 #. module: shift_change_portal
 #: model_terms:ir.ui.view,arch_db:shift_change_portal.validate_change
 msgid "New Shift Name"
-msgstr ""
+msgstr "Nom du nouveau shift"
 
 #. module: shift_change_portal
 #: model_terms:ir.ui.view,arch_db:shift_change_portal.validate_change
 msgid "Old Shift Name"
-msgstr ""
+msgstr "Nom de l'ancien shift"
 
 #. module: shift_change_portal
 #: model_terms:ir.ui.view,arch_db:shift_change_portal.available_shift_irregular_worker_card
 msgid "Select"
-msgstr ""
+msgstr "Sélectionner"
 
 #. module: shift_change_portal
 #: model_terms:ir.ui.view,arch_db:shift_change_portal.shift_change_selection
 msgid "Select your new shift"
-msgstr ""
+msgstr "Sélectionnez votre nouveau shift"
 
 #. module: shift_change_portal
 #: model_terms:ir.ui.view,arch_db:shift_change_portal.res_config_settings_swap_view_form
 msgid "Shift Changes Portal"
-msgstr ""
+msgstr "Portail de changement de shift"
 
 #. module: shift_change_portal
 #: model_terms:ir.ui.view,arch_db:shift_change_portal.my_shift_next_shifts_change
 msgid "This shift can not be changed because it is a compensation shift."
-msgstr ""
+msgstr "Ce shift ne peut pas être changés car c'est un shift de compensation"
 
 #. module: shift_change_portal
 #: model_terms:ir.ui.view,arch_db:shift_change_portal.my_shift_next_shifts_change
 msgid "This shift can not be changed because it is too far in the future."
-msgstr ""
+msgstr "Ce shift ne peut pas être changés car il est trop loin dans le futur"
 
 #. module: shift_change_portal
 #: model_terms:ir.ui.view,arch_db:shift_change_portal.validate_change
 msgid "Validate"
-msgstr ""
+msgstr "Valider"
 
 #. module: shift_change_portal
 #: model_terms:ir.ui.view,arch_db:shift_change_portal.validate_change
 msgid "Validate change"
-msgstr ""
+msgstr "Valider les changements"
