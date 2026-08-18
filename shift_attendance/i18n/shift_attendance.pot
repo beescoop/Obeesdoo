@@ -6,6 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-26 22:47+0000\n"
+"PO-Revision-Date: 2026-07-26 22:47+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -986,7 +988,6 @@ msgstr ""
 #. module: shift_attendance
 #. odoo-python
 #: code:addons/shift_attendance/models/attendance_sheet.py:0
-#: code:addons/shift_attendance/models/attendance_sheet.py:0
 #, python-format
 msgid "The sheet has already been validated."
 msgstr ""
@@ -1073,16 +1074,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:shift_attendance.field_shift_sheet__worker_nb_feedback
 #: model:ir.model.fields,field_description:shift_attendance.field_shift_sheet_validate__worker_nb_feedback
 msgid "Was your team big enough ? *"
-msgstr ""
-
-#. module: shift_attendance
-#: model:ir.model.fields,field_description:shift_attendance.field_shift_sheet__website_message_ids
-msgid "Website Messages"
-msgstr ""
-
-#. module: shift_attendance
-#: model:ir.model.fields,help:shift_attendance.field_shift_sheet__website_message_ids
-msgid "Website communication history"
 msgstr ""
 
 #. module: shift_attendance
