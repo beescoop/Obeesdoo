@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <!-- Company Holidays Menu-->
+    <menuitem
+        id="volunteer_holiday_separator_menu"
+        name="Time Off"
+        parent="volunteer.volunteer_configuration_menu"
+        sequence="30"
+        groups="volunteer.volunteer_group_admin"
+    >
+        <menuitem
+            id="volunteer_company_holiday_menu"
+            name="Company Holidays"
+            action="volunteer_company_holiday_action"
+            sequence="1"
+        />
+        <menuitem
+            id="volunteer_leave_menu"
+            name="Volunteer Leaves"
+            action="volunteer_volunteer_leave_action"
+            sequence="10"
+        />
+        <menuitem
+            id="volunteer_leave_type_menu"
+            name="Volunteer Leave Types"
+            action="volunteer_volunteer_leave_type_action"
+            sequence="20"
+        />
+    </menuitem>
+</odoo>
