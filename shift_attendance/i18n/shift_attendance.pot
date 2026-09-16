@@ -902,11 +902,6 @@ msgid "Shift Non-attendance"
 msgstr ""
 
 #. module: shift_attendance
-#: model:ir.ui.menu,name:shift_attendance.menu_shift_settings
-msgid "Shift Settings"
-msgstr ""
-
-#. module: shift_attendance
 #: model:ir.model.fields,field_description:shift_attendance.field_shift_sheet_added__state
 #: model:ir.model.fields,field_description:shift_attendance.field_shift_sheet_expected__state
 #: model:ir.model.fields,field_description:shift_attendance.field_shift_sheet_shift__state
