@@ -123,12 +123,4 @@
         <field name="context">{'module' : 'shift'}</field>
     </record>
 
-    <menuitem
-        name="Shift Settings"
-        id="menu_shift_settings"
-        parent="shift.menu_configuration_top"
-        action="action_shift_settings"
-        groups="shift.group_cooperative_admin"
-    />
-
 </odoo>
