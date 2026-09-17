@@ -189,7 +189,6 @@
         <field name="model">shift.sheet</field>
         <field name="arch" type="xml">
             <form create="false" delete="false">
-                <field name="_barcode_scanned" widget="barcode_handler" />
                 <header>
                     <field name="state" widget="statusbar" readonly="True" />
                     <button
@@ -210,6 +209,7 @@
                     />
                 </header>
                 <sheet>
+                    <field name="_barcode_scanned" widget="barcode_handler" />
                     <div class="oe_button_box" name="button_box">
                         <button
                             name="button_mark_as_read"
