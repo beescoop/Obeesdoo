@@ -1,6 +1,4 @@
-import ast
-
-from odoo import _, fields, models
+from odoo import _, fields, models, tools
 from odoo.exceptions import UserError
 
 
@@ -18,10 +16,10 @@ class ValidateAttendanceSheet(models.TransientModel):
             return self.env[sheet_model].browse(sheet_id)
 
     def _get_card_support_setting(self):
-        return ast.literal_eval(
+        return tools.str2bool(
             self.env["ir.config_parameter"]
             .sudo()
-            .get_param("shift_attendance.card_support")
+            .get_param("shift_attendance.card_support", "False")
         )
 
     def _get_warning_regular_workers(self):
