@@ -21,7 +21,7 @@ class ValidateAttendanceSheet(models.TransientModel):
         return ast.literal_eval(
             self.env["ir.config_parameter"]
             .sudo()
-            .get_param("shift_attendance.card_support")
+            .get_param("shift_attendance.card_support", "False")
         )
 
     def _get_warning_regular_workers(self):
