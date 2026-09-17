@@ -103,7 +103,9 @@ class ValidateAttendanceSheet(models.TransientModel):
             if not self.login:
                 raise UserError(_("Please enter your login."))
             user = self.env["res.users"].search([("login", "=", self.login)])
-            user.with_user(user.id)._check_credentials(self.password)
+            user.with_user(user.id)._check_credentials(
+                self.password, {"interactive": True}
+            )
             partner = user.partner_id
 
         can_validate = partner.user_ids.has_group(
