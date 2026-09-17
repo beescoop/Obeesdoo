@@ -220,8 +220,8 @@
                             groups="shift.group_shift_attendance"
                         />
 
-            <field name="active" invisible="1" />
-            <widget
+                        <field name="active" invisible="1" />
+                        <widget
                             name="web_ribbon"
                             title="Archived"
                             bg_color="bg-danger"
