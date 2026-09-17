@@ -236,7 +236,10 @@
                     <group>
                         <field name="max_worker_no" />
                     </group>
-                    <group string="Feedback" groups="shift.group_shift_attendance">
+                    <group
+                        string="Feedback"
+                        groups="shift_attendance.group_shift_attendance_sheet_validation"
+                    >
                         <field name="attended_worker_no" />
                         <field name="notes" />
                         <field name="feedback" />
