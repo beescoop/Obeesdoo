@@ -245,12 +245,8 @@
                     </group>
                     <field name="has_missing_worker" invisible="1" />
                 </sheet>
-                <div class="oe_chatter">
-                    <field
-                        name="message_ids"
-                        widget="mail_thread"
-                        groups="shift.group_shift_attendance"
-                    />
+                <div class="oe_chatter" groups="shift.group_shift_attendance">
+                    <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
         </field>
