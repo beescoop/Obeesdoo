@@ -1,6 +1,4 @@
-import ast
-
-from odoo import _, fields, models
+from odoo import _, fields, models, tools
 from odoo.exceptions import UserError
 
 
@@ -18,10 +16,10 @@ class ValidateAttendanceSheet(models.TransientModel):
             return self.env[sheet_model].browse(sheet_id)
 
     def _get_card_support_setting(self):
-        return ast.literal_eval(
+        return tools.str2bool(
             self.env["ir.config_parameter"]
             .sudo()
-            .get_param("shift_attendance.card_support")
+            .get_param("shift_attendance.card_support", "False")
         )
 
     def _get_warning_regular_workers(self):
@@ -103,7 +101,9 @@ class ValidateAttendanceSheet(models.TransientModel):
             if not self.login:
                 raise UserError(_("Please enter your login."))
             user = self.env["res.users"].search([("login", "=", self.login)])
-            user.with_user(user.id)._check_credentials(self.password)
+            user.with_user(user.id)._check_credentials(
+                self.password, {"interactive": True}
+            )
             partner = user.partner_id
 
         can_validate = partner.user_ids.has_group(

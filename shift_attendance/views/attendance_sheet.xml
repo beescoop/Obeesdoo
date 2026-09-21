@@ -189,7 +189,6 @@
         <field name="model">shift.sheet</field>
         <field name="arch" type="xml">
             <form create="false" delete="false">
-                <field name="_barcode_scanned" widget="barcode_handler" />
                 <header>
                     <field name="state" widget="statusbar" readonly="True" />
                     <button
@@ -210,6 +209,7 @@
                     />
                 </header>
                 <sheet>
+                    <field name="_barcode_scanned" widget="barcode_handler" />
                     <div class="oe_button_box" name="button_box">
                         <button
                             name="button_mark_as_read"
@@ -220,8 +220,8 @@
                             groups="shift.group_shift_attendance"
                         />
 
-            <field name="active" invisible="1" />
-            <widget
+                        <field name="active" invisible="1" />
+                        <widget
                             name="web_ribbon"
                             title="Archived"
                             bg_color="bg-danger"
@@ -236,7 +236,10 @@
                     <group>
                         <field name="max_worker_no" />
                     </group>
-                    <group string="Feedback" groups="shift.group_shift_attendance">
+                    <group
+                        string="Feedback"
+                        groups="shift_attendance.group_shift_attendance_sheet_validation"
+                    >
                         <field name="attended_worker_no" />
                         <field name="notes" />
                         <field name="feedback" />
@@ -245,12 +248,8 @@
                     </group>
                     <field name="has_missing_worker" invisible="1" />
                 </sheet>
-                <div class="oe_chatter">
-                    <field
-                        name="message_ids"
-                        widget="mail_thread"
-                        groups="shift.group_shift_attendance"
-                    />
+                <div class="oe_chatter" groups="shift.group_shift_attendance">
+                    <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
         </field>
