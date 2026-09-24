@@ -311,7 +311,7 @@ class ResPartner(models.Model):
         user_tz = utc
         if cur_user.tz:
             user_tz = timezone(cur_user.tz)
-        elif self.env.context["tz"]:
+        elif self.env.context.get("tz"):
             user_tz = timezone(self.env.context["tz"])
         # Convert to UTC
         dt_utc = utc.localize(datetime, is_dst=False)
