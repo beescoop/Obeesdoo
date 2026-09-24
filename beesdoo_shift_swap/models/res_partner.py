@@ -245,21 +245,16 @@ class ResPartner(models.Model):
                 ):
                     planned_shifts.remove(shift)
 
-        if wanted_tmpl_dated and wanted_tmpl_dated.date > datetime.now():
-            # Search if wanted shift is generated
-            new_shift_generated = False
-            for shift in generated_shifts:
-                if (
-                    shift.task_template_id == wanted_tmpl_dated.template_id
-                    and shift.start_time == wanted_tmpl_dated.date
-                ):
-                    new_shift_generated = True
-                    break
-            # If not, create it and add it to the list
-            if not new_shift_generated:
-                new_shift = wanted_tmpl_dated.new_shift(self)
-                if solidarity_offer:
-                    new_shift.swap_solidarity_offer_ids = [(6, 0, solidarity_offer.ids)]
-                planned_shifts.append(new_shift)
+        next_planning_date = datetime.strptime(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("shift.next_planning_date"),
+            "%Y-%m-%d",
+        )
+        if wanted_tmpl_dated and wanted_tmpl_dated.date >= next_planning_date:
+            new_shift = wanted_tmpl_dated.new_shift(self)
+            if solidarity_offer:
+                new_shift.swap_solidarity_offer_ids = [(6, 0, solidarity_offer.ids)]
+            planned_shifts.append(new_shift)
 
         return planned_shifts
