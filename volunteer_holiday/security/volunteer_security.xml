@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <record id="volunteer_company_holiday_rule_company" model="ir.rule">
+        <field name="name">Volunteer Company Holiday: Company Access</field>
+        <field name="model_id" ref="model_volunteer_company_holiday" />
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]
+        </field>
+    </record>
+    <record id="volunteer_volunteer_leave_rule_company" model="ir.rule">
+        <field name="name">Volunteer Leaves: Company Access</field>
+        <field name="model_id" ref="model_volunteer_volunteer_leave" />
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]
+        </field>
+    </record>
+    <record id="volunteer_volunteer_leave_type_rule_company" model="ir.rule">
+        <field name="name">Volunteer Leave Type: Company Access</field>
+        <field name="model_id" ref="model_volunteer_volunteer_leave_type" />
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]
+        </field>
+    </record>
+</odoo>

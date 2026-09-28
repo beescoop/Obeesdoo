@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <record
+        id="volunteer_volunteer_leave_type_demo_sick_leave"
+        model="volunteer.volunteer.leave.type"
+    >
+        <field name="name">Sick Leave</field>
+        <field name="description">Leave due to illness</field>
+    </record>
+
+    <record
+        id="volunteer_volunteer_leave_type_demo_parental_leave"
+        model="volunteer.volunteer.leave.type"
+    >
+        <field name="name">Parental Leave</field>
+        <field name="description">Leave due to pregnancy/childcare</field>
+    </record>
+
+    <record
+        id="volunteer_volunteer_leave_type_demo_vacation"
+        model="volunteer.volunteer.leave.type"
+    >
+        <field name="name">Vacation</field>
+        <field name="description">Vacation</field>
+    </record>
+</odoo>
