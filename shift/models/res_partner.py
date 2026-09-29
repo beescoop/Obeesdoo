@@ -257,8 +257,9 @@ class ResPartner(models.Model):
                 exemption_start = status.temporary_exempt_start_date
                 exemption_end = status.temporary_exempt_end_date
 
-            for i in range(1, regular_next_shift_limit - len(generated_shifts) + 1):
-                shift_date = self.add_days(main_shift.start_time, days=i * shift_period)
+            for i in range(regular_next_shift_limit):
+                days_increment = (i + 1) * shift_period
+                shift_date = self.add_days(main_shift.start_time, days=days_increment)
                 if shift_date > next_planning_date:
                     # Check exemption
                     if (
@@ -284,10 +285,10 @@ class ResPartner(models.Model):
                     shift.revert_info = main_shift.revert_info
                     # Set new date
                     shift.start_time = self.add_days(
-                        main_shift.start_time, days=i * shift_period
+                        main_shift.start_time, days=days_increment
                     )
                     shift.end_time = self.add_days(
-                        main_shift.end_time, days=i * shift_period
+                        main_shift.end_time, days=days_increment
                     )
                     # Add the fictive shift to the list of shift
                     planned_shifts.append(shift)

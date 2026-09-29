@@ -457,3 +457,38 @@ class TestShift(TestShiftCommon):
             self.worker_regular_1.cooperative_status_ids.next_shift_id,
             next_shift,
         )
+
+    def test_get_next_shifts(self):
+        """Test that generated shifts are correct"""
+        self._generate_shifts(days=1, nb=2)
+        (
+            generated_shifts_before,
+            planned_shifts_before,
+        ) = self.worker_regular_1.get_next_shifts()
+        # unsubscribe from already generated shifts
+        for shift in generated_shifts_before:
+            shift.write(
+                {
+                    "worker_id": False,
+                    "is_regular": False,
+                    "is_compensation": False,
+                }
+            )
+        (
+            generated_shifts_after,
+            planned_shifts_after,
+        ) = self.worker_regular_1.get_next_shifts()
+        # there should be no generated shifts and planned shifts should
+        # be unchanged.
+        self.assertEqual(generated_shifts_after, [])
+        self.assertEqual(len(planned_shifts_before), len(planned_shifts_after))
+        for shift_before, shift_after in zip(
+            planned_shifts_before, planned_shifts_after
+        ):
+            # planned shifts are created by new() so we need to
+            # check some field of the shift to ensure that there are the
+            # same.
+            self.assertEqual(shift_before.name, shift_after.name)
+            self.assertEqual(shift_before.start_time, shift_after.start_time)
+            self.assertEqual(shift_before.end_time, shift_after.end_time)
+            self.assertEqual(shift_before.worker_id, shift_after.worker_id)
