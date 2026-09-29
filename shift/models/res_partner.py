@@ -275,7 +275,7 @@ class ResPartner(models.Model):
                     shift.task_template_id = main_shift.task_template_id
                     shift.planning_id = main_shift.planning_id
                     shift.task_type_id = main_shift.task_type_id
-                    shift.worker_id = main_shift.worker_id
+                    shift.worker_id = self
                     shift.state = "open"
                     shift.super_coop_id = main_shift.super_coop_id
                     shift.color = main_shift.color
