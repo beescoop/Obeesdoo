@@ -223,7 +223,7 @@ class ShiftTemplate(models.Model):
     worker_ids = fields.Many2many(
         "res.partner",
         string="Recurrent worker assigned",
-        domain=[("is_worker", "=", True)],
+        domain=[("is_worker", "=", True), ("working_mode", "!=", False)],
     )
     remaining_worker = fields.Integer(
         compute="_compute_remaining", store=True, string="Remaining Place"
