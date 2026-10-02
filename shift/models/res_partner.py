@@ -257,8 +257,9 @@ class ResPartner(models.Model):
                 exemption_start = status.temporary_exempt_start_date
                 exemption_end = status.temporary_exempt_end_date
 
-            for i in range(1, regular_next_shift_limit - len(generated_shifts) + 1):
-                shift_date = self.add_days(main_shift.start_time, days=i * shift_period)
+            for i in range(regular_next_shift_limit):
+                days_increment = (i + 1) * shift_period
+                shift_date = self.add_days(main_shift.start_time, days=days_increment)
                 if shift_date > next_planning_date:
                     # Check exemption
                     if (
@@ -275,7 +276,7 @@ class ResPartner(models.Model):
                     shift.task_template_id = main_shift.task_template_id
                     shift.planning_id = main_shift.planning_id
                     shift.task_type_id = main_shift.task_type_id
-                    shift.worker_id = main_shift.worker_id
+                    shift.worker_id = self
                     shift.state = "open"
                     shift.super_coop_id = main_shift.super_coop_id
                     shift.color = main_shift.color
@@ -284,10 +285,10 @@ class ResPartner(models.Model):
                     shift.revert_info = main_shift.revert_info
                     # Set new date
                     shift.start_time = self.add_days(
-                        main_shift.start_time, days=i * shift_period
+                        main_shift.start_time, days=days_increment
                     )
                     shift.end_time = self.add_days(
-                        main_shift.end_time, days=i * shift_period
+                        main_shift.end_time, days=days_increment
                     )
                     # Add the fictive shift to the list of shift
                     planned_shifts.append(shift)
@@ -311,7 +312,7 @@ class ResPartner(models.Model):
         user_tz = utc
         if cur_user.tz:
             user_tz = timezone(cur_user.tz)
-        elif self.env.context["tz"]:
+        elif self.env.context.get("tz"):
             user_tz = timezone(self.env.context["tz"])
         # Convert to UTC
         dt_utc = utc.localize(datetime, is_dst=False)
