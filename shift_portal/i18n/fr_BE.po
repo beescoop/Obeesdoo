@@ -36,7 +36,8 @@ msgstr "<span class=\"fa fa-lg fa-globe\" title=\"Les valeurs définies ici sont
 #: model_terms:ir.ui.view,arch_db:shift_portal.my_shift_next_shifts
 msgid "<span class=\"fa fa-user-plus\" aria-hidden=\"true\"/>\n"
 "                                    Unsubscribe"
-msgstr ""
+msgstr "<span class=\"fa fa-user-plus\" aria-hidden=\"true\"/>\n"
+"                                    Se désinscrire"
 
 #. module: shift_portal
 #: model_terms:ir.ui.view,arch_db:shift_portal.my_shift_next_shifts
@@ -50,7 +51,8 @@ msgstr "<span class=\"fa fa-user-plus\" aria-hidden=\"true\"/>\n"
 #: model_terms:ir.ui.view,arch_db:shift_portal.available_shift_irregular_worker_card
 msgid "<span class=\"fa fa-user-plus\" aria-hidden=\"true\"/>\n"
 "                Subscribe"
-msgstr ""
+msgstr "<span class=\"fa fa-user-plus\" aria-hidden=\"true\"/>\n"
+"                S'inscrire"
 
 #. module: shift_portal
 #: model_terms:ir.ui.view,arch_db:shift_portal.help_text_irregular_worker
@@ -84,7 +86,17 @@ msgid "<strong>Alert:</strong>\n"
 "            attendance list.\n"
 "            No panic, you still can come and shop, so can your eaters if you\n"
 "            have any."
-msgstr ""
+msgstr "<strong>Alert:</strong>\n"
+"            Si tu es en statut d'alerte, cela veux dire que tu n'as pas fais\n"
+"            ton dernier shift. Tu as jusqu'à ton prochain shift déjà planifié\n"
+"            pour faire un shift de compensation selon ta situation.\n"
+"            Ta compensation est simple ou double. Si tu ne sais pas combien de\n"
+"            shifts de compensation tu dois faire, merci de contacter un supercoop.\n "
+"            Pour faire un shift de compensation, pas besoin de s'inscrire en avance\n"
+"            viens simplement au début du shift qui te convient.\n"
+"            Ajoute ton nom et l'indication \"shift de compensation\" sur la liste des\n"
+"            participants.\n"
+"            Pas de panique, tu peux toujours venir faire tes achats.\n"
 
 #. module: shift_portal
 #: model_terms:ir.ui.view,arch_db:shift_portal.help_text_irregular_worker
@@ -682,13 +694,13 @@ msgstr "Tes shifts"
 #: code:addons/shift_portal/controllers/main.py:643
 #, python-format
 msgid "Your subscription has failed. Someone subscribed before you or the shift was deleted. Try again in a moment."
-msgstr ""
+msgstr "Votre inscription n'a pas pu être validée. Quelqu'un s'est inscrit avant vous ou le shift a été modifié. Veuillez réessayer dans un instant."
 
 #. module: shift_portal
 #: code:addons/shift_portal/controllers/main.py:640
 #, python-format
 msgid "Your subscription has succeded."
-msgstr ""
+msgstr "Votre inscription est validée."
 
 #. module: shift_portal
 #: model_terms:ir.ui.view,arch_db:shift_portal.available_shift_irregular_worker_card
