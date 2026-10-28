@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
 SPDX-FileCopyrightText: 2025 Coop IT Easy SC
 
@@ -20,11 +20,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="description">Shift Cheese Cutting</field>
     </record>
 
-    <record
-        id="volunteer_shift_type_demo_delicatessen_cut"
-        model="volunteer.shift.type"
-    >
+    <record id="volunteer_shift_type_demo_delicatessen_cut" model="volunteer.shift.type">
         <field name="name">Delicatessen Cutting</field>
         <field name="description">Shift Delicatessen Cutting</field>
+    </record>
+    <!--? anartemis test -->
+    <record id="volunteer_shift_type_demo_watering plants" model="volunteer.shift.type">
+        <field name="name">Watering plants</field>
+        <field name="description">Shift Watering plants</field>
     </record>
 </odoo>

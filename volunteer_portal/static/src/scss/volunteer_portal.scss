@@ -1,0 +1,14 @@
+// anartemis-test : already handled with Bootstrap BUT here we can personalize colours or add styling etc.
+
+.o_volunteer_shift_participation_canceled {
+    background-color: orangered;
+    color: aqua;
+    td {
+        text-decoration: line-through;  // children
+    }
+}
+
+.o_volunteer_shift_participation_confirmed {
+        background-color: #36b540;
+        color:dodgerblue
+    }
