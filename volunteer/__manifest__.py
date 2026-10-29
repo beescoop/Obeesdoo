@@ -2,18 +2,20 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-{
+{  # noqa: B018
+
     "name": "Volunteer",
     "summary": """
         Generate and manage shifts for volunteers.""",
     "version": "16.0.0.8.0",
-    "category": "Volunteer management",
+    "category": "Volunteer shifts management",
     "website": "https://github.com/beescoop/Obeesdoo",
     "author": "Coop IT Easy SC",
     "maintainers": ["aydrpm", "remytms"],
     "license": "AGPL-3",
     "application": True,
-    "depends": ["mail"],
+    #?anartemis test : added "portal"
+    "depends": ["mail", "portal"],
     "data": [
         "data/volunteer_shift_stage_data.xml",
         "security/volunteer_security.xml",
