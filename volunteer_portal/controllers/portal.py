@@ -7,7 +7,10 @@ from odoo import fields
 #* translations, if we keep "raise Forbidden"
 #* from odoo.tools.translate import _
 
-from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
+from odoo.addons.portal.controllers.portal import CustomerPortal
+
+# dropped pager
+# #, pager as portal_pager
 
 # Little counter icon - inheriting class from "portal" Odoo module
 class VolunteerPortal(CustomerPortal):
@@ -60,24 +63,22 @@ class VolunteerPortal(CustomerPortal):
         # shortcut variable to access records / tables in the model / DB
         Participation = request.env["volunteer.shift.participation"].sudo()
     
-        # Prepare pager data
-        participation_count = Participation.search_count(domain)
-        pager_data = portal_pager(
-            url="/my/volunteer-shifts",
-            total=participation_count,
-            page=page,
-            step=self._items_per_page,
-        )
-        # Recordset according to pager and domain filter + order (= "order by" in SQL) by start time, descending
-        participations = Participation.search(domain, limit=self._items_per_page, offset=pager_data["offset"], order="shift_start_time desc")
+        # Recordset according domain filter + order (= "order by" in SQL) by start time-day, ascending
+        # Creating a "now" variable for UTC (not server local time), in order to split view correctly into 'past shifts' & 'future shifts'
+        now = fields.Datetime.now()
+        participations = Participation.search(domain, order="shift_start_time asc")
+        # Creating the filtering logic for 2 separate views / columns: "past" & "future" shifts
+        future_participations = participations.filtered(lambda p:p.shift_start_time >= now)
+        past_participations = participations.filtered(lambda p: p.shift_start_time < now)
         # Prepare template values
         values = self._prepare_portal_layout_values()
         values.update(
             {   
-                "participations": participations,
+                "future_participations": future_participations,
+                "past_participations": past_participations,
+                "now": now,
                 "page_name": "volunteer_shifts",
                 "default_url": "/my/volunteer-shifts",
-                "pager": pager_data,
             }
         )                                        
         return request.render("volunteer_portal.my_shifts", values)
@@ -113,7 +114,7 @@ class VolunteerPortal(CustomerPortal):
     )
     
     
-    def volunteer_single_shift_participation(self, participation_id=None, **kw):
+    def my_single_shift_participation(self, participation_id=None, **kw):
                                                #? PREVIOUS: doc=None   
                                                # doc=None = receives the registering of participation found via the URL
                                                # **kw : Retrieves all other optional parameters passed in the URL (like arguments after "?")  

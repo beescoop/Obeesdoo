@@ -16,119 +16,195 @@
   </xpath>
 </template>
 
-<!--* List of shifts participations for this volunteer (/my/volunteer-shifts)-->
+<!--* List of shifts participations for this volunteer, split into "past" and "future" shifts (/my/volunteer-shifts)-->
 
 <template id="my_shifts" name="My shifts">
   <!-- Template will inherit from Odoo’s default portal layout (header + footer)-->
   <t t-call="portal.portal_layout">
     
-    <!--? anartemis test for title, see for order (accessibility)-->
-    <h2> My shifts participations</h2>
+    <!--? anartemis test for "page" title, checked the DOM: no h1 yet -> headings hierarchy and order OK (accessibility check)-->
     
-    <!-- Cancellation confirmation message -->
+    <h1>My shifts</h1>
+    
+    <!--* Error / Success messages to user -->
+    
+    <!--TODO: put error messages inside values (other method) -->
+    <!-- Cancelation confirmation message -->
     <div t-if="request.params.get('message') == 'canceled'" class="alert alert-success" role="alert">
       Your shift participation was canceled.
     </div>
     
-    
-    <!--!TO TEST: Cancellation error message -->
+    <!--TODO: put error messages inside values (other method) -->
+    <!--!TO TEST: Cancelation error message -->
     <div t-if="request.params.get('message') == 'error'" class="alert alert-warning" role="alert">
       Could not cancel this shift participation.
     </div>
-    <!-- Conditional rendering = only if there are shifts participations for usr, it's rendered -->
-    <t t-if="participations" t-call="portal.portal_table">
-      <!-- Accessibility: added "caption" [specifies the caption (or title) of a table, providing the table an accessible name or accessible description.]
-      https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/caption + https://getbootstrap.com/docs/5.0/helpers/visually-hidden/-->
-      <caption class="visually-hidden"> My shift participations</caption>
-      <thead>
-        <tr>"
-          <!-- Accessibility: added th "scope" attribute => [specifies whether a header cell is a header for a column, row, or group of columns or rows
-          Note: The scope attribute has no visual effect in ordinary web browsers, but can be used by screen readers] https://www.w3schools.com/tags/att_th_scope.asp -->
-          <th scope="col">What shift?</th>
-          <th scope="col">Start time and date</th>
-          <th scope="col">End time and date</th>
-          <th scope="col">Shift status (participation or existence)(Confirmed | Canceled)</th>
-          <th scope="col">Shift registration type</th>
-          <!--TODO when writing the "Register for a shift" form/controller : volunteer registered themselves via portal should be automatically set to "website"-->
-          <th scope="col"> Registered for this shift on:</th>
-          <!--*CANCEL SHIFT REGISTRATION / PARTICIPATION -->
-          <!--TODO Add confirmation "Are you sure?" -->
-          <th scope="col">Cancel shift participation</th>
-          <!--Either volunteer canceled participation themselves via portal or admin canceled the shift itself -->
-          <th scope="col">Shift (participation) canceled on:</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!--* Shifts participations list for volunteer - for each) -->
-        <tr t-foreach="participations" t-as="participation">
+    
+    <!--* Past shifts -->
+    
+    <div class="col-md-6">
+      
+      <section aria-labelled-by="past-title">
+        <!-- View is closed by default -->
+        <details>
           
-          <!--? SEE WHAT SLUG IS: "slug is used to generate a clean, user-friendly
-          URL, based on a record name. sitemap_qs2dom is used to generate a domain based on route and
-          query strings.
-          In step 2, we created a Python generator function,sitemap_hostels(). This function will be
-          called whenever a sitemap is generated. During the call, it will receive three arguments—the env
-          Odoo environment, the rule route rule, and the qs query string. In the function, we generated a
-          domain with sitemap_qs2dom. Then, we used the generated domain to search the hostel records,
-          which are used to generate the location through the slug() method. With slug, you will get a
-          user-friendly URL, such as /hostels/cambridge-1.-->
+          <summary> <h2 id="past-title"> Past shifts </h2></summary>
           
-          <!-- <td> -->
-          <!-- <a t-attf-href="/my/volunteer-shifts/{{slug(doc)}}"> -->
-          <!-- <span t-field="doc.shift_id.display_name" /> -->
-          <!-- </a> -->
-          <!-- </td> -->
-          
-          <!--? btn-link that redirects to single shift participation details -->
-          <td><a t-attf-href="/my/volunteer-shifts/#{participation.id}"><span t-field="participation.shift_id.display_name"/></a></td>
-          <td><span t-field="participation.shift_start_time"/></td>
-          <td><span t-field="participation.shift_end_time"/></td>
-          <!-- Confirmed / canceled volunteer shift participation with BS classes -->
-          <td><span t-field="participation.registration_state" t-attf-class="badge #{'bg-danger'if participation.registration_state == 'canceled' else 'bg-success'}"/></td>
-          <td><span t-field="participation.registration_type"/></td>
-          <td><span t-field="participation.registration_date"/></td>
-          
-          <!--* Cancel button / form -->
-          <td>
-            
-            <!-- Only CONFIRMED state  + future participations can be canceled -->
-            
-            <t t-if="participation.registration_state == 'confirmed' and participation.shift_id.start_time &gt;= datetime.datetime.now()">
+          <!-- Conditional rendering = only if there are past shifts participations for usr, it's rendered -->
+          <t t-if="past_participations" t-call="portal.portal_table">
+            <!-- Accessibility: added "caption" [specifies the caption (or title) of a table, providing the table an accessible name or accessible description.]
+            https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/caption + https://getbootstrap.com/docs/5.0/helpers/visually-hidden/-->
+            <caption class="visually-hidden"> My past shifts</caption>
+            <thead>
+              <tr>
+                <!-- Accessibility:: th "scope" attribute => [specifies whether a header cell is a header for a column, row, or group of columns or rows
+                Note: The scope attribute has no visual effect in ordinary web browsers, but can be used by screen readers] -->
+                
+                <th scope="col">What shift?</th>
+                <th scope="col">From when?</th>
+                <th scope="col">Until when?</th>
+                <th scope="col">How were you registered?</th>
+              </tr>
+            </thead>
+            <tbody>
               
-              <!-- POST form -->
+              <!--* Past shifts past participations list for usr- for each) -->
               
-              <form t-attf-action="/my/volunteer-shifts/#{participation.id}" method="post">
+              <tr t-foreach="past_participations" t-as="participation">
                 
+                <!--*Link redirecting to single shift participation details -->
                 
-                <!-- CSRF token required for (POST req)form -->
+                <td><a t-attf-href="/my/volunteer-shifts/#{participation.id}"><span t-field="participation.shift_id.display_name"/></a></td>
+                <td><span t-field="participation.shift_start_time"/></td>
+                <td><span t-field="participation.shift_end_time"/></td>
+                <td><span t-field="participation.registration_type"/></td>
                 
-                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                <button type="submit" class="btn btn-danger">Cancel my participation</button>
-              </form>
+              </tr>
+            </tbody>
+          </t>
+          
+          <!-- Conditional rendering => if no past shift participation for usr -->
+          
+          <t t-else="">
+            <div class="alert alert-warning" role="alert">
+              No past shifts registrations!
+            </div>
+          </t>
+        </details>
+      </section>
+    </div>
+    
+    <!--* Future shifts -->
+    
+    <div class="row">
+      <div class="col-md-6">
+        <section aria-labelled-by="future-title">
+          <!-- View is open by default -->
+          <details open="open">
+            <summary> <h2 id="future-title"> Future shifts </h2></summary>
+            
+            <!-- Conditional rendering = only if there are future shifts participations for usr, it's rendered -->
+            <t t-if="future_participations" t-call="portal.portal_table">
+              <!-- Accessibility:: "caption" (HTML) + "visually-hidden" (BS) -->
+              <caption class="visually-hidden"> My future shifts</caption>
+              <thead>
+                <tr>
+                  <!-- Accessibility:: th "scope" attribute -->
+                  
+                  <th scope="col">What shift?</th>
+                  <th scope="col">From when?</th>
+                  <th scope="col">Until when?</th>
+                  <!--? Confirmed or Canceled (see if we display canceled shifts in the end - and how to inform usr their shift has been canceled by admin) -->
+                  <th scope="col">Status</th>
+                  <!--? TO DELETE, PUT IN DETAILED SHIFT VIEW - TOGGLEABLE - OR MENU -->
+                  <th scope="col">Shift registration type</th>
+                  <!--TODO when writing the "Register for a shift" form/controller: volunteer registered themselves via portal should be automatically set to "website"-->
+                  <!--? TO DELETE, PUT IN DETAILED SHIFT VIEW - TOGGLEABLE - OR MENU -->
+                  <th scope="col"> Registered for this shift on:</th>
+                  <!--*CANCEL SHIFT REGISTRATION / PARTICIPATION -->
+                  <!--TODO Add confirmation "Are you sure?" -->
+                  <th scope="col">Cancel your shift participation</th>
+                  <!--Either volunteer canceled participation themselves via portal or admin canceled the shift itself -->
+                  <!--? TO DELETE, PUT IN DETAILED SHIFT VIEW - TOGGLEABLE - OR MENU -->
+                  <th scope="col">Shift (participation) canceled on:</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                <!--* Future participations list for volunteer - for each) -->
+                
+                <tr t-foreach="future_participations" t-as="participation">
+                  
+                  <!--? SEE WHAT SLUG IS: "slug is used to generate a clean, user-friendly
+                  URL, based on a record name. sitemap_qs2dom is used to generate a domain based on route and
+                  query strings.
+                  In step 2, we created a Python generator function,sitemap_hostels(). This function will be
+                  called whenever a sitemap is generated. During the call, it will receive three arguments—the env
+                  Odoo environment, the rule route rule, and the qs query string. In the function, we generated a
+                  domain with sitemap_qs2dom. Then, we used the generated domain to search the hostel records,
+                  which are used to generate the location through the slug() method. With slug, you will get a
+                  user-friendly URL, such as /hostels/cambridge-1.-->
+                  
+                  <!-- <td> -->
+                  <!-- <a t-attf-href="/my/volunteer-shifts/{{slug(doc)}}"> -->
+                  <!-- <span t-field="doc.shift_id.display_name" /> -->
+                  <!-- </a> -->
+                  <!-- </td> -->
+                  
+                  <!--? Link that redirects to single shift participation details -->
+                  
+                  <td><a t-attf-href="/my/volunteer-shifts/#{participation.id}"><span t-field="participation.shift_id.display_name"/></a></td>
+                  <td><span t-field="participation.shift_start_time"/></td>
+                  <td><span t-field="participation.shift_end_time"/></td>
+                  <!-- Confirmed / canceled volunteer shift participations with BS semantic-coloured-classes -->
+                  <!--? TO DELETE, PUT IN DETAILED SHIFT VIEW - TOGGLEABLE - OR MENU -->
+                  <td><span t-field="participation.registration_state" t-attf-class="badge #{'bg-danger'if participation.registration_state == 'canceled' else 'bg-success'}"/></td>
+                  <!--? TO DELETE, PUT IN DETAILED SHIFT VIEW - TOGGLEABLE - OR MENU -->
+                  <td><span t-field="participation.registration_type"/></td>
+                  <!--? TO DELETE, PUT IN DETAILED SHIFT VIEW - TOGGLEABLE - OR MENU -->
+                  <td><span t-field="participation.registration_date"/></td>
+                  
+                  <!--* Cancel button / form -->
+                  <td>
+                    
+                    <!-- Only CONFIRMED state + future participations can be canceled -->
+                    <t t-if="participation.registration_state == 'confirmed' and participation.shift_id.start_time &gt;= now">
+                      
+                      <!-- POST form -->
+                      <form t-attf-action="/my/volunteer-shifts/#{participation.id}" method="post">
+                        
+                        <!-- CSRF token required for POST req in form -->
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <button type="submit" class="btn btn-danger">Cancel my participation</button>
+                      </form>
+                    </t>
+                  </td>
+                  <!--? TO DELETE, PUT IN DETAILED SHIFT VIEW - TOGGLEABLE - OR MENU -->
+                  <td><span t-field="participation.cancellation_date"/></td>
+                </tr>
+              </tbody>
             </t>
-          </td>
-          <td><span t-field="participation.cancellation_date"/></td>
-        </tr>
-      </tbody>
-    </t>
-    <!--TODO: test -->
-    <!-- Conditional rendering => if no shift participation for connected usr -->
-    <t t-else="">
-      <div class="alert alert-warning" role="alert">
-        You are not registered for any shifts
-        <!--? Q? : add a register button that redirects to available shifts? -->
+            <!-- Conditional rendering => if no shift participation for connected usr -->
+            <t t-else="">
+              <div class="alert alert-warning" role="alert">
+                No shifts registrations!
+                <!--? : add a "register" button that redirects to available shifts? -->
+              </div>
+            </t>
+          </details>
+        </section>
       </div>
-    </t>
-    <!--TODO: test-->
-    <!-- Page nav (only if 1+ page) -->
-    <div class="o_portal_pager text-center" t-if="pager">
-      <t t-call="portal.pager"/>
     </div>
   </t>
 </template>
 
+
 <!--* List of shifts participations detail for this volunteer (/my/volunteer-shifts)-->
-<!--! BOOK DETAIL SHIFT - TO CHECK AND ADAPT FOR ACCESSIBILITY AND UX => SEMANTIC HTML, title order etc etc -->
-<template id="volunteer_single_shift_participation" name="Shift participation detail">
+<!--! BOOK VERSION SINGLE SHIFT DETAILS - TO CHECK AND ADAPT TO WHAT WE WANT (UX) & FOR ACCESSIBILITY > semantic HTML, title order, BS classes etc -->
+<!--? Add a menu for usr to control their participation to shift here? -->
+
+<template id="volunteer_single_shift_participation" name="My shift participation details">
+  <!-- Portal layout -->
   <t t-call="portal.portal_layout">
     <t t-call="portal.portal_record_layout">
       
@@ -166,11 +242,9 @@
         </div>
         <!-- !See how to fetch coordinator_id (in another model) -->
         <!-- <div> Coordinator:
-          <span t-field="volunteer.coordinator_id"/>
+        <span t-field="volunteer.coordinator_id"/>
         </div> -->
-        
       </t>
-      
     </t>
   </t>
 </template>
