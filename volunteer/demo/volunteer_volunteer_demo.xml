@@ -17,7 +17,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <record id="volunteer_demo_john" model="volunteer.volunteer">
         <field name="partner_id" ref="volunteer_partner_demo_john" />
     </record>
-
+    
     <record id="volunteer_partner_demo_emma" model="res.partner">
         <field name="name">Emma Rousseau</field>
         <field name="street">23 rue du Trône</field>
@@ -31,7 +31,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="partner_id" ref="volunteer_partner_demo_emma" />
         <field name="is_regular" eval="True" />
     </record>
-
+    
     <record id="volunteer_partner_demo_jean" model="res.partner">
         <field name="name">Jean Dupont</field>
         <field name="street">21 rue du Trône</field>
@@ -43,19 +43,5 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </record>
     <record id="volunteer_demo_jean" model="volunteer.volunteer">
         <field name="partner_id" ref="volunteer_partner_demo_jean" />
-    </record>
-
-    <!-- anartemis test: added new volunteer -->
-    <record id="volunteer_partner_demo_julie" model="res.partner">
-        <field name="name">Julie Miche</field>
-        <field name="street">21 rue du Fort</field>
-        <field name="zip">1060</field>
-        <field name="city">Saint-Gilles</field>
-        <field name="country_id" ref="base.be" />
-        <field name="phone">0473456784</field>
-        <field name="email">julie.miche@example.com</field>
-    </record>
-    <record id="volunteer_demo_julie" model="volunteer.volunteer">
-        <field name="partner_id" ref="volunteer_partner_demo_julie" />
     </record>
 </odoo>
