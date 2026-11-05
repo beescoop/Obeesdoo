@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+SPDX-FileCopyrightText: 2025 Coop IT Easy SC
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<odoo>
+    <record
+        id="volunteer_company_holiday_demo_christmas"
+        model="volunteer.company.holiday"
+    >
+        <field name="name">Christmas Holidays</field>
+        <field name="start_date" eval="(datetime.today().replace(month=12, day=24))" />
+        <field name="end_date" eval="(datetime.today().replace(month=12, day=25))" />
+    </record>
+
+    <record
+        id="volunteer_company_holiday_demo_store_inventory"
+        model="volunteer.company.holiday"
+    >
+        <field name="name">Store Inventory</field>
+        <field name="start_date" eval="(datetime.today().replace(month=7, day=1))" />
+        <field name="end_date" eval="(datetime.today().replace(month=7, day=7))" />
+    </record>
+</odoo>
