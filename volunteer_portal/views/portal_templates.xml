@@ -1,10 +1,14 @@
 <odoo>
-  
+
   <!--* "My Shifts" card + counter in /my (Home portal page) -->
-  
-  <template id="portal_my_home"
-  inherit_id="portal.portal_my_home"
-  priority="100" name="Show My Shifts" customize_show="True">
+
+  <template
+        id="portal_my_home"
+        inherit_id="portal.portal_my_home"
+        priority="100"
+        name="Show My Shifts"
+        customize_show="True"
+    >
   <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
     <t t-call="portal.portal_docs_entry">
       <t t-set="title">My shifts</t>
@@ -18,149 +22,135 @@
   </xpath>
 </template>
 
-<!--* All shifts participations for this volunteer, split into future & past shifts (/my/volunteer-shifts)-->
+<!--* All shifts participations for this volunteer, split into upcoming & past shifts (/my/volunteer-shifts)-->
 
 <template id="my_shifts" name="My shifts">
+
   <!-- Template will inherit from Odoo’s default portal layout (header + footer)-->
+
   <t t-call="portal.portal_layout">
-    
-    <!-- "Page" title - checked the DOM: no h1 yet -> headings hierarchy and order OK (accessibility check)-->
+
     <h1>My shifts</h1>
-    
+
     <!--* Success message on cancel participation -->
-    
-    <div class="alert alert-success" role="status" t-if="success.get('cancel_participation')">
+
+    <div
+                class="alert alert-success"
+                role="status"
+                t-if="success.get('cancel_participation')"
+            >
       <t t-out="success['cancel_participation']" />
     </div>
-    
+
     <!--* Error message on cancel participation -->
-    
-    <div class="alert alert-danger" role="alert" t-if="errors.get('cancel_participation')">
+
+    <div
+                class="alert alert-danger"
+                role="alert"
+                t-if="errors.get('cancel_participation')"
+            >
       <t t-out="errors['cancel_participation']" />
     </div>
-    
-    <!--* Future shifts -->
-    
-    <!--? Accessibility:: see https://www.w3.org/WAI/tutorials/tables/caption-summary/ and adapt -->
-    
-    <div class="row">
-      <div class="col-md-6">
-        <section aria-labelledby="future-title">
-          <!-- View is open by default -->
-          <details open="open">
-            <summary> <h2 id="future-title"> Future shifts </h2></summary>
-            
-            <!-- Conditional rendering = only if there are future shifts participations for usr, it's rendered -->
-            
-            <t t-if="future_participations" t-call="portal.portal_table"> 
-              
-              <!-- Accessibility:: "caption" (HTML) + "visually-hidden" (BS) -->
-              <caption class="visually-hidden">My future shifts</caption>
-              <thead>
-                <tr>
-                  <!-- Accessibility:: th "scope" attribute -->
-                  <th scope="col">What shift?</th>
-                  <th scope="col">From when?</th>
-                  <th scope="col">Until when?</th>
-                  <!--!TODO? Confirmed or Canceled (see if we display canceled shifts in the end - and how to inform usr their shift has been canceled by admin) -->
-                  <th scope="col">Shift status</th>
-                  <!--? TO DELETE, PUT IN DETAILED SHIFT VIEW - TOGGLEABLE - OR MENU -->
-                  <!-- <th scope="col">Shift registration type</th> -->
-                  
-                  <!--TODO when writing the "Register for a shift" form/controller: volunteer registered themselves via portal should be automatically set to "website"-->
-                  
-                  <!--? TO DELETE, PUT IN DETAILED SHIFT VIEW - TOGGLEABLE - OR MENU -->
-                  <!-- <th scope="col"> Registered for this shift on:</th> -->
-                  <!--*CANCEL SHIFT REGISTRATION / PARTICIPATION -->
-                  <!--TODO Add confirmation "Are you sure?" -->
-                  <th scope="col">Cancel your shift participation</th>
-                  <!--Either volunteer canceled participation themselves via portal or admin canceled the shift itself -->
-                  <!--? TO DELETE, PUT IN DETAILED SHIFT VIEW - TOGGLEABLE - OR MENU -->
-                  <!-- <th scope="col">Shift (participation) canceled on:</th> -->
-                </tr>
-              </thead>
-              <tbody>
-                
-                <!--* Future participations list for volunteer - for each) -->
-                <!--? When shift is canceled either by admin or user: if the latter, should be greyed out / removed in the list of future shifts -->
-                <tr t-foreach="future_participations" t-as="participation">
-                  
-                  <!--? SEE WHAT SLUG IS: "slug is used to generate a clean, user-friendly
-                  URL, based on a record name. sitemap_qs2dom is used to generate a domain based on route and
-                  query strings.
-                  In step 2, we created a Python generator function,sitemap_hostels(). This function will be
-                  called whenever a sitemap is generated. During the call, it will receive three arguments—the env
-                  Odoo environment, the rule route rule, and the qs query string. In the function, we generated a
-                  domain with sitemap_qs2dom. Then, we used the generated domain to search the hostel records,
-                  which are used to generate the location through the slug() method. With slug, you will get a
-                  user-friendly URL, such as /hostels/cambridge-1.-->
-                  
-                  <!-- <td> -->
-                  <!-- <a t-attf-href="/my/volunteer-shifts/{{slug(doc)}}"> -->
-                  <!-- <span t-field="doc.shift_id.display_name" /> -->
-                  <!-- </a> -->
-                  <!-- </td> -->
-                  
-                  <!--? Link that redirects to single shift participation details -->
-                  
-                  <td><a t-attf-href="/my/volunteer-shifts/#{participation.id}"><span t-field="participation.shift_id.display_name"/></a></td>
-                  <!-- Start time -->
-                  <td><span t-field="participation.shift_start_time"/></td>
-                  <!-- End time -->
-                  <td><span t-field="participation.shift_end_time"/></td>
-                  <!-- Confirmed | Canceled shift OR participation to shift -->
-                  <td><span t-field="participation.registration_state" t-attf-class="badge #{'bg-danger'if participation.registration_state == 'canceled' else 'bg-success'}"/></td>
-                  <!--? TO DELETE, PUT IN DETAILED SHIFT VIEW - TOGGLEABLE - OR MENU -->
-                  <!-- <td><span t-field="participation.registration_type"/></td> -->
-                  <!--? TO DELETE, PUT IN DETAILED SHIFT VIEW - TOGGLEABLE - OR MENU -->
-                  <!-- <td><span t-field="participation.registration_date"/></td> -->
-                  
-                  <!--* Cancel button / form -->
-                  <td>
-                    <!-- Only CONFIRMED state + future participations can be canceled -->
-                    <t t-if="participation.registration_state == 'confirmed' and participation.shift_id.start_time &gt;= now">
-                      <!-- Cancel shift participation form -->
-                      <form action="/my/volunteer-shifts" method="post">
-                        <!-- t-att-$name (not a string, no "f")  --> 
-                        <input name="csrf_token" type="hidden" t-att-value="request.csrf_token()" />
-                        <input name="action" type="hidden" value="cancel_participation" />
-                        <!-- t-att-$name (not a string, no "f")          -->
-                        <input name="participation_id" type="hidden" t-att-value="participation.id" />
-                        
-                        <button type="submit" class="btn btn-danger">Cancel participation</button> 
-                      </form>
-                    </t>
-                  </td>
-                  
-                  <!--? TO DELETE, PUT IN DETAILED SHIFT VIEW - TOGGLEABLE - OR MENU -->
-                  <!-- <td><span t-field="participation.cancellation_date"/></td> -->
-                </tr>
-              </tbody>         
-            </t>
-            <!-- Conditional rendering -> if no shift participation for connected usr -->
-            <t t-else="">
-              <div class="alert alert-warning" role="alert">
-                No shifts registrations!
-                <!--TODO : add a "Register for a shift" button that redirects to available shifts -->
-              </div>
-            </t>
-          </details>
-        </section>
-      </div>
-    </div>
-    
+
+    <!--* Upcoming shifts -->
+
+    <section aria-labelledby="upcoming-title">
+
+      <h2 id="upcoming-title">_("My upcoming shifts") </h2>
+
+      <!-- Conditional rendering -> only if there are upcoming shift participations for volunteer -->
+
+      <t t-if="upcoming_participations">
+
+        <!--TODO when writing the "Register for a shift" form/controller: volunteer registered themselves via portal should be automatically set to "website"-->
+        <!--TODO When shift is canceled either by admin or user: if the latter, should be greyed out / removed in the list of upcoming shifts -->
+
+        <ul class="list-unstyled">
+          <li t-foreach="upcoming_participations" t-as="participation">
+            <article>
+
+              <!--TODO: Shift name + link to detail (to change later)-->
+              <h3>
+                <a t-attf-href="/my/volunteer-shifts/#{participation.id}">
+                  <span t-field="participation.shift_id.display_name" />
+                </a>
+              </h3>
+
+              <!-- Key/value pair but no displayed labels ("visually-hidden" label for screen readers) -->
+              <dl>
+                <!--? Find how to display only date then hours without date -->
+                <dt class="visually-hidden">Shift starttime</dt>
+                <dd><span t-field="participation.shift_start_time" /></dd>
+
+                <dt class="visually-hidden">Shift endtime</dt>
+                <dd><span t-field="participation.shift_end_time" /></dd>
+
+                <dt class="visually-hidden">Shift status</dt>
+                <dd><span
+                                            t-field="participation.registration_state"
+                                            t-attf-class="badge #{'bg-danger'if participation.registration_state == 'canceled' else 'bg-success'}"
+                                        /></dd>
+              </dl>
+
+
+              <!-- Only CONFIRMED state + upcoming participations can be canceled -->
+              <t
+                                    t-if="participation.registration_state == 'confirmed' and participation.shift_id.start_time &gt;= now"
+                                >
+
+                <!-- Cancel shift participation form -->
+
+                <form action="/my/volunteer-shifts" method="post">
+                  <!-- t-att-$name (not a string, no "f")  -->
+                  <input
+                                            name="csrf_token"
+                                            type="hidden"
+                                            t-att-value="request.csrf_token()"
+                                        />
+                  <input name="action" type="hidden" value="cancel_participation" />
+                  <!-- t-att-$name (not a string, no "f")          -->
+                  <input
+                                            name="participation_id"
+                                            type="hidden"
+                                            t-att-value="participation.id"
+                                        />
+
+                  <button
+                                            type="submit"
+                                            class="btn btn-danger"
+                                        >Cancel participation</button>
+                </form>
+              </t>
+            </article>
+          </li>
+        </ul>
+      </t>
+
+
+      <!-- Conditional rendering -> if no shift participation for volunteer-->
+      <t t-else="">
+        <div class="alert alert-warning" role="alert">
+          No upcoming shifts registrations!
+        </div>
+        <!--TODO : add a "Register for a shift" button that redirects to available shifts -->
+      </t>
+    </section>
+
+
+
+
     <!--* Past shifts -->
-    
+
     <!--? Accessibility:: see https://www.w3.org/WAI/tutorials/tables/caption-summary/ and adapt -->
-    
+
     <div class="col-md-6">
-      
+
       <section aria-labelledby="past-title">
         <!-- View is closed by default -->
         <details>
-          
+
           <summary> <h2 id="past-title"> Past shifts </h2></summary>
-          
+
           <!-- Conditional rendering = only if there are past shifts participations for usr, it's rendered -->
           <t t-if="past_participations" t-call="portal.portal_table">
             <!-- Accessibility: added "caption" [specifies the caption (or title) of a table, providing the table an accessible name or accessible description.]
@@ -168,9 +158,6 @@
             <caption class="visually-hidden"> My past shifts</caption>
             <thead>
               <tr>
-                <!-- Accessibility:: th "scope" attribute => [specifies whether a header cell is a header for a column, row, or group of columns or rows
-                Note: The scope attribute has no visual effect in ordinary web browsers, but can be used by screen readers] -->
-                
                 <th scope="col">What shift?</th>
                 <th scope="col">From when?</th>
                 <th scope="col">Until when?</th>
@@ -178,24 +165,26 @@
               </tr>
             </thead>
             <tbody>
-              
+
               <!--* Past shifts past participations list for usr- for each) -->
-              
+
               <tr t-foreach="past_participations" t-as="participation">
-                
+
                 <!--*Link redirecting to single shift participation details -->
-                
-                <td><a t-attf-href="/my/volunteer-shifts/#{participation.id}"><span t-field="participation.shift_id.display_name"/></a></td>
-                <td><span t-field="participation.shift_start_time"/></td>
-                <td><span t-field="participation.shift_end_time"/></td>
-                <td><span t-field="participation.registration_type"/></td>
-                
+
+                <td><a t-attf-href="/my/volunteer-shifts/#{participation.id}"><span
+                                                t-field="participation.shift_id.display_name"
+                                            /></a></td>
+                <td><span t-field="participation.shift_start_time" /></td>
+                <td><span t-field="participation.shift_end_time" /></td>
+                <td><span t-field="participation.registration_type" /></td>
+
               </tr>
             </tbody>
           </t>
-          
+
           <!-- Conditional rendering => if no past shift participation for usr -->
-          
+
           <t t-else="">
             <div class="alert alert-warning" role="alert">
               No past shifts registrations!
@@ -204,65 +193,106 @@
         </details>
       </section>
     </div>
+
   </t>
 </template>
 
 
 <!--* Shift participation detail for this volunteer (/my/volunteer-shifts/{participation_id})-->
-<!--! Adapted from Odoo15 Book -> to adapt for UX/UI & accessibility > semantic HTML, title order, BS classes etc -->
 
-<template id="volunteer_single_shift_participation" name="My shift participation details">
+<!-- Adapted from Odoo15 Book -> to adapt  -->
+
+<template id="my_shift_participation" name="My shift participation details">
+
   <!-- Portal layout -->
   <t t-call="portal.portal_layout">
-    <t t-call="portal.portal_record_layout">
-      
-      <!-- Card header-->
-      <t t-set="card_header">
-        <div class="row">
-          <div class="col">
-            <h1 class="text-truncate" t-field="participation.shift_id.display_name"> </h1>
-          </div>
-          <div class="col text-end">
-            <span t-field="participation.registration_state" t-attf-class="badge #{'bg-danger'if participation.registration_state == 'canceled' else 'bg-success'}" title="Shift state"/>
-          </div>
-        </div>
-      </t>
-      
-      <!--!TODO Card body: Accessibility replace divs & span tags by semantic tags-->
-      <t t-set="card_body">
-        <div class="row">
-          <strong>Shift timing: </strong>
-          <!--? access: field group -->
-          <div> Starts:
-            <span t-field="participation.shift_start_time"/>
-          </div>
-          <div> Ends:
-            <span t-field="participation.shift_end_time"/>
-          </div>
-        </div>
-        
-        <div> Company:
-          <span t-field="participation.shift_id.company_id"/>
-        </div>
-        <!-- !See how to fetch coordinator_id (in another model) -->
-        <!-- <div> Coordinator:
-        <span t-field="volunteer.coordinator_id"/>
-        </div> -->
-      </t>
-    </t>
+
+    <h1>Shift details / Actions on participation</h1>
+
+    <!--* Success message on cancel participation -->
+
+    <div
+                class="alert alert-success"
+                role="status"
+                t-if="success.get('cancel_participation')"
+            >
+      <t t-out="success['cancel_participation']" />
+    </div>
+
+    <!--* Error message on cancel participation -->
+
+    <div
+                class="alert alert-danger"
+                role="alert"
+                t-if="errors.get('cancel_participation')"
+            >
+      <t t-out="errors['cancel_participation']" />
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <h2 class="text-truncate" t-field="participation.shift_id.display_name"> </h2>
+      </div>
+
+      <div class="col text-end">
+        <span
+                        t-field="participation.registration_state"
+                        t-attf-class="badge #{'bg-danger'if participation.registration_state == 'canceled' else 'bg-success'}"
+                        title="Shift state"
+                    />
+      </div>
+
+
+      <!--? TO PUT IN DETAILED SHIFT VIEW - TOGGLEABLE - OR MENU -->
+      <!-- <span t-field="participation.registration_type"/> -->
+      <!-- <span t-field="participation.registration_date"/>-->
+      <!-- <span t-field="participation.cancellation_date"/>-->
+
+
+      <!--CANCEL BUTTON -->
+
+      <div>
+        <!-- Only CONFIRMED state + upcoming participations can be canceled -->
+        <t
+                        t-if="participation.registration_state == 'confirmed' and participation.shift_id.start_time &gt;= now"
+                    >
+          <!-- Cancel shift participation form -->
+          <form t-attf-action="/my/volunteer-shifts/#{participation.id}" method="post">
+            <!-- t-att-$name (not a string, no "f")  -->
+            <input name="csrf_token" type="hidden" t-att-value="request.csrf_token()" />
+            <input name="action" type="hidden" value="cancel_participation" />
+            <!-- t-att-$name (not a string, no "f")          -->
+            <input
+                                name="participation_id"
+                                type="hidden"
+                                t-att-value="participation.id"
+                            />
+            <button type="submit" class="btn btn-danger">Cancel participation</button>
+          </form>
+        </t>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <strong>Shift timing: </strong>
+      <!--? access: field group -->
+      <div> Starts:
+        <span t-field="participation.shift_start_time" />
+      </div>
+      <div> Ends:
+        <span t-field="participation.shift_end_time" />
+      </div>
+    </div>
+
+    <div> Company:
+      <span t-field="participation.shift_id.company_id" />
+    </div>
+    <!-- !See how to fetch coordinator_id (in another model) -->
+    <!-- <div> Coordinator:
+    <span t-field="volunteer.coordinator_id"/>
+    </div> -->
   </t>
 </template>
-
-<!--* UNAUTHORIZED page = replaced by raise Forbidden for the moment -->
-
-<!-- <template id="portal_unauthorized_page" name="403-Forbidden/Unauthorized">
-<t t-call="portal.portal_layout">
-<div class="alert alert-danger text-center" role="alert">
-<h2 class="alert-heading">Unauthorized page</h2> -->
-<!-- Redirecting user to their own portal home page -->
-<!-- <a href="/my" class="btn btn-primary mt-5">Back to your portal</a>
-</div>
-</t>
-</template> -->
 
 </odoo>

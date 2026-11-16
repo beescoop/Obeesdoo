@@ -1,4 +1,4 @@
-{ 
+{
     "name": "Volunteer Portal",
     "summary": """
         Volunteers portal""",
@@ -8,10 +8,8 @@
     "author": "Coop IT Easy SC",
     "maintainers": ["anaRtem1s", "remytms"],
     "license": "AGPL-3",
-    #?anartemis test
     "application": False,
-    #?anartemis: added "portal" and other related modules
-    "depends": ["mail", "portal", "volunteer", "volunteer_attendance"],
+    "depends": ["portal", "volunteer", "volunteer_attendance"],
     "data": [
         "views/portal_templates.xml",
     ],

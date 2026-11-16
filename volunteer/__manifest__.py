@@ -2,8 +2,7 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-{  
-
+{
     "name": "Volunteer",
     "summary": """
         Generate and manage shifts for volunteers.""",
@@ -14,8 +13,7 @@
     "maintainers": ["aydrpm", "remytms"],
     "license": "AGPL-3",
     "application": True,
-    #?anartemis test : added "portal"
-    "depends": ["mail", "portal"],
+    "depends": ["mail"],
     "data": [
         "data/volunteer_shift_stage_data.xml",
         "security/volunteer_security.xml",
