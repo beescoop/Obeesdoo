@@ -39,162 +39,169 @@
                 role="status"
                 t-if="success.get('cancel_participation')"
             >
-      <t t-out="success['cancel_participation']" />
-    </div>
+    <t t-out="success['cancel_participation']" />
+  </div>
 
-    <!--* Error message on cancel participation -->
+  <!--* Error message on cancel participation -->
 
-    <div
+  <div
                 class="alert alert-danger"
                 role="alert"
                 t-if="errors.get('cancel_participation')"
             >
-      <t t-out="errors['cancel_participation']" />
-    </div>
+  <t t-out="errors['cancel_participation']" />
+</div>
 
-    <!--* Upcoming shifts -->
+<!--* Upcoming shifts -->
 
-    <section aria-labelledby="upcoming-title">
+<section aria-labelledby="upcoming-title">
 
-      <h2 id="upcoming-title">_("My upcoming shifts") </h2>
+  <h2 id="upcoming-title">My upcoming shifts</h2>
 
-      <!-- Conditional rendering -> only if there are upcoming shift participations for volunteer -->
+  <!-- Conditional rendering -> only if there are upcoming shift participations for volunteer -->
 
-      <t t-if="upcoming_participations">
+  <t t-if="upcoming_participations">
 
-        <!--TODO when writing the "Register for a shift" form/controller: volunteer registered themselves via portal should be automatically set to "website"-->
-        <!--TODO When shift is canceled either by admin or user: if the latter, should be greyed out / removed in the list of upcoming shifts -->
+    <!--TODO when writing the "Register for a shift" form/controller: volunteer registered themselves via portal should be automatically set to "website"-->
+    <!--TODO When shift is canceled either by admin or user: if the latter, should be greyed out / removed in the list of upcoming shifts -->
 
-        <ul class="list-unstyled">
-          <li t-foreach="upcoming_participations" t-as="participation">
-            <article>
+    <ul class="list-unstyled">
+      <li t-foreach="upcoming_participations" t-as="participation">
+        <article>
 
-              <!--TODO: Shift name + link to detail (to change later)-->
-              <h3>
-                <a t-attf-href="/my/volunteer-shifts/#{participation.id}">
-                  <span t-field="participation.shift_id.display_name" />
-                </a>
-              </h3>
+          <!--TODO: Shift name + link to detail (to change later)-->
+          <h3>
+            <a t-attf-href="/my/volunteer-shifts/#{participation.id}">
+              <span t-field="participation.shift_id.display_name" />
+            </a>
+          </h3>
 
-              <!-- Key/value pair but no displayed labels ("visually-hidden" label for screen readers) -->
-              <dl>
-                <!--? Find how to display only date then hours without date -->
-                <dt class="visually-hidden">Shift starttime</dt>
-                <dd><span t-field="participation.shift_start_time" /></dd>
+          <!-- Key/value pair but no displayed labels ("visually-hidden" label for screen readers) -->
+          <dl>
+            <!-- Display only date then hours without date -->
+            <dt class="visually-hidden">Shift date</dt>
+            <dd><span
+                                            t-field="participation.shift_start_time"
+                                            t-options='{"widget": "date"}'
+                                        /></dd>
 
-                <dt class="visually-hidden">Shift endtime</dt>
-                <dd><span t-field="participation.shift_end_time" /></dd>
+            <dt class="visually-hidden">Shift start time</dt>
+            <dd><span
+                                            t-field="participation.shift_start_time"
+                                            t-options='{"widget": "datetime", "format": "HH:mm"}'
+                                        /></dd>
 
-                <dt class="visually-hidden">Shift status</dt>
-                <dd><span
+
+            <dt class="visually-hidden">Shift end time</dt>
+            <dd><span
+                                            t-field="participation.shift_end_time"
+                                            t-options='{"widget": "datetime", "format": "HH:mm"}'
+                                        /></dd>
+
+            <dt class="visually-hidden">_(Shift status)</dt>
+            <dd><span
                                             t-field="participation.registration_state"
                                             t-attf-class="badge #{'bg-danger'if participation.registration_state == 'canceled' else 'bg-success'}"
                                         /></dd>
-              </dl>
+          </dl>
 
 
-              <!-- Only CONFIRMED state + upcoming participations can be canceled -->
-              <t
+
+          <!-- Only CONFIRMED state + upcoming participations can be canceled -->
+          <t
                                     t-if="participation.registration_state == 'confirmed' and participation.shift_id.start_time &gt;= now"
                                 >
 
-                <!-- Cancel shift participation form -->
+          <!-- Cancel shift participation form -->
 
-                <form action="/my/volunteer-shifts" method="post">
-                  <!-- t-att-$name (not a string, no "f")  -->
-                  <input
-                                            name="csrf_token"
-                                            type="hidden"
-                                            t-att-value="request.csrf_token()"
-                                        />
-                  <input name="action" type="hidden" value="cancel_participation" />
-                  <!-- t-att-$name (not a string, no "f")          -->
-                  <input
+          <form action="/my/volunteer-shifts" method="post">
+            <!-- t-att-$name (not a string, no "f")  -->
+            <input name="csrf_token" type="hidden" t-att-value="request.csrf_token()" />
+            <input name="action" type="hidden" value="cancel_participation" />
+            <!-- t-att-$name (not a string, no "f")          -->
+            <input
                                             name="participation_id"
                                             type="hidden"
                                             t-att-value="participation.id"
                                         />
 
-                  <button
-                                            type="submit"
-                                            class="btn btn-danger"
-                                        >Cancel participation</button>
-                </form>
-              </t>
-            </article>
-          </li>
-        </ul>
-      </t>
+            <button type="submit" class="btn btn-danger">Cancel participation</button>
+          </form>
+        </t>
+      </article>
+    </li>
+  </ul>
+</t>
 
 
-      <!-- Conditional rendering -> if no shift participation for volunteer-->
-      <t t-else="">
-        <div class="alert alert-warning" role="alert">
-          No upcoming shifts registrations!
-        </div>
-        <!--TODO : add a "Register for a shift" button that redirects to available shifts -->
-      </t>
-    </section>
+<!-- Conditional rendering -> if no shift participation for volunteer-->
+<t t-else="">
+  <div class="alert alert-warning" role="alert">
+    No upcoming shifts registrations!
+  </div>
+  <!--TODO : add a "Register for a shift" button that redirects to available shifts -->
+</t>
+</section>
 
 
 
 
-    <!--* Past shifts -->
+<!--* Past shifts -->
 
-    <!--? Accessibility:: see https://www.w3.org/WAI/tutorials/tables/caption-summary/ and adapt -->
+<!--? Accessibility:: see https://www.w3.org/WAI/tutorials/tables/caption-summary/ and adapt -->
 
-    <div class="col-md-6">
+<div class="col-md-6">
 
-      <section aria-labelledby="past-title">
-        <!-- View is closed by default -->
-        <details>
+  <section aria-labelledby="past-title">
+    <!-- View is closed by default -->
+    <details>
 
-          <summary> <h2 id="past-title"> Past shifts </h2></summary>
+      <summary> <h2 id="past-title"> Past shifts </h2></summary>
 
-          <!-- Conditional rendering = only if there are past shifts participations for usr, it's rendered -->
-          <t t-if="past_participations" t-call="portal.portal_table">
-            <!-- Accessibility: added "caption" [specifies the caption (or title) of a table, providing the table an accessible name or accessible description.]
-            https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/caption + https://getbootstrap.com/docs/5.0/helpers/visually-hidden/-->
-            <caption class="visually-hidden"> My past shifts</caption>
-            <thead>
-              <tr>
-                <th scope="col">What shift?</th>
-                <th scope="col">From when?</th>
-                <th scope="col">Until when?</th>
-                <th scope="col">How were you registered?</th>
-              </tr>
-            </thead>
-            <tbody>
+      <!-- Conditional rendering = only if there are past shifts participations for usr, it's rendered -->
+      <t t-if="past_participations" t-call="portal.portal_table">
+        <!-- Accessibility: added "caption" [specifies the caption (or title) of a table, providing the table an accessible name or accessible description.]
+        https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/caption + https://getbootstrap.com/docs/5.0/helpers/visually-hidden/-->
+        <caption class="visually-hidden"> My past shifts</caption>
+        <thead>
+          <tr>
+            <th scope="col">What shift?</th>
+            <th scope="col">From when?</th>
+            <th scope="col">Until when?</th>
+            <th scope="col">How were you registered?</th>
+          </tr>
+        </thead>
+        <tbody>
 
-              <!--* Past shifts past participations list for usr- for each) -->
+          <!--* Past shifts past participations list for usr- for each) -->
 
-              <tr t-foreach="past_participations" t-as="participation">
+          <tr t-foreach="past_participations" t-as="participation">
 
-                <!--*Link redirecting to single shift participation details -->
+            <!--*Link redirecting to single shift participation details -->
 
-                <td><a t-attf-href="/my/volunteer-shifts/#{participation.id}"><span
+            <td><a t-attf-href="/my/volunteer-shifts/#{participation.id}"><span
                                                 t-field="participation.shift_id.display_name"
                                             /></a></td>
-                <td><span t-field="participation.shift_start_time" /></td>
-                <td><span t-field="participation.shift_end_time" /></td>
-                <td><span t-field="participation.registration_type" /></td>
+              <td><span t-field="participation.shift_start_time" /></td>
+              <td><span t-field="participation.shift_end_time" /></td>
+              <td><span t-field="participation.registration_type" /></td>
 
-              </tr>
-            </tbody>
-          </t>
+            </tr>
+          </tbody>
+        </t>
 
-          <!-- Conditional rendering => if no past shift participation for usr -->
+        <!-- Conditional rendering => if no past shift participation for usr -->
 
-          <t t-else="">
-            <div class="alert alert-warning" role="alert">
-              No past shifts registrations!
-            </div>
-          </t>
-        </details>
-      </section>
-    </div>
+        <t t-else="">
+          <div class="alert alert-warning" role="alert">
+            No past shifts registrations!
+          </div>
+        </t>
+      </details>
+    </section>
+  </div>
 
-  </t>
+</t>
 </template>
 
 
@@ -216,83 +223,79 @@
                 role="status"
                 t-if="success.get('cancel_participation')"
             >
-      <t t-out="success['cancel_participation']" />
-    </div>
+    <t t-out="success['cancel_participation']" />
+  </div>
 
-    <!--* Error message on cancel participation -->
+  <!--* Error message on cancel participation -->
 
-    <div
+  <div
                 class="alert alert-danger"
                 role="alert"
                 t-if="errors.get('cancel_participation')"
             >
-      <t t-out="errors['cancel_participation']" />
-    </div>
+  <t t-out="errors['cancel_participation']" />
+</div>
 
-    <div class="row">
-      <div class="col">
-        <h2 class="text-truncate" t-field="participation.shift_id.display_name"> </h2>
-      </div>
+<div class="row">
+  <div class="col">
+    <h2 class="text-truncate" t-field="participation.shift_id.display_name"> </h2>
+  </div>
 
-      <div class="col text-end">
-        <span
+  <div class="col text-end">
+    <span
                         t-field="participation.registration_state"
                         t-attf-class="badge #{'bg-danger'if participation.registration_state == 'canceled' else 'bg-success'}"
                         title="Shift state"
                     />
-      </div>
+  </div>
 
 
-      <!--? TO PUT IN DETAILED SHIFT VIEW - TOGGLEABLE - OR MENU -->
-      <!-- <span t-field="participation.registration_type"/> -->
-      <!-- <span t-field="participation.registration_date"/>-->
-      <!-- <span t-field="participation.cancellation_date"/>-->
+  <!--? TO PUT IN DETAILED SHIFT VIEW - TOGGLEABLE - OR MENU -->
+  <!-- <span t-field="participation.registration_type"/> -->
+  <!-- <span t-field="participation.registration_date"/>-->
+  <!-- <span t-field="participation.cancellation_date"/>-->
 
 
-      <!--CANCEL BUTTON -->
+  <!--CANCEL BUTTON -->
 
-      <div>
-        <!-- Only CONFIRMED state + upcoming participations can be canceled -->
-        <t
+  <div>
+    <!-- Only CONFIRMED state + upcoming participations can be canceled -->
+    <t
                         t-if="participation.registration_state == 'confirmed' and participation.shift_id.start_time &gt;= now"
                     >
-          <!-- Cancel shift participation form -->
-          <form t-attf-action="/my/volunteer-shifts/#{participation.id}" method="post">
-            <!-- t-att-$name (not a string, no "f")  -->
-            <input name="csrf_token" type="hidden" t-att-value="request.csrf_token()" />
-            <input name="action" type="hidden" value="cancel_participation" />
-            <!-- t-att-$name (not a string, no "f")          -->
-            <input
-                                name="participation_id"
-                                type="hidden"
-                                t-att-value="participation.id"
-                            />
-            <button type="submit" class="btn btn-danger">Cancel participation</button>
-          </form>
-        </t>
-      </div>
-    </div>
-
-
-    <div class="row">
-      <strong>Shift timing: </strong>
-      <!--? access: field group -->
-      <div> Starts:
-        <span t-field="participation.shift_start_time" />
-      </div>
-      <div> Ends:
-        <span t-field="participation.shift_end_time" />
-      </div>
-    </div>
-
-    <div> Company:
-      <span t-field="participation.shift_id.company_id" />
-    </div>
-    <!-- !See how to fetch coordinator_id (in another model) -->
-    <!-- <div> Coordinator:
-    <span t-field="volunteer.coordinator_id"/>
-    </div> -->
+    <!-- Cancel shift participation form -->
+    <form t-attf-action="/my/volunteer-shifts/#{participation.id}" method="post">
+      <!-- t-att-$name (not a string, no "f")  -->
+      <input name="csrf_token" type="hidden" t-att-value="request.csrf_token()" />
+      <input name="action" type="hidden" value="cancel_participation" />
+      <!-- t-att-$name (not a string, no "f")          -->
+      <input name="participation_id" type="hidden" t-att-value="participation.id" />
+      <button type="submit" class="btn btn-danger">Cancel participation</button>
+    </form>
   </t>
+</div>
+</div>
+
+
+<div class="row">
+  <strong>Shift timing: </strong>
+  <!--? access: field group -->
+  <div> Starts:
+    <span t-field="participation.shift_start_time" />
+  </div>
+  <div> Ends:
+    <span t-field="participation.shift_end_time" />
+  </div>
+</div>
+
+<div> Company:
+  <span t-field="participation.shift_id.company_id" />
+</div>
+<!-- !See how to fetch coordinator_id (in another model) -->
+<!-- <div> Coordinator:
+<span t-field="volunteer.coordinator_id"/>
+</div> -->
+</t>
 </template>
 
 </odoo>
