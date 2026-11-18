@@ -41,7 +41,7 @@ class VolunteerPortal(CustomerPortal):
         # TODO: Display counter if 0 participation
         return values
 
-    # ? Definitions of private methods (helpers)
+    # Definitions of private methods (helpers)
 
     def _get_current_volunteer(self):
         """The volunteer linked to the logged-in user, or "403"."""
@@ -79,7 +79,8 @@ class VolunteerPortal(CustomerPortal):
             errors["cancel_participation"] = _(
                 "Your participation to this shift has already been canceled."
             )
-        # A participation is cancellable only if shift is upcoming / has not started
+        # A participation is cancellable only if shift has not started
+        # Constraint is not defined in models (if backend needsto change)
         elif participation.shift_start_time < now:
             errors["cancel_participation"] = _(
                 "You cannot cancel a participation to a shift that has already started."
@@ -88,11 +89,12 @@ class VolunteerPortal(CustomerPortal):
             try:
                 # Cancel participation
                 participation.registration_state = "canceled"
+                # TODO: Change either where message appear, or "this shift" by its date & name
                 success["cancel_participation"] = _(
                     "You successfully canceled your participation to this shift."
                 )
 
-            # ? Catching other errors, defined in model
+            # Catching other errors, defined in model
             except UserError:
                 errors["cancel_participation"] = _(
                     "Your participation to this shift could not be canceled."
@@ -100,18 +102,18 @@ class VolunteerPortal(CustomerPortal):
 
         return errors, success
 
-    # * All shift participations
+    # * All upcoming shift participations
 
     @route(
-        "/my/volunteer-shifts",
+        "/my/upcoming-shifts",
         type="http",
         auth="user",
         # header + footer
         website=True,
         methods=["GET", "POST"],
     )
-    def my_volunteer_shifts(self, **kw):
-        """Get all connected volunteer's past and upcoming shift participations."""
+    def my_upcoming_shifts(self, **kw):
+        """Get all connected volunteer's upcoming shift participations."""
 
         # SECURITY - Checking that the right user is logged-in
         volunteer = self._get_current_volunteer()
@@ -140,17 +142,57 @@ class VolunteerPortal(CustomerPortal):
 
         # GET
 
-        # Filtering upcoming / past shifts participations
+        # Upcoming shifts participations
         upcoming_participations = Participation.search(
             domain + [("shift_start_time", ">=", now)], order="shift_start_time asc"
         )
+        values = {
+            "upcoming_participations": upcoming_participations,
+            # "past_participations": past_participations,
+            "now": now,
+            "page_name": "volunteer_shifts",
+            "success": success,
+            "errors": errors,
+        }
+        # Rendering the template of all own shifts participations
+        return request.render("volunteer_portal.my_upcoming_shifts", values)
+
+    # * All past shift participations
+
+    @route(
+        "/my/past-shifts",
+        type="http",
+        auth="user",
+        # header + footer
+        website=True,
+        methods=["GET", "POST"],
+    )
+    def my_past_shifts(self, **kw):
+        """Get all connected volunteer's past shift participations."""
+
+        # SECURITY - Checking that the right user is logged-in
+        volunteer = self._get_current_volunteer()
+        # Creating a shortcut variable to access records in the model
+        Participation = request.env["volunteer.shift.participation"].sudo()
+        # Filtering DB to only get connected volunteer's own data
+        domain = [("volunteer_id", "=", volunteer.id)]
+        # Creating a "now" variable for UTC (not server local time)
+        now = fields.Datetime.now()
+        # Errors and success catching to give the volunteer feedback
+        errors, success = {}, {}
+
+        # if request.params.get("action") == "form"
+        # pass
+
+        # GET
+
+        # Past shifts participations
+
         past_participations = Participation.search(
             domain + [("shift_start_time", "<", now)], order="shift_start_time desc"
         )
 
-        # values = { ... }
         values = {
-            "upcoming_participations": upcoming_participations,
             "past_participations": past_participations,
             "now": now,
             "page_name": "volunteer_shifts",
@@ -158,12 +200,15 @@ class VolunteerPortal(CustomerPortal):
             "errors": errors,
         }
         # Rendering the template of all own shifts participations
-        return request.render("volunteer_portal.my_shifts", values)
+        return request.render("volunteer_portal.my_past_shifts", values)
 
     # * Shift participation detail (ID already is an int in the URL)
 
     @route(
-        "/my/volunteer-shifts/<int:participation_id>",
+        [
+            "/my/upcoming-shifts/<int:participation_id>",
+            "/my/past-shifts/<int:participation_id>",
+        ],
         type="http",
         auth="user",
         # header + footer
@@ -189,7 +234,6 @@ class VolunteerPortal(CustomerPortal):
                 # Apply cancel participation or error
                 errors, success = self._cancel_participation(participation, now)
 
-        # values = { ... }
         values = {
             "participation": participation,
             "now": now,
@@ -197,5 +241,5 @@ class VolunteerPortal(CustomerPortal):
             "success": success,
             "errors": errors,
         }
-        # Rendering the template of all own shift participation
+        # Rendering the template of all own shifts participations
         return request.render("volunteer_portal.my_shift_participation", values)
