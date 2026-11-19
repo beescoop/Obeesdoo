@@ -1,2 +1,3 @@
-* Robin Keunen <robin@coopiteasy.be>
-* Houssine Bakkali <houssine@coopiteasy.be>
+* `Coop IT Easy SC <https://coopiteasy.be>`_:
+
+  * Carmen Bianca BAKKER
