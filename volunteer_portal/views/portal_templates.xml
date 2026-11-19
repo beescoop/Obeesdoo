@@ -9,37 +9,40 @@
         name="Show My Shifts"
         customize_show="True"
     >
-  <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
-    <t t-call="portal.portal_docs_entry">
-      <t t-set="title">My shifts</t>
-      <!-- Link button redirecting to "My shifts"-->
-      <t t-set="url" t-value="'/my/upcoming-shifts'" />
-      <!-- Shifts participations counter (number) in Home (/my) -->
-      <!--!TOFIX: When no shifts yet -> counter / badge does not appear -> needs to display badge + counter (0) -->
-      <!--? Idea: badge/ counter could display only upcoming shifts number -->
-      <t t-set="placeholder_count" t-value="'volunteer_participation_count'" />
-    </t>
-  </xpath>
-</template>
+    <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+      <t t-call="portal.portal_docs_entry">
+        <t t-set="title">My shifts</t>
+        <!-- Link button redirecting to "My shifts"-->
+        <t t-set="url" t-value="'/my/upcoming-shifts'" />
+        <!-- Shifts participations counter (number) in Home (/my) -->
+        <!--!TOFIX:
+        When no shifts yet -> counter / badge does not appear -> needs to display badge + counter
+        (0) -->
+        <!--?
+        Idea: badge/ counter could display only upcoming shifts number -->
+        <t t-set="placeholder_count" t-value="'volunteer_participation_count'" />
+      </t>
+    </xpath>
+  </template>
 
 
+  <!--*
+  Upcoming shifts participations -->
 
-<!--* Upcoming shifts participations -->
+  <template id="my_upcoming_shifts" name="My upcoming shifts">
 
-<template id="my_upcoming_shifts" name="My upcoming shifts">
-
-  <!-- Template will inherit from Odoo’s default portal layout (header + main + footer) -->
-  <!-- <t t-call="portal.portal_layout"> -->
+    <!-- Template will inherit from Odoo’s default portal layout (header + main + footer) -->
+    <!-- <t t-call="portal.portal_layout"> -->
 
 
-  <t t-call="portal.frontend_layout">
-    <!-- <t t-set="no_header" t-value="True"/> -->
-    <!-- <t t-set="no_footer" t-value="True"/> -->
-    <!-- <header> -->
-    <!-- <nav class="navbar" aria-label="Volunteer portal"> -->
+    <t t-call="portal.frontend_layout">
+      <!-- <t t-set="no_header" t-value="True"/> -->
+      <!-- <t t-set="no_footer" t-value="True"/> -->
+      <!-- <header> -->
+      <!-- <nav class="navbar" aria-label="Volunteer portal"> -->
 
-    <!-- Access: navlinks. eitherlse, use primary nav and secondary nav  -->
-    <!-- <t t-call="portal.user_dropdown"
+      <!-- Access: navlinks. eitherlse, use primary nav and secondary nav  -->
+      <!-- <t t-call="portal.user_dropdown"
     _user_name="true"
     _icon="true"
     _avatar="true"
@@ -47,292 +50,372 @@
     _link_class.f="nav-link"
     _dropdown_menu_class.f="..." /> -->
 
-    <!-- Breadcrumb icon link to /my/home -->
-    <t t-call="portal.portal_breadcrumbs" />
+      <!-- Breadcrumb icon link to /my/home -->
+      <t t-call="portal.portal_breadcrumbs" />
 
-    <!-- </nav> -->
+      <!-- </nav> -->
 
-    <!-- </header> -->
-    <!--
+      <!-- </header> -->
+      <!--
     <div id="wrap" class="oe_structure"> -->
 
-    <!--* PAGE CONTAINER -->
+      <!--*
+      PAGE CONTAINER -->
 
-    <div id="page-ctnr" class="container-fluid m-0 p-0 d-flex flex-row">
+      <div id="page-ctnr" class="container-fluid m-0 p-0 d-flex flex-row">
 
-      <!--* VOLUNTEER NAVBAR -->
+        <!--*
+        VOLUNTEER NAVBAR -->
 
-      <nav
+        <nav
                     class="navbar d-flex flex-column align-items-stretch justify-content-between border border-info"
                     aria-label="volunteer portal"
                 >
-        <ul class="list-unstyled">
-          <li class="nav-item"><a class="nav-link" href="">My dashboard</a></li>
-          <li class="nav-item"><a
-                                class="nav-link active"
+          <ul class="list-unstyled">
+            <li class="nav-item">
+              <a class="nav-link fw-bold" href="">My dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a
+                                class="nav-link active fw-bold"
                                 aria-current="page"
                                 href="/my/upcoming-shifts"
-                            >My upcoming shifts</a></li>
-          <li class="nav-item"><a class="nav-link" href="">Register for a shift</a></li>
-          <li class="nav-item"><a
-                                class="nav-link"
-                                href="/my/past-shifts"
-                            >My past shifts</a></li>
-          <li class="nav-item"><a
-                                class="nav-link"
-                                href=""
-                            >My shifts subscriptions</a></li>
-          <li class="nav-item"><a class="nav-link" href="">My volunteer status</a></li>
-        </ul>
-      </nav>
+                            >My upcoming shifts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-bold" href="">Register for a shift</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-bold" href="/my/past-shifts">My past shifts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-bold" href="">My shifts subscriptions</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-bold" href="">My volunteer status</a>
+            </li>
+          </ul>
+        </nav>
 
-      <!--* MAIN CENTRAL CONTENT -->
+        <!--*
+        MAIN CENTRAL CONTENT -->
 
-      <section class="flex-grow-1 border border-info p-4">
+        <section class="flex-grow-1 border border-info p-4">
 
-        <h1 class="text-center">My upcoming shifts</h1>
+          <h1 class="text-center">My upcoming shifts</h1>
 
-        <!--* Success message on cancel participation -->
+          <!--*
+          Success message on cancel participation -->
 
-        <div
+          <div
                         class="alert alert-success"
                         role="status"
                         t-if="success.get('cancel_participation')"
                     >
-        <t t-out="success['cancel_participation']" />
-      </div>
+            <t t-out="success['cancel_participation']" />
+          </div>
 
-      <!--* Error message on cancel participation -->
+          <!--*
+          Error message on cancel participation -->
 
-      <div
+          <div
                         class="alert alert-danger"
                         role="alert"
                         t-if="errors.get('cancel_participation')"
                     >
-      <t t-out="errors['cancel_participation']" />
-    </div>
+            <t t-out="errors['cancel_participation']" />
+          </div>
 
-    <!-- Conditional rendering -> if there are upcoming shift participations for volunteer -->
+          <!-- Conditional rendering -> if there are upcoming shift participations for volunteer -->
 
-    <t t-if="upcoming_participations">
+          <t t-if="upcoming_participations">
 
-      <!--TODO when writing the "Register for a shift" form/controller: volunteer registered themselves via portal should be automatically set to "website"-->
-      <!--TODO When shift is canceled either by admin or user: if the latter, should be greyed out / removed in the list of upcoming shifts -->
+            <!--TODO
+            when writing the "Register for a shift" form/controller: volunteer registered themselves
+            via portal should be automatically set to "website"-->
+            <!--TODO
+            When shift is canceled either by admin or user: if the latter, should be greyed out /
+            removed in the list of upcoming shifts -->
 
-      <ul class="list-unstyled mt-5">
+            <ul class="list-unstyled mt-5">
 
-        <!--* Single shift card -->
+              <!--*
+              Single shift card -->
 
-        <li
+              <li
                                 class="d-flex flex-row gap-5 p-3"
                                 t-foreach="upcoming_participations"
                                 t-as="participation"
                             >
 
-          <!-- Column 1 -->
+                <!-- Column 1 -->
 
-          <div class="d-flex flex-column">
+                <div class="d-flex flex-column gap-2">
 
-            <!-- Shift date -->
-            <time t-att-datetime="participation.shift_start_time">
-              <span
+                  <!-- Shift date -->
+
+                  <time t-att-datetime="participation.shift_start_time">
+                    <span
                                             t-field="participation.shift_start_time"
                                             t-options='{"widget": "date"}'
                                         />
-            </time>
+                  </time>
 
-            <!-- Container for time flex display -->
-            <div class="time-ctnr d-flex">
+                  <!-- Container for time flex display -->
 
-              <!-- Shift start time -->
-              <time t-att-datetime="participation.shift_start_time">
-                <span
+                  <div class="time-ctnr d-flex">
+
+                    <!-- Shift start time -->
+
+                    <time t-att-datetime="participation.shift_start_time">
+                      <span
                                                 t-field="participation.shift_start_time"
                                                 t-options='{"widget": "datetime", "format": "HH:mm"}'
                                             />
-              </time>
+                    </time>
 
-              <!-- Arrow "to" -->
-              <span class="visually-hidden">to</span> <span
-                                            aria-hidden="true"
-                                        > → </span>
+                    <!-- Arrow "to" -->
 
-              <!-- Shift end time -->
-              <time t-att-datetime="participation.shift_end_time">
-                <span
+                    <span class="visually-hidden">to</span>
+                    <span aria-hidden="true"> → </span>
+
+                    <!-- Shift end time -->
+
+                    <time t-att-datetime="participation.shift_end_time">
+                      <span
                                                 t-field="participation.shift_end_time"
                                                 t-options='{"widget": "datetime", "format": "HH:mm"}'
                                             />
-              </time>
-            </div>
+                    </time>
+                  </div>
 
-            <!--! HERE COMES THE "TOMORROW" BADGE (TO CODE) -->
-            <div class="badge bg-warning">
-              Tomorrow
-            </div>
-          </div>
+                  <!--!
+                  HERE COMES THE "TOMORROW" BADGE (TO CODE) -->
+                  <div class="badge bg-warning text-black">
+                    Tomorrow
+                  </div>
+                </div>
 
-          <!-- Column 2 -->
+                <!-- Column 2 -->
 
-          <!-- Shift participation status  -->
-          <!--TODO: Add an v/striped icon (Awesomefont) -->
-          <div class="d-flex flex-column">
-            <span
+                <div class="d-flex flex-column gap-2">
+
+                  <!-- Shift participation status  -->
+                  <!--TODO:
+                  Add an v/striped icon (Awesomefont) -->
+
+                  <span
                                         t-attf-class="badge #{'bg-danger'if participation.registration_state == 'canceled' else 'bg-success'}"
                                     >
-              <span class="visually-hidden">Shift (participation) status:</span>
-              <span t-field="participation.registration_state" />
-            </span>
+                    <span class="visually-hidden">Shift (participation) status:</span>
+                    <span t-field="participation.registration_state" />
+                  </span>
 
-            <!-- Shift name -->
-            <!--TODO: Add something to distinguish for screen readers - some have same name -->
-            <!--?TOFIX: h2 will be read after the rest: not optimal -->
-            <h2>
+                  <!-- Shift name -->
+                  <!--TODO:
+                  Add something to distinguish for screen readers - some have same name -->
+                  <!--?TOFIX:
+                  h2 will be read after the rest: not optimal -->
 
-              <span t-field="participation.shift_id.display_name" />
+                  <h2>
+                    <span t-field="participation.shift_id.display_name" />
+                  </h2>
 
-            </h2>
+                  <!-- Custom row / space -->
 
-            <!-- Custom row / space -->
-            <span>
-              [Custom space]
-            </span>
-          </div>
+                  <span>
+                    [Custom space]
+                  </span>
+                </div>
 
+                <!-- Column 3 -->
 
-          <!-- Column 3 -->
+                <div class="d-flex flex-column gap-2">
 
-          <div class="d-flex flex-column">
+                  <!-- Actions on shift dropend menu -->
 
-            <!-- Actions dropdown menu -->
-            <form>
-              <label for="actions-on-shift">Actions on shift:</label>
-              <select>
-                <option value="">Choose an action:</option>
-                <option
-                                                value="cancel_participation"
-                                            >Cancel participation to shift</option>
-              </select>
-            </form>
+                  <div class="btn-group dropend">
+                    <button
+                                            type="button"
+                                            class="btn btn-info dropdown-toggle"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                        >
+                      Actions on shift
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <form action="/my/upcoming-shifts" method="post">
+                          <input
+                                                        name="csrf_token"
+                                                        type="hidden"
+                                                        t-att-value="request.csrf_token()"
+                                                    />
+                          <input
+                                                        name="action"
+                                                        type="hidden"
+                                                        value="cancel_participation"
+                                                    />
+                          <input
+                                                        name="participation_id"
+                                                        type="hidden"
+                                                        t-att-value="participation.id"
+                                                    />
 
-            <!-- Shift details link -->
-            <a
+                          <input
+                                                        type="submit"
+                                                        class="text-danger"
+                                                        value="Cancel participation"
+                                                    />
+                        </form>
+                      </li>
+                      <li>
+                        <a href="#">Manage attendance</a>
+                      </li>
+                      <li>
+                        <a href="#">Another action 3</a>
+                      </li>
+                      <li>
+                        <a href="#">Another action 4</a>
+                      </li>
+                      <li>
+                        <a href="#">Another action 5</a>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <!-- Shift details link -->
+
+                  <a
                                         t-attf-href="/my/upcoming-shifts/#{participation.id}"
                                     >To shift details</a>
-          </div>
+                </div>
 
-          <!-- Column 4 -->
-          <!-- drop down menu opened w/ cancel participation etc. -->
-          <div class="d-flex flex-column">
+                <!-- Column 4 -->
 
-            <!-- CANCEL PARTICIPATION BUTTON (will go in drop down menu) -->
+                <div class="d-flex flex-column gap-2">
 
-            <!-- Only CONFIRMED state + upcoming participations can be canceled -->
-            <t
+                  <!-- Dropend menu spreading -->
+
+                  <!--?
+                  CANCEL PARTICIPATION BUTTON (will go in drop down end) -->
+
+                  <!-- Only CONFIRMED state + upcoming participations can be canceled -->
+                  <t
                                         t-if="participation.registration_state == 'confirmed' and participation.shift_id.start_time &gt;= now"
                                     >
-            <!-- Cancel shift participation form -->
+                    <!-- Cancel shift participation form -->
 
-            <form action="/my/upcoming-shifts" method="post">
-              <input
+                    <form action="/my/upcoming-shifts" method="post">
+                      <input
                                                 name="csrf_token"
                                                 type="hidden"
                                                 t-att-value="request.csrf_token()"
                                             />
-              <input name="action" type="hidden" value="cancel_participation" />
-              <input
+                      <input name="action" type="hidden" value="cancel_participation" />
+                      <input
                                                 name="participation_id"
                                                 type="hidden"
                                                 t-att-value="participation.id"
                                             />
-              <button type="submit" class="btn btn-danger">Cancel participation</button>
-            </form>
+                      <button
+                                                type="submit"
+                                                class="btn btn-danger"
+                                            >Cancel participation</button>
+                    </form>
+                  </t>
+                </div>
+              </li>
+            </ul>
           </t>
-        </div>
-      </li>
-    </ul>
-  </t>
 
-  <!-- Conditional rendering -> if no shift participation for volunteer-->
+          <!-- Conditional rendering -> if no shift participation for volunteer-->
 
-  <t t-else="">
-    <div class="alert alert-warning" role="alert">
-      No upcoming shifts registrations!
-    </div>
-    <!--TODO : add a "Register for a shift" button that redirects to available shifts -->
-  </t>
-  <!-- </div> -->
-</section>
-</div>
-</t>
-</template>
+          <t t-else="">
+            <div class="alert alert-warning" role="alert">
+              No upcoming shifts registrations!
+            </div>
+            <!--TODO
+            : add a "Register for a shift" button that redirects to available shifts -->
+          </t>
+          <!-- </div> -->
+        </section>
+      </div>
+    </t>
+  </template>
 
 
-<!--* Past shifts participations -->
+  <!--*
+  Past shifts participations -->
 
-<template id="my_past_shifts" name="My past shifts">
+  <template id="my_past_shifts" name="My past shifts">
 
-  <!-- Template will inherit from Odoo’s default portal layout (header + footer)-->
+    <!-- Template will inherit from Odoo’s default portal layout (header + footer)-->
 
-  <t t-call="portal.portal_layout">
+    <t t-call="portal.portal_layout">
 
-    <h1>My past shifts</h1>
+      <h1>My past shifts</h1>
 
-    <!-- Conditional rendering -> only if there are upcoming shift participations for volunteer -->
+      <!-- Conditional rendering -> only if there are upcoming shift participations for volunteer -->
 
-    <t t-if="past_participations">
+      <t t-if="past_participations">
 
-      <!--TODO when writing the "Register for a shift" form/controller: volunteer registered themselves via portal should be automatically set to "website"-->
+        <!--TODO
+        when writing the "Register for a shift" form/controller: volunteer registered themselves via
+        portal should be automatically set to "website"-->
 
-      <ul class="list-unstyled">
-        <li t-foreach="past_participations" t-as="participation">
-          <article>
-            <!--TODO: Shift name + link to detail (to change later)-->
-            <h2>
-              <a t-attf-href="/my/past-shifts/#{participation.id}">
-                <span t-field="participation.shift_id.display_name" />
-              </a>
-            </h2>
+        <ul class="list-unstyled">
+          <li t-foreach="past_participations" t-as="participation">
+            <article>
+              <!--TODO:
+              Shift name + link to detail (to change later)-->
+              <h2>
+                <a t-attf-href="/my/past-shifts/#{participation.id}">
+                  <span t-field="participation.shift_id.display_name" />
+                </a>
+              </h2>
 
-            <!-- Key/value pair but no displayed labels ("visually-hidden" label for screen readers) -->
-            <dl>
-              <!-- Display only date then hours without date -->
-              <dt class="visually-hidden">Shift date</dt>
-              <dd>
-                <time t-att-datetime="participation.shift_start_time">
-                  <span
+              <!-- Key/value pair but no displayed labels ("visually-hidden" label for screen
+              readers) -->
+              <dl>
+                <!-- Display only date then hours without date -->
+                <dt class="visually-hidden">Shift date</dt>
+                <dd>
+                  <time t-att-datetime="participation.shift_start_time">
+                    <span
                                             t-field="participation.shift_start_time"
                                             t-options='{"widget": "date"}'
                                         />
-                </time>
-              </dd>
+                  </time>
+                </dd>
 
-              <dt class="visually-hidden">Shift start time</dt>
-              <dd>
-                <time t-att-datetime="participation.shift_start_time">
-                  <span
+                <dt class="visually-hidden">Shift start time</dt>
+                <dd>
+                  <time t-att-datetime="participation.shift_start_time">
+                    <span
                                             t-field="participation.shift_start_time"
                                             t-options='{"widget": "datetime", "format": "HH:mm"}'
                                         />
-                </time>
-              </dd>
+                  </time>
+                </dd>
 
-              <dt class="visually-hidden">Shift end time</dt>
-              <dd>
-                <time t-att-datetime="participation.shift_end_time">
-                  <span
+                <dt class="visually-hidden">Shift end time</dt>
+                <dd>
+                  <time t-att-datetime="participation.shift_end_time">
+                    <span
                                             t-field="participation.shift_end_time"
                                             t-options='{"widget": "datetime", "format": "HH:mm"}'
                                         />
-                </time>
-              </dd>
+                  </time>
+                </dd>
 
-              <dt class="visually-hidden">Shift status</dt>
-              <dd>
-                <span
+                <dt class="visually-hidden">Shift status</dt>
+                <dd>
+                  <span
                                         t-field="participation.registration_state"
                                         t-attf-class="badge #{'bg-danger'if participation.registration_state == 'canceled' else 'bg-success'}"
-                                    /></dd>
+                                    />
+                </dd>
               </dl>
             </article>
           </li>
@@ -344,26 +427,15 @@
         <div class="alert alert-warning" role="alert">
           No past shifts registrations!
         </div>
-        <!--TODO : add a "Register for a shift" button that redirects to available shifts -->
+        <!--TODO
+        : add a "Register for a shift" button that redirects to available shifts -->
       </t>
     </t>
   </template>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <!--* Shift participation details -->
+  <!--*
+  Shift participation details -->
 
   <!--(/my/upcoming-shifts/{participation_id}) -->
   <!--(/my/past-shifts/{participation_id}) -->
@@ -375,98 +447,111 @@
 
       <h1>Shift details</h1>
 
-      <!--* Success message on cancel participation -->
+      <!--*
+      Success message on cancel participation -->
       <!-- DISABLE ON PAST PART -->
       <div
                 class="alert alert-success"
                 role="status"
                 t-if="success.get('cancel_participation')"
             >
-      <t t-out="success['cancel_participation']" />
-    </div>
-    <!-- DISABLE ON PAST PART -->
-    <!--* Error message on cancel participation -->
+        <t t-out="success['cancel_participation']" />
+      </div>
+      <!-- DISABLE ON PAST PART -->
+      <!--*
+      Error message on cancel participation -->
 
-    <div
+      <div
                 class="alert alert-danger"
                 role="alert"
                 t-if="errors.get('cancel_participation')"
             >
-    <t t-out="errors['cancel_participation']" />
-  </div>
+        <t t-out="errors['cancel_participation']" />
+      </div>
 
-  <!-- Key/value pair but no displayed labels ("visually-hidden" label for screen readers) -->
-  <!-- Display only date then hours without date -->
-  <h2 t-field="participation.shift_id.display_name"> </h2>
-  <dl>
+      <!-- Key/value pair but no displayed labels ("visually-hidden" label for screen readers) -->
+      <!-- Display only date then hours without date -->
+      <h2 t-field="participation.shift_id.display_name"> </h2>
+      <dl>
 
-    <dt class="visually-hidden">Shift date</dt>
-    <dd>
-      <time t-att-datetime="participation.shift_start_time">
-        <span t-field="participation.shift_start_time" t-options='{"widget": "date"}' />
-      </time>
-    </dd>
+        <dt class="visually-hidden">Shift date</dt>
+        <dd>
+          <time t-att-datetime="participation.shift_start_time">
+            <span
+                            t-field="participation.shift_start_time"
+                            t-options='{"widget": "date"}'
+                        />
+          </time>
+        </dd>
 
-    <dt class="visually-hidden">Shift start time</dt>
-    <dd>
-      <time t-att-datetime="participation.shift_start_time">
-        <span
+        <dt class="visually-hidden">Shift start time</dt>
+        <dd>
+          <time t-att-datetime="participation.shift_start_time">
+            <span
                             t-field="participation.shift_start_time"
                             t-options='{"widget": "datetime", "format": "HH:mm"}'
                         />
-      </time>
-    </dd>
+          </time>
+        </dd>
 
 
-    <dt class="visually-hidden">Shift end time</dt>
-    <dd>
-      <time t-att-datetime="participation.shift_end_time">
-        <span
+        <dt class="visually-hidden">Shift end time</dt>
+        <dd>
+          <time t-att-datetime="participation.shift_end_time">
+            <span
                             t-field="participation.shift_end_time"
                             t-options='{"widget": "datetime", "format": "HH:mm"}'
                         />
-      </time>
-    </dd>
+          </time>
+        </dd>
 
 
-    <dt class="visually-hidden">Shift status</dt>
-    <dd><span
+        <dt class="visually-hidden">Shift status</dt>
+        <dd>
+          <span
                         t-field="participation.registration_state"
                         t-attf-class="badge #{'bg-danger'if participation.registration_state == 'canceled' else 'bg-success'}"
-                    /></dd>
-      <dt
+                    />
+        </dd>
+        <dt
                     class="visually-hidden"
                 >Shift participation registration location and time</dt>
-      <dd><span t-field="participation.registration_type" /> registration on <span
+        <dd><span t-field="participation.registration_type" /> registration on <span
                         t-field="participation.registration_date"
                         t-options='{"widget": "date"}'
                     /> at <span
                         t-field="participation.registration_date"
                         t-options='{"widget": "datetime", "format": "HH:mm"}'
                     />
-      </dd>
-    </dl>
+        </dd>
+      </dl>
 
-    <!--TODO if canceled participation: -->
-    <!-- <span t-field="participation.cancellation_date"/>-->
+      <!--TODO
+      if canceled participation: -->
+      <!-- <span t-field="participation.cancellation_date"/>-->
 
 
-    <!--! CANCEL BUTTON ON UPCOMING PARTICIPATION ONLY-->
-    <div>
-      <!-- Only confirmed + upcoming participations can be canceled -->
-      <t
+      <!--!
+      CANCEL BUTTON ON UPCOMING PARTICIPATION ONLY-->
+      <div>
+        <!-- Only confirmed + upcoming participations can be canceled -->
+        <t
                     t-if="participation.registration_state == 'confirmed' and participation.shift_id.start_time &gt;= now"
                 >
-      <!-- Cancel shift participation form -->
-      <form t-attf-action="/my/upcoming-shifts/#{participation.id}" method="post">
-        <input name="csrf_token" type="hidden" t-att-value="request.csrf_token()" />
-        <input name="action" type="hidden" value="cancel_participation" />
-        <input name="participation_id" type="hidden" t-att-value="participation.id" />
-        <button type="submit" class="btn btn-danger">Cancel participation</button>
-      </form>
+          <!-- Cancel shift participation form -->
+          <form t-attf-action="/my/upcoming-shifts/#{participation.id}" method="post">
+            <input name="csrf_token" type="hidden" t-att-value="request.csrf_token()" />
+            <input name="action" type="hidden" value="cancel_participation" />
+            <input
+                            name="participation_id"
+                            type="hidden"
+                            t-att-value="participation.id"
+                        />
+            <button type="submit" class="btn btn-danger">Cancel participation</button>
+          </form>
+        </t>
+      </div>
     </t>
-  </div>
-</t>
-</template>
+  </template>
 
 </odoo>

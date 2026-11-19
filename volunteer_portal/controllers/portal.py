@@ -148,7 +148,6 @@ class VolunteerPortal(CustomerPortal):
         )
         values = {
             "upcoming_participations": upcoming_participations,
-            # "past_participations": past_participations,
             "now": now,
             "page_name": "volunteer_shifts",
             "success": success,
