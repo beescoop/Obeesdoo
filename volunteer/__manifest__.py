@@ -7,7 +7,7 @@
     "summary": """
         Generate and manage shifts for volunteers.""",
     "version": "16.0.0.8.0",
-    "category": "Volunteer management",
+    "category": "Volunteer shifts management",
     "website": "https://github.com/beescoop/Obeesdoo",
     "author": "Coop IT Easy SC",
     "maintainers": ["aydrpm", "remytms"],

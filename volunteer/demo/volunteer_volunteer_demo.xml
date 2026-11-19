@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
 SPDX-FileCopyrightText: 2025 Coop IT Easy SC
 
@@ -17,7 +17,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <record id="volunteer_demo_john" model="volunteer.volunteer">
         <field name="partner_id" ref="volunteer_partner_demo_john" />
     </record>
-
+    
     <record id="volunteer_partner_demo_emma" model="res.partner">
         <field name="name">Emma Rousseau</field>
         <field name="street">23 rue du Trône</field>
@@ -31,7 +31,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <field name="partner_id" ref="volunteer_partner_demo_emma" />
         <field name="is_regular" eval="True" />
     </record>
-
+    
     <record id="volunteer_partner_demo_jean" model="res.partner">
         <field name="name">Jean Dupont</field>
         <field name="street">21 rue du Trône</field>
