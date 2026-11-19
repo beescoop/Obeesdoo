@@ -17,7 +17,7 @@ PARAMS_TO_RENAME = {
     "always_update": "shift.always_update",
     "last_planning_seq": "shift.last_planning_seq",
     "next_planning_date": "shift.next_planning_date",
-    "irregular_unsubscribe": "shift.irregular_unsubscribe",
+    "irregular_counter_to_unsubscribe": "shift.irregular_counter_to_unsubscribe",
     "regular_counter_to_unsubscribe": "shift.regular_counter_to_unsubscribe",
     "min_percentage_presence": "shift.min_percentage_presence",
     "regular_next_shift_limit": "shift.regular_next_shift_limit",
